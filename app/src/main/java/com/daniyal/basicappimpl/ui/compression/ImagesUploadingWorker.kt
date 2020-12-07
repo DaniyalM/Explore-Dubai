@@ -1,4 +1,4 @@
-package com.daniyal.basicappimpl.ui.base
+package com.daniyal.basicappimpl.ui.compression
 
 import android.content.ContentValues
 import android.content.Context
