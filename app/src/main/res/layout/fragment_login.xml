@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="com.daniyal.basicappimpl.ui.preLogin.login.viewmodels.LoginViewModel" />
+            type="com.daniyal.dubalculture.ui.preLogin.login.viewmodels.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
