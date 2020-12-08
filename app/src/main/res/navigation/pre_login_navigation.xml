@@ -6,7 +6,7 @@
     app:startDestination="@id/splashFragment">
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.daniyal.dubalculture.ui.preLogin.splash.SplashFragment"
+        android:name="com.app.dubalculture.ui.preLogin.splash.SplashFragment"
         tools:layout="@layout/fragment_splash"
         android:label="fragment_splash">
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.daniyal.dubalculture.ui.preLogin.login.LoginFragment"
+        android:name="com.app.dubalculture.ui.preLogin.login.LoginFragment"
         tools:layout="@layout/fragment_login"
         android:label="fragment_login" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
-        android:name="com.daniyal.dubalculture.ui.preLogin.login.RegisterFragment"
+        android:name="com.app.dubalculture.ui.preLogin.login.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment2_to_loginFragment"
