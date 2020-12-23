@@ -68,6 +68,10 @@ ext {
     paging3 = "3.0.0-alpha09"
     work_version = "2.4.0"
     circle_image_version = "3.1.0"
+    google_location_version = "17.1.0"
+    image_crop_api_version = "2.8.0"
+
+
     commonDependency = [
             ktx_core     : "androidx.core:core-ktx:${ktx_core}",
             multidex     : "com.android.support:multidex:${multidex}",
@@ -147,5 +151,14 @@ ext {
             // paging3
             pagingRuntime   : "androidx.paging:paging-runtime:${paging3}",
             pagingRuntimeKtx: "androidx.paging:paging-runtime-ktx:${paging3}"
+    ]
+
+    google = [
+            //location
+            location_google: "com.google.android.gms:play-services-location:${google_location_version}"
+    ]
+
+    media_libraries = [
+            image_crop_api: "com.theartofdev.edmodo:android-image-cropper:${image_crop_api_version}"
     ]
 }

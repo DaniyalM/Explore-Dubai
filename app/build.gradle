@@ -176,7 +176,11 @@ dependencies {
     implementation config.paging3.pagingRuntimeKtx
 
 
+    //location Related Work
+    implementation config.google.location_google
 
+    //Image Cropping Api
+    implementation config.media_libraries.image_crop_api
 
 
 }
