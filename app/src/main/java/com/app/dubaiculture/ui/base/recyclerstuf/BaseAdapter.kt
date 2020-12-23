@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.base
+package com.app.dubaiculture.ui.base.recyclerstuf
 
 import android.view.View
 import com.xwray.groupie.GroupieViewHolder
