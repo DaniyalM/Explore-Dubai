@@ -9,6 +9,7 @@ import com.app.dubaiculture.utils.event.EventUtilFunctions.showLoader
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showSnackbar
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showToast
 import com.app.dubaiculture.utils.event.UiEvent
+import com.google.android.gms.maps.SupportStreetViewPanoramaFragment
 import com.squareup.otto.Bus
 
 
@@ -17,6 +18,8 @@ abstract class BaseActivity : LocalizationActivity() {
     protected lateinit var bus: Bus
     protected var isBusRegistered: Boolean = false
     private var customProgressDialog: ProgressDialog? = null
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

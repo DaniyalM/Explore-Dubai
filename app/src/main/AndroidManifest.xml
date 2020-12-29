@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+
+
     <application
         android:name="com.app.dubaiculture.infrastructure.ApplicationEntry"
         android:allowBackup="true"
@@ -22,6 +24,9 @@
         </activity>
         <activity android:name="com.app.dubaiculture.ui.postLogin.PostLoginActivity">
         </activity>
+
+        <meta-data android:name="com.google.android.maps.v2.API_KEY"
+            android:value="${mapsApiKey}" />
     </application>
 
 </manifest>

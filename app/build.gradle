@@ -22,6 +22,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+
     }
     signingConfigs {
         stagConfig {
@@ -47,6 +48,13 @@ android {
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_DEBUG\"")
+
+            Properties properties = new Properties()
+            if (rootProject.file("local.properties").exists()) {
+                properties.load(rootProject.file("local.properties").newDataInputStream())
+            }
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+
 
         }
         stag {
@@ -181,6 +189,10 @@ dependencies {
 
     //Image Cropping Api
     implementation config.media_libraries.image_crop_api
+
+
+    // GMS
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
 
 }

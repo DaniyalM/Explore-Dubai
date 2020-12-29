@@ -8,6 +8,8 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentSplashBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.PostLoginActivity
+import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,7 +32,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     private suspend fun navigate() {
         delay(1000)
-        findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
+        application.auth.isLoggedIn=true
+        activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+//        findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
     }
 
 }
