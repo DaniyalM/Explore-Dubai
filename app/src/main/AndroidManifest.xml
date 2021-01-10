@@ -24,9 +24,22 @@
         </activity>
         <activity android:name="com.app.dubaiculture.ui.postLogin.PostLoginActivity">
         </activity>
+<!--        <activity android:name="com.app.dubaiculture.ui.widgets.DcWidget">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
             android:value="${mapsApiKey}" />
+
+        <receiver android:name=".ui.widgets.DcWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/dc_widget_layout_info" />
+        </receiver>
     </application>
 
 </manifest>

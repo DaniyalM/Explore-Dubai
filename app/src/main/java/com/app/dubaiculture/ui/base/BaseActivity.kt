@@ -83,4 +83,6 @@ abstract class BaseActivity : LocalizationActivity() {
             isBusRegistered = false
         }
     }
+
+
 }
