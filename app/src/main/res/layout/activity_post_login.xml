@@ -18,7 +18,19 @@
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:navGraph="@navigation/post_login_navigation" />-->
 
+    <TextView
+        android:id="@+id/title"
+        android:textSize="@dimen/_16ssp"
+        android:text="@string/welcome_to_dubai_culture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <fragment
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/title"
         android:name="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"
         android:id="@+id/streetViewFragment"
         android:layout_width="match_parent"

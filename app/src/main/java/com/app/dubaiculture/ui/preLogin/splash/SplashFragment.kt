@@ -33,8 +33,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     private suspend fun navigate() {
         delay(1000)
         application.auth.isLoggedIn=true
-        activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-//        findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
+//        activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+        findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
     }
 
 }
