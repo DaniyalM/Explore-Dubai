@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="java.util.Locale"/>
+        <variable
+            name="fragment"
+            type="com.app.dubaiculture.ui.preLogin.login.LoginFragment" />
         <variable
             name="viewmodel"
             type="com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel" />
@@ -13,6 +17,24 @@
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <Button
+            android:onClick="@{()-> fragment.setLanguage(Locale.ENGLISH)}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:text="English"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:onClick="@{()-> fragment.changeLocalIntoAr() }"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Arabic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -57,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
-                        android:text="Sign Up  ?"
+                        android:text="@string/sign_up"
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold" />
                 </FrameLayout>
@@ -76,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
-                        android:text="Forgot Password ?"
+                        android:text="@string/forgot_password"
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold" />
                 </FrameLayout>
@@ -123,7 +145,7 @@
                         android:paddingLeft="5dp"
                         android:text="@={viewmodel.email}"
                         android:textColor="#383838"
-                        app:backgroundTint="@color/colorPrimaryDark" />
+                       />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -159,6 +181,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/passwordText"
+                        android:textAlignment="viewStart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionDone"
@@ -167,7 +190,7 @@
                         android:paddingStart="5dp"
                         android:paddingLeft="5dp"
                         android:text="@={viewmodel.password}"
-                        app:backgroundTint="@color/colorPrimaryDark" />
+                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -176,6 +199,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_continue"
                 style="@style/ButtonStyle"
+                android:textColor="?attr/colorSurface"
                 android:layout_width="152dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center_horizontal"
