@@ -9,8 +9,8 @@
         android:name="com.app.dubaiculture.ui.postLogin.home.HomeFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/streetViewFragment"
-        android:name="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"
-        android:label="StreetViewFragment" />
+<!--    <fragment-->
+<!--        android:id="@+id/streetViewFragment"-->
+<!--        android:name="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"-->
+<!--        android:label="StreetViewFragment" />-->
 </navigation>
