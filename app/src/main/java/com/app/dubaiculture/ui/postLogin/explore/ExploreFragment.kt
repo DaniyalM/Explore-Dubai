@@ -11,4 +11,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         container: ViewGroup?
     ) = FragmentExploreBinding.inflate(inflater, container, false)
 
+
+    fun getRecyclerView() = binding.rvExplore
+
 }

@@ -3,13 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_login_navigation"
-    app:startDestination="@id/streetViewFragment">
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.app.dubaiculture.ui.postLogin.home.HomeFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_home" />
-<!--    <fragment-->
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.explore.ExploreFragment"
+        android:label="ExploreFragment" />
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.events.EventsFragment"
+        android:label="EventsFragment" />
+    <fragment
+        android:id="@+id/attractionsFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment"
+        android:label="AttractionsFragment" />
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.MoreFragment"
+        android:label="MoreFragment" />
+    <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->
 <!--        android:name="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"-->
 <!--        android:label="StreetViewFragment" />-->
