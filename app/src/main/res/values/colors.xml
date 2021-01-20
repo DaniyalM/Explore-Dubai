@@ -30,4 +30,8 @@
   <color name="gray_600">#B7B9BC</color>
 
 
+  <!--Login screen-->
+  <color name="black_200">#2A2D31</color>
+
+
 </resources>
