@@ -15,6 +15,26 @@
         <item name="boxStrokeWidth">2dp</item>
     </style>
 
+    <!--    searchViewStyle Calling-->
+    <style name="SearchViewComponentStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/SearchViewComponentCustomCorners</item>
+    </style>
+
+    <style name="SearchViewComponentCustomCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+    </style>
+
+    <style name="SearchViewStyle">
+        <item name="android:layout_height">@dimen/_35sdp</item>
+        <item name="android:background">@drawable/bg_search</item>
+        <item name="android:iconifiedByDefault">false</item>
+        <item name="android:queryBackground">@android:color/transparent</item>
+        <item name="android:queryHint">@string/search</item>
+    </style>
+    <!--    searchViewStyle Calling-->
+
 
     <style name="textTheme" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">#00FF00</item>
@@ -67,4 +87,5 @@
     <!--Widget Styles-->
 
 
+    <string name="search">Search</string>
 </resources>

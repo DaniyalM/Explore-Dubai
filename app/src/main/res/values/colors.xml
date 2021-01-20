@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#3F51B5</color>
-  <color name="colorPrimaryDark">#303F9F</color>
-  <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
 
-<!--  bottom tabs - home-->
-  <color name="tabTextColorSelected">#E34A48</color>
-  <color name="tabTextColorUnSelected">#1A1818</color>
-  <color name="LoginLayoutSuccessColor">@android:color/holo_green_light</color>
+<!--    SearchView Color Palette-->
+    <color name="bgSearch">#ECF0F4</color>
+
+    <!--  bottom tabs - home-->
+    <color name="tabTextColorSelected">#E34A48</color>
+    <color name="tabTextColorUnSelected">#1A1818</color>
+    <color name="LoginLayoutSuccessColor">@android:color/holo_green_light</color>
+
+    <color name="app_bg">#E6E6E6</color>
 
 
 
