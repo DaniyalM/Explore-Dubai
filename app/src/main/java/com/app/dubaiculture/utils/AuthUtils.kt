@@ -25,7 +25,10 @@ object AuthUtils {
     fun hideStatusBar(window:Window){
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
+            try{
+                window.insetsController?.hide(WindowInsets.Type.statusBars())
+            }catch (e:Exception){
+                print(e.stackTrace) }
         } else {
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,

@@ -12,6 +12,8 @@ import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
+import net.bytebuddy.asm.Advice
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -27,6 +29,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel = loginViewModel
+        binding.fragment = this
         subscribeUiEvents(loginViewModel)
         subscribeToObservables()
 
@@ -65,5 +68,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         }
     }
-
+    fun changeLocalIntoAr(){
+        setLanguage(Locale("ar"))
+    }
 }

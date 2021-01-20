@@ -15,6 +15,7 @@ import com.app.dubaiculture.utils.event.UiEvent
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import java.util.*
 
 abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
@@ -101,5 +102,12 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         })
     }
 
+    public fun setLanguage(locale: Locale) {
+        (activity as BaseActivity).setLanguage( locale)
+    }
 
+    public fun getCurrentLanguage(): Locale {
+        return (activity as BaseActivity).getCurrentLanguage()
+    }
+    fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
 }

@@ -31,7 +31,6 @@ abstract class BaseActivity : LocalizationActivity() {
         customProgressDialog = ProgressDialog(this)
     }
 
-
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(this, {
             it.getContentIfNotHandled()
