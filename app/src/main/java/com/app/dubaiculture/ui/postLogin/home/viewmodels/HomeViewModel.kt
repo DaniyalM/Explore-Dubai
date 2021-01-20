@@ -10,10 +10,10 @@ class HomeViewModel @ViewModelInject constructor(
 ) : BaseViewModel(application) {
 
     val tabDetails = mutableListOf(
-        Pair(R.string.feeds, R.drawable.feeds),
-        Pair(R.string.market_place, R.drawable.marketplace),
-        Pair(R.string.forums, R.drawable.forums),
-        Pair(R.string.notifications, R.drawable.notification)
+        Pair(R.string.explore, R.drawable.feeds),
+        Pair(R.string.events, R.drawable.marketplace),
+        Pair(R.string.attractions, R.drawable.forums),
+        Pair(R.string.more, R.drawable.notification)
     )
 
     init {
