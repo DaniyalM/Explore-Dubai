@@ -7,10 +7,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     // home tabs
-    <string name="feeds">Feeds</string>
-    <string name="market_place">Marketplace</string>
-    <string name="forums">Forums</string>
-    <string name="notifications">Notifications</string>
+    <string name="explore">Explore</string>
+    <string name="events">Events</string>
+    <string name="attractions">Attractions</string>
+    <string name="more">More</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>

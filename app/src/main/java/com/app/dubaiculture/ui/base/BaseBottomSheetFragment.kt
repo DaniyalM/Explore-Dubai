@@ -5,15 +5,28 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.otto.Bus
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 
-class BaseBottomSheetFragment : BottomSheetDialogFragment() {
+abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialogFragment() {
     protected lateinit var application: ApplicationEntry
     protected lateinit var bus: Bus
     protected lateinit var activity: Activity
 
+    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
+
+
+
+    // data binding
+    private lateinit var dataBinding: DB
+    protected val binding get() = dataBinding
 
 
     protected var isBusRegistered: Boolean = false
@@ -29,6 +42,8 @@ class BaseBottomSheetFragment : BottomSheetDialogFragment() {
         bus = application.bus
         bus.register(this)
         isBusRegistered = true
+        groupAdapter = GroupAdapter()
+
         return super.onCreateDialog(savedInstanceState)
     }
 
@@ -38,14 +53,18 @@ class BaseBottomSheetFragment : BottomSheetDialogFragment() {
             bus.unregister(this)
             isBusRegistered = false
         }
+        groupAdapter.clear()
     }
 
-
-    override fun onActivityCreated(arg0: Bundle?) {
-        super.onActivityCreated(arg0)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            Objects.requireNonNull<Window>(dialog?.window)
-//                .getAttributes().windowAnimations = R.style.MyAnimation_Window
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        dataBinding = getFragmentBinding(inflater, container)
+        return dataBinding.root
     }
+
+    protected abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): DB
+
 }
