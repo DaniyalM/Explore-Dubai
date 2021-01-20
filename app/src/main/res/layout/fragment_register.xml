@@ -14,18 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/splash"
-            app:layout_constraintBottom_toTopOf="@+id/bottomLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include layout="@layout/layout_main_logo_display"/>
 
 
         <LinearLayout
@@ -51,15 +40,13 @@
 
                     >
                     <!--                    android:onClick="@{()->viewmodel.getRegistered()}"-->
-                    <TextView
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
-                        android:text="Already have an account ?"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
+                        android:text="Already have an account ?" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -70,15 +57,14 @@
                     >
                     <!--                    android:onClick="@{()->viewmodel.forgotPassword()}"-->
 
-                    <TextView
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/forgotPassword"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
                         android:text="Forgot Password ?"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
+                        />
                 </FrameLayout>
             </LinearLayout>
 
