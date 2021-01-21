@@ -31,8 +31,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel = loginViewModel
         binding.fragment = this
+
         subscribeUiEvents(loginViewModel)
-//        subscribeToObservables()
 
         binding.tvRegisterNow.setOnClickListener {
             findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment2)

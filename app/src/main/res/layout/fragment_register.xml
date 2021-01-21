@@ -21,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
-        <ImageView
+        <TextView
+            android:scaleX="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/registration"
+            android:textColor="@color/black_200"
             android:layout_marginTop="@dimen/_45sdp"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintTop_toBottomOf="@+id/img_close"
@@ -69,6 +71,7 @@
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_fullName"
             style="@style/EditTextStyle"
+            android:imeOptions="actionNext"
             android:hint="@string/enter_full_name"
             android:drawableEnd="@drawable/username_register"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,6 +95,8 @@
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_email_address"
             style="@style/EditTextStyle"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
             android:hint="@string/email_address"
             android:drawableEnd="@drawable/message_register"
             app:layout_constraintStart_toStartOf="parent"
@@ -119,6 +124,8 @@
             android:id="@+id/edit_mobile"
             android:hint="@string/enter_mobile_number"
             style="@style/EditTextStyle"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
             android:drawableEnd="@drawable/mob_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -140,6 +147,8 @@
             android:id="@+id/edit_pass"
             style="@style/EditTextStyle"
             android:hint="@string/password"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
             android:drawableEnd="@drawable/key_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -162,6 +171,8 @@
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_confirm_pass"
             style="@style/EditTextStyle"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
             android:hint="@string/confirm_password"
             android:drawableEnd="@drawable/key_register"
             app:layout_constraintStart_toStartOf="parent"
