@@ -88,4 +88,35 @@
 
 
     <string name="search">Search</string>
+
+
+    <style name="EditTextStyle">
+        <item name="android:layout_marginTop">@dimen/_10sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_25sdp</item>
+        <item name="android:layout_marginStart">@dimen/_25sdp</item>
+        <item name="android:paddingStart">@dimen/_15sdp</item>
+        <item name="android:paddingEnd">@dimen/_15sdp</item>
+        <item name="android:textColor">@color/gray_600</item>
+        <item name="android:textColorHint">@color/gray_600</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:background">@drawable/bg_edit_resiger</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    android:textSize="@dimen/_10ssp"
+    android:textColor="@color/black_200"
+    android:layout_marginTop="@dimen/_30sdp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+
+    <style name="TextViewRegistrationStyle">
+        <item name="android:layout_marginTop">@dimen/_15sdp</item>
+        <item name="android:textColor">@color/black_200</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
 </resources>

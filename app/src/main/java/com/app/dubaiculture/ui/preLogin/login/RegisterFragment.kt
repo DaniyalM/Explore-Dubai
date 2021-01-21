@@ -27,14 +27,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         subscribeToObservables()
 
 
-        binding.login.setOnClickListener {
-            findNavController(this)
-                .navigate(R.id.action_registerFragment2_to_loginFragment)
-
-        }
-        binding.forgotPassword.setOnClickListener {
-            loginViewModel.showToast("ForgotPassword!")
-        }
+//        binding.login.setOnClickListener {
+//            findNavController(this)
+//                .navigate(R.id.action_registerFragment2_to_loginFragment)
+//
+//        }
+//        binding.forgotPassword.setOnClickListener {
+//            loginViewModel.showToast("ForgotPassword!")
+//        }
     }
 
 
@@ -47,21 +47,21 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             }
         }
 
-        loginViewModel.emailStatus.observe(viewLifecycleOwner) {
-            binding.emailLayout.isErrorEnabled = false
-            if (it) {
-                binding.emailLayout.isErrorEnabled = true
-                binding.emailLayout.error = "Invalid Email."
-            }
-        }
-
-        loginViewModel.passwordStatus.observe(viewLifecycleOwner) {
-            binding.passWordLayout.isErrorEnabled = false
-            if (it) {
-                binding.passWordLayout.isErrorEnabled = true
-                binding.passWordLayout.error = "Invalid Password."
-            }
-        }
+//        loginViewModel.emailStatus.observe(viewLifecycleOwner) {
+//            binding.emailLayout.isErrorEnabled = false
+//            if (it) {
+//                binding.emailLayout.isErrorEnabled = true
+//                binding.emailLayout.error = "Invalid Email."
+//            }
+//        }
+//
+//        loginViewModel.passwordStatus.observe(viewLifecycleOwner) {
+//            binding.passWordLayout.isErrorEnabled = false
+//            if (it) {
+//                binding.passWordLayout.isErrorEnabled = true
+//                binding.passWordLayout.error = "Invalid Password."
+//            }
+//        }
     }
 
 

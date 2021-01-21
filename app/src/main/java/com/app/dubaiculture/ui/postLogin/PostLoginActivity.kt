@@ -1,15 +1,9 @@
 package com.app.dubaiculture.ui.postLogin
 
-//import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.StreetViewPanoramaCamera
-import com.google.android.gms.maps.model.StreetViewPanoramaLink
-import com.google.android.gms.maps.model.StreetViewSource
 import dagger.hilt.android.AndroidEntryPoint
 
 //,
