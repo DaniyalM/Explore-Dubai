@@ -51,10 +51,10 @@
     </style>
 
     <style name="HomeTabStyle" parent="TextAppearance.Design.Tab">
-        <item name="tabIndicatorColor">@color/tabTextColorSelected</item>
+        <item name="tabIndicatorColor">@color/purple_600</item>
         <item name="tabRippleColor">@null</item>
         <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
-        <item name="tabSelectedTextColor">@color/tabTextColorSelected</item>
+        <item name="tabSelectedTextColor">@color/purple_600</item>
         <item name="tabTextAppearance">@style/HomeTabTextStyle</item>
         <item name="tabIndicatorFullWidth">false</item>
         <item name="tabTextColor">@color/tabTextColorUnSelected</item>

@@ -44,8 +44,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         isBusRegistered = true
         customProgressDialog = ProgressDialog(activity)
         groupAdapter = GroupAdapter()
-
-
     }
 
     override fun onCreateView(

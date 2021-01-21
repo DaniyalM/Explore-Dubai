@@ -1,71 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/SearchViewComponentStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-  >
+    android:padding="@dimen/_10sdp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <!--        <de.hdodenhof.circleimageview.CircleImageView-->
+    <!--           />-->
+
+    <!--        <SearchView-->
+    <!--            android:id="@+id/searchView"-->
+    <!--            style="@style/SearchViewStyle"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_marginStart="@dimen/_10sdp"-->
+    <!--            android:layout_marginEnd="@dimen/_10sdp"-->
+    <!--            app:layout_constraintBottom_toBottomOf="@+id/profilePic"-->
+    <!--            app:layout_constraintEnd_toStartOf="@+id/img_drawer"-->
+    <!--            app:layout_constraintStart_toEndOf="@+id/profilePic"-->
+    <!--            app:layout_constraintTop_toTopOf="@+id/profilePic" />-->
+
+    <ImageView
+        android:id="@+id/profilePic"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_10sdp">
+        android:src="@drawable/dc_main_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.192">
 
-        <!--        <de.hdodenhof.circleimageview.CircleImageView-->
-        <!--           />-->
+    </ImageView>
 
-        <!--        <SearchView-->
-        <!--            android:id="@+id/searchView"-->
-        <!--            style="@style/SearchViewStyle"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_marginStart="@dimen/_10sdp"-->
-        <!--            android:layout_marginEnd="@dimen/_10sdp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="@+id/profilePic"-->
-        <!--            app:layout_constraintEnd_toStartOf="@+id/img_drawer"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/profilePic"-->
-        <!--            app:layout_constraintTop_toTopOf="@+id/profilePic" />-->
+    <ImageView
+        android:id="@+id/img_drawer"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/dc_location_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/search"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/profilePic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="284dp"
-            android:src="@drawable/dc_main_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.192">
-
-        </ImageView>
-
-        <ImageView
-            android:id="@+id/img_drawer"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:background="@drawable/dc_location_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.797"
-            app:layout_constraintStart_toEndOf="@+id/profilePic"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.475" />
-
-        <ImageView
-            android:id="@+id/search"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/img_drawer"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/dc_search_icon" />
+    <ImageView
+        android:id="@+id/search"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dc_search_icon" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
