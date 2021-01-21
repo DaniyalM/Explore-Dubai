@@ -40,15 +40,13 @@
 
                     >
                     <!--                    android:onClick="@{()->viewmodel.getRegistered()}"-->
-                    <TextView
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
-                        android:text="Already have an account ?"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
+                        android:text="Already have an account ?" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -59,15 +57,14 @@
                     >
                     <!--                    android:onClick="@{()->viewmodel.forgotPassword()}"-->
 
-                    <TextView
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/forgotPassword"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="5dp"
                         android:text="Forgot Password ?"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
+                        />
                 </FrameLayout>
             </LinearLayout>
 
