@@ -15,7 +15,7 @@ class ApplicationEntry : Application() {
         super.onCreate()
         auth = AuthState()
         Timber.plant(Timber.DebugTree())
-        ThemeUtil.applyTheme("dark")
+        ThemeUtil.applyTheme("light")
     }
 
 

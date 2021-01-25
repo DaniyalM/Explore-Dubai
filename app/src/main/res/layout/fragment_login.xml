@@ -13,6 +13,7 @@
             type="com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel" />
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/purple_900"
         android:layout_width="match_parent"

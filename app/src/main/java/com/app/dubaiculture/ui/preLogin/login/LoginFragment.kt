@@ -33,12 +33,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         subscribeUiEvents(loginViewModel)
         subscribeToObservables()
 
-        binding.registration.setOnClickListener {
+        binding.tvRegisterNow.setOnClickListener {
             findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment2)
 
         }
-        binding.forgotPassword.setOnClickListener {
+        binding.forgotPass.setOnClickListener {
             loginViewModel.showToast("ForgotPassword!")
+        }
+        binding.tvAsGuest.setOnClickListener {
+            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
         }
     }
 
@@ -52,21 +55,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         }
 
-        loginViewModel.emailStatus.observe(viewLifecycleOwner) {
-            binding.emailLayout.isErrorEnabled = false
-            if (it) {
-                binding.emailLayout.isErrorEnabled = true
-                binding.emailLayout.error = "Invalid Email."
-            }
-        }
-
-        loginViewModel.passwordStatus.observe(viewLifecycleOwner) {
-            binding.passWordLayout.isErrorEnabled = false
-            if (it) {
-                binding.passWordLayout.isErrorEnabled = true
-                binding.passWordLayout.error = "Invalid Password."
-            }
-        }
+//        loginViewModel.emailStatus.observe(viewLifecycleOwner) {
+//            binding.emailLayout.isErrorEnabled = false
+//            if (it) {
+//                binding.emailLayout.isErrorEnabled = true
+//                binding.emailLayout.error = "Invalid Email."
+//            }
+//        }
+//
+//        loginViewModel.passwordStatus.observe(viewLifecycleOwner) {
+//            binding.passWordLayout.isErrorEnabled = false
+//            if (it) {
+//                binding.passWordLayout.isErrorEnabled = true
+//                binding.passWordLayout.error = "Invalid Password."
+//            }
+//        }
     }
     fun changeLocalIntoAr(){
         setLanguage(Locale("ar"))
