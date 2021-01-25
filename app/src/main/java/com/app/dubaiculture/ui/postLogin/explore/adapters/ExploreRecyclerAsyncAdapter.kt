@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.TestItem
+import com.app.dubaiculture.databinding.AttractionsItemContainerCellBinding
 import com.app.dubaiculture.databinding.LargeItemCellBinding
 import com.app.dubaiculture.databinding.SmallItemCellBinding
 import com.app.dubaiculture.utils.AsyncCell
@@ -57,6 +58,15 @@ class ExploreRecyclerAsyncAdapter internal constructor(private val items: List<T
         else -> ViewTypes.SMALL.type
     }
 
+    private inner class AttractionItemCell(context: Context) : AsyncCell(context) {
+        var binding: AttractionsItemContainerCellBinding? = null
+        override val layoutId=R.layout.attractions_item_container_cell
+        override fun createDataBindingView(view: View): View? {
+            binding= AttractionsItemContainerCellBinding.bind(view)
+            return view.rootView
+        }
+    }
+
     private inner class LargeItemCell(context: Context) : AsyncCell(context) {
         var binding: LargeItemCellBinding? = null
         override val layoutId = R.layout.large_item_cell
@@ -77,7 +87,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(private val items: List<T
 
     enum class ViewTypes(val type: Int) {
         LARGE(0),
-        SMALL(1)
+        SMALL(1),
+        ATTRACTION(3),
+        MUSTSEE(4),
+        PLANYOURTRIP(5),
+        UPCOMINGEVENTS(6),
+        POPULARSERVICES(7),
+        LATESTNEWS(8),
     }
 
 }
