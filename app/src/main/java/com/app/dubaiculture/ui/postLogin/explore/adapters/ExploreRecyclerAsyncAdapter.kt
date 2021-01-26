@@ -3,26 +3,57 @@ package com.app.dubaiculture.ui.postLogin.explore.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.explore.local.models.Attraction
 import com.app.dubaiculture.data.repository.explore.local.models.TestItem
+import com.app.dubaiculture.databinding.AttractionsItemContainerCellBinding
 import com.app.dubaiculture.databinding.LargeItemCellBinding
 import com.app.dubaiculture.databinding.SmallItemCellBinding
+import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
 import com.app.dubaiculture.utils.AsyncCell
+import com.bumptech.glide.RequestManager
 
-class ExploreRecyclerAsyncAdapter internal constructor(private val items: List<TestItem>) :
+class ExploreRecyclerAsyncAdapter internal constructor(
+    private val context: Context
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private lateinit var glide: RequestManager
+
+
+    private val diffCallback = object : DiffUtil.ItemCallback<TestItem>() {
+        override fun areItemsTheSame(oldItem: TestItem, newItem: TestItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: TestItem, newItem: TestItem): Boolean {
+            return oldItem.hashCode() == newItem.hashCode()
+        }
+    }
+    private val differ = AsyncListDiffer(this, diffCallback)
+
+    var items: List<TestItem>
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
-            ViewTypes.SMALL.type -> SmallItemViewHolder(SmallItemCell(parent.context).apply { inflate() })
+            ViewTypes.ATTRACTION.type -> AttractionViewHolder(AttractionItemCell(parent.context).apply { inflate() })
             else -> LargeItemViewHolder(LargeItemCell(parent.context).apply { inflate() })
         }
 
     override fun getItemCount(): Int = items.size
 
+    fun provideGlideInstance(glide: RequestManager) {
+        this.glide = glide
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is SmallItemViewHolder -> setUpSmallViewHolder(holder, position)
+            is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
             is LargeItemViewHolder -> setUpLargeViewHolder(holder, position)
         }
     }
@@ -35,13 +66,27 @@ class ExploreRecyclerAsyncAdapter internal constructor(private val items: List<T
         }
     }
 
-    private fun setUpSmallViewHolder(
-        holder: SmallItemViewHolder,
-        position: Int
-    ) {
-        (holder.itemView as SmallItemCell).bindWhenInflated {
+//    private fun setUpSmallViewHolder(
+//        holder: SmallItemViewHolder,
+//        position: Int
+//    ) {
+//        (holder.itemView as SmallItemCell).bindWhenInflated {
+//            items[position].let { item ->
+//                holder.itemView.binding?.item = item
+//            }
+//        }
+//    }
+
+    private fun setUpAttractionViewHolder(holder: AttractionViewHolder, position: Int) {
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val attractionInnerAdapter =AttractionInnerAdapter(glide)
+        (holder.itemView as AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
-                holder.itemView.binding?.item = item
+                holder.itemView.binding?.innerAttractionRv?.let {
+                    it.layoutManager = layoutManager
+                    it.adapter = attractionInnerAdapter
+                    attractionInnerAdapter.attractions=item.attractions
+                }
             }
         }
     }
@@ -52,9 +97,20 @@ class ExploreRecyclerAsyncAdapter internal constructor(private val items: List<T
     private inner class SmallItemViewHolder(view: ViewGroup) :
         RecyclerView.ViewHolder(view)
 
+    private inner class AttractionViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+
     override fun getItemViewType(position: Int): Int = when {
-        items[position].code % 2 == 0 -> ViewTypes.LARGE.type
-        else -> ViewTypes.SMALL.type
+        items[position].code % 2 == 0 -> ViewTypes.ATTRACTION.type
+        else -> ViewTypes.LARGE.type
+    }
+
+    private inner class AttractionItemCell(context: Context) : AsyncCell(context) {
+        var binding: AttractionsItemContainerCellBinding? = null
+        override val layoutId = R.layout.attractions_item_container_cell
+        override fun createDataBindingView(view: View): View? {
+            binding = AttractionsItemContainerCellBinding.bind(view)
+            return view.rootView
+        }
     }
 
     private inner class LargeItemCell(context: Context) : AsyncCell(context) {
@@ -76,8 +132,15 @@ class ExploreRecyclerAsyncAdapter internal constructor(private val items: List<T
     }
 
     enum class ViewTypes(val type: Int) {
-        LARGE(0),
-        SMALL(1)
+//        LARGE(0),
+//        SMALL(1),
+        ATTRACTION(0),
+        LARGE(1),
+//        MUSTSEE(2),
+        PLANYOURTRIP(3),
+        UPCOMINGEVENTS(4),
+        POPULARSERVICES(5),
+        LATESTNEWS(6),
     }
 
 }

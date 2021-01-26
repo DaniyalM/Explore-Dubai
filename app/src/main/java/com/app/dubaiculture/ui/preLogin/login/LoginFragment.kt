@@ -32,15 +32,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         binding.fragment = this
         subscribeUiEvents(loginViewModel)
         subscribeToObservables()
+        changeLocalIntoAr()
 
         binding.tvRegisterNow.setOnClickListener {
             findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment2)
-
         }
         binding.forgotPass.setOnClickListener {
             loginViewModel.showToast("ForgotPassword!")
         }
         binding.tvAsGuest.setOnClickListener {
+            application.auth.isLoggedIn = true
             activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
         }
     }
@@ -72,6 +73,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 //        }
     }
     fun changeLocalIntoAr(){
-        setLanguage(Locale("ar"))
+        setLanguage(Locale("en"))
     }
 }

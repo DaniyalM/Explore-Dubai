@@ -12,7 +12,7 @@
     <color name="tabTextColorUnSelected">#1A1818</color>
     <color name="LoginLayoutSuccessColor">@android:color/holo_green_light</color>
 
-    <color name="app_bg">#E6E6E6</color>
+    <color name="app_bg">@color/white_900</color>
 
 
 
