@@ -2,9 +2,11 @@ package com.app.dubaiculture.ui.preLogin.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -13,7 +15,7 @@ import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 
 
-class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>() , View.OnClickListener {
     private val loginViewModel: LoginViewModel by viewModels()
 
 
@@ -64,5 +66,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 //        }
     }
 
-
+    override fun onClick(v: View?) {
+        when(v?.id){
+        }
+    }
 }

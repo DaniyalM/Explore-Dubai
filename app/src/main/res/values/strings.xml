@@ -18,6 +18,7 @@
     <string name="welcome_to_dubai_culture">Welcome To Dubai Culture</string>
     <string name="sign_up">Sign Up ?</string>
     <string name="forgot_password">Forgot Password?</string>
+
     <string name="login_to_your_account">Login to your account</string>
     <string name="continue_as_a_guest"><u>Continue as a guest</u></string>
     <string name="don_t_have_an_account">Dont have an account?</string>
@@ -31,6 +32,10 @@
     <string name="i_agree_to_the_terms_and_conditions">I agree to the terms and conditions</string>
     <string name="register_now">Register Now</string>
     <string name="confirm_password">Confirm password</string>
+
+    <string name="forgot_password_">Forgot Password</string>
+    <string name="cancel">Cancel</string>
+    <string name="send_otp">Send OTP</string>
 
 
 </resources>

@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment2"
             app:destination="@id/registerFragment2" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotFragment"
+            app:destination="@id/forgotFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
@@ -30,4 +33,9 @@
             android:id="@+id/action_registerFragment2_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/forgotFragment"
+        tools:layout="@layout/fragment_forgot_"
+        android:name="com.app.dubaiculture.ui.preLogin.forgot.ForgotFragment"
+        android:label="ForgotFragment" />
 </navigation>

@@ -23,7 +23,9 @@
     <string name="i_agree_to_the_terms_and_conditions">I agree to the terms and conditions</string>
     <string name="register_now">Register Now</string>
     <string name="confirm_password">Confirm password</string>
-
+    <string name="forgot_password_">Forgot Password</string>
+    <string name="cancel">Cancel</string>
+    <string name="send_otp">Send OTP</string>
 
 </resources>
 

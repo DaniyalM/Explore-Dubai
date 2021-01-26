@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -18,7 +20,7 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener  {
 
     private val loginViewModel: LoginViewModel by viewModels()
 
@@ -31,14 +33,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel = loginViewModel
         binding.fragment = this
-
+        changeLocalIntoAr()
+        binding.forgotPass.setOnClickListener(this)
         subscribeUiEvents(loginViewModel)
 
         binding.tvRegisterNow.setOnClickListener {
             findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment2)
-        }
-        binding.forgotPass.setOnClickListener {
-            loginViewModel.showToast("ForgotPassword!")
         }
         binding.tvAsGuest.setOnClickListener {
             application.auth.isLoggedIn = true
@@ -75,7 +75,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 //            }
 //        }
     }
-
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.forgot_pass->{
+                findNavController().navigate(R.id.action_loginFragment_to_forgotFragment)
+            }
+        }
+    }
     fun changeLocalIntoAr() {
         setLanguage(Locale("en"))
     }

@@ -92,6 +92,7 @@
 
     <style name="EditTextStyle">
         <item name="android:textAlignment">viewStart</item>
+        <item name="android:singleLine">true</item>
         <item name="android:layout_marginTop">@dimen/_10sdp</item>
         <item name="android:layout_marginEnd">@dimen/_25sdp</item>
         <item name="android:layout_marginStart">@dimen/_25sdp</item>

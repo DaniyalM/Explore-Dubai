@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
@@ -98,6 +100,13 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                     }
                 }
         })
+    }
+
+    protected fun back(){
+        findNavController().popBackStack()
+    }
+    protected fun navigate(action : Int){
+findNavController().navigate(R.id.action)
     }
 
     public fun setLanguage(locale: Locale) {
