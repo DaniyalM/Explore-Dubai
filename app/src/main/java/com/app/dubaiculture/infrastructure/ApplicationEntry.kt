@@ -1,6 +1,7 @@
 package com.app.dubaiculture.infrastructure
 
 import android.app.Application
+import com.app.dubaiculture.utils.ThemeUtil
 import com.squareup.otto.Bus
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
@@ -14,7 +15,7 @@ class ApplicationEntry : Application() {
         super.onCreate()
         auth = AuthState()
         Timber.plant(Timber.DebugTree())
-
+        ThemeUtil.applyTheme("light")
     }
 
 

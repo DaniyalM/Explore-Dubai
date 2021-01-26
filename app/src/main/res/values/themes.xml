@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.MyApp" parent="Base.Theme.MyApp"/>
+
+    <style name="Base.Theme.MyApp" parent="Base.Theme.MaterialThemeBuilder">
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_600</item>
+        <item name="colorPrimaryVariant">@color/purple_900</item>
+        <item name="colorOnPrimary">@color/white_900</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/gray_600</item>
+        <item name="colorSecondaryVariant">@color/gray_800</item>
+        <item name="colorOnSecondary">@color/white_900</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/purple_600</item>
+        <!-- Customize your theme here. -->
+
+        <item name="colorSurface">@color/white_900</item>
+        <item name="colorOnSurface">@color/white_900</item>
+        <!--for error-->
+        <item name="colorOnError">@color/red_200</item>
+        <item name="colorError">@color/red_600</item>
+        <!--bg-->
+        <item name="android:colorBackground">@color/white_900</item>
+        <item name="colorOnBackground">@color/white_900</item>
+
+    </style>
+
+    <style name="Base.Theme.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">?android:attr/colorBackground</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">?attr/colorControlHighlight</item>
+    </style>
+
+
+
+
+    <style name="Theme.MyApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.MyApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.MyApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#3F51B5</color>
-  <color name="colorPrimaryDark">#303F9F</color>
-  <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
 
-<!--  bottom tabs - home-->
-  <color name="tabTextColorSelected">#E34A48</color>
-  <color name="tabTextColorUnSelected">#1A1818</color>
-  <color name="LoginLayoutSuccessColor">@android:color/holo_green_light</color>
+<!--    SearchView Color Palette-->
+    <color name="bgSearch">#ECF0F4</color>
+
+    <!--  bottom tabs - home-->
+    <color name="tabTextColorSelected">#E34A48</color>
+    <color name="tabTextColorUnSelected">#1A1818</color>
+    <color name="LoginLayoutSuccessColor">@android:color/holo_green_light</color>
+
+    <color name="app_bg">#E6E6E6</color>
+
+
+
+  <color name="purple_900">#5E2E82</color>
+  <color name="purple_600">#6D438D</color>
+
+  <color name="black_800">#121212</color> <!--Color surface (dark)-->
+  <!--Color on secondary (light), color on background (light),-->
+  <!--color on surface (light)-->
+  <color name="black_900">#000000</color>
+
+  <color name="red_200">#cf6679</color> <!--Color error (dark)-->
+  <color name="red_600">#b00020</color> <!--Color error (light)-->
+
+  <!--Color surface (light), color on error (light), -->
+  <!--color on surface (dark), color on surface (dark)-->
+  <color name="white_900">#ffffff</color>
+
+  <color name="gray_800">#707379</color>
+  <color name="gray_600">#B7B9BC</color>
+
+
+  <!--Login screen-->
+  <color name="black_200">#2A2D31</color>
 
 
 </resources>

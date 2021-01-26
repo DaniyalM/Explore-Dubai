@@ -21,10 +21,17 @@ android {
         multiDexEnabled true //add this line in the defaultConfig
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [appAuthRedirectScheme: 'com.redirectScheme.comm']
 
 
     }
     signingConfigs {
+        stag {
+            storeFile file("../certificates/dubaiculturecert.jks")
+            storePassword "dc123dc"
+            keyAlias "dccert"
+            keyPassword "dc123dc"
+        }
         stagConfig {
             storeFile file("../certificates/stagingKS.jks")
             storePassword "dj123456789"
@@ -67,6 +74,7 @@ android {
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
             signingConfig signingConfigs.stagConfig
+
 
         }
         prod {
@@ -192,7 +200,7 @@ dependencies {
 
 
     // GMS
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation config.google.map_google
 
 
 }

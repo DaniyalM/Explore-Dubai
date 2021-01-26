@@ -7,14 +7,24 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     // home tabs
-    <string name="feeds">Feeds</string>
-    <string name="market_place">Marketplace</string>
-    <string name="forums">Forums</string>
-    <string name="notifications">Notifications</string>
+    <string name="explore">Explore</string>
+    <string name="events">Events</string>
+    <string name="attractions">Attractions</string>
+    <string name="more">More</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Sign Up</string>
+    <string name="welcome_to_dubai_culture">Welcome To Dubai Culture</string>
+    <string name="sign_up">Sign Up ?</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login_to_your_account">Login to your account</string>
+    <string name="continue_as_a_guest"><u>Continue as a guest</u></string>
+    <string name="don_t_have_an_account">Dont have an account?</string>
+    <string name="register_now">Register Now</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_mobile_number">Enter mobile number</string>
+    <string name="mobile_number">Mobile number</string>
 
 
 </resources>
