@@ -3,9 +3,12 @@ package com.app.dubaiculture.ui.postLogin.explore.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.explore.local.models.Attraction
 import com.app.dubaiculture.data.repository.explore.local.models.TestItem
 import com.app.dubaiculture.databinding.AttractionsItemContainerCellBinding
 import com.app.dubaiculture.databinding.LargeItemCellBinding
@@ -15,11 +18,26 @@ import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
 
 class ExploreRecyclerAsyncAdapter internal constructor(
-    private val items: List<TestItem>,
     private val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var glide: RequestManager
+
+
+    private val diffCallback = object : DiffUtil.ItemCallback<TestItem>() {
+        override fun areItemsTheSame(oldItem: TestItem, newItem: TestItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: TestItem, newItem: TestItem): Boolean {
+            return oldItem.hashCode() == newItem.hashCode()
+        }
+    }
+    private val differ = AsyncListDiffer(this, diffCallback)
+
+    var items: List<TestItem>
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
