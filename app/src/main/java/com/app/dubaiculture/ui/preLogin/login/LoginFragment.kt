@@ -35,6 +35,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.fragment = this
         changeLocalIntoAr()
         binding.forgotPass.setOnClickListener(this)
+        binding.imgUaePass.setOnClickListener(this)
+
         subscribeUiEvents(loginViewModel)
 
         binding.tvRegisterNow.setOnClickListener {
@@ -79,6 +81,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         when(v?.id){
             R.id.forgot_pass->{
                 findNavController().navigate(R.id.action_loginFragment_to_forgotFragment)
+            }
+            R.id.img_uae_pass->{
+                navigate(R.id.action_loginFragment_to_createPassFragment)
             }
         }
     }

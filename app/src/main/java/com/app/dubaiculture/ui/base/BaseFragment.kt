@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -105,12 +106,12 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected fun back(){
         findNavController().popBackStack()
     }
-    protected fun navigate(action : Int){
-findNavController().navigate(R.id.action)
+    protected fun navigate(@IdRes resId: Int, bundle: Bundle?=null){
+findNavController().navigate(resId,bundle)
     }
 
     public fun setLanguage(locale: Locale) {
-        (activity as BaseActivity).setLanguage( locale)
+        (activity as BaseActivity).setLanguage(locale)
     }
 
     public fun getCurrentLanguage(): Locale {

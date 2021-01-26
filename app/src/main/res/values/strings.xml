@@ -36,6 +36,12 @@
     <string name="forgot_password_">Forgot Password</string>
     <string name="cancel">Cancel</string>
     <string name="send_otp">Send OTP</string>
+    <string name="create_password">Create Password</string>
+    <string name="your_password_must_contain">Your password must contain:</string>
+    <string name="_8_characters_long">8 characters long</string>
+    <string name="uppercase_character">Uppercase character</string>
+    <string name="lowercase_character">Lowercase character</string>
+    <string name="special_character">Special character (!@#)</string>
 
 
 </resources>

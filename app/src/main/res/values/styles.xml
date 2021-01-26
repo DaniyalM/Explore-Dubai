@@ -128,4 +128,12 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="TextViewCreatePasswordStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/gray_800</item>
+        <item name="android:textSize"> @dimen/_10ssp</item>
+<!--        <item name="android:textStyle">bold</item>-->
+<!--        <item name="android:layout_marginTop">@dimen/_15sdp</item>-->
+    </style>
 </resources>
