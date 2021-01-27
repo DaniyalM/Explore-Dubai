@@ -42,6 +42,12 @@
     <string name="uppercase_character">Uppercase character</string>
     <string name="lowercase_character">Lowercase character</string>
     <string name="special_character">Special character (!@#)</string>
+    <string name="password_updated">Password Updated</string>
+    <string name="continue_">Continue</string>
+    <string name="registration_successful">Registration Successful</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="expires_in">Expires in</string>
 
 
 </resources>

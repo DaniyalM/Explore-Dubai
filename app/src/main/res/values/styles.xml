@@ -8,13 +8,13 @@
         <!--    <item name="colorPrimary">@color/colorPrimary</item>-->
         <!--    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
         <!--    <item name="colorAccent">@color/colorAccent</item>-->
+
     </style>
 
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/LoginLayoutSuccessColor</item>
         <item name="boxStrokeWidth">2dp</item>
     </style>
-
     <!--    searchViewStyle Calling-->
     <style name="SearchViewComponentStyle" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/SearchViewComponentCustomCorners</item>
@@ -60,13 +60,11 @@
         <item name="tabTextColor">@color/tabTextColorUnSelected</item>
     </style>
 
-
     <style name="ButtonStyle">
         <item name="android:background">@drawable/ic_login_next_selector</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-
 
     <!--Widget Styles-->
     <style name="AppWidgetSection" parent="@android:style/Widget">

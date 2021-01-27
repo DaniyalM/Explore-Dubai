@@ -1,19 +1,24 @@
 package com.app.dubaiculture.ui.base
 
+import android.R
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.os.Build
+import android.content.DialogInterface.OnShowListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+
 
 abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialogFragment() {
     protected lateinit var application: ApplicationEntry
@@ -43,6 +48,7 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         bus.register(this)
         isBusRegistered = true
         groupAdapter = GroupAdapter()
+
 
         return super.onCreateDialog(savedInstanceState)
     }

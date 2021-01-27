@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.app.dubaiculture.ui.preLogin.password.bottomsheet.PasswordUpdatedFragment
+import com.app.dubaiculture.ui.preLogin.registeration.bottomsheet.OTPFragment
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() , View.OnClickListener {
     private val loginViewModel: LoginViewModel by viewModels()
+    private var modalDismissWithAnimation = false
 
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
@@ -24,6 +28,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() , View.OnClickL
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
         subscribeToObservables()
+        binding.btnRegister.setOnClickListener(this)
 
 
 //        binding.login.setOnClickListener {
@@ -65,6 +70,16 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() , View.OnClickL
 
     override fun onClick(v: View?) {
         when(v?.id){
+            R.id.btn_register->{
+//                navigate(R.id.action_registerFragment2_to_registrationSuccessFragment)
+                showModalOTPlBottomSheet()
+            }
         }
     }
+
+    private fun showModalOTPlBottomSheet() {
+        val modalBottomSheet = OTPFragment.newInstance(modalDismissWithAnimation)
+        modalBottomSheet.show(requireActivity().supportFragmentManager, OTPFragment.TAG)
+    }
+
 }

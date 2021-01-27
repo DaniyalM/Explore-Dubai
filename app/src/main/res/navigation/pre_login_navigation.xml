@@ -24,18 +24,12 @@
         <action
             android:id="@+id/action_loginFragment_to_forgotFragment"
             app:destination="@id/forgotFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_createPassFragment"
-            app:destination="@id/createPassFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
+        tools:layout="@layout/fragment_register"
         android:name="com.app.dubaiculture.ui.preLogin.registeration.RegisterFragment"
-        android:label="RegisterFragment" >
-        <action
-            android:id="@+id/action_registerFragment2_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        android:label="RegisterFragment" />
     <fragment
         android:id="@+id/forgotFragment"
         tools:layout="@layout/fragment_forgot_"
@@ -46,4 +40,22 @@
         tools:layout="@layout/fragment_create_pass"
         android:name="com.app.dubaiculture.ui.preLogin.password.CreatePassFragment"
         android:label="CreatePassFragment" />
+    <fragment
+        android:id="@+id/registrationSuccessFragment"
+        tools:layout="@layout/fragment_registeration_success"
+        android:name="com.app.dubaiculture.ui.preLogin.registeration.RegistrationSuccessFragment"
+        android:label="RegistrationSuccessFragment" >
+        <action
+            android:id="@+id/action_registrationSuccessFragment_to_createPassFragment"
+            app:destination="@id/createPassFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/bottomSheet"
+        android:name="com.app.dubaiculture.ui.preLogin.registeration.bottomsheet.OTPFragment"
+        tools:layout="@layout/fragment_o_t_p" >
+        <action
+            android:id="@+id/action_bottomSheet_to_registrationSuccessFragment"
+            app:destination="@id/registrationSuccessFragment" />
+    </dialog>
+
 </navigation>

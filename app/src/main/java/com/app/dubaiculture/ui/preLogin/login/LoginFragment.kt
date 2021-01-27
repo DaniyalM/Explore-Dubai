@@ -83,7 +83,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 findNavController().navigate(R.id.action_loginFragment_to_forgotFragment)
             }
             R.id.img_uae_pass->{
-                navigate(R.id.action_loginFragment_to_createPassFragment)
             }
         }
     }

@@ -12,11 +12,13 @@ import com.app.dubaiculture.databinding.FragmentRegisterationSuccessBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 
 
-class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBinding>(){
+class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBinding>(), View.OnClickListener{
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.btnContinueReg.setOnClickListener(this)
+
     }
 
 
@@ -24,5 +26,11 @@ class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBin
         inflater: LayoutInflater,
         container: ViewGroup?
     )= FragmentRegisterationSuccessBinding.inflate(inflater,container,false)
-
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.btn_continue_reg->{
+                navigate(R.id.action_registrationSuccessFragment_to_createPassFragment)
+            }
+        }
+    }
 }

@@ -202,5 +202,6 @@ dependencies {
     // GMS
     implementation config.google.map_google
 
-
+    //OTP
+    implementation "com.github.mukeshsolanki:android-otpview-pinview:2.0.3"
 }

@@ -66,8 +66,8 @@
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:textColor="@color/gray_800"
             android:textSize="@dimen/_11ssp"
-            app:textFont="bold"
-           android:text="A One Time Password (OTP) will be sent to your\nregistered email address or mobile number."
+            android:textAlignment="center"
+           android:text="A One Time Password (OTP) will be sent to your registered email address or mobile number."
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/_25sdp"
