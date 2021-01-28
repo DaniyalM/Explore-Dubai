@@ -3,38 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.postLogin.home.HomeFragment">
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-         />
-        </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+            android:layout_above="@id/bottomNav"
+            android:orientation="vertical">
+            <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1">
 
-<!--        <com.google.android.material.tabs.TabLayout-->
-<!--            android:id="@+id/tab_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            style="@style/HomeTabStyle"/>-->
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+
+            <!--        <com.google.android.material.tabs.TabLayout-->
+            <!--            android:id="@+id/tab_layout"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            style="@style/HomeTabStyle"/>-->
+        </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:backgroundTint="@color/purple_900"
+            android:focusable="true"
+            app:elevation="16dp"
+            android:layout_above="@id/bottomNav"
+            app:layout_anchor="@id/bottomNav"
+            app:layout_anchorGravity="fill_vertical|center_horizontal" />
 
         <com.app.dubaiculture.ui.components.bottomnavigation.FabBottomNavigationView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            app:fab_cradle_margin="2dp"
+            app:fab_cradle_rounded_corner_radius="8dp"
+            app:fab_size="50dp"
+            android:layout_alignParentBottom="true"
             android:background="@color/white_900"
             app:menu="@menu/my_navigation_items"
             app:itemTextColor="@color/bottom_nav_color"
             app:itemIconTint="@color/bottom_nav_color"
-            android:id="@+id/bottomNav"/>
+            app:labelVisibilityMode="labeled"
+            android:id="@+id/bottomNav">
+
+        </com.app.dubaiculture.ui.components.bottomnavigation.FabBottomNavigationView>
+    </RelativeLayout>
 
 
-    </LinearLayout>
 </layout>
