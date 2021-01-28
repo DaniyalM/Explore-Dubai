@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.Attraction
 import com.app.dubaiculture.data.repository.explore.local.models.TestItem
 import com.app.dubaiculture.databinding.AttractionsItemContainerCellBinding
 import com.app.dubaiculture.databinding.LargeItemCellBinding
@@ -79,13 +78,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     private fun setUpAttractionViewHolder(holder: AttractionViewHolder, position: Int) {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val attractionInnerAdapter =AttractionInnerAdapter(glide)
+        val attractionInnerAdapter = AttractionInnerAdapter(glide)
         (holder.itemView as AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerAttractionRv?.let {
                     it.layoutManager = layoutManager
                     it.adapter = attractionInnerAdapter
-                    attractionInnerAdapter.attractions=item.attractions
+                    attractionInnerAdapter.attractions = item.attractions
                 }
             }
         }
@@ -100,7 +99,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private inner class AttractionViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
 
     override fun getItemViewType(position: Int): Int = when {
-        items[position].code % 2 == 0 -> ViewTypes.ATTRACTION.type
+//        items[position].code % 2 == 0 -> ViewTypes.ATTRACTION.type
+        position == 0 -> ViewTypes.ATTRACTION.type
         else -> ViewTypes.LARGE.type
     }
 
@@ -132,11 +132,12 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
     enum class ViewTypes(val type: Int) {
-//        LARGE(0),
+        //        LARGE(0),
 //        SMALL(1),
         ATTRACTION(0),
         LARGE(1),
-//        MUSTSEE(2),
+
+        //        MUSTSEE(2),
         PLANYOURTRIP(3),
         UPCOMINGEVENTS(4),
         POPULARSERVICES(5),
