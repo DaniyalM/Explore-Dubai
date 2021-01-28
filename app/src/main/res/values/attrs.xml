@@ -8,6 +8,15 @@
         </attr>
     </declare-styleable>
 
+
+    <declare-styleable name="CustomEditText">
+        <attr name="textTypeFont" format="enum">
+            <enum name="light" value="0" />
+            <enum name="regular" value="1" />
+            <enum name="bold" value="2" />
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="FabBottomNavigationView">
         <attr name="fab_cradle_margin" format="dimension"/>
         <attr name="fab_cradle_rounded_corner_radius" format="dimension"/>

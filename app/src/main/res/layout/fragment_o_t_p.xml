@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.preLogin.registeration.bottomsheet.OTPFragment">
+
+    <ImageView
+        android:id="@+id/gray_line"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/gray_line"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="wrap_content"/>
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/enter_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_200"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:textSize="@dimen/_12ssp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:text="@string/enter_otp"
+        app:layout_constraintTop_toBottomOf="@+id/gray_line"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <com.mukesh.OtpView
+        android:id="@+id/otp_view"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:itemHeight="@dimen/_55sdp"
+        app:itemWidth="@dimen/_50sdp"
+        android:elevation="@dimen/_12sdp"
+
+        android:focusableInTouchMode="true"
+        android:inputType="number"
+        android:textColor="@color/black_200"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold"
+        android:theme="@style/OtpStyle"
+        app:itemCount="4"
+        app:itemSpacing="@dimen/_15sdp"
+        app:itemRadius="12dp"
+        app:lineColor="@color/gray_600"
+        app:viewType="rectangle"
+        app:layout_constraintTop_toBottomOf="@+id/enter_otp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+         />
+
+    <ImageView
+        android:id="@+id/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintTop_toBottomOf="@+id/otp_view"
+        app:layout_constraintStart_toStartOf="@+id/enter_otp"
+        android:background="@drawable/refresh_icon_otp"
+        />
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/customTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:text="@string/resend_otp"
+        app:layout_constraintBottom_toBottomOf="@+id/refresh"
+        app:layout_constraintStart_toEndOf="@+id/refresh"
+        app:layout_constraintTop_toTopOf="@+id/refresh" />
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expires_in"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_timer"
+        app:layout_constraintTop_toBottomOf="@+id/otp_view" />
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/tv_timer"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:01"
+        app:layout_constraintTop_toBottomOf="@+id/otp_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_20sdp"
+        />
+
+
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/btn_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white_900"
+        android:text="@string/continue_"
+        android:gravity="center"
+        android:background="@drawable/btn_register"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customTextView"
+        />
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_25sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_continue"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

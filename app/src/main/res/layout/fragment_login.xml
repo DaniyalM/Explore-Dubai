@@ -12,8 +12,6 @@
             name="viewmodel"
             type="com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel" />
     </data>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/purple_900"
         android:layout_width="match_parent"
@@ -27,6 +25,26 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/top_design_login"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/imageView4"
+            />
+
+
+
         <ImageView
             android:id="@+id/img_logo"
             android:layout_width="wrap_content"
@@ -52,64 +70,44 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/mobile_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextViewRegistrationStyle"
             android:text="@string/mobile_number"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColor="@color/white_900"
             app:layout_constraintBottom_toTopOf="@+id/edit_mob_no"
             app:layout_constraintStart_toStartOf="@+id/edit_mob_no" />
 
-        <EditText
+        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_mob_no"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_12sdp"
-            android:background="@drawable/bg_edit_login"
+            style="@style/EditTextLoginStyle"
+            android:inputType="phone"
+            android:imeOptions="actionNext"
             android:drawableEnd="@drawable/mob_login"
             android:hint="@string/enter_mobile_number"
-            android:paddingStart="@dimen/_15sdp"
-            android:paddingEnd="@dimen/_12sdp"
-            android:textColor="@color/white_900"
-            android:textColorHint="@color/white_900"
-            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toTopOf="@+id/password"
             app:layout_constraintEnd_toEndOf="@+id/edit_password"
             app:layout_constraintStart_toStartOf="@+id/password" />
 
 
 
-
-
-
-
-
-
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextViewRegistrationStyle"
             android:text="@string/password"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColor="@color/white_900"
             app:layout_constraintBottom_toTopOf="@+id/edit_password"
             app:layout_constraintStart_toStartOf="@+id/edit_password" />
 
-        <EditText
+        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_12sdp"
-            android:background="@drawable/bg_edit_login"
+            style="@style/EditTextLoginStyle"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
             android:drawableEnd="@drawable/key_pass_login"
             android:hint="@string/enter_password"
-            android:paddingStart="@dimen/_15sdp"
-            android:paddingEnd="@dimen/_12sdp"
-            android:textColor="@color/white_900"
-            android:textColorHint="@color/white_900"
-            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toTopOf="@+id/forgot_pass"
-            app:layout_constraintEnd_toEndOf="@+id/forgot_pass"
+            app:layout_constraintEnd_toEndOf="@+id/btn_login"
             app:layout_constraintStart_toStartOf="@+id/btn_login" />
 
 
@@ -134,7 +132,7 @@
             android:text="@string/login"
             android:textColor="@color/white_900"
             android:textSize="@dimen/_12ssp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView4"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/img_logo" />
 
@@ -150,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintVertical_bias="0.9"
-            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/uae_pass"
             app:layout_constraintBottom_toTopOf="@+id/tv_dont_have_acct"
             app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +159,7 @@
             android:id="@+id/tv_dont_have_acct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_13ssp"
+            android:textSize="@dimen/_11ssp"
             android:textColor="@color/gray_800"
             android:layout_marginBottom="@dimen/_15sdp"
             android:text="@string/don_t_have_an_account"
@@ -175,7 +173,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/purple_900"
-            android:textSize="@dimen/_13ssp"
+            android:textSize="@dimen/_11ssp"
+            android:layout_marginStart="1dp"
             android:layout_marginBottom="@dimen/_15sdp"
             android:text="@string/register_now"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -191,7 +190,7 @@
             android:layout_marginBottom="@dimen/_20sdp"
             android:text="@string/continue_as_a_guest"
             android:textColor="@color/black_200"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

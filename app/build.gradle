@@ -202,10 +202,6 @@ dependencies {
     // GMS
     implementation config.google.map_google
 
-
-    //Bottom Navigation View
-    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
-
-
-
+    //OTP
+    implementation "com.github.mukeshsolanki:android-otpview-pinview:2.0.3"
 }

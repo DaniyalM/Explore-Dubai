@@ -1,51 +1,44 @@
-package com.app.dubaiculture.ui.preLogin.login
+package com.app.dubaiculture.ui.preLogin.registeration
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
-import com.app.dubaiculture.databinding.FragmentLoginBinding
+import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.app.dubaiculture.ui.preLogin.password.bottomsheet.PasswordUpdatedFragment
+import com.app.dubaiculture.ui.preLogin.registeration.bottomsheet.OTPFragment
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 
-@AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener  {
-
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>() , View.OnClickListener {
     private val loginViewModel: LoginViewModel by viewModels()
+    private var modalDismissWithAnimation = false
 
-    override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ) = FragmentLoginBinding.inflate(inflater, container, false)
+
+    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentRegisterBinding.inflate(inflater, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel = loginViewModel
-        binding.fragment = this
-        changeLocalIntoAr()
-        binding.forgotPass.setOnClickListener(this)
-        binding.imgUaePass.setOnClickListener(this)
-
         subscribeUiEvents(loginViewModel)
+        subscribeToObservables()
+        binding.btnRegister.setOnClickListener(this)
 
-        binding.tvRegisterNow.setOnClickListener {
-            findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment2)
-        }
-        binding.tvAsGuest.setOnClickListener {
-            application.auth.isLoggedIn = true
-            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-        }
+
+//        binding.login.setOnClickListener {
+//            findNavController(this)
+//                .navigate(R.id.action_registerFragment2_to_loginFragment)
+//
+//        }
+//        binding.forgotPassword.setOnClickListener {
+//            loginViewModel.showToast("ForgotPassword!")
+//        }
     }
 
 
@@ -57,9 +50,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             }
         }
-        Handler(Looper.getMainLooper()).postDelayed({
-            loginViewModel.loginStatus.postValue(true)
-        }, 1000)
 
 //        loginViewModel.emailStatus.observe(viewLifecycleOwner) {
 //            binding.emailLayout.isErrorEnabled = false
@@ -77,16 +67,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //            }
 //        }
     }
+
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.forgot_pass->{
-                findNavController().navigate(R.id.action_loginFragment_to_forgotFragment)
-            }
-            R.id.img_uae_pass->{
+            R.id.btn_register->{
+//                navigate(R.id.action_registerFragment2_to_registrationSuccessFragment)
+                showModalOTPlBottomSheet()
             }
         }
     }
-    fun changeLocalIntoAr() {
-        setLanguage(Locale("en"))
+
+    private fun showModalOTPlBottomSheet() {
+        val modalBottomSheet = OTPFragment.newInstance(modalDismissWithAnimation)
+        modalBottomSheet.show(requireActivity().supportFragmentManager, OTPFragment.TAG)
     }
+
 }
