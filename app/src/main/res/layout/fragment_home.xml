@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.postLogin.home.HomeFragment">
     <RelativeLayout
@@ -32,12 +33,17 @@
         </LinearLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            app:fabCustomSize="55dp"
+            android:backgroundTint="@color/purple_900"
+            app:srcCompat="@drawable/happiness_meter"
             android:layout_centerHorizontal="true"
             android:clickable="true"
-            android:backgroundTint="@color/purple_900"
             android:focusable="true"
+            app:maxImageSize="60dp"
+            app:tint="@null"
             app:elevation="16dp"
             android:layout_above="@id/bottomNav"
             app:layout_anchor="@id/bottomNav"
