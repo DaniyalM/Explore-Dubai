@@ -203,4 +203,9 @@ dependencies {
     implementation config.google.map_google
 
 
+    //Bottom Navigation View
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
+
+
+
 }

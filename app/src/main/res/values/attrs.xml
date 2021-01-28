@@ -7,4 +7,11 @@
             <enum name="bold" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="FabBottomNavigationView">
+        <attr name="fab_cradle_margin" format="dimension"/>
+        <attr name="fab_cradle_rounded_corner_radius" format="dimension"/>
+        <attr name="cradle_vertical_offset" format="dimension"/>
+        <attr name="fab_size" format="dimension"/>
+    </declare-styleable>
 </resources>

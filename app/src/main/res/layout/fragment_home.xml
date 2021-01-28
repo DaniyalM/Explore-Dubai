@@ -8,18 +8,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+         />
+        </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/tab_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            style="@style/HomeTabStyle"/>-->
+
+        <com.app.dubaiculture.ui.components.bottomnavigation.FabBottomNavigationView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/HomeTabStyle"/>
+            android:layout_height="100dp"
+            android:background="@color/white_900"
+            app:menu="@menu/my_navigation_items"
+            app:itemTextColor="@color/bottom_nav_color"
+            app:itemIconTint="@color/bottom_nav_color"
+            android:id="@+id/bottomNav"/>
+
 
     </LinearLayout>
 </layout>
