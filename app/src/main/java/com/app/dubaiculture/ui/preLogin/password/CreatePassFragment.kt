@@ -5,13 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentCreatePassBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.password.bottomsheet.PasswordUpdatedFragment
+import com.app.dubaiculture.ui.preLogin.password.viewModel.CreatePassViewModel
+import com.app.dubaiculture.ui.preLogin.registeration.viewModel.RegistrationViewModel
 
 class CreatePassFragment : BaseFragment<FragmentCreatePassBinding>(),View.OnClickListener{
     private var modalDismissWithAnimation = false
+    private val createPassViewModel: CreatePassViewModel by viewModels()
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.btnSetPass.btn.setOnClickListener { showModalBottomSheet() }
