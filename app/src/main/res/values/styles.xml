@@ -136,4 +136,10 @@
 <!--        <item name="android:textStyle">bold</item>-->
 <!--        <item name="android:layout_marginTop">@dimen/_15sdp</item>-->
     </style>
+
+
+    <style name="MyFabStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/purple_900</item>
+        <item name="rippleColor">@color/gray_800</item>
+    </style>
 </resources>
