@@ -12,11 +12,12 @@ import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.ui.preLogin.password.bottomsheet.PasswordUpdatedFragment
 import com.app.dubaiculture.ui.preLogin.registeration.bottomsheet.OTPFragment
+import com.app.dubaiculture.ui.preLogin.registeration.viewModel.RegistrationViewModel
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() , View.OnClickListener {
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val registrationViewModel: RegistrationViewModel by viewModels()
     private var modalDismissWithAnimation = false
 
 
@@ -25,47 +26,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() , View.OnClickL
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.viewmodel = loginViewModel
-        subscribeUiEvents(loginViewModel)
-        subscribeToObservables()
+        subscribeUiEvents(registrationViewModel)
         binding.btnRegister.setOnClickListener(this)
 
-
-//        binding.login.setOnClickListener {
-//            findNavController(this)
-//                .navigate(R.id.action_registerFragment2_to_loginFragment)
-//
-//        }
-//        binding.forgotPassword.setOnClickListener {
-//            loginViewModel.showToast("ForgotPassword!")
-//        }
-    }
-
-
-    private fun subscribeToObservables() {
-        application.auth.isLoggedIn = false
-        loginViewModel.loginStatus.observe(viewLifecycleOwner) {
-            if (it) {
-                application.auth.isLoggedIn = true
-                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-            }
-        }
-
-//        loginViewModel.emailStatus.observe(viewLifecycleOwner) {
-//            binding.emailLayout.isErrorEnabled = false
-//            if (it) {
-//                binding.emailLayout.isErrorEnabled = true
-//                binding.emailLayout.error = "Invalid Email."
-//            }
-//        }
-//
-//        loginViewModel.passwordStatus.observe(viewLifecycleOwner) {
-//            binding.passWordLayout.isErrorEnabled = false
-//            if (it) {
-//                binding.passWordLayout.isErrorEnabled = true
-//                binding.passWordLayout.error = "Invalid Password."
-//            }
-//        }
     }
 
     override fun onClick(v: View?) {

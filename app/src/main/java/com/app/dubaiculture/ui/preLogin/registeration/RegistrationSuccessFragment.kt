@@ -13,15 +13,10 @@ import com.app.dubaiculture.ui.base.BaseFragment
 
 
 class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBinding>(), View.OnClickListener{
-
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.btnContinueReg.setOnClickListener(this)
-
     }
-
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -33,4 +28,5 @@ class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBin
             }
         }
     }
+
 }
