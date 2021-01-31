@@ -46,7 +46,7 @@ class UpComingEventsInnerAdapter(val glide: RequestManager) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val upComingEvents = upComingEvents[position]
         holder.itemView.apply {
-            glide.load(upComingEvents.image_url).into(attraction_image)
+//            glide.load(upComingEvents.image_url).into(attraction_image)
             attraction_title_text.text = upComingEvents.title
         }
     }

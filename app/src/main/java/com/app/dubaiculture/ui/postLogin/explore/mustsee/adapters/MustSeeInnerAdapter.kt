@@ -3,6 +3,7 @@ package com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -46,7 +47,7 @@ class MustSeeInnerAdapter (val glide: RequestManager) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val mustSee = mustSees[position]
         holder.itemView.apply {
-            glide.load(mustSee.image_url).into(attraction_image)
+//            glide.load(mustSee.image_url).into(attraction_image)
             attraction_title_text.text = mustSee.title
         }
     }
