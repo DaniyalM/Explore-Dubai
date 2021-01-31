@@ -204,4 +204,5 @@ dependencies {
 
     //OTP
     implementation "com.github.mukeshsolanki:android-otpview-pinview:2.0.3"
+    implementation 'com.rishabhharit.roundedimageview:RoundedImageView:0.8.4'
 }

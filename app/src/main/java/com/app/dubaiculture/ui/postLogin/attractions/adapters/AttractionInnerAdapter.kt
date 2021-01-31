@@ -45,7 +45,8 @@ class AttractionInnerAdapter(val glide: RequestManager) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val attraction = attractions[position]
         holder.itemView.apply {
-            glide.load(attraction.image_url).into(attraction_image)
+          //  glide.load(attraction.image_url).into(attraction_image)
+//            glide.load(attraction.image).into(attraction_image)
             attraction_title_text.text = attraction.title
         }
     }
