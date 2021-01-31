@@ -21,12 +21,9 @@ class ExploreRepository @Inject constructor(
 //                val resultLDS = photoLDS.getAll()
                 Result.Success(listLDS)
             }
-            is Result.Error -> {
-                resultRDS
-            }
-            is Result.Failure -> {
-                resultRDS
-            }
+            is Result.Error -> resultRDS
+            is Result.Failure -> resultRDS
+
         }
 
 
