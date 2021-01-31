@@ -8,16 +8,28 @@
         android:layout_margin="@dimen/_15sdp">
 
 
-            <ImageView
-                android:id="@+id/attraction_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="@drawable/explore_attraction_layout_bg"
+<!--            <ImageView-->
+<!--                android:visibility="gone"-->
+<!--                android:id="@+id/attraction_image"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="100dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                android:background="@drawable/explore_attraction_layout_bg"-->
+<!--                android:scaleType="fitXY" />-->
 
-                android:scaleType="fitXY" />
+        <com.rishabhharit.roundedimageview.RoundedImageView
+            android:id="@+id/attraction_image"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            app:cornerRadius="@dimen/_15sdp"
+            app:roundedCorners="topRight|bottomLeft"
+            app:srcCompat="@drawable/ic_launcher_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
