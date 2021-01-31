@@ -53,8 +53,8 @@
             app:fab_cradle_margin="2dp"
             app:fab_cradle_rounded_corner_radius="8dp"
             app:fab_size="50dp"
+            app:elevation="0dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/white_900"
             app:menu="@menu/my_navigation_items"
             app:itemTextColor="@color/bottom_nav_color"
             app:itemIconTint="@color/bottom_nav_color"
@@ -62,20 +62,19 @@
             android:id="@+id/bottomNav">
 
 
-            <ImageView
-                android:id="@+id/iv_add"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="15dp"
-                android:background="@drawable/happiness_meter"
-                android:contentDescription="@string/bottom_sheet_behavior"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="center"
-                android:layout_alignParentBottom="true"/>
+
 
         </com.app.dubaiculture.ui.components.bottomnavigation.FabBottomNavigationView>
 
-
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/happiness_meter"
+            android:contentDescription="@string/bottom_sheet_behavior"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@+id/bottomNav"
+           />
 
 
 
