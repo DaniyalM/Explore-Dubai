@@ -30,8 +30,10 @@
             <!--            android:layout_height="wrap_content"-->
             <!--            style="@style/HomeTabStyle"/>-->
         </LinearLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
+            android:visibility="gone"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -42,6 +44,7 @@
             android:layout_above="@id/bottomNav"
             app:layout_anchor="@id/bottomNav"
             app:layout_anchorGravity="fill_vertical|center_horizontal" />
+
 
         <com.app.dubaiculture.ui.components.bottomnavigation.FabBottomNavigationView
             android:layout_width="match_parent"
@@ -58,7 +61,24 @@
             app:labelVisibilityMode="labeled"
             android:id="@+id/bottomNav">
 
+
+            <ImageView
+                android:id="@+id/iv_add"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="15dp"
+                android:background="@drawable/happiness_meter"
+                android:contentDescription="@string/bottom_sheet_behavior"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:layout_alignParentBottom="true"/>
+
         </com.app.dubaiculture.ui.components.bottomnavigation.FabBottomNavigationView>
+
+
+
+
+
     </RelativeLayout>
 
 
