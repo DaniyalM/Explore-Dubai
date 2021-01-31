@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.data.repository.explore.local.models.Attraction
+import com.app.dubaiculture.data.repository.explore.local.models.MustSee
 import com.app.dubaiculture.data.repository.explore.local.models.TestItem
+import com.app.dubaiculture.data.repository.explore.local.models.UpComingEvents
 import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
@@ -45,6 +47,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     }
 
+
+
     private fun createAttractionItems(): List<Attraction> = mutableListOf<Attraction>().apply {
 
         repeat((1..70).count()) {
@@ -57,11 +61,42 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             )
         }
     }
-
-    private fun createTestItems(): List<TestItem> = mutableListOf<TestItem>().apply {
-
+    private fun createUpComingItems(): List<UpComingEvents> = mutableListOf<UpComingEvents>().apply {
 
         repeat((1..70).count()) {
+            add(
+                UpComingEvents(
+                    it - 1,
+                    "dubai culture ${it}",
+                    "https://cdn-sharing.adobecc.com/id/urn:aaid:sc:US:a8b582cb-91d1-4561-b05f-cfe1c0e7b414;version=0?component_id=a46d108d-0cd1-4619-86d9-53e449a87c1e&api_key=CometServer1&access_token=1611608278_urn%3Aaaid%3Asc%3AUS%3Aa8b582cb-91d1-4561-b05f-cfe1c0e7b414%3Bpublic_827967f49e41aad27f7dd2bb859c4045dc9c846e",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    false,
+                    ""
+                )
+            )
+        }
+    }
+    private fun createMustSeeItems(): List<MustSee> = mutableListOf<MustSee>().apply {
+
+        repeat((1..70).count()) {
+            add(
+
+                MustSee(
+                    it - 1,
+                    "dubai culture ${it}",
+                    "https://cdn-sharing.adobecc.com/id/urn:aaid:sc:US:a8b582cb-91d1-4561-b05f-cfe1c0e7b414;version=0?component_id=a46d108d-0cd1-4619-86d9-53e449a87c1e&api_key=CometServer1&access_token=1611608278_urn%3Aaaid%3Asc%3AUS%3Aa8b582cb-91d1-4561-b05f-cfe1c0e7b414%3Bpublic_827967f49e41aad27f7dd2bb859c4045dc9c846e",
+                    false,
+                    "",
+
+                )
+            )
+        }
+    }
+    private fun createTestItems(): List<TestItem> = mutableListOf<TestItem>().apply { repeat((0..2).count()) {
 
             add(
                 TestItem(
@@ -71,10 +106,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                     "title $it",
                     it,
                     it,
-                    createAttractionItems()
+                    createAttractionItems(),
+                    createUpComingItems(),
+                    createMustSeeItems()
                 )
             )
-        }
-    }
+        } }
 
 }
