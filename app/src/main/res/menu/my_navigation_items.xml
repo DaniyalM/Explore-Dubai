@@ -8,6 +8,10 @@
         android:id="@+id/action_events"
         android:icon="@drawable/events"
         android:title="@string/events" />
+
+    <item
+        android:id="@+id/hidden"
+        android:title="" />
     <item
         android:id="@+id/action_forums"
         android:icon="@drawable/attraction"
