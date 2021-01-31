@@ -36,7 +36,7 @@ class UpComingEventsInnerAdapter(val glide: RequestManager) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return UpComingEventsViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.attractions_item_cell,
+                R.layout.upcoming_events_item_cell,
                 parent,
                 false
             )
