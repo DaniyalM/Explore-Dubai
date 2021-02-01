@@ -48,7 +48,7 @@
 
         <com.app.dubaiculture.ui.components.bottomnavigation.FabBottomNavigationView
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:layout_gravity="bottom"
             app:fab_cradle_margin="2dp"
             app:fab_cradle_rounded_corner_radius="8dp"
@@ -68,8 +68,8 @@
 
         <ImageView
             android:id="@+id/iv_add"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/happiness_meter"
             android:contentDescription="@string/bottom_sheet_behavior"
             android:layout_centerHorizontal="true"
