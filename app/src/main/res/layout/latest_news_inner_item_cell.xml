@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/_245sdp"
+        android:layout_height="@dimen/_100sdp"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_10sdp"
+        app:cardMaxElevation="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.rishabhharit.roundedimageview.RoundedImageView
+                android:id="@+id/img_upcoming_bg"
+                app:cornerRadius="@dimen/_15sdp"
+                android:background="@drawable/gallery"
+                android:layout_margin="@dimen/_10sdp"
+                app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Collaboration and partnership with all its essential factor"
+                    android:textSize="@dimen/_10ssp"
+                    android:maxLines="3"
+                    android:textColor="@color/black_200"
+                    android:ellipsize="end"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    />
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="12 Nov,2020"
+                    android:textSize="@dimen/_10ssp"
+                    android:maxLines="3"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:drawableStart="@drawable/clock_gray"
+                    android:textColor="@color/gray_600"
+                    android:ellipsize="end"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
