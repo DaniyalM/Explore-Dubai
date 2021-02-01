@@ -96,7 +96,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             )
         }
     }
-    private fun createTestItems(): List<TestItem> = mutableListOf<TestItem>().apply { repeat((0..2).count()) {
+    private fun createTestItems(): List<TestItem> = mutableListOf<TestItem>().apply { repeat((1..3).count()) {
 
             add(
                 TestItem(

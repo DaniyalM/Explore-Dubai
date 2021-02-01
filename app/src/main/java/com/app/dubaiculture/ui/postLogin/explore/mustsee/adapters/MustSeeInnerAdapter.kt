@@ -12,6 +12,7 @@ import com.app.dubaiculture.data.repository.explore.local.models.MustSee
 import com.app.dubaiculture.data.repository.explore.local.models.UpComingEvents
 import com.bumptech.glide.RequestManager
 import kotlinx.android.synthetic.main.attractions_item_cell.view.*
+import kotlinx.android.synthetic.main.must_see_inner_item_cell.view.*
 
 class MustSeeInnerAdapter (val glide: RequestManager) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -37,7 +38,7 @@ class MustSeeInnerAdapter (val glide: RequestManager) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MustSeeViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.must_see_item_cell,
+                R.layout.must_see_inner_item_cell,
                 parent,
                 false
             )
@@ -48,7 +49,8 @@ class MustSeeInnerAdapter (val glide: RequestManager) :
         val mustSee = mustSees[position]
         holder.itemView.apply {
 //            glide.load(mustSee.image_url).into(attraction_image)
-            attraction_title_text.text = mustSee.title
+            category.text = mustSee.title
+            tv_heritage_title.text = mustSee.title
         }
     }
 

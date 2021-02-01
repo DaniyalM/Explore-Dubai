@@ -11,6 +11,7 @@
 
     </style>
 
+
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/LoginLayoutSuccessColor</item>
         <item name="boxStrokeWidth">2dp</item>
@@ -141,5 +142,12 @@
     <style name="MyFabStyle" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">@color/purple_900</item>
         <item name="rippleColor">@color/gray_800</item>
+    </style>
+
+    <style name="RoundedShape" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSizeBottomLeft">35dp</item>
+        <item name="cornerSizeTopRight">35dp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
     </style>
 </resources>
