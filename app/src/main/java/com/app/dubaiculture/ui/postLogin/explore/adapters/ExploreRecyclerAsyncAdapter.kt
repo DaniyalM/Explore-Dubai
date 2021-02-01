@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.explore.local.models.Attraction
 import com.app.dubaiculture.data.repository.explore.local.models.TestItem
-import com.app.dubaiculture.databinding.AttractionsItemContainerCellBinding
+import com.app.dubaiculture.data.repository.explore.local.models.UpComingEvents
 import com.app.dubaiculture.databinding.LargeItemCellBinding
+import com.app.dubaiculture.databinding.SectionItemContainerCellBinding
 import com.app.dubaiculture.databinding.SmallItemCellBinding
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
+import com.app.dubaiculture.ui.postLogin.events.adapters.UpComingEventsInnerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
 
@@ -21,7 +24,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var glide: RequestManager
+    var items: List<TestItem>
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
 
+    override fun getItemCount(): Int = items.size
+
+    fun provideGlideInstance(glide: RequestManager) { this.glide = glide }
 
     private val diffCallback = object : DiffUtil.ItemCallback<TestItem>() {
         override fun areItemsTheSame(oldItem: TestItem, newItem: TestItem): Boolean {
@@ -34,54 +43,29 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    var items: List<TestItem>
-        get() = differ.currentList
-        set(value) = differ.submitList(value)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             ViewTypes.ATTRACTION.type -> AttractionViewHolder(AttractionItemCell(parent.context).apply { inflate() })
-            else -> LargeItemViewHolder(LargeItemCell(parent.context).apply { inflate() })
+            else -> UpComingEventsViewHolder(UpComingEventsItemCell(parent.context).apply { inflate() })
         }
-
-    override fun getItemCount(): Int = items.size
-
-    fun provideGlideInstance(glide: RequestManager) {
-        this.glide = glide
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
-            is LargeItemViewHolder -> setUpLargeViewHolder(holder, position)
+            is UpComingEventsViewHolder -> setUpComingEventsViewHolder(holder, position)
         }
     }
-
-    private fun setUpLargeViewHolder(holder: LargeItemViewHolder, position: Int) {
-        (holder.itemView as LargeItemCell).bindWhenInflated {
-            items[position].let { item ->
-                holder.itemView.binding?.item = item
-            }
-        }
-    }
-
-//    private fun setUpSmallViewHolder(
-//        holder: SmallItemViewHolder,
-//        position: Int
-//    ) {
-//        (holder.itemView as SmallItemCell).bindWhenInflated {
-//            items[position].let { item ->
-//                holder.itemView.binding?.item = item
-//            }
-//        }
-//    }
-
-    private fun setUpAttractionViewHolder(holder: AttractionViewHolder, position: Int) {
+    private fun setUpAttractionViewHolder(
+        holder: ExploreRecyclerAsyncAdapter.AttractionViewHolder,
+        position: Int
+    ) {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val attractionInnerAdapter = AttractionInnerAdapter(glide)
-        (holder.itemView as AttractionItemCell).bindWhenInflated {
+        (holder.itemView as ExploreRecyclerAsyncAdapter.AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
-                holder.itemView.binding?.innerAttractionRv?.let {
+                holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager = layoutManager
                     it.adapter = attractionInnerAdapter
                     attractionInnerAdapter.attractions = item.attractions
@@ -90,56 +74,87 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         }
     }
 
-    private inner class LargeItemViewHolder(view: ViewGroup) :
-        RecyclerView.ViewHolder(view)
+    private fun setUpComingEventsViewHolder(
+        holder: ExploreRecyclerAsyncAdapter.UpComingEventsViewHolder,
+        position: Int
+    ) {
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val upComingEventsInnerAdapter = UpComingEventsInnerAdapter(glide)
+        (holder.itemView as ExploreRecyclerAsyncAdapter.UpComingEventsItemCell).bindWhenInflated {
+            items[position].let { item ->
+                holder.itemView.binding?.innerSectionRv?.let {
+                    it.layoutManager = layoutManager
+                    it.adapter = upComingEventsInnerAdapter
+                    upComingEventsInnerAdapter.upComingEvents = item.upComingEvents
+                }
+            }
+        }
+    }
 
-    private inner class SmallItemViewHolder(view: ViewGroup) :
-        RecyclerView.ViewHolder(view)
 
-    private inner class AttractionViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+
+
+    //View Holders of View Type
+
+    inner class AttractionViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+    inner class UpComingEventsViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+    //View Holders of View Type
 
     override fun getItemViewType(position: Int): Int = when {
 //        items[position].code % 2 == 0 -> ViewTypes.ATTRACTION.type
         position == 0 -> ViewTypes.ATTRACTION.type
-        else -> ViewTypes.LARGE.type
+        position == 1 -> ViewTypes.UPCOMINGEVENTS.type
+        else -> ViewTypes.ATTRACTION.type
     }
 
+
+    //Item Cells of ViewTypes
     private inner class AttractionItemCell(context: Context) : AsyncCell(context) {
-        var binding: AttractionsItemContainerCellBinding? = null
-        override val layoutId = R.layout.attractions_item_container_cell
+        var binding: SectionItemContainerCellBinding? = null
+        override val layoutId = R.layout.section_item_container_cell
         override fun createDataBindingView(view: View): View? {
-            binding = AttractionsItemContainerCellBinding.bind(view)
-            return view.rootView
-        }
-    }
+            binding = SectionItemContainerCellBinding.bind(view)
+            binding?.let {
+                it.innerSectionHeading.text = "Attractions"
+            }
 
-    private inner class LargeItemCell(context: Context) : AsyncCell(context) {
-        var binding: LargeItemCellBinding? = null
-        override val layoutId = R.layout.large_item_cell
-        override fun createDataBindingView(view: View): View? {
-            binding = LargeItemCellBinding.bind(view)
             return view.rootView
         }
     }
+    private inner class UpComingEventsItemCell(context: Context) : AsyncCell(context) {
+        var binding: SectionItemContainerCellBinding? = null
+        override val layoutId = R.layout.section_item_container_cell
+        override fun createDataBindingView(view: View): View? {
+            binding = SectionItemContainerCellBinding.bind(view)
+            binding?.let { it.innerSectionHeading.text = "UpComingEvents" }
+            return view.rootView
+        }
+    }
+    //Item Cells of ViewTypes
 
-    private inner class SmallItemCell(context: Context) : AsyncCell(context) {
-        var binding: SmallItemCellBinding? = null
-        override val layoutId = R.layout.small_item_cell
-        override fun createDataBindingView(view: View): View? {
-            binding = SmallItemCellBinding.bind(view)
-            return view.rootView
-        }
-    }
+
+//    private inner class LargeItemCell(context: Context) : AsyncCell(context) {
+//        var binding: LargeItemCellBinding? = null
+//        override val layoutId = R.layout.large_item_cell
+//        override fun createDataBindingView(view: View): View? {
+//            binding = LargeItemCellBinding.bind(view)
+//            return view.rootView
+//        }
+//    }
+
+
+
+    //Item Cells of ViewTypes
 
     enum class ViewTypes(val type: Int) {
         //        LARGE(0),
 //        SMALL(1),
         ATTRACTION(0),
-        LARGE(1),
+//        LARGE(1),
 
         //        MUSTSEE(2),
         PLANYOURTRIP(3),
-        UPCOMINGEVENTS(4),
+        UPCOMINGEVENTS(1),
         POPULARSERVICES(5),
         LATESTNEWS(6),
     }
