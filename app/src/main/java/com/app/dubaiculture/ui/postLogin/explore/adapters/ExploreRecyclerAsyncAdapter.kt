@@ -133,7 +133,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
     private inner class MustSeeItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
-        override val layoutId = R.layout.plan_you_trip_item_cell
+        override val layoutId = R.layout.section_item_container_cell
         override fun createDataBindingView(view: View): View? {
             binding = SectionItemContainerCellBinding.bind(view)
             binding?.let { it.innerSectionHeading.text = "Must See" }
@@ -142,7 +142,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
     private inner class PlanYourTripItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
-        override val layoutId = R.layout.section_item_container_cell
+        override val layoutId = R.layout.plan_you_trip_item_cell
         override fun createDataBindingView(view: View): View? {
             binding = SectionItemContainerCellBinding.bind(view)
             binding?.let { it.innerSectionHeading.text = "Must See" }
