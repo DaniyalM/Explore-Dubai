@@ -58,6 +58,7 @@
             android:layout_marginBottom="@dimen/_8sdp"
             android:text="MUSEUMS"
             android:textSize="@dimen/_10ssp"
+            android:id="@+id/category"
             android:textColor="@color/white_900"
             app:textFont="bold"
             />

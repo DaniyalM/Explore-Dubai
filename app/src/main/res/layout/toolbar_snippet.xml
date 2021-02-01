@@ -17,7 +17,9 @@
             android:contentInsetLeft="0dp"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+            >
+<!--            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"-->
+
 
             <LinearLayout
                 android:layout_width="match_parent"
