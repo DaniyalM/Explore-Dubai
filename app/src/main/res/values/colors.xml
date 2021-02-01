@@ -39,5 +39,7 @@
 
     <!--Login screen-->
   <color name="black_200">#2A2D31</color>
+    <color name="orange">#FE6500</color>
+
 
 </resources>
