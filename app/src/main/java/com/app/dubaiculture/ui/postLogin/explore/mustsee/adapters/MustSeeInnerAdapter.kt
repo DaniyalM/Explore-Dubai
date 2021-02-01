@@ -46,7 +46,7 @@ class MustSeeInnerAdapter (val glide: RequestManager) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val mustSee = mustSees[position]
         holder.itemView.apply {
-            glide.load(mustSee.image_url).into(attraction_image)
+//            glide.load(mustSee.image_url).into(attraction_image)
             attraction_title_text.text = mustSee.title
         }
     }

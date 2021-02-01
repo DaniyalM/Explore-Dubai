@@ -8,17 +8,34 @@
         android:layout_margin="@dimen/_15sdp">
 
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:id="@+id/attraction_image"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:background="@drawable/explore_attraction_layout_bg"-->
+<!--            android:scaleType="fitXY" />-->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/attraction_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            app:cardElevation="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/purple_900"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/explore_attraction_layout_bg"
+            app:shapeAppearance="@style/RoundedShape" >
 
-            android:scaleType="fitXY" />
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/fastival_icon_home"
+                />
 
+        </com.google.android.material.card.MaterialCardView>
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/attraction_title_text"
