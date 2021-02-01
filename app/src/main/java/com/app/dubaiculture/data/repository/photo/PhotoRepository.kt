@@ -24,7 +24,7 @@ class PhotoRepository @Inject constructor(
             when (val resultRDS = photoRDS.getPhotos()) {
                 is Result.Success -> {
                     // Single Source Of Truth -> get data from server -> save to db -> get from db to provide to UI
-                    val listRDS = resultRDS.data.photos
+                    val listRDS = resultRDS.value.photos
                     val listLDS = transform(listRDS)
                     photoLDS.insertAll(listLDS as MutableList<Photo>)
                     val resultLDS = photoLDS.getAll()
@@ -45,7 +45,7 @@ class PhotoRepository @Inject constructor(
     suspend fun getPaginatedPhotos(): Result<Flow<PagingData<Photo>>> {
         val res = photoRDS.getPaginatedPhotos()
         return if (res is Result.Success) {
-            Result.Success(res.data.map {
+            Result.Success(res.value.map {
                 it.map {
                     transform(it)
                 }
