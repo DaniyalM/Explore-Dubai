@@ -11,7 +11,6 @@
         android:layout_width="@dimen/_250sdp"
         android:layout_height="@dimen/_290sdp"
         app:cardCornerRadius="@dimen/_20sdp"
-        app:cardBackgroundColor="@color/purple_900"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -89,13 +88,13 @@
                 android:layout_height="wrap_content"
                 android:text="14"
                 android:layout_marginStart="@dimen/_18sdp"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_18sdp"
                 app:textFont="bold"
                 android:letterSpacing="0.3"
                 android:textStyle="bold"
                 android:textSize="@dimen/_20ssp"
                 app:layout_constraintTop_toBottomOf="@+id/guideline"
-                android:textColor="@color/white_900"
+                android:textColor="@color/purple_900"
                 app:layout_constraintStart_toStartOf="parent"
                 />
 
@@ -119,10 +118,10 @@
                 android:id="@+id/tv_end_date_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_18sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:letterSpacing="0.3"
                 android:text="20"
-                android:textColor="@color/white_900"
+                android:textColor="@color/purple_900"
                 android:textSize="@dimen/_20ssp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tv_end_month_event"
@@ -136,7 +135,7 @@
                 android:text="NOV, 20"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/_9ssp"
-                android:layout_marginBottom="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_18sdp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -145,9 +144,67 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_end_date_event"
                 app:textFont="bold" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_two"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2"
+                app:layout_constraintTop_toBottomOf="@+id/guideline"
+                />
 
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/lines"
+                android:layout_width="@dimen/_2sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:text="---------------------------"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_end_month_event"
+                app:layout_constraintStart_toStartOf="@+id/guideline_two"
+                app:layout_constraintTop_toTopOf="@+id/tv_start_date_event" />
 
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_workshop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/workshop"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                app:layout_constraintStart_toStartOf="@+id/guideline_two"
+                android:textColor="@color/purple_900"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@+id/tv_start_date_event"
+                app:textFont="bold" />
 
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_title"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="The Definitive Guide\nto an Uncertain World"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                app:layout_constraintStart_toStartOf="@+id/guideline_two"
+                app:layout_constraintTop_toBottomOf="@+id/tv_workshop"
+                android:textColor="@color/black_200"
+                android:textSize="@dimen/_14ssp"
+                 />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/location_icon_gray"
+                android:drawablePadding="@dimen/_7ssp"
+                android:ellipsize="end"
+                android:text="Palm Jumeriah Beach,Dubai"
+                android:textColor="@color/gray_600"
+                android:textSize="@dimen/_11ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_end_month_event"
+                app:layout_constraintStart_toStartOf="@+id/tv_workshop"
+                app:textFont="bold" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

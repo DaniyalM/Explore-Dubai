@@ -38,6 +38,7 @@
     <string name="enter_otp">Enter OTP</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="expires_in">Expires in</string>
+    <string name="workshop">WORKSHOP</string>
 
 </resources>
 
