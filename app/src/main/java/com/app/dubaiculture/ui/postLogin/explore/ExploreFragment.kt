@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.data.repository.explore.local.models.Attraction
 import com.app.dubaiculture.data.repository.explore.local.models.MustSee
@@ -12,6 +13,7 @@ import com.app.dubaiculture.data.repository.explore.local.models.UpComingEvents
 import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
+import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,6 +22,9 @@ import javax.inject.Inject
 class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     @Inject
     lateinit var glide: RequestManager
+
+    private val exploreViewModel: ExploreViewModel by viewModels()
+    private lateinit var explore: ExploreRecyclerAsyncAdapter
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -31,12 +36,14 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        explore = ExploreRecyclerAsyncAdapter(activity)
+        subscribeToObservable()
         setUpRecyclerView()
     }
 
     private fun setUpRecyclerView() {
-        val explore = ExploreRecyclerAsyncAdapter(activity)
-        explore.items = createTestItems()
+
+//        explore.items = createTestItems()
         binding.rvExplore.apply {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
@@ -47,6 +54,13 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     }
 
+    private fun subscribeToObservable() {
+        exploreViewModel.getExploreToScreen()
+        exploreViewModel.exploreList.observe(viewLifecycleOwner) {
+           it.let { explore.items=it }
+        }
+
+    }
 
 
     private fun createAttractionItems(): List<Attraction> = mutableListOf<Attraction>().apply {
@@ -63,23 +77,23 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     }
     private fun createUpComingItems(): List<UpComingEvents> = mutableListOf<UpComingEvents>().apply {
 
-        repeat((1..70).count()) {
-            add(
-                UpComingEvents(
-                    it - 1,
-                    "dubai culture ${it}",
-                    "https://cdn-sharing.adobecc.com/id/urn:aaid:sc:US:a8b582cb-91d1-4561-b05f-cfe1c0e7b414;version=0?component_id=a46d108d-0cd1-4619-86d9-53e449a87c1e&api_key=CometServer1&access_token=1611608278_urn%3Aaaid%3Asc%3AUS%3Aa8b582cb-91d1-4561-b05f-cfe1c0e7b414%3Bpublic_827967f49e41aad27f7dd2bb859c4045dc9c846e",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    false,
-                    ""
+            repeat((1..70).count()) {
+                add(
+                    UpComingEvents(
+                        it - 1,
+                        "dubai culture ${it}",
+                        "https://cdn-sharing.adobecc.com/id/urn:aaid:sc:US:a8b582cb-91d1-4561-b05f-cfe1c0e7b414;version=0?component_id=a46d108d-0cd1-4619-86d9-53e449a87c1e&api_key=CometServer1&access_token=1611608278_urn%3Aaaid%3Asc%3AUS%3Aa8b582cb-91d1-4561-b05f-cfe1c0e7b414%3Bpublic_827967f49e41aad27f7dd2bb859c4045dc9c846e",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        false,
+                        ""
+                    )
                 )
-            )
+            }
         }
-    }
     private fun createMustSeeItems(): List<MustSee> = mutableListOf<MustSee>().apply {
 
         repeat((1..70).count()) {
@@ -92,11 +106,12 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                     false,
                     "",
 
-                )
+                    )
             )
         }
     }
-    private fun createTestItems(): List<TestItem> = mutableListOf<TestItem>().apply { repeat((1..3).count()) {
+    private fun createTestItems(): List<TestItem> = mutableListOf<TestItem>().apply {
+        repeat((1..3).count()) {
 
             add(
                 TestItem(
@@ -111,6 +126,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                     createMustSeeItems()
                 )
             )
-        } }
+        }
+    }
 
 }
