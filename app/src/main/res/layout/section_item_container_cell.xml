@@ -30,5 +30,73 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/innerSectionHeading"
             app:layout_constraintVertical_bias="0.0" />
+
+<!--        <include-->
+<!--            android:id="@+id/plan_trip"-->
+<!--            layout="@layout/plan_you_trip_item_cell"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="100dp"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/innerSectionRv"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:layout_marginEnd="@dimen/_10sdp"-->
+<!--            android:layout_marginStart="@dimen/_10sdp"-->
+<!--            android:layout_marginTop="@dimen/_10sdp"-->
+<!--            />-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardview_plan_trip"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            app:layout_constraintTop_toBottomOf="@+id/innerSectionRv"
+            app:cardElevation="@dimen/_10sdp"
+            app:shapeAppearance="@style/RoundedShapePlanYourTrip" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_13sdp"
+                        android:textColor="@color/black_200"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="Plan Your Trip" />
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:textSize="@dimen/_10ssp"
+                        android:text="Create your customised trip"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:background="@drawable/dc_location_icon"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_40sdp"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <View
+            app:layout_constraintTop_toBottomOf="@+id/cardview_plan_trip"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

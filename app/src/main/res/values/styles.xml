@@ -150,4 +150,10 @@
         <item name="cornerFamilyTopRight">rounded</item>
         <item name="cornerFamilyBottomLeft">rounded</item>
     </style>
+    <style name="RoundedShapePlanYourTrip" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <item name="cornerSizeTopLeft">35dp</item>
+    <item name="cornerSizeBottomRight">35dp</item>
+    <item name="cornerFamilyTopLeft">rounded</item>
+    <item name="cornerFamilyBottomRight">rounded</item>
+</style>
 </resources>

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardview"
         android:layout_width="@dimen/_170sdp"
         android:layout_height="@dimen/_80sdp"
         app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_15sdp">
 
@@ -24,6 +30,7 @@
             android:background="@drawable/books_green_icon_home"
             />
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Apply for a culture visa"
@@ -38,4 +45,11 @@
 
 
     </com.google.android.material.card.MaterialCardView>
+        <View
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardview"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_15sdp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
