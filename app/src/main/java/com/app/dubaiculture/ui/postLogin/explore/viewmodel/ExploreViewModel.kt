@@ -26,8 +26,8 @@ class ExploreViewModel @ViewModelInject constructor(
                 is Result.Success->{
                     _exploreList.value=result.value
                 }
-                is Result.Error -> result.exception
-                is Result.Failure -> result.isNetWorkError
+                is Result.Error -> result
+                is Result.Failure -> result
             }
         }
     }

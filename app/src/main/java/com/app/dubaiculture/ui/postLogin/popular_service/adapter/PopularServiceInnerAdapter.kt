@@ -7,28 +7,28 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.PopularServices
+import com.app.dubaiculture.data.repository.explore.local.models.InnerValue
 import com.bumptech.glide.RequestManager
 import kotlinx.android.synthetic.main.popular_service_inner_item_cell.view.*
 
 class PopularServiceInnerAdapter(val glide: RequestManager) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<PopularServices>() {
-        override fun areItemsTheSame(oldItem: PopularServices, newItem: PopularServices): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<InnerValue>() {
+        override fun areItemsTheSame(oldItem: InnerValue, newItem: InnerValue): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: PopularServices,
-            newItem: PopularServices
+            oldItem: InnerValue,
+            newItem: InnerValue
         ): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    var popularService: List<PopularServices>
+    var popularService: List<InnerValue>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 

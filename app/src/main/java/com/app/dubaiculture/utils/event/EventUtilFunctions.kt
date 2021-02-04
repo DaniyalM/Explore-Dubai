@@ -16,12 +16,15 @@ object EventUtilFunctions {
 
     fun showLoader(show: Boolean, customProgressDialog: ProgressDialog?) {
         if (show) {
-            customProgressDialog?.show()
+            customProgressDialog?.apply {
+                if (!isShowing) show()
+            }
         } else {
-            customProgressDialog?.hide()
+            customProgressDialog?.apply {
+                dismiss()
+            }
         }
     }
-
     fun showSnackbar(view: View, message: String, action: (() -> Unit)? = null) {
 
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)

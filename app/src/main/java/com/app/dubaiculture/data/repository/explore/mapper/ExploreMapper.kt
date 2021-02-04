@@ -16,6 +16,5 @@ fun transformExplore(list: List<ExploreDTO>): List<Explore> = list.run {
             category = it.category,
             value = it.value
         )
-
     }
 }

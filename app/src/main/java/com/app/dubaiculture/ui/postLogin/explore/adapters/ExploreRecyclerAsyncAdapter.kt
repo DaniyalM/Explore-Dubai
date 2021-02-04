@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.*
+import com.app.dubaiculture.data.repository.explore.local.models.Explore
+import com.app.dubaiculture.data.repository.explore.remote.response.ExploreDTO
 import com.app.dubaiculture.databinding.SectionItemContainerCellBinding
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.UpComingEventsInnerAdapter
@@ -22,7 +23,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private lateinit var glide: RequestManager
+    private var attractionInnerAdapter: AttractionInnerAdapter? = null
+    private var upComingEventsInnerAdapter: UpComingEventsInnerAdapter? = null
+    private var mustSeeInnerAdapter: MustSeeInnerAdapter? = null
+    private var latestNewsInnerAdapter: LatestNewsInnerAdapter ?=null
+    private var popularServiceInnerAdapter: PopularServiceInnerAdapter?=null
+
+
     var items: List<Explore>
         get() = differ.currentList
         set(value) = differ.submitList(value)
@@ -30,8 +37,18 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     override fun getItemCount(): Int = items.size
 
     fun provideGlideInstance(glide: RequestManager) {
-        this.glide = glide
+
+
+        attractionInnerAdapter = AttractionInnerAdapter(glide)
+        upComingEventsInnerAdapter = UpComingEventsInnerAdapter(glide)
+        mustSeeInnerAdapter = MustSeeInnerAdapter(glide)
+        latestNewsInnerAdapter = LatestNewsInnerAdapter(glide)
+        popularServiceInnerAdapter = PopularServiceInnerAdapter(glide)
+
+
     }
+
+
 
     private val diffCallback = object : DiffUtil.ItemCallback<Explore>() {
         override fun areItemsTheSame(oldItem: Explore, newItem: Explore): Boolean {
@@ -45,15 +62,14 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private val differ = AsyncListDiffer(this, diffCallback)
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             ViewTypes.ATTRACTION.type -> AttractionViewHolder(AttractionItemCell(parent.context).apply { inflate() })
             ViewTypes.MUSTSEE.type -> MustSeeViewHolder(MustSeeItemCell(parent.context).apply { inflate() })
             ViewTypes.UPCOMINGEVENTS.type -> UpComingEventsViewHolder(UpComingEventsItemCell(parent.context).apply { inflate() })
             ViewTypes.POPULARSERVICES.type -> PopularServiceViewHolder(PopularServiceCell(parent.context).apply { inflate() })
-            ViewTypes.LATESTNEWS.type-> LatestNewViewHolder(LatestNewsItemCell(parent.context).apply { inflate() })
-            else ->PopularServiceViewHolder(PopularServiceCell(parent.context).apply { inflate() })
+            ViewTypes.LATESTNEWS.type -> LatestNewViewHolder(LatestNewsItemCell(parent.context).apply { inflate() })
+            else -> PopularServiceViewHolder(PopularServiceCell(parent.context).apply { inflate() })
 
         }
 
@@ -64,7 +80,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             is MustSeeViewHolder -> setMustSeeViewHolder(holder, position)
             is PopularServiceViewHolder -> setPopularServiceViewHolder(holder, position)
             is LatestNewViewHolder -> setLatestNewsViewHolder(holder, position)
-
         }
     }
 
@@ -74,19 +89,12 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         position: Int
     ) {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val attractionInnerAdapter = AttractionInnerAdapter(glide)
         (holder.itemView as ExploreRecyclerAsyncAdapter.AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager = layoutManager
                     it.adapter = attractionInnerAdapter
-                    attractionInnerAdapter.attractions = item.value.map {
-                        Attraction(
-                            id = it.id,
-                            title = it.title,
-                            image_url = it.image_url
-                        )
-                    }
+                    attractionInnerAdapter?.attractions = item.value
                 }
             }
         }
@@ -97,26 +105,12 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         position: Int
     ) {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val upComingEventsInnerAdapter = UpComingEventsInnerAdapter(glide)
         (holder.itemView as ExploreRecyclerAsyncAdapter.UpComingEventsItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager = layoutManager
                     it.adapter = upComingEventsInnerAdapter
-                    upComingEventsInnerAdapter.upComingEvents = item.value.map {
-                        UpComingEvents(
-                            id = it.id,
-                            title = it.title,
-                            category = it.category,
-                            location = it.location,
-                            start_date = it.starting_date,
-                            end_date = it.ending_data,
-                            price_tag = it.price_tag,
-                            image_url = it.image_url,
-                            is_liked = it.is_liked,
-                            date = it.date
-                        )
-                    }
+                    upComingEventsInnerAdapter?.upComingEvents = item.value
                 }
             }
         }
@@ -127,65 +121,45 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         position: Int
     ) {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val mustSeeInnerAdapter = MustSeeInnerAdapter(glide)
         (holder.itemView as ExploreRecyclerAsyncAdapter.MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager = layoutManager
                     it.adapter = mustSeeInnerAdapter
-                    mustSeeInnerAdapter.mustSees = item.value.map {
-                        MustSee(
-                            id = it.id,
-                            title = it.title,
-                            category = it.category,
-                            image_url = it.image_url,
-                            is_liked = it.is_liked
-                        )
-                    }
+                    mustSeeInnerAdapter?.mustSees = item.value
                 }
             }
         }
     }
 
-
-    private fun setLatestNewsViewHolder(holder: ExploreRecyclerAsyncAdapter.LatestNewViewHolder, position: Int) {
+    private fun setLatestNewsViewHolder(
+        holder: ExploreRecyclerAsyncAdapter.LatestNewViewHolder,
+        position: Int
+    ) {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val latestNewsInnerAdapter = LatestNewsInnerAdapter(glide)
         (holder.itemView as ExploreRecyclerAsyncAdapter.LatestNewsItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager = layoutManager
                     it.adapter = latestNewsInnerAdapter
-                    latestNewsInnerAdapter.latestNews = item.value.map {
-                        LatestNews(
-                            id = it.id,
-                            title = it.title,
-                            category = it.category,
-                            image_url = it.image_url,
-                            date = it.date
-                        )
-                    }
+                    latestNewsInnerAdapter?.latestNews = item.value
                 }
             }
         }
     }
 
-    private fun setPopularServiceViewHolder(holder: ExploreRecyclerAsyncAdapter.PopularServiceViewHolder, position: Int) {
+    private fun setPopularServiceViewHolder(
+        holder: ExploreRecyclerAsyncAdapter.PopularServiceViewHolder,
+        position: Int
+    ) {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val popularServiceInnerAdapter = PopularServiceInnerAdapter(glide)
         (holder.itemView as ExploreRecyclerAsyncAdapter.PopularServiceCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager = layoutManager
                     it.adapter = popularServiceInnerAdapter
-                    popularServiceInnerAdapter.popularService = item.value.map {
-                        PopularServices(
-                            id = it.id,
-                            title = it.title,
-                            image_url = it.image_url
-                        )
-                    }
+                    popularServiceInnerAdapter?.popularService = item.value
                 }
             }
         }
@@ -238,6 +212,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
+
     private inner class PopularServiceCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -268,7 +243,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
-
 
 
     //Item Cells of ViewTypes
