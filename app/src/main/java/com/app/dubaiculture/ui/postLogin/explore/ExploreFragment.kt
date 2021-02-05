@@ -14,6 +14,7 @@ import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlin.math.exp
 
 @AndroidEntryPoint
 class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
@@ -55,6 +56,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun subscribeToObservable() {
         exploreViewModel.getExploreToScreen()
         exploreViewModel.exploreList.observe(viewLifecycleOwner) {
+
            it.let { explore.items=it }
         }
 

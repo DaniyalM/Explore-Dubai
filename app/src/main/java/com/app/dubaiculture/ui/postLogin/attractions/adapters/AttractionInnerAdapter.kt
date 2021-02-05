@@ -8,24 +8,25 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Attraction
+import com.app.dubaiculture.data.repository.explore.local.models.InnerValue
 import com.bumptech.glide.RequestManager
 import kotlinx.android.synthetic.main.attractions_item_cell.view.*
 
 class AttractionInnerAdapter(val glide: RequestManager) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Attraction>() {
-        override fun areItemsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<InnerValue>() {
+        override fun areItemsTheSame(oldItem: InnerValue, newItem: InnerValue): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {
+        override fun areContentsTheSame(oldItem: InnerValue, newItem: InnerValue): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    var attractions: List<Attraction>
+    var attractions: List<InnerValue>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
