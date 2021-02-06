@@ -24,12 +24,19 @@
         <action
             android:id="@+id/action_loginFragment_to_forgotFragment"
             app:destination="@id/forgotFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_bottomSheet"
+            app:destination="@id/bottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
         tools:layout="@layout/fragment_register"
         android:name="com.app.dubaiculture.ui.preLogin.registeration.RegisterFragment"
-        android:label="RegisterFragment" />
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment2_to_bottomSheet"
+            app:destination="@id/bottomSheet" />
+    </fragment>
     <fragment
         android:id="@+id/forgotFragment"
         tools:layout="@layout/fragment_forgot_"
@@ -53,9 +60,9 @@
         android:id="@+id/bottomSheet"
         android:name="com.app.dubaiculture.ui.preLogin.registeration.bottomsheet.OTPFragment"
         tools:layout="@layout/fragment_o_t_p" >
-        <action
-            android:id="@+id/action_bottomSheet_to_registrationSuccessFragment"
-            app:destination="@id/registrationSuccessFragment" />
+        <argument
+            android:name="verificationCode"
+            app:argType="string"/>
     </dialog>
 
 </navigation>

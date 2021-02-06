@@ -8,18 +8,14 @@ import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.PostLoginActivity
-import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
-import com.app.dubaiculture.ui.preLogin.password.bottomsheet.PasswordUpdatedFragment
 import com.app.dubaiculture.ui.preLogin.registeration.bottomsheet.OTPFragment
 import com.app.dubaiculture.ui.preLogin.registeration.viewModel.RegistrationViewModel
-import com.app.dubaiculture.utils.killSessionAndStartNewActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class RegisterFragment : BaseFragment<FragmentRegisterBinding>() , View.OnClickListener {
+@AndroidEntryPoint
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickListener {
     private val registrationViewModel: RegistrationViewModel by viewModels()
     private var modalDismissWithAnimation = false
-
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentRegisterBinding.inflate(inflater, container, false)
@@ -28,14 +24,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() , View.OnClickL
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(registrationViewModel)
         binding.btnRegister.setOnClickListener(this)
+        binding.viewmodel = registrationViewModel
 
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.btn_register->{
+        when (v?.id) {
+            R.id.btn_register -> {
 //                navigate(R.id.action_registerFragment2_to_registrationSuccessFragment)
-                showModalOTPlBottomSheet()
             }
         }
     }

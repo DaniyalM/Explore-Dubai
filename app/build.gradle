@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 //apply plugin: 'com.google.gms.google-services'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 def config = rootProject.extensions.getByName("ext")
 
 
@@ -50,7 +51,7 @@ android {
             applicationIdSuffix ".debug"
             minifyEnabled false
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -68,13 +69,14 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
             signingConfig signingConfigs.stagConfig
 
+           // buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
 
         }
         prod {
@@ -82,12 +84,14 @@ android {
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_PROD\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_PROD\"")
             signingConfig signingConfigs.prodConfig
+
+//            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
 
         }
     }

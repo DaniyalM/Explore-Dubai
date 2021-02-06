@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
@@ -98,16 +99,33 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                                 event.action
                             )
                         }
+                        is UiEvent.NavigateByDirections -> {
+                            navigateByDirections(event.navDirections)
+                        }
+                        is UiEvent.NavigateByAction -> {
+                            navigateByAction(event.actionId, event.bundle)
+                        }
                     }
                 }
         })
     }
 
-    protected fun back(){
+    fun navigateByDirections(navDirections: NavDirections) {
+        EventUtilFunctions.navigateByDirections(this, navDirections)
+
+    }
+
+    fun navigateByAction(actionId: Int, bundle: Bundle? = null) {
+        EventUtilFunctions.navigateByAction(this, actionId, bundle)
+
+    }
+
+    protected fun back() {
         findNavController().popBackStack()
     }
-    protected fun navigate(@IdRes resId: Int, bundle: Bundle?=null){
-findNavController().navigate(resId,bundle)
+
+    protected fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
+        findNavController().navigate(resId, bundle)
     }
 
     public fun setLanguage(locale: Locale) {
@@ -117,5 +135,6 @@ findNavController().navigate(resId,bundle)
     public fun getCurrentLanguage(): Locale {
         return (activity as BaseActivity).getCurrentLanguage()
     }
+
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
 }

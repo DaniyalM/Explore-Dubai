@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel" />
+            type="com.app.dubaiculture.ui.preLogin.registeration.viewModel.RegistrationViewModel" />
     </data>
 
 
@@ -71,15 +72,40 @@
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_fullName"
             style="@style/EditTextStyle"
-            android:imeOptions="actionNext"
-            android:hint="@string/enter_full_name"
+            android:layout_marginTop="12dp"
+            android:background="@{viewmodel.isfullName ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
             android:drawableEnd="@drawable/username_register"
-            app:layout_constraintStart_toStartOf="parent"
+            android:hint="@string/enter_full_name"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:onTextChanged="@{viewmodel::onFullNameChanged}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/full_name" />
+            app:layout_constraintHorizontal_bias="0.906"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/full_name"
+            tools:src="@drawable/bg_edit_resiger" />
 
 
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/customTextView2"
+            style="@style/TextViewErrorRegistration"
+            android:text="@{viewmodel.isfullName ? @string/no_error :  @string/err_first_name }"
 
+            app:layout_constraintBottom_toBottomOf="@+id/full_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/full_name"
+            app:layout_constraintTop_toTopOf="@+id/full_name" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@{viewmodel.isfullName ? null : @drawable/error }"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_fullName"
+            app:layout_constraintEnd_toEndOf="@+id/edit_fullName"
+            app:layout_constraintTop_toTopOf="@+id/edit_fullName" />
 
 
 
@@ -92,18 +118,37 @@
             app:layout_constraintStart_toStartOf="@+id/edit_fullName"
             />
 
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            style="@style/TextViewErrorRegistration"
+            android:text="@{viewmodel.isEmail ? @string/no_error :  @string/err_email }"
+            app:layout_constraintBottom_toBottomOf="@+id/email_address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/email_address"
+            app:layout_constraintTop_toTopOf="@+id/email_address" />
+
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_email_address"
             style="@style/EditTextStyle"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:hint="@string/email_address"
+            android:onTextChanged="@{viewmodel::onEmailChanged}"
             android:drawableEnd="@drawable/message_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_address" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/email_address"
+            tools:src="@drawable/bg_edit_resiger"
+            android:text="@{viewmodel.email}"
+            android:background="@{viewmodel.isEmail ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"/>
+        <ImageView
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@{viewmodel.isEmail ? null : @drawable/error }"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_email_address"
+            app:layout_constraintEnd_toEndOf="@+id/edit_email_address"
+            app:layout_constraintTop_toTopOf="@+id/edit_email_address" />
 
 
 
@@ -119,20 +164,39 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_email_address"
             app:layout_constraintStart_toStartOf="@+id/edit_email_address"
             />
-
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            style="@style/TextViewErrorRegistration"
+            android:text="@{viewmodel.isPhone ? @string/no_error :  @string/err_phone }"
+            app:layout_constraintBottom_toBottomOf="@+id/mob_num"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/mob_num"
+            app:layout_constraintTop_toTopOf="@+id/mob_num" />
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_mobile"
             android:hint="@string/enter_mobile_number"
             style="@style/EditTextStyle"
             android:imeOptions="actionNext"
-            android:inputType="phone"
+            android:maxLength="12"
+            android:inputType="number"
             android:drawableEnd="@drawable/mob_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mob_num" />
+            app:layout_constraintTop_toBottomOf="@+id/mob_num"
+            android:text="@{viewmodel.phone}"
+            android:onTextChanged="@{viewmodel::onPhoneChanged}"
+            tools:src="@drawable/bg_edit_resiger"
+            android:background="@{viewmodel.isPhone ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"/>
 
 
-
+        <ImageView
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@{viewmodel.isPhone ? null : @drawable/error }"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_mobile"
+            app:layout_constraintEnd_toEndOf="@+id/edit_mobile"
+            app:layout_constraintTop_toTopOf="@+id/edit_mobile" />
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -142,20 +206,39 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_mobile"
             app:layout_constraintStart_toStartOf="@+id/edit_mobile"
             />
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            style="@style/TextViewErrorRegistration"
+            android:text="@{viewmodel.isPassword ? @string/no_error :  @string/err_password }"
+            app:layout_constraintBottom_toBottomOf="@+id/password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/password"
+            app:layout_constraintTop_toTopOf="@+id/password" />
 
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_pass"
             style="@style/EditTextStyle"
             android:hint="@string/password"
+            android:onTextChanged="@{viewmodel::onPasswordChanged}"
+            android:text="@={viewmodel.password}"
             android:imeOptions="actionNext"
-            android:inputType="textPassword"
             android:drawableEnd="@drawable/key_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            tools:src="@drawable/bg_edit_resiger"
+            android:background="@{viewmodel.isPassword ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"/>
 
 
 
+        <ImageView
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@{viewmodel.isPassword ? null : @drawable/error }"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_pass"
+            app:layout_constraintEnd_toEndOf="@+id/edit_pass"
+            app:layout_constraintTop_toTopOf="@+id/edit_pass" />
 
 
 
@@ -167,6 +250,14 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_pass"
             app:layout_constraintStart_toStartOf="@+id/edit_pass"
             />
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            style="@style/TextViewErrorRegistration"
+            android:text="@{viewmodel.isPasswordConfirm ? @string/no_error :  @string/err_confirm }"
+            app:layout_constraintBottom_toBottomOf="@+id/confirm_pass"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/confirm_pass"
+            app:layout_constraintTop_toTopOf="@+id/confirm_pass" />
 
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_confirm_pass"
@@ -174,27 +265,50 @@
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:hint="@string/confirm_password"
+            android:onTextChanged="@{viewmodel::onConfirmPasswordChanged}"
             android:drawableEnd="@drawable/key_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/confirm_pass" />
+            app:layout_constraintTop_toBottomOf="@+id/confirm_pass"
+            tools:src="@drawable/bg_edit_resiger"
+            android:background="@{viewmodel.isPasswordConfirm ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"/>
 
-
+        <ImageView
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@{viewmodel.isPasswordConfirm ? null : @drawable/error }"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_confirm_pass"
+            app:layout_constraintEnd_toEndOf="@+id/edit_confirm_pass"
+            app:layout_constraintTop_toTopOf="@+id/edit_confirm_pass" />
         <CheckBox
             android:id="@+id/checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:onCheckedChanged="@{viewmodel.onTermsChecked}"
             android:layout_marginTop="@dimen/_25sdp"
             android:paddingStart="@dimen/_5sdp"
+            android:buttonTint="#000000"
             app:layout_constraintStart_toStartOf="@+id/confirm_pass"
-            android:text="@string/i_agree_to_the_terms_and_conditions"
             app:layout_constraintTop_toBottomOf="@+id/edit_confirm_pass"
             />
 
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:layout_marginStart="-10dp"
+            android:textColor="@color/black_200"
+            android:text="@string/i_agree_to_the_terms_and_conditions"
+            app:layout_constraintBottom_toBottomOf="@+id/checkbox"
+            app:layout_constraintStart_toEndOf="@+id/checkbox"
+            app:layout_constraintTop_toTopOf="@+id/checkbox" />
+
         <Button
             android:id="@+id/btn_register"
+            android:enabled="@{viewmodel.btnEnabled}"
            android:background="@drawable/btn_register"
+            android:onClick="@{()-> viewmodel.register()}"
             app:layout_constraintTop_toBottomOf="@+id/checkbox"
             app:layout_constraintStart_toStartOf="@+id/edit_confirm_pass"
            app:layout_constraintEnd_toEndOf="@+id/edit_confirm_pass"
@@ -232,7 +346,7 @@
             android:textSize="@dimen/_11ssp"
             android:layout_marginStart="1dp"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:text="@string/register_now"
+            android:text="@string/login_here"
             android:layout_marginTop="@dimen/_25sdp"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintEnd_toEndOf="parent"

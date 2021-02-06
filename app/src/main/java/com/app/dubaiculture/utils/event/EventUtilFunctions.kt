@@ -1,8 +1,12 @@
 package com.app.dubaiculture.utils.event
 
 import android.content.Context
+import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.utils.ProgressDialog
 import com.google.android.material.snackbar.Snackbar
 
@@ -24,6 +28,12 @@ object EventUtilFunctions {
                 dismiss()
             }
         }
+    }
+    fun navigateByDirections(fragment: Fragment, navDirections: NavDirections) {
+        fragment.findNavController().navigate(navDirections)
+    }
+    fun navigateByAction(fragment: Fragment, actionId: Int, bundle: Bundle?) {
+        fragment.findNavController().navigate(actionId, bundle)
     }
     fun showSnackbar(view: View, message: String, action: (() -> Unit)? = null) {
 
