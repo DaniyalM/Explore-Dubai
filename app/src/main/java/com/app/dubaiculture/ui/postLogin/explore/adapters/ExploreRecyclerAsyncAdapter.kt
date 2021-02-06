@@ -3,13 +3,9 @@ package com.app.dubaiculture.ui.postLogin.explore.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
-import com.app.dubaiculture.data.repository.explore.remote.response.ExploreDTO
 import com.app.dubaiculture.databinding.SectionItemContainerCellBinding
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.UpComingEventsInnerAdapter
@@ -26,8 +22,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private var attractionInnerAdapter: AttractionInnerAdapter? = null
     private var upComingEventsInnerAdapter: UpComingEventsInnerAdapter? = null
     private var mustSeeInnerAdapter: MustSeeInnerAdapter? = null
-    private var latestNewsInnerAdapter: LatestNewsInnerAdapter ?=null
-    private var popularServiceInnerAdapter: PopularServiceInnerAdapter?=null
+    private var latestNewsInnerAdapter: LatestNewsInnerAdapter? = null
+    private var popularServiceInnerAdapter: PopularServiceInnerAdapter? = null
+
 
 
     var items: List<Explore>
@@ -49,7 +46,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
 
-
     private val diffCallback = object : DiffUtil.ItemCallback<Explore>() {
         override fun areItemsTheSame(oldItem: Explore, newItem: Explore): Boolean {
             return oldItem.value == newItem.value
@@ -68,12 +64,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             ViewTypes.MUSTSEE.type -> MustSeeViewHolder(MustSeeItemCell(parent.context).apply { inflate() })
             ViewTypes.UPCOMINGEVENTS.type -> UpComingEventsViewHolder(UpComingEventsItemCell(parent.context).apply { inflate() })
             ViewTypes.POPULARSERVICES.type -> PopularServiceViewHolder(PopularServiceCell(parent.context).apply { inflate() })
-            ViewTypes.LATESTNEWS.type -> LatestNewViewHolder(LatestNewsItemCell(parent.context).apply { inflate() })
-            else -> PopularServiceViewHolder(PopularServiceCell(parent.context).apply { inflate() })
+//            ViewTypes.LATESTNEWS.type ->
+            else -> LatestNewViewHolder(LatestNewsItemCell(parent.context).apply { inflate() })
 
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
         when (holder) {
             is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
             is UpComingEventsViewHolder -> setUpComingEventsViewHolder(holder, position)
@@ -88,11 +85,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         holder: ExploreRecyclerAsyncAdapter.AttractionViewHolder,
         position: Int
     ) {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
         (holder.itemView as ExploreRecyclerAsyncAdapter.AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = layoutManager
+                    it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = attractionInnerAdapter
                     attractionInnerAdapter?.attractions = item.value
                 }
@@ -104,11 +101,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         holder: ExploreRecyclerAsyncAdapter.UpComingEventsViewHolder,
         position: Int
     ) {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         (holder.itemView as ExploreRecyclerAsyncAdapter.UpComingEventsItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = layoutManager
+                    it.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = upComingEventsInnerAdapter
                     upComingEventsInnerAdapter?.upComingEvents = item.value
                 }
@@ -120,12 +116,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         holder: ExploreRecyclerAsyncAdapter.MustSeeViewHolder,
         position: Int
     ) {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         (holder.itemView as ExploreRecyclerAsyncAdapter.MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = layoutManager
+                    it.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = mustSeeInnerAdapter
                     mustSeeInnerAdapter?.mustSees = item.value
                 }
@@ -137,11 +132,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         holder: ExploreRecyclerAsyncAdapter.LatestNewViewHolder,
         position: Int
     ) {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         (holder.itemView as ExploreRecyclerAsyncAdapter.LatestNewsItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = layoutManager
+                    it.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = latestNewsInnerAdapter
                     latestNewsInnerAdapter?.latestNews = item.value
                 }
@@ -153,11 +147,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         holder: ExploreRecyclerAsyncAdapter.PopularServiceViewHolder,
         position: Int
     ) {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         (holder.itemView as ExploreRecyclerAsyncAdapter.PopularServiceCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = layoutManager
+                    it.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = popularServiceInnerAdapter
                     popularServiceInnerAdapter?.popularService = item.value
                 }
@@ -192,6 +185,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         }
 
 
+
     //Item Cells of ViewTypes
     private inner class AttractionItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
@@ -202,7 +196,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
-
     private inner class MustSeeItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -212,7 +205,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
-
     private inner class PopularServiceCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -222,7 +214,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
-
     private inner class UpComingEventsItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -232,8 +223,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
-
-
     private inner class LatestNewsItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -245,24 +234,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
 
-    //Item Cells of ViewTypes
-//    private inner class LargeItemCell(context: Context) : AsyncCell(context) {
-//        var binding: LargeItemCellBinding? = null
-//        override val layoutId = R.layout.large_item_cell
-//        override fun createDataBindingView(view: View): View? {
-//            binding = LargeItemCellBinding.bind(view)
-//            return view.rootView
-//        }
-//    }
-
 
     //Item Cells of ViewTypes
     enum class ViewTypes(val type: Int) {
         ATTRACTION(0),
         MUSTSEE(1),
-        PLANYOURTRIP(4),
         UPCOMINGEVENTS(2),
         POPULARSERVICES(3),
-        LATESTNEWS(5),
+        LATESTNEWS(4),
     }
 }

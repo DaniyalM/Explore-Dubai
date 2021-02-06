@@ -27,71 +27,69 @@
 
         <ImageView
             android:id="@+id/img_like"
-            android:padding="@dimen/_8sdp"
-            android:background="@drawable/heart_icon_home"
-            android:layout_margin="@dimen/_15sdp"
-            android:layout_gravity="end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_gravity="bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_view_title"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardElevation="@dimen/_5sdp"
-        app:cardCornerRadius="@dimen/_15sdp"
-        app:cardBackgroundColor="@color/purple_900"
-      >
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:text="MUSEUMS"
-            android:textSize="@dimen/_10ssp"
-            android:id="@+id/category"
-            android:textColor="@color/white_900"
-            />
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/_15sdp"
+            android:background="@drawable/heart_icon_home"
+            android:padding="@dimen/_8sdp" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-               android:id="@+id/tv_heritage_title"
-                android:maxLines="2"
-                android:ellipsize="end"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_view_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                app:cardBackgroundColor="@color/purple_900"
+                app:cardCornerRadius="@dimen/_15sdp"
+                app:cardElevation="@dimen/_5sdp">
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:text="MUSEUMS"
+                    android:textColor="@color/white_900"
+                    android:textSize="@dimen/_10ssp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_heritage_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_17sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="Discover The Iconic\nDubai Museum"
                 android:textColor="@color/white_900"
-                android:textSize="@dimen/_14ssp"
-                />
+                android:textSize="@dimen/_14ssp" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_17sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:text="Palm Jumeriah Beach,Dubai"
-                android:ellipsize="end"
-                android:drawablePadding="@dimen/_7ssp"
-                android:textColor="@color/white_900"
                 android:drawableStart="@drawable/heritiage_icon_home"
-                android:textSize="@dimen/_10ssp"
-                />
+                android:drawablePadding="@dimen/_7ssp"
+                android:ellipsize="end"
+                android:text="Palm Jumeriah Beach,Dubai"
+                android:textColor="@color/white_900"
+                android:textSize="@dimen/_10ssp" />
 
         </LinearLayout>
 

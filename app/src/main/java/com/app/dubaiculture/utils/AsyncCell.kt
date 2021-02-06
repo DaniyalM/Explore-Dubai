@@ -7,9 +7,9 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
 import androidx.asynclayoutinflater.view.AsyncLayoutInflater
 
-open class AsyncCell(context: Context) : FrameLayout(context, null, 0, 0) {
+open class AsyncCell(context: Context,width:Int= MATCH_PARENT) : FrameLayout(context, null, 0, 0) {
     init {
-        layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        layoutParams = LayoutParams(width, WRAP_CONTENT)
     }
 
     open val layoutId = -1
