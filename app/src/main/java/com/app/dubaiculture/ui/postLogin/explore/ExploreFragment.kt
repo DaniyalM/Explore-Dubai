@@ -5,16 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.dubaiculture.data.repository.explore.local.models.*
+import androidx.recyclerview.widget.LinearSnapHelper
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
+import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.exp
+
 
 @AndroidEntryPoint
 class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
@@ -46,18 +50,30 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         binding.rvExplore.apply {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
+
             adapter = explore
             explore.provideGlideInstance(glide)
+            LinearSnapHelper().attachToRecyclerView(this)
+
 
         }
 
     }
 
     private fun subscribeToObservable() {
-        exploreViewModel.getExploreToScreen()
-        exploreViewModel.exploreList.observe(viewLifecycleOwner) {
+        lifecycleScope.launch {
+            exploreViewModel.getExploreToScreen()
+        }
 
-           it.let { explore.items=it }
+        exploreViewModel.exploreList.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    it.let { explore.items = it.value }
+                }
+                is Result.Failure -> handleApiError(it)
+            }
+
+
         }
 
     }
