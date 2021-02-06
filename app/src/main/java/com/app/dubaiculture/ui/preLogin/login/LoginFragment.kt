@@ -81,7 +81,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.forgot_pass->{
-                navigate(R.id.action_loginFragment_to_bottomSheet)
+//                navigate(R.id.action_loginFragment_to_bottomSheet)
             }
             R.id.img_uae_pass->{
             }
