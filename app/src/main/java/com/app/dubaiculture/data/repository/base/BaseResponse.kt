@@ -1,12 +1,14 @@
 package com.app.dubaiculture.data.repository.base
 
+import com.google.gson.annotations.SerializedName
+
 open class BaseResponse() {
+    @SerializedName(value = "Succeeded")
+    val succeeded: Boolean = false
+
+    @SerializedName(value = "StatusCode")
     val statusCode: Int = 0
-    var status: String? = ""
-    var transactionStatus: Boolean = false
-    var errorMessage: String? = ""
-    var errorMessages: List<String> = listOf()
-    var message: String? = ""
-    var transactionStatusCode: Int? = 0
-    var successful: Boolean = false
+
+    @SerializedName(value = "ErrorMessage")
+    val errorMessage: String = ""
 }

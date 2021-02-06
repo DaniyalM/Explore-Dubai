@@ -1,9 +1,13 @@
 package com.app.dubaiculture.ui.base
 
 import android.app.Application
+import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.utils.event.Event
 import com.app.dubaiculture.utils.event.UiEvent
 import com.app.dubaiculture.data.Result
@@ -22,8 +26,8 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun showToast(message: String) {
-//        _uiEventsLiveData.value = Event(UiEvent.ShowToast(message))
-        _uiEventsLiveData.postValue(Event(UiEvent.ShowToast(message)))
+        _uiEventsLiveData.value = Event(UiEvent.ShowToast(message))
+//        _uiEventsLiveData.postValue(Event(UiEvent.ShowToast(message)))
 
     }
 
@@ -32,6 +36,13 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
     }
 
+    fun navigateByDirections(navDirections: NavDirections) {
+        _uiEventsLiveData.value = Event(UiEvent.NavigateByDirections(navDirections))
+    }
+
+    fun navigateByAction(actionId: Int, bundle: Bundle? = null) {
+        _uiEventsLiveData.value = Event(UiEvent.NavigateByAction(actionId, bundle))
+    }
     fun handleApiError(
         failure: Result.Failure,
         retry: (() -> Unit)? = null

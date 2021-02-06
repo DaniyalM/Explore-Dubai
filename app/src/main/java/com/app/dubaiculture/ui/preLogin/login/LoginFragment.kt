@@ -32,12 +32,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel = loginViewModel
+        subscribeUiEvents(loginViewModel)
+
         binding.fragment = this
         changeLocalIntoAr()
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
 
-        subscribeUiEvents(loginViewModel)
 
         binding.tvRegisterNow.setOnClickListener {
             findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment2)
@@ -80,7 +81,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.forgot_pass->{
-                findNavController().navigate(R.id.action_loginFragment_to_forgotFragment)
+                navigate(R.id.action_loginFragment_to_bottomSheet)
             }
             R.id.img_uae_pass->{
             }
