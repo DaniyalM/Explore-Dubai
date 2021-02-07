@@ -70,7 +70,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                 is Result.Success -> {
                     it.let { explore.items = it.value }
                 }
-                is Result.Failure -> handleApiError(it)
+                is Result.Failure ->handleApiError(it,exploreViewModel)
             }
 
 

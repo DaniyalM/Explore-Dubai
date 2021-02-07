@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.RequestBody
@@ -63,27 +64,27 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
 
 fun Fragment.handleApiError(
     failure: Result.Failure,
+    baseViewModel: BaseViewModel,
     retry: (() -> Unit)? = null
 ) {
     when {
-        failure.isNetWorkError -> requireView().snackbar(
+        failure.isNetWorkError ->  baseViewModel.showSnackbar(
             "Please Check Your Internet Connection",
             retry
         )
         failure.errorCode == 401 -> {
             if (this is LoginFragment){
-                requireView().snackbar("You have entered incorrect email or password")
+                baseViewModel.showSnackbar("You have entered incorrect email or password")
             }else{
 
-                requireView().snackbar("Server Error.")
+                baseViewModel.showSnackbar("Server Error.")
             }
 
         }
         else ->{
 
             val error= failure.errorBody?.string().toString()
-            requireView().snackbar(error)
-            Toast.makeText(requireContext(),error,Toast.LENGTH_SHORT).show()
+            baseViewModel.showSnackbar(error)
 
         }
     }
