@@ -254,11 +254,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     //        items[position].code % 2 == 0 -> ViewTypes.ATTRACTION.type
     override fun getItemViewType(position: Int): Int =
         when (items[position].category) {
-            "attraction" -> ViewTypes.ATTRACTION.type
-            "must_see" -> ViewTypes.MUSTSEE.type
-            "upcoming_events" -> ViewTypes.UPCOMINGEVENTS.type
-            "popular_services" -> ViewTypes.POPULARSERVICES.type
-            "latest_news" -> ViewTypes.LATESTNEWS.type
+            "AttractionsCategory" -> ViewTypes.ATTRACTION.type
+            "Attractions" -> ViewTypes.MUSTSEE.type
+            "Events" -> ViewTypes.UPCOMINGEVENTS.type
+            "EServices" -> ViewTypes.POPULARSERVICES.type
+            "News" -> ViewTypes.LATESTNEWS.type
             else -> ViewTypes.ATTRACTION.type
         }
 

@@ -5,6 +5,7 @@ import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.login.remote.LoginRDS
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.login.remote.response.LoginResponse
+import com.app.dubaiculture.data.repository.registeration.mapper.transform
 import com.app.dubaiculture.data.repository.registeration.remote.mapper.transform
 import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequest
 import javax.inject.Inject

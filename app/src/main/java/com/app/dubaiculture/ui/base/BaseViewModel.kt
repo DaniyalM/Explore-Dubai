@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.utils.event.Event
 import com.app.dubaiculture.utils.event.UiEvent
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.ui.preLogin.login.LoginFragment
 
 abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
     private val _uiEventsLiveData = MutableLiveData<Event<UiEvent>>()
@@ -43,18 +44,5 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     fun navigateByAction(actionId: Int, bundle: Bundle? = null) {
         _uiEventsLiveData.value = Event(UiEvent.NavigateByAction(actionId, bundle))
     }
-    fun handleApiError(
-        failure: Result.Failure,
-        retry: (() -> Unit)? = null
-    ) {
-        when {
-            failure.isNetWorkError -> showSnackbar("Please check your connection", retry)
-            failure.errorCode == 400 -> showSnackbar("Content not found", retry)
-            else -> {
-                val error = failure.errorBody?.string().toString()
-                showSnackbar(error)
-            }
-        }
 
-    }
 }
