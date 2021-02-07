@@ -3,10 +3,15 @@ package com.app.dubaiculture.ui.postLogin.explore.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.*
+import android.widget.Toast
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.databinding.SectionItemContainerCellBinding
+import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.UpComingEventsInnerAdapter
 import com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters.MustSeeInnerAdapter
@@ -24,7 +29,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private var mustSeeInnerAdapter: MustSeeInnerAdapter? = null
     private var latestNewsInnerAdapter: LatestNewsInnerAdapter? = null
     private var popularServiceInnerAdapter: PopularServiceInnerAdapter? = null
-
 
 
     var items: List<Explore>
@@ -89,9 +93,24 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         (holder.itemView as ExploreRecyclerAsyncAdapter.AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    it.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = attractionInnerAdapter
                     attractionInnerAdapter?.attractions = item.value
+                    it.addOnItemTouchListener(
+                        RecyclerItemClickListener(
+                            context,
+                            it,
+                            object : RecyclerItemClickListener.OnItemClickListener {
+                                override fun onItemClick(view: View, position: Int) {
+                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+
+                                }
+                            })
+                    )
                 }
             }
         }
@@ -104,9 +123,24 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         (holder.itemView as ExploreRecyclerAsyncAdapter.UpComingEventsItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    it.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = upComingEventsInnerAdapter
                     upComingEventsInnerAdapter?.upComingEvents = item.value
+                    it.addOnItemTouchListener(
+                        RecyclerItemClickListener(
+                            context,
+                            it,
+                            object : RecyclerItemClickListener.OnItemClickListener {
+                                override fun onItemClick(view: View, position: Int) {
+                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+
+                                }
+                            })
+                    )
                 }
             }
         }
@@ -120,9 +154,23 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             items[position].let { item ->
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    it.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = mustSeeInnerAdapter
                     mustSeeInnerAdapter?.mustSees = item.value
+                    it.addOnItemTouchListener(
+                        RecyclerItemClickListener(
+                            context,
+                            it,
+                            object : RecyclerItemClickListener.OnItemClickListener {
+                                override fun onItemClick(view: View, position: Int) {
+                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+                                }
+                            })
+                    )
                 }
             }
         }
@@ -135,9 +183,24 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         (holder.itemView as ExploreRecyclerAsyncAdapter.LatestNewsItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    it.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = latestNewsInnerAdapter
                     latestNewsInnerAdapter?.latestNews = item.value
+                    it.addOnItemTouchListener(
+                        RecyclerItemClickListener(
+                            context,
+                            it,
+                            object : RecyclerItemClickListener.OnItemClickListener {
+                                override fun onItemClick(view: View, position: Int) {
+                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+
+                                }
+                            })
+                    )
                 }
             }
         }
@@ -150,9 +213,24 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         (holder.itemView as ExploreRecyclerAsyncAdapter.PopularServiceCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    it.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = popularServiceInnerAdapter
                     popularServiceInnerAdapter?.popularService = item.value
+                    it.addOnItemTouchListener(
+                        RecyclerItemClickListener(
+                            context,
+                            it,
+                            object : RecyclerItemClickListener.OnItemClickListener {
+                                override fun onItemClick(view: View, position: Int) {
+                                 Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+
+                                }
+                            })
+                    )
                 }
             }
         }
@@ -185,7 +263,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         }
 
 
-
     //Item Cells of ViewTypes
     private inner class AttractionItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
@@ -196,6 +273,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
+
     private inner class MustSeeItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -205,6 +283,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
+
     private inner class PopularServiceCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -214,6 +293,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
+
     private inner class UpComingEventsItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -223,6 +303,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
+
     private inner class LatestNewsItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -232,7 +313,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
-
 
 
     //Item Cells of ViewTypes

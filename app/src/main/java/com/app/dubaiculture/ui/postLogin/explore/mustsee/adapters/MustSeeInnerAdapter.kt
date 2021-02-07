@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.InnerValue
+import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.app.dubaiculture.databinding.MustSeeInnerItemCellBinding
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
@@ -15,18 +15,18 @@ import com.bumptech.glide.RequestManager
 class MustSeeInnerAdapter(val glide: RequestManager) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<InnerValue>() {
-        override fun areItemsTheSame(oldItem: InnerValue, newItem: InnerValue): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<BaseModel>() {
+        override fun areItemsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: InnerValue, newItem: InnerValue): Boolean {
+        override fun areContentsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    var mustSees: List<InnerValue>
+    var mustSees: List<BaseModel>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
@@ -52,7 +52,7 @@ class MustSeeInnerAdapter(val glide: RequestManager) :
     override fun getItemCount() = mustSees.size
 
 
-    private inner class MustSeeInnerItemCell(context: Context) : AsyncCell(context,550) {
+    private inner class MustSeeInnerItemCell(context: Context) : AsyncCell(context,true) {
         var binding: MustSeeInnerItemCellBinding? = null
         override val layoutId = R.layout.must_see_inner_item_cell
         override fun createDataBindingView(view: View): View? {

@@ -1,39 +1,35 @@
 package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.InnerValue
-import com.app.dubaiculture.databinding.LatestNewsInnerItemCellBinding
+import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.app.dubaiculture.databinding.PopularServiceInnerItemCellBinding
-import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsInnerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
-import kotlinx.android.synthetic.main.popular_service_inner_item_cell.view.*
 
 class PopularServiceInnerAdapter(val glide: RequestManager) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<InnerValue>() {
-        override fun areItemsTheSame(oldItem: InnerValue, newItem: InnerValue): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<BaseModel>() {
+        override fun areItemsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: InnerValue,
-            newItem: InnerValue
+            oldItem: BaseModel,
+            newItem: BaseModel
         ): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    var popularService: List<InnerValue>
+    var popularService: List<BaseModel>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
@@ -57,7 +53,7 @@ class PopularServiceInnerAdapter(val glide: RequestManager) :
 
     override fun getItemCount() = popularService.size
 
-    private inner class PopularServiceInnerItemCell(context: Context) : AsyncCell(context,450) {
+    private inner class PopularServiceInnerItemCell(context: Context) : AsyncCell(context,true) {
         var binding: PopularServiceInnerItemCellBinding? = null
         override val layoutId = R.layout.popular_service_inner_item_cell
         override fun createDataBindingView(view: View): View? {
