@@ -63,7 +63,7 @@
     </fragment>
     <dialog
         android:id="@+id/bottomSheet"
-        android:name="com.app.dubaiculture.ui.preLogin.registeration.bottomsheet.OTPFragment"
+        android:name="com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragment"
         tools:layout="@layout/fragment_o_t_p" >
         <argument
             android:name="verificationCode"

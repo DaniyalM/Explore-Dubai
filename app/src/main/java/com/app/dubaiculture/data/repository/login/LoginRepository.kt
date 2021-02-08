@@ -18,12 +18,8 @@ class LoginRepository @Inject constructor(private val loginRDS: LoginRDS):BaseRe
                     is Result.Success->{
                         Result.Success(resultRDS.value)
                     }
-                    is Result.Error->{
-                        Result.Error(resultRDS.exception)
-                    }
-                    is Result.Failure ->{
-                        Result.Failure(resultRDS.isNetWorkError, resultRDS.errorCode, resultRDS.errorBody)
-                    }
+                    is Result.Error->resultRDS
+                    is Result.Failure ->resultRDS
             }
         }
 }

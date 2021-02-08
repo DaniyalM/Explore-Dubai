@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.preLogin.registeration.bottomsheet.OTPViewModel" />
+            type="com.app.dubaiculture.ui.preLogin.registeration.otp.viewmodel.OTPViewModel" />
 
     </data>
 
@@ -17,7 +17,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.preLogin.registeration.bottomsheet.OTPFragment">
+    tools:context=".ui.preLogin.registeration.otp.OTPFragment">
 
     <ImageView
         android:id="@+id/gray_line"

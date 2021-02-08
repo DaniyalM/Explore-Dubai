@@ -67,11 +67,7 @@ class AttractionInnerAdapter(val glide: RequestManager) :
         position: Int
     ) {
         (holder.itemView as AttractionInnerAdapter.AttractionInnerItemCell).bindWhenInflated {
-            attractions[position].let { item ->
-//                holder.itemView.binding?.innerSectionRv?.let {
-//
-//                }
-            }
+            holder.itemView.binding?.attractions=attractions[position]
         }
     }
 

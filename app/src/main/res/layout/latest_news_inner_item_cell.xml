@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginBottom="@dimen/_15sdp"
         android:layout_width="wrap_content"
@@ -39,7 +42,7 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Collaboration and partnership with all its essential factor"
+                    android:text="@{news.title}"
                     android:textSize="@dimen/_10ssp"
                     android:maxLines="3"
                     android:textColor="@color/black_200"

@@ -67,11 +67,7 @@ class MustSeeInnerAdapter(val glide: RequestManager) :
         position: Int
     ) {
         (holder.itemView as MustSeeInnerAdapter.MustSeeInnerItemCell).bindWhenInflated {
-            mustSees[position].let { item ->
-//                holder.itemView.binding?.innerSectionRv?.let {
-//
-//                }
-            }
+            holder.itemView.binding?.mustsee=mustSees[position]
         }
     }
 

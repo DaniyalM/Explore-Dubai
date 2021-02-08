@@ -27,7 +27,7 @@ data class BaseModel (
 
     @SerializedName("LocationTitle")
     @Expose
-    var locationTitle: String? = null,
+    var locationTitle: String? = "",
 
     @SerializedName("Location")
     @Expose

@@ -55,11 +55,7 @@ class UpComingEventsInnerAdapter(val glide: RequestManager) :
         position: Int
     ) {
         (holder.itemView as UpComingEventsInnerAdapter.UpcomingEventsInnerItemCell).bindWhenInflated {
-            upComingEvents[position].let { item ->
-//                holder.itemView.binding?.innerSectionRv?.let {
-//
-//                }
-            }
+            holder.itemView.binding?.events=upComingEvents[position]
         }
     }
 
