@@ -53,7 +53,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
             adapter = explore
             explore.provideGlideInstance(glide)
-            LinearSnapHelper().attachToRecyclerView(this)
+//            LinearSnapHelper().attachToRecyclerView(this)
 
 
         }

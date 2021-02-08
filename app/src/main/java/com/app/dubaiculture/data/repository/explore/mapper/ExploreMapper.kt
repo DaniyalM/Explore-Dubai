@@ -6,13 +6,14 @@ import com.app.dubaiculture.data.repository.explore.remote.response.ExploreRespo
 
 
 fun transformExplore(exploreResponse: ExploreResponse): List<Explore> =
-    exploreResponse.value.run {
+    exploreResponse.Result.value.run {
         transformExplore(this)
     }
 
 fun transformExplore(list: List<ExploreDTO>): List<Explore> = list.run {
     this.map {
         Explore(
+            title = it.title,
             category = it.category,
             value = it.value
         )

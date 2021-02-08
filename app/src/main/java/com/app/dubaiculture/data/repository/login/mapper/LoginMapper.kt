@@ -1,4 +1,4 @@
-package com.app.dubaiculture.data.repository.registeration.remote.mapper
+package com.app.dubaiculture.data.repository.registeration.mapper
 
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequestDTO
