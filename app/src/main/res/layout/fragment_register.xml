@@ -133,13 +133,13 @@
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:hint="@string/email_address"
-            android:onTextChanged="@{viewmodel::onEmailChanged}"
             android:drawableEnd="@drawable/message_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_address"
             tools:src="@drawable/bg_edit_resiger"
             android:text="@{viewmodel.email}"
+            android:onTextChanged="@{viewmodel::onEmailChanged}"
             android:background="@{viewmodel.isEmail ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"/>
         <ImageView
             android:layout_marginEnd="@dimen/_12sdp"
@@ -166,7 +166,7 @@
             />
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isPhone ? @string/no_error :  @string/err_phone }"
+            android:text="@{viewmodel.isPhone ? @string/no_error :  @string/mobile_number_ }"
             app:layout_constraintBottom_toBottomOf="@+id/mob_num"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
@@ -219,14 +219,14 @@
             android:id="@+id/edit_pass"
             style="@style/EditTextStyle"
             android:hint="@string/password"
-            android:onTextChanged="@{viewmodel::onPasswordChanged}"
-            android:text="@={viewmodel.password}"
             android:imeOptions="actionNext"
             android:drawableEnd="@drawable/key_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
             tools:src="@drawable/bg_edit_resiger"
+            android:onTextChanged="@{viewmodel::onPasswordChanged}"
+            android:text="@={viewmodel.password}"
             android:background="@{viewmodel.isPassword ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"/>
 
 
@@ -306,8 +306,8 @@
 
         <Button
             android:id="@+id/btn_register"
-            android:enabled="@{viewmodel.btnEnabled}"
            android:background="@drawable/btn_register"
+            android:enabled="@{viewmodel.btnEnabled}"
             android:onClick="@{()-> viewmodel.register()}"
             app:layout_constraintTop_toBottomOf="@+id/checkbox"
             app:layout_constraintStart_toStartOf="@+id/edit_confirm_pass"
