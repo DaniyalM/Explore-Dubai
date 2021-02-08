@@ -1,9 +1,8 @@
-package com.app.dubaiculture.ui.preLogin.registeration.bottomsheet
+package com.app.dubaiculture.ui.preLogin.registeration.otp.viewmodel
 
 import android.app.Application
 import android.os.CountDownTimer
 import android.text.format.DateUtils
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.app.dubaiculture.data.Result
@@ -37,7 +36,7 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
         // Creates a timer which triggers the end of the game when it finishes
         timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
-                _currentTime.value = millisUntilFinished/ONE_SECOND
+                _currentTime.value = millisUntilFinished/ ONE_SECOND
             }
             override fun onFinish() {
                 _currentTime.value = DONE
