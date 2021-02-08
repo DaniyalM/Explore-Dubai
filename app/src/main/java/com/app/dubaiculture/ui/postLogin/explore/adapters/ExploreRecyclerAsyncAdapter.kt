@@ -3,13 +3,15 @@ package com.app.dubaiculture.ui.postLogin.explore.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.*
+import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.databinding.SectionItemContainerCellBinding
+import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.UpComingEventsInnerAdapter
 import com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters.MustSeeInnerAdapter
@@ -22,7 +24,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private lateinit var glide: RequestManager
+    private var attractionInnerAdapter: AttractionInnerAdapter? = null
+    private var upComingEventsInnerAdapter: UpComingEventsInnerAdapter? = null
+    private var mustSeeInnerAdapter: MustSeeInnerAdapter? = null
+    private var latestNewsInnerAdapter: LatestNewsInnerAdapter? = null
+    private var popularServiceInnerAdapter: PopularServiceInnerAdapter? = null
+
+
     var items: List<Explore>
         get() = differ.currentList
         set(value) = differ.submitList(value)
@@ -30,8 +38,17 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     override fun getItemCount(): Int = items.size
 
     fun provideGlideInstance(glide: RequestManager) {
-        this.glide = glide
+
+
+        attractionInnerAdapter = AttractionInnerAdapter(glide)
+        upComingEventsInnerAdapter = UpComingEventsInnerAdapter(glide)
+        mustSeeInnerAdapter = MustSeeInnerAdapter(glide)
+        latestNewsInnerAdapter = LatestNewsInnerAdapter(glide)
+        popularServiceInnerAdapter = PopularServiceInnerAdapter(glide)
+
+
     }
+
 
     private val diffCallback = object : DiffUtil.ItemCallback<Explore>() {
         override fun areItemsTheSame(oldItem: Explore, newItem: Explore): Boolean {
@@ -45,26 +62,25 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private val differ = AsyncListDiffer(this, diffCallback)
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             ViewTypes.ATTRACTION.type -> AttractionViewHolder(AttractionItemCell(parent.context).apply { inflate() })
             ViewTypes.MUSTSEE.type -> MustSeeViewHolder(MustSeeItemCell(parent.context).apply { inflate() })
             ViewTypes.UPCOMINGEVENTS.type -> UpComingEventsViewHolder(UpComingEventsItemCell(parent.context).apply { inflate() })
             ViewTypes.POPULARSERVICES.type -> PopularServiceViewHolder(PopularServiceCell(parent.context).apply { inflate() })
-            ViewTypes.LATESTNEWS.type-> LatestNewViewHolder(LatestNewsItemCell(parent.context).apply { inflate() })
-            else ->PopularServiceViewHolder(PopularServiceCell(parent.context).apply { inflate() })
+//            ViewTypes.LATESTNEWS.type ->
+            else -> LatestNewViewHolder(LatestNewsItemCell(parent.context).apply { inflate() })
 
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
         when (holder) {
             is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
             is UpComingEventsViewHolder -> setUpComingEventsViewHolder(holder, position)
             is MustSeeViewHolder -> setMustSeeViewHolder(holder, position)
             is PopularServiceViewHolder -> setPopularServiceViewHolder(holder, position)
             is LatestNewViewHolder -> setLatestNewsViewHolder(holder, position)
-
         }
     }
 
@@ -73,20 +89,28 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         holder: ExploreRecyclerAsyncAdapter.AttractionViewHolder,
         position: Int
     ) {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val attractionInnerAdapter = AttractionInnerAdapter(glide)
+
         (holder.itemView as ExploreRecyclerAsyncAdapter.AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = layoutManager
+                    it.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = attractionInnerAdapter
-                    attractionInnerAdapter.attractions = item.value.map {
-                        Attraction(
-                            id = it.id,
-                            title = it.title,
-                            image_url = it.image_url
-                        )
-                    }
+                    attractionInnerAdapter?.attractions = item.value
+                    it.addOnItemTouchListener(
+                        RecyclerItemClickListener(
+                            context,
+                            it,
+                            object : RecyclerItemClickListener.OnItemClickListener {
+                                override fun onItemClick(view: View, position: Int) {
+                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+
+                                }
+                            })
+                    )
                 }
             }
         }
@@ -96,27 +120,27 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         holder: ExploreRecyclerAsyncAdapter.UpComingEventsViewHolder,
         position: Int
     ) {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val upComingEventsInnerAdapter = UpComingEventsInnerAdapter(glide)
         (holder.itemView as ExploreRecyclerAsyncAdapter.UpComingEventsItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = layoutManager
+                    it.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = upComingEventsInnerAdapter
-                    upComingEventsInnerAdapter.upComingEvents = item.value.map {
-                        UpComingEvents(
-                            id = it.id,
-                            title = it.title,
-                            category = it.category,
-                            location = it.location,
-                            start_date = it.starting_date,
-                            end_date = it.ending_data,
-                            price_tag = it.price_tag,
-                            image_url = it.image_url,
-                            is_liked = it.is_liked,
-                            date = it.date
-                        )
-                    }
+                    upComingEventsInnerAdapter?.upComingEvents = item.value
+                    it.addOnItemTouchListener(
+                        RecyclerItemClickListener(
+                            context,
+                            it,
+                            object : RecyclerItemClickListener.OnItemClickListener {
+                                override fun onItemClick(view: View, position: Int) {
+                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+
+                                }
+                            })
+                    )
                 }
             }
         }
@@ -126,66 +150,87 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         holder: ExploreRecyclerAsyncAdapter.MustSeeViewHolder,
         position: Int
     ) {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val mustSeeInnerAdapter = MustSeeInnerAdapter(glide)
         (holder.itemView as ExploreRecyclerAsyncAdapter.MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = layoutManager
+                    it.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = mustSeeInnerAdapter
-                    mustSeeInnerAdapter.mustSees = item.value.map {
-                        MustSee(
-                            id = it.id,
-                            title = it.title,
-                            category = it.category,
-                            image_url = it.image_url,
-                            is_liked = it.is_liked
-                        )
-                    }
+                    mustSeeInnerAdapter?.mustSees = item.value
+                    it.addOnItemTouchListener(
+                        RecyclerItemClickListener(
+                            context,
+                            it,
+                            object : RecyclerItemClickListener.OnItemClickListener {
+                                override fun onItemClick(view: View, position: Int) {
+                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+                                }
+                            })
+                    )
                 }
             }
         }
     }
 
-
-    private fun setLatestNewsViewHolder(holder: ExploreRecyclerAsyncAdapter.LatestNewViewHolder, position: Int) {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val latestNewsInnerAdapter = LatestNewsInnerAdapter(glide)
+    private fun setLatestNewsViewHolder(
+        holder: ExploreRecyclerAsyncAdapter.LatestNewViewHolder,
+        position: Int
+    ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.LatestNewsItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = layoutManager
+                    it.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = latestNewsInnerAdapter
-                    latestNewsInnerAdapter.latestNews = item.value.map {
-                        LatestNews(
-                            id = it.id,
-                            title = it.title,
-                            category = it.category,
-                            image_url = it.image_url,
-                            date = it.date
-                        )
-                    }
+                    latestNewsInnerAdapter?.latestNews = item.value
+                    it.addOnItemTouchListener(
+                        RecyclerItemClickListener(
+                            context,
+                            it,
+                            object : RecyclerItemClickListener.OnItemClickListener {
+                                override fun onItemClick(view: View, position: Int) {
+                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+
+                                }
+                            })
+                    )
                 }
             }
         }
     }
 
-    private fun setPopularServiceViewHolder(holder: ExploreRecyclerAsyncAdapter.PopularServiceViewHolder, position: Int) {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val popularServiceInnerAdapter = PopularServiceInnerAdapter(glide)
+    private fun setPopularServiceViewHolder(
+        holder: ExploreRecyclerAsyncAdapter.PopularServiceViewHolder,
+        position: Int
+    ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.PopularServiceCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager = layoutManager
+                    it.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = popularServiceInnerAdapter
-                    popularServiceInnerAdapter.popularService = item.value.map {
-                        PopularServices(
-                            id = it.id,
-                            title = it.title,
-                            image_url = it.image_url
-                        )
-                    }
+                    popularServiceInnerAdapter?.popularService = item.value
+                    it.addOnItemTouchListener(
+                        RecyclerItemClickListener(
+                            context,
+                            it,
+                            object : RecyclerItemClickListener.OnItemClickListener {
+                                override fun onItemClick(view: View, position: Int) {
+                                 Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+
+                                }
+                            })
+                    )
                 }
             }
         }
@@ -209,11 +254,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     //        items[position].code % 2 == 0 -> ViewTypes.ATTRACTION.type
     override fun getItemViewType(position: Int): Int =
         when (items[position].category) {
-            "attraction" -> ViewTypes.ATTRACTION.type
-            "must_see" -> ViewTypes.MUSTSEE.type
-            "upcoming_events" -> ViewTypes.UPCOMINGEVENTS.type
-            "popular_services" -> ViewTypes.POPULARSERVICES.type
-            "latest_news" -> ViewTypes.LATESTNEWS.type
+            "AttractionsCategory" -> ViewTypes.ATTRACTION.type
+            "Attractions" -> ViewTypes.MUSTSEE.type
+            "Events" -> ViewTypes.UPCOMINGEVENTS.type
+            "EServices" -> ViewTypes.POPULARSERVICES.type
+            "News" -> ViewTypes.LATESTNEWS.type
             else -> ViewTypes.ATTRACTION.type
         }
 
@@ -238,6 +283,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             return view.rootView
         }
     }
+
     private inner class PopularServiceCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -258,7 +304,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         }
     }
 
-
     private inner class LatestNewsItemCell(context: Context) : AsyncCell(context) {
         var binding: SectionItemContainerCellBinding? = null
         override val layoutId = R.layout.section_item_container_cell
@@ -270,25 +315,12 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
 
-
-    //Item Cells of ViewTypes
-//    private inner class LargeItemCell(context: Context) : AsyncCell(context) {
-//        var binding: LargeItemCellBinding? = null
-//        override val layoutId = R.layout.large_item_cell
-//        override fun createDataBindingView(view: View): View? {
-//            binding = LargeItemCellBinding.bind(view)
-//            return view.rootView
-//        }
-//    }
-
-
     //Item Cells of ViewTypes
     enum class ViewTypes(val type: Int) {
         ATTRACTION(0),
         MUSTSEE(1),
-        PLANYOURTRIP(4),
         UPCOMINGEVENTS(2),
         POPULARSERVICES(3),
-        LATESTNEWS(5),
+        LATESTNEWS(4),
     }
 }

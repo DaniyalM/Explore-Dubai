@@ -20,9 +20,13 @@ object EventUtilFunctions {
 
     fun showLoader(show: Boolean, customProgressDialog: ProgressDialog?) {
         if (show) {
-            customProgressDialog?.show()
+            customProgressDialog?.apply {
+                if (!isShowing) show()
+            }
         } else {
-            customProgressDialog?.hide()
+            customProgressDialog?.apply {
+                dismiss()
+            }
         }
     }
     fun navigateByDirections(fragment: Fragment, navDirections: NavDirections) {

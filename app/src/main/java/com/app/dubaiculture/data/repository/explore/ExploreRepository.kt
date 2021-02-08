@@ -16,7 +16,7 @@ class ExploreRepository @Inject constructor(
             is Result.Success -> {
                 // Single Source Of Truth -> get data from server -> save to db -> get from db to provide to UI
                 val listRDS = resultRDS
-                val listLDS = transformExplore(listRDS.value)
+                val listLDS = transformExplore(listRDS.value.Result.value)
 //                photoLDS.insertAll(listLDS as MutableList<Photo>)
 //                val resultLDS = photoLDS.getAll()
                 Result.Success(listLDS)
