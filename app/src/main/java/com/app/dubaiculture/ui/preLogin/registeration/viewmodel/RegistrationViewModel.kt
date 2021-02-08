@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.preLogin.registeration.viewModel
+package com.app.dubaiculture.ui.preLogin.registeration.viewmodel
 
 import android.app.Application
 import android.util.Log

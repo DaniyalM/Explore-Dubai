@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.preLogin.password.bottomsheet
+package com.app.dubaiculture.ui.preLogin.password.passwordupdated
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,7 @@ import androidx.core.os.bundleOf
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPasswordUpdatedBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.base.BaseFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.fragment_password_updated.view.*
 
 class PasswordUpdatedFragment : BaseBottomSheetFragment<FragmentPasswordUpdatedBinding>(), View.OnClickListener {
 
@@ -33,7 +31,7 @@ class PasswordUpdatedFragment : BaseBottomSheetFragment<FragmentPasswordUpdatedB
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_continue->{
-
+                navigate(R.id.action_passwordUpdatedFragment_to_loginFragment)
             }
         }
     }

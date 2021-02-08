@@ -95,17 +95,19 @@
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_mob_no"
             style="@style/EditTextLoginStyle"
-            android:inputType="textEmailAddress"
+            android:inputType="phone"
             android:imeOptions="actionNext"
             android:drawableEnd="@drawable/mob_login"
             android:hint="@string/enter_mobile_number"
             app:layout_constraintBottom_toTopOf="@+id/password"
             app:layout_constraintEnd_toEndOf="@+id/edit_password"
             app:layout_constraintStart_toStartOf="@+id/password"
-            android:text="@{viewmodel.email}"
-            android:onTextChanged="@{viewmodel::onEmailChanged}"
-            android:background="@{viewmodel.isEmail ? @drawable/bg_edit_login : @drawable/rectangle_error_bg_registration }"
+
             />
+
+<!--        android:text="@{viewmodel.email}"-->
+<!--        android:onTextChanged="@{viewmodel::onEmailChanged}"-->
+<!--        android:background="@{viewmodel.isEmail ? @drawable/bg_edit_login : @drawable/rectangle_error_bg_registration }"-->
 
         <ImageView
             android:id="@+id/imageView5"
@@ -153,11 +155,11 @@
             app:layout_constraintBottom_toTopOf="@+id/forgot_pass"
             app:layout_constraintEnd_toEndOf="@+id/btn_login"
             app:layout_constraintStart_toStartOf="@+id/btn_login"
-            android:onTextChanged="@{viewmodel::onPasswordChanged}"
-            android:text="@={viewmodel.password}"
-            android:background="@{viewmodel.isPassword ? @drawable/bg_edit_login : @drawable/rectangle_error_bg_registration}"
-            />
 
+            />
+<!--        android:onTextChanged="@{viewmodel::onPasswordChanged}"-->
+<!--        android:text="@={viewmodel.password}"-->
+<!--        android:background="@{viewmodel.isPassword ? @drawable/bg_edit_login : @drawable/rectangle_error_bg_registration}"-->
         <ImageView
             android:layout_marginEnd="@dimen/_12sdp"
             android:layout_width="wrap_content"

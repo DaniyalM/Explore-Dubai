@@ -9,7 +9,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.registeration.bottomsheet.OTPFragment
-import com.app.dubaiculture.ui.preLogin.registeration.viewModel.RegistrationViewModel
+import com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +25,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         subscribeUiEvents(registrationViewModel)
         binding.btnRegister.setOnClickListener(this)
         binding.tvLoginNow.setOnClickListener(this)
+        binding.imgClose.setOnClickListener(this)
 
         binding.viewmodel = registrationViewModel
 
@@ -33,11 +34,15 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_register -> {
-                navigate(R.id.action_loginFragment_to_bottomSheet)
+                navigate(R.id.action_registerFragment2_to_bottomSheet)
             }
             R.id.tv_login_now -> {
                 back()
             }
+            R.id.img_close -> {
+                back()
+            }
+
         }
     }
 

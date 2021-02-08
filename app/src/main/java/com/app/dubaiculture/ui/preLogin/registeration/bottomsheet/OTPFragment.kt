@@ -18,11 +18,13 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>() , View.OnClick
     private var dismissWithAnimation = false
     private val otpViewModel:OTPViewModel by viewModels()
     private var verificationCode : String?=null
+    private var from : String ?= null
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel= otpViewModel
         subscribeUiEvents(otpViewModel)
-        verificationCode = arguments?.getString("verificationCode")
+//        verificationCode = arguments?.getString("verificationCode")
+        from = arguments?.getString("from")
         Timber.e(verificationCode)
 
 
@@ -51,7 +53,10 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>() , View.OnClick
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_continue->{
-                otpViewModel.showToast("Hello")
+                if(from == "ForgotFragment")
+                    navigate(R.id.action_bottomSheet_to_createPassFragment)
+                else
+                navigate(R.id.action_bottomSheet_to_registrationSuccessFragment)
 //                verificationCode?.let { otpViewModel.confirmOTP(it,binding.otpView.text.toString()) }
             }
         }
