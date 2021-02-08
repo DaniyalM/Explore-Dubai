@@ -24,6 +24,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(registrationViewModel)
         binding.btnRegister.setOnClickListener(this)
+        binding.tvLoginNow.setOnClickListener(this)
+
         binding.viewmodel = registrationViewModel
 
     }
@@ -31,7 +33,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_register -> {
-//                navigate(R.id.action_registerFragment2_to_registrationSuccessFragment)
+                navigate(R.id.action_loginFragment_to_bottomSheet)
+            }
+            R.id.tv_login_now -> {
+                back()
             }
         }
     }
