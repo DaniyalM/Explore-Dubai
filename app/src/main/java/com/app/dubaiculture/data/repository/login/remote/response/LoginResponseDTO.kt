@@ -1,18 +1,36 @@
 package com.app.dubaiculture.data.repository.login.remote.response
 
- class LoginResponseDTO
-{
-    data class Result(
-        val ExpiresIn: Int,
-        val RefreshToken: String,
-        val Token: String,
-        val user: User
-    ) {
-        data class User(
-            val Email: String,
-            val Id: String,
-            val PhoneNumber: String,
-            val UserName: String
-        )
-    }
+import com.google.gson.annotations.SerializedName
+
+data class LoginResponseDTO constructor(
+    @SerializedName(value = "User")
+    val userDTO: UserDTO,
+    @SerializedName(value = "ExpiresIn")
+    val ExpiresIn: Int,
+    @SerializedName(value = "RefreshToken")
+    val RefreshToken: String,
+    @SerializedName(value = "Token")
+    val Token: String
+) {
+
+    open inner class UserDTO (
+        @SerializedName(value = "Email")
+        val Email: String? = null,
+        @SerializedName(value = "Id")
+        val Id: String? = null,
+        @SerializedName(value = "PhoneNumber")
+        val PhoneNumber: String? = null,
+        @SerializedName(value = "UserName")
+        val UserName: String?= null
+    )
 }
+
+
+
+
+
+
+
+
+
+

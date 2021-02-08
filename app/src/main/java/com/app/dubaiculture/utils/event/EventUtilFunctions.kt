@@ -13,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 object EventUtilFunctions {
     fun showToast(message: String, context: Context) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
+            }
 
     fun showAlert(message: String) {
     }
