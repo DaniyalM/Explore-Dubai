@@ -5,10 +5,16 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.login.LoginRepository
+import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils.isEmailValid
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
-class LoginViewModel @ViewModelInject constructor(
+class LoginViewModel @ViewModelInject constructor( private val loginRepository: LoginRepository,
     application: Application
 ) : BaseViewModel(application) {
     var email: ObservableField<String> = ObservableField("")
@@ -54,7 +60,30 @@ class LoginViewModel @ViewModelInject constructor(
 
     fun login() {
         loginStatus.value = true
-//        repository?.doLogin(email?.get().toString(), password.get().toString())
+        viewModelScope.launch {
+            LoginRequest(
+                email = "",
+                password = ""
+            ).let {
+               when(val result = loginRepository.login(it)){
+                   is Result.Success ->{
+                       if(result.value.succeeded){
+//                           Timber.e(result.value.loginResponseDTO.let {
+//
+//                           })
+                       } else {
+                           showToast(result.message)
+                       }
+                   }
+                   is Result.Error ->{
+
+                   }
+                   is Result.Failure ->{
+
+                   }
+               }
+            }
+        }
     }
 
 
