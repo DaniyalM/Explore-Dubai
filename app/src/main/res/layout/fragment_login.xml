@@ -240,7 +240,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/purple_900"
             android:textSize="@dimen/_11ssp"
-            android:layout_marginStart="1dp"
+            android:layout_marginStart="5dp"
             android:layout_marginBottom="@dimen/_15sdp"
             android:text="@string/register_now"
             app:layout_constraintHorizontal_chainStyle="packed"
