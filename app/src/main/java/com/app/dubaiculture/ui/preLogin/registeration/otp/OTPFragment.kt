@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.preLogin.registeration.bottomsheet
+package com.app.dubaiculture.ui.preLogin.registeration.otp
 
 import android.os.Bundle
 import android.view.LayoutInflater

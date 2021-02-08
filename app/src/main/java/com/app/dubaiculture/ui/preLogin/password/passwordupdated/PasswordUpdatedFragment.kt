@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPasswordUpdatedBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
@@ -31,8 +32,9 @@ class PasswordUpdatedFragment : BaseBottomSheetFragment<FragmentPasswordUpdatedB
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_continue->{
-                navigate(R.id.action_passwordUpdatedFragment_to_loginFragment)
+                findNavController().navigate(R.id.action_passwordUpdatedFragment_to_loginFragment)
             }
+
         }
     }
 

@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.preLogin.registeration.bottomsheet.OTPFragment
+import com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragment
 import com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

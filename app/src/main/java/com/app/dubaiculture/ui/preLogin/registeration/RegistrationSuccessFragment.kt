@@ -16,6 +16,8 @@ class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBin
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.btnContinueReg.setOnClickListener(this)
+
+        binding.imgClose.setOnClickListener(this)
     }
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -26,6 +28,10 @@ class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBin
             R.id.btn_continue_reg->{
                 navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
             }
+            R.id.img_close->{
+                back()
+            }
+
         }
     }
 

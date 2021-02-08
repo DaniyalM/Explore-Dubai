@@ -18,7 +18,7 @@ class CreatePassFragment : BaseFragment<FragmentCreatePassBinding>(),View.OnClic
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.btnSetPass.btn.setOnClickListener { showModalBottomSheet() }
+        binding.btnSetPass.btn.setOnClickListener { navigate(R.id.action_createPassFragment_to_passwordUpdatedFragment) }
         binding.imgClose.setOnClickListener(this)
     }
 

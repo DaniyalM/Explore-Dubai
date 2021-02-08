@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.app.dubaiculture.R
@@ -45,6 +46,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             application.auth.isLoggedIn = true
             activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
         }
+
+
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    activity.finish()
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
     }
 
 

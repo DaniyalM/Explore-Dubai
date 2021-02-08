@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
-class SplashFragment : BaseFragment<FragmentSplashBinding>() {
+class   SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
