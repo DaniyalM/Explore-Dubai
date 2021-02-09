@@ -56,12 +56,14 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>() , View.OnClick
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_continue_reg->{
-                if(from == "ForgotFragment")
-                    navigate(R.id.action_bottomSheet_to_createPassFragment)
-                else
+
+
 //                navigate(R.id.action_bottomSheet_to_registrationSuccessFragment)
                 verificationCode?.let {
-                    otpViewModel.confirmOTP(it,binding.otpView.text.toString()) }
+                    otpViewModel.confirmOTP(it,binding.otpView.text.toString()) }.let {
+                    navigate(R.id.action_bottomSheet_to_createPassFragment)
+
+                }
             }
             R.id.tvResend -> {
                 verificationCode?.let{otpViewModel.resendOTP(it)}
