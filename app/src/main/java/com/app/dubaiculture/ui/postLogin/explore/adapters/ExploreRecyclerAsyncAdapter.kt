@@ -52,7 +52,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     fun provideGlideInstance(glide: RequestManager) {
 
 
-        attractionInnerAdapter = AttractionInnerAdapter(glide,context)
+        attractionInnerAdapter = AttractionInnerAdapter(glide, context)
         upComingEventsInnerAdapter = UpComingEventsInnerAdapter(glide)
         mustSeeInnerAdapter = MustSeeInnerAdapter(glide)
         latestNewsInnerAdapter = LatestNewsInnerAdapter(glide)
@@ -116,7 +116,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             it,
                             object : RecyclerItemClickListener.OnItemClickListener {
                                 override fun onItemClick(view: View, position: Int) {
-                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        "${item.value.get(position).title} : ${
+                                            item.value.get(position).category
+                                        }",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
 
                                 override fun onLongItemClick(view: View, position: Int) {
@@ -149,7 +155,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             it,
                             object : RecyclerItemClickListener.OnItemClickListener {
                                 override fun onItemClick(view: View, position: Int) {
-                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        "${item.value.get(position).title} : ${
+                                            item.value.get(position).category
+                                        }",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
 
                                 override fun onLongItemClick(view: View, position: Int) {
@@ -158,7 +170,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             })
                     )
                 }
-                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+                holder.itemView.binding?.let {
+                    it.innerSectionHeading.text = item.title
+                    it.viewAll.visibility = View.VISIBLE
+                }
 
             }
         }
@@ -172,7 +187,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             items[position].let { item ->
 
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
-                holder.itemView.binding?.tripSeperator?.visibility=View.VISIBLE
+                holder.itemView.binding?.tripSeperator?.visibility = View.VISIBLE
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -184,7 +199,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             it,
                             object : RecyclerItemClickListener.OnItemClickListener {
                                 override fun onItemClick(view: View, position: Int) {
-                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        "${item.value.get(position).title} : ${
+                                            item.value.get(position).category
+                                        }",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
 
                                 override fun onLongItemClick(view: View, position: Int) {
@@ -216,7 +237,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             it,
                             object : RecyclerItemClickListener.OnItemClickListener {
                                 override fun onItemClick(view: View, position: Int) {
-                                    Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        "${item.value.get(position).title} : ${
+                                            item.value.get(position).category
+                                        }",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
 
                                 override fun onLongItemClick(view: View, position: Int) {
@@ -225,7 +252,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             })
                     )
                 }
-                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+                holder.itemView.binding?.let {
+                    it.innerSectionHeading.text = item.title
+                    it.viewAll.visibility = View.VISIBLE
+                }
 
             }
         }
@@ -249,7 +279,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             it,
                             object : RecyclerItemClickListener.OnItemClickListener {
                                 override fun onItemClick(view: View, position: Int) {
-                                 Toast.makeText(context,"${item.value.get(position).title} : ${item.value.get(position).category}",Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        "${item.value.get(position).title} : ${
+                                            item.value.get(position).category
+                                        }",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
 
                                 override fun onLongItemClick(view: View, position: Int) {
@@ -258,7 +294,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             })
                     )
                 }
-                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+                holder.itemView.binding?.let {
+                    it.innerSectionHeading.text = item.title
+                    it.viewAll.visibility = View.VISIBLE
+                }
 
             }
         }
@@ -372,5 +411,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         delayAnimate += 500
     }
 
-    private fun stopAnimation() { handler.removeCallbacksAndMessages(null) }
+    private fun stopAnimation() {
+        handler.removeCallbacksAndMessages(null)
+    }
 }
