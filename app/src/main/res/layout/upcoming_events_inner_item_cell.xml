@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <data>
+        <variable name="events" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_marginBottom="@dimen/_15sdp"
     android:layout_width="wrap_content"
@@ -90,7 +92,7 @@
                android:id="@+id/tv_start_date_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="14"
+                android:text="@{events.fromDate}"
                 android:layout_marginStart="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_12sdp"
                 app:textFont="bold"
@@ -107,7 +109,7 @@
                 android:id="@+id/tv_start_month_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NOV, 20"
+                android:text="@{events.fromMonthYear}"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/_10ssp"
                 android:textStyle="bold"
@@ -123,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:letterSpacing="0.1"
-                android:text="20"
+                android:text="@{events.toDate}"
                 android:textColor="@color/purple_900"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
@@ -136,7 +138,7 @@
                 android:id="@+id/tv_end_month_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NOV, 20"
+                android:text="@{events.toMonthYear}"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/_10ssp"
                 android:layout_marginBottom="@dimen/_15sdp"
@@ -186,7 +188,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="The Definitive Guide\nto an Uncertain World"
+                android:text="@{events.title}"
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_location"
@@ -200,7 +202,7 @@
                 android:drawableStart="@drawable/location_icon_gray"
                 android:drawablePadding="@dimen/_7ssp"
                 android:ellipsize="end"
-                android:text="Palm Jumeriah Beach,Dubai"
+                android:text="@{events.locationTitle}"
                 android:textColor="@color/gray_600"
                 android:textSize="@dimen/_9ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_end_month_event"

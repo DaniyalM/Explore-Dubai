@@ -2,7 +2,9 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <data>
+        <variable name="mustsee" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -58,7 +60,7 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
-                    android:text="MUSEUMS"
+                    android:text="@{mustsee.category}"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />
             </com.google.android.material.card.MaterialCardView>
@@ -72,7 +74,7 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="Discover The Iconic\nDubai Museum"
+                android:text="@{mustsee.title}"
                 android:textColor="@color/white_900"
                 android:textSize="@dimen/_14ssp" />
 
@@ -87,7 +89,7 @@
                 android:drawableStart="@drawable/heritiage_icon_home"
                 android:drawablePadding="@dimen/_7ssp"
                 android:ellipsize="end"
-                android:text="Palm Jumeriah Beach,Dubai"
+                android:text='@{mustsee.locationTitle ?? "Palm Jumeriah Beach,Dubai"}'
                 android:textColor="@color/white_900"
                 android:textSize="@dimen/_10ssp" />
 

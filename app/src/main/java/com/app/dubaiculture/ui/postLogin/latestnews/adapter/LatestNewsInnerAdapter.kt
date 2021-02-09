@@ -67,11 +67,7 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         position: Int
     ) {
         (holder.itemView as LatestNewsInnerAdapter.LatestNewsInnerItemCell).bindWhenInflated {
-            latestNews[position].let { item ->
-//                holder.itemView.binding?.innerSectionRv?.let {
-//
-//                }
-            }
+            holder.itemView?.binding?.news=latestNews[position]
         }
     }
 }

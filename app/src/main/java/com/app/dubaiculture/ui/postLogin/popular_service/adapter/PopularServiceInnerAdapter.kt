@@ -68,11 +68,7 @@ class PopularServiceInnerAdapter(val glide: RequestManager) :
         position: Int
     ) {
         (holder.itemView as PopularServiceInnerAdapter.PopularServiceInnerItemCell).bindWhenInflated {
-            popularService[position].let { item ->
-//                holder.itemView.binding?.innerSectionRv?.let {
-//
-//                }
-            }
+            holder.itemView.binding?.popularServices=popularService[position]
         }
     }
 

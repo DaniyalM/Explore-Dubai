@@ -1,8 +1,12 @@
 package com.app.dubaiculture.ui.postLogin.explore.adapters
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -24,6 +28,14 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    //global variable
+    companion object {
+        val handler = Handler(Looper.getMainLooper())
+        var delayAnimate = 300
+    }
+
+
     private var attractionInnerAdapter: AttractionInnerAdapter? = null
     private var upComingEventsInnerAdapter: UpComingEventsInnerAdapter? = null
     private var mustSeeInnerAdapter: MustSeeInnerAdapter? = null
@@ -153,6 +165,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         (holder.itemView as ExploreRecyclerAsyncAdapter.MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
+                holder.itemView.binding?.tripSeperator?.visibility=View.VISIBLE
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -323,4 +336,30 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         POPULARSERVICES(3),
         LATESTNEWS(4),
     }
+
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        setAnimation(holder.itemView)
+    }
+
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        stopAnimation()
+    }
+
+    private fun setAnimation(view: View?) {
+        handler.postDelayed({
+            val animation: Animation = AnimationUtils.loadAnimation(
+                context,
+                android.R.anim.slide_in_left
+            )
+            if (view != null) {
+                view.startAnimation(animation)
+                view.setVisibility(View.VISIBLE)
+            }
+        }, delayAnimate.toLong())
+        delayAnimate += 500
+    }
+
+    private fun stopAnimation() { handler.removeCallbacksAndMessages(null) }
 }
