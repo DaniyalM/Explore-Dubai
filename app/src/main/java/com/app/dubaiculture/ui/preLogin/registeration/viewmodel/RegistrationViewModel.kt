@@ -38,8 +38,8 @@ class RegistrationViewModel @ViewModelInject constructor(
 
     /**
      * Field Error Messages
-     */
-    val mobileNumberError = MutableLiveData<String?>()
+     */    val mobileNumberError = MutableLiveData<String?>()
+
     val emailError = MutableLiveData<String?>()
     val fullNameError = MutableLiveData<String?>()
     val passwordError = MutableLiveData<String?>()
@@ -78,7 +78,7 @@ class RegistrationViewModel @ViewModelInject constructor(
                             )
                         } else {
                             showToast(result.value.errorMessage)
-                            showSnackbar(result.value.errorMessage)
+//                            showAlert(message = result.value.errorMessage)
 //                            Timber.e(result.value.statusCode.toString())
                         }
                     }
