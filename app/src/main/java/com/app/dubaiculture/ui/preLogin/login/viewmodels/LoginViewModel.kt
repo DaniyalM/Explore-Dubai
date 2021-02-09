@@ -21,13 +21,14 @@ class LoginViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,
     application: Application
 ) : BaseViewModel(application) {
-    var email: ObservableField<String> = ObservableField("")
+    var phone: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
     var btnSelected: ObservableBoolean = ObservableBoolean(false)
 
 
-    val isEmail = MutableLiveData<Boolean?>(true)
+    val isPhone = MutableLiveData<Boolean?>(true)
     val isPassword = MutableLiveData<Boolean?>(true)
+
 
     //Below loginStatus Flag Will be removed as per requirement
     private var _emailStatus: MutableLiveData<Boolean> = MutableLiveData()
@@ -63,8 +64,8 @@ class LoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                email = "ammar10@yopmail.com",
-                password = "Pakistan@1"
+                phoneNumber = phone.get().toString().trim(),
+                password = password.get().toString().trim()
             ).let {
                 when (val result = loginRepository.login(it)) {
                     is Result.Success -> {
@@ -92,15 +93,15 @@ class LoginViewModel @ViewModelInject constructor(
 
     fun enableButton() {
         btnSelected.set(
-            AuthUtils.isEmailValid(email.get().toString().trim()) &&
+            AuthUtils.isValidMobile(phone.get().toString().trim()) &&
                     AuthUtils.isValidPasswordFormat(password.get().toString().trim())
         )
     }
 
 
     fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
-        email.set(s.toString())
-        isEmail.value = AuthUtils.isEmailValid(s.toString().trim())
+        phone.set(s.toString())
+        isPhone.value = AuthUtils.isValidMobile(s.toString().trim())
         enableButton()
     }
 

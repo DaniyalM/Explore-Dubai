@@ -1,6 +1,6 @@
 package com.app.dubaiculture.data.repository.login.remote.request
 
 class LoginRequest(
-  val  email : String ,
+  val  phoneNumber : String ,
   val  password : String
 )

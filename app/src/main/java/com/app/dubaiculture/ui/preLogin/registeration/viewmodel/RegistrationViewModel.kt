@@ -78,7 +78,8 @@ class RegistrationViewModel @ViewModelInject constructor(
                             )
                         } else {
                             showToast(result.value.errorMessage)
-                            Timber.e(result.value.statusCode.toString())
+                            showSnackbar(result.value.errorMessage)
+//                            Timber.e(result.value.statusCode.toString())
                         }
                     }
                     is Result.Failure -> {
@@ -136,4 +137,6 @@ class RegistrationViewModel @ViewModelInject constructor(
         isTermAccepted.value = isChecked
         enableButton()
     }
+
+
 }

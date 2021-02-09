@@ -24,8 +24,8 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>() , View.OnClick
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel= otpViewModel
         subscribeUiEvents(otpViewModel)
-//        verificationCode = arguments?.getString("verificationCode")
-        from = arguments?.getString("from")
+        verificationCode = arguments?.getString("verificationCode")
+//        from = arguments?.getString("from")
         Timber.e(verificationCode)
 
 
@@ -33,7 +33,8 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>() , View.OnClick
         dismissWithAnimation =
             arguments?.getBoolean(ARG_DISMISS_WITH_ANIMATION) ?: false
         (requireDialog() as BottomSheetDialog).dismissWithAnimation = dismissWithAnimation
-        binding.btnContinue.setOnClickListener(this)
+        binding.btnContinueReg.setOnClickListener(this)
+        binding.tvResend.setOnClickListener(this)
 
     }
 
@@ -53,12 +54,15 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>() , View.OnClick
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.btn_continue->{
-                if(from == "ForgotFragment")
-                    navigate(R.id.action_bottomSheet_to_createPassFragment)
-                else
-                navigate(R.id.action_bottomSheet_to_registrationSuccessFragment)
-//                verificationCode?.let { otpViewModel.confirmOTP(it,binding.otpView.text.toString()) }
+            R.id.btn_continue_reg->{
+//                if(from == "ForgotFragment")
+//                    navigate(R.id.action_bottomSheet_to_createPassFragment)
+//                else
+//                navigate(R.id.action_bottomSheet_to_registrationSuccessFragment)
+                verificationCode?.let { otpViewModel.confirmOTP(it,binding.otpView.text.toString()) }
+            }
+            R.id.tvResend -> {
+                verificationCode?.let{otpViewModel.resendOTP(it)}
             }
         }
     }
