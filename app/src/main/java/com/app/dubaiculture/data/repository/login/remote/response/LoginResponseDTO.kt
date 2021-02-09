@@ -13,16 +13,6 @@ data class LoginResponseDTO constructor(
     val Token: String
 ) {
 
-    open inner class UserDTO (
-        @SerializedName(value = "Email")
-        val Email: String? = null,
-        @SerializedName(value = "Id")
-        val Id: String? = null,
-        @SerializedName(value = "PhoneNumber")
-        val PhoneNumber: String? = null,
-        @SerializedName(value = "UserName")
-        val UserName: String?= null
-    )
 }
 
 

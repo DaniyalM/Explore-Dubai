@@ -33,7 +33,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
-
         binding.fragment = this
         changeLocalIntoAr()
         binding.forgotPass.setOnClickListener(this)

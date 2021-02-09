@@ -9,13 +9,16 @@ import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
+import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.AuthUtils.isEmailValid
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class LoginViewModel @ViewModelInject constructor( private val loginRepository: LoginRepository,
+class LoginViewModel @ViewModelInject constructor(
+    private val loginRepository: LoginRepository,
+    private val userRepository: UserRepository,
     application: Application
 ) : BaseViewModel(application) {
     var email: ObservableField<String> = ObservableField("")
@@ -29,17 +32,19 @@ class LoginViewModel @ViewModelInject constructor( private val loginRepository: 
     //Below loginStatus Flag Will be removed as per requirement
     private var _emailStatus: MutableLiveData<Boolean> = MutableLiveData()
     var emailStatus: MutableLiveData<Boolean> = _emailStatus
-    private  var _passwordStatus: MutableLiveData<Boolean> = MutableLiveData()
+    private var _passwordStatus: MutableLiveData<Boolean> = MutableLiveData()
     var passwordStatus: MutableLiveData<Boolean> = _passwordStatus
 
     private var _loginStatus: MutableLiveData<Boolean> = MutableLiveData()
     var loginStatus: MutableLiveData<Boolean> = _loginStatus
+
     init {
         _loginStatus.value = false
         _emailStatus.value = false
         _passwordStatus.value = false
     }
-//    fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
+
+    //    fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
 //        btnSelected.set(
 //            isEmailValid(s.toString().trim()) &&
 //                    password.get().toString().trim().length >= 6
@@ -54,40 +59,40 @@ class LoginViewModel @ViewModelInject constructor( private val loginRepository: 
 //        )
 //        _passwordStatus.value = s.toString().trim().length < 6
 //    }
-
-
     fun login() {
-//        loginStatus.value = true
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
                 email = "ammar10@yopmail.com",
                 password = "Pakistan@1"
             ).let {
-               when(val result = loginRepository.login(it)){
-                   is Result.Success ->{
-                       if(result.value.succeeded){
-                           Timber.e(result.value.loginResponseDTO.userDTO.Email)
-                       } else {
-                           showToast(result.value.errorMessage)
-                       }
-                   }
-                   is Result.Error ->{
-                       showToast(result.exception.toString())
-                   }
-                   is Result.Failure ->{
-                       showToast(result.errorCode.toString())
-                   }
-               }
+                when (val result = loginRepository.login(it)) {
+                    is Result.Success -> {
+                        if (result.value.succeeded) {
+                            Timber.e(result.value.loginResponseDTO.userDTO.Email)
+                            userRepository.saveUser(
+                                userDTO = result.value.loginResponseDTO.userDTO,
+                                loginResponseDTO = result.value.loginResponseDTO
+                            )
+                        } else {
+                            showToast(result.value.errorMessage)
+                        }
+                    }
+                    is Result.Error -> {
+                        showToast(result.exception.toString())
+                    }
+                    is Result.Failure -> {
+                        showToast(result.errorCode.toString())
+                    }
+                }
             }
             showLoader(false)
-
         }
     }
 
     fun enableButton() {
         btnSelected.set(
-                    AuthUtils.isEmailValid(email.get().toString().trim()) &&
+            AuthUtils.isEmailValid(email.get().toString().trim()) &&
                     AuthUtils.isValidPasswordFormat(password.get().toString().trim())
         )
     }
@@ -98,9 +103,10 @@ class LoginViewModel @ViewModelInject constructor( private val loginRepository: 
         isEmail.value = AuthUtils.isEmailValid(s.toString().trim())
         enableButton()
     }
+
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         password.set(s.toString())
-        isPassword.value =   AuthUtils.isValidPasswordFormat(s.toString().trim())
+        isPassword.value = AuthUtils.isValidPasswordFormat(s.toString().trim())
         enableButton()
     }
 
