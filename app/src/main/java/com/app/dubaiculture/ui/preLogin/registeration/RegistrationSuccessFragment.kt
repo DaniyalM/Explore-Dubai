@@ -24,7 +24,7 @@ class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBin
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_continue_reg->{
-                navigate(R.id.action_registrationSuccessFragment_to_createPassFragment)
+                navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
             }
         }
     }

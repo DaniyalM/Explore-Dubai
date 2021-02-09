@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -20,7 +19,7 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener  {
+class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener {
 
     private val loginViewModel: LoginViewModel by viewModels()
 
@@ -38,7 +37,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         changeLocalIntoAr()
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
-
 
         binding.tvRegisterNow.setOnClickListener {
             findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment2)
@@ -78,15 +76,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //            }
 //        }
     }
+
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.forgot_pass->{
-                navigate(R.id.action_loginFragment_to_bottomSheet)
+        when (v?.id) {
+            R.id.forgot_pass -> {
+                navigate(R.id.action_loginFragment_to_forgotFragment)
             }
-            R.id.img_uae_pass->{
+            R.id.img_uae_pass -> {
+                //
             }
         }
     }
+
     fun changeLocalIntoAr() {
         setLanguage(Locale("en"))
     }

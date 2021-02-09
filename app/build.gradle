@@ -227,4 +227,6 @@ dependencies {
     //OTP
     implementation "com.github.mukeshsolanki:android-otpview-pinview:2.0.3"
     implementation 'com.rishabhharit.roundedimageview:RoundedImageView:0.8.4'
+    //GSON Converter for Retro
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }

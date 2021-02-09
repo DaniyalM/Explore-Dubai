@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
@@ -29,11 +30,20 @@ class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListene
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.img_close-> back()
+            R.id.tv_cancel -> back()
+            R.id.btn_otp -> {
+                val bundle = bundleOf(
+                    "from" to  "ForgotFragment",
+                )
+                navigate(R.id.action_forgotFragment_to_bottomSheet,bundle)
+            }
         }
     }
 
 
     private fun viewInitialize(){
         binding.imgClose.setOnClickListener(this)
+        binding.tvCancel.setOnClickListener(this)
+        binding.btnOtp.setOnClickListener(this)
     }
 }

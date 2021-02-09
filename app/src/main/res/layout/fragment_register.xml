@@ -7,7 +7,7 @@
         <import type="android.view.View" />
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.preLogin.registeration.viewModel.RegistrationViewModel" />
+            type="com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel" />
     </data>
 
 
@@ -133,13 +133,13 @@
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:hint="@string/email_address"
-            android:onTextChanged="@{viewmodel::onEmailChanged}"
             android:drawableEnd="@drawable/message_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_address"
             tools:src="@drawable/bg_edit_resiger"
             android:text="@{viewmodel.email}"
+            android:onTextChanged="@{viewmodel::onEmailChanged}"
             android:background="@{viewmodel.isEmail ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"/>
         <ImageView
             android:layout_marginEnd="@dimen/_12sdp"
@@ -166,7 +166,7 @@
             />
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isPhone ? @string/no_error :  @string/err_phone }"
+            android:text="@{viewmodel.isPhone ? @string/no_error :  @string/mobile_number_ }"
             app:layout_constraintBottom_toBottomOf="@+id/mob_num"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
@@ -219,14 +219,14 @@
             android:id="@+id/edit_pass"
             style="@style/EditTextStyle"
             android:hint="@string/password"
-            android:onTextChanged="@{viewmodel::onPasswordChanged}"
-            android:text="@={viewmodel.password}"
             android:imeOptions="actionNext"
             android:drawableEnd="@drawable/key_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
             tools:src="@drawable/bg_edit_resiger"
+            android:onTextChanged="@{viewmodel::onPasswordChanged}"
+            android:text="@={viewmodel.password}"
             android:background="@{viewmodel.isPassword ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"/>
 
 
@@ -287,7 +287,6 @@
             android:layout_height="wrap_content"
             android:onCheckedChanged="@{viewmodel.onTermsChecked}"
             android:layout_marginTop="@dimen/_25sdp"
-            android:paddingStart="@dimen/_5sdp"
             android:buttonTint="#000000"
             app:layout_constraintStart_toStartOf="@+id/confirm_pass"
             app:layout_constraintTop_toBottomOf="@+id/edit_confirm_pass"
@@ -297,7 +296,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_10sdp"
-            android:layout_marginStart="-10dp"
+            android:layout_marginStart="-15dp"
             android:textColor="@color/black_200"
             android:text="@string/i_agree_to_the_terms_and_conditions"
             app:layout_constraintBottom_toBottomOf="@+id/checkbox"
@@ -306,9 +305,7 @@
 
         <Button
             android:id="@+id/btn_register"
-            android:enabled="@{viewmodel.btnEnabled}"
            android:background="@drawable/btn_register"
-            android:onClick="@{()-> viewmodel.register()}"
             app:layout_constraintTop_toBottomOf="@+id/checkbox"
             app:layout_constraintStart_toStartOf="@+id/edit_confirm_pass"
            app:layout_constraintEnd_toEndOf="@+id/edit_confirm_pass"
@@ -318,7 +315,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-
+<!--        android:enabled="@{viewmodel.btnEnabled}"-->
+<!--        android:onClick="@{()-> viewmodel.register()}"-->
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -330,7 +328,7 @@
             android:layout_marginBottom="@dimen/_20sdp"
             android:text="@string/don_t_have_an_account"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintEnd_toStartOf="@+id/tv_register_now"
+            app:layout_constraintEnd_toStartOf="@+id/tv_login_now"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/_25sdp"
             app:layout_constraintTop_toBottomOf="@+id/btn_register"
@@ -339,12 +337,12 @@
 
             />
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/tv_register_now"
+            android:id="@+id/tv_login_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/purple_900"
             android:textSize="@dimen/_11ssp"
-            android:layout_marginStart="1dp"
+            android:layout_marginStart="5dp"
             android:layout_marginBottom="@dimen/_20sdp"
             android:text="@string/login_here"
             android:layout_marginTop="@dimen/_25sdp"
@@ -353,7 +351,6 @@
             app:layout_constraintStart_toEndOf="@+id/tv_dont_have_acct"
             app:layout_constraintTop_toBottomOf="@+id/btn_register"
             app:layout_constraintBottom_toBottomOf="parent"
-
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
