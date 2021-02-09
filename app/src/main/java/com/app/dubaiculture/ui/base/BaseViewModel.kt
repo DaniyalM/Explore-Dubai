@@ -33,7 +33,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun showSnackbar(message: String, action: (() -> Unit)? = null) {
-        _uiEventsLiveData.postValue(Event(UiEvent.ShowSnackbar(message, action)))
+        _uiEventsLiveData.value= Event(UiEvent.ShowSnackbar(message, action))
 
     }
 
