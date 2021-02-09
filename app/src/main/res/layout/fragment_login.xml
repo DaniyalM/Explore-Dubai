@@ -40,7 +40,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/registration"
-            app:lottie_repeatCount="0" />
+             />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -86,7 +86,7 @@
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/customTextView2"
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isPhone ? @string/no_error :  @string/err_email }"
+            android:text="@{viewmodel.isPhone ? @string/no_error : viewmodel.mobileNumberError }"
             app:layout_constraintBottom_toBottomOf="@+id/full_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
@@ -180,7 +180,25 @@
             app:layout_constraintBottom_toTopOf="@+id/btn_login"
             app:layout_constraintEnd_toEndOf="@+id/btn_login" />
 
-        <com.app.dubaiculture.ui.components.custombutton.CustomButton
+<!--        <Button-->
+<!--            android:id="@+id/btn_login"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="@dimen/_25sdp"-->
+<!--            android:layout_marginBottom="@dimen/_10sdp"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:background="@drawable/btn_border_login"-->
+<!--            android:enabled="@{viewmodel.btnSelected}"-->
+<!--            android:gravity="center"-->
+<!--            android:onClick="@{()-> viewmodel.login()}"-->
+<!--            android:text="@string/login"-->
+<!--            android:textColor="@color/white_900"-->
+<!--            android:textSize="@dimen/_12ssp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/guideline"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/img_logo" />-->
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

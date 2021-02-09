@@ -48,19 +48,22 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
         timer.start()
     }
 
-    fun confirmOTP(verificationCode: String , otp : String) {
+    fun confirmOTP(verificationCode: String , otp : String?="") {
         viewModelScope.launch {
             showLoader(true)
             ConfirmOTPRequest(
                 verificationCode = verificationCode,
-                otp = otp
+                otp = otp?:""
             ).let {
                 when (val result = registrationRepository.validateOTP(it)) {
                     is Result.Success -> {
+                        if(result.value.succeeded){
                         showLoader(false)
                         showToast(result.value.confirmOTPResponseDTO.message.toString())
                         navigateByAction(R.id.action_bottomSheet_to_registrationSuccessFragment)
-
+                        }else{
+                            showToast(result.value.errorMessage)
+                        }
                     }
                     is Result.Failure -> {
                         Timber.e(result.errorCode.toString())
@@ -90,8 +93,12 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
             ).let{
                 when (val result = registrationRepository.resendVerificationOTP(it)) {
                     is Result.Success -> {
-                        timer.start()
-                        showToast(result.value.confirmOTPResponseDTO.message.toString())
+                        if(result.value.succeeded) {
+                            timer.start()
+                            showToast(result.value.confirmOTPResponseDTO.message.toString())
+                        }else{
+                            showToast(result.value.errorMessage)
+                        }
                     }
                     is Result.Failure -> {
                         Timber.e(result.errorCode.toString())
