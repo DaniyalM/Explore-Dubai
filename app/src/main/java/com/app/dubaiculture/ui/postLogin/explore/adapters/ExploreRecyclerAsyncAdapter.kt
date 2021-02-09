@@ -52,7 +52,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     fun provideGlideInstance(glide: RequestManager) {
 
 
-        attractionInnerAdapter = AttractionInnerAdapter(glide)
+        attractionInnerAdapter = AttractionInnerAdapter(glide,context)
         upComingEventsInnerAdapter = UpComingEventsInnerAdapter(glide)
         mustSeeInnerAdapter = MustSeeInnerAdapter(glide)
         latestNewsInnerAdapter = LatestNewsInnerAdapter(glide)

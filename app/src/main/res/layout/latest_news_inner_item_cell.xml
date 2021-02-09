@@ -4,7 +4,6 @@
     xmlns:bind="http://schemas.android.com/tools">
     <data>
         <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
-        <variable name="build" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginBottom="@dimen/_15sdp"
@@ -57,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="12 Nov,2020"
+                    android:text="@{news.postedDate}"
                     android:textSize="@dimen/_10ssp"
                     android:maxLines="3"
                     android:drawablePadding="@dimen/_4sdp"

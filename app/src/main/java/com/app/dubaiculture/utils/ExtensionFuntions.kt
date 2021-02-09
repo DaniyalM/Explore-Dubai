@@ -2,14 +2,13 @@ package com.app.dubaiculture.utils
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.PictureDrawable
+import android.net.Uri
 import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import com.app.dubaiculture.BuildConfig
-import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
@@ -19,6 +18,8 @@ import com.rishabhharit.roundedimageview.RoundedImageView
 import okhttp3.RequestBody
 import okio.Buffer
 import java.io.IOException
+import java.io.InputStream
+
 
 fun requestBodyToString(request: RequestBody?): String? {
     return try {
@@ -98,13 +99,36 @@ fun Fragment.handleApiError(
 fun loadImage(view: RoundedImageView, url: String?) {
     url?.let {
         Glide.with(view.context)
-            .load(BuildConfig.BASE_URL +it)
+            .load(BuildConfig.BASE_URL + it)
 //                .apply(
 //                    RequestOptions()
 //                        .placeholder(R.drawable.loading_animation)
 //                        .error(R.drawable.ic_broken_image))
             .into(view)
     }
+}
+
+@BindingAdapter("android:imageViewUrl")
+fun loadImageView(view: ImageView, url: String?) {
+    url?.let {
+        Glide.with(view.context)
+            .load(BuildConfig.BASE_URL + it)
+//                .apply(
+//                    RequestOptions()
+////                        .placeholder(R.drawable.logo)
+////                        .error(R.drawable.logo))
+            .into(view)
+    }
+}
+
+@BindingAdapter("android:svgUrl")
+fun loadSvgToImageView(view: ImageView, url: String?){
+    url?.let {
+        Glide.with(view.context)
+            .load(BuildConfig.BASE_URL + it)
+            .into(view)
+    }
+
 }
 
 

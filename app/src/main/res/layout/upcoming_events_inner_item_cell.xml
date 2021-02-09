@@ -172,7 +172,7 @@
                 android:id="@+id/tv_workshop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/workshop"
+                android:text="@{events.category}"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 app:layout_constraintStart_toStartOf="@+id/guideline_two"

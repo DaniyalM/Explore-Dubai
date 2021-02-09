@@ -7,7 +7,7 @@ import com.app.dubaiculture.R
 
 class CustomSearchView(context: Context, attars: AttributeSet?) : FrameLayout(context, attars) {
     init {
-        val view= inflate(context, R.layout.search_view,null)
+        val view= inflate(context, R.layout.toolbar_layout,null)
         addView(view)
     }
 }
