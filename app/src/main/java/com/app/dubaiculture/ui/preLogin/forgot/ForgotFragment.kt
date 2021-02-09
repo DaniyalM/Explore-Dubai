@@ -33,7 +33,7 @@ class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListene
             R.id.tv_cancel -> back()
             R.id.btn_otp -> {
                 val bundle = bundleOf(
-                    "from" to  "ForgotFragment",
+                    "key" to  "ForgotFragment",
                 )
                 navigate(R.id.action_forgotFragment_to_bottomSheet,bundle)
             }
