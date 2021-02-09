@@ -59,7 +59,8 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>() , View.OnClick
 //                    navigate(R.id.action_bottomSheet_to_createPassFragment)
 //                else
 //                navigate(R.id.action_bottomSheet_to_registrationSuccessFragment)
-                verificationCode?.let { otpViewModel.confirmOTP(it,binding.otpView.text.toString()) }
+                verificationCode?.let {
+                    otpViewModel.confirmOTP(it,binding.otpView.text.toString()) }
             }
             R.id.tvResend -> {
                 verificationCode?.let{otpViewModel.resendOTP(it)}

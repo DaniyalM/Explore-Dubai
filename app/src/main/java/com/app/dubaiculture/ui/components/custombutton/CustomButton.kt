@@ -60,7 +60,7 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatTextView(c
                     if (enabled) {
                         R.color.white_900
                     } else {
-                        R.color.black_200
+                        R.color.white_900
                     },
                     null
                 )

@@ -54,37 +54,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
+        subscribeToObservables()
     }
 
 
     private fun subscribeToObservables() {
-        application.auth.isLoggedIn = false
         loginViewModel.loginStatus.observe(viewLifecycleOwner) {
-            if (it) {
-                application.auth.isLoggedIn = true
+            it.getContentIfNotHandled()?.let {
                 activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             }
         }
-        Handler(Looper.getMainLooper()).postDelayed({
-            loginViewModel.loginStatus.postValue(true)
-        }, 1000)
-
-//        loginViewModel.emailStatus.observe(viewLifecycleOwner) {
-//            binding.emailLayout.isErrorEnabled = false
-//            if (it) {
-//                binding.emailLayout.isErrorEnabled = true
-//                binding.emailLayout.error = "Invalid Email."
-//            }
-//        }
-//
-//        loginViewModel.passwordStatus.observe(viewLifecycleOwner) {
-//            binding.passWordLayout.isErrorEnabled = false
-//            if (it) {
-//                binding.passWordLayout.isErrorEnabled = true
-//                binding.passWordLayout.error = "Invalid Password."
-//            }
-//        }
     }
 
     override fun onClick(v: View?) {

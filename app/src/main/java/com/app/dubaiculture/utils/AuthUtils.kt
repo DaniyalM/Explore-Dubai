@@ -32,6 +32,19 @@ object AuthUtils {
         return Pattern.matches("^(92)\\d{10}\$", ph)
     }
 
+
+    fun isValidMobileTest(ph: String): String {
+//        return Pattern.matches("^(92)\\d{10}\$", ph)
+            val isvalid = true
+        if(!ph.matches("^(92)\\d{0}\$".toRegex())){
+            return "Start with 92"
+
+        }else if(!ph.matches("^(92)\\d{10}\$".toRegex())){
+            return "Invalid Mobile Number"
+        }
+        return ""
+    }
+
     fun isValidMobile1(ph: String): Int {
 
         return if (!(Pattern.matches("05\\d{8}", ph)
