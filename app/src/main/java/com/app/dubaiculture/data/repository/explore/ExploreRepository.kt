@@ -5,14 +5,16 @@ import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.explore.local.ExploreLDS
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.data.repository.explore.mapper.transformExplore
+import com.app.dubaiculture.data.repository.explore.mapper.transformExploreRequest
 import com.app.dubaiculture.data.repository.explore.remote.ExploreRDS
+import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
 import javax.inject.Inject
 
 class ExploreRepository @Inject constructor(
     private val exploreRDS: ExploreRDS
 ) : BaseRepository()  {
-    suspend fun getExplore(): Result<List<Explore>> {
-        return when (val resultRDS = exploreRDS.getExplore()) {
+    suspend fun getExplore(exploreRequest: ExploreRequest): Result<List<Explore>> {
+        return when (val resultRDS = exploreRDS.getExplore(transformExploreRequest(exploreRequest))) {
             is Result.Success -> {
                 // Single Source Of Truth -> get data from server -> save to db -> get from db to provide to UI
                 val listRDS = resultRDS

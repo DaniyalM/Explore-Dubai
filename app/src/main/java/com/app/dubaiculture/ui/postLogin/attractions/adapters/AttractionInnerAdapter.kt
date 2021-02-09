@@ -9,22 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.app.dubaiculture.databinding.AttractionsItemCellBinding
+import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
 
 class AttractionInnerAdapter(val glide: RequestManager) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    private val diffCallback = object : DiffUtil.ItemCallback<BaseModel>() {
-        override fun areItemsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
-        }
-    }
-    private val differ = AsyncListDiffer(this, diffCallback)
+    BaseRecyclerAdapter() {
 
     var attractions: List<BaseModel>
         get() = differ.currentList
@@ -43,12 +33,7 @@ class AttractionInnerAdapter(val glide: RequestManager) :
         when(holder){
             is AttractionViewHolder -> setUpAttractionViewHolder(holder,position)
         }
-//        val attraction = attractions[position]
-//        holder.itemView.apply {
-//          //  glide.load(attraction.image_url).into(attraction_image)
-////            glide.load(attraction.image).into(attraction_image)
-//            attraction_title_text.text = attraction.title
-//        }
+
     }
 
     override fun getItemCount() = attractions.size

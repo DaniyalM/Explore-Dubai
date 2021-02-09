@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.explore.ExploreRepository
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
+import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.utils.Resource
 import kotlinx.coroutines.launch
 
 class ExploreViewModel @ViewModelInject constructor(
@@ -21,14 +21,14 @@ class ExploreViewModel @ViewModelInject constructor(
     val exploreList: LiveData<Result<List<Explore>>> = _exploreList
 
 
-     fun getExploreToScreen(){
+    fun getExploreToScreen(locale: String) {
         viewModelScope.launch {
-            when(val result=exploreRepository.getExplore()){
-                is Result.Success->{
-                    _exploreList.value=result
+            when (val result = exploreRepository.getExplore(ExploreRequest(culture = locale))) {
+                is Result.Success -> {
+                    _exploreList.value = result
                 }
-                is Result.Failure->{
-                    _exploreList.value=result
+                is Result.Failure -> {
+                    _exploreList.value = result
                 }
 
             }

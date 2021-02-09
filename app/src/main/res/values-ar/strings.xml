@@ -48,7 +48,8 @@
     <string name="err_confirm">Invalid Confirm Password</string>
     <string name="err_first_name">Invalid Name</string>
     <string name="mobile_number_">Start with 92</string>
-
+    <string name="create_your_customised_trip">Create your customised trip</string>
+    <string name="plan_your_trip">Plan Your Trip</string>
     <string name="no_error"></string>
 
 </resources>

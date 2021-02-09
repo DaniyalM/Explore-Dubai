@@ -62,7 +62,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     private fun subscribeToObservable() {
         lifecycleScope.launch {
-            exploreViewModel.getExploreToScreen()
+            exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
         }
 
         exploreViewModel.exploreList.observe(viewLifecycleOwner) {

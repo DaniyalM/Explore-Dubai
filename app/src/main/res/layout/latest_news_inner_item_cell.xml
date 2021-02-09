@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
     <data>
         <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
+        <variable name="build" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginBottom="@dimen/_15sdp"
@@ -28,8 +30,9 @@
             <com.rishabhharit.roundedimageview.RoundedImageView
                 android:id="@+id/img_upcoming_bg"
                 app:cornerRadius="@dimen/_15sdp"
-                android:background="@drawable/gallery"
+                android:scaleType="fitXY"
                 android:layout_margin="@dimen/_10sdp"
+                android:imageUrl='@{news.image}'
                 app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="match_parent"/>
@@ -58,7 +61,7 @@
                     android:textSize="@dimen/_10ssp"
                     android:maxLines="3"
                     android:drawablePadding="@dimen/_4sdp"
-                    android:drawableStart="@drawable/clock_gray"
+                    android:drawableStart="@drawable/noun_date"
                     android:textColor="@color/gray_600"
                     android:ellipsize="end"
                     android:layout_marginStart="@dimen/_10sdp"

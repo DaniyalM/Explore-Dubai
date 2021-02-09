@@ -10,6 +10,8 @@ import dagger.Lazy
 @Singleton
 class SessionManager @Inject constructor(private val userRepository: Lazy<UserRepository>) {
 //    var authorizationToken: String = "auth_token1234567890987654321"
+
+
     suspend fun getToken(): Pair<Boolean, String> {
         val userRepo = userRepository.get()
         var user = userRepo.getLastUser()
