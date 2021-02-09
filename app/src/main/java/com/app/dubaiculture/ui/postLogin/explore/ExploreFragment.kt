@@ -1,9 +1,13 @@
 package com.app.dubaiculture.ui.postLogin.explore
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +16,7 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
+import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter.Companion.delayAnimate
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
@@ -27,6 +32,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     private val exploreViewModel: ExploreViewModel by viewModels()
     private lateinit var explore: ExploreRecyclerAsyncAdapter
+    val handler = Handler(Looper.getMainLooper())
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -61,6 +67,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     }
 
     private fun subscribeToObservable() {
+        customProgressDialog?.let {
+            if (!it.isShowing)
+                it.show()
+        }
         lifecycleScope.launch {
             exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
         }
@@ -69,6 +79,15 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let { explore.items = it.value }
+
+                    handler.postDelayed({
+                        customProgressDialog?.let {
+                            if (it.isShowing)
+                                it.dismiss()
+                        }
+                    }, delayAnimate.toLong())
+                    delayAnimate += 500
+
                 }
                 is Result.Failure ->handleApiError(it,exploreViewModel)
             }
@@ -78,5 +97,9 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacksAndMessages(null)
 
+    }
 }
