@@ -105,7 +105,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
         (holder.itemView as ExploreRecyclerAsyncAdapter.AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
-                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -126,6 +125,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             })
                     )
                 }
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+
             }
         }
     }
@@ -136,7 +137,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.UpComingEventsItemCell).bindWhenInflated {
             items[position].let { item ->
-                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
 
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
@@ -158,6 +158,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             })
                     )
                 }
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+
             }
         }
     }
@@ -168,7 +170,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
-                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
 
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
                 holder.itemView.binding?.tripSeperator?.visibility=View.VISIBLE
@@ -191,6 +192,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             })
                     )
                 }
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+
             }
         }
     }
@@ -201,7 +204,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.LatestNewsItemCell).bindWhenInflated {
             items[position].let { item ->
-                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
 
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
@@ -223,6 +225,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             })
                     )
                 }
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+
             }
         }
     }
@@ -233,7 +237,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.PopularServiceCell).bindWhenInflated {
             items[position].let { item ->
-                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
 
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
@@ -255,6 +258,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             })
                     )
                 }
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+
             }
         }
     }
