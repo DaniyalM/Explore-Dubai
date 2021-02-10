@@ -62,6 +62,7 @@
     <string name="no_error"></string>
     <string name="create_your_customised_trip">Create your customised trip</string>
     <string name="plan_your_trip">Plan Your Trip</string>
+    <string name="view_all">View all</string>
 
 
 </resources>

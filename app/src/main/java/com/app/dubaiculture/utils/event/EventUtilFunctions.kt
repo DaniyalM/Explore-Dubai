@@ -20,9 +20,13 @@ object EventUtilFunctions {
 
     fun showLoader(show: Boolean, customProgressDialog: ProgressDialog?) {
         if (show) {
-            customProgressDialog?.apply {
-                if (!isShowing) show()
-            }
+            customProgressDialog?.show()
+//            customProgressDialog?.apply {
+//                if (!isShowing){
+//
+//                }
+//
+//            }
         } else {
             customProgressDialog?.apply {
                 dismiss()
