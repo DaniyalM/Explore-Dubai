@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="java.util.Locale"/>
+
+        <import type="java.util.Locale" />
+
         <variable
             name="fragment"
             type="com.app.dubaiculture.ui.preLogin.login.LoginFragment" />
+
         <variable
             name="viewmodel"
             type="com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/purple_900"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/purple_900">
 
         <ImageView
             android:id="@+id/imageView4"
@@ -31,12 +35,11 @@
             android:id="@+id/animation_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_repeatCount="0"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/registration"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/registration"
              />
 
         <androidx.constraintlayout.widget.Guideline
@@ -44,9 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/imageView4"
-            />
-
+            app:layout_constraintBottom_toTopOf="@+id/imageView4" />
 
 
         <ImageView
@@ -58,36 +59,34 @@
             android:src="@drawable/logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_login_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_to_your_account"
             android:textColor="@color/white_900"
-            app:layout_constraintVertical_bias="0.7"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintBottom_toTopOf="@+id/mobile_number"
             app:layout_constraintStart_toStartOf="@+id/img_logo"
-            app:layout_constraintTop_toBottomOf="@+id/img_logo" />
-
+            app:layout_constraintTop_toBottomOf="@+id/img_logo"
+            app:layout_constraintVertical_bias="0.7" />
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/mobile_number"
             style="@style/TextViewRegistrationStyle"
-            android:text="@string/mobile_number"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:text="@string/mobile_number"
             android:textColor="@color/white_900"
             app:layout_constraintBottom_toTopOf="@+id/edit_mob_no"
             app:layout_constraintStart_toStartOf="@+id/edit_mob_no" />
 
 
-
-
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/customTextView2"
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isEmail ? @string/no_error :  @string/err_email }"
+            android:text="@{viewmodel.isPhone ? @string/no_error : viewmodel.mobileNumberError }"
             app:layout_constraintBottom_toBottomOf="@+id/full_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
@@ -95,30 +94,28 @@
             app:layout_constraintTop_toTopOf="@+id/mobile_number" />
 
 
-
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_mob_no"
             style="@style/EditTextLoginStyle"
-            android:inputType="phone"
-            android:imeOptions="actionNext"
+            android:background="@{viewmodel.isPhone ? @drawable/bg_edit_login : @drawable/error_login }"
             android:drawableEnd="@drawable/mob_login"
             android:hint="@string/enter_mobile_number"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:maxLength="12"
+            android:onTextChanged="@{viewmodel::onEmailChanged}"
+            android:text="@{viewmodel.phone}"
             app:layout_constraintBottom_toTopOf="@+id/password"
             app:layout_constraintEnd_toEndOf="@+id/edit_password"
-            app:layout_constraintStart_toStartOf="@+id/password"
+            app:layout_constraintStart_toStartOf="@+id/password" />
 
-            />
-
-<!--        android:text="@{viewmodel.email}"-->
-<!--        android:onTextChanged="@{viewmodel::onEmailChanged}"-->
-<!--        android:background="@{viewmodel.isEmail ? @drawable/bg_edit_login : @drawable/rectangle_error_bg_registration }"-->
 
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
-            android:background="@{viewmodel.isEmail ? null : @drawable/error }"
+            android:background="@{viewmodel.isPhone ? null : @drawable/error }"
             app:layout_constraintBottom_toBottomOf="@+id/edit_mob_no"
             app:layout_constraintEnd_toEndOf="@+id/edit_mob_no"
             app:layout_constraintTop_toTopOf="@+id/edit_mob_no" />
@@ -126,8 +123,8 @@
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/password"
             style="@style/TextViewRegistrationStyle"
-            android:text="@string/password"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:text="@string/password"
             android:textColor="@color/white_900"
             app:layout_constraintBottom_toTopOf="@+id/edit_password"
             app:layout_constraintStart_toStartOf="@+id/edit_password" />
@@ -138,7 +135,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toEndOf="@+id/password"/>
+            app:layout_constraintStart_toEndOf="@+id/password" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
@@ -152,38 +149,54 @@
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_password"
             style="@style/EditTextLoginStyle"
-            android:inputType="textPassword"
-            android:imeOptions="actionDone"
+            android:background="@{viewmodel.isPassword ? @drawable/bg_edit_login : @drawable/error_login}"
             android:drawableEnd="@drawable/key_pass_login"
             android:hint="@string/enter_password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:onTextChanged="@{viewmodel::onPasswordChanged}"
+            android:text="@={viewmodel.password}"
             app:layout_constraintBottom_toTopOf="@+id/forgot_pass"
             app:layout_constraintEnd_toEndOf="@+id/btn_login"
-            app:layout_constraintStart_toStartOf="@+id/btn_login"
+            app:layout_constraintStart_toStartOf="@+id/btn_login" />
 
-            />
-<!--        android:onTextChanged="@{viewmodel::onPasswordChanged}"-->
-<!--        android:text="@={viewmodel.password}"-->
-<!--        android:background="@{viewmodel.isPassword ? @drawable/bg_edit_login : @drawable/rectangle_error_bg_registration}"-->
         <ImageView
-            android:layout_marginEnd="@dimen/_12sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:background="@{viewmodel.isPassword ? null : @drawable/error }"
             app:layout_constraintBottom_toBottomOf="@+id/edit_password"
             app:layout_constraintEnd_toEndOf="@+id/edit_password"
             app:layout_constraintTop_toTopOf="@+id/edit_password" />
 
 
-
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/forgot_pass"
-            android:textColor="@color/white_900"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_20sdp"
             android:text="@string/forgot_password"
+            android:textColor="@color/white_900"
             app:layout_constraintBottom_toTopOf="@+id/btn_login"
             app:layout_constraintEnd_toEndOf="@+id/btn_login" />
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_login"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="@dimen/_25sdp"-->
+<!--            android:layout_marginBottom="@dimen/_10sdp"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:background="@drawable/btn_border_login"-->
+<!--            android:enabled="@{viewmodel.btnSelected}"-->
+<!--            android:gravity="center"-->
+<!--            android:onClick="@{()-> viewmodel.login()}"-->
+<!--            android:text="@string/login"-->
+<!--            android:textColor="@color/white_900"-->
+<!--            android:textSize="@dimen/_12ssp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/guideline"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/img_logo" />-->
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/btn_login"
@@ -192,6 +205,7 @@
             android:layout_marginEnd="@dimen/_25sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/btn_border_login"
+            android:enabled="@{viewmodel.btnSelected}"
             android:gravity="center"
             android:onClick="@{()-> viewmodel.login()}"
             android:text="@string/login"
@@ -202,52 +216,47 @@
             app:layout_constraintStart_toStartOf="@+id/img_logo" />
 
 
-
-<!--        android:enabled="@{viewmodel.btnSelected}"-->
-
-
-
+        <!--        android:enabled="@{viewmodel.btnSelected}"-->
 
 
         <ImageView
             android:id="@+id/img_uae_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintVertical_bias="0.9"
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/uae_pass"
             app:layout_constraintBottom_toTopOf="@+id/tv_dont_have_acct"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView4" />
+            app:layout_constraintTop_toTopOf="@+id/imageView4"
+            app:layout_constraintVertical_bias="0.9" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_dont_have_acct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_11ssp"
-            android:textColor="@color/gray_800"
             android:layout_marginBottom="@dimen/_15sdp"
             android:text="@string/don_t_have_an_account"
+            android:textColor="@color/gray_800"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toTopOf="@+id/tv_as_guest"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintEnd_toStartOf="@+id/tv_register_now"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_register_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple_900"
-            android:textSize="@dimen/_11ssp"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="@dimen/_15sdp"
             android:text="@string/register_now"
-            app:layout_constraintHorizontal_chainStyle="packed"
+            android:textColor="@color/purple_900"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toTopOf="@+id/tv_as_guest"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_dont_have_acct"
-            />
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/tv_dont_have_acct" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_as_guest"

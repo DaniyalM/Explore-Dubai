@@ -40,7 +40,7 @@
     <!--Login screen-->
   <color name="black_200">#2A2D31</color>
     <color name="orange">#FE6500</color>
-    <color name="disabled">#CCCCCC</color>
+    <color name="disabled">#EFEDED</color>
 
 <!--    Explore Attraction Color Palatte-->
     <string-array name="colors">

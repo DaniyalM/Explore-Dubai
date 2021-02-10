@@ -19,7 +19,7 @@
     <string name="full_name">Full name</string>
     <string name="enter_full_name">Enter full name</string>
     <string name="email_address">Email address</string>
-    <string name="i_agree_to_the_terms_and_conditions">I agree to the terms and conditions</string>
+    <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
     <string name="register_now">Register Now</string>
     <string name="confirm_password">Confirm password</string>
     <string name="forgot_password_">Forgot Password</string>

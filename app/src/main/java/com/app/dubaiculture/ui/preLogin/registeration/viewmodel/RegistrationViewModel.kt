@@ -78,7 +78,8 @@ class RegistrationViewModel @ViewModelInject constructor(
                             )
                         } else {
                             showToast(result.value.errorMessage)
-                            Timber.e(result.value.statusCode.toString())
+                            showSnackbar(result.value.errorMessage)
+//                            Timber.e(result.value.statusCode.toString())
                         }
                     }
                     is Result.Failure -> {
@@ -117,6 +118,12 @@ class RegistrationViewModel @ViewModelInject constructor(
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
         isPhone.value = AuthUtils.isValidMobile(s.toString().trim())
+        if(!s.startsWith("92")){
+            Timber.e("start with 92")
+            mobileNumberError.value = "Start with 92"
+        }else {
+            mobileNumberError.value = "Invalid Phone Number"
+        }
         enableButton()
     }
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
@@ -136,4 +143,6 @@ class RegistrationViewModel @ViewModelInject constructor(
         isTermAccepted.value = isChecked
         enableButton()
     }
+
+
 }

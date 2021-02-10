@@ -58,9 +58,9 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatTextView(c
                 ResourcesCompat.getColor(
                     context.resources,
                     if (enabled) {
-                        R.color.purple_900
+                        R.color.white_900
                     } else {
-                        R.color.disabled
+                        R.color.white_900
                     },
                     null
                 )
