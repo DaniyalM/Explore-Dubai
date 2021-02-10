@@ -86,8 +86,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+        setAnimation(holder.itemView)
         when (holder) {
+
             is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
             is UpComingEventsViewHolder -> setUpComingEventsViewHolder(holder, position)
             is MustSeeViewHolder -> setMustSeeViewHolder(holder, position)
@@ -104,6 +105,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
         (holder.itemView as ExploreRecyclerAsyncAdapter.AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -134,6 +136,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.UpComingEventsItemCell).bindWhenInflated {
             items[position].let { item ->
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -164,6 +168,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
                 holder.itemView.binding?.tripSeperator?.visibility=View.VISIBLE
                 holder.itemView.binding?.innerSectionRv?.let {
@@ -195,6 +201,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.LatestNewsItemCell).bindWhenInflated {
             items[position].let { item ->
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -225,6 +233,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.PopularServiceCell).bindWhenInflated {
             items[position].let { item ->
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -282,7 +292,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         override val layoutId = R.layout.section_item_container_cell
         override fun createDataBindingView(view: View): View? {
             binding = SectionItemContainerCellBinding.bind(view)
-            binding?.let { it.innerSectionHeading.text = "Attractions" }
+
             return view.rootView
         }
     }
@@ -292,7 +302,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         override val layoutId = R.layout.section_item_container_cell
         override fun createDataBindingView(view: View): View? {
             binding = SectionItemContainerCellBinding.bind(view)
-            binding?.let { it.innerSectionHeading.text = "Must See" }
             return view.rootView
         }
     }
@@ -302,7 +311,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         override val layoutId = R.layout.section_item_container_cell
         override fun createDataBindingView(view: View): View? {
             binding = SectionItemContainerCellBinding.bind(view)
-            binding?.let { it.innerSectionHeading.text = "Popular Service" }
             return view.rootView
         }
     }
@@ -312,7 +320,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         override val layoutId = R.layout.section_item_container_cell
         override fun createDataBindingView(view: View): View? {
             binding = SectionItemContainerCellBinding.bind(view)
-            binding?.let { it.innerSectionHeading.text = "Upcoming Events" }
             return view.rootView
         }
     }
@@ -322,7 +329,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         override val layoutId = R.layout.section_item_container_cell
         override fun createDataBindingView(view: View): View? {
             binding = SectionItemContainerCellBinding.bind(view)
-            binding?.let { it.innerSectionHeading.text = "Latest News" }
             return view.rootView
         }
     }
@@ -336,11 +342,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         POPULARSERVICES(3),
         LATESTNEWS(4),
     }
-
-    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        setAnimation(holder.itemView)
-    }
+//
+//    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+//        super.onViewAttachedToWindow(holder)
+//        setAnimation(holder.itemView)
+//    }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         super.onViewDetachedFromWindow(holder)

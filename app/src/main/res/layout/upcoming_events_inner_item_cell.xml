@@ -58,6 +58,7 @@
                 app:cornerRadius="@dimen/_15sdp"
                 app:roundedCorners="topRight|topLeft"
                 android:layout_width="match_parent"
+                android:scaleType="fitXY"
                 android:imageUrl="@{events.image}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
