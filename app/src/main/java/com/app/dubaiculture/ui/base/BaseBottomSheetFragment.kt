@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
+import com.app.dubaiculture.utils.event.EventUtilFunctions.showAlert
 import com.app.dubaiculture.utils.event.UiEvent
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -97,7 +98,8 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
                 ?.let { event ->
                     when (event) {
                         is UiEvent.ShowAlert -> {
-                            EventUtilFunctions.showAlert(event.message)
+                            showAlert(event.message)
+
                         }
                         is UiEvent.ShowToast -> {
                             EventUtilFunctions.showToast(event.message,activity)
@@ -147,6 +149,9 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
 
     public fun getCurrentLanguage(): Locale {
         return (activity as BaseActivity).getCurrentLanguage()
+    }
+    fun showAlert(message: String) {
+        EventUtilFunctions.showAlert(message, activity)
     }
 
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH

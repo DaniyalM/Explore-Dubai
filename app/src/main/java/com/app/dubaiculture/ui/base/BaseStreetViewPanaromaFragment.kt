@@ -78,7 +78,7 @@ abstract class BaseStreetViewPanaromaFragment<DB : ViewDataBinding> : SupportStr
                 ?.let { event ->
                     when (event) {
                         is UiEvent.ShowAlert -> {
-                            EventUtilFunctions.showAlert(event.message)
+//                            EventUtilFunctions.showAlert(event.message)
                         }
                         is UiEvent.ShowToast -> {
                             EventUtilFunctions.showToast(event.message, activity)

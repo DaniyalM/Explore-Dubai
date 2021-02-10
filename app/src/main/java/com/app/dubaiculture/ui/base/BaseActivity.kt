@@ -37,7 +37,8 @@ abstract class BaseActivity : LocalizationActivity() {
                 ?.let { event ->
                     when (event) {
                         is UiEvent.ShowAlert -> {
-                            showAlert(event.message)
+                            showAlert(event.message, this)
+
                         }
                         is UiEvent.ShowToast -> {
                             showToast(event.message, this)

@@ -23,7 +23,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun showAlert(title: String = "Alert", message: String) {
-        _uiEventsLiveData.postValue(Event(UiEvent.ShowAlert(title = title, message = message)))
+        _uiEventsLiveData.value = Event(UiEvent.ShowAlert(title = title, message = message))
     }
 
     fun showToast(message: String) {
