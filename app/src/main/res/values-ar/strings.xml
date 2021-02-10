@@ -51,6 +51,7 @@
     <string name="create_your_customised_trip">Create your customised trip</string>
     <string name="plan_your_trip">Plan Your Trip</string>
     <string name="no_error"></string>
+    <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">A One Time Password (OTP) will be sent to your registered email address or mobile number.</string>
 
 </resources>
 

@@ -9,11 +9,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.preLogin.password.CreatePassFragment">
 
-        <TextView
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_repeatCount="0"
+            app:lottie_rawRes="@raw/reg_lines"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/top_design"
             app:layout_constraintTop_toTopOf="parent"
             />
 
