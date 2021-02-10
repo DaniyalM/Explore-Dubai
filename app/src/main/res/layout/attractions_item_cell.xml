@@ -25,6 +25,7 @@
             android:id="@+id/attraction_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@android:drawable/dialog_holo_light_frame"
             app:cardElevation="@dimen/_5sdp"
             app:cardBackgroundColor="@color/purple_900"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,8 +37,8 @@
                 android:id="@+id/img_card_view"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
+                android:svgUrl="@{attractions.icon}"
                 android:layout_gravity="center"
-                android:background="@drawable/fastival_icon_home"
                 />
 
         </com.google.android.material.card.MaterialCardView>

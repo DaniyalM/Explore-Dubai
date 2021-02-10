@@ -42,5 +42,13 @@
     <color name="orange">#FE6500</color>
     <color name="disabled">#CCCCCC</color>
 
+<!--    Explore Attraction Color Palatte-->
+    <string-array name="colors">
+        <item>#572C82</item>
+        <item>#00BBAE</item>
+        <item>#011C72</item>
+        <item>#FF6C12</item>
+        <item>#00BBAE</item>
+    </string-array>
 
 </resources>

@@ -24,6 +24,7 @@
             android:id="@+id/img_must_see"
             android:background="@drawable/must_see_icon_home"
             android:scaleType="fitXY"
+            android:imageViewUrl='@{mustsee.portraitImage}'
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
