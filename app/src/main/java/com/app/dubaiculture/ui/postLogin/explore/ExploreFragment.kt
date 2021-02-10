@@ -1,23 +1,38 @@
 package com.app.dubaiculture.ui.postLogin.explore
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.dubaiculture.data.repository.explore.local.models.Attraction
-import com.app.dubaiculture.data.repository.explore.local.models.TestItem
+import androidx.recyclerview.widget.LinearSnapHelper
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
+import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter.Companion.delayAnimate
+import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
+import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     @Inject
     lateinit var glide: RequestManager
+
+    private val exploreViewModel: ExploreViewModel by viewModels()
+    private lateinit var explore: ExploreRecyclerAsyncAdapter
+    val handler = Handler(Looper.getMainLooper())
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -29,52 +44,66 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        explore = ExploreRecyclerAsyncAdapter(activity)
+        callingObservables()
+        subscribeToObservable()
         setUpRecyclerView()
+
     }
 
     private fun setUpRecyclerView() {
-        val explore = ExploreRecyclerAsyncAdapter(activity)
-        explore.items = createTestItems()
+
+//        explore.items = createTestItems()
         binding.rvExplore.apply {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
+
             adapter = explore
             explore.provideGlideInstance(glide)
+//            LinearSnapHelper().attachToRecyclerView(this)
+
 
         }
 
     }
 
-    private fun createAttractionItems(): List<Attraction> = mutableListOf<Attraction>().apply {
 
-        repeat((1..70).count()) {
-            add(
-                Attraction(
-                    it - 1,
-                    "dubai culture ${it}",
-                    "https://cdn-sharing.adobecc.com/id/urn:aaid:sc:US:a8b582cb-91d1-4561-b05f-cfe1c0e7b414;version=0?component_id=a46d108d-0cd1-4619-86d9-53e449a87c1e&api_key=CometServer1&access_token=1611608278_urn%3Aaaid%3Asc%3AUS%3Aa8b582cb-91d1-4561-b05f-cfe1c0e7b414%3Bpublic_827967f49e41aad27f7dd2bb859c4045dc9c846e"
-                )
-            )
+    private fun callingObservables(){
+        customProgressDialog?.let {
+            if (!it.isShowing)
+                it.show()
+        }
+        lifecycleScope.launch {
+            exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
         }
     }
 
-    private fun createTestItems(): List<TestItem> = mutableListOf<TestItem>().apply {
+    private fun subscribeToObservable() {
+        exploreViewModel.exploreList.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    it.let { explore.items = it.value }
+
+                    handler.postDelayed({
+                        customProgressDialog?.let {
+                            if (it.isShowing)
+                                it.dismiss()
+                        }
+                    }, delayAnimate.toLong())
+                    delayAnimate += 500
+
+                }
+                is Result.Failure ->handleApiError(it,exploreViewModel)
+            }
 
 
-        repeat((1..70).count()) {
-
-            add(
-                TestItem(
-                    it - 1,
-                    "description $it",
-                    it,
-                    "title $it",
-                    it,
-                    it,
-                    createAttractionItems()
-                )
-            )
         }
+
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacksAndMessages(null)
+
+    }
 }

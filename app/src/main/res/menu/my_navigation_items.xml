@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_explore"
+        android:icon="@drawable/explore"
+        android:title="@string/explore" />
+    <item
+        android:id="@+id/action_events"
+        android:icon="@drawable/events"
+        android:title="@string/events" />
+
+    <item
+        android:id="@+id/hidden"
+        android:title="" />
+    <item
+        android:id="@+id/action_forums"
+        android:icon="@drawable/attraction"
+        android:title="@string/attractions" />
+    <item
+        android:id="@+id/action_more"
+        android:icon="@drawable/more"
+        android:title="@string/more" />
+</menu>

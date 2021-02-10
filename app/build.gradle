@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 //apply plugin: 'com.google.gms.google-services'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 def config = rootProject.extensions.getByName("ext")
 
 
@@ -26,17 +27,11 @@ android {
 
     }
     signingConfigs {
-        stag {
+        stagConfig {
             storeFile file("../certificates/dubaiculturecert.jks")
             storePassword "dc123dc"
             keyAlias "dccert"
             keyPassword "dc123dc"
-        }
-        stagConfig {
-            storeFile file("../certificates/stagingKS.jks")
-            storePassword "dj123456789"
-            keyAlias "staging"
-            keyPassword "dj123456789"
         }
         prodConfig {
             storeFile file("../certificates/productionKS.jks")
@@ -46,11 +41,29 @@ android {
         }
     }
     buildTypes {
+        release {
+            applicationIdSuffix ".release"
+            minifyEnabled false
+            debuggable false
+            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
+            buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
+            buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
+            buildConfigField("String", "DB_NAME", "\"ROOM_DB_DEBUG\"")
+
+            Properties properties = new Properties()
+            if (rootProject.file("local.properties").exists()) {
+                properties.load(rootProject.file("local.properties").newDataInputStream())
+            }
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+
+
+        }
         debug {
             applicationIdSuffix ".debug"
             minifyEnabled false
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"https://8bc1dd86-134b-4cba-8faf-1913c2adec08.mock.pstmn.io\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -68,13 +81,20 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"https://8bc1dd86-134b-4cba-8faf-1913c2adec08.mock.pstmn.io\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
             signingConfig signingConfigs.stagConfig
 
+//            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
+
+            Properties properties = new Properties()
+            if (rootProject.file("local.properties").exists()) {
+                properties.load(rootProject.file("local.properties").newDataInputStream())
+            }
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
 
         }
         prod {
@@ -82,12 +102,14 @@ android {
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"https://8bc1dd86-134b-4cba-8faf-1913c2adec08.mock.pstmn.io\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_PROD\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_PROD\"")
             signingConfig signingConfigs.prodConfig
+
+//            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
 
         }
     }
@@ -202,5 +224,10 @@ dependencies {
     // GMS
     implementation config.google.map_google
 
+    //OTP
+    implementation config.otp.otpview_library
+    implementation config.ui_design.roundedImageView
 
+ //   SVG Glide
+    implementation config.image_processing.glideToSvg
 }

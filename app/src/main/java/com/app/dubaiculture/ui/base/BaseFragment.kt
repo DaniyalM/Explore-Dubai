@@ -6,11 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
+import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
+import com.app.dubaiculture.utils.event.EventUtilFunctions.showAlert
 import com.app.dubaiculture.utils.event.UiEvent
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
@@ -44,8 +49,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         isBusRegistered = true
         customProgressDialog = ProgressDialog(activity)
         groupAdapter = GroupAdapter()
-
-
     }
 
     override fun onCreateView(
@@ -82,7 +85,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                 ?.let { event ->
                     when (event) {
                         is UiEvent.ShowAlert -> {
-                            EventUtilFunctions.showAlert(event.message)
+                            showAlert(event.message)
+
                         }
                         is UiEvent.ShowToast -> {
                             EventUtilFunctions.showToast(event.message, activity)
@@ -97,17 +101,45 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                                 event.action
                             )
                         }
+                        is UiEvent.NavigateByDirections -> {
+                            navigateByDirections(event.navDirections)
+                        }
+                        is UiEvent.NavigateByAction -> {
+                            navigateByAction(event.actionId, event.bundle)
+                        }
                     }
                 }
         })
     }
 
+    fun navigateByDirections(navDirections: NavDirections) {
+        EventUtilFunctions.navigateByDirections(this, navDirections)
+
+    }
+
+    fun navigateByAction(actionId: Int, bundle: Bundle? = null) {
+        EventUtilFunctions.navigateByAction(this, actionId, bundle)
+
+    }
+
+    protected fun back() {
+        findNavController().popBackStack()
+    }
+
+    protected fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
+        findNavController().navigate(resId, bundle)
+    }
+
     public fun setLanguage(locale: Locale) {
-        (activity as BaseActivity).setLanguage( locale)
+        (activity as BaseActivity).setLanguage(locale)
     }
 
     public fun getCurrentLanguage(): Locale {
         return (activity as BaseActivity).getCurrentLanguage()
     }
+    fun showAlert(message: String) {
+        EventUtilFunctions.showAlert(message, activity)
+    }
+
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
 }

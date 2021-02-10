@@ -2,7 +2,10 @@ package com.app.dubaiculture.ui.preLogin.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.app.dubaiculture.R
@@ -12,12 +15,11 @@ import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
-import net.bytebuddy.asm.Advice
 import java.util.*
 
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener{
 
     private val loginViewModel: LoginViewModel by viewModels()
 
@@ -29,50 +31,50 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel = loginViewModel
-        binding.fragment = this
         subscribeUiEvents(loginViewModel)
-        subscribeToObservables()
-        changeLocalIntoAr()
+        binding.fragment = this
+        binding.forgotPass.setOnClickListener(this)
+        binding.imgUaePass.setOnClickListener(this)
 
         binding.tvRegisterNow.setOnClickListener {
             findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment2)
-        }
-        binding.forgotPass.setOnClickListener {
-            loginViewModel.showToast("ForgotPassword!")
         }
         binding.tvAsGuest.setOnClickListener {
             application.auth.isLoggedIn = true
             activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
         }
+        binding.languageSwitch.setOnCheckedChangeListener{ _: CompoundButton, b: Boolean ->
+            if (b)
+                setLanguage(Locale( "ar"))
+            else setLanguage(Locale.ENGLISH)
+        }
+
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    activity.finish()
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        subscribeToObservables()
     }
 
 
     private fun subscribeToObservables() {
-        application.auth.isLoggedIn = false
         loginViewModel.loginStatus.observe(viewLifecycleOwner) {
-            if (it) {
-                application.auth.isLoggedIn = true
+            it.getContentIfNotHandled()?.let {
                 activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             }
         }
-
-//        loginViewModel.emailStatus.observe(viewLifecycleOwner) {
-//            binding.emailLayout.isErrorEnabled = false
-//            if (it) {
-//                binding.emailLayout.isErrorEnabled = true
-//                binding.emailLayout.error = "Invalid Email."
-//            }
-//        }
-//
-//        loginViewModel.passwordStatus.observe(viewLifecycleOwner) {
-//            binding.passWordLayout.isErrorEnabled = false
-//            if (it) {
-//                binding.passWordLayout.isErrorEnabled = true
-//                binding.passWordLayout.error = "Invalid Password."
-//            }
-//        }
     }
-    fun changeLocalIntoAr(){
-        setLanguage(Locale("en"))
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.forgot_pass -> {
+                navigate(R.id.action_loginFragment_to_forgotFragment)
+            }
+            R.id.img_uae_pass -> {
+            }
+        }
     }
 }

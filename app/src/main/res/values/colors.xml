@@ -35,8 +35,20 @@
   <color name="gray_600">#B7B9BC</color>
 
 
-  <!--Login screen-->
-  <color name="black_200">#2A2D31</color>
 
+
+    <!--Login screen-->
+  <color name="black_200">#2A2D31</color>
+    <color name="orange">#FE6500</color>
+    <color name="disabled">#EFEDED</color>
+
+<!--    Explore Attraction Color Palatte-->
+    <string-array name="colors">
+        <item>#572C82</item>
+        <item>#00BBAE</item>
+        <item>#011C72</item>
+        <item>#FF6C12</item>
+        <item>#00BBAE</item>
+    </string-array>
 
 </resources>
