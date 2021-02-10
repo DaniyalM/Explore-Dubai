@@ -6,9 +6,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
 abstract class BaseRDS {
-    suspend fun <T> safeApiCall(
-        apiCall: suspend () -> T
-    ): Result<T> {
+    suspend fun <T> safeApiCall(apiCall: suspend () -> T): Result<T> {
         return withContext(Dispatchers.IO) {
             try {
                 Result.Success(apiCall.invoke())

@@ -1,14 +1,18 @@
 package com.app.dubaiculture.data.repository.explore
 
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.base.BaseRDS
 import com.app.dubaiculture.data.repository.base.BaseRepository
-import com.app.dubaiculture.data.repository.explore.local.ExploreLDS
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.data.repository.explore.mapper.transformExplore
 import com.app.dubaiculture.data.repository.explore.mapper.transformExploreRequest
 import com.app.dubaiculture.data.repository.explore.remote.ExploreRDS
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
+import okhttp3.ResponseBody
+import retrofit2.HttpException
+import retrofit2.Response
 import javax.inject.Inject
+
 
 class ExploreRepository @Inject constructor(
     private val exploreRDS: ExploreRDS
@@ -18,10 +22,15 @@ class ExploreRepository @Inject constructor(
             is Result.Success -> {
                 // Single Source Of Truth -> get data from server -> save to db -> get from db to provide to UI
                 val listRDS = resultRDS
-                val listLDS = transformExplore(listRDS.value.Result.value)
+                if (listRDS.value.statusCode != 200) {
+                    Result.Failure(true,listRDS.value.statusCode,null)
+                }else{
+                    val listLDS = transformExplore(listRDS.value.Result.value)
 //                photoLDS.insertAll(listLDS as MutableList<Photo>)
 //                val resultLDS = photoLDS.getAll()
-                Result.Success(listLDS)
+                    Result.Success(listLDS)
+                }
+
             }
             is Result.Error -> resultRDS
             is Result.Failure -> resultRDS

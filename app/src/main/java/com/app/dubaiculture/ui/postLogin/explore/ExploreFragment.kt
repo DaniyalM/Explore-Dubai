@@ -45,6 +45,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         explore = ExploreRecyclerAsyncAdapter(activity)
+        callingObservables()
         subscribeToObservable()
         setUpRecyclerView()
 
@@ -66,7 +67,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     }
 
-    private fun subscribeToObservable() {
+
+    private fun callingObservables(){
         customProgressDialog?.let {
             if (!it.isShowing)
                 it.show()
@@ -74,7 +76,9 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         lifecycleScope.launch {
             exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
         }
+    }
 
+    private fun subscribeToObservable() {
         exploreViewModel.exploreList.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {

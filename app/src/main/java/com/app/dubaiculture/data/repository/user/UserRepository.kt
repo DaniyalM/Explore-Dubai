@@ -8,6 +8,7 @@ import com.app.dubaiculture.data.repository.user.local.User
 import com.app.dubaiculture.data.repository.user.local.UserLDS
 import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.data.repository.user.remote.UserRDS
+import com.app.dubaiculture.data.repository.user.remote.request.GuestTokenRequestDTO
 import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequest
 import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequestDTO
 import javax.inject.Inject
@@ -40,5 +41,20 @@ class UserRepository @Inject constructor(
             }
         }
         return null
+    }
+
+    suspend fun guestToken(deviceId:String): Pair<Boolean, String>? {
+        when(val resultRDS=userRDS.getGuestToken(GuestTokenRequestDTO(deviceId))){
+            is Result.Success -> {
+                val resp = resultRDS.value.guestTokenResponseDTO
+                return Pair(true,resp.token)
+            }
+            is Result.Failure -> {
+                val resp = resultRDS.errorBody
+
+            }
+        }
+        return null
+
     }
 }
