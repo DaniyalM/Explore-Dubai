@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 open class UserDTO (
     @SerializedName(value = "Email")
-    val Email: String? = null,
+    val Email: String,
     @SerializedName(value = "Id")
-    val Id: String? = null,
+    val Id: String,
     @SerializedName(value = "PhoneNumber")
-    val PhoneNumber: String? = null,
+    val PhoneNumber: String,
     @SerializedName(value = "UserName")
-    val UserName: String?= null
+    val UserName: String,
 )

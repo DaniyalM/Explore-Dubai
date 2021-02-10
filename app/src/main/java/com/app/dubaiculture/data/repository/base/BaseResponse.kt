@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 open class BaseResponse() {
+
     @SerializedName(value = "Succeeded")
     val succeeded: Boolean = false
 
@@ -13,6 +14,5 @@ open class BaseResponse() {
 
     @SerializedName(value = "ErrorMessage")
     val errorMessage: String = ""
-
 
 }

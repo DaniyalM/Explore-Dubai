@@ -193,7 +193,6 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/btn_border_login"
             android:gravity="center"
-            android:enabled="@{viewmodel.btnSelected}"
             android:onClick="@{()-> viewmodel.login()}"
             android:text="@string/login"
             android:textColor="@color/white_900"
@@ -204,6 +203,7 @@
 
 
 
+<!--        android:enabled="@{viewmodel.btnSelected}"-->
 
 
 

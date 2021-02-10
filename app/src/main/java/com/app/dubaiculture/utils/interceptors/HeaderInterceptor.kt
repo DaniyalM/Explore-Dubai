@@ -7,19 +7,22 @@ import okhttp3.Response
 import javax.inject.Inject
 
 
-class HeaderInterceptor @Inject constructor(private val sessionManager: SessionManager) : Interceptor {
+class HeaderInterceptor @Inject constructor(private val sessionManager: SessionManager) :
+    Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
-        request = request.newBuilder()
+        val requestBuilder = request.newBuilder()
 
-
-
-//            .addHeader("Accept-Version", "v1")
-//            .addHeader("Authorization", sessionManager.authorizationToken)
-            .build()
+        runBlocking {
+            val pair = sessionManager.getToken()
+            //first => isUserLoggedIn?
+            //second => if logged in then add token as header
+            if (pair.first) {
+                requestBuilder.addHeader("Authorization", pair.second)
+            }
+            request = requestBuilder.build()
+        }
         //chain.proceed() calls next interceptor if chained in okHttpClientbuilder
-
         return chain.proceed(request)
     }
-
 }
