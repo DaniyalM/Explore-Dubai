@@ -25,7 +25,6 @@ class RegistrationViewModel @ViewModelInject constructor(
 
     private var _otp: MutableLiveData<String> = MutableLiveData()
     var otp: MutableLiveData<String> = _otp
-
     // Validation
     var btnEnabled: ObservableBoolean = ObservableBoolean(false)
 
