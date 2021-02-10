@@ -3,28 +3,22 @@ package com.app.dubaiculture.ui.postLogin.events.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.app.dubaiculture.databinding.UpcomingEventsInnerItemCellBinding
+import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
+import com.rishabhharit.roundedimageview.RoundedImageView
 
 class UpComingEventsInnerAdapter(val glide: RequestManager) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    BaseRecyclerAdapter() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<BaseModel>() {
-        override fun areItemsTheSame(oldItem:BaseModel, newItem: BaseModel): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
-        }
-    }
-    private val differ = AsyncListDiffer(this, diffCallback)
 
     var upComingEvents: List<BaseModel>
         get() = differ.currentList
@@ -32,6 +26,8 @@ class UpComingEventsInnerAdapter(val glide: RequestManager) :
 
 
     inner class UpComingEventsViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return UpComingEventsViewHolder(UpcomingEventsInnerItemCell(parent.context).apply { inflate() })
     }

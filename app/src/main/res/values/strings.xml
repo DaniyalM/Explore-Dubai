@@ -60,7 +60,8 @@
     <string name="err_password">Invalid Password</string>
     <string name="err_confirm">Invalid Confirm Password</string>
     <string name="no_error"></string>
-
+    <string name="create_your_customised_trip">Create your customised trip</string>
+    <string name="plan_your_trip">Plan Your Trip</string>
 
 
 </resources>

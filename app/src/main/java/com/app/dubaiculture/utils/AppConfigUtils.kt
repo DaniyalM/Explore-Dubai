@@ -1,5 +1,10 @@
 package com.app.dubaiculture.utils
 
+import androidx.databinding.BindingAdapter
+import com.app.dubaiculture.BuildConfig
+import com.bumptech.glide.Glide
+import com.rishabhharit.roundedimageview.RoundedImageView
+
 object AppConfigUtils {
     var BASE_URL = "https://jsonplaceholder.typicode.com/"
 
@@ -14,6 +19,7 @@ object AppConfigUtils {
     const val DELAY_TIME_MILLIS: Long = 3000
     const val TAG_OUTPUT = "OUTPUT"
     const val KEY_IMAGE_URI = "KEY_IMAGE_URI"
+
 
 
 

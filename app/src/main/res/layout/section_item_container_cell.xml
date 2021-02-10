@@ -63,7 +63,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent">
 
 
@@ -73,13 +73,13 @@
                         android:textSize="@dimen/_13sdp"
                         android:textColor="@color/black_200"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:text="Plan Your Trip" />
+                        android:text="@string/plan_your_trip" />
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:textSize="@dimen/_10ssp"
-                        android:text="Create your customised trip"
+                        android:text="@string/create_your_customised_trip"
                         />
                 </LinearLayout>
 

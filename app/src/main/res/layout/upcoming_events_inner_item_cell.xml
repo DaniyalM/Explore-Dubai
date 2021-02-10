@@ -56,9 +56,9 @@
             <com.rishabhharit.roundedimageview.RoundedImageView
                 android:id="@+id/img_upcoming_bg"
                 app:cornerRadius="@dimen/_15sdp"
-                android:background="@drawable/gallery"
                 app:roundedCorners="topRight|topLeft"
                 android:layout_width="match_parent"
+                android:imageUrl="@{events.image}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

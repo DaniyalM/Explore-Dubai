@@ -6,12 +6,16 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.rishabhharit.roundedimageview.RoundedImageView
 import okhttp3.RequestBody
 import okio.Buffer
 import java.io.IOException
@@ -90,6 +94,17 @@ fun Fragment.handleApiError(
     }
 }
 
-
+@BindingAdapter("android:imageUrl")
+fun loadImage(view: RoundedImageView, url: String?) {
+    url?.let {
+        Glide.with(view.context)
+            .load(BuildConfig.BASE_URL +it)
+//                .apply(
+//                    RequestOptions()
+//                        .placeholder(R.drawable.loading_animation)
+//                        .error(R.drawable.ic_broken_image))
+            .into(view)
+    }
+}
 
 
