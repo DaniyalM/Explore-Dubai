@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.ProgressDialog
@@ -137,9 +139,22 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     public fun getCurrentLanguage(): Locale {
         return (activity as BaseActivity).getCurrentLanguage()
     }
+
     fun showAlert(message: String) {
         EventUtilFunctions.showAlert(message, activity)
     }
 
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
+
+    fun lottieAnimationRTL(img: LottieAnimationView) {
+        when {
+            isArabic() -> {
+                img.scaleX = -1f
+            }
+            else -> {
+                img.scale = 1f
+            }
+        }
+    }
+
 }
