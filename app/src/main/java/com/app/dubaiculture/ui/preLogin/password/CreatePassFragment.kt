@@ -10,15 +10,21 @@ import com.app.dubaiculture.databinding.FragmentCreatePassBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.password.passwordupdated.PasswordUpdatedFragment
 import com.app.dubaiculture.ui.preLogin.password.viewModel.CreatePassViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_create_pass.view.*
-
+@AndroidEntryPoint
 class CreatePassFragment : BaseFragment<FragmentCreatePassBinding>(),View.OnClickListener{
     private var modalDismissWithAnimation = false
     private val createPassViewModel: CreatePassViewModel by viewModels()
-
+    private var verificationCode : String?= null
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.btnSetPass.btn.setOnClickListener { navigate(R.id.action_createPassFragment_to_passwordUpdatedFragment) }
+        binding.viewmodel = createPassViewModel
+        subscribeUiEvents(createPassViewModel)
+        arguments?.let {             verificationCode = it.getString("verificationCode") }
+        binding.btnSetPassword.setOnClickListener {
+            createPassViewModel.setPassword(verificationCode)
+        }
         binding.imgClose.setOnClickListener(this)
     }
 

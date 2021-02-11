@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+        <data>
+
+                <variable
+                    name="viewmodel"
+                    type="com.app.dubaiculture.ui.preLogin.password.viewModel.CreatePassViewModel" />
+        </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -112,8 +119,17 @@
             app:layout_constraintStart_toStartOf="@+id/special_character"
             />
 
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            style="@style/TextViewErrorRegistration"
+            android:text="@{viewmodel.isPassword ? @string/no_error :  @string/err_password }"
+            app:layout_constraintBottom_toBottomOf="@+id/password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/password"
+            app:layout_constraintTop_toTopOf="@+id/password" />
+
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
-            android:id="@+id/edit_fullName"
+            android:id="@+id/edit_password"
             style="@style/EditTextStyle"
             android:imeOptions="actionNext"
             android:hint="@string/password"
@@ -121,17 +137,36 @@
             android:drawableEnd="@drawable/key_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            android:background="@{viewmodel.isPassword ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
+            android:onTextChanged="@{viewmodel::onPasswordChanged}"
+            android:text="@={viewmodel.password}"
+            />
 
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@{viewmodel.isPassword ? null : @drawable/error }"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_pass"
+            app:layout_constraintEnd_toEndOf="@+id/edit_pass"
+            app:layout_constraintTop_toTopOf="@+id/edit_pass" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/conf_password"
             style="@style/TextViewRegistrationStyle"
             android:text="@string/confirm_password"
-            app:layout_constraintTop_toBottomOf="@+id/edit_fullName"
-            app:layout_constraintStart_toStartOf="@+id/edit_fullName"
+            app:layout_constraintTop_toBottomOf="@+id/edit_password"
+            app:layout_constraintStart_toStartOf="@+id/edit_password"
             />
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            style="@style/TextViewErrorRegistration"
+            android:text="@{viewmodel.isPasswordConfirm ? @string/no_error :  @string/err_confirm }"
+            app:layout_constraintBottom_toBottomOf="@+id/confirm_pass"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/conf_password"
+            app:layout_constraintTop_toTopOf="@+id/conf_password" />
 
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_confirm_pass"
@@ -139,20 +174,40 @@
             android:inputType="textPassword"
             android:imeOptions="actionDone"
             android:hint="@string/confirm_password"
+            android:background="@{viewmodel.isPasswordConfirm ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
+            android:onTextChanged="@{viewmodel::onConfirmPasswordChanged}"
             android:drawableEnd="@drawable/key_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/conf_password" />
-
-        <include
-            android:id="@+id/btn_setPass"
-            layout="@layout/button_layout"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@{viewmodel.isPasswordConfirm ? null : @drawable/error }"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_confirm_pass"
+            app:layout_constraintEnd_toEndOf="@+id/edit_confirm_pass"
+            app:layout_constraintTop_toTopOf="@+id/edit_confirm_pass" />
+
+
+        <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            android:id="@+id/btn_setPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:background="@drawable/btn_register"
+            android:enabled="@{viewmodel.btnEnabled}"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:text="@string/confirm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="@dimen/_20sdp"
-            />
-</androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+
+
+                            />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                </layout>

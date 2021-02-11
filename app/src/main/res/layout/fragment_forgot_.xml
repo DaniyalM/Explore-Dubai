@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View" />
@@ -11,10 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.preLogin.forgot.ForgotFragment">
-
-
-
+        >
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
             android:layout_width="wrap_content"
@@ -83,8 +79,19 @@
             android:drawableEnd="@drawable/message_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@{viewmodel.isEmail ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
+            android:onTextChanged="@{viewmodel::onEmailChanged}"
+            android:text="@{viewmodel.email}"
             app:layout_constraintTop_toBottomOf="@+id/email_address" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@{viewmodel.isEmail ? null : @drawable/error }"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_email"
+            app:layout_constraintEnd_toEndOf="@+id/edit_email"
+            app:layout_constraintTop_toTopOf="@+id/edit_email" />
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -112,9 +119,11 @@
             android:text="@string/send_otp"
             android:layout_marginTop="@dimen/_25sdp"
             android:gravity="center"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
             android:enabled="@{viewmodel.btnEnabled}"
             android:onClick="@{()-> viewmodel.forgotEmail()}"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView

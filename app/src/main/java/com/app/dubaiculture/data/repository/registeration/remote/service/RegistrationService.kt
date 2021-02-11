@@ -21,6 +21,9 @@ interface RegistrationService {
     suspend fun confirmOTP(@Body confirmOTPRequestDTO: ConfirmOTPRequestDTO): ConfirmOTPResponse
 
 
+    //Validate OTP for Forgot Password
+    @POST("Auth/ValidateOTP")
+    suspend fun validateOTP(@Body confirmOTPRequestDTO: ConfirmOTPRequestDTO): ConfirmOTPResponse
 
     //Confirm OTP for Registration
     @POST("Auth/ResendVerification")
