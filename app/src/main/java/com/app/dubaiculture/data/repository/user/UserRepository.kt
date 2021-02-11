@@ -32,15 +32,20 @@ class UserRepository @Inject constructor(
         Timber.e("Request Perform")
         when (val resultRDS = userRDS.refreshToken(RefreshTokenRequestDTO(Token = token,RefreshToken =  refreshToken))) {
             is Result.Success -> {
-                val user = userLDS.getUser()
-                Timber.e("Request Perform ${user?.token}")
-                user?.apply {
-                    val resp = resultRDS.value.refreshTokenResponseDTO
-                    this.refreshToken = resp.refreshToken
-                    this.token = resp.token
-                    userLDS.update(this)
-                    return userLDS.getUser()
+                if (resultRDS.value.statusCode!=200){
+                    Result.Failure(resultRDS.value.succeeded,resultRDS.value.statusCode,null)
+                }else{
+                    val user = userLDS.getUser()
+                    Timber.e("Request Perform ${user?.token}")
+                    user?.apply {
+                        val resp = resultRDS.value.refreshTokenResponseDTO
+                        this.refreshToken = resp.refreshToken
+                        this.token = resp.token
+                        userLDS.update(this)
+                        return userLDS.getUser()
+                    }
                 }
+
             }
             is Result.Failure->{
                 val resp=resultRDS
