@@ -56,7 +56,7 @@
     <string name="err_first_name">Invalid Name</string>
 
     <string name="err_email">Invalid Email</string>
-    <string name="err_phone">Invalid Number</string>
+    <string name="err_phone">Invalid mobile Number</string>
     <string name="err_password">Invalid Password</string>
     <string name="err_confirm">Password does not match</string>
     <string name="no_error"></string>
@@ -70,4 +70,6 @@
     <string name="at_least_one_digit">At least one digit</string>
 
 
+
+    <string name="err_phone_two" >e.g: 971-------------</string>
 </resources>

@@ -37,9 +37,11 @@
                 android:layout_height="wrap_content"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
+                app:lottie_repeatCount="1"
                 app:lottie_rawRes="@raw/reg_lines"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:chainUseRtl="true"
                 />
 
 
@@ -164,10 +166,12 @@
                 android:text="@string/mobile_number"
                 app:layout_constraintStart_toStartOf="@+id/edit_email_address"
                 app:layout_constraintTop_toBottomOf="@+id/edit_email_address" />
+<!--            android:text="@{viewmodel.isPhone ? @string/no_error : @string/err_phone }"-->
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+               android:id="@+id/tvPhoneErrors"
                 style="@style/TextViewErrorRegistration"
-                android:text="@{viewmodel.isPhone ? @string/no_error : viewmodel.mobileNumberError }"
+                android:visibility="@{viewmodel.isPhone ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/mob_num"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
@@ -190,22 +194,23 @@
 <!--                app:layout_constraintTop_toBottomOf="@+id/mob_num"-->
 <!--                tools:src="@drawable/bg_edit_resiger" />-->
 
-        <com.santalu.maskara.widget.MaskEditText
-            android:id="@+id/edit_mobile"
-            style="@style/EditTextStyle"
-            android:background="@{viewmodel.isPhone ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
-            android:drawableEnd="@drawable/mob_register"
-            android:hint="@string/enter_mobile_number"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            app:mask="+971 ## ### ####"
-            android:onTextChanged="@{viewmodel::onPhoneChanged}"
-            android:text="@{viewmodel.phone.trim()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mob_num"
-            tools:src="@drawable/bg_edit_resiger"
-            />
+            <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                            android:id="@+id/edit_mobile"
+                            style="@style/EditTextStyle"
+                            android:background="@{viewmodel.isPhone ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
+                            android:drawableEnd="@drawable/mob_register"
+                            android:hint="@string/enter_mobile_number"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="12"
+                            android:onTextChanged="@{viewmodel::onPhoneChanged}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/mob_num"
+                            tools:src="@drawable/bg_edit_resiger" />
+
+
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -239,6 +244,7 @@
                 android:background="@{viewmodel.isPassword ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
                 android:drawableEnd="@drawable/key_register"
                 android:hint="@string/password"
+                android:inputType="textPassword"
                 android:imeOptions="actionNext"
                 android:onTextChanged="@{viewmodel::onPasswordChanged}"
                 android:text="@={viewmodel.password}"
@@ -304,7 +310,7 @@
                 android:layout_height="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:background="@drawable/selectors_checkbox"
-                android:onCheckedChanged="@{viewmodel.onTermsChecked}"
+                android:onCheckedChanged="@{viewmodel::onTermsChecked}"
                 app:layout_constraintStart_toStartOf="@+id/confirm_pass"
                 app:layout_constraintTop_toBottomOf="@+id/edit_confirm_pass" />
 
@@ -315,6 +321,7 @@
                 android:text="@string/i_agree_to_the_terms_and_conditions"
                 android:textColor="@color/purple_600"
                 android:textSize="@dimen/_11sdp"
+                android:singleLine="true"
                 android:layout_marginStart="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/checkbox"
                 app:layout_constraintStart_toEndOf="@+id/checkbox"

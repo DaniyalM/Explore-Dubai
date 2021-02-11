@@ -33,14 +33,7 @@ class RegistrationViewModel @ViewModelInject constructor(
     var passwordConifrm: ObservableField<String> = ObservableField("")
     var termsAccepted: ObservableBoolean = ObservableBoolean(false)
 
-    /**
-     * Field Error Messages
-     */    val mobileNumberError = MutableLiveData<String?>()
 
-    val emailError = MutableLiveData<String?>()
-    val fullNameError = MutableLiveData<String?>()
-    val passwordError = MutableLiveData<String?>()
-    val passwordConfirmError = MutableLiveData<String?>()
     // booleans
     val isPhone = MutableLiveData<Boolean?>(true)
     val isEmail = MutableLiveData<Boolean?>(true)
@@ -49,7 +42,11 @@ class RegistrationViewModel @ViewModelInject constructor(
     val isPasswordConfirm = MutableLiveData<Boolean?>(true)
     val isTermAccepted = MutableLiveData<Boolean?>(true)
 
+    val mobileNumberError = MutableLiveData<String?>()
 
+    val oneError = MutableLiveData<Boolean?>(false)
+
+    val twoError = MutableLiveData<Boolean?>(false)
 
     fun register() {
         viewModelScope.launch {
@@ -116,13 +113,15 @@ class RegistrationViewModel @ViewModelInject constructor(
         phone.set(s.toString())
         isPhone.value = AuthUtils.isValidMobile(s.toString().trim())
         Timber.e(phone.get().toString().trim())
-        if(!s.startsWith("92")){
+        enableButton()
+        if(!s.startsWith("971")){
             Timber.e("start with 92")
+            oneError.value =true
             mobileNumberError.value = "Start with 92"
         }else {
+            twoError.value = true
             mobileNumberError.value = "Invalid Phone Number"
         }
-        enableButton()
     }
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         password.set(s.toString())
@@ -131,7 +130,6 @@ class RegistrationViewModel @ViewModelInject constructor(
     }
     fun onConfirmPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         passwordConifrm.set(s.toString())
-        Log.e("password check",password.get().toString())
         isPasswordConfirm.value = AuthUtils.isMatchPassword(password.get().toString(),s.toString().trim())
         enableButton()
     }

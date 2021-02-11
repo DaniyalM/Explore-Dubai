@@ -30,8 +30,12 @@ class LoginViewModel @ViewModelInject constructor(
 
     val isPhone = MutableLiveData<Boolean?>(true)
     val isPassword = MutableLiveData<Boolean?>(true)
+
     val mobileNumberError = MutableLiveData<String?>()
 
+    val oneError = MutableLiveData<Boolean?>(false)
+
+    val twoError = MutableLiveData<Boolean?>(false)
 
 
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
@@ -77,16 +81,20 @@ class LoginViewModel @ViewModelInject constructor(
     }
 
 
-    fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
+    fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
+
+
         isPhone.value = AuthUtils.isValidMobile(s.toString().trim())
-        if(!s.startsWith("92")){
+        enableButton()
+        if(!s.startsWith("971")){
             Timber.e("start with 92")
+            oneError.value =true
             mobileNumberError.value = "Start with 92"
         }else {
+            twoError.value = true
             mobileNumberError.value = "Invalid Phone Number"
         }
-        enableButton()
     }
 
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {

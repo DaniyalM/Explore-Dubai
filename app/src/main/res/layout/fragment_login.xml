@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="java.util.Locale" />
+        <import type="android.view.View" />
 
         <variable
             name="fragment"
@@ -41,6 +41,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/registration"
+            app:chainUseRtl="true"
              />
 
         <androidx.constraintlayout.widget.Guideline
@@ -95,13 +96,14 @@
             android:textColor="@color/white_900"
             app:layout_constraintBottom_toTopOf="@+id/edit_mob_no"
             app:layout_constraintStart_toStartOf="@+id/edit_mob_no" />
+<!--        android:text="@{viewmodel.mobileNumberError ? @string/no_error : @string/err_phone_two  viewmodel.mobileNumberErrorTwo ? @string/no_error : @string/err_phone }"-->
 
+<!--        android:text="@{viewmodel.isPhone ? @string/no_error : viewmodel.mobileNumberError }"-->
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/customTextView2"
+            android:id="@+id/tvPhoneError"
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isPhone ? @string/no_error : viewmodel.mobileNumberError }"
-            app:layout_constraintBottom_toBottomOf="@+id/full_name"
+            android:visibility="@{viewmodel.isPhone ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/mobile_number"
@@ -115,9 +117,9 @@
             android:drawableEnd="@drawable/mob_login"
             android:hint="@string/enter_mobile_number"
             android:imeOptions="actionNext"
-            android:inputType="phone"
             android:maxLength="12"
-            android:onTextChanged="@{viewmodel::onEmailChanged}"
+            android:inputType="number"
+            android:onTextChanged="@{viewmodel::onPhoneChanged}"
             android:text="@{viewmodel.phone}"
             app:layout_constraintBottom_toTopOf="@+id/password"
             app:layout_constraintEnd_toEndOf="@+id/edit_password"
@@ -190,6 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_20sdp"
             android:text="@string/forgot_password"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:textColor="@color/white_900"
             app:layout_constraintBottom_toTopOf="@+id/btn_login"
             app:layout_constraintEnd_toEndOf="@+id/btn_login" />
