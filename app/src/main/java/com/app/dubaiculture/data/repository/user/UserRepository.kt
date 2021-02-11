@@ -11,6 +11,7 @@ import com.app.dubaiculture.data.repository.user.remote.UserRDS
 import com.app.dubaiculture.data.repository.user.remote.request.GuestTokenRequestDTO
 import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequest
 import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequestDTO
+import timber.log.Timber
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
@@ -28,9 +29,11 @@ class UserRepository @Inject constructor(
     suspend fun getLastUser(): User? = userLDS.getUser()
 
     suspend fun refreshToken(token: String, refreshToken: String): User? {
-        when (val resultRDS = userRDS.refreshToken(RefreshTokenRequestDTO(token, refreshToken))) {
+        Timber.e("Request Perform")
+        when (val resultRDS = userRDS.refreshToken(RefreshTokenRequestDTO(Token = token,RefreshToken =  refreshToken))) {
             is Result.Success -> {
                 val user = userLDS.getUser()
+                Timber.e("Request Perform ${user?.token}")
                 user?.apply {
                     val resp = resultRDS.value.refreshTokenResponseDTO
                     this.refreshToken = resp.refreshToken
@@ -38,6 +41,9 @@ class UserRepository @Inject constructor(
                     userLDS.update(this)
                     return userLDS.getUser()
                 }
+            }
+            is Result.Failure->{
+                val resp=resultRDS
             }
         }
         return null
