@@ -1,6 +1,7 @@
 package com.app.dubaiculture.utils
 
 import android.os.Build
+import android.util.Log
 import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -28,8 +29,16 @@ object AuthUtils {
             R.string.emirates_id
         else R.string.valid
     }
+//    fun isValidMobile(ph: String): Boolean {
+//        if(ph.matches("^(971)\\d{10}\$".toRegex())){
+//            return true
+//        }
+//        return false
+//    }
+
+
     fun isValidMobile(ph: String): Boolean {
-        return Pattern.matches("^(92)\\d{10}\$", ph)
+        return Pattern.matches("^(971)\\d{9}\$", ph)
     }
 
 
