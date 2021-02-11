@@ -73,23 +73,22 @@ fun Fragment.handleApiError(
     retry: (() -> Unit)? = null
 ) {
     when {
-        failure.isNetWorkError ->  baseViewModel.showSnackbar(
-            "Please Check Your Internet Connection",
-            retry
+        failure.isNetWorkError ->  baseViewModel.showToast(
+            "Please Check Your Internet Connection"
         )
         failure.errorCode == 401 -> {
             if (this is LoginFragment){
-                baseViewModel.showSnackbar("You have entered incorrect email or password")
+                baseViewModel.showToast("You have entered incorrect email or password")
             }else{
 
-                baseViewModel.showSnackbar("Server Error.")
+                baseViewModel.showToast("Server Error.")
             }
 
         }
         else ->{
 
             val error= failure.errorBody?.string().toString()
-            baseViewModel.showSnackbar(error)
+            baseViewModel.showToast(error)
 
         }
     }

@@ -34,7 +34,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
         binding.fragment = this
-//        changeLocalIntoAr()
+        changeLocalIntoAr()
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
 
@@ -78,6 +78,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     }
 
     fun changeLocalIntoAr() {
-        setLanguage(Locale("en"))
+        setLanguage(Locale("ar"))
     }
 }
