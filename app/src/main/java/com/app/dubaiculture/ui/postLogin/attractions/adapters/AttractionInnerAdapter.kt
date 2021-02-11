@@ -57,8 +57,10 @@ class AttractionInnerAdapter(val glide: RequestManager, val context: Context) :
         (holder.itemView as AttractionInnerAdapter.AttractionInnerItemCell).bindWhenInflated {
              // red
             holder.itemView.binding?.let{
+                if (position<=allColors.size){
+                    it.attractionImage.setCardBackgroundColor(Color.parseColor(allColors[position]))
+                }
                 it.attractions=attractions[position]
-                it.attractionImage.setCardBackgroundColor(Color.parseColor(allColors[position]))
             }
         }
     }

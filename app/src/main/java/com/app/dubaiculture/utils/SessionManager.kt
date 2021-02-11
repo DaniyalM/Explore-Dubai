@@ -23,11 +23,12 @@ class SessionManager @Inject constructor(private val userRepository: Lazy<UserRe
             return Pair(false, "")
         } else {
             var token = user.refreshToken
+            var expiry=user.expireIn
             //if token is expired
 
-            if (false) {
-                userRepo.refreshToken(user.token, user.refreshToken)
 
+
+            if (false) {
                 user = userRepo.refreshToken(user.token, user.refreshToken)
             }
             // check for null as db query might fail
