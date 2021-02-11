@@ -23,9 +23,17 @@ class RegistrationRDS @Inject constructor(private val registrationService: Regis
             }
         }
 
+    suspend fun validateOTP(confirmOTPRequestDTO: ConfirmOTPRequestDTO): Result<ConfirmOTPResponse> {
+        return safeApiCall {
+            registrationService.validateOTP(confirmOTPRequestDTO)
+        }
+    }
+
     suspend fun resendVerificationOTP(resendOTPRequestDTO: ResendOTPRequestDTO): Result<ConfirmOTPResponse> {
         return safeApiCall {
             registrationService.resendVerificationOTP(resendOTPRequestDTO)
         }
     }
+
+
 }
