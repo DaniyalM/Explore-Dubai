@@ -14,7 +14,16 @@ class HeaderInterceptor @Inject constructor(private val sessionManager: SessionM
         val requestBuilder = request.newBuilder()
         val url = request.url.toString()
 
-        if (!url.contains("RefreshToken")) {
+        if (!url.contains("RefreshToken")||
+            !url.contains("MobileLogin")||
+            !url.contains("Register")||
+            !url.contains("ConfirmAccount")||
+            !url.contains("ValidateOTP")||
+            !url.contains("ResendVerification")||
+            !url.contains("ForgotPassword")||
+            !url.contains("SetPassword")||
+            !url.contains("GuestLogin")
+        ) {
             runBlocking {
 
                 val pair = sessionManager.getToken()

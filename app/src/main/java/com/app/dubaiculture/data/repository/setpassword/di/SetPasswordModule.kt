@@ -1,6 +1,5 @@
 package com.app.dubaiculture.data.repository.setpassword.di
-import com.app.dubaiculture.data.repository.forgot.remote.service.ForgotService
-import com.app.dubaiculture.data.repository.setpassword.remote.service.SetPasswordService
+import com.app.dubaiculture.data.repository.setpassword.service.SetPasswordService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
