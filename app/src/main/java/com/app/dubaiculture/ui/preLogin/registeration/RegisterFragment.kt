@@ -33,7 +33,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         binding.imgClose.setOnClickListener(this)
         binding.tvTermCondition.setOnClickListener(this)
         binding.viewmodel = registrationViewModel
-
+        lottieAnimationRTL(binding.animationView)
         if(isArabic()){
                       val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
             spannable.setSpan(

@@ -23,6 +23,7 @@ class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListene
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel = forgotViewModel
+        lottieAnimationRTL(binding.animationView)
         subscribeUiEvents(forgotViewModel)
         viewInitialize()
 

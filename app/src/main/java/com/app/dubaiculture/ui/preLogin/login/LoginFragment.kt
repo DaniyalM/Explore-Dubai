@@ -35,7 +35,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
-
+        lottieAnimationRTL(binding.animationView)
         binding.tvRegisterNow.setOnClickListener {
             findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment2)
         }
