@@ -30,6 +30,13 @@ class CreatePassViewModel @ViewModelInject constructor(
     val isPassword = MutableLiveData<Boolean?>(true)
     val isPasswordConfirm = MutableLiveData<Boolean?>(true)
 
+    val eightCharacter = MutableLiveData<Boolean?>(false)
+    val upperCaseLetter = MutableLiveData<Boolean?>(false)
+    val lowerCaseLetter = MutableLiveData<Boolean?>(false)
+    val specialCharacter = MutableLiveData<Boolean?>(false)
+    val oneDigit = MutableLiveData<Boolean?>(false)
+
+
 
     private fun enableButton() {
         btnEnabled.set(
@@ -75,6 +82,13 @@ class CreatePassViewModel @ViewModelInject constructor(
         password.set(s.toString())
         isPassword.value =   AuthUtils.isValidPasswordFormat(s.toString().trim())
         enableButton()
+
+        eightCharacter.value = s.toString().length>=8
+        upperCaseLetter.value = s.contains("(?=.*[A-Z])".toRegex())
+        lowerCaseLetter.value = s.contains("(?=.*[a-z])".toRegex())
+        oneDigit.value = s.contains("(.*\\d.*)".toRegex())
+        specialCharacter.value = s.contains("(?=.*[<>/?!@#\$%^,*()&+=~.])".toRegex())
+
     }
     fun onConfirmPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         passwordConifrm.set(s.toString())

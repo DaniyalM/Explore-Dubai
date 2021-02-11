@@ -67,6 +67,7 @@
     <string name="free">FREE</string>
     <string name="confirm">Confirm</string>
     <string name="already_a_member">Already a member?</string>
+    <string name="at_least_one_digit">At least one digit</string>
 
 
 </resources>

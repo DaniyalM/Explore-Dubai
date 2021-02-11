@@ -65,8 +65,9 @@
     <string name="view_all">اظهار الكل</string>
     <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">سيتم ارسال كلمة مرور لمرة واحدة لبريدك الالكتروني المسجل أو رقم الهاتف.</string>
     <string name="free">مجانا</string>
-    <string name="confirm">تؤكد</string>
+    <string name="confirm">Confirm</string>
     <string name="already_a_member">Already a member?</string>
+    <string name="at_least_one_digit">At least one digit</string>
 
 </resources>
 
