@@ -62,7 +62,6 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
         when (v?.id) {
             R.id.btn_continue_reg -> {
                 if (from == "forgotfragment") {
-                    navigate(R.id.action_bottomSheet_to_createPassFragment)
                     otpViewModel.validateOTP(verificationCode!!,binding.otpView.text.toString().trim())
                 } else {
                     verificationCode?.let {

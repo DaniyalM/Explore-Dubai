@@ -1,8 +1,10 @@
 package com.app.dubaiculture.ui.preLogin.registeration.otp.viewmodel
 
 import android.app.Application
+import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.format.DateUtils
+import androidx.core.os.bundleOf
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.app.dubaiculture.R
@@ -80,7 +82,7 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
     }
 
 
-//ValidateOTP for forgot password just change in endpoint
+//ValidateOTP for forgot password  validateOTP and ConfirmOTP has no difference . just change in endpoint dont why he creates a new service for forgot
     fun validateOTP(verificationCode: String , otp : String?="") {
         viewModelScope.launch {
             showLoader(true)
@@ -93,7 +95,9 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                         if(result.value.succeeded){
                             showLoader(false)
                             showToast(result.value.confirmOTPResponseDTO.message.toString())
-                            navigateByAction(R.id.action_bottomSheet_to_createPassFragment)
+                            val bundle = Bundle()
+                            bundle.putString("verificationCode",it.verificationCode)
+                            navigateByAction(R.id.action_bottomSheet_to_createPassFragment,bundle)
                         }else{
                             showToast(result.value.errorMessage)
                         }

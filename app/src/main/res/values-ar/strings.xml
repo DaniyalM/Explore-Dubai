@@ -1,58 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Dubai Culture</string>
+    <string name="app_name">هيئة دبي للثقافة والفنون</string>
     <string name="english">English</string>
-    <string name="arabic">Arabic</string>
-    <string name="switch_language">   تبديل اللغة</string>
-    <string name="welcome_to_dubai_culture">Welcome To Dubai Culture</string>
-    <string name="sign_up">سجل</string>
-    <string name="forgot_password">هل نسيت كلمة المرور</string>
+    <string name="arabic">العربية</string>
+    <string name="switch_language">تغيير اللغة</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">مرحبا</string>
+
+    // home tabs
+    <string name="explore">اكتشف</string>
+    <string name="events">الفعاليات</string>
+    <string name="attractions">الوجهات الثقافية</string>
+    <string name="more">المزيد</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="password">كلمة السر</string>
     <string name="login">تسجيل الدخول</string>
-    <string name="email">البريد الإلكتروني</string>
-    <string name="password">كلمه السر</string>
-    <string name="login_to_your_account">Login to your account</string>
-    <string name="continue_as_a_guest"><u>Continue as a guest</u></string>
-    <string name="don_t_have_an_account">Don\'t have an account?</string>
-    <string name="enter_password">Enter password</string>
-    <string name="enter_mobile_number">Enter mobile number</string>
-    <string name="registration">Registration</string>
-    <string name="full_name">Full name</string>
-    <string name="enter_full_name">Enter full name</string>
-    <string name="email_address">Email address</string>
-    <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
-    <string name="register_now">Register Now</string>
-    <string name="confirm_password">Confirm password</string>
-    <string name="forgot_password_">Forgot Password</string>
-    <string name="cancel">Cancel</string>
-    <string name="send_otp">Send OTP</string>
-    <string name="create_password">Create Password</string>
-    <string name="your_password_must_contain">Your password must contain:</string>
-    <string name="_8_characters_long">8 characters long</string>
-    <string name="uppercase_character">Uppercase character</string>
-    <string name="lowercase_character">Lowercase character</string>
-    <string name="special_character">Special character (!@#)</string>
-    <string name="password_updated">Password Updated</string>
-    <string name="continue_">Continue</string>
-    <string name="registration_successful">Registration Successful</string>
-    <string name="enter_otp">Enter OTP</string>
-    <string name="resend_otp">Resend OTP</string>
-    <string name="expires_in">Expires in</string>
-    <string name="workshop">WORKSHOP</string>
-    <string name="mobile_number">Mobile Number</string>
-    <string name="valid" translatable="false">correct</string>
-    <string name="emirates_id">Emirates ID</string>
-    <string name="login_here">Testing123!</string>
-    <string name="err_email">Invalid Email</string>
-    <string name="err_phone">Invalid Number</string>
-    <string name="err_password">Invalid Password</string>
-    <string name="err_confirm">Invalid Confirm Password</string>
-    <string name="err_first_name">Invalid Name</string>
-    <string name="mobile_number_">Start with 92</string>
-    <string name="create_your_customised_trip">Create your customised trip</string>
-    <string name="plan_your_trip">Plan Your Trip</string>
+    <string name="register">التسجيل</string>
+    <string name="welcome_to_dubai_culture">مرحبا بك في هيئة دبي للثقافة والفنون</string>
+    <string name="sign_up">تسجيل جديد؟</string>
+    <string name="forgot_password">نسيت كلمة السر</string>
+
+    <string name="login_to_your_account">الدخول للحساب</string>
+    <string name="continue_as_a_guest"><u>الاستمرار كزائر</u></string>
+    <string name="don_t_have_an_account">ليس لديك حساب؟</string>
+    <string name="enter_password">ادخل كلمة السر</string>
+    <string name="enter_mobile_number">ادخل رقم الهاتف</string>
+    <string name="registration">التسجيل</string>
+    <string name="full_name">الاسم الكامل</string>
+    <string name="enter_full_name">ادخل اسمك الكامل</string>
+    <string name="email_address">البريد الالكتروني</string>
+    <string name="i_agree_to_the_terms_and_conditions">أوافق على  <u>الشروط والأحكام</u></string>
+    <string name="register_now">تسجيل</string>
+    <string name="confirm_password">تأكيد كلمة السر</string>
+
+    <string name="forgot_password_">نسيت كلمة السر</string>
+    <string name="cancel">الغاء</string>
+    <string name="send_otp">أرسل كلمة مرور لمرة واحد</string>
+    <string name="create_password">انشئ كلمة السر</string>
+    <string name="your_password_must_contain">كلمة السر يجب أن تتضمن:</string>
+    <string name="_8_characters_long">8 حروف</string>
+    <string name="uppercase_character">حرف كبير</string>
+    <string name="lowercase_character">حرف صغير</string>
+    <string name="special_character">حرف مميز (!@#)</string>
+    <string name="password_updated">تم تحديث كلمة السر</string>
+    <string name="continue_">استمرار</string>
+    <string name="registration_successful">تم التسجيل بنجاح</string>
+    <string name="enter_otp">أدخل  كلمة مرور لمرة واحد</string>
+    <string name="resend_otp">اعادة ارسال كلمة مرور لمرة واحدة</string>
+    <string name="expires_in">تنتهي في</string>
+    <string name="workshop">ورشة عمل</string>
+    <string name="mobile_number">رقم الهاتف</string>
+    <string name="mobile_number_">يبدأ ب92</string>
+    <string name="valid" translatable="false">صحيح</string>
+    <string name="emirates_id">رقم الهوية الامارتية</string>
+    <string name="login_here">تسجيل الدخول</string>
+    <string name="err_first_name">اسم خطئ</string>
+
+    <string name="err_email">بريد الكتروني خطئ</string>
+    <string name="err_phone">رقم هاتف خطئ</string>
+    <string name="err_password">كلمة مرور خطئ</string>
+    <string name="err_confirm">كلمات المرور ليست متطابقة</string>
     <string name="no_error"></string>
-    <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">A One Time Password (OTP) will be sent to your registered email address or mobile number.</string>
-    <string name="free">FREE</string>
+    <string name="create_your_customised_trip">انشاء رحلتك الخاصة</string>
+    <string name="plan_your_trip">خطط لرحلتك</string>
+    <string name="view_all">اظهار الكل</string>
+    <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">سيتم ارسال كلمة مرور لمرة واحدة لبريدك الالكتروني المسجل أو رقم الهاتف.</string>
+    <string name="free">مجانا</string>
+    <string name="confirm">تؤكد</string>
+    <string name="already_a_member">Already a member?</string>
 
 </resources>
 

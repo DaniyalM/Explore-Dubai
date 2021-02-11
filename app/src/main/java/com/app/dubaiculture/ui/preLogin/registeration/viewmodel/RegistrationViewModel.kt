@@ -23,8 +23,6 @@ class RegistrationViewModel @ViewModelInject constructor(
 ) : BaseViewModel(application) {
 
 
-    private var _otp: MutableLiveData<String> = MutableLiveData()
-    var otp: MutableLiveData<String> = _otp
     // Validation
     var btnEnabled: ObservableBoolean = ObservableBoolean(false)
 
@@ -91,7 +89,7 @@ class RegistrationViewModel @ViewModelInject constructor(
         }
     }
 
-    fun enableButton() {
+   private fun enableButton() {
         btnEnabled.set(
             fullName.get().toString().trim().isNotEmpty() &&
                     AuthUtils.isValidMobile(phone.get().toString().trim()) &&
@@ -135,8 +133,8 @@ class RegistrationViewModel @ViewModelInject constructor(
         Log.e("password check",password.get().toString())
         isPasswordConfirm.value = AuthUtils.isMatchPassword(password.get().toString(),s.toString().trim())
         enableButton()
-
     }
+
     fun onTermsChecked(buttonView: CompoundButton, isChecked: Boolean) {
         termsAccepted.set(isChecked)
         isTermAccepted.value = isChecked

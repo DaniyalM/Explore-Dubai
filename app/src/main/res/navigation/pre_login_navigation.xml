@@ -39,6 +39,7 @@
         tools:layout="@layout/fragment_forgot_"
         android:name="com.app.dubaiculture.ui.preLogin.forgot.ForgotFragment"
         android:label="ForgotFragment" >
+
         <action
             android:id="@+id/action_forgotFragment_to_bottomSheet"
             app:destination="@id/bottomSheet" />
