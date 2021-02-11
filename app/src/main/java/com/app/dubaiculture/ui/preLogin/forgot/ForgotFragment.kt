@@ -13,7 +13,9 @@ import com.app.dubaiculture.databinding.FragmentForgotBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.forgot.viewModel.ForgotViewModel
 import com.app.dubaiculture.ui.preLogin.password.viewModel.CreatePassViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListener{
     private val forgotViewModel: ForgotViewModel by viewModels()
     override fun getFragmentBinding(
