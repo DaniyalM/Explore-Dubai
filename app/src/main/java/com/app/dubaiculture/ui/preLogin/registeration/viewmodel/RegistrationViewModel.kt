@@ -72,7 +72,7 @@ class RegistrationViewModel @ViewModelInject constructor(
                         if (result.value.succeeded) {
                             navigateByDirections(
                                 RegisterFragmentDirections.actionRegisterFragment2ToBottomSheet(
-                                    result.value.registrationResponseDTO.verificationCode
+                                    result.value.registrationResponseDTO.verificationCode,"registerFragment"
                                 )
                             )
                         } else {

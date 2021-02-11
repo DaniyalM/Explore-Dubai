@@ -78,6 +78,39 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
             showLoader(false)
         }
     }
+
+
+//ValidateOTP for forgot password just change in endpoint
+    fun validateOTP(verificationCode: String , otp : String?="") {
+        viewModelScope.launch {
+            showLoader(true)
+            ConfirmOTPRequest(
+                verificationCode = verificationCode,
+                otp = otp?:""
+            ).let {
+                when (val result = registrationRepository.validateOTPForgot(it)) {
+                    is Result.Success -> {
+                        if(result.value.succeeded){
+                            showLoader(false)
+                            showToast(result.value.confirmOTPResponseDTO.message.toString())
+                            navigateByAction(R.id.action_bottomSheet_to_createPassFragment)
+                        }else{
+                            showToast(result.value.errorMessage)
+                        }
+                    }
+                    is Result.Failure -> {
+                        Timber.e(result.errorCode.toString())
+                        showToast(result.errorCode.toString())
+                    }
+                    is Result.Error -> {
+                        Timber.e(result.exception)
+                        showToast(result.exception.toString())
+                    }
+                }
+            }
+            showLoader(false)
+        }
+    }
     override fun onCleared() {
         super.onCleared()
         // Cancel the timer

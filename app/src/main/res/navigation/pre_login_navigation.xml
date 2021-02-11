@@ -71,12 +71,18 @@
         <argument
             android:name="verificationCode"
             app:argType="string"/>
+
+        <argument
+            android:name="screen_name"
+            app:argType="string"/>
         <action
             android:id="@+id/action_bottomSheet_to_registrationSuccessFragment"
             app:destination="@id/registrationSuccessFragment" />
+
         <action
             android:id="@+id/action_bottomSheet_to_createPassFragment"
             app:destination="@id/createPassFragment" />
+
     </dialog>
     <dialog
         android:id="@+id/passwordUpdatedFragment"
