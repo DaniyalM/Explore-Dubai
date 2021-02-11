@@ -174,22 +174,38 @@
                 app:layout_constraintStart_toEndOf="@+id/mob_num"
                 app:layout_constraintTop_toTopOf="@+id/mob_num" />
 
-            <com.app.dubaiculture.ui.components.customEditText.CustomEditText
-                android:id="@+id/edit_mobile"
-                style="@style/EditTextStyle"
-                android:background="@{viewmodel.isPhone ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
-                android:drawableEnd="@drawable/mob_register"
-                android:hint="@string/enter_mobile_number"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLength="12"
-                android:onTextChanged="@{viewmodel::onPhoneChanged}"
-                android:text="@{viewmodel.phone}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mob_num"
-                tools:src="@drawable/bg_edit_resiger" />
+<!--            <com.app.dubaiculture.ui.components.customEditText.CustomEditText-->
+<!--                android:id="@+id/edit_mobile"-->
+<!--                style="@style/EditTextStyle"-->
+<!--                android:background="@{viewmodel.isPhone ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"-->
+<!--                android:drawableEnd="@drawable/mob_register"-->
+<!--                android:hint="@string/enter_mobile_number"-->
+<!--                android:imeOptions="actionNext"-->
+<!--                android:inputType="number"-->
+<!--                android:maxLength="12"-->
+<!--                android:onTextChanged="@{viewmodel::onPhoneChanged}"-->
+<!--                android:text="@{viewmodel.phone}"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/mob_num"-->
+<!--                tools:src="@drawable/bg_edit_resiger" />-->
 
+        <com.santalu.maskara.widget.MaskEditText
+            android:id="@+id/edit_mobile"
+            style="@style/EditTextStyle"
+            android:background="@{viewmodel.isPhone ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
+            android:drawableEnd="@drawable/mob_register"
+            android:hint="@string/enter_mobile_number"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            app:mask="+971 ## ### ####"
+            android:onTextChanged="@{viewmodel::onPhoneChanged}"
+            android:text="@{viewmodel.phone.trim()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mob_num"
+            tools:src="@drawable/bg_edit_resiger"
+            />
 
             <ImageView
                 android:layout_width="wrap_content"

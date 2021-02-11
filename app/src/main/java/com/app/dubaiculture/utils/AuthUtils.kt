@@ -61,7 +61,7 @@ object AuthUtils {
 
     fun isValidPasswordFormat(pass: String): Boolean {
 
-        if(pass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}\$".toRegex()))
+        if(pass.matches("^(?=.*\\d)(?=.*[<>/?!@#\$%^,*()&+=~.])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}\$".toRegex()))
       return true
         return false
     }

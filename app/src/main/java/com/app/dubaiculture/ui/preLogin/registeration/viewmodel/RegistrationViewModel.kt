@@ -115,6 +115,7 @@ class RegistrationViewModel @ViewModelInject constructor(
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
         isPhone.value = AuthUtils.isValidMobile(s.toString().trim())
+        Timber.e(phone.get().toString().trim())
         if(!s.startsWith("92")){
             Timber.e("start with 92")
             mobileNumberError.value = "Start with 92"

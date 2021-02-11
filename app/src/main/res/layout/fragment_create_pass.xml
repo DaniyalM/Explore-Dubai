@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <data>
-
                 <variable
                     name="viewmodel"
                     type="com.app.dubaiculture.ui.preLogin.password.viewModel.CreatePassViewModel" />
@@ -71,7 +70,8 @@
             android:text="@string/_8_characters_long"
             style="@style/TextViewCreatePasswordStyle"
             android:layout_marginTop="@dimen/_10sdp"
-            android:drawableStart="@drawable/check_create_pass"
+            android:textColor="@{viewmodel.eightCharacter ? @color/black_200 : @color/gray_600 }"
+            android:drawableStart="@{viewmodel.eightCharacter ? @drawable/check_registeration : @drawable/uncheck_white_create_pass}"
             android:drawablePadding="@dimen/_15sdp"
             app:layout_constraintStart_toStartOf="@+id/your_pass"
             app:layout_constraintTop_toBottomOf="@+id/your_pass"
@@ -82,8 +82,9 @@
             android:id="@+id/upper_case"
             android:text="@string/uppercase_character"
             style="@style/TextViewCreatePasswordStyle"
+            android:textColor="@{viewmodel.upperCaseLetter ? @color/black_200 : @color/gray_600 }"
+            android:drawableStart="@{viewmodel.upperCaseLetter ? @drawable/check_registeration : @drawable/uncheck_white_create_pass}"
             android:layout_marginTop="@dimen/_5sdp"
-            android:drawableStart="@drawable/check_create_pass"
             android:drawablePadding="@dimen/_15sdp"
             app:layout_constraintStart_toStartOf="@+id/eight_character"
             app:layout_constraintTop_toBottomOf="@+id/eight_character"
@@ -92,9 +93,10 @@
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/lower_case"
             android:text="@string/lowercase_character"
+            android:textColor="@{viewmodel.lowerCaseLetter ? @color/black_200 : @color/gray_600 }"
+            android:drawableStart="@{viewmodel.lowerCaseLetter ? @drawable/check_registeration : @drawable/uncheck_white_create_pass}"
             style="@style/TextViewCreatePasswordStyle"
             android:layout_marginTop="@dimen/_5sdp"
-            android:drawableStart="@drawable/check_create_pass"
             android:drawablePadding="@dimen/_15sdp"
             app:layout_constraintStart_toStartOf="@+id/upper_case"
             app:layout_constraintTop_toBottomOf="@+id/upper_case"
@@ -103,11 +105,25 @@
             android:id="@+id/special_character"
             android:text="@string/special_character"
             style="@style/TextViewCreatePasswordStyle"
+            android:textColor="@{viewmodel.specialCharacter ? @color/black_200 : @color/gray_600 }"
+            android:drawableStart="@{viewmodel.specialCharacter ? @drawable/check_registeration : @drawable/uncheck_white_create_pass}"
             android:layout_marginTop="@dimen/_5sdp"
-            android:drawableStart="@drawable/check_create_pass"
             android:drawablePadding="@dimen/_15sdp"
             app:layout_constraintStart_toStartOf="@+id/lower_case"
             app:layout_constraintTop_toBottomOf="@+id/lower_case"
+            />
+
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/one_digit"
+            android:text="@string/at_least_one_digit"
+            style="@style/TextViewCreatePasswordStyle"
+            android:textColor="@{viewmodel.oneDigit ? @color/black_200 : @color/gray_600 }"
+            android:drawableStart="@{viewmodel.oneDigit ? @drawable/check_registeration : @drawable/uncheck_white_create_pass}"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:drawablePadding="@dimen/_15sdp"
+            app:layout_constraintStart_toStartOf="@+id/special_character"
+            app:layout_constraintTop_toBottomOf="@+id/special_character"
             />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
