@@ -1,11 +1,10 @@
 package com.app.dubaiculture.ui.preLogin.login
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment.findNavController
@@ -20,7 +19,7 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener {
+class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener{
 
     private val loginViewModel: LoginViewModel by viewModels()
 
@@ -34,7 +33,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
         binding.fragment = this
-        changeLocalIntoAr()
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
 
@@ -45,7 +43,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             application.auth.isLoggedIn = true
             activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
         }
-
+        binding.languageSwitch.setOnCheckedChangeListener{ _: CompoundButton, b: Boolean ->
+            if (b)
+                setLanguage(Locale( "ar"))
+            else setLanguage(Locale.ENGLISH)
+        }
 
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {
@@ -72,12 +74,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 navigate(R.id.action_loginFragment_to_forgotFragment)
             }
             R.id.img_uae_pass -> {
-                //
             }
         }
-    }
-
-    fun changeLocalIntoAr() {
-        setLanguage(Locale("ar"))
     }
 }

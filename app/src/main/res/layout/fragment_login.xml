@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:lottie_repeatCount="1"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/registration"
@@ -59,6 +60,19 @@
             android:src="@drawable/logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/language_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textOff="EN"
+            android:textOn="AR"
+            android:thumbTint="@color/black_200"
+            android:layout_marginEnd="@dimen/_18sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_logo" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_login_account"
