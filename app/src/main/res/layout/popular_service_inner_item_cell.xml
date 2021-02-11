@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
             android:imageViewUrl='@{popular_services.icon}'
-            android:background="@drawable/books_green_icon_home"
             />
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_title"
