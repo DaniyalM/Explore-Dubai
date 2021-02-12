@@ -23,14 +23,11 @@ class HeaderInterceptor @Inject constructor(private val sessionManager: SessionM
                 //second => if logged in then add token as header
                 if (pair.first) {
                     requestBuilder.addHeader("Authorization", "Bearer ${pair.second}")
-                } else {
-//                requestBuilder.addHeader("Guest-Token", sessionManager.getGuestToken()!!.second)
-                    requestBuilder.addHeader(
-                        "Guest-Token",
-                        "V0dL4ySaEJGVSj4CndEmITD13ET+hxFXCe7nkY66Cjd1GUnI40LBEAFIi3FvbVoorHdf5Dze8LDyNvQVTzVFbA=="
-                    )
-
                 }
+                requestBuilder.addHeader(
+                    "Guest-Token",
+                    "V0dL4ySaEJGVSj4CndEmITD13ET+hxFXCe7nkY66Cjd1GUnI40LBEAFIi3FvbVoorHdf5Dze8LDyNvQVTzVFbA=="
+                )
                 request = requestBuilder.build()
             }
         }
