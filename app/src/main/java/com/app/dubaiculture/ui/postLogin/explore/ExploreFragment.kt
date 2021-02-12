@@ -83,14 +83,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let { explore.items = it.value }
-
-                    handler.postDelayed({
-                        customProgressDialog?.let {
-                            if (it.isShowing)
-                                it.dismiss()
-                        }
-                    }, delayAnimate.toLong())
-                    delayAnimate += 500
+                    customProgressDialog?.let {
+                        if (it.isShowing)
+                            it.dismiss()
+                    }
 
                 }
                 is Result.Failure ->handleApiError(it,exploreViewModel)
