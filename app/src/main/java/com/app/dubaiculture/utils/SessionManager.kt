@@ -24,24 +24,17 @@ class SessionManager @Inject constructor(private val userRepository: Lazy<UserRe
         if (user == null) {
             return Pair(false, "")
         } else {
-            var token = user.refreshToken
-            var isWantTokenRefresh=false
-            val current_time: Long = Calendar.getInstance().getTimeInMillis()
-            Timber.e("Current Time ${current_time}")
-            user.expireIn?.let {
-                var expiry_time=  TimeUnit.SECONDS.toMillis(it.toLong());
-
-
-
-//                val final_time
-
-            }
+//            var token = user.refreshToken
+//            var isWantTokenRefresh=false
+//            val current_time: Long = Calendar.getInstance().getTimeInMillis()
+//            Timber.e("Current Time ${current_time}")
+//            user.expireIn?.let {
+//                var expiry_time=  TimeUnit.SECONDS.toMillis(it.toLong());
+////                val final_time
+//            }
 
             //if token is expired
-
-
-
-            if (false) {
+            if (true) {
                 user = userRepo.refreshToken(user.token, user.refreshToken)
             }
             // check for null as db query might fail
