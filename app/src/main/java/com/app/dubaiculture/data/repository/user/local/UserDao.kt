@@ -7,4 +7,6 @@ import com.app.dubaiculture.data.repository.base.BaseDao
 interface UserDao : BaseDao<User>{
     @Query("SELECT * FROM user")
     suspend fun   getAll(): List<User>
+
+
 }

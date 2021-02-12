@@ -1,6 +1,7 @@
 package com.app.dubaiculture.data.repository.user.local
 
 import com.app.dubaiculture.data.repository.base.BaseLDS
+import com.app.dubaiculture.data.repository.user.local.guest.Guest
 import javax.inject.Inject
 
 class UserLDS @Inject constructor(private val userDao: UserDao) :
@@ -14,5 +15,4 @@ class UserLDS @Inject constructor(private val userDao: UserDao) :
             list[0]
         }
     }
-
     }
