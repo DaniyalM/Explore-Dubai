@@ -344,7 +344,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
-                android:text="Already a member?"
+                android:text="@string/already_a_member"
                 android:textColor="@color/gray_800"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="parent"

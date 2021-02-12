@@ -16,7 +16,7 @@ object LoginModule {
     fun provideLoginService(retrofit: Retrofit): LoginService =
         retrofit.create(LoginService::class.java)
 
-    @Provides
-    fun provideExploreService(retrofit: Retrofit): ForgotService =
-        retrofit.create(ForgotService::class.java)
+//    @Provides
+//    fun provideExploreService(retrofit: Retrofit): ForgotService =
+//        retrofit.create(ForgotService::class.java)
 }
