@@ -7,7 +7,9 @@
     <data>
         <import type="android.view.View" />
         <import type="java.util.Locale" />
-
+        <variable
+            name="fragment"
+            type="com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragment" />
         <variable
             name="viewmodel"
             type="com.app.dubaiculture.ui.preLogin.registeration.otp.viewmodel.OTPViewModel" />
@@ -104,9 +106,10 @@
         app:layout_constraintTop_toBottomOf="@+id/otp_view"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:text="@{viewmodel.currentTimeString}"
+        android:text="@{fragment.isArabic() ? `00:`+viewmodel.currentTime.toString() :viewmodel.currentTimeString  }"
         />
 
+<!--    android:text="@{viewmodel.currentTimeString}"-->
 
 
     <com.app.dubaiculture.ui.components.customtextview.CustomTextView

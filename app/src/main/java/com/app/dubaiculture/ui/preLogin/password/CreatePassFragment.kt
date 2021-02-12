@@ -35,10 +35,6 @@ class CreatePassFragment : BaseFragment<FragmentCreatePassBinding>(),View.OnClic
     )= FragmentCreatePassBinding.inflate(inflater,container,false)
 
 
-    private fun showModalBottomSheet() {
-        val modalBottomSheet = PasswordUpdatedFragment.newInstance(modalDismissWithAnimation)
-        modalBottomSheet.show(requireActivity().supportFragmentManager, PasswordUpdatedFragment.TAG)
-    }
 
     override fun onClick(v: View?) {
         when(v?.id){
