@@ -18,6 +18,7 @@ class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBin
         binding.btnContinueReg.setOnClickListener(this)
 
         binding.imgClose.setOnClickListener(this)
+        lottieAnimationRTL(binding.animRegistration)
     }
     override fun getFragmentBinding(
         inflater: LayoutInflater,

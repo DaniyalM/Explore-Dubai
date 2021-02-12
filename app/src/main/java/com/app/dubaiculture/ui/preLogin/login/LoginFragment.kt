@@ -83,11 +83,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.forgot_pass -> {
-//                navigate(R.id.action_loginFragment_to_forgotFragment)
+            R.id.forgot_pass ->
+//                loginViewModel.showAlert(message = "Hello")
                 navigate(R.id.action_loginFragment_to_forgotFragment)
 
-            }
+//                navigate(R.id.action_loginFragment_to_bottomSheet)
+
+
             R.id.img_uae_pass -> {
             }
         }

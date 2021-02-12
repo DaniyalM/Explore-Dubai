@@ -69,6 +69,7 @@
     <string name="already_a_member">لديك حساب؟</string>
     <string name="at_least_one_digit">رقم واحد على الأقل</string>
     <string name="err_phone_two" >e.g: 971-------------</string>
+    <string name="your_password_has_been_updated_continue_to_login">لقد تم تحديث كلمة السر الخاصة بك. أكمل الى تسجيل الدخول</string>
 
 </resources>
 

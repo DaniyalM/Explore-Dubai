@@ -13,6 +13,7 @@ import com.app.dubaiculture.data.repository.registeration.RegistrationRepository
 import com.app.dubaiculture.data.repository.registeration.remote.request.confirmOTP.ConfirmOTPRequest
 import com.app.dubaiculture.data.repository.registeration.remote.request.resendOTP.ResendOTPRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.DataUtilz
 import junit.runner.Version.id
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -22,14 +23,15 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
 
     // Countdown time
     private val _currentTime = MutableLiveData<Long>()
-   private val currentTime: LiveData<Long> = _currentTime
+    val currentTime: LiveData<Long> = _currentTime
 
-    // The String version of the current time
-    val currentTimeString = Transformations.map(currentTime) { time ->
+    // The String version of the current time , counter display the time wired in arabic.
+    val currentTimeString = Transformations.map(currentTime){ time ->
         DateUtils.formatElapsedTime(time)
     }
     // Countdown time
     companion object {
+
         // Time when OTP expired
         private const val DONE = 0L
         // Countdown time interval
@@ -151,4 +153,15 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
             showLoader(false)
             }
         }
+
+//fun isLangArabic(lang:Boolean){
+//    if(lang == true){
+//                "00:"+currentTime
+//    }else{
+//        val currentTimeString = Transformations.map(currentTime){ time ->
+//            DateUtils.formatElapsedTime(time)
+//        }
+//    }
+//}
+
     }
