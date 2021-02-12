@@ -1,4 +1,4 @@
-package com.app.dubaiculture.data.repository.registeration.remote.service
+package com.app.dubaiculture.data.repository.registeration.service
 
 import com.app.dubaiculture.data.repository.registeration.remote.request.confirmOTP.ConfirmOTPRequestDTO
 import com.app.dubaiculture.data.repository.registeration.remote.request.resendOTP.ResendOTPRequestDTO

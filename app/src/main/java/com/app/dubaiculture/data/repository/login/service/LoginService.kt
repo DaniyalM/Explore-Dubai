@@ -1,4 +1,4 @@
-package com.app.dubaiculture.data.repository.login.remote.service
+package com.app.dubaiculture.data.repository.login.service
 
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequestDTO
 import com.app.dubaiculture.data.repository.login.remote.response.LoginResponse

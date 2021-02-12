@@ -4,7 +4,7 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRDS
 import com.app.dubaiculture.data.repository.registeration.remote.request.confirmOTP.ConfirmOTPRequestDTO
 import com.app.dubaiculture.data.repository.registeration.remote.request.resendOTP.ResendOTPRequestDTO
-import com.app.dubaiculture.data.repository.registeration.remote.service.RegistrationService
+import com.app.dubaiculture.data.repository.registeration.service.RegistrationService
 import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequestDTO
 import com.app.dubaiculture.data.repository.registeration.remote.response.register.RegistrationResponse
 import com.app.dubaiculture.data.repository.registeration.remote.response.confirmOTP.ConfirmOTPResponse

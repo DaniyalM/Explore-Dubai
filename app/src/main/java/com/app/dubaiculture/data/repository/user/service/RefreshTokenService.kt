@@ -1,4 +1,4 @@
-package com.app.dubaiculture.data.repository.user.remote.service
+package com.app.dubaiculture.data.repository.user.service
 
 import com.app.dubaiculture.data.repository.user.remote.request.GuestTokenRequestDTO
 import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequestDTO

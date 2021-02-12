@@ -1,6 +1,6 @@
 package com.app.dubaiculture.data.repository.registeration.di
 
-import com.app.dubaiculture.data.repository.registeration.remote.service.RegistrationService
+import com.app.dubaiculture.data.repository.registeration.service.RegistrationService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
