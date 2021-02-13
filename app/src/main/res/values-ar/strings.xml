@@ -17,7 +17,7 @@
     <string name="register">التسجيل</string>
     <string name="welcome_to_dubai_culture">مرحبا بك في هيئة دبي للثقافة والفنون</string>
     <string name="sign_up">تسجيل جديد؟</string>
-    <string name="forgot_password">نسيت كلمة السر</string>
+    <string name="forgot_password"> نسيت كلمة السر؟</string>
 
     <string name="login_to_your_account">الدخول للحساب</string>
     <string name="continue_as_a_guest"><u>الاستمرار كزائر</u></string>
@@ -65,9 +65,10 @@
     <string name="view_all">اظهار الكل</string>
     <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">سيتم ارسال كلمة مرور لمرة واحدة لبريدك الالكتروني المسجل أو رقم الهاتف.</string>
     <string name="free">مجانا</string>
-    <string name="confirm">Confirm</string>
-    <string name="already_a_member">Already a member?</string>
-    <string name="at_least_one_digit">At least one digit</string>
+    <string name="confirm">تأكيد</string>
+    <string name="already_a_member">لديك حساب؟</string>
+    <string name="at_least_one_digit">رقم واحد على الأقل</string>
+    <string name="err_phone_two" >e.g: 971-------------</string>
 
 </resources>
 

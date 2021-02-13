@@ -164,9 +164,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
             android:background="@{viewmodel.isPassword ? null : @drawable/error }"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_pass"
-            app:layout_constraintEnd_toEndOf="@+id/edit_pass"
-            app:layout_constraintTop_toTopOf="@+id/edit_pass" />
+            app:layout_constraintBottom_toBottomOf="@+id/edit_password"
+            app:layout_constraintEnd_toEndOf="@+id/edit_password"
+            app:layout_constraintTop_toTopOf="@+id/edit_password" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/conf_password"

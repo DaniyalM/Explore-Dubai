@@ -231,5 +231,5 @@ dependencies {
  //   SVG Glide
     implementation config.image_processing.glideToSvg
         // for edit mask
-    implementation "com.github.santalu:maskara:1.0.0"
+    implementation "com.github.santalu:mask-edittext:1.0.2"
 }

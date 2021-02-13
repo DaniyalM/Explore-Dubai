@@ -20,6 +20,7 @@ class CreatePassFragment : BaseFragment<FragmentCreatePassBinding>(),View.OnClic
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel = createPassViewModel
+        lottieAnimationRTL(binding.animationView)
         subscribeUiEvents(createPassViewModel)
         arguments?.let {             verificationCode = it.getString("verificationCode") }
         binding.btnSetPassword.setOnClickListener {

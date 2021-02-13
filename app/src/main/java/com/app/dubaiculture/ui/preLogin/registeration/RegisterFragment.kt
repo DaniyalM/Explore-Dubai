@@ -21,10 +21,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickListener {
     private val registrationViewModel: RegistrationViewModel by viewModels()
     private var modalDismissWithAnimation = false
+    val String1 : String = ""
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentRegisterBinding.inflate(inflater, container, false)
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(registrationViewModel)
@@ -32,16 +32,41 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         binding.tvLoginNow.setOnClickListener(this)
         binding.imgClose.setOnClickListener(this)
         binding.tvTermCondition.setOnClickListener(this)
-
         binding.viewmodel = registrationViewModel
+        lottieAnimationRTL(binding.animationView)
+        if(isArabic()){
+                      val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
+            spannable.setSpan(
+                ForegroundColorSpan(resources.getColor(R.color.black_200)),
+                0, 10,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(UnderlineSpan(), 10, binding.tvTermCondition.length(), 36)
+            binding.tvTermCondition.text = spannable
+        }else{
 
-        val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
-        spannable.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.black_200)),
-            0, 14,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannable.setSpan(UnderlineSpan(), 15, binding.tvTermCondition.length(), 27)
-        binding.tvTermCondition.text = spannable
+
+
+            val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
+            spannable.setSpan(
+                ForegroundColorSpan(resources.getColor(R.color.black_200)),
+                0, 14,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(UnderlineSpan(), 15, binding.tvTermCondition.length(), 27)
+            binding.tvTermCondition.text = spannable
+
+        }
+        registrationViewModel.oneError.observe(viewLifecycleOwner){
+            if(it==true){
+                binding.tvPhoneErrors.text = resources.getString(R.string.err_phone_two)
+            }
+        }
+        registrationViewModel.twoError.observe(viewLifecycleOwner){
+            if(it==true){
+                binding.tvPhoneErrors.text = resources.getString(R.string.err_phone)
+            }else{
+                binding.tvPhoneErrors.text =""
+            }
+        }
 
     }
 
