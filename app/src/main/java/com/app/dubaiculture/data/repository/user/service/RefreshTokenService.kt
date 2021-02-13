@@ -11,7 +11,7 @@ interface  RefreshTokenService {
     @POST("Auth/RefreshToken")
     suspend fun refreshToken(@Body refreshTokenRequestDTO: RefreshTokenRequestDTO): RefreshTokenResponse
 
-    @POST("api/Auth/GuestLogin")
+    @POST("Auth/GuestLogin")
     suspend fun guestToken(@Body guestTokenRequestDTO: GuestTokenRequestDTO):GuestTokenResponse
 
 }

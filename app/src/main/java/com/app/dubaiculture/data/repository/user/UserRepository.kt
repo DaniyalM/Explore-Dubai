@@ -6,6 +6,8 @@ import com.app.dubaiculture.data.repository.login.remote.response.LoginResponseD
 import com.app.dubaiculture.data.repository.login.remote.response.UserDTO
 import com.app.dubaiculture.data.repository.user.local.User
 import com.app.dubaiculture.data.repository.user.local.UserLDS
+import com.app.dubaiculture.data.repository.user.local.guest.Guest
+import com.app.dubaiculture.data.repository.user.local.guest.GuestLDS
 import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.data.repository.user.remote.UserRDS
 import com.app.dubaiculture.data.repository.user.remote.request.GuestTokenRequestDTO
@@ -16,7 +18,8 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(
     private val userRDS: UserRDS,
-    private val userLDS: UserLDS
+    private val userLDS: UserLDS,
+    private val guestLDS: GuestLDS
 ) : BaseRepository() {
 
 
@@ -27,9 +30,10 @@ class UserRepository @Inject constructor(
         )
     }
     suspend fun getLastUser(): User? = userLDS.getUser()
+    suspend fun getLastGuestUser():Guest?=guestLDS.getGuestUser()
 
     suspend fun refreshToken(token: String, refreshToken: String): User? {
-        Timber.e("Request Perform")
+        Timber.e("Token Refresh")
         when (val resultRDS = userRDS.refreshToken(RefreshTokenRequestDTO(Token = token,RefreshToken =  refreshToken))) {
             is Result.Success -> {
                 if (resultRDS.value.statusCode!=200){
@@ -47,21 +51,22 @@ class UserRepository @Inject constructor(
                 }
 
             }
-            is Result.Failure->{
-                val resp=resultRDS
-            }
+
         }
         return null
     }
 
-    suspend fun guestToken(deviceId:String): Pair<Boolean, String>? {
+    suspend fun guestToken(deviceId:String): Guest? {
         when(val resultRDS=userRDS.getGuestToken(GuestTokenRequestDTO(deviceId))){
             is Result.Success -> {
                 val resp = resultRDS.value.guestTokenResponseDTO
-                return Pair(true,resp.token)
-            }
-            is Result.Failure -> {
-                val resp = resultRDS.errorBody
+                val guest = guestLDS.getGuestUser()
+                guest?.apply {
+                    guestLDS.delete(this)
+                }
+                guestLDS.insert(Guest(token=resp.token,ExpiresIn = resp.expireIn))
+
+                return guestLDS.getGuestUser()
 
             }
         }
