@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.databinding.SectionItemContainerCellBinding
@@ -22,10 +19,12 @@ import com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters.MustSeeInnerAd
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsInnerAdapter
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceInnerAdapter
 import com.app.dubaiculture.utils.AsyncCell
+import com.app.dubaiculture.utils.decorateRecyclerView
 import com.bumptech.glide.RequestManager
 
+
 class ExploreRecyclerAsyncAdapter internal constructor(
-    private val context: Context
+    private val context: Context,
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -36,6 +35,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
 
+    private var lastPosition=  -1
     private var attractionInnerAdapter: AttractionInnerAdapter? = null
     private var upComingEventsInnerAdapter: UpComingEventsInnerAdapter? = null
     private var mustSeeInnerAdapter: MustSeeInnerAdapter? = null
@@ -86,9 +86,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        setAnimation(holder.itemView)
         when (holder) {
-
             is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
             is UpComingEventsViewHolder -> setUpComingEventsViewHolder(holder, position)
             is MustSeeViewHolder -> setMustSeeViewHolder(holder, position)
@@ -100,9 +98,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     //Setting Up View Holders
     private fun setUpAttractionViewHolder(
         holder: ExploreRecyclerAsyncAdapter.AttractionViewHolder,
-        position: Int
+        position: Int,
     ) {
-
         (holder.itemView as ExploreRecyclerAsyncAdapter.AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
@@ -139,7 +136,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     private fun setUpComingEventsViewHolder(
         holder: ExploreRecyclerAsyncAdapter.UpComingEventsViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.UpComingEventsItemCell).bindWhenInflated {
             items[position].let { item ->
@@ -181,7 +178,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     private fun setMustSeeViewHolder(
         holder: ExploreRecyclerAsyncAdapter.MustSeeViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
@@ -221,14 +218,17 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     private fun setLatestNewsViewHolder(
         holder: ExploreRecyclerAsyncAdapter.LatestNewViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.LatestNewsItemCell).bindWhenInflated {
             items[position].let { item ->
 
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                 val layoutManager=   LinearLayoutManager(context,
+                     LinearLayoutManager.HORIZONTAL,
+                     false)
+                    it.layoutManager =layoutManager
+
                     it.adapter = latestNewsInnerAdapter
                     latestNewsInnerAdapter?.latestNews = item.value
                     it.addOnItemTouchListener(
@@ -251,6 +251,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 }
                             })
                     )
+
+                    decorateRecyclerView(context, it, layoutManager)
                 }
                 holder.itemView.binding?.let {
                     it.innerSectionHeading.text = item.title
@@ -263,14 +265,17 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     private fun setPopularServiceViewHolder(
         holder: ExploreRecyclerAsyncAdapter.PopularServiceViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.PopularServiceCell).bindWhenInflated {
             items[position].let { item ->
 
                 holder.itemView.binding?.innerSectionRv?.let {
-                    it.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                 val layoutManager=   LinearLayoutManager(context,
+                     LinearLayoutManager.HORIZONTAL,
+                     false)
+                    it.layoutManager =layoutManager
+                    decorateRecyclerView(context, it, layoutManager)
                     it.adapter = popularServiceInnerAdapter
                     popularServiceInnerAdapter?.popularService = item.value
                     it.addOnItemTouchListener(
@@ -387,31 +392,36 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         LATESTNEWS(4),
     }
 //
-//    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
-//        super.onViewAttachedToWindow(holder)
-//        setAnimation(holder.itemView)
-//    }
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        setAnimation(holder.itemView,holder.layoutPosition)
+    }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         super.onViewDetachedFromWindow(holder)
         stopAnimation()
     }
 
-    private fun setAnimation(view: View?) {
-        handler.postDelayed({
-            val animation: Animation = AnimationUtils.loadAnimation(
-                context,
-                android.R.anim.slide_in_left
-            )
-            if (view != null) {
-                view.startAnimation(animation)
-                view.setVisibility(View.VISIBLE)
-            }
-        }, delayAnimate.toLong())
-        delayAnimate += 500
-    }
 
     private fun stopAnimation() {
         handler.removeCallbacksAndMessages(null)
+    }
+
+    private fun setAnimation(viewToAnimate: View, position: Int) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        handler.postDelayed({
+            val animation: Animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left)
+            viewToAnimate.let {
+                if (position > lastPosition) {
+                    viewToAnimate.startAnimation(animation)
+                    viewToAnimate.setVisibility(View.VISIBLE)
+                    lastPosition = position
+                }
+
+            }
+        }, delayAnimate.toLong())
+        delayAnimate += 5000
+
+
     }
 }

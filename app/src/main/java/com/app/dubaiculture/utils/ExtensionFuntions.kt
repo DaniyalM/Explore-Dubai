@@ -1,13 +1,15 @@
 package com.app.dubaiculture.utils
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.PictureDrawable
-import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
@@ -18,8 +20,12 @@ import com.rishabhharit.roundedimageview.RoundedImageView
 import okhttp3.RequestBody
 import okio.Buffer
 import java.io.IOException
-import java.io.InputStream
 
+fun decorateRecyclerView(context: Context,recyclerView: RecyclerView, layoutManager: LinearLayoutManager) {
+    val dividerItemDecoration = DividerItemDecoration(context,
+        layoutManager.getOrientation())
+    recyclerView.addItemDecoration(dividerItemDecoration)
+}
 
 fun requestBodyToString(request: RequestBody?): String? {
     return try {
@@ -70,24 +76,24 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
 fun Fragment.handleApiError(
     failure: Result.Failure,
     baseViewModel: BaseViewModel,
-    retry: (() -> Unit)? = null
+    retry: (() -> Unit)? = null,
 ) {
     when {
-        failure.isNetWorkError ->  baseViewModel.showToast(
+        failure.isNetWorkError -> baseViewModel.showToast(
             "Please Check Your Internet Connection"
         )
         failure.errorCode == 401 -> {
-            if (this is LoginFragment){
+            if (this is LoginFragment) {
                 baseViewModel.showToast("You have entered incorrect email or password")
-            }else{
+            } else {
 
                 baseViewModel.showToast("Server Error.")
             }
 
         }
-        else ->{
+        else -> {
 
-            val error= failure.errorBody?.string().toString()
+            val error = failure.errorBody?.string().toString()
             baseViewModel.showToast(error)
 
         }
@@ -121,7 +127,7 @@ fun loadImageView(view: ImageView, url: String?) {
 }
 
 @BindingAdapter("android:svgUrl")
-fun loadSvgToImageView(view: ImageView, url: String?){
+fun loadSvgToImageView(view: ImageView, url: String?) {
     url?.let {
         Glide.with(view.context)
             .load(BuildConfig.BASE_URL + it)
