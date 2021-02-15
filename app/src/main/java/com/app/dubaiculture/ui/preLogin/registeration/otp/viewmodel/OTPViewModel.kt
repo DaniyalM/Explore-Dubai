@@ -4,7 +4,6 @@ import android.app.Application
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.format.DateUtils
-import androidx.core.os.bundleOf
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.app.dubaiculture.R
@@ -13,8 +12,6 @@ import com.app.dubaiculture.data.repository.registeration.RegistrationRepository
 import com.app.dubaiculture.data.repository.registeration.remote.request.confirmOTP.ConfirmOTPRequest
 import com.app.dubaiculture.data.repository.registeration.remote.request.resendOTP.ResendOTPRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.utils.DataUtilz
-import junit.runner.Version.id
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*

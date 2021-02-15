@@ -42,4 +42,5 @@ class CustomEditText constructor(context: Context,attributeSet: AttributeSet):
         setTypeface(typeface)
     }
 
+
 }

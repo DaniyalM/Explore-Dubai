@@ -22,4 +22,14 @@ class LoginRepository @Inject constructor(private val loginRDS: LoginRDS):BaseRe
                     is Result.Failure ->resultRDS
             }
         }
+
+    suspend fun loginWithEmail(loginRequest: LoginRequest): Result<LoginResponse> {
+        return when(val resultRDS = loginRDS.loginWithEmail(transform(loginRequest))){
+            is Result.Success->{
+                Result.Success(resultRDS.value)
+            }
+            is Result.Error->resultRDS
+            is Result.Failure ->resultRDS
+        }
+    }
 }

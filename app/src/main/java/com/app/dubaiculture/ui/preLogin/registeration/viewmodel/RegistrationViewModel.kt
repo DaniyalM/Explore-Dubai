@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.preLogin.registeration.viewmodel
 
 import android.app.Application
+import android.text.Editable
 import android.util.Log
 import android.widget.CompoundButton
 import androidx.databinding.ObservableBoolean
@@ -14,6 +15,8 @@ import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.registeration.RegisterFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequest
+import com.google.i18n.phonenumbers.NumberParseException
+import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -47,6 +50,10 @@ class RegistrationViewModel @ViewModelInject constructor(
     val oneError = MutableLiveData<Boolean?>(false)
 
     val twoError = MutableLiveData<Boolean?>(false)
+
+    companion object {
+        val   phoneNumberUtil = PhoneNumberUtil.getInstance()
+    }
 
     fun register() {
         viewModelScope.launch {
@@ -89,7 +96,7 @@ class RegistrationViewModel @ViewModelInject constructor(
    private fun enableButton() {
         btnEnabled.set(
             fullName.get().toString().trim().isNotEmpty() &&
-                    AuthUtils.isValidMobile(phone.get().toString().trim()) &&
+                    AuthUtils.isValidMobileNumber(phone.get().toString().trim()) &&
                     AuthUtils.isEmailValid(email.get().toString().trim()) &&
                     AuthUtils.isMatchPassword(password.get().toString().trim(),passwordConifrm.get().toString().trim()) &&
                     AuthUtils.isValidPasswordFormat(password.get().toString().trim())&&
@@ -111,17 +118,17 @@ class RegistrationViewModel @ViewModelInject constructor(
     }
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
-        isPhone.value = AuthUtils.isValidMobile(s.toString().trim())
+        isPhone.value = AuthUtils.isValidMobileNumber(s.toString().trim())
         Timber.e(phone.get().toString().trim())
         enableButton()
-        if(!s.startsWith("971")){
-            Timber.e("start with 92")
-            oneError.value =true
-            mobileNumberError.value = "Start with 92"
-        }else {
-            twoError.value = true
-            mobileNumberError.value = "Invalid Phone Number"
-        }
+//        if(!s.startsWith("971")){
+//            Timber.e("start with 92")
+//            oneError.value =true
+//            mobileNumberError.value = "Start with 92"
+//        }else {
+//            twoError.value = true
+//            mobileNumberError.value = "Invalid Phone Number"
+//        }
     }
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         password.set(s.toString())
@@ -140,5 +147,17 @@ class RegistrationViewModel @ViewModelInject constructor(
         enableButton()
     }
 
+    private fun getCountryIsoCode(number: String): String? {
+        val validatedNumber = if (number.startsWith("+")) number else "+$number"
 
+        val phoneNumber = try {
+            phoneNumberUtil.parse(validatedNumber, null)
+        } catch (e: NumberParseException) {
+            Log.e("Login=>", "error during parsing a number")
+            null
+        }
+        if(phoneNumber == null) return null
+
+        return phoneNumberUtil.getRegionCodeForCountryCode(phoneNumber.countryCode)
+    }
 }

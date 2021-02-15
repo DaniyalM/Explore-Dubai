@@ -1,9 +1,7 @@
 package com.app.dubaiculture.ui.preLogin.login
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.CompoundButton
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -14,8 +12,10 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
+import com.google.i18n.phonenumbers.PhoneNumberUtil
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.security.auth.callback.Callback
 
 
 @AndroidEntryPoint
@@ -25,11 +25,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?
+        container: ViewGroup?,
     ) = FragmentLoginBinding.inflate(inflater, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+       val phone =  PhoneNumberUtil.getInstance()
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
         binding.fragment = this
@@ -45,7 +46,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         }
         binding.languageSwitch.setOnCheckedChangeListener{ _: CompoundButton, b: Boolean ->
             if (b)
-                setLanguage(Locale( "ar"))
+                setLanguage(Locale("ar"))
             else setLanguage(Locale.ENGLISH)
         }
 
@@ -57,19 +58,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         subscribeToObservables()
-        loginViewModel.oneError.observe(viewLifecycleOwner){
-            if(it==true){
-                binding.tvPhoneError.text = resources.getString(R.string.err_phone_two)
-            }
-        }
-        loginViewModel.twoError.observe(viewLifecycleOwner){
-            if(it==true){
-                binding.tvPhoneError.text = resources.getString(R.string.err_phone)
-            }else{
-                binding.tvPhoneError.text =""
-            }
-        }
-
+      //  errorMessage()
     }
 
 
@@ -84,14 +73,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.forgot_pass ->
-//                loginViewModel.showAlert(message = "Hello")
                 navigate(R.id.action_loginFragment_to_forgotFragment)
-
-//                navigate(R.id.action_loginFragment_to_bottomSheet)
-
-
             R.id.img_uae_pass -> {
             }
         }
     }
+
 }

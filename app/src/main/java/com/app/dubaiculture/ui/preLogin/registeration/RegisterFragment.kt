@@ -55,19 +55,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
             binding.tvTermCondition.text = spannable
 
         }
-        registrationViewModel.oneError.observe(viewLifecycleOwner){
-            if(it==true){
-                binding.tvPhoneErrors.text = resources.getString(R.string.err_phone_two)
-            }
-        }
-        registrationViewModel.twoError.observe(viewLifecycleOwner){
-            if(it==true){
-                binding.tvPhoneErrors.text = resources.getString(R.string.err_phone)
-            }else{
-                binding.tvPhoneErrors.text =""
-            }
-        }
-
     }
 
     override fun onClick(v: View?) {

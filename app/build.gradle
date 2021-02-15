@@ -231,4 +231,9 @@ dependencies {
  //   SVG Glide
     implementation config.image_processing.glideToSvg
         // for edit mask
+
+    //lib phone
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.4.2'
+
+//    implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
 }

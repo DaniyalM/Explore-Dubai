@@ -98,12 +98,22 @@
             app:layout_constraintStart_toStartOf="@+id/edit_mob_no" />
 <!--        android:text="@{viewmodel.mobileNumberError ? @string/no_error : @string/err_phone_two  viewmodel.mobileNumberErrorTwo ? @string/no_error : @string/err_phone }"-->
 
-<!--        android:text="@{viewmodel.isPhone ? @string/no_error : viewmodel.mobileNumberError }"-->
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvPhoneError"
             style="@style/TextViewErrorRegistration"
-            android:visibility="@{viewmodel.isPhone ? View.GONE : View.VISIBLE}"
+            android:text="@{viewmodel.isPhone ? @string/no_error : @string/err_phone}"
+            android:visibility="@{viewmodel.phoneError? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/mobile_number"
+            app:layout_constraintTop_toTopOf="@+id/mobile_number" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvEmailError"
+            android:visibility="@{viewmodel.emailError? View.VISIBLE : View.GONE}"
+            android:text="@{viewmodel.isEmail ? @string/no_error : @string/err_email}"
+            style="@style/TextViewErrorRegistration"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/mobile_number"
@@ -112,13 +122,12 @@
 
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_mob_no"
+            android:singleLine="true"
             style="@style/EditTextLoginStyle"
-            android:background="@{viewmodel.isPhone ? @drawable/bg_edit_login : @drawable/error_login }"
+            android:background="@{viewmodel.isPhoneEdit || viewmodel.isEmailEdit ? @drawable/bg_edit_login : @drawable/error_login  }"
             android:drawableEnd="@drawable/mob_login"
             android:hint="@string/enter_mobile_number"
             android:imeOptions="actionNext"
-            android:maxLength="12"
-            android:inputType="number"
             android:onTextChanged="@{viewmodel::onPhoneChanged}"
             android:text="@{viewmodel.phone}"
             app:layout_constraintBottom_toTopOf="@+id/password"
@@ -133,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
-            android:background="@{viewmodel.isPhone ? null : @drawable/error }"
+            android:background="@{viewmodel.isPhoneEdit || viewmodel.isEmailEdit ?  null : @drawable/error }"
             app:layout_constraintBottom_toBottomOf="@+id/edit_mob_no"
             app:layout_constraintEnd_toEndOf="@+id/edit_mob_no"
             app:layout_constraintTop_toTopOf="@+id/edit_mob_no" />
@@ -224,9 +233,9 @@
             android:layout_marginEnd="@dimen/_25sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/btn_border_login"
-            android:enabled="@{viewmodel.btnSelected}"
             android:gravity="center"
-            android:onClick="@{()-> viewmodel.login()}"
+            android:enabled="@{viewmodel.btnSelected}"
+            android:onClick="@{()-> viewmodel.isLoginWithPhone ? viewmodel.loginWithPhone() : viewmodel.loginWithEmail() }"
             android:text="@string/login"
             android:textColor="@color/white_900"
             android:textSize="@dimen/_12ssp"
