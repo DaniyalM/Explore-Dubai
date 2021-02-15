@@ -15,7 +15,11 @@ class LoginRDS @Inject constructor(private val loginService: LoginService) : Bas
         }
     }
 
-
+    suspend fun loginWithEmail(loginRequestDTO: LoginRequestDTO): Result<LoginResponse>{
+        return safeApiCall {
+            loginService.loginWithEmail(loginRequestDTO)
+        }
+    }
 
 
 

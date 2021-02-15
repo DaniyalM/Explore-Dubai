@@ -23,7 +23,7 @@
     <string name="continue_as_a_guest"><u>Continue as a guest</u></string>
     <string name="don_t_have_an_account">Dont have an account?</string>
     <string name="enter_password">Enter password</string>
-    <string name="enter_mobile_number">Enter mobile number</string>
+    <string name="enter_mobile_number">Enter mobile number / email</string>
     <string name="registration">Registration</string>
     <string name="full_name">Full name</string>
     <string name="enter_full_name">Enter full name</string>
@@ -48,7 +48,9 @@
     <string name="resend_otp">Resend OTP</string>
     <string name="expires_in">Expires in</string>
     <string name="workshop">WORKSHOP</string>
-    <string name="mobile_number">Mobile Number</string>
+    <string name="mobile_number">Mobile Number / Email</string>
+    <string name="mobile_number_new">Mobile Number</string>
+
     <string name="mobile_number_">Start with 92</string>
     <string name="valid" translatable="false">correct</string>
     <string name="emirates_id">Emirates ID</string>
@@ -58,7 +60,7 @@
     <string name="err_email">Invalid Email</string>
     <string name="err_phone">Invalid mobile Number</string>
     <string name="err_password">Invalid Password</string>
-    <string name="err_confirm">Password does not match</string>
+    <string name="err_confirm">Should be same</string>
     <string name="no_error"></string>
     <string name="create_your_customised_trip">Create your customised trip</string>
     <string name="plan_your_trip">Plan Your Trip</string>
@@ -70,6 +72,7 @@
     <string name="at_least_one_digit">At least one digit</string>
 
 
+    <string name="enter_mobile_number_reg">Enter mobile number</string>
 
     <string name="err_phone_two" >e.g: 971-------------</string>
     <string name="your_password_has_been_updated_continue_to_login">Your password has been updated.\nContinue to login</string>

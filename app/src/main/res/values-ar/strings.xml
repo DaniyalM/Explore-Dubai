@@ -23,7 +23,7 @@
     <string name="continue_as_a_guest"><u>الاستمرار كزائر</u></string>
     <string name="don_t_have_an_account">ليس لديك حساب؟</string>
     <string name="enter_password">ادخل كلمة السر</string>
-    <string name="enter_mobile_number">ادخل رقم الهاتف</string>
+    <string name="enter_mobile_number">رقم الهاتف \ البريد الالكتروني</string>
     <string name="registration">التسجيل</string>
     <string name="full_name">الاسم الكامل</string>
     <string name="enter_full_name">ادخل اسمك الكامل</string>
@@ -48,7 +48,7 @@
     <string name="resend_otp">اعادة ارسال كلمة مرور لمرة واحدة</string>
     <string name="expires_in">تنتهي في</string>
     <string name="workshop">ورشة عمل</string>
-    <string name="mobile_number">رقم الهاتف</string>
+    <string name="mobile_number">رقم الهاتف \ البريد الالكتروني</string>
     <string name="mobile_number_">يبدأ ب92</string>
     <string name="valid" translatable="false">صحيح</string>
     <string name="emirates_id">رقم الهوية الامارتية</string>
@@ -58,7 +58,7 @@
     <string name="err_email">بريد الكتروني خطئ</string>
     <string name="err_phone">رقم هاتف خطئ</string>
     <string name="err_password">كلمة مرور خطئ</string>
-    <string name="err_confirm">كلمات المرور ليست متطابقة</string>
+    <string name="err_confirm">يجب أن يكون متشابه</string>
     <string name="no_error"></string>
     <string name="create_your_customised_trip">انشاء رحلتك الخاصة</string>
     <string name="plan_your_trip">خطط لرحلتك</string>
@@ -70,6 +70,8 @@
     <string name="at_least_one_digit">رقم واحد على الأقل</string>
     <string name="err_phone_two" >e.g: 971-------------</string>
     <string name="your_password_has_been_updated_continue_to_login">لقد تم تحديث كلمة السر الخاصة بك. أكمل الى تسجيل الدخول</string>
+    <string name="mobile_number_new">رقم الهاتف خطئ</string>
+    <string name="enter_mobile_number_reg"> رقم الهاتف</string>
 
 </resources>
 

@@ -1,14 +1,16 @@
 package com.app.dubaiculture.utils
 
 import android.os.Build
-import android.util.Log
+import android.text.TextUtils
 import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.EditText
 import com.app.dubaiculture.R
-import java.util.regex.Matcher
+import com.google.i18n.phonenumbers.PhoneNumberUtil
+import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberType
+import java.util.*
 import java.util.regex.Pattern
+
 
 object AuthUtils {
     fun isEmailValid(email: String): Boolean {
@@ -54,16 +56,19 @@ object AuthUtils {
         return ""
     }
 
-    fun isValidMobile1(ph: String): Int {
-
-        return if (!(Pattern.matches("05\\d{8}", ph)
-                    || Pattern.matches("^0.1{8}", ph)))
-            R.string.mobile_number
-        else R.string.valid
-
+    fun isValidMobileNumber(phone: String?): Boolean {
+        if (TextUtils.isEmpty(phone)) return false
+        val phoneNumberUtil = PhoneNumberUtil.getInstance()
+        try {
+            val phoneNumber = phoneNumberUtil.parse(phone, Locale.getDefault().country)
+            val phoneNumberType = phoneNumberUtil.getNumberType(phoneNumber)
+            return phoneNumberType == PhoneNumberType.MOBILE
+            } catch (e: java.lang.Exception) {
+        }
+        return false
     }
 
-    fun isMatchPassword(password : String ,confirmPass :String):Boolean{
+    fun isMatchPassword(password: String, confirmPass: String):Boolean{
         return password == confirmPass
 
     }
@@ -94,6 +99,12 @@ object AuthUtils {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+    }
+
+    fun isValidMobileOREmail(s: String){
+
+
 
     }
 //    fun isValidPasswordFormat(password: String): Boolean {
