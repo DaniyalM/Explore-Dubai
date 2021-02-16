@@ -5,6 +5,7 @@ import android.text.Editable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
@@ -24,7 +25,7 @@ class LoginViewModel @ViewModelInject constructor(
 ) : BaseViewModel(application) {
     var phone: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
-    var btnSelected: ObservableBoolean = ObservableBoolean(false)
+    var btnEnabled: ObservableBoolean = ObservableBoolean(false)
 
 
     val isPhone = MutableLiveData<Boolean?>(true)
@@ -44,6 +45,12 @@ class LoginViewModel @ViewModelInject constructor(
 
     val emailError = MutableLiveData<Boolean?>(false)
 
+
+    private val errs_ = MutableLiveData<Int>()
+    val errs : LiveData<Int> = errs_
+
+    private var passwordError_ = MutableLiveData<Int>()
+    var passwordError: LiveData<Int> = passwordError_
 
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
@@ -123,11 +130,15 @@ class LoginViewModel @ViewModelInject constructor(
 
         phoneError.value = !s.contains("[a-zA-Z]".toRegex())
         emailError.value = s.contains("[a-zA-Z]".toRegex())
+
+        errs_.value =  AuthUtils.errorsEmailAndPhone(s.toString().trim())
     }
 
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         password.set(s.toString())
         isPassword.value = AuthUtils.isValidPasswordFormat(s.toString().trim())
+        passwordError_.value = AuthUtils.passwordErrors(s.toString().trim())
+        enableButton()
     }
 
     private fun loginTypeChecker(s: CharSequence): Boolean {
@@ -142,17 +153,12 @@ class LoginViewModel @ViewModelInject constructor(
         }
     }
 
-
     private fun enableButton() {
-        if ((AuthUtils.isValidMobileNumber(phone.get().toString().trim()) &&
-                    AuthUtils.isValidPasswordFormat(password.get().toString()
-                        .trim())) || (AuthUtils.isEmailValid(phone.get().toString().trim()) &&
-                    AuthUtils.isValidPasswordFormat(password.get().toString().trim()))
-        ) {
-            btnSelected.set(true)
-        } else {
-            btnSelected.set(false)
-        }
+        btnEnabled.set(AuthUtils.isEmailValid(phone.get().toString().trim()) &&
+                AuthUtils.isValidPasswordFormat(password.get().toString()
+                    .trim()) || AuthUtils.isValidMobileNumber(phone.get().toString().trim()) &&
+                AuthUtils.isValidPasswordFormat(password.get().toString()
+                    .trim()))
     }
 
 }

@@ -31,12 +31,6 @@ object AuthUtils {
             R.string.emirates_id
         else R.string.valid
     }
-//    fun isValidMobile(ph: String): Boolean {
-//        if(ph.matches("^(971)\\d{10}\$".toRegex())){
-//            return true
-//        }
-//        return false
-//    }
 
 
     fun isValidMobile(ph: String): Boolean {
@@ -44,19 +38,8 @@ object AuthUtils {
     }
 
 
-    fun isValidMobileTest(ph: String): String {
-//        return Pattern.matches("^(92)\\d{10}\$", ph)
-            val isvalid = true
-        if(!ph.matches("^(92)\\d{0}\$".toRegex())){
-            return "Start with 92"
-
-        }else if(!ph.matches("^(92)\\d{10}\$".toRegex())){
-            return "Invalid Mobile Number"
-        }
-        return ""
-    }
-
     fun isValidMobileNumber(phone: String?): Boolean {
+
         if (TextUtils.isEmpty(phone)) return false
         val phoneNumberUtil = PhoneNumberUtil.getInstance()
         try {
@@ -71,15 +54,14 @@ object AuthUtils {
     fun isMatchPassword(password: String, confirmPass: String):Boolean{
         return password == confirmPass
 
+
     }
 
     fun isValidPasswordFormat(pass: String): Boolean {
-
         if(pass.matches("^(?=.*\\d)(?=.*[<>/?!@#\$%^,*()&+=~.])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}\$".toRegex()))
       return true
         return false
     }
-
 
     fun isValidOTP(otp: String): Boolean {
         val matches = Pattern.matches("\\d{6}", otp)
@@ -101,12 +83,45 @@ object AuthUtils {
         }
 
     }
-
-    fun isValidMobileOREmail(s: String){
-
-
+    fun errorsEmailAndPhone(s:String):Int{
+        if(checkLoginType(s)){
+            //Login With Phone
+            return if(!s.startsWith("+")){
+                R.string.mobile_number_
+            }else if(!isValidMobileNumber(s)){
+                R.string.err_phone
+            }else{
+                R.string.no_error
+            }
+        }else{
+            //Login With Email
+            return if(!(isEmailValid(s))){
+                R.string.err_email
+            }else{
+                R.string.no_error
+            }
+        }
+    }
+    fun checkLoginType(s : String):Boolean{
+        return !s.contains("[a-zA-Z]".toRegex())
 
     }
+    fun passwordErrors(s:String):Int{
+        return if(s.length< 8){
+            R.string._8_characters_long
+        }else if(!s.contains("(?=.*[A-Z])".toRegex())){
+            R.string.uppercase_character
+        }else if(!s.contains("(?=.*[a-z])".toRegex())){
+            R.string.lowercase_character
+        }else if(!s.contains("(.*\\d.*)".toRegex())){
+            R.string.at_least_one_digit
+        }else if(!s.contains("(?=.*[<>/?!@#\$%^,*()&+=~.])".toRegex())){
+            R.string.special_character
+        }else{
+            R.string.err_password
+        }
+    }
+
 //    fun isValidPasswordFormat(password: String): Boolean {
 //        val passwordREGEX = Pattern.compile("^[A-z]" +
 //                "(?=.*[0-9])" +         //at least 1 digit

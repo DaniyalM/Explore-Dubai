@@ -7,6 +7,7 @@ import android.widget.CompoundButton
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
@@ -45,15 +46,12 @@ class RegistrationViewModel @ViewModelInject constructor(
     val isPasswordConfirm = MutableLiveData<Boolean?>(true)
     val isTermAccepted = MutableLiveData<Boolean?>(true)
 
-    val mobileNumberError = MutableLiveData<String?>()
 
-    val oneError = MutableLiveData<Boolean?>(false)
 
-    val twoError = MutableLiveData<Boolean?>(false)
+ private   var passwordError_= MutableLiveData<Int>()
+    var passwordError: LiveData<Int> =passwordError_
 
-    companion object {
-        val   phoneNumberUtil = PhoneNumberUtil.getInstance()
-    }
+
 
     fun register() {
         viewModelScope.launch {
@@ -121,18 +119,12 @@ class RegistrationViewModel @ViewModelInject constructor(
         isPhone.value = AuthUtils.isValidMobileNumber(s.toString().trim())
         Timber.e(phone.get().toString().trim())
         enableButton()
-//        if(!s.startsWith("971")){
-//            Timber.e("start with 92")
-//            oneError.value =true
-//            mobileNumberError.value = "Start with 92"
-//        }else {
-//            twoError.value = true
-//            mobileNumberError.value = "Invalid Phone Number"
-//        }
     }
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         password.set(s.toString())
-     isPassword.value =   AuthUtils.isValidPasswordFormat(s.toString().trim())
+         isPassword.value =   AuthUtils.isValidPasswordFormat(s.toString().trim())
+        passwordError_.value      = AuthUtils.passwordErrors(s.toString().trim())
+
         enableButton()
     }
     fun onConfirmPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
@@ -147,17 +139,5 @@ class RegistrationViewModel @ViewModelInject constructor(
         enableButton()
     }
 
-    private fun getCountryIsoCode(number: String): String? {
-        val validatedNumber = if (number.startsWith("+")) number else "+$number"
 
-        val phoneNumber = try {
-            phoneNumberUtil.parse(validatedNumber, null)
-        } catch (e: NumberParseException) {
-            Log.e("Login=>", "error during parsing a number")
-            null
-        }
-        if(phoneNumber == null) return null
-
-        return phoneNumberUtil.getRegionCodeForCountryCode(phoneNumber.countryCode)
-    }
 }
