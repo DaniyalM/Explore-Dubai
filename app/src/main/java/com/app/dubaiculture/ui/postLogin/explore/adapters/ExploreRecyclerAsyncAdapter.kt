@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.recyclerview.widget.*
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.explore.local.models.Attraction
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.databinding.SectionItemContainerCellBinding
 import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener

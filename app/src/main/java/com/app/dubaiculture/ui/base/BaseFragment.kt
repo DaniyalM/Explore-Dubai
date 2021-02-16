@@ -125,7 +125,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     protected fun back() {
-        findNavController().popBackStack()
+        activity.onBackPressed()
     }
 
     protected fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
