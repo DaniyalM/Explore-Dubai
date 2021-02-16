@@ -51,7 +51,7 @@
     <string name="mobile_number">Mobile Number / Email</string>
     <string name="mobile_number_new">Mobile Number</string>
 
-    <string name="mobile_number_">Start with 92</string>
+    <string name="mobile_number_">Start with "+"</string>
     <string name="valid" translatable="false">correct</string>
     <string name="emirates_id">Emirates ID</string>
     <string name="login_here">Login Here</string>
@@ -74,6 +74,7 @@
 
     <string name="enter_mobile_number_reg">Enter mobile number</string>
 
-    <string name="err_phone_two" >e.g: 971-------------</string>
+    <string name="err_phone_two">e.g: 971-------------</string>
     <string name="your_password_has_been_updated_continue_to_login">Your password has been updated.\nContinue to login</string>
+
 </resources>

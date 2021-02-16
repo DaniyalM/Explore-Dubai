@@ -97,12 +97,13 @@
             app:layout_constraintBottom_toTopOf="@+id/edit_mob_no"
             app:layout_constraintStart_toStartOf="@+id/edit_mob_no" />
 <!--        android:text="@{viewmodel.mobileNumberError ? @string/no_error : @string/err_phone_two  viewmodel.mobileNumberErrorTwo ? @string/no_error : @string/err_phone }"-->
+<!--        android:text="@{viewmodel.isPhone ? @string/no_error : @string/err_phone}"-->
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvPhoneError"
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isPhone ? @string/no_error : @string/err_phone}"
+            android:text="@{viewmodel.isPhone ? @string/no_error : context.getString(viewmodel.errs)}"
             android:visibility="@{viewmodel.phoneError? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
@@ -122,7 +123,7 @@
 
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_mob_no"
-            android:singleLine="true"
+            android:inputType="textEmailAddress"
             style="@style/EditTextLoginStyle"
             android:background="@{viewmodel.isPhoneEdit || viewmodel.isEmailEdit ? @drawable/bg_edit_login : @drawable/error_login  }"
             android:drawableEnd="@drawable/mob_login"
@@ -158,20 +159,12 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isPassword ? @string/no_error :  @string/err_password }"
+            android:text="@{viewmodel.isPassword ? @string/no_error : context.getString(viewmodel.passwordError) }"
             app:layout_constraintBottom_toBottomOf="@+id/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/password" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isPassword ? @string/no_error :  @string/err_password }"
-            app:layout_constraintBottom_toBottomOf="@+id/password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toEndOf="@+id/password"
-            app:layout_constraintTop_toTopOf="@+id/password" />
 
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_password"
@@ -234,7 +227,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/btn_border_login"
             android:gravity="center"
-            android:enabled="@{viewmodel.btnSelected}"
+            android:enabled="@{viewmodel.btnEnabled}"
             android:onClick="@{()-> viewmodel.isLoginWithPhone ? viewmodel.loginWithPhone() : viewmodel.loginWithEmail() }"
             android:text="@string/login"
             android:textColor="@color/white_900"
