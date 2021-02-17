@@ -11,9 +11,10 @@
 
         <ImageView
             android:id="@+id/img_close"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/close_btn"
+            android:src="@drawable/close_btn"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_50sdp"
             app:layout_constraintTop_toTopOf="parent"
@@ -104,6 +105,7 @@
             android:layout_marginBottom="@dimen/_25sdp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_border_login"
+            android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
             android:text="@string/continue_"
             android:textColor="@color/white_900"

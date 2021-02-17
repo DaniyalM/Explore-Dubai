@@ -2,6 +2,7 @@ package com.app.dubaiculture.ui.base
 
 import android.app.Activity
 import android.content.Context
+import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -156,5 +157,14 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         }
     }
-
+    fun backArrowRTL(img:ImageView){
+        when {
+            isArabic() -> {
+            img.rotation = -90f
+        }
+            else -> {
+                img.rotation = 90f
+        }
+        }
+    }
 }

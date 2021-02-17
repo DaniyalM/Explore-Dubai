@@ -76,5 +76,10 @@
 
     <string name="err_phone_two">e.g: 971-------------</string>
     <string name="your_password_has_been_updated_continue_to_login">Your password has been updated.\nContinue to login</string>
+    <string name="book_a_ticket">Book a Ticket</string>
+    <string name="select_date">Select date</string>
+    <string name="add_date_of_visit">Add date of visit</string>
+    <string name="mm">MM</string>
+    <string name="hh">HH</string>
 
 </resources>

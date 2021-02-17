@@ -16,14 +16,16 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name="com.app.dubaiculture.ui.preLogin.PreLoginActivity">
+        <activity android:name="com.app.dubaiculture.ui.preLogin.PreLoginActivity"
+             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.app.dubaiculture.ui.postLogin.PostLoginActivity">
+        <activity android:name="com.app.dubaiculture.ui.postLogin.PostLoginActivity"
+            android:screenOrientation="portrait">
         </activity>
 <!--        <activity android:name="com.app.dubaiculture.ui.widgets.DcWidget">-->
 <!--            <intent-filter>-->

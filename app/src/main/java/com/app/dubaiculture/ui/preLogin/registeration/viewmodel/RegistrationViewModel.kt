@@ -50,7 +50,8 @@ class RegistrationViewModel @ViewModelInject constructor(
 
  private   var passwordError_= MutableLiveData<Int>()
     var passwordError: LiveData<Int> =passwordError_
-
+    private val errs_ = MutableLiveData<Int>()
+    val errs : LiveData<Int> = errs_
 
 
     fun register() {
@@ -117,6 +118,7 @@ class RegistrationViewModel @ViewModelInject constructor(
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
         isPhone.value = AuthUtils.isValidMobileNumber(s.toString().trim())
+        errs_.value =         AuthUtils.errorsEmailAndPhone(s.toString().trim())
         Timber.e(phone.get().toString().trim())
         enableButton()
     }
