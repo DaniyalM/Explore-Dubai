@@ -1,10 +1,13 @@
 package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.TextView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
+import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
 
@@ -49,6 +52,7 @@ class AttractionHeaderItems<T>(
                 textView.setTextColor(color)
             }
             selectedBackground?.let { drawable ->
+
                 imageView.background = drawable
             }
             selectedInnerImg?.let { drawable ->

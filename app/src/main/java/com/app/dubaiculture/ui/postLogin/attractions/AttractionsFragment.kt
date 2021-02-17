@@ -29,46 +29,11 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        initViewPager()
+        subscribeUiEvents(attractionViewModel)
+        subscribeToObservables()
     }
 
-//    private fun initViewPager() {
-//
-//        binding.pager.adapter = AttractionPagerAdaper(this)
-//
-//
-//        TabLayoutMediator(
-//            binding.tabLayout, binding.pager
-//        ) { tab: TabLayout.Tab, position: Int ->
-//            val tabDetail = attractionViewModel.tabDetails[position]
-//            tab.text = getString(tabDetail.first)
-//            tab.icon = ResourcesCompat.getDrawable(resources, tabDetail.second, null)
-//        }.attach()
-//
-//        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//                tab?.apply {
-//                    val f = childFragmentManager.findFragmentByTag(
-//                        "f" + (binding.pager.adapter as HomePagerAdapter).getItemId(this.position)
-//                    )//f0,f1,f2,f3,....
-//                    if (f != null) {
-//                        if (this.position == 0) {
-//                            val fragment: ExploreFragment = f as ExploreFragment
-//                            fragment.getRecyclerView().smoothScrollToPosition(0)
-//                        }
-//                    }
-//                }
-//
-//            }
-//
-//        })
-//    }
-
-
+    private fun subscribeToObservables() {
+        binding.horizontalSelector.initialize(attractionViewModel.getInterests())
+    }
 }

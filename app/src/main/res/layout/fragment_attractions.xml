@@ -8,12 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar_snippet"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
+            <include layout="@layout/toolbar_snippet"/>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -24,15 +24,16 @@
                 <com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItemSelector
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rvAttraction"
+                    android:id="@+id/horizontalSelector"
                     style="@style/HorizontalAttractionStyle"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"/>
 
 
-                <!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                                <androidx.recyclerview.widget.RecyclerView-->
 <!--                    android:id="@+id/rvAttraction"-->
 <!--                    android:layout_width="match_parent"-->
+<!--                                    tools:listitem="@layout/attraction_title_list_item"-->
 <!--                    android:layout_height="wrap_content"-->
 <!--                    android:overScrollMode="never" />-->
             </FrameLayout>

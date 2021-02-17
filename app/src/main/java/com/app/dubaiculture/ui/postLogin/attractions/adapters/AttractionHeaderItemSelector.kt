@@ -9,6 +9,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.explore.local.models.Attraction
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -30,7 +31,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                 R.styleable.HorizontalAttractionSelector_selectedTextColor1 -> {
                     selectedTextColor = typeArray.getColor(attr, Color.RED)
                 }
-                R.styleable.HorizontalAttractionSelector_selectedTextColor1 -> {
+                R.styleable.HorizontalAttractionSelector_unSelectedTextColor1 -> {
                     unSelectedTextColor = typeArray.getColor(attr, Color.GRAY)
                 }
                 R.styleable.HorizontalAttractionSelector_selectedBackground1 -> {
@@ -51,19 +52,19 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
             }
         }
         typeArray.recycle()
-        val view = inflate(context, R.layout.attraction_title_list_item, null)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rvAttraction)
+        val view = inflate(context, R.layout.attractions_item_selector, null)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rVgeneric)
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         addView(view)
         recyclerView.adapter = groupAdapter
     }
     @JvmName("interests")
-    fun initialize(list:List<BaseModel>){
+    fun initialize(list:List<Attraction>){
         list.forEachIndexed { index, model ->
             groupAdapter.add(
                 AttractionHeaderItems(
-                    displayValue = model.title!!,
+                    displayValue = model.title,
                     data = model,
                     isSelected = false,
                     selectedTextColor = selectedTextColor,
