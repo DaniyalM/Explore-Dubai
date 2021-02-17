@@ -1,13 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.postLogin.bookticket.BookTicketFragment">
 
+    <ImageView
+        android:id="@+id/img_close"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:rotation="90"
+        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:text="@string/book_a_ticket"
+        android:textColor="@color/black_200"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintStart_toStartOf="@+id/img_close"
+        app:layout_constraintTop_toBottomOf="@+id/img_close" />
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/select_date"
+        style="@style/TextViewRegistrationStyle"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:text="@string/select_date"
+        app:layout_constraintStart_toStartOf="@+id/registration"
+        app:layout_constraintTop_toBottomOf="@+id/registration" />
+
+    <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        android:id="@+id/edit_select_date"
+        style="@style/EditTextStyle"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_edit_resiger"
+        android:drawableEnd="@drawable/calender_ticket_book"
+        android:hint="@string/add_date_of_visit"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_date"
+        tools:src="@drawable/bg_edit_resiger" />
+
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/time_of_visit"
+        style="@style/TextViewRegistrationStyle"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Time of visit"
+        app:layout_constraintStart_toStartOf="@+id/edit_select_date"
+        app:layout_constraintTop_toBottomOf="@+id/edit_select_date"/>
+
+
+    <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        android:id="@+id/edit_hh"
+        style="@style/EditTextStyle"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/bg_edit_resiger"
+        android:hint="@string/hh"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/time_of_visit"
+        app:layout_constraintStart_toStartOf="@+id/time_of_visit"
+        app:layout_constraintTop_toBottomOf="@+id/time_of_visit"
+        tools:src="@drawable/bg_edit_resiger" />
+
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/colon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":"
+        android:textColor="@color/black_200"
+        android:textStyle="bold"
+        android:textSize="@dimen/_14sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_hh"
+        app:layout_constraintStart_toEndOf="@+id/edit_hh"
+        app:layout_constraintTop_toTopOf="@+id/edit_hh" />
+
+
+    <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        android:id="@+id/edit_mm"
+        style="@style/EditTextStyle"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/bg_edit_resiger"
+        android:hint="@string/mm"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_hh"
+        app:layout_constraintStart_toEndOf="@+id/edit_hh"
+        app:layout_constraintTop_toBottomOf="@+id/time_of_visit"
+        tools:src="@drawable/bg_edit_resiger" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,7 +49,7 @@
     <string name="expires_in">تنتهي في</string>
     <string name="workshop">ورشة عمل</string>
     <string name="mobile_number">رقم الهاتف \ البريد الالكتروني</string>
-    <string name="mobile_number_">يبدأ ب92</string>
+    <string name="mobile_number_">يبدأ ب "+"</string>
     <string name="valid" translatable="false">صحيح</string>
     <string name="emirates_id">رقم الهوية الامارتية</string>
     <string name="login_here">تسجيل الدخول</string>
@@ -72,6 +72,11 @@
     <string name="your_password_has_been_updated_continue_to_login">لقد تم تحديث كلمة السر الخاصة بك. أكمل الى تسجيل الدخول</string>
     <string name="mobile_number_new">رقم الهاتف خطئ</string>
     <string name="enter_mobile_number_reg"> رقم الهاتف</string>
+    <string name="book_a_ticket">Book a Ticket</string>
+    <string name="select_date">Select date</string>
+    <string name="add_date_of_visit">Add date of visit</string>
+    <string name="mm">MM</string>
+    <string name="hh">HH</string>
 
 </resources>
 

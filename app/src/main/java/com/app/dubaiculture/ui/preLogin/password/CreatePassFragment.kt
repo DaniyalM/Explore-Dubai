@@ -22,6 +22,7 @@ class CreatePassFragment : BaseFragment<FragmentCreatePassBinding>(),View.OnClic
         binding.viewmodel = createPassViewModel
         lottieAnimationRTL(binding.animationView)
         subscribeUiEvents(createPassViewModel)
+        backArrowRTL(binding.imgClose)
         arguments?.let {             verificationCode = it.getString("verificationCode") }
         binding.btnSetPassword.setOnClickListener {
             createPassViewModel.setPassword(verificationCode)

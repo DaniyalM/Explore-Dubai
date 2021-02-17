@@ -37,14 +37,14 @@
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_130sdp"
                 app:chainUseRtl="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/reg_lines"
-                app:lottie_repeatCount="1" />
+                app:lottie_repeatCount="0" />
 
 
             <ImageView
@@ -54,6 +54,7 @@
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:rotation="90"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -91,6 +92,7 @@
                 android:hint="@string/enter_full_name"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZqwertzuiopasdfghjklyxcvbnm "
                 android:onTextChanged="@{viewmodel::onFullNameChanged}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.906"
@@ -173,7 +175,7 @@
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tvPhoneErrors"
                 style="@style/TextViewErrorRegistration"
-                android:text="@{viewmodel.isPhone ? @string/no_error : @string/err_phone}"
+                android:text="@{viewmodel.isPhone ? @string/no_error : context.getString(viewmodel.errs)}"
                 app:layout_constraintBottom_toBottomOf="@+id/mob_num"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
@@ -204,6 +206,7 @@
                 android:hint="@string/enter_mobile_number_reg"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
+                android:digits="0123456789+"
                 android:onTextChanged="@{viewmodel::onPhoneChanged}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -321,6 +324,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:singleLine="true"
+                android:background="@drawable/custom_ripple_border"
                 android:text="@string/i_agree_to_the_terms_and_conditions"
                 android:textColor="@color/purple_600"
                 android:textSize="@dimen/_11sdp"
@@ -336,6 +340,7 @@
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
+                android:foreground="@drawable/custom_ripple_border"
                 android:background="@drawable/btn_register"
                 android:enabled="@{viewmodel.btnEnabled}"
                 android:gravity="center"
@@ -388,6 +393,7 @@
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:text="@string/login_here"
+                android:background="@drawable/custom_ripple_border"
                 android:textColor="@color/purple_900"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="parent"

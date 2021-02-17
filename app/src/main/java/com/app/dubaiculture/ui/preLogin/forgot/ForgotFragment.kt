@@ -25,6 +25,7 @@ class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListene
         binding.viewmodel = forgotViewModel
         lottieAnimationRTL(binding.animationView)
         subscribeUiEvents(forgotViewModel)
+        backArrowRTL(binding.imgClose)
         viewInitialize()
 
     }

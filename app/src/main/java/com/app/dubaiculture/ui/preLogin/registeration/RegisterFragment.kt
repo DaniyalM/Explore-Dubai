@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.preLogin.registeration
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -14,6 +15,7 @@ import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragment
 import com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel
+import com.balysv.materialripple.MaterialRippleLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -21,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickListener {
     private val registrationViewModel: RegistrationViewModel by viewModels()
     private var modalDismissWithAnimation = false
-    val String1 : String = ""
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentRegisterBinding.inflate(inflater, container, false)
@@ -34,6 +35,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         binding.tvTermCondition.setOnClickListener(this)
         binding.viewmodel = registrationViewModel
         lottieAnimationRTL(binding.animationView)
+        backArrowRTL(binding.imgClose)
         if(isArabic()){
                       val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
             spannable.setSpan(
@@ -43,9 +45,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
             spannable.setSpan(UnderlineSpan(), 10, binding.tvTermCondition.length(), 36)
             binding.tvTermCondition.text = spannable
         }else{
-
-
-
             val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
             spannable.setSpan(
                 ForegroundColorSpan(resources.getColor(R.color.black_200)),
@@ -53,8 +52,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             spannable.setSpan(UnderlineSpan(), 15, binding.tvTermCondition.length(), 27)
             binding.tvTermCondition.text = spannable
-
         }
+
+
     }
 
     override fun onClick(v: View?) {
