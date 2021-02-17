@@ -170,4 +170,19 @@
 
 
     </style>
+
+<!--    Horizontal recycler style-->
+    <style name="HorizontalItemStyle">
+        <item name="selectedBackground">@drawable/bg_filled</item>
+        <item name="selectedTextColor">@android:color/white</item>
+        <item name="unSelectedBackground">@drawable/bg_bordered</item>
+        <item name="unSelectedTextColor">@android:color/black</item>
+    </style>
+
+    <style name="HorizontalAttractionStyle">
+        <item name="selectedBackground1">@color/purple_900</item>
+        <item name="selectedTextColor1">@color/white_900</item>
+        <item name="unSelectedBackground1">@color/white_900</item>
+        <item name="unSelectedTextColor1">@color/purple_900</item>
+    </style>
 </resources>

@@ -10,6 +10,9 @@ import com.google.gson.annotations.SerializedName
 import com.rishabhharit.roundedimageview.RoundedImageView
 
 class BaseModel {
+    val imgSelected: Int=0
+    val imgUnSelected: Int=0
+
     @SerializedName("ID")
     @Expose
     var id: String? = null

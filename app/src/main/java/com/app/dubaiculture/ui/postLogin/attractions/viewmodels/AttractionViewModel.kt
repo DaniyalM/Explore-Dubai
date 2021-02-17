@@ -13,6 +13,11 @@ class AttractionViewModel @ViewModelInject constructor(
         Pair(R.string.explore, R.drawable.feeds),
         Pair(R.string.events, R.drawable.marketplace),
         Pair(R.string.attractions, R.drawable.forums),
+        Pair(R.string.more, R.drawable.notification),
+        Pair(R.string.more, R.drawable.notification),
+        Pair(R.string.more, R.drawable.notification),
+        Pair(R.string.more, R.drawable.notification),
+        Pair(R.string.more, R.drawable.notification),
         Pair(R.string.more, R.drawable.notification)
     )
 }

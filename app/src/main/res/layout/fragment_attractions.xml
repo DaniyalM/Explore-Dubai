@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.postLogin.attractions.attractionlisting.AttractionsFragment">
+    tools:context=".ui.postLogin.feeds.FeedsFragment">
 
-    <RelativeLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
+        <include layout="@layout/toolbar_snippet"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                style="@style/HomeTabStyle"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@color/app_bg"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItemSelector
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rvAttraction"
+                    style="@style/HorizontalAttractionStyle"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+
+                <!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/rvAttraction"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:overScrollMode="never" />-->
+            </FrameLayout>
+
             <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -28,11 +49,9 @@
                     android:layout_height="match_parent" />
             </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
 
-
         </LinearLayout>
 
 
-    </RelativeLayout>
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
