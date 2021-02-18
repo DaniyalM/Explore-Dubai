@@ -13,13 +13,13 @@ class AttractionPagerAdaper(fragment: Fragment) : FragmentStateAdapter(fragment)
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> {
-                ExploreFragment()
+                EventsFragment()
             }
             1 -> {
                 EventsFragment()
             }
             2 -> {
-                AttractionsFragment()
+                EventsFragment()
             }
             else -> {
                 MoreFragment()

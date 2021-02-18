@@ -7,13 +7,13 @@
         android:id="@+id/cardview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardCornerRadius="@dimen/_22sdp"
         app:cardElevation="@dimen/_10sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="@dimen/_7sdp">
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/_80sdp"
+            android:layout_width="@dimen/_130sdp"
             android:textAlignment="center"
             android:layout_height="@dimen/_50sdp">
             <View
@@ -28,8 +28,9 @@
                 android:background="@drawable/museums_icon_home"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.384"
+                tools:layout_editor_absoluteX="29dp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgInnerIcon"
@@ -46,17 +47,12 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="7dp"
                 android:text="Sub Title"
-                android:textSize="@dimen/_9ssp"
-                android:textStyle="bold"
+                android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/ll_bg"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ll_bg"
-                app:layout_constraintTop_toTopOf="@+id/ll_bg"
-                app:layout_constraintVertical_bias="0.478"
-                app:textFont="bold" />
+                app:layout_constraintTop_toTopOf="@+id/ll_bg" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

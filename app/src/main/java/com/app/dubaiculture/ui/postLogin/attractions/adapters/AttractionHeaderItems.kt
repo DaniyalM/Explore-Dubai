@@ -4,12 +4,14 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.Attraction
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
-import com.xwray.groupie.GroupAdapter
+import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItemSelector.Companion.clickCheckerFlag
+import com.app.dubaiculture.ui.postLogin.attractions.microservices.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.microservices.AttractionHeaderUnselect
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
 
@@ -27,30 +29,34 @@ class AttractionHeaderItems<T>(
     private val selectedInnerImg: Drawable? = null,
     private val unSelectedInnerImg: Drawable? = null,
     private val attractionPager: ViewPager2? = null,
-    private val groupAdapter: GroupAdapter<GroupieViewHolder>? = null,
+    private val progressListener: AttractionHeaderClick? = null,
 
     ) : BaseAdapter(R.layout.attraction_title_list_item) {
 
 
+    private lateinit var view:View
+
+
     override fun initBinding(viewHolder: GroupieViewHolder, position: Int) {
+        view=viewHolder.root
         viewHolder.apply {
+
             root?.let { it ->
-//                it.tv_title.text = displayValue
-//                it.imgInnerIcon.background = selectedInnerImg
-//                renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.selectorViewChanger)
+                it.tv_title.text = displayValue
+                it.imgInnerIcon.background = selectedInnerImg
+                isSelected = clickCheckerFlag==position
+
+                renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.selectorViewChanger)
 
                 it.setOnClickListener {
+                    progressListener?.onClick(position)
 
-                    attractionPager?.currentItem = position
-
-                        isSelected = !isSelected
+                    if (clickCheckerFlag==position){
+                        attractionPager?.currentItem = position
                         it.imgInnerIcon.background = unSelectedInnerImg
+                        isSelected=true
                         renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.selectorViewChanger)
-
-                    groupAdapter?.notifyDataSetChanged()
-
-
-//                    isSelected = !isSelected
+                    }
 
                 }
             }
@@ -78,8 +84,8 @@ class AttractionHeaderItems<T>(
                 imgInner.background = drawable
             }
 
-        }else{
-             unSelectedTextColor?.let { color ->
+        } else {
+            unSelectedTextColor?.let { color ->
                 view.selectorViewChanger.setBackgroundColor(ContextCompat.getColor(view.context,
                     R.color.white_900))
 
@@ -94,7 +100,6 @@ class AttractionHeaderItems<T>(
         }
 
     }
-
 
 
 
