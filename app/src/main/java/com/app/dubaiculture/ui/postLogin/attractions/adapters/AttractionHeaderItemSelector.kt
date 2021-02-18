@@ -4,13 +4,17 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Attraction
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
+import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -58,21 +62,27 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         addView(view)
         recyclerView.adapter = groupAdapter
+
+
     }
     @JvmName("interests")
-    fun initialize(list:List<Attraction>){
+    fun initialize(list:List<Attraction>,attractionPager: ViewPager2?=null){
+
         list.forEachIndexed { index, model ->
+
             groupAdapter.add(
                 AttractionHeaderItems(
                     displayValue = model.title,
-                    data = model,
+                    data = list,
                     isSelected = false,
                     selectedTextColor = selectedTextColor,
                     unSelectedTextColor = unSelectedTextColor,
                     selectedBackground = getDrawableFromId(selectedBackground),
                     unSelectedBackground = getDrawableFromId(unSelectedBackground) ,
                     selectedInnerImg =    getDrawableFromId(model.imgSelected),
-                    unSelectedInnerImg = getDrawableFromId(model.imgUnSelected)
+                    unSelectedInnerImg = getDrawableFromId(model.imgUnSelected),
+                    attractionPager=attractionPager,
+                    groupAdapter=groupAdapter
                 )
             )
         }
@@ -84,4 +94,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         }
         return null
     }
+
+
 }

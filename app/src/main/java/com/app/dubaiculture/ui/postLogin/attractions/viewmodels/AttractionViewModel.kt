@@ -30,15 +30,13 @@ class AttractionViewModel @ViewModelInject constructor(
         list.add(Attraction("3".toInt(), "Art", "", R.drawable.museums_icon_home, R.drawable.events))
         list.add(Attraction("4".toInt(), "Sport", "", R.drawable.museums_icon_home, R.drawable.events))
         list.add(Attraction("5".toInt(), "Photography", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("5".toInt(), "Marketing", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("5".toInt(), "Traveling", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("5".toInt(), "Reading", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("5".toInt(), "Blogging", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("5".toInt(), "Yoga", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("5".toInt(), "Theatre", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("5".toInt(), "History", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("5".toInt(), "Social Causes", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("5".toInt(), "Other", "", R.drawable.museums_icon_home, R.drawable.events))
-        return list
+        list.add(Attraction("6".toInt(), "Marketing", "", R.drawable.museums_icon_home, R.drawable.events))
+        list.add(Attraction("7".toInt(), "Traveling", "", R.drawable.museums_icon_home, R.drawable.events))
+        list.add(Attraction("8".toInt(), "Reading", "", R.drawable.museums_icon_home, R.drawable.events))
+        list.add(Attraction("9".toInt(), "Blogging", "", R.drawable.museums_icon_home, R.drawable.events))
+        list.add(Attraction("10".toInt(), "Yoga", "", R.drawable.museums_icon_home, R.drawable.events))
+        list.add(Attraction("11".toInt(), "Theatre", "", R.drawable.museums_icon_home, R.drawable.events))
+        list.add(Attraction("12".toInt(), "History", "", R.drawable.museums_icon_home, R.drawable.events))
+       return list
     }
 }

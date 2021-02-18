@@ -1,15 +1,18 @@
 package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.explore.local.models.Attraction
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
-import com.google.android.material.card.MaterialCardView
+import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
+
 
 class AttractionHeaderItems<T>(
 
@@ -23,22 +26,34 @@ class AttractionHeaderItems<T>(
 
     private val selectedInnerImg: Drawable? = null,
     private val unSelectedInnerImg: Drawable? = null,
+    private val attractionPager: ViewPager2? = null,
+    private val groupAdapter: GroupAdapter<GroupieViewHolder>? = null,
 
     ) : BaseAdapter(R.layout.attraction_title_list_item) {
 
 
     override fun initBinding(viewHolder: GroupieViewHolder, position: Int) {
+        val data = data as List<Attraction>
         viewHolder.apply {
-
             root?.let { it ->
-                it.tv_title.text = displayValue
-                it.imgInnerIcon.background = selectedInnerImg
-                renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon)
+//                it.tv_title.text = displayValue
+//                it.imgInnerIcon.background = selectedInnerImg
+//                renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.selectorViewChanger)
 
                 it.setOnClickListener {
-                    isSelected = !isSelected
-                    it.imgInnerIcon.background = unSelectedInnerImg
-                    renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon)
+
+                    attractionPager?.currentItem = position
+                    for (i in 0 until data.size){
+                        data.get(i).isSelected=(i==position)
+                        isSelected = i==position
+                        it.imgInnerIcon.background = unSelectedInnerImg
+                        renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.selectorViewChanger)
+                    }
+                    groupAdapter?.notifyDataSetChanged()
+
+
+//                    isSelected = !isSelected
+
                 }
             }
         }
@@ -46,20 +61,30 @@ class AttractionHeaderItems<T>(
     }
 
 
-    private fun renderSelection(textView: TextView, imageView: ImageView, imgInner: ImageView) {
+    private fun renderSelection(
+        textView: TextView, imageView: ImageView, imgInner: ImageView,
+        view: View,
+    ) {
+
+
         if (isSelected) {
             selectedTextColor?.let { color ->
+                view.selectorViewChanger.setBackgroundColor(ContextCompat.getColor(view.context,
+                    R.color.purple_900))
                 textView.setTextColor(color)
             }
             selectedBackground?.let { drawable ->
-
                 imageView.background = drawable
             }
             selectedInnerImg?.let { drawable ->
                 imgInner.background = drawable
             }
-        } else {
-            unSelectedTextColor?.let { color ->
+
+        }else{
+             unSelectedTextColor?.let { color ->
+                view.selectorViewChanger.setBackgroundColor(ContextCompat.getColor(view.context,
+                    R.color.white_900))
+
                 textView.setTextColor(color)
             }
             unSelectedBackground?.let { bg ->
@@ -69,7 +94,14 @@ class AttractionHeaderItems<T>(
                 imgInner.background = drawable
             }
         }
+
     }
 
 
+
+
+
 }
+
+
+
