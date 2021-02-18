@@ -88,7 +88,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         setAnimation(holder.itemView)
         when (holder) {
-
             is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
             is UpComingEventsViewHolder -> setUpComingEventsViewHolder(holder, position)
             is MustSeeViewHolder -> setMustSeeViewHolder(holder, position)
@@ -395,6 +394,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         super.onViewDetachedFromWindow(holder)
         stopAnimation()
+    }
+
+    private fun setAnimation(viewToAnimate: View, position: Int, context: Context) {
+        val animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
+        viewToAnimate.startAnimation(animation)
     }
 
     private fun setAnimation(view: View?) {

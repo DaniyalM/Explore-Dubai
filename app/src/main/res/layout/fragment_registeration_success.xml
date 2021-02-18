@@ -11,6 +11,7 @@
 
         <ImageView
             android:id="@+id/img_close"
+            android:visibility="gone"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,10 +90,10 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/_9ssp"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
             android:textColor="@color/gray_600"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur\nadipiscing elit, sed do eiusmod temp\nty orem ipsum dolor sit amet elitsed eiusm"
+            android:text="Lorem ipsum dolor sit amet, consectetur\nadipiscing elit, sed do eiusmod temp ty\norem ipsum dolor sit amet elitsed eiusm"
             app:layout_constraintTop_toBottomOf="@+id/reg_successful"
             />
 

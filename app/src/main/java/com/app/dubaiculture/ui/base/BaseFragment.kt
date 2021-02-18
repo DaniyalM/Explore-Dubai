@@ -133,6 +133,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         findNavController().navigate(resId, bundle)
     }
 
+
     public fun setLanguage(locale: Locale) {
         (activity as BaseActivity).setLanguage(locale)
     }
