@@ -69,7 +69,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     fun initialize(list:List<Attraction>,attractionPager: ViewPager2?=null){
 
         list.forEachIndexed { index, model ->
-
             groupAdapter.add(
                 AttractionHeaderItems(
                     displayValue = model.title,

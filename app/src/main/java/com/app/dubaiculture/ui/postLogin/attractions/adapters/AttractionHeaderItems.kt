@@ -33,7 +33,6 @@ class AttractionHeaderItems<T>(
 
 
     override fun initBinding(viewHolder: GroupieViewHolder, position: Int) {
-        val data = data as List<Attraction>
         viewHolder.apply {
             root?.let { it ->
 //                it.tv_title.text = displayValue
@@ -43,12 +42,11 @@ class AttractionHeaderItems<T>(
                 it.setOnClickListener {
 
                     attractionPager?.currentItem = position
-                    for (i in 0 until data.size){
-                        data.get(i).isSelected=(i==position)
-                        isSelected = i==position
+
+                        isSelected = !isSelected
                         it.imgInnerIcon.background = unSelectedInnerImg
                         renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.selectorViewChanger)
-                    }
+
                     groupAdapter?.notifyDataSetChanged()
 
 
