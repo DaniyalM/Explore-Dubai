@@ -7,18 +7,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginBottom="@dimen/_15sdp"
         android:layout_width="wrap_content"
+        android:layout_margin="@dimen/_3sdp"
         android:layout_height="wrap_content">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview"
-        android:layout_width="@dimen/_170sdp"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/_80sdp"
         app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="@dimen/_10sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/_15sdp">
+        android:layout_margin="@dimen/_7sdp">
 
 
 
@@ -26,6 +25,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
+        android:layout_margin="5dp"
         android:layout_height="match_parent">
         <ImageView
             android:layout_width="wrap_content"

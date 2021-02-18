@@ -6,17 +6,14 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
-import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter.Companion.delayAnimate
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
@@ -36,7 +33,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?
+        container: ViewGroup?,
     ) = FragmentExploreBinding.inflate(inflater, container, false)
 
 
@@ -45,6 +42,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         explore = ExploreRecyclerAsyncAdapter(activity)
+        subscribeUiEvents(exploreViewModel)
         callingObservables()
         subscribeToObservable()
         setUpRecyclerView()
@@ -62,17 +60,12 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             explore.provideGlideInstance(glide)
 //            LinearSnapHelper().attachToRecyclerView(this)
 
-
         }
 
     }
 
 
     private fun callingObservables(){
-        customProgressDialog?.let {
-            if (!it.isShowing)
-                it.show()
-        }
         lifecycleScope.launch {
             exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
         }
@@ -83,13 +76,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let { explore.items = it.value }
-                    customProgressDialog?.let {
-                        if (it.isShowing)
-                            it.dismiss()
-                    }
-
                 }
-                is Result.Failure ->handleApiError(it,exploreViewModel)
+                is Result.Failure -> handleApiError(it, exploreViewModel)
             }
 
 

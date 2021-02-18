@@ -23,8 +23,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/attraction_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@android:drawable/dialog_holo_light_frame"
             app:cardElevation="@dimen/_5sdp"
             app:cardBackgroundColor="@color/purple_900"
@@ -50,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{attractions.title}"
+            app:textFont="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/attraction_image"
             app:layout_constraintStart_toStartOf="@+id/attraction_image"
