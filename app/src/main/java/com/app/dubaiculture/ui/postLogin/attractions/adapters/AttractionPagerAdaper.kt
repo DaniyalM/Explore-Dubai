@@ -2,27 +2,30 @@ package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment
+import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.events.EventsFragment
-import com.app.dubaiculture.ui.postLogin.explore.ExploreFragment
 import com.app.dubaiculture.ui.postLogin.more.MoreFragment
 
 class AttractionPagerAdaper(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount() = 9
 
     override fun createFragment(position: Int): Fragment {
+
         return when (position) {
             0 -> {
-                EventsFragment()
+                AttractionListingFragment.newInstance(type = "Museum")
             }
             1 -> {
-                EventsFragment()
+
+                AttractionListingFragment.newInstance(type = "Heritage Sites")
             }
             2 -> {
-                EventsFragment()
+
+                AttractionListingFragment.newInstance(type = "Festivals")
             }
             else -> {
-                MoreFragment()
+
+                AttractionListingFragment.newInstance(type = "Attractions")
             }
         }
     }

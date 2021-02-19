@@ -25,18 +25,10 @@ class AttractionViewModel @ViewModelInject constructor(
 
     fun getInterests(): List<Attraction> {
         val list = mutableListOf<Attraction>()
-        list.add(Attraction("1".toInt(), "Music", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("2".toInt(), "Games", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("3".toInt(), "Art", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("4".toInt(), "Sport", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("5".toInt(), "Photography", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("6".toInt(), "Marketing", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("7".toInt(), "Traveling", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("8".toInt(), "Reading", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("9".toInt(), "Blogging", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("10".toInt(), "Yoga", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("11".toInt(), "Theatre", "", R.drawable.museums_icon_home, R.drawable.events))
-        list.add(Attraction("12".toInt(), "History", "", R.drawable.museums_icon_home, R.drawable.events))
-       return list
+        list.add(Attraction("1".toInt(), "Museum", "", R.drawable.museum, R.drawable.museum))
+        list.add(Attraction("2".toInt(), "Heritage Sites", "", R.drawable.heritage, R.drawable.heritage))
+        list.add(Attraction("3".toInt(), "Festivals", "", R.drawable.festival, R.drawable.festival))
+        list.add(Attraction("4".toInt(), "Attractions", "", R.drawable.museums_icon_home, R.drawable.museums_icon_home))
+     return list
     }
 }
