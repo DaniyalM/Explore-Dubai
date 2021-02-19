@@ -4,14 +4,12 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItemSelector.Companion.clickCheckerFlag
-import com.app.dubaiculture.ui.postLogin.attractions.microservices.AttractionHeaderClick
-import com.app.dubaiculture.ui.postLogin.attractions.microservices.AttractionHeaderUnselect
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
 
@@ -59,6 +57,8 @@ class AttractionHeaderItems<T>(
                     }
 
                 }
+
+
             }
         }
 

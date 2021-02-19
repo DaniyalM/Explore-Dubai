@@ -26,6 +26,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     private fun subscribeToObservables() {
         binding.pager.adapter=AttractionPagerAdaper(this)
+        binding.pager.isUserInputEnabled = false
         binding.horizontalSelector.initialize(attractionViewModel.getInterests(),binding.pager)
     }
 }

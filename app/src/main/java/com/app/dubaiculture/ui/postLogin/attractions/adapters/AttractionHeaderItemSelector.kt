@@ -5,19 +5,16 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Attraction
-import com.app.dubaiculture.ui.postLogin.attractions.microservices.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import java.lang.Exception
 
 class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), AttractionHeaderClick {
@@ -75,7 +72,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         LinearSnapHelper().attachToRecyclerView(recyclerView)
 
 
-
     }
 
     @JvmName("interests")
@@ -87,11 +83,14 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         this.attractionPager = attractionPager
 
         itemsAddnUpdation(list, attractionPager)
+
+
     }
 
     private fun itemsAddnUpdation(
         list: List<Attraction>,
         attractionPager: ViewPager2? = null,
+        isUpdate: Boolean = false,
     ) {
 
         list.forEachIndexed { index, model ->
@@ -99,9 +98,25 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
             if (clickCheckerFlag == index)
                 isSelected = true
 
+            if (!isUpdate) {
+                groupAdapter.add(
+                    AttractionHeaderItems(
+                        displayValue = model.title,
+                        data = list,
+                        isSelected = isSelected,
+                        selectedTextColor = selectedTextColor,
+                        unSelectedTextColor = unSelectedTextColor,
+                        selectedBackground = getDrawableFromId(selectedBackground),
+                        unSelectedBackground = getDrawableFromId(unSelectedBackground),
+                        selectedInnerImg = getDrawableFromId(model.imgSelected),
+                        unSelectedInnerImg = getDrawableFromId(model.imgUnSelected),
+                        attractionPager = attractionPager,
+                        progressListener = this
+                    )
+                )
+            } else {
 
-            groupAdapter.add(
-                AttractionHeaderItems(
+                groupAdapter.notifyItemChanged(index, AttractionHeaderItems(
                     displayValue = model.title,
                     data = list,
                     isSelected = isSelected,
@@ -112,10 +127,15 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     selectedInnerImg = getDrawableFromId(model.imgSelected),
                     unSelectedInnerImg = getDrawableFromId(model.imgUnSelected),
                     attractionPager = attractionPager,
-                    progressListener = this
+                    progressListener = this)
                 )
-            )
+
+
+            }
+
+
         }
+
 
     }
 
@@ -130,38 +150,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     override fun onClick(position: Int) {
         clickCheckerFlag = position
-        list?.let {
-            try {
-                Toast.makeText(context,"${groupAdapter.itemCount}",Toast.LENGTH_SHORT).show()
-                it.forEachIndexed { index, attraction ->
-                    if (clickCheckerFlag!=index){
-                        groupAdapter.notifyItemChanged(index, AttractionHeaderItems(
-                            displayValue = attraction.title,
-                            data = list,
-                            isSelected = false,
-                            selectedTextColor = selectedTextColor,
-                            unSelectedTextColor = unSelectedTextColor,
-                            selectedBackground = getDrawableFromId(selectedBackground),
-                            unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                            selectedInnerImg = getDrawableFromId(attraction.imgSelected),
-                            unSelectedInnerImg = getDrawableFromId(attraction.imgUnSelected),
-                            attractionPager = attractionPager,
-                            progressListener = this)
-                        )
-                    }
-
-                }
-
-            }catch (ex:IndexOutOfBoundsException){
-                groupAdapter.notifyDataSetChanged()
-            }
-
-
-
-
-        }
-
-
+        list?.let { itemsAddnUpdation(it, attractionPager, true) }
     }
 
 
