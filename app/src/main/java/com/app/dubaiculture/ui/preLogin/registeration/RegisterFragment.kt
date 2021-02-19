@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.transition.TransitionInflater
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -24,8 +25,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
     private val registrationViewModel: RegistrationViewModel by viewModels()
     private var modalDismissWithAnimation = false
 
-    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        FragmentRegisterBinding.inflate(inflater, container, false)
+    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) :FragmentRegisterBinding{
+        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
+        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
+        return FragmentRegisterBinding.inflate(inflater, container, false)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(registrationViewModel)
@@ -33,6 +38,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         binding.tvLoginNow.setOnClickListener(this)
         binding.imgClose.setOnClickListener(this)
         binding.tvTermCondition.setOnClickListener(this)
+
         binding.viewmodel = registrationViewModel
         lottieAnimationRTL(binding.animationView)
         backArrowRTL(binding.imgClose)
@@ -75,9 +81,5 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         }
     }
 
-    private fun showModalOTPlBottomSheet() {
-        val modalBottomSheet = OTPFragment.newInstance(modalDismissWithAnimation)
-        modalBottomSheet.show(requireActivity().supportFragmentManager, OTPFragment.TAG)
-    }
 
 }

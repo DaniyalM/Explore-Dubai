@@ -63,7 +63,7 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                         showLoader(false)
                         showToast(result.value.confirmOTPResponseDTO.message.toString())
                         navigateByAction(R.id.action_bottomSheet_to_registrationSuccessFragment)
-                        }else{
+                        }else {
                             showToast(result.value.errorMessage)
                         }
                     }
