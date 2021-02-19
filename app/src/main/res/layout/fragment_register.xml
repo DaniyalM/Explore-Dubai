@@ -66,6 +66,7 @@
                 android:id="@+id/registration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:transitionName="main_title"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_45sdp"
                 android:text="@string/registration"
@@ -168,6 +169,7 @@
                 android:id="@+id/mob_num"
                 style="@style/TextViewRegistrationStyle"
                 android:text="@string/mobile_number_new"
+                android:transitionName="my_phone"
                 app:layout_constraintStart_toStartOf="@+id/edit_email_address"
                 app:layout_constraintTop_toBottomOf="@+id/edit_email_address" />
             <!--            android:text="@{viewmodel.isPhone ? @string/no_error : @string/err_phone }"-->
@@ -204,6 +206,7 @@
                 android:background="@{viewmodel.isPhone ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
                 android:drawableEnd="@drawable/mob_register"
                 android:hint="@string/enter_mobile_number_reg"
+                android:transitionName="my_edit_phone"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:digits="0123456789+"
@@ -228,6 +231,7 @@
                 android:id="@+id/password"
                 style="@style/TextViewRegistrationStyle"
                 android:text="@string/password"
+                android:transitionName="my_password"
                 app:layout_constraintStart_toStartOf="@+id/edit_mobile"
                 app:layout_constraintTop_toBottomOf="@+id/edit_mobile" />
 <!--            android:text="@{viewmodel.isPassword ? @string/no_error :  @string/err_password }"-->
@@ -248,6 +252,7 @@
                 android:background="@{viewmodel.isPassword ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
                 android:drawableEnd="@drawable/key_register"
                 android:hint="@string/password"
+                android:transitionName="my_edit_password"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
                 android:onTextChanged="@{viewmodel::onPasswordChanged}"
@@ -340,6 +345,7 @@
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
+                android:transitionName="action_btn"
                 android:foreground="@drawable/custom_ripple_border"
                 android:background="@drawable/btn_register"
                 android:enabled="@{viewmodel.btnEnabled}"
@@ -374,6 +380,7 @@
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:text="@string/already_a_member"
+                android:transitionName="my_dummy"
                 android:textColor="@color/gray_800"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -393,6 +400,7 @@
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:text="@string/login_here"
+                android:transitionName="my_register"
                 android:background="@drawable/custom_ripple_border"
                 android:textColor="@color/purple_900"
                 android:textSize="@dimen/_11ssp"

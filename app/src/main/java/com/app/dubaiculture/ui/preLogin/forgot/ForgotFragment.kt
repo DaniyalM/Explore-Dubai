@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.transition.TransitionInflater
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentForgotBinding
+import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.forgot.viewModel.ForgotViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,7 +20,11 @@ class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListene
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    )= FragmentForgotBinding.inflate(inflater,container,false)
+    ): FragmentForgotBinding {
+        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
+        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
+        return FragmentForgotBinding.inflate(inflater, container, false)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

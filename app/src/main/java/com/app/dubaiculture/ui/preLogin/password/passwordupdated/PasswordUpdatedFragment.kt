@@ -14,7 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class PasswordUpdatedFragment : BaseBottomSheetFragment<FragmentPasswordUpdatedBinding>(), View.OnClickListener {
 
-    private var dismissWithAnimation = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -38,14 +37,4 @@ class PasswordUpdatedFragment : BaseBottomSheetFragment<FragmentPasswordUpdatedB
         }
     }
 
-    companion object {
-        const val TAG = "ModalBottomSheet"
-        private const val ARG_DISMISS_WITH_ANIMATION = "dismiss_with_animation"
-        fun newInstance(dismissWithAnimation: Boolean): PasswordUpdatedFragment {
-            val resetPassBottomSheet = PasswordUpdatedFragment()
-            resetPassBottomSheet.isCancelable = false
-            resetPassBottomSheet.arguments = bundleOf(ARG_DISMISS_WITH_ANIMATION to dismissWithAnimation)
-            return resetPassBottomSheet
-        }
-    }
 }

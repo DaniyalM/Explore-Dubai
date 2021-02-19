@@ -1,36 +1,38 @@
 package com.app.dubaiculture.ui.preLogin.login
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import com.google.i18n.phonenumbers.PhoneNumberUtil
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import javax.security.auth.callback.Callback
 
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener{
+class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener {
 
     private val loginViewModel: LoginViewModel by viewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    ) = FragmentLoginBinding.inflate(inflater, container, false)
+    ): FragmentLoginBinding {
+        return FragmentLoginBinding.inflate(inflater, container, false)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-       val phone =  PhoneNumberUtil.getInstance()
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
         binding.fragment = this
@@ -38,13 +40,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.imgUaePass.setOnClickListener(this)
         lottieAnimationRTL(binding.animationView)
         binding.tvRegisterNow.setOnClickListener {
-            findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment2)
+            val extras = FragmentNavigatorExtras(
+                binding.password to "my_password",
+                binding.editPassword to "my_edit_password",
+                binding.mobileNumber to "my_phone",
+                binding.editMobNo to "my_edit_phone",
+                binding.tvLoginAccount to "main_title",
+                binding.btnLogin to "action_btn"
+            )
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment2,
+                null,
+                null,
+                extras)
         }
         binding.tvAsGuest.setOnClickListener {
             application.auth.isLoggedIn = true
             activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
         }
-        binding.languageSwitch.setOnCheckedChangeListener{ _: CompoundButton, b: Boolean ->
+        binding.languageSwitch.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
             if (b)
                 setLanguage(Locale("ar"))
             else setLanguage(Locale.ENGLISH)
@@ -58,9 +71,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         subscribeToObservables()
-      //  errorMessage()
     }
-
 
     private fun subscribeToObservables() {
         loginViewModel.loginStatus.observe(viewLifecycleOwner) {
@@ -72,8 +83,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.forgot_pass ->
-                navigate(R.id.action_loginFragment_to_forgotFragment)
+            R.id.forgot_pass ->{
+                val extras =FragmentNavigatorExtras(
+                    binding.password to "my_password",
+                    binding.editPassword to "my_edit_password",
+                    binding.mobileNumber to "my_phone",
+                    binding.editMobNo to "my_edit_phone",
+                    binding.tvLoginAccount to "main_title",
+                    binding.btnLogin to "action_btn"
+            )
+                findNavController().navigate(R.id.action_loginFragment_to_forgotFragment,
+                    null,
+                    null,
+                    extras)
+            }
             R.id.img_uae_pass -> {
             }
         }

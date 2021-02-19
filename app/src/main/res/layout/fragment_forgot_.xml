@@ -43,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/forgot_password_"
+            android:transitionName="main_title"
             android:textColor="@color/black_200"
             android:layout_marginTop="@dimen/_45sdp"
             android:textSize="@dimen/_16ssp"
@@ -55,8 +56,9 @@
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/email_address"
             android:layout_marginTop="@dimen/_30sdp"
+            android:transitionName="my_phone"
             style="@style/TextViewRegistrationStyle"
-            android:text="@string/full_name"
+            android:text="@string/email_address"
             app:layout_constraintTop_toBottomOf="@+id/registration"
             app:layout_constraintStart_toStartOf="@+id/registration"
             />
@@ -77,6 +79,7 @@
             style="@style/EditTextStyle"
             android:imeOptions="actionDone"
             android:hint="@string/email_address"
+            android:transitionName="my_edit_phone"
             android:drawableEnd="@drawable/message_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,8 +100,8 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:textColor="@color/gray_800"
-            android:textSize="@dimen/_11ssp"
-            android:textAlignment="center"
+            android:textSize="@dimen/_10ssp"
+            android:textAlignment="viewStart"
            android:text="@string/a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,6 +122,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:textAllCaps="false"
             android:text="@string/send_otp"
+            android:transitionName="action_btn"
             android:layout_marginTop="@dimen/_25sdp"
             android:gravity="center"
             android:layout_marginStart="@dimen/_25sdp"
