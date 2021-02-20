@@ -18,6 +18,7 @@ import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -58,6 +59,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
             adapter = explore
             explore.provideGlideInstance(glide)
+
+            this.itemAnimator = SlideInLeftAnimator()
 //            LinearSnapHelper().attachToRecyclerView(this)
 
         }
