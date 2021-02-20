@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.attractions.adapters
+package com.app.dubaiculture.ui.postLogin.attractions.components
 
 import android.content.Context
 import android.graphics.Color
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Attraction
+import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -27,6 +28,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var list: List<Attraction>? = null
     private var attractionPager: ViewPager2? = null
+    private  var recyclerView:RecyclerView?=null
 
 
     companion object {
@@ -64,24 +66,28 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         }
         typeArray.recycle()
         val view = inflate(context, R.layout.attractions_item_selector, null)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rVgeneric)
-        recyclerView.layoutManager =
+        recyclerView= view.findViewById(R.id.rVgeneric)
+
+        recyclerView?.let {
+            it.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        addView(view)
-        recyclerView.adapter = groupAdapter
-        LinearSnapHelper().attachToRecyclerView(recyclerView)
+            addView(view)
+            it.adapter = groupAdapter
+            LinearSnapHelper().attachToRecyclerView(it)
+
+        }
+
 
 
     }
 
-    @JvmName("interests")
+    @JvmName("attractionHeaders")
     fun initialize(
         list: List<Attraction>,
         attractionPager: ViewPager2? = null,
     ) {
         this.list = list
         this.attractionPager = attractionPager
-
         itemsAddnUpdation(list, attractionPager)
 
 
@@ -150,6 +156,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     override fun onClick(position: Int) {
         clickCheckerFlag = position
+        recyclerView?.smoothScrollToPosition(position)
         list?.let { itemsAddnUpdation(it, attractionPager, true) }
     }
 

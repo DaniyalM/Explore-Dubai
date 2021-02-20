@@ -2,7 +2,6 @@ package com.app.dubaiculture.ui.base
 
 import android.app.Activity
 import android.content.Context
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
-import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
-import com.app.dubaiculture.utils.event.EventUtilFunctions.showAlert
 import com.app.dubaiculture.utils.event.UiEvent
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
@@ -26,6 +24,8 @@ import com.xwray.groupie.GroupieViewHolder
 import java.util.*
 
 abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
+
+
 
     protected lateinit var application: ApplicationEntry
     protected var isBusRegistered: Boolean = false
@@ -57,7 +57,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         dataBinding = getFragmentBinding(inflater, container)
         return dataBinding.root
@@ -158,14 +158,15 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         }
     }
-    fun backArrowRTL(img:ImageView){
+
+    fun backArrowRTL(img: ImageView) {
         when {
             isArabic() -> {
-            img.rotation = -90f
-        }
+                img.rotation = -90f
+            }
             else -> {
                 img.rotation = 90f
-        }
+            }
         }
     }
 }
