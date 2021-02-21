@@ -11,17 +11,6 @@ class AttractionViewModel @ViewModelInject constructor(
     application:Application
 ) :BaseViewModel(application){
 
-    val tabDetails = mutableListOf(
-        Pair(R.string.explore, R.drawable.feeds),
-        Pair(R.string.events, R.drawable.marketplace),
-        Pair(R.string.attractions, R.drawable.forums),
-        Pair(R.string.more, R.drawable.notification),
-        Pair(R.string.more, R.drawable.notification),
-        Pair(R.string.more, R.drawable.notification),
-        Pair(R.string.more, R.drawable.notification),
-        Pair(R.string.more, R.drawable.notification),
-        Pair(R.string.more, R.drawable.notification)
-    )
 
     fun getInterests(): List<Attraction> {
         val list = mutableListOf<Attraction>()

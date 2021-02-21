@@ -3,25 +3,22 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     style="@style/SearchViewComponentStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/_5sdp">
 
-    <!--        <de.hdodenhof.circleimageview.CircleImageView-->
-    <!--           />-->
-
-    <!--        <SearchView-->
-    <!--            android:id="@+id/searchView"-->
-    <!--            style="@style/SearchViewStyle"-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_marginStart="@dimen/_10sdp"-->
-    <!--            android:layout_marginEnd="@dimen/_10sdp"-->
-    <!--            app:layout_constraintBottom_toBottomOf="@+id/profilePic"-->
-    <!--            app:layout_constraintEnd_toStartOf="@+id/img_drawer"-->
-    <!--            app:layout_constraintStart_toEndOf="@+id/profilePic"-->
-    <!--            app:layout_constraintTop_toTopOf="@+id/profilePic" />-->
+    <SearchView
+        android:id="@+id/searchView"
+        style="@style/SearchViewStyle"
+        android:layout_width="0dp"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/profilePic"
+        app:layout_constraintEnd_toStartOf="@+id/img_drawer"
+        app:layout_constraintStart_toEndOf="@+id/profilePic"
+        app:layout_constraintTop_toTopOf="@+id/profilePic" />
 
     <ImageView
         android:id="@+id/profilePic"
@@ -41,9 +38,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="Sub Title"
+        android:textColor="@color/black_200"
         android:textSize="@dimen/_25sdp"
         android:visibility="gone"
-        android:textColor="@color/black_200"
         app:layout_constraintBottom_toBottomOf="@+id/profilePic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/profilePic"

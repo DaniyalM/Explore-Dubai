@@ -236,4 +236,7 @@ dependencies {
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.4.2'
     implementation 'com.balysv:material-ripple:1.0.2'
 //    implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
+
+    //recycler Animation
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
 }
