@@ -7,7 +7,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_80sdp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp">
+        android:layout_margin="@dimen/_10sdp"
+     >
 
 
 <!--            <ImageView-->
@@ -25,8 +26,9 @@
             android:id="@+id/attraction_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_marginTop="12dp"
             android:background="@android:drawable/dialog_holo_light_frame"
-            app:cardElevation="@dimen/_5sdp"
+            app:cardElevation="10dp"
             app:cardBackgroundColor="@color/purple_900"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

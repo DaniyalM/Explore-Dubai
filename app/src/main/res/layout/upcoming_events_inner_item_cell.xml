@@ -88,22 +88,24 @@
                 app:layout_constraintGuide_percent="0.6"
                 />
 
+
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-               android:id="@+id/tv_start_date_event"
+                android:id="@+id/tv_start_date_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{events.fromDate}"
                 android:layout_marginStart="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_12sdp"
-                app:textFont="bold"
                 android:letterSpacing="0.1"
-                android:textStyle="bold"
-                android:textSize="@dimen/_15ssp"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintTop_toBottomOf="@+id/guideline"
+                android:text="@{events.fromDate}"
                 android:textColor="@color/purple_900"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tv_workshop"
+                app:layout_constraintHorizontal_bias="0.054"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/guideline"
+                app:textFont="bold" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_start_month_event"
@@ -119,33 +121,39 @@
                 app:textFont="bold" />
 
 
+
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_end_date_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="30dp"
                 android:letterSpacing="0.1"
                 android:text="@{events.toDate}"
                 android:textColor="@color/purple_900"
-                android:textSize="@dimen/_15ssp"
+                android:textSize="@dimen/_13ssp"
                 android:textStyle="bold"
-                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintBottom_toTopOf="@+id/tv_end_month_event"
+                app:layout_constraintEnd_toEndOf="@+id/tv_start_date_event"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_start_month_event"
                 app:textFont="bold" />
+<!--            android:text="@{events.toMonthYear}"-->
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_end_month_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_15sdp"
                 android:text="@{events.toMonthYear}"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/_10ssp"
-                android:layout_marginBottom="@dimen/_15sdp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tv_end_date_event"
                 app:layout_constraintStart_toStartOf="@+id/tv_end_date_event"
+                app:layout_constraintTop_toBottomOf="@+id/tv_end_date_event"
                 app:textFont="bold" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -181,19 +189,24 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_start_date_event"
                 app:textFont="bold" />
 
+
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+                android:layout_width="185dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="15dp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@{events.title}"
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_location"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_workshop"
-                app:layout_constraintTop_toBottomOf="@+id/tv_workshop" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_workshop"
+                app:layout_constraintVertical_bias="0.338" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_location"
