@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/tvTitle"
+        style="@style/TextViewRegistrationStyle"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:text="@string/full_name"
+        app:layout_constraintStart_toStartOf="@+id/edit_text"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        android:id="@+id/edit_text"
+        style="@style/EditTextStyle"
+        android:layout_marginTop="12dp"
+        android:drawableEnd="@drawable/username_register"
+        android:hint="@string/enter_full_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:src="@drawable/bg_edit_resiger" />
+
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/tvErrorMsg"
+        style="@style/TextViewErrorRegistration"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+        android:text="Error an Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toEndOf="@+id/tvTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+
+    <ImageView
+        android:id="@+id/imgError"
+        android:background="@drawable/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text"
+        app:layout_constraintTop_toTopOf="@+id/edit_text" />
+</androidx.constraintlayout.widget.ConstraintLayout>

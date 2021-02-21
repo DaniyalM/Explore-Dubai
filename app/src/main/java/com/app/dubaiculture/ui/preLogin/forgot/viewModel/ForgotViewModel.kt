@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
@@ -24,6 +25,9 @@ class ForgotViewModel @ViewModelInject constructor(private val forgotRepository:
     // for button enable and disable
     var btnEnabled: ObservableBoolean = ObservableBoolean(false)
 
+    private var _emailError = MutableLiveData<Int>()
+    var emailError: LiveData<Int> = _emailError
+
     // for button enable disable
    private fun enableButton() {
         btnEnabled.set(
@@ -32,11 +36,13 @@ class ForgotViewModel @ViewModelInject constructor(private val forgotRepository:
     }
     fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         email.set(s.toString())
-        isEmail.value = AuthUtils.isEmailValid(s.toString().trim())
-        enableButton()
+        isEmail.value = AuthUtils.isEmailErrorsbool(s.toString().trim())
+        _emailError.value = AuthUtils.isEmailErrors( s.toString().trim())
     }
 
     fun forgotEmail(){
+        if(!isCheckValid())
+            return
         viewModelScope.launch {
             showLoader(true)
             ForgotRequest(
@@ -68,5 +74,15 @@ class ForgotViewModel @ViewModelInject constructor(private val forgotRepository:
             }
             showLoader(false)
         }
+    }
+
+  private  fun isCheckValid():Boolean{
+        var isValid = true
+        _emailError.value = AuthUtils.isEmailErrors(s = email.get().toString().trim())
+        isEmail.value =    AuthUtils.isEmailErrorsbool(email.get().toString().trim())
+        if(!AuthUtils.isEmailErrorsbool(email.get().toString().trim())){
+            isValid = false
+        }
+        return isValid
     }
 }

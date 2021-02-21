@@ -92,7 +92,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                     binding.tvLoginAccount to "main_title",
                     binding.btnLogin to "action_btn"
             )
-                findNavController().navigate(R.id.action_loginFragment_to_forgotFragment,
+                findNavController().navigate(R.id.action_loginFragment_to_registrationSuccessFragment,
                     null,
                     null,
                     extras)

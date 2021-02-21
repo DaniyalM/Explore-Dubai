@@ -35,7 +35,7 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
         binding.btnContinueReg.setOnClickListener(this)
         binding.tvResend.setOnClickListener(this)
         disabledBackButton()
-        if(from.isNullOrEmpty()){
+        if(from=="registerFragment"){
             isCancelable = false
         }
     }

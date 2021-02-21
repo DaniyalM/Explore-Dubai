@@ -8,6 +8,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
@@ -15,6 +16,7 @@ import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.event.Event
+import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -46,8 +48,9 @@ class LoginViewModel @ViewModelInject constructor(
     val emailError = MutableLiveData<Boolean?>(false)
 
 
-    private val errs_ = MutableLiveData<Int>()
-    val errs : LiveData<Int> = errs_
+    private val errs_ = MutableLiveData<Int>().apply { value = R.string.err_password }
+    val errs: LiveData<Int> = errs_
+
 
     private var passwordError_ = MutableLiveData<Int>()
     var passwordError: LiveData<Int> = passwordError_
@@ -79,7 +82,8 @@ class LoginViewModel @ViewModelInject constructor(
                         showToast(result.exception.toString())
                     }
                     is Result.Failure -> {
-                        showToast(result.errorCode.toString())
+                        showToast("Internet Connection Error")
+
                     }
                 }
             }
@@ -89,6 +93,8 @@ class LoginViewModel @ViewModelInject constructor(
 
 
     fun loginWithEmail() {
+        if (!isCheckValid())
+            return
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
@@ -112,7 +118,8 @@ class LoginViewModel @ViewModelInject constructor(
                         showToast(result.exception.toString())
                     }
                     is Result.Failure -> {
-                        showToast(result.errorCode.toString())
+                        showToast("Internet Connection Error")
+
                     }
                 }
             }
@@ -120,18 +127,52 @@ class LoginViewModel @ViewModelInject constructor(
         }
     }
 
+    fun resendVerification(){
+
+        viewModelScope.launch {
+            showLoader(true)
+            LoginRequest(
+                email = phone.get().toString().trim(),
+                phoneNumber = phone.get().toString().trim(),
+                password = password.get().toString().trim()
+            ).let {
+                when (val result = loginRepository.loginWithEmail(it)) {
+                    is Result.Success -> {
+                        if (result.value.succeeded) {
+
+
+                        } else {
+                            showToast(result.value.errorMessage)
+                        }
+                    }
+                    is Result.Error -> {
+                        showToast(result.exception.toString())
+                    }
+                    is Result.Failure -> {
+                        showToast("Internet Connection Error")
+
+                    }
+                }
+            }
+            showLoader(false)
+        }
+    }
 
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
         isLoginWithPhone.value = loginTypeChecker(s)
-        enableButton()
+//        enableButton()
         isPhoneEdit.value = AuthUtils.isValidMobileNumber(s.toString().trim())
         isEmailEdit.value = AuthUtils.isEmailValid(s.toString().trim())
 
         phoneError.value = !s.contains("[a-zA-Z]".toRegex())
         emailError.value = s.contains("[a-zA-Z]".toRegex())
 
-        errs_.value =  AuthUtils.errorsEmailAndPhone(s.toString().trim())
+
+
+        errs_.value = AuthUtils.errorsEmailAndPhone(s.toString())
+       // isPhone.value = !phone.get().toString().isNullOrEmpty()
+
     }
 
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
@@ -161,4 +202,45 @@ class LoginViewModel @ViewModelInject constructor(
                     .trim()))
     }
 
+    fun isCheckValid(): Boolean {
+        var isValid = true
+
+        isPhoneEdit.value = AuthUtils.isValidMobileNumber(phone.get().toString().trim())
+        isEmailEdit.value = AuthUtils.isEmailValid(phone.get().toString().trim())
+        phoneError.value = !phone.get().toString().contains("[a-zA-Z]".toRegex())
+        emailError.value = phone.get().toString().contains("[a-zA-Z]".toRegex())
+        isPhone.value = !phone.get().toString().isNullOrEmpty()
+        isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
+
+
+
+        passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
+        errs_.value = AuthUtils.errorsEmailAndPhone(phone.get().toString().trim())
+
+
+//        if(!AuthUtils.isValidMobileNumber(phone.get().toString().trim())){
+//            isValid = false
+//        }
+//
+//        if(!AuthUtils.isEmailValid(phone.get().toString().trim())){
+//            isValid = false
+//        }
+//
+//        if(!AuthUtils.isValidPasswordFormat(password.get().toString().trim())){
+//            isValid = false
+//        }
+//
+//        if(!phone.get().toString().contains("[a-zA-Z]".toRegex())){
+//            isValid = false
+//        }
+//        if(!phone.get().toString().isNullOrEmpty()){
+//            isValid = false
+//        }
+//
+//        if(!AuthUtils.isValidPasswordFormat(password.get().toString().trim())){
+//            isValid = false
+//        }
+
+        return isValid
+    }
 }

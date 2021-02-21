@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -112,6 +113,7 @@ fun loadImage(view: RoundedImageView, url: String?) {
             .into(view)
     }
 }
+fun <T: Any> ObservableField<T>.getNonNull(): T = get()!!
 
 @BindingAdapter("android:imageViewUrl")
 fun loadImageView(view: ImageView, url: String?) {

@@ -27,6 +27,12 @@
         <action
             android:id="@+id/action_loginFragment_to_bottomSheet"
             app:destination="@id/bottomSheet" />
+        <action
+            android:id="@+id/action_loginFragment_to_createPassFragment"
+            app:destination="@id/createPassFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registrationSuccessFragment"
+            app:destination="@id/registrationSuccessFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
