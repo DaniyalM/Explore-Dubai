@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
         <import type="android.content.Context" />
         <variable
             name="viewmodel"
             type="com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel" />
     </data>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,6 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             >
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,6 +63,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
+
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/registration"
                 android:layout_width="wrap_content"
@@ -74,7 +76,6 @@
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintStart_toStartOf="@+id/img_close"
                 app:layout_constraintTop_toBottomOf="@+id/img_close" />
-
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/full_name"
@@ -93,6 +94,7 @@
                 android:hint="@string/enter_full_name"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:text="@{viewmodel.fullName}"
                 android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZqwertzuiopasdfghjklyxcvbnm "
                 android:onTextChanged="@{viewmodel::onFullNameChanged}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -100,13 +102,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/full_name"
                 tools:src="@drawable/bg_edit_resiger" />
+            <!--android:text="@{viewmodel.isfullName ? @string/no_error :  @string/err_first_name }"-->
 
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/customTextView2"
                 style="@style/TextViewErrorRegistration"
-                android:text="@{viewmodel.isfullName ? @string/no_error :  @string/err_first_name }"
-
+                android:text="@{viewmodel.isfullName ?@string/no_error : context.getString(viewmodel.fullnameError)    }"
                 app:layout_constraintBottom_toBottomOf="@+id/full_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
@@ -133,7 +135,7 @@
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 style="@style/TextViewErrorRegistration"
-                android:text="@{viewmodel.isEmail ? @string/no_error :  @string/err_email }"
+                android:text="@{viewmodel.isEmail ? @string/no_error : context.getString(viewmodel.emailError) }"
                 app:layout_constraintBottom_toBottomOf="@+id/email_address"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
@@ -209,6 +211,7 @@
                 android:transitionName="my_edit_phone"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
+
                 android:digits="0123456789+"
                 android:onTextChanged="@{viewmodel::onPhoneChanged}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -282,7 +285,7 @@
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 style="@style/TextViewErrorRegistration"
-                android:text="@{viewmodel.isPasswordConfirm ? @string/no_error :  @string/err_confirm }"
+                android:text="@{viewmodel.isPasswordConfirm ? @string/no_error : context.getString(viewmodel.passwordConfirmError) }"
                 app:layout_constraintBottom_toBottomOf="@+id/confirm_pass"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
@@ -346,9 +349,9 @@
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:transitionName="action_btn"
+                android:textColor="@color/white_900"
                 android:foreground="@drawable/custom_ripple_border"
                 android:background="@drawable/btn_register"
-                android:enabled="@{viewmodel.btnEnabled}"
                 android:gravity="center"
                 android:onClick="@{()-> viewmodel.register()}"
                 android:text="@string/register_now"

@@ -5,6 +5,7 @@ import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.login.remote.LoginRDS
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.login.remote.response.LoginResponse
+import com.app.dubaiculture.data.repository.login.remote.response.resendverification.ResendVerificationResponse
 import com.app.dubaiculture.data.repository.registeration.remote.mapper.transform
 import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequest
 import transform
@@ -25,6 +26,16 @@ class LoginRepository @Inject constructor(private val loginRDS: LoginRDS):BaseRe
 
     suspend fun loginWithEmail(loginRequest: LoginRequest): Result<LoginResponse> {
         return when(val resultRDS = loginRDS.loginWithEmail(transform(loginRequest))){
+            is Result.Success->{
+                Result.Success(resultRDS.value)
+            }
+            is Result.Error->resultRDS
+            is Result.Failure ->resultRDS
+        }
+    }
+
+    suspend fun resendVerification(loginRequest: LoginRequest): Result<ResendVerificationResponse> {
+        return when(val resultRDS = loginRDS.resendVerification(transform(loginRequest))){
             is Result.Success->{
                 Result.Success(resultRDS.value)
             }

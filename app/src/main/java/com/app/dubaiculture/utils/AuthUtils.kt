@@ -6,6 +6,7 @@ import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.app.dubaiculture.R
+import com.app.dubaiculture.utils.AuthUtils.isEmailValid
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberType
 import java.util.*
@@ -33,13 +34,9 @@ object AuthUtils {
     }
 
 
-    fun isValidMobile(ph: String): Boolean {
-        return Pattern.matches("^(971)\\d{9}\$", ph)
-    }
 
 
     fun isValidMobileNumber(phone: String?): Boolean {
-
         if (TextUtils.isEmpty(phone)) return false
         val phoneNumberUtil = PhoneNumberUtil.getInstance()
         try {
@@ -53,10 +50,25 @@ object AuthUtils {
 
     fun isMatchPassword(password: String, confirmPass: String):Boolean{
         return password == confirmPass
-
-
     }
-
+    fun isMatchPasswordError(password: String, confirmPass: String):Int{
+        if(confirmPass.isBlank()){
+            return R.string.required
+        }else
+        if(password!=confirmPass){
+            return R.string.err_confirm
+        }
+        return R.string.no_error
+    }
+    fun isMatchPasswordBool(password: String, confirmPass: String):Boolean{
+        if(confirmPass.isBlank() || password.isNullOrEmpty()){
+            return false
+        }else
+            if(password!=confirmPass){
+                return false
+            }
+        return true
+    }
     fun isValidPasswordFormat(pass: String): Boolean {
         if(pass.matches("^(?=.*\\d)(?=.*[<>/?!@#\$%^,*()&+=~.])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}\$".toRegex()))
       return true
@@ -84,9 +96,13 @@ object AuthUtils {
 
     }
     fun errorsEmailAndPhone(s:String):Int{
-        if(checkLoginType(s)){
+
+            if(checkLoginType(s)){
             //Login With Phone
-            return if(!s.startsWith("+")){
+            return if(s.isNullOrBlank()){
+                R.string.required
+            }else
+            if(!s.startsWith("+")){
                 R.string.mobile_number_
             }else if(!isValidMobileNumber(s)){
                 R.string.err_phone
@@ -98,27 +114,61 @@ object AuthUtils {
             return if(!(isEmailValid(s))){
                 R.string.err_email
             }else{
-                R.string.no_error
+                R.string.err_phone_two
             }
         }
-    }
+        }
     fun checkLoginType(s : String):Boolean{
         return !s.contains("[a-zA-Z]".toRegex())
 
     }
     fun passwordErrors(s:String):Int{
-        return if(s.length< 8){
-            R.string._8_characters_long
+        return if(s.isEmpty()){
+            R.string.required
+        }else if(s.length< 8){
+            R.string.should_contain_8_character_long
         }else if(!s.contains("(?=.*[A-Z])".toRegex())){
-            R.string.uppercase_character
+            R.string.should_contain_a_upper_character
         }else if(!s.contains("(?=.*[a-z])".toRegex())){
             R.string.lowercase_character
         }else if(!s.contains("(.*\\d.*)".toRegex())){
             R.string.at_least_one_digit
         }else if(!s.contains("(?=.*[<>/?!@#\$%^,*()&+=~.])".toRegex())){
-            R.string.special_character
+            R.string.should_contain_a_special_character
         }else{
             R.string.err_password
+        }
+    }
+fun isEmailErrors(s: String): Int{
+    return when {
+        s.isBlank() || s.isNullOrEmpty()-> {
+            R.string.required
+        }
+        !isEmailValid(s) -> {
+            R.string.err_email
+        }
+        else -> {
+            R.string.err_phone_two
+        }
+    }
+}
+    fun isEmailErrorsbool(s: String): Boolean{
+        return if(s.trim().isBlank()){
+            false
+        }else isEmailValid(s)
+    }
+    fun errorsPhone(s:String):Int{
+            //Login With Phone
+            return if(s.isBlank()||s.isNullOrBlank()){
+                R.string.required
+            }else
+                if(!s.startsWith("+")){
+                    R.string.mobile_number_
+                }else if(!isValidMobileNumber(s)){
+                    R.string.err_phone
+                }else{
+                    R.string.required
+                }
         }
     }
 
@@ -138,7 +188,6 @@ object AuthUtils {
 
 
 
-}
 
 //var isValid = false
 //if (pass.matches("(?=.*[A-Z])".toRegex())) {

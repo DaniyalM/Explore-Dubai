@@ -138,7 +138,7 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isPassword ? @string/no_error :  @string/err_password }"
+            android:text="@{viewmodel.isPassword ? @string/no_error : context.getString(viewmodel.passwordError) }"
             app:layout_constraintBottom_toBottomOf="@+id/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
@@ -178,7 +178,7 @@
             />
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isPasswordConfirm ? @string/no_error :  @string/err_confirm }"
+            android:text="@{viewmodel.isPasswordConfirm ? @string/no_error :  context.getString(viewmodel.passwordConfirmError) }"
             app:layout_constraintBottom_toBottomOf="@+id/confirm_pass"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
@@ -216,8 +216,8 @@
             android:layout_marginTop="@dimen/_25sdp"
             android:background="@drawable/btn_register"
             android:foreground="@drawable/custom_ripple_border"
-            android:enabled="@{viewmodel.btnEnabled}"
             android:gravity="center"
+            android:textColor="@color/white_900"
             android:textAllCaps="false"
             android:text="@string/confirm"
             app:layout_constraintStart_toStartOf="parent"

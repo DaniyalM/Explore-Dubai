@@ -67,7 +67,7 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isEmail ? @string/no_error :  @string/err_email }"
+            android:text="@{viewmodel.isEmail ? @string/no_error : context.getString(viewmodel.emailError) }"
             app:layout_constraintBottom_toBottomOf="@+id/email_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
@@ -122,12 +122,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:textAllCaps="false"
             android:text="@string/send_otp"
+            android:textColor="@color/white_900"
             android:transitionName="action_btn"
             android:layout_marginTop="@dimen/_25sdp"
             android:gravity="center"
             android:layout_marginStart="@dimen/_25sdp"
             android:layout_marginEnd="@dimen/_25sdp"
-            android:enabled="@{viewmodel.btnEnabled}"
             android:onClick="@{()-> viewmodel.forgotEmail()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

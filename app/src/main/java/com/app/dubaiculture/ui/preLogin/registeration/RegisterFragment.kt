@@ -60,6 +60,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
             binding.tvTermCondition.text = spannable
         }
 
+        registrationViewModel.isTermAccepted.observe(viewLifecycleOwner){
+            if(it==false){
+                registrationViewModel.showToast(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
+            }
+        }
 
     }
 

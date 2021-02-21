@@ -77,7 +77,12 @@
     <string name="add_date_of_visit">Add date of visit</string>
     <string name="mm">MM</string>
     <string name="hh">HH</string>
-
+    <string name="required">مطلوب</string>
+    <string name="_agree_to_the_terms_and_conditions">أوافق على  <u>الشروط والأحكام</u></string>
+    <string name="should_contain_8_character_long">يجب أن يتكون من 8 حروف</string>
+    <string name="should_contain_a_lowercase_character">يجب أن تتضمن حرف صغير</string>
+    <string name="should_contain_a_upper_character">يجب أن تتضمن حرف كبير</string>
+    <string name="should_contain_a_special_character">(!@#) يجب أن تتضمن حرف مميز</string>
 </resources>
 
 

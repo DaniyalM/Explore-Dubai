@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
@@ -36,7 +37,11 @@ class CreatePassViewModel @ViewModelInject constructor(
     val specialCharacter = MutableLiveData<Boolean?>(false)
     val oneDigit = MutableLiveData<Boolean?>(false)
 
+    private var passwordError_ = MutableLiveData<Int>()
+    var passwordError: LiveData<Int> = passwordError_
 
+    private var passwordConfirmError_ = MutableLiveData<Int>()
+    var passwordConfirmError: LiveData<Int> = passwordConfirmError_
 
     private fun enableButton() {
         btnEnabled.set(
@@ -50,6 +55,8 @@ class CreatePassViewModel @ViewModelInject constructor(
     fun setPassword(
         verificationCode: String? = null,
     ) {
+        if(!isCheckValid())
+            return
         viewModelScope.launch {
             showLoader(true)
             SetPasswordRequest(
@@ -80,8 +87,8 @@ class CreatePassViewModel @ViewModelInject constructor(
     }
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         password.set(s.toString())
-        isPassword.value =   AuthUtils.isValidPasswordFormat(s.toString().trim())
-        enableButton()
+        isPassword.value = AuthUtils.isValidPasswordFormat(s.toString().trim())
+        passwordError_.value = AuthUtils.passwordErrors(s.toString().trim())
 
         eightCharacter.value = s.toString().length>=8
         upperCaseLetter.value = s.contains("(?=.*[A-Z])".toRegex())
@@ -92,7 +99,24 @@ class CreatePassViewModel @ViewModelInject constructor(
     }
     fun onConfirmPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         passwordConifrm.set(s.toString())
-        isPasswordConfirm.value = AuthUtils.isMatchPassword(password.get().toString(),s.toString().trim())
-        enableButton()
+        isPasswordConfirm.value =AuthUtils.isMatchPasswordBool(password.get().toString(), passwordConifrm.get().toString().trim())
+        passwordConfirmError_.value             = AuthUtils.isMatchPasswordError(password.get().toString().trim(),passwordConifrm.get().toString().trim())
+    }
+
+    private  fun isCheckValid():Boolean{
+        var isValid = true
+        isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(password.get().toString(), passwordConifrm.get().toString().trim())
+
+        passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
+        passwordConfirmError_.value   = AuthUtils.isMatchPasswordError(password.get().toString().trim(),passwordConifrm.get().toString().trim())
+
+        if(!AuthUtils.isValidPasswordFormat(password.get().toString().trim())){
+            isValid = false
+        }
+        if(!AuthUtils.isMatchPasswordBool(password.get().toString(), passwordConifrm.get().toString().trim())){
+            isValid = false
+        }
+        return isValid
     }
 }

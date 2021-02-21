@@ -14,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_create_pass.view.*
 @AndroidEntryPoint
 class CreatePassFragment : BaseFragment<FragmentCreatePassBinding>(),View.OnClickListener{
-    private var modalDismissWithAnimation = false
     private val createPassViewModel: CreatePassViewModel by viewModels()
     private var verificationCode : String?= null
     override fun onActivityCreated(savedInstanceState: Bundle?) {

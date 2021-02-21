@@ -9,6 +9,9 @@ open class BaseResponse() {
     @SerializedName(value = "Succeeded")
     val succeeded: Boolean = false
 
+    @SerializedName(value = "IsConfirmed")
+    val isConfirmed: Boolean = false
+
     @SerializedName(value = "StatusCode")
     val statusCode: Int = 0
 
