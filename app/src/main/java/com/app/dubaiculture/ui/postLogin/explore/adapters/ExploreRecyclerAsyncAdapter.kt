@@ -109,26 +109,26 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = attractionInnerAdapter
                     attractionInnerAdapter?.attractions = item.value
-                    it.addOnItemTouchListener(
-                        RecyclerItemClickListener(
-                            context,
-                            it,
-                            object : RecyclerItemClickListener.OnItemClickListener {
-                                override fun onItemClick(view: View, position: Int) {
-                                    Toast.makeText(
-                                        context,
-                                        "${item.value.get(position).title} : ${
-                                            item.value.get(position).category
-                                        }",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-
-                                override fun onLongItemClick(view: View, position: Int) {
-
-                                }
-                            })
-                    )
+//                    it.addOnItemTouchListener(
+//                        RecyclerItemClickListener(
+//                            context,
+//                            it,
+//                            object : RecyclerItemClickListener.OnItemClickListener {
+//                                override fun onItemClick(view: View, position: Int) {
+//                                    Toast.makeText(
+//                                        context,
+//                                        "${item.value.get(position).title} : ${
+//                                            item.value.get(position).category
+//                                        }",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//
+//                                override fun onLongItemClick(view: View, position: Int) {
+//
+//                                }
+//                            })
+//                    )
                 }
                 holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
 
@@ -148,26 +148,26 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = upComingEventsInnerAdapter
                     upComingEventsInnerAdapter?.upComingEvents = item.value
-                    it.addOnItemTouchListener(
-                        RecyclerItemClickListener(
-                            context,
-                            it,
-                            object : RecyclerItemClickListener.OnItemClickListener {
-                                override fun onItemClick(view: View, position: Int) {
-                                    Toast.makeText(
-                                        context,
-                                        "${item.value.get(position).title} : ${
-                                            item.value.get(position).category
-                                        }",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-
-                                override fun onLongItemClick(view: View, position: Int) {
-
-                                }
-                            })
-                    )
+//                    it.addOnItemTouchListener(
+//                        RecyclerItemClickListener(
+//                            context,
+//                            it,
+//                            object : RecyclerItemClickListener.OnItemClickListener {
+//                                override fun onItemClick(view: View, position: Int) {
+//                                    Toast.makeText(
+//                                        context,
+//                                        "${item.value.get(position).title} : ${
+//                                            item.value.get(position).category
+//                                        }",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//
+//                                override fun onLongItemClick(view: View, position: Int) {
+//
+//                                }
+//                            })
+//                    )
                 }
                 holder.itemView.binding?.let {
                     it.innerSectionHeading.text = item.title
@@ -192,25 +192,25 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = mustSeeInnerAdapter
                     mustSeeInnerAdapter?.mustSees = item.value
-                    it.addOnItemTouchListener(
-                        RecyclerItemClickListener(
-                            context,
-                            it,
-                            object : RecyclerItemClickListener.OnItemClickListener {
-                                override fun onItemClick(view: View, position: Int) {
-                                    Toast.makeText(
-                                        context,
-                                        "${item.value.get(position).title} : ${
-                                            item.value.get(position).category
-                                        }",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-
-                                override fun onLongItemClick(view: View, position: Int) {
-                                }
-                            })
-                    )
+//                    it.addOnItemTouchListener(
+//                        RecyclerItemClickListener(
+//                            context,
+//                            it,
+//                            object : RecyclerItemClickListener.OnItemClickListener {
+//                                override fun onItemClick(view: View, position: Int) {
+//                                    Toast.makeText(
+//                                        context,
+//                                        "${item.value.get(position).title} : ${
+//                                            item.value.get(position).category
+//                                        }",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//
+//                                override fun onLongItemClick(view: View, position: Int) {
+//                                }
+//                            })
+//                    )
                 }
                 holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
 
@@ -230,26 +230,26 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = latestNewsInnerAdapter
                     latestNewsInnerAdapter?.latestNews = item.value
-                    it.addOnItemTouchListener(
-                        RecyclerItemClickListener(
-                            context,
-                            it,
-                            object : RecyclerItemClickListener.OnItemClickListener {
-                                override fun onItemClick(view: View, position: Int) {
-                                    Toast.makeText(
-                                        context,
-                                        "${item.value.get(position).title} : ${
-                                            item.value.get(position).category
-                                        }",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-
-                                override fun onLongItemClick(view: View, position: Int) {
-
-                                }
-                            })
-                    )
+//                    it.addOnItemTouchListener(
+//                        RecyclerItemClickListener(
+//                            context,
+//                            it,
+//                            object : RecyclerItemClickListener.OnItemClickListener {
+//                                override fun onItemClick(view: View, position: Int) {
+//                                    Toast.makeText(
+//                                        context,
+//                                        "${item.value.get(position).title} : ${
+//                                            item.value.get(position).category
+//                                        }",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//
+//                                override fun onLongItemClick(view: View, position: Int) {
+//
+//                                }
+//                            })
+//                    )
                 }
                 holder.itemView.binding?.let {
                     it.innerSectionHeading.text = item.title
@@ -272,26 +272,26 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = popularServiceInnerAdapter
                     popularServiceInnerAdapter?.popularService = item.value
-                    it.addOnItemTouchListener(
-                        RecyclerItemClickListener(
-                            context,
-                            it,
-                            object : RecyclerItemClickListener.OnItemClickListener {
-                                override fun onItemClick(view: View, position: Int) {
-                                    Toast.makeText(
-                                        context,
-                                        "${item.value.get(position).title} : ${
-                                            item.value.get(position).category
-                                        }",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-
-                                override fun onLongItemClick(view: View, position: Int) {
-
-                                }
-                            })
-                    )
+//                    it.addOnItemTouchListener(
+//                        RecyclerItemClickListener(
+//                            context,
+//                            it,
+//                            object : RecyclerItemClickListener.OnItemClickListener {
+//                                override fun onItemClick(view: View, position: Int) {
+//                                    Toast.makeText(
+//                                        context,
+//                                        "${item.value.get(position).title} : ${
+//                                            item.value.get(position).category
+//                                        }",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//
+//                                override fun onLongItemClick(view: View, position: Int) {
+//
+//                                }
+//                            })
+//                    )
                 }
                 holder.itemView.binding?.let {
                     it.innerSectionHeading.text = item.title

@@ -6,7 +6,7 @@
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_marginBottom="@dimen/_15sdp"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/_255sdp"
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
@@ -45,8 +45,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:text="@string/free"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_10ssp"
+                        android:textSize="@dimen/_7ssp"
                         android:textColor="@color/purple_900"
                         app:textFont="bold"
                         />
