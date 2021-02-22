@@ -84,18 +84,17 @@
             />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            app:layout_constraintStart_toStartOf="@id/reg_successful"
-            app:layout_constraintEnd_toEndOf="@id/reg_successful"
             android:layout_width="0dp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_10ssp"
-            android:textAlignment="viewStart"
-            android:textColor="@color/gray_600"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp ty orem ipsum dolor sit amet elitsed eiusm"
-            app:layout_constraintTop_toBottomOf="@+id/reg_successful"
-            />
+            android:textColor="@color/gray_600"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reg_successful" />
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView

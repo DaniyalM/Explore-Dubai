@@ -136,10 +136,10 @@ class LoginViewModel @ViewModelInject constructor(
                 phoneNumber = phone.get().toString().trim(),
                 password = password.get().toString().trim()
             ).let {
-                when (val result = loginRepository.loginWithEmail(it)) {
+                when (val result = loginRepository.resendVerification(it)) {
                     is Result.Success -> {
                         if (result.value.succeeded) {
-
+                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
                         } else {
                             showToast(result.value.errorMessage)
