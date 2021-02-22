@@ -5,7 +5,7 @@
         <variable name="attractions" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_80sdp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp">
 
@@ -51,6 +51,9 @@
             android:layout_height="wrap_content"
             android:text="@{attractions.title}"
             app:textFont="bold"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/attraction_image"
             app:layout_constraintStart_toStartOf="@+id/attraction_image"

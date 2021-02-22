@@ -7,7 +7,7 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginBottom="@dimen/_15sdp"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_265sdp"
         android:layout_height="wrap_content">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview"

@@ -18,7 +18,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
 class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
-    FrameLayout(context, attrs), AttractionHeaderClick {
+    FrameLayout(context, attrs), AttractionHeaderClick{
     private var selectedTextColor: Int? = null
     private var unSelectedTextColor: Int? = null
     private var selectedBackground: Int? = null
@@ -84,7 +84,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     @JvmName("attractionHeaders")
     fun initialize(
         list: List<Attraction>,
-        attractionPager: ViewPager2? = null,
+        attractionPager: ViewPager2? = null
     ) {
         this.list = list
         this.attractionPager = attractionPager
@@ -159,6 +159,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         recyclerView?.smoothScrollToPosition(position)
         list?.let { itemsAddnUpdation(it, attractionPager, true) }
     }
+
 
 
 }
