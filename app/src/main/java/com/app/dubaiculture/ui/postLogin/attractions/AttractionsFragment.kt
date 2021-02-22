@@ -27,9 +27,9 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupToolbarWithSearchItems()
-        subscribeUiEvents(attractionViewModel)
-        initiatePager()
+//        setupToolbarWithSearchItems()
+//        subscribeUiEvents(attractionViewModel)
+//        initiatePager()
 
 
     }
