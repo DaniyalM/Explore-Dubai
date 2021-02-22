@@ -5,6 +5,8 @@
             <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="android:windowActivityTransitions">true</item>
 
+        <item name="android:spotShadowAlpha">0.3</item>
+
     </style>
 
     <style name="Base.Theme.MyApp" parent="Base.Theme.MaterialThemeBuilder">
@@ -29,6 +31,7 @@
         <!--bg-->
         <item name="android:colorBackground">@color/white_900</item>
         <item name="colorOnBackground">@color/white_900</item>
+
 
     </style>
 
