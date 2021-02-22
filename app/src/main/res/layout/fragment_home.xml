@@ -56,8 +56,6 @@
             android:layout_height="78dp"
             android:layout_gravity="bottom"
             android:background="@drawable/nav_tabbar_new_one"
-            app:fab_cradle_margin="2dp"
-            app:fab_cradle_rounded_corner_radius="8dp"
             app:fab_size="50dp"
             android:layout_alignParentBottom="true"
             app:itemIconTint="@color/bottom_nav_color"
