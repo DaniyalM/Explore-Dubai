@@ -19,6 +19,7 @@ import com.app.dubaiculture.utils.event.Event
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Singleton
 
 class LoginViewModel @ViewModelInject constructor(
     private val loginRepository: LoginRepository,
