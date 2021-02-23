@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="events" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_marginBottom="@dimen/_15sdp"
     android:layout_width="@dimen/_255sdp"
-    android:layout_height="wrap_content">
+    android:layout_height="@dimen/_325sdp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview"
         android:layout_width="@dimen/_230sdp"
         android:layout_height="@dimen/_300sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginStart="@dimen/_15sdp"
         app:cardCornerRadius="@dimen/_15sdp"
-        app:cardElevation="15dp"
+        app:cardElevation="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,46 +26,44 @@
             android:layout_height="match_parent">
 
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_view_title"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginStart="@dimen/_15sdp"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_view_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                app:cardBackgroundColor="@color/white_900"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardElevation="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_12sdp"
-                    app:cardBackgroundColor="@color/white_900"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    >
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_14sdp"
-                        android:layout_marginEnd="@dimen/_14sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:text="@{events.type}"
-                        android:textSize="@dimen/_7ssp"
-                        android:textColor="@color/purple_900"
-                        app:textFont="bold"
-                        />
-                </com.google.android.material.card.MaterialCardView>
+                    android:layout_marginStart="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_14sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:text="@{events.type}"
+                    android:textColor="@color/purple_900"
+                    android:textSize="@dimen/_7ssp"
+                    app:textFont="bold" />
+            </com.google.android.material.card.MaterialCardView>
 
 
             <com.rishabhharit.roundedimageview.RoundedImageView
                 android:id="@+id/img_upcoming_bg"
-                app:cornerRadius="@dimen/_15sdp"
-                app:roundedCorners="topRight|topLeft"
                 android:layout_width="match_parent"
-                android:scaleType="fitXY"
+                android:layout_height="0dp"
                 android:imageUrl="@{events.image}"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="fitXY"
+                app:cornerRadius="@dimen/_15sdp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
-                android:layout_height="0dp"/>
-
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:roundedCorners="topRight|topLeft" />
 
 
             <ImageView
@@ -85,27 +84,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.6"
-                />
+                app:layout_constraintGuide_percent="0.6" />
+            <!--            android:text="@{events.fromDate}"-->
 
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_start_date_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:letterSpacing="0.1"
                 android:text="@{events.fromDate}"
                 android:textColor="@color/purple_900"
-                android:textSize="@dimen/_13ssp"
+                android:textSize="@dimen/_18ssp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/tv_workshop"
-                app:layout_constraintHorizontal_bias="0.054"
-                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintEnd_toStartOf="@+id/lines"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/guideline"
                 app:textFont="bold" />
+            <!--            android:text="@{events.fromMonthYear}"-->
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_start_month_event"
@@ -113,50 +109,46 @@
                 android:layout_height="wrap_content"
                 android:text="@{events.fromMonthYear}"
                 android:textColor="@color/orange"
-                android:textSize="@dimen/_10ssp"
+                android:textSize="@dimen/_9ssp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_start_date_event"
                 app:layout_constraintEnd_toEndOf="@+id/tv_start_date_event"
                 app:layout_constraintStart_toStartOf="@+id/tv_start_date_event"
                 app:layout_constraintTop_toBottomOf="@+id/tv_start_date_event"
                 app:textFont="bold" />
 
-<!--            android:text="@{events.toDate}"-->
+            <!--            android:text="@{events.toDate}"-->
 
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_end_date_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="23dp"
-                android:letterSpacing="0.1"
-
-                android:lineSpacingExtra="-0.1dp"
-                android:text="20"
+                android:text="@{events.toDate}"
                 android:textColor="@color/purple_900"
-                android:textSize="@dimen/_13ssp"
+                android:textSize="@dimen/_18ssp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tv_end_month_event"
-                app:layout_constraintEnd_toEndOf="@+id/tv_start_date_event"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_start_month_event"
+                android:layout_marginBottom="@dimen/_7sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_end_month_event"
+                app:layout_constraintEnd_toEndOf="@+id/tv_end_month_event"
+                app:layout_constraintStart_toStartOf="@+id/tv_end_month_event"
                 app:textFont="bold" />
-<!--            android:text="@{events.toMonthYear}"-->
+            <!--            android:text="@{events.toMonthYear}"-->
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_end_month_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_15sdp"
-                android:text="NOV, 20"
+                android:layout_marginBottom="15dp"
                 android:lineSpacingExtra="-0.1dp"
+                android:text="@{events.toMonthYear}"
                 android:textColor="@color/orange"
-                android:textSize="@dimen/_10ssp"
+                android:textSize="@dimen/_9ssp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tv_end_date_event"
-                app:layout_constraintStart_toStartOf="@+id/tv_end_date_event"
-                app:layout_constraintTop_toBottomOf="@+id/tv_end_date_event"
+                app:layout_constraintEnd_toStartOf="@+id/lines"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
                 app:textFont="bold" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -165,8 +157,7 @@
                 android:layout_height="0dp"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.2"
-                app:layout_constraintTop_toBottomOf="@+id/guideline"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
             <ImageView
                 android:id="@+id/lines"
@@ -182,13 +173,13 @@
                 android:id="@+id/tv_workshop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{events.category}"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_3sdp"
-                app:layout_constraintStart_toStartOf="@+id/guideline_two"
+                android:text="@{events.category}"
                 android:textColor="@color/purple_900"
                 android:textSize="@dimen/_10ssp"
                 android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guideline_two"
                 app:layout_constraintTop_toTopOf="@+id/tv_start_date_event"
                 app:textFont="bold" />
 
@@ -222,12 +213,9 @@
                 android:textColor="@color/gray_600"
                 android:textSize="@dimen/_9ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_end_month_event"
-                app:layout_constraintStart_toStartOf="@+id/tv_workshop"
-               />
+                app:layout_constraintStart_toStartOf="@+id/tv_workshop" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
     </com.google.android.material.card.MaterialCardView>

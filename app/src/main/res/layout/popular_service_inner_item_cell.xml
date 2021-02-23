@@ -4,20 +4,23 @@
     <data>
         <variable name="popular_services" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginBottom="@dimen/_15sdp"
         android:layout_width="@dimen/_175sdp"
-        android:layout_margin="@dimen/_3sdp"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/_105sdp">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview"
         android:layout_width="@dimen/_160sdp"
         android:layout_height="@dimen/_80sdp"
         app:cardCornerRadius="@dimen/_12sdp"
-        app:cardElevation="@dimen/_10sdp"
+        app:cardElevation="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="@dimen/_7sdp">
+        >
 
 
 
@@ -56,4 +59,5 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_15sdp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

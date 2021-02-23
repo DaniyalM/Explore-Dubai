@@ -11,10 +11,15 @@ import com.app.dubaiculture.databinding.AttractionsItemCellBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
+import com.google.android.material.shape.CornerFamily
+import kotlinx.android.synthetic.main.attractions_item_cell.view.*
 
 
-class AttractionInnerAdapter(val glide: RequestManager, val context: Context) :
-    BaseRecyclerAdapter() {
+class AttractionInnerAdapter(
+    val glide: RequestManager,
+    val context: Context,
+    private val isArabic: Boolean,
+) : BaseRecyclerAdapter() {
 
     var attractions: List<BaseModel>
         get() = differ.currentList
@@ -33,7 +38,7 @@ class AttractionInnerAdapter(val glide: RequestManager, val context: Context) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder){
+        when (holder) {
             is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
         }
 
@@ -52,18 +57,33 @@ class AttractionInnerAdapter(val glide: RequestManager, val context: Context) :
 
     private fun setUpAttractionViewHolder(
         holder: AttractionInnerAdapter.AttractionViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as AttractionInnerAdapter.AttractionInnerItemCell).bindWhenInflated {
-             // red
-            holder.itemView.binding?.let{
-                if (position<allColors.size){
-                    it.attractionImage.setCardBackgroundColor(Color.parseColor(allColors[position]))
+            // red
+            val radius = resources.getDimension(R.dimen.my_corner_radius)
+            val zeroDp = resources.getDimension(R.dimen.my_corner_radius)
+            if (isArabic)
+                holder.itemView.binding?.attractionImage?.shapeAppearanceModel =
+                    holder.itemView.binding?.attractionImage!!.shapeAppearanceModel
+                        .toBuilder()
+                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                        .setBottomRightCornerSize(zeroDp)
+                        .build()
+             else
+                holder.itemView.binding?.attractionImage?.shapeAppearanceModel =
+                    holder.itemView.binding?.attractionImage!!.shapeAppearanceModel
+                        .toBuilder()
+                        .setTopRightCorner(CornerFamily.ROUNDED, radius)
+                        .setBottomLeftCornerSize(zeroDp)
+                        .build()
+                holder.itemView.binding?.let {
+                    if (position < allColors.size) {
+                        it.attractionImage.setCardBackgroundColor(Color.parseColor(allColors[position]))
+                    }
+                    it.attractions = attractions[position]
                 }
-                it.attractions=attractions[position]
             }
+
         }
     }
-
-
-}

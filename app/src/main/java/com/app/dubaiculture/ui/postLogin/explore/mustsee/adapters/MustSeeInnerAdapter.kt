@@ -3,16 +3,13 @@ package com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.app.dubaiculture.databinding.MustSeeInnerItemCellBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
-import com.rishabhharit.roundedimageview.RoundedImageView
 
 class MustSeeInnerAdapter(val glide: RequestManager) :
     BaseRecyclerAdapter() {

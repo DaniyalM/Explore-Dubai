@@ -41,7 +41,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        explore = ExploreRecyclerAsyncAdapter(activity)
+        explore = ExploreRecyclerAsyncAdapter(activity,isArabic())
         subscribeUiEvents(exploreViewModel)
         callingObservables()
         subscribeToObservable()
