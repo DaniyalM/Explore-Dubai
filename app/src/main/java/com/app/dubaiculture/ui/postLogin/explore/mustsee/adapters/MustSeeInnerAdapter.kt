@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -53,6 +54,7 @@ class MustSeeInnerAdapter(val glide: RequestManager) :
     ) {
         (holder.itemView as MustSeeInnerAdapter.MustSeeInnerItemCell).bindWhenInflated {
             holder.itemView.binding?.mustsee = mustSees[position]
+            holder.itemView.binding?.cardViewTitle?.setCardBackgroundColor(Color.parseColor(mustSees[position].color))
         }
     }
 
