@@ -45,9 +45,32 @@ class BaseModel {
     @Expose
     var landscapeImage: String? = null
 
+    @SerializedName("Description")
+    @Expose
+    var description: String? = null
+
+    @SerializedName("StartTime")
+    @Expose
+    var startTime: String? = null
+
+    @SerializedName("EndTime")
+    @Expose
+    var endTime: String? = null
+
+    @SerializedName("EndDay")
+    @Expose
+    var endDay: String? = null
+    @SerializedName("StartDay")
+    @Expose
+    var startDay: String? = null
+
     @SerializedName("Image")
     @Expose
     var image: String? = null
+
+    @SerializedName("Color")
+    @Expose
+    var color: String? = null
 
     @SerializedName("FromDate")
     @Expose

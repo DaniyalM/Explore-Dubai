@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.base.recyclerstuf
 
+import android.widget.Filterable
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView

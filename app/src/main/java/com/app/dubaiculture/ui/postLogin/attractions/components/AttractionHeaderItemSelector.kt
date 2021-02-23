@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.Attraction
+import com.app.dubaiculture.data.repository.explore.local.models.AttractionCategory
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.xwray.groupie.GroupAdapter
@@ -26,7 +26,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var selectedInnerImg: Int? = null
     private var unSelectedInnerImg: Int? = null
     private val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
-    private var list: List<Attraction>? = null
+    private var list: List<AttractionCategory>? = null
     private var attractionPager: ViewPager2? = null
     private  var recyclerView:RecyclerView?=null
 
@@ -83,7 +83,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     @JvmName("attractionHeaders")
     fun initialize(
-        list: List<Attraction>,
+        list: List<AttractionCategory>,
         attractionPager: ViewPager2? = null
     ) {
         this.list = list
@@ -94,7 +94,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     }
 
     fun itemsAddnUpdation(
-        list: List<Attraction>,
+        list: List<AttractionCategory>,
         isUpdate: Boolean = false,
     ) {
 
