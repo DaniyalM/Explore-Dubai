@@ -88,21 +88,23 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     ) {
         this.list = list
         this.attractionPager = attractionPager
-        itemsAddnUpdation(list, attractionPager)
+        itemsAddnUpdation(list)
 
 
     }
 
-    private fun itemsAddnUpdation(
+    fun itemsAddnUpdation(
         list: List<Attraction>,
-        attractionPager: ViewPager2? = null,
         isUpdate: Boolean = false,
     ) {
 
         list.forEachIndexed { index, model ->
             var isSelected = false
-            if (clickCheckerFlag == index)
+            if (clickCheckerFlag == index){
                 isSelected = true
+                positionUpdate(clickCheckerFlag)
+            }
+
 
             if (!isUpdate) {
                 groupAdapter.add(
@@ -116,7 +118,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                         unSelectedBackground = getDrawableFromId(unSelectedBackground),
                         selectedInnerImg = getDrawableFromId(model.imgSelected),
                         unSelectedInnerImg = getDrawableFromId(model.imgUnSelected),
-                        attractionPager = attractionPager,
                         progressListener = this
                     )
                 )
@@ -132,7 +133,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     unSelectedBackground = getDrawableFromId(unSelectedBackground),
                     selectedInnerImg = getDrawableFromId(model.imgSelected),
                     unSelectedInnerImg = getDrawableFromId(model.imgUnSelected),
-                    attractionPager = attractionPager,
                     progressListener = this)
                 )
 
@@ -155,9 +155,15 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
 
     override fun onClick(position: Int) {
+        positionUpdate(position)
+        list?.let { itemsAddnUpdation(it, true) }
+    }
+
+
+    fun positionUpdate(position: Int){
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
-        list?.let { itemsAddnUpdation(it, attractionPager, true) }
+        attractionPager?.currentItem = clickCheckerFlag
     }
 
 

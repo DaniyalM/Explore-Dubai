@@ -26,7 +26,6 @@ class AttractionHeaderItems<T>(
 
     private val selectedInnerImg: Drawable? = null,
     private val unSelectedInnerImg: Drawable? = null,
-    private val attractionPager: ViewPager2? = null,
     private val progressListener: AttractionHeaderClick? = null,
 
     ) : BaseAdapter(R.layout.attraction_title_list_item) {
@@ -43,14 +42,11 @@ class AttractionHeaderItems<T>(
                 it.tv_title.text = displayValue
                 it.imgInnerIcon.background = selectedInnerImg
                 isSelected = clickCheckerFlag==position
-
                 renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.cardview)
-
                 it.setOnClickListener {
                     progressListener?.onClick(position)
 
                     if (clickCheckerFlag==position){
-                        attractionPager?.currentItem = position
                         it.imgInnerIcon.background = unSelectedInnerImg
                         isSelected=true
                         renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it)
