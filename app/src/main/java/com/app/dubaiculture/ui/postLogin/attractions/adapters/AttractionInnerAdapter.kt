@@ -78,8 +78,8 @@ class AttractionInnerAdapter(
                         .setBottomLeftCornerSize(zeroDp)
                         .build()
                 holder.itemView.binding?.let {
-                    if (position < allColors.size) {
-                        it.attractionImage.setCardBackgroundColor(Color.parseColor(allColors[position]))
+                    if (!attractions[position].color.isNullOrEmpty()) {
+                        it.attractionImage.setCardBackgroundColor(Color.parseColor(attractions[position].color))
                     }
                     it.attractions = attractions[position]
                 }
