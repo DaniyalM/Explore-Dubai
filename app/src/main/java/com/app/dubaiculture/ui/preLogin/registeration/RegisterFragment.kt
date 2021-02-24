@@ -16,6 +16,8 @@ import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragment
 import com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel
+import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.setNavigationResult
 import com.balysv.materialripple.MaterialRippleLayout
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -77,6 +79,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
                 back()
             }
             R.id.img_close -> {
+                setNavigationResult(
+                    Constants.NavResults.DO_ANIMATION,
+                        "back"
+                )
                 back()
             }
             R.id.tv_term_condition->{

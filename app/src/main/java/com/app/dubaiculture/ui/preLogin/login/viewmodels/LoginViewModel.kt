@@ -8,6 +8,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
@@ -281,30 +282,7 @@ class LoginViewModel @ViewModelInject constructor(
         passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
         errs_.value = AuthUtils.errorsEmailAndPhone(phone.get().toString().trim())
 
-
-//        if(!AuthUtils.isValidMobileNumber(phone.get().toString().trim())){
-//            isValid = false
-//        }
-//
-//        if(!AuthUtils.isEmailValid(phone.get().toString().trim())){
-//            isValid = false
-//        }
-//
-//        if(!AuthUtils.isValidPasswordFormat(password.get().toString().trim())){
-//            isValid = false
-//        }
-//
-//        if(!phone.get().toString().contains("[a-zA-Z]".toRegex())){
-//            isValid = false
-//        }
-//        if(!phone.get().toString().isNullOrEmpty()){
-//            isValid = false
-//        }
-//
-//        if(!AuthUtils.isValidPasswordFormat(password.get().toString().trim())){
-//            isValid = false
-//        }
-
         return isValid
     }
+
 }

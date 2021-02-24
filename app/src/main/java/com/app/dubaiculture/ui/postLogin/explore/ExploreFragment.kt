@@ -86,10 +86,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                 }
                 is Result.Failure -> handleApiError(it, exploreViewModel)
             }
-
-
         }
-
     }
 
     override fun onDestroy() {

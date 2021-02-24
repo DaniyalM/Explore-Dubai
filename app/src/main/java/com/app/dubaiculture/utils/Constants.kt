@@ -28,7 +28,7 @@ object Constants {
     }
 
     object NavResults {
-        const val SELECTED_COUNTRY: String = "selectedCountry"
+        const val DO_ANIMATION: String = "doAnim"
         const val SELECTED_CITY: String = "selectedCity"
     }
 

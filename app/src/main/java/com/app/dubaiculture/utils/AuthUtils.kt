@@ -184,15 +184,18 @@ fun isEmailErrors(s: String): Int{
         var finalNumber = false
         var isMobile: PhoneNumberType? = null
         var isValid = false
+        var isNational : String
         try {
             val numberProto: PhoneNumber = phoneNumberUtil.parse(mobNumber, "")
             val countryCode = numberProto.countryCode
+            Timber.e("Country Code =>$countryCode")
             val isoCode = phoneNumberUtil.getRegionCodeForCountryCode(countryCode)
             phoneNumber = phoneNumberUtil.parse(mobNumber, isoCode)
             isValid = phoneNumberUtil.isValidNumber(phoneNumber)
-            isMobile = phoneNumberUtil.getNumberType(phoneNumber)
             phoneNumberValidate.code = phoneNumber.countryCode.toString()
             phoneNumberValidate.phone = phoneNumber.nationalNumber.toString()
+            isNational  = phoneNumber.nationalNumber.toString()
+
             phoneNumberValidate.isValid = false
         } catch (e: NumberParseException) {
             e.printStackTrace()
@@ -202,7 +205,7 @@ fun isEmailErrors(s: String): Int{
             e.printStackTrace()
         }
         if (isValid && (PhoneNumberType.MOBILE == isMobile ||
-                    PhoneNumberType.FIXED_LINE_OR_MOBILE == isMobile || PhoneNumberType.FIXED_LINE_OR_MOBILE ==)
+                    PhoneNumberType.FIXED_LINE_OR_MOBILE == isMobile || PhoneNumberType.UNKNOWN==isMobile)
         ) {
             finalNumber = true
             phoneNumberValidate.isValid = true

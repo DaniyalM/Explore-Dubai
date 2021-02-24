@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -136,6 +137,13 @@ fun loadSvgToImageView(view: ImageView, url: String?) {
             .into(view)
     }
 
+}
+
+fun <R> Fragment.getNavigationResult(key: String) =
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<R>(key)
+
+fun Fragment.setNavigationResult(key: String, data: Any?) {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
 }
 
 
