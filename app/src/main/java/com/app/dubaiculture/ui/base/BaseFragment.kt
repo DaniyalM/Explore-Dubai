@@ -2,6 +2,10 @@ package com.app.dubaiculture.ui.base
 
 import android.app.Activity
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +15,12 @@ import android.widget.ImageView
 import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.event.UiEvent
@@ -33,6 +39,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected lateinit var activity: Activity
     protected var customProgressDialog: ProgressDialog? = null
     protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
+    private lateinit var networkRequest: NetworkRequest
+
 
 
     // data binding
@@ -113,6 +121,13 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                     }
                 }
         })
+
+        NetworkLiveData.observe(viewLifecycleOwner){
+            if (!it){
+                baseViewModel.showLoader(false)
+                baseViewModel.showToast("Network Connection Lost..")
+            }
+        }
     }
 
     fun navigateByDirections(navDirections: NavDirections) {
@@ -182,4 +197,10 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
+
+
+
+
+
 }
