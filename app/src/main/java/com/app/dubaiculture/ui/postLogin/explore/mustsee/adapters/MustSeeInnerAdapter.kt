@@ -11,6 +11,7 @@ import com.app.dubaiculture.databinding.MustSeeInnerItemCellBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
+import timber.log.Timber
 
 class MustSeeInnerAdapter(val glide: RequestManager) :
     BaseRecyclerAdapter() {
@@ -23,10 +24,7 @@ class MustSeeInnerAdapter(val glide: RequestManager) :
     override fun getItemCount() = mustSees.size
 
     inner class MustSeeViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
-//    @BindingAdapter("imageUrl")
-//    override fun loadImage(view: RoundedImageView, url: String?) {
-//        glide.load(BuildConfig.BASE_URL+url).into(view)
-//    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MustSeeViewHolder(MustSeeInnerItemCell(parent.context).apply { inflate() })
@@ -53,8 +51,12 @@ class MustSeeInnerAdapter(val glide: RequestManager) :
         position: Int
     ) {
         (holder.itemView as MustSeeInnerAdapter.MustSeeInnerItemCell).bindWhenInflated {
-            holder.itemView.binding?.mustsee = mustSees[position]
-            holder.itemView.binding?.cardViewTitle?.setCardBackgroundColor(Color.parseColor(mustSees[position].color))
+
+                holder.itemView.binding?.mustsee = mustSees[position]
+                if (!mustSees[position].color.isNullOrEmpty())
+                holder.itemView.binding?.cardViewTitle?.setCardBackgroundColor(Color.parseColor(mustSees[position].color))
+
+
         }
     }
 
