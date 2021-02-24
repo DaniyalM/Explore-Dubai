@@ -3,13 +3,37 @@ package com.app.dubaiculture.ui.postLogin.attractions.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.app.dubaiculture.databinding.AttractionListItemBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
+import com.app.dubaiculture.ui.postLogin.attractions.utils.AttractionFilterItem
 import com.app.dubaiculture.utils.AsyncCell
 
-class AttractionListScreenAdapter : BaseRecyclerAdapter() {
+class AttractionListScreenAdapter : BaseRecyclerAdapter(), Filterable {
+
+    private lateinit var filterList:ArrayList<BaseModel>
+
+    private var filter:AttractionFilterItem?=null
+
+
+     var onNothingFound: (() -> Unit)? = null
+
+    fun search(s: String?, onNothingFound: (() -> Unit)?) {
+        this.onNothingFound = onNothingFound
+        filter?.filter(s)
+
+    }
+
+    var attractions: List<BaseModel>
+        get() = differ.currentList
+        set(value){
+            differ.submitList(value)
+            filterList= ArrayList(attractions)
+        }
 
 
 
@@ -24,8 +48,12 @@ class AttractionListScreenAdapter : BaseRecyclerAdapter() {
             position)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+    override fun getItemCount() = attractions.size
+    override fun getFilter(): Filter {
+      if (filter==null){
+          filter= AttractionFilterItem(filterList,this)
+      }
+        return filter as AttractionFilterItem
     }
 
     private inner class AttractionListItemCell(context: Context) : AsyncCell(context) {
@@ -42,12 +70,14 @@ class AttractionListScreenAdapter : BaseRecyclerAdapter() {
         position: Int,
     ) {
         (holder.itemView as AttractionListItemCell).bindWhenInflated {
-            // red
             holder.itemView.binding?.let {
-//                if (position<=allColors.size){
-//                    it.attractionImage.setCardBackgroundColor(Color.parseColor(allColors[position]))
-//                }
-//                it.attractions=attractions[position]
+                try {
+
+                    it.attractions = attractions[position]
+
+                }catch (ex:IndexOutOfBoundsException){
+
+                }
             }
         }
     }

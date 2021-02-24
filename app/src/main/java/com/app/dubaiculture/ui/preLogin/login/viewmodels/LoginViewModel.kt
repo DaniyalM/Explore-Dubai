@@ -14,11 +14,14 @@ import com.app.dubaiculture.data.repository.login.LoginRepository
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.ui.preLogin.login.LoginFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
+import com.app.dubaiculture.utils.Constants.NavBundles.COMES_FROM_LOGIN
 import com.app.dubaiculture.utils.event.Event
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Singleton
 
 class LoginViewModel @ViewModelInject constructor(
     private val loginRepository: LoginRepository,
@@ -58,15 +61,16 @@ class LoginViewModel @ViewModelInject constructor(
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
 
-    fun loginWithPhone() {
+    fun loginWithPhone(ph:String?=null,pass:String?=null) {
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                phoneNumber = phone.get().toString().trim(),
-                password = password.get().toString().trim()
+                phoneNumber = ph.toString().trim(),
+                password =  pass.toString().trim()
             ).let {
                 when (val result = loginRepository.login(it)) {
                     is Result.Success -> {
+                        showLoader(false)
                         if (result.value.succeeded) {
                             Timber.e(result.value.loginResponseDTO.userDTO.Email)
                             userRepository.saveUser(
@@ -75,31 +79,38 @@ class LoginViewModel @ViewModelInject constructor(
                             )
                             _loginStatus.value = Event(true)
                         } else {
+                            showLoader(false)
                             showToast(result.value.errorMessage)
+                            if (!result.value.isConfirmed) {
+                                if(phone.get().toString().startsWith("+")){
+                                    resendPhoneVerification()
+                                }
+                            }
                         }
                     }
                     is Result.Error -> {
+                        showLoader(false)
                         showToast(result.exception.toString())
                     }
                     is Result.Failure -> {
+                        showLoader(false)
                         showToast("Internet Connection Error")
 
                     }
                 }
             }
-            showLoader(false)
         }
     }
 
 
-    fun loginWithEmail() {
+    fun loginWithEmail(eml:String?=null,pass:String?=null) {
         if (!isCheckValid())
             return
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                email = phone.get().toString().trim(),
-                password = password.get().toString().trim()
+                email = eml.toString().trim(),
+                password = pass.toString().trim()
             ).let {
                 when (val result = loginRepository.loginWithEmail(it)) {
                     is Result.Success -> {
@@ -111,38 +122,53 @@ class LoginViewModel @ViewModelInject constructor(
                             )
                             _loginStatus.value = Event(true)
                         } else {
+                            showLoader(false)
                             showToast(result.value.errorMessage)
+                            if (!result.value.isConfirmed) {
+                                resendEmailVerification()
+                            }
                         }
                     }
                     is Result.Error -> {
+                        showLoader(false)
                         showToast(result.exception.toString())
                     }
                     is Result.Failure -> {
+                        showLoader(false)
                         showToast("Internet Connection Error")
 
                     }
                 }
             }
-            showLoader(false)
         }
     }
 
-    fun resendVerification(){
-
+    private fun resendEmailVerification() {
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                email = phone.get().toString().trim(),
-                phoneNumber = phone.get().toString().trim(),
-                password = password.get().toString().trim()
+                email = phone.get().toString().trim()
             ).let {
                 when (val result = loginRepository.resendVerification(it)) {
                     is Result.Success -> {
                         if (result.value.succeeded) {
+                            showLoader(false)
+                            showToast(result.value.resendVerificationResponseDTO.message.toString())
                             Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
+//                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(verificationCode =
+//                                result.value.resendVerificationResponseDTO.verificationCode,
+//                                "loginFragment"))
+                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
+                                verificationCode =
+                                result.value.resendVerificationResponseDTO.verificationCode,
+                                emailorphone = phone.get().toString().trim(),
+                                password = password.get().toString().trim(),
+                                screenName = COMES_FROM_LOGIN))
 
                         } else {
+                            showLoader(false)
                             showToast(result.value.errorMessage)
+
                         }
                     }
                     is Result.Error -> {
@@ -157,7 +183,45 @@ class LoginViewModel @ViewModelInject constructor(
             showLoader(false)
         }
     }
+    private fun resendPhoneVerification() {
+        viewModelScope.launch {
+            showLoader(true)
+            LoginRequest(
+                phoneNumber = phone.get().toString().trim()
+            ).let {
+                when (val result = loginRepository.resendVerification(it)) {
+                    is Result.Success -> {
+                        if (result.value.succeeded) {
+                            showLoader(false)
+                            showToast(result.value.resendVerificationResponseDTO.message.toString())
+                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
+//                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(verificationCode =
+//                                result.value.resendVerificationResponseDTO.verificationCode,
+//                                "loginFragment"))
+                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
+                                verificationCode =
+                                result.value.resendVerificationResponseDTO.verificationCode,
+                                emailorphone = phone.get().toString().trim(),
+                                password = password.get().toString().trim(),
+                                screenName = COMES_FROM_LOGIN))
 
+                        } else {
+                            showToast(result.value.errorMessage)
+
+                        }
+                    }
+                    is Result.Error -> {
+                        showToast(result.exception.toString())
+                    }
+                    is Result.Failure -> {
+                        showToast("Internet Connection Error")
+
+                    }
+                }
+            }
+            showLoader(false)
+        }
+    }
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
         isLoginWithPhone.value = loginTypeChecker(s)
@@ -171,7 +235,7 @@ class LoginViewModel @ViewModelInject constructor(
 
 
         errs_.value = AuthUtils.errorsEmailAndPhone(s.toString())
-       // isPhone.value = !phone.get().toString().isNullOrEmpty()
+        // isPhone.value = !phone.get().toString().isNullOrEmpty()
 
     }
 

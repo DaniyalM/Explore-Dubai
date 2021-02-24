@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.Attraction
+import com.app.dubaiculture.data.repository.explore.local.models.AttractionCategory
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.xwray.groupie.GroupAdapter
@@ -26,7 +26,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var selectedInnerImg: Int? = null
     private var unSelectedInnerImg: Int? = null
     private val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
-    private var list: List<Attraction>? = null
+    private var list: List<AttractionCategory>? = null
     private var attractionPager: ViewPager2? = null
     private  var recyclerView:RecyclerView?=null
 
@@ -83,26 +83,28 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     @JvmName("attractionHeaders")
     fun initialize(
-        list: List<Attraction>,
+        list: List<AttractionCategory>,
         attractionPager: ViewPager2? = null
     ) {
         this.list = list
         this.attractionPager = attractionPager
-        itemsAddnUpdation(list, attractionPager)
+        itemsAddnUpdation(list)
 
 
     }
 
-    private fun itemsAddnUpdation(
-        list: List<Attraction>,
-        attractionPager: ViewPager2? = null,
+    fun itemsAddnUpdation(
+        list: List<AttractionCategory>,
         isUpdate: Boolean = false,
     ) {
 
         list.forEachIndexed { index, model ->
             var isSelected = false
-            if (clickCheckerFlag == index)
+            if (clickCheckerFlag == index){
                 isSelected = true
+                positionUpdate(clickCheckerFlag)
+            }
+
 
             if (!isUpdate) {
                 groupAdapter.add(
@@ -116,7 +118,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                         unSelectedBackground = getDrawableFromId(unSelectedBackground),
                         selectedInnerImg = getDrawableFromId(model.imgSelected),
                         unSelectedInnerImg = getDrawableFromId(model.imgUnSelected),
-                        attractionPager = attractionPager,
                         progressListener = this
                     )
                 )
@@ -132,7 +133,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     unSelectedBackground = getDrawableFromId(unSelectedBackground),
                     selectedInnerImg = getDrawableFromId(model.imgSelected),
                     unSelectedInnerImg = getDrawableFromId(model.imgUnSelected),
-                    attractionPager = attractionPager,
                     progressListener = this)
                 )
 
@@ -155,9 +155,15 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
 
     override fun onClick(position: Int) {
+        positionUpdate(position)
+        list?.let { itemsAddnUpdation(it, true) }
+    }
+
+
+    fun positionUpdate(position: Int){
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
-        list?.let { itemsAddnUpdation(it, attractionPager, true) }
+        attractionPager?.currentItem = clickCheckerFlag
     }
 
 

@@ -1,18 +1,17 @@
 package com.app.dubaiculture.ui.postLogin.attractions
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
-import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentAttractionsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
+import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
@@ -24,12 +23,11 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         FragmentAttractionsBinding.inflate(inflater, container, false)
 
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        setupToolbarWithSearchItems()
-//        subscribeUiEvents(attractionViewModel)
-//        initiatePager()
+        setupToolbarWithSearchItems()
+        subscribeUiEvents(attractionViewModel)
+        initiatePager()
 
 
     }
@@ -75,6 +73,11 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             })
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.horizontalSelector.positionUpdate(clickCheckerFlag)
     }
 
 }

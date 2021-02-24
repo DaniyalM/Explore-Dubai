@@ -41,16 +41,16 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        explore = ExploreRecyclerAsyncAdapter(activity)
+        setUpRecyclerView()
         subscribeUiEvents(exploreViewModel)
         callingObservables()
         subscribeToObservable()
-        setUpRecyclerView()
+
 
     }
 
     private fun setUpRecyclerView() {
-
+        explore = ExploreRecyclerAsyncAdapter(activity)
 //        explore.items = createTestItems()
         binding.rvExplore.apply {
             visibility = View.VISIBLE

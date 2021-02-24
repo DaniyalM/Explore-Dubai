@@ -2,20 +2,24 @@ package com.app.dubaiculture.ui.postLogin.attractions
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import com.app.dubaiculture.databinding.AttractionTitleListItemBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.squareup.otto.Subscribe
-import kotlinx.android.synthetic.main.fragment_attraction_listing.view.*
+
 
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
+    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
 
     private var attractionCategoryTag: String = ""
     private var searchQuery: String = ""
@@ -29,21 +33,28 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.fragName.text=attractionCategoryTag
+//        binding.fragName.text = attractionCategoryTag
+        subscribeUiEvents(attractionViewModel)
+
+
+        initRecyclerView()
 
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.getString(ATTRACTION_CATEG0RY_TYPE)?.let {
-            attractionCategoryTag=it
+            attractionCategoryTag = it
         }
 
     }
 
     @Subscribe
     fun onSearchTextQueryChange(updatedText: AttractionBusService.SearchTextQuery) {
-        searchQuery=updatedText.text
+        searchQuery = updatedText.text.trim()
+        attractionListScreenAdapter?.search(searchQuery){
+            attractionViewModel.showToast("No Results Found")
+        }
     }
 
 
@@ -59,7 +70,37 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         }
     }
 
-    private fun subscribeToObservable(){
+    private fun subscribeToObservable() {
+
+    }
+
+
+    private fun createTestItem(): List<BaseModel> {
+        var baseModel:ArrayList<BaseModel> = ArrayList()
+        for (i in 0..10){
+            baseModel.add(BaseModel().apply {
+                this.id = i.toString()
+                this.title = "title $i"
+                this.category = "category $i"
+            })
+        }
+
+
+        return baseModel
+
+    }
+
+
+    private fun initRecyclerView() {
+        attractionListScreenAdapter = AttractionListScreenAdapter()
+
+        binding.rvAttractionListing.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter=attractionListScreenAdapter
+            attractionListScreenAdapter?.attractions=createTestItem()
+
+        }
+
 
     }
 
