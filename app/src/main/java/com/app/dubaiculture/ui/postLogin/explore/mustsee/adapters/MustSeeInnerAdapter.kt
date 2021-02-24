@@ -54,7 +54,11 @@ class MustSeeInnerAdapter(val glide: RequestManager) :
     ) {
         (holder.itemView as MustSeeInnerAdapter.MustSeeInnerItemCell).bindWhenInflated {
             holder.itemView.binding?.mustsee = mustSees[position]
-            holder.itemView.binding?.cardViewTitle?.setCardBackgroundColor(Color.parseColor(mustSees[position].color))
+            try {
+                holder.itemView.binding?.cardViewTitle?.setCardBackgroundColor(Color.parseColor(mustSees[position].color))
+            }catch (e: StringIndexOutOfBoundsException){
+                e.stackTrace
+            }
         }
     }
 

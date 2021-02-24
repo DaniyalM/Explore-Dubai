@@ -8,14 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
-
         <LinearLayout
             android:layout_marginBottom="@dimen/_30sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
