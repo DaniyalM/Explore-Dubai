@@ -1,6 +1,7 @@
 package com.app.dubaiculture.infrastructure
 
 import android.app.Application
+
 import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.ThemeUtil
 import com.squareup.otto.Bus

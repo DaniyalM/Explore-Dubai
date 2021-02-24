@@ -101,19 +101,6 @@ fun Fragment.handleApiError(
         }
     }
 }
-
-@BindingAdapter("android:imageUrl")
-fun loadImage(view: RoundedImageView, url: String?) {
-    url?.let {
-        Glide.with(view.context)
-            .load(BuildConfig.BASE_URL + it)
-//                .apply(
-//                    RequestOptions()
-//                        .placeholder(R.drawable.loading_animation)
-//                        .error(R.drawable.ic_broken_image))
-            .into(view)
-    }
-}
 fun <T: Any> ObservableField<T>.getNonNull(): T = get()!!
 
 @BindingAdapter("android:imageViewUrl")
