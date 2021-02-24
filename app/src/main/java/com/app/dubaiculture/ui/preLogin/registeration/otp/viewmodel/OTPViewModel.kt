@@ -12,6 +12,8 @@ import com.app.dubaiculture.data.repository.registeration.RegistrationRepository
 import com.app.dubaiculture.data.repository.registeration.remote.request.confirmOTP.ConfirmOTPRequest
 import com.app.dubaiculture.data.repository.registeration.remote.request.resendOTP.ResendOTPRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
+import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
@@ -21,6 +23,10 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
     // Countdown time
     private val _currentTime = MutableLiveData<Long>()
     val currentTime: LiveData<Long> = _currentTime
+
+    // this observer when true then handle to navigate from otpFragment to Login.
+    private var _loginConfirmOTPStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
+    var loginConfirmOTPStatus: MutableLiveData<Event<Boolean>> = _loginConfirmOTPStatus
 
     // The String version of the current time , counter display the time wired in arabic.
     val currentTimeString = Transformations.map(currentTime){ time ->
@@ -70,6 +76,38 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                     is Result.Failure -> {
                         Timber.e(result.errorCode.toString())
                         showToast(result.errorCode.toString())
+                    }
+                    is Result.Error -> {
+                        Timber.e(result.exception)
+                        showToast(result.exception.toString())
+                    }
+                }
+            }
+            showLoader(false)
+        }
+    }
+
+
+    fun confirmLoginOTP(verificationCode: String , otp : String?="") {
+        viewModelScope.launch {
+            showLoader(true)
+            ConfirmOTPRequest(
+                verificationCode = verificationCode,
+                otp = otp?:""
+            ).let {
+                when (val result = registrationRepository.validateOTP(it)) {
+                    is Result.Success -> {
+                        if(result.value.succeeded){
+                            showLoader(false)
+                            _loginConfirmOTPStatus.value = Event(true)
+                            showToast(result.value.confirmOTPResponseDTO.message.toString())
+                        }else {
+                            showToast(result.value.errorMessage)
+                        }
+                    }
+                    is Result.Failure -> {
+                        Timber.e(result.errorCode.toString())
+                        showToast(INTERNET_CONNECTION_ERROR)
                     }
                     is Result.Error -> {
                         Timber.e(result.exception)

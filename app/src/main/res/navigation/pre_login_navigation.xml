@@ -85,6 +85,20 @@
         <argument
             android:name="screen_name"
             app:argType="string"/>
+
+        <argument
+            android:name="emailorphone"
+            app:nullable="true"
+            android:defaultValue="@null"
+            app:argType="string"/>
+
+        <argument
+            android:name="password"
+            app:nullable="true"
+            android:defaultValue="@null"
+            app:argType="string"/>
+
+
         <action
             android:id="@+id/action_bottomSheet_to_registrationSuccessFragment"
             app:destination="@id/registrationSuccessFragment" />

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.app.dubaiculture.R
 import com.app.dubaiculture.utils.ProgressDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -45,6 +46,14 @@ object EventUtilFunctions {
             }
 
         }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            snackbar.setTextColor(view.context.getColor(R.color.colorPrimary))
+            snackbar.setActionTextColor(view.context.getColor(R.color.colorPrimary))
+        }else{
+            snackbar.setTextColor(view.context.resources.getColor(R.color.colorPrimary))
+            snackbar.setActionTextColor(view.context.resources.getColor(R.color.colorPrimary))
+        }
+
         snackbar.show()
     }
 }
