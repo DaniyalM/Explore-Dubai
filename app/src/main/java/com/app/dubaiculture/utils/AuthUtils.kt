@@ -202,7 +202,7 @@ fun isEmailErrors(s: String): Int{
             e.printStackTrace()
         }
         if (isValid && (PhoneNumberType.MOBILE == isMobile ||
-                    PhoneNumberType.FIXED_LINE_OR_MOBILE == isMobile)
+                    PhoneNumberType.FIXED_LINE_OR_MOBILE == isMobile || PhoneNumberType.FIXED_LINE_OR_MOBILE ==)
         ) {
             finalNumber = true
             phoneNumberValidate.isValid = true

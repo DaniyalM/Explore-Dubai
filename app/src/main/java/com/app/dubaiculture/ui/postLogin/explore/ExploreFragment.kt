@@ -47,6 +47,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         subscribeToObservable()
         setUpRecyclerView()
 
+       binding.swipeRefresh.setOnRefreshListener {
+           binding.swipeRefresh.isRefreshing = false
+           callingObservables()
+        }
+
     }
 
     private fun setUpRecyclerView() {

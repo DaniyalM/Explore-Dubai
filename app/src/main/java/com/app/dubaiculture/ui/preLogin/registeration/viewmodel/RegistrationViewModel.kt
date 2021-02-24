@@ -149,7 +149,13 @@ class RegistrationViewModel @ViewModelInject constructor(
 
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
-        isPhone.value = AuthUtils.isValidMobileNumber(s.toString().trim())
+//        isPhone.value = AuthUtils.isValidMobileNumber(s.toString().trim())
+           val check            =  AuthUtils.isPhoneNumberValidate(s.toString().trim())
+        if(check!!.isValid){
+            Timber.e("Valid=${phone.get().toString().trim()}")
+        }else{
+            Timber.e("InValid=${phone.get().toString().trim()}")
+        }
         errs_.value = AuthUtils.errorsPhone(s.toString().trim())
         Timber.e(phone.get().toString().trim())
     }
