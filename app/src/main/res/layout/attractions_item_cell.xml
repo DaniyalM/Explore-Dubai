@@ -29,7 +29,7 @@
                 android:id="@+id/img_card_view"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
-                android:svgUrl="@{attractions.icon}"
+                android:imageViewUrl="@{attractions.icon}"
                 android:layout_gravity="center"
                 />
         </com.google.android.material.card.MaterialCardView>
