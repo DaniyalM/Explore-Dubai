@@ -117,9 +117,7 @@ class BaseModel {
     var date: String? = null
 
 
-    @SerializedName("Color")
-    @Expose
-    var color: String? = null
+
 
 
 }
