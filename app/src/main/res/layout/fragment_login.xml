@@ -232,7 +232,7 @@
             android:background="@drawable/btn_border_login"
             android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
-            android:onClick="@{()-> viewmodel.isLoginWithPhone ? viewmodel.loginWithPhone() : viewmodel.loginWithEmail() }"
+            android:onClick="@{()-> viewmodel.isLoginWithPhone ? viewmodel.loginWithPhone(viewmodel.phone,viewmodel.password) : viewmodel.loginWithEmail(viewmodel.phone,viewmodel.password) }"
             android:text="@string/login"
             android:textColor="@color/white_900"
             android:textSize="@dimen/_12ssp"

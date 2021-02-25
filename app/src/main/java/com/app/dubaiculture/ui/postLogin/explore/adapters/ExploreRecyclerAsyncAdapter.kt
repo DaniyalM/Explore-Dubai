@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.databinding.SectionItemContainerCellBinding
-import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.UpComingEventsInnerAdapter
 import com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters.MustSeeInnerAdapter
@@ -23,9 +21,11 @@ import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsInnerAdapt
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceInnerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
+import com.google.android.material.shape.CornerFamily
+
 
 class ExploreRecyclerAsyncAdapter internal constructor(
-    private val context: Context
+    private val context: Context, private var isArabic : Boolean?=null
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -52,7 +52,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     fun provideGlideInstance(glide: RequestManager) {
 
 
-        attractionInnerAdapter = AttractionInnerAdapter(glide, context)
+        attractionInnerAdapter = AttractionInnerAdapter(glide, context,isArabic?:false)
         upComingEventsInnerAdapter = UpComingEventsInnerAdapter(glide)
         mustSeeInnerAdapter = MustSeeInnerAdapter(glide)
         latestNewsInnerAdapter = LatestNewsInnerAdapter(glide)
@@ -99,7 +99,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     //Setting Up View Holders
     private fun setUpAttractionViewHolder(
         holder: ExploreRecyclerAsyncAdapter.AttractionViewHolder,
-        position: Int
+        position: Int,
     ) {
 
         (holder.itemView as ExploreRecyclerAsyncAdapter.AttractionItemCell).bindWhenInflated {
@@ -138,7 +138,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     private fun setUpComingEventsViewHolder(
         holder: ExploreRecyclerAsyncAdapter.UpComingEventsViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.UpComingEventsItemCell).bindWhenInflated {
             items[position].let { item ->
@@ -180,10 +180,25 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     private fun setMustSeeViewHolder(
         holder: ExploreRecyclerAsyncAdapter.MustSeeViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
+                val radius = resources.getDimension(R.dimen.my_corner_radius)
+                val zeroDp = resources.getDimension(R.dimen.my_corner_radius)
+                if(isArabic==true){
+                    holder.itemView.binding?.cardviewPlanTrip?.shapeAppearanceModel = holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
+                        .toBuilder()
+                        .setBottomLeftCorner(CornerFamily.ROUNDED,zeroDp)
+                        .setTopRightCornerSize(radius)
+                        .build()
+                }else{
+                    holder.itemView.binding?.cardviewPlanTrip?.shapeAppearanceModel = holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
+                        .toBuilder()
+                        .setTopLeftCorner(CornerFamily.ROUNDED,radius)
+                        .setBottomRightCornerSize(zeroDp)
+                        .build()
+                }
 
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
                 holder.itemView.binding?.tripSeperator?.visibility = View.VISIBLE
@@ -220,7 +235,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     private fun setLatestNewsViewHolder(
         holder: ExploreRecyclerAsyncAdapter.LatestNewViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.LatestNewsItemCell).bindWhenInflated {
             items[position].let { item ->
@@ -262,7 +277,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     private fun setPopularServiceViewHolder(
         holder: ExploreRecyclerAsyncAdapter.PopularServiceViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.PopularServiceCell).bindWhenInflated {
             items[position].let { item ->
@@ -409,7 +424,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             )
             if (view != null) {
                 view.startAnimation(animation)
-                view.setVisibility(View.VISIBLE)
+                view.visibility = View.VISIBLE
             }
         }, delayAnimate.toLong())
         delayAnimate += 500
