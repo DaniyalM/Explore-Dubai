@@ -400,21 +400,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         POPULARSERVICES(3),
         LATESTNEWS(4),
     }
-//
-//    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
-//        super.onViewAttachedToWindow(holder)
-//        setAnimation(holder.itemView)
-//    }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         super.onViewDetachedFromWindow(holder)
         stopAnimation()
     }
 
-    private fun setAnimation(viewToAnimate: View, position: Int, context: Context) {
-        val animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
-        viewToAnimate.startAnimation(animation)
-    }
+
 
     private fun setAnimation(view: View?) {
         handler.postDelayed({
