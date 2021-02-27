@@ -18,7 +18,7 @@ fun transformAttractionCategoryRequest(attractionCategoryRequest: AttractionCate
 
 fun transformAttractionCategory(attractionCatResponse: AttractionCategoryResponse): List<AttractionCategory> =
     attractionCatResponse.Result.attractionsCategories.run {
-       transformAttractionCategory(this!!)
+       transformAttractionCategory(this)
     }
 
 fun transformAttractionCategory(list: List<AttractionCategoryDTO>): List<AttractionCategory> = list.run {

@@ -10,11 +10,11 @@ import com.google.gson.annotations.SerializedName
 data class Result(
     @SerializedName("Value")
     @Expose
-    var value: List<ExploreDTO>? = null,
+    var value: List<ExploreDTO>,
 
     @SerializedName("AttractionsCategories")
     @Expose
-    var attractionsCategories : List<AttractionCategoryDTO>? = null,
+    var attractionsCategories : List<AttractionCategoryDTO>,
 
 
     )

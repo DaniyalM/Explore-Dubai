@@ -21,7 +21,7 @@ class AttractionRepository @Inject constructor(
                 if (listRDS.value.statusCode != 200) {
                     Result.Failure(true, listRDS.value.statusCode, null)
                 } else {
-                    listRDS.value.Result.attractionsCategories?.let {
+                    listRDS.value.Result.attractionsCategories.let {
                         val listLDS = transformAttractionCategory(it)
                         Result.Success(listLDS)
                     }

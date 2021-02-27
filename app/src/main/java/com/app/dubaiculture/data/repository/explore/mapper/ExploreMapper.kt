@@ -14,7 +14,7 @@ fun transformExploreRequest(exploreRequest: ExploreRequest) = ExploreRequestDTO(
 
 fun transformExplore(exploreResponse: ExploreResponse): List<Explore> =
     exploreResponse.Result.value.run {
-        transformExplore(this!!)
+        this?.let { transformExplore(it) }!!
 
     }
 

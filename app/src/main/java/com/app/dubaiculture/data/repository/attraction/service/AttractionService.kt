@@ -5,6 +5,6 @@ import com.app.dubaiculture.data.repository.attraction.remote.response.Attractio
 import retrofit2.http.GET
 
 interface AttractionService {
-    @GET("/category/attractions")
+    @GET("category/attractions")
     fun getAttractionCategoryApi(attractionCategoryRequestDTO: AttractionCategoryRequestDTO): AttractionCategoryResponse
 }

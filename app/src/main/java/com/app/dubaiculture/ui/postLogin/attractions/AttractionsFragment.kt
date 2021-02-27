@@ -16,10 +16,12 @@ import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBu
 import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
 
@@ -29,12 +31,12 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        callingObservables()
+
         setupToolbarWithSearchItems()
         subscribeUiEvents(attractionViewModel)
-        initiatePager()
-        callingObservables()
         subscribeToObservables()
-
+        initiatePager()
 
 
     }
@@ -59,7 +61,11 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                         binding.horizontalSelector.initialize(it.value, binding.pager)
                     }
                 }
-                is Result.Failure -> handleApiError(it, attractionViewModel)
+                is Result.Failure -> {
+                    binding.horizontalSelector.initialize(attractionViewModel.getInterests(), binding.pager)
+
+                    handleApiError(it, attractionViewModel)
+                }
             }
         }
     }

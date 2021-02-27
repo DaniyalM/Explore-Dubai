@@ -45,13 +45,13 @@ object RetrofitModule {
     @Singleton
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-        headerInterceptor: HeaderInterceptor,
+//        headerInterceptor: HeaderInterceptor,
         encryptionInterceptor: EncryptionInterceptor,
         decryptionInterceptor: DecryptionInterceptor,
         tls: TLS
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
-            .addInterceptor(headerInterceptor)
+//            .addInterceptor(headerInterceptor)
             .addInterceptor(loggingInterceptor)
             .addInterceptor(encryptionInterceptor)
             .addInterceptor(decryptionInterceptor)

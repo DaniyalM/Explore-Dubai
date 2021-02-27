@@ -17,7 +17,7 @@ import javax.inject.Inject
 class ExploreRepository @Inject constructor(
     private val exploreRDS: ExploreRDS
 ) : BaseRepository()  {
-    suspend fun getExplore(exploreRequest: ExploreRequest): Result<List<Explore>?> {
+    suspend fun getExplore(exploreRequest: ExploreRequest): Result<List<Explore>> {
         return when (val resultRDS = exploreRDS.getExplore(transformExploreRequest(exploreRequest))) {
             is Result.Success -> {
                 // Single Source Of Truth -> get data from server -> save to db -> get from db to provide to UI
@@ -25,7 +25,7 @@ class ExploreRepository @Inject constructor(
                 if (listRDS.value.statusCode != 200) {
                     Result.Failure(true,listRDS.value.statusCode,null)
                 }else{
-                    val listLDS = listRDS.value.Result.value?.let { transformExplore(it) }
+                    val listLDS = listRDS.value.Result.value?.let { transformExplore(it) }!!
 //                photoLDS.insertAll(listLDS as MutableList<Photo>)
 //                val resultLDS = photoLDS.getAll()
                     Result.Success(listLDS)

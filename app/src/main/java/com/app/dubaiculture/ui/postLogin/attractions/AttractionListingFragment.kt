@@ -15,8 +15,9 @@ import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScre
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.squareup.otto.Subscribe
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
     private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
