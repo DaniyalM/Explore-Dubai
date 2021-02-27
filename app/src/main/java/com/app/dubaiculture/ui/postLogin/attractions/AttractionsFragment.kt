@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.databinding.FragmentAttractionsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.utils.handleApiError
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
+import kotlinx.coroutines.launch
 
 
 class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
@@ -28,6 +32,9 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         setupToolbarWithSearchItems()
         subscribeUiEvents(attractionViewModel)
         initiatePager()
+        callingObservables()
+        subscribeToObservables()
+
 
 
     }
@@ -35,12 +42,26 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private fun initiatePager() {
         binding.pager.adapter = AttractionPagerAdaper(this)
         binding.pager.isUserInputEnabled = false
-        binding.horizontalSelector.initialize(attractionViewModel.getInterests(), binding.pager)
     }
 
 
-    private fun subscribeToObservables() {
 
+    private fun callingObservables(){
+        lifecycleScope.launch {
+            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+        }
+    }
+    private fun subscribeToObservables() {
+        attractionViewModel.attractionCategoryList.observe(viewLifecycleOwner){
+            when (it) {
+                is Result.Success -> {
+                    it.let {
+                        binding.horizontalSelector.initialize(it.value, binding.pager)
+                    }
+                }
+                is Result.Failure -> handleApiError(it, attractionViewModel)
+            }
+        }
     }
 
 

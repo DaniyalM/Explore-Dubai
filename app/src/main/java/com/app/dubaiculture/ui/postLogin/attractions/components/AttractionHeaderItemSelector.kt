@@ -109,7 +109,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
             if (!isUpdate) {
                 groupAdapter.add(
                     AttractionHeaderItems(
-                        displayValue = model.title,
+                        displayValue = model.title!!,
                         data = list,
                         isSelected = isSelected,
                         selectedTextColor = selectedTextColor,
@@ -124,7 +124,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
             } else {
 
                 groupAdapter.notifyItemChanged(index, AttractionHeaderItems(
-                    displayValue = model.title,
+                    displayValue = model.title!!,
                     data = list,
                     isSelected = isSelected,
                     selectedTextColor = selectedTextColor,
