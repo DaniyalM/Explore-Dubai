@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.databinding.FragmentAttractionsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
@@ -41,7 +42,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     }
 
     private fun initiatePager() {
-        binding.pager.adapter = AttractionPagerAdaper(this)
         binding.pager.isUserInputEnabled = false
     }
 
@@ -58,6 +58,9 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 is Result.Success -> {
                     it.let {
                         binding.horizontalSelector.initialize(it.value, binding.pager)
+                        binding.pager.adapter = AttractionPagerAdaper(this,
+                            it.value as ArrayList<AttractionCategory>)
+
                     }
                 }
                 is Result.Failure -> {
