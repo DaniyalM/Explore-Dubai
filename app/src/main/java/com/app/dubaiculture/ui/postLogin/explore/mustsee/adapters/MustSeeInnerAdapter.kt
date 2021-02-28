@@ -11,7 +11,6 @@ import com.app.dubaiculture.databinding.MustSeeInnerItemCellBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
-import timber.log.Timber
 
 class MustSeeInnerAdapter(val glide: RequestManager) :
     BaseRecyclerAdapter() {

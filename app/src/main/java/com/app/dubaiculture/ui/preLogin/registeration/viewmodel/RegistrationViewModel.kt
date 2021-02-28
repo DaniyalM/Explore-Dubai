@@ -1,9 +1,6 @@
 package com.app.dubaiculture.ui.preLogin.registeration.viewmodel
 
 import android.app.Application
-import android.text.Editable
-import android.util.Log
-import android.util.Log.e
 import android.widget.CompoundButton
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
@@ -17,13 +14,11 @@ import com.app.dubaiculture.data.repository.registeration.RegistrationRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.registeration.RegisterFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
-import com.app.dubaiculture.utils.getNonNull
+import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequest
-import com.google.i18n.phonenumbers.NumberParseException
-import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.*
 
 class RegistrationViewModel @ViewModelInject constructor(
     application: Application,
@@ -37,7 +32,7 @@ class RegistrationViewModel @ViewModelInject constructor(
     // editext get() and set()
     var fullName: ObservableField<String> = ObservableField("")
     var email: ObservableField<String> = ObservableField("")
-    var phone : ObservableField<String> = ObservableField("")
+    var phone: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
     var passwordConifrm: ObservableField<String> = ObservableField("")
     var termsAccepted: ObservableBoolean = ObservableBoolean(false)
@@ -50,7 +45,6 @@ class RegistrationViewModel @ViewModelInject constructor(
     val isPassword = MutableLiveData<Boolean?>(true)
     val isPasswordConfirm = MutableLiveData<Boolean?>(true)
     val isTermAccepted = MutableLiveData<Boolean?>(true)
-
 
     // errors
 
@@ -74,7 +68,7 @@ class RegistrationViewModel @ViewModelInject constructor(
 
 
     fun register() {
-        if(!isCheckValid())
+        if (!isCheckValid())
             return
         viewModelScope.launch {
             showLoader(true)
@@ -87,8 +81,7 @@ class RegistrationViewModel @ViewModelInject constructor(
             ).let {
                 when (val result = registrationRepository.register(it)) {
                     is Result.Error -> {
-                        Timber.e(result.exception.message)
-                        showToast(result.exception.message.toString())
+                        showErrorDialog(message = result.exception.toString())
                     }
                     is Result.Success -> {
                         if (result.value.succeeded) {
@@ -99,13 +92,11 @@ class RegistrationViewModel @ViewModelInject constructor(
                                 )
                             )
                         } else {
-                            showToast(result.value.errorMessage)
-//                            showAlert(message = result.value.errorMessage)
-//                            Timber.e(result.value.statusCode.toString())
+                            showErrorDialog(message = result.value.errorMessage)
                         }
                     }
                     is Result.Failure -> {
-                        showToast("Internet Connection Error")
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
                         Timber.e(result.errorCode?.toString())
                     }
                 }
@@ -114,27 +105,16 @@ class RegistrationViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun isValidasd() {
-        btnEnabled.set(
-            fullName.get().toString().trim().isNotEmpty() ||
-                    AuthUtils.isValidMobileNumber(phone.get().toString().trim()) ||
-                    AuthUtils.isEmailValid(email.get().toString().trim()) ||
-                    AuthUtils.isMatchPassword(password.get().toString().trim(),
-                        passwordConifrm.get().toString().trim()) ||
-                    AuthUtils.isValidPasswordFormat(password.get().toString().trim()) ||
-                    termsAccepted.get())
-
-    }
 
 
     fun onFullNameChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         fullName.set(s.toString())
-        if(fullName.get().toString().trim().isNullOrEmpty()){
+        if (fullName.get().toString().trim().isNullOrEmpty()) {
             isfullName.value = false
             _fullnameError.value = R.string.required
         }
 
-        if(!fullName.get().toString().trim().isNullOrEmpty()){
+        if (!fullName.get().toString().trim().isNullOrEmpty()) {
             isfullName.value = true
             _fullnameError.value = R.string.no_error
         }
@@ -142,15 +122,15 @@ class RegistrationViewModel @ViewModelInject constructor(
 
     fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         email.set(s.toString())
-//        isEmail.value = AuthUtils.isEmailValid(s.toString().trim())
         isEmail.value = AuthUtils.isEmailErrorsbool(s.toString().trim())
-        _emailError.value = AuthUtils.isEmailErrors( s.toString().trim())
+        _emailError.value = AuthUtils.isEmailErrors(s.toString().trim())
     }
 
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
-        isPhone.value = AuthUtils.isValidMobileNumber(s.toString().trim())
-        Timber.e(phone.get().toString().trim())
+        val number   = AuthUtils.isPhoneNumberValidate(s.toString().trim())
+        isPhone.value = number!!.isValid
+        errs_.value = AuthUtils.errorsPhone(s.toString().trim())
     }
 
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
@@ -161,10 +141,12 @@ class RegistrationViewModel @ViewModelInject constructor(
 
     fun onConfirmPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         passwordConifrm.set(s.toString())
-        isPasswordConfirm.value =AuthUtils.isMatchPasswordBool(password.get().toString(), passwordConifrm.get().toString().trim())
-        passwordConfirmError_.value             = AuthUtils.isMatchPasswordError(password.get().toString().trim(),passwordConifrm.get().toString().trim())
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(password.get().toString(),
+            passwordConifrm.get().toString().trim())
+        passwordConfirmError_.value =
+            AuthUtils.isMatchPasswordError(password.get().toString().trim(),
+                passwordConifrm.get().toString().trim())
 
-//            AuthUtils.isMatchPassword(password.get().toString(), s.toString().trim())
     }
 
     fun onTermsChecked(buttonView: CompoundButton, isChecked: Boolean) {
@@ -172,51 +154,57 @@ class RegistrationViewModel @ViewModelInject constructor(
         isTermAccepted.value = isChecked
     }
 
-    fun isCheckValid():Boolean {
+   private fun isCheckValid(): Boolean {
         var isValid = true
         _emailError.value = AuthUtils.isEmailErrors(s = email.get().toString().trim())
-        isEmail.value =    AuthUtils.isEmailErrorsbool(email.get().toString().trim())
+        isEmail.value = AuthUtils.isEmailErrorsbool(email.get().toString().trim())
 
 
-
-
-        isPhone.value = AuthUtils.isValidMobileNumber(phone = phone.get().toString().trim())
+        val number = AuthUtils.isPhoneNumberValidate(phone.get().toString().trim())
+        isPhone.value = number!!.isValid
 
         errs_.value = AuthUtils.errorsPhone(phone.get().toString().trim())
         isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
         passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
-        passwordConfirmError_.value             = AuthUtils.isMatchPasswordError(password.get().toString().trim(),passwordConifrm.get().toString().trim())
-        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(password.get().toString(), passwordConifrm.get().toString().trim())
+        passwordConfirmError_.value =
+            AuthUtils.isMatchPasswordError(password.get().toString().trim(),
+                passwordConifrm.get().toString().trim())
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(password.get().toString(),
+            passwordConifrm.get().toString().trim())
         isTermAccepted.value = termsAccepted.get() != false
 
 
 
 
-        if(fullName.get().toString().trim().isNullOrEmpty()){
+        if (fullName.get().toString().trim().isNullOrEmpty()) {
             isfullName.value = false
             _fullnameError.value = R.string.required
             isValid = false
         }
 
-        if(!fullName.get().toString().trim().isNullOrEmpty()){
+        if (!fullName.get().toString().trim().isNullOrEmpty()) {
             isfullName.value = true
             _fullnameError.value = R.string.no_error
 
         }
 
-        if(!AuthUtils.isEmailErrorsbool(email.get().toString().trim())){
+        if (!AuthUtils.isEmailErrorsbool(email.get().toString().trim())) {
             isValid = false
         }
-        if(!AuthUtils.isValidMobileNumber(phone = phone.get().toString().trim())){
+        val phoneNum = AuthUtils.isPhoneNumberValidate(mobNumber = phone.get().toString().trim())
+        if (!phoneNum!!.isValid) {
             isValid = false
         }
-        if(!AuthUtils.isValidPasswordFormat(password.get().toString().trim())){
+
+        if (!AuthUtils.isValidPasswordFormat(password.get().toString().trim())) {
             isValid = false
         }
-        if(!AuthUtils.isMatchPasswordBool(password.get().toString(), passwordConifrm.get().toString().trim())){
+        if (!AuthUtils.isMatchPasswordBool(password.get().toString(),
+                passwordConifrm.get().toString().trim())
+        ) {
             isValid = false
         }
-        if( !termsAccepted.get()){
+        if (!termsAccepted.get()) {
             isValid = false
         }
 

@@ -20,12 +20,12 @@ import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.setNavigationResult
 import com.balysv.materialripple.MaterialRippleLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_register.*
 
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickListener {
     private val registrationViewModel: RegistrationViewModel by viewModels()
-    private var modalDismissWithAnimation = false
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) :FragmentRegisterBinding{
         sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
@@ -38,12 +38,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         subscribeUiEvents(registrationViewModel)
         binding.btnRegister.setOnClickListener(this)
         binding.tvLoginNow.setOnClickListener(this)
-        binding.imgClose.setOnClickListener(this)
+        binding.header.back.setOnClickListener(this)
         binding.tvTermCondition.setOnClickListener(this)
 
         binding.viewmodel = registrationViewModel
         lottieAnimationRTL(binding.animationView)
-        backArrowRTL(binding.imgClose)
+        backArrowRTL(binding.header.back)
         if(isArabic()){
                       val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
             spannable.setSpan(
@@ -64,7 +64,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
 
         registrationViewModel.isTermAccepted.observe(viewLifecycleOwner){
             if(it==false){
-                registrationViewModel.showToast(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
+                registrationViewModel.showErrorDialog(message =  resources.getString(R.string._agree_to_the_terms_and_conditions))
             }
         }
 
@@ -78,11 +78,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
             R.id.tv_login_now -> {
                 back()
             }
-            R.id.img_close -> {
-                setNavigationResult(
-                    Constants.NavResults.DO_ANIMATION,
-                        "back"
-                )
+            R.id.back -> {
                 back()
             }
             R.id.tv_term_condition->{

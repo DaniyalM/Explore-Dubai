@@ -17,6 +17,7 @@ import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
+import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.Constants.NavBundles.COMES_FROM_LOGIN
 import com.app.dubaiculture.utils.event.Event
 import kotlinx.android.synthetic.main.fragment_login.view.*
@@ -76,12 +77,12 @@ class LoginViewModel @ViewModelInject constructor(
                             Timber.e(result.value.loginResponseDTO.userDTO.Email)
                             userRepository.saveUser(
                                 userDTO = result.value.loginResponseDTO.userDTO,
-                                loginResponseDTO = result.value.loginResponseDTO
-                            )
+                                loginResponseDTO = result.value.loginResponseDTO)
+
                             _loginStatus.value = Event(true)
                         } else {
                             showLoader(false)
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
                             if (!result.value.isConfirmed) {
                                 if(phone.get().toString().startsWith("+")){
                                     resendPhoneVerification()
@@ -91,11 +92,11 @@ class LoginViewModel @ViewModelInject constructor(
                     }
                     is Result.Error -> {
                         showLoader(false)
-                        showToast(result.exception.toString())
+                        showErrorDialog(message = result.exception.toString())
                     }
                     is Result.Failure -> {
                         showLoader(false)
-                        showToast("Internet Connection Error")
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
 
                     }
                 }
@@ -124,7 +125,7 @@ class LoginViewModel @ViewModelInject constructor(
                             _loginStatus.value = Event(true)
                         } else {
                             showLoader(false)
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage)
                             if (!result.value.isConfirmed) {
                                 resendEmailVerification()
                             }
@@ -132,11 +133,11 @@ class LoginViewModel @ViewModelInject constructor(
                     }
                     is Result.Error -> {
                         showLoader(false)
-                        showToast(result.exception.toString())
+                        showErrorDialog(message = result.exception.toString())
                     }
                     is Result.Failure -> {
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
                         showLoader(false)
-                        showToast("Internet Connection Error")
 
                     }
                 }
@@ -154,11 +155,9 @@ class LoginViewModel @ViewModelInject constructor(
                     is Result.Success -> {
                         if (result.value.succeeded) {
                             showLoader(false)
-                            showToast(result.value.resendVerificationResponseDTO.message.toString())
+                          //  showErrorDialog(message = result.message, colorBg = R.color.green_error)
                             Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
-//                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(verificationCode =
-//                                result.value.resendVerificationResponseDTO.verificationCode,
-//                                "loginFragment"))
+
                             navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
                                 verificationCode =
                                 result.value.resendVerificationResponseDTO.verificationCode,
@@ -168,16 +167,17 @@ class LoginViewModel @ViewModelInject constructor(
 
                         } else {
                             showLoader(false)
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage)
+
 
                         }
                     }
                     is Result.Error -> {
-                        showToast(result.exception.toString())
+//                        showToast(result.exception.toString())
+
                     }
                     is Result.Failure -> {
-                        showToast("Internet Connection Error")
-
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
                     }
                 }
             }
@@ -194,11 +194,9 @@ class LoginViewModel @ViewModelInject constructor(
                     is Result.Success -> {
                         if (result.value.succeeded) {
                             showLoader(false)
-                            showToast(result.value.resendVerificationResponseDTO.message.toString())
+                            showErrorDialog(message = result.message, colorBg = R.color.green_error)
                             Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
-//                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(verificationCode =
-//                                result.value.resendVerificationResponseDTO.verificationCode,
-//                                "loginFragment"))
+
                             navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
                                 verificationCode =
                                 result.value.resendVerificationResponseDTO.verificationCode,
@@ -207,15 +205,14 @@ class LoginViewModel @ViewModelInject constructor(
                                 screenName = COMES_FROM_LOGIN))
 
                         } else {
-                            showToast(result.value.errorMessage)
-
+                            showErrorDialog(message = result.value.errorMessage)
                         }
                     }
                     is Result.Error -> {
-                        showToast(result.exception.toString())
+
                     }
                     is Result.Failure -> {
-                        showToast("Internet Connection Error")
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
 
                     }
                 }
@@ -226,8 +223,9 @@ class LoginViewModel @ViewModelInject constructor(
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
         isLoginWithPhone.value = loginTypeChecker(s)
-//        enableButton()
-        isPhoneEdit.value = AuthUtils.isValidMobileNumber(s.toString().trim())
+        val number = AuthUtils.isPhoneNumberValidate(phone.get().toString().trim())
+        isPhoneEdit.value = number!!.isValid
+//        isPhoneEdit.value = AuthUtils.isValidMobileNumber(s.toString().trim())
         isEmailEdit.value = AuthUtils.isEmailValid(s.toString().trim())
 
         phoneError.value = !s.contains("[a-zA-Z]".toRegex())
@@ -242,14 +240,23 @@ class LoginViewModel @ViewModelInject constructor(
 
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         password.set(s.toString())
-        isPassword.value = AuthUtils.isValidPasswordFormat(s.toString().trim())
-        passwordError_.value = AuthUtils.passwordErrors(s.toString().trim())
-        enableButton()
+        if(password.get().toString().trim().isNullOrEmpty()){
+            passwordError_.value =  R.string.required
+            isPassword.value = false
+        }else{
+            passwordError_.value =  R.string.no_error
+            isPassword.value = true
+        }
+
+//        isPassword.value = AuthUtils.isValidPasswordFormat(s.toString().trim())
+//        passwordError_.value = AuthUtils.passwordErrors(s.toString().trim())
     }
 
     private fun loginTypeChecker(s: CharSequence): Boolean {
         return if (!s.contains("[a-zA-Z]".toRegex())) {
-            isPhone.value = AuthUtils.isValidMobileNumber(s.toString().trim())
+//            isPhone.value = AuthUtils.isValidMobileNumber(s.toString().trim())
+            val number = AuthUtils.isPhoneNumberValidate(phone.get().toString().trim())
+            isPhone.value = number!!.isValid
             Timber.e("Phone")
             true
         } else {
@@ -259,15 +266,9 @@ class LoginViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun enableButton() {
-        btnEnabled.set(AuthUtils.isEmailValid(phone.get().toString().trim()) &&
-                AuthUtils.isValidPasswordFormat(password.get().toString()
-                    .trim()) || AuthUtils.isValidMobileNumber(phone.get().toString().trim()) &&
-                AuthUtils.isValidPasswordFormat(password.get().toString()
-                    .trim()))
-    }
 
-    fun isCheckValid(): Boolean {
+
+   private fun isCheckValid(): Boolean {
         var isValid = true
 
         isPhoneEdit.value = AuthUtils.isValidMobileNumber(phone.get().toString().trim())
@@ -275,11 +276,17 @@ class LoginViewModel @ViewModelInject constructor(
         phoneError.value = !phone.get().toString().contains("[a-zA-Z]".toRegex())
         emailError.value = phone.get().toString().contains("[a-zA-Z]".toRegex())
         isPhone.value = !phone.get().toString().isNullOrEmpty()
-        isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
+//        isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
 
+            if(password.get().toString().trim().isNullOrEmpty()){
+              passwordError_.value =  R.string.required
+                isPassword.value = false
+            }else{
+                passwordError_.value =  R.string.no_error
+                isPassword.value = true
+            }
 
-
-        passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
+//        passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
         errs_.value = AuthUtils.errorsEmailAndPhone(phone.get().toString().trim())
 
         return isValid

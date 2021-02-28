@@ -118,6 +118,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                         is UiEvent.NavigateByAction -> {
                             navigateByAction(event.actionId, event.bundle)
                         }
+                        is UiEvent.ShowErrorDialog->{
+                            EventUtilFunctions.showErrorDialog(event.message,colorBg = event.colorBg,context = activity)
+                        }
                     }
                 }
         })
@@ -160,6 +163,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
     fun showAlert(message: String) {
         EventUtilFunctions.showAlert(message, activity)
+    }
+    fun showErrorDialog(message: String){
+        EventUtilFunctions.showErrorDialog(message,context = activity)
     }
 
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH

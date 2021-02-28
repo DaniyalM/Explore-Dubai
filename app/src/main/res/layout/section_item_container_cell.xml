@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
-                    android:layout_weight="1"
+                    android:layout_weight="0.8"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:layout_width="0dp"
@@ -98,9 +98,11 @@
                 </LinearLayout>
 
                 <com.airbnb.lottie.LottieAnimationView
+                    android:layout_weight="0.2"
                     android:id="@+id/animationView"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:layout_width="@dimen/_70sdp"
+
                     android:layout_height="match_parent"
                     app:lottie_rawRes="@raw/pinlooped"
                     app:lottie_autoPlay="true"

@@ -31,8 +31,8 @@
         android:layout_margin="5dp"
         android:layout_height="match_parent">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:imageViewUrl='@{popular_services.icon}'
             />

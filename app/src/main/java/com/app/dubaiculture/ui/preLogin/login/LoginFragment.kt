@@ -74,10 +74,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         subscribeToObservables()
-        getNavigationResult<String>(DO_ANIMATION)
-            ?.observe(viewLifecycleOwner) { result ->
-                binding.animationView.repeatCount = 1
-            }
     }
 
     private fun subscribeToObservables() {
@@ -107,6 +103,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             R.id.img_uae_pass -> {
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.animationView.playAnimation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        loginViewModel.isPassword.value = true
+        loginViewModel.isPhone.value = true
+        loginViewModel. isPhoneEdit.value = true
+        loginViewModel.  isEmailEdit.value = true
+        loginViewModel.isEmail.value = true
     }
 
 }
