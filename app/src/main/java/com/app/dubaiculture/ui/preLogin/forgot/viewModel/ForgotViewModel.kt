@@ -14,6 +14,7 @@ import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.forgot.ForgotFragmentDirections
 import com.app.dubaiculture.ui.preLogin.registeration.RegisterFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
+import com.app.dubaiculture.utils.Constants
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -53,21 +54,21 @@ class ForgotViewModel @ViewModelInject constructor(private val forgotRepository:
                         if(result.value.succeeded){
                             showLoader(false)
                             Timber.e(result.value.forgotResponseDTO.verificationCode)
-
                             showToast(result.value.forgotResponseDTO.message.toString())
-
                             navigateByDirections(ForgotFragmentDirections.actionForgotFragmentToBottomSheet(
                                 result.value.forgotResponseDTO.verificationCode,"forgotfragment"
                             ))
                         }else{
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage)
                         }
                     }
                     is Result.Error->{
+                        showLoader(false)
                         Timber.e(result.exception)
-
                     }
                     is Result.Failure->{
+                        showLoader(false)
+                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
                         Timber.e(result.errorCode.toString())
                     }
                 }

@@ -47,6 +47,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         subscribeToObservable()
         setUpRecyclerView()
 
+       binding.swipeRefresh.setOnRefreshListener {
+           binding.swipeRefresh.isRefreshing = false
+           callingObservables()
+        }
+
     }
 
     private fun setUpRecyclerView() {
@@ -81,10 +86,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                 }
                 is Result.Failure -> handleApiError(it, exploreViewModel)
             }
-
-
         }
-
     }
 
     override fun onDestroy() {

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
@@ -63,7 +64,7 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         bus.register(this)
         isBusRegistered = true
         groupAdapter = GroupAdapter()
-
+        dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         return super.onCreateDialog(savedInstanceState)
     }
 
@@ -143,11 +144,11 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         findNavController().navigate(resId, bundle)
     }
 
-    public fun setLanguage(locale: Locale) {
+    fun setLanguage(locale: Locale) {
         (activity as BaseActivity).setLanguage(locale)
     }
 
-    public fun getCurrentLanguage(): Locale {
+    fun getCurrentLanguage(): Locale {
         return (activity as BaseActivity).getCurrentLanguage()
     }
     fun showAlert(message: String) {

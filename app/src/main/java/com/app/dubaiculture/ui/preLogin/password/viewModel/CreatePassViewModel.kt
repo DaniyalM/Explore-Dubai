@@ -14,6 +14,7 @@ import com.app.dubaiculture.data.repository.setpassword.SetPasswordRepository
 import com.app.dubaiculture.data.repository.setpassword.remote.request.SetPasswordRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
+import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -43,15 +44,6 @@ class CreatePassViewModel @ViewModelInject constructor(
     private var passwordConfirmError_ = MutableLiveData<Int>()
     var passwordConfirmError: LiveData<Int> = passwordConfirmError_
 
-    private fun enableButton() {
-        btnEnabled.set(
-            AuthUtils.isMatchPassword(
-                password.get().toString().trim(),
-                passwordConifrm.get().toString().trim()
-            ) && AuthUtils.isValidPasswordFormat(password.get().toString().trim())
-        )
-    }
-
     fun setPassword(
         verificationCode: String? = null,
     ) {
@@ -71,10 +63,12 @@ class CreatePassViewModel @ViewModelInject constructor(
                             showToast(result.value.setPasswordResponseDTO.message)
                             navigateByAction(R.id.action_createPassFragment_to_passwordUpdatedFragment)
                         } else {
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage)
                         }
                     }
                     is Result.Failure -> {
+                        showLoader(false)
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
                         Timber.e(result.errorCode.toString())
                     }
                     is Result.Error -> {
