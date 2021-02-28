@@ -31,10 +31,11 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        callingObservables()
+
 
         setupToolbarWithSearchItems()
         subscribeUiEvents(attractionViewModel)
+        callingObservables()
         subscribeToObservables()
         initiatePager()
 
@@ -62,7 +63,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                     }
                 }
                 is Result.Failure -> {
-                    binding.horizontalSelector.initialize(attractionViewModel.getInterests(), binding.pager)
+//                    binding.horizontalSelector.initialize(attractionViewModel.getInterests(), binding.pager)
 
                     handleApiError(it, attractionViewModel)
                 }
@@ -104,6 +105,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     override fun onResume() {
         super.onResume()
+//        callingObservables()
         binding.horizontalSelector.positionUpdate(clickCheckerFlag)
     }
 

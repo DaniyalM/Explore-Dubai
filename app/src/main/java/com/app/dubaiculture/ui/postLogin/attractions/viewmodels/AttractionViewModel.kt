@@ -23,11 +23,10 @@ class AttractionViewModel @ViewModelInject constructor(
     val attractionCategoryList: LiveData<Result<List<AttractionCategory>>> = _attractionCategoryList
 
 
-    fun getAttractionCategoryToScreen(locale: String) {
+   fun getAttractionCategoryToScreen(locale: String) {
         showLoader(true)
         viewModelScope.launch {
-            when (val result = attractionRepository.getAttractionCategories(
-                AttractionCategoryRequest(culture = locale))) {
+            when (val result = attractionRepository.getAttractionCategories(AttractionCategoryRequest(culture = locale))) {
                 is Result.Success -> {
                     _attractionCategoryList.value = result
                     showLoader(false)

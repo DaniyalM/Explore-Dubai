@@ -7,8 +7,7 @@ import javax.inject.Inject
 
 class AttractionRDS @Inject constructor(private val attractionService: AttractionService) :
     BaseRDS() {
-    suspend fun getAttractionCategories(attractionCategoryRequestDTO: AttractionCategoryRequestDTO) =
-        safeApiCall {
+    suspend fun getAttractionCategories(attractionCategoryRequestDTO: AttractionCategoryRequestDTO) = safeApiCall {
             attractionService.getAttractionCategoryApi(attractionCategoryRequestDTO)
         }
 }

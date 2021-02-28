@@ -30,6 +30,7 @@ class ExploreViewModel @ViewModelInject constructor(
                     showLoader(false)
                 }
                 is Result.Failure -> {
+                    showLoader(false)
                     _exploreList.value = result
                 }
 

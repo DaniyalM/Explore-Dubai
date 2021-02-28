@@ -56,6 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Sub Title"
+                android:lines="1"
+                android:ellipsize="end"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/ll_bg"
                 app:layout_constraintStart_toEndOf="@+id/ll_bg"
