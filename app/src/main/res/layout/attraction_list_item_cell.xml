@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="attractions" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/attraction_image"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="19dp"
+            app:cardCornerRadius="@dimen/_24sdp"
+            app:cardElevation="@dimen/_10sdp"
+            app:cardMaxElevation="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_view_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                app:cardBackgroundColor="@color/white_900"
+                app:cardCornerRadius="@dimen/_15sdp"
+                app:cardElevation="@dimen/_5sdp">
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:text="@{attractions.category}"                    app:textFont="bold"
+                    android:textColor="@color/purple_900"
+                    android:textSize="@dimen/_10ssp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:id="@+id/img_must_see"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/must_see_icon_home"
+                android:imageViewUrl='@{attractions.portraitImage}'
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/img_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="@dimen/_15sdp"
+                android:background="@drawable/heart_icon_home"
+                android:padding="@dimen/_8sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+
+
+
+<!--                -->
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_heritage_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_17sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Attraction Category"
+                    android:textColor="@color/white_900"
+                    android:textSize="@dimen/_16ssp" />
+<!--                android:text="@{attractions.title}"-->
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_17sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:drawableStart="@drawable/heritiage_icon_home"
+                    android:drawablePadding="@dimen/_7ssp"
+                    android:ellipsize="end"
+                    android:text='@{attractions.locationTitle ?? "Palm Jumeriah Beach,Dubai"}'
+                    android:textColor="@color/white_900"
+                    android:textSize="@dimen/_10ssp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/attraction_image" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

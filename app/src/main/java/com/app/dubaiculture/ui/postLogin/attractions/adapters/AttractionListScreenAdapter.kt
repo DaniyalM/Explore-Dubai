@@ -8,7 +8,8 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
-import com.app.dubaiculture.databinding.AttractionListItemBinding
+import com.app.dubaiculture.databinding.AttractionHomeInnerListItemBinding
+import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.utils.AttractionFilterItem
 import com.app.dubaiculture.utils.AsyncCell
@@ -57,10 +58,10 @@ class AttractionListScreenAdapter : BaseRecyclerAdapter(), Filterable {
     }
 
     private inner class AttractionListItemCell(context: Context) : AsyncCell(context) {
-        var binding: AttractionListItemBinding? = null
-        override val layoutId = R.layout.attraction_list_item
+        var binding: AttractionListItemCellBinding? = null
+        override val layoutId = R.layout.attraction_list_item_cell
         override fun createDataBindingView(view: View): View? {
-            binding = AttractionListItemBinding.bind(view)
+            binding = AttractionListItemCellBinding.bind(view)
             return view.rootView
         }
     }

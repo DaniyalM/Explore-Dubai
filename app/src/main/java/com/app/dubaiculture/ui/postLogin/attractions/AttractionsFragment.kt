@@ -73,7 +73,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
 
     private fun setupToolbarWithSearchItems() {
-        var searchViewVisibility = false
+//        var searchViewVisibility = false
         binding.root.apply {
             profilePic.visibility = View.GONE
             img_drawer.visibility = View.GONE
@@ -81,31 +81,30 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 visibility = View.VISIBLE
                 text = activity.getString(R.string.attractions)
             }
-            search.setOnClickListener {
-                searchViewVisibility = !searchViewVisibility
-                if (searchViewVisibility) {
-                    binding.root.searchView.visibility = View.VISIBLE
-                    toolbar_title.visibility = View.GONE
-                } else {
-                    binding.root.searchView.visibility = View.GONE
-                    toolbar_title.visibility = View.VISIBLE
-                }
-            }
-
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(p0: String?) = true
-                override fun onQueryTextChange(text: String?): Boolean {
-                    text?.let { bus.post(AttractionBusService().SearchTextQuery(it)) }
-                    return true
-                }
-            })
+//            search.setOnClickListener {
+//                searchViewVisibility = !searchViewVisibility
+//                if (searchViewVisibility) {
+//                    binding.root.searchView.visibility = View.VISIBLE
+//                    toolbar_title.visibility = View.GONE
+//                } else {
+//                    binding.root.searchView.visibility = View.GONE
+//                    toolbar_title.visibility = View.VISIBLE
+//                }
+//            }
+//
+//            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//                override fun onQueryTextSubmit(p0: String?) = true
+//                override fun onQueryTextChange(text: String?): Boolean {
+//                    text?.let { bus.post(AttractionBusService().SearchTextQuery(it)) }
+//                    return true
+//                }
+//            })
 
         }
     }
 
     override fun onResume() {
         super.onResume()
-//        callingObservables()
         binding.horizontalSelector.positionUpdate(clickCheckerFlag)
     }
 

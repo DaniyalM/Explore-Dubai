@@ -73,7 +73,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             addView(view)
             it.adapter = groupAdapter
-            LinearSnapHelper().attachToRecyclerView(it)
+//            LinearSnapHelper().attachToRecyclerView(it)
 
         }
 
