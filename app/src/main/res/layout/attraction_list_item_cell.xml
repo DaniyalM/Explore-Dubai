@@ -2,9 +2,14 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <variable name="attractions" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
+
+        <variable
+            name="attractions"
+            type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -12,7 +17,7 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/attraction_image"
             android:layout_width="match_parent"
-            android:layout_height="330dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginEnd="19dp"
@@ -23,6 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_view_title"
                 android:layout_width="wrap_content"
@@ -32,6 +38,7 @@
                 app:cardBackgroundColor="@color/white_900"
                 app:cardCornerRadius="@dimen/_15sdp"
                 app:cardElevation="@dimen/_5sdp">
+
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/category"
                     android:layout_width="wrap_content"
@@ -40,9 +47,10 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:text="@{attractions.category}"                    app:textFont="bold"
+                    android:text="@{attractions.category}"
                     android:textColor="@color/purple_900"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_10ssp"
+                    app:textFont="bold" />
             </com.google.android.material.card.MaterialCardView>
 
             <ImageView
@@ -69,9 +77,7 @@
                 android:orientation="vertical">
 
 
-
-
-<!--                -->
+                <!--                -->
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_heritage_title"
                     android:layout_width="wrap_content"
@@ -84,7 +90,7 @@
                     android:text="Attraction Category"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_16ssp" />
-<!--                android:text="@{attractions.title}"-->
+                <!--                android:text="@{attractions.title}"-->
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_location"
@@ -96,10 +102,12 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:drawableStart="@drawable/heritiage_icon_home"
                     android:drawablePadding="@dimen/_7ssp"
+                    android:lines="2"
                     android:ellipsize="end"
-                    android:text='@{attractions.locationTitle ?? "Palm Jumeriah Beach,Dubai"}'
+                    android:text="1 Jumeirah St - Al Mina - Dubai - United Arab Emirates"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />
+<!--                android:text='@{attractions.locationTitle ?? "Palm Jumeriah Beach,Dubai"}'-->
 
             </LinearLayout>
 
@@ -109,6 +117,7 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/attraction_image" />
