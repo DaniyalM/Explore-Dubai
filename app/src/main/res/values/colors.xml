@@ -37,6 +37,7 @@
     <color name="green">#78FF1D</color>
 
 
+    <color name="green_error">#4bb543</color>
 
     <!--Login screen-->
   <color name="black_200">#2A2D31</color>

@@ -216,6 +216,7 @@
                 android:text="@{events.locationTitle}"
                 android:textColor="@color/gray_600"
                 android:textSize="@dimen/_9ssp"
+                android:layout_marginBottom="@dimen/_3sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_end_month_event"
                 app:layout_constraintStart_toStartOf="@+id/tv_workshop" />
 

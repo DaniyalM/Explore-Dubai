@@ -35,7 +35,9 @@ class ExploreViewModel @ViewModelInject constructor(
                 }
 
             }
+            showLoader(false)
         }
+
     }
 
 

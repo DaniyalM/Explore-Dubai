@@ -1,7 +1,5 @@
 package com.app.dubaiculture.ui.preLogin.login
 
-import android.app.Instrumentation
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
@@ -17,9 +14,10 @@ import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.app.dubaiculture.utils.Constants.NavResults.DO_ANIMATION
+import com.app.dubaiculture.utils.getNavigationResult
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.cancel
 import timber.log.Timber
 import java.util.*
 
@@ -107,13 +105,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.animationView.playAnimation()
+    }
+
     override fun onPause() {
         super.onPause()
-        Timber.e("Called Pause")
+        loginViewModel.isPassword.value = true
+        loginViewModel.isPhone.value = true
+        loginViewModel. isPhoneEdit.value = true
+        loginViewModel.  isEmailEdit.value = true
+        loginViewModel.isEmail.value = true
+    }
 
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        Timber.e("Called destroy")
-    }
 }

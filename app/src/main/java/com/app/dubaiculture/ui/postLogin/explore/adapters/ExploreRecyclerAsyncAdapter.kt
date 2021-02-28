@@ -184,19 +184,18 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
-                val radius = resources.getDimension(R.dimen.my_corner_radius)
-                val zeroDp = resources.getDimension(R.dimen.my_corner_radius)
+                val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
                 if(isArabic==true){
                     holder.itemView.binding?.cardviewPlanTrip?.shapeAppearanceModel = holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
                         .toBuilder()
-                        .setBottomLeftCorner(CornerFamily.ROUNDED,zeroDp)
+                        .setBottomLeftCorner(CornerFamily.ROUNDED,radius)
                         .setTopRightCornerSize(radius)
                         .build()
                 }else{
                     holder.itemView.binding?.cardviewPlanTrip?.shapeAppearanceModel = holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
                         .toBuilder()
                         .setTopLeftCorner(CornerFamily.ROUNDED,radius)
-                        .setBottomRightCornerSize(zeroDp)
+                        .setBottomRightCornerSize(radius)
                         .build()
                 }
 

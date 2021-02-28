@@ -88,12 +88,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp ty orem ipsum dolor sit amet elitsed eiusm"
+            android:textAlignment="viewStart"
             android:textColor="@color/gray_600"
-            android:textSize="@dimen/_10ssp"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/_9ssp"
+            android:layout_marginStart="@dimen/_65sdp"
+            android:layout_marginEnd="@dimen/_60sdp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reg_successful" />
 
 

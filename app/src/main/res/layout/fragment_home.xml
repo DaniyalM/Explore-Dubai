@@ -51,7 +51,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_70sdp"
+            android:layout_height="wrap_content"
             android:background="@drawable/nav_tabbar_new_one"
             android:layout_alignParentBottom="true"
             app:itemIconTint="@color/bottom_nav_color"
@@ -65,7 +65,6 @@
                 android:layout_width="80dp"
                 android:layout_gravity="center"
                 android:layout_height="80dp"
-                android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_alignBottom="@+id/bottomNav"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/happiness_meter"

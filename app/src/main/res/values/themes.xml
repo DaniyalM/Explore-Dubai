@@ -57,6 +57,7 @@
     <!--This will change all the BottomSheetDialogs of your app.-->
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
+<!--        <item name="android:windowFullscreen">true</item>-->
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>

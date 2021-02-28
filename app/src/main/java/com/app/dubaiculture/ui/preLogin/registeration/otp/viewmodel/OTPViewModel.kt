@@ -74,6 +74,7 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                         }
                     }
                     is Result.Failure -> {
+                        showLoader(false)
                         Timber.e(result.errorCode.toString())
                         showToast(result.errorCode.toString())
                     }

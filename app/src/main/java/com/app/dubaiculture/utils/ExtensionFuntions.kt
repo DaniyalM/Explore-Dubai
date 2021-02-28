@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -102,4 +103,35 @@ fun Fragment.handleApiError(
     }
 }
 fun <T: Any> ObservableField<T>.getNonNull(): T = get()!!
+
+@BindingAdapter("android:imageViewUrl")
+fun loadImageView(view: ImageView, url: String?) {
+    url?.let {
+        Glide.with(view.context)
+            .load(BuildConfig.BASE_URL + it)
+//                .apply(
+//                    RequestOptions()
+////                        .placeholder(R.drawable.logo)
+////                        .error(R.drawable.logo))
+            .into(view)
+    }
+}
+
+@BindingAdapter("android:svgUrl")
+fun loadSvgToImageView(view: ImageView, url: String?) {
+    url?.let {
+        Glide.with(view.context)
+            .load(BuildConfig.BASE_URL + it)
+            .into(view)
+    }
+
+}
+
+fun <R> Fragment.getNavigationResult(key: String) =
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<R>(key)
+
+fun Fragment.setNavigationResult(key: String, data: Any?) {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
+}
+
 
