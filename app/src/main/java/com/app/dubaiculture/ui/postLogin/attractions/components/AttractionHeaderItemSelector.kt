@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.AttractionCategory
+import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.xwray.groupie.GroupAdapter
@@ -116,8 +116,8 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                         unSelectedTextColor = unSelectedTextColor,
                         selectedBackground = getDrawableFromId(selectedBackground),
                         unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                        selectedInnerImg = getDrawableFromId(model.imgSelected),
-                        unSelectedInnerImg = getDrawableFromId(model.imgUnSelected),
+                        selectedInnerImg = getDrawableFromId(model.imgSelected.toInt()),
+                        unSelectedInnerImg = getDrawableFromId(model.imgUnSelected.toInt()),
                         progressListener = this
                     )
                 )
@@ -131,8 +131,8 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     unSelectedTextColor = unSelectedTextColor,
                     selectedBackground = getDrawableFromId(selectedBackground),
                     unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                    selectedInnerImg = getDrawableFromId(model.imgSelected),
-                    unSelectedInnerImg = getDrawableFromId(model.imgUnSelected),
+                    selectedInnerImg = getDrawableFromId(model.imgSelected.toInt()),
+                    unSelectedInnerImg = getDrawableFromId(model.imgUnSelected.toInt()),
                     progressListener = this)
                 )
 
