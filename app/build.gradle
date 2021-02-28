@@ -88,7 +88,7 @@ android {
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
             signingConfig signingConfigs.stagConfig
 
-//            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
+//            buildConfigField("String", "BASE_URL", "\"https://a04f708a-3b9c-41a5-bc03-1450f93ba4a1.mock.pstmn.io\"")
 
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
