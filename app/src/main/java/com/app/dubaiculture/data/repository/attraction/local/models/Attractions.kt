@@ -1,10 +1,14 @@
-package com.app.dubaiculture.data.repository.explore.local.models
+package com.app.dubaiculture.data.repository.attraction.local.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Attractions(
-    val id: Int,
+    val id: String,
     val title: String= "",
     val category: String= "",
-    val is_liked: Boolean=false,
+    val IsFavourite: Boolean=false,
     var locationTitle: String? = "",
     var location: String? = "",
     var portraitImage: String? = "",
@@ -15,4 +19,4 @@ data class Attractions(
     var endDay: String? = "",
     var startDay: String? = "",
     var color: String? = ""
-)
+): Parcelable

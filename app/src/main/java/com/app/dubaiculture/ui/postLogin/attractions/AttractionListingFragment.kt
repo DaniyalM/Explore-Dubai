@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -15,13 +17,15 @@ import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScre
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.squareup.otto.Subscribe
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
     private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
 
     private var attractionCategoryTag: String = ""
+    private lateinit var attractions:ArrayList<Attractions>
     private var searchQuery: String = ""
 
 
@@ -43,8 +47,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.getString(ATTRACTION_CATEG0RY_TYPE)?.let {
-            attractionCategoryTag = it
+        arguments?.getParcelableArrayList<Attractions>(ATTRACTION_CATEG0RY_TYPE)?.let {
+            attractions=it
         }
 
     }
@@ -60,12 +64,12 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     companion object {
 
-        var ATTRACTION_CATEG0RY_TYPE: String = "AttractionsCategory"
+        var ATTRACTION_CATEG0RY_TYPE: String = "Attractions"
 
         @JvmStatic
-        fun newInstance(type: String) = AttractionListingFragment().apply {
+        fun newInstance(attractions: ArrayList<Attractions>) = AttractionListingFragment().apply {
             arguments = Bundle().apply {
-                putString(ATTRACTION_CATEG0RY_TYPE, type)
+                putParcelableArrayList(ATTRACTION_CATEG0RY_TYPE,attractions)
             }
         }
     }
@@ -97,7 +101,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         binding.rvAttractionListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter=attractionListScreenAdapter
-            attractionListScreenAdapter?.attractions=createTestItem()
+            attractionListScreenAdapter?.attractions=attractions
 
         }
 

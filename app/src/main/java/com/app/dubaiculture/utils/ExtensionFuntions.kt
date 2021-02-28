@@ -79,6 +79,7 @@ fun Fragment.handleApiError(
     baseViewModel: BaseViewModel,
     retry: (() -> Unit)? = null,
 ) {
+    baseViewModel.showLoader(false)
     when {
         failure.isNetWorkError -> baseViewModel.showToast(
             "Please Check Your Internet Connection"

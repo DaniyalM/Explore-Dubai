@@ -16,13 +16,14 @@ import com.rishabhharit.roundedimageview.RoundedImageView
 
 
 fun View.glideInstance(url: String?,isSvg:Boolean=false): RequestBuilder<Drawable> {
-    val urlConcat=BuildConfig.BASE_URL + url
+//    val urlConcat=BuildConfig.BASE_URL + url
+    val urlConcat="http://dc.wewanttraffic.me/api/" + url
     val glide=Glide.with(this.context)
     return  if (!isSvg){
         glide.setDefaultRequestOptions(
             RequestOptions()
                 .placeholder(R.drawable.logo)
-                .error(R.drawable.ic_launcher_foreground)
+                .error(android.R.drawable.stat_notify_error)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
         ).load(urlConcat).transition(DrawableTransitionOptions.withCrossFade())
     }else{

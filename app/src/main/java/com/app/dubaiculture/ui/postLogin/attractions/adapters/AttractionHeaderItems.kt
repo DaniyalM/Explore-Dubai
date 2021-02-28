@@ -10,6 +10,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
+import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
 
@@ -49,7 +50,7 @@ class AttractionHeaderItems<T>(
                     if (clickCheckerFlag==position){
                         it.imgInnerIcon.background = unSelectedInnerImg
                         isSelected=true
-                        renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it)
+                        renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.cardview)
                     }
 
                 }
@@ -63,12 +64,13 @@ class AttractionHeaderItems<T>(
 
     private fun renderSelection(
         textView: TextView, imageView: ImageView, imgInner: ImageView,
-        view: View,
+        view: MaterialCardView,
     ) {
 
 
         if (isSelected) {
-            view.selectorViewChanger.setBackgroundColor(ContextCompat.getColor(view.context,
+
+            view.setCardBackgroundColor(ContextCompat.getColor(view.context,
                 R.color.purple_900))
             selectedTextColor?.let { color ->
 
@@ -83,7 +85,7 @@ class AttractionHeaderItems<T>(
             }
 
         } else {
-            view.selectorViewChanger.setBackgroundColor(ContextCompat.getColor(view.context,
+            view.setCardBackgroundColor(ContextCompat.getColor(view.context,
                 R.color.white_900))
             unSelectedTextColor?.let { color ->
 

@@ -10,8 +10,8 @@ import com.google.gson.annotations.SerializedName
 import com.rishabhharit.roundedimageview.RoundedImageView
 
 class BaseModel {
-    val imgSelected: Int=0
-    val imgUnSelected: Int=0
+    val imgSelected: String=""
+    val imgUnSelected:String=""
 
     @SerializedName("ID")
     @Expose
@@ -117,9 +117,24 @@ class BaseModel {
     var date: String? = null
 
 
-    @SerializedName("Color")
+    @SerializedName("ColoredIcon")
     @Expose
-    var color: String? = null
+    var coloredIcon: String? = ""
+
+    @SerializedName("JsonFile")
+    @Expose
+    var jsonFile: String? =""
+
+    @SerializedName("HoveredJsonFile")
+    @Expose
+    var hoveredJsonFile: String? = ""
+
+    @SerializedName("PlayJson")
+    @Expose
+    var playJson: Boolean? = false
+
+
+
 
 
 }

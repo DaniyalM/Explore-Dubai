@@ -1,10 +1,11 @@
 package com.app.dubaiculture.data.repository.explore.mapper
 
-import com.app.dubaiculture.data.repository.explore.local.models.Explore
+import com.app.dubaiculture.data.repository.explore.local.models.*
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequestDTO
 import com.app.dubaiculture.data.repository.explore.remote.response.ExploreDTO
 import com.app.dubaiculture.data.repository.explore.remote.response.ExploreResponse
+import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
 
 
 fun transformExploreRequest(exploreRequest: ExploreRequest) = ExploreRequestDTO(
@@ -13,7 +14,8 @@ fun transformExploreRequest(exploreRequest: ExploreRequest) = ExploreRequestDTO(
 
 fun transformExplore(exploreResponse: ExploreResponse): List<Explore> =
     exploreResponse.Result.value.run {
-        transformExplore(this)
+        this?.let { transformExplore(it) }!!
+
     }
 
 fun transformExplore(list: List<ExploreDTO>): List<Explore> = list.run {
@@ -25,3 +27,5 @@ fun transformExplore(list: List<ExploreDTO>): List<Explore> = list.run {
         )
     }
 }
+
+

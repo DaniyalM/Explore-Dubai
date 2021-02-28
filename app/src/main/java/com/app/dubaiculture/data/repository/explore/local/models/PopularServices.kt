@@ -1,7 +1,32 @@
 package com.app.dubaiculture.data.repository.explore.local.models
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 data class PopularServices(
-    val id:Int,
-    val title:String,
-    val image_url:String
+    @SerializedName("ID")
+    @Expose
+    var id: String? = "",
+
+    @SerializedName("Title")
+    @Expose
+    val title:String?="",
+
+    @SerializedName("ColoredIcon")
+    @Expose
+    var coloredIcon: String? = "",
+
+    @SerializedName("JsonFile")
+    @Expose
+    var jsonFile: String? ="",
+
+    @SerializedName("HoveredJsonFile")
+    @Expose
+    var hoveredJsonFile: String? = "",
+
+    @SerializedName("PlayJson")
+    @Expose
+    var playJson: Boolean? = false
 )
+
+

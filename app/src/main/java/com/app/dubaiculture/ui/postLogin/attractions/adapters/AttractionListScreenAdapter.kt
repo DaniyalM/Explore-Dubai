@@ -5,17 +5,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
-import com.app.dubaiculture.databinding.AttractionListItemBinding
+import com.app.dubaiculture.databinding.AttractionHomeInnerListItemBinding
+import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.utils.AttractionFilterItem
 import com.app.dubaiculture.utils.AsyncCell
 
-class AttractionListScreenAdapter : BaseRecyclerAdapter(), Filterable {
+class AttractionListScreenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
-    private lateinit var filterList:ArrayList<BaseModel>
+    private lateinit var filterList:ArrayList<Attractions>
 
     private var filter:AttractionFilterItem?=null
 
@@ -27,8 +31,18 @@ class AttractionListScreenAdapter : BaseRecyclerAdapter(), Filterable {
         filter?.filter(s)
 
     }
+    private val diffCallback = object : DiffUtil.ItemCallback<Attractions>() {
+        override fun areItemsTheSame(oldItem: Attractions, newItem: Attractions): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    var attractions: List<BaseModel>
+        override fun areContentsTheSame(oldItem: Attractions, newItem: Attractions): Boolean {
+            return oldItem.hashCode() == newItem.hashCode()
+        }
+    }
+    private val differ = AsyncListDiffer(this, diffCallback)
+
+    var attractions: List<Attractions>
         get() = differ.currentList
         set(value){
             differ.submitList(value)
@@ -57,10 +71,10 @@ class AttractionListScreenAdapter : BaseRecyclerAdapter(), Filterable {
     }
 
     private inner class AttractionListItemCell(context: Context) : AsyncCell(context) {
-        var binding: AttractionListItemBinding? = null
-        override val layoutId = R.layout.attraction_list_item
+        var binding: AttractionListItemCellBinding? = null
+        override val layoutId = R.layout.attraction_list_item_cell
         override fun createDataBindingView(view: View): View? {
-            binding = AttractionListItemBinding.bind(view)
+            binding = AttractionListItemCellBinding.bind(view)
             return view.rootView
         }
     }
