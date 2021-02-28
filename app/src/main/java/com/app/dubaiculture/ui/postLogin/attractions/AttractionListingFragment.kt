@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -61,12 +63,12 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     companion object {
 
-        var ATTRACTION_CATEG0RY_TYPE: String = "AttractionsCategory"
+        var ATTRACTION_CATEG0RY_TYPE: String = "Attractions"
 
         @JvmStatic
-        fun newInstance(type: String) = AttractionListingFragment().apply {
+        fun newInstance(attractions: ArrayList<Attractions>) = AttractionListingFragment().apply {
             arguments = Bundle().apply {
-                putString(ATTRACTION_CATEG0RY_TYPE, type)
+                putParcelableArrayList(ATTRACTION_CATEG0RY_TYPE,attractions)
             }
         }
     }
