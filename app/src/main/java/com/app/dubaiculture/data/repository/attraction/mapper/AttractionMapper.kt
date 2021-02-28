@@ -1,5 +1,6 @@
 package com.app.dubaiculture.data.repository.attraction.mapper
 
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequest
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequestDTO
@@ -28,6 +29,8 @@ fun transformAttractionCategory(list: List<AttractionCategoryDTO>): List<Attract
             id = it.id,
             icon = it.icon,
             title = it.title,
+            imgSelected = R.drawable.museums_icon_home,
+            imgUnSelected =  R.drawable.museum,
             selectedSvg = it.selectedSvg,
             unselectedSvg = it.unselectedSvg
         )

@@ -13,8 +13,7 @@
             android:orientation="horizontal"
             android:overScrollMode="never"
             android:clipToPadding="false"
-            android:paddingStart="@dimen/_5sdp"
-            android:paddingEnd="@dimen/_5sdp"/>
+           />
     </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
 
 </layout>
