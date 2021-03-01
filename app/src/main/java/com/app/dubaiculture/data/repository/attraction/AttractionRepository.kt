@@ -12,7 +12,7 @@ import javax.inject.Inject
 class AttractionRepository @Inject constructor(
     private val attractionRDS: AttractionRDS
 ) : BaseRepository() {
-    suspend fun getAttractionCategories(attractionCategoryRequest: AttractionCategoryRequest): Result<List<AttractionCategory>> {
+    suspend fun getAttractionCategories(attractionCategoryRequest: AttractionCategoryRequest): Result<ArrayList<AttractionCategory>> {
         return when (val resultRDS = attractionRDS.getAttractionCategories(
             transformAttractionCategoryRequest(attractionCategoryRequest))) {
             is Result.Success -> {

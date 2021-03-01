@@ -7,7 +7,7 @@
 
         <variable
             name="attractions"
-            type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel" />
+            type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -76,8 +76,6 @@
                 android:layout_gravity="bottom"
                 android:orientation="vertical">
 
-
-                <!--                -->
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_heritage_title"
                     android:layout_width="wrap_content"
@@ -87,10 +85,9 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="Attraction Category"
+                    android:text="@{attractions.title}"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_16ssp" />
-                <!--                android:text="@{attractions.title}"-->
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_location"
@@ -104,10 +101,8 @@
                     android:drawablePadding="@dimen/_7ssp"
                     android:lines="2"
                     android:ellipsize="end"
-                    android:text="1 Jumeirah St - Al Mina - Dubai - United Arab Emirates"
-                    android:textColor="@color/white_900"
+                    android:text='@{attractions.locationTitle ?? "Palm Jumeriah Beach,Dubai"}'                    android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />
-<!--                android:text='@{attractions.locationTitle ?? "Palm Jumeriah Beach,Dubai"}'-->
 
             </LinearLayout>
 

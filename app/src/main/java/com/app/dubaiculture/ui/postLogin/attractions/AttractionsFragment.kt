@@ -58,8 +58,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 is Result.Success -> {
                     it.let {
                         binding.horizontalSelector.initialize(it.value, binding.pager)
-                        binding.pager.adapter = AttractionPagerAdaper(this,
-                            it.value as ArrayList<AttractionCategory>)
+                        binding.pager.adapter = AttractionPagerAdaper(this, it.value)
 
                     }
                 }

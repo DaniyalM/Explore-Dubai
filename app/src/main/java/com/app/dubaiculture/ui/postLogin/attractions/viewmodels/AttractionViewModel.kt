@@ -18,9 +18,9 @@ class AttractionViewModel @ViewModelInject constructor(
     private val attractionRepository: AttractionRepository,
 ) : BaseViewModel(application) {
 
-    private val _attractionCategoryList: MutableLiveData<Result<List<AttractionCategory>>> =
+    private val _attractionCategoryList: MutableLiveData<Result<ArrayList<AttractionCategory>>> =
         MutableLiveData()
-    val attractionCategoryList: LiveData<Result<List<AttractionCategory>>> = _attractionCategoryList
+    val attractionCategoryList: LiveData<Result<ArrayList<AttractionCategory>>> = _attractionCategoryList
 
 
    fun getAttractionCategoryToScreen(locale: String) {
@@ -40,20 +40,20 @@ class AttractionViewModel @ViewModelInject constructor(
     }
 
 
-    fun getInterests(): List<AttractionCategory> {
-        val list = mutableListOf<AttractionCategory>()
-        list.add(AttractionCategory("1", "Museum", "", R.drawable.museum, R.drawable.museum))
-        list.add(AttractionCategory("2",
-            "Heritage Sites",
-            "",
-            R.drawable.heritage,
-            R.drawable.heritage))
-        list.add(AttractionCategory("3", "Festivals", "", R.drawable.festival, R.drawable.festival))
-        list.add(AttractionCategory("4",
-            "Attractions",
-            "",
-            R.drawable.museums_icon_home,
-            R.drawable.museums_icon_home))
-        return list
-    }
+//    fun getInterests(): List<AttractionCategory> {
+//        val list = mutableListOf<AttractionCategory>()
+//        list.add(AttractionCategory("1", "Museum", "", R.drawable.museum, R.drawable.museum))
+//        list.add(AttractionCategory("2",
+//            "Heritage Sites",
+//            "",
+//            R.drawable.heritage,
+//            R.drawable.heritage))
+//        list.add(AttractionCategory("3", "Festivals", "", R.drawable.festival, R.drawable.festival))
+//        list.add(AttractionCategory("4",
+//            "Attractions",
+//            "",
+//            R.drawable.museums_icon_home,
+//            R.drawable.museums_icon_home))
+//        return list
+//    }
 }

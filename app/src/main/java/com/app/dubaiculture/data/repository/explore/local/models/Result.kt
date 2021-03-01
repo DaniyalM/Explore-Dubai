@@ -14,7 +14,7 @@ data class Result(
 
     @SerializedName("AttractionsCategories")
     @Expose
-    var attractionsCategories : List<AttractionCategoryDTO>,
+    var attractionsCategories : ArrayList<AttractionCategoryDTO>,
 
 
     )

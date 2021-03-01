@@ -25,6 +25,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
 
     private var attractionCategoryTag: String = ""
+    private lateinit var attractions:ArrayList<Attractions>
     private var searchQuery: String = ""
 
 
@@ -46,8 +47,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.getString(ATTRACTION_CATEG0RY_TYPE)?.let {
-            attractionCategoryTag = it
+        arguments?.getParcelableArrayList<Attractions>(ATTRACTION_CATEG0RY_TYPE)?.let {
+            attractions=it
         }
 
     }
@@ -100,7 +101,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         binding.rvAttractionListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter=attractionListScreenAdapter
-            attractionListScreenAdapter?.attractions=createTestItem()
+            attractionListScreenAdapter?.attractions=attractions
 
         }
 
