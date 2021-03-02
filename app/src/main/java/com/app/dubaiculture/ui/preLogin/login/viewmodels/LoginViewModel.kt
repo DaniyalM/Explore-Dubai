@@ -74,19 +74,21 @@ class LoginViewModel @ViewModelInject constructor(
                     is Result.Success -> {
                         showLoader(false)
                         if (result.value.succeeded) {
+                               if (!result.value.isConfirmed) {
+                                if(phone.get().toString().startsWith("+")){
+                                    resendPhoneVerification()
+                                }else{
                             Timber.e(result.value.loginResponseDTO.userDTO.Email)
                             userRepository.saveUser(
                                 userDTO = result.value.loginResponseDTO.userDTO,
                                 loginResponseDTO = result.value.loginResponseDTO)
 
                             _loginStatus.value = Event(true)
+                                }
                         } else {
                             showLoader(false)
                             showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
-                            if (!result.value.isConfirmed) {
-                                if(phone.get().toString().startsWith("+")){
-                                    resendPhoneVerification()
-                                }
+
                             }
                         }
                     }
@@ -117,18 +119,19 @@ class LoginViewModel @ViewModelInject constructor(
                 when (val result = loginRepository.loginWithEmail(it)) {
                     is Result.Success -> {
                         if (result.value.succeeded) {
+                            if (!result.value.isConfirmed) {
+                                resendEmailVerification()
+                            }else{
                             Timber.e(result.value.loginResponseDTO.userDTO.Email)
                             userRepository.saveUser(
                                 userDTO = result.value.loginResponseDTO.userDTO,
                                 loginResponseDTO = result.value.loginResponseDTO
                             )
-                            _loginStatus.value = Event(true)
+                            _loginStatus.value = Event(true)}
                         } else {
                             showLoader(false)
                             showErrorDialog(message = result.value.errorMessage)
-                            if (!result.value.isConfirmed) {
-                                resendEmailVerification()
-                            }
+
                         }
                     }
                     is Result.Error -> {

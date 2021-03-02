@@ -1,6 +1,5 @@
 package com.app.dubaiculture.ui.preLogin.registeration
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -9,16 +8,15 @@ import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.viewModels
+import androidx.transition.ChangeBounds
+import androidx.transition.Transition
 import androidx.transition.TransitionInflater
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragment
 import com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel
-import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.setNavigationResult
-import com.balysv.materialripple.MaterialRippleLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_register.*
 
@@ -28,8 +26,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
     private val registrationViewModel: RegistrationViewModel by viewModels()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) :FragmentRegisterBinding{
-        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
-        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
+        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
+        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
         return FragmentRegisterBinding.inflate(inflater, container, false)
     }
 
@@ -64,7 +62,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
 
         registrationViewModel.isTermAccepted.observe(viewLifecycleOwner){
             if(it==false){
-                registrationViewModel.showErrorDialog(message =  resources.getString(R.string._agree_to_the_terms_and_conditions))
+                registrationViewModel.showErrorDialog(message = resources.getString(R.string._agree_to_the_terms_and_conditions))
             }
         }
 
@@ -81,12 +79,23 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
             R.id.back -> {
                 back()
             }
-            R.id.tv_term_condition->{
+            R.id.tv_term_condition -> {
                 registrationViewModel.showToast("Terms & Conditions")
             }
 
         }
     }
 
+    private fun enterTransition(): Transition? {
+        val bounds = ChangeBounds()
+        bounds.duration = 2000
+        return bounds
+    }
 
+    private fun returnTransition(): Transition? {
+        val bounds = ChangeBounds()
+        bounds.interpolator = DecelerateInterpolator()
+        bounds.duration = 2000
+        return bounds
+    }
 }
