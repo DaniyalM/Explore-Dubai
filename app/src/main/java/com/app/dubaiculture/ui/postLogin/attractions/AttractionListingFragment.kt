@@ -24,10 +24,11 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractions: ArrayList<Attractions>
     private var searchQuery: String = ""
+
     companion object {
 
         var ATTRACTION_CATEG0RY_TYPE: String = "Attractions"
-        var ATTRACTION_DETAIL_ID : String = "Attraction_ID"
+        var ATTRACTION_DETAIL_ID: String = "Attraction_ID"
 
         @JvmStatic
         fun newInstance(attractions: ArrayList<Attractions>) = AttractionListingFragment().apply {
@@ -48,6 +49,10 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            bus.post(AttractionBusService().SwipeToRefresh(true))
+        }
 
     }
 
@@ -64,8 +69,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     }
 
 
-
-
     private fun initRecyclerView() {
         attractionListScreenAdapter = AttractionListScreenAdapter()
         binding.rvAttractionListing.apply {
@@ -78,7 +81,11 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
                         attractionViewModel.showErrorDialog(message = attractions.get(position).title)
-                        navigateByAction(R.id.action_homeFragment_to_attractionDetailFragment,Bundle().apply { this.putString(ATTRACTION_DETAIL_ID,attractions.get(position).id) })
+                        navigateByAction(R.id.action_homeFragment_to_attractionDetailFragment,
+                            Bundle().apply {
+                                this.putString(ATTRACTION_DETAIL_ID,
+                                    attractions.get(position).id)
+                            })
                     }
 
                     override fun onLongItemClick(view: View, position: Int) {

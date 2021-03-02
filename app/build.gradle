@@ -81,14 +81,14 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             debuggable true
-//            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
             signingConfig signingConfigs.stagConfig
 
-            buildConfigField("String", "BASE_URL", "\"https://a04f708a-3b9c-41a5-bc03-1450f93ba4a1.mock.pstmn.io/\"")
+//            buildConfigField("String", "BASE_URL", "\"https://a04f708a-3b9c-41a5-bc03-1450f93ba4a1.mock.pstmn.io/\"")
 
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {

@@ -12,9 +12,11 @@ import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCa
 import com.app.dubaiculture.databinding.FragmentAttractionsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
+import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import kotlinx.coroutines.launch
@@ -38,13 +40,16 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         subscribeToObservables()
         initiatePager()
 
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = false
+
+
+
+    }
+
+    @Subscribe
+    fun doRefreshRequest(attractionBusService: AttractionBusService.SwipeToRefresh){
+        if (attractionBusService.doRefresh){
             callingObservables()
         }
-
-
-
     }
 
     private fun initiatePager() {
