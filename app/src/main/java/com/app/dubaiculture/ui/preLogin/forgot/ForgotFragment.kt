@@ -21,8 +21,8 @@ class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListene
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentForgotBinding {
-        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
-        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
+        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
+        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
         return FragmentForgotBinding.inflate(inflater, container, false)
     }
 

@@ -212,7 +212,7 @@ class LoginViewModel @ViewModelInject constructor(
                     is Result.Success -> {
                         if (result.value.succeeded) {
                             showLoader(false)
-                            showErrorDialog(message = result.message, colorBg = R.color.green_error)
+//                            showErrorDialog(message = result.message, colorBg = R.color.green_error)
                             Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
                             navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(

@@ -13,6 +13,8 @@
     <string name="more">More</string>
     <string name="email">Email</string>
     <string name="password">Enter Password</string>
+    <string name="_password">Password</string>
+
     <string name="login">Login</string>
     <string name="register">Sign Up</string>
     <string name="welcome_to_dubai_culture">Welcome To Dubai Culture</string>
@@ -28,6 +30,8 @@
     <string name="full_name">Full name</string>
     <string name="enter_full_name">Enter full name</string>
     <string name="email_address">Enter Email address</string>
+    <string name="_email_address">Email address</string>
+
     <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
     <string name="_agree_to_the_terms_and_conditions">Agree to the <u>Terms &amp; Conditions</u></string>
 

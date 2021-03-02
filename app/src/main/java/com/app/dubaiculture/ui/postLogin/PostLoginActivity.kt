@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 //,
 //OnStreetViewPanoramaReadyCallback
@@ -28,7 +29,19 @@ class PostLoginActivity : BaseAuthenticationActivity() {
         setContentView(R.layout.activity_post_login)
         subscribeUiEvents(mainViewModel)
 //        showStreetView()
+    }
 
+    override fun onStart() {
+        super.onStart()
+        Timber.e("Start")
+    }
+    override fun onRestart() {
+        super.onRestart()
+        Timber.e("Restart")
+    }
+    override fun onResume() {
+        super.onResume()
+        Timber.e("Resume")
     }
 
 //    override fun onStreetViewPanoramaReady(streetViewPanorama: StreetViewPanorama) {

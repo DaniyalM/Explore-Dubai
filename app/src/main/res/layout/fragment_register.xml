@@ -125,7 +125,7 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/email_address"
                     style="@style/TextViewRegistrationStyle"
-                    android:text="@string/email_address"
+                    android:text="@string/_email_address"
                     app:layout_constraintStart_toStartOf="@+id/edit_fullName"
                     app:layout_constraintTop_toBottomOf="@+id/edit_fullName" />
 
