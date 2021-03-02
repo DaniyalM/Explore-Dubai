@@ -32,6 +32,8 @@
     <string name="register_now">تسجيل</string>
     <string name="confirm_password">ادخل تأكيد كلمة السر </string>
     <string name="_confirm_password"> تأكيد كلمة السر</string>
+    <string name="_email_address">ادخل البريد الالكتروني</string>
+    <string name="_password"> كلمة السر</string>
 
     <string name="forgot_password_">نسيت كلمة السر</string>
     <string name="cancel">الغاء</string>
