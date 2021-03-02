@@ -74,6 +74,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         subscribeToObservables()
+        if(isArabic()){
+            binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
+        }else{
+            binding.imgUaePass.setImageResource(R.drawable.uae_pass)
+        }
     }
 
     private fun subscribeToObservables() {

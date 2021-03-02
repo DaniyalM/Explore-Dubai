@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.preLogin
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
@@ -18,4 +19,6 @@ class PreLoginActivity : BaseActivity() {
 
         this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
+
+
 }

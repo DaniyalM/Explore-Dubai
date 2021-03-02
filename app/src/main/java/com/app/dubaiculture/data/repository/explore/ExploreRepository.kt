@@ -17,8 +17,8 @@ import javax.inject.Inject
 class ExploreRepository @Inject constructor(
     private val exploreRDS: ExploreRDS
 ) : BaseRepository()  {
-    suspend fun getExplore(exploreRequest: ExploreRequest): Result<List<Explore>> {
-        return when (val resultRDS = exploreRDS.getExplore(transformExploreRequest(exploreRequest))) {
+    suspend fun getExplore(culture:String): Result<List<Explore>> {
+        return when (val resultRDS = exploreRDS.getExplore(culture)) {
             is Result.Success -> {
                 // Single Source Of Truth -> get data from server -> save to db -> get from db to provide to UI
                 val listRDS = resultRDS
