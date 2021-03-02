@@ -71,7 +71,7 @@
     <string name="free">FREE</string>
     <string name="confirm">Confirm</string>
     <string name="already_a_member">Already a member?</string>
-    <string name="at_least_one_digit">At least one digit</string>
+    <string name="at_least_one_digit">Should contains at least one digit</string>
 
 
     <string name="enter_mobile_number_reg">Enter mobile number</string>

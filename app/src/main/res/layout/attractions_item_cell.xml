@@ -37,9 +37,10 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/attraction_title_text"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_65sdp"
             android:layout_height="wrap_content"
             android:text="@{attractions.title}"
+            android:textAlignment="center"
             android:singleLine="true"
             android:textSize="@dimen/_9ssp"
             android:textColor="@color/black_900"
