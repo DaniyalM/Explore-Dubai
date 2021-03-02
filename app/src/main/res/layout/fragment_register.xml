@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
-
         <import type="android.content.Context" />
-
         <variable
             name="viewmodel"
             type="com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel" />
@@ -21,16 +18,14 @@
         <include
             android:id="@+id/header" layout="@layout/layout_back" />
         <com.airbnb.lottie.LottieAnimationView
-
             android:id="@+id/animation_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:chainUseRtl="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/reg_lines"
+            app:lottie_rawRes="@raw/green_animation_login"
             app:lottie_repeatCount="0" />
 
         <ScrollView
@@ -279,7 +274,7 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/confirm_pass"
                     style="@style/TextViewRegistrationStyle"
-                    android:text="@string/confirm_password"
+                    android:text="@string/_confirm_password"
                     app:layout_constraintStart_toStartOf="@+id/edit_pass"
                     app:layout_constraintTop_toBottomOf="@+id/edit_pass" />
 

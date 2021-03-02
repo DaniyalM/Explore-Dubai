@@ -12,7 +12,7 @@
     <string name="attractions">الوجهات الثقافية</string>
     <string name="more">المزيد</string>
     <string name="email">البريد الالكتروني</string>
-    <string name="password">كلمة السر</string>
+    <string name="password">ادخل كلمة السر </string>
     <string name="login">تسجيل الدخول</string>
     <string name="register">التسجيل</string>
     <string name="welcome_to_dubai_culture">مرحبا بك في هيئة دبي للثقافة والفنون</string>
@@ -27,10 +27,11 @@
     <string name="registration">التسجيل</string>
     <string name="full_name">الاسم الكامل</string>
     <string name="enter_full_name">ادخل اسمك الكامل</string>
-    <string name="email_address">البريد الالكتروني</string>
+    <string name="email_address">ادخل البريد الالكتروني</string>
     <string name="i_agree_to_the_terms_and_conditions">أوافق على  <u>الشروط والأحكام</u></string>
     <string name="register_now">تسجيل</string>
-    <string name="confirm_password">تأكيد كلمة السر</string>
+    <string name="confirm_password">ادخل تأكيد كلمة السر </string>
+    <string name="_confirm_password"> تأكيد كلمة السر</string>
 
     <string name="forgot_password_">نسيت كلمة السر</string>
     <string name="cancel">الغاء</string>
@@ -71,7 +72,7 @@
     <string name="err_phone_two" >e.g: 971-------------</string>
     <string name="your_password_has_been_updated_continue_to_login">لقد تم تحديث كلمة السر الخاصة بك. أكمل الى تسجيل الدخول</string>
     <string name="mobile_number_new">رقم الهاتف خطئ</string>
-    <string name="enter_mobile_number_reg"> رقم الهاتف</string>
+    <string name="enter_mobile_number_reg">ادخل رقم الهاتف</string>
     <string name="book_a_ticket">Book a Ticket</string>
     <string name="select_date">Select date</string>
     <string name="add_date_of_visit">Add date of visit</string>

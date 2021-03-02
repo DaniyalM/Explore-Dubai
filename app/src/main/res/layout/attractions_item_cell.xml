@@ -5,19 +5,18 @@
         <variable name="attractions" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_73sdp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
      >
 
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/attraction_image"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
             android:layout_marginTop="12dp"
             android:background="@android:drawable/dialog_holo_light_frame"
-            app:cardElevation="10dp"
+            app:cardElevation="18dp"
             app:cardBackgroundColor="@color/purple_900"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,12 +25,13 @@
 <!--            app:shapeAppearance="@style/RoundedShape"-->
             <ImageView
                 android:id="@+id/img_card_view"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:imageViewUrl="@{attractions.icon}"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:svgUrl="@{attractions.icon}"
                 android:layout_gravity="center"
                 />
         </com.google.android.material.card.MaterialCardView>
+
 
 
 
@@ -41,11 +41,10 @@
             android:layout_height="wrap_content"
             android:text="@{attractions.title}"
             android:textAlignment="center"
-            android:singleLine="true"
+            android:maxLines="2"
             android:textSize="@dimen/_9ssp"
             android:textColor="@color/black_900"
             android:ellipsize="end"
-            app:textFont="regular"
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/attraction_image"

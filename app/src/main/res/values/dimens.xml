@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="widget_margin">8dp</dimen>
-    <dimen name="my_corner_radius">28dp</dimen>
+    <dimen name="my_corner_radius">24dp</dimen>
     <dimen name="my_corner_radius_plan">35dp</dimen>
     <dimen name="my_corner_radius_corner">0dp</dimen>
 

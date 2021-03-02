@@ -31,7 +31,7 @@
             <com.rishabhharit.roundedimageview.RoundedImageView
                 android:id="@+id/img_upcoming_bg"
                 app:cornerRadius="@dimen/_15sdp"
-                android:scaleType="fitXY"
+                android:scaleType="center"
                 android:layout_margin="@dimen/_10sdp"
                 android:imageUrl='@{news.image}'
                 app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight"

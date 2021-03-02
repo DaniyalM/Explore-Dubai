@@ -7,7 +7,7 @@ import com.app.dubaiculture.data.repository.photo.remote.request.GetPhotoRequest
 import javax.inject.Inject
 
 class ExploreRDS @Inject constructor(private val exploreService: ExploreService) : BaseRDS() {
-    suspend fun getExplore(exploreRequestDTO: ExploreRequestDTO) = safeApiCall {
-        exploreService.getExploreApi(exploreRequestDTO)
+    suspend fun getExplore(culture : String) = safeApiCall {
+        exploreService.getExploreApi(culture)
     }
 }
