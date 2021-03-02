@@ -13,12 +13,10 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.annotation.IdRes
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import androidx.test.internal.util.LogUtil
 import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.NetworkLiveData
@@ -54,6 +52,10 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         activity = (context as Activity)
     }
 
+    override fun onStart() {
+        super.onStart()
+        adjustFontScale(getResources().getConfiguration());
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         application = activity.application as ApplicationEntry
@@ -207,8 +209,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
-
     open fun adjustFontScale(configuration: Configuration) {
         if (configuration.fontScale > 1.30) {
             configuration.fontScale = 1.30f
@@ -216,7 +216,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             val wm = requireContext().getSystemService(WINDOW_SERVICE) as WindowManager?
             wm!!.defaultDisplay.getMetrics(metrics)
             metrics.scaledDensity = configuration.fontScale * metrics.density
-            requireActivity().getResources().updateConfiguration(configuration, metrics)
+            this.getResources().updateConfiguration(configuration, metrics)
         }
     }
 
@@ -224,4 +224,5 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         super.onResume()
         adjustFontScale(getResources().getConfiguration());
     }
+
 }

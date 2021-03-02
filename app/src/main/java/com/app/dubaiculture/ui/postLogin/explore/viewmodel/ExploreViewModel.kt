@@ -24,7 +24,7 @@ class ExploreViewModel @ViewModelInject constructor(
     fun getExploreToScreen(locale: String) {
         showLoader(true)
         viewModelScope.launch {
-            when (val result = exploreRepository.getExplore(ExploreRequest(culture = locale))) {
+            when (val result = exploreRepository.getExplore(locale)) {
                 is Result.Success -> {
                     _exploreList.value = result
                     showLoader(false)

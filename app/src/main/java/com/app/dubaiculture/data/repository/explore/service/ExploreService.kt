@@ -10,6 +10,6 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ExploreService {
-    @POST("/api/Content/HomeScreenContent")
-    suspend fun getExploreApi(@Body exploreRequestDTO: ExploreRequestDTO): ExploreResponse
+    @GET("/api/Content/HomeScreenContent")
+    suspend fun getExploreApi(@Query("culture") culture:String): ExploreResponse
 }

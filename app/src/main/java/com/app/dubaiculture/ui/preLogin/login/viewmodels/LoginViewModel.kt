@@ -1,14 +1,12 @@
 package com.app.dubaiculture.ui.preLogin.login.viewmodels
 
 import android.app.Application
-import android.text.Editable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
@@ -20,10 +18,8 @@ import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.Constants.NavBundles.COMES_FROM_LOGIN
 import com.app.dubaiculture.utils.event.Event
-import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Singleton
 
 class LoginViewModel @ViewModelInject constructor(
     private val loginRepository: LoginRepository,
@@ -63,33 +59,49 @@ class LoginViewModel @ViewModelInject constructor(
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
 
-    fun loginWithPhone(ph:String?=null,pass:String?=null) {
+//    if (!result.value.isConfirmed) {
+//        if(phone.get().toString().startsWith("+")){
+//            resendPhoneVerification()
+//        }else{
+//            Timber.e(result.value.loginResponseDTO.userDTO.Email)
+//            userRepository.saveUser(
+//                userDTO = result.value.loginResponseDTO.userDTO,
+//                loginResponseDTO = result.value.loginResponseDTO)
+//
+//            _loginStatus.value = Event(true)
+//        }
+//    } else {
+//        showLoader(false)
+//        showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
+//
+//    }
+
+    fun loginWithPhone(ph: String? = null, pass: String? = null) {
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
                 phoneNumber = ph.toString().trim(),
-                password =  pass.toString().trim()
+                password = pass.toString().trim()
             ).let {
                 when (val result = loginRepository.login(it)) {
                     is Result.Success -> {
                         showLoader(false)
                         if (result.value.succeeded) {
-                               if (!result.value.isConfirmed) {
-                                if(phone.get().toString().startsWith("+")){
-                                    resendPhoneVerification()
-                                }else{
-                            Timber.e(result.value.loginResponseDTO.userDTO.Email)
-                            userRepository.saveUser(
-                                userDTO = result.value.loginResponseDTO.userDTO,
-                                loginResponseDTO = result.value.loginResponseDTO)
+                            if (!result.value.isConfirmed) {
+                                resendPhoneVerification()
+                            } else {
+                                Timber.e(result.value.loginResponseDTO.userDTO.Email)
+                                userRepository.saveUser(
+                                    userDTO = result.value.loginResponseDTO.userDTO,
+                                    loginResponseDTO = result.value.loginResponseDTO)
 
-                            _loginStatus.value = Event(true)
-                                }
+                                _loginStatus.value = Event(true)
+                            }
+
                         } else {
                             showLoader(false)
-                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
-
-                            }
+                            showErrorDialog(message = result.value.errorMessage,
+                                colorBg = R.color.red_600)
                         }
                     }
                     is Result.Error -> {
@@ -107,7 +119,7 @@ class LoginViewModel @ViewModelInject constructor(
     }
 
 
-    fun loginWithEmail(eml:String?=null,pass:String?=null) {
+    fun loginWithEmail(eml: String? = null, pass: String? = null) {
         if (!isCheckValid())
             return
         viewModelScope.launch {
@@ -119,15 +131,17 @@ class LoginViewModel @ViewModelInject constructor(
                 when (val result = loginRepository.loginWithEmail(it)) {
                     is Result.Success -> {
                         if (result.value.succeeded) {
+
                             if (!result.value.isConfirmed) {
                                 resendEmailVerification()
-                            }else{
-                            Timber.e(result.value.loginResponseDTO.userDTO.Email)
-                            userRepository.saveUser(
-                                userDTO = result.value.loginResponseDTO.userDTO,
-                                loginResponseDTO = result.value.loginResponseDTO
-                            )
-                            _loginStatus.value = Event(true)}
+                            } else {
+                                Timber.e(result.value.loginResponseDTO.userDTO.Email)
+                                userRepository.saveUser(
+                                    userDTO = result.value.loginResponseDTO.userDTO,
+                                    loginResponseDTO = result.value.loginResponseDTO
+                                )
+                                _loginStatus.value = Event(true)
+                            }
                         } else {
                             showLoader(false)
                             showErrorDialog(message = result.value.errorMessage)
@@ -158,7 +172,7 @@ class LoginViewModel @ViewModelInject constructor(
                     is Result.Success -> {
                         if (result.value.succeeded) {
                             showLoader(false)
-                          //  showErrorDialog(message = result.message, colorBg = R.color.green_error)
+                            //  showErrorDialog(message = result.message, colorBg = R.color.green_error)
                             Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
                             navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
@@ -187,6 +201,7 @@ class LoginViewModel @ViewModelInject constructor(
             showLoader(false)
         }
     }
+
     private fun resendPhoneVerification() {
         viewModelScope.launch {
             showLoader(true)
@@ -223,6 +238,7 @@ class LoginViewModel @ViewModelInject constructor(
             showLoader(false)
         }
     }
+
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
         isLoginWithPhone.value = loginTypeChecker(s)
@@ -243,11 +259,11 @@ class LoginViewModel @ViewModelInject constructor(
 
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         password.set(s.toString())
-        if(password.get().toString().trim().isNullOrEmpty()){
-            passwordError_.value =  R.string.required
+        if (password.get().toString().trim().isNullOrEmpty()) {
+            passwordError_.value = R.string.required
             isPassword.value = false
-        }else{
-            passwordError_.value =  R.string.no_error
+        } else {
+            passwordError_.value = R.string.no_error
             isPassword.value = true
         }
 
@@ -270,8 +286,7 @@ class LoginViewModel @ViewModelInject constructor(
     }
 
 
-
-   private fun isCheckValid(): Boolean {
+    private fun isCheckValid(): Boolean {
         var isValid = true
 
         isPhoneEdit.value = AuthUtils.isValidMobileNumber(phone.get().toString().trim())
@@ -281,13 +296,13 @@ class LoginViewModel @ViewModelInject constructor(
         isPhone.value = !phone.get().toString().isNullOrEmpty()
 //        isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
 
-            if(password.get().toString().trim().isNullOrEmpty()){
-              passwordError_.value =  R.string.required
-                isPassword.value = false
-            }else{
-                passwordError_.value =  R.string.no_error
-                isPassword.value = true
-            }
+        if (password.get().toString().trim().isNullOrEmpty()) {
+            passwordError_.value = R.string.required
+            isPassword.value = false
+        } else {
+            passwordError_.value = R.string.no_error
+            isPassword.value = true
+        }
 
 //        passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
         errs_.value = AuthUtils.errorsEmailAndPhone(phone.get().toString().trim())
