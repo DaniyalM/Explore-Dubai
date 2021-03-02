@@ -45,7 +45,7 @@
     <string name="continue_">استمرار</string>
     <string name="registration_successful">تم التسجيل بنجاح</string>
     <string name="enter_otp">أدخل  كلمة مرور لمرة واحد</string>
-    <string name="resend_otp">اعادة ارسال كلمة مرور لمرة واحدة</string>
+    <string name="resend_otp">اعادة ارسال OTP</string>
     <string name="expires_in">تنتهي في</string>
     <string name="workshop">ورشة عمل</string>
     <string name="mobile_number">رقم الهاتف \ البريد الالكتروني</string>
@@ -67,7 +67,7 @@
     <string name="free">مجانا</string>
     <string name="confirm">تأكيد</string>
     <string name="already_a_member">لديك حساب؟</string>
-    <string name="at_least_one_digit">رقم واحد على الأقل</string>
+    <string name="at_least_one_digit">يجب أن تتضمن رقم</string>
     <string name="err_phone_two" >e.g: 971-------------</string>
     <string name="your_password_has_been_updated_continue_to_login">لقد تم تحديث كلمة السر الخاصة بك. أكمل الى تسجيل الدخول</string>
     <string name="mobile_number_new">رقم الهاتف خطئ</string>
