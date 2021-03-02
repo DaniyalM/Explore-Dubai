@@ -21,18 +21,24 @@
             >
 <!--       app:layout_scrollFlags="scroll|enterAlwaysCollapsed"       -->
 
-
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:orientation="vertical">
+                android:id="@+id/uniqueToolbar"
+                android:layout_marginTop="@dimen/_20sdp">
+                <include layout="@layout/toolbar_layout"/>
 
-                <com.app.dubaiculture.ui.components.searchview.CustomSearchView
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/detailToolbar"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_20sdp">
+                <include layout="@layout/toolbar_layout_detail"/>
 
-            </LinearLayout>
+            </FrameLayout>
+
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 </merge>

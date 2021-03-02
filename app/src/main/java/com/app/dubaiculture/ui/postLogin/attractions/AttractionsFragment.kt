@@ -38,6 +38,12 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         subscribeToObservables()
         initiatePager()
 
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            callingObservables()
+        }
+
+
 
     }
 

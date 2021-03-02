@@ -19,8 +19,7 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/header"
-            layout="@layout/layout_back" />
+            android:id="@+id/header" layout="@layout/layout_back" />
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
             android:layout_width="wrap_content"

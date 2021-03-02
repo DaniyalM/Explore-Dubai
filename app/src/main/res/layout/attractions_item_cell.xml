@@ -28,7 +28,7 @@
                 android:id="@+id/img_card_view"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:svgUrl="@{attractions.icon}"
+                android:imageViewUrl="@{attractions.icon}"
                 android:layout_gravity="center"
                 />
         </com.google.android.material.card.MaterialCardView>
@@ -41,9 +41,10 @@
             android:layout_height="wrap_content"
             android:text="@{attractions.title}"
             android:singleLine="true"
-            android:textSize="@dimen/_8ssp"
+            android:textSize="@dimen/_9ssp"
             android:textColor="@color/black_900"
             android:ellipsize="end"
+            app:textFont="regular"
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/attraction_image"
