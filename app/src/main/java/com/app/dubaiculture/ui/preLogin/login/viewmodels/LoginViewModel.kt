@@ -88,6 +88,7 @@ class LoginViewModel @ViewModelInject constructor(
                         showLoader(false)
                         if (result.value.succeeded) {
                             if (!result.value.isConfirmed) {
+                                showErrorDialog(message = result.value.errorMessage)
                                 resendPhoneVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
@@ -131,8 +132,11 @@ class LoginViewModel @ViewModelInject constructor(
                 when (val result = loginRepository.loginWithEmail(it)) {
                     is Result.Success -> {
                         if (result.value.succeeded) {
+//                            if(result.value.errorMessage.isNullOrEmpty()){
+//                                showErrorDialog(message = result.value.errorMessage)}
 
                             if (!result.value.isConfirmed) {
+                                showErrorDialog(message = result.value.errorMessage)
                                 resendEmailVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
@@ -184,7 +188,8 @@ class LoginViewModel @ViewModelInject constructor(
 
                         } else {
                             showLoader(false)
-                            showErrorDialog(message = result.value.errorMessage)
+                            if(result.value.errorMessage.isNullOrEmpty()){
+                                showErrorDialog(message = result.value.errorMessage)}
 
 
                         }

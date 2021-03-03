@@ -151,7 +151,7 @@
             android:id="@+id/password"
             style="@style/TextViewRegistrationStyle"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:text="@string/password"
+            android:text="@string/_password"
             android:textColor="@color/white_900"
             android:transitionName="my_password"
             app:layout_constraintBottom_toTopOf="@+id/edit_password"
