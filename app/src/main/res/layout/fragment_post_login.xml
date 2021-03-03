@@ -37,6 +37,7 @@
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/mob_num"
             style="@style/TextViewRegistrationStyle"
+            android:layout_marginTop="@dimen/_25sdp"
             android:text="@string/mobile_number_new"
             android:transitionName="my_phone"
             app:layout_constraintStart_toStartOf="@+id/heading_login_to_continue"
@@ -95,9 +96,9 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_pass_error"
-            android:text="Error"
             style="@style/TextViewErrorRegistration"
-            app:layout_constraintBottom_toBottomOf="@+id/mob_num"
+            android:text="Error"
+            app:layout_constraintBottom_toBottomOf="@+id/pass_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/pass_text"
@@ -129,6 +130,84 @@
             app:layout_constraintTop_toTopOf="@+id/edit_password" />
 
         <!--password field end-->
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_forgot_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_password"
+            android:textColor="@color/black_200"
+            android:background="@drawable/custom_ripple_border"
+            android:layout_marginTop="@dimen/_17sdp"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintEnd_toEndOf="@+id/edit_password"
+            app:layout_constraintStart_toStartOf="@+id/edit_password"
+            app:layout_constraintTop_toBottomOf="@+id/edit_password" />
+
+
+        <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:background="@drawable/btn_register"
+            android:foreground="@drawable/custom_ripple_border"
+            android:gravity="center"
+            android:text="@string/register_now"
+            android:textAllCaps="false"
+            android:outlineSpotShadowColor="@color/purple_600"
+            android:elevation="@dimen/_15sdp"
+            android:textColor="@color/white_900"
+            app:layout_constraintEnd_toEndOf="@+id/tv_forgot_pass"
+            app:layout_constraintStart_toStartOf="@+id/tv_forgot_pass"
+            app:layout_constraintTop_toBottomOf="@+id/tv_forgot_pass" />
+
+
+        <ImageView
+            android:id="@+id/img_uae_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:background="@drawable/custom_ripple_border"
+            android:src="@drawable/uae_pass"
+            android:elevation="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_dont_have_acct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/don_t_have_an_account"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:textColor="@color/gray_800"
+            android:textSize="@dimen/_11ssp"
+            android:transitionName="my_dummy"
+            app:layout_constraintTop_toBottomOf="@+id/img_uae_pass"
+            app:layout_constraintEnd_toStartOf="@+id/tv_register_now"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_register_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:background="@drawable/custom_ripple_border"
+            android:text="@string/register_now"
+            android:textColor="@color/purple_900"
+            android:textSize="@dimen/_11ssp"
+            android:transitionName="my_register"
+            app:layout_constraintTop_toBottomOf="@+id/img_uae_pass"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/tv_dont_have_acct" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
