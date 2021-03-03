@@ -88,6 +88,7 @@
     <string name="should_contain_a_lowercase_character">Should contain a lowercase character</string>
     <string name="should_contain_a_upper_character">Should contains an uppercase character</string>
     <string name="should_contain_a_special_character">Should contain a special character (!@#)</string>
+    <string name="login_to_continue">Login to Continue</string>
 
 
 </resources>

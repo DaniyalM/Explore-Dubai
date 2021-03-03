@@ -83,6 +83,7 @@
     <string name="should_contain_a_lowercase_character">يجب أن تتضمن حرف صغير</string>
     <string name="should_contain_a_upper_character">يجب أن تتضمن حرف كبير</string>
     <string name="should_contain_a_special_character">(!@#) يجب أن تتضمن حرف مميز</string>
+    <string name="login_to_continue">Login to Continue</string>
 </resources>
 
 

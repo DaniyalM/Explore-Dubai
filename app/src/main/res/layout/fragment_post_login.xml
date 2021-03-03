@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.postLogin.attractions.detail.login.PostLoginFragment">
+
+
+        <ImageView
+            android:id="@+id/gray_line"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/gray_line"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"/>
+
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/heading_login_to_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_200"
+            android:textSize="@dimen/_16ssp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:text="@string/login_to_continue"
+            app:layout_constraintTop_toBottomOf="@+id/gray_line"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <!--mobile field start-->
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/mob_num"
+            style="@style/TextViewRegistrationStyle"
+            android:text="@string/mobile_number_new"
+            android:transitionName="my_phone"
+            app:layout_constraintStart_toStartOf="@+id/heading_login_to_continue"
+            app:layout_constraintTop_toBottomOf="@+id/heading_login_to_continue" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvPhoneErrors"
+            android:text="Error"
+            style="@style/TextViewErrorRegistration"
+            app:layout_constraintBottom_toBottomOf="@+id/mob_num"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/mob_num"
+            app:layout_constraintTop_toTopOf="@+id/mob_num" />
+
+        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+            android:id="@+id/edit_mobile"
+            style="@style/EditTextStyle"
+            android:background="@drawable/bg_edit_resiger"
+            android:digits="0123456789+"
+            android:drawableEnd="@drawable/mob_register"
+            android:hint="@string/enter_mobile_number_reg"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:transitionName="my_edit_phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mob_num"
+            tools:src="@drawable/bg_edit_resiger" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@drawable/error"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_mobile"
+            app:layout_constraintEnd_toEndOf="@+id/edit_mobile"
+            app:layout_constraintTop_toTopOf="@+id/edit_mobile" />
+
+        <!--mobile field end-->
+
+
+
+
+
+
+        <!--password field start-->
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/pass_text"
+            style="@style/TextViewRegistrationStyle"
+            android:text="@string/mobile_number_new"
+            android:transitionName="my_phone"
+            app:layout_constraintStart_toStartOf="@+id/edit_mobile"
+            app:layout_constraintTop_toBottomOf="@+id/edit_mobile" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_pass_error"
+            android:text="Error"
+            style="@style/TextViewErrorRegistration"
+            app:layout_constraintBottom_toBottomOf="@+id/mob_num"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/mob_num"
+            app:layout_constraintTop_toTopOf="@+id/mob_num" />
+
+        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+            android:id="@+id/edit_password"
+            style="@style/EditTextStyle"
+            android:background="@drawable/bg_edit_resiger"
+            android:digits="0123456789+"
+            android:drawableEnd="@drawable/key_register"
+            android:hint="@string/enter_mobile_number_reg"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:transitionName="my_edit_phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pass_text"
+            tools:src="@drawable/bg_edit_resiger" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@drawable/error"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_password"
+            app:layout_constraintEnd_toEndOf="@+id/edit_password"
+            app:layout_constraintTop_toTopOf="@+id/edit_password" />
+
+        <!--password field end-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
