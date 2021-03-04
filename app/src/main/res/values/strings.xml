@@ -33,7 +33,7 @@
     <string name="_email_address">Email address</string>
 
     <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
-    <string name="_agree_to_the_terms_and_conditions">Agree to the <u>Terms &amp; Conditions</u></string>
+    <string name="_agree_to_the_terms_and_conditions">Please select the Terms &amp; Conditions</string>
 
     <string name="register_now">Register Now</string>
     <string name="confirm_password">Enter Confirm password</string>

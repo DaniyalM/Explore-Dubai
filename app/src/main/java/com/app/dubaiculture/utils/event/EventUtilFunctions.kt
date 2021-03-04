@@ -38,7 +38,7 @@ object EventUtilFunctions {
             .setText(message)
             .setIcon(R.drawable.error_dialog)
             .setBackgroundColorRes(colorBg?:R.color.red_600)
-            .setDuration(3000)
+            .setDuration(2000)
             .setIconColorFilter(0) // Optional - Removes white tint
          //   .setIconSize(R.dimen.custom_icon_size) // Optional - default is 38dp
             .show()

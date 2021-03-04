@@ -1,6 +1,8 @@
 package com.app.dubaiculture.ui.postLogin
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
@@ -28,7 +30,7 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
         subscribeUiEvents(mainViewModel)
-//        showStreetView()
+
     }
 
     override fun onStart() {
@@ -41,8 +43,22 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     }
     override fun onResume() {
         super.onResume()
-        Timber.e("Resume")
+        adjustFontScale(getResources().getConfiguration());
+
     }
+
+
+    open fun adjustFontScale(configuration: Configuration) {
+        if (configuration.fontScale > 1.30) {
+            configuration.fontScale = 1.30f
+            val metrics = resources.displayMetrics
+            val wm = getSystemService(WINDOW_SERVICE) as WindowManager?
+            wm!!.defaultDisplay.getMetrics(metrics)
+            metrics.scaledDensity = configuration.fontScale * metrics.density
+            this.getResources().updateConfiguration(configuration, metrics)
+        }
+    }
+
 
 //    override fun onStreetViewPanoramaReady(streetViewPanorama: StreetViewPanorama) {
 ////        val sanFrancisco = LatLng(37.754130, -122.447129)
