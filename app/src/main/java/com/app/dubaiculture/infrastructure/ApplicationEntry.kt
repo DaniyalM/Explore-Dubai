@@ -12,11 +12,13 @@ import timber.log.Timber
 class ApplicationEntry : Application() {
     var bus: Bus = Bus()
     lateinit var auth: AuthState
+    var isInternetActive=false
 
     override fun onCreate() {
         super.onCreate()
         auth = AuthState()
         NetworkLiveData.initNetwork(this)
+        isInternetActive=NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
         ThemeUtil.applyTheme("light")
     }

@@ -12,7 +12,9 @@
     <string name="attractions">Attractions</string>
     <string name="more">More</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="password">Enter Password</string>
+    <string name="_password">Password</string>
+
     <string name="login">Login</string>
     <string name="register">Sign Up</string>
     <string name="welcome_to_dubai_culture">Welcome To Dubai Culture</string>
@@ -27,12 +29,15 @@
     <string name="registration">Registration</string>
     <string name="full_name">Full name</string>
     <string name="enter_full_name">Enter full name</string>
-    <string name="email_address">Email address</string>
+    <string name="email_address">Enter Email address</string>
+    <string name="_email_address">Email address</string>
+
     <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
-    <string name="_agree_to_the_terms_and_conditions">Agree to the <u>Terms &amp; Conditions</u></string>
+    <string name="_agree_to_the_terms_and_conditions">Please select the Terms &amp; Conditions</string>
 
     <string name="register_now">Register Now</string>
-    <string name="confirm_password">Confirm password</string>
+    <string name="confirm_password">Enter Confirm password</string>
+    <string name="_confirm_password">Confirm password</string>
 
     <string name="forgot_password_">Forgot Password</string>
     <string name="cancel">Cancel</string>
@@ -71,7 +76,7 @@
     <string name="free">FREE</string>
     <string name="confirm">Confirm</string>
     <string name="already_a_member">Already a member?</string>
-    <string name="at_least_one_digit">At least one digit</string>
+    <string name="at_least_one_digit">Should contains at least one digit</string>
 
 
     <string name="enter_mobile_number_reg">Enter mobile number</string>

@@ -54,4 +54,5 @@ abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
     }
 
 
+
 }

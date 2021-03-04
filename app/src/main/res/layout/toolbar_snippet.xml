@@ -4,35 +4,25 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
+        app:elevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:fitsSystemWindows="true">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentInsetStart="0dp"
-            android:contentInsetLeft="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
 
-            >
 <!--       app:layout_scrollFlags="scroll|enterAlwaysCollapsed"       -->
 
-
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:orientation="vertical">
+                android:id="@+id/uniqueToolbar"
+                android:layout_marginTop="@dimen/_20sdp">
 
-                <com.app.dubaiculture.ui.components.searchview.CustomSearchView
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp" />
+                <include layout="@layout/toolbar_layout"/>
 
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
+            </FrameLayout>
+
+
     </com.google.android.material.appbar.AppBarLayout>
 </merge>

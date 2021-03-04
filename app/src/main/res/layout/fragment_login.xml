@@ -39,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/registration"
+            app:lottie_rawRes="@raw/white_animation_reg"
      />
 
         <androidx.constraintlayout.widget.Guideline
@@ -151,7 +151,7 @@
             android:id="@+id/password"
             style="@style/TextViewRegistrationStyle"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:text="@string/password"
+            android:text="@string/_password"
             android:textColor="@color/white_900"
             android:transitionName="my_password"
             app:layout_constraintBottom_toTopOf="@+id/edit_password"

@@ -28,7 +28,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     fun showAlert(title: String = "Alert", message: String) {
         _uiEventsLiveData.value = Event(UiEvent.ShowAlert(title = title, message = message))
     }
-    fun showErrorDialog(title:String?="Alert",message:String, @ColorRes colorBg:Int?=null){
+    fun showErrorDialog(title:String?="Alert",message:String, @ColorRes colorBg:Int?=R.color.purple_900){
         _uiEventsLiveData.value = Event(UiEvent.ShowErrorDialog(title = title?:"Alert",message=message, colorBg = colorBg?: R.color.red_600))
     }
 

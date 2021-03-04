@@ -22,7 +22,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_repeatCount="0"
-            app:lottie_rawRes="@raw/reg_lines"
+            app:lottie_rawRes="@raw/green_animation_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
