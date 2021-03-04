@@ -87,6 +87,27 @@
     <string name="should_contain_a_upper_character">يجب أن تتضمن حرف كبير</string>
     <string name="should_contain_a_special_character">(!@#) يجب أن تتضمن حرف مميز</string>
     <string name="login_to_continue">Login to Continue</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="okay">Okay</string>
+    <string name="filters">Filters</string>
+    <string name="search_events_by_keyword">Search events by keyword</string>
+    <string name="location">Location</string>
+    <string name="date_range">Date Range</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="category">Category</string>
+    <string name="type">Type</string>
+    <string name="_free">Free</string>
+    <string name="ticketed">Ticketed</string>
+    <string name="reset_filter">Reset Filter</string>
+    <string name="museums_near_you">Museums Near You</string>
+    <string name="sort">Sort</string>
+    <string name="alphabetically">Alphabetically</string>
+    <string name="a_to_z">A to Z</string>
+    <string name="z_to_a">Z to A</string>
+    <string name="date">Date</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
 </resources>
 
 

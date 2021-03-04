@@ -240,4 +240,5 @@ dependencies {
     //recycler Animation
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
     implementation 'com.tapadoo.android:alerter:7.0.1'
+    implementation 'com.google.android:flexbox:2.0.1'
 }
