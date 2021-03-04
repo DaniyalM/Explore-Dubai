@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.FragmentAttractionsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
@@ -74,7 +75,11 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                     }
                 }
                 is Result.Failure -> {
-                    handleApiError(it, attractionViewModel)
+                    binding.horizontalSelector.initialize(createTestItems(), binding.pager)
+                    binding.pager.adapter = AttractionPagerAdaper(this,
+                        createTestItems() as ArrayList<AttractionCategory>)
+
+//                    handleApiError(it, attractionViewModel)
                 }
             }
         }
@@ -117,5 +122,39 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         binding.horizontalSelector.positionUpdate(clickCheckerFlag)
     }
 
+
+    private fun createTestItems(): List<AttractionCategory> = mutableListOf<AttractionCategory>().apply {
+
+
+        repeat((1..10).count()) {
+
+            add(
+                AttractionCategory(
+                    id=it.toString(),
+                    title = "Title 1 $it",
+                    icon = "",
+                    imgSelected = R.drawable.museums_icon_home,
+                    imgUnSelected = R.drawable.museum,
+                    attractions = createAttractionItems()
+                )
+            )
+        }
+    }
+
+    private fun createAttractionItems(): ArrayList<Attractions> = mutableListOf<Attractions>().apply {
+
+
+        repeat((1..4).count()) {
+
+            add(
+                Attractions(
+                    id=it.toString(),
+                    title = "title $it",
+                    category = "Category $it",
+                    IsFavourite = false,
+                )
+            )
+        }
+    } as ArrayList<Attractions>
 }
 
