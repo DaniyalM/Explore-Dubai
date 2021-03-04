@@ -25,19 +25,27 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Handler(Looper.getMainLooper()).postDelayed({
-            collapseAppbar()
+        binding.appbarAttractionDetail.addOnOffsetChangedListener(object :AppBarLayout.OnOffsetChangedListener{
+            override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+                if(verticalOffset == 0 || verticalOffset <= mToolbar.getHeight() && !mToolbar.getTitle().equals(mCollapsedTitle)){
+                }else if(!mToolbar.getTitle().equals(mExpandedTitle)){
+                }
+            }
+        })
 
-        },3000)
-        Handler(Looper.getMainLooper()).postDelayed({
-            expandAppbar()
-
-        },4000)
     }
 
 
-    private fun collapseAppbar() {
-        binding.appbarAttractionDetail.setExpanded(false)
+
+
+
+
+
+
+
+
+    private fun collapseAppbar(boolean: Boolean=false) {
+        binding.appbarAttractionDetail.setExpanded(boolean)
 //        coordinatorLayout = binding.appbarAttractionDetail.layoutParams as CoordinatorLayout.LayoutParams?
 //        behavior= coordinatorLayout?.behavior as AppBarLayout.Behavior?
 //
@@ -46,13 +54,5 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 //        }
     }
 
-    private fun expandAppbar() {
-        binding.appbarAttractionDetail.setExpanded(true)
-//        coordinatorLayout = binding.appbarAttractionDetail.layoutParams as CoordinatorLayout.LayoutParams?
-//        behavior= coordinatorLayout?.behavior as AppBarLayout.Behavior?
-//        if(behavior!=null) {
-//      }
 
-
-    }
 }
