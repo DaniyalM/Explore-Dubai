@@ -8,7 +8,9 @@
         <item name="android:spotShadowAlpha">0.3</item>
 
     </style>
-
+    <style name="MyRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/radio_btn_selector</item>
+    </style>
     <style name="Base.Theme.MyApp" parent="Base.Theme.MaterialThemeBuilder">
 
         <!-- Primary brand color. -->
@@ -57,6 +59,8 @@
     <!--This will change all the BottomSheetDialogs of your app.-->
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
 <!--        <item name="android:windowFullscreen">true</item>-->
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>

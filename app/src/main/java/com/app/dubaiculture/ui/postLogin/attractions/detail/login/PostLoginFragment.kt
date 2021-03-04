@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPostLoginBinding
+import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class PostLoginFragment : BaseFragment<FragmentPostLoginBinding>() , View.OnClickListener{
+class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>() , View.OnClickListener{
 
 
     override fun getFragmentBinding(

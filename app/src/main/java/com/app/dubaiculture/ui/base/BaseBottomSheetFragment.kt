@@ -54,7 +54,7 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         application = activity.application as ApplicationEntry
-
+        groupAdapter = GroupAdapter()
         customProgressDialog = ProgressDialog(activity)
 
     }
@@ -63,7 +63,6 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         bus = application.bus
         bus.register(this)
         isBusRegistered = true
-        groupAdapter = GroupAdapter()
         dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         return super.onCreateDialog(savedInstanceState)
     }

@@ -33,6 +33,15 @@
         <action
             android:id="@+id/action_loginFragment_to_registrationSuccessFragment"
             app:destination="@id/registrationSuccessFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_nearYouFragment"
+            app:destination="@id/nearYouFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_sortFragment"
+            app:destination="@id/sortFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
@@ -121,5 +130,18 @@
             android:id="@+id/action_passwordUpdatedFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </dialog>
+    <dialog
+        android:id="@+id/filterFragment"
+        tools:layout="@layout/fragment_filter"
+        android:name="com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment"
+        android:label="FilterFragment" />
+    <dialog
+        android:id="@+id/nearYouFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.nearyou.NearYouFragment"
+        android:label="NearYouFragment" />
+    <dialog
+        android:id="@+id/sortFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.nearyou.SortFragment"
+        android:label="SortFragment" />
 
 </navigation>
