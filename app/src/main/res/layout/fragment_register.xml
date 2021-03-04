@@ -229,7 +229,7 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/password"
                     style="@style/TextViewRegistrationStyle"
-                    android:text="@string/password"
+                    android:text="@string/_password"
                     android:transitionName="my_password"
                     app:layout_constraintStart_toStartOf="@+id/edit_mobile"
                     app:layout_constraintTop_toBottomOf="@+id/edit_mobile" />
