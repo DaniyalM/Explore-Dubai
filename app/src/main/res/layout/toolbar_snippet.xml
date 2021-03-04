@@ -10,16 +10,7 @@
         android:background="@android:color/white"
         android:fitsSystemWindows="true">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentInsetStart="0dp"
-            android:contentInsetLeft="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
 
-            >
 <!--       app:layout_scrollFlags="scroll|enterAlwaysCollapsed"       -->
 
             <FrameLayout
@@ -27,19 +18,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/uniqueToolbar"
                 android:layout_marginTop="@dimen/_20sdp">
+
                 <include layout="@layout/toolbar_layout"/>
 
             </FrameLayout>
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/detailToolbar"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/_20sdp">
-                <include layout="@layout/toolbar_layout_detail"/>
 
-            </FrameLayout>
 
-        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 </merge>
