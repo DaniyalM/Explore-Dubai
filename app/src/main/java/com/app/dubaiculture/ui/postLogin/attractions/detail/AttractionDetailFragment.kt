@@ -54,18 +54,18 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             bookingCalender.setOnClickListener {
                 attractionDetailViewModel.showToast("bookingCalender Clicked")
             }
-            toolbarAttractionDetail.favourite.setOnClickListener {
-                attractionDetailViewModel.showToast("favourite Toolbar Clicked")
-
-
+            toolbarAttractionDetail.apply {
+                favourite.setOnClickListener {
+                    attractionDetailViewModel.showToast("favourite Toolbar Clicked")
+                }
+                share.setOnClickListener {
+                    attractionDetailViewModel.showToast("share Toolbar Clicked")
+                }
+                bookingCalender.setOnClickListener {
+                    attractionDetailViewModel.showToast("bookingCalender Toolbar Clicked")
+                }
             }
 
-            toolbarAttractionDetail.share.setOnClickListener {
-                attractionDetailViewModel.showToast("share Toolbar Clicked")
-            }
-            toolbarAttractionDetail.bookingCalender.setOnClickListener {
-                attractionDetailViewModel.showToast("bookingCalender Toolbar Clicked")
-            }
 
         }
     }
