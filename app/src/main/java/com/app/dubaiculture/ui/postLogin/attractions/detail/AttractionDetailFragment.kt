@@ -12,6 +12,7 @@ import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -37,11 +38,18 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         binding.apply {
             appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
                 if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
+                    Timber.e(verticalOffset.toString())
                     //toolbar is collapsed here
                     //write your code here
                     defaultCloseToolbar.visibility = View.VISIBLE
+                    img.visibility = View.VISIBLE
+                    imageView4.visibility = View.VISIBLE
                 } else {
                     defaultCloseToolbar.visibility = View.GONE
+                    imageView4.visibility = View.GONE
+
+                    img.visibility = View.GONE
+
                 }
             })
             favourite.setOnClickListener {
@@ -55,10 +63,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
             toolbarAttractionDetail.favourite.setOnClickListener {
                 attractionDetailViewModel.showToast("favourite Toolbar Clicked")
-
-
             }
-
             toolbarAttractionDetail.share.setOnClickListener {
                 attractionDetailViewModel.showToast("share Toolbar Clicked")
             }

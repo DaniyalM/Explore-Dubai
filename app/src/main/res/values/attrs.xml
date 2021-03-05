@@ -53,4 +53,24 @@
         </attr>
     </declare-styleable>
 
+
+    <declare-styleable name="CustomReadMoreView">
+        <attr name="trimExpandedText" format="string" />
+        <attr name="trimCollapsedText" format="string" />
+        <attr name="trimLength" format="integer" />
+        <attr name="showTrimExpandedText" format="boolean" />
+        <attr name="colorClickableText" format="color" />
+        <attr name="trimLines" format="integer" />
+        <attr name="trimMode">
+            <enum name="trimModeLine" value="0" />
+            <enum name="trimModeLength" value="1" />
+        </attr>
+        <attr name="customReadMoreTextFont" format="enum">
+            <enum name="light" value="0" />
+            <enum name="regular" value="1" />
+            <enum name="bold" value="2" />
+        </attr>
+    </declare-styleable>
+
+
 </resources>
