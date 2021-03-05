@@ -9,22 +9,16 @@
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
 
-<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-<!--        android:id="@+id/swipe_refresh"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
             android:id="@+id/appCoordinatorAttractionDetail"
-            android:layout_height="match_parent"
-           >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appbarAttractionDetail"
@@ -33,13 +27,12 @@
                 android:background="@android:color/white"
                 android:fitsSystemWindows="true"
                 app:elevation="0dp">
-
-                <!--            <include layout="@layout/toolbar_snippet"/>-->
                 <include layout="@layout/toolbar_layout_detail" />
             </com.google.android.material.appbar.AppBarLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
                 android:id="@+id/defaultCloseToolbar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
@@ -103,25 +96,18 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <include layout="@layout/attraction_detail_inner_content_layout" />
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/app_bg">
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
+                </FrameLayout>
             </androidx.core.widget.NestedScrollView>
 
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-        </LinearLayout>
-<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+    </LinearLayout>
 </layout>

@@ -27,7 +27,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
-        attractionDetailViewModel.showLoader(true)
         uiActions()
 
 
