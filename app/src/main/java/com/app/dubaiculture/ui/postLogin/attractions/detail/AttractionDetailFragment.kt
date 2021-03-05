@@ -10,7 +10,9 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.attraction_detail_inner_content_layout.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
+import kotlinx.android.synthetic.main.toolbar_layout_detail.augmentedReality
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 
 
@@ -36,13 +38,32 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
         binding.apply {
             appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
+//                if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
+//
+//                } else {
+//
+//                }
+
+                if (Math.abs(verticalOffset)-appBarLayout.totalScrollRange == 0)
+                {
+                    //  Collapsed
                     //toolbar is collapsed here
                     //write your code here
                     defaultCloseToolbar.visibility = View.VISIBLE
-                } else {
-                    defaultCloseToolbar.visibility = View.GONE
+                    detailContent.visibility=View.VISIBLE
+
                 }
+                else
+                {
+                    //Expanded
+                    defaultCloseToolbar.visibility = View.GONE
+                    detailContent.visibility=View.GONE
+
+                }
+
+
+
+
             })
             favourite.setOnClickListener {
                 attractionDetailViewModel.showToast("favourite Clicked")
@@ -63,6 +84,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 bookingCalender.setOnClickListener {
                     attractionDetailViewModel.showToast("bookingCalender Toolbar Clicked")
                 }
+            }
+
+            augmentedReality.setOnClickListener {
+                attractionDetailViewModel.showToast("Augmented Clicked")
             }
 
 

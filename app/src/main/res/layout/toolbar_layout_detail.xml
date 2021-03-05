@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
 
     <!--    android:elevation="@dimen/toolbar_elevation"-->
     <merge>
@@ -20,16 +21,196 @@
                 android:layout_height="match_parent"
                 android:background="@color/app_bg">
 
-                <ImageView
-                    android:id="@+id/imageView"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:id="@+id/imageLayout"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/must_see_icon_home" />
+                    app:layout_constraintVertical_bias="1.0"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/must_see_icon_home" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/image_gradient" />
+
+                </FrameLayout>
+
+
+
+
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="MUSEUM"
+                    android:textColor="@color/white_900"
+                    android:textSize="@dimen/_12sdp"
+
+                    app:layout_constraintBottom_toTopOf="@+id/title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:textFont="bold" />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/title"
+                    android:layout_width="@dimen/_220sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:text="Museum of the Poet Al Oqaili"
+                    android:textColor="@color/white_900"
+                    android:textSize="@dimen/_20sdp"
+                    app:layout_constraintBottom_toTopOf="@+id/augmentedReality"
+                    app:layout_constraintStart_toStartOf="@+id/category"
+                    app:textFont="bold" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/augmentedReality"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_55sdp"
+                    android:layout_marginBottom="32dp"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_login"
+                    app:layout_constraintStart_toStartOf="@+id/title">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ar_icon_white" />
+
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/augmentedRealityText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:text="Augmented Reality"
+                            android:textColor="@color/white_900"
+                            android:textSize="@dimen/_9sdp"
+                            app:textFont="regular" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/view360"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_55sdp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/gallery"
+                    app:layout_constraintStart_toEndOf="@+id/augmentedReality"
+                    app:layout_constraintTop_toTopOf="@+id/augmentedReality">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/_360iconwhite" />
+
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/view360text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:text="360View"
+                            android:textColor="@color/white_900"
+
+                            android:textSize="@dimen/_9sdp"
+                            app:textFont="regular" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/gallery"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_55sdp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/view360">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/gallery_white" />
+
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/gallerytext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:text="Gallery"
+                            android:textColor="@color/white_900"
+                            android:textSize="@dimen/_9sdp"
+                            app:textFont="regular" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/btn_login"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="120dp"
+                    android:background="@drawable/btn_border_login"
+                    android:gravity="center"
+                    android:text="@string/book_a_ticket"
+                    android:textColor="@color/white_900"
+                    android:textSize="@dimen/_12ssp"
+
+                    android:transitionName="action_btn"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageLayout"
+                    app:layout_constraintEnd_toEndOf="@+id/gallery"
+                    app:layout_constraintStart_toStartOf="@+id/augmentedReality" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
