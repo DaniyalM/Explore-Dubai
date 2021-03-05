@@ -115,6 +115,17 @@
     <string name="date">Date</string>
     <string name="newest">Newest</string>
     <string name="oldest">Oldest</string>
+    <string name="augmented_reality">Augmented Reality</string>
+    <string name="_360_view">360 View</string>
+    <string name="gallery">Gallery</string>
+    <string name="get_directions">Get Directions</string>
+    <string name="description">Description</string>
 
-
+    <string name="read_more">\n\nRead More ^</string>
+    <string name="read_less">\n\nRead Less</string>
+    <string name="don_t_miss_out_on_any_details">Don’t miss out on any details</string>
+    <string name="view_site_map">View Site Map</string>
+    <string name="ibeacons">iBeacons</string>
+    <string name="contact_for_inquiries">Contact for inquiries</string>
+    <string name="your_journey">Your Journey</string>
 </resources>

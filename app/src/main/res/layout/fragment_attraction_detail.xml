@@ -9,16 +9,22 @@
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--        android:id="@+id/swipe_refresh"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
 
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/appCoordinatorAttractionDetail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:id="@+id/appCoordinatorAttractionDetail"
+            android:layout_height="match_parent"
+           >
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appbarAttractionDetail"
@@ -27,14 +33,38 @@
                 android:background="@android:color/white"
                 android:fitsSystemWindows="true"
                 app:elevation="0dp">
+
+                <!--            <include layout="@layout/toolbar_snippet"/>-->
                 <include layout="@layout/toolbar_layout_detail" />
             </com.google.android.material.appbar.AppBarLayout>
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/defaultCloseToolbar"
                 android:layout_width="match_parent"
+                android:id="@+id/defaultCloseToolbar"
                 android:layout_height="wrap_content">
 
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/img"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/_220sdp"-->
+<!--                    android:scaleType="center"-->
+<!--                    android:background="@drawable/gallery"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    />-->
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_200sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@drawable/bottom_bg_login"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
                 <ImageView
                     android:id="@+id/back"
                     android:layout_width="@dimen/_30sdp"
@@ -96,18 +126,32 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <include layout="@layout/attraction_detail_inner_content_layout" />
 
 
-                </FrameLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/app_bg">
+
+
+                        <include layout="@layout/attraction_detail_border_layout" />
+
+
+
+
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </LinearLayout>
+        </LinearLayout>
+<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 </layout>
