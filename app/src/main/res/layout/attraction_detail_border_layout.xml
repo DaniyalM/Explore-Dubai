@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <merge>
+<!--    <merge>-->
 
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -387,16 +387,60 @@
             />
 
         <LinearLayout
-            android:background="@drawable/bg_contact"
-            app:layout_constraintStart_toStartOf="@+id/heading_contact"
-            app:layout_constraintTop_toBottomOf="@+id/heading_contact"
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_contact"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@+id/heading_contact"
+            app:layout_constraintTop_toBottomOf="@+id/heading_contact">
 
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/mail_icon"
+                android:drawablePadding="@dimen/_5sdp"
+                android:text="@string/email_us"
+                android:textColor="@color/purple_900"
+                android:textSize="@dimen/_9ssp" />
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-<!--    </ScrollView>-->
 
-    </merge>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_contact"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/heading_contact"
+            app:layout_constraintTop_toBottomOf="@+id/heading_contact">
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/mail_icon"
+                android:drawablePadding="@dimen/_5sdp"
+                android:text="@string/email_us"
+                android:textColor="@color/purple_900"
+                android:textSize="@dimen/_9ssp" />
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:backgroundTint="@color/purple_900"
+            android:layout_height="@dimen/_90sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/attraction_icon_home"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+<!--    </merge>-->
 
 </layout>
