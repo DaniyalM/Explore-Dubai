@@ -11,7 +11,7 @@
             android:id="@+id/collapsingToolbarAttractionDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/transparent"
+            app:contentScrim="@color/white_900"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
 
@@ -21,15 +21,16 @@
                 android:background="@color/app_bg">
 
                 <FrameLayout
-                    android:id="@+id/imageLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/imageLayout"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0">
+                    app:layout_constraintVertical_bias="1.0"
+                    >
 
                     <ImageView
                         android:id="@+id/imageView"
@@ -167,7 +168,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
-
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -201,7 +201,6 @@
                     android:text="@string/book_a_ticket"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_12ssp"
-
                     android:transitionName="action_btn"
                     app:layout_constraintBottom_toBottomOf="@+id/imageLayout"
                     app:layout_constraintEnd_toEndOf="@+id/gallery"
@@ -222,7 +221,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/back"
