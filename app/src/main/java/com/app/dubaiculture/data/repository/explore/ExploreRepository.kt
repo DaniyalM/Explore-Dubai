@@ -15,17 +15,18 @@ import javax.inject.Inject
 
 
 class ExploreRepository @Inject constructor(
-    private val exploreRDS: ExploreRDS
-) : BaseRepository()  {
-    suspend fun getExplore(culture:String): Result<List<Explore>> {
-        return when (val resultRDS = exploreRDS.getExplore(culture)) {
+    private val exploreRDS: ExploreRDS,
+) : BaseRepository() {
+    suspend fun getExplore(exploreRequest: ExploreRequest): Result<List<Explore>> {
+        return when (val resultRDS =
+            exploreRDS.getExplore(transformExploreRequest(exploreRequest))) {
             is Result.Success -> {
                 // Single Source Of Truth -> get data from server -> save to db -> get from db to provide to UI
                 val listRDS = resultRDS
                 if (listRDS.value.statusCode != 200) {
                     Result.Failure(true,listRDS.value.statusCode,null)
                 }else{
-                    val listLDS = transformExplore(listRDS.value.Result.value)
+                    val listLDS = transformExplore(listRDS.value)
 //                photoLDS.insertAll(listLDS as MutableList<Photo>)
 //                val resultLDS = photoLDS.getAll()
                     Result.Success(listLDS)
