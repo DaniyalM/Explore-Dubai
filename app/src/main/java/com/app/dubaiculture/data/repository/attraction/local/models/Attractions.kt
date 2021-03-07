@@ -3,6 +3,7 @@ package com.app.dubaiculture.data.repository.attraction.local.models
 import android.os.Parcelable
 import com.app.dubaiculture.data.repository.explore.local.models.UpComingEvents
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class Attractions(
