@@ -5,9 +5,9 @@
 
     <merge>
 
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -240,7 +240,11 @@
             app:layout_constraintStart_toStartOf="@+id/tv_location"
             app:layout_constraintTop_toBottomOf="@+id/tv_direction">
 
-            <!--map-->
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:id="@+id/map" />
         </androidx.cardview.widget.CardView>
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -248,7 +252,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black_200"
-            android:textSize="@dimen/_13ssp"
+            android:textSize="@dimen/_18ssp"
             android:layout_marginTop="@dimen/_18sdp"
             android:layout_marginStart="@dimen/_20sdp"
             android:text="@string/description"
@@ -571,9 +575,8 @@
             app:layout_constraintTop_toBottomOf="@+id/heading_up_coming"
             tools:listitem="@layout/attraction_detail_up_coming_items" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-<!--    </ScrollView>-->
+    </ScrollView>
 
     </merge>
 

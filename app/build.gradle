@@ -243,4 +243,7 @@ dependencies {
     implementation 'com.google.android:flexbox:2.0.1'
     implementation 'com.github.devendroid:ReadMoreOption:1.0.2'
 
+
+    //Google Map
+    implementation "com.google.android.gms:play-services-maps:17.0.0"
 }

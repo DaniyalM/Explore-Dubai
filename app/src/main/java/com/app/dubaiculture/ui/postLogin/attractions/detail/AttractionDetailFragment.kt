@@ -11,6 +11,12 @@ import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItems
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
@@ -21,7 +27,8 @@ import timber.log.Timber
 
 
 @AndroidEntryPoint
-class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>() {
+class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>() ,
+    OnMapReadyCallback {
     private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
 
 
@@ -34,7 +41,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
         uiActions()
-
+        mapSetUp()
         rvSetUp()
     }
 
@@ -117,6 +124,26 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     "Palm Jumeriah, Dubai"))
             }
         }
+
+    }
+
+    private fun mapSetUp(){
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+        mapFragment!!.getMapAsync(this)
+
+    }
+
+    override fun onMapReady(map: GoogleMap?) {
+        val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
+        map!!.addMarker(MarkerOptions().position(trafficDigitalLatLng)).title =
+            "Location"
+        map.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                trafficDigitalLatLng, 12.0f
+            )
+        )
+        map.cameraPosition.target
+
 
     }
 }
