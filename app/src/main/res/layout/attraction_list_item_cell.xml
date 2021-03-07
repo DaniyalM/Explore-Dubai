@@ -59,7 +59,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/must_see_icon_home"
                 android:imageViewUrl='@{attractions.portraitImage}'
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+               />
 
             <ImageView
                 android:id="@+id/img_like"
@@ -99,7 +100,7 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:drawableStart="@drawable/heritiage_icon_home"
                     android:drawablePadding="@dimen/_7ssp"
-                    android:lines="2"
+                    android:maxLines="2"
                     android:ellipsize="end"
                     android:text='@{attractions.locationTitle ?? "Palm Jumeriah Beach,Dubai"}'                    android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />

@@ -1,6 +1,7 @@
 package com.app.dubaiculture.infrastructure
 
-data class AuthState(
+data class
+AuthState(
     var userId: String = "",
     var isLoggedIn: Boolean = false,
     var token: String = "",

@@ -16,8 +16,8 @@ import com.rishabhharit.roundedimageview.RoundedImageView
 
 
 fun View.glideInstance(url: String?,isSvg:Boolean=false): RequestBuilder<Drawable> {
-//    val urlConcat=BuildConfig.BASE_URL + url
-    val urlConcat="http://dc.wewanttraffic.me/api/" + url
+    val urlConcat=BuildConfig.BASE_URL + url
+//    val urlConcat="http://dc.wewanttraffic.me/api/" + url
     val glide=Glide.with(this.context)
     return  if (!isSvg){
         glide.setDefaultRequestOptions(

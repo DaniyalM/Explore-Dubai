@@ -12,11 +12,24 @@
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_30sdp"
         android:rotation="90"
+        android:layout_marginBottom="@dimen/_30sdp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:id="@+id/animation_view"-->
+<!--          android:layout_height="wrap_content"-->
+<!--            app:chainUseRtl="true"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:lottie_loop="true"-->
+<!--            app:lottie_rawRes="@raw/reg_lines"-->
+<!--            app:lottie_repeatCount="0" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

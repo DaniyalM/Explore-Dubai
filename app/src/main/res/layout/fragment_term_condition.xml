@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.postLogin.bookticket.termandcondition.TermConditionFragment">
+        <ImageView
+            android:id="@+id/gray_line"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/gray_line"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"/>
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/heading_login_to_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_200"
+            android:textSize="@dimen/_16ssp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:text="@string/terms_and_conditions"
+            app:layout_constraintTop_toBottomOf="@+id/gray_line"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textColor="@color/black_200"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/heading_login_to_continue"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa. sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            />
+
+        <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:background="@drawable/btn_register"
+            android:foreground="@drawable/custom_ripple_border"
+            android:gravity="center"
+            android:text="@string/okay"
+            android:textAllCaps="false"
+            android:outlineSpotShadowColor="@color/purple_600"
+            android:elevation="@dimen/_15sdp"
+            android:textColor="@color/white_900"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -12,7 +12,9 @@
     <string name="attractions">Attractions</string>
     <string name="more">More</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="password">Enter Password</string>
+    <string name="_password">Password</string>
+
     <string name="login">Login</string>
     <string name="register">Sign Up</string>
     <string name="welcome_to_dubai_culture">Welcome To Dubai Culture</string>
@@ -27,12 +29,15 @@
     <string name="registration">Registration</string>
     <string name="full_name">Full name</string>
     <string name="enter_full_name">Enter full name</string>
-    <string name="email_address">Email address</string>
+    <string name="email_address">Enter Email address</string>
+    <string name="_email_address">Email address</string>
+
     <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
     <string name="_agree_to_the_terms_and_conditions">Please select Terms &amp; Condition</string>
 
     <string name="register_now">Register Now</string>
-    <string name="confirm_password">Confirm password</string>
+    <string name="confirm_password">Enter Confirm password</string>
+    <string name="_confirm_password">Confirm password</string>
 
     <string name="forgot_password_">Forgot Password</string>
     <string name="cancel">Cancel</string>
@@ -71,7 +76,7 @@
     <string name="free">FREE</string>
     <string name="confirm">Confirm</string>
     <string name="already_a_member">Already a member?</string>
-    <string name="at_least_one_digit">At least one digit</string>
+    <string name="at_least_one_digit">Should contains at least one digit</string>
 
 
     <string name="enter_mobile_number_reg">Enter mobile number</string>
@@ -88,6 +93,42 @@
     <string name="should_contain_a_lowercase_character">Should contain a lowercase character</string>
     <string name="should_contain_a_upper_character">Should contains an uppercase character</string>
     <string name="should_contain_a_special_character">Should contain a special character (!@#)</string>
+    <string name="login_to_continue">Login to Continue</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="okay">Okay</string>
+    <string name="filters">Filters</string>
+    <string name="search_events_by_keyword">Search events by keyword</string>
+    <string name="location">Location</string>
+    <string name="date_range">Date Range</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="category">Category</string>
+    <string name="type">Type</string>
+    <string name="_free">Free</string>
+    <string name="ticketed">Ticketed</string>
+    <string name="reset_filter">Reset Filter</string>
+    <string name="museums_near_you">Museums Near You</string>
+    <string name="sort">Sort</string>
+    <string name="alphabetically">Alphabetically</string>
+    <string name="a_to_z">A to Z</string>
+    <string name="z_to_a">Z to A</string>
+    <string name="date">Date</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
+    <string name="augmented_reality">Augmented Reality</string>
+    <string name="_360_view">360 View</string>
+    <string name="gallery">Gallery</string>
+    <string name="get_directions">Get Directions</string>
+    <string name="description">Description</string>
 
-
+    <string name="read_more">\n\nRead More ^</string>
+    <string name="read_less">\n\nRead Less</string>
+    <string name="don_t_miss_out_on_any_details">Don’t miss out on any details</string>
+    <string name="view_site_map">View Site Map</string>
+    <string name="ibeacons">iBeacons</string>
+    <string name="contact_for_inquiries">Contact for inquiries</string>
+    <string name="your_journey">Your Journey</string>
+    <string name="email_us">Email us</string>
+    <string name="stay_updated">Stay updated</string>
+    <string name="what_s_happenings_at_majlis_ghorfat">What’s Happenings at Majlis Ghorfat</string>
 </resources>

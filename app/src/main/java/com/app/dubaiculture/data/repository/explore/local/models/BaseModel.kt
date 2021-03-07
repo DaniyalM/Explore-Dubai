@@ -21,6 +21,9 @@ class BaseModel {
     @Expose
     var icon: String? = null
 
+
+
+
     @SerializedName("Title")
     @Expose
     var title: String? = null

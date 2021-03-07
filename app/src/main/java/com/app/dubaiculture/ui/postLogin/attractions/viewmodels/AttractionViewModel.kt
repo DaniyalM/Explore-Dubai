@@ -32,6 +32,8 @@ class AttractionViewModel @ViewModelInject constructor(
                     showLoader(false)
                 }
                 is Result.Failure -> {
+                    showLoader(false)
+
                     _attractionCategoryList.value = result
                 }
 

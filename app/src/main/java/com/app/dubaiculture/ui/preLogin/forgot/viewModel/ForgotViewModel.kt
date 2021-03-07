@@ -12,7 +12,6 @@ import com.app.dubaiculture.data.repository.forgot.ForgotRepository
 import com.app.dubaiculture.data.repository.forgot.remote.request.ForgotRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.forgot.ForgotFragmentDirections
-import com.app.dubaiculture.ui.preLogin.registeration.RegisterFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
 import kotlinx.coroutines.launch

@@ -80,6 +80,9 @@ class AttractionInnerAdapter(
                 holder.itemView.binding?.let {
                     if (!attractions[position].color.isNullOrEmpty()) {
                         it.attractionImage.setCardBackgroundColor(Color.parseColor(attractions[position].color))
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                            it.attractionImage.outlineSpotShadowColor = Color.parseColor(attractions[position].color)
+                        }
                     }
                     it.attractions = attractions[position]
                 }

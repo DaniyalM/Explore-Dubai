@@ -12,7 +12,7 @@
     <string name="attractions">الوجهات الثقافية</string>
     <string name="more">المزيد</string>
     <string name="email">البريد الالكتروني</string>
-    <string name="password">كلمة السر</string>
+    <string name="password">ادخل كلمة السر </string>
     <string name="login">تسجيل الدخول</string>
     <string name="register">التسجيل</string>
     <string name="welcome_to_dubai_culture">مرحبا بك في هيئة دبي للثقافة والفنون</string>
@@ -27,10 +27,13 @@
     <string name="registration">التسجيل</string>
     <string name="full_name">الاسم الكامل</string>
     <string name="enter_full_name">ادخل اسمك الكامل</string>
-    <string name="email_address">البريد الالكتروني</string>
+    <string name="email_address">ادخل البريد الالكتروني</string>
     <string name="i_agree_to_the_terms_and_conditions">أوافق على  <u>الشروط والأحكام</u></string>
     <string name="register_now">تسجيل</string>
-    <string name="confirm_password">تأكيد كلمة السر</string>
+    <string name="confirm_password">ادخل تأكيد كلمة السر </string>
+    <string name="_confirm_password"> تأكيد كلمة السر</string>
+    <string name="_email_address">ادخل البريد الالكتروني</string>
+    <string name="_password"> كلمة السر</string>
 
     <string name="forgot_password_">نسيت كلمة السر</string>
     <string name="cancel">الغاء</string>
@@ -45,7 +48,7 @@
     <string name="continue_">استمرار</string>
     <string name="registration_successful">تم التسجيل بنجاح</string>
     <string name="enter_otp">أدخل  كلمة مرور لمرة واحد</string>
-    <string name="resend_otp">اعادة ارسال كلمة مرور لمرة واحدة</string>
+    <string name="resend_otp">اعادة ارسال OTP</string>
     <string name="expires_in">تنتهي في</string>
     <string name="workshop">ورشة عمل</string>
     <string name="mobile_number">رقم الهاتف \ البريد الالكتروني</string>
@@ -67,11 +70,11 @@
     <string name="free">مجانا</string>
     <string name="confirm">تأكيد</string>
     <string name="already_a_member">لديك حساب؟</string>
-    <string name="at_least_one_digit">رقم واحد على الأقل</string>
+    <string name="at_least_one_digit">يجب أن تتضمن رقم</string>
     <string name="err_phone_two" >e.g: 971-------------</string>
     <string name="your_password_has_been_updated_continue_to_login">لقد تم تحديث كلمة السر الخاصة بك. أكمل الى تسجيل الدخول</string>
     <string name="mobile_number_new">رقم الهاتف خطئ</string>
-    <string name="enter_mobile_number_reg"> رقم الهاتف</string>
+    <string name="enter_mobile_number_reg">ادخل رقم الهاتف</string>
     <string name="book_a_ticket">Book a Ticket</string>
     <string name="select_date">Select date</string>
     <string name="add_date_of_visit">Add date of visit</string>
@@ -83,6 +86,43 @@
     <string name="should_contain_a_lowercase_character">يجب أن تتضمن حرف صغير</string>
     <string name="should_contain_a_upper_character">يجب أن تتضمن حرف كبير</string>
     <string name="should_contain_a_special_character">(!@#) يجب أن تتضمن حرف مميز</string>
+    <string name="login_to_continue">Login to Continue</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="okay">Okay</string>
+    <string name="filters">Filters</string>
+    <string name="search_events_by_keyword">Search events by keyword</string>
+    <string name="location">Location</string>
+    <string name="date_range">Date Range</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="category">Category</string>
+    <string name="type">Type</string>
+    <string name="_free">Free</string>
+    <string name="ticketed">Ticketed</string>
+    <string name="reset_filter">Reset Filter</string>
+    <string name="museums_near_you">Museums Near You</string>
+    <string name="sort">Sort</string>
+    <string name="alphabetically">Alphabetically</string>
+    <string name="a_to_z">A to Z</string>
+    <string name="z_to_a">Z to A</string>
+    <string name="date">Date</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
+    <string name="augmented_reality">Augmented Reality</string>
+    <string name="_360_view">360 View</string>
+    <string name="gallery">Gallery</string>
+    <string name="get_directions">Get Directions</string>
+    <string name="description">Description</string>
+    <string name="read_more">Read More ^</string>
+    <string name="read_less">Read Less $</string>
+    <string name="don_t_miss_out_on_any_details">Don’t miss out on any details</string>
+    <string name="view_site_map">View Site Map</string>
+    <string name="ibeacons">iBeacons</string>
+    <string name="contact_for_inquiries">Contact for inquiries</string>
+    <string name="your_journey">Your Journey</string>
+    <string name="email_us">Email us</string>
+    <string name="stay_updated">Stay updated</string>
+    <string name="what_s_happenings_at_majlis_ghorfat">What’s Happenings at Majlis Ghorfat</string>
 </resources>
 
 

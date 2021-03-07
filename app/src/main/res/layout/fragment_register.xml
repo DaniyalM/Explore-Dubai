@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
-
         <import type="android.content.Context" />
-
         <variable
             name="viewmodel"
             type="com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel" />
@@ -19,22 +16,22 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/header"
-            layout="@layout/layout_back" />
+            android:id="@+id/header" layout="@layout/layout_back" />
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:chainUseRtl="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/reg_lines"
+            app:lottie_rawRes="@raw/green_animation_login"
             app:lottie_repeatCount="0" />
+
         <ScrollView
+            android:layout_marginTop="@dimen/_70sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toBottomOf="@+id/header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +42,7 @@
                 android:id="@+id/mainLayout"
                 app:layout_constraintTop_toBottomOf="@+id/header"
                 android:layout_width="match_parent"
-                android:layout_height="0dp">
+                android:layout_height="match_parent">
 
 
                 <TextView
@@ -127,7 +124,7 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/email_address"
                     style="@style/TextViewRegistrationStyle"
-                    android:text="@string/email_address"
+                    android:text="@string/_email_address"
                     app:layout_constraintStart_toStartOf="@+id/edit_fullName"
                     app:layout_constraintTop_toBottomOf="@+id/edit_fullName" />
 
@@ -231,7 +228,7 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/password"
                     style="@style/TextViewRegistrationStyle"
-                    android:text="@string/password"
+                    android:text="@string/_password"
                     android:transitionName="my_password"
                     app:layout_constraintStart_toStartOf="@+id/edit_mobile"
                     app:layout_constraintTop_toBottomOf="@+id/edit_mobile" />
@@ -277,7 +274,7 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/confirm_pass"
                     style="@style/TextViewRegistrationStyle"
-                    android:text="@string/confirm_password"
+                    android:text="@string/_confirm_password"
                     app:layout_constraintStart_toStartOf="@+id/edit_pass"
                     app:layout_constraintTop_toBottomOf="@+id/edit_pass" />
 
