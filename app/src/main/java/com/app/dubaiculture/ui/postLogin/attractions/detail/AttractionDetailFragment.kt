@@ -13,7 +13,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItem
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.attraction_detail_border_layout.view.*
+import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.must_see_inner_item_cell.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
@@ -35,7 +35,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         subscribeUiEvents(attractionDetailViewModel)
         uiActions()
 
-
+        rvSetUp()
     }
 
     private fun uiActions() {

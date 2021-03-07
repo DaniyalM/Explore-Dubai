@@ -139,7 +139,7 @@
                         android:background="@color/app_bg">
 
 
-                        <include layout="@layout/attraction_detail_border_layout" />
+                        <include layout="@layout/attraction_detail_inner_layout" />
 
 
 
