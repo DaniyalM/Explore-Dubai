@@ -57,7 +57,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 extras)
         }
         binding.tvAsGuest.setOnClickListener {
-            application.auth.isLoggedIn = true
+            application.auth.apply {
+                isLoggedIn = true
+                isGuest = true
+            }
             activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
         }
         binding.languageSwitch.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
@@ -75,7 +78,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         subscribeToObservables()
         if(isArabic()){
-            binding.imgUaePass.setImageResource(R.drawable.uae_pass_ar)
+            binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
         }else{
             binding.imgUaePass.setImageResource(R.drawable.uae_pass)
         }
