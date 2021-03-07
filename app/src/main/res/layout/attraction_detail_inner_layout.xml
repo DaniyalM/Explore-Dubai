@@ -561,15 +561,16 @@
             app:layout_constraintStart_toStartOf="parent"
             />
 
+<!--        android:layout_marginStart="@dimen/_15sdp"-->
+<!--        android:layout_marginEnd="@dimen/_15sdp"-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_up_coming"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_390sdp"
+            android:layout_height="@dimen/_335sdp"
             android:columnCount="1"
             app:layout_constraintVertical_bias="0.1"
             android:layout_marginTop="@dimen/_14sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
+
             android:layout_marginBottom="@dimen/_30sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/heading_up_coming"
