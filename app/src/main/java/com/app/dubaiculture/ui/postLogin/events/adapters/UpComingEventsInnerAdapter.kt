@@ -54,6 +54,4 @@ class UpComingEventsInnerAdapter(val glide: RequestManager) :
             holder.itemView.binding?.events=upComingEvents[position]
         }
     }
-
-
 }
