@@ -120,6 +120,9 @@
     <string name="ibeacons">iBeacons</string>
     <string name="contact_for_inquiries">Contact for inquiries</string>
     <string name="your_journey">Your Journey</string>
+    <string name="email_us">Email us</string>
+    <string name="stay_updated">Stay updated</string>
+    <string name="what_s_happenings_at_majlis_ghorfat">What’s Happenings at Majlis Ghorfat</string>
 </resources>
 
 

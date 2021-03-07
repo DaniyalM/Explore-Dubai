@@ -1,26 +1,35 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
+import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItems
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
+import kotlinx.android.synthetic.main.must_see_inner_item_cell.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
+import timber.log.Timber
 
 
 @AndroidEntryPoint
-class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>() {
+class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>() ,
+    OnMapReadyCallback {
     private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
-    private var ATTRACTION_DETAIL_REQUEST_ID: String? = ""
 
 
     override fun getFragmentBinding(
@@ -32,27 +41,28 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
         uiActions()
-
-        ATTRACTION_DETAIL_REQUEST_ID?.let { attractionDetailViewModel.showToast(it) }
-
-
+        mapSetUp()
+        rvSetUp()
     }
 
     private fun uiActions() {
 
         binding.apply {
             appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
-//                    Timber.e(verticalOffset.toString())
+                if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
+                    Timber.e(verticalOffset.toString())
                     //toolbar is collapsed here
                     //write your code here
                     defaultCloseToolbar.visibility = View.VISIBLE
+//                    img.visibility = View.VISIBLE
                     imageView4.visibility = View.VISIBLE
                 } else {
                     defaultCloseToolbar.visibility = View.GONE
                     imageView4.visibility = View.GONE
-                }
 
+//                    img.visibility = View.GONE
+
+                }
             })
             favourite.setOnClickListener {
                 attractionDetailViewModel.showToast("favourite Clicked")
@@ -80,11 +90,60 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         binding.appbarAttractionDetail.setExpanded(boolean)
     }
 
+    private fun rvSetUp() {
+        binding.root.rv_up_coming.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = groupAdapter
+            groupAdapter.apply {
+                add(UpComingItems("Free",
+                    R.drawable.must_see_icon_home,
+                    "14",
+                    "NOV, 20",
+                    "20",
+                    "NOV, 20",
+                    "Workshop",
+                    "The Definitive Guide to an Uncertain World",
+                    "Palm Jumeriah, Dubai"))
+                add(UpComingItems("Free",
+                    R.drawable.must_see_icon_home,
+                    "14",
+                    "NOV, 20",
+                    "20",
+                    "NOV, 20",
+                    "Workshop",
+                    "The Definitive Guide to an Uncertain World",
+                    "Palm Jumeriah, Dubai"))
+                add(UpComingItems("Free",
+                    R.drawable.must_see_icon_home,
+                    "14",
+                    "NOV, 20",
+                    "20",
+                    "NOV, 20",
+                    "Workshop",
+                    "The Definitive Guide to an Uncertain World",
+                    "Palm Jumeriah, Dubai"))
+            }
+        }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        ATTRACTION_DETAIL_REQUEST_ID=arguments?.getString(AttractionListingFragment.ATTRACTION_DETAIL_ID)
     }
 
+    private fun mapSetUp(){
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+        mapFragment!!.getMapAsync(this)
 
+    }
+
+    override fun onMapReady(map: GoogleMap?) {
+        val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
+        map!!.addMarker(MarkerOptions().position(trafficDigitalLatLng)).title =
+            "Location"
+        map.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                trafficDigitalLatLng, 12.0f
+            )
+        )
+        map.cameraPosition.target
+
+
+    }
 }
