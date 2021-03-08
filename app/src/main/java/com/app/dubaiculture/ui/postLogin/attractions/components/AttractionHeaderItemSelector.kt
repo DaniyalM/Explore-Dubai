@@ -17,7 +17,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHe
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
-class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
+class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), AttractionHeaderClick{
     private var selectedTextColor: Int? = null
     private var unSelectedTextColor: Int? = null
@@ -76,9 +76,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 //            LinearSnapHelper().attachToRecyclerView(it)
 
         }
-
-
-
     }
 
     @JvmName("attractionHeaders")
