@@ -72,7 +72,7 @@
             android:id="@+id/sub_heading"
             style="@style/TextViewRegistrationStyle"
             android:textSize="@dimen/_18ssp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:textStyle="bold"
             android:textColor="@color/black_700"
             android:text="Museum of the Poet\nAl Oqaili"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/ar_bg_attraction_icon"
-            android:elevation="@dimen/_5sdp"
+            android:elevation="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="@+id/sub_heading"
             app:layout_constraintTop_toBottomOf="@+id/sub_heading" />
 
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ar_bg_attraction_icon"
-            android:elevation="@dimen/_5sdp"
+            android:elevation="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@+id/img_ar"
             app:layout_constraintStart_toEndOf="@+id/img_ar"
             app:layout_constraintTop_toTopOf="@+id/img_ar"/>
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:background="@drawable/ar_bg_attraction_icon"
-            android:elevation="@dimen/_5sdp"
+            android:elevation="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@+id/img_360"
             app:layout_constraintEnd_toEndOf="@+id/divider"
             app:layout_constraintStart_toEndOf="@+id/img_360"
@@ -284,10 +284,10 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_map"
             android:layout_width="0dp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             app:cardCornerRadius="@dimen/_12sdp"
             app:cardBackgroundColor="@color/gray_600"
-            android:elevation="@dimen/_10sdp"
+            app:cardElevation="@dimen/_5sdp"
             android:layout_height="@dimen/_140sdp"
             app:layout_constraintEnd_toEndOf="@+id/tv_km"
             app:layout_constraintStart_toStartOf="@+id/tv_location"
@@ -306,7 +306,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black_200"
             android:textSize="@dimen/_18ssp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_20sdp"
             android:text="@string/description"
             app:layout_constraintTop_toBottomOf="@+id/card_map"
@@ -335,7 +335,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_18sdp"
             android:layout_marginEnd="@dimen/_25sdp"
             android:background="@drawable/btn_register"
             android:foreground="@drawable/custom_ripple_border"
@@ -374,6 +374,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/sub_heading"
             app:layout_constraintTop_toBottomOf="@+id/view_site_map" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow_attraction"
+            app:layout_constraintBottom_toBottomOf="@+id/dont_miss"
+            app:layout_constraintEnd_toEndOf="@+id/divider"
+            app:layout_constraintTop_toTopOf="@+id/view_site_map" />
 
 
         <View
@@ -421,7 +429,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/sub_heading"
             app:layout_constraintTop_toBottomOf="@+id/ibeacons" />
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow_attraction"
+            app:layout_constraintBottom_toBottomOf="@+id/ibeacons_desc"
+            app:layout_constraintEnd_toEndOf="@+id/divider"
+            app:layout_constraintTop_toTopOf="@+id/ibeacons" />
 
         <View
             android:id="@+id/divider3"
@@ -442,7 +456,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black_200"
             android:textSize="@dimen/_18ssp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_20sdp"
             android:text="@string/contact_for_inquiries"
             app:layout_constraintTop_toBottomOf="@+id/divider3"
@@ -451,11 +465,12 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rounded_purple_border_attraction"
             android:gravity="center"
+            android:elevation="5dp"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="@+id/heading_contact"
             app:layout_constraintTop_toBottomOf="@+id/heading_contact">
@@ -477,6 +492,7 @@
             android:layout_marginEnd="@dimen/_5sdp"
             android:background="@drawable/shape_rounded_purple_border_attraction"
             android:gravity="center"
+            android:elevation="5dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="@+id/divider3"
@@ -564,7 +580,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black_200"
             android:textSize="@dimen/_18ssp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_20sdp"
             android:text="@string/stay_updated"
             app:layout_constraintTop_toBottomOf="@+id/cardview_plan_trip"
@@ -636,9 +652,9 @@
             android:layout_height="@dimen/_335sdp"
             android:columnCount="1"
             app:layout_constraintVertical_bias="0.1"
-            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_10sdp"
 
-            android:layout_marginBottom="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/heading_up_coming"
             tools:listitem="@layout/attraction_detail_up_coming_items" />
