@@ -12,6 +12,7 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
+import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
@@ -92,6 +93,9 @@ class LoginViewModel @ViewModelInject constructor(
                                 resendPhoneVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
+
+                                setUser(transform(result.value.loginResponseDTO.userDTO,result.value.loginResponseDTO))
+
                                 userRepository.saveUser(
                                     userDTO = result.value.loginResponseDTO.userDTO,
                                     loginResponseDTO = result.value.loginResponseDTO)
@@ -140,6 +144,8 @@ class LoginViewModel @ViewModelInject constructor(
                                 resendEmailVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
+                                setUser(transform(result.value.loginResponseDTO.userDTO,result.value.loginResponseDTO))
+
                                 userRepository.saveUser(
                                     userDTO = result.value.loginResponseDTO.userDTO,
                                     loginResponseDTO = result.value.loginResponseDTO

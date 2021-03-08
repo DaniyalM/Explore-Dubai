@@ -32,7 +32,6 @@ import java.util.*
 abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
 
-
     protected lateinit var application: ApplicationEntry
     protected var isBusRegistered: Boolean = false
     protected lateinit var bus: Bus
@@ -40,7 +39,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected var customProgressDialog: ProgressDialog? = null
     protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var networkRequest: NetworkRequest
-
 
 
     // data binding
@@ -56,6 +54,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         super.onStart()
         adjustFontScale(getResources().getConfiguration());
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         application = activity.application as ApplicationEntry
@@ -131,12 +130,17 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                 }
         })
 
-        NetworkLiveData.observe(viewLifecycleOwner){
-            if (!it){
+        NetworkLiveData.observe(viewLifecycleOwner) {
+            if (!it) {
                 baseViewModel.showLoader(false)
                 baseViewModel.showToast("Network Connection Lost..")
             }
         }
+
+        baseViewModel.userLiveData.observe(viewLifecycleOwner) {
+            application.auth.user = it
+        }
+
     }
 
     fun navigateByDirections(navDirections: NavDirections) {
@@ -170,7 +174,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     fun showAlert(message: String) {
         EventUtilFunctions.showAlert(message, activity)
     }
-    fun showErrorDialog(message: String){
+
+    fun showErrorDialog(message: String) {
         EventUtilFunctions.showErrorDialog(message, context = activity)
     }
 
@@ -209,6 +214,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
     open fun adjustFontScale(configuration: Configuration) {
         if (configuration.fontScale > 1.30) {
             configuration.fontScale = 1.30f
