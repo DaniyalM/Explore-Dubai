@@ -15,19 +15,21 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.BitmapDescriptorFactory.fromResource
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.must_see_inner_item_cell.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import timber.log.Timber
 
 
 @AndroidEntryPoint
-class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>() ,
+class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
     OnMapReadyCallback {
     private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
 
@@ -127,7 +129,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     }
 
-    private fun mapSetUp(){
+    private fun mapSetUp() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment!!.getMapAsync(this)
 
@@ -135,9 +137,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     override fun onMapReady(map: GoogleMap?) {
         val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
-        map!!.addMarker(MarkerOptions().position(trafficDigitalLatLng)).title =
-            "Location"
-        map.animateCamera(
+        map!!.addMarker(MarkerOptions()
+            .position(trafficDigitalLatLng)
+            .icon(fromResource(R.drawable.pin_location)))
+            .title = "Traffic Digital"
+        map?.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
                 trafficDigitalLatLng, 12.0f
             )
