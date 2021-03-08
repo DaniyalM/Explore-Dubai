@@ -126,6 +126,9 @@
     <string name="call_us">Call Us</string>
     <string name="museum">Museum</string>
     <string name="swipe_up_for_more">Swipe up for more</string>
+    <string name="more_events">More Events</string>
+    <string name="event_information">Event Information</string>
+    <string name="schedule">Schedule</string>
 </resources>
 
 

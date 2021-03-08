@@ -38,7 +38,7 @@ class EventsFragment:BaseFragment<FragmentEventsBinding>() {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
             adapter = event
-            event.provideGlideInstance(glide)
+          //  event.provideGlideInstance(glide)
             this.itemAnimator = SlideInLeftAnimator()
         }
 
