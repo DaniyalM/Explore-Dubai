@@ -22,8 +22,8 @@ fun View.glideInstance(url: String?,isSvg:Boolean=false): RequestBuilder<Drawabl
     return  if (!isSvg){
         glide.setDefaultRequestOptions(
             RequestOptions()
-                .placeholder(R.drawable.logo)
-                .error(android.R.drawable.stat_notify_error)
+//                .placeholder(R.drawable.logo)
+//                .error(android.R.drawable.stat_notify_error)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
         ).load(urlConcat).transition(DrawableTransitionOptions.withCrossFade())
     }else{
