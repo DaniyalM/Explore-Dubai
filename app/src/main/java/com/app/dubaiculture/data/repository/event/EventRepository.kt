@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val eventRDS: EventRDS) : BaseRepository() {
 
-    suspend fun fetchHomeEvents(homeEventListRequest: HomeEventListRequest): Result<List<EventHomeListing>> {
+    suspend fun fetchHomeEvents(homeEventListRequest: HomeEventListRequest): Result<ArrayList<EventHomeListing>> {
         return when (val resultRds =
             eventRDS.getEvent(transformHomeEventListingRequest(homeEventListRequest))) {
 

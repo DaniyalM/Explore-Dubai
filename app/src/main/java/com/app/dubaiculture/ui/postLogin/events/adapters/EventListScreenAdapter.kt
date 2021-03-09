@@ -3,60 +3,67 @@ package com.app.dubaiculture.ui.postLogin.events.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
-import com.app.dubaiculture.databinding.AttractionListItemCellBinding
-import com.app.dubaiculture.ui.postLogin.attractions.utils.AttractionFilterItem
+import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.databinding.ItemEventListingBinding
+import com.app.dubaiculture.databinding.UpcomingEventsInnerItemCellBinding
 import com.app.dubaiculture.utils.AsyncCell
+import timber.log.Timber
 
 class EventListScreenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Attractions>() {
-        override fun areItemsTheSame(oldItem: Attractions, newItem: Attractions): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<Events>() {
+        override fun areItemsTheSame(oldItem: Events, newItem: Events): Boolean {
             return oldItem.id == newItem.id
         }
-        override fun areContentsTheSame(oldItem: Attractions, newItem: Attractions): Boolean {
+
+        override fun areContentsTheSame(oldItem: Events, newItem: Events): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    var attractions: List<Attractions>
+    var events: List<Events>
         get() = differ.currentList
-        set(value){
+        set(value) {
             differ.submitList(value)
         }
-    inner class AttractionListViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+
+    inner class EventsListViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return AttractionListViewHolder(AttractionListItemCell(parent.context).apply { inflate() })
+        return EventsListViewHolder(EventsListItemCell(parent.context).apply { inflate() })
     }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        setUpAttractionListViewHolder(holder as EventListScreenAdapter.AttractionListViewHolder,
+        setUpEventsListViewHolder(holder as EventListScreenAdapter.EventsListViewHolder,
             position)
     }
-    override fun getItemCount() = attractions.size
-    private inner class AttractionListItemCell(context: Context) : AsyncCell(context) {
-        var binding: AttractionListItemCellBinding? = null
-        override val layoutId = R.layout.attraction_list_item_cell
+
+    override fun getItemCount() = events.size
+    //Data Binding
+    private inner class EventsListItemCell(context: Context) : AsyncCell(context) {
+        var binding: ItemEventListingBinding? = null
+        override val layoutId = R.layout.item_event_listing
         override fun createDataBindingView(view: View): View? {
-            binding = AttractionListItemCellBinding.bind(view)
+            binding = ItemEventListingBinding.bind(view)
             return view.rootView
         }
     }
-    private fun setUpAttractionListViewHolder(
-        holder: EventListScreenAdapter.AttractionListViewHolder,
+
+    private fun setUpEventsListViewHolder(
+        holder: EventListScreenAdapter.EventsListViewHolder,
         position: Int,
     ) {
-        (holder.itemView as AttractionListItemCell).bindWhenInflated {
+        (holder.itemView as EventsListItemCell).bindWhenInflated {
             holder.itemView.binding?.let {
                 try {
-                    it.attractions = attractions[position]
-                }catch (ex:IndexOutOfBoundsException){
+                    it.events = events[position]
+                } catch (ex: IndexOutOfBoundsException) {
+                    print(ex.stackTrace)
                 }
             }
         }

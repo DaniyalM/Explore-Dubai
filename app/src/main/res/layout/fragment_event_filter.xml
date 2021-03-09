@@ -21,7 +21,7 @@
                 android:background="@color/app_bg"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector
+                <com.app.dubaiculture.ui.postLogin.attractions.components.EventHeaderItemSelector
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/horizontalSelector"

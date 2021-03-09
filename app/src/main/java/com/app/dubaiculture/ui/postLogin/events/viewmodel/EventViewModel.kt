@@ -11,55 +11,56 @@ import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCa
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequest
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequest
+import com.app.dubaiculture.data.repository.event.EventRepository
+import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
+import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.event.remote.request.EventDetailRequest
+import com.app.dubaiculture.data.repository.event.remote.request.HomeEventListRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class EventViewModel @ViewModelInject constructor(
     application: Application,
-    private val attractionRepository: AttractionRepository,
+    private val eventRepository: EventRepository,
 ) : BaseViewModel(application) {
 
-    private val _attractionCategoryList: MutableLiveData<Result<ArrayList<AttractionCategory>>> =
+    private val _eventCategoryList: MutableLiveData<Result<ArrayList<EventHomeListing>>> =
         MutableLiveData()
-    val attractionCategoryList: LiveData<Result<ArrayList<AttractionCategory>>> =
-        _attractionCategoryList
+    val eventCategoryList: LiveData<Result<ArrayList<EventHomeListing>>> =
+        _eventCategoryList
 
-    private val _attractionDetail: MutableLiveData<Result<Attractions>> = MutableLiveData()
-    val attractionDetail: LiveData<Result<Attractions>> = _attractionDetail
+    private val _eventDetailList: MutableLiveData<Result<Events>> = MutableLiveData()
+    val eventDetail: LiveData<Result<Events>> = _eventDetailList
 
 
-    fun getAttractionCategoryToScreen(locale: String) {
+    fun getEventHomeToScreen(locale: String) {
         showLoader(true)
         viewModelScope.launch {
             when (val result =
-                attractionRepository.getAttractionCategories(AttractionCategoryRequest(culture = locale))) {
+                eventRepository.fetchHomeEvents(HomeEventListRequest(culture = locale))) {
                 is Result.Success -> {
-                    _attractionCategoryList.value = result
+                    _eventCategoryList.value = result
                     showLoader(false)
                 }
                 is Result.Failure -> {
                     showLoader(false)
-
-                    _attractionCategoryList.value = result
+                    _eventCategoryList.value = result
                 }
-
             }
         }
     }
-
-    fun getAttractionDetailsToScreen(attractionId: String, locale: String) {
+    fun getEventDetailsToScreen(eventId: String, locale: String) {
         showLoader(true)
         viewModelScope.launch {
-            when (val result = attractionRepository.getAttractionDetail(AttractionDetailRequest(
-                attractionId = attractionId,
+            when (val result = eventRepository.fetchEvent(EventDetailRequest(
+                eventId = eventId,
                 culture = locale))) {
-
                 is Result.Success -> {
-                    _attractionDetail.value = result
+                    _eventDetailList.value = result
                     showLoader(false)
                 }
                 is Result.Failure -> {
-                    _attractionDetail.value = result
+                    _eventDetailList.value = result
                     showLoader(false)
                 }
             }

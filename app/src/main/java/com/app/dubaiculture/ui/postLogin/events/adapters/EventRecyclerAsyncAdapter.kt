@@ -23,11 +23,6 @@ import com.squareup.javawriter.JavaWriter.type
 class EventRecyclerAsyncAdapter internal constructor(
     private val context: Context, private var isArabic : Boolean?=null
 ) :  RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    //global variable
-    companion object {
-        val handler = Handler(Looper.getMainLooper())
-        var delayAnimate = 300
-    }
     private var featureEventsInnerAdapter: UpComingEventsInnerAdapter? = null
     private var moreEventsInnerAdapter: UpComingEventsInnerAdapter? = null
 

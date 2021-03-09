@@ -7,18 +7,17 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
-import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
+import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventHeaderItems
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
-class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
-    FrameLayout(context, attrs), AttractionHeaderClick{
+class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
+    FrameLayout(context, attrs), AttractionHeaderClick {
     private var selectedTextColor: Int? = null
     private var unSelectedTextColor: Int? = null
     private var selectedBackground: Int? = null
@@ -26,15 +25,13 @@ class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var selectedInnerImg: Int? = null
     private var unSelectedInnerImg: Int? = null
     private val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
-    private var list: List<AttractionCategory>? = null
-    private var attractionPager: ViewPager2? = null
-    private  var recyclerView:RecyclerView?=null
-
+    private var list: List<EventHomeListing>? = null
+    private var eventPager: ViewPager2? = null
+    private  var recyclerView: RecyclerView?=null
 
     companion object {
         var clickCheckerFlag: Int = 0
     }
-
 
     init {
         val typeArray = context.obtainStyledAttributes(attrs,
@@ -70,7 +67,7 @@ class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
         recyclerView?.let {
             it.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             addView(view)
             it.adapter = groupAdapter
 //            LinearSnapHelper().attachToRecyclerView(it)
@@ -78,56 +75,56 @@ class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         }
     }
 
-    @JvmName("attractionHeaders")
+    @JvmName("eventHeader")
     fun initialize(
-        list: List<AttractionCategory>,
+        list: List<EventHomeListing>,
         attractionPager: ViewPager2? = null
     ) {
         this.list = list
-        this.attractionPager = attractionPager
+        this.eventPager = attractionPager
         itemsAddnUpdation(list)
     }
 
     fun itemsAddnUpdation(
-        list: List<AttractionCategory>,
+        list: List<EventHomeListing>,
         isUpdate: Boolean = false,
     ) {
 
         list.forEachIndexed { index, model ->
             var isSelected = false
-            if (clickCheckerFlag == index){
+            if (EventHeaderItemSelector.clickCheckerFlag == index){
                 isSelected = true
-                positionUpdate(clickCheckerFlag)
+                positionUpdate(EventHeaderItemSelector.clickCheckerFlag)
             }
 
 
             if (!isUpdate) {
                 groupAdapter.add(
-                    AttractionHeaderItems(
-                        displayValue = model.title!!,
+                    EventHeaderItems(
+                        displayValue ="",
                         data = list,
                         isSelected = isSelected,
                         selectedTextColor = selectedTextColor,
                         unSelectedTextColor = unSelectedTextColor,
                         selectedBackground = getDrawableFromId(selectedBackground),
                         unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                        selectedInnerImg = getDrawableFromId(model.imgSelected.toInt()),
-                        unSelectedInnerImg = getDrawableFromId(model.imgUnSelected.toInt()),
+//                        selectedInnerImg = getDrawableFromId(model.imgSelected.toInt()),
+//                        unSelectedInnerImg = getDrawableFromId(model.imgUnSelected.toInt()),
                         progressListener = this
                     )
                 )
             } else {
 
-                groupAdapter.notifyItemChanged(index, AttractionHeaderItems(
-                    displayValue = model.title!!,
+                groupAdapter.notifyItemChanged(index, EventHeaderItems(
+                    displayValue = model.events[index].title!!,
                     data = list,
                     isSelected = isSelected,
                     selectedTextColor = selectedTextColor,
                     unSelectedTextColor = unSelectedTextColor,
                     selectedBackground = getDrawableFromId(selectedBackground),
                     unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                    selectedInnerImg = getDrawableFromId(model.imgSelected.toInt()),
-                    unSelectedInnerImg = getDrawableFromId(model.imgUnSelected.toInt()),
+//                    selectedInnerImg = getDrawableFromId(model.imgSelected.toInt()),
+//                    unSelectedInnerImg = getDrawableFromId(model.imgUnSelected.toInt()),
                     progressListener = this)
                 )
 
@@ -154,13 +151,10 @@ class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         list?.let { itemsAddnUpdation(it, true) }
     }
 
-
     fun positionUpdate(position: Int){
-        clickCheckerFlag = position
+       clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
-        attractionPager?.currentItem = clickCheckerFlag
+        eventPager?.currentItem = clickCheckerFlag
     }
-
-
 
 }

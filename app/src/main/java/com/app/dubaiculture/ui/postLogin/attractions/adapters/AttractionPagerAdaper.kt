@@ -14,10 +14,10 @@ class AttractionPagerAdaper(fragment: Fragment,val attractionCategory: ArrayList
     override fun createFragment(position: Int): Fragment {
         return    when (position >= attractionCategory.size) {
            false-> {
-               AttractionListingFragment.newInstance(attractionCategory.get(position).attractions)
+               AttractionListingFragment.newInstance(attractionCategory[position].attractions)
            }
             else -> {
-                AttractionListingFragment.newInstance(attractionCategory.get(attractionCategory.size-1).attractions)
+                AttractionListingFragment.newInstance(attractionCategory[attractionCategory.size-1].attractions)
             }
         }
 
