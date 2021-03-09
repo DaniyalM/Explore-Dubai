@@ -1,7 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.events.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,27 +19,22 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
-import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.toolbar_layout_detail.*
-import kotlinx.android.synthetic.main.toolbar_layout_detail.toolbarAttractionDetail
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.bookingCalender
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.collapsingToolbarAttractionDetail
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.favourite
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.share
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
 
-class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>() ,
+class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     OnMapReadyCallback {
     private val eventDetailViewModel: EventDetailViewModel by viewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    ) =FragmentEventDetailBinding.inflate(inflater,container,false)
+    ) = FragmentEventDetailBinding.inflate(inflater, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -88,47 +82,50 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>() ,
 
         }
     }
-      private   fun rvSetUp() {
-            binding.root.rv_event_up_coming.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = groupAdapter
-                groupAdapter.apply {
-                    add(UpComingItems("Free",
-                        R.drawable.must_see_icon_home,
-                        "14",
-                        "NOV, 20",
-                        "20",
-                        "NOV, 20",
-                        "Workshop",
-                        "The Definitive Guide to an Uncertain World",
-                        "Palm Jumeriah, Dubai"))
-                    add(UpComingItems("Free",
-                        R.drawable.must_see_icon_home,
-                        "14",
-                        "NOV, 20",
-                        "20",
-                        "NOV, 20",
-                        "Workshop",
-                        "The Definitive Guide to an Uncertain World",
-                        "Palm Jumeriah, Dubai"))
-                    add(UpComingItems("Free",
-                        R.drawable.must_see_icon_home,
-                        "14",
-                        "NOV, 20",
-                        "20",
-                        "NOV, 20",
-                        "Workshop",
-                        "The Definitive Guide to an Uncertain World",
-                        "Palm Jumeriah, Dubai"))
-                }
+
+    private fun rvSetUp() {
+        binding.root.rv_event_up_coming.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = groupAdapter
+            groupAdapter.apply {
+                add(UpComingItems("Free",
+                    R.drawable.must_see_icon_home,
+                    "14",
+                    "NOV, 20",
+                    "20",
+                    "NOV, 20",
+                    "Workshop",
+                    "The Definitive Guide to an Uncertain World",
+                    "Palm Jumeriah, Dubai"))
+                add(UpComingItems("Free",
+                    R.drawable.must_see_icon_home,
+                    "14",
+                    "NOV, 20",
+                    "20",
+                    "NOV, 20",
+                    "Workshop",
+                    "The Definitive Guide to an Uncertain World",
+                    "Palm Jumeriah, Dubai"))
+                add(UpComingItems("Free",
+                    R.drawable.must_see_icon_home,
+                    "14",
+                    "NOV, 20",
+                    "20",
+                    "NOV, 20",
+                    "Workshop",
+                    "The Definitive Guide to an Uncertain World",
+                    "Palm Jumeriah, Dubai"))
             }
+        }
 
     }
+
     private fun mapSetUp() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment!!.getMapAsync(this)
 
     }
+
     override fun onMapReady(map: GoogleMap?) {
         val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
         map?.addMarker(MarkerOptions()
