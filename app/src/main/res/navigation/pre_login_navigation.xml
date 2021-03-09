@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_loginFragment_to_attractionDetailFragment2"
             app:destination="@id/attractionDetailFragment2" />
+        <action
+            android:id="@+id/action_loginFragment_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
@@ -150,5 +153,9 @@
         android:id="@+id/attractionDetailFragment2"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment"
         android:label="AttractionDetailFragment" />
+    <fragment
+        android:id="@+id/eventDetailFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"
+        android:label="EventDetailFragment" />
 
 </navigation>
