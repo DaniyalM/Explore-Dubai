@@ -10,10 +10,12 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentEventFilterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EventListingFragment : BaseFragment<FragmentEventFilterBinding>() {
+    private val eventViewModel: EventViewModel by viewModels()
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

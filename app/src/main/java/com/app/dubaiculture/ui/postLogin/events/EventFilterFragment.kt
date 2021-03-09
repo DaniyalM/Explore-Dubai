@@ -16,17 +16,17 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
 import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-
 class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>() {
-    private val attractionViewModel: AttractionViewModel by viewModels()
+    private val eventViewModel: EventViewModel by viewModels()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        subscribeUiEvents(attractionViewModel)
+        subscribeUiEvents(eventViewModel)
         callingObservables()
         subscribeToObservables()
         initiatePager()
@@ -36,25 +36,23 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>() {
     }
     private fun callingObservables() {
         lifecycleScope.launch {
-            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+            eventViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
         }
     }
 
     private fun subscribeToObservables() {
-        attractionViewModel.attractionCategoryList.observe(viewLifecycleOwner) {
+        eventViewModel.attractionCategoryList.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
                     it.let {
                         binding.horizontalSelector.initialize(it.value, binding.pager)
                         binding.pager.adapter = AttractionPagerAdaper(this, it.value)
-
                     }
                 }
                 is Result.Failure -> {
                     binding.horizontalSelector.initialize(createTestItems(), binding.pager)
                     binding.pager.adapter = AttractionPagerAdaper(this,
                         createTestItems() as ArrayList<AttractionCategory>)
-
 //                    handleApiError(it, attractionViewModel)
                 }
             }
