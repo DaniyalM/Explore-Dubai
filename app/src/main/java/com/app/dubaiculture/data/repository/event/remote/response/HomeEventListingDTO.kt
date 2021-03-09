@@ -1,6 +1,6 @@
 package com.app.dubaiculture.data.repository.event.remote.response
 
-import com.app.dubaiculture.data.repository.explore.local.models.UpComingEvents
+import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -11,5 +11,5 @@ class HomeEventListingDTO {
 
     @SerializedName("Events")
     @Expose
-    var events: List<UpComingEvents>? = null
+    var events: List<EventsDTO>? = null
 }

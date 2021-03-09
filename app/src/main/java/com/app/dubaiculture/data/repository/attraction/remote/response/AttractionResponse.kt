@@ -5,7 +5,7 @@ import com.app.dubaiculture.data.repository.attraction.local.models.Result
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class AttractionDetailResponse constructor(
+class AttractionResponse constructor(
     @SerializedName("Result")
     @Expose
     val Result: Result,
