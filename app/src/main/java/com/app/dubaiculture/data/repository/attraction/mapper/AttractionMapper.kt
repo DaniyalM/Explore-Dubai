@@ -8,9 +8,8 @@ import com.app.dubaiculture.data.repository.attraction.remote.request.Attraction
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequest
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequestDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionCategoryDTO
-import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionCategoryResponse
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionDTO
-import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionDetailResponse
+import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionResponse
 
 
 fun transformAttractionDetailRequest(attractionDetailRequest: AttractionDetailRequest) =
@@ -26,8 +25,8 @@ fun transformAttractionCategoryRequest(attractionCategoryRequest: AttractionCate
     )
 
 
-fun transformAttractionCategory(attractionCatResponse: AttractionCategoryResponse): ArrayList<AttractionCategory> =
-    attractionCatResponse.Result.attractionsCategories.run {
+fun transformAttractionCategory(attractionResponse: AttractionResponse): ArrayList<AttractionCategory> =
+    attractionResponse.Result.attractionsCategories.run {
         transformAttractionCategory(this)
     }
 
@@ -65,8 +64,8 @@ fun transformAttractionCategory(list: ArrayList<AttractionCategoryDTO>): ArrayLi
         }
     } as ArrayList<AttractionCategory>
 
-fun transformAttractionDetail(attractionDetailResponse: AttractionDetailResponse): Attractions =
-    transformAttractionDetail(attractionDetailResponse.Result.attraction)
+fun transformAttractionDetail(attractionResponse: AttractionResponse): Attractions =
+    transformAttractionDetail(attractionResponse.Result.attraction)
 
 fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attractions(
     id = attraction.id!!,

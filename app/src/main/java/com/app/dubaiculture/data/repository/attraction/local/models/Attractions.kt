@@ -1,9 +1,8 @@
 package com.app.dubaiculture.data.repository.attraction.local.models
 
 import android.os.Parcelable
-import com.app.dubaiculture.data.repository.explore.local.models.UpComingEvents
+import com.app.dubaiculture.data.repository.event.local.models.Events
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class Attractions(
@@ -21,5 +20,5 @@ data class Attractions(
     var endDay: String? = "",
     var startDay: String? = "",
     var color: String? = "",
-    var events: ArrayList<UpComingEvents>?=null
+    var events: ArrayList<Events>?=null
 ): Parcelable

@@ -10,9 +10,11 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventRecyclerAsyncAdapter
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
 import com.bumptech.glide.RequestManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class EventsFragment:BaseFragment<FragmentEventsBinding>() {
     private lateinit var event: EventRecyclerAsyncAdapter
     @Inject
