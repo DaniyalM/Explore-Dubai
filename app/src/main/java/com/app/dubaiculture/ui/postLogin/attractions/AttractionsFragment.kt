@@ -67,9 +67,12 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
-                        itemHasLoaded = true
-                        binding.horizontalSelector.initialize(it.value, binding.pager)
-                        binding.pager.adapter = AttractionPagerAdaper(this, it.value)
+                        if (!itemHasLoaded) {
+                            itemHasLoaded = true
+                            binding.horizontalSelector.initialize(it.value, binding.pager)
+                            binding.pager.adapter = AttractionPagerAdaper(this, it.value)
+
+                        }
 
                     }
                 }
@@ -81,10 +84,9 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                         binding.horizontalSelector.initialize(items, binding.pager)
                         binding.pager.adapter =
                             AttractionPagerAdaper(this, items as ArrayList<AttractionCategory>)
-                    }
-                    else {
-                        items= emptyList()
-                        items=createTestItems()
+                    } else {
+                        items = emptyList()
+                        items = createTestItems()
                         binding.horizontalSelector.initialize(items, binding.pager)
                         binding.pager.adapter =
                             AttractionPagerAdaper(this, items as ArrayList<AttractionCategory>)
