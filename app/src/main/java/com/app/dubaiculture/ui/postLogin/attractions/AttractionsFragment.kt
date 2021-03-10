@@ -44,12 +44,12 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     }
 
-    @Subscribe
-    fun doRefreshRequest(attractionBusService: AttractionBusService.SwipeToRefresh) {
-        if (attractionBusService.doRefresh && !itemHasLoaded) {
-            callingObservables()
-        }
-    }
+//    @Subscribe
+//    fun doRefreshRequest(attractionBusService: AttractionBusService.SwipeToRefresh) {
+//        if (attractionBusService.doRefresh && !itemHasLoaded) {
+//            callingObservables()
+//        }
+//    }
 
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
@@ -67,9 +67,12 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
-                        itemHasLoaded = true
-                        binding.horizontalSelector.initialize(it.value, binding.pager)
-                        binding.pager.adapter = AttractionPagerAdaper(this, it.value)
+                        if (!itemHasLoaded) {
+                            itemHasLoaded = true
+                            binding.horizontalSelector.initialize(it.value, binding.pager,this)
+//                            binding.pager.adapter = AttractionPagerAdaper(this, it.value)
+
+                        }
 
                     }
                 }
@@ -78,16 +81,12 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                     if (!itemHasLoaded) {
 
                         itemHasLoaded = true
-                        binding.horizontalSelector.initialize(items, binding.pager)
-                        binding.pager.adapter =
-                            AttractionPagerAdaper(this, items as ArrayList<AttractionCategory>)
-                    }
-                    else {
-                        items= emptyList()
-                        items=createTestItems()
-                        binding.horizontalSelector.initialize(items, binding.pager)
-                        binding.pager.adapter =
-                            AttractionPagerAdaper(this, items as ArrayList<AttractionCategory>)
+                        binding.horizontalSelector.initialize(items, binding.pager,this)
+
+                    } else {
+                        items = emptyList()
+                        items = createTestItems()
+                        binding.horizontalSelector.initialize(items, binding.pager,this)
                     }
 
 

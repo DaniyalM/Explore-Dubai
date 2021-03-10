@@ -3,25 +3,22 @@ package com.app.dubaiculture.data.repository.attraction.mapper
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequest
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequestDTO
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequest
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequestDTO
+import com.app.dubaiculture.data.repository.attraction.remote.request.*
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionCategoryDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionResponse
 
 
-fun transformAttractionDetailRequest(attractionDetailRequest: AttractionDetailRequest) =
+fun transformAttractionDetailRequest(attractionRequest: AttractionRequest) =
     AttractionDetailRequestDTO(
-        attractionId = attractionDetailRequest.attractionId,
-        culture = attractionDetailRequest.culture
+        attractionId = attractionRequest.attractionId!!,
+        culture = attractionRequest.culture
     )
 
 
-fun transformAttractionCategoryRequest(attractionCategoryRequest: AttractionCategoryRequest) =
+fun transformAttractionCategoryRequest(attractionRequest: AttractionRequest) =
     AttractionCategoryRequestDTO(
-        culture = attractionCategoryRequest.culture
+        culture = attractionRequest.culture
     )
 
 
