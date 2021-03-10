@@ -1,23 +1,18 @@
 package com.app.dubaiculture.ui.postLogin.events
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.databinding.FragmentEventFilterBinding
 import com.app.dubaiculture.databinding.FragmentEventListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
-import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
-import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
-import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,12 +28,13 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
         var EVENT_DETAIL_ID: String = "Event_ID"
 
         @JvmStatic
-        fun newInstance(events: ArrayList<Events>) = EventListingFragment().apply {
+        fun newInstance(eventList: ArrayList<Events>) = EventListingFragment().apply {
             arguments = Bundle().apply {
                 putParcelableArrayList(EVENT_CATEG0RY_TYPE, eventList)
             }
         }
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(eventViewModel)
@@ -55,7 +51,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
         binding.rvEventListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = eventListScreenAdapter
-            eventListScreenAdapter?.events =eventList
+            eventListScreenAdapter?.events = eventList
             this.addOnItemTouchListener(RecyclerItemClickListener(
                 activity,
                 this,
@@ -70,15 +66,21 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
                     }
 
                     override fun onLongItemClick(view: View, position: Int) {
-                        TODO("Not yet implemented")
                     }
                 }
             ))
         }
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.getParcelableArrayList<Events>(EVENT_CATEG0RY_TYPE)
+            ?.let { eventList = it }
+    }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )=FragmentEventListingBinding.inflate(inflater,container,false)
+    ) = FragmentEventListingBinding.inflate(inflater, container, false)
 
 }

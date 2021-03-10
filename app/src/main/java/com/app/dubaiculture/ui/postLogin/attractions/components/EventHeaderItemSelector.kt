@@ -15,6 +15,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHe
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventHeaderItems
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import kotlinx.android.synthetic.main.attraction_list_item_cell.view.*
 
 class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), AttractionHeaderClick {
@@ -101,7 +102,7 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
             if (!isUpdate) {
                 groupAdapter.add(
                     EventHeaderItems(
-                        displayValue ="",
+                        displayValue = model.category!!,
                         data = list,
                         isSelected = isSelected,
                         selectedTextColor = selectedTextColor,
@@ -116,7 +117,7 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
             } else {
 
                 groupAdapter.notifyItemChanged(index, EventHeaderItems(
-                    displayValue = model.events[index].title!!,
+                    displayValue = model.category!!,
                     data = list,
                     isSelected = isSelected,
                     selectedTextColor = selectedTextColor,

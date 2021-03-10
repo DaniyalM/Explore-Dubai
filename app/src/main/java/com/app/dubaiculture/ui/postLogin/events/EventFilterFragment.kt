@@ -67,7 +67,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>() {
         repeat((1..10).count()) {
             add(
                 EventHomeListing(
-                    category = it.toString(),
+                    category = "Week-$it",
                     events = createAttractionItems()
                 )
             )
@@ -78,18 +78,18 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>() {
         repeat((1..4).count()) {
             add(Events(
                 id = it.toString(),
-                title = "title $it",
-                category = "Category $it",
-                image = "image $it",
-                fromDate = "fromDate $it",
-                fromMonthYear = "fromMonthYear $it",
+                title = "Photographs in Dialogue\nexhibition: Hala Badri welcomes",
+                category = "ONLINE",
+                image = "https://upload.wikimedia.org/wikipedia/commons/c/cc/Dubai_Skylines_at_night_%28Pexels_3787839%29.jpg",
+                fromDate = "14",
+                fromMonthYear = "NOV, 20",
                 fromTime = "fromTime $it",
                 fromDay = "fromDay $it",
-                toDate = "toDate $it",
-                toMonthYear ="toMonthYear $it",
+                toDate = "20",
+                toMonthYear ="NOV, 20",
                 toTime = "toTime $it",
                 toDay = "toDay $it",
-                type ="type $it"
+                type ="FREE $it"
                 )
             )
         }

@@ -89,7 +89,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                     }
 
                     override fun onLongItemClick(view: View, position: Int) {
-                        TODO("Not yet implemented")
                     }
                 }
             ))
