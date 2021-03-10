@@ -28,7 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onActivityCreated(savedInstanceState)
         bottomNavigationView = binding.bottomNav
         initBottomNavigation()
-//        initViewPager()
+        initViewPager()
     }
 
     private fun initBottomNavigation(){
