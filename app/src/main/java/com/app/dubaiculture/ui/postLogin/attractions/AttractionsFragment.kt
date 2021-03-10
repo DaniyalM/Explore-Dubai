@@ -16,7 +16,6 @@ import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAda
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
-import com.app.dubaiculture.utils.handleApiError
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
@@ -26,6 +25,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
+    private var itemHasLoaded = false
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentAttractionsBinding.inflate(inflater, container, false)
@@ -42,13 +42,11 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         initiatePager()
 
 
-
-
     }
 
     @Subscribe
-    fun doRefreshRequest(attractionBusService: AttractionBusService.SwipeToRefresh){
-        if (attractionBusService.doRefresh){
+    fun doRefreshRequest(attractionBusService: AttractionBusService.SwipeToRefresh) {
+        if (attractionBusService.doRefresh && !itemHasLoaded) {
             callingObservables()
         }
     }
@@ -69,15 +67,29 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
+                        itemHasLoaded = true
                         binding.horizontalSelector.initialize(it.value, binding.pager)
                         binding.pager.adapter = AttractionPagerAdaper(this, it.value)
 
                     }
                 }
                 is Result.Failure -> {
-                    binding.horizontalSelector.initialize(createTestItems(), binding.pager)
-                    binding.pager.adapter = AttractionPagerAdaper(this,
-                        createTestItems() as ArrayList<AttractionCategory>)
+                    var items = createTestItems()
+                    if (!itemHasLoaded) {
+
+                        itemHasLoaded = true
+                        binding.horizontalSelector.initialize(items, binding.pager)
+                        binding.pager.adapter =
+                            AttractionPagerAdaper(this, items as ArrayList<AttractionCategory>)
+                    }
+                    else {
+                        items= emptyList()
+                        items=createTestItems()
+                        binding.horizontalSelector.initialize(items, binding.pager)
+                        binding.pager.adapter =
+                            AttractionPagerAdaper(this, items as ArrayList<AttractionCategory>)
+                    }
+
 
 //                    handleApiError(it, attractionViewModel)
                 }
@@ -123,38 +135,40 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     }
 
 
-    private fun createTestItems(): List<AttractionCategory> = mutableListOf<AttractionCategory>().apply {
+    private fun createTestItems(): List<AttractionCategory> =
+        mutableListOf<AttractionCategory>().apply {
 
 
-        repeat((1..10).count()) {
+            repeat((1..4).count()) {
 
-            add(
-                AttractionCategory(
-                    id=it.toString(),
-                    title = "Title 1 $it",
-                    icon = "",
-                    imgSelected = R.drawable.museums_icon_home,
-                    imgUnSelected = R.drawable.museum,
-                    attractions = createAttractionItems()
+                add(
+                    AttractionCategory(
+                        id = it.toString(),
+                        title = "Title 1 $it",
+                        icon = "",
+                        imgSelected = R.drawable.museums_icon_home,
+                        imgUnSelected = R.drawable.museum,
+                        attractions = createAttractionItems()
+                    )
                 )
-            )
+            }
         }
-    }
 
-    private fun createAttractionItems(): ArrayList<Attractions> = mutableListOf<Attractions>().apply {
+    private fun createAttractionItems(): ArrayList<Attractions> =
+        mutableListOf<Attractions>().apply {
 
 
-        repeat((1..4).count()) {
+            repeat((1..4).count()) {
 
-            add(
-                Attractions(
-                    id=it.toString(),
-                    title = "title $it",
-                    category = "Category $it",
-                    IsFavourite = false,
+                add(
+                    Attractions(
+                        id = it.toString(),
+                        title = "title $it",
+                        category = "Category $it",
+                        IsFavourite = false,
+                    )
                 )
-            )
-        }
-    } as ArrayList<Attractions>
+            }
+        } as ArrayList<Attractions>
 }
 
