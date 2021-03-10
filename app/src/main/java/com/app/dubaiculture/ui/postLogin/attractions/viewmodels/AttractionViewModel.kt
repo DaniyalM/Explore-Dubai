@@ -9,8 +9,7 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.AttractionRepository
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequest
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequest
+import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -32,7 +31,7 @@ class AttractionViewModel @ViewModelInject constructor(
         showLoader(true)
         viewModelScope.launch {
             when (val result =
-                attractionRepository.getAttractionCategories(AttractionCategoryRequest(culture = locale))) {
+                attractionRepository.getAttractionCategories(AttractionRequest(culture = locale))) {
                 is Result.Success -> {
                     _attractionCategoryList.value = result
                     showLoader(false)
@@ -50,7 +49,7 @@ class AttractionViewModel @ViewModelInject constructor(
     fun getAttractionDetailsToScreen(attractionId: String, locale: String) {
         showLoader(true)
         viewModelScope.launch {
-            when (val result = attractionRepository.getAttractionDetail(AttractionDetailRequest(
+            when (val result = attractionRepository.getAttractionDetail(AttractionRequest(
                 attractionId = attractionId,
                 culture = locale))) {
 

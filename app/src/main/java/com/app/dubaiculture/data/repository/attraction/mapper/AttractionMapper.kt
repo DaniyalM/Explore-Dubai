@@ -3,25 +3,31 @@ package com.app.dubaiculture.data.repository.attraction.mapper
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequest
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequestDTO
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequest
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequestDTO
+import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
+import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequestDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionCategoryDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionResponse
 
 
-fun transformAttractionDetailRequest(attractionDetailRequest: AttractionDetailRequest) =
+fun transformAttractionsRequest(attractionRequest: AttractionRequest) =
+    AttractionRequestDTO(
+        attractionCategoryId = attractionRequest.attractionCatId!!,
+        culture = attractionRequest.culture
+    )
+
+fun transformAttractionDetailRequest(attractionRequest: AttractionRequest) =
     AttractionDetailRequestDTO(
-        attractionId = attractionDetailRequest.attractionId,
-        culture = attractionDetailRequest.culture
+        attractionId = attractionRequest.attractionId!!,
+        culture = attractionRequest.culture
     )
 
 
-fun transformAttractionCategoryRequest(attractionCategoryRequest: AttractionCategoryRequest) =
+fun transformAttractionCategoryRequest(attractionRequest: AttractionRequest) =
     AttractionCategoryRequestDTO(
-        culture = attractionCategoryRequest.culture
+        culture = attractionRequest.culture
     )
 
 
@@ -84,3 +90,32 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
     IsFavourite = attraction.isFavourite!!,
     events = attraction.events!!
 )
+
+
+fun transformAttractions(attractionResponse: AttractionResponse): List<Attractions> =
+    attractionResponse.Result.attractions.run {
+        transformAttractions(this)
+    }
+
+fun transformAttractions(list: List<AttractionDTO>): List<Attractions> =
+    list.run {
+        this.map {
+            Attractions(
+                id = it.id!!,
+                title = it.title!!,
+                category = it.category!!,
+                IsFavourite = it.isFavourite!!,
+                locationTitle = it.locationTitle,
+                location = it.location,
+                portraitImage = it.portraitImage,
+                landscapeImage = it.landscapeImage,
+                description = it.description,
+                startTime = it.startTime,
+                endTime = it.endTime,
+                endDay = it.endDay,
+                startDay = it.startDay,
+                color = it.color
+
+            )
+        }
+    }
