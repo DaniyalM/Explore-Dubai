@@ -81,7 +81,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
 //                        attractionViewModel.showErrorDialog(message = attractions.get(position).title)
-                        navigateByAction(R.id.action_homeFragment_to_attractionDetailFragment,
+                        navigateByAction(R.id.action_attractionsFragment_to_attractionDetailFragment,
                             Bundle().apply {
                                 this.putString(ATTRACTION_DETAIL_ID,
                                     attractions.get(position).id)

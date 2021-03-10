@@ -547,10 +547,11 @@
                     android:layout_weight="0.2"
                     android:id="@+id/animationView"
                     android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_width="@dimen/_70sdp"
-
                     android:layout_height="match_parent"
-                    app:lottie_rawRes="@raw/pinlooped"
+                    app:lottie_rawRes="@raw/star_attraction"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"/>
                 <!--                <ImageView-->

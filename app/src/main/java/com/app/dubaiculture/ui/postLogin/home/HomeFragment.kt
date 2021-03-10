@@ -37,9 +37,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 //        binding.bottomNav.setupWithViewPager(binding.pager as ViewPager)
         bottomNavigationView?.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_explore -> binding.pager.currentItem = 0
-                R.id.action_events -> binding.pager.currentItem = 1
-                R.id.action_forums -> binding.pager.currentItem = 2
+//                R.id.action_explore -> binding.pager.currentItem = 0
+//                R.id.action_events -> binding.pager.currentItem = 1
+//                R.id.action_forums -> binding.pager.currentItem = 2
                 else -> binding.pager.currentItem = 3
             }
             true

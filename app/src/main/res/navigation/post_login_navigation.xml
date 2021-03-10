@@ -3,19 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_login_navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/exploreFragment">
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.app.dubaiculture.ui.postLogin.home.HomeFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_attractionDetailFragment"
-            app:destination="@id/attractionDetailFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.app.dubaiculture.ui.postLogin.explore.ExploreFragment"
@@ -29,6 +22,9 @@
         android:name="com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment"
         android:label="AttractionsFragment" >
 
+        <action
+            android:id="@+id/action_attractionsFragment_to_attractionDetailFragment"
+            app:destination="@id/attractionDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/moreFragment"

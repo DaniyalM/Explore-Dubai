@@ -2,18 +2,27 @@ package com.app.dubaiculture.ui.postLogin
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_post_login.*
+import kotlinx.android.synthetic.main.attraction_home_inner_list_item.*
 import timber.log.Timber
 
 //,
 //OnStreetViewPanoramaReadyCallback
 @AndroidEntryPoint
 class PostLoginActivity : BaseAuthenticationActivity() {
-
+    lateinit var navController : NavController
     private val mainViewModel: MainViewModel by viewModels()
 //    private lateinit var streetViewPanoramaFragment: SupportStreetViewPanoramaFragment
 
@@ -29,8 +38,18 @@ class PostLoginActivity : BaseAuthenticationActivity() {
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
+        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
         subscribeUiEvents(mainViewModel)
+        setupViews()
 
+    }
+    fun setupViews()
+    {
+        val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
+        navController = Navigation.findNavController(fragmentContainer)
+        // Finding the Navigation Controller
+        // Setting Navigation Controller with the BottomNavigationView
+        bottomNav.setupWithNavController(navController)
     }
 
     override fun onStart() {

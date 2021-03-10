@@ -58,7 +58,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
 //                        attractionViewModel.showErrorDialog(message = attractions.get(position).title)
-                        navigateByAction(R.id.action_homeFragment_to_eventDetailFragment2,
+                        navigateByAction(R.id.action_loginFragment_to_eventDetailFragment,
                             Bundle().apply {
                                 this.putString(EVENT_DETAIL_ID,
                                     eventList[position].id)
