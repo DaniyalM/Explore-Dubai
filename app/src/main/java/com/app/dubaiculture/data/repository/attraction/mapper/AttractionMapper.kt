@@ -47,7 +47,7 @@ fun transformAttractionCategory(list: ArrayList<AttractionCategoryDTO>): ArrayLi
                 title = it.title,
                 imgSelected = R.drawable.museums_icon_home,
                 imgUnSelected = R.drawable.museum,
-                selectedSvg = it.selectedSvg,
+                selectedSvg = it.icon,
                 unselectedSvg = it.unselectedSvg,
                 attractions = it.attractions.map {
                     Attractions(
