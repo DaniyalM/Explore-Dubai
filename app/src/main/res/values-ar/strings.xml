@@ -130,6 +130,9 @@
     <string name="event_information">Event Information</string>
     <string name="schedule">Schedule</string>
     <string name="search_event_by_keyword">Search Event by keyword</string>
+    <string name="feature_events">Feature Events</string>
+    <string name="events_near_you">Events Near You</string>
+    <string name="view_on_map">View on map</string>
 </resources>
 
 

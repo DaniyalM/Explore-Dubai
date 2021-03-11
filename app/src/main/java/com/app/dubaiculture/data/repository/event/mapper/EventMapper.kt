@@ -29,21 +29,21 @@ fun transformHomeEventListing(eventResponse: EventResponse): ArrayList<EventHome
     }
 
 fun transformEventDetail(eventResponse: EventResponse):Events=
-   Events(
-       id = eventResponse.Result.event.id,
-       title = eventResponse.Result.event.title,
-       category = eventResponse.Result.event.category,
-       image = eventResponse.Result.event.image,
-       fromDate = eventResponse.Result.event.fromDate,
-       fromMonthYear = eventResponse.Result.event.fromMonthYear,
-       fromTime = eventResponse.Result.event.fromTime,
-       fromDay = eventResponse.Result.event.fromDay,
-       toDate = eventResponse.Result.event.toDate,
-       toMonthYear = eventResponse.Result.event.toMonthYear,
-       toTime = eventResponse.Result.event.toTime,
-       toDay = eventResponse.Result.event.toDay,
-       type = eventResponse.Result.event.type
-   )
+    Events(
+        id = eventResponse.Result.event.id,
+        title = eventResponse.Result.event.title,
+        category = eventResponse.Result.event.category,
+        image = eventResponse.Result.event.image,
+        fromDate = eventResponse.Result.event.fromDate,
+        fromMonthYear = eventResponse.Result.event.fromMonthYear,
+        fromTime = eventResponse.Result.event.fromTime,
+        fromDay = eventResponse.Result.event.fromDay,
+        toDate = eventResponse.Result.event.toDate,
+        toMonthYear = eventResponse.Result.event.toMonthYear,
+        toTime = eventResponse.Result.event.toTime,
+        toDay = eventResponse.Result.event.toDay,
+        type = eventResponse.Result.event.type
+    )
 
 fun transformHomeEventListing(homeEventList: ArrayList<HomeEventListingDTO>): ArrayList<EventHomeListing> =
     homeEventList.mapIndexed { index, it ->   {

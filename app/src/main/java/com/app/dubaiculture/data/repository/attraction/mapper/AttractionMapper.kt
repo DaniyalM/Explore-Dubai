@@ -14,7 +14,9 @@ import com.app.dubaiculture.data.repository.attraction.remote.response.Attractio
 
 fun transformAttractionsRequest(attractionRequest: AttractionRequest) =
     AttractionRequestDTO(
-        attractionCategoryId = attractionRequest.attractionCatId!!,
+        attractionCategoryId = attractionRequest.attractionId!!,
+        pageNumber = attractionRequest.pageNumber!!,
+        pageSize = attractionRequest.pageSize!!,
         culture = attractionRequest.culture
     )
 
@@ -115,7 +117,6 @@ fun transformAttractions(list: List<AttractionDTO>): List<Attractions> =
                 endDay = it.endDay,
                 startDay = it.startDay,
                 color = it.color
-
             )
         }
     }

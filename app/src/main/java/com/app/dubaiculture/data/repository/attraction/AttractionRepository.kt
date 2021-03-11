@@ -23,23 +23,19 @@ class AttractionRepository @Inject constructor(
                 } else {
                     val listLDS = transformAttractionCategory(listRDS.value)
                     Result.Success(listLDS)
-
 //                photoLDS.insertAll(listLDS as MutableList<Photo>)
 //                val resultLDS = photoLDS.getAll()
-
                 }
-
             }
             is Result.Error -> resultRDS
             is Result.Failure -> resultRDS
         }
-
     }
 
 
     suspend fun getAttractionsByCategory(attractionRequest: AttractionRequest): Result<List<Attractions>> {
         return when (val resultRDS =
-            attractionRDS.getAttractionsByCategory(transformAttractionsRequest(
+            attractionRDS.getAttractionsListingByCategory(transformAttractionsRequest(
                 attractionRequest))) {
             is Result.Success -> {
                 val attractionRds = resultRDS

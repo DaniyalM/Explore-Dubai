@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory.fromResource
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.shape.CornerFamily
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
@@ -44,6 +45,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         uiActions()
         mapSetUp()
         rvSetUp()
+        cardViewRTL()
     }
 
     private fun uiActions() {
@@ -126,6 +128,22 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
         }
 
+    }
+    private fun cardViewRTL(){
+        val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
+        if(isArabic()){
+            binding.root.cardview_plan_trip?.shapeAppearanceModel =  binding.root.cardview_plan_trip!!.shapeAppearanceModel
+                .toBuilder()
+                .setBottomLeftCorner(CornerFamily.ROUNDED,radius)
+                .setTopRightCornerSize(radius)
+                .build()
+        }else{
+            binding.root.cardview_plan_trip?.shapeAppearanceModel =  binding.root.cardview_plan_trip!!.shapeAppearanceModel
+                .toBuilder()
+                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
+                .setBottomRightCornerSize(radius)
+                .build()
+        }
     }
 
     private fun mapSetUp() {

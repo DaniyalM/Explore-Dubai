@@ -18,6 +18,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHe
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.UpdateAttractionHeader
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import kotlinx.coroutines.*
 
 class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), AttractionHeaderClick {
@@ -31,8 +32,8 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var list: List<AttractionCategory>? = null
     private var attractionPager: ViewPager2? = null
     private var recyclerView: RecyclerView? = null
-    private var fragment:Fragment?=null
-
+    private var fragment: Fragment? = null
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     companion object {
         var clickCheckerFlag: Int = 0
@@ -85,11 +86,11 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     fun initialize(
         list: List<AttractionCategory>,
         attractionPager: ViewPager2? = null,
-        fragment:Fragment?=null
+        fragment: Fragment? = null,
     ) {
         this.list = list
         this.attractionPager = attractionPager
-        this.fragment=fragment
+        this.fragment = fragment
 
 
         itemsAddnUpdation(list)
@@ -158,13 +159,19 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     override fun onClick(position: Int) {
         positionUpdate(position)
-        list?.let { itemsAddnUpdation(it, true) }
+        list?.let {
+            applicationScope.launch {
+                itemsAddnUpdation(it, true)
+            }
+
+        }
     }
 
 
     fun positionUpdate(position: Int) {
         clickCheckerFlag = position
-        attractionPager?.adapter= AttractionPagerAdaper(fragment = fragment!!,list?.get(position)?.id!!)
+        attractionPager?.adapter =
+            AttractionPagerAdaper(fragment = fragment!!, list?.get(position)?.id!!)
         recyclerView?.smoothScrollToPosition(position)
         attractionPager?.currentItem = clickCheckerFlag
     }

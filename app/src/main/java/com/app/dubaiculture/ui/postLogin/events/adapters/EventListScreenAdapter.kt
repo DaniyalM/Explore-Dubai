@@ -19,7 +19,6 @@ class EventListScreenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         override fun areItemsTheSame(oldItem: Events, newItem: Events): Boolean {
             return oldItem.id == newItem.id
         }
-
         override fun areContentsTheSame(oldItem: Events, newItem: Events): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }

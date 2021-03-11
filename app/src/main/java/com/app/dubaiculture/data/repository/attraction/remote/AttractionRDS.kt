@@ -11,7 +11,7 @@ class AttractionRDS @Inject constructor(private val attractionService: Attractio
     BaseRDS() {
     suspend fun getAttractionCategories(attractionCategoryRequestDTO: AttractionCategoryRequestDTO) =
         safeApiCall {
-            attractionService.getAttractionCategoryApi(attractionCategoryRequestDTO)
+            attractionService.getAttractionCategoryApi(attractionCategoryRequestDTO.culture)
         }
 
     suspend fun getAttractionDetail(attractionDetailRequestDTO: AttractionDetailRequestDTO) =
@@ -20,9 +20,11 @@ class AttractionRDS @Inject constructor(private val attractionService: Attractio
                 culture = attractionDetailRequestDTO.culture)
         }
 
-    suspend fun getAttractionsByCategory(attractionRequestDTO: AttractionRequestDTO) =
+    suspend fun getAttractionsListingByCategory(attractionRequestDTO: AttractionRequestDTO) =
         safeApiCall {
-            attractionService.getAttractionsByCategory(attractionCatId = attractionRequestDTO.attractionCategoryId,
+            attractionService.getAttractionsListingByCategory(attractionCatId = attractionRequestDTO.attractionCategoryId,
+                pageNumber = attractionRequestDTO.pageNumber,
+                pageSize = attractionRequestDTO.pageSize,
                 culture = attractionRequestDTO.culture)
         }
 }

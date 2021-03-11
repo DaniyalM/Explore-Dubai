@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface EventService {
 
-    @GET("/events")
+    @GET("/api/Content/GetEvents")
     suspend fun getEvents(@Query("culture") culture: String): EventResponse
 
     @GET("/events/{event_id}")
