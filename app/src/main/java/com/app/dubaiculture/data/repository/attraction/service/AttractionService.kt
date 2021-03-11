@@ -13,4 +13,10 @@ interface AttractionService {
         @Path("attraction_id") attractionId: String,
         @Query("culture") culture: String,
     ): AttractionResponse
+
+    @GET("/Content/GetAttractionsById")
+    suspend fun getAttractionsByCategory(
+        @Path("Id") attractionCatId: String,
+        @Query("culture") culture: String,
+    ): AttractionResponse
 }
