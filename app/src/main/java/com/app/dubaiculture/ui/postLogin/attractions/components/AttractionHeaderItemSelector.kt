@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
@@ -15,11 +15,12 @@ import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCa
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.UpdateAttractionHeader
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
-class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
-    FrameLayout(context, attrs), AttractionHeaderClick{
+class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
+    FrameLayout(context, attrs), AttractionHeaderClick {
     private var selectedTextColor: Int? = null
     private var unSelectedTextColor: Int? = null
     private var selectedBackground: Int? = null
@@ -29,7 +30,8 @@ class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var list: List<AttractionCategory>? = null
     private var attractionPager: ViewPager2? = null
-    private  var recyclerView:RecyclerView?=null
+    private var recyclerView: RecyclerView? = null
+    private var fragment:Fragment?=null
 
 
     companion object {
@@ -67,11 +69,11 @@ class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         }
         typeArray.recycle()
         val view = inflate(context, R.layout.attractions_item_selector, null)
-        recyclerView= view.findViewById(R.id.rVgeneric)
+        recyclerView = view.findViewById(R.id.rVgeneric)
 
         recyclerView?.let {
             it.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             addView(view)
             it.adapter = groupAdapter
 //            LinearSnapHelper().attachToRecyclerView(it)
@@ -82,10 +84,14 @@ class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     @JvmName("attractionHeaders")
     fun initialize(
         list: List<AttractionCategory>,
-        attractionPager: ViewPager2? = null
+        attractionPager: ViewPager2? = null,
+        fragment:Fragment?=null
     ) {
         this.list = list
         this.attractionPager = attractionPager
+        this.fragment=fragment
+
+
         itemsAddnUpdation(list)
     }
 
@@ -96,7 +102,7 @@ class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
         list.forEachIndexed { index, model ->
             var isSelected = false
-            if (clickCheckerFlag == index){
+            if (clickCheckerFlag == index) {
                 isSelected = true
                 positionUpdate(clickCheckerFlag)
             }
@@ -156,12 +162,12 @@ class  AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     }
 
 
-    fun positionUpdate(position: Int){
+    fun positionUpdate(position: Int) {
         clickCheckerFlag = position
+        attractionPager?.adapter= AttractionPagerAdaper(fragment = fragment!!,list?.get(position)?.id!!)
         recyclerView?.smoothScrollToPosition(position)
         attractionPager?.currentItem = clickCheckerFlag
     }
-
 
 
 }

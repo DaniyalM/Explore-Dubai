@@ -40,23 +40,23 @@ class AttractionRepository @Inject constructor(
     }
 
 
-    suspend fun getAttractionsByCategory(attractionRequest: AttractionRequest): Result<List<Attractions>> {
-        return when (val resultRDS =
-            attractionRDS.getAttractionDetail(transformAttractionDetailRequest(
-                attractionRequest))) {
-            is Result.Success -> {
-                val attractionRds = resultRDS
-                if (attractionRds.value.statusCode != 200) {
-                    Result.Failure(true, attractionRds.value.statusCode, null)
-                } else {
-                    val attractionLds = transformAttractionDetail(attractionRds.value)
-                    Result.Success(attractionLds)
-                }
-            }
-            is Result.Error -> resultRDS
-            is Result.Failure -> resultRDS
-        }
-    }
+//    suspend fun getAttractionsByCategory(attractionRequest: AttractionRequest): Result<List<Attractions>> {
+//        return when (val resultRDS =
+//            attractionRDS.getAttractionDetail(transformAttractionDetailRequest(
+//                attractionRequest))) {
+//            is Result.Success -> {
+//                val attractionRds = resultRDS
+//                if (attractionRds.value.statusCode != 200) {
+//                    Result.Failure(true, attractionRds.value.statusCode, null)
+//                } else {
+//                    val attractionLds = transformAttractionDetail(attractionRds.value)
+//                    Result.Success(attractionLds)
+//                }
+//            }
+//            is Result.Error -> resultRDS
+//            is Result.Failure -> resultRDS
+//        }
+//    }
 
     suspend fun getAttractionDetail(attractionRequest: AttractionRequest): Result<Attractions> {
         return when (val resultRDS =

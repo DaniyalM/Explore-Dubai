@@ -50,7 +50,7 @@ class AttractionViewModel @ViewModelInject constructor(
     fun getAttractionDetailsToScreen(attractionId: String, locale: String) {
         showLoader(true)
         viewModelScope.launch {
-            when (val result = attractionRepository.getAttractionDetail(AttractionDetailRequest(
+            when (val result = attractionRepository.getAttractionDetail(AttractionRequest(
                 attractionId = attractionId,
                 culture = locale))) {
 
