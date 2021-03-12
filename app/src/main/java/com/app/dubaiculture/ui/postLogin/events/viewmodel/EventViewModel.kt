@@ -19,9 +19,9 @@ class EventViewModel @ViewModelInject constructor(
     private val eventRepository: EventRepository,
 ) : BaseViewModel(application) {
 
-    private val _eventCategoryList: MutableLiveData<Result<ArrayList<EventHomeListing>>> =
+    private val _eventCategoryList: MutableLiveData<Result<EventHomeListing>> =
         MutableLiveData()
-    val eventCategoryList: LiveData<Result<ArrayList<EventHomeListing>>> =
+    val eventCategoryList: LiveData<Result<EventHomeListing>> =
         _eventCategoryList
 
     private val _eventDetailList: MutableLiveData<Result<Events>> = MutableLiveData()

@@ -37,6 +37,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     companion object {
         var clickCheckerFlag: Int = 0
+        var previousPosition: Int = 0
     }
 
 
@@ -107,43 +108,60 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                 isSelected = true
                 positionUpdate(clickCheckerFlag)
             }
-
-
             if (!isUpdate) {
                 groupAdapter.add(
                     AttractionHeaderItems(
-                        displayValue = model.title!!,
+                        displayValue = list.get(clickCheckerFlag).title!!,
                         data = list,
                         isSelected = isSelected,
                         selectedTextColor = selectedTextColor,
                         unSelectedTextColor = unSelectedTextColor,
                         selectedBackground = getDrawableFromId(selectedBackground),
                         unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                        selectedInnerImg = getDrawableFromId(model.imgSelected.toInt()),
-                        unSelectedInnerImg = getDrawableFromId(model.imgUnSelected.toInt()),
+                        selectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgSelected.toInt()),
+                        unSelectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgUnSelected.toInt()),
                         progressListener = this
                     )
                 )
-            } else {
-
-                groupAdapter.notifyItemChanged(index, AttractionHeaderItems(
-                    displayValue = model.title!!,
-                    data = list,
-                    isSelected = isSelected,
-                    selectedTextColor = selectedTextColor,
-                    unSelectedTextColor = unSelectedTextColor,
-                    selectedBackground = getDrawableFromId(selectedBackground),
-                    unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                    selectedInnerImg = getDrawableFromId(model.imgSelected.toInt()),
-                    unSelectedInnerImg = getDrawableFromId(model.imgUnSelected.toInt()),
-                    progressListener = this)
-                )
-
-
             }
 
-
         }
+        if (isUpdate){
+            groupAdapter.notifyItemChanged(previousPosition, AttractionHeaderItems(
+                displayValue = list.get(clickCheckerFlag).title!!,
+                data = list,
+                isSelected = isSelected,
+                selectedTextColor = selectedTextColor,
+                unSelectedTextColor = unSelectedTextColor,
+                selectedBackground = getDrawableFromId(selectedBackground),
+                unSelectedBackground = getDrawableFromId(unSelectedBackground),
+                selectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgSelected.toInt()),
+                unSelectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgUnSelected.toInt()),
+                progressListener = this)
+            )
+        }
+
+//        if (!isUpdate) {
+//            groupAdapter.add(
+//                AttractionHeaderItems(
+//                    displayValue = list.get(clickCheckerFlag).title!!,
+//                    data = list,
+//                    isSelected = isSelected,
+//                    selectedTextColor = selectedTextColor,
+//                    unSelectedTextColor = unSelectedTextColor,
+//                    selectedBackground = getDrawableFromId(selectedBackground),
+//                    unSelectedBackground = getDrawableFromId(unSelectedBackground),
+//                    selectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgSelected.toInt()),
+//                    unSelectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgUnSelected.toInt()),
+//                    progressListener = this
+//                )
+//            )
+//        } else {
+//
+//
+//
+//
+//        }
 
 
     }
@@ -158,6 +176,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
 
     override fun onClick(position: Int) {
+        previousPosition= clickCheckerFlag
         positionUpdate(position)
         list?.let {
             applicationScope.launch {
