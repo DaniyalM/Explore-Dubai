@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="events"
+            type="com.app.dubaiculture.data.repository.event.local.models.Events" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_105sdp">
@@ -42,7 +47,7 @@
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/workshop"
+                        android:text="@{events.category}"
                         android:singleLine="true"
                         android:ellipsize="end"
                         android:layout_marginEnd="@dimen/_10sdp"
@@ -57,7 +62,7 @@
                         android:maxLines="2"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:ellipsize="end"
-                        android:text="The Definitive Guide to an Uncertain World"
+                        android:text="@{events.title}"
                         android:textColor="@color/black_200"
                         android:textSize="@dimen/_10sdp"
                         />
@@ -66,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/calender_gray"
-                        android:text="12 - 15 Nov, 20"
+                        android:text="@{events.toDate}"
                         android:singleLine="true"
                         android:ellipsize="end"
                         android:layout_marginEnd="@dimen/_10sdp"
