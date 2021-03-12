@@ -46,25 +46,55 @@ fun transformEventDetail(eventResponse: EventResponse):Events=
    )
 
 fun transformHomeEventListing(homeEventList: ArrayList<HomeEventListingDTO>): ArrayList<EventHomeListing> =
-    homeEventList.map {
-        EventHomeListing(
-            category = it.category,
-            events = it.events!!.map {
-                Events(
-                    id = it.id,
-                    title = it.title,
+    homeEventList.mapIndexed { index, it ->   {
+        when(index){
+            0->{
+                EventHomeListing(
+                    title = "Feature Events",
                     category = it.category,
-                    image = it.image,
-                    fromDate = it.fromDate,
-                    fromMonthYear = it.fromMonthYear,
-                    fromTime = it.fromTime,
-                    fromDay = it.fromDay,
-                    toDate = it.toDate,
-                    toMonthYear = it.toMonthYear,
-                    toTime = it.toTime,
-                    toDay = it.toDay,
-                    type = it.type
+                    events = it.events!!.map {
+                        Events(
+                            id = it.id,
+                            title = it.title,
+                            category = it.category,
+                            image = it.image,
+                            fromDate = it.fromDate,
+                            fromMonthYear = it.fromMonthYear,
+                            fromTime = it.fromTime,
+                            fromDay = it.fromDay,
+                            toDate = it.toDate,
+                            toMonthYear = it.toMonthYear,
+                            toTime = it.toTime,
+                            toDay = it.toDay,
+                            type = it.type
+                        )
+                    }
                 )
             }
-        )
-    } as ArrayList<EventHomeListing>
+            else ->{
+                EventHomeListing(
+                    title = "More Events",
+                    category = it.category,
+                    events = it.events!!.map {
+                        Events(
+                            id = it.id,
+                            title = it.title,
+                            category = it.category,
+                            image = it.image,
+                            fromDate = it.fromDate,
+                            fromMonthYear = it.fromMonthYear,
+                            fromTime = it.fromTime,
+                            fromDay = it.fromDay,
+                            toDate = it.toDate,
+                            toMonthYear = it.toMonthYear,
+                            toTime = it.toTime,
+                            toDay = it.toDay,
+                            type = it.type
+                        )
+                    }
+                )
+            }
+        }
+
+
+    }} as ArrayList<EventHomeListing>

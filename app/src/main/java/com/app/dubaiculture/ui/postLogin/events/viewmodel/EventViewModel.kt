@@ -6,11 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.attraction.AttractionRepository
-import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequest
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequest
 import com.app.dubaiculture.data.repository.event.EventRepository
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events

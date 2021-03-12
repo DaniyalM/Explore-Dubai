@@ -23,6 +23,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private val attractionViewModel: AttractionViewModel by viewModels()
     private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractions: ArrayList<Attractions>
+    private lateinit var attractionId: String
     private var searchQuery: String = ""
 
     companion object {
@@ -31,9 +32,10 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         var ATTRACTION_DETAIL_ID: String = "Attraction_ID"
 
         @JvmStatic
-        fun newInstance(attractions: ArrayList<Attractions>) = AttractionListingFragment().apply {
+        fun newInstance(attractionId: String = "") = AttractionListingFragment().apply {
             arguments = Bundle().apply {
-                putParcelableArrayList(ATTRACTION_CATEG0RY_TYPE, attractions)
+//                putParcelableArrayList(ATTRACTION_CATEG0RY_TYPE, attractions)
+                putString(ATTRACTION_DETAIL_ID, attractionId)
             }
         }
     }
@@ -58,15 +60,20 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.getParcelableArrayList<Attractions>(ATTRACTION_CATEG0RY_TYPE)
-            ?.let { attractions = it }
+        arguments?.apply {
+            getString(ATTRACTION_DETAIL_ID)?.let {
+                attractionId = it
+            }
+        }
+//        arguments?.getParcelableArrayList<Attractions>(ATTRACTION_CATEG0RY_TYPE)
+//            ?.let { attractions = it }
     }
 
-    @Subscribe
-    fun onSearchTextQueryChange(updatedText: AttractionBusService.SearchTextQuery) {
-        searchQuery = updatedText.text.trim()
-        attractionListScreenAdapter?.search(searchQuery) { attractionViewModel.showToast("No Results Found") }
-    }
+//    @Subscribe
+//    fun onSearchTextQueryChange(updatedText: AttractionBusService.SearchTextQuery) {
+//        searchQuery = updatedText.text.trim()
+//        attractionListScreenAdapter?.search(searchQuery) { attractionViewModel.showToast("No Results Found") }
+//    }
 
 
     private fun initRecyclerView() {
@@ -74,7 +81,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         binding.rvAttractionListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = attractionListScreenAdapter
-            attractionListScreenAdapter?.attractions = attractions
+//            attractionListScreenAdapter?.attractions = attractions
             this.addOnItemTouchListener(RecyclerItemClickListener(
                 activity,
                 this,
