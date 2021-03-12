@@ -19,11 +19,11 @@ data class AttractionCategoryDTO(
     @Expose
     var title: String? = null,
 
-    @SerializedName("Selected_svg")
+    @SerializedName("WhiteIcon")
     @Expose
     var selectedSvg: String? = null,
 
-    @SerializedName("Unselected_svg")
+    @SerializedName("Icon")
     @Expose
     var unselectedSvg: String? = null,
 

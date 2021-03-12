@@ -16,6 +16,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAda
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.utils.handleApiError
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
@@ -53,8 +54,10 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
-        var   items = createTestItems()
-        binding.horizontalSelector.initialize(items, binding.pager,this)
+        val items=createTestItems()
+        binding.horizontalSelector.initialize(items, binding.pager)
+        binding.pager.adapter = AttractionPagerAdaper(this, items.get(clickCheckerFlag).id!!)
+
     }
 
 
@@ -71,28 +74,15 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                     it.let {
                         if (!itemHasLoaded) {
                             itemHasLoaded = true
-                            binding.horizontalSelector.initialize(it.value, binding.pager,this)
-//                            binding.pager.adapter = AttractionPagerAdaper(this, it.value)
+                            binding.horizontalSelector.initialize(it.value, binding.pager)
+                            binding.pager.adapter = AttractionPagerAdaper(this, it.value.get(clickCheckerFlag).id!!)
 
                         }
 
                     }
                 }
                 is Result.Failure -> {
-                    var items = createTestItems()
-                    if (!itemHasLoaded) {
-
-                        itemHasLoaded = true
-
-
-                    } else {
-                        items = emptyList()
-                        items = createTestItems()
-                        binding.horizontalSelector.initialize(items, binding.pager,this)
-                    }
-
-
-//                    handleApiError(it, attractionViewModel)
+                    handleApiError(it, attractionViewModel)
                 }
             }
         }
@@ -142,6 +132,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
             repeat((1..70).count()) {
 
+
                 add(
                     AttractionCategory(
                         id = it.toString(),
@@ -155,21 +146,5 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             }
         }
 
-//    private fun createAttractionItems(): ArrayList<Attractions> =
-//        mutableListOf<Attractions>().apply {
-//
-//
-//            repeat((1..4).count()) {
-//
-//                add(
-//                    Attractions(
-//                        id = it.toString(),
-//                        title = "title $it",
-//                        category = "Category $it",
-//                        IsFavourite = false,
-//                    )
-//                )
-//            }
-//        } as ArrayList<Attractions>
 }
 

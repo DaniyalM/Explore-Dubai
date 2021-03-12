@@ -13,11 +13,3 @@ class AttractionPagerAdaper(fragment: Fragment, val attractionId: String = "") :
 }
 
 
-//when (position >= attractionCategory.size) {
-//    false-> {
-////               AttractionListingFragment.newInstance(attractionCategory[position].attractions)
-//    }
-//    else -> {
-////                AttractionListingFragment.newInstance(attractionCategory[attractionCategory.size-1].attractions)
-//    }
-//}

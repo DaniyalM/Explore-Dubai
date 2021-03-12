@@ -8,7 +8,7 @@ interface AttractionService {
 //    @GET("/Content/GetAttractionCategories")
 //    suspend fun getAttractionCategoryApi(@Body attractionCategoryRequestDTO: AttractionCategoryRequestDTO): AttractionResponse
 
-    @GET("/api//Content/GetAttractionCategories")
+    @GET("/api/Content/GetAttractionCategories")
     suspend fun getAttractionCategoryApi(
         @Query("culture") culture: String,
     ): AttractionResponse

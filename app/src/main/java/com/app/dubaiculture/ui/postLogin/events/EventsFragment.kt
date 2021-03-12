@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -11,6 +12,7 @@ import com.app.dubaiculture.databinding.FragmentEventsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventRecyclerAsyncAdapter
+import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
@@ -20,6 +22,8 @@ import javax.inject.Inject
 class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private lateinit var event: EventRecyclerAsyncAdapter
     private var eventAdapter: EventListScreenAdapter? = null
+    private val eventViewModel: EventViewModel by viewModels()
+
 
     @Inject
     lateinit var glide: RequestManager
@@ -30,8 +34,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        setUpRv()
-        rvSetUp()
+        setUpRv()
+//        rvSetUp()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
         }

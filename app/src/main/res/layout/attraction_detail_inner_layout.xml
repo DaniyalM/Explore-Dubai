@@ -16,15 +16,15 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.07"
             />
-        <ImageView
-            android:id="@+id/img_detail"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:background="@drawable/gallery"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+<!--        <ImageView-->
+<!--            android:id="@+id/img_detail"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/_200sdp"-->
+<!--            android:background="@drawable/gallery"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            />-->
         <ImageView
             android:id="@+id/bg_border"
             android:layout_width="match_parent"
@@ -131,14 +131,6 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
 
-
-
-
-
-
-
-
-
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
@@ -161,9 +153,6 @@
             app:layout_constraintEnd_toEndOf="@+id/img_360"
             app:layout_constraintStart_toStartOf="@+id/img_360"
             app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-
-
 
 
         <ImageView
@@ -385,15 +374,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_attraction_days"
             app:layout_constraintTop_toBottomOf="@+id/dont_miss" />
-
-
-
-
-
-
-
-
-
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/ibeacons"

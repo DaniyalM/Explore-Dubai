@@ -23,7 +23,11 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.shape.CornerFamily
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
+import kotlinx.android.synthetic.main.fragment_attraction_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
+import kotlinx.android.synthetic.main.toolbar_layout_detail.bookingCalender
+import kotlinx.android.synthetic.main.toolbar_layout_detail.favourite
+import kotlinx.android.synthetic.main.toolbar_layout_detail.share
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import timber.log.Timber
 
@@ -58,10 +62,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     //write your code here
                     defaultCloseToolbar.visibility = View.VISIBLE
 //                    img.visibility = View.VISIBLE
-                    imageView4.visibility = View.VISIBLE
+//                    imageView4.visibility = View.VISIBLE
                 } else {
                     defaultCloseToolbar.visibility = View.GONE
-                    imageView4.visibility = View.GONE
+//                    imageView4.visibility = View.GONE
 
 //                    img.visibility = View.GONE
 

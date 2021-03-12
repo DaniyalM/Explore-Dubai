@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
     private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
-    private lateinit var attractions: ArrayList<Attractions>
+//    private lateinit var attractions: ArrayList<Attractions>
     private lateinit var attractionId: String
     private var searchQuery: String = ""
 
@@ -51,10 +51,10 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = false
-            bus.post(AttractionBusService().SwipeToRefresh(true))
-        }
+//        binding.swipeRefresh.setOnRefreshListener {
+//            binding.swipeRefresh.isRefreshing = false
+//            bus.post(AttractionBusService().SwipeToRefresh(true))
+//        }
 
     }
 
@@ -81,7 +81,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         binding.rvAttractionListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = attractionListScreenAdapter
-//            attractionListScreenAdapter?.attractions = attractions
+            val items=createAttractionItems()
+            attractionListScreenAdapter?.attractions = items
             this.addOnItemTouchListener(RecyclerItemClickListener(
                 activity,
                 this,
@@ -91,7 +92,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                         navigateByAction(R.id.action_attractionsFragment_to_attractionDetailFragment,
                             Bundle().apply {
                                 this.putString(ATTRACTION_DETAIL_ID,
-                                    attractions.get(position).id)
+                                    items.get(position).id)
                             })
                     }
 
@@ -101,5 +102,23 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             ))
         }
     }
+
+
+        private fun createAttractionItems(): ArrayList<Attractions> =
+        mutableListOf<Attractions>().apply {
+
+
+            repeat((1..4).count()) {
+
+                add(
+                    Attractions(
+                        id = it.toString(),
+                        title = "Dubai Museum and Al Fahidi Fort",
+                        category = "Category $it",
+                        IsFavourite = false,
+                    )
+                )
+            }
+        } as ArrayList<Attractions>
 
 }
