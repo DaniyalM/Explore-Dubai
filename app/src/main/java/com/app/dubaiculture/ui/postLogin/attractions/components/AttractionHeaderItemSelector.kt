@@ -182,7 +182,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
             applicationScope.launch {
                 itemsAddnUpdation(it, true)
             }
-
         }
     }
 

@@ -53,7 +53,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
-        var   items = createTestItems()
+        val items = createTestItems()
         binding.horizontalSelector.initialize(items, binding.pager,this)
     }
 
@@ -90,15 +90,11 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                         items = createTestItems()
                         binding.horizontalSelector.initialize(items, binding.pager,this)
                     }
-
-
 //                    handleApiError(it, attractionViewModel)
                 }
             }
         }
     }
-
-
     private fun setupToolbarWithSearchItems() {
 //        var searchViewVisibility = false
         binding.root.apply {
@@ -129,19 +125,13 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
         }
     }
-
     override fun onResume() {
         super.onResume()
         binding.horizontalSelector.positionUpdate(clickCheckerFlag)
     }
-
-
     private fun createTestItems(): List<AttractionCategory> =
         mutableListOf<AttractionCategory>().apply {
-
-
             repeat((1..70).count()) {
-
                 add(
                     AttractionCategory(
                         id = it.toString(),
@@ -154,7 +144,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 )
             }
         }
-
 //    private fun createAttractionItems(): ArrayList<Attractions> =
 //        mutableListOf<Attractions>().apply {
 //

@@ -65,7 +65,6 @@ fun transformAttractionCategory(list: ArrayList<AttractionCategoryDTO>): ArrayLi
                         endDay = it.endDay,
                         startDay = it.startDay,
                         color = it.color
-
                     )
                 } as ArrayList<Attractions>
             )

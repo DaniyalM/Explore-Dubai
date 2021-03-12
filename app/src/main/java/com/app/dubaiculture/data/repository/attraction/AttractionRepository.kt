@@ -22,7 +22,7 @@ class AttractionRepository @Inject constructor(
                     Result.Failure(true, listRDS.value.statusCode, null)
                 } else {
                     val listLDS = transformAttractionCategory(listRDS.value)
-                    Result.Success(listLDS)
+                        Result.Success(listLDS)
 //                photoLDS.insertAll(listLDS as MutableList<Photo>)
 //                val resultLDS = photoLDS.getAll()
                 }
