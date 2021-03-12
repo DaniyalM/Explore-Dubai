@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_105sdp">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:layout_margin="@dimen/_12sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_10sdp"
+            >
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.rishabhharit.roundedimageview.RoundedImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:background="@drawable/must_see_icon_home"
+                    android:scaleType="center"
+                    app:cornerRadius="@dimen/_10sdp"
+                    app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight"
+                    />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/workshop"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:textColor="@color/purple_900"
+                        android:textSize="@dimen/_9sdp"
+                        />
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:maxLines="2"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:ellipsize="end"
+                        android:text="The Definitive Guide to an Uncertain World"
+                        android:textColor="@color/black_200"
+                        android:textSize="@dimen/_10sdp"
+                        />
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/calender_gray"
+                        android:text="12 - 15 Nov, 20"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/gray_600"
+                        android:textSize="@dimen/_9sdp"
+                        />
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

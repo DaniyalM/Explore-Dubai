@@ -2,10 +2,7 @@ package com.app.dubaiculture.utils.interceptors
 
 import android.content.Context
 import android.provider.Settings
-import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.SessionManager
-import dagger.hilt.android.qualifiers.ActivityContext
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response

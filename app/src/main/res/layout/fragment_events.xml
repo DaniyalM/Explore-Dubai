@@ -5,28 +5,128 @@
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <include layout="@layout/toolbar_snippet"/>
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/app_bg"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvEvent"
+
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:overScrollMode="never" />
-            </FrameLayout>
+                    android:layout_height="wrap_content">
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tv_event_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/feature_events"
+                        android:textColor="@color/black_200"
+                        android:textSize="@dimen/_18ssp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvEvent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never" />
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/_25sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tv_nearEvent_title"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/events_near_you"
+                        android:textColor="@color/black_200"
+                        android:textSize="@dimen/_18ssp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        />
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                           android:id="@+id/tv_view_map"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/view_on_map"
+                            android:textSize="@dimen/_14ssp"
+                            android:gravity="end"
+                            android:layout_marginEnd="@dimen/_15sdp"
+
+                            />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvNearEvent"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never" />
+                    <include layout="@layout/plan_a_trip_layout"/>
 
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/_25sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/tv_moreEvent_title"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/more_events"
+                            android:textColor="@color/black_200"
+                            android:textSize="@dimen/_18ssp"
+                            android:layout_marginStart="@dimen/_15sdp"
+                            />
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/view_all"
+                            android:textSize="@dimen/_14ssp"
+                            android:gravity="end"
+                            android:layout_marginEnd="@dimen/_15sdp"
+
+                            />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvMoreEvent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/_40sdp"
+                        android:overScrollMode="never" />
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

@@ -9,7 +9,6 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.AttractionRepository
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequest
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
@@ -42,16 +41,17 @@ class AttractionViewModel @ViewModelInject constructor(
 
                     _attractionCategoryList.value = result
                 }
-
             }
         }
     }
 
-    fun getAttractionDetailsToScreen(attractionId: String, locale: String) {
+    fun getAttractionDetailsToScreen(attractionId: String, pageNum:Int , pageSize:Int ,locale: String) {
         showLoader(true)
         viewModelScope.launch {
             when (val result = attractionRepository.getAttractionDetail(AttractionRequest(
                 attractionId = attractionId,
+                pageNumber = pageNum,
+                pageSize = pageSize,
                 culture = locale))) {
 
                 is Result.Success -> {
