@@ -62,7 +62,6 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             layoutManager = LinearLayoutManager(activity)
 
             adapter = explore
-            explore.provideGlideInstance(glide)
 
             this.itemAnimator = SlideInLeftAnimator()
 //            LinearSnapHelper().attachToRecyclerView(this)

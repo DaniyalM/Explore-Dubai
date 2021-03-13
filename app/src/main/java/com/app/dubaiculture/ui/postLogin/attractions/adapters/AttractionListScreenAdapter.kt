@@ -17,7 +17,7 @@ import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.utils.AttractionFilterItem
 import com.app.dubaiculture.utils.AsyncCell
 
-class AttractionListScreenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+class AttractionListScreenAdapter :BaseRecyclerAdapter<Attractions>() , Filterable {
 
     private lateinit var filterList:ArrayList<Attractions>
 
@@ -31,17 +31,6 @@ class AttractionListScreenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
         filter?.filter(s)
 
     }
-    private val diffCallback = object : DiffUtil.ItemCallback<Attractions>() {
-        override fun areItemsTheSame(oldItem: Attractions, newItem: Attractions): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Attractions, newItem: Attractions): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
-        }
-    }
-    private val differ = AsyncListDiffer(this, diffCallback)
-
     var attractions: List<Attractions>
         get() = differ.currentList
         set(value){
@@ -85,12 +74,7 @@ class AttractionListScreenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
     ) {
         (holder.itemView as AttractionListItemCell).bindWhenInflated {
             holder.itemView.binding?.let {
-                try {
-                    it.attractions = attractions[position]
-
-                }catch (ex:IndexOutOfBoundsException){
-
-                }
+                it.attractions = attractions[position]
             }
         }
     }

@@ -10,20 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.ItemEventListingBinding
+import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 
-class EventListScreenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EventListScreenAdapter : BaseRecyclerAdapter<Events>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Events>() {
-        override fun areItemsTheSame(oldItem: Events, newItem: Events): Boolean {
-            return oldItem.id == newItem.id
-        }
 
-        override fun areContentsTheSame(oldItem: Events, newItem: Events): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
-        }
-    }
-    private val differ = AsyncListDiffer(this, diffCallback)
 
     var events: List<Events>
         get() = differ.currentList

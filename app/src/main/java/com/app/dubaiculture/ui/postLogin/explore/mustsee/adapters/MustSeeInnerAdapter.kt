@@ -12,8 +12,8 @@ import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
 
-class MustSeeInnerAdapter(val glide: RequestManager) :
-    BaseRecyclerAdapter() {
+class MustSeeInnerAdapter :
+    BaseRecyclerAdapter<BaseModel>() {
 
 
     var mustSees: List<BaseModel>
