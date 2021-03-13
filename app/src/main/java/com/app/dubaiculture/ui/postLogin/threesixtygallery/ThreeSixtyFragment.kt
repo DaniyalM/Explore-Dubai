@@ -10,13 +10,15 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentThreeSixtyBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.threesixtygallery.adapter.ThreeSixtyItems
+import com.app.dubaiculture.ui.postLogin.threesixtygallery.adapter.invokeItem
 import com.app.dubaiculture.ui.postLogin.threesixtygallery.viewmodel.ThreeSixtyViewModel
 
-class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnClickListener {
+class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnClickListener , invokeItem{
     private val threeSixtyViewModel: ThreeSixtyViewModel by viewModels()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(threeSixtyViewModel)
+        binding.imgBack.setOnClickListener(this)
         initRv()
     }
 
@@ -38,14 +40,18 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
             groupAdapter.apply {
-                add(ThreeSixtyItems(R.drawable.gallery))
-                add(ThreeSixtyItems(R.drawable.gallery))
-                add(ThreeSixtyItems(R.drawable.gallery))
-                add(ThreeSixtyItems(R.drawable.gallery))
-                add(ThreeSixtyItems(R.drawable.gallery))
-                add(ThreeSixtyItems(R.drawable.gallery))
+                add(ThreeSixtyItems(R.drawable.gallery,this@ThreeSixtyFragment))
+                add(ThreeSixtyItems(R.drawable.gallery,this@ThreeSixtyFragment))
+                add(ThreeSixtyItems(R.drawable.gallery,this@ThreeSixtyFragment))
+                add(ThreeSixtyItems(R.drawable.gallery,this@ThreeSixtyFragment))
+                add(ThreeSixtyItems(R.drawable.gallery,this@ThreeSixtyFragment))
+                add(ThreeSixtyItems(R.drawable.gallery,this@ThreeSixtyFragment))
 
             }
         }
+    }
+
+    override fun onItemClick(img: Int?) {
+            binding.img360.setBackgroundResource(img!!)
     }
 }
