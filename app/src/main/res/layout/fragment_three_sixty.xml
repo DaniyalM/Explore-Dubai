@@ -6,11 +6,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.postLogin.threesixtygallery.ThreeSixtyFragment">
+
+        <com.jem.easyreveal.layouts.EasyRevealLinearLayout
+            app:clipPathProvider="star"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:revealAnimationDuration="2000"
+            app:hideAnimationDuration="1500" >
         <ImageView
             android:id="@+id/img_360"
             android:background="@drawable/event_detail_icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        </com.jem.easyreveal.layouts.EasyRevealLinearLayout>
 
         <ImageView
             android:id="@+id/img_back"
