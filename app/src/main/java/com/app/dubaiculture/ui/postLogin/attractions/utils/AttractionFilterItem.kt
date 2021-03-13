@@ -5,10 +5,7 @@ import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
 
-class AttractionFilterItem(attractions:ArrayList<Attractions>, private val adapterItem:AttractionListScreenAdapter) :Filter(){
-
-    private var attractions:ArrayList<Attractions> = attractions
-
+class AttractionFilterItem(private var attractions: ArrayList<Attractions>, private val adapterItem:AttractionListScreenAdapter) :Filter(){
 
     override fun performFiltering(text: CharSequence?): FilterResults {
         var constraint:CharSequence?=text
@@ -35,13 +32,8 @@ class AttractionFilterItem(attractions:ArrayList<Attractions>, private val adapt
     override fun publishResults(text: CharSequence?, p1: FilterResults?) {
         if (attractions.isNullOrEmpty()){
             adapterItem.onNothingFound?.invoke()
-
-
-
         }else{
             attractions= p1?.values as ArrayList<Attractions>
-
-
         }
         adapterItem.notifyDataSetChanged()
     }

@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
-    private var itemHasLoaded = false
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentAttractionsBinding.inflate(inflater, container, false)
@@ -31,28 +30,15 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-
         setupToolbarWithSearchItems()
         subscribeUiEvents(attractionViewModel)
         callingObservables()
         subscribeToObservables()
         initiatePager()
-
-
     }
-
-//    @Subscribe
-//    fun doRefreshRequest(attractionBusService: AttractionBusService.SwipeToRefresh) {
-//        if (attractionBusService.doRefresh && !itemHasLoaded) {
-//            callingObservables()
-//        }
-//    }
 
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
-
-
     }
 
 
@@ -67,17 +53,11 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
-
                         binding.horizontalSelector.initialize(it.value, binding.pager)
-                        binding.pager.adapter =
-                            AttractionPagerAdaper(this, it.value.get(clickCheckerFlag).id!!)
-
+                        binding.pager.adapter = AttractionPagerAdaper(this, it.value.get(clickCheckerFlag).id!!)
                     }
                 }
                 is Result.Failure -> {
-//                    val items=createTestItems()
-//                    binding.horizontalSelector.initialize(items, binding.pager)
-//                    binding.pager.adapter = AttractionPagerAdaper(this, items.get(clickCheckerFlag).id!!)
                     handleApiError(it, attractionViewModel)
                 }
             }
@@ -94,25 +74,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 visibility = View.VISIBLE
                 text = activity.getString(R.string.attractions)
             }
-//            search.setOnClickListener {
-//                searchViewVisibility = !searchViewVisibility
-//                if (searchViewVisibility) {
-//                    binding.root.searchView.visibility = View.VISIBLE
-//                    toolbar_title.visibility = View.GONE
-//                } else {
-//                    binding.root.searchView.visibility = View.GONE
-//                    toolbar_title.visibility = View.VISIBLE
-//                }
-//            }
-//
-//            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//                override fun onQueryTextSubmit(p0: String?) = true
-//                override fun onQueryTextChange(text: String?): Boolean {
-//                    text?.let { bus.post(AttractionBusService().SearchTextQuery(it)) }
-//                    return true
-//                }
-//            })
-
         }
     }
 
