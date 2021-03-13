@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:id="@+id/map" />
+        android:id="@+id/google_map" />
 
     <include
         android:id="@+id/header" layout="@layout/layout_back" />
@@ -29,11 +29,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNearEvent"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintVertical_bias="0.85"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0.8"
         tools:itemCount="1"
         tools:listitem="@layout/event_near_items" />
 </androidx.constraintlayout.widget.ConstraintLayout>
