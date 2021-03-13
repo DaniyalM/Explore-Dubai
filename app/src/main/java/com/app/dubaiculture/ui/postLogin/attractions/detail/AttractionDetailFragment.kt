@@ -184,10 +184,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 attractionDetailViewModel.showToast("AR")
             }
             R.id.ll_360->{
-                attractionDetailViewModel.showToast("360")
+                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
             }
             R.id.ll_img->{
-                attractionDetailViewModel.showToast("Gallery")
+                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
             }
             R.id.back->{
                 back()

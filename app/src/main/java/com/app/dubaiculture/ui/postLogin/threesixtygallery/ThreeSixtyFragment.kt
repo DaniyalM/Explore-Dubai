@@ -17,6 +17,7 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(threeSixtyViewModel)
+        binding.imgBack.setOnClickListener(this)
         initRv()
     }
 
