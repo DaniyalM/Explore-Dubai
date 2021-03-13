@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 data class Result(
     @SerializedName("AttractionCategories")
     @Expose
-    var attractionsCategories: ArrayList<AttractionCategoryDTO>,
+    var attractionsCategories: List<AttractionCategoryDTO>,
 
     @SerializedName("Attraction")
     @Expose

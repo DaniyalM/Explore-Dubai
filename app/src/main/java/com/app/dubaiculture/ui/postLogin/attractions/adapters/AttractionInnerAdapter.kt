@@ -16,17 +16,12 @@ import kotlinx.android.synthetic.main.attractions_item_cell.view.*
 
 
 class AttractionInnerAdapter(
-    val glide: RequestManager,
-    val context: Context,
     private val isArabic: Boolean,
-) : BaseRecyclerAdapter() {
+) : BaseRecyclerAdapter<BaseModel>() {
 
     var attractions: List<BaseModel>
         get() = differ.currentList
         set(value) = differ.submitList(value)
-
-    val allColors = context.resources.getStringArray(R.array.colors)
-
 
     inner class AttractionViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
 
@@ -41,7 +36,6 @@ class AttractionInnerAdapter(
         when (holder) {
             is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
         }
-
     }
 
     override fun getItemCount() = attractions.size

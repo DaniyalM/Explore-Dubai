@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <merge>
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="0dp">
@@ -14,17 +11,17 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.07"
+            app:layout_constraintGuide_percent="0.0"
             />
-        <ImageView
-            android:id="@+id/img_detail"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:background="@drawable/gallery"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+<!--        <ImageView-->
+<!--            android:id="@+id/img_detail"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/_200sdp"-->
+<!--            android:background="@drawable/gallery"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            />-->
         <ImageView
             android:id="@+id/bg_border"
             android:layout_width="match_parent"
@@ -72,123 +69,121 @@
             app:layout_constraintStart_toStartOf="@+id/tv_category"
             app:layout_constraintTop_toBottomOf="@+id/tv_category" />
 
-        <ImageView
-            android:id="@+id/img_ar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/ar_bg_attraction_icon"
-            android:elevation="@dimen/_10sdp"
-            app:layout_constraintStart_toStartOf="@+id/tv_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
-        <ImageView
-            android:id="@+id/img_360"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ar_bg_attraction_icon"
-            android:elevation="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_ar"
-            app:layout_constraintStart_toEndOf="@+id/img_ar"
-            app:layout_constraintTop_toTopOf="@+id/img_ar"/>
-
-        <ImageView
-            android:id="@+id/img_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:background="@drawable/ar_bg_attraction_icon"
-            android:elevation="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_360"
+        <LinearLayout
+            android:id="@id/img_ar"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@+id/divider"
-            app:layout_constraintStart_toEndOf="@+id/img_360"
-            app:layout_constraintTop_toTopOf="@+id/img_360" />
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/ar_bg_attraction_icon"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center|center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_11sdp"
-            android:background="@drawable/ar"
-            android:translationZ="@dimen/_50sdp"
-            app:layout_constraintEnd_toEndOf="@+id/img_ar"
-            app:layout_constraintStart_toStartOf="@+id/img_ar"
-            app:layout_constraintTop_toTopOf="@+id/img_ar" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ar"
+                        />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/customTextView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:text="@string/augmented_reality"
-            android:textColor="@color/purple_600"
-            android:textSize="@dimen/_9sdp"
-            android:translationZ="@dimen/_50sdp"
-            app:layout_constraintEnd_toEndOf="@+id/img_ar"
-            app:layout_constraintStart_toStartOf="@+id/img_ar"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@string/augmented_reality"
+                        android:textColor="@color/purple_600"
+                        android:textSize="@dimen/_9sdp"
+                        />
 
+                </LinearLayout>
 
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/ar_bg_attraction_icon"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ar_bg_attraction_icon"
+                >
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center|center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/_360icon"
+                        />
 
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@string/_360_view"
+                        android:textColor="@color/purple_600"
+                        android:textSize="@dimen/_9sdp"
+                        />
 
+                </LinearLayout>
 
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/ar_bg_attraction_icon"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:gravity="center|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ar_bg_attraction_icon"
+                >
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center|center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gallery_"
+                        />
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_11sdp"
-            android:background="@drawable/three_six_zero"
-            android:translationZ="@dimen/_50sdp"
-            app:layout_constraintEnd_toEndOf="@+id/img_360"
-            app:layout_constraintStart_toStartOf="@+id/img_360"
-            app:layout_constraintTop_toTopOf="@+id/img_360" />
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@string/gallery"
+                        android:textColor="@color/purple_600"
+                        android:textSize="@dimen/_9sdp"
+                        />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/_360_view"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/purple_600"
-            android:textSize="@dimen/_9sdp"
-            android:translationZ="@dimen/_50sdp"
-            app:layout_constraintEnd_toEndOf="@+id/img_360"
-            app:layout_constraintStart_toStartOf="@+id/img_360"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                </LinearLayout>
 
+            </LinearLayout>
 
-
-
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_11sdp"
-            android:background="@drawable/gallery_"
-            android:translationZ="@dimen/_50sdp"
-            app:layout_constraintEnd_toEndOf="@+id/img_gallery"
-            app:layout_constraintStart_toStartOf="@+id/img_gallery"
-            app:layout_constraintTop_toTopOf="@+id/img_gallery" />
-
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/customTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:text="@string/gallery"
-            android:textColor="@color/purple_600"
-            android:textSize="@dimen/_9sdp"
-            android:translationZ="@dimen/_50sdp"
-            app:layout_constraintEnd_toEndOf="@+id/img_gallery"
-            app:layout_constraintStart_toStartOf="@+id/img_gallery"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        </LinearLayout>
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -386,15 +381,6 @@
             app:layout_constraintStart_toStartOf="@+id/tv_attraction_days"
             app:layout_constraintTop_toBottomOf="@+id/dont_miss" />
 
-
-
-
-
-
-
-
-
-
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/ibeacons"
             android:layout_width="wrap_content"
@@ -547,10 +533,11 @@
                     android:layout_weight="0.2"
                     android:id="@+id/animationView"
                     android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_width="@dimen/_70sdp"
-
                     android:layout_height="match_parent"
-                    app:lottie_rawRes="@raw/pinlooped"
+                    app:lottie_rawRes="@raw/star_attraction"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"/>
                 <!--                <ImageView-->
@@ -640,17 +627,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_up_coming"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_335sdp"
+            android:layout_height="wrap_content"
             android:columnCount="1"
-            app:layout_constraintVertical_bias="0.1"
             android:layout_marginTop="@dimen/_10sdp"
-
-            android:layout_marginBottom="@dimen/_20sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/heading_up_coming"
             tools:listitem="@layout/attraction_detail_up_coming_items" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-<!--    </ScrollView>-->
     </merge>
 </layout>

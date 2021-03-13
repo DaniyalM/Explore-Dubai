@@ -70,7 +70,7 @@
 
 
                 <ImageView
-                    android:id="@+id/img_like"
+                    android:id="@+id/favourite"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="end"

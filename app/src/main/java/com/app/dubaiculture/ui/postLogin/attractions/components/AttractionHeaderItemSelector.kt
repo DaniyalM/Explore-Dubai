@@ -6,19 +6,15 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
-import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.UpdateAttractionHeader
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.coroutines.*
 
 class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), AttractionHeaderClick {
@@ -32,15 +28,12 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var list: List<AttractionCategory>? = null
     private var attractionPager: ViewPager2? = null
     private var recyclerView: RecyclerView? = null
-    private var fragment: Fragment? = null
-    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+//    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     companion object {
         var clickCheckerFlag: Int = 0
         var previousPosition: Int = 0
     }
-
-
     init {
         val typeArray = context.obtainStyledAttributes(attrs,
             R.styleable.HorizontalAttractionSelector)
@@ -72,7 +65,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         typeArray.recycle()
         val view = inflate(context, R.layout.attractions_item_selector, null)
         recyclerView = view.findViewById(R.id.rVgeneric)
-
         recyclerView?.let {
             it.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -87,23 +79,14 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     fun initialize(
         list: List<AttractionCategory>,
         attractionPager: ViewPager2? = null,
-        fragment: Fragment? = null,
     ) {
         this.list = list
         this.attractionPager = attractionPager
-        this.fragment = fragment
-
-
-        itemsAddnUpdation(list)
+        itemsAddnUpdation()
     }
-
-    fun itemsAddnUpdation(
-        list: List<AttractionCategory>,
-        isUpdate: Boolean = false,
-    ) {
-
-        list.forEachIndexed { index, model ->
-            var isSelected = false
+    fun itemsAddnUpdation(isUpdate: Boolean = false, ) {
+        var isSelected = false
+        list?.forEachIndexed { index, model ->
             if (clickCheckerFlag == index) {
                 isSelected = true
                 positionUpdate(clickCheckerFlag)
@@ -111,61 +94,38 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
             if (!isUpdate) {
                 groupAdapter.add(
                     AttractionHeaderItems(
-                        displayValue = list.get(clickCheckerFlag).title!!,
+                        displayValue = model.title!!,
                         data = list,
                         isSelected = isSelected,
                         selectedTextColor = selectedTextColor,
                         unSelectedTextColor = unSelectedTextColor,
                         selectedBackground = getDrawableFromId(selectedBackground),
                         unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                        selectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgSelected.toInt()),
-                        unSelectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgUnSelected.toInt()),
+                        selectedInnerImg = model.selectedSvg,
+                        unSelectedInnerImg = model.icon,
                         progressListener = this
                     )
                 )
             }
+        }
+        if (isUpdate) {
+            list?.get(previousPosition)?.let {
+                groupAdapter.notifyItemChanged(previousPosition, AttractionHeaderItems(
+                    displayValue = it.title!!,
+                    data = list,
+                    isSelected = isSelected,
+                    selectedTextColor = selectedTextColor,
+                    unSelectedTextColor = unSelectedTextColor,
+                    selectedBackground = getDrawableFromId(selectedBackground),
+                    unSelectedBackground = getDrawableFromId(unSelectedBackground),
+                    selectedInnerImg = it.selectedSvg,
+                    unSelectedInnerImg = it.icon,
+                    progressListener = this)
+                )
+            }
 
         }
-        if (isUpdate){
-            groupAdapter.notifyItemChanged(previousPosition, AttractionHeaderItems(
-                displayValue = list.get(clickCheckerFlag).title!!,
-                data = list,
-                isSelected = isSelected,
-                selectedTextColor = selectedTextColor,
-                unSelectedTextColor = unSelectedTextColor,
-                selectedBackground = getDrawableFromId(selectedBackground),
-                unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                selectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgSelected.toInt()),
-                unSelectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgUnSelected.toInt()),
-                progressListener = this)
-            )
-        }
-
-//        if (!isUpdate) {
-//            groupAdapter.add(
-//                AttractionHeaderItems(
-//                    displayValue = list.get(clickCheckerFlag).title!!,
-//                    data = list,
-//                    isSelected = isSelected,
-//                    selectedTextColor = selectedTextColor,
-//                    unSelectedTextColor = unSelectedTextColor,
-//                    selectedBackground = getDrawableFromId(selectedBackground),
-//                    unSelectedBackground = getDrawableFromId(unSelectedBackground),
-//                    selectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgSelected.toInt()),
-//                    unSelectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgUnSelected.toInt()),
-//                    progressListener = this
-//                )
-//            )
-//        } else {
-//
-//
-//
-//
-//        }
-
-
     }
-
     private fun getDrawableFromId(resId: Int?): Drawable? {
         resId?.let {
             return if (it == 0) null
@@ -173,23 +133,13 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         }
         return null
     }
-
-
     override fun onClick(position: Int) {
-        previousPosition= clickCheckerFlag
+        previousPosition = clickCheckerFlag
         positionUpdate(position)
-        list?.let {
-            applicationScope.launch {
-                itemsAddnUpdation(it, true)
-            }
-        }
+        itemsAddnUpdation(true)
     }
-
-
     fun positionUpdate(position: Int) {
         clickCheckerFlag = position
-        attractionPager?.adapter =
-            AttractionPagerAdaper(fragment = fragment!!, list?.get(position)?.id!!)
         recyclerView?.smoothScrollToPosition(position)
         attractionPager?.currentItem = clickCheckerFlag
     }

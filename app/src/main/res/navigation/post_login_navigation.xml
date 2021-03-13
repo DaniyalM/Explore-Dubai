@@ -3,19 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_login_navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/exploreFragment">
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.app.dubaiculture.ui.postLogin.home.HomeFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_attractionDetailFragment"
-            app:destination="@id/attractionDetailFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.app.dubaiculture.ui.postLogin.explore.ExploreFragment"
@@ -23,12 +16,24 @@
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.EventsFragment"
-        android:label="EventsFragment" />
+        android:label="EventsFragment" >
+        <action
+            android:id="@+id/action_eventsFragment_to_eventFilterFragment"
+            app:destination="@id/eventFilterFragment" />
+        <action
+            android:id="@+id/action_eventsFragment_to_eventDetailFragment2"
+            app:destination="@id/eventDetailFragment2" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/attractionsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment"
         android:label="AttractionsFragment" >
 
+        <action
+            android:id="@+id/action_attractionsFragment_to_attractionDetailFragment"
+            app:destination="@id/attractionDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/moreFragment"
@@ -37,11 +42,25 @@
     <fragment
         android:id="@+id/attractionDetailFragment"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment"
-        android:label="AttractionDetailFragment" />
+        android:label="AttractionDetailFragment" >
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_threeSixtyFragment"
+            app:destination="@id/threeSixtyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/eventDetailFragment2"
         android:name="com.app.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"
         android:label="EventDetailFragment" />
+  <fragment
+        android:id="@+id/threeSixtyFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.threesixtygallery.ThreeSixtyFragment"
+        android:label="ThreeSixtyFragment" />
+    <fragment
+        android:id="@+id/eventFilterFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.events.EventFilterFragment"
+        android:label="EventFilterFragment" >
+
+    </fragment>
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->

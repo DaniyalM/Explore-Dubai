@@ -23,14 +23,18 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.shape.CornerFamily
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
+import kotlinx.android.synthetic.main.fragment_attraction_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
+import kotlinx.android.synthetic.main.toolbar_layout_detail.bookingCalender
+import kotlinx.android.synthetic.main.toolbar_layout_detail.favourite
+import kotlinx.android.synthetic.main.toolbar_layout_detail.share
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import timber.log.Timber
 
 
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
-    OnMapReadyCallback {
+    OnMapReadyCallback , View.OnClickListener{
     private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
 
 
@@ -42,6 +46,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
+        binding.root.ll_ar.setOnClickListener(this)
+        binding.root.ll_360.setOnClickListener(this)
+        binding.root.ll_img.setOnClickListener(this)
+        binding.root.back.setOnClickListener(this)
+        binding.root.btn_book_a_ticket.setOnClickListener(this)
+        binding.root.tv_swipe_up.setOnClickListener(this)
         uiActions()
         mapSetUp()
         rvSetUp()
@@ -58,10 +68,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     //write your code here
                     defaultCloseToolbar.visibility = View.VISIBLE
 //                    img.visibility = View.VISIBLE
-                    imageView4.visibility = View.VISIBLE
+//                    imageView4.visibility = View.VISIBLE
                 } else {
                     defaultCloseToolbar.visibility = View.GONE
-                    imageView4.visibility = View.GONE
+//                    imageView4.visibility = View.GONE
 
 //                    img.visibility = View.GONE
 
@@ -166,5 +176,28 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         map.cameraPosition.target
 
 
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.ll_ar->{
+                attractionDetailViewModel.showToast("AR")
+            }
+            R.id.ll_360->{
+                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
+            }
+            R.id.ll_img->{
+                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
+            }
+            R.id.back->{
+                back()
+            }
+            R.id.btn_book_a_ticket->{
+                attractionDetailViewModel.showToast("Book a Ticket")
+            }
+            R.id.tv_swipe_up->{
+                attractionDetailViewModel.showToast("Swipe up")
+            }
+        }
     }
 }

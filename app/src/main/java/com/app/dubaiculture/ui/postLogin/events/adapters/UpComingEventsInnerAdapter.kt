@@ -16,8 +16,8 @@ import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
 import com.rishabhharit.roundedimageview.RoundedImageView
 
-class UpComingEventsInnerAdapter(val glide: RequestManager) :
-    BaseRecyclerAdapter() {
+class UpComingEventsInnerAdapter :
+    BaseRecyclerAdapter<BaseModel>() {
 
 
     var upComingEvents: List<BaseModel>
