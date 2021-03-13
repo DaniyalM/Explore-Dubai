@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class Result(
-    @SerializedName("AttractionsCategories")
+    @SerializedName("AttractionCategories")
     @Expose
     var attractionsCategories: ArrayList<AttractionCategoryDTO>,
 
@@ -14,5 +14,9 @@ data class Result(
     @Expose
     var attraction: AttractionDTO,
 
+    @SerializedName("Attractions")
+    @Expose
+    var attractions: List<AttractionDTO>,
 
-)
+
+    )

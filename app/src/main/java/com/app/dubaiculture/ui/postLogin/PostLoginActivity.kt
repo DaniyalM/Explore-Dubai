@@ -29,6 +29,7 @@ class PostLoginActivity : BaseAuthenticationActivity() {
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
+        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
         subscribeUiEvents(mainViewModel)
 
     }

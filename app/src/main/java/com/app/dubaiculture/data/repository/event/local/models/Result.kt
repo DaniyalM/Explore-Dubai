@@ -6,9 +6,17 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class Result(
-    @SerializedName("EventHomeListing")
+//    @SerializedName("EventHomeListing")
+//    @Expose
+//    var homeEventListing: ArrayList<HomeEventListingDTO>,
+
+    @SerializedName("FeaturedEvents")
     @Expose
-    var homeEventListing: ArrayList<HomeEventListingDTO>,
+    var featuredEvents: ArrayList<EventsDTO>,
+
+    @SerializedName("Events")
+    @Expose
+    var otherEvents: ArrayList<EventsDTO>,
 
     @SerializedName("Event")
     @Expose

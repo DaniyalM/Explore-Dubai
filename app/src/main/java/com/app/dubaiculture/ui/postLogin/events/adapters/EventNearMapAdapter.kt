@@ -8,17 +8,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.databinding.ItemEventListingBinding
-import com.app.dubaiculture.databinding.UpcomingEventsInnerItemCellBinding
+import com.app.dubaiculture.databinding.EventNearItemsBinding
 import com.app.dubaiculture.utils.AsyncCell
-import timber.log.Timber
 
-class EventListScreenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+class EventNearMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<Events>() {
         override fun areItemsTheSame(oldItem: Events, newItem: Events): Boolean {
             return oldItem.id == newItem.id
         }
+
         override fun areContentsTheSame(oldItem: Events, newItem: Events): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
@@ -31,33 +29,36 @@ class EventListScreenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             differ.submitList(value)
         }
 
-    inner class EventsListViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+    inner class EventNearMapViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return EventsListViewHolder(EventsListItemCell(parent.context).apply { inflate() })
+        return EventNearMapViewHolder(EventsListItemCell(parent.context).apply { inflate() })
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        setUpEventsListViewHolder(holder as EventListScreenAdapter.EventsListViewHolder,
+        setUpEventNearMapViewHolder(holder = holder as EventNearMapAdapter.EventNearMapViewHolder,
             position)
     }
 
     override fun getItemCount() = events.size
+
     //Data Binding
     private inner class EventsListItemCell(context: Context) : AsyncCell(context) {
-        var binding: ItemEventListingBinding? = null
-        override val layoutId = R.layout.item_event_listing
+        var binding: EventNearItemsBinding? = null
+        override val layoutId = R.layout.event_near_items
         override fun createDataBindingView(view: View): View? {
-            binding = ItemEventListingBinding.bind(view)
+            binding = EventNearItemsBinding.bind(view)
             return view.rootView
         }
     }
 
-    private fun setUpEventsListViewHolder(
-        holder: EventListScreenAdapter.EventsListViewHolder,
+    private fun setUpEventNearMapViewHolder(
+        holder: EventNearMapAdapter.EventNearMapViewHolder,
         position: Int,
     ) {
-        (holder.itemView as EventsListItemCell).bindWhenInflated {
+        (holder.itemView as EventNearMapAdapter.EventsListItemCell).bindWhenInflated {
             holder.itemView.binding?.let {
                 try {
                     it.events = events[position]

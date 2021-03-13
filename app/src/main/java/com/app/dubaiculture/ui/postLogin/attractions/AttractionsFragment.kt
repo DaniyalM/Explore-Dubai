@@ -53,12 +53,14 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
+        val items = createTestItems()
+        binding.horizontalSelector.initialize(items, binding.pager,this)
     }
 
 
     private fun callingObservables() {
         lifecycleScope.launch {
-            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+//            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
         }
     }
 
@@ -81,22 +83,18 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                     if (!itemHasLoaded) {
 
                         itemHasLoaded = true
-                        binding.horizontalSelector.initialize(items, binding.pager,this)
+
 
                     } else {
                         items = emptyList()
                         items = createTestItems()
                         binding.horizontalSelector.initialize(items, binding.pager,this)
                     }
-
-
 //                    handleApiError(it, attractionViewModel)
                 }
             }
         }
     }
-
-
     private fun setupToolbarWithSearchItems() {
 //        var searchViewVisibility = false
         binding.root.apply {
@@ -127,19 +125,13 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
         }
     }
-
     override fun onResume() {
         super.onResume()
         binding.horizontalSelector.positionUpdate(clickCheckerFlag)
     }
-
-
     private fun createTestItems(): List<AttractionCategory> =
         mutableListOf<AttractionCategory>().apply {
-
-
-            repeat((1..4).count()) {
-
+            repeat((1..70).count()) {
                 add(
                     AttractionCategory(
                         id = it.toString(),
@@ -147,27 +139,26 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                         icon = "",
                         imgSelected = R.drawable.museums_icon_home,
                         imgUnSelected = R.drawable.museum,
-                        attractions = createAttractionItems()
+//                        attractions = createAttractionItems()
                     )
                 )
             }
         }
-
-    private fun createAttractionItems(): ArrayList<Attractions> =
-        mutableListOf<Attractions>().apply {
-
-
-            repeat((1..4).count()) {
-
-                add(
-                    Attractions(
-                        id = it.toString(),
-                        title = "title $it",
-                        category = "Category $it",
-                        IsFavourite = false,
-                    )
-                )
-            }
-        } as ArrayList<Attractions>
+//    private fun createAttractionItems(): ArrayList<Attractions> =
+//        mutableListOf<Attractions>().apply {
+//
+//
+//            repeat((1..4).count()) {
+//
+//                add(
+//                    Attractions(
+//                        id = it.toString(),
+//                        title = "title $it",
+//                        category = "Category $it",
+//                        IsFavourite = false,
+//                    )
+//                )
+//            }
+//        } as ArrayList<Attractions>
 }
 

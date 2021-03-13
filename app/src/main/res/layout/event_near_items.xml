@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="events"
+            type="com.app.dubaiculture.data.repository.event.local.models.Events" />
+    </data>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:layout_margin="@dimen/_12sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_10sdp"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.rishabhharit.roundedimageview.RoundedImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:background="@drawable/must_see_icon_home"
+                    android:scaleType="center"
+                    app:cornerRadius="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight"
+                    />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.39"
+                   />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                   android:id="@+id/workshop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{events.category}"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textColor="@color/purple_900"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:maxLines="2"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:ellipsize="end"
+                    android:text="@{events.title}"
+                    android:textColor="@color/black_200"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/workshop"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    />
+
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/customTextView5"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:drawableStart="@drawable/calender_gray"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@{events.toDate}"
+                    android:textColor="@color/gray_600"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/location_in_km"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/workshop" />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10 Km"
+                    android:textColor="@color/black_200"
+                    android:textSize="@dimen/_9ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/img"
+                    app:layout_constraintEnd_toEndOf="@+id/img"
+                    app:layout_constraintStart_toStartOf="@+id/img"
+                    app:layout_constraintTop_toBottomOf="@+id/img" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+</layout>

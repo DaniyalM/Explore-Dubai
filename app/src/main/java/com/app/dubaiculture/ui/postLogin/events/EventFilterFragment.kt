@@ -44,8 +44,8 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
-                        binding.horizontalSelector.initialize(it.value, binding.pager)
-                        binding.pager.adapter = EventPagerAdapter(this, it.value)
+//                        binding.horizontalSelector.initialize(it.value, binding.pager)
+//                        binding.pager.adapter = EventPagerAdapter(this, it.value)
                     }
                 }
                 is Result.Failure -> {

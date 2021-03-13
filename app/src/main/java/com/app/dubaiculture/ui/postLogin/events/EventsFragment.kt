@@ -9,6 +9,7 @@ import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventRecyclerAsyncAdapter
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private lateinit var event: EventRecyclerAsyncAdapter
+    private var eventAdapter: EventListScreenAdapter? = null
 
     @Inject
     lateinit var glide: RequestManager
@@ -28,12 +30,21 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpRv()
+//        setUpRv()
+        rvSetUp()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
-
         }
 
+    }
+
+    private fun rvSetUp() {
+        eventAdapter = EventListScreenAdapter()
+        binding.rvEvent.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = eventAdapter
+            this.itemAnimator = SlideInLeftAnimator()
+        }
     }
 
     private fun setUpRv() {
@@ -55,8 +66,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
 
             repeat((1..2).count()) {
-                when (it % 2){
-                    0->{
+                when (it % 2) {
+                    0 -> {
                         add(
                             EventHomeListing(
                                 title = "FeatureEvents",
@@ -65,7 +76,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                             )
                         )
                     }
-                    else->{
+                    else -> {
                         add(
                             EventHomeListing(
                                 title = "More Events",
@@ -98,7 +109,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     toMonthYear = "Mar, 21",
                     toTime = "202$it",
                     toDay = "2$it",
-                    type ="Free"
+                    type = "Free"
                 )
             )
         }
