@@ -19,7 +19,7 @@ class AttractionInnerAdapter(
     val glide: RequestManager,
     val context: Context,
     private val isArabic: Boolean,
-) : BaseRecyclerAdapter() {
+) : BaseRecyclerAdapter<BaseModel>() {
 
     var attractions: List<BaseModel>
         get() = differ.currentList

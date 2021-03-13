@@ -14,7 +14,7 @@ import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
 
 class PopularServiceInnerAdapter(val glide: RequestManager) :
-    BaseRecyclerAdapter() {
+    BaseRecyclerAdapter<BaseModel>() {
 
     var popularService: List<BaseModel>
         get() = differ.currentList

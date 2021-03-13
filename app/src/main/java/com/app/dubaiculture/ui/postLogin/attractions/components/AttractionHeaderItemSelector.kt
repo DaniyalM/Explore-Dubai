@@ -92,9 +92,9 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         list: List<AttractionCategory>,
         isUpdate: Boolean = false,
     ) {
-
+        var isSelected = false
         list.forEachIndexed { index, model ->
-            var isSelected = false
+
             if (clickCheckerFlag == index) {
                 isSelected = true
                 positionUpdate(clickCheckerFlag)
@@ -118,41 +118,21 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
         }
         if (isUpdate) {
+            val item=list.get(previousPosition)
             groupAdapter.notifyItemChanged(previousPosition, AttractionHeaderItems(
-                displayValue = list.get(clickCheckerFlag).title!!,
+                displayValue = item.title!!,
                 data = list,
                 isSelected = isSelected,
                 selectedTextColor = selectedTextColor,
                 unSelectedTextColor = unSelectedTextColor,
                 selectedBackground = getDrawableFromId(selectedBackground),
                 unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                selectedInnerImg = list.get(clickCheckerFlag).selectedSvg,
-                unSelectedInnerImg = list.get(clickCheckerFlag).icon,
+                selectedInnerImg = item.selectedSvg,
+                unSelectedInnerImg = item.icon,
                 progressListener = this)
             )
         }
 
-//        if (!isUpdate) {
-//            groupAdapter.add(
-//                AttractionHeaderItems(
-//                    displayValue = list.get(clickCheckerFlag).title!!,
-//                    data = list,
-//                    isSelected = isSelected,
-//                    selectedTextColor = selectedTextColor,
-//                    unSelectedTextColor = unSelectedTextColor,
-//                    selectedBackground = getDrawableFromId(selectedBackground),
-//                    unSelectedBackground = getDrawableFromId(unSelectedBackground),
-//                    selectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgSelected.toInt()),
-//                    unSelectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgUnSelected.toInt()),
-//                    progressListener = this
-//                )
-//            )
-//        } else {
-//
-//
-//
-//
-//        }
 
 
     }

@@ -14,7 +14,7 @@ import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
 
 class LatestNewsInnerAdapter (val glide: RequestManager) :
-BaseRecyclerAdapter() {
+BaseRecyclerAdapter<BaseModel>() {
 
 
     var latestNews: List<BaseModel>

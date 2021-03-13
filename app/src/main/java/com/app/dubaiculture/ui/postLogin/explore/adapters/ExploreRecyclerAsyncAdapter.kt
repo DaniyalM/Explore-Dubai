@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.databinding.SectionItemContainerCellBinding
+import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.UpComingEventsInnerAdapter
 import com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters.MustSeeInnerAdapter
@@ -27,7 +28,8 @@ import com.google.android.material.shape.CornerFamily
 class ExploreRecyclerAsyncAdapter internal constructor(
     private val context: Context, private var isArabic : Boolean?=null
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    BaseRecyclerAdapter<Explore>()
+   {
 
     //global variable
     companion object {
@@ -62,16 +64,16 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Explore>() {
-        override fun areItemsTheSame(oldItem: Explore, newItem: Explore): Boolean {
-            return oldItem.value == newItem.value
-        }
-
-        override fun areContentsTheSame(oldItem: Explore, newItem: Explore): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
-        }
-    }
-    private val differ = AsyncListDiffer(this, diffCallback)
+//    private val diffCallback = object : DiffUtil.ItemCallback<Explore>() {
+//        override fun areItemsTheSame(oldItem: Explore, newItem: Explore): Boolean {
+//            return oldItem.value == newItem.value
+//        }
+//
+//        override fun areContentsTheSame(oldItem: Explore, newItem: Explore): Boolean {
+//            return oldItem.hashCode() == newItem.hashCode()
+//        }
+//    }
+//    private val differ = AsyncListDiffer(this, diffCallback)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
