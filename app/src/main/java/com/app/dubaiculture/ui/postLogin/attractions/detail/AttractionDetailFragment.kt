@@ -34,7 +34,7 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
-    OnMapReadyCallback {
+    OnMapReadyCallback , View.OnClickListener{
     private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
 
 
@@ -46,6 +46,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
+        binding.root.ll_ar.setOnClickListener(this)
+        binding.root.ll_360.setOnClickListener(this)
+        binding.root.ll_img.setOnClickListener(this)
+        binding.root.back.setOnClickListener(this)
+        binding.root.btn_book_a_ticket.setOnClickListener(this)
+        binding.root.tv_swipe_up.setOnClickListener(this)
         uiActions()
         mapSetUp()
         rvSetUp()
@@ -170,5 +176,28 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         map.cameraPosition.target
 
 
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.ll_ar->{
+                attractionDetailViewModel.showToast("AR")
+            }
+            R.id.ll_360->{
+                attractionDetailViewModel.showToast("360")
+            }
+            R.id.ll_img->{
+                attractionDetailViewModel.showToast("Gallery")
+            }
+            R.id.back->{
+                back()
+            }
+            R.id.btn_book_a_ticket->{
+                attractionDetailViewModel.showToast("Book a Ticket")
+            }
+            R.id.tv_swipe_up->{
+                attractionDetailViewModel.showToast("Swipe up")
+            }
+        }
     }
 }

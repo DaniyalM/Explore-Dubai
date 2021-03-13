@@ -113,8 +113,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                 add(
                     Attractions(
                         id = it.toString(),
-                        title = "Dubai Museum and Al Fahidi Fort",
-                        category = "Category $it",
+                        title = "Museum of the Poet Al Oqaili",
+                        category = "BOOKING AVAILABLE",
                         IsFavourite = false,
                     )
                 )

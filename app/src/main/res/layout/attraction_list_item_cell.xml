@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="android.text.TextUtils"/>
         <variable
             name="attractions"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_18sdp"
                 app:cardBackgroundColor="@color/white_900"
                 app:cardCornerRadius="@dimen/_15sdp"
                 app:cardElevation="@dimen/_5sdp">
@@ -44,13 +44,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
+                    android:textStyle="bold"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:text="@{attractions.category}"
                     android:textColor="@color/purple_900"
-                    android:textSize="@dimen/_10ssp"
-                    app:textFont="bold" />
+                    android:textSize="@dimen/_9ssp"
+                     />
             </com.google.android.material.card.MaterialCardView>
 
             <ImageView
@@ -67,7 +68,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_margin="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_19sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="@drawable/heart_icon_home"
                 android:padding="@dimen/_8sdp" />
 
@@ -102,7 +104,7 @@
                     android:drawablePadding="@dimen/_7ssp"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:text='@{attractions.locationTitle ?? "Palm Jumeriah Beach,Dubai"}'                    android:textColor="@color/white_900"
+                    android:text='@{TextUtils.isEmpty(attractions.locationTitle) ? "Palm Jumeriah Beach, Dubai\nUnited Arab Emirates" : ""}'                    android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />
 
             </LinearLayout>

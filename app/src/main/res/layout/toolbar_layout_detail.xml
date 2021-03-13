@@ -41,10 +41,10 @@
                         android:scaleType="centerCrop"
                         app:srcCompat="@drawable/must_see_icon_home" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/image_gradient" />
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="@drawable/image_gradient" />-->
 
                 </FrameLayout>
                 <ImageView
@@ -88,10 +88,12 @@
                     app:cardBackgroundColor="@color/transparent"
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:cardElevation="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/btn_login"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_book_a_ticket"
                     app:layout_constraintStart_toStartOf="@+id/title">
 
                     <LinearLayout
+                        android:id="@+id/ll_ar"
+                        android:foreground="@drawable/custom_ripple_border"
                         android:background="@drawable/black_dark_shadow_attraction_icon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -134,6 +136,8 @@
                     app:layout_constraintTop_toTopOf="@+id/augmentedReality">
 
                     <LinearLayout
+                        android:id="@+id/ll_360"
+                        android:foreground="@drawable/custom_ripple_border"
                         android:background="@drawable/black_dark_shadow_attraction_icon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -174,6 +178,8 @@
                     app:layout_constraintTop_toTopOf="@+id/view360">
 
                     <LinearLayout
+                        android:foreground="@drawable/custom_ripple_border"
+                        android:id="@+id/ll_img"
                         android:background="@drawable/black_shadow_attraction_icon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -218,7 +224,7 @@
 
 
                 <com.app.dubaiculture.ui.components.custombutton.CustomButton
-                    android:id="@+id/btn_login"
+                    android:id="@+id/btn_book_a_ticket"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
@@ -230,23 +236,27 @@
                     android:text="@string/book_a_ticket"
                     android:textAllCaps="false"
                     android:textColor="@color/white_900"
-                    app:layout_constraintBottom_toTopOf="@+id/customTextView4"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_swipe_up"
                     app:layout_constraintEnd_toEndOf="@+id/gallery"
                     app:layout_constraintStart_toStartOf="@+id/augmentedReality"
                      />
 
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                    android:id="@+id/customTextView4"
+                    android:id="@+id/tv_swipe_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_25sdp"
+                    android:background="@drawable/custom_ripple_border"
+                    android:drawableEnd="@drawable/up_arrow_attraction_detail_icon"
+                    android:drawablePadding="@dimen/_10sdp"
                     android:text="@string/swipe_up_for_more"
                     android:textColor="@color/gray_600"
+                    app:layout_constraintVertical_bias="0.88"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 <!--                <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
 <!--                    android:id="@+id/btn_login"-->
@@ -290,7 +300,7 @@
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginTop="@dimen/_30sdp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="@drawable/custom_ripple_border"
                         android:rotation="90"
                         android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -302,8 +312,7 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="200dp"
                         android:layout_marginEnd="20dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:rotation="0"
+                        android:background="@drawable/custom_ripple_border"
                         android:src="@drawable/add_to_calander"
                         app:layout_constraintBottom_toBottomOf="@+id/back"
                         app:layout_constraintEnd_toStartOf="@+id/favourite"
@@ -315,7 +324,7 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginEnd="20dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="@drawable/custom_ripple_border"
                         android:rotation="0"
                         android:src="@drawable/heart_icon_home_black"
                         app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
@@ -329,7 +338,7 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginEnd="30dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="@drawable/custom_ripple_border"
                         android:rotation="0"
                         android:src="@drawable/share"
                         app:layout_constraintBottom_toBottomOf="@+id/favourite"
