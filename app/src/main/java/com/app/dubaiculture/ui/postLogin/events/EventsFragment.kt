@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventsBinding
@@ -38,6 +39,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 //        rvSetUp()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
+        }
+        binding.tvViewMap.setOnClickListener {
+            navigate(R.id.action_eventsFragment_to_eventNearMapFragment2)
         }
 
     }

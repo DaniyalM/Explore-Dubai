@@ -16,7 +16,11 @@
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.EventsFragment"
-        android:label="EventsFragment" />
+        android:label="EventsFragment" >
+        <action
+            android:id="@+id/action_eventsFragment_to_eventNearMapFragment2"
+            app:destination="@id/eventNearMapFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/attractionsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment"
@@ -46,6 +50,10 @@
         android:id="@+id/threeSixtyFragment"
         android:name="com.app.dubaiculture.ui.postLogin.threesixtygallery.ThreeSixtyFragment"
         android:label="ThreeSixtyFragment" />
+    <fragment
+        android:id="@+id/eventNearMapFragment2"
+        android:name="com.app.dubaiculture.ui.postLogin.events.map.EventNearMapFragment"
+        android:label="EventNearMapFragment" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->

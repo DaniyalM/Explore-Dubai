@@ -64,7 +64,6 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
                                     eventList[position].id)
                             })
                     }
-
                     override fun onLongItemClick(view: View, position: Int) {
                     }
                 }
