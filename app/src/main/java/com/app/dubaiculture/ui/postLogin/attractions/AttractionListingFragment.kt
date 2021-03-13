@@ -91,8 +91,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 //                        attractionViewModel.showErrorDialog(message = attractions.get(position).title)
                         navigateByAction(R.id.action_attractionsFragment_to_attractionDetailFragment,
                             Bundle().apply {
-                                this.putString(ATTRACTION_DETAIL_ID,
-                                    items.get(position).id)
+//                                this.putString(ATTRACTION_DETAIL_ID,
+//                                    items.get(position).id)
                             })
                     }
 

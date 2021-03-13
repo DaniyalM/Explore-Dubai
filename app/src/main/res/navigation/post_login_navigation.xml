@@ -16,7 +16,11 @@
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.EventsFragment"
-        android:label="EventsFragment" />
+        android:label="EventsFragment" >
+        <action
+            android:id="@+id/action_eventsFragment_to_eventFilterFragment"
+            app:destination="@id/eventFilterFragment" />
+    </fragment>
     <fragment
         android:id="@+id/attractionsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment"
@@ -38,6 +42,12 @@
         android:id="@+id/eventDetailFragment2"
         android:name="com.app.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"
         android:label="EventDetailFragment" />
+    <fragment
+        android:id="@+id/eventFilterFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.events.EventFilterFragment"
+        android:label="EventFilterFragment" >
+
+    </fragment>
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->

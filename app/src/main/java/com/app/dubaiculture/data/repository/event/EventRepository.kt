@@ -6,18 +6,15 @@ import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.mapper.*
 import com.app.dubaiculture.data.repository.event.remote.EventRDS
-import com.app.dubaiculture.data.repository.event.remote.request.EventDetailRequest
-import com.app.dubaiculture.data.repository.event.remote.request.HomeEventListRequest
+import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val eventRDS: EventRDS) : BaseRepository() {
 
-    suspend fun fetchHomeEvents(homeEventListRequest: HomeEventListRequest): Result<EventHomeListing> {
+    suspend fun fetchHomeEvents(homeEventRequest: EventRequest): Result<EventHomeListing> {
         return when (val resultRds =
-            eventRDS.getEvent(transformHomeEventListingRequest(homeEventListRequest))) {
-
+            eventRDS.getEvent(transformHomeEventListingRequest(homeEventRequest))) {
             is Result.Success -> {
-
                 val listLds = resultRds
                 if (listLds.value.statusCode != 200) {
                     Result.Failure(true, listLds.value.statusCode, null)
@@ -38,8 +35,24 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) : Base
 
     }
 
+    suspend fun fetchEventsbyFilters(eventRequest: EventRequest): Result<List<Events>> {
+        return when (val resultRds =
+            eventRDS.getEventsByFilter(transformEventFiltersRequest(eventRequest))) {
+            is Result.Success -> {
+                val eventLDS = resultRds
+                if (eventLDS.value.statusCode != 200) {
+                    Result.Failure(true, eventLDS.value.statusCode, null)
+                } else {
+                    val eventRds = transformOtherEvents(eventLDS.value)
+                    Result.Success(eventRds)
+                }
+            }
+            is Result.Failure -> resultRds
+            is Result.Error -> resultRds
+        }
+    }
 
-    suspend fun fetchEvent(eventDetailRequest: EventDetailRequest): Result<Events> {
+    suspend fun fetchEvent(eventDetailRequest: EventRequest): Result<Events> {
         return when (val resultRds =
             eventRDS.getEventDetail(transformEventDetailRequest(eventDetailRequest))) {
             is Result.Success -> {

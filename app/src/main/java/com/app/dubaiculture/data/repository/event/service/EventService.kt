@@ -1,14 +1,16 @@
 package com.app.dubaiculture.data.repository.event.service
 
+import com.app.dubaiculture.data.repository.event.remote.request.EventFiltersRequestDTO
 import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface EventService {
 
     @GET("/api/Content/GetEvents")
     suspend fun getEvents(@Query("culture") culture: String): EventResponse
+
+    @POST("/api/Content/SearchEvents")
+    suspend fun getEventsWithFilters(@Body eventFiltersRequestDTO: EventFiltersRequestDTO): EventResponse
 
     @GET("/events/{event_id}")
     suspend fun getEventDetail(

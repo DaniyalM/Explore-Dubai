@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -14,10 +15,8 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventRecyclerAsyncAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
-import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class EventsFragment : BaseFragment<FragmentEventsBinding>() {
@@ -26,8 +25,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private val eventViewModel: EventViewModel by viewModels()
 
 
-    @Inject
-    lateinit var glide: RequestManager
+    //    @Inject
+//    lateinit var glide: RequestManager
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,6 +38,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 //        rvSetUp()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
+        }
+        binding.viewAllEvents.setOnClickListener {
+            navigateByAction(R.id.action_eventsFragment_to_eventFilterFragment)
         }
 
     }
@@ -66,14 +68,14 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     }
 
 
-    private fun callingObservables(){
+    private fun callingObservables() {
         eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
     }
 
-    private fun subScribeToObservables(){
-        eventViewModel.eventCategoryList.observe(viewLifecycleOwner){
-            when(it){
-                is Result.Success ->{
+    private fun subScribeToObservables() {
+        eventViewModel.eventCategoryList.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
                     it.value.featureEvents
                 }
             }
