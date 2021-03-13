@@ -28,53 +28,30 @@ import com.google.android.material.shape.CornerFamily
 class ExploreRecyclerAsyncAdapter internal constructor(
     private val context: Context, private var isArabic : Boolean?=null
 ) :
-    BaseRecyclerAdapter<Explore>()
-   {
-
-    //global variable
-    companion object {
-        val handler = Handler(Looper.getMainLooper())
-        var delayAnimate = 300
-    }
-
-
+    BaseRecyclerAdapter<Explore>() {
     private var attractionInnerAdapter: AttractionInnerAdapter? = null
     private var upComingEventsInnerAdapter: UpComingEventsInnerAdapter? = null
     private var mustSeeInnerAdapter: MustSeeInnerAdapter? = null
     private var latestNewsInnerAdapter: LatestNewsInnerAdapter? = null
     private var popularServiceInnerAdapter: PopularServiceInnerAdapter? = null
-
+    //global variable
+    companion object {
+        val handler = Handler(Looper.getMainLooper())
+        var delayAnimate = 300
+    }
+    init {
+        attractionInnerAdapter = AttractionInnerAdapter( isArabic?:false)
+        upComingEventsInnerAdapter = UpComingEventsInnerAdapter()
+        mustSeeInnerAdapter = MustSeeInnerAdapter()
+        latestNewsInnerAdapter = LatestNewsInnerAdapter()
+        popularServiceInnerAdapter = PopularServiceInnerAdapter()
+    }
 
     var items: List<Explore>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
     override fun getItemCount(): Int = items.size
-
-    fun provideGlideInstance(glide: RequestManager) {
-
-
-        attractionInnerAdapter = AttractionInnerAdapter(glide, context,isArabic?:false)
-        upComingEventsInnerAdapter = UpComingEventsInnerAdapter(glide)
-        mustSeeInnerAdapter = MustSeeInnerAdapter(glide)
-        latestNewsInnerAdapter = LatestNewsInnerAdapter(glide)
-        popularServiceInnerAdapter = PopularServiceInnerAdapter(glide)
-
-
-    }
-
-
-//    private val diffCallback = object : DiffUtil.ItemCallback<Explore>() {
-//        override fun areItemsTheSame(oldItem: Explore, newItem: Explore): Boolean {
-//            return oldItem.value == newItem.value
-//        }
-//
-//        override fun areContentsTheSame(oldItem: Explore, newItem: Explore): Boolean {
-//            return oldItem.hashCode() == newItem.hashCode()
-//        }
-//    }
-//    private val differ = AsyncListDiffer(this, diffCallback)
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {

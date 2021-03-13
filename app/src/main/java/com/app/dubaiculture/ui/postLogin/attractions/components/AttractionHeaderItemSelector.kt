@@ -34,8 +34,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         var clickCheckerFlag: Int = 0
         var previousPosition: Int = 0
     }
-
-
     init {
         val typeArray = context.obtainStyledAttributes(attrs,
             R.styleable.HorizontalAttractionSelector)
@@ -67,7 +65,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         typeArray.recycle()
         val view = inflate(context, R.layout.attractions_item_selector, null)
         recyclerView = view.findViewById(R.id.rVgeneric)
-
         recyclerView?.let {
             it.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -85,16 +82,11 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     ) {
         this.list = list
         this.attractionPager = attractionPager
-        itemsAddnUpdation(list)
+        itemsAddnUpdation()
     }
-
-    fun itemsAddnUpdation(
-        list: List<AttractionCategory>,
-        isUpdate: Boolean = false,
-    ) {
+    fun itemsAddnUpdation(isUpdate: Boolean = false, ) {
         var isSelected = false
-        list.forEachIndexed { index, model ->
-
+        list?.forEachIndexed { index, model ->
             if (clickCheckerFlag == index) {
                 isSelected = true
                 positionUpdate(clickCheckerFlag)
@@ -115,29 +107,25 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     )
                 )
             }
-
         }
         if (isUpdate) {
-            val item=list.get(previousPosition)
-            groupAdapter.notifyItemChanged(previousPosition, AttractionHeaderItems(
-                displayValue = item.title!!,
-                data = list,
-                isSelected = isSelected,
-                selectedTextColor = selectedTextColor,
-                unSelectedTextColor = unSelectedTextColor,
-                selectedBackground = getDrawableFromId(selectedBackground),
-                unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                selectedInnerImg = item.selectedSvg,
-                unSelectedInnerImg = item.icon,
-                progressListener = this)
-            )
+            list?.get(previousPosition)?.let {
+                groupAdapter.notifyItemChanged(previousPosition, AttractionHeaderItems(
+                    displayValue = it.title!!,
+                    data = list,
+                    isSelected = isSelected,
+                    selectedTextColor = selectedTextColor,
+                    unSelectedTextColor = unSelectedTextColor,
+                    selectedBackground = getDrawableFromId(selectedBackground),
+                    unSelectedBackground = getDrawableFromId(unSelectedBackground),
+                    selectedInnerImg = it.selectedSvg,
+                    unSelectedInnerImg = it.icon,
+                    progressListener = this)
+                )
+            }
+
         }
-
-
-
     }
-
-
     private fun getDrawableFromId(resId: Int?): Drawable? {
         resId?.let {
             return if (it == 0) null
@@ -145,22 +133,11 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         }
         return null
     }
-
-
     override fun onClick(position: Int) {
         previousPosition = clickCheckerFlag
         positionUpdate(position)
-
-        list?.let {
-            itemsAddnUpdation(it, true)
-//            applicationScope.launch {
-//
-//            }
-
-        }
+        itemsAddnUpdation(true)
     }
-
-
     fun positionUpdate(position: Int) {
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)

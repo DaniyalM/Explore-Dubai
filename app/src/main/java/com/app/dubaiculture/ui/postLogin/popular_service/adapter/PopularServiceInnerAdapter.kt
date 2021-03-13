@@ -13,7 +13,7 @@ import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
 
-class PopularServiceInnerAdapter(val glide: RequestManager) :
+class PopularServiceInnerAdapter:
     BaseRecyclerAdapter<BaseModel>() {
 
     var popularService: List<BaseModel>

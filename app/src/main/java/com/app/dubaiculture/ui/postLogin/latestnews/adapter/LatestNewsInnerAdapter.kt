@@ -3,8 +3,6 @@ package com.app.dubaiculture.ui.postLogin.latestnews.adapter
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
@@ -13,8 +11,8 @@ import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
 
-class LatestNewsInnerAdapter (val glide: RequestManager) :
-BaseRecyclerAdapter<BaseModel>() {
+class LatestNewsInnerAdapter:
+    BaseRecyclerAdapter<BaseModel>() {
 
 
     var latestNews: List<BaseModel>
@@ -29,7 +27,7 @@ BaseRecyclerAdapter<BaseModel>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder){
+        when (holder) {
             is LatestNewsViewHolder -> setUpLatestNewsViewHolder(holder, position)
         }
 //        val latestNews = latestNews[position]
@@ -41,7 +39,7 @@ BaseRecyclerAdapter<BaseModel>() {
     override fun getItemCount() = latestNews.size
 
 
-    private inner class LatestNewsInnerItemCell(context: Context) : AsyncCell(context,true) {
+    private inner class LatestNewsInnerItemCell(context: Context) : AsyncCell(context, true) {
         var binding: LatestNewsInnerItemCellBinding? = null
         override val layoutId = R.layout.latest_news_inner_item_cell
         override fun createDataBindingView(view: View): View? {
@@ -53,10 +51,10 @@ BaseRecyclerAdapter<BaseModel>() {
 
     private fun setUpLatestNewsViewHolder(
         holder: LatestNewsInnerAdapter.LatestNewsViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as LatestNewsInnerAdapter.LatestNewsInnerItemCell).bindWhenInflated {
-            holder.itemView?.binding?.news=latestNews[position]
+            holder.itemView.binding?.news = latestNews[position]
         }
     }
 }
