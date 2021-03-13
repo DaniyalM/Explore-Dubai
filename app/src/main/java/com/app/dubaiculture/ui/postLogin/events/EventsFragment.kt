@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventsBinding
@@ -62,6 +63,21 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         }
         event.items = createTestItems()
 
+    }
+
+
+    private fun callingObservables(){
+        eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
+    }
+
+    private fun subScribeToObservables(){
+        eventViewModel.eventCategoryList.observe(viewLifecycleOwner){
+            when(it){
+                is Result.Success ->{
+                    it.value.featureEvents
+                }
+            }
+        }
     }
 
 
