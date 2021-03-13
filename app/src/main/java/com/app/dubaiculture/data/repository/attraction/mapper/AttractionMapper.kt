@@ -33,44 +33,26 @@ fun transformAttractionCategoryRequest(attractionRequest: AttractionRequest) =
     )
 
 
-fun transformAttractionCategory(attractionResponse: AttractionResponse): ArrayList<AttractionCategory> =
+fun transformAttractionCategory(attractionResponse: AttractionResponse): List<AttractionCategory> =
     attractionResponse.Result.attractionsCategories.run {
         transformAttractionCategory(this)
     }
 
-fun transformAttractionCategory(list: ArrayList<AttractionCategoryDTO>): ArrayList<AttractionCategory> =
+
+fun transformAttractionCategory(list: List<AttractionCategoryDTO>): List<AttractionCategory> =
     list.run {
         this.map {
             AttractionCategory(
                 id = it.id,
                 icon = it.icon,
                 title = it.title,
-                imgSelected = R.drawable.museums_icon_home,
-                imgUnSelected = R.drawable.museum,
-                selectedSvg = it.selectedSvg,
+//                imgSelected = R.drawable.museums_icon_home,
+//                imgUnSelected = R.drawable.museum,
+//                selectedSvg = it.selectedSvg,
                 unselectedSvg = it.unselectedSvg,
-//                attractions = it.attractions.map {
-//                    Attractions(
-//                        id = it.id!!,
-//                        title = it.title!!,
-//                        category = it.category!!,
-//                        IsFavourite = it.isFavourite!!,
-//                        locationTitle = it.locationTitle,
-//                        location = it.location,
-//                        portraitImage = it.portraitImage,
-//                        landscapeImage = it.landscapeImage,
-//                        description = it.description,
-//                        startTime = it.startTime,
-//                        endTime = it.endTime,
-//                        endDay = it.endDay,
-//                        startDay = it.startDay,
-//                        color = it.color
-//
-//                    )
-//                } as ArrayList<Attractions>
             )
         }
-    } as ArrayList<AttractionCategory>
+    }
 
 fun transformAttractionDetail(attractionResponse: AttractionResponse): Attractions =
     transformAttractionDetail(attractionResponse.Result.attraction)

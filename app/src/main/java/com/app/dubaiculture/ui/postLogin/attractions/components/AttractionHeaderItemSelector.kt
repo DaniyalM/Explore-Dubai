@@ -6,19 +6,15 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
-import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.UpdateAttractionHeader
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.coroutines.*
 
 class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), AttractionHeaderClick {
@@ -106,22 +102,22 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
             if (!isUpdate) {
                 groupAdapter.add(
                     AttractionHeaderItems(
-                        displayValue = list.get(clickCheckerFlag).title!!,
+                        displayValue = model.title!!,
                         data = list,
                         isSelected = isSelected,
                         selectedTextColor = selectedTextColor,
                         unSelectedTextColor = unSelectedTextColor,
                         selectedBackground = getDrawableFromId(selectedBackground),
                         unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                        selectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgSelected.toInt()),
-                        unSelectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgUnSelected.toInt()),
+                        selectedInnerImg = model.selectedSvg,
+                        unSelectedInnerImg = model.icon,
                         progressListener = this
                     )
                 )
             }
 
         }
-        if (isUpdate){
+        if (isUpdate) {
             groupAdapter.notifyItemChanged(previousPosition, AttractionHeaderItems(
                 displayValue = list.get(clickCheckerFlag).title!!,
                 data = list,
@@ -130,8 +126,8 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                 unSelectedTextColor = unSelectedTextColor,
                 selectedBackground = getDrawableFromId(selectedBackground),
                 unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                selectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgSelected.toInt()),
-                unSelectedInnerImg = getDrawableFromId(list.get(clickCheckerFlag).imgUnSelected.toInt()),
+                selectedInnerImg = list.get(clickCheckerFlag).selectedSvg,
+                unSelectedInnerImg = list.get(clickCheckerFlag).icon,
                 progressListener = this)
             )
         }
@@ -161,6 +157,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     }
 
+
     private fun getDrawableFromId(resId: Int?): Drawable? {
         resId?.let {
             return if (it == 0) null
@@ -171,7 +168,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
 
     override fun onClick(position: Int) {
-        previousPosition= clickCheckerFlag
+        previousPosition = clickCheckerFlag
         positionUpdate(position)
 
         list?.let {

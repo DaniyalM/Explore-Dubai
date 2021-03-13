@@ -54,16 +54,14 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
-        val items=createTestItems()
-        binding.horizontalSelector.initialize(items, binding.pager)
-        binding.pager.adapter = AttractionPagerAdaper(this, items.get(clickCheckerFlag).id!!)
+
 
     }
 
 
     private fun callingObservables() {
         lifecycleScope.launch {
-//            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
         }
     }
 
@@ -72,16 +70,16 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
-                        if (!itemHasLoaded) {
-                            itemHasLoaded = true
+
                             binding.horizontalSelector.initialize(it.value, binding.pager)
                             binding.pager.adapter = AttractionPagerAdaper(this, it.value.get(clickCheckerFlag).id!!)
-
-                        }
 
                     }
                 }
                 is Result.Failure -> {
+//                    val items=createTestItems()
+//                    binding.horizontalSelector.initialize(items, binding.pager)
+//                    binding.pager.adapter = AttractionPagerAdaper(this, items.get(clickCheckerFlag).id!!)
                     handleApiError(it, attractionViewModel)
                 }
             }

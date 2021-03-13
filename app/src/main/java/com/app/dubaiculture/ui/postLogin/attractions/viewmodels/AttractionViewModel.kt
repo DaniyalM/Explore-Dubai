@@ -18,9 +18,9 @@ class AttractionViewModel @ViewModelInject constructor(
     private val attractionRepository: AttractionRepository,
 ) : BaseViewModel(application) {
 
-    private val _attractionCategoryList: MutableLiveData<Result<ArrayList<AttractionCategory>>> =
+    private val _attractionCategoryList: MutableLiveData<Result<List<AttractionCategory>>> =
         MutableLiveData()
-    val attractionCategoryList: LiveData<Result<ArrayList<AttractionCategory>>> =
+    val attractionCategoryList: LiveData<Result<List<AttractionCategory>>> =
         _attractionCategoryList
 
     private val _attractionDetail: MutableLiveData<Result<Attractions>> = MutableLiveData()
@@ -30,8 +30,7 @@ class AttractionViewModel @ViewModelInject constructor(
     fun getAttractionCategoryToScreen(locale: String) {
         showLoader(true)
         viewModelScope.launch {
-            when (val result =
-                attractionRepository.getAttractionCategories(AttractionRequest(culture = locale))) {
+            when (val result = attractionRepository.getAttractionCategories(AttractionRequest(culture = locale))) {
                 is Result.Success -> {
                     _attractionCategoryList.value = result
                     showLoader(false)

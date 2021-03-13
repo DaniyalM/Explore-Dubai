@@ -23,9 +23,9 @@ data class AttractionCategoryDTO(
     @Expose
     var selectedSvg: String? = null,
 
-    @SerializedName("Icon")
+    @SerializedName("NonWhiteIcon")
     @Expose
-    var unselectedSvg: String? = null,
+    var unselectedSvg: String? = icon,
 
     @SerializedName("Attractions")
     @Expose
