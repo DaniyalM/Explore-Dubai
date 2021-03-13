@@ -9,15 +9,12 @@ import androidx.lifecycle.lifecycleScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.FragmentAttractionsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
-import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import kotlinx.coroutines.launch
@@ -71,8 +68,9 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 is Result.Success -> {
                     it.let {
 
-                            binding.horizontalSelector.initialize(it.value, binding.pager)
-                            binding.pager.adapter = AttractionPagerAdaper(this, it.value.get(clickCheckerFlag).id!!)
+                        binding.horizontalSelector.initialize(it.value, binding.pager)
+                        binding.pager.adapter =
+                            AttractionPagerAdaper(this, it.value.get(clickCheckerFlag).id!!)
 
                     }
                 }

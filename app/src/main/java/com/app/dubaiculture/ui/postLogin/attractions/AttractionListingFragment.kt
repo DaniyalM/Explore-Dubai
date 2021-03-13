@@ -51,10 +51,10 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
-//        binding.swipeRefresh.setOnRefreshListener {
-//            binding.swipeRefresh.isRefreshing = false
-//            bus.post(AttractionBusService().SwipeToRefresh(true))
-//        }
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            bus.post(AttractionBusService().SwipeToRefresh(true))
+        }
 
     }
 

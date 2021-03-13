@@ -41,7 +41,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
         initRecyclerView()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
-            bus.post(AttractionBusService().SwipeToRefresh(true))
+           // bus.post(AttractionBusService().SwipeToRefresh(true))
         }
 
     }

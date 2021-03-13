@@ -48,8 +48,8 @@ fun transformAttractionCategory(list: List<AttractionCategoryDTO>): List<Attract
                 title = it.title,
 //                imgSelected = R.drawable.museums_icon_home,
 //                imgUnSelected = R.drawable.museum,
-//                selectedSvg = it.selectedSvg,
-                unselectedSvg = it.unselectedSvg,
+                selectedSvg = it.selectedSvg,
+//                unselectedSvg = it.unselectedSvg,
             )
         }
     }

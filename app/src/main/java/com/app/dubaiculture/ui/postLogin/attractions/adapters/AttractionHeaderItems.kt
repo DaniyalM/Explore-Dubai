@@ -81,9 +81,9 @@ class AttractionHeaderItems<T>(
 
                 textView.setTextColor(color)
             }
-            selectedBackground?.let { drawable ->
-                imageView.background = drawable
-            }
+//            selectedBackground?.let { drawable ->
+//                imageView.background = drawable
+//            }
 
 
             selectedInnerImg?.let { drawable ->
@@ -92,14 +92,17 @@ class AttractionHeaderItems<T>(
             }
 
         } else {
+
+
+
             view.setCardBackgroundColor(ContextCompat.getColor(view.context,
                 R.color.white_900))
             unSelectedTextColor?.let { color ->
                 textView.setTextColor(color)
             }
-            unSelectedBackground?.let { bg ->
-                imageView.background = bg
-            }
+//            unSelectedBackground?.let { bg ->
+//                imageView.background = bg
+//            }
             unSelectedInnerImg?.let { drawable ->
 //                imgInner.background = drawable.g
                 imgInner.glideInstance(drawable,true).into(imgInner)
