@@ -84,7 +84,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         this.attractionPager = attractionPager
         itemsAddnUpdation()
     }
-    fun itemsAddnUpdation(isUpdate: Boolean = false, ) {
+    fun itemsAddnUpdation(isUpdate: Boolean = false) {
         var isSelected = false
         list?.forEachIndexed { index, model ->
             if (clickCheckerFlag == index) {

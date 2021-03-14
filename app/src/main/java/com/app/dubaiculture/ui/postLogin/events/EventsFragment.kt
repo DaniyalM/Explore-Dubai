@@ -11,6 +11,8 @@ import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
+import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventRecyclerAsyncAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
@@ -61,6 +63,19 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = eventAdapter
             this.itemAnimator = SlideInLeftAnimator()
+            this.addOnItemTouchListener(RecyclerItemClickListener(
+                activity,
+                this,
+                object : RecyclerItemClickListener.OnItemClickListener {
+                    override fun onItemClick(view: View, position: Int) {
+//                        attractionViewModel.showErrorDialog(message = attractions.get(position).title)
+                        navigate(R.id.action_eventsFragment_to_eventFilterFragment)
+                    }
+
+                    override fun onLongItemClick(view: View, position: Int) {
+                    }
+                }
+            ))
         }
         eventAdapter.events = createAttractionItems()
         binding.rvMoreEvent.apply {

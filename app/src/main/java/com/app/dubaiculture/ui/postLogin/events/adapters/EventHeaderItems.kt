@@ -8,10 +8,15 @@ import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector
 import com.app.dubaiculture.ui.postLogin.attractions.components.EventHeaderItemSelector
+import com.app.dubaiculture.ui.postLogin.attractions.components.EventHeaderItemSelector.Companion.clickCheckerFlag
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
+import kotlinx.android.synthetic.main.attraction_title_list_item.view.cardview
+import kotlinx.android.synthetic.main.attraction_title_list_item.view.tv_title
+import kotlinx.android.synthetic.main.event_items_header.view.*
 
 class EventHeaderItems <T>(
     val displayValue: String,
@@ -23,7 +28,7 @@ class EventHeaderItems <T>(
     private val unSelectedBackground: Drawable? = null,
     private val progressListener: AttractionHeaderClick? = null,
 
-    ) : BaseAdapter(R.layout.attraction_title_list_item) {
+    ) : BaseAdapter(R.layout.event_items_header) {
 
 
     private lateinit var view: View
@@ -34,17 +39,15 @@ class EventHeaderItems <T>(
         viewHolder.apply {
 
             root?.let { it ->
-                it.ll_bg.visibility = View.GONE
-                it.imgInnerIcon.visibility = View.GONE
                 it.tv_title.text = displayValue
-                isSelected = EventHeaderItemSelector.clickCheckerFlag ==position
-                renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.cardview)
+                isSelected = clickCheckerFlag ==position
+                renderSelection(it.tv_title, it.img_bg,it.cardview)
                 it.setOnClickListener {
                     progressListener?.onClick(position)
 
-                    if (EventHeaderItemSelector.clickCheckerFlag ==position){
+                    if (clickCheckerFlag ==position){
                         isSelected=true
-                        renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.cardview)
+                        renderSelection(it.tv_title, it.img_bg ,it.cardview)
                     }
                 }
             }
@@ -53,7 +56,8 @@ class EventHeaderItems <T>(
 
 
     private fun renderSelection(
-        textView: TextView, imageView: ImageView, imgInner: ImageView,
+        textView: TextView,
+        imageView: ImageView,
         view: MaterialCardView,
     ) {
         if (isSelected) {
