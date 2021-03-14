@@ -31,7 +31,7 @@ class EventViewModel @ViewModelInject constructor(
     private val _eventList: MutableLiveData<Result<List<Events>>> = MutableLiveData()
     val eventfilterRequest: LiveData<Result<List<Events>>> = _eventList
 
-    fun addToFavourite(userId: String, itemId: String, type: Int=2) {
+    fun addToFavourite(userId: String, itemId: String, type: Int = 2) {
         showLoader(true)
         viewModelScope.launch {
             when (val result = eventRepository.addToFavourite(AddToFavouriteRequest(
