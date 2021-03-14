@@ -1,6 +1,8 @@
 package com.app.dubaiculture.data.repository.event.service
 
+import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequestDTO
 import com.app.dubaiculture.data.repository.event.remote.request.EventFiltersRequestDTO
+import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
 import retrofit2.http.*
 
@@ -11,6 +13,9 @@ interface EventService {
 
     @POST("/api/Content/SearchEvents")
     suspend fun getEventsWithFilters(@Body eventFiltersRequestDTO: EventFiltersRequestDTO): EventResponse
+
+    @POST("/api/Content/AddFavorites")
+    suspend fun addToFavourites(@Body addToFavouriteRequestDTO: AddToFavouriteRequestDTO): AddToFavouriteResponse
 
     @GET("/events/{event_id}")
     suspend fun getEventDetail(

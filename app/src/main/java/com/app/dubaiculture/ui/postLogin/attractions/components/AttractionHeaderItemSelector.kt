@@ -34,6 +34,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         var clickCheckerFlag: Int = 0
         var previousPosition: Int = 0
     }
+
     init {
         val typeArray = context.obtainStyledAttributes(attrs,
             R.styleable.HorizontalAttractionSelector)
@@ -82,16 +83,19 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     ) {
         this.list = list
         this.attractionPager = attractionPager
-        itemsAddnUpdation()
+        if (groupAdapter.itemCount == 0) {
+            itemsAddnUpdation()
+        }
     }
-    fun itemsAddnUpdation(isUpdate: Boolean = false, ) {
+
+    fun itemsAddnUpdation(isUpdate: Boolean = false) {
         var isSelected = false
-        list?.forEachIndexed { index, model ->
-            if (clickCheckerFlag == index) {
-                isSelected = true
-                positionUpdate(clickCheckerFlag)
-            }
-            if (!isUpdate) {
+        if (!isUpdate) {
+            list?.forEachIndexed { index, model ->
+                if (clickCheckerFlag == index) {
+                    isSelected = true
+                    positionUpdate(clickCheckerFlag)
+                }
                 groupAdapter.add(
                     AttractionHeaderItems(
                         displayValue = model.title!!,
@@ -107,8 +111,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     )
                 )
             }
-        }
-        if (isUpdate) {
+        } else {
             list?.get(previousPosition)?.let {
                 groupAdapter.notifyItemChanged(previousPosition, AttractionHeaderItems(
                     displayValue = it.title!!,
@@ -123,9 +126,10 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     progressListener = this)
                 )
             }
-
         }
+
     }
+
     private fun getDrawableFromId(resId: Int?): Drawable? {
         resId?.let {
             return if (it == 0) null
@@ -133,11 +137,13 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         }
         return null
     }
+
     override fun onClick(position: Int) {
         previousPosition = clickCheckerFlag
         positionUpdate(position)
         itemsAddnUpdation(true)
     }
+
     fun positionUpdate(position: Int) {
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)

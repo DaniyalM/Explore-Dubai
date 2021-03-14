@@ -9,7 +9,7 @@ import com.app.dubaiculture.data.repository.event.remote.EventRDS
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import javax.inject.Inject
 
-class EventRepository @Inject constructor(private val eventRDS: EventRDS) : BaseRepository() {
+class EventRepository @Inject constructor(private val eventRDS: EventRDS) : BaseRepository<EventRDS>(eventRDS) {
 
     suspend fun fetchHomeEvents(homeEventRequest: EventRequest): Result<EventHomeListing> {
         return when (val resultRds =
@@ -68,4 +68,7 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) : Base
             is Result.Error -> resultRds
         }
     }
+
+
+
 }

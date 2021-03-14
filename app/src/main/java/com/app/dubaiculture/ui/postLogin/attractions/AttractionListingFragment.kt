@@ -15,14 +15,14 @@ import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerIte
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
-import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
     private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
-//    private lateinit var attractions: ArrayList<Attractions>
+
+    //    private lateinit var attractions: ArrayList<Attractions>
     private lateinit var attractionId: String
     private var searchQuery: String = ""
 
@@ -34,7 +34,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         @JvmStatic
         fun newInstance(attractionId: String = "") = AttractionListingFragment().apply {
             arguments = Bundle().apply {
-//                putParcelableArrayList(ATTRACTION_CATEG0RY_TYPE, attractions)
                 putString(ATTRACTION_DETAIL_ID, attractionId)
             }
         }
@@ -46,15 +45,15 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         container: ViewGroup?,
     ) = FragmentAttractionListingBinding.inflate(inflater, container, false)
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = false
-            bus.post(AttractionBusService().SwipeToRefresh(true))
-        }
+//        binding.swipeRefresh.setOnRefreshListener {
+//            binding.swipeRefresh.isRefreshing = false
+//            bus.post(AttractionBusService().SwipeToRefresh(true))
+//        }
+//        attractionViewModel.showToast(attractionId)
 
     }
 
@@ -65,23 +64,14 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                 attractionId = it
             }
         }
-//        arguments?.getParcelableArrayList<Attractions>(ATTRACTION_CATEG0RY_TYPE)
-//            ?.let { attractions = it }
     }
-
-//    @Subscribe
-//    fun onSearchTextQueryChange(updatedText: AttractionBusService.SearchTextQuery) {
-//        searchQuery = updatedText.text.trim()
-//        attractionListScreenAdapter?.search(searchQuery) { attractionViewModel.showToast("No Results Found") }
-//    }
-
 
     private fun initRecyclerView() {
         attractionListScreenAdapter = AttractionListScreenAdapter()
         binding.rvAttractionListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = attractionListScreenAdapter
-            val items=createAttractionItems()
+            val items = createAttractionItems()
             attractionListScreenAdapter?.attractions = items
             this.addOnItemTouchListener(RecyclerItemClickListener(
                 activity,
@@ -104,18 +94,15 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     }
 
 
-        private fun createAttractionItems(): ArrayList<Attractions> =
+    private fun createAttractionItems(): ArrayList<Attractions> =
         mutableListOf<Attractions>().apply {
-
-
             repeat((1..4).count()) {
-
                 add(
                     Attractions(
                         id = it.toString(),
                         title = "Museum of the Poet Al Oqaili",
                         category = "BOOKING AVAILABLE",
-                        IsFavourite = false,
+                        IsFavourite = it % 2 == 0,
                     )
                 )
             }
