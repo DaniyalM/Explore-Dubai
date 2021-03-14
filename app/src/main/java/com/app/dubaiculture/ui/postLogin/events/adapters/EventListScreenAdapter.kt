@@ -52,11 +52,10 @@ class EventListScreenAdapter : BaseRecyclerAdapter<Events>() {
     ) {
         (holder.itemView as EventsListItemCell).bindWhenInflated {
             holder.itemView.binding?.let {
-
                 try {
                     it.events = events[position]
                     it.favourite.setOnClickListener {
-                        Toast.makeText(context,events.get(position).title,Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, events[position].title,Toast.LENGTH_SHORT).show()
                     }
                 } catch (ex: IndexOutOfBoundsException) {
                     print(ex.stackTrace)
