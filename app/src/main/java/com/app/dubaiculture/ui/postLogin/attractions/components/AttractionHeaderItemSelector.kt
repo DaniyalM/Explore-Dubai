@@ -6,12 +6,14 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
+import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -28,6 +30,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var list: List<AttractionCategory>? = null
     private var attractionPager: ViewPager2? = null
     private var recyclerView: RecyclerView? = null
+
 //    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     companion object {
@@ -84,6 +87,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         this.list = list
         this.attractionPager = attractionPager
 
+
         if (groupAdapter.itemCount == 0) {
             itemsAddnUpdation()
         }
@@ -91,6 +95,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     fun itemsAddnUpdation(isUpdate: Boolean = false) {
         var isSelected = false
+
         if (!isUpdate) {
             list?.forEachIndexed { index, model ->
                 if (clickCheckerFlag == index) {
@@ -148,7 +153,8 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     fun positionUpdate(position: Int) {
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
-        attractionPager?.currentItem = clickCheckerFlag
+        attractionPager?.currentItem = position
+
     }
 
 

@@ -56,10 +56,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                     it.let {
 
                         binding.horizontalSelector.initialize(it.value, binding.pager)
-                        Timber.e("AttractionCategoryIdGen ${it.value.get(clickCheckerFlag).id}")
-                        Timber.e("AttractionCategoryIdGenflag ${clickCheckerFlag}")
-                        binding.pager.adapter =
-                            AttractionPagerAdaper(this, it.value.get(clickCheckerFlag).id!!)
+                        binding.pager.adapter = AttractionPagerAdaper(this, it.value)
 
 
                     }

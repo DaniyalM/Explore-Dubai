@@ -56,7 +56,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
         Timber.e("AttractionCategoryId : $attractionCatId")
-//        callingObservables()
+        callingObservables()
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
 //            bus.post(AttractionBusService().SwipeToRefresh(true))

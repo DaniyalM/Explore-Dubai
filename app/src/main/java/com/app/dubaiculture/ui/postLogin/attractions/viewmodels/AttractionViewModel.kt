@@ -28,18 +28,17 @@ class AttractionViewModel @ViewModelInject constructor(
 
 
     fun getAttractionCategoryToScreen(locale: String) {
-//        showLoader(true)
+        showLoader(true)
         viewModelScope.launch {
             when (val result =
                 attractionRepository.getAttractionCategories(AttractionRequest(culture = locale))) {
                 is Result.Success -> {
-//                    showLoader(false)
+                    showLoader(false)
                     _attractionCategoryList.value = result
 
                 }
                 is Result.Failure -> {
-//                    showLoader(false)
-
+                    showLoader(false)
                     _attractionCategoryList.value = result
                 }
             }
@@ -52,7 +51,7 @@ class AttractionViewModel @ViewModelInject constructor(
         pageSize: Int,
         locale: String,
     ) {
-        showLoader(true)
+//        showLoader(true)
         viewModelScope.launch {
             when (val result = attractionRepository.getAttractionsByCategory(
                 AttractionRequest(
@@ -61,7 +60,7 @@ class AttractionViewModel @ViewModelInject constructor(
                     pageSize = pageSize,
                     culture = locale))) {
                 is Result.Success -> {
-                    showLoader(false)
+//                    showLoader(false)
                     _attractionList.value = result
                 }
                 is Result.Failure -> {
