@@ -14,7 +14,7 @@ import com.app.dubaiculture.data.repository.attraction.remote.response.Attractio
 
 fun transformAttractionsRequest(attractionRequest: AttractionRequest) =
     AttractionRequestDTO(
-        attractionCategoryId = attractionRequest.attractionId!!,
+        attractionCategoryId = attractionRequest.attractionCategoryId!!,
         pageNumber = attractionRequest.pageNumber!!,
         pageSize = attractionRequest.pageSize!!,
         culture = attractionRequest.culture

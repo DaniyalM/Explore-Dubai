@@ -83,6 +83,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     ) {
         this.list = list
         this.attractionPager = attractionPager
+
         if (groupAdapter.itemCount == 0) {
             itemsAddnUpdation()
         }

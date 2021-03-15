@@ -17,6 +17,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScre
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
@@ -33,7 +34,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     companion object {
 
         var ATTRACTION_CATEG0RY_TYPE: String = "Attractions"
-        var ATTRACTION_CATEG0RY_ID: String = "AttractionCat"
+        var ATTRACTION_CATEG0RY_ID: String = "AttractionCatId"
         var ATTRACTION_DETAIL_ID: String = "Attraction_ID"
 
         @JvmStatic
@@ -54,7 +55,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
-        callingObservables()
+        Timber.e("AttractionCategoryId : $attractionCatId")
+//        callingObservables()
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
 //            bus.post(AttractionBusService().SwipeToRefresh(true))

@@ -18,6 +18,7 @@ import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -53,12 +54,13 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
-//                        if (!isContentLoaded) {
-                            binding.horizontalSelector.initialize(it.value, binding.pager)
-                            binding.pager.adapter =
-                                AttractionPagerAdaper(this, it.value.get(clickCheckerFlag).id!!)
 
-//                        }
+                        binding.horizontalSelector.initialize(it.value, binding.pager)
+                        Timber.e("AttractionCategoryIdGen ${it.value.get(clickCheckerFlag).id}")
+                        Timber.e("AttractionCategoryIdGenflag ${clickCheckerFlag}")
+                        binding.pager.adapter =
+                            AttractionPagerAdaper(this, it.value.get(clickCheckerFlag).id!!)
+
 
                     }
                 }

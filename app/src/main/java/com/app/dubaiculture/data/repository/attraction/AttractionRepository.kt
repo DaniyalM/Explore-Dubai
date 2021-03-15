@@ -53,8 +53,7 @@ class AttractionRepository @Inject constructor(
 
     suspend fun getAttractionDetail(attractionRequest: AttractionRequest): Result<Attractions> {
         return when (val resultRDS =
-            attractionRDS.getAttractionDetail(transformAttractionDetailRequest(
-                attractionRequest))) {
+            attractionRDS.getAttractionDetail(transformAttractionDetailRequest(attractionRequest))) {
             is Result.Success -> {
                 val attractionRds = resultRDS
                 if (attractionRds.value.statusCode != 200) {

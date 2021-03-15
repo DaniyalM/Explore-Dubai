@@ -63,7 +63,7 @@ class AttractionDTO {
 
     @SerializedName("Is_Favourite")
     @Expose
-    var isFavourite: Boolean? = null
+    var isFavourite: Boolean = false
 
     @SerializedName("Events")
     @Expose
