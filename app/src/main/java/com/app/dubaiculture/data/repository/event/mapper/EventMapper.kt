@@ -1,20 +1,36 @@
 package com.app.dubaiculture.data.repository.event.mapper
 
-import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.data.repository.event.remote.request.EventDetailRequest
-import com.app.dubaiculture.data.repository.event.remote.request.EventDetailRequestDTO
-import com.app.dubaiculture.data.repository.event.remote.request.HomeEventListRequest
-import com.app.dubaiculture.data.repository.event.remote.request.HomeEventListRequestDTO
+import com.app.dubaiculture.data.repository.event.remote.request.*
 import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
 import com.app.dubaiculture.data.repository.event.remote.response.EventsDTO
-import com.app.dubaiculture.data.repository.event.remote.response.HomeEventListingDTO
 
+// Add To Favourite Request is used for both Attractions and events from below
+fun transformAddToFavouriteRequest(addToFavouriteRequest: AddToFavouriteRequest) =
+    AddToFavouriteRequestDTO(
+        UserID = addToFavouriteRequest.userId,
+        ItemID = addToFavouriteRequest.itemId,
+        Type = addToFavouriteRequest.type!!
+    )
 
-fun transformEventDetailRequest(eventDetailRequest: EventDetailRequest) =
+// Add To Favourite Request is used for both Attractions and events from above
+fun transformEventFiltersRequest(eventRequest: EventRequest) =
+    EventFiltersRequestDTO(
+        Culture = eventRequest.culture!!,
+        UserID = eventRequest.userId,
+        Category = eventRequest.category,
+        Keyword = eventRequest.keyword,
+        DateFrom = eventRequest.dateFrom,
+        DateTo = eventRequest.dateTo,
+        Type = eventRequest.type,
+        Location = eventRequest.location
+
+    )
+
+fun transformEventDetailRequest(eventDetailRequest: EventRequest) =
     EventDetailRequestDTO(
-        eventId = eventDetailRequest.eventId,
-        culture = eventDetailRequest.culture
+        eventId = eventDetailRequest.eventId!!,
+        culture = eventDetailRequest.culture!!
     )
 
 
@@ -68,10 +84,9 @@ fun transformFeatureEventList(featureEvents: ArrayList<EventsDTO>): ArrayList<Ev
     } as ArrayList<Events>
 
 
-
-fun transformHomeEventListingRequest(eventListRequest: HomeEventListRequest) =
+fun transformHomeEventListingRequest(eventListRequest: EventRequest) =
     HomeEventListRequestDTO(
-        culture = eventListRequest.culture
+        culture = eventListRequest.culture!!
     )
 
 

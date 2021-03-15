@@ -69,14 +69,17 @@
                     app:roundedCorners="topRight|topLeft" />
 
 
-                <ImageView
+                <CheckBox
                     android:id="@+id/favourite"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="end"
                     android:layout_margin="@dimen/_15sdp"
+                    android:button="@null"
+                    android:checked="false"
                     android:background="@drawable/heart_icon_home"
                     android:padding="@dimen/_8sdp"
+                    android:stateListAnimator="@animator/scale"
                     app:layout_constraintBottom_toBottomOf="@+id/card_view_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/card_view_title" />
