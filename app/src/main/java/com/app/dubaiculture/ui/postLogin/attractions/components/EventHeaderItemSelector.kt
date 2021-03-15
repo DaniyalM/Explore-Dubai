@@ -83,21 +83,21 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
     ) {
         this.list = list
         this.eventPager = attractionPager
-        itemsAddnUpdation()
+        if (groupAdapter.itemCount==0){
+            itemsAddnUpdation()
+        }
     }
 
-    fun itemsAddnUpdation(
-        isUpdate: Boolean = false) {
+    fun itemsAddnUpdation(isUpdate: Boolean = false) {
 
         var isSelected = false
+        if (!isUpdate) {
         list?.forEachIndexed { index, model ->
             if (clickCheckerFlag == index) {
                 isSelected = true
                 positionUpdate(clickCheckerFlag)
             }
-
-            if (!isUpdate) {
-                groupAdapter.add(
+            groupAdapter.add(
                     EventHeaderItems(
                         displayValue = model.category!!,
                         data = list,
@@ -111,7 +111,7 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
                 )
             }
         }
-        if (isUpdate) {
+        else{
             list?.get(previousPosition).let {
                 groupAdapter.notifyItemChanged(previousPosition, EventHeaderItems(
                     displayValue =  it!!.category!!,

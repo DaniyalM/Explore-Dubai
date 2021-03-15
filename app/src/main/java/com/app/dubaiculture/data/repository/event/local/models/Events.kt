@@ -20,7 +20,16 @@ data class Events(
     var toTime: String? = null,
     var toDay: String? = null,
     var type: String? = null,
-    ): Parcelable
+    var locationTitle: String? = "",
+    var location: String? = "",
+    var longitude: String? = "",
+    var latitude: String? = "",
+    var isFavourite: Boolean = false,
+    var color: String = "",
+    var dateTo: String = "",
+    var dateFrom: String = "",
+
+    ) : Parcelable
 
 
 

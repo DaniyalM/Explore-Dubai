@@ -54,7 +54,15 @@ fun transformOtherEventList(events: ArrayList<EventsDTO>): ArrayList<Events> =
             toMonthYear = it.toMonthYear,
             toTime = it.toTime,
             toDay = it.toDay,
-            type = it.type
+            type = it.type,
+            color=it.color,
+            dateTo = it.dateTo,
+            dateFrom = it.dateFrom,
+            locationTitle = it.locationTitle,
+            location = it.location,
+            longitude = it.longitude,
+            latitude = it.latitude,
+            isFavourite = it.isFavourite,
         )
     } as ArrayList<Events>
 
@@ -79,7 +87,15 @@ fun transformFeatureEventList(featureEvents: ArrayList<EventsDTO>): ArrayList<Ev
             toMonthYear = it.toMonthYear,
             toTime = it.toTime,
             toDay = it.toDay,
-            type = it.type
+            type = it.type,
+            color=it.color,
+            dateTo = it.dateTo,
+            dateFrom = it.dateFrom,
+            locationTitle = it.locationTitle,
+            location = it.location,
+            longitude = it.longitude,
+            latitude = it.latitude,
+            isFavourite = it.isFavourite,
         )
     } as ArrayList<Events>
 
@@ -109,8 +125,17 @@ fun transformEventDetail(eventResponse: EventResponse): Events =
         toMonthYear = eventResponse.Result.event.toMonthYear,
         toTime = eventResponse.Result.event.toTime,
         toDay = eventResponse.Result.event.toDay,
-        type = eventResponse.Result.event.type
-    )
+        type = eventResponse.Result.event.type,
+        color=eventResponse.Result.event.color,
+        dateTo = eventResponse.Result.event.dateTo,
+        dateFrom = eventResponse.Result.event.dateFrom,
+        locationTitle =  eventResponse.Result.event.locationTitle,
+        location =  eventResponse.Result.event.location,
+        longitude =  eventResponse.Result.event.longitude,
+        latitude =  eventResponse.Result.event.latitude,
+        isFavourite = eventResponse.Result.event.isFavourite,
+
+        )
 //
 //fun transformHomeEventListing(homeEventList: ArrayList<HomeEventListingDTO>): ArrayList<EventHomeListing> =
 //    homeEventList.mapIndexed { index, it ->

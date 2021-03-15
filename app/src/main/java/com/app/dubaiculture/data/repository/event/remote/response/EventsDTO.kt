@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class EventsDTO (
+data class EventsDTO(
     @SerializedName("ID")
     @Expose
     var id: String? = null,
@@ -55,8 +55,36 @@ data class EventsDTO (
     @Expose
     var toDay: String? = null,
 
+    @SerializedName("LocationTitle")
+    @Expose
+    var locationTitle: String? = null,
+    @SerializedName("Location")
+    @Expose
+    var location: String? = null,
+
     @SerializedName("Type")
     @Expose
     var type: String? = null,
 
-    ): Parcelable
+    @SerializedName("Latitude")
+    @Expose
+    var latitude: String? = null,
+
+    @SerializedName("Longitude")
+    @Expose
+    var longitude: String? = null,
+
+    @SerializedName("IsFavourite")
+    @Expose
+    var isFavourite: Boolean = false,
+    @SerializedName("Color")
+    @Expose
+    var color: String = "",
+    @SerializedName("DateTo")
+    @Expose
+    var dateTo: String = "",
+    @SerializedName("DateFrom")
+    @Expose
+    var dateFrom: String = "",
+
+    ) : Parcelable
