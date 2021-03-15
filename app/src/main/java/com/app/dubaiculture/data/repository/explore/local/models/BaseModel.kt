@@ -22,7 +22,9 @@ class BaseModel {
     var icon: String? = null
 
 
-
+    @SerializedName("WhiteIcon")
+    @Expose
+    var whiteIcon: String? = null
 
     @SerializedName("Title")
     @Expose
