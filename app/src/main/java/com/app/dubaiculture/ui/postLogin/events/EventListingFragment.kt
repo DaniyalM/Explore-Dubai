@@ -55,7 +55,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
         binding.rvEventListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = eventListScreenAdapter
-            eventListScreenAdapter?.events = createAttractionItems()
+            eventListScreenAdapter.events = createAttractionItems()
             this.addOnItemTouchListener(RecyclerItemClickListener(
                 activity,
                 this,
@@ -87,8 +87,8 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
             add(
                 Events(
                     id = it.toString(),
-                    title = "Title $it",
-                    category = "Category $it",
+                    title = "The Definitive Guide to an Uncertain World",
+                    category = "Workshop",
                     fromDate = "18",
                     fromMonthYear = "Mar, 21",
                     fromTime = "20$it",
@@ -97,7 +97,8 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
                     toMonthYear = "Mar, 21",
                     toTime = "202$it",
                     toDay = "2$it",
-                    type = "Free"
+                    type = "Free",
+                    locationTitle = "Palm Jumeriah, Dubai"
                 )
             )
         }
