@@ -13,13 +13,14 @@ import com.app.dubaiculture.ui.postLogin.threesixtygallery.adapter.ThreeSixtyIte
 import com.app.dubaiculture.ui.postLogin.threesixtygallery.adapter.invokeItem
 import com.app.dubaiculture.ui.postLogin.threesixtygallery.viewmodel.ThreeSixtyViewModel
 
-class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnClickListener , invokeItem{
+class  ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnClickListener , invokeItem{
     private val threeSixtyViewModel: ThreeSixtyViewModel by viewModels()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(threeSixtyViewModel)
         binding.imgBack.setOnClickListener(this)
         initRv()
+
     }
 
     override fun getFragmentBinding(

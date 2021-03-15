@@ -6,7 +6,7 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardview_plan_trip"
+        android:id="@+id/cardivewRTL"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_10sdp"
@@ -51,9 +51,8 @@
                 android:id="@+id/animationView"
                 android:layout_gravity="center"
                 android:layout_width="@dimen/_70sdp"
-
                 android:layout_height="match_parent"
-                app:lottie_rawRes="@raw/pinlooped"
+                app:lottie_rawRes="@raw/pin_nearby_events"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"/>
             <!--                <ImageView-->

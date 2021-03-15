@@ -18,14 +18,19 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
+import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.event.UiEvent
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.shape.CornerFamily
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import kotlinx.android.synthetic.main.event_search_toolbar.view.*
+import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
 import java.util.*
 
 
@@ -202,6 +207,24 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         }
     }
+
+     fun cardViewRTL(materialCardView: MaterialCardView){
+        val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
+        if(isArabic()){
+            binding.root.materialCardView?.shapeAppearanceModel =  binding.root.materialCardView!!.shapeAppearanceModel
+                .toBuilder()
+                .setBottomLeftCorner(CornerFamily.ROUNDED,radius)
+                .setTopRightCornerSize(radius)
+                .build()
+        }else{
+            binding.root.materialCardView?.shapeAppearanceModel =  binding.root.materialCardView!!.shapeAppearanceModel
+                .toBuilder()
+                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
+                .setBottomRightCornerSize(radius)
+                .build()
+        }
+    }
+
 
     open fun hideKeyboard(activity: Activity) {
         val imm: InputMethodManager =

@@ -15,7 +15,6 @@ import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHe
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventHeaderItems
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.android.synthetic.main.attraction_list_item_cell.view.*
 
 class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), AttractionHeaderClick {
@@ -32,6 +31,7 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
 
     companion object {
         var clickCheckerFlag: Int = 0
+        var previousPosition: Int = 0
     }
 
     init {
@@ -83,21 +83,18 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
     ) {
         this.list = list
         this.eventPager = attractionPager
-        itemsAddnUpdation(list)
+        itemsAddnUpdation()
     }
 
     fun itemsAddnUpdation(
-        list: List<EventHomeListing>,
-        isUpdate: Boolean = false,
-    ) {
+        isUpdate: Boolean = false) {
 
-        list.forEachIndexed { index, model ->
-            var isSelected = false
-            if (EventHeaderItemSelector.clickCheckerFlag == index){
+        var isSelected = false
+        list?.forEachIndexed { index, model ->
+            if (clickCheckerFlag == index) {
                 isSelected = true
-                positionUpdate(EventHeaderItemSelector.clickCheckerFlag)
+                positionUpdate(clickCheckerFlag)
             }
-
 
             if (!isUpdate) {
                 groupAdapter.add(
@@ -109,33 +106,25 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
                         unSelectedTextColor = unSelectedTextColor,
                         selectedBackground = getDrawableFromId(selectedBackground),
                         unSelectedBackground = getDrawableFromId(unSelectedBackground),
-//                        selectedInnerImg = getDrawableFromId(model.imgSelected.toInt()),
-//                        unSelectedInnerImg = getDrawableFromId(model.imgUnSelected.toInt()),
                         progressListener = this
                     )
                 )
-            } else {
-
-                groupAdapter.notifyItemChanged(index, EventHeaderItems(
-                    displayValue = model.category!!,
+            }
+        }
+        if (isUpdate) {
+            list?.get(previousPosition).let {
+                groupAdapter.notifyItemChanged(previousPosition, EventHeaderItems(
+                    displayValue =  it!!.category!!,
                     data = list,
                     isSelected = isSelected,
                     selectedTextColor = selectedTextColor,
                     unSelectedTextColor = unSelectedTextColor,
                     selectedBackground = getDrawableFromId(selectedBackground),
                     unSelectedBackground = getDrawableFromId(unSelectedBackground),
-//                    selectedInnerImg = getDrawableFromId(model.imgSelected.toInt()),
-//                    unSelectedInnerImg = getDrawableFromId(model.imgUnSelected.toInt()),
                     progressListener = this)
                 )
-
-
             }
-
-
         }
-
-
     }
 
     private fun getDrawableFromId(resId: Int?): Drawable? {
@@ -148,8 +137,9 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
 
 
     override fun onClick(position: Int) {
+        previousPosition = clickCheckerFlag
         positionUpdate(position)
-        list?.let { itemsAddnUpdation(it, true) }
+        itemsAddnUpdation(true)
     }
 
     fun positionUpdate(position: Int){

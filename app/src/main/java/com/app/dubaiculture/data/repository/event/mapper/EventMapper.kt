@@ -1,13 +1,19 @@
 package com.app.dubaiculture.data.repository.event.mapper
 
 import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.data.repository.event.remote.request.EventDetailRequestDTO
-import com.app.dubaiculture.data.repository.event.remote.request.EventFiltersRequestDTO
-import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
-import com.app.dubaiculture.data.repository.event.remote.request.HomeEventListRequestDTO
+import com.app.dubaiculture.data.repository.event.remote.request.*
 import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
 import com.app.dubaiculture.data.repository.event.remote.response.EventsDTO
 
+// Add To Favourite Request is used for both Attractions and events from below
+fun transformAddToFavouriteRequest(addToFavouriteRequest: AddToFavouriteRequest) =
+    AddToFavouriteRequestDTO(
+        UserID = addToFavouriteRequest.userId,
+        ItemID = addToFavouriteRequest.itemId,
+        Type = addToFavouriteRequest.type!!
+    )
+
+// Add To Favourite Request is used for both Attractions and events from above
 fun transformEventFiltersRequest(eventRequest: EventRequest) =
     EventFiltersRequestDTO(
         Culture = eventRequest.culture!!,

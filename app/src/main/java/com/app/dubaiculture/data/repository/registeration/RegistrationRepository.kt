@@ -12,7 +12,7 @@ import com.app.dubaiculture.data.repository.registeration.remote.response.confir
 import javax.inject.Inject
 
 class RegistrationRepository @Inject constructor(private val registrationRDS: RegistrationRDS) :
-    BaseRepository() {
+    BaseRepository<RegistrationRDS>(registrationRDS) {
     suspend fun register(registrationRequest: RegistrationRequest): Result<RegistrationResponse> {
 
         return when (val resultRDS = registrationRDS.registration(transform(registrationRequest))) {

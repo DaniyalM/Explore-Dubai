@@ -4,8 +4,6 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -14,7 +12,6 @@ import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 
 class EventListScreenAdapter : BaseRecyclerAdapter<Events>() {
-
 
 
     var events: List<Events>
@@ -52,12 +49,25 @@ class EventListScreenAdapter : BaseRecyclerAdapter<Events>() {
     ) {
         (holder.itemView as EventsListItemCell).bindWhenInflated {
             holder.itemView.binding?.let {
-
                 try {
                     it.events = events[position]
-                    it.favourite.setOnClickListener {
-                        Toast.makeText(context,events.get(position).title,Toast.LENGTH_SHORT).show()
+                    it.favourite.setOnCheckedChangeListener(null)
+
+                    it.favourite.setOnCheckedChangeListener { p0, p1 ->
+                        if (p1){
+                            it.favourite.isChecked = p1
+                            it.favourite.isSelected = p1
+                        }
+                        else {
+                            it.favourite.isChecked = p1
+                            it.favourite.isSelected = p1
+                        }
+//                        Toast.makeText(context,
+//                            events[position].title,
+//                            Toast.LENGTH_SHORT).show()
+
                     }
+
                 } catch (ex: IndexOutOfBoundsException) {
                     print(ex.stackTrace)
                 }

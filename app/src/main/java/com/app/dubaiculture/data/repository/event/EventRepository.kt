@@ -6,10 +6,13 @@ import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.mapper.*
 import com.app.dubaiculture.data.repository.event.remote.EventRDS
+import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
+import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import javax.inject.Inject
 
-class EventRepository @Inject constructor(private val eventRDS: EventRDS) : BaseRepository() {
+class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
+    BaseRepository<EventRDS>(eventRDS) {
 
     suspend fun fetchHomeEvents(homeEventRequest: EventRequest): Result<EventHomeListing> {
         return when (val resultRds =
@@ -68,4 +71,24 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) : Base
             is Result.Error -> resultRds
         }
     }
+
+    suspend fun addToFavourite(addToFavouriteRequest: AddToFavouriteRequest): Result<AddToFavouriteResponse> {
+        return when (val resultRds =
+            eventRDS.addItemtoFavorites(transformAddToFavouriteRequest(addToFavouriteRequest))) {
+            is Result.Success -> {
+                val eventLDS = resultRds
+                if (eventLDS.value.statusCode != 200) {
+                    Result.Failure(true, eventLDS.value.statusCode, null)
+                } else {
+                    val eventRds = eventLDS.value
+                    Result.Success(eventRds)
+                }
+            }
+            is Result.Failure -> resultRds
+            is Result.Error -> resultRds
+
+        }
+    }
+
+
 }
