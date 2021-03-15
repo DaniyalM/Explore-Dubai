@@ -18,10 +18,10 @@ class AttractionViewModel @ViewModelInject constructor(
     private val attractionRepository: AttractionRepository,
 ) : BaseViewModel(application) {
 
-    private val _attractionCategoryList: MutableLiveData<Result<List<AttractionCategory>>> =
-        MutableLiveData()
-    val attractionCategoryList: LiveData<Result<List<AttractionCategory>>> =
-        _attractionCategoryList
+    private val _attractionCategoryList: MutableLiveData<Result<List<AttractionCategory>>> = MutableLiveData()
+    val attractionCategoryList: LiveData<Result<List<AttractionCategory>>> = _attractionCategoryList
+    private val _attractionList: MutableLiveData<Result<List<Attractions>>> = MutableLiveData()
+    val attractionList: LiveData<Result<List<Attractions>>> = _attractionList
 
     private val _attractionDetail: MutableLiveData<Result<Attractions>> = MutableLiveData()
     val attractionDetail: LiveData<Result<Attractions>> = _attractionDetail
@@ -30,10 +30,11 @@ class AttractionViewModel @ViewModelInject constructor(
     fun getAttractionCategoryToScreen(locale: String) {
         showLoader(true)
         viewModelScope.launch {
-            when (val result = attractionRepository.getAttractionCategories(AttractionRequest(culture = locale))) {
+            when (val result =
+                attractionRepository.getAttractionCategories(AttractionRequest(culture = locale))) {
                 is Result.Success -> {
                     _attractionCategoryList.value = result
-                    showLoader(false)
+
                 }
                 is Result.Failure -> {
                     showLoader(false)
@@ -44,7 +45,40 @@ class AttractionViewModel @ViewModelInject constructor(
         }
     }
 
-    fun getAttractionDetailsToScreen(attractionId: String, pageNum:Int , pageSize:Int ,locale: String) {
+    fun getAttractionThroughCategory(
+        categoryId: String,
+        pageNum: Int,
+        pageSize: Int,
+        locale: String,
+    ) {
+        showLoader(true)
+        viewModelScope.launch {
+            when (val result = attractionRepository.getAttractionsByCategory(
+                AttractionRequest(
+                    attractionCategoryId = categoryId,
+                    pageNumber = pageNum,
+                    pageSize = pageSize,
+                    culture = locale))) {
+                is Result.Success -> {
+                    showLoader(false)
+                    _attractionList.value = result
+                }
+                is Result.Failure -> {
+                    showLoader(false)
+                    _attractionList.value = result
+                }
+
+
+            }
+        }
+    }
+
+    fun getAttractionDetailsToScreen(
+        attractionId: String,
+        pageNum: Int,
+        pageSize: Int,
+        locale: String,
+    ) {
         showLoader(true)
         viewModelScope.launch {
             when (val result = attractionRepository.getAttractionDetail(AttractionRequest(

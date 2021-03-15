@@ -9,7 +9,7 @@ class AttractionPagerAdaper(fragment: Fragment, val attractionId: String = "") :
     override fun getItemCount() = 9
 
     override fun createFragment(position: Int) =
-        AttractionListingFragment.newInstance(attractionId = attractionId)
+        AttractionListingFragment.newInstance(attractionCatId = attractionId)
 }
 
 

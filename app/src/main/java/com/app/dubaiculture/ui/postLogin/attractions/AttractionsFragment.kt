@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
-    private var isContentLoaded = false
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentAttractionsBinding.inflate(inflater, container, false)
@@ -58,7 +57,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                             binding.horizontalSelector.initialize(it.value, binding.pager)
                             binding.pager.adapter =
                                 AttractionPagerAdaper(this, it.value.get(clickCheckerFlag).id!!)
-                            isContentLoaded = true
+
 //                        }
 
                     }

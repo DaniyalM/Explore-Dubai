@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,18 +24,22 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
 
     //    private lateinit var attractions: ArrayList<Attractions>
-    private lateinit var attractionId: String
+    private lateinit var attractionCatId: String
     private var searchQuery: String = ""
+    private var pageNumber: Int = 1
+    private var pageSize: Int = 10
+
 
     companion object {
 
         var ATTRACTION_CATEG0RY_TYPE: String = "Attractions"
+        var ATTRACTION_CATEG0RY_ID: String = "AttractionCat"
         var ATTRACTION_DETAIL_ID: String = "Attraction_ID"
 
         @JvmStatic
-        fun newInstance(attractionId: String = "") = AttractionListingFragment().apply {
+        fun newInstance(attractionCatId: String = "") = AttractionListingFragment().apply {
             arguments = Bundle().apply {
-                putString(ATTRACTION_DETAIL_ID, attractionId)
+                putString(ATTRACTION_CATEG0RY_ID, attractionCatId)
             }
         }
     }
@@ -49,6 +54,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
+        callingObservables()
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
 //            bus.post(AttractionBusService().SwipeToRefresh(true))
@@ -57,22 +63,35 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        arguments?.apply {
-            getString(ATTRACTION_DETAIL_ID)?.let {
-                attractionId = it
+    private fun callingObservables() {
+        attractionViewModel.getAttractionThroughCategory(attractionCatId, pageNumber, pageSize, getCurrentLanguage().language)
+
+        subscribeToObservables()
+    }
+
+    private fun subscribeToObservables() {
+        attractionViewModel.attractionList.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    attractionListScreenAdapter?.attractions = it.value
+                }
+                is Result.Failure -> {
+                    handleApiError(it, attractionViewModel)
+                }
+
             }
+
         }
     }
+
 
     private fun initRecyclerView() {
         attractionListScreenAdapter = AttractionListScreenAdapter()
         binding.rvAttractionListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = attractionListScreenAdapter
-            val items = createAttractionItems()
-            attractionListScreenAdapter?.attractions = items
+//            val items = createAttractionItems()
+//            attractionListScreenAdapter?.attractions = items
             this.addOnItemTouchListener(RecyclerItemClickListener(
                 activity,
                 this,
@@ -108,4 +127,12 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             }
         } as ArrayList<Attractions>
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.apply {
+            getString(ATTRACTION_CATEG0RY_ID)?.let {
+                attractionCatId = it
+            }
+        }
+    }
 }
