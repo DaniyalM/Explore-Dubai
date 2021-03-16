@@ -60,22 +60,6 @@ class LoginViewModel @ViewModelInject constructor(
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
 
-//    if (!result.value.isConfirmed) {
-//        if(phone.get().toString().startsWith("+")){
-//            resendPhoneVerification()
-//        }else{
-//            Timber.e(result.value.loginResponseDTO.userDTO.Email)
-//            userRepository.saveUser(
-//                userDTO = result.value.loginResponseDTO.userDTO,
-//                loginResponseDTO = result.value.loginResponseDTO)
-//
-//            _loginStatus.value = Event(true)
-//        }
-//    } else {
-//        showLoader(false)
-//        showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
-//
-//    }
 
     fun loginWithPhone(ph: String? = null, pass: String? = null) {
         viewModelScope.launch {

@@ -21,12 +21,28 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>() , 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.btnLogin.setOnClickListener(this)
+        binding.imgUaePass.setOnClickListener(this)
+        binding.tvRegisterNow.setOnClickListener(this)
+        binding.tvForgotPass.setOnClickListener(this)
 
     }
 
 
     override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.btn_login->{
+                dismiss()
+            }
+            R.id.img_uae_pass->{
+            }
+            R.id.tv_register_now->{
 
+            }
+            R.id.tv_forgot_pass->{
+
+            }
+        }
     }
 
 }

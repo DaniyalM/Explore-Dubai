@@ -107,13 +107,6 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
                                 events = createAttractionItems()
                             ))
                     }
-                    4->{
-                        add(
-                            EventHomeListing(
-                                category = "Pakistan",
-                                events = createAttractionItems()
-                            ))
-                    }
                 }
 
             }

@@ -1,9 +1,13 @@
 package com.app.dubaiculture.ui.postLogin.events
 
+import android.Manifest
+import android.location.Geocoder
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -11,28 +15,42 @@ import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
-import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventRecyclerAsyncAdapter
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
+import com.app.neomads.utils.location.LocationUtils
 import com.bumptech.glide.RequestManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.CornerFamily
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
-import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.cardview_plan_trip
 import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
+import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class EventsFragment : BaseFragment<FragmentEventsBinding>() {
-    private lateinit var event: EventRecyclerAsyncAdapter
-    private lateinit  var eventAdapter: EventListScreenAdapter
-    private lateinit  var moreAdapter: EventListScreenAdapter
-
-
+    private lateinit var eventAdapter: EventAdapter
+    private lateinit var moreAdapter: EventAdapter
+    private lateinit var nearAdapter: EventAdapter
     private val eventViewModel: EventViewModel by viewModels()
+
+
+    @Inject
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    @Inject
+    lateinit var locationManager: LocationManager
+
+    @Inject
+    lateinit var locationRequest: LocationRequest
+
+    @Inject
+    lateinit var geocoder: Geocoder
 
 
     @Inject
@@ -44,8 +62,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        subscribeUiEvents(eventViewModel)
         rvSetUp()
         cardViewRTL()
+        setupToolbarWithSearchItems()
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
 //        }
@@ -56,52 +76,91 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     }
 
     private fun rvSetUp() {
-        eventAdapter = EventListScreenAdapter()
-        moreAdapter = EventListScreenAdapter()
+        eventAdapter = EventAdapter(object : FavouriteChecker {
+            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
+                favouriteEvent(application.auth.isGuest, checkbox, isFav)
+            }
+        }, object : RowClickListener {
+            override fun rowClickListener(cardView: MaterialCardView) {
+                navigate(R.id.action_eventsFragment_to_eventFilterFragment)
+
+            }
+
+        })
+        moreAdapter = EventAdapter(object : FavouriteChecker {
+            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
+                favouriteEvent(application.auth.isGuest, checkbox, isFav)
+            }
+        }, object : RowClickListener {
+            override fun rowClickListener(cardView: MaterialCardView) {
+                navigate(R.id.action_eventsFragment_to_eventFilterFragment)
+            }
+        })
+        nearAdapter = EventAdapter(object : FavouriteChecker {
+            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
+                favouriteEvent(application.auth.isGuest, checkbox, isFav)
+            }
+        }, object : RowClickListener {
+            override fun rowClickListener(cardView: MaterialCardView) {
+                navigate(R.id.action_eventsFragment_to_eventFilterFragment)
+            }
+        })
         binding.rvEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = eventAdapter
-            this.itemAnimator = SlideInLeftAnimator()
-            this.addOnItemTouchListener(RecyclerItemClickListener(
-                activity,
-                this,
-                object : RecyclerItemClickListener.OnItemClickListener {
-                    override fun onItemClick(view: View, position: Int) {
-//                        attractionViewModel.showErrorDialog(message = attractions.get(position).title)
-                        navigate(R.id.action_eventsFragment_to_eventFilterFragment)
-                    }
+//            this.itemAnimator = SlideInLeftAnimator()
 
-                    override fun onLongItemClick(view: View, position: Int) {
-                    }
-                }
-            ))
         }
-        eventAdapter.events = createAttractionItems()
+        eventAdapter.events = createEventItems()
+
         binding.rvMoreEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = moreAdapter
-            this.itemAnimator = SlideInLeftAnimator()
+//            this.itemAnimator = SlideInLeftAnimator()
         }
-        moreAdapter.events = createAttractionItems()
+
+        moreAdapter.events = createEventItems()
+
+        binding.rvNearEvent.apply {
+            isNestedScrollingEnabled = false
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = nearAdapter
+
+        }
+        nearAdapter.events = createEventItems()
 
     }
 
-    private fun cardViewRTL(){
+    private fun setupToolbarWithSearchItems() {
+//        var searchViewVisibility = false
+        binding.root.apply {
+            profilePic.visibility = View.GONE
+            img_drawer.visibility = View.GONE
+            toolbar_title.apply {
+                visibility = View.VISIBLE
+                text = activity.getString(R.string.attractions)
+            }
+        }
+    }
+
+    private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-        if(isArabic()){
-            binding.root.cardivewRTL?.shapeAppearanceModel =  binding.root.cardivewRTL!!.shapeAppearanceModel
-                .toBuilder()
-                .setBottomLeftCorner(CornerFamily.ROUNDED,radius)
-                .setTopRightCornerSize(radius)
-                .build()
-        }else{
-            binding.root.cardivewRTL?.shapeAppearanceModel =  binding.root.cardivewRTL!!.shapeAppearanceModel
-                .toBuilder()
-                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
-                .setBottomRightCornerSize(radius)
-                .build()
+        if (isArabic()) {
+            binding.root.cardivewRTL?.shapeAppearanceModel =
+                binding.root.cardivewRTL!!.shapeAppearanceModel
+                    .toBuilder()
+                    .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                    .setTopRightCornerSize(radius)
+                    .build()
+        } else {
+            binding.root.cardivewRTL?.shapeAppearanceModel =
+                binding.root.cardivewRTL!!.shapeAppearanceModel
+                    .toBuilder()
+                    .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                    .setBottomRightCornerSize(radius)
+                    .build()
         }
     }
 
@@ -116,7 +175,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                             EventHomeListing(
                                 title = "FeatureEvents",
                                 category = "FeatureEvents",
-                                events = createAttractionItems()
+                                events = createEventItems()
                             )
                         )
                     }
@@ -125,7 +184,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                             EventHomeListing(
                                 title = "More Events",
                                 category = "MoreEvents",
-                                events = createAttractionItems()
+                                events = createEventItems()
                             )
                         )
                     }
@@ -135,7 +194,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             }
         }
 
-    private fun createAttractionItems(): ArrayList<Events> = mutableListOf<Events>().apply {
+    private fun createEventItems(): ArrayList<Events> = mutableListOf<Events>().apply {
         repeat((1..4).count()) {
             add(
                 Events(
@@ -151,9 +210,38 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     toTime = "202$it",
                     toDay = "2$it",
                     type = "Free",
-                    locationTitle = "Palm Jumeriah, Dubai"
+                    locationTitle = "Palm Jumeriah, Dubai",
+                    isFavourite = false
                 )
             )
         }
     } as ArrayList<Events>
+
+    override fun onResume() {
+        super.onResume()
+        runtimePermission()
+    }
+
+    private fun runtimePermission() {
+        val quickPermissionsOption = QuickPermissionsOptions(
+            handleRationale = false
+        )
+        activity.runWithPermissions(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            options = quickPermissionsOption
+        ) {
+
+            if (LocationUtils.isLocationEnabled(locationManager)) {
+                eventViewModel.showToast("location on")
+                binding.tvViewMap.visibility = View.VISIBLE
+                binding.rvNearEvent.visibility = View.VISIBLE
+                binding.root.cardivewRTL.visibility = View.GONE
+            } else {
+                eventViewModel.showToast("location off")
+            }
+        }
+    }
+
+
 }

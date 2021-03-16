@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE
 import android.content.res.Configuration
+import android.graphics.drawable.Drawable
 import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.annotation.IdRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
@@ -253,5 +256,23 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         super.onResume()
         adjustFontScale(getResources().getConfiguration());
     }
+    fun getDrawableFromId(resId: Int?): Drawable? {
+        resId?.let {
+            return if (it == 0) null
+            else ResourcesCompat.getDrawable(resources, it, null)
+        }
+        return null
+    }
+    fun favouriteEvent(isGuest : Boolean, checkbox : CheckBox, isFav : Boolean){
+        if(isGuest){
+            navigateByAction(R.id.action_eventsFragment_to_postLoginFragment)
+        }else{
+            if(isFav){
+                checkbox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+            }else{
+                checkbox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+            }
 
+        }
+    }
 }
