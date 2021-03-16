@@ -5,14 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
+import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +25,6 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
     private val eventViewModel: EventViewModel by viewModels()
     private lateinit var eventListScreenAdapter: EventListScreenAdapter
     private lateinit var eventID: String
-
 
     companion object {
         var EVENT_CATEG0RY_TYPE: String = "Events"
@@ -47,22 +51,19 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
     }
 
     private fun initRecyclerView() {
-        eventListScreenAdapter = EventListScreenAdapter()
+        eventListScreenAdapter = EventListScreenAdapter(object : FavouriteChecker{
+            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
+                favouriteEvent(application.auth.isGuest, checkbox, isFav,R.id.action_eventFilterFragment_to_postLoginFragment)
+            }
+        },object :RowClickListener{
+            override fun rowClickListener() {
+                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+            }
+        })
         binding.rvEventListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = eventListScreenAdapter
             eventListScreenAdapter.events = createAttractionItems()
-            this.addOnItemTouchListener(RecyclerItemClickListener(
-                activity,
-                this,
-                object : RecyclerItemClickListener.OnItemClickListener {
-                    override fun onItemClick(view: View, position: Int) {
-//                        attractionViewModel.showErrorDialog(message = attractions.get(position).title)
-                    }
-                    override fun onLongItemClick(view: View, position: Int) {
-                    }
-                }
-            ))
         }
     }
 
@@ -84,7 +85,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
                 Events(
                     id = it.toString(),
                     title = "The Definitive Guide to an Uncertain World",
-                    category = "Workshop",
+                    category = "ONLINE",
                     fromDate = "18",
                     fromMonthYear = "Mar, 21",
                     fromTime = "20$it",
@@ -93,13 +94,10 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
                     toMonthYear = "Mar, 21",
                     toTime = "202$it",
                     toDay = "2$it",
-                    type = "Free",
+                    type = "FREE",
                     locationTitle = "Palm Jumeriah, Dubai"
                 )
             )
         }
     } as ArrayList<Events>
-
-//    override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-//    }
 }

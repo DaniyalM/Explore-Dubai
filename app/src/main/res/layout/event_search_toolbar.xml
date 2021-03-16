@@ -10,7 +10,6 @@
         android:id="@+id/back"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        android:layout_marginStart="@dimen/_10sdp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:rotation="90"
         android:src="@drawable/ic_keyboard_arrow_down_black_24dp"

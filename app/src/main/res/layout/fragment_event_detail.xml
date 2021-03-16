@@ -40,7 +40,6 @@
                 android:id="@+id/back"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:rotation="90"

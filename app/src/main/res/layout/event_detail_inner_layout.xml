@@ -92,7 +92,7 @@
                     android:id="@+id/tv_category"
                     android:text="@string/workshop"
                     android:elevation="@dimen/_5sdp"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_11ssp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:textColor="@color/purple_900"
                     android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
                     android:layout_marginTop="@dimen/_6sdp"
                     android:textStyle="bold"
                     android:textColor="@color/black_700"
-                    android:text="The Definitive Guide to an Uncertain World Contribute to The Future"
+                    android:text="@string/the_definitive_guide_to_an_uncertain_world_contribute_to_the_future"
                     app:layout_constraintStart_toStartOf="@+id/tv_category"
                     app:layout_constraintTop_toBottomOf="@+id/tv_category" />
 
@@ -149,9 +149,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_11ssp"
                     android:textColor="@color/black_200"
-                    android:text="14- 20 Nov,2020 | Sunday - Friday"
+                    android:text="@string/_14_20_nov_2020_sunday_friday"
                     android:drawablePadding="@dimen/_10sdp"
                     android:drawableStart="@drawable/calender_ticket_book"
                     app:layout_constraintStart_toStartOf="@+id/tv_title"
@@ -162,7 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:text="10:00 Am - 1:00 Pm"
+                    android:text="@string/_10_00_am_1_00_pm"
                     android:textSize="@dimen/_10ssp"
                     android:textColor="@color/gray_800"
                     app:layout_constraintHorizontal_bias="0.12"
@@ -179,7 +179,7 @@
                     android:background="@color/gray_600"
                     android:layout_marginEnd="@dimen/_20sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tv_attraction_days"
+                    app:layout_constraintStart_toStartOf="@+id/tv_event_days_date"
                     app:layout_constraintTop_toBottomOf="@+id/tv_times" />
 
 
@@ -189,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:text="Palm Jumeriah, Dubai"
+                    android:text="@string/palm_jumeriah_dubai"
                     android:drawablePadding="@dimen/_10sdp"
                     android:textSize="@dimen/_12ssp"
                     android:textColor="@color/black_200"
@@ -217,7 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/_2sdp"
-                    android:text="10 Km Away"
+                    android:text="@string/_10_km_away"
                     android:textColor="@color/gray_800"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_direction"
@@ -262,7 +262,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="viewStart"
-                    android:textSize="@dimen/_9ssp"
+                    android:textSize="@dimen/_10ssp"
                     app:trimLines="3"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa."
                     app:trimMode="trimModeLine"
@@ -310,7 +310,7 @@
                     />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout"
+                    android:id="@+id/ll_email_us"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -333,17 +333,19 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_callus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:background="@drawable/shape_rounded_purple_border_attraction"
                     android:gravity="center"
+                    android:foreground="@drawable/custom_ripple_black"
                     android:elevation="5dp"
                     android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                    app:layout_constraintBottom_toBottomOf="@+id/ll_email_us"
                     app:layout_constraintEnd_toEndOf="@+id/btn_register_now"
-                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
-                    app:layout_constraintTop_toTopOf="@+id/linearLayout">
+                    app:layout_constraintStart_toEndOf="@+id/ll_email_us"
+                    app:layout_constraintTop_toTopOf="@+id/ll_email_us">
 
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
@@ -368,7 +370,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:text="@string/stay_updated"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_email_us"
                     app:layout_constraintStart_toStartOf="parent"
                     />
 
@@ -383,17 +385,20 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:id="@+id/imgFb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/twitter_attraction_icon"
                         />
                     <ImageView
+                        android:id="@+id/imgTwitter"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/twitter_attraction_icon"
                         />
                     <ImageView
+                        android:id="@+id/imgInsta"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -401,12 +406,14 @@
                         />
 
                     <ImageView
+                        android:id="@+id/imgUtube"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/utube__attraction_icon"
                         />
                     <ImageView
+                        android:id="@+id/imgLinkedin"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -436,7 +443,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_335sdp"
                     app:layout_constraintVertical_bias="0.1"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_20sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/heading_up_coming"
