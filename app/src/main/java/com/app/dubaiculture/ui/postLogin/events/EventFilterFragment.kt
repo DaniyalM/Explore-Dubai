@@ -1,7 +1,10 @@
 package com.app.dubaiculture.ui.postLogin.events
 
+import android.graphics.Color
+import android.icu.text.CompactDecimalFormat
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +37,13 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         callingObservables()
         subscribeToObservables()
         initiatePager()
-        QBadgeView(activity).setBadgeBackgroundColor(R.color.colorPrimaryDark).bindTarget(binding.root.img_filter).setBadgeNumber(5)
+        QBadgeView(activity)
+            .setBadgeBackgroundColor(R.color.colorPrimary)
+            .bindTarget(binding.root.badge_placement).setBadgeNumber(5)
+            .stroke(R.color.black_900, 6F, true)
+            .setBadgeGravity(Gravity.START or Gravity.TOP)
+            .setGravityOffset(18F, 6F, true)
+
 
         if (filterViewModel.filterData.value != null) {
             Log.e("Model here=>", filterViewModel.filterData.value!!.size.toString())
