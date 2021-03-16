@@ -68,11 +68,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     //write your code here
                     defaultCloseToolbar.visibility = View.VISIBLE
 //                    img.visibility = View.VISIBLE
-//                    imageView4.visibility = View.VISIBLE
+                    imageView.visibility = View.VISIBLE
                 } else {
                     defaultCloseToolbar.visibility = View.GONE
-//                    imageView4.visibility = View.GONE
-
+                    imageView.visibility = View.GONE
 //                    img.visibility = View.GONE
 
                 }

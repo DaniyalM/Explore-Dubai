@@ -24,7 +24,6 @@ import com.app.dubaiculture.utils.GpsStatus
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.CornerFamily
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
@@ -39,7 +38,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private lateinit var moreAdapter: EventAdapter
     private lateinit var nearAdapter: EventAdapter
     private val eventViewModel: EventViewModel by viewModels()
-
 
     @Inject
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -91,10 +89,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private fun rvSetUp() {
         eventAdapter = EventAdapter(object : FavouriteChecker {
             override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest, checkbox, isFav)
+                favouriteEvent(application.auth.isGuest, checkbox, isFav,R.id.action_eventsFragment_to_postLoginFragment)
             }
         }, object : RowClickListener {
-            override fun rowClickListener(cardView: MaterialCardView) {
+            override fun rowClickListener() {
                 navigate(R.id.action_eventsFragment_to_eventFilterFragment)
 
             }
@@ -102,19 +100,19 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         })
         moreAdapter = EventAdapter(object : FavouriteChecker {
             override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest, checkbox, isFav)
+                favouriteEvent(application.auth.isGuest, checkbox, isFav,R.id.action_eventsFragment_to_postLoginFragment)
             }
         }, object : RowClickListener {
-            override fun rowClickListener(cardView: MaterialCardView) {
+            override fun rowClickListener() {
                 navigate(R.id.action_eventsFragment_to_eventFilterFragment)
             }
         })
         nearAdapter = EventAdapter(object : FavouriteChecker {
             override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest, checkbox, isFav)
+                favouriteEvent(application.auth.isGuest, checkbox, isFav,R.id.action_eventsFragment_to_postLoginFragment)
             }
         }, object : RowClickListener {
-            override fun rowClickListener(cardView: MaterialCardView) {
+            override fun rowClickListener() {
                 navigate(R.id.action_eventsFragment_to_eventFilterFragment)
             }
         })
@@ -219,7 +217,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     toMonthYear = "Mar, 21",
                     toTime = "202$it",
                     toDay = "2$it",
-                    type = "Free",
+                    type = "FREE",
                     locationTitle = "Palm Jumeriah, Dubai",
                     isFavourite = false
                 )
@@ -252,7 +250,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 binding.tvViewMap.visibility = View.GONE
                 binding.rvNearEvent.visibility = View.GONE
                 binding.root.cardivewRTL.visibility = View.VISIBLE
-                eventViewModel.showAlert(message = "Please enable GPS Otherwise Near Event won't work")
+                eventViewModel.showAlert(message = resources.getString(R.string.please_enable_gps))
             }
         }
 

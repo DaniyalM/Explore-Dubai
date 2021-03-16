@@ -137,6 +137,11 @@
     <string name="gps_status_disabled">"GPS is Disabled"</string>
     <string name="alert">Alert</string>
     <string name="please_enable_gps"> Please enable GPS Otherwise Near Event won’t work</string>
+    <string name="the_definitive_guide_to_an_uncertain_world_contribute_to_the_future">The Definitive Guide to an Uncertain World Contribute to The Future</string>
+    <string name="_14_20_nov_2020_sunday_friday">14- 20 Nov,2020 | Sunday - Friday</string>
+    <string name="_10_00_am_1_00_pm">10:00 Am - 1:00 Pm</string>
+    <string name="palm_jumeriah_dubai">Palm Jumeriah, Dubai</string>
+    <string name="_10_km_away">10 Km Away</string>
 </resources>
 
 

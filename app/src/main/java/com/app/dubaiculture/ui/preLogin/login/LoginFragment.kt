@@ -109,7 +109,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                     extras)
             }
             R.id.img_uae_pass -> {
-                navigate(R.id.action_loginFragment_to_eventNearMapFragment)
+//                navigate(R.id.action_loginFragment_to_eventNearMapFragment)
             }
         }
     }

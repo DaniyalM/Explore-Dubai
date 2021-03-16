@@ -5,19 +5,17 @@
     <data>
         <variable name="events" type="com.app.dubaiculture.data.repository.event.local.models.Events"/>
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_335sdp">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_280sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_250sdp"
             app:cardCornerRadius="@dimen/_15sdp"
-            app:cardElevation="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:cardElevation="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.6" />
+                    app:layout_constraintGuide_percent="0.55" />
                 <!--            android:text="@{events.fromDate}"-->
 
 
@@ -232,12 +230,11 @@
 
 
         </com.google.android.material.card.MaterialCardView>
-        <View
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardview"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_15sdp"/>
+<!--        <View-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/cardview"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/_15sdp"/>-->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

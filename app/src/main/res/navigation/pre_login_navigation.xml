@@ -33,9 +33,6 @@
         <action
             android:id="@+id/action_loginFragment_to_registrationSuccessFragment"
             app:destination="@id/registrationSuccessFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_eventNearMapFragment"
-            app:destination="@id/eventNearMapFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
@@ -124,9 +121,5 @@
             android:id="@+id/action_passwordUpdatedFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </dialog>
-    <fragment
-        android:id="@+id/eventNearMapFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.events.map.EventNearMapFragment"
-        android:label="EventNearMapFragment" />
 
 </navigation>

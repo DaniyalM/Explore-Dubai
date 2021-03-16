@@ -59,7 +59,7 @@ class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , p
                         favChecker!!.checkFavListener(it.favourite,position,events[position].isFavourite)
                     }
                     it.cardview.setOnClickListener {
-                        rowClickListener!!.rowClickListener(it.cardview)
+                        rowClickListener!!.rowClickListener()
                     }
 
 //                    it.favourite.setOnCheckedChangeListener { p0, p1 ->

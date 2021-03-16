@@ -277,9 +277,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
         return null
     }
-    fun favouriteEvent(isGuest : Boolean, checkbox : CheckBox, isFav : Boolean){
+    fun favouriteEvent(isGuest : Boolean, checkbox : CheckBox, isFav : Boolean , nav : Int){
         if(isGuest){
-            navigateByAction(R.id.action_eventsFragment_to_postLoginFragment)
+            navigate(nav)
         }else{
             if(isFav){
                 checkbox.background = getDrawableFromId(R.drawable.heart_icon_fav)

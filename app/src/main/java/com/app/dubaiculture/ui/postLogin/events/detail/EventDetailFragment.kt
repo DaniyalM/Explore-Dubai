@@ -19,16 +19,16 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.bookingCalender
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.favourite
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.share
+import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
 
+@AndroidEntryPoint
 class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
-    OnMapReadyCallback {
+    OnMapReadyCallback , View.OnClickListener{
     private val eventDetailViewModel: EventDetailViewModel by viewModels()
 
     override fun getFragmentBinding(
@@ -38,13 +38,62 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        subscribeUiEvents(eventDetailViewModel)
+
         mapSetUp()
         uiActions()
         rvSetUp()
+
+        binding.root.btn_register_now.setOnClickListener{
+
+        }
+        binding.root.tv_direction.setOnClickListener {
+
+        }
+        binding.root.ll_callus.setOnClickListener {
+
+        }
+        binding.root.ll_email_us.setOnClickListener {
+
+        }
+
+
+        binding.root.imgFb.setOnClickListener {
+
+        }
+
+        binding.root.imgTwitter.setOnClickListener {
+
+        }
+
+
+        binding.root.imgInsta.setOnClickListener {
+
+        }
+
+        binding.root.imgUtube.setOnClickListener {
+
+        }
+
+
+        binding.root.imgUtube.setOnClickListener {
+
+        }
+
+        binding.root.imgLinkedin.setOnClickListener {
+
+        }
+
     }
 
 
     private fun uiActions() {
+        binding.root.btn_reg.setOnClickListener(this)
+        binding.root.back_event.setOnClickListener(this)
+        binding.root.tv_swipe_up_event.setOnClickListener(this)
+        binding.root.img_share_event.setOnClickListener(this)
+        binding.root.bookingCalender_event.setOnClickListener(this)
+        binding.root.favourite_event.setOnClickListener(this)
 
         binding.apply {
             appbarEventnDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -61,24 +110,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 //                    img.visibility = View.GONE
                 }
             })
-            favourite.setOnClickListener {
-                eventDetailViewModel.showToast("favourite Clicked")
-            }
-            share.setOnClickListener {
-                eventDetailViewModel.showToast("share Clicked")
-            }
-            bookingCalender.setOnClickListener {
-                eventDetailViewModel.showToast("bookingCalender Clicked")
-            }
-            toolbarEventDetail.favourite.setOnClickListener {
-                eventDetailViewModel.showToast("favourite Toolbar Clicked")
-            }
-            toolbarEventDetail.share.setOnClickListener {
-                eventDetailViewModel.showToast("share Toolbar Clicked")
-            }
-            toolbarEventDetail.bookingCalender.setOnClickListener {
-                eventDetailViewModel.showToast("bookingCalender Toolbar Clicked")
-            }
 
         }
     }
@@ -88,7 +119,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
             groupAdapter.apply {
-                add(UpComingItems("Free",
+                add(UpComingItems("FREE",
                     R.drawable.must_see_icon_home,
                     "14",
                     "NOV, 20",
@@ -97,7 +128,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     "Workshop",
                     "The Definitive Guide to an Uncertain World",
                     "Palm Jumeriah, Dubai"))
-                add(UpComingItems("Free",
+                add(UpComingItems("FREE",
                     R.drawable.must_see_icon_home,
                     "14",
                     "NOV, 20",
@@ -106,7 +137,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     "Workshop",
                     "The Definitive Guide to an Uncertain World",
                     "Palm Jumeriah, Dubai"))
-                add(UpComingItems("Free",
+                add(UpComingItems("FREE",
                     R.drawable.must_see_icon_home,
                     "14",
                     "NOV, 20",
@@ -138,5 +169,28 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             )
         )
         map.cameraPosition.target
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.btn_reg->{
+                eventDetailViewModel.showToast("Register")
+            }
+            R.id.back_event->{
+                back()
+            }
+            R.id.tv_swipe_up_event->{
+                eventDetailViewModel.showToast("Swipe up")
+            }
+            R.id.img_share_event->{
+                eventDetailViewModel.showToast("Share")
+            }
+            R.id.bookingCalender_event->{
+                eventDetailViewModel.showToast("Calender")
+            }
+            R.id.favourite_event->{
+                eventDetailViewModel.showToast("Favourite")
+            }
+        }
     }
 }
