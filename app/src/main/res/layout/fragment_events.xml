@@ -105,8 +105,8 @@
                             android:text="@string/view_all"
                             android:textSize="@dimen/_14ssp"
                             android:gravity="end"
+                            android:id="@+id/view_all_events"
                             android:layout_marginEnd="@dimen/_15sdp"
-
                             />
                     </LinearLayout>
 

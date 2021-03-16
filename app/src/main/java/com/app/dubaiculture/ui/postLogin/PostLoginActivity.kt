@@ -7,8 +7,6 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
@@ -16,12 +14,13 @@ import com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_post_login.*
-import kotlinx.android.synthetic.main.attraction_home_inner_list_item.*
 import timber.log.Timber
 
 //,
 //OnStreetViewPanoramaReadyCallback
 @AndroidEntryPoint
+class PostLoginActivity : BaseAuthenticationActivity() {
+    lateinit var navController: NavController
 class PostLoginActivity : BaseAuthenticationActivity() , FilterFragment.ItemClickListener{
     lateinit var navController : NavController
     private val mainViewModel: MainViewModel by viewModels()
@@ -39,15 +38,16 @@ class PostLoginActivity : BaseAuthenticationActivity() , FilterFragment.ItemClic
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
-        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
         subscribeUiEvents(mainViewModel)
         setupViews()
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when(destination.id){
-                R.id.threeSixtyFragment ->{
+            when (destination.id) {
+                R.id.threeSixtyFragment -> {
                     bottomNav.visibility = View.GONE
                 }
-                else->{
+                else -> {
                     bottomNav.visibility = View.VISIBLE
 
                 }
@@ -57,8 +57,8 @@ class PostLoginActivity : BaseAuthenticationActivity() , FilterFragment.ItemClic
         }
 
     }
-   private fun setupViews()
-    {
+
+    private fun setupViews() {
         val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
         navController = Navigation.findNavController(fragmentContainer)
         // Finding the Navigation Controller
@@ -70,10 +70,12 @@ class PostLoginActivity : BaseAuthenticationActivity() , FilterFragment.ItemClic
         super.onStart()
         Timber.e("Start")
     }
+
     override fun onRestart() {
         super.onRestart()
         Timber.e("Restart")
     }
+
     override fun onResume() {
         super.onResume()
         adjustFontScale(resources.configuration)
@@ -81,7 +83,7 @@ class PostLoginActivity : BaseAuthenticationActivity() , FilterFragment.ItemClic
     }
 
 
-   private  fun adjustFontScale(configuration: Configuration) {
+    private fun adjustFontScale(configuration: Configuration) {
         if (configuration.fontScale > 1.30) {
             configuration.fontScale = 1.30f
             val metrics = resources.displayMetrics

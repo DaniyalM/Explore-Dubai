@@ -11,7 +11,6 @@ import com.app.dubaiculture.data.repository.user.local.guest.GuestLDS
 import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.data.repository.user.remote.UserRDS
 import com.app.dubaiculture.data.repository.user.remote.request.GuestTokenRequestDTO
-import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequest
 import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequestDTO
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,7 +19,7 @@ class UserRepository @Inject constructor(
     private val userRDS: UserRDS,
     private val userLDS: UserLDS,
     private val guestLDS: GuestLDS
-) : BaseRepository() {
+) : BaseRepository<UserRDS>(userRDS) {
 
 
     suspend fun saveUser(userDTO: UserDTO, loginResponseDTO: LoginResponseDTO) {

@@ -17,7 +17,7 @@ import javax.inject.Inject
 class PhotoRepository @Inject constructor(
     val photoLDS: PhotoLDS,
     val photoRDS: PhotoRDS
-) : BaseRepository() {
+) : BaseRepository<PhotoRDS>(photoRDS) {
     suspend fun getPhotos(): Result<List<Photo>> {
         val resultLDS = photoLDS.getAll()
         return if (resultLDS.isEmpty()) {
