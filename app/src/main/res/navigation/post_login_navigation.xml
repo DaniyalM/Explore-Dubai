@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_eventsFragment_to_eventFilterFragment"
             app:destination="@id/eventFilterFragment" />
+        <action
+            android:id="@+id/action_eventsFragment_to_postLoginFragment"
+            app:destination="@id/postLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/attractionsFragment"
@@ -79,7 +82,15 @@
     <dialog
         android:id="@+id/filterFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment"
-        android:label="FilterFragment" />
+        android:label="FilterFragment" >
+        <action
+            android:id="@+id/action_filterFragment_to_eventFilterFragment"
+            app:destination="@id/eventFilterFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/postLoginFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragment"
+        android:label="PostLoginFragment" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->

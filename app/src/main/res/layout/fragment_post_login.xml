@@ -45,7 +45,7 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvPhoneErrors"
-            android:text="Error"
+            android:text=""
             style="@style/TextViewErrorRegistration"
             app:layout_constraintBottom_toBottomOf="@+id/mob_num"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +96,7 @@
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_pass_error"
             style="@style/TextViewErrorRegistration"
-            android:text="Error"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/pass_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"

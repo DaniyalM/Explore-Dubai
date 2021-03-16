@@ -2,19 +2,15 @@ package com.app.dubaiculture.ui.postLogin.events
 
 import android.content.Context
 import android.os.Bundle
-import android.provider.Settings.Global.putString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
-import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -103,4 +99,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
             )
         }
     } as ArrayList<Events>
+
+//    override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
+//    }
 }

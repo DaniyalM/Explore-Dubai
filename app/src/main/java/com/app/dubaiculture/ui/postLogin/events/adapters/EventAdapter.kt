@@ -3,10 +3,10 @@ package com.app.dubaiculture.ui.postLogin.events.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.databinding.EventItemsBinding
 import com.app.dubaiculture.databinding.ItemEventListingBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
@@ -14,7 +14,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.AsyncCell
 import kotlinx.android.synthetic.main.item_event_listing.view.*
 
-class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , private val rowClickListener: RowClickListener?=null) : BaseRecyclerAdapter<Events>() {
+class EventAdapter (private val favChecker : FavouriteChecker?=null, private val rowClickListener: RowClickListener?=null) : BaseRecyclerAdapter<Events>() {
 
 
     var events: List<Events>
@@ -30,7 +30,7 @@ class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , p
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        setUpEventsListViewHolder(holder as EventListScreenAdapter.EventsListViewHolder,
+        setUpEventsListViewHolder(holder as EventAdapter.EventsListViewHolder,
             position)
     }
 
@@ -38,16 +38,16 @@ class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , p
 
     //Data Binding
     private inner class EventsListItemCell(context: Context) : AsyncCell(context) {
-        var binding: ItemEventListingBinding? = null
-        override val layoutId = R.layout.item_event_listing
+        var binding: EventItemsBinding? = null
+        override val layoutId = R.layout.event_items
         override fun createDataBindingView(view: View): View? {
-            binding = ItemEventListingBinding.bind(view)
+            binding = EventItemsBinding.bind(view)
             return view.rootView
         }
     }
 
     private fun setUpEventsListViewHolder(
-        holder: EventListScreenAdapter.EventsListViewHolder,
+        holder: EventAdapter.EventsListViewHolder,
         position: Int,
     ) {
         (holder.itemView as EventsListItemCell).bindWhenInflated {
