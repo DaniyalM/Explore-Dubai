@@ -37,7 +37,7 @@ class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , p
     override fun getItemCount() = events.size
 
     //Data Binding
-    private inner class EventsListItemCell(context: Context) : AsyncCell(context) {
+    private inner class EventsListItemCell(context: Context) : AsyncCell(context,true) {
         var binding: ItemEventListingBinding? = null
         override val layoutId = R.layout.item_event_listing
         override fun createDataBindingView(view: View): View? {

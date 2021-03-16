@@ -15,6 +15,7 @@ import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCa
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -26,15 +27,16 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var unSelectedBackground: Int? = null
     private var selectedInnerImg: Int? = null
     private var unSelectedInnerImg: Int? = null
-    private val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+      val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var list: List<AttractionCategory>? = null
     private var attractionPager: ViewPager2? = null
     private var recyclerView: RecyclerView? = null
 
+
+
 //    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     companion object {
-        var clickCheckerFlag: Int = 0
         var previousPosition: Int = 0
     }
 
@@ -117,6 +119,9 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     )
                 )
             }
+
+
+
         } else {
             list?.get(previousPosition)?.let {
                 groupAdapter.notifyItemChanged(previousPosition, AttractionHeaderItems(
@@ -153,7 +158,8 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     fun positionUpdate(position: Int) {
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
-        attractionPager?.currentItem = position
+        attractionPager?.setCurrentItem(position)
+
 
     }
 

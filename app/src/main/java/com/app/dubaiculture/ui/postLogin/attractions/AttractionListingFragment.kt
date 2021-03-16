@@ -55,7 +55,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
-        Timber.e("AttractionCategoryId : $attractionCatId")
         callingObservables()
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
@@ -67,7 +66,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     private fun callingObservables() {
         attractionViewModel.getAttractionThroughCategory(attractionCatId, pageNumber, pageSize, getCurrentLanguage().language)
-
         subscribeToObservables()
     }
 

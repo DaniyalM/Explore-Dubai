@@ -4,12 +4,24 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
+import com.app.dubaiculture.utils.AppConfigUtils
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 
-class AttractionPagerAdaper(fragment: Fragment, val list: List<AttractionCategory>) : FragmentStateAdapter(fragment) {
+class AttractionPagerAdaper(fragment: Fragment) : FragmentStateAdapter(fragment) {
+    private lateinit var list: List<AttractionCategory>
+
+
     override fun getItemCount() = list.size
+    fun provideListToPager(list: List<AttractionCategory>) {
+        this.list = list
+    }
 
     override fun createFragment(position: Int) =
-        AttractionListingFragment.newInstance(attractionCatId = list.get(position).id!!)
+        AttractionListingFragment.newInstance(attractionCatId =
+        list.get(
+           clickCheckerFlag)
+            .id!!)
+
 }
 
 

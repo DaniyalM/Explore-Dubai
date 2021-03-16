@@ -5,25 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.databinding.FragmentAttractionsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
-import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 
 @AndroidEntryPoint
 class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
+    private lateinit var attractionCategorys: List<AttractionCategory>
+    private var hitReload = false
+//    private lateinit var attractionPagerAdaper: AttractionPagerAdaper
+//    private lateinit var attractionListScreenAdapter: AttractionListScreenAdapter
+//    private var pageNumber: Int = 1
+//    private var pageSize: Int = 10
+
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentAttractionsBinding.inflate(inflater, container, false)
@@ -35,7 +39,9 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         subscribeUiEvents(attractionViewModel)
         callingObservables()
         subscribeToObservables()
+//        initRecyclerView()
         initiatePager()
+
     }
 
     private fun initiatePager() {
@@ -44,9 +50,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
 
     private fun callingObservables() {
-        lifecycleScope.launch {
-            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-        }
+        attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
     }
 
     private fun subscribeToObservables() {
@@ -54,9 +58,12 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
-
+                        attractionCategorys = it.value
                         binding.horizontalSelector.initialize(it.value, binding.pager)
-                        binding.pager.adapter = AttractionPagerAdaper(this, it.value)
+
+                        binding.pager.adapter = AttractionPagerAdaper(this).apply {
+                            provideListToPager(it.value)
+                        }
 
 
                     }
@@ -66,6 +73,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 }
             }
         }
+
     }
 
 
