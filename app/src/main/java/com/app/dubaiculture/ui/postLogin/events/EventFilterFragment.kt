@@ -13,9 +13,8 @@ import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventFilterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.components.EventHeaderItemSelector
+import com.app.dubaiculture.ui.postLogin.events.components.EventHeaderItemSelector
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventPagerAdapter
-import com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment
 import com.app.dubaiculture.ui.postLogin.events.filter.viewmodel.FilterViewModel
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,8 +57,8 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
 //                        binding.horizontalSelector.initialize(it.value, binding.pager)
 //                        binding.pager.adapter = EventPagerAdapter(this, it.value)
-                        binding.horizontalSelector.initialize(createTestItems(), binding.pager)
-                        binding.pager.adapter = EventPagerAdapter(this, "1")
+                        binding.horizontalSelector.initialize(createTestItems(), binding.pager,this)
+
                     }
                 }
                 is Result.Failure -> {

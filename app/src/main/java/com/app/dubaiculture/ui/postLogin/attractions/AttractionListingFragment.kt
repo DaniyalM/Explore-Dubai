@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
@@ -14,26 +15,23 @@ import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
+import com.app.dubaiculture.ui.postLogin.attractions.utils.EndlessRecyclerViewScrollListener
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
     private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
-
-    //    private lateinit var attractions: ArrayList<Attractions>
     private lateinit var attractionCatId: String
     private var searchQuery: String = ""
-    private var pageNumber: Int = 1
-    private var pageSize: Int = 10
+    private var pageNumber: Int = 0
+    private var pageSize: Int = 6
 
 
     companion object {
 
-        var ATTRACTION_CATEG0RY_TYPE: String = "Attractions"
         var ATTRACTION_CATEG0RY_ID: String = "AttractionCatId"
         var ATTRACTION_DETAIL_ID: String = "Attraction_ID"
 
@@ -65,7 +63,10 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     }
 
     private fun callingObservables() {
-        attractionViewModel.getAttractionThroughCategory(attractionCatId, pageNumber, pageSize, getCurrentLanguage().language)
+        attractionViewModel.getAttractionThroughCategory(attractionCatId,
+            pageNumber,
+            pageSize,
+            getCurrentLanguage().language)
         subscribeToObservables()
     }
 
@@ -92,6 +93,15 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             adapter = attractionListScreenAdapter
 //            val items = createAttractionItems()
 //            attractionListScreenAdapter?.attractions = items
+            this.addOnScrollListener(object : EndlessRecyclerViewScrollListener(layoutManager as LinearLayoutManager){
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    attractionViewModel.getAttractionThroughCategory(attractionCatId,
+                        page,
+                        totalItemsCount,
+                        getCurrentLanguage().language)
+                }
+
+            })
             this.addOnItemTouchListener(RecyclerItemClickListener(
                 activity,
                 this,

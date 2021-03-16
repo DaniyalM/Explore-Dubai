@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.attractions.components
+package com.app.dubaiculture.ui.postLogin.events.components
 
 import android.content.Context
 import android.graphics.Color
@@ -12,11 +12,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.events.EventFilterFragment
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventHeaderItems
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventPagerAdapter
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
-class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
+class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), AttractionHeaderClick {
     private var selectedTextColor: Int? = null
     private var unSelectedTextColor: Int? = null
@@ -27,7 +29,7 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
     private val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var list: List<EventHomeListing>? = null
     private var eventPager: ViewPager2? = null
-    private  var recyclerView: RecyclerView?=null
+    private var recyclerView: RecyclerView? = null
 
     companion object {
         var clickCheckerFlag: Int = 0
@@ -64,7 +66,7 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
         }
         typeArray.recycle()
         val view = inflate(context, R.layout.attractions_item_selector, null)
-        recyclerView= view.findViewById(R.id.rVgeneric)
+        recyclerView = view.findViewById(R.id.rVgeneric)
 
         recyclerView?.let {
             it.layoutManager =
@@ -79,11 +81,13 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
     @JvmName("eventHeader")
     fun initialize(
         list: List<EventHomeListing>,
-        attractionPager: ViewPager2? = null
+        attractionPager: ViewPager2? = null,
+        eventFilterFragment: EventFilterFragment,
     ) {
         this.list = list
         this.eventPager = attractionPager
-        if (groupAdapter.itemCount==0){
+        if (groupAdapter.itemCount == 0) {
+            this.eventPager?.adapter = EventPagerAdapter(eventFilterFragment, "1")
             itemsAddnUpdation()
         }
     }
@@ -92,12 +96,12 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
 
         var isSelected = false
         if (!isUpdate) {
-        list?.forEachIndexed { index, model ->
-            if (clickCheckerFlag == index) {
-                isSelected = true
-                positionUpdate(clickCheckerFlag)
-            }
-            groupAdapter.add(
+            list?.forEachIndexed { index, model ->
+                if (clickCheckerFlag == index) {
+                    isSelected = true
+                    positionUpdate(clickCheckerFlag)
+                }
+                groupAdapter.add(
                     EventHeaderItems(
                         displayValue = model.category!!,
                         data = list,
@@ -110,11 +114,10 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
                     )
                 )
             }
-        }
-        else{
+        } else {
             list?.get(previousPosition).let {
                 groupAdapter.notifyItemChanged(previousPosition, EventHeaderItems(
-                    displayValue =  it!!.category!!,
+                    displayValue = it!!.category!!,
                     data = list,
                     isSelected = isSelected,
                     selectedTextColor = selectedTextColor,
@@ -142,10 +145,10 @@ class EventHeaderItemSelector (context: Context, attrs: AttributeSet) :
         itemsAddnUpdation(true)
     }
 
-    fun positionUpdate(position: Int){
-       clickCheckerFlag = position
+    fun positionUpdate(position: Int) {
+        clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
-        eventPager?.currentItem = clickCheckerFlag
+        eventPager?.currentItem = position
     }
 
 }

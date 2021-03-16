@@ -19,9 +19,7 @@ class EventAdapter (private val favChecker : FavouriteChecker?=null, private val
 
     var events: List<Events>
         get() = differ.currentList
-        set(value) {
-            differ.submitList(value)
-        }
+        set(value) = differ.submitList(value)
 
     inner class EventsListViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
 
@@ -37,7 +35,7 @@ class EventAdapter (private val favChecker : FavouriteChecker?=null, private val
     override fun getItemCount() = events.size
 
     //Data Binding
-    private inner class EventsListItemCell(context: Context) : AsyncCell(context) {
+    private inner class EventsListItemCell(context: Context) : AsyncCell(context,true) {
         var binding: EventItemsBinding? = null
         override val layoutId = R.layout.event_items
         override fun createDataBindingView(view: View): View? {
