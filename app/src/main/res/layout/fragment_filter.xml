@@ -94,42 +94,54 @@
             app:layout_constraintStart_toStartOf="@+id/edit_location"
             app:layout_constraintTop_toBottomOf="@+id/edit_location" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-           android:id="@+id/tv_start_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:drawableEnd="@drawable/calender"
-            android:hint="@string/from"
-            android:textColorHint="@color/gray_600"
-            android:textColor="@color/black_200"
-            android:textSize="@dimen/_11sdp"
-            android:paddingStart="@dimen/_15sdp"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/_15sdp"
-            android:background="@drawable/date_range_bg"
-            app:layout_constraintTop_toBottomOf="@+id/date_range"
+
+        <LinearLayout
+            android:id="@+id/ll_dates"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_50sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/edit_location"
             app:layout_constraintStart_toStartOf="@+id/date_range"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/date_range">
 
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/date_range_bg"
+                android:drawableEnd="@drawable/calender"
+                android:gravity="center_vertical"
+                android:hint="@string/from"
+                android:paddingStart="@dimen/_15sdp"
+                android:paddingEnd="@dimen/_15sdp"
+                android:textColor="@color/black_200"
+                android:textColorHint="@color/gray_600"
+                android:textSize="@dimen/_10sdp" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/tv_end_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/date_range_bg"
-            android:drawableEnd="@drawable/calender"
-            android:gravity="center_vertical"
-            android:hint="@string/to"
-            android:paddingStart="@dimen/_15sdp"
-            android:paddingEnd="@dimen/_15sdp"
-            android:textColor="@color/black_200"
-            android:textColorHint="@color/gray_600"
-            android:textSize="@dimen/_11sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_start_date"
-            app:layout_constraintTop_toTopOf="@+id/tv_start_date" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/date_range_bg"
+                android:drawableEnd="@drawable/calender"
+                android:gravity="center_vertical"
+                android:hint="@string/to"
+                android:paddingStart="@dimen/_15sdp"
+                android:paddingEnd="@dimen/_15sdp"
+                android:textColor="@color/black_200"
+                android:textColorHint="@color/gray_600"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </LinearLayout>
+
 
 
 
@@ -138,8 +150,8 @@
             style="@style/TextViewRegistrationStyle"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="@string/category"
-            app:layout_constraintStart_toStartOf="@+id/tv_start_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_start_date" />
+            app:layout_constraintStart_toStartOf="@+id/ll_dates"
+            app:layout_constraintTop_toBottomOf="@+id/ll_dates" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_categories"

@@ -25,6 +25,8 @@ import com.rishabhharit.roundedimageview.RoundedImageView
 import okhttp3.RequestBody
 import okio.Buffer
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun decorateRecyclerView(context: Context,recyclerView: RecyclerView, layoutManager: LinearLayoutManager) {
     val dividerItemDecoration = DividerItemDecoration(context,
@@ -79,6 +81,10 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
 
 }
 
+fun Date.toString(format: String): String {
+    val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
+    return dateFormatter.format(this)
+}
 fun Fragment.handleApiError(
     failure: Result.Failure,
     baseViewModel: BaseViewModel,
@@ -136,6 +142,9 @@ fun <R> Fragment.getNavigationResult(key: String) =
 
 fun Fragment.setNavigationResult(key: String, data: Any?) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
+
+
+
 }
 
 
