@@ -23,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
@@ -179,8 +180,21 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         return (activity as BaseActivity).getCurrentLanguage()
     }
 
-    fun showAlert(message: String) {
-        EventUtilFunctions.showAlert(message, activity)
+    fun showAlert(
+        message: String,
+        title: String = Constants.Alert.DEFAULT_TITLE,
+        textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
+        textNegative: String? = null,
+        actionPositive: (() -> Unit)? = null
+    ) {
+        EventUtilFunctions.showAlert(
+            message = message,
+            context = activity,
+            title = title,
+            textPositive = textPositive,
+            textNegative = textNegative,
+            actionPositive = actionPositive
+        )
     }
 
     fun showErrorDialog(message: String) {
@@ -256,7 +270,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         super.onResume()
         adjustFontScale(getResources().getConfiguration());
     }
-    fun getDrawableFromId(resId: Int?): Drawable? {
+  protected  fun getDrawableFromId(resId: Int?): Drawable? {
         resId?.let {
             return if (it == 0) null
             else ResourcesCompat.getDrawable(resources, it, null)

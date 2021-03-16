@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ProgressDialog
+import com.app.neomads.ui.components.customDialog.CustomDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
@@ -22,14 +24,25 @@ object EventUtilFunctions {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
 
-    fun showAlert(message: String, context: Context) {
-        val resources = context.resources
-        MaterialAlertDialogBuilder(context)
-            .setTitle("Alert")
-            .setMessage(message)
-            .setPositiveButton("OK") { dialog, which ->
-            }
-            .show()
+    fun showAlert(
+        message: String,
+        context: Context,
+        title: String = Constants.Alert.DEFAULT_TITLE,
+        textPositive: String? = Constants.Alert.DEFAULT_TEXT_POSITIVE,
+        textNegative: String? = null,
+        actionPositive: (() -> Unit)? = null
+    ) {
+        val customDialog = CustomDialog(
+            context,
+            R.style.CustomDialogStyle,
+            message = message,
+            title = title,
+            textPositive = textPositive,
+            textNegative = textNegative,
+            actionPositive = actionPositive
+        )
+        customDialog.setCancelable(false)
+        customDialog.show()
     }
 
     fun showErrorDialog(message:String, title :String?="Alert", @ColorRes colorBg :Int? =null, context: Activity){
