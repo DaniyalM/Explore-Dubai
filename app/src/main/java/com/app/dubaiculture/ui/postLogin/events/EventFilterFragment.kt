@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.events
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import com.app.dubaiculture.databinding.FragmentEventFilterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.components.EventHeaderItemSelector
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventPagerAdapter
+import com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment
+import com.app.dubaiculture.ui.postLogin.events.filter.viewmodel.FilterViewModel
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
@@ -22,6 +25,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnClickListener {
     private val eventViewModel: EventViewModel by viewModels()
+    private val filterViewModel: FilterViewModel by viewModels()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -31,6 +35,9 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         callingObservables()
         subscribeToObservables()
         initiatePager()
+        if(filterViewModel.filterData.value != null){
+            Log.e("Model here=>", filterViewModel.filterData.value!!.size.toString())
+        }
     }
 
     private fun initiatePager() {
@@ -49,7 +56,6 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
                 is Result.Success -> {
                     it.let {
 
-                        eventViewModel.showToast("Success")
 //                        binding.horizontalSelector.initialize(it.value, binding.pager)
 //                        binding.pager.adapter = EventPagerAdapter(this, it.value)
                         binding.horizontalSelector.initialize(createTestItems(), binding.pager)
@@ -149,5 +155,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
             }
         }
     }
-
+//    override fun onItemClick(item: String?) {
+//        filterViewModel.showToast(item!!)
+//    }
 }

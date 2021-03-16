@@ -79,7 +79,11 @@
     <dialog
         android:id="@+id/filterFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment"
-        android:label="FilterFragment" />
+        android:label="FilterFragment" >
+        <action
+            android:id="@+id/action_filterFragment_to_eventFilterFragment"
+            app:destination="@id/eventFilterFragment" />
+    </dialog>
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->

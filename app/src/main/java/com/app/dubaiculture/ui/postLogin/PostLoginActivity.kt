@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
+import com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_post_login.*
@@ -21,7 +22,7 @@ import timber.log.Timber
 //,
 //OnStreetViewPanoramaReadyCallback
 @AndroidEntryPoint
-class PostLoginActivity : BaseAuthenticationActivity() {
+class PostLoginActivity : BaseAuthenticationActivity() , FilterFragment.ItemClickListener{
     lateinit var navController : NavController
     private val mainViewModel: MainViewModel by viewModels()
 //    private lateinit var streetViewPanoramaFragment: SupportStreetViewPanoramaFragment
@@ -89,6 +90,10 @@ class PostLoginActivity : BaseAuthenticationActivity() {
             metrics.scaledDensity = configuration.fontScale * metrics.density
             this.resources.updateConfiguration(configuration, metrics)
         }
+    }
+
+    override fun onItemClick(item: String?) {
+      Timber.e("heelo")
     }
 
 }
