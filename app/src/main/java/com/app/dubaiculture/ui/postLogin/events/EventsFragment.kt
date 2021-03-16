@@ -150,7 +150,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             img_drawer.visibility = View.GONE
             toolbar_title.apply {
                 visibility = View.VISIBLE
-                text = activity.getString(R.string.attractions)
+                text = activity.getString(R.string.events)
             }
         }
     }

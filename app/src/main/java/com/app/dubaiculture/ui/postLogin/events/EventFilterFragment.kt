@@ -14,12 +14,12 @@ import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventFilterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.components.EventHeaderItemSelector
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventPagerAdapter
 import com.app.dubaiculture.ui.postLogin.events.filter.viewmodel.FilterViewModel
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import kotlinx.coroutines.launch
+import q.rorbin.badgeview.QBadgeView
 
 @AndroidEntryPoint
 class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnClickListener {
@@ -34,7 +34,9 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         callingObservables()
         subscribeToObservables()
         initiatePager()
-        if(filterViewModel.filterData.value != null){
+        QBadgeView(activity).setBadgeBackgroundColor(R.color.colorPrimaryDark).bindTarget(binding.root.img_filter).setBadgeNumber(5)
+
+        if (filterViewModel.filterData.value != null) {
             Log.e("Model here=>", filterViewModel.filterData.value!!.size.toString())
         }
     }
@@ -57,7 +59,9 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
 //                        binding.horizontalSelector.initialize(it.value, binding.pager)
 //                        binding.pager.adapter = EventPagerAdapter(this, it.value)
-                        binding.horizontalSelector.initialize(createTestItems(), binding.pager,this)
+                        binding.horizontalSelector.initialize(createTestItems(),
+                            binding.pager,
+                            this)
 
                     }
                 }
@@ -77,29 +81,29 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
     private fun createTestItems(): List<EventHomeListing> =
         mutableListOf<EventHomeListing>().apply {
             repeat((1..5).count()) {
-                when(it){
-                    0->{
+                when (it) {
+                    0 -> {
                         add(
                             EventHomeListing(
                                 category = "All",
                                 events = createAttractionItems()
                             ))
                     }
-                    1->{
+                    1 -> {
                         add(
                             EventHomeListing(
                                 category = "This Week",
                                 events = createAttractionItems()
                             ))
                     }
-                    2->{
+                    2 -> {
                         add(
                             EventHomeListing(
                                 category = "This Weekend",
                                 events = createAttractionItems()
                             ))
                     }
-                    3->{
+                    3 -> {
                         add(
                             EventHomeListing(
                                 category = "Next 7 Days",
@@ -138,11 +142,11 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
     ) = FragmentEventFilterBinding.inflate(inflater, container, false)
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.img_filter->{
+        when (v?.id) {
+            R.id.img_filter -> {
                 navigate(R.id.action_eventFilterFragment_to_filterFragment)
             }
-            R.id.back->{
+            R.id.back -> {
                 back()
             }
         }

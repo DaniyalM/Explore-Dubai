@@ -248,4 +248,5 @@ dependencies {
 
     //location Related Work
     implementation config.google.location_google
+    implementation 'q.rorbin:badgeview:1.1.3'
 }
