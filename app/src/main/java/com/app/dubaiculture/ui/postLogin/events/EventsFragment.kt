@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
@@ -19,7 +20,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
-import com.app.neomads.utils.location.LocationUtils
+import com.app.dubaiculture.utils.GpsStatus
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
@@ -55,6 +56,13 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     @Inject
     lateinit var glide: RequestManager
+
+    private val gpsObserver = Observer<GpsStatus> { status ->
+        status?.let {
+            updateGpsCheckUI(status)
+        }
+    }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,6 +74,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         rvSetUp()
         cardViewRTL()
         setupToolbarWithSearchItems()
+        subscribeToGpsListener()
+        locationPermission()
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
 //        }
@@ -74,6 +84,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         }
 
     }
+
+    private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
+        .observe(viewLifecycleOwner, gpsObserver)
 
     private fun rvSetUp() {
         eventAdapter = EventAdapter(object : FavouriteChecker {
@@ -109,7 +122,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = eventAdapter
-//            this.itemAnimator = SlideInLeftAnimator()
 
         }
         eventAdapter.events = createEventItems()
@@ -118,7 +130,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = moreAdapter
-//            this.itemAnimator = SlideInLeftAnimator()
         }
 
         moreAdapter.events = createEventItems()
@@ -134,7 +145,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     }
 
     private fun setupToolbarWithSearchItems() {
-//        var searchViewVisibility = false
         binding.root.apply {
             profilePic.visibility = View.GONE
             img_drawer.visibility = View.GONE
@@ -217,12 +227,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         }
     } as ArrayList<Events>
 
-    override fun onResume() {
-        super.onResume()
-        runtimePermission()
-    }
 
-    private fun runtimePermission() {
+    private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
             handleRationale = false
         )
@@ -231,17 +237,24 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             Manifest.permission.ACCESS_FINE_LOCATION,
             options = quickPermissionsOption
         ) {
-
-            if (LocationUtils.isLocationEnabled(locationManager)) {
-                eventViewModel.showToast("location on")
-                binding.tvViewMap.visibility = View.VISIBLE
-                binding.rvNearEvent.visibility = View.VISIBLE
-                binding.root.cardivewRTL.visibility = View.GONE
-            } else {
-                eventViewModel.showToast("location off")
-            }
+            // will work on fused location API
         }
     }
 
+    private fun updateGpsCheckUI(status: GpsStatus) {
+        when (status) {
+            is GpsStatus.Enabled -> {
+                binding.tvViewMap.visibility = View.VISIBLE
+                binding.rvNearEvent.visibility = View.VISIBLE
+                binding.root.cardivewRTL.visibility = View.GONE
+            }
+            is GpsStatus.Disabled -> {
+                binding.tvViewMap.visibility = View.GONE
+                binding.rvNearEvent.visibility = View.GONE
+                binding.root.cardivewRTL.visibility = View.VISIBLE
+                eventViewModel.showAlert(message = "Please enable GPS Otherwise Near Event won't work")
+            }
+        }
 
+    }
 }

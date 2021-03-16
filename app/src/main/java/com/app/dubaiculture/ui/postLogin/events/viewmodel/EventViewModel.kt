@@ -20,6 +20,7 @@ import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import com.app.dubaiculture.infrastructure.AuthState
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.GpsStatusListener
 import kotlinx.coroutines.launch
 
 class EventViewModel @ViewModelInject constructor(
@@ -27,7 +28,7 @@ class EventViewModel @ViewModelInject constructor(
     private val eventRepository: EventRepository,
 ) : BaseViewModel(application) {
 
-
+    val gpsStatusLiveData = GpsStatusListener(application)
     private val _addToFavourite: MutableLiveData<Result<AddToFavouriteResponse>> = MutableLiveData()
     val addToFavourite: LiveData<Result<AddToFavouriteResponse>> = _addToFavourite
     private val _eventCategoryList: MutableLiveData<Result<EventHomeListing>> =

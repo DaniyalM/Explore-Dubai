@@ -133,6 +133,10 @@
     <string name="feature_events">Feature Events</string>
     <string name="events_near_you">Events Near You</string>
     <string name="view_on_map">View on map</string>
+    <string name="gps_status_enabled">"GPS is Enabled"</string>
+    <string name="gps_status_disabled">"GPS is Disabled"</string>
+    <string name="alert">Alert</string>
+    <string name="please_enable_gps"> Please enable GPS Otherwise Near Event won’t work</string>
 </resources>
 
 
