@@ -111,7 +111,7 @@
             android:drawableEnd="@drawable/key_register"
             android:hint="@string/enter_password"
             android:imeOptions="actionNext"
-            android:inputType="phone"
+            android:inputType="textPassword"
             android:transitionName="my_edit_phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

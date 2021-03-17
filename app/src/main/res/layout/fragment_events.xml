@@ -30,6 +30,7 @@
                     android:layout_height="wrap_content">
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_event_title"
+                        android:textAlignment="viewStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/feature_events"
@@ -52,6 +53,7 @@
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_nearEvent_title"
                         android:layout_weight="1"
+                        android:textAlignment="viewStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/events_near_you"
@@ -96,6 +98,7 @@
                         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/tv_moreEvent_title"
                             android:layout_weight="1"
+                            android:textAlignment="viewStart"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/more_events"

@@ -67,6 +67,7 @@
                         android:foreground="@drawable/custom_ripple_border"
                         android:background="@drawable/radio_btn_selector_active"
                         android:button="@null"
+                        android:tag="@string/event_information"
                         android:checked="true"
                         android:gravity="center"
                         android:singleLine="true"
@@ -84,11 +85,23 @@
                         android:button="@null"
                         android:gravity="center"
                         android:singleLine="true"
+                        android:tag="@string/schedule"
                         android:text="@string/schedule"
                         android:textColor="@drawable/toggle_selector"
                          />
 
                 </RadioGroup>
+
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/ll_even_info"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/bg_border"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rgToggle"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    >-->
+
 
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -457,8 +470,8 @@
                     />
 
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
         </ScrollView>
     </merge>
 </layout>

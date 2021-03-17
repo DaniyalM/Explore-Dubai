@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -21,14 +23,13 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
-import kotlinx.android.synthetic.main.toolbar_layout_event_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
 
+
 @AndroidEntryPoint
 class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
-    OnMapReadyCallback , View.OnClickListener{
+    OnMapReadyCallback , View.OnClickListener {
     private val eventDetailViewModel: EventDetailViewModel by viewModels()
 
     override fun getFragmentBinding(
@@ -84,6 +85,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
         }
 
+        binding.root.rbEventInfo.setOnClickListener {
+
+        }
+        binding.root.rbSchedule.setOnClickListener {
+
+        }
     }
 
 
@@ -173,24 +180,25 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.btn_reg->{
+            R.id.btn_reg -> {
                 navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
             }
-            R.id.back_event->{
+            R.id.back_event -> {
                 back()
             }
-            R.id.tv_swipe_up_event->{
+            R.id.tv_swipe_up_event -> {
                 eventDetailViewModel.showToast("Swipe up")
             }
-            R.id.img_share_event->{
+            R.id.img_share_event -> {
                 eventDetailViewModel.showToast("Share")
             }
-            R.id.bookingCalender_event->{
+            R.id.bookingCalender_event -> {
                 eventDetailViewModel.showToast("Calender")
             }
-            R.id.favourite_event->{
+            R.id.favourite_event -> {
                 eventDetailViewModel.showToast("Favourite")
             }
         }
     }
+
 }
