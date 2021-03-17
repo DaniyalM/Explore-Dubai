@@ -3,6 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <merge>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="0dp">
@@ -13,25 +17,28 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.07"
             />
-<!--        <ImageView-->
-<!--            android:id="@+id/img_detail"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/_200sdp"-->
-<!--            android:background="@drawable/gallery"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            />-->
+        <ImageView
+            android:id="@+id/img_detail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/event_detail_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
         <ImageView
             android:id="@+id/bg_border"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/attraction_bg_icon_with_border"
-            app:layout_constraintTop_toBottomOf="@+id/guideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/attraction_detail_bg_border"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline"
+            app:layout_constraintVertical_bias="0.0" />
         <TextView
             android:id="@+id/tv_category"
             android:text="@string/museum"
@@ -635,5 +642,7 @@
             tools:listitem="@layout/attraction_detail_up_coming_items" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
     </merge>
+
 </layout>
