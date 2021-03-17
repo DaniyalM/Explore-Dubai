@@ -24,7 +24,6 @@
                     android:id="@+id/imageLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/_20sdp"
                     app:layout_constraintBottom_toTopOf="@+id/bg_border"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:background="@drawable/image_gradient"
