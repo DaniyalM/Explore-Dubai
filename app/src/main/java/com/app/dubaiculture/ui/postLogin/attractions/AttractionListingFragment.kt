@@ -75,6 +75,9 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             when (it) {
                 is Result.Success -> {
                     attractionListScreenAdapter?.attractions = it.value
+//                    attractionListScreenAdapter?.notifyDataSetChanged()
+
+
                 }
                 is Result.Failure -> {
                     handleApiError(it, attractionViewModel)
@@ -93,12 +96,13 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             adapter = attractionListScreenAdapter
 //            val items = createAttractionItems()
 //            attractionListScreenAdapter?.attractions = items
-            this.addOnScrollListener(object : EndlessRecyclerViewScrollListener(layoutManager as LinearLayoutManager){
+            this.addOnScrollListener(object :
+                EndlessRecyclerViewScrollListener(layoutManager as LinearLayoutManager) {
                 override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                    attractionViewModel.getAttractionThroughCategory(attractionCatId,
-                        page,
-                        totalItemsCount,
-                        getCurrentLanguage().language)
+//                    attractionViewModel.getAttractionThroughCategory(attractionCatId,
+//                        page,
+//                        totalItemsCount,
+//                        getCurrentLanguage().language)
                 }
 
             })

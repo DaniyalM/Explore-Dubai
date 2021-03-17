@@ -34,8 +34,8 @@ class AttractionListScreenAdapter :BaseRecyclerAdapter<Attractions>() , Filterab
     var attractions: List<Attractions>
         get() = differ.currentList
         set(value){
-            differ.submitList(value)
-            filterList= ArrayList(attractions)
+            differ.submitList(value.toMutableList())
+//            filterList= ArrayList(attractions)
         }
 
 

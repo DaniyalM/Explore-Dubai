@@ -5,9 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -15,14 +13,13 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.neomads.ui.components.customDialog.CustomDialog
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
 
 object EventUtilFunctions {
     fun showToast(message: String, context: Context) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-            }
+    }
 
     fun showAlert(
         message: String,
@@ -30,7 +27,7 @@ object EventUtilFunctions {
         title: String = Constants.Alert.DEFAULT_TITLE,
         textPositive: String? = Constants.Alert.DEFAULT_TEXT_POSITIVE,
         textNegative: String? = null,
-        actionPositive: (() -> Unit)? = null
+        actionPositive: (() -> Unit)? = null,
     ) {
         val customDialog = CustomDialog(
             context,
@@ -45,28 +42,49 @@ object EventUtilFunctions {
         customDialog.show()
     }
 
-    fun showErrorDialog(message:String, title :String?="Alert", @ColorRes colorBg :Int? =null, context: Activity){
+    fun showErrorDialog(
+        message: String,
+        title: String? = "Alert",
+        @ColorRes colorBg: Int? = null,
+        context: Activity,
+    ) {
         Alerter.create(context)
-            .setTitle(title?:"Alert")
+            .setTitle(title ?: "Alert")
             .setText(message)
             .setIcon(R.drawable.error_dialog)
-            .setBackgroundColorRes(colorBg?:R.color.red_600)
+            .setBackgroundColorRes(colorBg ?: R.color.red_600)
             .setDuration(2000)
             .setIconColorFilter(0) // Optional - Removes white tint
-         //   .setIconSize(R.dimen.custom_icon_size) // Optional - default is 38dp
+            //   .setIconSize(R.dimen.custom_icon_size) // Optional - default is 38dp
             .show()
     }
 
     fun showLoader(show: Boolean, customProgressDialog: ProgressDialog?) {
-        if (show) { customProgressDialog?.apply { if (!isShowing){ show() } } }
-        else { customProgressDialog?.apply { dismiss() } }
+        if (show) {
+            customProgressDialog?.apply {
+                if (!isShowing) {
+                    show()
+                }
+            }
+        } else {
+            customProgressDialog?.apply {
+                if (isShowing) {
+                    dismiss()
+                }
+                dismiss()
+
+            }
+        }
     }
+
     fun navigateByDirections(fragment: Fragment, navDirections: NavDirections) {
         fragment.findNavController().navigate(navDirections)
     }
+
     fun navigateByAction(fragment: Fragment, actionId: Int, bundle: Bundle?) {
         fragment.findNavController().navigate(actionId, bundle)
     }
+
     fun showSnackbar(view: View, message: String, action: (() -> Unit)? = null) {
 
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
@@ -79,7 +97,7 @@ object EventUtilFunctions {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             snackbar.setTextColor(view.context.getColor(R.color.colorPrimary))
             snackbar.setActionTextColor(view.context.getColor(R.color.colorPrimary))
-        }else{
+        } else {
             snackbar.setTextColor(view.context.resources.getColor(R.color.colorPrimary))
             snackbar.setActionTextColor(view.context.resources.getColor(R.color.colorPrimary))
         }

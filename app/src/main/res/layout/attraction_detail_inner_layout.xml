@@ -15,13 +15,14 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.07"
+            app:layout_constraintGuide_percent="0.00"
             />
         <ImageView
             android:id="@+id/img_detail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_200sdp"
             android:scaleType="centerCrop"
+            android:visibility="gone"
             android:background="@drawable/event_detail_icon"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +33,7 @@
             android:id="@+id/bg_border"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:background="@drawable/attraction_detail_bg_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +46,7 @@
             android:text="@string/museum"
             android:textAllCaps="true"
             android:textSize="@dimen/_11ssp"
-            android:layout_marginTop="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:textColor="@color/purple_900"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -35,17 +35,17 @@
                 android:id="@+id/defaultCloseToolbar"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/_200sdp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:background="@drawable/attraction_bg_icon_with_border"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView4"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginTop="@dimen/_200sdp"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    android:background="@drawable/attraction_bg_icon_with_border"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    />-->
                 <ImageView
                     android:id="@+id/back"
                     android:layout_width="@dimen/_30sdp"
