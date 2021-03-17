@@ -24,7 +24,6 @@
                     android:id="@+id/imageLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_constraintBottom_toTopOf="@+id/bg_border"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:background="@drawable/image_gradient"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -51,7 +50,7 @@
                 <ImageView
                     android:id="@+id/bg_border"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/attraction_detail_bg_border"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
