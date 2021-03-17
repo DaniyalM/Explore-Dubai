@@ -11,7 +11,6 @@ import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItems
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
-import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -23,18 +22,14 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.shape.CornerFamily
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.fragment_attraction_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
-import kotlinx.android.synthetic.main.toolbar_layout_detail.bookingCalender
-import kotlinx.android.synthetic.main.toolbar_layout_detail.favourite
-import kotlinx.android.synthetic.main.toolbar_layout_detail.share
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import timber.log.Timber
 
 
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
-    OnMapReadyCallback , View.OnClickListener{
+    OnMapReadyCallback, View.OnClickListener {
     private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
 
 
@@ -50,8 +45,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         binding.root.ll_360.setOnClickListener(this)
         binding.root.ll_img.setOnClickListener(this)
         binding.root.back.setOnClickListener(this)
+        binding.imgBack.setOnClickListener(this)
         binding.root.btn_book_a_ticket.setOnClickListener(this)
         binding.root.tv_swipe_up.setOnClickListener(this)
+        binding.root.downOneAR.setOnClickListener(this)
+        binding.root.downOne360.setOnClickListener(this)
+        binding.root.downOneGallery.setOnClickListener(this)
         uiActions()
         mapSetUp()
         rvSetUp()
@@ -95,9 +94,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 attractionDetailViewModel.showToast("bookingCalender Toolbar Clicked")
             }
 
-            binding.imgBack.setOnClickListener {
-                back()
-            }
+//            binding.imgBack.setOnClickListener {
+//                back()
+//            }
 
         }
     }
@@ -142,20 +141,23 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         }
 
     }
-    private fun cardViewRTL(){
+
+    private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-        if(isArabic()){
-            binding.root.cardview_plan_trip?.shapeAppearanceModel =  binding.root.cardview_plan_trip!!.shapeAppearanceModel
-                .toBuilder()
-                .setBottomLeftCorner(CornerFamily.ROUNDED,radius)
-                .setTopRightCornerSize(radius)
-                .build()
-        }else{
-            binding.root.cardview_plan_trip?.shapeAppearanceModel =  binding.root.cardview_plan_trip!!.shapeAppearanceModel
-                .toBuilder()
-                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
-                .setBottomRightCornerSize(radius)
-                .build()
+        if (isArabic()) {
+            binding.root.cardview_plan_trip?.shapeAppearanceModel =
+                binding.root.cardview_plan_trip!!.shapeAppearanceModel
+                    .toBuilder()
+                    .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                    .setTopRightCornerSize(radius)
+                    .build()
+        } else {
+            binding.root.cardview_plan_trip?.shapeAppearanceModel =
+                binding.root.cardview_plan_trip!!.shapeAppearanceModel
+                    .toBuilder()
+                    .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                    .setBottomRightCornerSize(radius)
+                    .build()
         }
     }
 
@@ -171,7 +173,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             .position(trafficDigitalLatLng)
             .icon(fromResource(R.drawable.pin_location)))
             .title = "Traffic Digital"
-        map?.animateCamera(
+        map.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
                 trafficDigitalLatLng, 12.0f
             )
@@ -182,24 +184,39 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.ll_ar->{
+        when (v?.id) {
+            R.id.ll_ar -> {
                 attractionDetailViewModel.showToast("AR")
             }
-            R.id.ll_360->{
+            R.id.ll_360 -> {
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
             }
-            R.id.ll_img->{
+            R.id.ll_img -> {
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
             }
-            R.id.back->{
+            R.id.back -> {
                 back()
             }
-            R.id.btn_book_a_ticket->{
+            R.id.img_back -> {
+                back()
+            }
+            R.id.btn_book_a_ticket -> {
                 attractionDetailViewModel.showToast("Book a Ticket")
             }
-            R.id.tv_swipe_up->{
+            R.id.tv_swipe_up -> {
                 attractionDetailViewModel.showToast("Swipe up")
+            }
+            R.id.downOneAR -> {
+                attractionDetailViewModel.showToast("AR")
+
+            }
+            R.id.downOne360 -> {
+                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
+
+            }
+            R.id.downOneGallery -> {
+                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
+
             }
         }
     }
