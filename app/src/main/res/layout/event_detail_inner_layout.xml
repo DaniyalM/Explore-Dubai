@@ -63,6 +63,7 @@
                         android:id="@+id/rbEventInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="49dp"
+                        android:foreground="@drawable/custom_ripple_border"
                         android:background="@drawable/radio_btn_selector_active"
                         android:button="@null"
                         android:checked="true"
@@ -77,6 +78,7 @@
                         android:id="@+id/rbSchedule"
                         android:layout_width="wrap_content"
                         android:layout_height="52dp"
+                        android:foreground="@drawable/custom_ripple_border"
                         android:background="@drawable/radio_btn_selector_active"
                         android:button="@null"
                         android:gravity="center"
@@ -107,7 +109,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@drawable/speakers"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/speakers"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_category"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_category"
@@ -204,6 +207,7 @@
                     android:drawableStart="@drawable/right_arrow"
                     android:drawablePadding="@dimen/_2sdp"
                     android:text="@string/get_directions"
+                    android:background="@drawable/custom_ripple_border"
                     android:textColor="@color/gray_600"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toStartOf="@+id/tv_km"
@@ -314,6 +318,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:foreground="@drawable/custom_ripple_black"
                     android:background="@drawable/shape_rounded_purple_border_attraction"
                     android:gravity="center"
                     android:elevation="5dp"
@@ -388,21 +393,24 @@
                         android:id="@+id/imgFb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/twitter_attraction_icon"
+                        android:background="@drawable/custom_ripple_black"
+                        android:src="@drawable/twitter_attraction_icon"
                         />
                     <ImageView
                         android:id="@+id/imgTwitter"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/twitter_attraction_icon"
+                        android:background="@drawable/custom_ripple_black"
+                        android:src="@drawable/twitter_attraction_icon"
                         />
                     <ImageView
                         android:id="@+id/imgInsta"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/insta_attraction_icon"
+                        android:background="@drawable/custom_ripple_black"
+                        android:src="@drawable/insta_attraction_icon"
                         />
 
                     <ImageView
@@ -410,14 +418,16 @@
                         android:layout_marginStart="@dimen/_9sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/utube__attraction_icon"
+                        android:background="@drawable/custom_ripple_black"
+                        android:src="@drawable/utube__attraction_icon"
                         />
                     <ImageView
                         android:id="@+id/imgLinkedin"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/linkedin_attraction_icon"
+                        android:background="@drawable/custom_ripple_border"
+                        android:src="@drawable/linkedin_attraction_icon"
                         />
                 </LinearLayout>
 
@@ -441,12 +451,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_event_up_coming"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_335sdp"
-                    app:layout_constraintVertical_bias="0.1"
-                    android:layout_marginBottom="@dimen/_20sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/heading_up_coming"
                     />
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

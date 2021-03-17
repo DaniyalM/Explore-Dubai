@@ -14,10 +14,14 @@ import com.app.dubaiculture.databinding.FragmentFilterBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.events.filter.adapter.FilterCategoryItems
 import com.app.dubaiculture.ui.postLogin.events.filter.viewmodel.FilterViewModel
+import com.app.dubaiculture.utils.DatePickerHelper
+import com.app.dubaiculture.utils.toString
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -28,7 +32,7 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is ItemClickListener) {
-            mListener = context as ItemClickListener
+            mListener = context
         } else {
             throw RuntimeException(context.toString() + " must implement ItemClickListener")
         }
@@ -42,6 +46,9 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.btnFilter.setOnClickListener(this)
+        binding.tvStartDate.setOnClickListener(this)
+        binding.tvEndDate.setOnClickListener(this)
+
         recyclerViewSetUp()
 
         filterViewModel.categories.observe(viewLifecycleOwner) {
@@ -50,6 +57,8 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                 groupAdapter.add(FilterCategoryItems(it))
             }
         }
+
+
     }
     private fun recyclerViewSetUp() {
         binding.rvCategories.apply {
@@ -68,6 +77,26 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                 mListener!!.onItemClick("hello")
                 Log.e("Model=>", createTestData.size.toString())
                 dismiss()
+            }
+            R.id.tv_start_date->{
+                DatePickerHelper(binding.tvStartDate.text.toString(),requireContext(), object : DatePickerHelper.DatePickerInterface{
+                    override fun onDateSelected(calendar: Calendar) {
+                        val date : Date = calendar.time
+                        val format = "dd/MM/yy"
+                        val str = date.toString(format)
+                        binding.tvStartDate.text = str
+                    }
+                }).showPicker()
+            }
+            R.id.tv_end_date->{
+                DatePickerHelper(binding.tvEndDate.text.toString(),requireContext(), object : DatePickerHelper.DatePickerInterface{
+                    override fun onDateSelected(calendar: Calendar) {
+                        val date : Date = calendar.time
+                        val formater = "dd/MM/yy"
+                        val str = date.toString(formater)
+                        binding.tvEndDate.text = str
+                    }
+                }).showPicker()
             }
         }
     }
