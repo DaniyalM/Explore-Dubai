@@ -13,8 +13,17 @@ import com.app.dubaiculture.ui.base.BaseFragment
 
 
 class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBinding>(), View.OnClickListener{
+    private var from : String? = ""
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        arguments?.let {
+            from =    it.getString("key")
+        }
+
+        if(from == "RegisterNow"){
+            binding.regSuccessful.text = getString(R.string.register_confirm)
+        }
         binding.btnContinueReg.setOnClickListener(this)
 
         binding.imgClose.setOnClickListener(this)
@@ -27,13 +36,14 @@ class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBin
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_continue_reg->{
+                if(from == "RegisterNow"){
+                    back()
+                }else
                 navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
             }
             R.id.img_close->{
                 back()
             }
-
         }
     }
-
 }

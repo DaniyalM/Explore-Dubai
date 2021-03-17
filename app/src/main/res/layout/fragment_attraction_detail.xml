@@ -47,7 +47,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     />
                 <ImageView
-                    android:id="@+id/back"
+                    android:id="@+id/img_back"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginStart="@dimen/_15sdp"
@@ -67,10 +67,10 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:rotation="0"
                     android:src="@drawable/add_to_calander"
-                    app:layout_constraintBottom_toBottomOf="@+id/back"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_back"
                     app:layout_constraintEnd_toStartOf="@+id/favourite"
-                    app:layout_constraintStart_toEndOf="@+id/back"
-                    app:layout_constraintTop_toTopOf="@+id/back" />
+                    app:layout_constraintStart_toEndOf="@+id/img_back"
+                    app:layout_constraintTop_toTopOf="@+id/img_back" />
 
                 <ImageView
                     android:id="@+id/favourite"

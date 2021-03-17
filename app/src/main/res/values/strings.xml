@@ -153,4 +153,13 @@
     <string name="_10_00_am_1_00_pm">10:00 Am - 1:00 Pm</string>
     <string name="palm_jumeriah_dubai">Palm Jumeriah, Dubai</string>
     <string name="_10_km_away">10 Km Away</string>
+    <string name="register_for_event">Register for event</string>
+    <string name="occupation">Occupation</string>
+    <string name="what_do_you_do">What do you do?</string>
+    <string name="select_your_time_period">Select your time period</string>
+    <string name="time">Time</string>
+    <string name="upload_id">Upload ID</string>
+    <string name="jpeg_or_pdf_format_not_exceeding_2mb">JPEG or PDF format not exceeding 2MB</string>
+    <string name="submit">Submit</string>
+    <string name="register_confirm">Registration Confirmed</string>
 </resources>
