@@ -46,6 +46,9 @@ class PostLoginActivity : BaseAuthenticationActivity() , FilterFragment.ItemClic
                     R.id.threeSixtyFragment -> {
                         bottomNav.visibility = View.GONE
                     }
+                    R.id.registrationSuccessFragment2 -> {
+                        bottomNav.visibility = View.GONE
+                    }
                     else -> {
                         bottomNav.visibility = View.VISIBLE
 

@@ -95,6 +95,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 attractionDetailViewModel.showToast("bookingCalender Toolbar Clicked")
             }
 
+            binding.imgBack.setOnClickListener {
+                back()
+            }
+
         }
     }
 

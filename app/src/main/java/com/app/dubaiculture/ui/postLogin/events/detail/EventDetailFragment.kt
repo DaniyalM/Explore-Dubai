@@ -174,7 +174,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_reg->{
-                eventDetailViewModel.showToast("Register")
+                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
             }
             R.id.back_event->{
                 back()
