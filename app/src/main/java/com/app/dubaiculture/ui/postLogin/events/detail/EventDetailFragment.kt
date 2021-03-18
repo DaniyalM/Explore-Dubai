@@ -13,6 +13,7 @@ import com.app.dubaiculture.databinding.FragmentEventDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItems
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventScheduleItems
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,8 +22,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
+import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
 
@@ -31,6 +35,7 @@ import timber.log.Timber
 class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     OnMapReadyCallback , View.OnClickListener {
     private val eventDetailViewModel: EventDetailViewModel by viewModels()
+    lateinit var scheduleAdapter: GroupAdapter<GroupieViewHolder>
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -86,10 +91,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
 
         binding.root.rbEventInfo.setOnClickListener {
-
+            binding.root.ll_even_info.visibility = View.VISIBLE
+            binding.root.ll_schedule.visibility = View.GONE
         }
         binding.root.rbSchedule.setOnClickListener {
-
+            binding.root.ll_even_info.visibility = View.GONE
+            binding.root.ll_schedule.visibility = View.VISIBLE
         }
     }
 
@@ -156,8 +163,48 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
         }
 
-    }
+        scheduleAdapter = GroupAdapter()
+        binding.root.rvSchedule.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = scheduleAdapter
+            scheduleAdapter.apply {
+                add(
+                    EventScheduleItems(
+                        todate = "14",
+                        monthYear = "NOV, 15",
+                        day = "Sunday",
+                        startTime = "6PM - 7PM",
+                        startTimeDesc = "Various artistic and cultural activities",
+                        endTime = "8PM - 9PM",
+                        endTimeDsec = "Opening show ‘The Wise Poet’ a theatrical performance by Al Ahli Dubai Theatre"
+                    )
+                )
+                add(
+                    EventScheduleItems(
+                        todate = "22",
+                        monthYear = "NOV, 22",
+                        day = "Monday",
+                        startTime = "6PM - 7PM",
+                        startTimeDesc = "Various artistic and cultural activities",
+                        endTime = "8PM - 9PM",
+                        endTimeDsec = "Opening show ‘The Wise Poet’ a theatrical performance by Al Ahli Dubai Theatre"
+                    )
+                )
 
+                add(
+                    EventScheduleItems(
+                        todate = "15",
+                        monthYear = "NOV, 21",
+                        day = "Tuesday",
+                        startTime = "6PM - 7PM",
+                        startTimeDesc = "Various artistic and cultural activities",
+                        endTime = "8PM - 9PM",
+                        endTimeDsec = "Opening show ‘The Wise Poet’ a theatrical performance by Al Ahli Dubai Theatre"
+                    )
+                )
+            }
+        }
+    }
     private fun mapSetUp() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment!!.getMapAsync(this)

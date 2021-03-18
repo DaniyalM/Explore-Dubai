@@ -19,7 +19,7 @@
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_15sdp"
-        android:text="Activities schedule at the \nworkshop"
+        android:text="Activities schedule at the workshop"
         android:textColor="@color/black_200"
         android:textSize="@dimen/_18ssp"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
@@ -36,7 +36,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_schedule_title" />
 
-
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:layout_marginBottom="@dimen/_60sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:background="@drawable/linetesting"
+        app:layout_constraintBottom_toBottomOf="@+id/rvSchedule"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_title" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSchedule"
         android:layout_width="match_parent"
@@ -44,7 +53,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_schedule_title"
         tools:itemCount="2"
         tools:listitem="@layout/event_detail_schedule_items_layout_header"
-
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
