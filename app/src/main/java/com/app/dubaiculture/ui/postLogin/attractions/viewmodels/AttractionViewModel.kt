@@ -28,7 +28,7 @@ class AttractionViewModel @ViewModelInject constructor(
 
 
     fun getAttractionCategoryToScreen(locale: String) {
-//        showLoader(true)
+        showLoader(true)
         viewModelScope.launch {
             when (val result =
                 attractionRepository.getAttractionCategories(AttractionRequest(culture = locale))) {

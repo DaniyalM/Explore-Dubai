@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_eventsFragment_to_postLoginFragment"
             app:destination="@id/postLoginFragment" />
+        <action
+            android:id="@+id/action_eventsFragment_to_eventDetailFragment2"
+            app:destination="@id/eventDetailFragment2" />
     </fragment>
     <fragment
         android:id="@+id/attractionsFragment"

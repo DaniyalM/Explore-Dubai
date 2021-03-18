@@ -28,6 +28,7 @@ import com.google.android.material.shape.CornerFamily
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_events.view.*
 import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import javax.inject.Inject
@@ -80,6 +81,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         binding.tvViewMap.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventNearMapFragment2)
         }
+        binding.root.view_all_events.setOnClickListener {
+            navigate(R.id.action_eventsFragment_to_eventFilterFragment)
+        }
 
     }
 
@@ -93,7 +97,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             }
         }, object : RowClickListener {
             override fun rowClickListener() {
-                navigate(R.id.action_eventsFragment_to_eventFilterFragment)
+
+                navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
 
             }
 
@@ -104,7 +109,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             }
         }, object : RowClickListener {
             override fun rowClickListener() {
-                navigate(R.id.action_eventsFragment_to_eventFilterFragment)
+//                action_eventsFragment_to_eventFilterFragment
+                navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
             }
         })
         nearAdapter = EventAdapter(object : FavouriteChecker {
@@ -113,7 +119,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             }
         }, object : RowClickListener {
             override fun rowClickListener() {
-                navigate(R.id.action_eventsFragment_to_eventFilterFragment)
+//                action_eventsFragment_to_eventFilterFragment
+                navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
             }
         })
         binding.rvEvent.apply {

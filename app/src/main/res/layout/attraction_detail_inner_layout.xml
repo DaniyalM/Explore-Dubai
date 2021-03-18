@@ -101,6 +101,8 @@
                     android:orientation="vertical"
                     android:gravity="center|center_vertical"
                     android:layout_width="match_parent"
+                    android:id="@+id/downOneAR"
+
                     android:layout_height="match_parent">
 
                     <ImageView
@@ -136,6 +138,8 @@
                     android:orientation="vertical"
                     android:gravity="center|center_vertical"
                     android:layout_width="match_parent"
+                    android:id="@+id/downOne360"
+
                     android:layout_height="match_parent">
 
                     <ImageView
@@ -172,6 +176,8 @@
                     android:orientation="vertical"
                     android:gravity="center|center_vertical"
                     android:layout_width="match_parent"
+                    android:id="@+id/downOneGallery"
+
                     android:layout_height="match_parent">
 
                     <ImageView
