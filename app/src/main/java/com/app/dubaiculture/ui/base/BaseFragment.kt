@@ -34,12 +34,10 @@ import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
-import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
 import java.util.*
 
 
 abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
-
 
     protected lateinit var application: ApplicationEntry
     protected var isBusRegistered: Boolean = false
@@ -54,6 +52,10 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     private lateinit var dataBinding: DB
     protected val binding get() = dataBinding
 
+
+    private var _view: View? = null
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = (context as Activity)
@@ -61,7 +63,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        adjustFontScale(getResources().getConfiguration());
+        adjustFontScale(getResources().getConfiguration())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,8 +81,11 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+
         dataBinding = getFragmentBinding(inflater, container)
         return dataBinding.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -185,7 +190,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         title: String = Constants.Alert.DEFAULT_TITLE,
         textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
         textNegative: String? = null,
-        actionPositive: (() -> Unit)? = null
+        actionPositive: (() -> Unit)? = null,
     ) {
         EventUtilFunctions.showAlert(
             message = message,
@@ -225,20 +230,22 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
     }
 
-     fun cardViewRTL(materialCardView: MaterialCardView){
+    fun cardViewRTL(materialCardView: MaterialCardView) {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-        if(isArabic()){
-            binding.root.materialCardView?.shapeAppearanceModel =  binding.root.materialCardView!!.shapeAppearanceModel
-                .toBuilder()
-                .setBottomLeftCorner(CornerFamily.ROUNDED,radius)
-                .setTopRightCornerSize(radius)
-                .build()
-        }else{
-            binding.root.materialCardView?.shapeAppearanceModel =  binding.root.materialCardView!!.shapeAppearanceModel
-                .toBuilder()
-                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
-                .setBottomRightCornerSize(radius)
-                .build()
+        if (isArabic()) {
+            binding.root.materialCardView?.shapeAppearanceModel =
+                binding.root.materialCardView!!.shapeAppearanceModel
+                    .toBuilder()
+                    .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                    .setTopRightCornerSize(radius)
+                    .build()
+        } else {
+            binding.root.materialCardView?.shapeAppearanceModel =
+                binding.root.materialCardView!!.shapeAppearanceModel
+                    .toBuilder()
+                    .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                    .setBottomRightCornerSize(radius)
+                    .build()
         }
     }
 
@@ -270,20 +277,22 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         super.onResume()
         adjustFontScale(getResources().getConfiguration());
     }
-  protected  fun getDrawableFromId(resId: Int?): Drawable? {
+
+    protected fun getDrawableFromId(resId: Int?): Drawable? {
         resId?.let {
             return if (it == 0) null
             else ResourcesCompat.getDrawable(resources, it, null)
         }
         return null
     }
-    fun favouriteEvent(isGuest : Boolean, checkbox : CheckBox, isFav : Boolean , nav : Int){
-        if(isGuest){
+
+    fun favouriteEvent(isGuest: Boolean, checkbox: CheckBox, isFav: Boolean, nav: Int) {
+        if (isGuest) {
             navigate(nav)
-        }else{
-            if(isFav){
+        } else {
+            if (isFav) {
                 checkbox.background = getDrawableFromId(R.drawable.heart_icon_fav)
-            }else{
+            } else {
                 checkbox.background = getDrawableFromId(R.drawable.heart_icon_fav)
             }
 

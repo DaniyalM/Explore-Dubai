@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.databinding.FragmentAttractionsBinding
-import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.app.dubaiculture.utils.handleApiError
@@ -19,19 +18,31 @@ import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
 
 @AndroidEntryPoint
-class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
+class AttractionsFragment : Fragment() {
     private val attractionViewModel: AttractionViewModel by viewModels()
     private lateinit var attractionCategorys: List<AttractionCategory>
 
+    private var binding: FragmentAttractionsBinding? = null
 
-    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        FragmentAttractionsBinding.inflate(inflater, container, false)
 
+//    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
+//        FragmentAttractionsBinding.inflate(inflater, container, false)
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        if (binding==null){
+            binding = FragmentAttractionsBinding.inflate(inflater, container, false)
+        }
+        return binding?.root
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupToolbarWithSearchItems()
-        subscribeUiEvents(attractionViewModel)
+//        subscribeUiEvents(attractionViewModel)
         callingObservables()
         subscribeToObservables()
         initiatePager()
@@ -39,7 +50,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     }
 
     private fun initiatePager() {
-        binding.pager.isUserInputEnabled = false
+        binding?.pager?.isUserInputEnabled = false
 //        binding.swipeRefresh.setOnRefreshListener(null)
 //        binding.swipeRefresh.setOnRefreshListener {
 //            callingObservables()
@@ -49,7 +60,8 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
 
     private fun callingObservables() {
-        attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+//        attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+        attractionViewModel.getAttractionCategoryToScreen("en")
     }
 
     private fun subscribeToObservables() {
@@ -58,7 +70,8 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 is Result.Success -> {
                     it.let {
                         attractionCategorys = it.value
-                        binding.horizontalSelector.initialize(it.value, binding.pager, this)
+                        binding?.pager?.isSaveEnabled = false
+                        binding?.horizontalSelector?.initialize(it.value, binding?.pager, this)
 
                     }
                 }
@@ -73,19 +86,19 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     private fun setupToolbarWithSearchItems() {
 //        var searchViewVisibility = false
-        binding.root.apply {
+        binding?.root?.apply {
             profilePic.visibility = View.GONE
             img_drawer.visibility = View.GONE
             toolbar_title.apply {
                 visibility = View.VISIBLE
-                text = activity.getString(R.string.attractions)
+                text = activity?.getString(R.string.attractions)
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        binding.horizontalSelector.positionUpdate(clickCheckerFlag)
+        binding?.horizontalSelector?.positionUpdate(clickCheckerFlag)
     }
 
 
