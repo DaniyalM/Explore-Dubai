@@ -79,7 +79,7 @@ data class EventsDTO(
     var isFavourite: Boolean = false,
     @SerializedName("Color")
     @Expose
-    var color: String = "",
+    var color: String ?= null,
     @SerializedName("DateTo")
     @Expose
     var dateTo: String = "",

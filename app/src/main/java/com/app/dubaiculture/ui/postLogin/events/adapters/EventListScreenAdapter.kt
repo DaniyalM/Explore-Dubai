@@ -12,6 +12,8 @@ import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.AsyncCell
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import kotlinx.android.synthetic.main.item_event_listing.view.*
 
 class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , private val rowClickListener: RowClickListener?=null) : BaseRecyclerAdapter<Events>() {
@@ -42,6 +44,9 @@ class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , p
         override val layoutId = R.layout.item_event_listing
         override fun createDataBindingView(view: View): View? {
             binding = ItemEventListingBinding.bind(view)
+            YoYo.with(Techniques.BounceInDown)
+                .duration(2000)
+                .playOn(binding?.root)
             return view.rootView
         }
     }

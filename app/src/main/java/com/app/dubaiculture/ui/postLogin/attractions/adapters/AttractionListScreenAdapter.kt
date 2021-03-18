@@ -12,6 +12,8 @@ import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.utils.AttractionFilterItem
 import com.app.dubaiculture.utils.AsyncCell
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 
 class AttractionListScreenAdapter : BaseRecyclerAdapter<Attractions>(), Filterable {
 
@@ -45,6 +47,7 @@ class AttractionListScreenAdapter : BaseRecyclerAdapter<Attractions>(), Filterab
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         setUpAttractionListViewHolder(holder as AttractionListScreenAdapter.AttractionListViewHolder,
             position)
+
     }
 
     override fun getItemCount() = attractions.size
@@ -60,6 +63,9 @@ class AttractionListScreenAdapter : BaseRecyclerAdapter<Attractions>(), Filterab
         override val layoutId = R.layout.attraction_list_item_cell
         override fun createDataBindingView(view: View): View? {
             binding = AttractionListItemCellBinding.bind(view)
+            YoYo.with(Techniques.Bounce)
+                .duration(1000)
+                .playOn(binding?.root)
             return view.rootView
         }
     }

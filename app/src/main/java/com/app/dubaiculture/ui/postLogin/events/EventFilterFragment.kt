@@ -23,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import kotlinx.coroutines.launch
 import q.rorbin.badgeview.QBadgeView
+import timber.log.Timber
 
 @AndroidEntryPoint
 class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnClickListener {
@@ -46,12 +47,15 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
 
         if (filterViewModel.filterData.value != null) {
-            Log.e("Model here=>", filterViewModel.filterData.value!!.size.toString())
+            Timber.e("Model here=> "+filterViewModel.filterData.value!!.size.toString())
         }
     }
 
     private fun initiatePager() {
         binding!!.pager.isUserInputEnabled = false
+        binding!!.horizontalSelector.initialize(createTestItems(),
+            binding!!.pager,
+            this)
     }
 
     private fun callingObservables() {

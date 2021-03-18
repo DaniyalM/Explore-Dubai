@@ -27,7 +27,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private lateinit var attractionCatId: String
     private var searchQuery: String = ""
     private var pageNumber: Int = 0
-    private var pageSize: Int = 2
+    private var pageSize: Int = 3
     private lateinit var attractions: ArrayList<Attractions>
 
     var contentLoaded = false
