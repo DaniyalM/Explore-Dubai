@@ -29,7 +29,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     private val exploreViewModel: ExploreViewModel by viewModels()
     private lateinit var explore: ExploreRecyclerAsyncAdapter
-    val handler = Handler(Looper.getMainLooper())
+//    val handler = Handler(Looper.getMainLooper())
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -37,7 +37,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     ) = FragmentExploreBinding.inflate(inflater, container, false)
 
 
-    fun getRecyclerView() = binding!!.rvExplore
+    fun getRecyclerView() = binding.rvExplore
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -47,8 +47,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         subscribeToObservable()
 
 
-       binding!!.swipeRefresh.setOnRefreshListener {
-           binding!!.swipeRefresh.isRefreshing = false
+       binding.swipeRefresh.setOnRefreshListener {
+           binding.swipeRefresh.isRefreshing = false
            callingObservables()
         }
 
@@ -57,12 +57,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun setUpRecyclerView() {
         explore = ExploreRecyclerAsyncAdapter(activity)
 //        explore.items = createTestItems()
-        binding!!.rvExplore.apply {
+        binding.rvExplore.apply {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
-
             adapter = explore
-
             this.itemAnimator = SlideInLeftAnimator()
 //            LinearSnapHelper().attachToRecyclerView(this)
 
@@ -81,16 +79,13 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         exploreViewModel.exploreList.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    it.let { explore.items = it.value }
+                    it.let {
+                        explore.items= it.value }
                 }
                 is Result.Failure -> handleApiError(it, exploreViewModel)
             }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacksAndMessages(null)
 
-    }
 }

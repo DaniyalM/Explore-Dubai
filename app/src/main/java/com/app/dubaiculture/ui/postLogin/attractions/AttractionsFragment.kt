@@ -51,7 +51,9 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
 
     private fun callingObservables() {
-        attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+        if (!this::attractionCategorys.isInitialized){
+            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+        }
     }
 
     private fun subscribeToObservables() {

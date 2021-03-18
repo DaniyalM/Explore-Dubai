@@ -5,39 +5,35 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
-import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
-import com.app.dubaiculture.databinding.AttractionHomeInnerListItemBinding
 import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.utils.AttractionFilterItem
 import com.app.dubaiculture.utils.AsyncCell
 
-class AttractionListScreenAdapter :BaseRecyclerAdapter<Attractions>() , Filterable {
+class AttractionListScreenAdapter : BaseRecyclerAdapter<Attractions>(), Filterable {
 
-    private lateinit var filterList:ArrayList<Attractions>
+    private lateinit var filterList: ArrayList<Attractions>
 
-    private var filter:AttractionFilterItem?=null
+    private var filter: AttractionFilterItem? = null
 
 
-     var onNothingFound: (() -> Unit)? = null
+    var onNothingFound: (() -> Unit)? = null
 
     fun search(s: String?, onNothingFound: (() -> Unit)?) {
         this.onNothingFound = onNothingFound
         filter?.filter(s)
 
     }
-    var attractions: List<Attractions>
-        get() = differ.currentList
-        set(value){
-            differ.submitList(value.toMutableList())
-//            filterList= ArrayList(attractions)
-        }
 
+
+    var attractions: MutableList<Attractions>
+        get() = differ.currentList
+        set(value) {
+            differ.submitList(value.toMutableList())
+        }
 
 
     inner class AttractionListViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
@@ -53,9 +49,9 @@ class AttractionListScreenAdapter :BaseRecyclerAdapter<Attractions>() , Filterab
 
     override fun getItemCount() = attractions.size
     override fun getFilter(): Filter {
-      if (filter==null){
-          filter= AttractionFilterItem(filterList,this)
-      }
+        if (filter == null) {
+            filter = AttractionFilterItem(filterList, this)
+        }
         return filter as AttractionFilterItem
     }
 

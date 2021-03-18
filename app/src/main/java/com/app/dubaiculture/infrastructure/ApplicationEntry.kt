@@ -21,6 +21,7 @@ class ApplicationEntry : Application() {
         isInternetActive=NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
         ThemeUtil.applyTheme("light")
+
     }
 
 

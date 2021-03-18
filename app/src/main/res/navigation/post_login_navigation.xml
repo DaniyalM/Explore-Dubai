@@ -12,7 +12,8 @@
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.app.dubaiculture.ui.postLogin.explore.ExploreFragment"
-        android:label="ExploreFragment" />
+        android:label="ExploreFragment"
+        android:menuCategory="secondary"/>
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.EventsFragment"

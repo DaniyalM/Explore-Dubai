@@ -9,6 +9,7 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.explore.ExploreRepository
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
+import com.app.dubaiculture.ui.base.BaseActivity
 import com.app.dubaiculture.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -16,10 +17,14 @@ class ExploreViewModel @ViewModelInject constructor(
     application: Application,
     private val exploreRepository: ExploreRepository,
 ) : BaseViewModel(application) {
+//    private val context = getApplication<Application>().applicationContext
 
     private val _exploreList: MutableLiveData<Result<List<Explore>>> = MutableLiveData()
     val exploreList: LiveData<Result<List<Explore>>> = _exploreList
-
+//
+//    init {
+//        getExploreToScreen(context.getCurrentLanguage().language)
+//    }
 
     fun getExploreToScreen(locale: String) {
         showLoader(true)

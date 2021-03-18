@@ -9,70 +9,70 @@ import kotlinx.android.parcel.Parcelize
 data class EventsDTO(
     @SerializedName("ID")
     @Expose
-    var id: String? = null,
+    var id: String? = "",
 
     @SerializedName("Title")
     @Expose
-    var title: String? = null,
+    var title: String? = "",
 
     @SerializedName("Category")
     @Expose
-    var category: String? = null,
+    var category: String? = "",
 
     @SerializedName("Image")
     @Expose
-    var image: String? = null,
+    var image: String? = "",
 
     @SerializedName("FromDate")
     @Expose
-    var fromDate: String? = null,
+    var fromDate: String? = "",
 
     @SerializedName("FromMonthYear")
     @Expose
-    var fromMonthYear: String? = null,
+    var fromMonthYear: String? = "",
 
     @SerializedName("FromTime")
     @Expose
-    var fromTime: String? = null,
+    var fromTime: String? = "",
 
     @SerializedName("FromDay")
     @Expose
-    var fromDay: String? = null,
+    var fromDay: String? = "",
 
     @SerializedName("ToDate")
     @Expose
-    var toDate: String? = null,
+    var toDate: String? = "",
 
     @SerializedName("ToMonthYear")
     @Expose
-    var toMonthYear: String? = null,
+    var toMonthYear: String? = "",
 
     @SerializedName("ToTime")
     @Expose
-    var toTime: String? = null,
+    var toTime: String? = "",
 
     @SerializedName("ToDay")
     @Expose
-    var toDay: String? = null,
+    var toDay: String? = "",
 
     @SerializedName("LocationTitle")
     @Expose
-    var locationTitle: String? = null,
+    var locationTitle: String? = "",
     @SerializedName("Location")
     @Expose
-    var location: String? = null,
+    var location: String? = "",
 
     @SerializedName("Type")
     @Expose
-    var type: String? = null,
+    var type: String? = "",
 
     @SerializedName("Latitude")
     @Expose
-    var latitude: String? = null,
+    var latitude: String? = "",
 
     @SerializedName("Longitude")
     @Expose
-    var longitude: String? = null,
+    var longitude: String? = "",
 
     @SerializedName("IsFavourite")
     @Expose
@@ -88,3 +88,25 @@ data class EventsDTO(
     var dateFrom: String = "",
 
     ) : Parcelable
+
+//"ID":"E333F68461E840928FE54225F93ECE3C",
+//"Title":"The Definitive Guide \n to an Uncertain World 2",
+//"Image":"/-/media/DC/Home-Modules/events-img-2.jpg",
+//"FromDate":"01",
+//"FromMonthYear":"Mar, 21",
+//"FromTime":"05:18 PM",
+//"FromDay":"Monday",
+//"ToDate":"31 ",
+//"ToMonthYear":"Mar, 21",
+//"ToTime":"05:18 PM",
+//"ToDay":"Wednesday",
+//"Category":"Virtual Events",
+//"LocationTitle":"Online",
+//"Location":"https://www.google.com/maps/place/Burj+Khalifa/@25.075706,54.9468685,10z/data=!4m13!1m7!3m6!1s0x3e5f43496ad9c645:0xbde66e5084295162!2sDubai+-+United+Arab+Emirates!3b1!8m2!3d25.2048493!4d55.2707828!3m4!1s0x3e5f43348a67e24b:0xff45e502e1ceb7e2!8m2!3d25.197175!4d55.2743626",
+//"Latitude":"",
+//"Longitude":"",
+//"Type":"Free",
+//"Color":null,
+//"DateTo":"2021-03-31T17:18:00",
+//"DateFrom":"2021-03-01T17:18:00",
+//"IsFavourite":false

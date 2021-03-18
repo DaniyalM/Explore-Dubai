@@ -15,11 +15,10 @@ import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.utils.EndlessRecyclerViewScrollListener
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+
 
 @AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
@@ -28,7 +27,10 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private lateinit var attractionCatId: String
     private var searchQuery: String = ""
     private var pageNumber: Int = 0
-    private var pageSize: Int = 6
+    private var pageSize: Int = 2
+    private lateinit var attractions: ArrayList<Attractions>
+
+    var contentLoaded = false
 
 
     companion object {
@@ -60,6 +62,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
         callingObservables()
+        subscribeToObservables()
 
 //        Handler(Looper.getMainLooper()).postDelayed({
 //           attractionViewModel.showErrorDialog("|","||")
@@ -75,18 +78,37 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     }
 
     private fun callingObservables() {
-        attractionViewModel.getAttractionThroughCategory(attractionCatId,
-            pageNumber,
-            pageSize,
-            getCurrentLanguage().language)
-        subscribeToObservables()
+        if (!contentLoaded) {
+
+            attractionViewModel.getAttractionThroughCategory(attractionCatId,
+                pageNumber,
+                pageSize,
+                getCurrentLanguage().language)
+            contentLoaded = true
+        }
+
     }
 
     private fun subscribeToObservables() {
         attractionViewModel.attractionList.observe(viewLifecycleOwner) {
+
             when (it) {
                 is Result.Success -> {
-                    attractionListScreenAdapter?.attractions = it.value
+                    if (pageNumber < 1) {
+                        attractions = it.value as ArrayList<Attractions>
+                        attractionListScreenAdapter?.attractions = attractions
+
+                    } else {
+                        if (it.value.isEmpty()) {
+                            pageNumber -= 1
+                        }else {
+                            it.value.forEach {
+                                attractions.add(it)
+                            }
+                            attractionListScreenAdapter?.attractions = attractions
+                        }
+
+                    }
 
 
 //                    attractionListScreenAdapter?.notifyDataSetChanged()
@@ -110,18 +132,29 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             adapter = attractionListScreenAdapter
 //            val items = createAttractionItems()
 //            attractionListScreenAdapter?.attractions = items
-            this.addOnScrollListener(object :
-                EndlessRecyclerViewScrollListener(layoutManager as LinearLayoutManager) {
-                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+            this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                var contentLoader = false
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (!recyclerView.canScrollVertically(1)) {
+                        contentLoader = true
+                        if (contentLoader) {
+                            pageNumber += 1
+                            contentLoaded = false
+                            callingObservables()
+                            contentLoader = false
 
-                    attractionViewModel.showToast("Next Page $page")
-//                    attractionViewModel.getAttractionThroughCategory(attractionCatId,
-//                        page,
-//                        totalItemsCount,
-//                        getCurrentLanguage().language)
+                        }
+                    }
+//                    val lastVisiblePosition: Int =
+//                        (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+//                    if (lastVisiblePosition == recyclerView.childCount) {
+//
+//
+//                    }
                 }
-
             })
+
             this.addOnItemTouchListener(RecyclerItemClickListener(
                 activity,
                 this,
