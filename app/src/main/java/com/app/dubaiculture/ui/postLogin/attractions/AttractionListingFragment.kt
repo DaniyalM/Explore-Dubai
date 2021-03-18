@@ -2,9 +2,12 @@ package com.app.dubaiculture.ui.postLogin.attractions
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,8 +20,10 @@ import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerIte
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.utils.EndlessRecyclerViewScrollListener
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter.Companion.delayAnimate
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
@@ -28,6 +33,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private var searchQuery: String = ""
     private var pageNumber: Int = 0
     private var pageSize: Int = 6
+
 
 
     companion object {
@@ -44,6 +50,9 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     }
 
 
+
+
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +63,12 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
         callingObservables()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+           attractionViewModel.showErrorDialog("|","||")
+        }, 1000)
+
+
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
 //            bus.post(AttractionBusService().SwipeToRefresh(true))
@@ -75,6 +90,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             when (it) {
                 is Result.Success -> {
                     attractionListScreenAdapter?.attractions = it.value
+
+
 //                    attractionListScreenAdapter?.notifyDataSetChanged()
 
 
@@ -99,6 +116,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             this.addOnScrollListener(object :
                 EndlessRecyclerViewScrollListener(layoutManager as LinearLayoutManager) {
                 override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+
+                    attractionViewModel.showToast("Next Page $page")
 //                    attractionViewModel.getAttractionThroughCategory(attractionCatId,
 //                        page,
 //                        totalItemsCount,

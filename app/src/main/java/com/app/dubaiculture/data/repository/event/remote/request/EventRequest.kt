@@ -2,7 +2,6 @@ package com.app.dubaiculture.data.repository.event.remote.request
 
 class EventRequest(
     val eventId: String? = "",
-
     val culture: String? = "",
     val userId: String? = "",
     val category: List<String> = emptyList(),
