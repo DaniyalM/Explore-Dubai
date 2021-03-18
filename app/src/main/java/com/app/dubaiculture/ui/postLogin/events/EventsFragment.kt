@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventsBinding
@@ -31,13 +33,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_events.view.*
 import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class EventsFragment : BaseFragment<FragmentEventsBinding>() {
+    private lateinit var featureAdapter: EventAdapter
     private lateinit var eventAdapter: EventAdapter
     private lateinit var moreAdapter: EventAdapter
-    private lateinit var nearAdapter: EventAdapter
     private val eventViewModel: EventViewModel by viewModels()
 
     @Inject
@@ -75,6 +78,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         setupToolbarWithSearchItems()
         subscribeToGpsListener()
         locationPermission()
+        callingObservables()
+        subscribeToObservables()
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
 //        }
@@ -91,15 +96,13 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         .observe(viewLifecycleOwner, gpsObserver)
 
     private fun rvSetUp() {
-        eventAdapter = EventAdapter(object : FavouriteChecker {
+        featureAdapter = EventAdapter(object : FavouriteChecker {
             override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
                 favouriteEvent(application.auth.isGuest, checkbox, isFav,R.id.action_eventsFragment_to_postLoginFragment)
             }
         }, object : RowClickListener {
             override fun rowClickListener() {
-
                 navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
-
             }
 
         })
@@ -109,27 +112,25 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             }
         }, object : RowClickListener {
             override fun rowClickListener() {
-//                action_eventsFragment_to_eventFilterFragment
                 navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
             }
         })
-        nearAdapter = EventAdapter(object : FavouriteChecker {
+        eventAdapter = EventAdapter(object : FavouriteChecker {
             override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
                 favouriteEvent(application.auth.isGuest, checkbox, isFav,R.id.action_eventsFragment_to_postLoginFragment)
             }
         }, object : RowClickListener {
             override fun rowClickListener() {
-//                action_eventsFragment_to_eventFilterFragment
                 navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
             }
         })
         binding.rvEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = eventAdapter
+            adapter = featureAdapter
 
         }
-        eventAdapter.events = createEventItems()
+        featureAdapter.events = createEventItems()
 
         binding.rvMoreEvent.apply {
             isNestedScrollingEnabled = false
@@ -142,10 +143,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         binding.rvNearEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = nearAdapter
+            adapter = eventAdapter
 
         }
-        nearAdapter.events = createEventItems()
+        eventAdapter.events = createEventItems()
 
     }
 
@@ -181,8 +182,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     private fun createTestItems(): List<EventHomeListing> =
         mutableListOf<EventHomeListing>().apply {
-
-
             repeat((1..2).count()) {
                 when (it % 2) {
                     0 -> {
@@ -262,4 +261,34 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         }
 
     }
+
+    private fun callingObservables() {
+        lifecycleScope.launch {
+            eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
+        }
+    }
+
+    private fun subscribeToObservables() {
+        eventViewModel.eventCategoryList.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    it.let {
+                        moreAdapter.events = it.value.events
+                        eventAdapter.events = it.value.events
+
+                        if(!it.value.featureEvents.isNullOrEmpty()){
+                            featureAdapter.events = it.value.featureEvents!!
+                        }
+//                        binding.horizontalSelector.initialize(it.value, binding.pager)
+//                        binding.pager.adapter = EventPagerAdapter(this, it.value)
+
+                    }
+                }
+                is Result.Failure -> {
+//                    handleApiError(it, attractionViewModel)
+                }
+            }
+        }
+    }
+
 }
