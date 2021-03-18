@@ -32,7 +32,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(),View.On
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.header.back.setOnClickListener(this)
+        binding!!.header.back.setOnClickListener(this)
         arguments?.let {
             // get near event model
         }
@@ -41,7 +41,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(),View.On
     }
     private fun rvSetUp(){
         eventNearAdapter = EventNearMapAdapter()
-        binding.rvNearEvent.apply {
+        binding!!.rvNearEvent.apply {
             layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             setHasFixedSize(true)
             adapter = eventNearAdapter

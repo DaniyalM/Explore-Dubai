@@ -18,7 +18,7 @@ class  ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCl
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(threeSixtyViewModel)
-        binding.imgBack.setOnClickListener(this)
+        binding!!.imgBack.setOnClickListener(this)
         initRv()
 
     }
@@ -37,7 +37,7 @@ class  ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCl
     }
 
     private fun initRv() {
-        binding.rv360View.apply {
+        binding!!.rv360View.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
             groupAdapter.apply {
@@ -53,6 +53,6 @@ class  ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCl
     }
 
     override fun onItemClick(img: Int?) {
-            binding.img360.setBackgroundResource(img!!)
+            binding!!.img360.setBackgroundResource(img!!)
     }
 }

@@ -22,12 +22,12 @@ class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBin
         }
 
         if(from == "RegisterNow"){
-            binding.regSuccessful.text = getString(R.string.register_confirm)
+            binding!!.regSuccessful.text = getString(R.string.register_confirm)
         }
-        binding.btnContinueReg.setOnClickListener(this)
+        binding!!.btnContinueReg.setOnClickListener(this)
 
-        binding.imgClose.setOnClickListener(this)
-        lottieAnimationRTL(binding.animRegistration)
+        binding!!.imgClose.setOnClickListener(this)
+        lottieAnimationRTL(binding!!.animRegistration)
     }
     override fun getFragmentBinding(
         inflater: LayoutInflater,

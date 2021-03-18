@@ -37,7 +37,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     ) = FragmentExploreBinding.inflate(inflater, container, false)
 
 
-    fun getRecyclerView() = binding.rvExplore
+    fun getRecyclerView() = binding!!.rvExplore
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -47,8 +47,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         subscribeToObservable()
 
 
-       binding.swipeRefresh.setOnRefreshListener {
-           binding.swipeRefresh.isRefreshing = false
+       binding!!.swipeRefresh.setOnRefreshListener {
+           binding!!.swipeRefresh.isRefreshing = false
            callingObservables()
         }
 
@@ -57,7 +57,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun setUpRecyclerView() {
         explore = ExploreRecyclerAsyncAdapter(activity)
 //        explore.items = createTestItems()
-        binding.rvExplore.apply {
+        binding!!.rvExplore.apply {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
 

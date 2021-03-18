@@ -41,16 +41,19 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
-        binding.root.ll_ar.setOnClickListener(this)
-        binding.root.ll_360.setOnClickListener(this)
-        binding.root.ll_img.setOnClickListener(this)
-        binding.root.back.setOnClickListener(this)
-        binding.imgBack.setOnClickListener(this)
-        binding.root.btn_book_a_ticket.setOnClickListener(this)
-        binding.root.tv_swipe_up.setOnClickListener(this)
-        binding.root.downOneAR.setOnClickListener(this)
-        binding.root.downOne360.setOnClickListener(this)
-        binding.root.downOneGallery.setOnClickListener(this)
+        binding!!.let {
+            it.root.ll_ar.setOnClickListener(this)
+            it.root.ll_360.setOnClickListener(this)
+            it.root.ll_img.setOnClickListener(this)
+            it.root.back.setOnClickListener(this)
+            it.imgBack.setOnClickListener(this)
+            it.root.btn_book_a_ticket.setOnClickListener(this)
+            it.root.tv_swipe_up.setOnClickListener(this)
+            it.root.downOneAR.setOnClickListener(this)
+            it.root.downOne360.setOnClickListener(this)
+            it.root.downOneGallery.setOnClickListener(this)
+        }
+
         uiActions()
         mapSetUp()
         rvSetUp()
@@ -59,9 +62,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     private fun uiActions() {
 
-        binding.apply {
+        binding?.apply {
             appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
+                if (verticalOffset == -binding!!.root.collapsingToolbarAttractionDetail.height + binding!!.root.toolbarAttractionDetail.height) {
                     Timber.e(verticalOffset.toString())
                     //toolbar is collapsed here
                     //write your code here
@@ -102,11 +105,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     private fun collapseAppbar(boolean: Boolean = false) {
-        binding.appbarAttractionDetail.setExpanded(boolean)
+        binding!!.appbarAttractionDetail.setExpanded(boolean)
     }
 
     private fun rvSetUp() {
-        binding.root.rv_up_coming.apply {
+        binding!!.root.rv_up_coming.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
             groupAdapter.apply {
@@ -145,15 +148,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         if (isArabic()) {
-            binding.root.cardview_plan_trip?.shapeAppearanceModel =
-                binding.root.cardview_plan_trip!!.shapeAppearanceModel
+            binding!!.root.cardview_plan_trip?.shapeAppearanceModel =
+                binding!!.root.cardview_plan_trip!!.shapeAppearanceModel
                     .toBuilder()
                     .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                     .setTopRightCornerSize(radius)
                     .build()
         } else {
-            binding.root.cardview_plan_trip?.shapeAppearanceModel =
-                binding.root.cardview_plan_trip!!.shapeAppearanceModel
+            binding!!.root.cardview_plan_trip?.shapeAppearanceModel =
+                binding!!.root.cardview_plan_trip!!.shapeAppearanceModel
                     .toBuilder()
                     .setTopLeftCorner(CornerFamily.ROUNDED, radius)
                     .setBottomRightCornerSize(radius)

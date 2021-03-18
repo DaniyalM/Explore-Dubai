@@ -2,12 +2,9 @@ package com.app.dubaiculture.ui.postLogin.attractions
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +17,6 @@ import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerIte
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.utils.EndlessRecyclerViewScrollListener
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
-import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter.Companion.delayAnimate
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -33,7 +29,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private var searchQuery: String = ""
     private var pageNumber: Int = 0
     private var pageSize: Int = 6
-
 
 
     companion object {
@@ -49,8 +44,10 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         }
     }
 
-
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isPagerFragment = true
+    }
 
 
     override fun getFragmentBinding(
@@ -64,9 +61,9 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         initRecyclerView()
         callingObservables()
 
-        Handler(Looper.getMainLooper()).postDelayed({
-           attractionViewModel.showErrorDialog("|","||")
-        }, 1000)
+//        Handler(Looper.getMainLooper()).postDelayed({
+//           attractionViewModel.showErrorDialog("|","||")
+//        }, 1000)
 
 
 //        binding.swipeRefresh.setOnRefreshListener {
@@ -108,7 +105,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     private fun initRecyclerView() {
         attractionListScreenAdapter = AttractionListScreenAdapter()
-        binding.rvAttractionListing.apply {
+        binding!!.rvAttractionListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = attractionListScreenAdapter
 //            val items = createAttractionItems()

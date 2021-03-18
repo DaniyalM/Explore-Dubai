@@ -43,8 +43,8 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(eventViewModel)
         initRecyclerView()
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = false
+        binding!!.swipeRefresh.setOnRefreshListener {
+            binding!!.swipeRefresh.isRefreshing = false
            // bus.post(AttractionBusService().SwipeToRefresh(true))
         }
 
@@ -60,7 +60,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
                 navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
             }
         })
-        binding.rvEventListing.apply {
+        binding!!.rvEventListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = eventListScreenAdapter
             eventListScreenAdapter.events = createAttractionItems()

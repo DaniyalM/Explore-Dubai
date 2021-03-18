@@ -28,10 +28,10 @@ class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListene
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.viewmodel = forgotViewModel
-        lottieAnimationRTL(binding.animationView)
+        binding!!.viewmodel = forgotViewModel
+        lottieAnimationRTL(binding!!.animationView)
         subscribeUiEvents(forgotViewModel)
-        backArrowRTL(binding.imgClose)
+        backArrowRTL(binding!!.imgClose)
         viewInitialize()
 
     }
@@ -51,9 +51,9 @@ class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListene
 
 
     private fun viewInitialize(){
-        binding.imgClose.setOnClickListener(this)
-        binding.tvCancel.setOnClickListener(this)
-        binding.btnOtp.setOnClickListener(this)
+        binding!!.imgClose.setOnClickListener(this)
+        binding!!.tvCancel.setOnClickListener(this)
+        binding!!.btnOtp.setOnClickListener(this)
 
     }
 }

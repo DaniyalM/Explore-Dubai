@@ -36,34 +36,34 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.viewmodel = loginViewModel
+        binding!!.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
-        binding.fragment = this
-        binding.forgotPass.setOnClickListener(this)
-        binding.imgUaePass.setOnClickListener(this)
-        lottieAnimationRTL(binding.animationView)
-        binding.tvRegisterNow.setOnClickListener {
+        binding!!.fragment = this
+        binding!!.forgotPass.setOnClickListener(this)
+        binding!!.imgUaePass.setOnClickListener(this)
+        lottieAnimationRTL(binding!!.animationView)
+        binding!!.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
-                binding.password to "my_password",
-                binding.editPassword to "my_edit_password",
-                binding.mobileNumber to "my_phone",
-                binding.editMobNo to "my_edit_phone",
-                binding.tvLoginAccount to "main_title",
-                binding.btnLogin to "action_btn"
+                binding!!.password to "my_password",
+                binding!!.editPassword to "my_edit_password",
+                binding!!.mobileNumber to "my_phone",
+                binding!!.editMobNo to "my_edit_phone",
+                binding!!.tvLoginAccount to "main_title",
+                binding!!.btnLogin to "action_btn"
             )
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment2,
                 null,
                 null,
                 extras)
         }
-        binding.tvAsGuest.setOnClickListener {
+        binding!!.tvAsGuest.setOnClickListener {
             application.auth.apply {
                 isLoggedIn = true
                 isGuest = true
             }
             activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
         }
-        binding.languageSwitch.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
+        binding!!.languageSwitch.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
             if (b)
                 setLanguage(Locale("ar"))
             else setLanguage(Locale.ENGLISH)
@@ -78,9 +78,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         subscribeToObservables()
         if(isArabic()){
-            binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
+            binding!!.imgUaePass.setImageResource(R.drawable.uae_pass_new)
         }else{
-            binding.imgUaePass.setImageResource(R.drawable.uae_pass)
+            binding!!.imgUaePass.setImageResource(R.drawable.uae_pass)
         }
     }
 
@@ -96,12 +96,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         when (v?.id) {
             R.id.forgot_pass ->{
                 val extras =FragmentNavigatorExtras(
-                    binding.password to "my_password",
-                    binding.editPassword to "my_edit_password",
-                    binding.mobileNumber to "my_phone",
-                    binding.editMobNo to "my_edit_phone",
-                    binding.tvLoginAccount to "main_title",
-                    binding.btnLogin to "action_btn"
+                    binding!!.password to "my_password",
+                    binding!!.editPassword to "my_edit_password",
+                    binding!!.mobileNumber to "my_phone",
+                    binding!!.editMobNo to "my_edit_phone",
+                    binding!!.tvLoginAccount to "main_title",
+                    binding!!.btnLogin to "action_btn"
             )
                 findNavController().navigate(R.id.action_loginFragment_to_bottomSheet,
                     null,
@@ -116,7 +116,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     override fun onResume() {
         super.onResume()
-        binding.animationView.playAnimation()
+        binding!!.animationView.playAnimation()
     }
 
     override fun onPause() {

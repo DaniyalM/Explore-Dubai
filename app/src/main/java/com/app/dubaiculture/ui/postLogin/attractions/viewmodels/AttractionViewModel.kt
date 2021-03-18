@@ -27,6 +27,11 @@ class AttractionViewModel @ViewModelInject constructor(
     val attractionDetail: LiveData<Result<Attractions>> = _attractionDetail
 
 
+    init {
+//        getAttractionCategoryToScreen("en")
+    }
+
+
     fun getAttractionCategoryToScreen(locale: String) {
         showLoader(true)
         viewModelScope.launch {

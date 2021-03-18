@@ -78,10 +78,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
 //        }
-        binding.tvViewMap.setOnClickListener {
+        binding!!.tvViewMap.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventNearMapFragment2)
         }
-        binding.root.view_all_events.setOnClickListener {
+        binding!!.root.view_all_events.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventFilterFragment)
         }
 
@@ -123,7 +123,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
             }
         })
-        binding.rvEvent.apply {
+        binding!!.rvEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = eventAdapter
@@ -131,7 +131,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         }
         eventAdapter.events = createEventItems()
 
-        binding.rvMoreEvent.apply {
+        binding!!.rvMoreEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = moreAdapter
@@ -139,7 +139,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
         moreAdapter.events = createEventItems()
 
-        binding.rvNearEvent.apply {
+        binding!!.rvNearEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = nearAdapter
@@ -150,7 +150,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     }
 
     private fun setupToolbarWithSearchItems() {
-        binding.root.apply {
+        binding!!.root.apply {
             profilePic.visibility = View.GONE
             img_drawer.visibility = View.GONE
             toolbar_title.apply {
@@ -163,15 +163,15 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         if (isArabic()) {
-            binding.root.cardivewRTL?.shapeAppearanceModel =
-                binding.root.cardivewRTL!!.shapeAppearanceModel
+            binding!!.root.cardivewRTL?.shapeAppearanceModel =
+                binding!!.root.cardivewRTL!!.shapeAppearanceModel
                     .toBuilder()
                     .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                     .setTopRightCornerSize(radius)
                     .build()
         } else {
-            binding.root.cardivewRTL?.shapeAppearanceModel =
-                binding.root.cardivewRTL!!.shapeAppearanceModel
+            binding!!.root.cardivewRTL?.shapeAppearanceModel =
+                binding!!.root.cardivewRTL!!.shapeAppearanceModel
                     .toBuilder()
                     .setTopLeftCorner(CornerFamily.ROUNDED, radius)
                     .setBottomRightCornerSize(radius)
@@ -249,14 +249,20 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private fun updateGpsCheckUI(status: GpsStatus) {
         when (status) {
             is GpsStatus.Enabled -> {
-                binding.tvViewMap.visibility = View.VISIBLE
-                binding.rvNearEvent.visibility = View.VISIBLE
-                binding.root.cardivewRTL.visibility = View.GONE
+                binding!!.apply {
+                    tvViewMap.visibility = View.VISIBLE
+                    rvNearEvent.visibility = View.VISIBLE
+                    root.cardivewRTL.visibility = View.GONE
+                }
+
             }
             is GpsStatus.Disabled -> {
-                binding.tvViewMap.visibility = View.GONE
-                binding.rvNearEvent.visibility = View.GONE
-                binding.root.cardivewRTL.visibility = View.VISIBLE
+                binding!!.apply {
+                    tvViewMap.visibility = View.GONE
+                    rvNearEvent.visibility = View.GONE
+                    root.cardivewRTL.visibility = View.VISIBLE
+                }
+
                 eventViewModel.showAlert(message = resources.getString(R.string.please_enable_gps))
             }
         }

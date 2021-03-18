@@ -43,6 +43,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected var isBusRegistered: Boolean = false
     protected lateinit var bus: Bus
     protected lateinit var activity: Activity
+
     protected var customProgressDialog: ProgressDialog? = null
     protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var networkRequest: NetworkRequest
@@ -54,6 +55,19 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
 
     private var _view: View? = null
+    protected var isPagerFragment = false
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        if (_view == null || isPagerFragment) {
+            dataBinding = getFragmentBinding(inflater, container)
+            _view = dataBinding.root
+        }
+        return _view
+    }
 
 
     override fun onAttach(context: Context) {
@@ -76,22 +90,11 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         groupAdapter = GroupAdapter()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-
-        dataBinding = getFragmentBinding(inflater, container)
-        return dataBinding.root
-
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //ViewModel is set as Binding Variable
-        dataBinding.apply { lifecycleOwner = viewLifecycleOwner }
+        dataBinding?.apply { lifecycleOwner = viewLifecycleOwner }
     }
 
     protected abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): DB
@@ -104,7 +107,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             isBusRegistered = false
         }
         groupAdapter.clear()
-
+        if (_view != null) {
+            _view = null
+        }
     }
 
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
@@ -159,7 +164,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
     fun navigateByDirections(navDirections: NavDirections) {
         EventUtilFunctions.navigateByDirections(this, navDirections)
-
     }
 
     fun navigateByAction(actionId: Int, bundle: Bundle? = null) {
@@ -233,15 +237,15 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     fun cardViewRTL(materialCardView: MaterialCardView) {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         if (isArabic()) {
-            binding.root.materialCardView?.shapeAppearanceModel =
-                binding.root.materialCardView!!.shapeAppearanceModel
+            binding!!.root.materialCardView?.shapeAppearanceModel =
+                binding!!.root.materialCardView!!.shapeAppearanceModel
                     .toBuilder()
                     .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                     .setTopRightCornerSize(radius)
                     .build()
         } else {
-            binding.root.materialCardView?.shapeAppearanceModel =
-                binding.root.materialCardView!!.shapeAppearanceModel
+            binding!!.root.materialCardView?.shapeAppearanceModel =
+                binding!!.root.materialCardView!!.shapeAppearanceModel
                     .toBuilder()
                     .setTopLeftCorner(CornerFamily.ROUNDED, radius)
                     .setBottomRightCornerSize(radius)

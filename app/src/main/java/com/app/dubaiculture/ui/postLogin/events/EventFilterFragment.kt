@@ -31,15 +31,15 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.root.img_filter.setOnClickListener(this)
-        binding.root.back.setOnClickListener(this)
+        binding!!.root.img_filter.setOnClickListener(this)
+        binding!!.root.back.setOnClickListener(this)
         subscribeUiEvents(eventViewModel)
         callingObservables()
         subscribeToObservables()
         initiatePager()
         QBadgeView(activity)
             .setBadgeBackgroundColor(R.color.colorPrimary)
-            .bindTarget(binding.root.badge_placement).setBadgeNumber(5)
+            .bindTarget(binding!!.root.badge_placement).setBadgeNumber(5)
             .stroke(R.color.black_900, 6F, true)
             .setBadgeGravity(Gravity.START or Gravity.TOP)
             .setGravityOffset(18F, 6F, true)
@@ -51,7 +51,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
     }
 
     private fun initiatePager() {
-        binding.pager.isUserInputEnabled = false
+        binding!!.pager.isUserInputEnabled = false
     }
 
     private fun callingObservables() {
@@ -68,8 +68,8 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
 //                        binding.horizontalSelector.initialize(it.value, binding.pager)
 //                        binding.pager.adapter = EventPagerAdapter(this, it.value)
-                        binding.horizontalSelector.initialize(createTestItems(),
-                            binding.pager,
+                        binding!!.horizontalSelector.initialize(createTestItems(),
+                            binding!!.pager,
                             this)
 
                     }
@@ -84,7 +84,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
     override fun onResume() {
         super.onResume()
-        binding.horizontalSelector.positionUpdate(EventHeaderItemSelector.clickCheckerFlag)
+        binding!!.horizontalSelector.positionUpdate(EventHeaderItemSelector.clickCheckerFlag)
     }
 
     private fun createTestItems(): List<EventHomeListing> =

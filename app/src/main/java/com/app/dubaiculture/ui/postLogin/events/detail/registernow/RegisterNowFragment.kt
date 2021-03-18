@@ -19,7 +19,7 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.On
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.btnSubmit.setOnClickListener(this)
+        binding!!.btnSubmit.setOnClickListener(this)
 
     }
 
