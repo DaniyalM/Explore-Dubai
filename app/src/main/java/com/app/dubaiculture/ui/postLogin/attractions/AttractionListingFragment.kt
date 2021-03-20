@@ -18,6 +18,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScre
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_attraction_listing.*
 
 
 @AndroidEntryPoint
@@ -29,8 +30,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private var pageNumber: Int = 0
     private var pageSize: Int = 3
     private lateinit var attractions: ArrayList<Attractions>
-
     var contentLoaded = false
+    var contentLoadMore = true
 
 
     companion object {
@@ -49,6 +50,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isPagerFragment = true
+//        contentLoaded = true
     }
 
 
@@ -63,23 +65,11 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         initRecyclerView()
         callingObservables()
         subscribeToObservables()
-
-//        Handler(Looper.getMainLooper()).postDelayed({
-//           attractionViewModel.showErrorDialog("|","||")
-//        }, 1000)
-
-
-//        binding.swipeRefresh.setOnRefreshListener {
-//            binding.swipeRefresh.isRefreshing = false
-//            bus.post(AttractionBusService().SwipeToRefresh(true))
-//        }
-//        attractionViewModel.showToast(attractionId)
-
     }
 
     private fun callingObservables() {
         if (!contentLoaded) {
-
+            progressBar.visibility = View.VISIBLE
             attractionViewModel.getAttractionThroughCategory(attractionCatId,
                 pageNumber,
                 pageSize,
@@ -93,7 +83,11 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         attractionViewModel.attractionList.observe(viewLifecycleOwner) {
 
             when (it) {
+
                 is Result.Success -> {
+                    progressBar.visibility = View.GONE
+                    contentLoadMore = true
+
                     if (pageNumber < 1) {
                         attractions = it.value as ArrayList<Attractions>
                         attractionListScreenAdapter?.attractions = attractions
@@ -101,7 +95,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                     } else {
                         if (it.value.isEmpty()) {
                             pageNumber -= 1
-                        }else {
+                        } else {
                             it.value.forEach {
                                 attractions.add(it)
                             }
@@ -116,6 +110,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
                 }
                 is Result.Failure -> {
+                    progressBar.visibility = View.GONE
+
                     handleApiError(it, attractionViewModel)
                 }
 
@@ -126,32 +122,39 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
 
     private fun initRecyclerView() {
+
+        var pastVisiblesItems: Int
+        var visibleItemCount: Int
+        var totalItemCount: Int
         attractionListScreenAdapter = AttractionListScreenAdapter()
-        binding!!.rvAttractionListing.apply {
+        binding.rvAttractionListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = attractionListScreenAdapter
-//            val items = createAttractionItems()
-//            attractionListScreenAdapter?.attractions = items
+
             this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                var contentLoader = false
+
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if (!recyclerView.canScrollVertically(1)) {
-                        contentLoader = true
-                        if (contentLoader) {
-                            pageNumber += 1
-                            contentLoaded = false
-                            callingObservables()
-                            contentLoader = false
+                    if (contentLoaded) {
+                        if (dy > 0) { //check for scroll down
+                            (layoutManager as LinearLayoutManager).apply {
+                                visibleItemCount = this.getChildCount()
+                                totalItemCount = this.getItemCount()
+                                pastVisiblesItems = this.findFirstVisibleItemPosition()
+                            }
 
+
+                            if (contentLoadMore) {
+                                if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                                    contentLoadMore = false
+                                    contentLoaded = false
+                                    pageNumber += 1
+                                    callingObservables()
+                                    // Do pagination.. i.e. fetch new data
+                                }
+                            }
                         }
                     }
-//                    val lastVisiblePosition: Int =
-//                        (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-//                    if (lastVisiblePosition == recyclerView.childCount) {
-//
-//
-//                    }
                 }
             })
 

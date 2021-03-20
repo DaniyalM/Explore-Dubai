@@ -56,7 +56,7 @@ class AttractionViewModel @ViewModelInject constructor(
         pageSize: Int,
         locale: String,
     ) {
-        showLoader(true)
+//        showLoader(true)
         viewModelScope.launch {
             when (val result = attractionRepository.getAttractionsByCategory(
                 AttractionRequest(
