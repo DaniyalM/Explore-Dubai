@@ -304,7 +304,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     root.cardivewRTL.visibility = View.VISIBLE
                 }
 
-                eventViewModel.showAlert(message = resources.getString(R.string.please_enable_gps))
+//                eventViewModel.showAlert(message = resources.getString(R.string.please_enable_gps))
             }
         }
 

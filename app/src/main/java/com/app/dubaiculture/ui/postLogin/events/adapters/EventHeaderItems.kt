@@ -30,7 +30,6 @@ class EventHeaderItems <T>(
 
     private lateinit var view: View
 
-
     override fun initBinding(viewHolder: GroupieViewHolder, position: Int) {
         view=viewHolder.root
         viewHolder.apply {

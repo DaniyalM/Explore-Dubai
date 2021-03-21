@@ -164,4 +164,8 @@
     <string name="register_confirm">Registration Confirmed</string>
     <string name="various_artistic_and_cultural_activities">Various artistic and cultural activities</string>
     <string name="opening_show_the_wise_poet_a_theatrical_performance_by_al_ahli_dubai_theatre">Opening show ‘The Wise Poet’ a theatrical performance by Al Ahli Dubai Theatre</string>
+    <string name="all">All</string>
+    <string name="this_week">This Week</string>
+    <string name="this_weekend">This Weekend</string>
+    <string name="next_seven_days">Next 7 Days</string>
 </resources>
