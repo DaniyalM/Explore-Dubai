@@ -38,7 +38,9 @@ object AppModule {
         Geocoder(context, Locale.getDefault())
 
 
-//    @Singleton
-//    @Provides
-//    fun provideLocationHelper()= LocationHelper()
+    @Singleton
+    @Provides
+    fun provideLocationHelper(@ApplicationContext context: Context) =
+        LocationHelper(provideFusedLocationProviderClient(context),
+            provideLocationRequest(), context)
 }

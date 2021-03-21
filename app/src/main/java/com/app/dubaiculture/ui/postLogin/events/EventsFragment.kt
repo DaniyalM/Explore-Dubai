@@ -67,7 +67,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     @Inject
     lateinit var glide: RequestManager
-    val locationHelper = LocationHelper()
+
+    @Inject
+    lateinit var locationHelper: LocationHelper
+//    val locationHelper = LocationHelper()
 
     private val gpsObserver = Observer<GpsStatus> { status ->
         status?.let {
@@ -269,9 +272,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             Manifest.permission.ACCESS_FINE_LOCATION,
             options = quickPermissionsOption
         ) {
-            locationHelper.locationSetUp(fusedLocationProviderClient,
-                locationRequest,
-                activity,
+            locationHelper.locationSetUp(
                 object : LocationHelper.LocationLatLng {
                     override fun getCurrentLocation(location: Location) {
                         Timber.e("Current Location ${location.latitude}")
@@ -289,7 +290,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private fun updateGpsCheckUI(status: GpsStatus) {
         when (status) {
             is GpsStatus.Enabled -> {
-                binding!!.apply {
+                binding.apply {
                     tvViewMap.visibility = View.VISIBLE
                     rvNearEvent.visibility = View.VISIBLE
                     root.cardivewRTL.visibility = View.GONE
@@ -297,7 +298,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
             }
             is GpsStatus.Disabled -> {
-                binding!!.apply {
+                binding.apply {
                     tvViewMap.visibility = View.GONE
                     rvNearEvent.visibility = View.GONE
                     root.cardivewRTL.visibility = View.VISIBLE
