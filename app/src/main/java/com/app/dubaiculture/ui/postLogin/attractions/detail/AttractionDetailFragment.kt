@@ -9,11 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItems
-import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
+import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -38,7 +41,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     @Inject
     lateinit var glide: RequestManager
-    private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
+    private val attractionDetailViewModel: AttractionViewModel by viewModels()
     private var detailImage: String? = null
     private var detailTitle: String? = null
     private var detailCategory: String? = null
@@ -70,7 +73,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
-        binding!!.let {
+        binding.let {
             it.root.ll_ar.setOnClickListener(this)
             it.root.ll_360.setOnClickListener(this)
             it.root.ll_img.setOnClickListener(this)
@@ -82,11 +85,50 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             it.root.downOne360.setOnClickListener(this)
             it.root.downOneGallery.setOnClickListener(this)
         }
+        callingObservables()
+        subscribeObservables()
 
         uiActions()
         mapSetUp()
         rvSetUp()
         cardViewRTL()
+    }
+
+    private fun initializeDetails(attraction: Attractions) {
+        binding.root.apply {
+            attraction.apply {
+                tv_title.text = title
+                tv_category.text =category
+                tv_attraction_days.text = "$startDay - $endDay"
+                tv_location.text = locationTitle
+//            tv_km.text=value.
+                tv_desc_readmore.text =description
+            }
+
+
+        }
+    }
+
+    private fun callingObservables() {
+        detailId?.let {
+            attractionDetailViewModel.getAttractionDetailsToScreen(
+                attractionId = it,
+                getCurrentLanguage().language
+            )
+        }
+    }
+
+    private fun subscribeObservables() {
+        attractionDetailViewModel.attractionDetail.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    initializeDetails(it.value)
+                }
+                is Result.Failure -> {
+                    handleApiError(it, attractionDetailViewModel)
+                }
+            }
+        }
     }
 
     private fun uiActions() {
@@ -102,12 +144,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     //toolbar is collapsed here
                     //write your code here
                     defaultCloseToolbar.visibility = View.VISIBLE
-    //                    img.visibility = View.VISIBLE
-    //                    imageView.visibility = View.VISIBLE
+                    //                    img.visibility = View.VISIBLE
+                    //                    imageView.visibility = View.VISIBLE
                 } else {
                     defaultCloseToolbar.visibility = View.GONE
-    //                    imageView.visibility = View.GONE
-    //                    img.visibility = View.GONE
+                    //                    imageView.visibility = View.GONE
+                    //                    img.visibility = View.GONE
 
                 }
             })
@@ -130,9 +172,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 attractionDetailViewModel.showToast("bookingCalender Toolbar Clicked")
             }
 
-    //            binding.imgBack.setOnClickListener {
-    //                back()
-    //            }
+            //            binding.imgBack.setOnClickListener {
+            //                back()
+            //            }
 
         }
     }

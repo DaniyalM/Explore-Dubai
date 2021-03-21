@@ -80,16 +80,13 @@ class AttractionViewModel @ViewModelInject constructor(
 
     fun getAttractionDetailsToScreen(
         attractionId: String,
-        pageNum: Int,
-        pageSize: Int,
+
         locale: String,
     ) {
         showLoader(true)
         viewModelScope.launch {
             when (val result = attractionRepository.getAttractionDetail(AttractionRequest(
                 attractionId = attractionId,
-                pageNumber = pageNum,
-                pageSize = pageSize,
                 culture = locale))) {
 
                 is Result.Success -> {

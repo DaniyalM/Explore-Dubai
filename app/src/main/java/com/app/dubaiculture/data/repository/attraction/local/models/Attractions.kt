@@ -20,5 +20,5 @@ data class Attractions(
     var endDay: String? = "",
     var startDay: String? = "",
     var color: String? = "",
-    var events: ArrayList<Events>?=null
+    var events:List<Events>?=null
 ): Parcelable

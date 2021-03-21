@@ -102,14 +102,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
 
     private fun uiActions() {
-        binding!!.root.btn_reg.setOnClickListener(this)
-        binding!!.root.back_event.setOnClickListener(this)
-        binding!!.root.tv_swipe_up_event.setOnClickListener(this)
-        binding!!.root.img_share_event.setOnClickListener(this)
-        binding!!.root.bookingCalender_event.setOnClickListener(this)
-        binding!!.root.favourite_event.setOnClickListener(this)
+        binding.root.btn_reg.setOnClickListener(this)
+        binding.root.back_event.setOnClickListener(this)
+        binding.root.tv_swipe_up_event.setOnClickListener(this)
+        binding.root.img_share_event.setOnClickListener(this)
+        binding.root.bookingCalender_event.setOnClickListener(this)
+        binding.root.favourite_event.setOnClickListener(this)
 
-        binding!!.apply {
+        binding.apply {
             appbarEventnDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
                 if (verticalOffset == -binding!!.root.collapsingToolbarEventDetail.height + binding!!.root.toolbarEventDetail.height) {
                     Timber.e(verticalOffset.toString())

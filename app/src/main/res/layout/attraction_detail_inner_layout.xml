@@ -635,9 +635,10 @@
             android:layout_height="wrap_content"
             android:columnCount="1"
             android:layout_marginTop="@dimen/_10sdp"
-
             app:layout_constraintTop_toBottomOf="@+id/heading_up_coming"
-            tools:listitem="@layout/attraction_detail_up_coming_items" />
+            />
+
+<!--        tools:listitem="@layout/attraction_detail_up_coming_items"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

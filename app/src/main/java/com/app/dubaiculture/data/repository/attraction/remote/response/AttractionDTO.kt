@@ -67,6 +67,6 @@ class AttractionDTO {
 
     @SerializedName("Events")
     @Expose
-    var events: ArrayList<Events>? = null
+    var events: List<Events> = emptyList()
 
 }

@@ -72,8 +72,8 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
     startDay = attraction.startDay,
     endDay = attraction.endDay,
     color = attraction.color,
-    IsFavourite = attraction.isFavourite!!,
-    events = attraction.events!!
+    IsFavourite = attraction.isFavourite,
+    events = attraction.events
 )
 
 
@@ -89,7 +89,7 @@ fun transformAttractions(list: List<AttractionDTO>): List<Attractions> =
                 id = it.id!!,
                 title = it.title!!,
                 category = it.category!!,
-                IsFavourite = it.isFavourite!!,
+                IsFavourite = it.isFavourite,
                 locationTitle = it.locationTitle,
                 location = it.location,
                 portraitImage = it.portraitImage,

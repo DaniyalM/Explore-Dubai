@@ -12,9 +12,9 @@ interface AttractionService {
     @GET("/api/Content/GetAttractionCategories")
     suspend fun getAttractionCategoryApi(@Query("culture") culture: String): AttractionResponse
 
-    @GET("/attraction/{attraction_id}")
+    @GET("/api/Content/GetAttractionDetails")
     suspend fun getAttractionDetail(
-        @Path("attraction_id") attractionId: String,
+        @Query("Id") attractionId: String,
         @Query("culture") culture: String,
     ): AttractionResponse
 
