@@ -17,23 +17,12 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.00"
             />
-        <ImageView
-            android:id="@+id/img_detail"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:scaleType="centerCrop"
-            android:visibility="gone"
-            android:background="@drawable/event_detail_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+
 
         <ImageView
             android:id="@+id/bg_border"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:background="@drawable/attraction_detail_bg_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

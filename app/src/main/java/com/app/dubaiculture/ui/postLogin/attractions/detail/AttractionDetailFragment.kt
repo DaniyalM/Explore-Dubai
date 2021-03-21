@@ -1,16 +1,20 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItems
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
+import com.bumptech.glide.RequestManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -25,13 +29,38 @@ import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import timber.log.Timber
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener {
-    private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
 
+    @Inject
+    lateinit var glide: RequestManager
+    private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
+    private var detailImage: String? = null
+    private var detailTitle: String? = null
+    private var detailCategory: String? = null
+    private var detailId: String? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.apply {
+            getString(AttractionListingFragment.ATTRACTION_DETAIL_ID)?.let {
+                detailId = it
+            }
+            getString(AttractionListingFragment.ATTRACTION_DETAIL_IMAGE)?.let {
+                detailImage = it
+            }
+            getString(AttractionListingFragment.ATTRACTION_DETAIL_TITLE)?.let {
+                detailTitle = it
+            }
+            getString(AttractionListingFragment.ATTRACTION_DETAIL_CATEGORY)?.let {
+                detailCategory = it
+            }
+        }
+    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -61,20 +90,24 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     private fun uiActions() {
-
-        binding?.apply {
+        binding.apply {
+            root.apply {
+                title.text = detailTitle
+                category.text = detailCategory
+                glide.load(BuildConfig.BASE_URL + detailImage).into(detailImageView)
+            }
             appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                if (verticalOffset == -binding!!.root.collapsingToolbarAttractionDetail.height + binding!!.root.toolbarAttractionDetail.height) {
+                if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
                     Timber.e(verticalOffset.toString())
                     //toolbar is collapsed here
                     //write your code here
                     defaultCloseToolbar.visibility = View.VISIBLE
-//                    img.visibility = View.VISIBLE
-//                    imageView.visibility = View.VISIBLE
+    //                    img.visibility = View.VISIBLE
+    //                    imageView.visibility = View.VISIBLE
                 } else {
                     defaultCloseToolbar.visibility = View.GONE
-//                    imageView.visibility = View.GONE
-//                    img.visibility = View.GONE
+    //                    imageView.visibility = View.GONE
+    //                    img.visibility = View.GONE
 
                 }
             })
@@ -97,9 +130,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 attractionDetailViewModel.showToast("bookingCalender Toolbar Clicked")
             }
 
-//            binding.imgBack.setOnClickListener {
-//                back()
-//            }
+    //            binding.imgBack.setOnClickListener {
+    //                back()
+    //            }
 
         }
     }

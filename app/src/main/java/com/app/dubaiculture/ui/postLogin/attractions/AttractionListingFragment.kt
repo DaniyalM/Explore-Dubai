@@ -38,6 +38,9 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
         var ATTRACTION_CATEG0RY_ID: String = "AttractionCatId"
         var ATTRACTION_DETAIL_ID: String = "Attraction_ID"
+        var ATTRACTION_DETAIL_IMAGE: String = "Attraction_IMAGE"
+        var ATTRACTION_DETAIL_TITLE: String = "Attraction_TITLE"
+        var ATTRACTION_DETAIL_CATEGORY: String = "Attraction_CATEGORY"
 
         @JvmStatic
         fun newInstance(attractionCatId: String = "") = AttractionListingFragment().apply {
@@ -163,11 +166,13 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                 this,
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
-//                        attractionViewModel.showErrorDialog(message = attractions.get(position).title)
+                        val attraction = attractions.get(position)
                         navigateByAction(R.id.action_attractionsFragment_to_attractionDetailFragment,
                             Bundle().apply {
-//                                this.putString(ATTRACTION_DETAIL_ID,
-//                                    items.get(position).id)
+                                this.putString(ATTRACTION_DETAIL_ID, attraction.id)
+                                this.putString(ATTRACTION_DETAIL_IMAGE, attraction.portraitImage)
+                                this.putString(ATTRACTION_DETAIL_TITLE, attraction.title)
+                                this.putString(ATTRACTION_DETAIL_CATEGORY, attraction.category)
                             })
                     }
 
