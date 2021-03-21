@@ -7,9 +7,9 @@ import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.events.EventListingFragment
 
-class EventPagerAdapter(fragment: Fragment, private val eventID : String = "") :
+class EventPagerAdapter(fragment: Fragment, private val eventID : Int) :
     FragmentStateAdapter(fragment) {
-    override fun getItemCount() = 9
+    override fun getItemCount() = 3
 
     override fun createFragment(position: Int) =
                 EventListingFragment.newInstance(eventID =  eventID)

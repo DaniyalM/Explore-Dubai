@@ -3,7 +3,6 @@ package com.app.dubaiculture.ui.postLogin.events
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
@@ -12,28 +11,27 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
-import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
     private val eventViewModel: EventViewModel by viewModels()
     private lateinit var eventListScreenAdapter: EventListScreenAdapter
-    private lateinit var eventID: String
+    var eventID: Int? = 0
 
     companion object {
         var EVENT_CATEG0RY_TYPE: String = "Events"
         var EVENT_DETAIL_ID: String = "Event_ID"
 
         @JvmStatic
-        fun newInstance(eventID: String?="") = EventListingFragment().apply {
+        fun newInstance(eventID: Int? = 0) = EventListingFragment().apply {
             arguments = Bundle().apply {
-                putString(EVENT_DETAIL_ID, eventID)
+                putInt(EVENT_DETAIL_ID, eventID!!)
             }
 
         }
@@ -43,24 +41,27 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(eventViewModel)
         initRecyclerView()
-        binding!!.swipeRefresh.setOnRefreshListener {
-            binding!!.swipeRefresh.isRefreshing = false
-           // bus.post(AttractionBusService().SwipeToRefresh(true))
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            // bus.post(AttractionBusService().SwipeToRefresh(true))
         }
 
     }
 
     private fun initRecyclerView() {
-        eventListScreenAdapter = EventListScreenAdapter(object : FavouriteChecker{
+        eventListScreenAdapter = EventListScreenAdapter(object : FavouriteChecker {
             override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest, checkbox, isFav,R.id.action_eventFilterFragment_to_postLoginFragment)
+                favouriteEvent(application.auth.isGuest,
+                    checkbox,
+                    isFav,
+                    R.id.action_eventFilterFragment_to_postLoginFragment)
             }
-        },object :RowClickListener{
+        }, object : RowClickListener {
             override fun rowClickListener() {
                 navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
             }
         })
-        binding!!.rvEventListing.apply {
+        binding.rvEventListing.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = eventListScreenAdapter
             eventListScreenAdapter.events = createAttractionItems()
@@ -69,8 +70,11 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.getString(EVENT_CATEG0RY_TYPE)
-            ?.let { eventID = it }
+        arguments?.getInt(EVENT_DETAIL_ID)
+            ?.let {
+                eventID = it
+                Timber.e(eventID.toString())
+            }
     }
 
     override fun getFragmentBinding(
