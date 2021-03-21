@@ -1,8 +1,9 @@
 package com.app.dubaiculture.data.repository.attraction.remote.response
 
+import com.app.dubaiculture.data.repository.attraction.local.models.SocialLink
 import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.event.remote.response.EventsDTO
 import com.google.gson.annotations.Expose
-
 import com.google.gson.annotations.SerializedName
 
 
@@ -28,6 +29,12 @@ class AttractionDTO {
     @SerializedName("Location")
     @Expose
     var location: String? = null
+    @SerializedName("Latitude")
+    @Expose
+    var latitude: String? = null
+    @SerializedName("Longitude")
+    @Expose
+    var longitude: String? = null
 
     @SerializedName("PortraitImage")
     @Expose
@@ -67,6 +74,14 @@ class AttractionDTO {
 
     @SerializedName("Events")
     @Expose
-    var events: List<Events> = emptyList()
+    var events: List<EventsDTO> = emptyList()
+
+    @SerializedName("SocialLinks")
+    @Expose
+    var socialLinks: List<SocialLinkDTO> = emptyList()
+
+    @SerializedName("Gallery")
+    @Expose
+    var gallery: List<GalleryDTO> = emptyList()
 
 }

@@ -1,8 +1,9 @@
 package com.app.dubaiculture.data.repository.attraction.mapper
 
-import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
+import com.app.dubaiculture.data.repository.attraction.local.models.SocialLink
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequestDTO
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequestDTO
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
@@ -10,6 +11,7 @@ import com.app.dubaiculture.data.repository.attraction.remote.request.Attraction
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionCategoryDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionResponse
+import com.app.dubaiculture.data.repository.event.local.models.Events
 
 
 fun transformAttractionsRequest(attractionRequest: AttractionRequest) =
@@ -73,7 +75,48 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
     endDay = attraction.endDay,
     color = attraction.color,
     IsFavourite = attraction.isFavourite,
-    events = attraction.events
+    events = attraction.events.map {
+        Events(
+            id = it.id,
+            title = it.title,
+            category = it.category,
+            image = it.image,
+            fromDate = it.fromDate,
+            fromMonthYear = it.fromMonthYear,
+            fromTime = it.fromTime,
+            fromDay = it.fromDay,
+            toDate = it.toDate,
+            toMonthYear = it.toMonthYear,
+            toTime = it.toTime,
+            toDay = it.toDay,
+            type = it.type,
+//            color=it.color,
+            dateTo = it.dateTo,
+            dateFrom = it.dateFrom,
+            locationTitle = it.locationTitle,
+            location = it.location,
+            longitude = it.longitude,
+            latitude = it.latitude,
+            isFavourite = it.isFavourite,
+        )
+    },
+    gallery = attraction.gallery.map {
+        Gallery(
+            isImage = it.isImage,
+            galleryImage = it.galleryImage,
+            galleryThumbnail = it.galleryThumbnail,
+            galleryLink = it.galleryLink
+        )
+    },
+    socialLink = attraction.socialLinks.map {
+        SocialLink(
+            facebookPageLink = it.facebookPageLink,
+            facebookIcon = it.facebookIcon,
+            instagramIcon = it.instagramIcon,
+            instagramPageLink = it.instagramPageLink
+        )
+    }
+
 )
 
 

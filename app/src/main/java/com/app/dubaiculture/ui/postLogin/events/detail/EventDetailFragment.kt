@@ -50,53 +50,54 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         uiActions()
         rvSetUp()
 
-        binding!!.root.btn_register_now.setOnClickListener{
+        binding.root.btn_register_now.setOnClickListener{
 
         }
-        binding!!.root.tv_direction.setOnClickListener {
+        binding.root.tv_direction.setOnClickListener {
 
         }
-        binding!!.root.ll_callus.setOnClickListener {
+        binding.root.ll_callus.setOnClickListener {
 
         }
-        binding!!.root.ll_email_us.setOnClickListener {
-
-        }
-
-
-        binding!!.root.imgFb.setOnClickListener {
-
-        }
-
-        binding!!.root.imgTwitter.setOnClickListener {
+        binding.root.ll_email_us.setOnClickListener {
 
         }
 
 
-        binding!!.root.imgInsta.setOnClickListener {
+        binding.root.imgFb.setOnClickListener {
 
         }
 
-        binding!!.root.imgUtube.setOnClickListener {
+        binding.root.imgTwitter.setOnClickListener {
 
         }
 
 
-        binding!!.root.imgUtube.setOnClickListener {
+        binding.root.imgInsta.setOnClickListener {
 
         }
 
-        binding!!.root.imgLinkedin.setOnClickListener {
+
+        binding.root.imgUtube.setOnClickListener {
 
         }
 
-        binding!!.root.rbEventInfo.setOnClickListener {
-            binding!!.root.ll_even_info.visibility = View.VISIBLE
-            binding!!.root.ll_schedule.visibility = View.GONE
+
+        binding.root.imgUtube.setOnClickListener {
+
         }
-        binding!!.root.rbSchedule.setOnClickListener {
-            binding!!.root.ll_even_info.visibility = View.GONE
-            binding!!.root.ll_schedule.visibility = View.VISIBLE
+
+        binding.root.imgLinkedin.setOnClickListener {
+
+        }
+
+        binding.root.rbEventInfo.setOnClickListener {
+            binding.root.ll_even_info.visibility = View.VISIBLE
+            binding.root.ll_schedule.visibility = View.GONE
+        }
+        binding.root.rbSchedule.setOnClickListener {
+            binding.root.ll_even_info.visibility = View.GONE
+            binding.root.ll_schedule.visibility = View.VISIBLE
         }
     }
 
@@ -111,7 +112,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
         binding.apply {
             appbarEventnDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                if (verticalOffset == -binding!!.root.collapsingToolbarEventDetail.height + binding!!.root.toolbarEventDetail.height) {
+                if (verticalOffset == -binding.root.collapsingToolbarEventDetail.height + binding.root.toolbarEventDetail.height) {
                     Timber.e(verticalOffset.toString())
                     //toolbar is collapsed here
                     //write your code here
@@ -129,7 +130,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     private fun rvSetUp() {
-        binding!!.root.rv_event_up_coming.apply {
+        binding.root.rv_event_up_coming.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
             groupAdapter.apply {
@@ -164,7 +165,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
 
         scheduleAdapter = GroupAdapter()
-        binding!!.root.rvSchedule.apply {
+        binding.root.rvSchedule.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = scheduleAdapter
             scheduleAdapter.apply {
@@ -207,7 +208,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
     private fun mapSetUp() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-        mapFragment!!.getMapAsync(this)
+        mapFragment?.getMapAsync(this)
 
     }
 
