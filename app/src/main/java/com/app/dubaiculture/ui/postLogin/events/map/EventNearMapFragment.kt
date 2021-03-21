@@ -5,12 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventNearMapBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.events.EventsFragment
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventNearMapAdapter
+import com.app.dubaiculture.ui.postLogin.events.map.EventNearMapFragmentArgs.Companion.fromBundle
+import com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragmentArgs.Companion.fromBundle
+import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.SORTED_LIST
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,37 +27,37 @@ import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(),View.OnClickListener,
+class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.OnClickListener,
     OnMapReadyCallback {
-    lateinit var eventNearAdapter : EventNearMapAdapter
+    lateinit var eventNearAdapter: EventNearMapAdapter
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentEventNearMapBinding.inflate(inflater,container,false)
+    ) = FragmentEventNearMapBinding.inflate(inflater, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.header.back.setOnClickListener(this)
-        arguments?.let {
-            // get near event model
-        }
         rvSetUp()
         mapSetUp()
     }
-    private fun rvSetUp(){
+    private fun rvSetUp() {
         eventNearAdapter = EventNearMapAdapter()
         binding.rvNearEvent.apply {
-            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = eventNearAdapter
         }
-        eventNearAdapter.events = createTestItems()
+        eventNearAdapter.events = EventsFragment.nearEventList
     }
+
     private fun mapSetUp() {
-        val mapFragment = childFragmentManager.findFragmentById(R.id.google_map) as? SupportMapFragment
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.google_map) as? SupportMapFragment
         mapFragment!!.getMapAsync(this)
     }
+
     private fun createTestItems(): List<Events> =
         mutableListOf<Events>().apply {
             repeat((1..4).count()) {
@@ -64,9 +70,10 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(),View.On
                 ))
             }
         }
+
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.back->{
+        when (v?.id) {
+            R.id.back -> {
                 back()
             }
         }

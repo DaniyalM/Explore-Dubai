@@ -35,11 +35,17 @@ object Constants {
     object NavBundles {
         const val COMES_FROM_LOGIN: String = "loginFragment"
         const val SELECTED_CITY: String = "selectedCity"
+        const val SORTED_LIST: String = "SORTED_EVENT_LIST"
+
     }
 
 
     object Links {
         const val TERMS_CONDITIONS: String = "https://uat.weareneomads.com/terms-of-use"
+    }
+    object StaticLatLng{
+        const val LAT =  24.91420473643946
+        const val LNG = 67.18402864665703
     }
 
 }

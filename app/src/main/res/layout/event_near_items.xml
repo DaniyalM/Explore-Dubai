@@ -23,7 +23,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_70sdp"
-                    android:background="@drawable/must_see_icon_home"
+                    android:imageUrl="@{events.image}"
                     android:scaleType="center"
                     app:cornerRadius="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10 Km"
+                    android:text="@{Double.toString(events.distance) + `Km`}"
                     android:textColor="@color/black_200"
                     android:textSize="@dimen/_9ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/img"

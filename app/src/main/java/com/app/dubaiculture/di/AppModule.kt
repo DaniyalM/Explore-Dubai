@@ -3,6 +3,7 @@ package com.app.dubaiculture.di
 import android.content.Context
 import android.location.Geocoder
 import android.location.LocationManager
+import com.app.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import dagger.Module
@@ -35,4 +36,9 @@ object AppModule {
     @Provides
     fun provideGeoCoder(@ApplicationContext context: Context) =
         Geocoder(context, Locale.getDefault())
+
+
+//    @Singleton
+//    @Provides
+//    fun provideLocationHelper()= LocationHelper()
 }

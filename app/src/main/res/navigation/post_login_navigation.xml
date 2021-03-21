@@ -66,7 +66,13 @@
     <fragment
         android:id="@+id/eventNearMapFragment2"
         android:name="com.app.dubaiculture.ui.postLogin.events.map.EventNearMapFragment"
-        android:label="EventNearMapFragment" />
+        android:label="EventNearMapFragment" >
+
+        <argument
+            android:name="getEvents"
+            app:argType="com.app.dubaiculture.data.repository.event.local.models.Events[]"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/eventFilterFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.EventFilterFragment"
