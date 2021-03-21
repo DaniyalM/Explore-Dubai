@@ -10,5 +10,4 @@ class EventRequest(
     val dateFrom: String? = "",
     val dateTo: String? = "",
     val type: String? = "",
-
     )

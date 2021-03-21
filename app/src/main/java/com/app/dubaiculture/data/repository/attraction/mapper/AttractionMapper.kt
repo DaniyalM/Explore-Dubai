@@ -49,6 +49,7 @@ fun transformAttractionCategory(list: List<AttractionCategoryDTO>): List<Attract
 //                imgSelected = R.drawable.museums_icon_home,
 //                imgUnSelected = R.drawable.museum,
                 selectedSvg = it.selectedSvg,
+                color = it.color
 //                unselectedSvg = it.unselectedSvg,
             )
         }

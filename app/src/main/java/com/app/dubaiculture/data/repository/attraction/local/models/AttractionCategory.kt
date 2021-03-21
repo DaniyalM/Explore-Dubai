@@ -10,6 +10,7 @@ data class AttractionCategory(
     var isSelected: Boolean = false,
     var selectedSvg: String? = null,
     var unselectedSvg: String? = null,
+    var color: String? = null,
     var attractions: ArrayList<Attractions>?=null
 )
 

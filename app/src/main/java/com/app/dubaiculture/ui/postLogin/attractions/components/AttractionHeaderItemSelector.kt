@@ -139,6 +139,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     selectedBackground = getDrawableFromId(selectedBackground),
                     unSelectedBackground = getDrawableFromId(unSelectedBackground),
                     selectedInnerImg = it.selectedSvg,
+                    colorBg = it.color,
                     unSelectedInnerImg = it.icon,
                     progressListener = this)
                 )

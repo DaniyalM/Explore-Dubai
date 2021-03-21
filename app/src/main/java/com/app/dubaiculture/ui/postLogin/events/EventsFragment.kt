@@ -2,28 +2,41 @@ package com.app.dubaiculture.ui.postLogin.events
 
 import android.Manifest
 import android.location.Geocoder
+import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
+import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.SORTED_LIST
+import com.app.dubaiculture.utils.Constants.StaticLatLng.LAT
+import com.app.dubaiculture.utils.Constants.StaticLatLng.LNG
 import com.app.dubaiculture.utils.GpsStatus
+import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.material.shape.CornerFamily
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
@@ -31,13 +44,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_events.view.*
 import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class EventsFragment : BaseFragment<FragmentEventsBinding>() {
+    private lateinit var featureAdapter: EventAdapter
     private lateinit var eventAdapter: EventAdapter
     private lateinit var moreAdapter: EventAdapter
-    private lateinit var nearAdapter: EventAdapter
     private val eventViewModel: EventViewModel by viewModels()
 
     @Inject
@@ -49,17 +64,26 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     @Inject
     lateinit var locationRequest: LocationRequest
 
-    @Inject
-    lateinit var geocoder: Geocoder
-
 
     @Inject
     lateinit var glide: RequestManager
+    val locationHelper = LocationHelper()
 
     private val gpsObserver = Observer<GpsStatus> { status ->
         status?.let {
             updateGpsCheckUI(status)
         }
+    }
+
+//    private val locationCallback = object : LocationCallback() {
+//        override fun onLocationResult(locationResult: LocationResult) {
+//            Timber.e("CallBack => ${locationResult.lastLocation.toString()}")
+//        }
+//    }
+
+    companion object{
+        val nearEventList = ArrayList<Events>()
+
     }
 
     override fun getFragmentBinding(
@@ -70,11 +94,14 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(eventViewModel)
+
         rvSetUp()
         cardViewRTL()
         setupToolbarWithSearchItems()
         subscribeToGpsListener()
         locationPermission()
+        callingObservables()
+        subscribeToObservables()
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
 //        }
@@ -84,52 +111,56 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         binding!!.root.view_all_events.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventFilterFragment)
         }
-
     }
 
     private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
         .observe(viewLifecycleOwner, gpsObserver)
 
     private fun rvSetUp() {
-        eventAdapter = EventAdapter(object : FavouriteChecker {
+        featureAdapter = EventAdapter(object : FavouriteChecker {
             override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest, checkbox, isFav,R.id.action_eventsFragment_to_postLoginFragment)
+                favouriteEvent(application.auth.isGuest,
+                    checkbox,
+                    isFav,
+                    R.id.action_eventsFragment_to_postLoginFragment)
             }
         }, object : RowClickListener {
             override fun rowClickListener() {
-
                 navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
-
             }
 
         })
         moreAdapter = EventAdapter(object : FavouriteChecker {
             override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest, checkbox, isFav,R.id.action_eventsFragment_to_postLoginFragment)
+                favouriteEvent(application.auth.isGuest,
+                    checkbox,
+                    isFav,
+                    R.id.action_eventsFragment_to_postLoginFragment)
             }
         }, object : RowClickListener {
             override fun rowClickListener() {
-//                action_eventsFragment_to_eventFilterFragment
                 navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
             }
         })
-        nearAdapter = EventAdapter(object : FavouriteChecker {
+        eventAdapter = EventAdapter(object : FavouriteChecker {
             override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest, checkbox, isFav,R.id.action_eventsFragment_to_postLoginFragment)
+                favouriteEvent(application.auth.isGuest,
+                    checkbox,
+                    isFav,
+                    R.id.action_eventsFragment_to_postLoginFragment)
             }
         }, object : RowClickListener {
             override fun rowClickListener() {
-//                action_eventsFragment_to_eventFilterFragment
                 navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
             }
         })
         binding!!.rvEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = eventAdapter
+            adapter = featureAdapter
 
         }
-        eventAdapter.events = createEventItems()
+        featureAdapter.events = createEventItems()
 
         binding!!.rvMoreEvent.apply {
             isNestedScrollingEnabled = false
@@ -137,15 +168,13 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             adapter = moreAdapter
         }
 
-        moreAdapter.events = createEventItems()
 
         binding!!.rvNearEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = nearAdapter
+            adapter = eventAdapter
 
         }
-        nearAdapter.events = createEventItems()
 
     }
 
@@ -181,8 +210,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     private fun createTestItems(): List<EventHomeListing> =
         mutableListOf<EventHomeListing>().apply {
-
-
             repeat((1..2).count()) {
                 when (it % 2) {
                     0 -> {
@@ -242,7 +269,20 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             Manifest.permission.ACCESS_FINE_LOCATION,
             options = quickPermissionsOption
         ) {
-            // will work on fused location API
+            locationHelper.locationSetUp(fusedLocationProviderClient,
+                locationRequest,
+                activity,
+                object : LocationHelper.LocationLatLng {
+                    override fun getCurrentLocation(location: Location) {
+                        Timber.e("Current Location ${location.latitude}")
+                    }
+                },
+                object : LocationHelper.LocationCallBack {
+                    override fun getLocationResultCallback(locationResult: LocationResult?) {
+                        Timber.e("LocationResult ${locationResult!!.lastLocation.latitude}")
+                    }
+
+                })
         }
     }
 
@@ -267,5 +307,49 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             }
         }
 
+    }
+
+    private fun callingObservables() {
+        lifecycleScope.launch {
+            eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
+        }
+    }
+
+    private fun subscribeToObservables() {
+        eventViewModel.eventCategoryList.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    it.let {
+                        moreAdapter.events = eventViewModel.getMoreEvents(it.value.events)
+                        eventAdapter.events = sortNearEvent(eventViewModel.getNearEvents(it.value.events))
+                        if (!it.value.featureEvents.isNullOrEmpty()) {
+                            featureAdapter.events = it.value.featureEvents!!
+                        }
+                    }
+                }
+                is Result.Failure -> {
+                    showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+
+                }
+            }
+        }
+    }
+
+
+    fun sortNearEvent(list: List<Events>): List<Events> {
+        val myList = ArrayList<Events>()
+        list.forEach {
+            val distance = locationHelper.distance(LAT,
+                LNG,
+                it.longitude!!.toDouble(),
+                it.latitude!!.toDouble())
+            val km = distance / 0.62137
+            val distanceKM :Double = String.format("%.1f", km).toDouble()
+            it.distance = distanceKM
+            myList.sortWith(compareBy({ it.distance }))
+            nearEventList.add(it)
+            myList.add(it)
+        }
+        return myList
     }
 }

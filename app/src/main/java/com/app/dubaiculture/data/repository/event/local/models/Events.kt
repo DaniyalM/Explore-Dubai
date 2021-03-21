@@ -28,6 +28,8 @@ data class Events(
     var color: String ?= null,
     var dateTo: String = "",
     var dateFrom: String = "",
+    var distance: Double = 0.0,
+
 
     ) : Parcelable
 

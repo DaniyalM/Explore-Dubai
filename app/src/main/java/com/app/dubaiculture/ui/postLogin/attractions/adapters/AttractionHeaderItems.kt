@@ -31,6 +31,7 @@ class AttractionHeaderItems<T>(
     private val selectedInnerImg: String? = null,
     private val unSelectedInnerImg: String? = null,
     private val progressListener: AttractionHeaderClick? = null,
+    private val colorBg  : String? =null
 
     ) : BaseAdapter(R.layout.attraction_title_list_item) {
 

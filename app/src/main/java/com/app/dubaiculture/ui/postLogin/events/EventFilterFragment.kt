@@ -29,6 +29,7 @@ import timber.log.Timber
 class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnClickListener {
     private val eventViewModel: EventViewModel by viewModels()
     private val filterViewModel: FilterViewModel by viewModels()
+    lateinit var list  : List<Events>
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -47,7 +48,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
 
         if (filterViewModel.filterData.value != null) {
-            Timber.e("Model here=> "+filterViewModel.filterData.value!!.size.toString())
+            Log.e("Model here=>", filterViewModel.filterData.value!!.size.toString())
         }
     }
 
@@ -69,7 +70,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
             when (it) {
                 is Result.Success -> {
                     it.let {
-
+                        list = it.value.events
 //                        binding.horizontalSelector.initialize(it.value, binding.pager)
 //                        binding.pager.adapter = EventPagerAdapter(this, it.value)
                         binding!!.horizontalSelector.initialize(createTestItems(),
@@ -99,28 +100,28 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
                         add(
                             EventHomeListing(
                                 category = "All",
-                                events = createAttractionItems()
+                                events = list
                             ))
                     }
                     1 -> {
                         add(
                             EventHomeListing(
                                 category = "This Week",
-                                events = createAttractionItems()
+                                events = list
                             ))
                     }
                     2 -> {
                         add(
                             EventHomeListing(
                                 category = "This Weekend",
-                                events = createAttractionItems()
+                                events = list
                             ))
                     }
                     3 -> {
                         add(
                             EventHomeListing(
                                 category = "Next 7 Days",
-                                events = createAttractionItems()
+                                events = list
                             ))
                     }
                 }

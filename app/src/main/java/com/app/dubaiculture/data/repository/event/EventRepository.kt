@@ -37,7 +37,6 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
         }
 
     }
-
     suspend fun fetchEventsbyFilters(eventRequest: EventRequest): Result<List<Events>> {
         return when (val resultRds =
             eventRDS.getEventsByFilter(transformEventFiltersRequest(eventRequest))) {
