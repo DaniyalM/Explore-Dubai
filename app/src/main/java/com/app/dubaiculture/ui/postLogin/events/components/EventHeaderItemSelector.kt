@@ -88,7 +88,7 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
         this.list = list
         this.eventPager = attractionPager
         if (groupAdapter.itemCount == 0) {
-            this.eventPager?.adapter = EventPagerAdapter(eventFilterFragment, clickCheckerFlag).apply {
+            this.eventPager?.adapter = EventPagerAdapter(eventFilterFragment).apply {
                 provideListToPager(list)
             }
             itemsAddnUpdation()

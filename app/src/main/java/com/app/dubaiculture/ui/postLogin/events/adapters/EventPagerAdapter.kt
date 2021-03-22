@@ -5,7 +5,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.app.dubaiculture.ui.postLogin.events.EventListingFragment
 import com.app.dubaiculture.ui.postLogin.events.HeaderModel
 
-class EventPagerAdapter(fragment: Fragment, private val eventID: Int) :
+class EventPagerAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {
     private lateinit var list: List<HeaderModel>
 

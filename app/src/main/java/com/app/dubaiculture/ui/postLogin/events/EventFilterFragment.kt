@@ -44,12 +44,12 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         callingObservables()
         subscribeToObservables()
         initiatePager()
-//        QBadgeView(activity)
-//            .setBadgeBackgroundColor(R.color.colorPrimary)
-//            .bindTarget(binding!!.root.badge_placement).setBadgeNumber(5)
-//            .stroke(R.color.black_900, 6F, true)
-//            .setBadgeGravity(Gravity.START or Gravity.TOP)
-//            .setGravityOffset(18F, 6F, true)
+        QBadgeView(activity)
+            .setBadgeBackgroundColor(R.color.colorPrimary)
+            .bindTarget(binding!!.root.badge_placement).setBadgeNumber(5)
+            .stroke(R.color.black_900, 6F, true)
+            .setBadgeGravity(Gravity.START or Gravity.TOP)
+            .setGravityOffset(18F, 6F, true)
     }
 
     private fun initiatePager() {
