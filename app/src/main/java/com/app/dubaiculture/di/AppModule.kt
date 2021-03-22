@@ -43,5 +43,5 @@ object AppModule {
     @Provides
     fun provideLocationHelper(@ApplicationContext context: Context) =
         LocationHelper(provideFusedLocationProviderClient(context),
-            provideLocationRequest())
+            provideLocationRequest(),context)
 }

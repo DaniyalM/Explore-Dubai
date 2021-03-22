@@ -42,9 +42,7 @@ class EventNearMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         setUpEventNearMapViewHolder(holder = holder as EventNearMapAdapter.EventNearMapViewHolder,
             position)
     }
-
     override fun getItemCount() = events.size
-
     //Data Binding
     private inner class EventsListItemCell(context: Context) : AsyncCell(context) {
         var binding: EventNearItemsBinding? = null
@@ -54,7 +52,6 @@ class EventNearMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             return view.rootView
         }
     }
-
     private fun setUpEventNearMapViewHolder(
         holder: EventNearMapAdapter.EventNearMapViewHolder,
         position: Int,

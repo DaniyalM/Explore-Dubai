@@ -32,25 +32,24 @@ import java.util.*
 class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnClickListener {
     private val eventViewModel: EventViewModel by viewModels()
     private val filterViewModel: FilterViewModel by viewModels()
-    private var eventList = mutableListOf<Events>()
 
     private var isContentLoaded = false
-//    private var thisWeekList = mutableListOf<Events>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.root.img_filter.setOnClickListener(this)
         binding.root.back.setOnClickListener(this)
         subscribeUiEvents(eventViewModel)
-        callingObservables()
-        subscribeToObservables()
+//        callingObservables()
+//        subscribeToObservables()
         initiatePager()
-        QBadgeView(activity)
-            .setBadgeBackgroundColor(R.color.colorPrimary)
-            .bindTarget(binding!!.root.badge_placement).setBadgeNumber(5)
-            .stroke(R.color.black_900, 6F, true)
-            .setBadgeGravity(Gravity.START or Gravity.TOP)
-            .setGravityOffset(18F, 6F, true)
+        viewPagerSetUp()
+//        QBadgeView(activity)
+//            .setBadgeBackgroundColor(R.color.colorPrimary)
+//            .bindTarget(binding!!.root.badge_placement).setBadgeNumber(5)
+//            .stroke(R.color.black_900, 6F, true)
+//            .setBadgeGravity(Gravity.START or Gravity.TOP)
+//            .setGravityOffset(18F, 6F, true)
     }
 
     private fun initiatePager() {
@@ -71,27 +70,31 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
     }
 
-    private fun subscribeToObservables() {
-        eventViewModel.eventfilterRequest.observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Success -> {
-                    it.let {
-                        isContentLoaded = false
-//                        eventList.addAll(it.value)
-//                        thisWeekList = thisWeek(eventList)
-                        binding.pager.isSaveEnabled = false
-
-                        binding.horizontalSelector.initialize(createItems(),
-                            binding.pager,
-                            this)
-                    }
-                }
-                is Result.Failure -> {
-                    showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
-                }
-            }
-        }
+    private fun viewPagerSetUp(){
+        isContentLoaded = false
+        binding.pager.isSaveEnabled = false
+        binding.horizontalSelector.initialize(createItems(),
+            binding.pager,
+            this)
     }
+//    private fun subscribeToObservables() {
+//        eventViewModel.eventfilterRequest.observe(viewLifecycleOwner) {
+//            when (it) {
+//                is Result.Success -> {
+//                    it.let {
+//                        isContentLoaded = false
+//                        binding.pager.isSaveEnabled = false
+//                        binding.horizontalSelector.initialize(createItems(),
+//                            binding.pager,
+//                            this)
+//                    }
+//                }
+//                is Result.Failure -> {
+//                    showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+//                }
+//            }
+//        }
+//    }
 
     override fun onResume() {
         super.onResume()
@@ -132,13 +135,9 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
                                 title = getString(R.string.next_seven_days),
                             ))
                     }
-
-
                 }
-
             }
             isContentLoaded = true
-
         }
 
     override fun getFragmentBinding(
@@ -157,55 +156,6 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         }
     }
 
-    private fun thisWeek(list: List<Events>): MutableList<Events> {
-        val thisWeekList = mutableListOf<Events>()
-        list.forEach { eventDate ->
-            for (element in getWeek()) {
-                if (element == (dateFormat(eventDate.dateTo))) {
-                    thisWeekList.add(eventDate)
-                    Timber.e("week list size  ${thisWeekList.size.toString()}")
-                    break
-                }
-            }
-
-        }
-        return thisWeekList
-    }
-
-    private fun getWeekend(list: List<Events>) {
-        val weekendList = list.filter {
-            it.toDay == "Friday" || it.toDay == "Satruday"
-        }
-    }
-
-    private fun getNextSevenDays(list: List<Events>): Array<String?> {
-        val format: DateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val calendar: Calendar = GregorianCalendar()
-        val date = getDateObj("2021-03-28T17:19:00")
-        calendar.time = date
-        val next7Days = arrayOfNulls<String>(7)
-        for (i in 0..6) {
-            calendar.add(Calendar.DATE, i)
-            next7Days[i] = format.format(calendar.time)
-        }
-        return next7Days
-    }
-
-    private fun getWeek(dateString: String? = null): Array<String?> {
-        val format: DateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val calendar = Calendar.getInstance()
-        calendar.firstDayOfWeek = Calendar.MONDAY
-        calendar[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
-        val date = getDateObj("2021-03-28T17:19:00")
-        calendar.time = date
-        val days = arrayOfNulls<String>(7)
-        for (i in 0..6) {
-            days[i] = format.format(calendar.time)
-            calendar.add(Calendar.DAY_OF_MONTH, 1)
-            Timber.e("Week ${days[i]}")
-        }
-        return days
-    }
 
 
 }

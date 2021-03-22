@@ -58,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:scaleType="fitXY"
-                    android:background="@drawable/gallery"
+                    android:imageUrl="@{events.image}"
                     app:cornerRadius="@dimen/_15sdp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
                     app:layout_constraintEnd_toEndOf="parent"

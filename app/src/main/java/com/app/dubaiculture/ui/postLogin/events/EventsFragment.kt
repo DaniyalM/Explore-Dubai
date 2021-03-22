@@ -283,7 +283,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                         Timber.e("LocationResult ${locationResult!!.lastLocation.latitude}")
                     }
 
-                },activity)
+                })
         }
     }
 

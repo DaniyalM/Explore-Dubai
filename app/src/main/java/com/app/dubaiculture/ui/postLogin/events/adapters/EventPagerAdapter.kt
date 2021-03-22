@@ -7,17 +7,18 @@ import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.events.EventListingFragment
+import com.app.dubaiculture.ui.postLogin.events.HeaderModel
 
 class EventPagerAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {
 
-    private lateinit var list: List<EventHomeListing>
+    private lateinit var list: List<HeaderModel>
 
 
     override fun getItemCount() = list.size
-    fun provideListToPager(list: List<EventHomeListing>) {
+    fun provideListToPager(list: List<HeaderModel>) {
         this.list = list
     }
     override fun createFragment(position: Int) =
-                EventListingFragment.newInstance(eventID =  list[position].category)
+                EventListingFragment.newInstance(eventID =  list[position].id!!)
 }
