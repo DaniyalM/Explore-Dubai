@@ -1,11 +1,9 @@
 package com.app.dubaiculture.ui.postLogin.events
 
 import android.Manifest
-import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,6 @@ import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -21,20 +18,17 @@ import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.Constants.NavBundles.SORTED_LIST
 import com.app.dubaiculture.utils.Constants.StaticLatLng.LAT
 import com.app.dubaiculture.utils.Constants.StaticLatLng.LNG
 import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.material.shape.CornerFamily
@@ -84,7 +78,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 //        }
 //    }
 
-    companion object{
+    companion object {
         val nearEventList = ArrayList<Events>()
 
     }
@@ -283,7 +277,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                         Timber.e("LocationResult ${locationResult!!.lastLocation.latitude}")
                     }
 
-                })
+                }, activity)
         }
     }
 
@@ -322,7 +316,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 is Result.Success -> {
                     it.let {
                         moreAdapter.events = eventViewModel.getMoreEvents(it.value.events!!)
-                        eventAdapter.events = sortNearEvent(eventViewModel.getNearEvents(it.value.events!!))
+                        eventAdapter.events =
+                            sortNearEvent(eventViewModel.getNearEvents(it.value.events!!))
                         if (!it.value.featureEvents.isNullOrEmpty()) {
                             featureAdapter.events = it.value.featureEvents!!
                         }
@@ -345,7 +340,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 it.longitude!!.toDouble(),
                 it.latitude!!.toDouble())
             val km = distance / 0.62137
-            val distanceKM :Double = String.format("%.1f", km).toDouble()
+            val distanceKM: Double = String.format("%.1f", km).toDouble()
             it.distance = distanceKM
             myList.sortWith(compareBy({ it.distance }))
             nearEventList.add(it)
