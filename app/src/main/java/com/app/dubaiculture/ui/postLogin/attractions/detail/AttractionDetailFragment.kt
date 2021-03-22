@@ -128,7 +128,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 }
                 groupAdapter.apply {
                     events?.let { events ->
-                        events.forEach { add(UpComingItems(it)) }
+                        events.forEach { add(UpComingItems(event=it)) }
                     }
                 }
 

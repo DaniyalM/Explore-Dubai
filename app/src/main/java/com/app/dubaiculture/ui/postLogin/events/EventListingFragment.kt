@@ -16,6 +16,7 @@ import com.app.dubaiculture.databinding.FragmentEventListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
@@ -79,21 +80,22 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
     }
 
     private fun initRecyclerView() {
-        eventListScreenAdapter = EventListScreenAdapter(object : FavouriteChecker {
-            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest,
-                    checkbox,
-                    isFav,
-                    R.id.action_eventFilterFragment_to_postLoginFragment)
-            }
-        }, object : RowClickListener {
-            override fun rowClickListener() {
-                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
-            }
-        })
+//        eventListScreenAdapter = EventListScreenAdapter(object : FavouriteChecker {
+//            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
+//                favouriteEvent(application.auth.isGuest,
+//                    checkbox,
+//                    isFav,
+//                    R.id.action_eventFilterFragment_to_postLoginFragment)
+//            }
+//        }, object : RowClickListener {
+//            override fun rowClickListener() {
+//                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+//            }
+//        })
         binding.rvEventListing.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = eventListScreenAdapter
+//            adapter = eventListScreenAdapter
+            adapter=groupAdapter
 //            eventListScreenAdapter.events = createAttractionItems()
         }
     }
@@ -149,23 +151,39 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
                             ?.let {
                                 eventID = it
                                 Timber.e("Get Position =>${eventID.toString()}")
-                                when(it){
-                                    0->{
-                                        eventListScreenAdapter.events = allList
-                                    }
-                                    1->{
-                                        eventListScreenAdapter.events = thisWeeklist
 
-                                    }
-                                    2->{
-                                        eventListScreenAdapter.events = thisWeekendList
+                                groupAdapter.apply {
+                                    when(it){
+                                        0->{
+                                            allList.forEach {
+                                                add(EventListItem(event = it))
+                                            }
+//                                            eventListScreenAdapter.events = allList
+                                        }
+                                        1->{
+                                            thisWeeklist.forEach {
+                                                add(EventListItem(event = it))
+                                            }
+//                                            eventListScreenAdapter.events = thisWeeklist
 
-                                    }
-                                    3->{
-                                        eventListScreenAdapter.events = next7DaysList
+                                        }
+                                        2->{
+                                            thisWeekendList.forEach {
+                                                add(EventListItem(event = it))
+                                            }
+//                                            eventListScreenAdapter.events = thisWeekendList
 
+                                        }
+                                        3->{
+                                            next7DaysList.forEach {
+                                                add(EventListItem(event = it))
+                                            }
+//                                            eventListScreenAdapter.events = next7DaysList
+
+                                        }
                                     }
                                 }
+
                             }
                     }
                 }
