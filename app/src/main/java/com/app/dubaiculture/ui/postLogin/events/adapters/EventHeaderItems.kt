@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
-import com.app.dubaiculture.ui.postLogin.events.components.EventHeaderItemSelector.Companion.clickCheckerFlag
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.cardview
