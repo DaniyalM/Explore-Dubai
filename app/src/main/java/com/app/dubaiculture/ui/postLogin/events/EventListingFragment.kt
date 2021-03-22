@@ -29,13 +29,14 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
         var EVENT_DETAIL_ID: String = "Event_ID"
 
         @JvmStatic
-        fun newInstance(eventID: Int? = 0) = EventListingFragment().apply {
+        fun newInstance(eventID: Int = 0) = EventListingFragment().apply {
             arguments = Bundle().apply {
-                putInt(EVENT_DETAIL_ID, eventID!!)
+                putInt(EVENT_DETAIL_ID, eventID)
             }
 
         }
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

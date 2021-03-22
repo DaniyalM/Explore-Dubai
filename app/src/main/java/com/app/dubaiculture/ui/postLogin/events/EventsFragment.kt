@@ -283,7 +283,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                         Timber.e("LocationResult ${locationResult!!.lastLocation.latitude}")
                     }
 
-                })
+                },activity)
         }
     }
 
@@ -321,8 +321,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
-                        moreAdapter.events = eventViewModel.getMoreEvents(it.value.events)
-                        eventAdapter.events = sortNearEvent(eventViewModel.getNearEvents(it.value.events))
+                        moreAdapter.events = eventViewModel.getMoreEvents(it.value.events!!)
+                        eventAdapter.events = sortNearEvent(eventViewModel.getNearEvents(it.value.events!!))
                         if (!it.value.featureEvents.isNullOrEmpty()) {
                             featureAdapter.events = it.value.featureEvents!!
                         }

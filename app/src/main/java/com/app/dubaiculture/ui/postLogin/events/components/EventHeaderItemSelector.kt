@@ -13,6 +13,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.app.dubaiculture.ui.postLogin.events.EventFilterFragment
+import com.app.dubaiculture.ui.postLogin.events.HeaderModel
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventHeaderItems
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventPagerAdapter
 import com.xwray.groupie.GroupAdapter
@@ -27,7 +28,7 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var selectedInnerImg: Int? = null
     private var unSelectedInnerImg: Int? = null
     private val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
-    private var list: List<EventHomeListing>? = null
+    private var list: List<HeaderModel>? = null
     private var eventPager: ViewPager2? = null
     private var recyclerView: RecyclerView? = null
 
@@ -80,14 +81,16 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     @JvmName("eventHeader")
     fun initialize(
-        list: List<EventHomeListing>,
+        list: List<HeaderModel>,
         attractionPager: ViewPager2? = null,
         eventFilterFragment: EventFilterFragment,
     ) {
         this.list = list
         this.eventPager = attractionPager
         if (groupAdapter.itemCount == 0) {
-            this.eventPager?.adapter = EventPagerAdapter(eventFilterFragment, clickCheckerFlag)
+            this.eventPager?.adapter = EventPagerAdapter(eventFilterFragment, clickCheckerFlag).apply {
+                provideListToPager(list)
+            }
             itemsAddnUpdation()
         }
     }
@@ -103,7 +106,7 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
                 }
                 groupAdapter.add(
                     EventHeaderItems(
-                        displayValue = model.category!!,
+                        displayValue = model.title,
                         data = list,
                         isSelected = isSelected,
                         selectedTextColor = selectedTextColor,
@@ -115,9 +118,10 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
                 )
             }
         } else {
-            list?.get(previousPosition).let {
+            list?.get(previousPosition)?.let {
+
                 groupAdapter.notifyItemChanged(previousPosition, EventHeaderItems(
-                    displayValue = it!!.category!!,
+                    displayValue = it.title,
                     data = list,
                     isSelected = isSelected,
                     selectedTextColor = selectedTextColor,

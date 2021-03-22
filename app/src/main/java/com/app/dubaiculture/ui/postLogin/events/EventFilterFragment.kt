@@ -1,7 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.events
 
+//import q.rorbin.badgeview.QBadgeView
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.databinding.FragmentEventFilterBinding
@@ -23,7 +22,6 @@ import com.app.dubaiculture.utils.getDateObj
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import kotlinx.coroutines.launch
-import q.rorbin.badgeview.QBadgeView
 import timber.log.Timber
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -34,7 +32,9 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
     private val eventViewModel: EventViewModel by viewModels()
     private val filterViewModel: FilterViewModel by viewModels()
     private var eventList = mutableListOf<Events>()
-    private var thisWeekList = mutableListOf<Events>()
+
+    private var isContentLoaded = false
+//    private var thisWeekList = mutableListOf<Events>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -44,27 +44,30 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         callingObservables()
         subscribeToObservables()
         initiatePager()
-        QBadgeView(activity)
-            .setBadgeBackgroundColor(R.color.colorPrimary)
-            .bindTarget(binding!!.root.badge_placement).setBadgeNumber(5)
-            .stroke(R.color.black_900, 6F, true)
-            .setBadgeGravity(Gravity.START or Gravity.TOP)
-            .setGravityOffset(18F, 6F, true)
+//        QBadgeView(activity)
+//            .setBadgeBackgroundColor(R.color.colorPrimary)
+//            .bindTarget(binding!!.root.badge_placement).setBadgeNumber(5)
+//            .stroke(R.color.black_900, 6F, true)
+//            .setBadgeGravity(Gravity.START or Gravity.TOP)
+//            .setGravityOffset(18F, 6F, true)
     }
 
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
-        binding.horizontalSelector.initialize(createItems(),
-            binding.pager,
-            this)
+//        binding.horizontalSelector.initialize(createItems(),
+//            binding.pager,
+//            this)
     }
 
     private fun callingObservables() {
-        lifecycleScope.launch {
-            eventViewModel.getFilterEventList(EventRequest(
-                culture = getCurrentLanguage().language
-            ))
+        if (!isContentLoaded) {
+            lifecycleScope.launch {
+                eventViewModel.getFilterEventList(EventRequest(
+                    culture = getCurrentLanguage().language
+                ))
+            }
         }
+
     }
 
     private fun subscribeToObservables() {
@@ -72,8 +75,11 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
             when (it) {
                 is Result.Success -> {
                     it.let {
-                        eventList.addAll(it.value)
-                        thisWeekList = thisWeek(eventList)
+                        isContentLoaded = false
+//                        eventList.addAll(it.value)
+//                        thisWeekList = thisWeek(eventList)
+                        binding.pager.isSaveEnabled = false
+
                         binding.horizontalSelector.initialize(createItems(),
                             binding.pager,
                             this)
@@ -91,40 +97,47 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         binding.horizontalSelector.positionUpdate(EventHeaderItemSelector.clickCheckerFlag)
     }
 
-    private fun createItems(): List<EventHomeListing> =
-        mutableListOf<EventHomeListing>().apply {
+    private fun createItems(): List<HeaderModel> =
+        mutableListOf<HeaderModel>().apply {
             repeat((1..4).count()) {
                 when (it) {
                     0 -> {
                         add(
-                            EventHomeListing(
-                                category = getString(R.string.all),
-                                events = eventList
+                            HeaderModel(
+                                id = it,
+                                title = getString(R.string.all),
                             ))
                     }
                     1 -> {
                         add(
-                            EventHomeListing(
-                                category = getString(R.string.this_week),
-                                events = thisWeekList
+                            HeaderModel(
+                                id = it,
+                                title = getString(R.string.this_week),
                             ))
+
                     }
                     2 -> {
                         add(
-                            EventHomeListing(
-                                category = getString(R.string.this_weekend),
-                                events = eventList
+                            HeaderModel(
+                                id = it,
+                                title = getString(R.string.this_weekend),
                             ))
+
                     }
                     3 -> {
                         add(
-                            EventHomeListing(
-                                category = getString(R.string.next_seven_days),
-                                events = eventList
+                            HeaderModel(
+                                id = it,
+                                title = getString(R.string.next_seven_days),
                             ))
                     }
+
+
                 }
+
             }
+            isContentLoaded = true
+
         }
 
     override fun getFragmentBinding(
