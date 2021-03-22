@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,11 @@ import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
-import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItems
+import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.instagramNavigationIntent
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
@@ -33,12 +34,16 @@ import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import timber.log.Timber
+import java.io.IOException
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener {
+
+    private var url: String? = null
+    private var isPLAYING = false
 
     @Inject
     lateinit var glide: RequestManager
@@ -49,6 +54,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private var detailId: String? = null
     private var lat: String? = 24.8623.toString()
     private var long: String? = 67.0627.toString()
+    var mp: MediaPlayer? = MediaPlayer()
+
+
+    private fun stopPlaying() {
+        mp?.release()
+        mp = null
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -91,31 +103,41 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         rvSetUp()
         callingObservables()
         subscribeObservables()
-
         uiActions()
         mapSetUp()
-
         cardViewRTL()
     }
 
+
     private fun initializeDetails(attraction: Attractions) {
+        binding.attraction = attraction
+
         binding.root.apply {
             attraction.apply {
-                tv_title.text = title
-                tv_category.text = category
-                tv_attraction_days.text = "$startDay - $endDay"
-                tv_location.text = locationTitle
-//            tv_km.text=value.
-                tv_desc_readmore.text = description
+//                tv_title.text = title
+//                tv_category.text = category
+//                tv_attraction_days.text = "$startDay - $endDay"
+//                tv_location.text = locationTitle
+////            tv_km.text=value.
+//                tv_desc_readmore.text = description
+                url = audioLink
                 lat = latitude
                 long = longitude
-                groupAdapter.apply {
-                    events.forEach { add(UpComingItems(it)) }
+                instagram.setOnClickListener {
+                    startActivity(instagramNavigationIntent(activity.packageManager))
                 }
+                groupAdapter.apply {
+                    events?.let { events ->
+                        events.forEach { add(UpComingItems(it)) }
+                    }
+                }
+
+
             }
 
 
         }
+        mp?.setOnPreparedListener { mPlayer -> mPlayer?.start() }
     }
 
     private fun callingObservables() {
@@ -128,6 +150,22 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     private fun subscribeObservables() {
+        attractionDetailViewModel.isPlaying.observe(viewLifecycleOwner) {
+            if (it) {
+                try {
+                    mp?.let {
+                        it.setDataSource(url)
+                        it.prepareAsync();
+                        it.start()
+                    }
+
+                } catch (e: IOException) {
+                    Timber.e("prepare() failed")
+                }
+            } else {
+                stopPlaying()
+            }
+        }
         attractionDetailViewModel.attractionDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {

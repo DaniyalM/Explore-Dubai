@@ -18,18 +18,16 @@ class AttractionViewModel @ViewModelInject constructor(
     private val attractionRepository: AttractionRepository,
 ) : BaseViewModel(application) {
 
-    private val _attractionCategoryList: MutableLiveData<Result<List<AttractionCategory>>> = MutableLiveData()
+    private val _attractionCategoryList: MutableLiveData<Result<List<AttractionCategory>>> =
+        MutableLiveData()
     val attractionCategoryList: LiveData<Result<List<AttractionCategory>>> = _attractionCategoryList
     private val _attractionList: MutableLiveData<Result<List<Attractions>>> = MutableLiveData()
     val attractionList: LiveData<Result<List<Attractions>>> = _attractionList
 
     private val _attractionDetail: MutableLiveData<Result<Attractions>> = MutableLiveData()
     val attractionDetail: LiveData<Result<Attractions>> = _attractionDetail
-
-
-    init {
-//        getAttractionCategoryToScreen("en")
-    }
+    private var _isPlaying: MutableLiveData<Boolean> = MutableLiveData(false)
+     var isPlaying: LiveData<Boolean> = _isPlaying
 
 
     fun getAttractionCategoryToScreen(locale: String) {

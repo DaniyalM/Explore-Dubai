@@ -61,10 +61,10 @@ fun transformAttractionDetail(attractionResponse: AttractionResponse): Attractio
     transformAttractionDetail(attractionResponse.Result.attraction)
 
 fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attractions(
-    id = attraction.id!!,
-    title = attraction.title!!,
-    category = attraction.category!!,
-    locationTitle = attraction.locationTitle!!,
+    id = attraction.id.toString(),
+    title = attraction.title.toString(),
+    category = attraction.category.toString(),
+    locationTitle = attraction.locationTitle,
     location = attraction.location,
     portraitImage = attraction.portraitImage,
     landscapeImage = attraction.landscapeImage,
@@ -75,47 +75,53 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
     endDay = attraction.endDay,
     color = attraction.color,
     IsFavourite = attraction.isFavourite,
-    events = attraction.events.map {
-        Events(
-            id = it.id,
-            title = it.title,
-            category = it.category,
-            image = it.image,
-            fromDate = it.fromDate,
-            fromMonthYear = it.fromMonthYear,
-            fromTime = it.fromTime,
-            fromDay = it.fromDay,
-            toDate = it.toDate,
-            toMonthYear = it.toMonthYear,
-            toTime = it.toTime,
-            toDay = it.toDay,
-            type = it.type,
+    events = attraction.events?.let {
+        it.map {
+            Events(
+                id = it.id,
+                title = it.title,
+                category = it.category,
+                image = it.image,
+                fromDate = it.fromDate,
+                fromMonthYear = it.fromMonthYear,
+                fromTime = it.fromTime,
+                fromDay = it.fromDay,
+                toDate = it.toDate,
+                toMonthYear = it.toMonthYear,
+                toTime = it.toTime,
+                toDay = it.toDay,
+                type = it.type,
 //            color=it.color,
-            dateTo = it.dateTo,
-            dateFrom = it.dateFrom,
-            locationTitle = it.locationTitle,
-            location = it.location,
-            longitude = it.longitude,
-            latitude = it.latitude,
-            isFavourite = it.isFavourite,
-        )
+                dateTo = it.dateTo,
+                dateFrom = it.dateFrom,
+                locationTitle = it.locationTitle,
+                location = it.location,
+                longitude = it.longitude,
+                latitude = it.latitude,
+                isFavourite = it.isFavourite,
+            )
+        }
     },
-    gallery = attraction.gallery?.map {
-        Gallery(
-            isImage = it.isImage,
-            galleryImage = it.galleryImage,
-            galleryThumbnail = it.galleryThumbnail,
-            galleryLink = it.galleryLink
-        )
-    }!!,
-    socialLink = attraction.socialLinks?.map {
-        SocialLink(
-            facebookPageLink = it.facebookPageLink.toString(),
-            facebookIcon = it.facebookIcon.toString(),
-            instagramIcon = it.instagramIcon,
-            instagramPageLink = it.instagramPageLink.toString()
-        )
-    }!!
+    gallery = attraction.gallery?.let {
+        it.map {
+            Gallery(
+                isImage = it.isImage,
+                galleryImage = it.galleryImage,
+                galleryThumbnail = it.galleryThumbnail,
+                galleryLink = it.galleryLink
+            )
+        }
+    },
+    socialLink = attraction.socialLinks?.let {
+        it.map {
+            SocialLink(
+                facebookPageLink = it.facebookPageLink.toString(),
+                facebookIcon = it.facebookIcon.toString(),
+                instagramIcon = it.instagramIcon,
+                instagramPageLink = it.instagramPageLink.toString()
+            )
+        }
+    }
 
 )
 
