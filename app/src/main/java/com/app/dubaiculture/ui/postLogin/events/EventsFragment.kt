@@ -70,7 +70,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     @Inject
     lateinit var locationHelper: LocationHelper
-//    val locationHelper = LocationHelper()
+//    val locationHelper = LocationHelper
 
     private val gpsObserver = Observer<GpsStatus> { status ->
         status?.let {

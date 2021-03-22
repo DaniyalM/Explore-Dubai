@@ -15,6 +15,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHe
 import com.app.dubaiculture.ui.postLogin.events.EventFilterFragment
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventHeaderItems
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventPagerAdapter
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -32,7 +33,6 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var recyclerView: RecyclerView? = null
 
     companion object {
-        var clickCheckerFlag: Int = 0
         var previousPosition: Int = 0
     }
 
@@ -87,7 +87,9 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
         this.list = list
         this.eventPager = attractionPager
         if (groupAdapter.itemCount == 0) {
-            this.eventPager?.adapter = EventPagerAdapter(eventFilterFragment, clickCheckerFlag)
+            this.eventPager?.adapter = EventPagerAdapter(eventFilterFragment).apply {
+                provideListToPager(list)
+            }
             itemsAddnUpdation()
         }
     }

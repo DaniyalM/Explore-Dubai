@@ -22,21 +22,21 @@ open class LocationHelper @Inject constructor(
     val locationRequest: LocationRequest, val activity: Context,
 ) {
 
-    init {
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        locationRequest.interval = 0
-        locationRequest.fastestInterval = 0
-        locationRequest.numUpdates = 1
-
-        activity.runWithPermissions(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) {
-            fusedLocationProviderClient.requestLocationUpdates(
-                locationRequest, locationCallback, Looper.myLooper()
-            )
-        }
-    }
+//    init {
+//        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+//        locationRequest.interval = 0
+//        locationRequest.fastestInterval = 0
+//        locationRequest.numUpdates = 1
+//
+//        activity.runWithPermissions(
+//            Manifest.permission.ACCESS_COARSE_LOCATION,
+//            Manifest.permission.ACCESS_FINE_LOCATION
+//        ) {
+//            fusedLocationProviderClient.requestLocationUpdates(
+//                locationRequest, locationCallback, Looper.myLooper()
+//            )
+//        }
+//    }
 
     fun newLocationData() {
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY

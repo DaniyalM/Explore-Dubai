@@ -22,16 +22,16 @@ import timber.log.Timber
 class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
     private val eventViewModel: EventViewModel by viewModels()
     private lateinit var eventListScreenAdapter: EventListScreenAdapter
-    var eventID: Int? = 0
+    var eventID: String? = ""
 
     companion object {
         var EVENT_CATEG0RY_TYPE: String = "Events"
         var EVENT_DETAIL_ID: String = "Event_ID"
 
         @JvmStatic
-        fun newInstance(eventID: Int? = 0) = EventListingFragment().apply {
+        fun newInstance(eventID: String? = "") = EventListingFragment().apply {
             arguments = Bundle().apply {
-                putInt(EVENT_DETAIL_ID, eventID!!)
+                putString(EVENT_DETAIL_ID, eventID!!)
             }
 
         }
@@ -70,10 +70,10 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.getInt(EVENT_DETAIL_ID)
+        arguments?.getString(EVENT_DETAIL_ID)
             ?.let {
                 eventID = it
-                Timber.e(eventID.toString())
+                Timber.e("Get Position =>${eventID.toString()}")
             }
     }
 

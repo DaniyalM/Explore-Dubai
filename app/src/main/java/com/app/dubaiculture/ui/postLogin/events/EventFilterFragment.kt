@@ -17,6 +17,7 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.components.EventHeaderItemSelector
 import com.app.dubaiculture.ui.postLogin.events.filter.viewmodel.FilterViewModel
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.dateFormat
 import com.app.dubaiculture.utils.getDateObj
@@ -88,7 +89,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
     override fun onResume() {
         super.onResume()
-        binding.horizontalSelector.positionUpdate(EventHeaderItemSelector.clickCheckerFlag)
+        binding.horizontalSelector.positionUpdate(clickCheckerFlag)
     }
 
     private fun createItems(): List<EventHomeListing> =

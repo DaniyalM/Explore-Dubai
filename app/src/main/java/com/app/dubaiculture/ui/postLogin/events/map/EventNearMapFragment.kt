@@ -45,6 +45,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
         rvSetUp()
         mapSetUp()
     }
+
     private fun rvSetUp() {
         eventNearAdapter = EventNearMapAdapter()
         binding.rvNearEvent.apply {
@@ -83,6 +84,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     }
 
     override fun onMapReady(map: GoogleMap?) {
+
         val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
         map!!.addMarker(MarkerOptions()
             .position(trafficDigitalLatLng)
@@ -94,7 +96,16 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
             )
         )
         map.cameraPosition.target
+        pinsOnMap(EventsFragment.nearEventList,map)
+    }
 
+    private fun pinsOnMap(list: List<Events>, map: GoogleMap) {
+        list.forEach {
+            val locationObj = LatLng(it.longitude!!.toDouble(), it.latitude!!.toDouble())
+            map.addMarker(MarkerOptions().position(locationObj)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_map))
+                .title(it.title))
+        }
 
     }
 }
