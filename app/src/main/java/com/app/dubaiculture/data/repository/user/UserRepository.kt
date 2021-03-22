@@ -19,7 +19,7 @@ class UserRepository @Inject constructor(
     private val userRDS: UserRDS,
     private val userLDS: UserLDS,
     private val guestLDS: GuestLDS
-) : BaseRepository<UserRDS>(userRDS) {
+) :BaseRepository(){
 
 
     suspend fun saveUser(userDTO: UserDTO, loginResponseDTO: LoginResponseDTO) {
