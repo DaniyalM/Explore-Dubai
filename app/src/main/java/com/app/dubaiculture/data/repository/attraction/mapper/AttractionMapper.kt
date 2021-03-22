@@ -100,22 +100,22 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
             isFavourite = it.isFavourite,
         )
     },
-    gallery = attraction.gallery.map {
+    gallery = attraction.gallery?.map {
         Gallery(
             isImage = it.isImage,
             galleryImage = it.galleryImage,
             galleryThumbnail = it.galleryThumbnail,
             galleryLink = it.galleryLink
         )
-    },
-    socialLink = attraction.socialLinks.map {
+    }!!,
+    socialLink = attraction.socialLinks?.map {
         SocialLink(
-            facebookPageLink = it.facebookPageLink,
-            facebookIcon = it.facebookIcon,
+            facebookPageLink = it.facebookPageLink.toString(),
+            facebookIcon = it.facebookIcon.toString(),
             instagramIcon = it.instagramIcon,
-            instagramPageLink = it.instagramPageLink
+            instagramPageLink = it.instagramPageLink.toString()
         )
-    }
+    }!!
 
 )
 

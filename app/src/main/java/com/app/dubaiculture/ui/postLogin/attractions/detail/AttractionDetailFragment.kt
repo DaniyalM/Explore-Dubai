@@ -11,6 +11,7 @@ import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
@@ -46,6 +47,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private var detailTitle: String? = null
     private var detailCategory: String? = null
     private var detailId: String? = null
+    private var lat: String? = 24.8623.toString()
+    private var long: String? = 67.0627.toString()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -85,12 +88,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             it.root.downOne360.setOnClickListener(this)
             it.root.downOneGallery.setOnClickListener(this)
         }
+        rvSetUp()
         callingObservables()
         subscribeObservables()
 
         uiActions()
         mapSetUp()
-        rvSetUp()
+
         cardViewRTL()
     }
 
@@ -98,11 +102,16 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         binding.root.apply {
             attraction.apply {
                 tv_title.text = title
-                tv_category.text =category
+                tv_category.text = category
                 tv_attraction_days.text = "$startDay - $endDay"
                 tv_location.text = locationTitle
 //            tv_km.text=value.
-                tv_desc_readmore.text =description
+                tv_desc_readmore.text = description
+                lat = latitude
+                long = longitude
+                groupAdapter.apply {
+                    events.forEach { add(UpComingItems(it)) }
+                }
             }
 
 
@@ -187,35 +196,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         binding!!.root.rv_up_coming.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
-            groupAdapter.apply {
-                add(UpComingItems("Free",
-                    R.drawable.must_see_icon_home,
-                    "14",
-                    "NOV, 20",
-                    "20",
-                    "NOV, 20",
-                    "Workshop",
-                    "The Definitive Guide to an Uncertain World",
-                    "Palm Jumeriah, Dubai"))
-                add(UpComingItems("Free",
-                    R.drawable.must_see_icon_home,
-                    "14",
-                    "NOV, 20",
-                    "20",
-                    "NOV, 20",
-                    "Workshop",
-                    "The Definitive Guide to an Uncertain World",
-                    "Palm Jumeriah, Dubai"))
-                add(UpComingItems("Free",
-                    R.drawable.must_see_icon_home,
-                    "14",
-                    "NOV, 20",
-                    "20",
-                    "NOV, 20",
-                    "Workshop",
-                    "The Definitive Guide to an Uncertain World",
-                    "Palm Jumeriah, Dubai"))
-            }
+
         }
 
     }
@@ -246,14 +227,14 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
+        val attractionLatLng = LatLng(lat?.toDouble()!!, long?.toDouble()!!)
         map!!.addMarker(MarkerOptions()
-            .position(trafficDigitalLatLng)
+            .position(attractionLatLng)
             .icon(fromResource(R.drawable.pin_location)))
             .title = "Traffic Digital"
         map.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
-                trafficDigitalLatLng, 12.0f
+                attractionLatLng, 12.0f
             )
         )
         map.cameraPosition.target

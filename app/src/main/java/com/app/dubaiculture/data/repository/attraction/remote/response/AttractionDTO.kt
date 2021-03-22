@@ -78,10 +78,10 @@ class AttractionDTO {
 
     @SerializedName("SocialLinks")
     @Expose
-    var socialLinks: List<SocialLinkDTO> = emptyList()
+    var socialLinks: List<SocialLinkDTO>  ?= null
 
     @SerializedName("Gallery")
     @Expose
-    var gallery: List<GalleryDTO> = emptyList()
+    var gallery: List<GalleryDTO> ?= null
 
 }

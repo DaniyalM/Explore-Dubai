@@ -7,15 +7,15 @@ import com.google.gson.annotations.SerializedName
 class GalleryDTO {
     @SerializedName("GalleryImage")
     @Expose
-    var galleryImage: String = ""
+    var galleryImage: String ?= ""
 
     @SerializedName("GalleryThumbnail")
     @Expose
-    var galleryThumbnail: String = ""
+    var galleryThumbnail: String ?= ""
 
     @SerializedName("GalleryLink")
     @Expose
-    var galleryLink: String = ""
+    var galleryLink: String ?= ""
 
     @SerializedName("IsImage")
     @Expose

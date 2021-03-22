@@ -5,8 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Gallery(
-    var galleryImage: String = "",
-    var galleryThumbnail: String = "",
-    var galleryLink: String = "",
+    var galleryImage: String? = "",
+    var galleryThumbnail: String? = "",
+    var galleryLink: String? = "",
     var isImage: Boolean = false,
 ) : Parcelable
