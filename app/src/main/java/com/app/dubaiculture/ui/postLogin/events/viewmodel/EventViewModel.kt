@@ -9,10 +9,10 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.EventRepository
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.data.repository.event.local.models.Filter
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
+import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.GpsStatusListener
 import kotlinx.coroutines.launch
@@ -36,8 +36,8 @@ class EventViewModel @ViewModelInject constructor(
     val eventfilterRequest: LiveData<Result<List<Events>>> = _eventList
 
 
-    private val _filterList: MutableLiveData<Result<List<Filter>>> = MutableLiveData()
-    val filterList: LiveData<Result<List<Filter>>> = _filterList
+    private val _filterList: MutableLiveData<Result<EventResponse>> = MutableLiveData()
+    val filterList: LiveData<Result<EventResponse>> = _filterList
 
     fun addToFavourite(userId: String, itemId: String, type: Int = 2) {
         showLoader(true)
@@ -83,9 +83,8 @@ class EventViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             when (val result = eventRepository.fetchDataFilterBtmSheet(EventRequest(culture = locale))){
                 is Result.Success -> {
-                    _filterList.value =result
+                    _filterList.value = result
                     showLoader(false)
-
                 }
                 is Result.Failure -> {
                     showLoader(false)
