@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
-import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +25,8 @@ import kotlinx.android.synthetic.main.fragment_attraction_listing.*
 @AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
-    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
+
+    //    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractionCatId: String
     private var searchQuery: String = ""
     private var pageNumber: Int = 0
@@ -97,7 +98,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 //                        attractionListScreenAdapter?.attractions = attractions
                         groupAdapter.apply {
                             attractions.forEach {
-                                add(AttractionListItem(it))
+                                add(AttractionListItem<AttractionListItemCellBinding>(attraction = it))
                             }
                         }
 
@@ -107,7 +108,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                         } else {
                             groupAdapter.apply {
                                 it.value.forEach {
-                                    add(AttractionListItem(it))
+                                    add(AttractionListItem<AttractionListItemCellBinding>(attraction = it))
                                 }
                             }
 //                            attractionListScreenAdapter?.attractions = attractions

@@ -3,7 +3,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="mustsee" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
+<!--        <variable name="mustsee" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
+        <variable
+            name="attractions"
+            type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="285dp"
@@ -25,18 +28,25 @@
             android:id="@+id/img_must_see"
             android:background="@drawable/must_see_icon_home"
             android:scaleType="center"
-            android:imageViewUrl='@{mustsee.portraitImage}'
+            android:imageViewUrl='@{attractions.portraitImage}'
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <ImageView
-            android:id="@+id/img_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <CheckBox
+            android:id="@+id/favourite"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_18sdp"
             android:layout_gravity="end"
             android:layout_margin="@dimen/_15sdp"
+            android:button="@null"
+            android:foreground="@drawable/custom_ripple_border"
+            android:checked="@{attractions.IsFavourite}"
             android:background="@drawable/heart_icon_home"
-            android:padding="@dimen/_8sdp" />
+            android:padding="@dimen/_8sdp"
+            android:stateListAnimator="@animator/scale"
+            app:layout_constraintBottom_toBottomOf="@+id/card_view_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/card_view_title" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,7 +72,7 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
-                    android:text="@{mustsee.category}"
+                    android:text="@{attractions.category}"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />
             </com.google.android.material.card.MaterialCardView>
@@ -76,7 +86,7 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{mustsee.title}"
+                android:text="@{attractions.title}"
                 android:textColor="@color/white_900"
                 android:textSize="@dimen/_14ssp" />
 
@@ -91,7 +101,7 @@
                 android:drawableStart="@drawable/heritiage_icon_home"
                 android:drawablePadding="@dimen/_7ssp"
                 android:ellipsize="end"
-                android:text='@{mustsee.locationTitle ?? "Palm Jumeriah Beach,Dubai"}'
+                android:text='@{attractions.locationTitle ?? "Palm Jumeriah Beach,Dubai"}'
                 android:textColor="@color/white_900"
                 android:textSize="@dimen/_10ssp" />
 

@@ -2,7 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="attractions" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
+<!--        <variable name="attractions" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
+        <variable name="attractions" type="com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_73sdp"
@@ -27,7 +28,7 @@
                 android:id="@+id/img_card_view"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
-                android:imageViewUrl="@{attractions.whiteIcon}"
+                android:imageViewUrl="@{attractions.selectedSvg}"
                 android:layout_gravity="center"
                 />
         </com.google.android.material.card.MaterialCardView>

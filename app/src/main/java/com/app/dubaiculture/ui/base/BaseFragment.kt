@@ -176,7 +176,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         activity.onBackPressed()
     }
 
-    protected fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
+     fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
         findNavController().navigate(resId, bundle)
     }
 

@@ -2,21 +2,29 @@ package com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.MustSeeInnerItemCellBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
+import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
+import com.app.dubaiculture.ui.postLogin.explore.ExploreFragment
 import com.app.dubaiculture.utils.AsyncCell
-import com.bumptech.glide.RequestManager
+import kotlinx.android.synthetic.main.must_see_inner_item_cell.view.*
 
-class MustSeeInnerAdapter :
-    BaseRecyclerAdapter<BaseModel>() {
+class MustSeeInnerAdapter(
+    private val favChecker: FavouriteChecker? = null,
+    private val fragment: ExploreFragment? = null,
+) :
+    BaseRecyclerAdapter<Attractions>() {
 
 
-    var mustSees: List<BaseModel>
+    var mustSees: List<Attractions>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
@@ -50,14 +58,38 @@ class MustSeeInnerAdapter :
 
     private fun setUpMustSeeViewHolder(
         holder: MustSeeInnerAdapter.MustSeeViewHolder,
-        position: Int
+        position: Int,
     ) {
         (holder.itemView as MustSeeInnerAdapter.MustSeeInnerItemCell).bindWhenInflated {
 
-                holder.itemView.binding?.mustsee = mustSees[position]
-                if (!mustSees[position].color.isNullOrEmpty())
-                holder.itemView.binding?.cardViewTitle?.setCardBackgroundColor(Color.parseColor(mustSees[position].color))
+            holder.itemView.binding?.apply {
+                attractions = mustSees[position]
+                attraction_image.setOnClickListener {
+                    fragment?.navigate(R.id.action_exploreFragment_to_attractionDetailFragment,
+                        Bundle().apply {
+                            val attraction = mustSees[position]
+                            this.putString(AttractionListingFragment.ATTRACTION_DETAIL_ID,
+                                attraction.id)
+                            this.putString(AttractionListingFragment.ATTRACTION_DETAIL_IMAGE,
+                                attraction.portraitImage)
+                            this.putString(AttractionListingFragment.ATTRACTION_DETAIL_TITLE,
+                                attraction.title)
+                            this.putString(AttractionListingFragment.ATTRACTION_DETAIL_CATEGORY,
+                                attraction.category)
+                        })
+                }
+                favourite.setOnClickListener {
+                    favChecker!!.checkFavListener(it as CheckBox,
+                        position,
+                        mustSees[position].IsFavourite)
+                }
 
+
+
+                if (!mustSees[position].color.isNullOrEmpty())
+                    cardViewTitle.setCardBackgroundColor(Color.parseColor(mustSees[position].color))
+
+            }
 
         }
     }
