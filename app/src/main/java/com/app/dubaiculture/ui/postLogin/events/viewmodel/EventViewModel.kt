@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.EventRepository
+import com.app.dubaiculture.data.repository.event.local.models.EventFilterData
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
@@ -15,6 +16,7 @@ import com.app.dubaiculture.data.repository.event.remote.response.AddToFavourite
 import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.GpsStatusListener
+import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 
 class EventViewModel @ViewModelInject constructor(
@@ -36,8 +38,11 @@ class EventViewModel @ViewModelInject constructor(
     val eventfilterRequest: LiveData<Result<List<Events>>> = _eventList
 
 
-    private val _filterList: MutableLiveData<Result<EventResponse>> = MutableLiveData()
-    val filterList: LiveData<Result<EventResponse>> = _filterList
+    private val _filterList: MutableLiveData<Result<EventFilterData>> = MutableLiveData()
+    val filterList: LiveData<Result<EventFilterData>> = _filterList
+
+
+    val locationPosition = MutableLiveData<Int>()
 
     fun addToFavourite(userId: String, itemId: String, type: Int = 2) {
         showLoader(true)

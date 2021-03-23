@@ -2,6 +2,7 @@ package com.app.dubaiculture.data.repository.event
 
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
+import com.app.dubaiculture.data.repository.event.local.models.EventFilterData
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.mapper.*
@@ -92,16 +93,19 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
     }
 
 
-    suspend fun fetchDataFilterBtmSheet(eventRequest: EventRequest) :Result<EventResponse>{
+    suspend fun fetchDataFilterBtmSheet(eventRequest: EventRequest): Result<EventFilterData> {
         return when (val resultRds =
             eventRDS.getDataFilterBottomSheet(transformHomeEventListingRequest(eventRequest))) {
             is Result.Success -> {
                 val eventLDS = resultRds
                 if (eventLDS.value.statusCode != 200) {
                     Result.Failure(true, eventLDS.value.statusCode, null)
-                }else{
-                    val eventRds = eventLDS.value
-                    Result.Success(eventRds)
+                } else {
+                    Result.Success(EventFilterData(
+                        radioGroupList = transformationRadioList(eventLDS.value),
+                        categoryList = transformationCategoryList(eventLDS.value),
+                        locationList = transformationlocationList(eventLDS.value)
+                    ))
                 }
             }
             is Result.Failure -> {

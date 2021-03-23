@@ -72,17 +72,19 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_search" />
 
 
-        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        <AutoCompleteTextView
             android:id="@+id/edit_location"
             style="@style/EditTextStyle"
             android:background="@drawable/bg_edit_resiger"
             android:drawableEnd="@drawable/location_fiilter"
             android:hint="@string/location"
+            android:completionThreshold="1"
             android:imeOptions="actionNext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/location"
-            tools:src="@drawable/bg_edit_resiger" />
+            tools:src="@drawable/bg_edit_resiger"
+            android:popupBackground="@color/white_900"/>
 
 
 

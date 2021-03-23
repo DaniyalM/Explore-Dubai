@@ -7,23 +7,23 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.filter.models.Filter
+import com.app.dubaiculture.data.repository.filter.models.FilterData
 import com.app.dubaiculture.databinding.SearchFilterListItemsBinding
 import com.app.dubaiculture.utils.AsyncCell
 
 class FilterHeaderAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Filter>() {
-        override fun areItemsTheSame(oldItem: Filter, newItem: Filter): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<FilterData>() {
+        override fun areItemsTheSame(oldItem: FilterData, newItem: FilterData): Boolean {
             return oldItem.userID == newItem.userID
         }
 
-        override fun areContentsTheSame(oldItem: Filter, newItem: Filter): Boolean {
+        override fun areContentsTheSame(oldItem: FilterData, newItem: FilterData): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
     private val differ = AsyncListDiffer(this, diffCallback)
-    var filterData: List<Filter>
+    var filterDataData: List<FilterData>
         get() = differ.currentList
         set(value) {
             differ.submitList(value)
@@ -39,7 +39,7 @@ class FilterHeaderAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             position)
     }
 
-    override fun getItemCount() =filterData.size
+    override fun getItemCount() =filterDataData.size
 
     //Data Binding
     private inner class FilterListItemCell(context: Context) : AsyncCell(context) {

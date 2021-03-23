@@ -254,5 +254,5 @@ dependencies {
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
 
 
-
+    implementation "com.xwray:groupie-databinding:2.7.0"
 }

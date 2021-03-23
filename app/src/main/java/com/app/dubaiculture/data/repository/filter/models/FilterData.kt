@@ -2,7 +2,7 @@ package com.app.dubaiculture.data.repository.filter.models
 
 import com.app.dubaiculture.data.repository.filter.Categories
 
-data class Filter(
+data class FilterData(
     val userID: String?= null,
     val eventKeyword: String?=null,
     val location: String?=null,
