@@ -13,7 +13,7 @@ import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
-    BaseRepository<EventRDS>(eventRDS) {
+    BaseRepository() {
 
     suspend fun fetchHomeEvents(homeEventRequest: EventRequest): Result<EventHomeListing> {
         return when (val resultRds =

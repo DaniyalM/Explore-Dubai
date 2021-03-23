@@ -19,26 +19,12 @@ import kotlin.math.sin
 @SuppressLint("MissingPermission")
 open class LocationHelper @Inject constructor(
     val fusedLocationProviderClient: FusedLocationProviderClient,
-    val locationRequest: LocationRequest, val activity: Context,
+    val locationRequest: LocationRequest
 ) {
 
-//    init {
-//        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-//        locationRequest.interval = 0
-//        locationRequest.fastestInterval = 0
-//        locationRequest.numUpdates = 1
-//
-//        activity.runWithPermissions(
-//            Manifest.permission.ACCESS_COARSE_LOCATION,
-//            Manifest.permission.ACCESS_FINE_LOCATION
-//        ) {
-//            fusedLocationProviderClient.requestLocationUpdates(
-//                locationRequest, locationCallback, Looper.myLooper()
-//            )
-//        }
-//    }
 
-    fun newLocationData() {
+
+    fun newLocationData(activity: Context) {
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 0
         locationRequest.fastestInterval = 0
@@ -58,6 +44,7 @@ open class LocationHelper @Inject constructor(
     fun locationSetUp(
         iface: LocationLatLng,
         locationCallback: LocationCallBack,
+        activity: Context
     ) {
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
             val location: Location? = task.result
@@ -68,7 +55,7 @@ open class LocationHelper @Inject constructor(
                         locationCallback.getLocationResultCallback(p0)
                     }
                 }
-                newLocationData()
+                newLocationData(activity)
             } else {
                 iface.getCurrentLocation(location)
             }

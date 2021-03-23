@@ -12,15 +12,15 @@ class AttractionDTO {
 
     @SerializedName("ID")
     @Expose
-    var id: String? = null
+    var id: String? = ""
 
     @SerializedName("Category")
     @Expose
-    var category: String? = null
+    var category: String? = ""
 
     @SerializedName("Title")
     @Expose
-    var title: String? = null
+    var title: String? = ""
 
     @SerializedName("LocationTitle")
     @Expose
@@ -74,14 +74,14 @@ class AttractionDTO {
 
     @SerializedName("Events")
     @Expose
-    var events: List<EventsDTO> = emptyList()
+    var events: List<EventsDTO>  ?= null
 
     @SerializedName("SocialLinks")
     @Expose
-    var socialLinks: List<SocialLinkDTO> = emptyList()
+    var socialLinks: List<SocialLinkDTO>  ?= null
 
     @SerializedName("Gallery")
     @Expose
-    var gallery: List<GalleryDTO> = emptyList()
+    var gallery: List<GalleryDTO> ?= null
 
 }

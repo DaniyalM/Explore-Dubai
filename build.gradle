@@ -145,6 +145,7 @@ ext {
     ui_design = [
             materialDesign  : "com.google.android.material:material:${materialDesign}",
             complexRv       : "com.xwray:groupie:${complexRv}",
+            complexRvBinding: "com.xwray:groupie-databinding:${complexRv}",
             viewPager2      : "androidx.viewpager2:viewpager2:${viewPager2}",
             constraintLayout: "androidx.constraintlayout:constraintlayout:${constraintlayout}",
             lottieViews     : "com.airbnb.android:lottie:${lottieVersion}",

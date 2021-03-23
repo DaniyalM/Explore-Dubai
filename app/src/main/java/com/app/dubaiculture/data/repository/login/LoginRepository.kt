@@ -9,7 +9,8 @@ import com.app.dubaiculture.data.repository.login.remote.response.resendverifica
 import transform
 import javax.inject.Inject
 
-class LoginRepository @Inject constructor(private val loginRDS: LoginRDS):BaseRepository<LoginRDS>(loginRDS) {
+class LoginRepository @Inject constructor(private val loginRDS: LoginRDS):
+    BaseRepository() {
 
     suspend fun login(loginRequest: LoginRequest): Result<LoginResponse> {
 

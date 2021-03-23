@@ -14,6 +14,7 @@ import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
+import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListScreenAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
@@ -93,24 +94,25 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
                     if (pageNumber < 1) {
                         attractions = it.value as ArrayList<Attractions>
-                        attractionListScreenAdapter?.attractions = attractions
+//                        attractionListScreenAdapter?.attractions = attractions
+                        groupAdapter.apply {
+                            attractions.forEach {
+                                add(AttractionListItem(it))
+                            }
+                        }
 
                     } else {
                         if (it.value.isEmpty()) {
                             pageNumber -= 1
                         } else {
-                            it.value.forEach {
-                                attractions.add(it)
+                            groupAdapter.apply {
+                                it.value.forEach {
+                                    add(AttractionListItem(it))
+                                }
                             }
-                            attractionListScreenAdapter?.attractions = attractions
+//                            attractionListScreenAdapter?.attractions = attractions
                         }
-
                     }
-
-
-//                    attractionListScreenAdapter?.notifyDataSetChanged()
-
-
                 }
                 is Result.Failure -> {
                     progressBar.visibility = View.GONE
@@ -129,10 +131,10 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         var pastVisiblesItems: Int
         var visibleItemCount: Int
         var totalItemCount: Int
-        attractionListScreenAdapter = AttractionListScreenAdapter()
+//        attractionListScreenAdapter = AttractionListScreenAdapter()
         binding.rvAttractionListing.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = attractionListScreenAdapter
+            adapter = groupAdapter
 
             this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 

@@ -9,7 +9,7 @@ import com.app.dubaiculture.data.repository.forgot.remote.response.ForgotRespons
 import javax.inject.Inject
 
 class ForgotRepository @Inject constructor(private val forgotRDS: ForgotRDS):
-    BaseRepository<ForgotRDS>(forgotRDS) {
+    BaseRepository() {
     suspend fun forgot(forgotRequest: ForgotRequest): Result<ForgotResponse> {
         return when(val resultRDS = forgotRDS.forgotEmail(transform(forgotRequest))){
             is Result.Success->{

@@ -133,35 +133,35 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.root.rv_event_up_coming.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
-            groupAdapter.apply {
-                add(UpComingItems("FREE",
-                    R.drawable.must_see_icon_home,
-                    "14",
-                    "NOV, 20",
-                    "20",
-                    "NOV, 20",
-                    "Workshop",
-                    "The Definitive Guide to an Uncertain World",
-                    "Palm Jumeriah, Dubai"))
-                add(UpComingItems("FREE",
-                    R.drawable.must_see_icon_home,
-                    "14",
-                    "NOV, 20",
-                    "20",
-                    "NOV, 20",
-                    "Workshop",
-                    "The Definitive Guide to an Uncertain World",
-                    "Palm Jumeriah, Dubai"))
-                add(UpComingItems("FREE",
-                    R.drawable.must_see_icon_home,
-                    "14",
-                    "NOV, 20",
-                    "20",
-                    "NOV, 20",
-                    "Workshop",
-                    "The Definitive Guide to an Uncertain World",
-                    "Palm Jumeriah, Dubai"))
-            }
+//            groupAdapter.apply {
+//                add(UpComingItems("FREE",
+//                    R.drawable.must_see_icon_home,
+//                    "14",
+//                    "NOV, 20",
+//                    "20",
+//                    "NOV, 20",
+//                    "Workshop",
+//                    "The Definitive Guide to an Uncertain World",
+//                    "Palm Jumeriah, Dubai"))
+//                add(UpComingItems("FREE",
+//                    R.drawable.must_see_icon_home,
+//                    "14",
+//                    "NOV, 20",
+//                    "20",
+//                    "NOV, 20",
+//                    "Workshop",
+//                    "The Definitive Guide to an Uncertain World",
+//                    "Palm Jumeriah, Dubai"))
+//                add(UpComingItems("FREE",
+//                    R.drawable.must_see_icon_home,
+//                    "14",
+//                    "NOV, 20",
+//                    "20",
+//                    "NOV, 20",
+//                    "Workshop",
+//                    "The Definitive Guide to an Uncertain World",
+//                    "Palm Jumeriah, Dubai"))
+//            }
         }
 
         scheduleAdapter = GroupAdapter()

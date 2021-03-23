@@ -8,17 +8,17 @@ import com.google.gson.annotations.SerializedName
 class SocialLinkDTO {
     @SerializedName("FacebookPageLink")
     @Expose
-    var facebookPageLink: String = ""
+    var facebookPageLink: String ?= ""
 
     @SerializedName("FacebookIcon")
     @Expose
-    var facebookIcon: String = ""
+    var facebookIcon: String ?= ""
 
     @SerializedName("InstagramPageLink")
     @Expose
-    var instagramPageLink: String = ""
+    var instagramPageLink: String ?= ""
 
     @SerializedName("InstagramIcon")
     @Expose
-    var instagramIcon: String = ""
+    var instagramIcon: String ?= ""
 }

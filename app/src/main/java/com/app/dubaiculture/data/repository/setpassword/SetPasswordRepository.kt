@@ -8,8 +8,7 @@ import com.app.dubaiculture.data.repository.setpassword.remote.response.SetPassw
 import javax.inject.Inject
 
 class SetPasswordRepository @Inject constructor(private val setPasswordRDS: SetPasswordRDS) :
-    BaseRepository
-    <SetPasswordRDS>(setPasswordRDS) {
+    BaseRepository() {
 
     suspend fun setPassword(setPasswordRequest: SetPasswordRequest): Result<SetPasswordResponse> {
         return when (val resultRDS = setPasswordRDS.setPassword(transform(setPasswordRequest))) {

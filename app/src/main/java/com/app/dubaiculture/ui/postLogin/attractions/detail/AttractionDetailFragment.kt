@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItems
+import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.instagramNavigationIntent
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
@@ -32,12 +34,16 @@ import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import timber.log.Timber
+import java.io.IOException
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener {
+
+    private var url: String? = null
+    private var isPLAYING = false
 
     @Inject
     lateinit var glide: RequestManager
@@ -46,6 +52,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private var detailTitle: String? = null
     private var detailCategory: String? = null
     private var detailId: String? = null
+    private var lat: String? = 24.8623.toString()
+    private var long: String? = 67.0627.toString()
+    var mp: MediaPlayer? = MediaPlayer()
+
+
+    private fun stopPlaying() {
+        mp?.release()
+        mp = null
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -85,28 +100,44 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             it.root.downOne360.setOnClickListener(this)
             it.root.downOneGallery.setOnClickListener(this)
         }
+        rvSetUp()
         callingObservables()
         subscribeObservables()
-
         uiActions()
         mapSetUp()
-        rvSetUp()
         cardViewRTL()
     }
 
+
     private fun initializeDetails(attraction: Attractions) {
+        binding.attraction = attraction
+
         binding.root.apply {
             attraction.apply {
-                tv_title.text = title
-                tv_category.text =category
-                tv_attraction_days.text = "$startDay - $endDay"
-                tv_location.text = locationTitle
-//            tv_km.text=value.
-                tv_desc_readmore.text =description
+//                tv_title.text = title
+//                tv_category.text = category
+//                tv_attraction_days.text = "$startDay - $endDay"
+//                tv_location.text = locationTitle
+////            tv_km.text=value.
+//                tv_desc_readmore.text = description
+                url = audioLink
+                lat = latitude
+                long = longitude
+                instagram.setOnClickListener {
+                    startActivity(instagramNavigationIntent(activity.packageManager))
+                }
+                groupAdapter.apply {
+                    events?.let { events ->
+                        events.forEach { add(UpComingItems(event=it)) }
+                    }
+                }
+
+
             }
 
 
         }
+        mp?.setOnPreparedListener { mPlayer -> mPlayer?.start() }
     }
 
     private fun callingObservables() {
@@ -119,6 +150,22 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     private fun subscribeObservables() {
+        attractionDetailViewModel.isPlaying.observe(viewLifecycleOwner) {
+            if (it) {
+                try {
+                    mp?.let {
+                        it.setDataSource(url)
+                        it.prepareAsync();
+                        it.start()
+                    }
+
+                } catch (e: IOException) {
+                    Timber.e("prepare() failed")
+                }
+            } else {
+                stopPlaying()
+            }
+        }
         attractionDetailViewModel.attractionDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
@@ -187,35 +234,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         binding!!.root.rv_up_coming.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
-            groupAdapter.apply {
-                add(UpComingItems("Free",
-                    R.drawable.must_see_icon_home,
-                    "14",
-                    "NOV, 20",
-                    "20",
-                    "NOV, 20",
-                    "Workshop",
-                    "The Definitive Guide to an Uncertain World",
-                    "Palm Jumeriah, Dubai"))
-                add(UpComingItems("Free",
-                    R.drawable.must_see_icon_home,
-                    "14",
-                    "NOV, 20",
-                    "20",
-                    "NOV, 20",
-                    "Workshop",
-                    "The Definitive Guide to an Uncertain World",
-                    "Palm Jumeriah, Dubai"))
-                add(UpComingItems("Free",
-                    R.drawable.must_see_icon_home,
-                    "14",
-                    "NOV, 20",
-                    "20",
-                    "NOV, 20",
-                    "Workshop",
-                    "The Definitive Guide to an Uncertain World",
-                    "Palm Jumeriah, Dubai"))
-            }
+
         }
 
     }
@@ -246,14 +265,14 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
+        val attractionLatLng = LatLng(lat?.toDouble()!!, long?.toDouble()!!)
         map!!.addMarker(MarkerOptions()
-            .position(trafficDigitalLatLng)
+            .position(attractionLatLng)
             .icon(fromResource(R.drawable.pin_location)))
             .title = "Traffic Digital"
         map.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
-                trafficDigitalLatLng, 12.0f
+                attractionLatLng, 12.0f
             )
         )
         map.cameraPosition.target

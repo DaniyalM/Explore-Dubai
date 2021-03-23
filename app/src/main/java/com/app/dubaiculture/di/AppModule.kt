@@ -10,7 +10,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 import javax.inject.Singleton
@@ -43,5 +42,5 @@ object AppModule {
     @Provides
     fun provideLocationHelper(@ApplicationContext context: Context) =
         LocationHelper(provideFusedLocationProviderClient(context),
-            provideLocationRequest(),context)
+            provideLocationRequest())
 }
