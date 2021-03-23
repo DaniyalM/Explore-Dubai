@@ -6,18 +6,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.databinding.AttractionDetailUpComingItemsBinding
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
-import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItems
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.instagramNavigationIntent
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -114,12 +118,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
         binding.root.apply {
             attraction.apply {
-//                tv_title.text = title
-//                tv_category.text = category
-//                tv_attraction_days.text = "$startDay - $endDay"
-//                tv_location.text = locationTitle
-////            tv_km.text=value.
-//                tv_desc_readmore.text = description
                 url = audioLink
                 lat = latitude
                 long = longitude
@@ -128,7 +126,30 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 }
                 groupAdapter.apply {
                     events?.let { events ->
-                        events.forEach { add(UpComingItems(event=it)) }
+                        events.forEach {
+                            add(
+                                EventListItem<AttractionDetailUpComingItemsBinding>(
+                                    object : FavouriteChecker {
+                                        override fun checkFavListener(
+                                            checkbox: CheckBox,
+                                            pos: Int,
+                                            isFav: Boolean,
+                                        ) {
+                                            favouriteEvent(application.auth.isGuest,
+                                                checkbox,
+                                                isFav,
+                                                R.id.action_attractionDetailFragment_to_postLoginFragment)
+                                        }
+                                    }, object : RowClickListener {
+                                        override fun rowClickListener() {
+//                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+                                        }
+
+                                    },event = it,
+                                    resLayout = R.layout.attraction_detail_up_coming_items)
+//                            UpComingItems(event=it)
+                            )
+                        }
                     }
                 }
 
