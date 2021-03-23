@@ -4,11 +4,13 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.event.local.models.Filter
 import com.app.dubaiculture.data.repository.event.mapper.*
 import com.app.dubaiculture.data.repository.event.remote.EventRDS
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
+import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
@@ -37,6 +39,7 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
         }
 
     }
+
     suspend fun fetchEventsbyFilters(eventRequest: EventRequest): Result<List<Events>> {
         return when (val resultRds =
             eventRDS.getEventsByFilter(transformEventFiltersRequest(eventRequest))) {
@@ -89,5 +92,28 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
         }
     }
 
+//
+//    suspend fun fetchDataFilterBtmSheet(eventRequest: EventRequest) :Result<List<Filter>> {
+//        return when (val resultRds =
+//            eventRDS.getDataFilterBottomSheet(transformHomeEventListingRequest(eventRequest))) {
+//            is Result.Success -> {
+//                val eventLDS = resultRds
+//                if (eventLDS.value.statusCode != 200) {
+//                    Result.Failure(true, eventLDS.value.statusCode, null)
+//                }else{
+//                    val eventRds = eventLDS.value
+//                    Result.Success(eventRds)
+//                }
+//            }
+//            is Result.Failure -> {
+//                resultRds
+//
+//            }
+//            is Result.Error -> {
+//                resultRds
+//            }
+//
+//        }
+//    }
 
 }

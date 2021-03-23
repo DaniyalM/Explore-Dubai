@@ -15,11 +15,18 @@ class EventRDS @Inject constructor(private val eventService: EventService) : Bas
             eventService.getEvents(homeEventListRequestDTO.culture)
         }
 
+
+    // event listing
     suspend fun getEventsByFilter(eventFilterListRequestDTO: EventFiltersRequestDTO) =
         safeApiCall {
             eventService.getEventsWithFilters(eventFilterListRequestDTO)
         }
 
+    // event bottom sheet filter
+    suspend fun getDataFilterBottomSheet(homeEventListRequestDTO: HomeEventListRequestDTO) =
+        safeApiCall {
+            eventService.getEventFilters(homeEventListRequestDTO.culture)
+        }
 
     suspend fun getEventDetail(eventDetailRequestDTO: EventDetailRequestDTO) =
         safeApiCall {

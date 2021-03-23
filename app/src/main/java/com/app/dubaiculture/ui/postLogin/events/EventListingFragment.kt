@@ -213,7 +213,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
 
     private fun getWeekend(list: List<Events>): MutableList<Events> {
         val weekendList = list.filter {
-            it.toDay == "Friday" || it.toDay == "Satruday"
+            it.fromDay== "Friday" || it.fromDay == "Saturday"
         }
         return weekendList as MutableList<Events>
     }
