@@ -16,11 +16,13 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.databinding.EventItemsBinding
 import com.app.dubaiculture.databinding.FragmentEventsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventAdapter
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.StaticLatLng.LAT
@@ -102,10 +104,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
 //        }
-        binding!!.tvViewMap.setOnClickListener {
+        binding.tvViewMap.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventNearMapFragment2)
         }
-        binding!!.root.view_all_events.setOnClickListener {
+        binding.root.view_all_events.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventFilterFragment)
         }
     }
@@ -114,69 +116,69 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         .observe(viewLifecycleOwner, gpsObserver)
 
     private fun rvSetUp() {
-        featureAdapter = EventAdapter(object : FavouriteChecker {
-            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest,
-                    checkbox,
-                    isFav,
-                    R.id.action_eventsFragment_to_postLoginFragment)
-            }
-        }, object : RowClickListener {
-            override fun rowClickListener() {
-                navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
-            }
-
-        })
-        moreAdapter = EventAdapter(object : FavouriteChecker {
-            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest,
-                    checkbox,
-                    isFav,
-                    R.id.action_eventsFragment_to_postLoginFragment)
-            }
-        }, object : RowClickListener {
-            override fun rowClickListener() {
-                navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
-            }
-        })
-        eventAdapter = EventAdapter(object : FavouriteChecker {
-            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-                favouriteEvent(application.auth.isGuest,
-                    checkbox,
-                    isFav,
-                    R.id.action_eventsFragment_to_postLoginFragment)
-            }
-        }, object : RowClickListener {
-            override fun rowClickListener() {
-                navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
-            }
-        })
-        binding!!.rvEvent.apply {
+//        featureAdapter = EventAdapter(object : FavouriteChecker {
+//            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
+//                favouriteEvent(application.auth.isGuest,
+//                    checkbox,
+//                    isFav,
+//                    R.id.action_eventsFragment_to_postLoginFragment)
+//            }
+//        }, object : RowClickListener {
+//            override fun rowClickListener() {
+//                navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
+//            }
+//
+//        })
+//        moreAdapter = EventAdapter(object : FavouriteChecker {
+//            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
+//                favouriteEvent(application.auth.isGuest,
+//                    checkbox,
+//                    isFav,
+//                    R.id.action_eventsFragment_to_postLoginFragment)
+//            }
+//        }, object : RowClickListener {
+//            override fun rowClickListener() {
+//                navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
+//            }
+//        })
+//        eventAdapter = EventAdapter(object : FavouriteChecker {
+//            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
+//                favouriteEvent(application.auth.isGuest,
+//                    checkbox,
+//                    isFav,
+//                    R.id.action_eventsFragment_to_postLoginFragment)
+//            }
+//        }, object : RowClickListener {
+//            override fun rowClickListener() {
+//                navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
+//            }
+//        })
+        binding.rvEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = featureAdapter
+            adapter = groupAdapter
 
         }
-        featureAdapter.events = createEventItems()
+//        featureAdapter.events = createEventItems()
 
-        binding!!.rvMoreEvent.apply {
+        binding.rvMoreEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = moreAdapter
+            adapter = groupAdapter
         }
 
 
-        binding!!.rvNearEvent.apply {
+        binding.rvNearEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = eventAdapter
+            adapter = groupAdapter
 
         }
 
     }
 
     private fun setupToolbarWithSearchItems() {
-        binding!!.root.apply {
+        binding.root.apply {
             profilePic.visibility = View.GONE
             img_drawer.visibility = View.GONE
             toolbar_title.apply {
@@ -188,21 +190,24 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-        if (isArabic()) {
-            binding!!.root.cardivewRTL?.shapeAppearanceModel =
-                binding!!.root.cardivewRTL!!.shapeAppearanceModel
-                    .toBuilder()
-                    .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                    .setTopRightCornerSize(radius)
-                    .build()
-        } else {
-            binding!!.root.cardivewRTL?.shapeAppearanceModel =
-                binding!!.root.cardivewRTL!!.shapeAppearanceModel
-                    .toBuilder()
-                    .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                    .setBottomRightCornerSize(radius)
-                    .build()
+        binding.root.apply {
+            if (isArabic()) {
+                cardivewRTL?.shapeAppearanceModel =
+                    cardivewRTL!!.shapeAppearanceModel
+                        .toBuilder()
+                        .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                        .setTopRightCornerSize(radius)
+                        .build()
+            } else {
+                cardivewRTL?.shapeAppearanceModel =
+                    cardivewRTL!!.shapeAppearanceModel
+                        .toBuilder()
+                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                        .setBottomRightCornerSize(radius)
+                        .build()
+            }
         }
+
     }
 
     private fun createTestItems(): List<EventHomeListing> =
@@ -315,11 +320,73 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
-                        moreAdapter.events = eventViewModel.getMoreEvents(it.value.events!!)
-                        eventAdapter.events =
-                            sortNearEvent(eventViewModel.getNearEvents(it.value.events!!))
+//                        moreAdapter.events = eventViewModel.getMoreEvents(it.value.events!!)
+                        eventViewModel.getMoreEvents(it.value.events!!).forEach {
+                            groupAdapter.add(EventListItem<EventItemsBinding>(object :
+                                FavouriteChecker {
+                                override fun checkFavListener(
+                                    checkbox: CheckBox,
+                                    pos: Int,
+                                    isFav: Boolean,
+                                ) {
+                                    favouriteEvent(application.auth.isGuest,
+                                        checkbox,
+                                        isFav,
+                                        R.id.action_eventsFragment_to_postLoginFragment)
+                                }
+                            }, object : RowClickListener {
+                                override fun rowClickListener() {
+                                    navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
+                                }
+
+                            }, event = it, resLayout = R.layout.event_items))
+                        }
+                        sortNearEvent(eventViewModel.getNearEvents(it.value.events!!)).forEach {
+                            groupAdapter.add(EventListItem<EventItemsBinding>(
+                                object : FavouriteChecker {
+                                    override fun checkFavListener(
+                                        checkbox: CheckBox,
+                                        pos: Int,
+                                        isFav: Boolean,
+                                    ) {
+                                        favouriteEvent(application.auth.isGuest,
+                                            checkbox,
+                                            isFav,
+                                            R.id.action_eventsFragment_to_postLoginFragment)
+                                    }
+                                }, object : RowClickListener {
+                                    override fun rowClickListener() {
+                                        navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
+                                    }
+
+                                }, event = it, resLayout = R.layout.event_items))
+                        }
+
+//                        eventAdapter.events =
+//                            sortNearEvent(eventViewModel.getNearEvents(it.value.events!!))
+//
                         if (!it.value.featureEvents.isNullOrEmpty()) {
-                            featureAdapter.events = it.value.featureEvents!!
+//                            featureAdapter.events =
+                            it.value.featureEvents!!.forEach {
+                                groupAdapter.add(EventListItem<EventItemsBinding>(object :
+                                    FavouriteChecker {
+                                    override fun checkFavListener(
+                                        checkbox: CheckBox,
+                                        pos: Int,
+                                        isFav: Boolean,
+                                    ) {
+                                        favouriteEvent(application.auth.isGuest,
+                                            checkbox,
+                                            isFav,
+                                            R.id.action_eventsFragment_to_postLoginFragment)
+                                    }
+                                }, object : RowClickListener {
+                                    override fun rowClickListener() {
+                                        navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
+                                    }
+
+                                }, event = it, resLayout = R.layout.event_items))
+                            }
                         }
                     }
                 }

@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentEventDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.detail.adapter.UpComingItems
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventScheduleItems
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -33,7 +30,7 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
-    OnMapReadyCallback , View.OnClickListener {
+    OnMapReadyCallback, View.OnClickListener {
     private val eventDetailViewModel: EventDetailViewModel by viewModels()
     lateinit var scheduleAdapter: GroupAdapter<GroupieViewHolder>
 
@@ -50,7 +47,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         uiActions()
         rvSetUp()
 
-        binding.root.btn_register_now.setOnClickListener{
+        binding.root.btn_register_now.setOnClickListener {
 
         }
         binding.root.tv_direction.setOnClickListener {
@@ -206,6 +203,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
         }
     }
+
     private fun mapSetUp() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
@@ -227,7 +225,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
+        when (v?.id) {
             R.id.btn_reg -> {
                 navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
             }

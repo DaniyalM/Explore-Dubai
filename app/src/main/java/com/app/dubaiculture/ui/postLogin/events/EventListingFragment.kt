@@ -13,6 +13,7 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.databinding.FragmentEventListingBinding
+import com.app.dubaiculture.databinding.ItemEventListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
@@ -28,7 +29,6 @@ import timber.log.Timber
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
@@ -68,12 +68,13 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
             // bus.post(AttractionBusService().SwipeToRefresh(true))
         }
     }
+
     private fun callingObservables() {
 //        if (!isContentLoaded) {
-            lifecycleScope.launch {
-                eventViewModel.getFilterEventList(EventRequest(
-                    culture = getCurrentLanguage().language
-                ))
+        lifecycleScope.launch {
+            eventViewModel.getFilterEventList(EventRequest(
+                culture = getCurrentLanguage().language
+            ))
 //            }
         }
 
@@ -95,7 +96,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
         binding.rvEventListing.apply {
             layoutManager = LinearLayoutManager(activity)
 //            adapter = eventListScreenAdapter
-            adapter=groupAdapter
+            adapter = groupAdapter
 //            eventListScreenAdapter.events = createAttractionItems()
         }
     }
@@ -153,30 +154,110 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
                                 Timber.e("Get Position =>${eventID.toString()}")
 
                                 groupAdapter.apply {
-                                    when(it){
-                                        0->{
+                                    when (it) {
+                                        0 -> {
                                             allList.forEach {
-                                                add(EventListItem(event = it))
+                                                add(EventListItem<ItemEventListingBinding>(object :
+                                                    FavouriteChecker {
+                                                    override fun checkFavListener(
+                                                        checkbox: CheckBox,
+                                                        pos: Int,
+                                                        isFav: Boolean,
+                                                    ) {
+                                                        favouriteEvent(application.auth.isGuest,
+                                                            checkbox,
+                                                            isFav,
+                                                            R.id.action_eventFilterFragment_to_postLoginFragment)
+                                                    }
+                                                },
+                                                    object : RowClickListener {
+                                                        override fun rowClickListener() {
+                                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+                                                        }
+
+                                                    },
+                                                    event = it,
+                                                    resLayout = R.layout.item_event_listing))
                                             }
 //                                            eventListScreenAdapter.events = allList
                                         }
-                                        1->{
+                                        1 -> {
                                             thisWeeklist.forEach {
-                                                add(EventListItem(event = it))
+                                                add(EventListItem<ItemEventListingBinding>(
+                                                    object : FavouriteChecker {
+                                                        override fun checkFavListener(
+                                                            checkbox: CheckBox,
+                                                            pos: Int,
+                                                            isFav: Boolean,
+                                                        ) {
+                                                            favouriteEvent(application.auth.isGuest,
+                                                                checkbox,
+                                                                isFav,
+                                                                R.id.action_eventFilterFragment_to_postLoginFragment)
+                                                        }
+                                                    },
+                                                    object : RowClickListener {
+                                                        override fun rowClickListener() {
+                                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+                                                        }
+
+                                                    },
+                                                    event = it,
+                                                    resLayout = R.layout.item_event_listing))
                                             }
 //                                            eventListScreenAdapter.events = thisWeeklist
 
                                         }
-                                        2->{
+                                        2 -> {
                                             thisWeekendList.forEach {
-                                                add(EventListItem(event = it))
+                                                add(EventListItem<ItemEventListingBinding>(
+                                                    object : FavouriteChecker {
+                                                        override fun checkFavListener(
+                                                            checkbox: CheckBox,
+                                                            pos: Int,
+                                                            isFav: Boolean,
+                                                        ) {
+                                                            favouriteEvent(application.auth.isGuest,
+                                                                checkbox,
+                                                                isFav,
+                                                                R.id.action_eventFilterFragment_to_postLoginFragment)
+                                                        }
+                                                    },
+                                                    object : RowClickListener {
+                                                        override fun rowClickListener() {
+                                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+                                                        }
+
+                                                    },
+                                                    event = it,
+                                                    resLayout = R.layout.item_event_listing))
                                             }
 //                                            eventListScreenAdapter.events = thisWeekendList
 
                                         }
-                                        3->{
+                                        3 -> {
                                             next7DaysList.forEach {
-                                                add(EventListItem(event = it))
+                                                add(EventListItem<ItemEventListingBinding>(
+                                                    object : FavouriteChecker {
+                                                        override fun checkFavListener(
+                                                            checkbox: CheckBox,
+                                                            pos: Int,
+                                                            isFav: Boolean,
+                                                        ) {
+                                                            favouriteEvent(application.auth.isGuest,
+                                                                checkbox,
+                                                                isFav,
+                                                                R.id.action_eventFilterFragment_to_postLoginFragment)
+                                                        }
+                                                    },
+                                                    object : RowClickListener {
+                                                        override fun rowClickListener() {
+                                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+                                                        }
+
+                                                    },
+                                                    event = it,
+                                                    resLayout = R.layout.item_event_listing))
                                             }
 //                                            eventListScreenAdapter.events = next7DaysList
 

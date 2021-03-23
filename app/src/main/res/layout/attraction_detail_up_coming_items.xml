@@ -67,18 +67,22 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:roundedCorners="topRight|topLeft" />
 
-
-                <ImageView
-                    android:id="@+id/img_like"
+                <CheckBox
+                    android:id="@+id/favourite"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="end"
                     android:layout_margin="@dimen/_15sdp"
+                    android:button="@null"
+                    android:foreground="@drawable/custom_ripple_border"
+                    android:checked="@{events.favourite}"
                     android:background="@drawable/heart_icon_home"
                     android:padding="@dimen/_8sdp"
+                    android:stateListAnimator="@animator/scale"
                     app:layout_constraintBottom_toBottomOf="@+id/card_view_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/card_view_title" />
+
 
 
                 <androidx.constraintlayout.widget.Guideline
@@ -140,8 +144,8 @@
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_end_month_event"
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
                     android:layout_marginStart="@dimen/_2sdp"
                     android:layout_marginBottom="15dp"
                     android:lineSpacingExtra="-0.1dp"
