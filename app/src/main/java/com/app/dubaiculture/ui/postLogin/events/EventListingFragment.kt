@@ -1,25 +1,26 @@
 package com.app.dubaiculture.ui.postLogin.events
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
-import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
+import com.app.dubaiculture.data.repository.filter.models.SelectedItems
 import com.app.dubaiculture.databinding.FragmentEventListingBinding
 import com.app.dubaiculture.databinding.ItemEventListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
+import com.app.dubaiculture.ui.postLogin.events.adapters.FilterHeaderAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.dateFormat
@@ -30,14 +31,17 @@ import timber.log.Timber
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
+class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.OnClickListener {
     private val eventViewModel: EventViewModel by activityViewModels()
     private val allList = mutableListOf<Events>()
     private var thisWeeklist = mutableListOf<Events>()
     private var thisWeekendList = mutableListOf<Events>()
     private var next7DaysList = mutableListOf<Events>()
+    lateinit var adapterEvents: FilterHeaderAdapter
+    private var selectedItemsList = ArrayList<SelectedItems>()
 
     var eventID: Int? = 0
     private var isContentLoaded = false
@@ -51,7 +55,6 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
             arguments = Bundle().apply {
                 putInt(EVENT_DETAIL_ID, eventID!!)
             }
-
         }
     }
 
@@ -61,45 +64,34 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
         initRecyclerView()
         callingObservables()
         subscribeToObservables()
-
-
+        binding.llFilterHeader.setOnClickListener(this)
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
-            // bus.post(AttractionBusService().SwipeToRefresh(true))
+            eventViewModel.updateHeaderItems(eventID ?: 0)
         }
     }
 
     private fun callingObservables() {
-//        if (!isContentLoaded) {
-        lifecycleScope.launch {
-            eventViewModel.getFilterEventList(EventRequest(
-                culture = getCurrentLanguage().language
-            ))
-            }
         lifecycleScope.launch {
             eventViewModel.getDataFilterBtmSheet(locale = getCurrentLanguage().language)
         }
     }
 
     private fun initRecyclerView() {
-//        eventListScreenAdapter = EventListScreenAdapter(object : FavouriteChecker {
-//            override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean) {
-//                favouriteEvent(application.auth.isGuest,
-//                    checkbox,
-//                    isFav,
-//                    R.id.action_eventFilterFragment_to_postLoginFragment)
-//            }
-//        }, object : RowClickListener {
-//            override fun rowClickListener() {
-//                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
-//            }
-//        })
         binding.rvEventListing.apply {
             layoutManager = LinearLayoutManager(activity)
-//            adapter = eventListScreenAdapter
             adapter = groupAdapter
-//            eventListScreenAdapter.events = createAttractionItems()
         }
+        adapterEvents = FilterHeaderAdapter(object : FilterHeaderAdapter.RemoveHeaderItem {
+            override fun onItemRemove(pos: Int, list: List<SelectedItems>) {
+                removeItemsFromFilterHeader(pos)
+            }
+        })
+        binding.rvFilterHeader.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = adapterEvents
+        }
+        callingFilterObserver()
     }
 
 
@@ -108,155 +100,72 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
         container: ViewGroup?,
     ) = FragmentEventListingBinding.inflate(inflater, container, false)
 
-    private fun createAttractionItems(): ArrayList<Events> = mutableListOf<Events>().apply {
-        repeat((1..4).count()) {
-            add(
-                Events(
-                    id = it.toString(),
-                    title = "The Definitive Guide to an Uncertain World",
-                    category = "ONLINE",
-                    fromDate = "18",
-                    fromMonthYear = "Mar, 21",
-                    fromTime = "20$it",
-                    fromDay = "1$it",
-                    toDate = "20",
-                    toMonthYear = "Mar, 21",
-                    toTime = "202$it",
-                    toDay = "2$it",
-                    type = "FREE",
-                    locationTitle = "Palm Jumeriah, Dubai"
-                )
-            )
-        }
-    } as ArrayList<Events>
+
     private fun subscribeToObservables() {
         eventViewModel.eventfilterRequest.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
                     it.let {
                         isContentLoaded = false
+                        allList.clear()
                         allList.addAll(it.value)
-                        thisWeeklist = thisWeek(it.value)
-                        thisWeekendList = getWeekend(it.value)
-                        next7DaysList = next7days(it.value)
 
-                        arguments?.getInt(EVENT_DETAIL_ID)
-                            ?.let {
-                                eventID = it
-                                Timber.e("Get Position =>${eventID.toString()}")
-
-                                groupAdapter.apply {
-                                    when (it) {
-                                        0 -> {
-                                            allList.forEach {
-                                                add(EventListItem<ItemEventListingBinding>(object :
-                                                    FavouriteChecker {
-                                                    override fun checkFavListener(
-                                                        checkbox: CheckBox,
-                                                        pos: Int,
-                                                        isFav: Boolean,
-                                                    ) {
-                                                        favouriteEvent(application.auth.isGuest,
-                                                            checkbox,
-                                                            isFav,
-                                                            R.id.action_eventFilterFragment_to_postLoginFragment)
-                                                    }
-                                                },
-                                                    object : RowClickListener {
-                                                        override fun rowClickListener() {
-                                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
-                                                        }
-
-                                                    },
-                                                    event = it,
-                                                    resLayout = R.layout.item_event_listing))
-                                            }
-//                                            eventListScreenAdapter.events = allList
+                        groupAdapter.clear()
+                        groupAdapter.apply {
+//                                    when (it) {
+                            if (eventID != 2) {
+                                allList.forEach {
+                                    add(EventListItem<ItemEventListingBinding>(object :
+                                        FavouriteChecker {
+                                        override fun checkFavListener(
+                                            checkbox: CheckBox,
+                                            pos: Int,
+                                            isFav: Boolean,
+                                        ) {
+                                            favouriteEvent(application.auth.isGuest,
+                                                checkbox,
+                                                isFav,
+                                                R.id.action_eventFilterFragment_to_postLoginFragment)
                                         }
-                                        1 -> {
-                                            thisWeeklist.forEach {
-                                                add(EventListItem<ItemEventListingBinding>(
-                                                    object : FavouriteChecker {
-                                                        override fun checkFavListener(
-                                                            checkbox: CheckBox,
-                                                            pos: Int,
-                                                            isFav: Boolean,
-                                                        ) {
-                                                            favouriteEvent(application.auth.isGuest,
-                                                                checkbox,
-                                                                isFav,
-                                                                R.id.action_eventFilterFragment_to_postLoginFragment)
-                                                        }
-                                                    },
-                                                    object : RowClickListener {
-                                                        override fun rowClickListener() {
-                                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
-                                                        }
-
-                                                    },
-                                                    event = it,
-                                                    resLayout = R.layout.item_event_listing))
+                                    },
+                                        object : RowClickListener {
+                                            override fun rowClickListener() {
+                                                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
                                             }
-//                                            eventListScreenAdapter.events = thisWeeklist
 
-                                        }
-                                        2 -> {
-                                            thisWeekendList.forEach {
-                                                add(EventListItem<ItemEventListingBinding>(
-                                                    object : FavouriteChecker {
-                                                        override fun checkFavListener(
-                                                            checkbox: CheckBox,
-                                                            pos: Int,
-                                                            isFav: Boolean,
-                                                        ) {
-                                                            favouriteEvent(application.auth.isGuest,
-                                                                checkbox,
-                                                                isFav,
-                                                                R.id.action_eventFilterFragment_to_postLoginFragment)
-                                                        }
-                                                    },
-                                                    object : RowClickListener {
-                                                        override fun rowClickListener() {
-                                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
-                                                        }
-
-                                                    },
-                                                    event = it,
-                                                    resLayout = R.layout.item_event_listing))
-                                            }
-//                                            eventListScreenAdapter.events = thisWeekendList
-                                        }
-                                        3 -> {
-                                            next7DaysList.forEach {
-                                                add(EventListItem<ItemEventListingBinding>(
-                                                    object : FavouriteChecker {
-                                                        override fun checkFavListener(
-                                                            checkbox: CheckBox,
-                                                            pos: Int,
-                                                            isFav: Boolean,
-                                                        ) {
-                                                            favouriteEvent(application.auth.isGuest,
-                                                                checkbox,
-                                                                isFav,
-                                                                R.id.action_eventFilterFragment_to_postLoginFragment)
-                                                        }
-                                                    },
-                                                    object : RowClickListener {
-                                                        override fun rowClickListener() {
-                                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
-                                                        }
-
-                                                    },
-                                                    event = it,
-                                                    resLayout = R.layout.item_event_listing))
-                                            }
-//                                            eventListScreenAdapter.events = next7DaysList
-
-                                        }
-                                    }
+                                        },
+                                        event = it,
+                                        resLayout = R.layout.item_event_listing))
                                 }
+                            } else
+                                eventViewModel.getWeekend(allList).forEach {
+                                    add(EventListItem<ItemEventListingBinding>(
+                                        object : FavouriteChecker {
+                                            override fun checkFavListener(
+                                                checkbox: CheckBox,
+                                                pos: Int,
+                                                isFav: Boolean,
+                                            ) {
+                                                favouriteEvent(application.auth.isGuest,
+                                                    checkbox,
+                                                    isFav,
+                                                    R.id.action_eventFilterFragment_to_postLoginFragment)
+                                            }
+                                        },
+                                        object : RowClickListener {
+                                            override fun rowClickListener() {
+                                                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+                                            }
 
-                            }
+                                        },
+                                        event = it,
+                                        resLayout = R.layout.item_event_listing))
+                                }
+                        }
+                        if (allList.isEmpty())
+                            binding.tvNoData.visibility = View.VISIBLE
+                        else
+                            binding.tvNoData.visibility = View.GONE
                     }
                 }
                 is Result.Failure -> {
@@ -265,67 +174,109 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>() {
             }
         }
     }
+
     override fun onResume() {
         super.onResume()
+        arguments?.getInt(EVENT_DETAIL_ID)
+            ?.let {
+                eventID = it
+                eventViewModel.updateHeaderItems(eventID ?: 0)
+            }
     }
-    private fun thisWeek(list: List<Events>): MutableList<Events> {
-        val thisWeekList = mutableListOf<Events>()
-        list.forEach { eventDate ->
-            for (element in getWeek()) {
-                if (element == (dateFormat(eventDate.dateTo))) {
-                    thisWeekList.add(eventDate)
-                    Timber.e("week list size  ${thisWeekList.size.toString()}")
-                    break
-                }
+
+
+    private fun callingFilterObserver() {
+        eventViewModel.filterDataList.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
+                binding.llFilterHeader.visibility = View.VISIBLE
+                selectedItemsList = it
+                transformationOfModels(selectedItemsList)
+                adapterEvents.selectedItems = it as List<SelectedItems>
+            } else {
+                binding.llFilterHeader.visibility = View.GONE
+                transformationOfModels(selectedItemsList)
+
             }
         }
-        return thisWeekList
     }
-    private fun next7days(list: List<Events>): MutableList<Events> {
-        val sevenDays = mutableListOf<Events>()
-        list.forEach { eventDate ->
-            for (element in getNextSevenDays()) {
-                if (element == (dateFormat(eventDate.dateTo))) {
-                    sevenDays.add(eventDate)
-                    Timber.e("week list size  ${sevenDays.size.toString()}")
-                    break
-                }
+
+    private fun removeItemsFromFilterHeader(position: Int) {
+        selectedItemsList.removeAt(position)
+        adapterEvents.notifyItemRemoved(position)
+        adapterEvents.notifyItemRangeChanged(position, selectedItemsList.size)
+        eventViewModel._filterDataList.value = selectedItemsList
+        transformationOfModels(selectedItemsList)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.ll_filter_header -> {
+                selectedItemsList.clear()
+                eventViewModel._filterDataList.value = selectedItemsList
+                binding.llFilterHeader.visibility = View.GONE
+
             }
         }
-        return sevenDays
     }
-    private fun getWeekend(list: List<Events>): MutableList<Events> {
-        val weekendList = list.filter {
-            it.fromDay == "Friday" || it.fromDay == "Saturday"
+
+    private fun transformationOfModels(
+        list: ArrayList<SelectedItems>,
+        isClearAll: Boolean? = false,
+    ): ArrayList<EventRequest> {
+        val eventRequest = ArrayList<EventRequest>()
+        val categoryStringList = ArrayList<String>()
+        var keyword: String? = ""
+        var location: String? = ""
+        var dateFrom: String? = ""
+        var dateTo: String? = ""
+        var type: String? = ""
+        list.forEach {
+            if (it.category!!.isNotEmpty()) {
+                categoryStringList.add(it.id!!)
+            }
+            if (it.keyword!!.isNotEmpty()) {
+                keyword = it.keyword
+            }
+            if (it.type!!.isNotEmpty()) {
+                type = it.id
+            }
+            if (it.dateFrom!!.isNotEmpty()) {
+                dateFrom = it.dateFrom
+            }
+            if (it.dateTo!!.isNotEmpty()) {
+                dateTo = it.dateTo
+            }
+            if (it.location!!.isNotEmpty()) {
+                location = it.id
+            }
         }
-        return weekendList as MutableList<Events>
-    }
-    private fun getNextSevenDays(dateString: String? = null): Array<String?> {
-        val format: DateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val calendar: Calendar = GregorianCalendar()
-        val date = getDateObj("2021-03-28T17:19:00")
-        calendar.time = date
-        val next7Days = arrayOfNulls<String>(7)
-        for (i in 0..6) {
-            calendar.add(Calendar.DATE, i)
-            next7Days[i] = format.format(calendar.time)
+
+        eventRequest.add(
+            EventRequest(
+                category = categoryStringList,
+                keyword = keyword,
+                type = type,
+                dateFrom = dateFrom,
+                dateTo = dateTo,
+                location = location
+            )
+        )
+
+        eventViewModel.showToast("Hello")
+        eventRequest.map {
+            lifecycleScope.launch {
+                eventViewModel.getFilterEventList(EventRequest(
+                    culture = getCurrentLanguage().language,
+                    category = it.category,
+                    keyword = it.keyword,
+                    location = it.location,
+                    dateFrom = it.dateFrom,
+                    dateTo = it.dateTo,
+                    type = it.type
+                ))
+            }
         }
-        return next7Days
-    }
-    private fun getWeek(dateString: String? = null): Array<String?> {
-        val format: DateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val calendar = Calendar.getInstance()
-        calendar.firstDayOfWeek = Calendar.MONDAY
-        calendar[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
-        val date = getDateObj("2021-03-28T17:19:00")
-        calendar.time = date
-        val days = arrayOfNulls<String>(7)
-        for (i in 0..6) {
-            days[i] = format.format(calendar.time)
-            calendar.add(Calendar.DAY_OF_MONTH, 1)
-            Timber.e("Week ${days[i]}")
-        }
-        return days
+        return eventRequest
     }
 
 }

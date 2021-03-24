@@ -19,7 +19,7 @@ fun transformAddToFavouriteRequest(addToFavouriteRequest: AddToFavouriteRequest)
 fun transformEventFiltersRequest(eventRequest: EventRequest) =
     EventFiltersRequestDTO(
         Culture = eventRequest.culture!!,
-        UserID = eventRequest.userId,
+//        UserID = eventRequest.userId,
         Category = eventRequest.category,
         Keyword = eventRequest.keyword,
         DateFrom = eventRequest.dateFrom,

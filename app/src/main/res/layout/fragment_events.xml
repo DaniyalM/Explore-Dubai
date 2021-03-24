@@ -111,6 +111,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/view_all"
                             android:textSize="@dimen/_12ssp"
+                            android:foreground="@drawable/custom_ripple_border"
                             android:gravity="end"
                             android:id="@+id/view_all_events"
                             android:layout_marginEnd="@dimen/_15sdp"

@@ -1,16 +1,19 @@
 package com.app.dubaiculture.ui.postLogin.events
 
-//import q.rorbin.badgeview.QBadgeView
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
+import com.app.dubaiculture.data.repository.filter.models.SelectedItems
 import com.app.dubaiculture.databinding.FragmentEventFilterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.components.EventHeaderItemSelector
@@ -23,6 +26,7 @@ import com.app.dubaiculture.utils.getDateObj
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import kotlinx.coroutines.launch
+import q.rorbin.badgeview.QBadgeView
 import timber.log.Timber
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -30,8 +34,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnClickListener {
-    private val eventViewModel: EventViewModel by viewModels()
-    private val filterViewModel: FilterViewModel by viewModels()
+    private val eventViewModel: EventViewModel by activityViewModels()
 
     private var isContentLoaded = false
 
@@ -44,12 +47,21 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 //        subscribeToObservables()
         initiatePager()
         viewPagerSetUp()
-//        QBadgeView(activity)
-//            .setBadgeBackgroundColor(R.color.colorPrimary)
-//            .bindTarget(binding!!.root.badge_placement).setBadgeNumber(5)
-//            .stroke(R.color.black_900, 6F, true)
-//            .setBadgeGravity(Gravity.START or Gravity.TOP)
-//            .setGravityOffset(18F, 6F, true)
+
+
+
+
+        eventViewModel.filterDataList.observe(viewLifecycleOwner){
+            if(!it.isNullOrEmpty()){
+                // badge should be visible
+                binding.showTabHeader.visibility = View.GONE
+                badgeSetUp(it)
+            }else{
+                // badge should be gone
+                badgeSetUp(it)
+                binding.showTabHeader.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun initiatePager() {
@@ -59,16 +71,6 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 //            this)
     }
 
-    private fun callingObservables() {
-        if (!isContentLoaded) {
-            lifecycleScope.launch {
-                eventViewModel.getFilterEventList(EventRequest(
-                    culture = getCurrentLanguage().language
-                ))
-            }
-        }
-
-    }
 
     private fun viewPagerSetUp(){
         isContentLoaded = false
@@ -77,24 +79,6 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
             binding.pager,
             this)
     }
-//    private fun subscribeToObservables() {
-//        eventViewModel.eventfilterRequest.observe(viewLifecycleOwner) {
-//            when (it) {
-//                is Result.Success -> {
-//                    it.let {
-//                        isContentLoaded = false
-//                        binding.pager.isSaveEnabled = false
-//                        binding.horizontalSelector.initialize(createItems(),
-//                            binding.pager,
-//                            this)
-//                    }
-//                }
-//                is Result.Failure -> {
-//                    showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
-//                }
-//            }
-//        }
-//    }
 
     override fun onResume() {
         super.onResume()
@@ -155,7 +139,16 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
             }
         }
     }
+private fun badgeSetUp(list:List<SelectedItems>){
+    QBadgeView(requireContext())
+        .setBadgeBackgroundColor(R.color.purple_900)
+        .bindTarget(binding.root.badge_placement).setBadgeNumber(list.size)
+//        .stroke(R.color.black_900, 6F, true)\
+        .setBadgeGravity(Gravity.START or Gravity.TOP)
+        .setGravityOffset(18F, 6F, true)
+//        .badgeTextColor = Color.parseColor("#FFFFFF")
 
+}
 
 
 }

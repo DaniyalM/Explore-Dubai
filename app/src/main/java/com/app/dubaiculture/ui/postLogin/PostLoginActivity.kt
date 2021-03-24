@@ -19,7 +19,7 @@ import timber.log.Timber
 //,
 //OnStreetViewPanoramaReadyCallback
 @AndroidEntryPoint
-class PostLoginActivity : BaseAuthenticationActivity() , FilterFragment.ItemClickListener{
+class PostLoginActivity : BaseAuthenticationActivity() {
 
         lateinit var navController: NavController
         private val mainViewModel: MainViewModel by viewModels()
@@ -96,9 +96,7 @@ class PostLoginActivity : BaseAuthenticationActivity() , FilterFragment.ItemClic
             }
         }
 
-    override fun onItemClick(item: String?) {
-        Timber.e("Hello")
-    }
+
 }
 
 

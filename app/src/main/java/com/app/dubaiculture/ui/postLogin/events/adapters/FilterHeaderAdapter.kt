@@ -3,66 +3,95 @@ package com.app.dubaiculture.ui.postLogin.events.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.filter.models.FilterData
+import com.app.dubaiculture.data.repository.filter.models.SelectedItems
 import com.app.dubaiculture.databinding.SearchFilterListItemsBinding
+import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 
-class FilterHeaderAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FilterHeaderAdapter(val iface: RemoveHeaderItem? = null) :
+    BaseRecyclerAdapter<SelectedItems>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<FilterData>() {
-        override fun areItemsTheSame(oldItem: FilterData, newItem: FilterData): Boolean {
-            return oldItem.userID == newItem.userID
-        }
-
-        override fun areContentsTheSame(oldItem: FilterData, newItem: FilterData): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
-        }
-    }
-    private val differ = AsyncListDiffer(this, diffCallback)
-    var filterDataData: List<FilterData>
+    var selectedItems: List<SelectedItems>
         get() = differ.currentList
-        set(value) {
-            differ.submitList(value)
-        }
-    inner class FilterListViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+        set(value) = differ.submitList(value)
+
+    inner class EventsListViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return FilterListViewHolder(FilterListItemCell(parent.context).apply { inflate() })
+        return EventsListViewHolder(EventsListItemCell(parent.context).apply { inflate() })
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        setUpEventNearMapViewHolder(holder = holder as FilterHeaderAdapter.FilterListViewHolder,
+        setUpEventsListViewHolder(holder as FilterHeaderAdapter.EventsListViewHolder,
             position)
     }
 
-    override fun getItemCount() =filterDataData.size
+    override fun getItemCount() = selectedItems.size
 
     //Data Binding
-    private inner class FilterListItemCell(context: Context) : AsyncCell(context) {
+    private inner class EventsListItemCell(context: Context) : AsyncCell(context, true) {
         var binding: SearchFilterListItemsBinding? = null
         override val layoutId = R.layout.search_filter_list_items
         override fun createDataBindingView(view: View): View? {
             binding = SearchFilterListItemsBinding.bind(view)
+            YoYo.with(Techniques.BounceInDown)
+                .duration(700)
+                .playOn(binding?.root)
             return view.rootView
         }
     }
 
-    private fun setUpEventNearMapViewHolder(
-        holder: FilterHeaderAdapter.FilterListViewHolder,
+    private fun setUpEventsListViewHolder(
+        holder: FilterHeaderAdapter.EventsListViewHolder,
         position: Int,
     ) {
-        (holder.itemView as FilterHeaderAdapter.FilterListItemCell).bindWhenInflated {
+        (holder.itemView as EventsListItemCell).bindWhenInflated {
             holder.itemView.binding?.let {
                 try {
+                    it.root.setOnClickListener {
+                        YoYo.with(Techniques.RubberBand)
+                            .duration(100)
+                            .playOn(it)
+                        iface!!.onItemRemove(position, selectedItems)
+                    }
+                    if (selectedItems[position].category!!.isNotEmpty()) {
+                        it.tvFilterText.text = selectedItems[position].category
+                    }
+                    if (selectedItems[position].keyword!!.isNotEmpty()) {
+                        it.tvFilterText.text = selectedItems[position].keyword
 
+                    }
+                    if (selectedItems[position].location!!.isNotEmpty()) {
+                        it.tvFilterText.text = selectedItems[position].location
+
+                    }
+                    if (selectedItems[position].dateFrom!!.isNotEmpty()) {
+                        it.tvFilterText.text = selectedItems[position].dateFrom
+
+                    }
+                    if (selectedItems[position].dateTo!!.isNotEmpty()) {
+                        it.tvFilterText.text = selectedItems[position].dateTo
+
+                    }
+                    if (selectedItems[position].type!!.isNotEmpty()) {
+                        it.tvFilterText.text = selectedItems[position].type
+
+                    }
+
+
+//                    it.filterData = selectedItems[position]
                 } catch (ex: IndexOutOfBoundsException) {
                     print(ex.stackTrace)
                 }
             }
         }
+    }
+
+    interface RemoveHeaderItem {
+        fun onItemRemove(pos: Int, list: List<SelectedItems>)
     }
 }
