@@ -161,10 +161,6 @@ class EventViewModel @ViewModelInject constructor(
         }
     }
 
-     fun getMoreEvents(list:List<Events>) :List<Events> =
-        list.filter {
-            it.latitude == "" && it.longitude==""
-        }
 
      fun getNearEvents(list:List<Events>) :List<Events> =
         list.filter {
