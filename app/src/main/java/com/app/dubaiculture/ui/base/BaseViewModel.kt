@@ -19,6 +19,8 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     private val _userLiveData = MutableLiveData<User>()
     val userLiveData: LiveData<User> = _userLiveData
 
+    var _appLocale: String = "en"
+
 
     fun showLoader(show: Boolean) {
         _uiEventsLiveData.postValue(Event(UiEvent.ShowLoader(show)))

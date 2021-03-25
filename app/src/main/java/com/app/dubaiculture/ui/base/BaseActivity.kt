@@ -26,6 +26,7 @@ abstract class BaseActivity : LocalizationActivity() {
         super.onCreate(savedInstanceState)
         applicationEntry = application as ApplicationEntry
         bus = applicationEntry.bus
+        applicationEntry.auth.locale=getCurrentLanguage().language
         bus.register(this)
         isBusRegistered = true
         customProgressDialog = ProgressDialog(this)

@@ -186,7 +186,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     private fun subscribeObservables() {
-        attractionDetailViewModel.isPlaying.observe(viewLifecycleOwner) {
+        attractionDetailViewModel.isPla     ying.observe(viewLifecycleOwner) {
             if (it) {
                 try {
                     mp?.let {

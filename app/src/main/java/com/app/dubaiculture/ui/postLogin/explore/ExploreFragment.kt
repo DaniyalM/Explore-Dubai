@@ -1,8 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.explore
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
@@ -28,7 +27,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     lateinit var glide: RequestManager
 
     private val exploreViewModel: ExploreViewModel by viewModels()
-    private lateinit var explore: ExploreRecyclerAsyncAdapter
+    private lateinit var exploreAdapter: ExploreRecyclerAsyncAdapter
+    private lateinit var explore: List<Explore>
 //    val handler = Handler(Looper.getMainLooper())
 
     override fun getFragmentBinding(
@@ -43,24 +43,24 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         super.onActivityCreated(savedInstanceState)
         setUpRecyclerView()
         subscribeUiEvents(exploreViewModel)
-        callingObservables()
+//        callingObservables()
         subscribeToObservable()
 
 
-       binding.swipeRefresh.setOnRefreshListener {
-           binding.swipeRefresh.isRefreshing = false
-           callingObservables()
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            callingObservables()
         }
 
     }
 
     private fun setUpRecyclerView() {
-        explore = ExploreRecyclerAsyncAdapter(activity)
+        exploreAdapter = ExploreRecyclerAsyncAdapter(activity, fragment = this, application = application)
 //        explore.items = createTestItems()
         binding.rvExplore.apply {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
-            adapter = explore
+            adapter = exploreAdapter
             this.itemAnimator = SlideInLeftAnimator()
 //            LinearSnapHelper().attachToRecyclerView(this)
 
@@ -69,10 +69,13 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     }
 
 
-    private fun callingObservables(){
-        lifecycleScope.launch {
-            exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
+    private fun callingObservables() {
+        if (!this::explore.isInitialized){
+            lifecycleScope.launch {
+                exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
+            }
         }
+
     }
 
     private fun subscribeToObservable() {
@@ -80,7 +83,9 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let {
-                        explore.items= it.value }
+                        explore=it.value
+                        exploreAdapter.items = explore
+                    }
                 }
                 is Result.Failure -> handleApiError(it, exploreViewModel)
             }

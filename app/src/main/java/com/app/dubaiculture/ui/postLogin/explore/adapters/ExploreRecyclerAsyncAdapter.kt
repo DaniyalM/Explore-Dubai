@@ -7,42 +7,76 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
+import android.widget.CheckBox
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
+import com.app.dubaiculture.data.repository.attraction.local.models.SocialLink
+import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.databinding.SectionItemContainerCellBinding
+import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.UpComingEventsInnerAdapter
+import com.app.dubaiculture.ui.postLogin.explore.ExploreFragment
 import com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters.MustSeeInnerAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsInnerAdapter
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceInnerAdapter
 import com.app.dubaiculture.utils.AsyncCell
-import com.bumptech.glide.RequestManager
 import com.google.android.material.shape.CornerFamily
 
 
 class ExploreRecyclerAsyncAdapter internal constructor(
-    private val context: Context, private var isArabic : Boolean?=null
+    private val context: Context,
+    private var isArabic: Boolean? = null,
+    private var fragment: ExploreFragment ?= null,
+    private var application: ApplicationEntry? = null
 ) :
     BaseRecyclerAdapter<Explore>() {
     private var attractionInnerAdapter: AttractionInnerAdapter? = null
+
+
     private var upComingEventsInnerAdapter: UpComingEventsInnerAdapter? = null
     private var mustSeeInnerAdapter: MustSeeInnerAdapter? = null
     private var latestNewsInnerAdapter: LatestNewsInnerAdapter? = null
     private var popularServiceInnerAdapter: PopularServiceInnerAdapter? = null
+
     //global variable
     companion object {
         val handler = Handler(Looper.getMainLooper())
         var delayAnimate = 300
     }
+
     init {
-        attractionInnerAdapter = AttractionInnerAdapter( isArabic?:false)
+        attractionInnerAdapter = AttractionInnerAdapter(
+            object : RowClickListener {
+                override fun rowClickListener() {
+//                    navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+                }
+
+            },
+            isArabic ?: false)
         upComingEventsInnerAdapter = UpComingEventsInnerAdapter()
-        mustSeeInnerAdapter = MustSeeInnerAdapter()
+        mustSeeInnerAdapter = MustSeeInnerAdapter(object : FavouriteChecker {
+                override fun checkFavListener(
+                    checkbox: CheckBox,
+                    pos: Int,
+                    isFav: Boolean,
+                ) {
+                    fragment?.favouriteEvent(application!!.auth.isGuest,
+                        checkbox,
+                        isFav,
+                        R.id.action_exploreFragment_to_postLoginFragment)
+                }
+            },fragment)
         latestNewsInnerAdapter = LatestNewsInnerAdapter()
         popularServiceInnerAdapter = PopularServiceInnerAdapter()
     }
@@ -83,33 +117,22 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
         (holder.itemView as ExploreRecyclerAsyncAdapter.AttractionItemCell).bindWhenInflated {
             items[position].let { item ->
+                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
+
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = attractionInnerAdapter
-                    attractionInnerAdapter?.attractions = item.value
-//                    it.addOnItemTouchListener(
-//                        RecyclerItemClickListener(
-//                            context,
-//                            it,
-//                            object : RecyclerItemClickListener.OnItemClickListener {
-//                                override fun onItemClick(view: View, position: Int) {
-//                                    Toast.makeText(
-//                                        context,
-//                                        "${item.value.get(position).title} : ${
-//                                            item.value.get(position).category
-//                                        }",
-//                                        Toast.LENGTH_SHORT
-//                                    ).show()
-//                                }
-//
-//                                override fun onLongItemClick(view: View, position: Int) {
-//
-//                                }
-//                            })
-//                    )
+                    attractionInnerAdapter?.attractions = item.value.map { attractionCat ->
+                        AttractionCategory(
+                            id = attractionCat.id,
+                            icon = attractionCat.icon,
+                            title = attractionCat.title,
+                            selectedSvg = attractionCat.selectedSvg,
+                            color = attractionCat.color
+                        )
+                    }
                 }
-                holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
 
             }
         }
@@ -121,7 +144,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     ) {
         (holder.itemView as ExploreRecyclerAsyncAdapter.UpComingEventsItemCell).bindWhenInflated {
             items[position].let { item ->
-
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -164,18 +186,20 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         (holder.itemView as ExploreRecyclerAsyncAdapter.MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
                 val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-                if(isArabic==true){
-                    holder.itemView.binding?.cardviewPlanTrip?.shapeAppearanceModel = holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
-                        .toBuilder()
-                        .setBottomLeftCorner(CornerFamily.ROUNDED,radius)
-                        .setTopRightCornerSize(radius)
-                        .build()
-                }else{
-                    holder.itemView.binding?.cardviewPlanTrip?.shapeAppearanceModel = holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
-                        .toBuilder()
-                        .setTopLeftCorner(CornerFamily.ROUNDED,radius)
-                        .setBottomRightCornerSize(radius)
-                        .build()
+                if (isArabic == true) {
+                    holder.itemView.binding?.cardviewPlanTrip?.shapeAppearanceModel =
+                        holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
+                            .toBuilder()
+                            .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                            .setTopRightCornerSize(radius)
+                            .build()
+                } else {
+                    holder.itemView.binding?.cardviewPlanTrip?.shapeAppearanceModel =
+                        holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
+                            .toBuilder()
+                            .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                            .setBottomRightCornerSize(radius)
+                            .build()
                 }
 
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
@@ -184,26 +208,72 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = mustSeeInnerAdapter
-                    mustSeeInnerAdapter?.mustSees = item.value
-//                    it.addOnItemTouchListener(
-//                        RecyclerItemClickListener(
-//                            context,
-//                            it,
-//                            object : RecyclerItemClickListener.OnItemClickListener {
-//                                override fun onItemClick(view: View, position: Int) {
-//                                    Toast.makeText(
-//                                        context,
-//                                        "${item.value.get(position).title} : ${
-//                                            item.value.get(position).category
-//                                        }",
-//                                        Toast.LENGTH_SHORT
-//                                    ).show()
-//                                }
-//
-//                                override fun onLongItemClick(view: View, position: Int) {
-//                                }
-//                            })
-//                    )
+                    mustSeeInnerAdapter?.mustSees = item.value.map { attraction ->
+                        Attractions(
+                            id = attraction.id.toString(),
+                            title = attraction.title.toString(),
+                            category = attraction.category.toString(),
+                            locationTitle = attraction.locationTitle,
+                            location = attraction.location,
+                            portraitImage = attraction.portraitImage,
+                            landscapeImage = attraction.landscapeImage,
+                            description = attraction.description,
+                            startTime = attraction.startTime,
+                            endTime = attraction.endTime,
+                            startDay = attraction.startDay,
+                            endDay = attraction.endDay,
+                            color = attraction.color,
+                            IsFavourite = attraction.isFavourite,
+                            events = attraction.events?.let {
+                                it.map {
+                                    Events(
+                                        id = it.id,
+                                        title = it.title,
+                                        category = it.category,
+                                        image = it.image,
+                                        fromDate = it.fromDate,
+                                        fromMonthYear = it.fromMonthYear,
+                                        fromTime = it.fromTime,
+                                        fromDay = it.fromDay,
+                                        toDate = it.toDate,
+                                        toMonthYear = it.toMonthYear,
+                                        toTime = it.toTime,
+                                        toDay = it.toDay,
+                                        type = it.type,
+//            color=it.color,
+                                        dateTo = it.dateTo,
+                                        dateFrom = it.dateFrom,
+                                        locationTitle = it.locationTitle,
+                                        location = it.location,
+                                        longitude = it.longitude,
+                                        latitude = it.latitude,
+                                        isFavourite = it.isFavourite,
+                                    )
+                                }
+                            },
+                            gallery = attraction.gallery?.let {
+                                it.map {
+                                    Gallery(
+                                        isImage = it.isImage,
+                                        galleryImage = it.galleryImage,
+                                        galleryThumbnail = it.galleryThumbnail,
+                                        galleryLink = it.galleryLink
+                                    )
+                                }
+                            },
+                            socialLink = attraction.socialLinks?.let {
+                                it.map {
+                                    SocialLink(
+                                        facebookPageLink = it.facebookPageLink.toString(),
+                                        facebookIcon = it.facebookIcon.toString(),
+                                        instagramIcon = it.instagramIcon,
+                                        instagramPageLink = it.instagramPageLink.toString()
+                                    )
+                                }
+                            }
+                        )
+
+                    }
                 }
                 holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
 
@@ -385,7 +455,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
 
-
     private fun setAnimation(view: View?) {
         handler.postDelayed({
             val animation: Animation = AnimationUtils.loadAnimation(
@@ -404,3 +473,5 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         handler.removeCallbacksAndMessages(null)
     }
 }
+
+//
