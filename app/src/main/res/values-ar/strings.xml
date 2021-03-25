@@ -160,6 +160,8 @@
     <string name="detail_clip_card_text">Review Majlis Ghorfat\non Trip Advisor</string>
     <string name="clear_all">Clear All</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="away">Km Away</string>
+
 </resources>
 
 

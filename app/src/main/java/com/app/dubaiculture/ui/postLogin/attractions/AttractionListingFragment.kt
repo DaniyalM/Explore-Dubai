@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_attraction_listing.*
 @AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
-    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractionCatId: String
     private var searchQuery: String = ""
     private var pageNumber: Int = 0
@@ -184,21 +183,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             ))
         }
     }
-
-
-    private fun createAttractionItems(): ArrayList<Attractions> =
-        mutableListOf<Attractions>().apply {
-            repeat((1..4).count()) {
-                add(
-                    Attractions(
-                        id = it.toString(),
-                        title = "Museum of the Poet Al Oqaili",
-                        category = "BOOKING AVAILABLE",
-                        IsFavourite = it % 2 == 0,
-                    )
-                )
-            }
-        } as ArrayList<Attractions>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

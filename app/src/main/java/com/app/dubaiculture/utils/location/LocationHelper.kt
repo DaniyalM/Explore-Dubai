@@ -90,7 +90,7 @@ open class LocationHelper @Inject constructor(
         dist = acos(dist)
         dist = rad2deg(dist)
         dist = dist * 60 * 1.1515
-        return dist
+        return milesToKm(dist)
     }
 
     open fun deg2rad(deg: Double): Double {
@@ -99,6 +99,12 @@ open class LocationHelper @Inject constructor(
 
     open fun rad2deg(rad: Double): Double {
         return rad * 180.0 / Math.PI
+    }
+
+
+    open fun milesToKm(dist : Double): Double{
+        val km = dist / 0.62137
+        return String.format("%.1f", km).toDouble()
     }
 }
 

@@ -31,7 +31,7 @@ data class EventListItem<T : ViewDataBinding>(
                         favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
                     }
                     it.cardview.setOnClickListener {
-                        rowClickListener!!.rowClickListener()
+                        rowClickListener!!.rowClickListener(position)
                     }
                 }
             }
@@ -43,7 +43,7 @@ data class EventListItem<T : ViewDataBinding>(
                         favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
                     }
                     it.cardview.setOnClickListener {
-                        rowClickListener!!.rowClickListener()
+                        rowClickListener!!.rowClickListener(position)
                     }
                 }
             }
@@ -55,7 +55,7 @@ data class EventListItem<T : ViewDataBinding>(
                         favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
                     }
                     it.cardview.setOnClickListener {
-                        rowClickListener!!.rowClickListener()
+                        rowClickListener!!.rowClickListener(position)
                     }
                 }
             }

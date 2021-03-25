@@ -3,10 +3,12 @@ package com.app.dubaiculture.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -34,6 +36,9 @@ fun decorateRecyclerView(
     recyclerView.addItemDecoration(dividerItemDecoration)
 }
 
+
+
+
 fun requestBodyToString(request: RequestBody?): String? {
     return try {
         val buffer = Buffer()
@@ -44,6 +49,8 @@ fun requestBodyToString(request: RequestBody?): String? {
     }
 
 }
+
+
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(
     color))
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)

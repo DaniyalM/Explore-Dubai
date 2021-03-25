@@ -48,12 +48,12 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class EventsFragment : BaseFragment<FragmentEventsBinding>() {
-    private lateinit var featureAdapter: EventAdapter
-    private lateinit var eventAdapter: EventAdapter
-    private lateinit var moreAdapter: EventAdapter
     private val eventViewModel: EventViewModel by viewModels()
     lateinit var mAdapterNear: GroupAdapter<GroupieViewHolder>
     lateinit var mAdapterMore: GroupAdapter<GroupieViewHolder>
+    private val featureList = mutableListOf<Events>()
+    private val moreList = mutableListOf<Events>()
+    private val nearList = mutableListOf<Events>()
 
     @Inject
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -229,6 +229,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 is Result.Success -> {
                     it.let {
                         it.value.events!!.forEach {
+                            moreList.add(it)
                             groupAdapter.add(EventListItem<EventItemsBinding>(object :
                                 FavouriteChecker {
                                 override fun checkFavListener(
@@ -242,13 +243,17 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                         R.id.action_eventsFragment_to_postLoginFragment)
                                 }
                             }, object : RowClickListener {
-                                override fun rowClickListener() {
-                                    navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
+                                override fun rowClickListener(position: Int) {
+                                    val eventObj = featureList[position]
+                                    val bundle = Bundle()
+                                    bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT,
+                                        eventObj)
+                                    navigate(R.id.action_eventsFragment_to_eventDetailFragment2,bundle)
                                 }
-
                             }, event = it, resLayout = R.layout.event_items))
                         }
                         sortNearEvent(eventViewModel.getNearEvents(it.value.events!!)).forEach {
+                            nearList.add(it)
                             mAdapterNear.add(EventListItem<EventItemsBinding>(
                                 object : FavouriteChecker {
                                     override fun checkFavListener(
@@ -262,16 +267,20 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                             R.id.action_eventsFragment_to_postLoginFragment)
                                     }
                                 }, object : RowClickListener {
-                                    override fun rowClickListener() {
-                                        navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
+                                    override fun rowClickListener(position: Int) {
+                                        val eventObj = nearList[position]
+                                        val bundle = Bundle()
+                                        bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT,
+                                            eventObj)
+                                        navigate(R.id.action_eventsFragment_to_eventDetailFragment2,bundle)
                                     }
 
                                 }, event = it, resLayout = R.layout.event_items))
                         }
 
                         if (!it.value.featureEvents.isNullOrEmpty()) {
-//                            featureAdapter.events =
                             it.value.featureEvents!!.forEach {
+                                featureList.add(it)
                                 mAdapterMore.add(EventListItem<EventItemsBinding>(object :
                                     FavouriteChecker {
                                     override fun checkFavListener(
@@ -285,8 +294,12 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                             R.id.action_eventsFragment_to_postLoginFragment)
                                     }
                                 }, object : RowClickListener {
-                                    override fun rowClickListener() {
-                                        navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
+                                    override fun rowClickListener(position: Int) {
+                                        val eventObj = featureList[position]
+                                        val bundle = Bundle()
+                                        bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT,
+                                            eventObj)
+                                        navigate(R.id.action_eventsFragment_to_eventDetailFragment2,bundle)
                                     }
 
                                 }, event = it, resLayout = R.layout.event_items))
@@ -310,9 +323,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 LNG,
                 it.latitude!!.toDouble(),
                 it.longitude!!.toDouble())
-            val km = distance / 0.62137
-            val distanceKM: Double = String.format("%.1f", km).toDouble()
-            it.distance = distanceKM
+            it.distance = distance
             myList.sortWith(compareBy({ it.distance }))
             nearEventList.add(it)
             myList.add(it)

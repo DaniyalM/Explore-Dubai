@@ -36,6 +36,7 @@ object Constants {
         const val COMES_FROM_LOGIN: String = "loginFragment"
         const val SELECTED_CITY: String = "selectedCity"
         const val SORTED_LIST: String = "SORTED_EVENT_LIST"
+        const val EVENT_OBJECT: String = "eventObject"
 
     }
 

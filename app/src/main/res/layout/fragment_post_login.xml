@@ -154,7 +154,7 @@
             android:background="@drawable/btn_register"
             android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
-            android:text="@string/register_now"
+            android:text="@string/login"
             android:textAllCaps="false"
             android:outlineSpotShadowColor="@color/purple_600"
             android:elevation="@dimen/_15sdp"

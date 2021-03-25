@@ -3,9 +3,11 @@ package com.app.dubaiculture.ui.base
 import android.app.Activity
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.net.NetworkRequest
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.annotation.IdRes
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -301,5 +304,16 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
 
         }
+    }
+
+    fun openEmailbox(email : String){
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "plain/text"
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        requireActivity().startActivity(Intent.createChooser(intent, ""))
+    }
+    fun openDiallerBox(number: String) {
+        val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
+        requireActivity().startActivity(intent)
     }
 }

@@ -4,6 +4,6 @@ import android.widget.CheckBox
 import com.google.android.material.card.MaterialCardView
 
 interface RowClickListener {
-    fun rowClickListener()
+    fun rowClickListener(position:Int)
 
 }
