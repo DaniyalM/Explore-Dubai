@@ -43,7 +43,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         super.onActivityCreated(savedInstanceState)
         setUpRecyclerView()
         subscribeUiEvents(exploreViewModel)
-        callingObservables()
+//        callingObservables()
         subscribeToObservable()
 
 

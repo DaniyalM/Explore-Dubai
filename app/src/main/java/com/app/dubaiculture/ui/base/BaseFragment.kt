@@ -121,6 +121,11 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                             showAlert(event.message)
 
                         }
+
+                        is UiEvent.ShowAlert -> {
+                            showAlert(event.message)
+
+                        }
                         is UiEvent.ShowToast -> {
                             EventUtilFunctions.showToast(event.message, activity)
                         }
@@ -176,7 +181,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         activity.onBackPressed()
     }
 
-     fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
+    fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
         findNavController().navigate(resId, bundle)
     }
 

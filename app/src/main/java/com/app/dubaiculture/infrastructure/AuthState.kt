@@ -9,4 +9,5 @@ data class AuthState(
     var refreshToken: String = "",
     var isGuest: Boolean = false,
     var user: User? = null,
+    var locale: String? = "en",
 )
