@@ -6,6 +6,7 @@ import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.AttractionDetailUpComingItemsBinding
 import com.app.dubaiculture.databinding.EventItemsBinding
 import com.app.dubaiculture.databinding.ItemEventListingBinding
+import com.app.dubaiculture.databinding.UpcomingEventsInnerItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.xwray.groupie.databinding.BindableItem
@@ -17,12 +18,20 @@ data class EventListItem<T : ViewDataBinding>(
     val event: Events,
     val resLayout: Int = R.layout.item_event_listing,
 ) : BindableItem<T>() {
-
-
     override fun getLayout() = resLayout
     override fun bind(viewBinding: T, position: Int) {
-
         when(viewBinding){
+            is UpcomingEventsInnerItemCellBinding->{
+                viewBinding.let {
+                    it.events = event
+                    it.favourite.setOnClickListener {
+                        favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
+                    }
+                    it.cardview.setOnClickListener {
+                        rowClickListener!!.rowClickListener(position)
+                    }
+                }
+            }
             is ItemEventListingBinding -> {
                 viewBinding.let {
                     it.events = event
@@ -31,7 +40,7 @@ data class EventListItem<T : ViewDataBinding>(
                         favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
                     }
                     it.cardview.setOnClickListener {
-                        rowClickListener!!.rowClickListener()
+                        rowClickListener!!.rowClickListener(position)
                     }
                 }
             }
@@ -43,7 +52,7 @@ data class EventListItem<T : ViewDataBinding>(
                         favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
                     }
                     it.cardview.setOnClickListener {
-                        rowClickListener!!.rowClickListener()
+                        rowClickListener!!.rowClickListener(position)
                     }
                 }
             }
@@ -55,7 +64,7 @@ data class EventListItem<T : ViewDataBinding>(
                         favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
                     }
                     it.cardview.setOnClickListener {
-                        rowClickListener!!.rowClickListener()
+                        rowClickListener!!.rowClickListener(position)
                     }
                 }
             }

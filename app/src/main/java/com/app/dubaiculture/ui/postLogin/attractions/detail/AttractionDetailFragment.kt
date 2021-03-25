@@ -141,11 +141,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                                 R.id.action_attractionDetailFragment_to_postLoginFragment)
                                         }
                                     }, object : RowClickListener {
-                                        override fun rowClickListener() {
+                                        override fun rowClickListener(position: Int) {
 //                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
                                         }
 
-                                    },event = it,
+                                    }, event = it,
                                     resLayout = R.layout.attraction_detail_up_coming_items)
 //                            UpComingItems(event=it)
                             )

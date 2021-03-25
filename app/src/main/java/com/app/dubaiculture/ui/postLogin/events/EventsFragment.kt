@@ -242,7 +242,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                         R.id.action_eventsFragment_to_postLoginFragment)
                                 }
                             }, object : RowClickListener {
-                                override fun rowClickListener() {
+                                override fun rowClickListener(position: Int) {
                                     navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
                                 }
 
@@ -262,7 +262,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                             R.id.action_eventsFragment_to_postLoginFragment)
                                     }
                                 }, object : RowClickListener {
-                                    override fun rowClickListener() {
+                                    override fun rowClickListener(position: Int) {
                                         navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
                                     }
 
@@ -285,7 +285,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                             R.id.action_eventsFragment_to_postLoginFragment)
                                     }
                                 }, object : RowClickListener {
-                                    override fun rowClickListener() {
+                                    override fun rowClickListener(position: Int) {
                                         navigate(R.id.action_eventsFragment_to_eventDetailFragment2)
                                     }
 

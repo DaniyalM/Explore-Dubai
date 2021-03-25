@@ -1,6 +1,5 @@
 package com.app.dubaiculture.ui.postLogin.events
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,15 +22,8 @@ import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.adapters.FilterHeaderAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.dateFormat
-import com.app.dubaiculture.utils.getDateObj
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.OnClickListener {
@@ -129,10 +121,9 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                         }
                                     },
                                         object : RowClickListener {
-                                            override fun rowClickListener() {
+                                            override fun rowClickListener(position: Int) {
                                                 navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
                                             }
-
                                         },
                                         event = it,
                                         resLayout = R.layout.item_event_listing))
@@ -153,7 +144,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                             }
                                         },
                                         object : RowClickListener {
-                                            override fun rowClickListener() {
+                                            override fun rowClickListener(position: Int) {
                                                 navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
                                             }
 

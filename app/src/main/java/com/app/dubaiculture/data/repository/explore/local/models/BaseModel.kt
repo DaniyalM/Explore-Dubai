@@ -25,6 +25,13 @@ class BaseModel {
     @Expose
     var icon: String? = null
 
+    @SerializedName("DateTo")
+    @Expose
+    var dateTo: String = ""
+    @SerializedName("DateFrom")
+    @Expose
+    var dateFrom: String = ""
+
 
 //    @SerializedName("WhiteIcon")
 //    @Expose

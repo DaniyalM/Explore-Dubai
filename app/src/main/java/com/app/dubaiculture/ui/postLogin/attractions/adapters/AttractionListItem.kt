@@ -4,14 +4,16 @@ import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.AttractionListItemCellBinding
+import com.app.dubaiculture.databinding.MustSeeInnerItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.xwray.groupie.databinding.BindableItem
+import kotlinx.android.synthetic.main.item_event_listing.view.*
 
 data class AttractionListItem<T : ViewDataBinding>(
     private val favChecker: FavouriteChecker? = null,
     private val rowClickListener: RowClickListener? = null,
-    val attraction: Attractions? = null,
+    val attraction: Attractions,
     val resLayout: Int = R.layout.attraction_list_item_cell,
 ) : BindableItem<T>() {
     override fun getLayout() = resLayout
@@ -19,6 +21,28 @@ data class AttractionListItem<T : ViewDataBinding>(
         when (viewBinding) {
             is AttractionListItemCellBinding -> {
                 viewBinding.attractions = attraction
+                viewBinding.apply {
+                    attractionImage.setOnClickListener {
+                        rowClickListener?.rowClickListener(position)
+                    }
+                    favourite.setOnClickListener {
+                        favChecker?.checkFavListener(it.favourite, position, attraction.IsFavourite)
+                    }
+
+                }
+
+            }
+            is MustSeeInnerItemCellBinding->{
+                viewBinding.attractions = attraction
+                viewBinding.apply {
+                    attractionImage.setOnClickListener {
+                        rowClickListener?.rowClickListener(position)
+                    }
+                    favourite.setOnClickListener {
+                        favChecker?.checkFavListener(it.favourite, position, attraction.IsFavourite)
+                    }
+
+                }
             }
 
         }

@@ -107,7 +107,9 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                             pageNumber -= 1
                         } else {
                             groupAdapter.apply {
+
                                 it.value.forEach {
+                                    attractions.add(it)
                                     add(AttractionListItem<AttractionListItemCellBinding>(attraction = it))
                                 }
                             }
@@ -177,6 +179,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                                 this.putString(ATTRACTION_DETAIL_TITLE, attraction.title)
                                 this.putString(ATTRACTION_DETAIL_CATEGORY, attraction.category)
                             })
+
                     }
 
                     override fun onLongItemClick(view: View, position: Int) {
