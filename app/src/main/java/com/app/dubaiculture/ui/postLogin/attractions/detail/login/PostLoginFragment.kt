@@ -25,10 +25,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>() , 
         binding.imgUaePass.setOnClickListener(this)
         binding.tvRegisterNow.setOnClickListener(this)
         binding.tvForgotPass.setOnClickListener(this)
-
     }
-
-
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_login->{
@@ -37,10 +34,10 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>() , 
             R.id.img_uae_pass->{
             }
             R.id.tv_register_now->{
-
+                navigate(R.id.action_postLoginFragment_to_registerFragment)
             }
             R.id.tv_forgot_pass->{
-
+                navigate(R.id.action_postLoginFragment_to_forgotFragment2)
             }
         }
     }

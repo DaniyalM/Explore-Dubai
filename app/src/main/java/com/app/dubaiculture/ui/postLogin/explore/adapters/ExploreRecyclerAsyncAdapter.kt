@@ -26,13 +26,17 @@ import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionCategoryListItem
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
+import com.app.dubaiculture.ui.postLogin.attractions.mappers.transformBaseToAttraction
+import com.app.dubaiculture.ui.postLogin.attractions.mappers.transformBaseToAttractionCategory
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
+import com.app.dubaiculture.ui.postLogin.events.mapper.transformBaseToEvent
 import com.app.dubaiculture.ui.postLogin.explore.ExploreFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsListItem
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
+import com.app.dubaiculture.utils.Constants
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -111,13 +115,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
                     item.value.forEach { attractionCat ->
                         attractionInnerAdapter?.add(AttractionCategoryListItem<AttractionsCategoryItemCellBinding>(
-                            attractionCat = AttractionCategory(
-                                id = attractionCat.id,
-                                icon = attractionCat.icon,
-                                title = attractionCat.title,
-                                selectedSvg = attractionCat.selectedSvg,
-                                color = attractionCat.color
-                            ), isArabic = isArabic ?: false))
+                            attractionCat = transformBaseToAttractionCategory(attractionCat),
+                            isArabic = isArabic ?: false)
+                        )
                     }
                 }
 
@@ -151,33 +151,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             },
                             rowClickListener = object :RowClickListener{
                                 override fun rowClickListener(position: Int) {
-                                    fragment?.navigate(R.id.action_exploreFragment_to_eventDetailFragment2)
+                                    fragment?.navigate(R.id.action_exploreFragment_to_eventDetailFragment2,Bundle().apply {
+                                        putParcelable(Constants.NavBundles.EVENT_OBJECT,transformBaseToEvent(it))
+                                    })
                                 }
                             },
                             resLayout = R.layout.upcoming_events_inner_item_cell,
-                            event = Events(
-                                id = it.id,
-                                title = it.title,
-                                category = it.category,
-                                image = it.image,
-                                fromDate = it.fromDate,
-                                fromMonthYear = it.fromMonthYear,
-                                fromTime = it.fromTime,
-                                fromDay = it.fromDay,
-                                toDate = it.toDate,
-                                toMonthYear = it.toMonthYear,
-                                toTime = it.toTime,
-                                toDay = it.toDay,
-                                type = it.type,
-                                color = it.color ?: "",
-                                dateTo = it.dateTo,
-                                dateFrom = it.dateFrom,
-                                locationTitle = it.locationTitle,
-                                location = it.location,
-                                longitude = it.longitude,
-                                latitude = it.latitude,
-                                isFavourite = it.isFavourite,
-                            )
+                            event = transformBaseToEvent(it)
                         ))
                     }
 
@@ -239,78 +219,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 override fun rowClickListener(position: Int) {
                                     fragment?.navigate(R.id.action_exploreFragment_to_attractionDetailFragment,
                                         Bundle().apply {
-                                            this.putString(AttractionListingFragment.ATTRACTION_DETAIL_ID, attraction.id)
-                                            this.putString(AttractionListingFragment.ATTRACTION_DETAIL_IMAGE, attraction.portraitImage)
-                                            this.putString(AttractionListingFragment.ATTRACTION_DETAIL_TITLE, attraction.title)
-                                            this.putString(AttractionListingFragment.ATTRACTION_DETAIL_CATEGORY, attraction.category)
+                                            putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,transformBaseToAttraction(attraction))
                                         })
 
                                 }
                             },
                             resLayout = R.layout.must_see_inner_item_cell,
-                            attraction = Attractions(
-                                id = attraction.id.toString(),
-                                title = attraction.title.toString(),
-                                category = attraction.category.toString(),
-                                locationTitle = attraction.locationTitle,
-                                location = attraction.location,
-                                portraitImage = attraction.portraitImage,
-                                landscapeImage = attraction.landscapeImage,
-                                description = attraction.description,
-                                startTime = attraction.startTime,
-                                endTime = attraction.endTime,
-                                startDay = attraction.startDay,
-                                endDay = attraction.endDay,
-                                color = attraction.color,
-                                IsFavourite = attraction.isFavourite,
-                                events = attraction.events?.let {
-                                    it.map {
-                                        Events(
-                                            id = it.id,
-                                            title = it.title,
-                                            category = it.category,
-                                            image = it.image,
-                                            fromDate = it.fromDate,
-                                            fromMonthYear = it.fromMonthYear,
-                                            fromTime = it.fromTime,
-                                            fromDay = it.fromDay,
-                                            toDate = it.toDate,
-                                            toMonthYear = it.toMonthYear,
-                                            toTime = it.toTime,
-                                            toDay = it.toDay,
-                                            type = it.type,
-                                            color=it.color,
-                                            dateTo = it.dateTo,
-                                            dateFrom = it.dateFrom,
-                                            locationTitle = it.locationTitle,
-                                            location = it.location,
-                                            longitude = it.longitude,
-                                            latitude = it.latitude,
-                                            isFavourite = it.isFavourite,
-                                        )
-                                    }
-                                },
-                                gallery = attraction.gallery?.let {
-                                    it.map {
-                                        Gallery(
-                                            isImage = it.isImage,
-                                            galleryImage = it.galleryImage,
-                                            galleryThumbnail = it.galleryThumbnail,
-                                            galleryLink = it.galleryLink
-                                        )
-                                    }
-                                },
-                                socialLink = attraction.socialLinks?.let {
-                                    it.map {
-                                        SocialLink(
-                                            facebookPageLink = it.facebookPageLink.toString(),
-                                            facebookIcon = it.facebookIcon.toString(),
-                                            instagramIcon = it.instagramIcon,
-                                            instagramPageLink = it.instagramPageLink.toString()
-                                        )
-                                    }
-                                }
-                            )
+                            attraction = transformBaseToAttraction(attraction)
                         ))
                     }
 

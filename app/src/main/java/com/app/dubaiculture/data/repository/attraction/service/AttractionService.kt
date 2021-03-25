@@ -1,11 +1,11 @@
 package com.app.dubaiculture.data.repository.attraction.service
 
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionResponse
+import com.app.dubaiculture.data.repository.base.BaseService
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface AttractionService {
+interface AttractionService : BaseService {
 //    @GET("/Content/GetAttractionCategories")
 //    suspend fun getAttractionCategoryApi(@Body attractionCategoryRequestDTO: AttractionCategoryRequestDTO): AttractionResponse
 

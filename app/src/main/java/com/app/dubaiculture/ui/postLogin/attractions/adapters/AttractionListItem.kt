@@ -19,6 +19,7 @@ data class AttractionListItem<T : ViewDataBinding>(
     override fun getLayout() = resLayout
     override fun bind(viewBinding: T, position: Int) {
         when (viewBinding) {
+
             is AttractionListItemCellBinding -> {
                 viewBinding.attractions = attraction
                 viewBinding.apply {

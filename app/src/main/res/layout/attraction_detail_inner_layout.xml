@@ -54,6 +54,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
                 <ImageView
+                    android:id="@+id/img_attraction_speaker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_20sdp"
@@ -446,7 +447,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout"
+                    android:id="@+id/ll_emailus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
@@ -469,6 +470,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_call_us"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_5sdp"
@@ -478,8 +480,8 @@
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
                     app:layout_constraintEnd_toEndOf="@+id/divider3"
-                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
-                    app:layout_constraintTop_toTopOf="@+id/linearLayout">
+                    app:layout_constraintStart_toEndOf="@+id/ll_emailus"
+                    app:layout_constraintTop_toTopOf="@+id/ll_emailus">
 
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
@@ -500,7 +502,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     app:cardElevation="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                    app:layout_constraintTop_toBottomOf="@+id/ll_emailus">
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_attractionsFragment_to_attractionDetailFragment"
             app:destination="@id/attractionDetailFragment" />
+        <action
+            android:id="@+id/action_attractionsFragment_to_postLoginFragment"
+            app:destination="@id/postLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/moreFragment"
@@ -72,6 +75,9 @@
         <action
             android:id="@+id/action_eventDetailFragment2_to_registerNowFragment"
             app:destination="@id/registerNowFragment" />
+        <action
+            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment"
+            app:destination="@id/postLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/threeSixtyFragment"
@@ -110,7 +116,11 @@
     <fragment
         android:id="@+id/eventListingFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.EventListingFragment"
-        android:label="EventListingFragment" />
+        android:label="EventListingFragment" >
+        <action
+            android:id="@+id/action_eventListingFragment_to_postLoginFragment"
+            app:destination="@id/postLoginFragment" />
+    </fragment>
     <dialog
         android:id="@+id/filterFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment"
@@ -118,7 +128,14 @@
     <dialog
         android:id="@+id/postLoginFragment"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragment"
-        android:label="PostLoginFragment" />
+        android:label="PostLoginFragment" >
+        <action
+            android:id="@+id/action_postLoginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_postLoginFragment_to_forgotFragment2"
+            app:destination="@id/forgotFragment2" />
+    </dialog>
     <fragment
         android:id="@+id/registerNowFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.detail.registernow.RegisterNowFragment"
@@ -131,6 +148,14 @@
         android:id="@+id/registrationSuccessFragment2"
         android:name="com.app.dubaiculture.ui.preLogin.registeration.RegistrationSuccessFragment"
         android:label="RegistrationSuccessFragment" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.app.dubaiculture.ui.preLogin.registeration.RegisterFragment"
+        android:label="RegisterFragment" />
+    <fragment
+        android:id="@+id/forgotFragment2"
+        android:name="com.app.dubaiculture.ui.preLogin.forgot.ForgotFragment"
+        android:label="ForgotFragment" />
 
 
     <!--    <fragment-->

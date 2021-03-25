@@ -14,7 +14,7 @@ class AttractionPagerAdaper(fragment: Fragment) : FragmentStateAdapter(fragment)
         this.list = list
     }
 
-    override fun createFragment(position: Int) = AttractionListingFragment.newInstance(attractionCatId = list.get(position).id!!)
+    override fun createFragment(position: Int) = AttractionListingFragment.newInstance(attractionCat = list.get(position))
 
 }
 

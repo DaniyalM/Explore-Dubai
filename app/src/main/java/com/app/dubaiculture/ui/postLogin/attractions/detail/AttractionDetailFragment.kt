@@ -3,6 +3,7 @@ package com.app.dubaiculture.ui.postLogin.attractions.detail
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewMo
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -39,6 +41,7 @@ import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import timber.log.Timber
 import java.io.IOException
+import java.util.*
 import javax.inject.Inject
 
 
@@ -52,14 +55,22 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     @Inject
     lateinit var glide: RequestManager
     private val attractionDetailViewModel: AttractionViewModel by viewModels()
-    private var detailImage: String? = null
-    private var detailTitle: String? = null
-    private var detailCategory: String? = null
-    private var detailId: String? = null
+
+    //    private var detailImage: String? = null
+//    private var detailTitle: String? = null
+//    private var detailCategory: String? = null
+//    private var detailId: String? = null
     private var lat: String? = 24.8623.toString()
     private var long: String? = 67.0627.toString()
+    private var attractionsObj: Attractions? = null
     var mp: MediaPlayer? = MediaPlayer()
-
+    private val textToSpeechEngine: TextToSpeech by lazy {
+        TextToSpeech(requireContext()) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                textToSpeechEngine.language = Locale(getCurrentLanguage().language)
+            }
+        }
+    }
 
     private fun stopPlaying() {
         mp?.release()
@@ -69,18 +80,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.apply {
-            getString(AttractionListingFragment.ATTRACTION_DETAIL_ID)?.let {
-                detailId = it
-            }
-            getString(AttractionListingFragment.ATTRACTION_DETAIL_IMAGE)?.let {
-                detailImage = it
-            }
-            getString(AttractionListingFragment.ATTRACTION_DETAIL_TITLE)?.let {
-                detailTitle = it
-            }
-            getString(AttractionListingFragment.ATTRACTION_DETAIL_CATEGORY)?.let {
-                detailCategory = it
-            }
+            attractionsObj = getParcelable(Constants.NavBundles.ATTRACTION_OBJECT)!!
         }
     }
 
@@ -103,6 +103,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             it.root.downOneAR.setOnClickListener(this)
             it.root.downOne360.setOnClickListener(this)
             it.root.downOneGallery.setOnClickListener(this)
+            it.root.img_attraction_speaker.setOnClickListener(this)
+            it.root.ll_emailus.setOnClickListener(this)
+            it.root.ll_call_us.setOnClickListener(this)
+
         }
         rvSetUp()
         callingObservables()
@@ -162,9 +166,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     private fun callingObservables() {
-        detailId?.let {
+        attractionsObj?.let {
             attractionDetailViewModel.getAttractionDetailsToScreen(
-                attractionId = it,
+                attractionId = it.id,
                 getCurrentLanguage().language
             )
         }
@@ -202,9 +206,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun uiActions() {
         binding.apply {
             root.apply {
-                title.text = detailTitle
-                category.text = detailCategory
-                glide.load(BuildConfig.BASE_URL + detailImage).into(detailImageView)
+                title.text = attractionsObj?.title
+                category.text = attractionsObj?.category
+                glide.load(BuildConfig.BASE_URL + attractionsObj?.portraitImage)
+                    .into(detailImageView)
             }
             appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
                 if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
@@ -247,12 +252,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         }
     }
 
-    private fun collapseAppbar(boolean: Boolean = false) {
-        binding!!.appbarAttractionDetail.setExpanded(boolean)
-    }
-
     private fun rvSetUp() {
-        binding!!.root.rv_up_coming.apply {
+        binding.root.rv_up_coming.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
 
@@ -286,23 +287,33 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        val attractionLatLng = LatLng(lat?.toDouble()!!, long?.toDouble()!!)
-        map!!.addMarker(MarkerOptions()
-            .position(attractionLatLng)
-            .icon(fromResource(R.drawable.pin_location)))
-            .title = "Traffic Digital"
-        map.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                attractionLatLng, 12.0f
+        try {
+            val attractionLatLng = LatLng(lat?.toDouble()!!, long?.toDouble()!!)
+            map!!.addMarker(MarkerOptions()
+                .position(attractionLatLng)
+                .icon(fromResource(R.drawable.pin_location)))
+                .title = "Traffic Digital"
+            map.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    attractionLatLng, 14.0f
+                )
             )
-        )
-        map.cameraPosition.target
-
-
+            map.cameraPosition.target
+        } catch (e: NumberFormatException) {
+            e.stackTrace
+        }
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.img_attraction_speaker -> {
+                if (binding.root.tv_desc_readmore.text.isNotEmpty()) {
+                    textToSpeechEngine.speak(binding.root.tv_desc_readmore.text,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "tts1")
+                }
+            }
             R.id.ll_ar -> {
                 attractionDetailViewModel.showToast("AR")
             }
@@ -336,6 +347,23 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
 
             }
+            R.id.ll_call_us -> {
+                openDiallerBox("123123123")
+            }
+            R.id.ll_emailus -> {
+                openEmailbox("test@gmail.com")
+
+            }
         }
+    }
+
+    override fun onPause() {
+        textToSpeechEngine.stop()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        textToSpeechEngine.shutdown()
+        super.onDestroy()
     }
 }

@@ -24,7 +24,6 @@ class DataStoreManager @Inject constructor(
             name = "my_app_data_store"
         )
     }
-
     suspend fun <T> setData(key: Preferences.Key<String>, data: T) {
         val cipher = securityManager.encrypt(toString(data))
         Timber.e(cipher)

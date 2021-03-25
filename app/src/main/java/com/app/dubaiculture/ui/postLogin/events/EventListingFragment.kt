@@ -1,12 +1,16 @@
 package com.app.dubaiculture.ui.postLogin.events
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -22,8 +26,16 @@ import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.adapters.FilterHeaderAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
+import com.app.dubaiculture.utils.dateFormat
+import com.app.dubaiculture.utils.getDateObj
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.OnClickListener {
@@ -122,8 +134,22 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                     },
                                         object : RowClickListener {
                                             override fun rowClickListener(position: Int) {
-                                                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+                                                val eventObj = allList[position]
+                                                val bundle = Bundle()
+                                                bundle.putParcelable(EVENT_OBJECT, eventObj)
+                                                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2,
+                                                    bundle)
+
+//
+//                                                val extras = FragmentNavigatorExtras(
+//                                                    binding.rvEventListing to "imgScaleUp",
+//                                                )
+//                                                findNavController().navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2,
+//                                                    bundle,
+//                                                    null,
+//                                                    extras)
                                             }
+
                                         },
                                         event = it,
                                         resLayout = R.layout.item_event_listing))
@@ -212,7 +238,6 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
 
     private fun transformationOfModels(
         list: ArrayList<SelectedItems>,
-        isClearAll: Boolean? = false,
     ): ArrayList<EventRequest> {
         val eventRequest = ArrayList<EventRequest>()
         val categoryStringList = ArrayList<String>()
@@ -253,7 +278,6 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
             )
         )
 
-        eventViewModel.showToast("Hello")
         eventRequest.map {
             lifecycleScope.launch {
                 eventViewModel.getFilterEventList(EventRequest(

@@ -5,7 +5,7 @@ import com.app.dubaiculture.data.repository.event.remote.request.*
 import com.app.dubaiculture.data.repository.event.service.EventService
 import javax.inject.Inject
 
-class EventRDS @Inject constructor(private val eventService: EventService) : BaseRDS() {
+class EventRDS @Inject constructor(private val eventService: EventService) : BaseRDS(eventService) {
 
     suspend fun addItemtoFavorites(addToFavouriteRequestDTO: AddToFavouriteRequestDTO)=safeApiCall {
         eventService.addToFavourites(addToFavouriteRequestDTO)

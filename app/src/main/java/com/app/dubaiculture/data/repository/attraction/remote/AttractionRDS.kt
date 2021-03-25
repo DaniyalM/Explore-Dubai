@@ -8,7 +8,7 @@ import com.app.dubaiculture.data.repository.base.BaseRDS
 import javax.inject.Inject
 
 class AttractionRDS @Inject constructor(private val attractionService: AttractionService) :
-    BaseRDS() {
+    BaseRDS(attractionService) {
     suspend fun getAttractionCategories(attractionCategoryRequestDTO: AttractionCategoryRequestDTO) =
         safeApiCall {
             attractionService.getAttractionCategoryApi(attractionCategoryRequestDTO.culture)

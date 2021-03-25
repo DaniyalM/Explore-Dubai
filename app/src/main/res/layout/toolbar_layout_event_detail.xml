@@ -33,10 +33,11 @@
 
                     <ImageView
                         android:id="@+id/imageView"
+                        android:transitionName="imgScaleUp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/event_detail_icon"
+
                         />
                     <View
                         android:layout_width="match_parent"
@@ -99,7 +100,7 @@
                     android:drawablePadding="@dimen/_10sdp"
                     android:text="14 - 20 Nov, 20"
                     android:textColor="@color/white_900"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_11ssp"
                     app:layout_constraintBottom_toTopOf="@+id/btn_reg"
                     app:layout_constraintStart_toStartOf="@+id/title" />
 

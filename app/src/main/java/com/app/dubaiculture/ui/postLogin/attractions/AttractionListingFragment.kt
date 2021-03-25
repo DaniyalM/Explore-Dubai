@@ -5,18 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.components.recylerview.clicklisteners.RecyclerItemClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_attraction_listing.*
@@ -27,7 +31,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private val attractionViewModel: AttractionViewModel by viewModels()
 
     //    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
-    private lateinit var attractionCatId: String
+    private lateinit var attractionCat: AttractionCategory
     private var searchQuery: String = ""
     private var pageNumber: Int = 0
     private var pageSize: Int = 3
@@ -45,9 +49,9 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         var ATTRACTION_DETAIL_CATEGORY: String = "Attraction_CATEGORY"
 
         @JvmStatic
-        fun newInstance(attractionCatId: String = "") = AttractionListingFragment().apply {
+        fun newInstance(attractionCat: AttractionCategory) = AttractionListingFragment().apply {
             arguments = Bundle().apply {
-                putString(ATTRACTION_CATEG0RY_ID, attractionCatId)
+                putParcelable(Constants.NavBundles.ATTRACTION_CAT_OBJECT, attractionCat)
             }
         }
     }
@@ -75,11 +79,14 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private fun callingObservables() {
         if (!contentLoaded) {
             progressBar.visibility = View.VISIBLE
-            attractionViewModel.getAttractionThroughCategory(attractionCatId,
-                pageNumber,
-                pageSize,
-                getCurrentLanguage().language)
-            contentLoaded = true
+            attractionCat.id?.let {
+                attractionViewModel.getAttractionThroughCategory(it,
+                    pageNumber,
+                    pageSize,
+                    getCurrentLanguage().language)
+                contentLoaded = true
+            }
+
         }
 
     }
@@ -98,7 +105,29 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 //                        attractionListScreenAdapter?.attractions = attractions
                         groupAdapter.apply {
                             attractions.forEach {
-                                add(AttractionListItem<AttractionListItemCellBinding>(attraction = it))
+                                add(AttractionListItem<AttractionListItemCellBinding>(
+                                    favChecker = object : FavouriteChecker {
+                                        override fun checkFavListener(
+                                            checkbox: CheckBox,
+                                            pos: Int,
+                                            isFav: Boolean,
+                                        ) {
+                                            favouriteEvent(application.auth.isGuest,
+                                                checkbox,
+                                                isFav,
+                                                R.id.action_attractionsFragment_to_postLoginFragment)
+                                        }
+                                    },
+                                    rowClickListener = object : RowClickListener {
+                                        override fun rowClickListener(position: Int) {
+                                            navigate(R.id.action_attractionsFragment_to_attractionDetailFragment,
+                                                Bundle().apply {
+                                                    putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
+                                                        it)
+                                                })
+                                        }
+                                    },
+                                    attraction = it))
                             }
                         }
 
@@ -107,10 +136,31 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                             pageNumber -= 1
                         } else {
                             groupAdapter.apply {
-
                                 it.value.forEach {
                                     attractions.add(it)
-                                    add(AttractionListItem<AttractionListItemCellBinding>(attraction = it))
+                                    add(AttractionListItem<AttractionListItemCellBinding>(
+                                        favChecker = object : FavouriteChecker {
+                                            override fun checkFavListener(
+                                                checkbox: CheckBox,
+                                                pos: Int,
+                                                isFav: Boolean,
+                                            ) {
+                                                favouriteEvent(application.auth.isGuest,
+                                                    checkbox,
+                                                    isFav,
+                                                    R.id.action_attractionsFragment_to_postLoginFragment)
+                                            }
+                                        },
+                                        rowClickListener = object : RowClickListener {
+                                            override fun rowClickListener(position: Int) {
+                                                navigate(R.id.action_attractionsFragment_to_attractionDetailFragment,
+                                                    Bundle().apply {
+                                                        putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
+                                                            it)
+                                                    })
+                                            }
+                                        },
+                                        attraction = it))
                                 }
                             }
 //                            attractionListScreenAdapter?.attractions = attractions
@@ -166,50 +216,13 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                 }
             })
 
-            this.addOnItemTouchListener(RecyclerItemClickListener(
-                activity,
-                this,
-                object : RecyclerItemClickListener.OnItemClickListener {
-                    override fun onItemClick(view: View, position: Int) {
-                        val attraction = attractions.get(position)
-                        navigateByAction(R.id.action_attractionsFragment_to_attractionDetailFragment,
-                            Bundle().apply {
-                                this.putString(ATTRACTION_DETAIL_ID, attraction.id)
-                                this.putString(ATTRACTION_DETAIL_IMAGE, attraction.portraitImage)
-                                this.putString(ATTRACTION_DETAIL_TITLE, attraction.title)
-                                this.putString(ATTRACTION_DETAIL_CATEGORY, attraction.category)
-                            })
-
-                    }
-
-                    override fun onLongItemClick(view: View, position: Int) {
-                    }
-                }
-            ))
         }
     }
-
-
-    private fun createAttractionItems(): ArrayList<Attractions> =
-        mutableListOf<Attractions>().apply {
-            repeat((1..4).count()) {
-                add(
-                    Attractions(
-                        id = it.toString(),
-                        title = "Museum of the Poet Al Oqaili",
-                        category = "BOOKING AVAILABLE",
-                        IsFavourite = it % 2 == 0,
-                    )
-                )
-            }
-        } as ArrayList<Attractions>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.apply {
-            getString(ATTRACTION_CATEG0RY_ID)?.let {
-                attractionCatId = it
-            }
+            attractionCat = getParcelable(Constants.NavBundles.ATTRACTION_CAT_OBJECT)!!
         }
     }
 }
