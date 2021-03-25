@@ -3,9 +3,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable name="filterData" type="com.app.dubaiculture.data.repository.filter.models.SelectedItems"/>
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+<!--        android:text="@{filterData.title}"-->
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_filter_text"
@@ -13,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:foreground="@drawable/custom_ripple_border"
             android:background="@drawable/rounded_filter_search_list"
             android:drawableEnd="@drawable/cross_icon_360_view"
             android:drawablePadding="@dimen/_10sdp"
@@ -21,7 +26,6 @@
             android:paddingTop="@dimen/_10sdp"
             android:paddingEnd="@dimen/_15sdp"
             android:paddingBottom="@dimen/_10sdp"
-            android:text="Al bashra"
             android:textColor="@color/black_700"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"

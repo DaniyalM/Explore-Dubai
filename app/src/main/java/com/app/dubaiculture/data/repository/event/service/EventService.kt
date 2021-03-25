@@ -17,6 +17,10 @@ interface EventService {
     @POST("/api/Content/AddFavorites")
     suspend fun addToFavourites(@Body addToFavouriteRequestDTO: AddToFavouriteRequestDTO): AddToFavouriteResponse
 
+    @GET("/api/Content/GetEventFilters")
+    suspend fun getEventFilters(@Query("culture") culture: String): EventResponse
+
+
     @GET("/events/{event_id}")
     suspend fun getEventDetail(
         @Path("event_id") eventId: String,

@@ -2,7 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+    <variable
+        name="viewmodel"
+        type="com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel" />
 
+</data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,8 +38,9 @@
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/tvResend"
+            android:id="@+id/tvReset"
             android:textSize="@dimen/_10ssp"
+            android:foreground="@drawable/custom_ripple_border"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_ripple_border"
@@ -44,7 +50,7 @@
             android:layout_marginEnd="@dimen/_20sdp"
             app:layout_constraintBottom_toBottomOf="@+id/heading_filter"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/heading_login_to_continue" />
+            app:layout_constraintTop_toTopOf="@+id/heading_filter" />
 
 
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
@@ -72,17 +78,19 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_search" />
 
 
-        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        <AutoCompleteTextView
             android:id="@+id/edit_location"
             style="@style/EditTextStyle"
             android:background="@drawable/bg_edit_resiger"
             android:drawableEnd="@drawable/location_fiilter"
             android:hint="@string/location"
+            android:completionThreshold="1"
             android:imeOptions="actionNext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/location"
-            tools:src="@drawable/bg_edit_resiger" />
+            tools:src="@drawable/bg_edit_resiger"
+            android:popupBackground="@color/white_900"/>
 
 
 
@@ -175,7 +183,7 @@
             app:layout_constraintTop_toBottomOf="@+id/rv_categories" />
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/radioGroupFilter"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -187,12 +195,14 @@
             >
 
             <RadioButton
+                android:id="@+id/rbFree"
                 android:layout_weight="0.4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/MyRadioButtonStyle"
                 android:paddingStart="@dimen/_5sdp"
                 android:textAllCaps="false"
+                android:tag="Free"
                 android:checked="true"
                 android:textSize="@dimen/_11ssp"
                 android:textColor="@color/black_200"
@@ -200,6 +210,7 @@
                 />
 
             <RadioButton
+                android:id="@+id/rbPaid"
                 android:layout_weight="0.6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -231,7 +242,7 @@
             android:textColor="@color/white_900"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupFilter" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

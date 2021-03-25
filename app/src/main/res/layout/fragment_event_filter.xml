@@ -16,6 +16,8 @@
             <include layout="@layout/event_search_toolbar"/>
 
             <FrameLayout
+                android:id="@+id/showTabHeader"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/app_bg"

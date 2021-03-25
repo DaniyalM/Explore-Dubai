@@ -44,7 +44,7 @@ class EventNearMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
     override fun getItemCount() = events.size
     //Data Binding
-    private inner class EventsListItemCell(context: Context) : AsyncCell(context) {
+    private inner class EventsListItemCell(context: Context) : AsyncCell(context,true) {
         var binding: EventNearItemsBinding? = null
         override val layoutId = R.layout.event_near_items
         override fun createDataBindingView(view: View): View? {

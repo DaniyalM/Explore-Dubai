@@ -1,11 +1,9 @@
 package com.app.dubaiculture.ui.postLogin.events.map
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -13,10 +11,6 @@ import com.app.dubaiculture.databinding.FragmentEventNearMapBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.EventsFragment
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventNearMapAdapter
-import com.app.dubaiculture.ui.postLogin.events.map.EventNearMapFragmentArgs.Companion.fromBundle
-import com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragmentArgs.Companion.fromBundle
-import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.Constants.NavBundles.SORTED_LIST
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -45,7 +39,6 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
         rvSetUp()
         mapSetUp()
     }
-
     private fun rvSetUp() {
         eventNearAdapter = EventNearMapAdapter()
         binding.rvNearEvent.apply {
@@ -55,26 +48,11 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
         }
         eventNearAdapter.events = EventsFragment.nearEventList
     }
-
     private fun mapSetUp() {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.google_map) as? SupportMapFragment
         mapFragment!!.getMapAsync(this)
     }
-
-    private fun createTestItems(): List<Events> =
-        mutableListOf<Events>().apply {
-            repeat((1..4).count()) {
-                add(Events(
-                    id = it.toString(),
-                    title = "The Definitive Guide to an Uncertain World",
-                    category = "WORKSHOP",
-                    image = "",
-                    toDate = "12 - 15 Nov, 20",
-                ))
-            }
-        }
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.back -> {
@@ -82,9 +60,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
             }
         }
     }
-
     override fun onMapReady(map: GoogleMap?) {
-
         val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
         map!!.addMarker(MarkerOptions()
             .position(trafficDigitalLatLng)
@@ -96,16 +72,14 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
             )
         )
         map.cameraPosition.target
-        pinsOnMap(EventsFragment.nearEventList,map)
+        pinsOnMap(EventsFragment.nearEventList, map)
     }
-
     private fun pinsOnMap(list: List<Events>, map: GoogleMap) {
         list.forEach {
-            val locationObj = LatLng(it.longitude!!.toDouble(), it.latitude!!.toDouble())
+            val locationObj = LatLng(it.latitude!!.toDouble(), it.longitude!!.toDouble())
             map.addMarker(MarkerOptions().position(locationObj)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_map))
                 .title(it.title))
         }
-
     }
 }
