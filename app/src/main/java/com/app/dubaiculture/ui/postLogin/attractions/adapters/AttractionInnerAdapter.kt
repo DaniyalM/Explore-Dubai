@@ -62,7 +62,7 @@ class AttractionInnerAdapter(
             val zeroDp = resources.getDimension(R.dimen.my_corner_radius)
             holder.itemView.binding?.apply {
                 attraction_image.setOnClickListener {
-                    rowClickListener!!.rowClickListener()
+                    rowClickListener!!.rowClickListener(position)
                 }
                 if (isArabic)
                     attractionImage.shapeAppearanceModel =

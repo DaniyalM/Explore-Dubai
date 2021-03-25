@@ -11,10 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionInflater
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventDetailBinding
+import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventScheduleItems
@@ -80,7 +82,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    ) = FragmentEventDetailBinding.inflate(inflater, container, false)
+    ) :FragmentEventDetailBinding{
+//        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
+//        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
+        return FragmentEventDetailBinding.inflate(inflater, container, false)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

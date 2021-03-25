@@ -9,6 +9,8 @@ import android.widget.CheckBox
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -137,6 +139,15 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                                 bundle.putParcelable(EVENT_OBJECT, eventObj)
                                                 navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2,
                                                     bundle)
+
+//
+//                                                val extras = FragmentNavigatorExtras(
+//                                                    binding.rvEventListing to "imgScaleUp",
+//                                                )
+//                                                findNavController().navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2,
+//                                                    bundle,
+//                                                    null,
+//                                                    extras)
                                             }
 
                                         },

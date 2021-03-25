@@ -58,7 +58,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     init {
         attractionInnerAdapter = AttractionInnerAdapter(
             object : RowClickListener {
-                override fun rowClickListener() {
+                override fun rowClickListener(position: Int) {
 //                    navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
                 }
 
