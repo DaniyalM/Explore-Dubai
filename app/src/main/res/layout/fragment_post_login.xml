@@ -2,7 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View" />
 
+        <variable
+            name="fragment"
+            type="com.app.dubaiculture.ui.preLogin.login.LoginFragment" />
+
+        <variable
+            name="viewmodel"
+            type="com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
