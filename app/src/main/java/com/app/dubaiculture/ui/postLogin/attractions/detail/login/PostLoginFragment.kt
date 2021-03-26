@@ -12,7 +12,9 @@ import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>() , View.OnClickListener{
     private val loginViewModel: LoginViewModel by viewModels()
     override fun getFragmentBinding(
@@ -22,7 +24,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>() , 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding!!.viewmodel = loginViewModel
+        binding.viewmodel = loginViewModel
         binding.btnLogin.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
         binding.tvRegisterNow.setOnClickListener(this)

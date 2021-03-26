@@ -13,8 +13,8 @@ import com.app.dubaiculture.data.repository.event.remote.response.AddToFavourite
 import javax.inject.Inject
 
 class AttractionRepository @Inject constructor(
-    val attractionRDS: AttractionRDS,
-) : BaseRepository() {
+    private val attractionRDS: AttractionRDS,
+) : BaseRepository(attractionRDS) {
     suspend fun getAttractionCategories(attractionRequest: AttractionRequest): Result<List<AttractionCategory>> {
         return when (val resultRDS = attractionRDS.getAttractionCategories(
             transformAttractionCategoryRequest(attractionRequest))) {
@@ -25,7 +25,7 @@ class AttractionRepository @Inject constructor(
                     Result.Failure(true, listRDS.value.statusCode, null)
                 } else {
                     val listLDS = transformAttractionCategory(listRDS.value)
-                        Result.Success(listLDS)
+                    Result.Success(listLDS)
 //                photoLDS.insertAll(listLDS as MutableList<Photo>)
 //                val resultLDS = photoLDS.getAll()
                 }
@@ -34,8 +34,6 @@ class AttractionRepository @Inject constructor(
             is Result.Failure -> resultRDS
         }
     }
-
-
     suspend fun getAttractionsByCategory(attractionRequest: AttractionRequest): Result<List<Attractions>> {
         return when (val resultRDS =
             attractionRDS.getAttractionsListingByCategory(transformAttractionsRequest(
@@ -53,7 +51,6 @@ class AttractionRepository @Inject constructor(
             is Result.Failure -> resultRDS
         }
     }
-
     suspend fun getAttractionDetail(attractionRequest: AttractionRequest): Result<Attractions> {
         return when (val resultRDS =
             attractionRDS.getAttractionDetail(transformAttractionDetailRequest(attractionRequest))) {
@@ -70,8 +67,6 @@ class AttractionRepository @Inject constructor(
             is Result.Failure -> resultRDS
         }
     }
-
-
 
 
 

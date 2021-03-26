@@ -138,12 +138,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                             checkbox: CheckBox,
                                             pos: Int,
                                             isFav: Boolean,
+                                            itemId: String,
                                         ) {
-                                            favouriteEvent(application.auth.isGuest,
-                                                checkbox,
-                                                isFav,
-                                                R.id.action_attractionDetailFragment_to_postLoginFragment)
+
                                         }
+
                                     }, object : RowClickListener {
                                         override fun rowClickListener(position: Int) {
 //                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)

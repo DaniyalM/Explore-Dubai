@@ -13,7 +13,7 @@ import com.app.dubaiculture.data.repository.event.remote.response.AddToFavourite
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
-    BaseRepository() {
+    BaseRepository(eventRDS) {
 
     suspend fun fetchHomeEvents(homeEventRequest: EventRequest): Result<EventHomeListing> {
         return when (val resultRds =
@@ -73,23 +73,24 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
         }
     }
 
-    suspend fun addToFavourite(addToFavouriteRequest: AddToFavouriteRequest): Result<AddToFavouriteResponse> {
-        return when (val resultRds =
-            eventRDS.addToFavourates(transformAddToFavouriteRequest(addToFavouriteRequest))) {
-            is Result.Success -> {
-                val eventLDS = resultRds
-                if (eventLDS.value?.statusCode != 200) {
-                    Result.Failure(true, eventLDS.value?.statusCode, null)
-                } else {
-                    val eventRds = eventLDS.value
-                    Result.Success(eventRds)
-                }
-            }
-            is Result.Failure -> resultRds
-            is Result.Error -> resultRds
-
-        }
-    }
+//    suspend fun addToFavourite(
+//        addToFavouriteRequest: AddToFavouriteRequest,
+//    ): Result<AddToFavouriteResponse> {
+//        return when (val resultRds =
+//            eventRDS.addToFavourates(transformAddToFavouriteRequest(addToFavouriteRequest))) {
+//            is Result.Success -> {
+//                if (resultRds.value.statusCode != 200) {
+//                    Result.Failure(true, resultRds.value.statusCode, null)
+//                } else {
+//                    val eventRds = resultRds.value
+//                    Result.Success(eventRds)
+//                }
+//            }
+//            is Result.Failure -> resultRds
+//            is Result.Error -> resultRds
+//
+//        }
+//    }
 
 
     suspend fun fetchDataFilterBtmSheet(eventRequest: EventRequest): Result<EventFilterData> {

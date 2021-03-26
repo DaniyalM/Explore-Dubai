@@ -5,8 +5,9 @@ import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import javax.inject.Inject
 
-abstract class BaseRDS(private val baseService: BaseService? = null) {
+abstract class BaseRDS(private val baseService: BaseService?=null) {
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): Result<T> {
         return withContext(Dispatchers.IO) {
             try {
@@ -25,9 +26,12 @@ abstract class BaseRDS(private val baseService: BaseService? = null) {
         }
     }
 
+
     suspend fun addToFavourates(addToFavouriteRequestDTO: AddToFavouriteRequestDTO) =
         safeApiCall {
             baseService?.addToFavourites(addToFavouriteRequestDTO)
         }
+
+
 
 }

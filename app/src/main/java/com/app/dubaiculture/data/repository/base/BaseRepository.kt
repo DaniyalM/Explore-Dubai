@@ -6,20 +6,18 @@ import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteR
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 
 
-abstract class BaseRepository {
+abstract class BaseRepository(private val baseRDS: BaseRDS?=null) {
 
     suspend fun addToFavourite(
         addToFavouriteRequest: AddToFavouriteRequest,
-        baseRDS: BaseRDS,
-    ): Result<AddToFavouriteResponse> {
+        ): Result<AddToFavouriteResponse> {
         return when (val resultRds =
-            baseRDS.addToFavourates(transformAddToFavouriteRequest(addToFavouriteRequest))) {
+            baseRDS!!.addToFavourates(transformAddToFavouriteRequest(addToFavouriteRequest))) {
             is Result.Success -> {
-                val attractionLDS = resultRds
-                if (attractionLDS.value?.statusCode != 200) {
-                    Result.Failure(true, attractionLDS.value?.statusCode, null)
+                if (resultRds.value!!.statusCode != 200) {
+                    Result.Failure(true, resultRds.value.statusCode, null)
                 } else {
-                    val eventRds = attractionLDS.value
+                    val eventRds = resultRds.value
                     Result.Success(eventRds)
                 }
             }
@@ -28,6 +26,4 @@ abstract class BaseRepository {
 
         }
     }
-
-
 }

@@ -24,6 +24,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.NetworkLiveData
@@ -49,6 +50,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected var customProgressDialog: ProgressDialog? = null
     protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var networkRequest: NetworkRequest
+
+    lateinit var checkBox: CheckBox
 
 
     // data binding
@@ -297,27 +300,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         return null
     }
 
-    fun favouriteClick(
-        isGuest: Boolean,
-        checkbox: CheckBox,
-        isFav: Boolean,
-        nav: Int,
-        isEvent: Boolean,
-    ) {
-        if (isGuest) {
-            navigate(nav)
-        } else {
-            if (isFav) {
-                checkbox.background = getDrawableFromId(R.drawable.heart_icon_fav)
-                if (isEvent){
-
-                }else{}
-            } else {
-                checkbox.background = getDrawableFromId(R.drawable.heart_icon_fav)
-            }
-
-        }
-    }
 
     fun openEmailbox(email: String) {
         val intent = Intent(Intent.ACTION_SEND)
@@ -329,5 +311,40 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     fun openDiallerBox(number: String) {
         val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
         requireActivity().startActivity(intent)
+    }
+
+    fun favouriteClick(
+        checkbox: CheckBox,
+        isFav: Boolean,
+        nav: Int,
+        itemId: String,
+        baseViewModel: BaseViewModel,
+        type: Int = 2,
+    ) {
+        checkBox = checkbox
+        if (application.auth.isGuest) {
+            navigate(nav)
+        } else {
+            if (!isFav) {
+                application.auth.user?.let {
+                    baseViewModel.addToFavourites(AddToFavouriteRequest(
+                        userId = application.auth.user?.userId,
+                        itemId = itemId,
+                        type = type
+                    )
+                    )
+                }
+            } else {
+                application.auth.user?.let {
+                    baseViewModel.addToFavourites(AddToFavouriteRequest(
+                        userId = application.auth.user?.userId,
+                        itemId = itemId,
+                        type = type
+                    )
+                    )
+                }
+            }
+
+        }
     }
 }

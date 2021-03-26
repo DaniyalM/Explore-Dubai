@@ -9,5 +9,5 @@ import javax.inject.Inject
 class AttractionDetailViewModel @ViewModelInject constructor(
     application: Application,
     private val attractionRepository: AttractionRepository,
-): BaseViewModel(application) {
+): BaseViewModel(application,attractionRepository) {
 }

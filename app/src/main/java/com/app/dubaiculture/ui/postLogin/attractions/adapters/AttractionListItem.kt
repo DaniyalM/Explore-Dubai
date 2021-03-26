@@ -27,7 +27,7 @@ data class AttractionListItem<T : ViewDataBinding>(
                         rowClickListener?.rowClickListener(position)
                     }
                     favourite.setOnClickListener {
-                        favChecker?.checkFavListener(it.favourite, position, attraction.IsFavourite)
+                        favChecker?.checkFavListener(it.favourite, position, attraction.IsFavourite,attraction.id)
                     }
 
                 }
@@ -40,7 +40,7 @@ data class AttractionListItem<T : ViewDataBinding>(
                         rowClickListener?.rowClickListener(position)
                     }
                     favourite.setOnClickListener {
-                        favChecker?.checkFavListener(it.favourite, position, attraction.IsFavourite)
+                        favChecker?.checkFavListener(it.favourite, position, attraction.IsFavourite,attraction.id)
                     }
 
                 }

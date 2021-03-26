@@ -38,7 +38,7 @@ class LoginViewModel @ViewModelInject constructor(
     val isPhoneEdit = MutableLiveData<Boolean?>(true)
     val isEmailEdit = MutableLiveData<Boolean?>(true)
 
-    val isPassword = MutableLiveData<Boolean?>(true)
+    val isPassword = MutableLiveData(true)
 
     //boolean for checking typing email or number
     val isLoginWithPhone = MutableLiveData<Boolean?>(false)
@@ -78,7 +78,8 @@ class LoginViewModel @ViewModelInject constructor(
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
 
-                                setUser(transform(result.value.loginResponseDTO.userDTO,result.value.loginResponseDTO))
+                                setUser(transform(result.value.loginResponseDTO.userDTO,
+                                    result.value.loginResponseDTO))
 
                                 userRepository.saveUser(
                                     userDTO = result.value.loginResponseDTO.userDTO,
@@ -128,7 +129,8 @@ class LoginViewModel @ViewModelInject constructor(
                                 resendEmailVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
-                                setUser(transform(result.value.loginResponseDTO.userDTO,result.value.loginResponseDTO))
+                                setUser(transform(result.value.loginResponseDTO.userDTO,
+                                    result.value.loginResponseDTO))
 
                                 userRepository.saveUser(
                                     userDTO = result.value.loginResponseDTO.userDTO,
@@ -178,8 +180,9 @@ class LoginViewModel @ViewModelInject constructor(
 
                         } else {
                             showLoader(false)
-                            if(result.value.errorMessage.isNullOrEmpty()){
-                                showErrorDialog(message = result.value.errorMessage)}
+                            if (result.value.errorMessage.isNullOrEmpty()) {
+                                showErrorDialog(message = result.value.errorMessage)
+                            }
 
 
                         }

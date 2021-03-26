@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class ExploreRepository @Inject constructor(
     private val exploreRDS: ExploreRDS,
-) :BaseRepository() {
+) :BaseRepository(exploreRDS) {
     suspend fun getExplore(exploreRequest: ExploreRequest): Result<List<Explore>> {
         return when (val resultRDS =
             exploreRDS.getExplore(transformExploreRequest(exploreRequest))) {

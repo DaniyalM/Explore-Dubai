@@ -20,12 +20,18 @@ data class EventListItem<T : ViewDataBinding>(
 ) : BindableItem<T>() {
     override fun getLayout() = resLayout
     override fun bind(viewBinding: T, position: Int) {
-        when(viewBinding){
-            is UpcomingEventsInnerItemCellBinding->{
+        when (viewBinding) {
+            is UpcomingEventsInnerItemCellBinding -> {
                 viewBinding.let {
                     it.events = event
                     it.favourite.setOnClickListener {
-                        favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
+                        event.id?.let { itemId ->
+                            favChecker!!.checkFavListener(it.favourite,
+                                position,
+                                event.isFavourite,
+                                itemId)
+
+                        }
                     }
                     it.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
@@ -37,7 +43,13 @@ data class EventListItem<T : ViewDataBinding>(
                     it.events = event
 
                     it.favourite.setOnClickListener {
-                        favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
+                        event.id?.let { itemId ->
+                            favChecker!!.checkFavListener(it.favourite,
+                                position,
+                                event.isFavourite,
+                                itemId)
+
+                        }
                     }
                     it.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
@@ -45,23 +57,35 @@ data class EventListItem<T : ViewDataBinding>(
                 }
             }
             is EventItemsBinding -> {
-               viewBinding.let {
+                viewBinding.let {
                     it.events = event
 
                     it.favourite.setOnClickListener {
-                        favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
+                        event.id?.let { itemId ->
+                            favChecker!!.checkFavListener(it.favourite,
+                                position,
+                                event.isFavourite,
+                                itemId)
+
+                        }
                     }
                     it.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
                     }
                 }
             }
-            is AttractionDetailUpComingItemsBinding->{
+            is AttractionDetailUpComingItemsBinding -> {
                 viewBinding.let {
                     it.events = event
 
                     it.favourite.setOnClickListener {
-                        favChecker!!.checkFavListener(it.favourite, position, event.isFavourite)
+                        event.id?.let { itemId ->
+                            favChecker!!.checkFavListener(it.favourite,
+                                position,
+                                event.isFavourite,
+                                itemId)
+
+                        }
                     }
                     it.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
@@ -69,8 +93,6 @@ data class EventListItem<T : ViewDataBinding>(
                 }
             }
         }
-
-
 
 
     }

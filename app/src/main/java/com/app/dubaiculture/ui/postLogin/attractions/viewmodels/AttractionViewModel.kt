@@ -100,26 +100,7 @@ class AttractionViewModel @ViewModelInject constructor(
         }
     }
 
-    fun addToFavourites(addToFavouriteRequest: AddToFavouriteRequest) {
-        showLoader(true)
-        viewModelScope.launch {
-            when (val result = attractionRepository.addToFavourite(addToFavouriteRequest,
-                attractionRepository.attractionRDS)) {
-                is Result.Success -> {
-                    showLoader(false)
-                    _isFavourite.value = result.message
 
-
-                }
-                is Result.Failure -> {
-                    showLoader(false)
-                    _isFavourite.value = result.toString()
-
-                }
-            }
-        }
-
-    }
 
 
 //    fun getInterests(): List<AttractionCategory> {

@@ -2,6 +2,7 @@ package com.app.dubaiculture.ui.postLogin.attractions
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,12 +42,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
 
     companion object {
-
-        var ATTRACTION_CATEG0RY_ID: String = "AttractionCatId"
-        var ATTRACTION_DETAIL_ID: String = "Attraction_ID"
-        var ATTRACTION_DETAIL_IMAGE: String = "Attraction_IMAGE"
-        var ATTRACTION_DETAIL_TITLE: String = "Attraction_TITLE"
-        var ATTRACTION_DETAIL_CATEGORY: String = "Attraction_CATEGORY"
 
         @JvmStatic
         fun newInstance(attractionCat: AttractionCategory) = AttractionListingFragment().apply {
@@ -91,7 +86,21 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     }
 
+
     private fun subscribeToObservables() {
+        attractionViewModel.isFavourite.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    if (TextUtils.equals(it.value.Result.message, "Added")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                    }
+                    if (TextUtils.equals(it.value.Result.message, "Deleted")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+                    }
+                }
+                is Result.Failure -> handleApiError(it, attractionViewModel)
+            }
+        }
         attractionViewModel.attractionList.observe(viewLifecycleOwner) {
 
             when (it) {
@@ -111,11 +120,15 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                                             checkbox: CheckBox,
                                             pos: Int,
                                             isFav: Boolean,
+                                            itemId: String,
                                         ) {
-                                            favouriteEvent(application.auth.isGuest,
+                                            favouriteClick(
                                                 checkbox,
                                                 isFav,
-                                                R.id.action_attractionsFragment_to_postLoginFragment)
+                                                R.id.action_attractionsFragment_to_postLoginFragment,
+                                                itemId, attractionViewModel,
+                                               1
+                                            )
                                         }
                                     },
                                     rowClickListener = object : RowClickListener {
@@ -144,12 +157,17 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                                                 checkbox: CheckBox,
                                                 pos: Int,
                                                 isFav: Boolean,
+                                                itemId: String,
                                             ) {
-                                                favouriteEvent(application.auth.isGuest,
+                                                favouriteClick(
                                                     checkbox,
                                                     isFav,
-                                                    R.id.action_attractionsFragment_to_postLoginFragment)
+                                                    R.id.action_attractionsFragment_to_postLoginFragment,
+                                                    itemId, attractionViewModel,
+                                                    1
+                                                )
                                             }
+
                                         },
                                         rowClickListener = object : RowClickListener {
                                             override fun rowClickListener(position: Int) {
@@ -169,7 +187,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                 }
                 is Result.Failure -> {
                     progressBar.visibility = View.GONE
-
                     handleApiError(it, attractionViewModel)
                 }
 

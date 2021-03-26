@@ -4,6 +4,7 @@ import android.Manifest
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,20 +15,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.EventItemsBinding
 import com.app.dubaiculture.databinding.FragmentEventsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.StaticLatLng.LAT
 import com.app.dubaiculture.utils.Constants.StaticLatLng.LNG
 import com.app.dubaiculture.utils.GpsStatus
+import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -224,6 +224,19 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     }
 
     private fun subscribeToObservables() {
+        eventViewModel.isFavourite.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    if (TextUtils.equals(it.value.Result.message, "Added")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                    }
+                    if (TextUtils.equals(it.value.Result.message, "Deleted")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+                    }
+                }
+                is Result.Failure -> handleApiError(it, eventViewModel)
+            }
+        }
         eventViewModel.eventCategoryList.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
@@ -235,19 +248,24 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                     checkbox: CheckBox,
                                     pos: Int,
                                     isFav: Boolean,
+                                    itemId: String,
                                 ) {
-                                    favouriteEvent(application.auth.isGuest,
+                                    favouriteClick(
                                         checkbox,
                                         isFav,
-                                        R.id.action_eventsFragment_to_postLoginFragment)
+                                        R.id.action_eventsFragment_to_postLoginFragment,
+                                        itemId, eventViewModel
+                                    )
                                 }
+
                             }, object : RowClickListener {
                                 override fun rowClickListener(position: Int) {
                                     val eventObj = featureList[position]
                                     val bundle = Bundle()
                                     bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT,
                                         eventObj)
-                                    navigate(R.id.action_eventsFragment_to_eventDetailFragment2,bundle)
+                                    navigate(R.id.action_eventsFragment_to_eventDetailFragment2,
+                                        bundle)
                                 }
 
                             }, event = it, resLayout = R.layout.event_items))
@@ -259,19 +277,24 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                         checkbox: CheckBox,
                                         pos: Int,
                                         isFav: Boolean,
+                                        itemId: String,
                                     ) {
-                                        favouriteEvent(application.auth.isGuest,
+                                        favouriteClick(
                                             checkbox,
                                             isFav,
-                                            R.id.action_eventsFragment_to_postLoginFragment)
+                                            R.id.action_eventsFragment_to_postLoginFragment,
+                                            itemId, eventViewModel
+                                        )
                                     }
+
                                 }, object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         val eventObj = nearList[position]
                                         val bundle = Bundle()
                                         bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT,
                                             eventObj)
-                                        navigate(R.id.action_eventsFragment_to_eventDetailFragment2,bundle)
+                                        navigate(R.id.action_eventsFragment_to_eventDetailFragment2,
+                                            bundle)
                                     }
 
                                 }, event = it, resLayout = R.layout.event_items))
@@ -287,19 +310,24 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                         checkbox: CheckBox,
                                         pos: Int,
                                         isFav: Boolean,
+                                        itemId: String,
                                     ) {
-                                        favouriteEvent(application.auth.isGuest,
+                                        favouriteClick(
                                             checkbox,
                                             isFav,
-                                            R.id.action_eventsFragment_to_postLoginFragment)
+                                            R.id.action_eventsFragment_to_postLoginFragment,
+                                            itemId, eventViewModel
+                                        )
                                     }
+
                                 }, object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         val eventObj = featureList[position]
                                         val bundle = Bundle()
                                         bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT,
                                             eventObj)
-                                        navigate(R.id.action_eventsFragment_to_eventDetailFragment2,bundle)
+                                        navigate(R.id.action_eventsFragment_to_eventDetailFragment2,
+                                            bundle)
                                     }
 
                                 }, event = it, resLayout = R.layout.event_items))
