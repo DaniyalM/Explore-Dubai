@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 class EventRDS @Inject constructor(private val eventService: EventService) : BaseRDS(eventService) {
 
-    suspend fun addItemtoFavorites(addToFavouriteRequestDTO: AddToFavouriteRequestDTO)=safeApiCall {
-        eventService.addToFavourites(addToFavouriteRequestDTO)
-    }
+
+
+
     suspend fun getEvent(homeEventListRequestDTO: HomeEventListRequestDTO) =
         safeApiCall {
             eventService.getEvents(homeEventListRequestDTO.culture)
@@ -32,6 +32,8 @@ class EventRDS @Inject constructor(private val eventService: EventService) : Bas
         safeApiCall {
             eventService.getEventDetail(eventId = eventDetailRequestDTO.eventId,
                 culture = eventDetailRequestDTO.culture)
+
         }
+
 
 }

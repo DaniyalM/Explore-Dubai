@@ -8,18 +8,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavDirections
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.user.local.User
 import com.app.dubaiculture.utils.event.Event
 import com.app.dubaiculture.utils.event.UiEvent
 
-abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
+abstract class BaseViewModel(
+    application: Application,
+    private val baseRespository: BaseRepository? = null,
+) : AndroidViewModel(application) {
     private val _uiEventsLiveData = MutableLiveData<Event<UiEvent>>()
     val uiEvents: LiveData<Event<UiEvent>> = _uiEventsLiveData
 
     private val _userLiveData = MutableLiveData<User>()
     val userLiveData: LiveData<User> = _userLiveData
 
-    var _appLocale: String = "en"
+
+    protected var _isFavourite: MutableLiveData<String> = MutableLiveData()
+    var isFavourite: LiveData<String> = _isFavourite
 
 
     fun showLoader(show: Boolean) {

@@ -36,4 +36,10 @@ data class Result(
     @Expose
     var locationList: ArrayList<FilterDTO>,
 
+    @SerializedName("message")
+    @Expose
+    var message: String,
+
+
+
     )

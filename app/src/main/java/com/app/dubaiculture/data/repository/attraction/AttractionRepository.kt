@@ -7,10 +7,13 @@ import com.app.dubaiculture.data.repository.attraction.mapper.*
 import com.app.dubaiculture.data.repository.attraction.remote.AttractionRDS
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
 import com.app.dubaiculture.data.repository.base.BaseRepository
+import com.app.dubaiculture.data.repository.event.mapper.transformAddToFavouriteRequest
+import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
+import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import javax.inject.Inject
 
 class AttractionRepository @Inject constructor(
-    private val attractionRDS: AttractionRDS,
+    val attractionRDS: AttractionRDS,
 ) : BaseRepository() {
     suspend fun getAttractionCategories(attractionRequest: AttractionRequest): Result<List<AttractionCategory>> {
         return when (val resultRDS = attractionRDS.getAttractionCategories(
@@ -67,6 +70,9 @@ class AttractionRepository @Inject constructor(
             is Result.Failure -> resultRDS
         }
     }
+
+
+
 
 
 }

@@ -10,13 +10,14 @@ import com.app.dubaiculture.data.repository.attraction.AttractionRepository
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
+import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class AttractionViewModel @ViewModelInject constructor(
     application: Application,
     private val attractionRepository: AttractionRepository,
-) : BaseViewModel(application) {
+) : BaseViewModel(application, attractionRepository) {
 
     private val _attractionCategoryList: MutableLiveData<Result<List<AttractionCategory>>> =
         MutableLiveData()
@@ -27,7 +28,7 @@ class AttractionViewModel @ViewModelInject constructor(
     private val _attractionDetail: MutableLiveData<Result<Attractions>> = MutableLiveData()
     val attractionDetail: LiveData<Result<Attractions>> = _attractionDetail
     private var _isPlaying: MutableLiveData<Boolean> = MutableLiveData(false)
-     var isPlaying: LiveData<Boolean> = _isPlaying
+    var isPlaying: LiveData<Boolean> = _isPlaying
 
 
     fun getAttractionCategoryToScreen(locale: String) {
@@ -97,6 +98,27 @@ class AttractionViewModel @ViewModelInject constructor(
                 }
             }
         }
+    }
+
+    fun addToFavourites(addToFavouriteRequest: AddToFavouriteRequest) {
+        showLoader(true)
+        viewModelScope.launch {
+            when (val result = attractionRepository.addToFavourite(addToFavouriteRequest,
+                attractionRepository.attractionRDS)) {
+                is Result.Success -> {
+                    showLoader(false)
+                    _isFavourite.value = result.message
+
+
+                }
+                is Result.Failure -> {
+                    showLoader(false)
+                    _isFavourite.value = result.toString()
+
+                }
+            }
+        }
+
     }
 
 

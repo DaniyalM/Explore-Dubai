@@ -10,7 +10,6 @@ import com.app.dubaiculture.data.repository.event.remote.EventRDS
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
-import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
@@ -76,11 +75,11 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
 
     suspend fun addToFavourite(addToFavouriteRequest: AddToFavouriteRequest): Result<AddToFavouriteResponse> {
         return when (val resultRds =
-            eventRDS.addItemtoFavorites(transformAddToFavouriteRequest(addToFavouriteRequest))) {
+            eventRDS.addToFavourates(transformAddToFavouriteRequest(addToFavouriteRequest))) {
             is Result.Success -> {
                 val eventLDS = resultRds
-                if (eventLDS.value.statusCode != 200) {
-                    Result.Failure(true, eventLDS.value.statusCode, null)
+                if (eventLDS.value?.statusCode != 200) {
+                    Result.Failure(true, eventLDS.value?.statusCode, null)
                 } else {
                     val eventRds = eventLDS.value
                     Result.Success(eventRds)
