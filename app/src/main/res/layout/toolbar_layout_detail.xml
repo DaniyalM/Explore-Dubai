@@ -334,14 +334,15 @@
                         app:layout_constraintStart_toEndOf="@+id/back"
                         app:layout_constraintTop_toTopOf="@+id/back" />
 
-                    <ImageView
+
+                    <CheckBox
                         android:id="@+id/favourite"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginEnd="20dp"
-                        android:background="@drawable/custom_ripple_black"
-                        android:rotation="0"
-                        android:src="@drawable/heart_icon_home_black"
+                        android:background="@drawable/heart_icon_home_black"
+                        android:button="@null"
+                        android:foreground="@drawable/custom_ripple_border"
                         app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
                         app:layout_constraintEnd_toStartOf="@+id/share"
                         app:layout_constraintStart_toEndOf="@+id/bookingCalender"

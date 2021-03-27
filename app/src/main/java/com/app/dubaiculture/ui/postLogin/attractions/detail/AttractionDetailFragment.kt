@@ -4,6 +4,7 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,8 +38,12 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.shape.CornerFamily
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
+import kotlinx.android.synthetic.main.fragment_attraction_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
+import kotlinx.android.synthetic.main.toolbar_layout_detail.view.bookingCalender
+import kotlinx.android.synthetic.main.toolbar_layout_detail.view.favourite
+import kotlinx.android.synthetic.main.toolbar_layout_detail.view.share
 import timber.log.Timber
 import java.io.IOException
 import java.util.*
@@ -48,9 +53,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener {
-
     private var url: String? = null
-    private var isPLAYING = false
 
     @Inject
     lateinit var glide: RequestManager
@@ -93,6 +96,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
         binding.let {
+
             it.root.ll_ar.setOnClickListener(this)
             it.root.ll_360.setOnClickListener(this)
             it.root.ll_img.setOnClickListener(this)
@@ -140,7 +144,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                             isFav: Boolean,
                                             itemId: String,
                                         ) {
-
+                                            favouriteClick(
+                                                checkbox,
+                                                isFav,
+                                                R.id.action_attractionsFragment_to_postLoginFragment,
+                                                itemId, attractionDetailViewModel
+                                            )
                                         }
 
                                     }, object : RowClickListener {
@@ -150,7 +159,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                                     }, event = it,
                                     resLayout = R.layout.attraction_detail_up_coming_items)
-//                            UpComingItems(event=it)
                             )
                         }
                     }
@@ -161,7 +169,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
         }
-        mp?.setOnPreparedListener { mPlayer -> mPlayer?.start() }
+//        mp?.setOnPreparedListener { mPlayer -> mPlayer?.start() }
     }
 
     private fun callingObservables() {
@@ -174,22 +182,35 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     private fun subscribeObservables() {
-        attractionDetailViewModel.isPlaying.observe(viewLifecycleOwner) {
-            if (it) {
-                try {
-                    mp?.let {
-                        it.setDataSource(url)
-                        it.prepareAsync();
-                        it.start()
+        attractionDetailViewModel.isFavourite.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    if (TextUtils.equals(it.value.Result.message, "Added")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
                     }
-
-                } catch (e: IOException) {
-                    Timber.e("prepare() failed")
+                    if (TextUtils.equals(it.value.Result.message, "Deleted")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
+                    }
                 }
-            } else {
-                stopPlaying()
+                is Result.Failure -> handleApiError(it, attractionDetailViewModel)
             }
         }
+//        attractionDetailViewModel.isPlaying.observe(viewLifecycleOwner) {
+//            if (it) {
+//                try {
+//                    mp?.let {
+//                        it.setDataSource(url)
+//                        it.prepareAsync();
+//                        it.start()
+//                    }
+//
+//                } catch (e: IOException) {
+//                    Timber.e("prepare() failed")
+//                }
+//            } else {
+//                stopPlaying()
+//            }
+//        }
         attractionDetailViewModel.attractionDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
@@ -226,22 +247,22 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 }
             })
             favourite.setOnClickListener {
-                attractionDetailViewModel.showToast("favourite Clicked")
+                attractionsObj?.let { attraction->
+                    favouriteClick(it.favourite,attraction.IsFavourite,R.id.action_attractionDetailFragment_to_postLoginFragment,attraction.id,attractionDetailViewModel,1)
+                }
             }
             share.setOnClickListener {
-                attractionDetailViewModel.showToast("share Clicked")
             }
             bookingCalender.setOnClickListener {
-                attractionDetailViewModel.showToast("bookingCalender Clicked")
             }
             toolbarAttractionDetail.favourite.setOnClickListener {
-                attractionDetailViewModel.showToast("favourite Toolbar Clicked")
+                attractionsObj?.let { attraction->
+                    favouriteClick(it.favourite,attraction.IsFavourite,R.id.action_attractionDetailFragment_to_postLoginFragment,attraction.id,attractionDetailViewModel,1)
+                }
             }
             toolbarAttractionDetail.share.setOnClickListener {
-                attractionDetailViewModel.showToast("share Toolbar Clicked")
             }
             toolbarAttractionDetail.bookingCalender.setOnClickListener {
-                attractionDetailViewModel.showToast("bookingCalender Toolbar Clicked")
             }
 
             //            binding.imgBack.setOnClickListener {
@@ -263,15 +284,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         if (isArabic()) {
-            binding!!.root.cardview_plan_trip?.shapeAppearanceModel =
-                binding!!.root.cardview_plan_trip!!.shapeAppearanceModel
+            binding.root.cardview_plan_trip?.shapeAppearanceModel =
+                binding.root.cardview_plan_trip!!.shapeAppearanceModel
                     .toBuilder()
                     .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                     .setTopRightCornerSize(radius)
                     .build()
         } else {
-            binding!!.root.cardview_plan_trip?.shapeAppearanceModel =
-                binding!!.root.cardview_plan_trip!!.shapeAppearanceModel
+            binding.root.cardview_plan_trip?.shapeAppearanceModel =
+                binding.root.cardview_plan_trip!!.shapeAppearanceModel
                     .toBuilder()
                     .setTopLeftCorner(CornerFamily.ROUNDED, radius)
                     .setBottomRightCornerSize(radius)
@@ -353,6 +374,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 openEmailbox("test@gmail.com")
 
             }
+
         }
     }
 
