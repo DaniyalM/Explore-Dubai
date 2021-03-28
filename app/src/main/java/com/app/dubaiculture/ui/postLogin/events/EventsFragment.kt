@@ -242,6 +242,11 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         eventViewModel.eventCategoryList.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
+                    binding.tvEventTitle.visibility = View.VISIBLE
+                    binding.tvNearEventTitle.visibility = View.VISIBLE
+                    binding.tvViewMap.visibility = View.VISIBLE
+                    binding.viewAllEvents.visibility = View.VISIBLE
+                    binding.tvMoreEventTitle.visibility = View.VISIBLE
                     it.let {
                         it.value.events!!.forEach {
                             groupAdapter.add(EventListItem<EventItemsBinding>(object :
@@ -338,6 +343,11 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     }
                 }
                 is Result.Failure -> {
+                    binding.tvEventTitle.visibility = View.GONE
+                    binding.tvNearEventTitle.visibility = View.GONE
+                    binding.tvViewMap.visibility = View.GONE
+                    binding.viewAllEvents.visibility = View.GONE
+                    binding.tvMoreEventTitle.visibility = View.GONE
                     showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
 
                 }
