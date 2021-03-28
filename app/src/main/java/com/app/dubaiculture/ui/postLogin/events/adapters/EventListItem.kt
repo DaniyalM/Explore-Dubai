@@ -24,6 +24,8 @@ data class EventListItem<T : ViewDataBinding>(
             is UpcomingEventsInnerItemCellBinding -> {
                 viewBinding.let {
                     it.events = event
+                    it. favourite.isChecked = event.isFavourite
+
                     it.favourite.setOnClickListener {
                         event.id?.let { itemId ->
                             favChecker!!.checkFavListener(it.favourite,
@@ -41,6 +43,7 @@ data class EventListItem<T : ViewDataBinding>(
             is ItemEventListingBinding -> {
                 viewBinding.let {
                     it.events = event
+                    it. favourite.isChecked = event.isFavourite
 
                     it.favourite.setOnClickListener {
                         event.id?.let { itemId ->
@@ -59,6 +62,7 @@ data class EventListItem<T : ViewDataBinding>(
             is EventItemsBinding -> {
                 viewBinding.let {
                     it.events = event
+                    it. favourite.isChecked = event.isFavourite
 
                     it.favourite.setOnClickListener {
                         event.id?.let { itemId ->
@@ -77,6 +81,7 @@ data class EventListItem<T : ViewDataBinding>(
             is AttractionDetailUpComingItemsBinding -> {
                 viewBinding.let {
                     it.events = event
+                    it. favourite.isChecked = event.isFavourite
 
                     it.favourite.setOnClickListener {
                         event.id?.let { itemId ->

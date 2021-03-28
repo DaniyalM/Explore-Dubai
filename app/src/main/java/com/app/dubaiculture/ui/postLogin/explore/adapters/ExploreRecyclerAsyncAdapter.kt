@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.explore.adapters
 
 import android.content.Context
+import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -32,6 +33,7 @@ import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsListItem
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -111,6 +113,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     item.value.forEach { attractionCat ->
                         attractionInnerAdapter?.add(AttractionCategoryListItem<AttractionsCategoryItemCellBinding>(
                             attractionCat = transformBaseToAttractionCategory(attractionCat),
+                            rowClickListener = object:RowClickListener{
+                                override fun rowClickListener(position: Int) {
+//                                   fragment?.navigate(R.id.action_exploreFragment_to_attractionsFragment,Bundle().apply {
+//                                       putInt(ATTRACTION_CAT_OBJECT,position)
+//                                   })
+                                }
+                            },
                             isArabic = isArabic ?: false)
                         )
                     }

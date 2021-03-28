@@ -3,7 +3,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--    android:elevation="@dimen/toolbar_elevation"-->
+    <data>
+
+        <variable
+            name="attraction"
+            type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
+    </data>
+
     <merge>
 
 
@@ -342,6 +348,7 @@
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/heart_icon_home_black"
                         android:button="@null"
+                        android:checked="@{attraction.isFavourite}"
                         android:foreground="@drawable/custom_ripple_border"
                         app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
                         app:layout_constraintEnd_toStartOf="@+id/share"

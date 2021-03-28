@@ -39,6 +39,7 @@ object Constants {
         const val EVENT_OBJECT: String = "eventObject"
         const val ATTRACTION_OBJECT: String = "attractionObject"
         const val ATTRACTION_CAT_OBJECT: String = "attractionCatObject"
+        const val ATTRACTION_GALLERY_LIST: String = "attractionGalleryList"
 
     }
 

@@ -26,8 +26,9 @@
             android:fitsSystemWindows="true"
             app:elevation="0dp">
 
-            <!--            <include layout="@layout/toolbar_snippet"/>-->
-            <include layout="@layout/toolbar_layout_detail" />
+            <include
+                layout="@layout/toolbar_layout_detail"
+                app:attraction="@{attraction}" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,17 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--                <ImageView-->
-            <!--                    android:id="@+id/imageView4"-->
-            <!--                    android:visibility="gone"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="match_parent"-->
-            <!--                    android:layout_marginTop="@dimen/_200sdp"-->
-            <!--                    app:layout_constraintTop_toTopOf="parent"-->
-            <!--                    android:background="@drawable/attraction_bg_icon_with_border"-->
-            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                    app:layout_constraintStart_toStartOf="parent"-->
-            <!--                    />-->
             <ImageView
                 android:id="@+id/img_back"
                 android:layout_width="@dimen/_30sdp"
@@ -79,6 +69,7 @@
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/heart_icon_home_black"
                 android:button="@null"
+                android:checked="@{attraction.isFavourite}"
                 android:foreground="@drawable/custom_ripple_border"
                 app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
                 app:layout_constraintEnd_toStartOf="@+id/share"

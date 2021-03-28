@@ -56,7 +56,9 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpRecyclerView()
+        if (!this::exploreAdapter.isInitialized){
+            setUpRecyclerView()
+        }
         subscribeUiEvents(exploreViewModel)
 //        callingObservables()
         subscribeToObservable()
@@ -90,6 +92,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     private fun callingObservables() {
         if (!this::explore.isInitialized) {
+
             lifecycleScope.launch {
                 exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
             }
@@ -105,13 +108,18 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
                     }
+                    if (TextUtils.equals(it.value.Result.message, "Deleted")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+                    }
                 }
                 is Result.Failure -> handleApiError(it, exploreViewModel)
             }
         }
         exploreViewModel.exploreList.observe(viewLifecycleOwner) {
+
             when (it) {
                 is Result.Success -> {
+
                     it.let {
                         explore = it.value
                         exploreAdapter.items = explore

@@ -87,6 +87,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        retainInstance = true
         application = activity.application as ApplicationEntry
         bus = application.bus
         bus.register(this)

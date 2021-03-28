@@ -21,5 +21,4 @@ class ThreeSixtyItems (val img:Int ,var invokeItem: invokeItem): BaseAdapter(R.l
 }
 interface  invokeItem{
     fun onItemClick(img:Int?=0)
-
 }

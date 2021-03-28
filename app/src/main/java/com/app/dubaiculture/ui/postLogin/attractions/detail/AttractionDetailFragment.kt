@@ -1,8 +1,8 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail
 
 import android.content.Context
-import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Parcelable
 import android.speech.tts.TextToSpeech
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -18,13 +18,13 @@ import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.AttractionDetailUpComingItemsBinding
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.instagramNavigationIntent
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -38,14 +38,8 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.shape.CornerFamily
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.fragment_attraction_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.bookingCalender
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.favourite
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.share
-import timber.log.Timber
-import java.io.IOException
 import java.util.*
 import javax.inject.Inject
 
@@ -55,29 +49,21 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     OnMapReadyCallback, View.OnClickListener {
     private var url: String? = null
 
+
+
     @Inject
     lateinit var glide: RequestManager
     private val attractionDetailViewModel: AttractionViewModel by viewModels()
-
-    //    private var detailImage: String? = null
-//    private var detailTitle: String? = null
-//    private var detailCategory: String? = null
-//    private var detailId: String? = null
     private var lat: String? = 24.8623.toString()
     private var long: String? = 67.0627.toString()
-    private var attractionsObj: Attractions? = null
-    var mp: MediaPlayer? = MediaPlayer()
+    private lateinit var attractionsObj: Attractions
+    private lateinit var contentFlag: String
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
                 textToSpeechEngine.language = Locale(getCurrentLanguage().language)
             }
         }
-    }
-
-    private fun stopPlaying() {
-        mp?.release()
-        mp = null
     }
 
     override fun onAttach(context: Context) {
@@ -112,9 +98,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             it.root.ll_call_us.setOnClickListener(this)
 
         }
-        rvSetUp()
-        callingObservables()
-        subscribeObservables()
+        if (!this::contentFlag.isInitialized){
+            rvSetUp()
+            callingObservables()
+            subscribeObservables()
+        }
+
         uiActions()
         mapSetUp()
         cardViewRTL()
@@ -123,8 +112,21 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     private fun initializeDetails(attraction: Attractions) {
         binding.attraction = attraction
-
         binding.root.apply {
+            attraction.let {
+                if (TextUtils.isEmpty(it.startDay) || TextUtils.isEmpty(it.endDay)) {
+                    tv_attraction_days.text = "Sunday - Friday"
+                } else {
+                    tv_attraction_days.text = "${attraction.startDay} - ${attraction.endDay}"
+                }
+                if (TextUtils.isEmpty(it.startTime) || TextUtils.isEmpty(it.endTime)) {
+                    tv_times.text = "10:00 AM - 1:00 AM"
+                } else {
+                    tv_times.text = "${attraction.startTime} - ${attraction.endTime}"
+                }
+
+            }
+
             attraction.apply {
                 url = audioLink
                 lat = latitude
@@ -154,7 +156,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                                     }, object : RowClickListener {
                                         override fun rowClickListener(position: Int) {
-//                                            navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+                                            navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
+                                                Bundle().apply {
+                                                    putParcelable(Constants.NavBundles.EVENT_OBJECT,
+                                                        it)
+                                                })
                                         }
 
                                     }, event = it,
@@ -186,35 +192,30 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             when (it) {
                 is Result.Success -> {
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+//                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        binding.root.favourite.background =
+                            getDrawableFromId(R.drawable.heart_icon_fav)
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
+//                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
+                        binding.favourite.background =
+                            getDrawableFromId(R.drawable.heart_icon_home_black)
+                        binding.root.favourite.background =
+                            getDrawableFromId(R.drawable.heart_icon_home_black)
                     }
                 }
                 is Result.Failure -> handleApiError(it, attractionDetailViewModel)
             }
         }
-//        attractionDetailViewModel.isPlaying.observe(viewLifecycleOwner) {
-//            if (it) {
-//                try {
-//                    mp?.let {
-//                        it.setDataSource(url)
-//                        it.prepareAsync();
-//                        it.start()
-//                    }
-//
-//                } catch (e: IOException) {
-//                    Timber.e("prepare() failed")
-//                }
-//            } else {
-//                stopPlaying()
-//            }
-//        }
+
         attractionDetailViewModel.attractionDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    initializeDetails(it.value)
+                    contentFlag="ContentLoaded"
+
+                    attractionsObj = it.value
+                    initializeDetails(attractionsObj!!)
                 }
                 is Result.Failure -> {
                     handleApiError(it, attractionDetailViewModel)
@@ -233,42 +234,40 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
             appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
                 if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
-                    Timber.e(verticalOffset.toString())
-                    //toolbar is collapsed here
-                    //write your code here
                     defaultCloseToolbar.visibility = View.VISIBLE
-                    //                    img.visibility = View.VISIBLE
-                    //                    imageView.visibility = View.VISIBLE
                 } else {
                     defaultCloseToolbar.visibility = View.GONE
-                    //                    imageView.visibility = View.GONE
-                    //                    img.visibility = View.GONE
-
                 }
             })
             favourite.setOnClickListener {
-                attractionsObj?.let { attraction->
-                    favouriteClick(it.favourite,attraction.IsFavourite,R.id.action_attractionDetailFragment_to_postLoginFragment,attraction.id,attractionDetailViewModel,1)
+                attractionsObj?.let { attraction ->
+                    favouriteClick(it.favourite,
+                        attraction.IsFavourite,
+                        R.id.action_attractionDetailFragment_to_postLoginFragment,
+                        attraction.id,
+                        attractionDetailViewModel,
+                        1)
                 }
+
             }
             share.setOnClickListener {
             }
             bookingCalender.setOnClickListener {
             }
             toolbarAttractionDetail.favourite.setOnClickListener {
-                attractionsObj?.let { attraction->
-                    favouriteClick(it.favourite,attraction.IsFavourite,R.id.action_attractionDetailFragment_to_postLoginFragment,attraction.id,attractionDetailViewModel,1)
+                attractionsObj?.let { attraction ->
+                    favouriteClick(it.favourite,
+                        attraction.IsFavourite,
+                        R.id.action_attractionDetailFragment_to_postLoginFragment,
+                        attraction.id,
+                        attractionDetailViewModel,
+                        1)
                 }
             }
             toolbarAttractionDetail.share.setOnClickListener {
             }
             toolbarAttractionDetail.bookingCalender.setOnClickListener {
             }
-
-            //            binding.imgBack.setOnClickListener {
-            //                back()
-            //            }
-
         }
     }
 
@@ -276,9 +275,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         binding.root.rv_up_coming.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
-
         }
-
     }
 
     private fun cardViewRTL() {
@@ -341,7 +338,14 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
             }
             R.id.ll_img -> {
-                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
+                navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
+                    Bundle().apply {
+                        attractionsObj?.gallery?.let {
+                            putParcelableArrayList(ATTRACTION_GALLERY_LIST,
+                                it as ArrayList<out Parcelable>)
+                        }
+
+                    })
             }
             R.id.back -> {
                 back()
@@ -364,7 +368,14 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
             }
             R.id.downOneGallery -> {
-                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
+                navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
+                    Bundle().apply {
+                        attractionsObj?.gallery?.let {
+                            putParcelableArrayList(ATTRACTION_GALLERY_LIST,
+                                it as ArrayList<out Parcelable>)
+                        }
+
+                    })
 
             }
             R.id.ll_call_us -> {

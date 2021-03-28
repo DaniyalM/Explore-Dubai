@@ -89,12 +89,15 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(eventViewModel)
-        rvSetUp()
+        if (!this::mAdapterNear.isInitialized){
+            rvSetUp()
+        }
+
         cardViewRTL()
         setupToolbarWithSearchItems()
         subscribeToGpsListener()
         locationPermission()
-        callingObservables()
+//        callingObservables()
         subscribeToObservables()
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
@@ -217,11 +220,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     }
 
-    private fun callingObservables() {
-        lifecycleScope.launch {
-            eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
-        }
-    }
+
 
     private fun subscribeToObservables() {
         eventViewModel.isFavourite.observe(viewLifecycleOwner) {
