@@ -1,36 +1,25 @@
 package com.app.dubaiculture.ui.postLogin.events
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.filter.models.SelectedItems
 import com.app.dubaiculture.databinding.FragmentEventFilterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.events.components.EventHeaderItemSelector
-import com.app.dubaiculture.ui.postLogin.events.filter.viewmodel.FilterViewModel
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
-import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.dateFormat
-import com.app.dubaiculture.utils.getDateObj
+import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
-import kotlinx.coroutines.launch
 import q.rorbin.badgeview.QBadgeView
-import timber.log.Timber
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
+
 
 @AndroidEntryPoint
 class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnClickListener {
@@ -54,14 +43,27 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         eventViewModel.filterDataList.observe(viewLifecycleOwner){
             if(!it.isNullOrEmpty()){
                 // badge should be visible
+                binding.root.tv_badge.text = it.size.toString()
+                binding.root.tv_badge.visibility = View.VISIBLE
                 binding.showTabHeader.visibility = View.GONE
-                badgeSetUp(it)
             }else{
                 // badge should be gone
-                badgeSetUp(it)
+                binding.root.tv_badge.visibility = View.GONE
                 binding.showTabHeader.visibility = View.VISIBLE
             }
         }
+
+        binding.root.editSearchEvents.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                eventViewModel._searchBarKeyWord.value = Event(binding.root.editSearchEvents.text.toString())
+                return@OnEditorActionListener true
+            }
+            false
+        })
+
+
+
+
     }
 
     private fun initiatePager() {
@@ -139,7 +141,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
             }
         }
     }
-private fun badgeSetUp(list:List<SelectedItems>){
+private fun badgeSetUp(list: List<SelectedItems>){
     QBadgeView(requireContext())
         .setBadgeBackgroundColor(R.color.purple_900)
         .bindTarget(binding.root.badge_placement).setBadgeNumber(list.size)

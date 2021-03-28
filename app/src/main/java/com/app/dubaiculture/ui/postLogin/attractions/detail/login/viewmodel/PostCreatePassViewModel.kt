@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.setpassword.SetPasswordRepository
 import com.app.dubaiculture.data.repository.setpassword.remote.request.SetPasswordRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
@@ -17,6 +16,7 @@ import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
 import kotlinx.coroutines.launch
 import timber.log.Timber
+
 
 class PostCreatePassViewModel @ViewModelInject constructor(
     private val setPasswordRepository: SetPasswordRepository,
@@ -46,9 +46,7 @@ class PostCreatePassViewModel @ViewModelInject constructor(
 
     fun setPassword(
         verificationCode: String? = null,
-        from: String? = null,
-
-        ) {
+    ) {
         if(!isCheckValid())
             return
         viewModelScope.launch {
@@ -59,22 +57,22 @@ class PostCreatePassViewModel @ViewModelInject constructor(
                 confirmPassword =passwordConifrm.get().toString().trim()
             ).let {
                 when (val result = setPasswordRepository.setPassword(it)) {
-                    is Result.Success -> {
+                    is com.app.dubaiculture.data.Result.Success -> {
                         showLoader(false)
                         if (result.value.succeeded) {
                             showToast(result.value.setPasswordResponseDTO.message)
-                            val bundle = bundleOf("post" to from)
-                            navigateByAction(R.id.action_postCreatePassFragment_to_registrationSuccessFragment2,bundle)
+                            val bundle = bundleOf("post" to "postFragment")
+                            navigateByAction(R.id.action_postCreatePassFragment_to_passwordUpdatedFragment2,bundle)
                         } else {
                             showErrorDialog(message = result.value.errorMessage)
                         }
                     }
-                    is Result.Failure -> {
+                    is com.app.dubaiculture.data.Result.Failure -> {
                         showLoader(false)
                         showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
                         Timber.e(result.errorCode.toString())
                     }
-                    is Result.Error -> {
+                    is com.app.dubaiculture.data.Result.Error -> {
                         Timber.e(result.exception)
                     }
                 }
@@ -96,8 +94,7 @@ class PostCreatePassViewModel @ViewModelInject constructor(
     }
     fun onConfirmPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         passwordConifrm.set(s.toString())
-        isPasswordConfirm.value =
-            AuthUtils.isMatchPasswordBool(password.get().toString(), passwordConifrm.get().toString().trim())
+        isPasswordConfirm.value =AuthUtils.isMatchPasswordBool(password.get().toString(), passwordConifrm.get().toString().trim())
         passwordConfirmError_.value             = AuthUtils.isMatchPasswordError(password.get().toString().trim(),passwordConifrm.get().toString().trim())
     }
 

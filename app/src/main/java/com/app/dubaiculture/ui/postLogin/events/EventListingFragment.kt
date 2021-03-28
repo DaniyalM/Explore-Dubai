@@ -41,9 +41,6 @@ import kotlin.collections.ArrayList
 class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.OnClickListener {
     private val eventViewModel: EventViewModel by activityViewModels()
     private val allList = mutableListOf<Events>()
-    private var thisWeeklist = mutableListOf<Events>()
-    private var thisWeekendList = mutableListOf<Events>()
-    private var next7DaysList = mutableListOf<Events>()
     lateinit var adapterEvents: FilterHeaderAdapter
     private var selectedItemsList = ArrayList<SelectedItems>()
 
@@ -61,7 +58,6 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
             }
         }
     }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(eventViewModel)
@@ -69,12 +65,24 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
         callingObservables()
         subscribeToObservables()
         binding.llFilterHeader.setOnClickListener(this)
+        callingObservablesForSearchBarKeyWord()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
             eventViewModel.updateHeaderItems(eventID ?: 0)
         }
     }
-
+    private fun callingObservablesForSearchBarKeyWord(){
+        eventViewModel.searchBarKeyWord.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let {
+                lifecycleScope.launch {
+                    eventViewModel.getFilterEventList(EventRequest(
+                        culture = getCurrentLanguage().language,
+                        keyword = it
+                    ))
+                }
+            }
+        }
+    }
     private fun callingObservables() {
         lifecycleScope.launch {
             eventViewModel.getDataFilterBtmSheet(locale = getCurrentLanguage().language)

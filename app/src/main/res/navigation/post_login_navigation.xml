@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_eventsFragment_to_eventDetailFragment2"
             app:destination="@id/eventDetailFragment2" />
+        <action
+            android:id="@+id/action_eventsFragment_to_eventListingFragment"
+            app:destination="@id/eventListingFragment" />
     </fragment>
     <fragment
         android:id="@+id/attractionsFragment"
@@ -148,6 +151,9 @@
         <action
             android:id="@+id/action_postLoginFragment_to_postForgotFragment"
             app:destination="@id/postForgotFragment" />
+        <action
+            android:id="@+id/action_postLoginFragment_to_postCreatePassFragment"
+            app:destination="@id/postCreatePassFragment" />
     </dialog>
     <fragment
         android:id="@+id/registerNowFragment"
@@ -160,7 +166,15 @@
     <fragment
         android:id="@+id/registrationSuccessFragment2"
         android:name="com.app.dubaiculture.ui.preLogin.registeration.RegistrationSuccessFragment"
-        android:label="RegistrationSuccessFragment" />
+        android:label="RegistrationSuccessFragment" >
+        <action
+            android:id="@+id/action_registrationSuccessFragment2_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/post_login_navigation"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.app.dubaiculture.ui.preLogin.registeration.RegisterFragment"
@@ -176,6 +190,9 @@
         <action
             android:id="@+id/action_postCreatePassFragment_to_registrationSuccessFragment2"
             app:destination="@id/registrationSuccessFragment2" />
+        <action
+            android:id="@+id/action_postCreatePassFragment_to_passwordUpdatedFragment2"
+            app:destination="@id/passwordUpdatedFragment2" />
     </fragment>
     <fragment
         android:id="@+id/postRegisterFragment"
@@ -212,6 +229,9 @@
         <action
             android:id="@+id/action_postOTPDialogFragment_to_postCreatePassFragment"
             app:destination="@id/postCreatePassFragment" />
+        <action
+            android:id="@+id/action_postOTPDialogFragment_to_registrationSuccessFragment2"
+            app:destination="@id/registrationSuccessFragment2" />
     </dialog>
     <fragment
         android:id="@+id/postForgotFragment"
@@ -226,6 +246,17 @@
         android:id="@+id/attractionGalleryFragment"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.gallery.AttractionGalleryFragment"
         android:label="AttractionGalleryFragment" />
+    <dialog
+        android:id="@+id/passwordUpdatedFragment2"
+        android:name="com.app.dubaiculture.ui.preLogin.password.passwordupdated.PasswordUpdatedFragment"
+        android:label="PasswordUpdatedFragment" >
+        <action
+            android:id="@+id/action_passwordUpdatedFragment2_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/post_login_navigation"
+            app:popUpToInclusive="true" />
+    </dialog>
 
 
     <!--    <fragment-->

@@ -108,6 +108,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         binding.root.view_all_events.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventFilterFragment)
         }
+        binding.root.search.setOnClickListener {
+            navigate(R.id.action_eventsFragment_to_eventFilterFragment)
+        }
     }
 
     private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData

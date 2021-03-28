@@ -38,6 +38,7 @@
                 android:gravity="center_vertical">
 
                 <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                   android:id="@+id/editSearchEvents"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_5sdp"
@@ -46,6 +47,7 @@
                     android:hint="@string/search_event_by_keyword"
                     android:imeOptions="actionSearch"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:paddingStart="@dimen/_15ssp"
                     android:textColorHint="@color/gray_600"
                     android:textSize="@dimen/_10ssp"
@@ -85,6 +87,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/materialCardView" />
 
-
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_badge"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:background="@drawable/circle"
+            android:text="1"
+            android:visibility="gone"
+            android:textSize="@dimen/_9ssp"
+            android:gravity="center"
+            android:textColor="@color/white_900"
+            android:layout_marginBottom="@dimen/_15sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </merge>

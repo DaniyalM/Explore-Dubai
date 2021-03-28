@@ -16,6 +16,7 @@ import com.app.dubaiculture.data.repository.filter.models.SelectedItems
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.GpsStatusListener
+import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.text.DateFormat
@@ -48,8 +49,8 @@ class EventViewModel @ViewModelInject constructor(
         MutableLiveData()
     val eventCategoryList: LiveData<Result<EventHomeListing>> =
         _eventCategoryList
-    private val _eventDetailList: MutableLiveData<Result<ScheduleData>> = MutableLiveData()
-    val eventDetail: LiveData<Result<ScheduleData>> = _eventDetailList
+//    private val _eventDetailList: MutableLiveData<Result<ScheduleData>> = MutableLiveData()
+//    val eventDetail: LiveData<Result<ScheduleData>> = _eventDetailList
 
     private val _eventList: MutableLiveData<Result<List<Events>>> = MutableLiveData()
     val eventfilterRequest: LiveData<Result<List<Events>>> = _eventList
@@ -58,11 +59,8 @@ class EventViewModel @ViewModelInject constructor(
     private val _filterList: MutableLiveData<Result<EventFilterData>> = MutableLiveData()
     val filterList: LiveData<Result<EventFilterData>> = _filterList
 
-
-//    val _modelForSearching : MutableLiveData<ArrayList<EventRequest>> = MutableLiveData()
-//    val modelForSearching : LiveData<ArrayList<EventRequest>> =_modelForSearching
-//    val _filterDataList : MutableLiveData<Event<ArrayList<SelectedItems>>> = MutableLiveData()
-//    val filterDataList: LiveData<Event<ArrayList<SelectedItems>>> = _filterDataList
+     val _searchBarKeyWord: MutableLiveData<Event<String>> = MutableLiveData()
+    val searchBarKeyWord: LiveData<Event<String>> = _searchBarKeyWord
 
 
     val _filterDataList: MutableLiveData<ArrayList<SelectedItems>> = MutableLiveData()
@@ -116,11 +114,11 @@ init {
                 eventId = eventId,
                 culture = locale))) {
                 is Result.Success -> {
-                    _eventDetailList.value = result
+//                    _eventDetailList.value = result
                     showLoader(false)
                 }
                 is Result.Failure -> {
-                    _eventDetailList.value = result
+//                    _eventDetailList.value = result
                     showLoader(false)
                 }
             }

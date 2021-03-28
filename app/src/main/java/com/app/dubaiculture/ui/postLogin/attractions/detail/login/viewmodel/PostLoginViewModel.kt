@@ -88,6 +88,8 @@ class PostLoginViewModel @ViewModelInject constructor(
                             showLoader(false)
                             showErrorDialog(message = result.value.errorMessage,
                                 colorBg = R.color.red_600)
+                            showToast(message = result.value.errorMessage)
+
                         }
                     }
                     is Result.Error -> {
@@ -97,6 +99,8 @@ class PostLoginViewModel @ViewModelInject constructor(
                     is Result.Failure -> {
                         showLoader(false)
                         showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+
 
                     }
                 }
@@ -134,18 +138,21 @@ class PostLoginViewModel @ViewModelInject constructor(
                                 _loginStatus.value = Event(true)
                             }
                         } else {
-
                             showLoader(false)
                             showErrorDialog(message = result.value.errorMessage)
+                            showToast(message = result.value.errorMessage)
 
                         }
                     }
                     is Result.Error -> {
                         showLoader(false)
                         showErrorDialog(message = result.exception.toString())
+
                     }
                     is Result.Failure -> {
                         showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+
                         showLoader(false)
 
                     }
@@ -178,6 +185,8 @@ class PostLoginViewModel @ViewModelInject constructor(
                             showLoader(false)
                             if (result.value.errorMessage.isNullOrEmpty()) {
                                 showErrorDialog(message = result.value.errorMessage)
+                                showToast(message = result.value.errorMessage)
+
                             }
                         }
                     }
@@ -187,6 +196,8 @@ class PostLoginViewModel @ViewModelInject constructor(
                     }
                     is Result.Failure -> {
                         showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+
                     }
                 }
             }
@@ -213,12 +224,16 @@ class PostLoginViewModel @ViewModelInject constructor(
                                 screenName = Constants.NavBundles.COMES_FROM_LOGIN))
                         } else {
                             showErrorDialog(message = result.value.errorMessage)
+                            showToast(message = result.value.errorMessage)
+
                         }
                     }
                     is Result.Error -> {
                     }
                     is Result.Failure -> {
                         showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showToast(message =Constants.Error.INTERNET_CONNECTION_ERROR)
+
                     }
                 }
             }

@@ -329,24 +329,24 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         val parentItemList = ArrayList<EventScheduleItemsDTO>()
         val childItemHolder: ArrayList<ArrayList<EventScheduleItemsTimeSlotsDTO>> = ArrayList()
         eventViewModel.getEventDetailsToScreen(eventObj.id!!, getCurrentLanguage().language)
-        eventViewModel.eventDetail.observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Success -> {
-                    val childList  = ArrayList<EventScheduleItemsTimeSlotsDTO>()
-                    it.value.eventScheduleList!!.map {
-                        parentItemList.addAll(it.eventScheduleItems)
-                        parentItemList.forEach {
-                            childList.addAll(it.eventScheduleItemsTimeSlots)
-                        }
-                    }
-                    childItemHolder.add(childList)
-                }
-
-                is Result.Failure -> {
-
-                }
-            }
-        }
+//        eventViewModel.eventDetail.observe(viewLifecycleOwner) {
+//            when (it) {
+//                is Result.Success -> {
+//                    val childList  = ArrayList<EventScheduleItemsTimeSlotsDTO>()
+//                    it.value.eventScheduleList!!.map {
+////                        parentItemList.addAll(it.eventScheduleItems)
+//                        parentItemList.forEach {
+////                            childList.addAll(it.eventScheduleItemsTimeSlots)
+//                        }
+//                    }
+//                    childItemHolder.add(childList)
+//                }
+//
+//                is Result.Failure -> {
+//
+//                }
+//            }
+//        }
 
 
         verticalLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)

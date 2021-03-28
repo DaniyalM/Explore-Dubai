@@ -7,10 +7,12 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.forgot.ForgotRepository
 import com.app.dubaiculture.data.repository.forgot.remote.request.ForgotRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostForgotFragmentDirections
 import com.app.dubaiculture.ui.preLogin.forgot.ForgotFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
@@ -54,11 +56,11 @@ class PostForgotViewModel  @ViewModelInject constructor(private val forgotReposi
                             showLoader(false)
                             Timber.e(result.value.forgotResponseDTO.verificationCode)
                             showToast(result.value.forgotResponseDTO.message.toString())
-                            navigateByDirections(ForgotFragmentDirections.actionForgotFragmentToBottomSheet(
+                            navigateByDirections(PostForgotFragmentDirections.actionPostForgotFragmentToPostOTPDialogFragment(
                                 result.value.forgotResponseDTO.verificationCode,"forgotfragment"
                             ))
                         }else{
-                            showErrorDialog(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
                         }
                     }
                     is Result.Error->{
@@ -67,7 +69,7 @@ class PostForgotViewModel  @ViewModelInject constructor(private val forgotReposi
                     }
                     is Result.Failure->{
                         showLoader(false)
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR ,colorBg =  R.color.red_600)
                         Timber.e(result.errorCode.toString())
                     }
                 }

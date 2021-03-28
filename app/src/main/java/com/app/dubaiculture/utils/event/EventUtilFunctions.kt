@@ -90,17 +90,17 @@ object EventUtilFunctions {
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
         action?.let {
             snackbar.setAction("Retry") {
-                it()
+                it.elevation =1000F
             }
 
         }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            snackbar.setTextColor(view.context.getColor(R.color.colorPrimary))
-            snackbar.setActionTextColor(view.context.getColor(R.color.colorPrimary))
-        } else {
-            snackbar.setTextColor(view.context.resources.getColor(R.color.colorPrimary))
-            snackbar.setActionTextColor(view.context.resources.getColor(R.color.colorPrimary))
-        }
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+//            snackbar.setTextColor(view.context.getColor(R.color.colorPrimary))
+//            snackbar.setActionTextColor(view.context.getColor(R.color.colorPrimary))
+//        } else {
+//            snackbar.setTextColor(view.context.resources.getColor(R.color.colorPrimary))
+//            snackbar.setActionTextColor(view.context.resources.getColor(R.color.colorPrimary))
+//        }
 
         snackbar.show()
     }

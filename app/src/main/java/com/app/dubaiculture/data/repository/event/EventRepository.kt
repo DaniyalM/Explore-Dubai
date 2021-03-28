@@ -39,7 +39,6 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
             is Result.Error -> resultRds
 
         }
-
     }
 
     suspend fun fetchEventsbyFilters(eventRequest: EventRequest): Result<List<Events>> {
@@ -74,8 +73,6 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
 //                        events = transformationEvent(eventLDS.value),
 //                        eventSchedule = transformationScheduleList(eventLDS.value)
                     ))
-
-
                 }
             }
             is Result.Failure -> resultRds

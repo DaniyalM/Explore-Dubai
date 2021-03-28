@@ -114,7 +114,7 @@
 
         <com.app.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btn_otp"
-            android:layout_marginBottom="@dimen/_60sdp"
+            android:layout_marginBottom="@dimen/_100sdp"
             android:background="@drawable/btn_register"
             android:foreground="@drawable/custom_ripple_border"
             app:layout_constraintStart_toStartOf="parent"

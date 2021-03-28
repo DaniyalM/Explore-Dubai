@@ -42,7 +42,7 @@ class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBin
                 if(from == "RegisterNow"){
                     back()
                 }else if(from == "postFragment"){
-//                    navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
+                    navigate(R.id.action_registrationSuccessFragment2_to_exploreFragment)
                 }else
                 navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
             }

@@ -72,8 +72,10 @@ class PostOTPViewModel @ViewModelInject constructor(private val registrationRepo
                         if(result.value.succeeded){
                             showLoader(false)
                             showToast(result.value.confirmOTPResponseDTO.message.toString())
-                            val bundle  = bundleOf("post" to "postFragment")
-                            navigateByAction(R.id.action_postOTPDialogFragment_to_postCreatePassFragment,bundle)
+                            // registrationSuccess
+                            val bundle = Bundle()
+                            bundle.putString("key","postFragment")
+                            navigateByAction(R.id.action_postOTPDialogFragment_to_registrationSuccessFragment2,bundle)
                         }else {
                             showToast(result.value.errorMessage)
                         }
@@ -126,7 +128,7 @@ class PostOTPViewModel @ViewModelInject constructor(private val registrationRepo
     }
 
 
-    //ValidateOTP for forgot password  validateOTP and ConfirmOTP has no difference . just change in endpoint dont why he creates a new service for forgot
+    //ValidateOTP for forgot password ..... validateOTP and ConfirmOTP has no difference . just change in endpoint dont know why he creates a new service for forgot
     fun validateOTP(verificationCode: String , otp : String?="") {
         viewModelScope.launch {
             showLoader(true)
@@ -141,7 +143,6 @@ class PostOTPViewModel @ViewModelInject constructor(private val registrationRepo
                             showToast(result.value.confirmOTPResponseDTO.message.toString())
                             val bundle = Bundle()
                             bundle.putString("verificationCode",it.verificationCode)
-                            bundle.putString("post","postFragment")
                             navigateByAction(R.id.action_postOTPDialogFragment_to_postCreatePassFragment,bundle)
                         }else{
                             showToast(result.value.errorMessage)

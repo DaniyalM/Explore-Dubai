@@ -12,6 +12,7 @@ import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostLoginViewModel
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     View.OnClickListener {
     private val postLoginViewModel: PostLoginViewModel by viewModels()
+    private val splashViewModel: SplashViewModel by viewModels()
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +45,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                 dismiss()
             }
             R.id.img_uae_pass -> {
+                navigate(R.id.action_postLoginFragment_to_postCreatePassFragment)
             }
             R.id.tv_register_now -> {
                 navigate(R.id.action_postLoginFragment_to_postRegisterFragment)
@@ -54,7 +58,11 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     private fun callingObserver() {
         postLoginViewModel.loginStatus.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
-
+                val user = splashViewModel.getUserIfExists()
+                if (user != null) {
+                    application.auth.user = user
+                }
+                dismiss()
             }
         }
     }

@@ -179,7 +179,7 @@
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
             android:text="@{viewmodel.isPasswordConfirm ? @string/no_error :  context.getString(viewmodel.passwordConfirmError) }"
-            app:layout_constraintBottom_toBottomOf="@+id/confirm_pass"
+            app:layout_constraintBottom_toBottomOf="@+id/conf_password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/conf_password"
@@ -223,7 +223,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_50sdp"
+
+
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
