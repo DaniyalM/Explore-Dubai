@@ -1,12 +1,14 @@
 package com.app.dubaiculture.ui.postLogin.explore
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.databinding.FragmentExploreBinding
@@ -29,6 +31,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private val exploreViewModel: ExploreViewModel by viewModels()
     private lateinit var exploreAdapter: ExploreRecyclerAsyncAdapter
     private lateinit var explore: List<Explore>
+    private var lastFirstVisiblePosition: Int = 0
+    private var mustSeelastFirstVisiblePosition: Int = 0
+    private var eventslastFirstVisiblePosition: Int = 0
+    private var popularServicelastFirstVisiblePosition: Int = 0
+    private var newslastFirstVisiblePosition: Int = 0
 //    val handler = Handler(Looper.getMainLooper())
 
     override fun getFragmentBinding(
@@ -39,9 +46,19 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     fun getRecyclerView() = binding.rvExplore
 
+    override fun onPause() {
+        super.onPause()
+        lastFirstVisiblePosition =
+            (getRecyclerView().layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+
+    }
+
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpRecyclerView()
+        if (!this::exploreAdapter.isInitialized){
+            setUpRecyclerView()
+        }
         subscribeUiEvents(exploreViewModel)
 //        callingObservables()
         subscribeToObservable()
@@ -55,13 +72,17 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     }
 
     private fun setUpRecyclerView() {
-        exploreAdapter = ExploreRecyclerAsyncAdapter(activity, fragment = this, application = application)
+        exploreAdapter = ExploreRecyclerAsyncAdapter(activity,
+            fragment = this,
+            baseViewModel = exploreViewModel)
 //        explore.items = createTestItems()
         binding.rvExplore.apply {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
             adapter = exploreAdapter
             this.itemAnimator = SlideInLeftAnimator()
+            (layoutManager as LinearLayoutManager).scrollToPosition(lastFirstVisiblePosition)
+
 //            LinearSnapHelper().attachToRecyclerView(this)
 
         }
@@ -70,7 +91,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
 
     private fun callingObservables() {
-        if (!this::explore.isInitialized){
+        if (!this::explore.isInitialized) {
+
             lifecycleScope.launch {
                 exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
             }
@@ -79,11 +101,27 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     }
 
     private fun subscribeToObservable() {
-        exploreViewModel.exploreList.observe(viewLifecycleOwner) {
+
+        exploreViewModel.isFavourite.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
+                    if (TextUtils.equals(it.value.Result.message, "Added")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                    }
+                    if (TextUtils.equals(it.value.Result.message, "Deleted")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+                    }
+                }
+                is Result.Failure -> handleApiError(it, exploreViewModel)
+            }
+        }
+        exploreViewModel.exploreList.observe(viewLifecycleOwner) {
+
+            when (it) {
+                is Result.Success -> {
+
                     it.let {
-                        explore=it.value
+                        explore = it.value
                         exploreAdapter.items = explore
                     }
                 }

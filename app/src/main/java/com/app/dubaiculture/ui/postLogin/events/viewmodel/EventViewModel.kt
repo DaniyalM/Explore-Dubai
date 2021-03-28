@@ -13,21 +13,20 @@ import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteR
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import com.app.dubaiculture.data.repository.filter.models.SelectedItems
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.GpsStatusListener
-import com.app.dubaiculture.utils.dateFormat
-import com.app.dubaiculture.utils.getDateObj
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class EventViewModel @ViewModelInject constructor(
     application: Application,
     private val eventRepository: EventRepository,
-) : BaseViewModel(application) {
+) : BaseViewModel(application,eventRepository) {
+    private val context = getApplication<ApplicationEntry>()
 
 
     var keyword: ObservableField<String> = ObservableField("")
@@ -66,31 +65,16 @@ class EventViewModel @ViewModelInject constructor(
 //    val filterDataList: LiveData<Event<ArrayList<SelectedItems>>> = _filterDataList
 
 
-    val _filterDataList : MutableLiveData<ArrayList<SelectedItems>> = MutableLiveData()
+    val _filterDataList: MutableLiveData<ArrayList<SelectedItems>> = MutableLiveData()
     val filterDataList: LiveData<ArrayList<SelectedItems>> = _filterDataList
 
 
-    fun addToFavourite(userId: String, itemId: String, type: Int = 2) {
-        showLoader(true)
-        viewModelScope.launch {
-            when (val result = eventRepository.addToFavourite(AddToFavouriteRequest(
-                userId = userId,
-                itemId = itemId,
-                type = type
-            ))) {
-                is Result.Success -> {
-                    showLoader(false)
-                    _addToFavourite.value = result
-                }
-                is Result.Failure -> {
-                    showLoader(false)
-                    _addToFavourite.value = result
-                }
 
-            }
-        }
-    }
 
+
+init {
+    getEventHomeToScreen(context.auth.locale.toString())
+}
 
     fun getEventHomeToScreen(locale: String) {
         showLoader(true)
@@ -109,10 +93,11 @@ class EventViewModel @ViewModelInject constructor(
         }
     }
 
-    fun getDataFilterBtmSheet(locale: String){
+    fun getDataFilterBtmSheet(locale: String) {
         showLoader(true)
         viewModelScope.launch {
-            when (val result = eventRepository.fetchDataFilterBtmSheet(EventRequest(culture = locale))){
+            when (val result =
+                eventRepository.fetchDataFilterBtmSheet(EventRequest(culture = locale))) {
                 is Result.Success -> {
                     _filterList.value = result
                     showLoader(false)
@@ -159,33 +144,34 @@ class EventViewModel @ViewModelInject constructor(
     }
 
 
-     fun getNearEvents(list:List<Events>) :List<Events> =
+    fun getNearEvents(list: List<Events>): List<Events> =
         list.filter {
-            it.latitude != "" && it.longitude !=""
+            it.latitude != "" && it.longitude != ""
         }
 
 
-    fun updateHeaderItems(position:Int=0){
-        when(position){
-            0->{
+    fun updateHeaderItems(position: Int = 0) {
+        when (position) {
+            0 -> {
                 getFilterEventList(EventRequest(culture = "en"))
             }
-            1->{
+            1 -> {
                 getFilterEventList(EventRequest(culture = "en",
-                dateFrom = getWeek().first(),
-                dateTo = getWeek().last()))
+                    dateFrom = getWeek().first(),
+                    dateTo = getWeek().last()))
             }
-            2->{
+            2 -> {
                 getFilterEventList(EventRequest(culture = "en"))
             }
-            3->{
+            3 -> {
                 getFilterEventList(EventRequest(culture = "en",
                     dateFrom = getNextSevenDays().first(),
                     dateTo = getNextSevenDays().last()))
             }
-            }
         }
-     fun getWeekend(list: List<Events>): MutableList<Events> {
+    }
+
+    fun getWeekend(list: List<Events>): MutableList<Events> {
         val weekendList = list.filter {
             it.fromDay == "Friday" || it.fromDay == "Saturday"
         }
@@ -210,7 +196,7 @@ class EventViewModel @ViewModelInject constructor(
 
     private fun getNextSevenDays(): Array<String?> {
         val format: DateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val calendar=Calendar.getInstance()
+        val calendar = Calendar.getInstance()
 //        val date = getDateObj("2021-03-28T17:19:00")
 //        calendar.time = date
         val next7Days = arrayOfNulls<String>(7)

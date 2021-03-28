@@ -26,21 +26,30 @@ data class AttractionListItem<T : ViewDataBinding>(
                     attractionImage.setOnClickListener {
                         rowClickListener?.rowClickListener(position)
                     }
+                    favourite.isChecked = attraction.IsFavourite
+
                     favourite.setOnClickListener {
-                        favChecker?.checkFavListener(it.favourite, position, attraction.IsFavourite)
+                        favChecker?.checkFavListener(it.favourite,
+                            position,
+                            attraction.IsFavourite,
+                            attraction.id)
                     }
 
                 }
 
             }
-            is MustSeeInnerItemCellBinding->{
+            is MustSeeInnerItemCellBinding -> {
                 viewBinding.attractions = attraction
                 viewBinding.apply {
                     attractionImage.setOnClickListener {
                         rowClickListener?.rowClickListener(position)
                     }
+                    favourite.isChecked = attraction.IsFavourite
                     favourite.setOnClickListener {
-                        favChecker?.checkFavListener(it.favourite, position, attraction.IsFavourite)
+                        favChecker?.checkFavListener(it.favourite,
+                            position,
+                            attraction.IsFavourite,
+                            attraction.id)
                     }
 
                 }

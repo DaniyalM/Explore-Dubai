@@ -5,11 +5,6 @@
     android:id="@+id/post_login_navigation"
     app:startDestination="@id/exploreFragment">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.home.HomeFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_home" />
-    <fragment
         android:id="@+id/exploreFragment"
         android:name="com.app.dubaiculture.ui.postLogin.explore.ExploreFragment"
         android:label="ExploreFragment"
@@ -23,6 +18,9 @@
         <action
             android:id="@+id/action_exploreFragment_to_eventDetailFragment2"
             app:destination="@id/eventDetailFragment2" />
+        <action
+            android:id="@+id/action_exploreFragment_to_attractionsFragment"
+            app:destination="@id/attractionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventsFragment"
@@ -67,6 +65,12 @@
         <action
             android:id="@+id/action_attractionDetailFragment_to_postLoginFragment"
             app:destination="@id/postLoginFragment" />
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_eventDetailFragment2"
+            app:destination="@id/eventDetailFragment2" />
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_attractionGalleryFragment"
+            app:destination="@id/attractionGalleryFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventDetailFragment2"
@@ -218,6 +222,10 @@
             android:id="@+id/action_postForgotFragment_to_postOTPDialogFragment"
             app:destination="@id/postOTPDialogFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/attractionGalleryFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.gallery.AttractionGalleryFragment"
+        android:label="AttractionGalleryFragment" />
 
 
     <!--    <fragment-->

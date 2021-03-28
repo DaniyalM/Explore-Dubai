@@ -1,14 +1,13 @@
 package com.app.dubaiculture.data.repository.base
 
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequestDTO
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequestDTO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import javax.inject.Inject
 
-abstract class BaseRDS (private val baseService: BaseService?=null) {
+abstract class BaseRDS(private val baseService: BaseService?=null) {
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): Result<T> {
         return withContext(Dispatchers.IO) {
             try {
@@ -27,11 +26,11 @@ abstract class BaseRDS (private val baseService: BaseService?=null) {
         }
     }
 
+
     suspend fun addToFavourates(addToFavouriteRequestDTO: AddToFavouriteRequestDTO) =
         safeApiCall {
-//            attractionService.getAttractionCategoryApi(attractionCategoryRequestDTO.culture)
+            baseService?.addToFavourites(addToFavouriteRequestDTO)
         }
-
 
 
 

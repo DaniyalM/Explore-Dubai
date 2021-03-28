@@ -4,10 +4,9 @@ import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
 import com.app.dubaiculture.data.repository.attraction.AttractionRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
-import javax.inject.Inject
 
 class EventDetailViewModel @ViewModelInject constructor(
     application: Application,
     private val attractionRepository: AttractionRepository,
-): BaseViewModel(application) {
+) : BaseViewModel(application, attractionRepository) {
 }

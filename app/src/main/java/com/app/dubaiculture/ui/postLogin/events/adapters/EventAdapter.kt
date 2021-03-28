@@ -58,8 +58,13 @@ class EventAdapter (private val favChecker : FavouriteChecker?=null, private val
                 try {
 
                     it.events = events[position]
+
                     it.favourite.setOnClickListener {
-                        favChecker!!.checkFavListener(it.favourite,position,events[position].isFavourite)
+                        events[position].let {event->
+                            event.id?.let { itemId->
+                                favChecker!!.checkFavListener(it.favourite,position,event.isFavourite,itemId)
+                            }
+                        }
                     }
                     it.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)

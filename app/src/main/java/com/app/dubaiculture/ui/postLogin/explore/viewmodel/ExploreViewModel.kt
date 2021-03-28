@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class ExploreViewModel @ViewModelInject constructor(
     application: Application,
     private val exploreRepository: ExploreRepository,
-) : BaseViewModel(application) {
+) : BaseViewModel(application,exploreRepository) {
     private val context = getApplication<ApplicationEntry>()
 
     private val _exploreList: MutableLiveData<Result<List<Explore>>> = MutableLiveData()

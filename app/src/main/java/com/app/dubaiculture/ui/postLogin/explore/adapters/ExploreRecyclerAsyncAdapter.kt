@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.explore.adapters
 
 import android.content.Context
+import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,18 +13,13 @@ import android.widget.CheckBox
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
-import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
-import com.app.dubaiculture.data.repository.attraction.local.models.SocialLink
-import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.data.repository.explore.local.models.LatestNews
 import com.app.dubaiculture.data.repository.explore.local.models.PopularServices
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionCategoryListItem
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
 import com.app.dubaiculture.ui.postLogin.attractions.mappers.transformBaseToAttraction
@@ -37,6 +33,7 @@ import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsListItem
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -46,7 +43,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private val context: Context,
     private var isArabic: Boolean? = null,
     private var fragment: ExploreFragment? = null,
-    private var application: ApplicationEntry? = null,
+    private var baseViewModel: BaseViewModel?=null
 ) :
     BaseRecyclerAdapter<Explore>() {
     private var attractionInnerAdapter: GroupAdapter<GroupieViewHolder>? = null
@@ -116,6 +113,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     item.value.forEach { attractionCat ->
                         attractionInnerAdapter?.add(AttractionCategoryListItem<AttractionsCategoryItemCellBinding>(
                             attractionCat = transformBaseToAttractionCategory(attractionCat),
+                            rowClickListener = object:RowClickListener{
+                                override fun rowClickListener(position: Int) {
+//                                   fragment?.navigate(R.id.action_exploreFragment_to_attractionsFragment,Bundle().apply {
+//                                       putInt(ATTRACTION_CAT_OBJECT,position)
+//                                   })
+                                }
+                            },
                             isArabic = isArabic ?: false)
                         )
                     }
@@ -137,23 +141,30 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.adapter = upComingEventsInnerAdapter
                     item.value.forEach {
                         upComingEventsInnerAdapter?.add(EventListItem<UpcomingEventsInnerItemCellBinding>(
-                            favChecker = object : FavouriteChecker{
+                            favChecker = object : FavouriteChecker {
                                 override fun checkFavListener(
                                     checkbox: CheckBox,
                                     pos: Int,
                                     isFav: Boolean,
+                                    itemId: String,
                                 ) {
-                                    fragment?.favouriteEvent(application?.auth?.isGuest!!,
+                                    fragment?.favouriteClick(
                                         checkbox,
                                         isFav,
-                                        R.id.action_exploreFragment_to_postLoginFragment)
+                                        R.id.action_exploreFragment_to_postLoginFragment,
+                                        itemId, baseViewModel!!,
+                                        1
+                                    )
                                 }
+
                             },
-                            rowClickListener = object :RowClickListener{
+                            rowClickListener = object : RowClickListener {
                                 override fun rowClickListener(position: Int) {
-                                    fragment?.navigate(R.id.action_exploreFragment_to_eventDetailFragment2,Bundle().apply {
-                                        putParcelable(Constants.NavBundles.EVENT_OBJECT,transformBaseToEvent(it))
-                                    })
+                                    fragment?.navigate(R.id.action_exploreFragment_to_eventDetailFragment2,
+                                        Bundle().apply {
+                                            putParcelable(Constants.NavBundles.EVENT_OBJECT,
+                                                transformBaseToEvent(it))
+                                        })
                                 }
                             },
                             resLayout = R.layout.upcoming_events_inner_item_cell,
@@ -203,23 +214,28 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.adapter = mustSeeInnerAdapter
                     item.value.forEach { attraction ->
                         mustSeeInnerAdapter?.add(AttractionListItem<MustSeeInnerItemCellBinding>(
-                            favChecker = object : FavouriteChecker{
+                            favChecker = object : FavouriteChecker {
                                 override fun checkFavListener(
                                     checkbox: CheckBox,
                                     pos: Int,
                                     isFav: Boolean,
+                                    itemId: String,
                                 ) {
-                                    fragment?.favouriteEvent(application?.auth?.isGuest!!,
+                                    fragment?.favouriteClick(
                                         checkbox,
                                         isFav,
-                                        R.id.action_exploreFragment_to_postLoginFragment)
+                                        R.id.action_exploreFragment_to_postLoginFragment,
+                                        itemId, baseViewModel!!,
+                                    )
                                 }
+
                             },
-                            rowClickListener = object :RowClickListener{
+                            rowClickListener = object : RowClickListener {
                                 override fun rowClickListener(position: Int) {
                                     fragment?.navigate(R.id.action_exploreFragment_to_attractionDetailFragment,
                                         Bundle().apply {
-                                            putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,transformBaseToAttraction(attraction))
+                                            putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
+                                                transformBaseToAttraction(attraction))
                                         })
 
                                 }

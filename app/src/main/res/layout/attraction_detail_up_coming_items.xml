@@ -131,14 +131,13 @@
                     android:id="@+id/tv_end_date_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_7sdp"
+                    android:text="@{events.toDate}"
                     android:textColor="@color/purple_900"
                     android:textSize="@dimen/_18ssp"
                     android:textStyle="bold"
-                    android:text="@{events.toDate}"
-                    android:layout_marginBottom="@dimen/_7sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_end_month_event"
                     app:layout_constraintEnd_toEndOf="@+id/tv_end_month_event"
-                    app:layout_constraintStart_toStartOf="@+id/tv_end_month_event"
                     app:textFont="bold" />
                 <!--            android:text="@{events.toMonthYear}"-->
 

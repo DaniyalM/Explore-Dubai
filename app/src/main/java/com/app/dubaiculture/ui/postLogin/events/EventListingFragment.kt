@@ -125,12 +125,11 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                             checkbox: CheckBox,
                                             pos: Int,
                                             isFav: Boolean,
+                                            itemId: String,
                                         ) {
-                                            favouriteEvent(application.auth.isGuest,
-                                                checkbox,
-                                                isFav,
-                                                R.id.action_eventFilterFragment_to_postLoginFragment)
+                                            TODO("Not yet implemented")
                                         }
+
                                     },
                                         object : RowClickListener {
                                             override fun rowClickListener(position: Int) {
@@ -162,12 +161,11 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                                 checkbox: CheckBox,
                                                 pos: Int,
                                                 isFav: Boolean,
+                                                itemId: String,
                                             ) {
-                                                favouriteEvent(application.auth.isGuest,
-                                                    checkbox,
-                                                    isFav,
-                                                    R.id.action_eventFilterFragment_to_postLoginFragment)
+                                                TODO("Not yet implemented")
                                             }
+
                                         },
                                         object : RowClickListener {
                                             override fun rowClickListener(position: Int) {

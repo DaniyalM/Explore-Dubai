@@ -17,7 +17,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.annotation.IdRes
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -25,6 +24,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.NetworkLiveData
@@ -50,6 +50,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected var customProgressDialog: ProgressDialog? = null
     protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var networkRequest: NetworkRequest
+
+    lateinit var checkBox: CheckBox
 
 
     // data binding
@@ -85,6 +87,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        retainInstance = true
         application = activity.application as ApplicationEntry
         bus = application.bus
         bus.register(this)
@@ -298,27 +301,51 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         return null
     }
 
-    fun favouriteEvent(isGuest: Boolean, checkbox: CheckBox, isFav: Boolean, nav: Int) {
-        if (isGuest) {
-            navigate(nav)
-        } else {
-            if (isFav) {
-                checkbox.background = getDrawableFromId(R.drawable.heart_icon_fav)
-            } else {
-                checkbox.background = getDrawableFromId(R.drawable.heart_icon_fav)
-            }
 
-        }
-    }
-
-    fun openEmailbox(email : String){
+    fun openEmailbox(email: String) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "plain/text"
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
         requireActivity().startActivity(Intent.createChooser(intent, ""))
     }
+
     fun openDiallerBox(number: String) {
         val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
         requireActivity().startActivity(intent)
+    }
+
+    fun favouriteClick(
+        checkbox: CheckBox,
+        isFav: Boolean,
+        nav: Int,
+        itemId: String,
+        baseViewModel: BaseViewModel,
+        type: Int = 2,
+    ) {
+        checkBox = checkbox
+        if (application.auth.isGuest) {
+            navigate(nav)
+        } else {
+            if (!isFav) {
+                application.auth.user?.let {
+                    baseViewModel.addToFavourites(AddToFavouriteRequest(
+                        userId = application.auth.user?.userId,
+                        itemId = itemId,
+                        type = type
+                    )
+                    )
+                }
+            } else {
+                application.auth.user?.let {
+                    baseViewModel.addToFavourites(AddToFavouriteRequest(
+                        userId = application.auth.user?.userId,
+                        itemId = itemId,
+                        type = type
+                    )
+                    )
+                }
+            }
+
+        }
     }
 }

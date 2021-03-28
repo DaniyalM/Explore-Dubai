@@ -41,4 +41,10 @@ data class Result(
     @Expose
     val eventSchedule: ArrayList<EventScheduleDTO>,
 
+    @SerializedName("message")
+    @Expose
+    var message: String,
+
+
+
     )
