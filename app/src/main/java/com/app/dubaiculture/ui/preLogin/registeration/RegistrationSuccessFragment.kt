@@ -14,11 +14,14 @@ import com.app.dubaiculture.ui.base.BaseFragment
 
 class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBinding>(), View.OnClickListener{
     private var from : String? = ""
+    private var fromToPost : String? = ""
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         arguments?.let {
             from =    it.getString("key")
+            fromToPost = it.getString("post")
         }
 
         if(from == "RegisterNow"){
@@ -38,6 +41,8 @@ class RegistrationSuccessFragment : BaseFragment<FragmentRegisterationSuccessBin
             R.id.btn_continue_reg->{
                 if(from == "RegisterNow"){
                     back()
+                }else if(from == "postFragment"){
+//                    navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
                 }else
                 navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
             }

@@ -85,7 +85,6 @@
 
             <LinearLayout
                 android:id="@+id/ll_child"
-                android:visibility="gone"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_110sdp">

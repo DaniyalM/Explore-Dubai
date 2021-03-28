@@ -30,7 +30,7 @@ class EventRDS @Inject constructor(private val eventService: EventService) : Bas
 
     suspend fun getEventDetail(eventDetailRequestDTO: EventDetailRequestDTO) =
         safeApiCall {
-            eventService.getEventDetail(eventId = eventDetailRequestDTO.eventId,
+            eventService.getEventDetail(eventId = eventDetailRequestDTO.id,
                 culture = eventDetailRequestDTO.culture)
         }
 

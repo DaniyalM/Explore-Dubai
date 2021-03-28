@@ -8,10 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.EventRepository
-import com.app.dubaiculture.data.repository.event.local.models.EventFilterData
-import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
-import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.data.repository.event.local.models.Filter
+import com.app.dubaiculture.data.repository.event.local.models.*
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
@@ -52,8 +49,8 @@ class EventViewModel @ViewModelInject constructor(
         MutableLiveData()
     val eventCategoryList: LiveData<Result<EventHomeListing>> =
         _eventCategoryList
-    private val _eventDetailList: MutableLiveData<Result<Events>> = MutableLiveData()
-    val eventDetail: LiveData<Result<Events>> = _eventDetailList
+    private val _eventDetailList: MutableLiveData<Result<ScheduleData>> = MutableLiveData()
+    val eventDetail: LiveData<Result<ScheduleData>> = _eventDetailList
 
     private val _eventList: MutableLiveData<Result<List<Events>>> = MutableLiveData()
     val eventfilterRequest: LiveData<Result<List<Events>>> = _eventList
@@ -130,7 +127,7 @@ class EventViewModel @ViewModelInject constructor(
     fun getEventDetailsToScreen(eventId: String, locale: String) {
         showLoader(true)
         viewModelScope.launch {
-            when (val result = eventRepository.fetchEvent(EventRequest(
+            when (val result = eventRepository.fetchDetailEvent(EventRequest(
                 eventId = eventId,
                 culture = locale))) {
                 is Result.Success -> {

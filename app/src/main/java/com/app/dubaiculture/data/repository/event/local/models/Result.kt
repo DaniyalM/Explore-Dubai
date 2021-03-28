@@ -1,5 +1,6 @@
 package com.app.dubaiculture.data.repository.event.local.models
 
+import com.app.dubaiculture.data.repository.event.remote.response.EventScheduleDTO
 import com.app.dubaiculture.data.repository.event.remote.response.EventsDTO
 import com.app.dubaiculture.data.repository.event.remote.response.FilterDTO
 import com.google.gson.annotations.Expose
@@ -35,5 +36,9 @@ data class Result(
     @SerializedName("EventLocationChildrens")
     @Expose
     var locationList: ArrayList<FilterDTO>,
+
+    @SerializedName("EventSchedule")
+    @Expose
+    val eventSchedule: ArrayList<EventScheduleDTO>,
 
     )

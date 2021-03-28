@@ -12,15 +12,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.TransitionInflater
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.event.remote.response.EventScheduleItemsDTO
+import com.app.dubaiculture.data.repository.event.remote.response.EventScheduleItemsTimeSlotsDTO
 import com.app.dubaiculture.databinding.FragmentEventDetailBinding
-import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventScheduleItems
+import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
+import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.dateFormat
 import com.app.dubaiculture.utils.location.LocationHelper
@@ -41,7 +43,6 @@ import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOption
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.custom_alert_dialog.*
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
 import kotlinx.android.synthetic.main.fragment_event_detail.view.*
@@ -49,21 +50,29 @@ import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
 class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener {
-    private val eventDetailViewModel: EventDetailViewModel by viewModels()
+    private val eventViewModel: EventViewModel by viewModels()
+    private lateinit var verticalLayoutManager: RecyclerView.LayoutManager
+    private lateinit var myAdapter: RecyclerView.Adapter<*>
+
 
     @Inject
     lateinit var glide: RequestManager
+
     @Inject
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
     @Inject
     lateinit var locationManager: LocationManager
+
     @Inject
     lateinit var locationRequest: LocationRequest
+
     @Inject
     lateinit var locationHelper: LocationHelper
 
@@ -83,9 +92,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    ) :FragmentEventDetailBinding{
-//        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
-//        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
+    ): FragmentEventDetailBinding {
         return FragmentEventDetailBinding.inflate(inflater, container, false)
     }
 
@@ -99,7 +106,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         locationPermission()
-        subscribeUiEvents(eventDetailViewModel)
+        subscribeUiEvents(eventViewModel)
 
         mapSetUp()
         uiActions()
@@ -164,7 +171,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 title.text = eventObj.title
                 tv_title.text = eventObj.title
                 tv_location.text = eventObj.locationTitle
-                tv_event_days_date.text = "${eventObj.toDate}- ${eventObj.fromDate} ${eventObj.fromMonthYear}  |  ${eventObj.fromDay} - ${eventObj.toDay}"
+                tv_event_days_date.text =
+                    "${eventObj.toDate}- ${eventObj.fromDate} ${eventObj.fromMonthYear}  |  ${eventObj.fromDay} - ${eventObj.toDay}"
                 tv_times.text = "${eventObj.fromTime} - ${eventObj.toTime}"
                 tv_category.text = eventObj.category
                 category.text = eventObj.category
@@ -208,48 +216,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
         }
-
-        scheduleAdapter = GroupAdapter()
-        binding.root.rvSchedule.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = scheduleAdapter
-            scheduleAdapter.apply {
-                add(
-                    EventScheduleItems(
-                        todate = "14",
-                        monthYear = "NOV, 15",
-                        day = "Sunday",
-                        startTime = "6PM - 7PM",
-                        startTimeDesc = "Various artistic and cultural activities",
-                        endTime = "8PM - 9PM",
-                        endTimeDsec = "Opening show ‘The Wise Poet’ a theatrical performance by Al Ahli Dubai Theatre"
-                    )
-                )
-                add(
-                    EventScheduleItems(
-                        todate = "22",
-                        monthYear = "NOV, 22",
-                        day = "Monday",
-                        startTime = "6PM - 7PM",
-                        startTimeDesc = "Various artistic and cultural activities",
-                        endTime = "8PM - 9PM",
-                        endTimeDsec = "Opening show ‘The Wise Poet’ a theatrical performance by Al Ahli Dubai Theatre"
-                    )
-                )
-
-                add(
-                    EventScheduleItems(
-                        todate = "15",
-                        monthYear = "NOV, 21",
-                        day = "Tuesday",
-                        startTime = "6PM - 7PM",
-                        startTimeDesc = "Various artistic and cultural activities",
-                        endTime = "8PM - 9PM",
-                        endTimeDsec = "Opening show ‘The Wise Poet’ a theatrical performance by Al Ahli Dubai Theatre"
-                    )
-                )
-            }
-        }
+        initiateExpander()
     }
 
     private fun mapSetUp() {
@@ -259,7 +226,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        if(eventObj.latitude!!.isNotEmpty()) {
+        if (eventObj.latitude!!.isNotEmpty()) {
             val trafficDigitalLatLng =
                 LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
 
@@ -279,9 +246,13 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_event_speaker -> {
-                binding.root.tv_desc_readmore.text = "Get today's headlines and news you need to know from Washington and around the world. Get unlimited access to breaking news, trusted coverage, and expert analysis. Get Newsletters. Download App. View Events."
+                binding.root.tv_desc_readmore.text =
+                    "Get today's headlines and news you need to know from Washington and around the world. Get unlimited access to breaking news, trusted coverage, and expert analysis. Get Newsletters. Download App. View Events."
                 if (binding.root.tv_desc_readmore.text.isNotEmpty()) {
-                    textToSpeechEngine.speak( binding.root.tv_desc_readmore.text, TextToSpeech.QUEUE_FLUSH, null, "tts1")
+                    textToSpeechEngine.speak(binding.root.tv_desc_readmore.text,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "tts1")
                 }
             }
             R.id.btn_reg -> {
@@ -297,19 +268,20 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 back()
             }
             R.id.tv_swipe_up_event -> {
-                eventDetailViewModel.showToast("Swipe up")
+                eventViewModel.showToast("Swipe up")
             }
             R.id.img_share_event -> {
-                eventDetailViewModel.showToast("Share")
+                eventViewModel.showToast("Share")
             }
             R.id.bookingCalender_event -> {
-                eventDetailViewModel.showToast("Calender")
+                eventViewModel.showToast("Calender")
             }
             R.id.favourite_event -> {
                 navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
             }
         }
     }
+
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
             handleRationale = false
@@ -341,6 +313,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 }, activity)
         }
     }
+
     override fun onPause() {
         textToSpeechEngine.stop()
         super.onPause()
@@ -351,4 +324,38 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         super.onDestroy()
     }
 
+
+    private fun initiateExpander() {
+        val parentItemList = ArrayList<EventScheduleItemsDTO>()
+        val childItemHolder: ArrayList<ArrayList<EventScheduleItemsTimeSlotsDTO>> = ArrayList()
+        eventViewModel.getEventDetailsToScreen(eventObj.id!!, getCurrentLanguage().language)
+        eventViewModel.eventDetail.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    val childList  = ArrayList<EventScheduleItemsTimeSlotsDTO>()
+                    it.value.eventScheduleList!!.map {
+                        parentItemList.addAll(it.eventScheduleItems)
+                        parentItemList.forEach {
+                            childList.addAll(it.eventScheduleItemsTimeSlots)
+                        }
+                    }
+                    childItemHolder.add(childList)
+                }
+
+                is Result.Failure -> {
+
+                }
+            }
+        }
+
+
+        verticalLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        myAdapter = ScheduleExpandAdapter(requireActivity(), parentItemList, childItemHolder)
+        binding.root.rvSchedule.apply {
+            setHasFixedSize(true)
+            layoutManager = verticalLayoutManager
+            adapter = myAdapter
+        }
+
+    }
 }

@@ -5,12 +5,14 @@ import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.event.local.models.EventFilterData
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.event.local.models.schedule.Schedule
 import com.app.dubaiculture.data.repository.event.mapper.*
 import com.app.dubaiculture.data.repository.event.remote.EventRDS
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
+import com.app.dubaiculture.data.repository.event.remote.response.ScheduleResponse
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
@@ -57,16 +59,23 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
         }
     }
 
-    suspend fun fetchEvent(eventDetailRequest: EventRequest): Result<Events> {
+    suspend fun fetchDetailEvent(eventRequest: EventRequest): Result<Schedule> {
         return when (val resultRds =
-            eventRDS.getEventDetail(transformEventDetailRequest(eventDetailRequest))) {
+            eventRDS.getEventDetail(transformEventDetailRequest(eventRequest))) {
             is Result.Success -> {
                 val eventLDS = resultRds
                 if (eventLDS.value.statusCode != 200) {
                     Result.Failure(true, eventLDS.value.statusCode, null)
                 } else {
-                    val eventRds = transformEventDetail(eventLDS.value)
-                    Result.Success(eventRds)
+                    eventLDS.apply {
+                        this.value.scheduleResponseDTO.events
+                    }
+                    Result.Success(Schedule(
+//                        events = transformationEvent(eventLDS.value),
+//                        eventSchedule = transformationScheduleList(eventLDS.value)
+                    ))
+
+
                 }
             }
             is Result.Failure -> resultRds
@@ -82,6 +91,7 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
                 if (eventLDS.value.statusCode != 200) {
                     Result.Failure(true, eventLDS.value.statusCode, null)
                 } else {
+
                     val eventRds = eventLDS.value
                     Result.Success(eventRds)
                 }
@@ -102,6 +112,7 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
                     Result.Failure(true, eventLDS.value.statusCode, null)
                 } else {
                     Result.Success(EventFilterData(
+
                         radioGroupList = transformationRadioList(eventLDS.value),
                         categoryList = transformationCategoryList(eventLDS.value),
                         locationList = transformationlocationList(eventLDS.value)

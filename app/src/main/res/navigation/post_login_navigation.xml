@@ -135,6 +135,15 @@
         <action
             android:id="@+id/action_postLoginFragment_to_forgotFragment2"
             app:destination="@id/forgotFragment2" />
+        <action
+            android:id="@+id/action_postLoginFragment_to_postRegisterFragment"
+            app:destination="@id/postRegisterFragment" />
+        <action
+            android:id="@+id/action_postLoginFragment_to_postOTPDialogFragment"
+            app:destination="@id/postOTPDialogFragment" />
+        <action
+            android:id="@+id/action_postLoginFragment_to_postForgotFragment"
+            app:destination="@id/postForgotFragment" />
     </dialog>
     <fragment
         android:id="@+id/registerNowFragment"
@@ -156,6 +165,59 @@
         android:id="@+id/forgotFragment2"
         android:name="com.app.dubaiculture.ui.preLogin.forgot.ForgotFragment"
         android:label="ForgotFragment" />
+    <fragment
+        android:id="@+id/postCreatePassFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostCreatePassFragment"
+        android:label="PostCreatePassFragment" >
+        <action
+            android:id="@+id/action_postCreatePassFragment_to_registrationSuccessFragment2"
+            app:destination="@id/registrationSuccessFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/postRegisterFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostRegisterFragment"
+        android:label="PostRegisterFragment" >
+        <action
+            android:id="@+id/action_postRegisterFragment_to_postOTPDialogFragment"
+            app:destination="@id/postOTPDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/postOTPDialogFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostOTPDialogFragment"
+        android:label="PostOTPDialogFragment" >
+
+        <argument
+            android:name="verificationCode"
+            app:argType="string"/>
+
+        <argument
+            android:name="screen_name"
+            app:argType="string"/>
+
+        <argument
+            android:name="emailorphone"
+            app:nullable="true"
+            android:defaultValue="@null"
+            app:argType="string"/>
+
+        <argument
+            android:name="password"
+            app:nullable="true"
+            android:defaultValue="@null"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_postOTPDialogFragment_to_postCreatePassFragment"
+            app:destination="@id/postCreatePassFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/postForgotFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostForgotFragment"
+        android:label="fragment_post_forgot"
+        tools:layout="@layout/fragment_post_forgot" >
+        <action
+            android:id="@+id/action_postForgotFragment_to_postOTPDialogFragment"
+            app:destination="@id/postOTPDialogFragment" />
+    </fragment>
 
 
     <!--    <fragment-->

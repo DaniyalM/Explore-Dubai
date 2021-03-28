@@ -2,10 +2,9 @@ package com.app.dubaiculture.data.repository.event.mapper
 
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.local.models.Filter
+import com.app.dubaiculture.data.repository.event.local.models.schedule.Schedule
 import com.app.dubaiculture.data.repository.event.remote.request.*
-import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
-import com.app.dubaiculture.data.repository.event.remote.response.EventsDTO
-import com.app.dubaiculture.data.repository.event.remote.response.FilterDTO
+import com.app.dubaiculture.data.repository.event.remote.response.*
 
 // Add To Favourite Request is used for both Attractions and events from below
 fun transformAddToFavouriteRequest(addToFavouriteRequest: AddToFavouriteRequest) =
@@ -31,9 +30,15 @@ fun transformEventFiltersRequest(eventRequest: EventRequest) =
 
 fun transformEventDetailRequest(eventDetailRequest: EventRequest) =
     EventDetailRequestDTO(
-        eventId = eventDetailRequest.eventId!!,
+        id = eventDetailRequest.eventId!!,
         culture = eventDetailRequest.culture!!
     )
+
+//fun transformEventDetailRequest1(eventDetailRequest: Schedule) =
+//    EventDetailRequestDTO(
+//        id = eventDetailRequest.eventId!!,
+//        culture = eventDetailRequest.culture!!
+//    )
 
 
 fun transformOtherEvents(eventResponse: EventResponse): ArrayList<Events> =
@@ -113,6 +118,9 @@ fun transformOtherEventList(events: ArrayList<EventsDTO>): ArrayList<Events> =
     } as ArrayList<Events>
 
 
+
+
+
 fun transformFeaturedEvents(eventResponse: EventResponse): ArrayList<Events> =
     eventResponse.Result.featuredEvents.run {
         transformFeatureEventList(this)
@@ -152,36 +160,80 @@ fun transformHomeEventListingRequest(eventListRequest: EventRequest) =
     )
 
 
-//fun transformHomeEventListing(eventResponse: EventResponse): ArrayList<EventHomeListing> =
-//    eventResponse.Result.homeEventListing.run {
-//        transformHomeEventListing(this)
-//    }
+fun transformationEvent(scheduleResponse: ScheduleResponse) : Schedule =
+    Schedule(
+        scheduleResponse.scheduleResponseDTO.events.run {
+            transformEvent(this)
+        }
+    )
+fun transformEvent(eventDTO: EventsDTO) : EventsDTO{
+    EventsDTO(
+        id = eventDTO.id,
+        title = eventDTO.title,
+        category = eventDTO.category,
+        image = eventDTO.image,
+        fromDate = eventDTO.fromDate,
+        fromMonthYear = eventDTO.fromMonthYear,
+        fromTime = eventDTO.fromTime,
+        fromDay = eventDTO.fromDay,
+        toDate = eventDTO.toDate,
+        toMonthYear = eventDTO.toMonthYear,
+        toTime = eventDTO.toTime,
+        toDay = eventDTO.toDay,
+        type = eventDTO.type,
+        color=eventDTO.color?:"",
+        dateTo = eventDTO.dateTo,
+        dateFrom = eventDTO.dateFrom,
+        locationTitle =  eventDTO.locationTitle,
+        location =  eventDTO.location,
+        longitude =  eventDTO.longitude,
+        latitude =  eventDTO.latitude,
+        isFavourite = eventDTO.isFavourite,
+    )
+    return  eventDTO
+}
 
-fun transformEventDetail(eventResponse: EventResponse): Events =
-    Events(
-        id = eventResponse.Result.event.id,
-        title = eventResponse.Result.event.title,
-        category = eventResponse.Result.event.category,
-        image = eventResponse.Result.event.image,
-        fromDate = eventResponse.Result.event.fromDate,
-        fromMonthYear = eventResponse.Result.event.fromMonthYear,
-        fromTime = eventResponse.Result.event.fromTime,
-        fromDay = eventResponse.Result.event.fromDay,
-        toDate = eventResponse.Result.event.toDate,
-        toMonthYear = eventResponse.Result.event.toMonthYear,
-        toTime = eventResponse.Result.event.toTime,
-        toDay = eventResponse.Result.event.toDay,
-        type = eventResponse.Result.event.type,
-        color=eventResponse.Result.event.color?:"",
-        dateTo = eventResponse.Result.event.dateTo,
-        dateFrom = eventResponse.Result.event.dateFrom,
-        locationTitle =  eventResponse.Result.event.locationTitle,
-        location =  eventResponse.Result.event.location,
-        longitude =  eventResponse.Result.event.longitude,
-        latitude =  eventResponse.Result.event.latitude,
-        isFavourite = eventResponse.Result.event.isFavourite,
 
+fun transformationScheduleList(scheduleResponse: ScheduleResponse):ArrayList<Schedule> =
+    scheduleResponse.scheduleResponseDTO.schedule.run {
+        transformScheduleList(this)
+    }
+fun transformScheduleList(eventScheduleDTO : ArrayList<EventScheduleDTO>) : ArrayList<Schedule> =
+    eventScheduleDTO.map {
+        EventScheduleDTO(
+            id = it.id,
+            description = it.description,
+            eventScheduleItems = it.eventScheduleItems
         )
+    } as ArrayList<Schedule>
+
+
+
+
+fun transformEvent(scheduleResponse: ScheduleResponse) :EventsDTO=
+    EventsDTO(
+        title = scheduleResponse.scheduleResponseDTO.events.title,
+        category = scheduleResponse.scheduleResponseDTO.events.category,
+        image = scheduleResponse.scheduleResponseDTO.events.image,
+        fromDate = scheduleResponse.scheduleResponseDTO.events.fromDate,
+        fromMonthYear = scheduleResponse.scheduleResponseDTO.events.fromMonthYear,
+        fromTime = scheduleResponse.scheduleResponseDTO.events.fromTime,
+        fromDay = scheduleResponse.scheduleResponseDTO.events.fromDay,
+        toDate = scheduleResponse.scheduleResponseDTO.events.toDate,
+        toMonthYear = scheduleResponse.scheduleResponseDTO.events.toMonthYear,
+        toTime = scheduleResponse.scheduleResponseDTO.events.toTime,
+        toDay = scheduleResponse.scheduleResponseDTO.events.toDay,
+        type = scheduleResponse.scheduleResponseDTO.events.type,
+        color=scheduleResponse.scheduleResponseDTO.events.color?:"",
+        dateTo = scheduleResponse.scheduleResponseDTO.events.dateTo,
+        dateFrom = scheduleResponse.scheduleResponseDTO.events.dateFrom,
+        locationTitle =  scheduleResponse.scheduleResponseDTO.events.locationTitle,
+        location =  scheduleResponse.scheduleResponseDTO.events.location,
+        longitude =  scheduleResponse.scheduleResponseDTO.events.longitude,
+        latitude =  scheduleResponse.scheduleResponseDTO.events.latitude,
+        isFavourite = scheduleResponse.scheduleResponseDTO.events.isFavourite,
+    )
+
 //
 //fun transformHomeEventListing(homeEventList: ArrayList<HomeEventListingDTO>): ArrayList<EventHomeListing> =
 //    homeEventList.mapIndexed { index, it ->

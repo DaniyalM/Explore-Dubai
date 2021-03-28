@@ -14,9 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.OnClickListener{
 
-
-
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding!!.btnSubmit.setOnClickListener(this)
