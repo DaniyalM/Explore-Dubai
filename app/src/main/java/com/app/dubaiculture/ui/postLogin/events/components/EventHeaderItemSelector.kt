@@ -144,12 +144,12 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
 
     override fun onClick(position: Int) {
-        previousPosition = clickCheckerFlag
         positionUpdate(position)
         itemsAddnUpdation(true)
     }
 
     fun positionUpdate(position: Int) {
+        previousPosition = clickCheckerFlag
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
         eventPager?.currentItem = position
