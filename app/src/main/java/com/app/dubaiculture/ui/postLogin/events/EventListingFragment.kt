@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.events
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +25,9 @@ import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.dateFormatEn
+import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -195,6 +198,25 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                 is Result.Failure -> {
                     showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
                 }
+            }
+        }
+        eventViewModel.isFavourite.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    if (TextUtils.equals(it.value.Result.message, "Added")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+//                        binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
+//                        binding.root.favourite_event.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                    }
+                    if (TextUtils.equals(it.value.Result.message, "Deleted")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+//                        binding.favourite.background =
+//                            getDrawableFromId(R.drawable.heart_icon_home_black)
+//                        binding.root.favourite_event.background =
+//                            getDrawableFromId(R.drawable.heart_icon_home_black)
+                    }
+                }
+                is Result.Failure -> handleApiError(it, eventViewModel)
             }
         }
     }

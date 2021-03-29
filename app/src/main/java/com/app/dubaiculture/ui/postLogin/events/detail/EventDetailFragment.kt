@@ -7,11 +7,11 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,9 +53,7 @@ import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
-import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import kotlinx.android.synthetic.main.fragment_event_detail.view.*
-import kotlinx.android.synthetic.main.fragment_event_detail.view.back
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
 import java.util.*
@@ -138,33 +136,43 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.root.ll_email_us.setOnClickListener {
             openEmailbox("test@gmail.com")
         }
-
-
         binding.root.imgFb.setOnClickListener {
 
         }
-
         binding.root.imgTwitter.setOnClickListener {
 
         }
-
-
         binding.root.imgInsta.setOnClickListener {
 
         }
-
-
         binding.root.imgUtube.setOnClickListener {
 
         }
-
-
         binding.root.imgUtube.setOnClickListener {
 
         }
-
         binding.root.imgLinkedin.setOnClickListener {
 
+        }
+        binding.root.favourite_event.setOnClickListener {
+            eventObj.let { event ->
+                favouriteClick(it.favourite_event,
+                    event.isFavourite,
+                    R.id.action_eventDetailFragment2_to_postLoginFragment,
+                    event.id!!,
+                    eventViewModel,
+                    2)
+            }
+        }
+        binding.favourite.setOnClickListener {
+            eventObj.let { event ->
+                favouriteClick(it.favourite,
+                    event.isFavourite,
+                    R.id.action_eventDetailFragment2_to_postLoginFragment,
+                    event.id!!,
+                    eventViewModel,
+                    2)
+            }
         }
 
         binding.root.rbEventInfo.setOnClickListener {
@@ -196,7 +204,25 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
                 is Result.Failure -> handleApiError(it, eventViewModel)
             }
-
+        }
+        eventViewModel.isFavourite.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    if (TextUtils.equals(it.value.Result.message, "Added")) {
+//                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        binding.root.favourite_event.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                    }
+                    if (TextUtils.equals(it.value.Result.message, "Deleted")) {
+//                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
+                        binding.favourite.background =
+                            getDrawableFromId(R.drawable.heart_icon_home_black)
+                        binding.root.favourite_event.background =
+                            getDrawableFromId(R.drawable.heart_icon_home_black)
+                    }
+                }
+                is Result.Failure -> handleApiError(it, eventViewModel)
+            }
         }
 
     }
@@ -297,9 +323,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             R.id.btn_reg -> {
                 navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
             }
-            R.id.favourite -> {
-                navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
-            }
+//            R.id.favourite -> {
+//
+//                navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
+//            }
             R.id.back -> {
                 back()
             }

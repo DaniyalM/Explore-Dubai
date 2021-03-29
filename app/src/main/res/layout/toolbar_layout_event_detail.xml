@@ -200,19 +200,20 @@
                         app:layout_constraintStart_toEndOf="@+id/back_event"
                         app:layout_constraintTop_toTopOf="@+id/back_event" />
 
-                    <ImageView
+                    <CheckBox
                         android:id="@+id/favourite_event"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginEnd="20dp"
-                        android:background="@drawable/custom_ripple_black"
-                        android:rotation="0"
-                        android:src="@drawable/heart_icon_home_black"
+                        android:background="@drawable/heart_icon_home_black"
+                        android:button="@null"
+                        android:foreground="@drawable/custom_ripple_border"
                         app:layout_constraintBottom_toBottomOf="@+id/bookingCalender_event"
                         app:layout_constraintEnd_toStartOf="@+id/img_share_event"
                         app:layout_constraintStart_toEndOf="@+id/bookingCalender_event"
                         app:layout_constraintTop_toTopOf="@+id/bookingCalender_event"
                         app:layout_constraintVertical_bias="1.0" />
+
 
                     <ImageView
                         android:id="@+id/img_share_event"
