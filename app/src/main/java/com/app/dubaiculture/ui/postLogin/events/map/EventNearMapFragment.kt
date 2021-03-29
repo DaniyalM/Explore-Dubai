@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import java.util.Map.entry
 
 
@@ -37,6 +38,8 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.header.back.setOnClickListener(this)
+        backArrowRTL(binding.header.back)
+
         arguments?.let {
             // get near event model
         }

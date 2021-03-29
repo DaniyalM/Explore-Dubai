@@ -23,6 +23,7 @@ import com.app.dubaiculture.ui.postLogin.events.adapters.FilterHeaderAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
+import com.app.dubaiculture.utils.dateFormatEn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -61,6 +62,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
             eventViewModel.updateHeaderItems(eventID ?: 0)
         }
     }
+
 
     private fun callingObservablesForSearchBarKeyWord() {
         eventViewModel.searchBarKeyWord.observe(viewLifecycleOwner) {
@@ -288,8 +290,8 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                     category = it.category,
                     keyword = it.keyword,
                     location = it.location,
-                    dateFrom = it.dateFrom,
-                    dateTo = it.dateTo,
+                    dateFrom = dateFormatEn(it.dateFrom),
+                    dateTo = dateFormatEn(it.dateTo),
                     type = it.type
                 ))
             }

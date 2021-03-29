@@ -93,8 +93,8 @@
     <string name="search_events_by_keyword">Search events by keyword</string>
     <string name="location">Location</string>
     <string name="date_range">Date Range</string>
-    <string name="from">From</string>
-    <string name="to">To</string>
+    <string name="from">من عند</string>
+    <string name="to">الى</string>
     <string name="category">Category</string>
     <string name="type">Type</string>
     <string name="_free">Free</string>

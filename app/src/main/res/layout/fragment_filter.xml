@@ -185,6 +185,7 @@
         <RadioGroup
             android:id="@+id/radioGroupFilter"
             android:layout_marginTop="@dimen/_8sdp"
+            android:textAlignment="viewStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_14sdp"
@@ -203,6 +204,7 @@
                 android:paddingStart="@dimen/_5sdp"
                 android:textAllCaps="false"
                 android:tag="Free"
+                android:textAlignment="viewStart"
                 android:checked="true"
                 android:textSize="@dimen/_11ssp"
                 android:textColor="@color/black_200"
@@ -212,6 +214,7 @@
             <RadioButton
                 android:id="@+id/rbPaid"
                 android:layout_weight="0.6"
+                android:textAlignment="viewStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/MyRadioButtonStyle"
