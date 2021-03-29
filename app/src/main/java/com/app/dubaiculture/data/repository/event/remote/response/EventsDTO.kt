@@ -1,6 +1,7 @@
 package com.app.dubaiculture.data.repository.event.remote.response
 
 import android.os.Parcelable
+import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -79,13 +80,21 @@ data class EventsDTO(
     var isFavourite: Boolean = false,
     @SerializedName("Color")
     @Expose
-    var color: String ?= null,
+    var color: String? = null,
     @SerializedName("DateTo")
     @Expose
     var dateTo: String = "",
     @SerializedName("DateFrom")
     @Expose
     var dateFrom: String = "",
+
+    @SerializedName("EventSchedule")
+    @Expose
+    val eventSchedule: List<EventScheduleDTO> = emptyList(),
+
+    @SerializedName("RelatedEvents")
+    @Expose
+    var relatedEvents: List<EventsDTO> = emptyList(),
 
     ) : Parcelable
 
