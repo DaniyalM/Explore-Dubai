@@ -55,12 +55,14 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
         initRecyclerView()
         callingObservables()
         subscribeToObservables()
+
+
         binding.llFilterHeader.setOnClickListener(this)
         callingObservablesForSearchBarKeyWord()
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = false
-            eventViewModel.updateHeaderItems(eventID ?: 0)
-        }
+//        binding.swipeRefresh.setOnRefreshListener {
+//            binding.swipeRefresh.isRefreshing = false
+//            eventViewModel.updateHeaderItems(eventID ?: 0)
+//        }
     }
 
 

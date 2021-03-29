@@ -10,10 +10,10 @@
 
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--        android:id="@+id/swipe_refresh"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -28,6 +28,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_60sdp">
+                
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_filter_header"
                     android:layout_weight="1"
@@ -58,9 +59,8 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="@dimen/_5sdp"
             android:id="@+id/rvEventListing"
-            android:layout_marginBottom="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_50sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
@@ -80,5 +80,5 @@
                 />
         </RelativeLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 </layout>
