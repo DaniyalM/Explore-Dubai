@@ -254,6 +254,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     binding.tvMoreEventTitle.visibility = View.VISIBLE
                     it.let {
                         it.value.events!!.forEach {
+                            moreList.add(it)
                             mAdapterMore.add(EventListItem<EventItemsBinding>(object :
                                 FavouriteChecker {
                                 override fun checkFavListener(
@@ -272,7 +273,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
                             }, object : RowClickListener {
                                 override fun rowClickListener(position: Int) {
-                                    val eventObj = featureList[position]
+                                    val eventObj = moreList[position]
                                     val bundle = Bundle()
                                     bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT,
                                         eventObj)
