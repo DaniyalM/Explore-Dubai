@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -43,7 +42,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_events.view.*
 import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -90,7 +88,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(eventViewModel)
-        if (!this::mAdapterNear.isInitialized){
+        if (!this::mAdapterNear.isInitialized) {
             rvSetUp()
         }
 
@@ -124,7 +122,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         mAdapterNear = GroupAdapter()
         mAdapterMore = GroupAdapter()
 
-                // features event RV
+        // features event RV
         binding.rvEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -229,7 +227,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     }
 
 
-
     private fun subscribeToObservables() {
         eventViewModel.isFavourite.observe(viewLifecycleOwner) {
             when (it) {
@@ -247,6 +244,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         eventViewModel.eventCategoryList.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
+                    if (nearEventList.isNullOrEmpty()) {
+                        binding.tvViewMap.visibility = View.GONE
+                    }
                     binding.tvEventTitle.visibility = View.VISIBLE
                     binding.tvNearEventTitle.visibility = View.VISIBLE
                     binding.tvViewMap.visibility = View.VISIBLE

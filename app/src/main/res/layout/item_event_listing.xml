@@ -213,6 +213,7 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_location"
                     android:layout_width="0dp"
+                    android:textAlignment="viewStart"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_3sdp"
                     android:drawableStart="@drawable/location_icon_gray"

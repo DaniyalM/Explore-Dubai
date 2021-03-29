@@ -31,6 +31,8 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         super.onActivityCreated(savedInstanceState)
         binding.root.img_filter.setOnClickListener(this)
         binding.root.back.setOnClickListener(this)
+        backArrowRTL(binding.root.back)
+
         subscribeUiEvents(eventViewModel)
 //        callingObservables()
 //        subscribeToObservables()

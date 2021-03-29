@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +29,6 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
-import com.app.dubaiculture.utils.AppConfigUtils.BASE_URL
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.dateFormat
@@ -53,7 +53,9 @@ import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
+import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import kotlinx.android.synthetic.main.fragment_event_detail.view.*
+import kotlinx.android.synthetic.main.fragment_event_detail.view.back
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
 import java.util.*
@@ -172,7 +174,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.root.rbSchedule.setOnClickListener {
             binding.root.ll_even_info.visibility = View.GONE
             binding.root.ll_schedule.visibility = View.VISIBLE
-            verticalLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            verticalLayoutManager = LinearLayoutManager(requireContext(),
+                RecyclerView.VERTICAL,
+                false)
             myAdapter = ScheduleExpandAdapter(requireActivity(), parentItemList, childItemHolder)
             binding.root.rvSchedule.apply {
                 setHasFixedSize(true)
@@ -223,6 +227,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.root.favourite.setOnClickListener(this)
         binding.root.img_event_speaker.setOnClickListener(this)
         binding.root.speaker_schedule.setOnClickListener(this)
+        backArrowRTL(binding.root.back_event)
+        backArrowRTL(binding.root.back)
 
 
         binding.apply {
@@ -312,8 +318,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             R.id.favourite_event -> {
                 navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
             }
-            R.id.speaker_schedule->{
-                if(binding.root.tv_schedule_title.text.isNotEmpty())
+            R.id.speaker_schedule -> {
+                if (binding.root.tv_schedule_title.text.isNotEmpty())
                     textToSpeechEngine.speak(binding.root.tv_schedule_title.text,
                         TextToSpeech.QUEUE_FLUSH,
                         null,
@@ -395,8 +401,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 favouriteClick(
                                     checkbox,
                                     isFav,
-                                    R.id.action_eventDetailFragment2_to_postLoginFragment,
-                                    itemId, eventViewModel
+                                    type = 2,
+                                    itemId = itemId,
+                                    baseViewModel = eventViewModel,
+                                    nav = R.id.action_eventDetailFragment2_to_postLoginFragment
                                 )
                             }
                         }, object : RowClickListener {
@@ -407,6 +415,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 //                                    eventObj)
 //                                navigate(R.id.action_eventsFragment_to_eventDetailFragment2,
 //                                    bundle)
+
+
                             }
                         }, event = it, resLayout = R.layout.event_items))
                     }

@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_exploreFragment_to_exploreMapFragment"
             app:destination="@id/exploreMapFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_eventFilterFragment"
+            app:destination="@id/eventFilterFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventsFragment"

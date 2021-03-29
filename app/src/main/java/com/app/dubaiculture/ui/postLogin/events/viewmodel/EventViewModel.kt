@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.events.viewmodel
 
 import android.app.Application
+import android.icu.util.LocaleData
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -18,11 +19,13 @@ import com.app.dubaiculture.data.repository.filter.models.SelectedItems
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.GpsStatusListener
+import com.app.dubaiculture.utils.dateFormatEn
 import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.Instant.now
 import java.util.*
 
 class EventViewModel @ViewModelInject constructor(
@@ -153,20 +156,20 @@ class EventViewModel @ViewModelInject constructor(
     fun updateHeaderItems(position: Int = 0) {
         when (position) {
             0 -> {
-                getFilterEventList(EventRequest(culture = "en"))
+                getFilterEventList(EventRequest(culture = context.auth.locale.toString()))
             }
             1 -> {
-                getFilterEventList(EventRequest(culture = "en",
-                    dateFrom = getWeek().first(),
-                    dateTo = getWeek().last()))
+                getFilterEventList(EventRequest(culture = context.auth.locale.toString(),
+                    dateFrom = dateFormatEn( getWeek().first()),
+                    dateTo = dateFormatEn(getWeek().last())))
             }
             2 -> {
-                getFilterEventList(EventRequest(culture = "en"))
+                getFilterEventList(EventRequest(culture = context.auth.locale.toString()))
             }
             3 -> {
-                getFilterEventList(EventRequest(culture = "en",
-                    dateFrom = getNextSevenDays().first(),
-                    dateTo = getNextSevenDays().last()))
+                getFilterEventList(EventRequest(culture = context.auth.locale.toString(),
+                    dateFrom = dateFormatEn( getNextSevenDays().first()),
+                    dateTo = dateFormatEn(getNextSevenDays().last())))
             }
         }
     }
@@ -180,7 +183,7 @@ class EventViewModel @ViewModelInject constructor(
 
     private fun getWeek(): Array<String?> {
         val format: DateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance(Locale.ENGLISH)
         calendar.firstDayOfWeek = Calendar.MONDAY
         calendar[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
 //        val date = getDateObj("2021-03-28T17:19:00")
@@ -196,7 +199,7 @@ class EventViewModel @ViewModelInject constructor(
 
     private fun getNextSevenDays(): Array<String?> {
         val format: DateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance(Locale.ENGLISH)
 //        val date = getDateObj("2021-03-28T17:19:00")
 //        calendar.time = date
         val next7Days = arrayOfNulls<String>(7)

@@ -173,9 +173,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     }
 
                 }
+
                 holder.itemView.binding?.let {
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
+                    it.viewAll.setOnClickListener {
+                        fragment?.navigate(R.id.action_exploreFragment_to_eventFilterFragment)
+                    }
                 }
 
             }
