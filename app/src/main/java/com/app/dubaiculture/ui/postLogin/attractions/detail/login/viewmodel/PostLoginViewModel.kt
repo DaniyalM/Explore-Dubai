@@ -77,8 +77,7 @@ class PostLoginViewModel @ViewModelInject constructor(
                                 resendPhoneVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
-                                setUser(transform(result.value.loginResponseDTO.userDTO,
-                                    result.value.loginResponseDTO))
+                                setUser(transform(result.value.loginResponseDTO.userDTO, result.value.loginResponseDTO))
                                 userRepository.saveUser(
                                     userDTO = result.value.loginResponseDTO.userDTO,
                                     loginResponseDTO = result.value.loginResponseDTO)
