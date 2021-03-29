@@ -371,6 +371,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 it.longitude!!.toDouble())
             it.distance = distance
             myList.sortWith(compareBy({ it.distance }))
+            nearList.add(it)
             nearEventList.add(it)
             myList.add(it)
         }
