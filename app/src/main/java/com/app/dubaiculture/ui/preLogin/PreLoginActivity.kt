@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PreLoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        hideStatusBar(window)
+        hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
         this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }

@@ -29,6 +29,7 @@ import com.app.dubaiculture.utils.Constants.StaticLatLng.LNG
 import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
+import com.app.neomads.utils.location.LocationUtils.enableLocationFromSettings
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
@@ -111,6 +112,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         binding.root.search.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventFilterFragment)
         }
+        binding.root.cardivewRTL.setOnClickListener {
+            enableLocationFromSettings(requireActivity())
+        }
     }
 
     private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
@@ -120,6 +124,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         mAdapterNear = GroupAdapter()
         mAdapterMore = GroupAdapter()
 
+                // features event RV
         binding.rvEvent.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -249,7 +254,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     binding.tvMoreEventTitle.visibility = View.VISIBLE
                     it.let {
                         it.value.events!!.forEach {
-                            groupAdapter.add(EventListItem<EventItemsBinding>(object :
+                            mAdapterMore.add(EventListItem<EventItemsBinding>(object :
                                 FavouriteChecker {
                                 override fun checkFavListener(
                                     checkbox: CheckBox,
@@ -311,7 +316,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 //                            featureAdapter.events =
                             it.value.featureEvents!!.forEach {
                                 featureList.add(it)
-                                mAdapterMore.add(EventListItem<EventItemsBinding>(object :
+                                groupAdapter.add(EventListItem<EventItemsBinding>(object :
                                     FavouriteChecker {
                                     override fun checkFavListener(
                                         checkbox: CheckBox,
