@@ -25,6 +25,7 @@ import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAda
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.dateFormat
+import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -107,6 +108,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         super.onActivityCreated(savedInstanceState)
         locationPermission()
         subscribeUiEvents(eventViewModel)
+        callingObservables()
 
         mapSetUp()
         uiActions()
@@ -162,6 +164,21 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             binding.root.ll_even_info.visibility = View.GONE
             binding.root.ll_schedule.visibility = View.VISIBLE
         }
+    }
+
+    private fun callingObservables() {
+        eventViewModel.getEventDetailsToScreen(eventObj.id!!, getCurrentLanguage().language)
+        eventViewModel.eventDetail.observe(viewLifecycleOwner){
+            when(it){
+                is Result.Success -> {
+                    eventObj=it.value
+                }
+
+                is Result.Failure -> handleApiError(it,eventViewModel)
+            }
+
+        }
+
     }
 
 
@@ -328,7 +345,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     private fun initiateExpander() {
         val parentItemList = ArrayList<EventScheduleItemsDTO>()
         val childItemHolder: ArrayList<ArrayList<EventScheduleItemsTimeSlotsDTO>> = ArrayList()
-        eventViewModel.getEventDetailsToScreen(eventObj.id!!, getCurrentLanguage().language)
 //        eventViewModel.eventDetail.observe(viewLifecycleOwner) {
 //            when (it) {
 //                is Result.Success -> {

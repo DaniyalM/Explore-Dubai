@@ -8,8 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.EventRepository
-import com.app.dubaiculture.data.repository.event.local.models.*
-import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
+import com.app.dubaiculture.data.repository.event.local.models.EventFilterData
+import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
+import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.event.local.models.Filter
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import com.app.dubaiculture.data.repository.filter.models.SelectedItems
@@ -26,7 +28,7 @@ import java.util.*
 class EventViewModel @ViewModelInject constructor(
     application: Application,
     private val eventRepository: EventRepository,
-) : BaseViewModel(application,eventRepository) {
+) : BaseViewModel(application, eventRepository) {
     private val context = getApplication<ApplicationEntry>()
 
 
@@ -49,8 +51,11 @@ class EventViewModel @ViewModelInject constructor(
         MutableLiveData()
     val eventCategoryList: LiveData<Result<EventHomeListing>> =
         _eventCategoryList
-//    private val _eventDetailList: MutableLiveData<Result<ScheduleData>> = MutableLiveData()
+
+    //    private val _eventDetailList: MutableLiveData<Result<ScheduleData>> = MutableLiveData()
 //    val eventDetail: LiveData<Result<ScheduleData>> = _eventDetailList
+    private val _eventDetail: MutableLiveData<Result<Events>> = MutableLiveData()
+    val eventDetail: LiveData<Result<Events>> = _eventDetail
 
     private val _eventList: MutableLiveData<Result<List<Events>>> = MutableLiveData()
     val eventfilterRequest: LiveData<Result<List<Events>>> = _eventList
@@ -59,7 +64,7 @@ class EventViewModel @ViewModelInject constructor(
     private val _filterList: MutableLiveData<Result<EventFilterData>> = MutableLiveData()
     val filterList: LiveData<Result<EventFilterData>> = _filterList
 
-     val _searchBarKeyWord: MutableLiveData<Event<String>> = MutableLiveData()
+    val _searchBarKeyWord: MutableLiveData<Event<String>> = MutableLiveData()
     val searchBarKeyWord: LiveData<Event<String>> = _searchBarKeyWord
 
 
@@ -67,12 +72,9 @@ class EventViewModel @ViewModelInject constructor(
     val filterDataList: LiveData<ArrayList<SelectedItems>> = _filterDataList
 
 
-
-
-
-init {
-    getEventHomeToScreen(context.auth.locale.toString())
-}
+    init {
+        getEventHomeToScreen(context.auth.locale.toString())
+    }
 
     fun getEventHomeToScreen(locale: String) {
         showLoader(true)
@@ -114,11 +116,11 @@ init {
                 eventId = eventId,
                 culture = locale))) {
                 is Result.Success -> {
-//                    _eventDetailList.value = result
+                    _eventDetail.value = result
                     showLoader(false)
                 }
                 is Result.Failure -> {
-//                    _eventDetailList.value = result
+                    _eventDetail.value = result
                     showLoader(false)
                 }
             }

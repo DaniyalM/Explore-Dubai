@@ -15,6 +15,8 @@ data class Result(
     @Expose
     var featuredEvents: ArrayList<EventsDTO>,
 
+
+
     @SerializedName("Events")
     @Expose
     var otherEvents: ArrayList<EventsDTO>,
@@ -37,14 +39,11 @@ data class Result(
     @Expose
     var locationList: ArrayList<FilterDTO>,
 
-    @SerializedName("EventSchedule")
-    @Expose
-    val eventSchedule: ArrayList<EventScheduleDTO>,
+
 
     @SerializedName("message")
     @Expose
     var message: String,
-
 
 
     )

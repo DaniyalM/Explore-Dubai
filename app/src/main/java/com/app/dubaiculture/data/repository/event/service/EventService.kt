@@ -26,7 +26,7 @@ interface EventService : BaseService {
     suspend fun getEventDetail(
         @Query("id") eventId: String,
         @Query("culture") culture: String,
-    ): ScheduleResponse
+    ): EventResponse
 
 
 

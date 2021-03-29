@@ -1,5 +1,6 @@
 package com.app.dubaiculture.data.repository.event
 
+import android.app.usage.UsageEvents
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.event.local.models.EventFilterData
@@ -58,7 +59,7 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
         }
     }
 
-    suspend fun fetchDetailEvent(eventRequest: EventRequest): Result<Schedule> {
+    suspend fun fetchDetailEvent(eventRequest: EventRequest): Result<Events> {
         return when (val resultRds =
             eventRDS.getEventDetail(transformEventDetailRequest(eventRequest))) {
             is Result.Success -> {
@@ -66,15 +67,7 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
                 if (eventLDS.value.statusCode != 200) {
                     Result.Failure(true, eventLDS.value.statusCode, null)
                 } else {
-                    eventLDS.apply {
-                        this.value.scheduleResponseDTO.events
-                    }
-                    resultRds.apply {
-
-                    }
-                    Result.Success(Schedule(
-//                        events = transformationEvent(eventLDS.value),
-                    ))
+                    Result.Success(transformEventDetail(eventLDS.value))
                 }
             }
             is Result.Failure -> resultRds
