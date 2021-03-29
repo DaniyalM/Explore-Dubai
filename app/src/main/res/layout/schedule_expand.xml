@@ -2,14 +2,14 @@
 <LinearLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/ll_child"
         android:layout_gravity="center_vertical"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp">
+        android:layout_height="wrap_content">
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_start_time"
             android:layout_marginTop="@dimen/_10sdp"
@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:text="@string/various_artistic_and_cultural_activities"

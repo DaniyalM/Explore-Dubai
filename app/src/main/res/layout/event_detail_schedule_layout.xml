@@ -22,12 +22,12 @@
         android:text="Activities schedule at the workshop"
         android:textColor="@color/black_200"
         android:textSize="@dimen/_18ssp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/speaker_schedule"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/speaker_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_15sdp"

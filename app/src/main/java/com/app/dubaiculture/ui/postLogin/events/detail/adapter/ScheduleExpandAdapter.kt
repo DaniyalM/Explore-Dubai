@@ -7,26 +7,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.event.remote.response.EventScheduleItemsDTO
-import com.app.dubaiculture.data.repository.event.remote.response.EventScheduleItemsTimeSlotsDTO
+import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItems
+import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItemsSlots
+import com.app.dubaiculture.utils.dateFormat
+import com.app.dubaiculture.utils.dayOfWeek
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import kotlinx.android.synthetic.main.schedule_collapse.view.*
 
 
 class ScheduleExpandAdapter(
-    var context: Context,
-    var nameList: ArrayList<EventScheduleItemsDTO>,
-    var itemNameList: ArrayList<ArrayList<EventScheduleItemsTimeSlotsDTO>>,
+  internal var context: Context,
+    nameList: ArrayList<EventScheduleItems>,
+    itemNameList: ArrayList<ArrayList<EventScheduleItemsSlots>>,
 ) : RecyclerView.Adapter<ScheduleExpandAdapter.ViewHolder>() {
-//    var nameList = ArrayList<String>()
-//    var image = ArrayList<String>()
-    var counter = ArrayList<Int>()
-//    internal var itemNameList = ArrayList<ArrayList<String>>()
-
-    //    var context: Context
+    internal var nameList = ArrayList<EventScheduleItems>()
+    internal var counter = ArrayList<Int>()
+    internal var itemNameList = ArrayList<ArrayList<EventScheduleItemsSlots>>()
     init {
-//        this.nameList = nameList
-//        this.itemNameList = itemNameList
-//        this.context = context
+        this.nameList = nameList
+        this.itemNameList = itemNameList
         for (i in 0 until nameList.size) {
             counter.add(0)
         }
@@ -51,17 +51,33 @@ class ScheduleExpandAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.day.text = nameList[position].date
+        holder.day.text = dayOfWeek(nameList[position].date)
+        holder.imgToggle.setImageResource(R.drawable.plus)
         val itemInnerRecyclerView = ScheduleInnerRecyclerviewAdapter(itemNameList[position])
         holder.innerRecycler.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         holder.imgToggle.setOnClickListener {
-            if (counter[position] % 2 == 0) {
-                holder.innerRecycler.visibility = View.VISIBLE
-            } else {
-                holder.innerRecycler.visibility = View.GONE
+
+            try {
+
+                if (counter[position] % 2 == 0) {
+                    YoYo.with(Techniques.BounceInDown)
+                        .duration(1000)
+                        .playOn(it)
+                    holder.imgToggle.setImageResource(R.drawable.remove)
+                    holder.innerRecycler.visibility = View.VISIBLE
+                } else {
+                    holder.innerRecycler.visibility = View.GONE
+                    holder.imgToggle.setImageResource(R.drawable.plus)
+
+                    YoYo.with(Techniques.BounceInUp)
+                        .duration(1000)
+                        .playOn(it)
+                }
+                counter[position] = counter[position] + 1
+            }catch (e: IndexOutOfBoundsException){
+                e.stackTrace
             }
-            counter[position] = counter[position] + 1
         }
         holder.innerRecycler.adapter = itemInnerRecyclerView
     }

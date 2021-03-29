@@ -11,18 +11,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PreLoginActivity : BaseActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        hideStatusBar(window)
+//        hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
-
         this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     override fun onResume() {
         super.onResume()
-        adjustFontScale(getResources().getConfiguration());
+        adjustFontScale(getResources().getConfiguration())
     }
     open fun adjustFontScale(configuration: Configuration) {
         if (configuration.fontScale > 1.30) {

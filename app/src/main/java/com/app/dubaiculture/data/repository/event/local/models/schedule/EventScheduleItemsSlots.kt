@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class EventScheduleItemsSlots(
-    val timeFrom : String ? =null,
+    val     timeFrom : String ? =null,
     val timeTo : String ?= null,
     val summary : String ? =null
 ):Parcelable
