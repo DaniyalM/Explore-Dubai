@@ -69,9 +69,11 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
                     eventLDS.apply {
                         this.value.scheduleResponseDTO.events
                     }
+                    resultRds.apply {
+
+                    }
                     Result.Success(Schedule(
 //                        events = transformationEvent(eventLDS.value),
-//                        eventSchedule = transformationScheduleList(eventLDS.value)
                     ))
                 }
             }

@@ -19,6 +19,7 @@ import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
+import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -56,7 +57,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (!this::exploreAdapter.isInitialized){
+        if (!this::exploreAdapter.isInitialized) {
             setUpRecyclerView()
         }
         subscribeUiEvents(exploreViewModel)
@@ -67,6 +68,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
             callingObservables()
+        }
+
+        binding.root.img_drawer.setOnClickListener {
+            navigate(R.id.action_exploreFragment_to_exploreMapFragment)
         }
 
     }

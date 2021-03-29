@@ -17,6 +17,4 @@ data class Result(
     @SerializedName("Attractions")
     @Expose
     var attractions: List<AttractionDTO>,
-
-
     )

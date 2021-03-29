@@ -25,8 +25,6 @@ abstract class BaseRDS(private val baseService: BaseService?=null) {
 
         }
     }
-
-
     suspend fun addToFavourates(addToFavouriteRequestDTO: AddToFavouriteRequestDTO) =
         safeApiCall {
             baseService?.addToFavourites(addToFavouriteRequestDTO)

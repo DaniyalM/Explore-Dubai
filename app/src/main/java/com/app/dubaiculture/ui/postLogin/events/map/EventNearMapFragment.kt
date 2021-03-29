@@ -11,6 +11,9 @@ import com.app.dubaiculture.databinding.FragmentEventNearMapBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.EventsFragment
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventNearMapAdapter
+import com.google.android.gms.location.Geofence
+import com.google.android.gms.location.GeofencingClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -19,12 +22,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Map.entry
+
 
 @AndroidEntryPoint
 class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.OnClickListener,
     OnMapReadyCallback {
     lateinit var eventNearAdapter: EventNearMapAdapter
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,

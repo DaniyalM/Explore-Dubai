@@ -10,4 +10,8 @@ import retrofit2.http.Query
 interface ExploreService :BaseService{
     @GET("/api/Content/HomeScreenContent")
     suspend fun getExploreApi(@Query("culture") culture: String): ExploreResponse
+
+    @GET("/api/Content/GetEventsAndAttractions")
+    suspend fun getExploreMap(@Query("culture") culture: String): ExploreResponse
+
 }
