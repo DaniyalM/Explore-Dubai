@@ -38,7 +38,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
             attractions,
             object : SingleSelectionAdapter.InvokeListener {
                 override fun getRowPosition(position: Int) {
-                Toast.makeText(requireContext(),"${position}",Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(),"${position}",Toast.LENGTH_SHORT).show()
                 }})
         binding.rvMapHeader.apply {
             layoutManager =
