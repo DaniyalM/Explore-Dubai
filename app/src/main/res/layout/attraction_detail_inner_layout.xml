@@ -577,13 +577,20 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="@id/heading_stay"
                     app:layout_constraintTop_toBottomOf="@+id/heading_stay">
-
-                    <ImageView
+                    <LinearLayout
+                        android:gravity="center"
+                        android:background="@drawable/fb_circle_"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:foreground="@drawable/custom_ripple_border"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:background="@drawable/fb_"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:foreground="@drawable/custom_ripple_border"
+                             />
+                    </LinearLayout>
 
-                        android:background="@drawable/twitter_attraction_icon" />
 
                     <ImageView
                         android:layout_width="wrap_content"

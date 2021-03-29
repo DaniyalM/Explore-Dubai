@@ -66,13 +66,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             else setLanguage(Locale.ENGLISH)
         }
 
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    activity.finish()
-                }
-            }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+
         subscribeToObservables()
         if (isArabic()) {
             binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
@@ -101,7 +96,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                     binding.tvLoginAccount to "main_title",
                     binding.btnLogin to "action_btn"
                 )
-                findNavController().navigate(R.id.action_loginFragment_to_bottomSheet,
+                findNavController().navigate(R.id.action_loginFragment_to_forgotFragment,
                     null,
                     null,
                     extras)

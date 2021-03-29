@@ -410,13 +410,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
 
-                    <ImageView
+                    <LinearLayout
                         android:id="@+id/imgFb"
+                        android:gravity="center"
+                        android:background="@drawable/fb_circle_"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/custom_ripple_black"
-                        android:src="@drawable/twitter_attraction_icon"
-                        />
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:background="@drawable/fb_"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:foreground="@drawable/custom_ripple_border"
+                            />
+                    </LinearLayout>
+
                     <ImageView
                         android:id="@+id/imgTwitter"
                         android:layout_marginStart="@dimen/_9sdp"
