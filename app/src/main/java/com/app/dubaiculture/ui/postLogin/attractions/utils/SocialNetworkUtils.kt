@@ -1,13 +1,34 @@
 package com.app.dubaiculture.ui.postLogin.attractions.utils
 
-import android.R
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
 import android.net.Uri
 
 
 object SocialNetworkUtils {
+
+
+    fun openUrl(url: String?, context: Activity) {
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        context.startActivity(i)
+    }
+
+    fun getFacebookPage(faceBookUrl: String, context: Activity) {
+        val packageManager: PackageManager = context.packageManager
+        try {
+            val versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode;
+            if (versionCode >= 3002850) {
+                openUrl("fb://facewebmodal/f?href=${faceBookUrl}", context)
+            } else {
+                openUrl("fb://page/", context)
+            }
+        } catch (ex: PackageManager.NameNotFoundException) {
+            openUrl("fb://facewebmodal/f?href=${faceBookUrl}", context)
+        }
+    }
 
 
     fun instagramNavigationIntent(pm: PackageManager, url: String = ""): Intent? {

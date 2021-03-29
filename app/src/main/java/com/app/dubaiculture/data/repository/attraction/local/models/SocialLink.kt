@@ -9,4 +9,10 @@ data class SocialLink(
     var facebookIcon: String = "",
     var instagramPageLink: String = "",
     var instagramIcon: String? = "",
+    var twitterPageLink: String = "",
+    var twitterIcon: String? = "",
+    var youtubePageLink: String = "",
+    var youtubeIcon: String? = "",
+    var linkedInPageLink: String = "",
+    var linkedInIcon: String? = "",
 ): Parcelable
