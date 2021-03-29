@@ -30,7 +30,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewmodel = postLoginViewModel
-        binding!!.fragment = this
+        binding.fragment = this
         subscribeUiEvents(postLoginViewModel)
         binding.btnLogin.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)

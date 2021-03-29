@@ -74,7 +74,6 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             addView(view)
             it.adapter = groupAdapter
-//            LinearSnapHelper().attachToRecyclerView(it)
 
         }
     }
@@ -144,12 +143,12 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
 
     override fun onClick(position: Int) {
-        previousPosition = clickCheckerFlag
         positionUpdate(position)
         itemsAddnUpdation(true)
     }
 
     fun positionUpdate(position: Int) {
+        previousPosition = clickCheckerFlag
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
         eventPager?.currentItem = position

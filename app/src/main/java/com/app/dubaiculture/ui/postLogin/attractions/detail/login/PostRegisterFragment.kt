@@ -62,8 +62,8 @@ class PostRegisterFragment : BaseFragment<FragmentPostRegisterBinding>(),View.On
                 ForegroundColorSpan(resources.getColor(R.color.black_200)),
                 0, 10,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            spannable.setSpan(UnderlineSpan(), 10, binding!!.tvTermCondition.length(), 36)
-            binding!!.tvTermCondition.text = spannable
+            spannable.setSpan(UnderlineSpan(), 10, binding.tvTermCondition.length(), 36)
+            binding.tvTermCondition.text = spannable
         }else{
             val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
             spannable.setSpan(

@@ -21,17 +21,7 @@ class PostLoginActivity : BaseAuthenticationActivity() {
 
     lateinit var navController: NavController
     private val mainViewModel: MainViewModel by viewModels()
-//    private lateinit var streetViewPanoramaFragment: SupportStreetViewPanoramaFragment
 
-//    private fun showStreetView() {
-//        streetViewPanoramaFragment =
-//            supportFragmentManager
-//                .findFragmentById(R.id.streetViewFragment) as SupportStreetViewPanoramaFragment
-//        streetViewPanoramaFragment.let {
-//            it.getStreetViewPanoramaAsync(this)
-//        }
-//
-//    }
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
@@ -62,8 +52,7 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     private fun setupViews() {
         val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
         navController = Navigation.findNavController(fragmentContainer)
-        // Finding the Navigation Controller
-        // Setting Navigation Controller with the BottomNavigationView
+
         bottomNav.setupWithNavController(navController)
     }
 

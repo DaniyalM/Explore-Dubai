@@ -37,6 +37,7 @@ import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
+import timber.log.Timber
 import java.util.*
 
 
@@ -78,16 +79,18 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = (context as Activity)
+
     }
 
     override fun onStart() {
         super.onStart()
-        adjustFontScale(getResources().getConfiguration())
+        adjustFontScale(resources.configuration)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
+
+
         application = activity.application as ApplicationEntry
         bus = application.bus
         bus.register(this)
@@ -100,7 +103,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //ViewModel is set as Binding Variable
-        dataBinding?.apply { lifecycleOwner = viewLifecycleOwner }
+        dataBinding.apply { lifecycleOwner = viewLifecycleOwner }
     }
 
     protected abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): DB
@@ -113,9 +116,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             isBusRegistered = false
         }
         groupAdapter.clear()
-        if (_view != null) {
-            _view = null
-        }
+//        if (_view != null) {
+//            _view = null
+//        }
     }
 
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
