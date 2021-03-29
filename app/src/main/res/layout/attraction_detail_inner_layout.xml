@@ -265,7 +265,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/_2sdp"
-                    android:text="10 Km Away"
                     android:textColor="@color/gray_800"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_direction"

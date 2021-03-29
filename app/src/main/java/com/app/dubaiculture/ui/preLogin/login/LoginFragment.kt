@@ -121,4 +121,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         loginViewModel.isEmail.value = true
     }
 
+
+
+
+
+
+
+
 }

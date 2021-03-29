@@ -25,8 +25,11 @@ import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewMo
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
+import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
+import com.app.dubaiculture.utils.GpsStatus
+import com.app.dubaiculture.utils.WorkaroundMapFragment
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
@@ -44,11 +47,9 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import kotlinx.android.synthetic.main.fragment_attraction_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.back
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.bookingCalender
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.favourite
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.share
@@ -60,6 +61,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener {
+    private val eventViewModel: EventViewModel by viewModels()
+
     private var url: String? = null
 
     @Inject
@@ -72,6 +75,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private var long: String? = 67.0627.toString()
     private lateinit var attractionsObj: Attractions
     private lateinit var contentFlag: String
+    private var mMap: GoogleMap? = null
+
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -79,7 +84,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
         }
     }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.apply {
@@ -328,9 +332,28 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     private fun mapSetUp() {
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-        mapFragment!!.getMapAsync(this)
+//        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+//        mapFragment!!.getMapAsync(this)
+        if (mMap == null) {
+            val mapFragment1: SupportMapFragment? =
+                childFragmentManager.findFragmentById(R.id.map) as WorkaroundMapFragment?
+            mapFragment1!!.getMapAsync(object : OnMapReadyCallback {
+                override fun onMapReady(map: GoogleMap?) {
+                    mMap = map
+                    mMap!!.setMapType(GoogleMap.MAP_TYPE_NORMAL)
+                    mMap!!.getUiSettings().setZoomControlsEnabled(true)
 
+
+                    (childFragmentManager.findFragmentById(R.id.map) as WorkaroundMapFragment?)!!.setListener(
+                        object : WorkaroundMapFragment.OnTouchListener {
+                            override fun onTouch() {
+                                binding.scrollView.requestDisallowInterceptTouchEvent(true)
+                            }
+                        })
+                }
+
+            })
+        }
     }
 
     private fun locationPermission() {
@@ -348,6 +371,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         Timber.e("Current Location ${location.latitude}")
                         lat = location.latitude.toString()
                         long = location.longitude.toString()
+
                     }
                 },
                 object : LocationHelper.LocationCallBack {
@@ -361,6 +385,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     override fun onMapReady(map: GoogleMap?) {
         try {
+
             val attractionLatLng = LatLng(lat?.toDouble()!!, long?.toDouble()!!)
             map!!.addMarker(MarkerOptions()
                 .position(attractionLatLng)
@@ -454,4 +479,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         textToSpeechEngine.shutdown()
         super.onDestroy()
     }
+    private fun updateGpsCheckUI(status: GpsStatus) {
+        when (status) {
+            is GpsStatus.Enabled -> {
+
+            }
+            is GpsStatus.Disabled -> {
+
+            }
+        }
+    }
+
 }

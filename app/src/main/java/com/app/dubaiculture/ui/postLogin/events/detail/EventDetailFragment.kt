@@ -31,6 +31,7 @@ import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAda
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
+import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.dateFormat
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
@@ -54,6 +55,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
 import kotlinx.android.synthetic.main.fragment_event_detail.view.*
+import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
 import java.util.*
@@ -70,18 +72,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     val parentItemList = ArrayList<EventScheduleItems>()
     val moreEvents = ArrayList<Events>()
     val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
-
     @Inject
     lateinit var glide: RequestManager
-
-    @Inject
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-
-    @Inject
-    lateinit var locationManager: LocationManager
-
-    @Inject
-    lateinit var locationRequest: LocationRequest
 
     @Inject
     lateinit var locationHelper: LocationHelper
@@ -456,4 +448,19 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
 
     }
+//    private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
+//        .observe(viewLifecycleOwner, gpsObserver)
+//
+
+    private fun updateGpsCheckUI(status: GpsStatus) {
+        when (status) {
+            is GpsStatus.Enabled -> {
+
+            }
+            is GpsStatus.Disabled -> {
+                
+                }
+//                eventViewModel.showAlert(message = resources.getString(R.string.please_enable_gps))
+            }
+        }
 }

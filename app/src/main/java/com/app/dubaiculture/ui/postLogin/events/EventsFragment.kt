@@ -219,11 +219,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     rvNearEvent.visibility = View.GONE
                     root.cardivewRTL.visibility = View.VISIBLE
                 }
-
 //                eventViewModel.showAlert(message = resources.getString(R.string.please_enable_gps))
             }
         }
-
     }
 
 
