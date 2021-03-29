@@ -9,6 +9,7 @@ data class Events(
     var id: String? = "",
     var title: String? = "",
     var category: String? = "",
+    var desc: String? = "",
     var image: String? = "",
     var fromDate: String? = "",
     var fromMonthYear: String? = "",
@@ -30,8 +31,6 @@ data class Events(
     var distance: Double = 0.0,
     var eventSchedule: List<EventSchedule>? = emptyList(),
     var relatedEvents: List<Events>? = emptyList()
-
-
     ) : Parcelable
 
 

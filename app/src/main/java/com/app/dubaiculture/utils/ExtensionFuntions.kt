@@ -165,6 +165,22 @@ fun Fragment.setNavigationResult(key: String, data: Any?) {
         return outputDate
     }
 
+fun dayOfWeek(inputDate: String?): String {
+//        2021-03-31T17:19:00 server date format
+    var parsed: Date? = null
+    var outputDate = "- - - -"
+    val df_input =
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+    val df_output =
+        SimpleDateFormat("EEEE", Locale.ENGLISH)
+    try {
+        parsed = df_input.parse(inputDate)
+        outputDate = df_output.format(parsed)
+    } catch (e: ParseException) {
+    }
+    return outputDate
+}
+
 fun getDateObj(dateString: String): Date {
     var date : Date? =null
     val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")

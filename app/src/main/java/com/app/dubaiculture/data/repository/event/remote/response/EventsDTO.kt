@@ -16,6 +16,12 @@ data class EventsDTO(
     @Expose
     var title: String? = "",
 
+
+    @SerializedName("Description")
+    @Expose
+    var desc: String? = "",
+
+
     @SerializedName("Category")
     @Expose
     var category: String? = "",

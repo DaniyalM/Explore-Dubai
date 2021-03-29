@@ -13,16 +13,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.data.repository.event.remote.response.EventScheduleItemsDTO
-import com.app.dubaiculture.data.repository.event.remote.response.EventScheduleItemsTimeSlotsDTO
+import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItems
+import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItemsSlots
 import com.app.dubaiculture.databinding.FragmentEventDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
+import com.app.dubaiculture.utils.AppConfigUtils.BASE_URL
+import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.dateFormat
 import com.app.dubaiculture.utils.handleApiError
@@ -60,7 +61,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     private val eventViewModel: EventViewModel by viewModels()
     private lateinit var verticalLayoutManager: RecyclerView.LayoutManager
     private lateinit var myAdapter: RecyclerView.Adapter<*>
-
+    val parentItemList = ArrayList<EventScheduleItems>()
+    val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
 
     @Inject
     lateinit var glide: RequestManager
@@ -163,18 +165,25 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.root.rbSchedule.setOnClickListener {
             binding.root.ll_even_info.visibility = View.GONE
             binding.root.ll_schedule.visibility = View.VISIBLE
+            verticalLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            myAdapter = ScheduleExpandAdapter(requireActivity(), parentItemList, childItemHolder)
+            binding.root.rvSchedule.apply {
+                setHasFixedSize(true)
+                layoutManager = verticalLayoutManager
+                adapter = myAdapter
+            }
         }
     }
 
     private fun callingObservables() {
         eventViewModel.getEventDetailsToScreen(eventObj.id!!, getCurrentLanguage().language)
-        eventViewModel.eventDetail.observe(viewLifecycleOwner){
-            when(it){
+        eventViewModel.eventDetail.observe(viewLifecycleOwner) {
+            when (it) {
                 is Result.Success -> {
-                    eventObj=it.value
+                    eventObj = it.value
                 }
 
-                is Result.Failure -> handleApiError(it,eventViewModel)
+                is Result.Failure -> handleApiError(it, eventViewModel)
             }
 
         }
@@ -194,7 +203,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 tv_category.text = eventObj.category
                 category.text = eventObj.category
                 tv_event_date.text = dateFormat(eventObj.dateFrom)
-                glide.load(BuildConfig.BASE_URL + eventObj.image).into(imageView)
+                glide.load(BASE_URL + eventObj.image).into(imageView)
             }
         }
         binding.root.btn_reg.setOnClickListener(this)
@@ -206,7 +215,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.root.favourite_event.setOnClickListener(this)
         binding.root.favourite.setOnClickListener(this)
         binding.root.img_event_speaker.setOnClickListener(this)
-
+        binding.root.speaker_schedule.setOnClickListener(this)
 
 
         binding.apply {
@@ -263,8 +272,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_event_speaker -> {
-                binding.root.tv_desc_readmore.text =
-                    "Get today's headlines and news you need to know from Washington and around the world. Get unlimited access to breaking news, trusted coverage, and expert analysis. Get Newsletters. Download App. View Events."
                 if (binding.root.tv_desc_readmore.text.isNotEmpty()) {
                     textToSpeechEngine.speak(binding.root.tv_desc_readmore.text,
                         TextToSpeech.QUEUE_FLUSH,
@@ -295,6 +302,13 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
             R.id.favourite_event -> {
                 navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
+            }
+            R.id.speaker_schedule->{
+                if(binding.root.tv_schedule_title.text.isNotEmpty())
+                    textToSpeechEngine.speak(binding.root.tv_schedule_title.text,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "tts1")
             }
         }
     }
@@ -343,34 +357,25 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
 
     private fun initiateExpander() {
-        val parentItemList = ArrayList<EventScheduleItemsDTO>()
-        val childItemHolder: ArrayList<ArrayList<EventScheduleItemsTimeSlotsDTO>> = ArrayList()
-//        eventViewModel.eventDetail.observe(viewLifecycleOwner) {
-//            when (it) {
-//                is Result.Success -> {
-//                    val childList  = ArrayList<EventScheduleItemsTimeSlotsDTO>()
-//                    it.value.eventScheduleList!!.map {
-////                        parentItemList.addAll(it.eventScheduleItems)
-//                        parentItemList.forEach {
-////                            childList.addAll(it.eventScheduleItemsTimeSlots)
-//                        }
-//                    }
-//                    childItemHolder.add(childList)
-//                }
-//
-//                is Result.Failure -> {
-//
-//                }
-//            }
-//        }
+        eventViewModel.eventDetail.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    binding.root.tv_desc_readmore.text = it.value.desc
+                    it.value.eventSchedule!!.map {
+                        binding.root.tv_schedule_title.text = it.description
+                        it.eventScheduleItems.forEach {
+                            parentItemList.add(it)
+                        }
+                        parentItemList.forEach {
+                            childItemHolder.add(it.eventScheduleItemsSlots as ArrayList<EventScheduleItemsSlots>)
+                        }
+                    }
+                }
+                is Result.Failure -> {
+                    eventViewModel.showErrorDialog(message = INTERNET_CONNECTION_ERROR)
 
-
-        verticalLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        myAdapter = ScheduleExpandAdapter(requireActivity(), parentItemList, childItemHolder)
-        binding.root.rvSchedule.apply {
-            setHasFixedSize(true)
-            layoutManager = verticalLayoutManager
-            adapter = myAdapter
+                }
+            }
         }
 
     }

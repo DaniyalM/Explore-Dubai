@@ -205,6 +205,7 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
     title = eventDTO.title,
     category = eventDTO.category,
     image = eventDTO.image,
+    desc = eventDTO.desc,
     fromDate = eventDTO.fromDate,
     fromMonthYear = eventDTO.fromMonthYear,
     fromTime = eventDTO.fromTime,
