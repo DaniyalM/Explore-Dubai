@@ -1,7 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.events.filter
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +12,13 @@ import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Filter
-import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.filter.models.SelectedItems
 import com.app.dubaiculture.databinding.FragmentFilterBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.events.filter.adapter.FilterCategoryItems
 import com.app.dubaiculture.ui.postLogin.events.filter.viewmodel.FilterViewModel
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
+import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.DatePickerHelper
 import com.app.dubaiculture.utils.toString
 import com.daimajia.androidanimations.library.Techniques
@@ -28,7 +27,6 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.event_near_items.*
 import kotlinx.android.synthetic.main.fragment_filter.*
 import timber.log.Timber
 import java.util.*
@@ -41,9 +39,9 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
     private val filterViewModel: FilterViewModel by viewModels()
     private var locationList = mutableListOf<Filter>()
     private var radioBtnList = mutableListOf<Filter>()
-    private var categoryList = mutableListOf<Filter>()
+    private var categorysList = mutableListOf<Filter>()
     private var arrayList: ArrayList<String> = ArrayList()
-    private var locationPos: String = ""
+    private var locationPos: Int = -1
     private var radioBtnID: String = ""
     private var radioBtnTitle: String = ""
     private var endDate: String? = ""
@@ -63,9 +61,14 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
         binding.tvReset.setOnClickListener(this)
         subscribeUiEvents(eventViewModel)
         subscribeUiEvents(filterViewModel)
-        recyclerViewSetUp()
         subscribeToObservablesFilter()
-        autoCompleteTextViewSetup()
+        recyclerViewSetUp()
+
+
+        binding.editSearch.setText(eventViewModel.keywordState.value.toString())
+        binding.editLocation.setText(eventViewModel.locationState.value.toString())
+        binding.tvStartDate.text = eventViewModel.dateFrmState.value.toString()
+        binding.tvEndDate.text = eventViewModel.dateToState.value.toString()
 
         binding.radioGroupFilter.setOnCheckedChangeListener { radioGroup, id ->
             val selectedRadioButton =
@@ -91,6 +94,7 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
             setLayoutManager(layoutManager)
             adapter = groupAdapter
         }
+
     }
 
     override fun onClick(v: View?) {
@@ -99,7 +103,7 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                 eventViewModel._filterDataList.value = selectedHeaderModel()
                 dismiss()
             }
-            R.id.tvReset->{
+            R.id.tvReset -> {
                 YoYo.with(Techniques.Bounce)
                     .duration(2000)
                     .playOn(binding.root)
@@ -108,6 +112,14 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                 binding.tvStartDate.text = ""
                 binding.tvEndDate.text = ""
                 binding.rbFree.isChecked = true
+                categorysList.clear()
+                groupAdapter.clear()
+                eventViewModel.keywordState.value = ""
+                eventViewModel.locationState.value = ""
+                eventViewModel.dateFrmState.value = ""
+                eventViewModel.dateToState.value = ""
+                eventViewModel.getDataFilterBtmSheet(getCurrentLanguage().language)
+                eventViewModel._filterDataList.value = selectedHeaderModel()
             }
             R.id.tv_start_date -> {
                 DatePickerHelper(binding.tvStartDate.text.toString(),
@@ -158,15 +170,20 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                         radioBtnList.add(it)
                     }
                     it.value.categoryList!!.map {
-                        categoryList.add(it)
-                        groupAdapter.add(FilterCategoryItems(it))
+                        categorysList.add(it)
                     }
                     it.value.locationList!!.forEach { filter ->
                         arrayList.add(filter.title!!)
                     }
+
+                    categorysList.map { list ->
+                        groupAdapter.add(FilterCategoryItems(list))
+                    }
+                    autoCompleteTextViewSetup()
                 }
                 is Result.Failure -> {
                     eventViewModel.showLoader(false)
+                    eventViewModel.showToast(message = INTERNET_CONNECTION_ERROR)
                 }
             }
         }
@@ -178,31 +195,51 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
         binding.editLocation.setAdapter(adapter)
         binding.editLocation.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                locationPos = position.toString()
+                locationPos = position
             }
     }
+
     private fun selectedHeaderModel(): ArrayList<SelectedItems> {
         val list = ArrayList<SelectedItems>()
         list.clear()
         if (binding.editSearch.text.toString().isNotBlank()) {
             list.add(SelectedItems(keyword = binding.editSearch.text.toString()))
+            eventViewModel.keywordState.value = binding.editSearch.text.toString()
         }
         if (binding.editLocation.text.toString().isNotBlank()) {
             list.add(SelectedItems(location = binding.editLocation.text.toString(),
-                id = "321B7EBDC8FA4FC3A1A24B32D5490FB4"))
+                id = locationPos(binding.editLocation.text.toString())))
+            eventViewModel.locationState.value = binding.editLocation.text.toString()
+
         }
         if (!startDate.toString().isNullOrEmpty()) {
             list.add(SelectedItems(dateFrom = binding.tvStartDate.text.toString()))
+            eventViewModel.dateFrmState.value = binding.tvStartDate.text.toString()
+
         }
         if (!endDate.toString().isNullOrEmpty()) {
             list.add(SelectedItems(dateTo = endDate))
+            eventViewModel.dateToState.value = endDate
+
         }
         list.add(SelectedItems(type = radioBtnTitle, id = radioBtnID))
-        categoryList.forEach {
+        categorysList.forEach {
             if (it.isSelected)
                 list.add(SelectedItems(category = it.title, id = it.id)
                 )
         }
         return list
     }
+
+    private fun locationPos(text: String? = ""): String {
+        var id: String? = ""
+        val loc = locationList.filter {
+            it.title == text
+        }
+        loc.forEach {
+            id = it.id
+        }
+        return id ?: ""
+    }
+
 }
