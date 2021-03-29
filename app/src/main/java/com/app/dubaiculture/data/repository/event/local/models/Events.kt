@@ -1,6 +1,7 @@
 package com.app.dubaiculture.data.repository.event.local.models
 
 import android.os.Parcelable
+import com.app.dubaiculture.data.repository.attraction.local.models.SocialLink
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventSchedule
 import kotlinx.android.parcel.Parcelize
 
@@ -29,6 +30,7 @@ data class Events(
     var dateTo: String = "",
     var dateFrom: String = "",
     var distance: Double = 0.0,
+    var socialLink: List<SocialLink> ?= emptyList(),
     var eventSchedule: List<EventSchedule>? = emptyList(),
     var relatedEvents: List<Events>? = emptyList()
     ) : Parcelable

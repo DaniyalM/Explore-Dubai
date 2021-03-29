@@ -1,5 +1,6 @@
 package com.app.dubaiculture.data.repository.event.mapper
 
+import com.app.dubaiculture.data.repository.attraction.local.models.SocialLink
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.local.models.Filter
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventSchedule
@@ -223,6 +224,22 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
     longitude = eventDTO.longitude,
     latitude = eventDTO.latitude,
     isFavourite = eventDTO.isFavourite,
+    socialLink = eventDTO.socialLinks?.let {
+        it.map {
+            SocialLink(
+                facebookPageLink = it.facebookPageLink.toString(),
+                facebookIcon = it.facebookIcon.toString(),
+                instagramIcon = it.instagramIcon,
+                instagramPageLink = it.instagramPageLink.toString(),
+                twitterIcon = it.twitterIcon,
+                twitterPageLink = it.twitterPageLink,
+                youtubeIcon = it.youtubeIcon,
+                youtubePageLink = it.youtubePageLink,
+                linkedInIcon = it.linkedInIcon,
+                linkedInPageLink = it.linkedInPageLink
+            )
+        }
+    },
     eventSchedule = eventDTO.eventSchedule.map {
         EventSchedule(
             id = it.id,

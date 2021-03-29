@@ -1,6 +1,7 @@
 package com.app.dubaiculture.data.repository.event.remote.response
 
 import android.os.Parcelable
+import com.app.dubaiculture.data.repository.attraction.remote.response.SocialLinkDTO
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -101,6 +102,9 @@ data class EventsDTO(
     @SerializedName("RelatedEvents")
     @Expose
     var relatedEvents: List<EventsDTO> = emptyList(),
+    @SerializedName("SocialLinks")
+    @Expose
+    var socialLinks: List<SocialLinkDTO>  ?= emptyList()
 
     ) : Parcelable
 

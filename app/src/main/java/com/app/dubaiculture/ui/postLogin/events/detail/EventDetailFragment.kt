@@ -3,6 +3,7 @@ package com.app.dubaiculture.ui.postLogin.events.detail
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -24,6 +25,8 @@ import com.app.dubaiculture.data.repository.event.local.models.schedule.EventSch
 import com.app.dubaiculture.databinding.EventItemsBinding
 import com.app.dubaiculture.databinding.FragmentEventDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.getFacebookPage
+import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
@@ -137,22 +140,19 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             openEmailbox("test@gmail.com")
         }
         binding.root.imgFb.setOnClickListener {
-
+            getFacebookPage(eventObj.socialLink?.get(0)?.facebookPageLink!!,activity)
         }
         binding.root.imgTwitter.setOnClickListener {
-
+            openUrl(eventObj.socialLink?.get(0)?.twitterPageLink,activity)
         }
         binding.root.imgInsta.setOnClickListener {
-
+            openUrl(eventObj.socialLink?.get(0)?.instagramPageLink,activity)
         }
         binding.root.imgUtube.setOnClickListener {
-
+            openUrl(eventObj.socialLink?.get(0)?.youtubePageLink,activity)
         }
-        binding.root.imgUtube.setOnClickListener {
-
-        }
-        binding.root.imgLinkedin.setOnClickListener {
-
+        binding.root.imgLinkedin.setOnClickListener{
+            openUrl(eventObj.socialLink?.get(0)?.linkedInPageLink,activity)
         }
         binding.root.favourite_event.setOnClickListener {
             eventObj.let { event ->
@@ -211,7 +211,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
 //                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
                         binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
-                        binding.root.favourite_event.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        binding.root.favourite_event.background =
+                            getDrawableFromId(R.drawable.heart_icon_fav)
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
 //                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
@@ -457,3 +458,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     }
 }
+
+
+
+
+
+

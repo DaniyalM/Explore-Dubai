@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
@@ -27,6 +28,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
+import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
@@ -60,7 +62,14 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener {
+
     private var url: String? = null
+    private val gpsObserver = Observer<GpsStatus> { status ->
+        status?.let {
+            updateGpsCheckUi(status)
+        }
+    }
+
 
     @Inject
     lateinit var locationHelper: LocationHelper
@@ -68,6 +77,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     @Inject
     lateinit var glide: RequestManager
     private val attractionDetailViewModel: AttractionViewModel by viewModels()
+    private fun subscribeToGpsListener() = attractionDetailViewModel.gpsStatusLiveData
+        .observe(viewLifecycleOwner, gpsObserver)
+
     private var lat: String? = 24.8623.toString()
     private var long: String? = 67.0627.toString()
     private lateinit var attractionsObj: Attractions
@@ -104,18 +116,20 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
         locationPermission()
 
-    
+
         if (!this::contentFlag.isInitialized) {
             rvSetUp()
             callingObservables()
+            subscribeToGpsListener()
             subscribeObservables()
+
         }
-       
+
         uiActions()
         mapSetUp()
         cardViewRTL()
     }
-    
+
 
     private fun initializeDetails(attraction: Attractions) {
 
@@ -138,7 +152,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
             attraction.apply {
                 url = audioLink
-                if (!TextUtils.isEmpty(latitude)&&!TextUtils.isEmpty(latitude)){
+                if (!TextUtils.isEmpty(latitude) && !TextUtils.isEmpty(latitude)) {
                     val distance = locationHelper.distance(lat!!.toDouble(), long!!.toDouble(),
                         latitude!!.toDouble(),
                         longitude!!.toDouble())
@@ -454,4 +468,23 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         textToSpeechEngine.shutdown()
         super.onDestroy()
     }
+
+    private fun updateGpsCheckUi(status: GpsStatus) {
+        when (status) {
+            is GpsStatus.Enabled -> {
+                binding.apply {
+                    //                    tvViewMap.visibility = View.VISIBLE
+//                    rvNearEvent.visibility = View.VISIBLE
+//                    root.cardivewRTL.visibility = View.GONE
+                }
+            }
+            is GpsStatus.Disabled -> {
+                binding.apply {
+
+                }
+            }
+        }
+    }
+
+
 }

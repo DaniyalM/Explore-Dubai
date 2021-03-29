@@ -50,7 +50,7 @@ class EventViewModel @ViewModelInject constructor(
 
     private var categoryList = mutableListOf<Filter>()
 
-    val gpsStatusLiveData = GpsStatusListener(application)
+
     private val _addToFavourite: MutableLiveData<Result<AddToFavouriteResponse>> = MutableLiveData()
     val addToFavourite: LiveData<Result<AddToFavouriteResponse>> = _addToFavourite
     private val _eventCategoryList: MutableLiveData<Result<EventHomeListing>> =

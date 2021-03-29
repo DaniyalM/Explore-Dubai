@@ -15,6 +15,7 @@ import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import com.app.dubaiculture.data.repository.user.local.User
+import com.app.dubaiculture.utils.GpsStatusListener
 import com.app.dubaiculture.utils.event.Event
 import com.app.dubaiculture.utils.event.UiEvent
 import kotlinx.coroutines.launch
@@ -23,6 +24,7 @@ abstract class BaseViewModel(
     application: Application,
     private var baseRespository: BaseRepository? = null,
 ) : AndroidViewModel(application) {
+    val gpsStatusLiveData = GpsStatusListener(application)
     private val _uiEventsLiveData = MutableLiveData<Event<UiEvent>>()
     val uiEvents: LiveData<Event<UiEvent>> = _uiEventsLiveData
 
