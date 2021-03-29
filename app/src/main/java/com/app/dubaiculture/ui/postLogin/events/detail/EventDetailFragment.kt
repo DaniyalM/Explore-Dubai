@@ -10,16 +10,22 @@ import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItems
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItemsSlots
+import com.app.dubaiculture.databinding.EventItemsBinding
 import com.app.dubaiculture.databinding.FragmentEventDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.AppConfigUtils.BASE_URL
@@ -62,6 +68,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     private lateinit var verticalLayoutManager: RecyclerView.LayoutManager
     private lateinit var myAdapter: RecyclerView.Adapter<*>
     val parentItemList = ArrayList<EventScheduleItems>()
+    val moreEvents = ArrayList<Events>()
     val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
 
     @Inject
@@ -203,7 +210,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 tv_category.text = eventObj.category
                 category.text = eventObj.category
                 tv_event_date.text = dateFormat(eventObj.dateFrom)
-                glide.load(BASE_URL + eventObj.image).into(imageView)
+                glide.load(BuildConfig.BASE_URL + eventObj.image).into(imageView)
             }
         }
         binding.root.btn_reg.setOnClickListener(this)
@@ -239,10 +246,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun rvSetUp() {
         binding.root.rv_event_up_coming.apply {
+            isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
         }
         initiateExpander()
+
     }
 
     private fun mapSetUp() {
@@ -360,6 +369,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         eventViewModel.eventDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
+                    it.value.relatedEvents!!.forEach {
+                        moreEvents.add(it)
+                    }
                     binding.root.tv_desc_readmore.text = it.value.desc
                     it.value.eventSchedule!!.map {
                         binding.root.tv_schedule_title.text = it.description
@@ -369,6 +381,34 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         parentItemList.forEach {
                             childItemHolder.add(it.eventScheduleItemsSlots as ArrayList<EventScheduleItemsSlots>)
                         }
+                    }
+
+                    moreEvents.map {
+                        groupAdapter.add(EventListItem<EventItemsBinding>(object :
+                            FavouriteChecker {
+                            override fun checkFavListener(
+                                checkbox: CheckBox,
+                                pos: Int,
+                                isFav: Boolean,
+                                itemId: String,
+                            ) {
+                                favouriteClick(
+                                    checkbox,
+                                    isFav,
+                                    R.id.action_eventDetailFragment2_to_postLoginFragment,
+                                    itemId, eventViewModel
+                                )
+                            }
+                        }, object : RowClickListener {
+                            override fun rowClickListener(position: Int) {
+//                                val eventObj = moreEvents[position]
+//                                val bundle = Bundle()
+//                                bundle.putParcelable(EVENT_OBJECT,
+//                                    eventObj)
+//                                navigate(R.id.action_eventsFragment_to_eventDetailFragment2,
+//                                    bundle)
+                            }
+                        }, event = it, resLayout = R.layout.event_items))
                     }
                 }
                 is Result.Failure -> {

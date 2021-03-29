@@ -88,6 +88,9 @@
         <action
             android:id="@+id/action_eventDetailFragment2_to_postLoginFragment"
             app:destination="@id/postLoginFragment" />
+        <action
+            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment2"
+            app:destination="@id/postLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/threeSixtyFragment"

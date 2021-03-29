@@ -17,7 +17,7 @@ class PreLoginActivity : BaseActivity() {
         setContentView(R.layout.activity_pre_login)
         this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
-    
+
     override fun onResume() {
         super.onResume()
         adjustFontScale(getResources().getConfiguration())
