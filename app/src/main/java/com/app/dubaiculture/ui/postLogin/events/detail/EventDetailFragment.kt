@@ -97,12 +97,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         return FragmentEventDetailBinding.inflate(inflater, container, false)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        arguments?.let {
-            eventObj = it.getParcelable(EVENT_OBJECT)!!
-        }
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -168,6 +162,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun callingObservables() {
         eventViewModel.getEventDetailsToScreen(eventObj.id!!, getCurrentLanguage().language)
+        arguments?.let {
+            eventObj = it.getParcelable(EVENT_OBJECT)!!
+        }
         eventViewModel.eventDetail.observe(viewLifecycleOwner){
             when(it){
                 is Result.Success -> {

@@ -115,9 +115,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             attractionCat = transformBaseToAttractionCategory(attractionCat),
                             rowClickListener = object:RowClickListener{
                                 override fun rowClickListener(position: Int) {
-//                                   fragment?.navigate(R.id.action_exploreFragment_to_attractionsFragment,Bundle().apply {
-//                                       putInt(ATTRACTION_CAT_OBJECT,position)
-//                                   })
+                                   fragment?.navigate(R.id.action_exploreFragment_to_attractionsFragment,Bundle().apply {
+                                       putInt(ATTRACTION_CAT_OBJECT,position)
+                                   })
                                 }
                             },
                             isArabic = isArabic ?: false)
