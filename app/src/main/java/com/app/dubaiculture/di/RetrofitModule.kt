@@ -12,8 +12,8 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,7 +26,7 @@ import javax.inject.Singleton
 
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object RetrofitModule {
     //Network Providers
     @Provides
@@ -38,7 +38,7 @@ object RetrofitModule {
     @Provides
     fun provideHeaderInterceptor(
         @ApplicationContext context: Context,
-        sessionManager: SessionManager
+        sessionManager: SessionManager,
     ) = HeaderInterceptor(context, sessionManager)
 
     @Provides
@@ -48,7 +48,7 @@ object RetrofitModule {
         headerInterceptor: HeaderInterceptor,
         encryptionInterceptor: EncryptionInterceptor,
         decryptionInterceptor: DecryptionInterceptor,
-        tls: TLS
+        tls: TLS,
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
