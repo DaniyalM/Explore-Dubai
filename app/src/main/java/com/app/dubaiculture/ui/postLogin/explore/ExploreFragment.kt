@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,6 +75,24 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         binding.root.img_drawer.setOnClickListener {
             navigate(R.id.action_exploreFragment_to_exploreMapFragment)
         }
+
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    showAlert(
+                        message = getString(R.string.error_msg),
+                        textPositive = getString(R.string.okay),
+                        textNegative = getString(R.string.cancel),
+                        actionNegative = {
+                            
+                        },
+                        actionPositive = {
+                            activity.finish()
+                        }
+                    )
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
     }
 

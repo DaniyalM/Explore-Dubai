@@ -367,6 +367,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/view_site_map" />
 
                 <ImageView
+                    android:id="@+id/arrow_site_map"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/arrow_attraction"
@@ -413,6 +414,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/ibeacons" />
 
                 <ImageView
+                    android:id="@+id/arrow_ibecons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/arrow_attraction"
@@ -622,7 +624,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_18sdp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:text="@string/what_s_happenings_at_majlis_ghorfat"
                     android:textColor="@color/black_200"
                     android:textSize="@dimen/_18ssp"

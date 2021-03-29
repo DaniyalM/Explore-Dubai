@@ -44,8 +44,14 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
+import kotlinx.android.synthetic.main.event_search_toolbar.view.*
+import kotlinx.android.synthetic.main.fragment_attraction_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
+import kotlinx.android.synthetic.main.toolbar_layout_detail.view.back
+import kotlinx.android.synthetic.main.toolbar_layout_detail.view.bookingCalender
+import kotlinx.android.synthetic.main.toolbar_layout_detail.view.favourite
+import kotlinx.android.synthetic.main.toolbar_layout_detail.view.share
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -89,6 +95,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
+        backArrowRTL(binding.root.back)
+        backArrowRTL(binding.root.img_back)
+        arrowRTL(binding.root.arrow_ibecons)
+        arrowRTL(binding.root.arrow_site_map)
+
+
+
         locationPermission()
 
     

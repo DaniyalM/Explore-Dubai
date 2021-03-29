@@ -39,7 +39,6 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                        android:id="@+id/type_free"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_14sdp"
@@ -57,15 +56,15 @@
                     android:id="@+id/img_upcoming_bg"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:imageViewUrl="@{events.image}"
                     android:scaleType="fitXY"
                     app:cornerRadius="@dimen/_15sdp"
-                    android:background="@drawable/gallery"
-                    android:imageUrl="@{events.image}"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:roundedCorners="topRight|topLeft" />
+
 
                 <CheckBox
                     android:id="@+id/favourite"
@@ -84,7 +83,6 @@
                     app:layout_constraintTop_toTopOf="@+id/card_view_title" />
 
 
-
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
                     android:layout_width="wrap_content"
@@ -99,10 +97,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
+                    android:text="@{events.fromDate}"
                     android:textColor="@color/purple_900"
                     android:textSize="@dimen/_18ssp"
                     android:textStyle="bold"
-                    android:text="@{events.fromDate}"
                     app:layout_constraintEnd_toStartOf="@+id/lines"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/guideline"
@@ -113,11 +111,11 @@
                     android:id="@+id/tv_start_month_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{events.fromMonthYear}"
                     android:layout_marginStart="@dimen/_2sdp"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/_9ssp"
                     android:textStyle="bold"
-                    android:text="@{events.fromMonthYear}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_start_date_event"
                     app:layout_constraintEnd_toEndOf="@+id/tv_start_date_event"
                     app:layout_constraintStart_toStartOf="@+id/tv_start_date_event"
@@ -131,33 +129,32 @@
                     android:id="@+id/tv_end_date_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_7sdp"
                     android:text="@{events.toDate}"
                     android:textColor="@color/purple_900"
                     android:textSize="@dimen/_18ssp"
                     android:textStyle="bold"
+                    android:layout_marginBottom="@dimen/_7sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_end_month_event"
                     app:layout_constraintEnd_toEndOf="@+id/tv_end_month_event"
+                    app:layout_constraintStart_toStartOf="@+id/tv_end_month_event"
                     app:textFont="bold" />
                 <!--            android:text="@{events.toMonthYear}"-->
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_end_month_event"
                     android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:lineSpacingExtra="-0.1dp"
+                    android:text="@{events.toMonthYear}"
+                    android:layout_marginStart="@dimen/_2sdp"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/_9ssp"
                     android:textStyle="bold"
-                    android:text="@{events.toMonthYear}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/lines"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_end_date_event"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_end_date_event"
                     app:textFont="bold" />
 
                 <androidx.constraintlayout.widget.Guideline
@@ -184,10 +181,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_3sdp"
+                    android:text="@{events.category}"
                     android:textAlignment="viewStart"
                     android:textColor="@color/purple_900"
-                    android:text="@{events.category}"
-
                     android:textSize="@dimen/_10ssp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/lines"
@@ -203,8 +199,8 @@
                     android:layout_marginEnd="10dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@{events.title}"
                     android:textAlignment="viewStart"
+                    android:text="@{events.title}"
                     android:textColor="@color/black_200"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintBottom_toTopOf="@+id/tv_location"
@@ -222,7 +218,6 @@
                     android:drawablePadding="@dimen/_7ssp"
                     android:ellipsize="end"
                     android:text="@{events.locationTitle}"
-
                     android:textColor="@color/gray_600"
                     android:textSize="@dimen/_9ssp"
                     android:layout_marginBottom="@dimen/_3sdp"

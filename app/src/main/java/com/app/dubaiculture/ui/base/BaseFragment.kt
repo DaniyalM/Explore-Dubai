@@ -209,6 +209,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         title: String = Constants.Alert.DEFAULT_TITLE,
         textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
         textNegative: String? = null,
+        actionNegative: (() -> Unit)? = null,
         actionPositive: (() -> Unit)? = null,
     ) {
         EventUtilFunctions.showAlert(
@@ -245,6 +246,17 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
             else -> {
                 img.rotation = 90f
+            }
+        }
+    }
+
+    fun arrowRTL(img: ImageView) {
+        when {
+            isArabic() -> {
+                img.rotation = -180f
+            }
+            else -> {
+                img.rotation = 180f
             }
         }
     }
