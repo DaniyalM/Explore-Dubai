@@ -466,7 +466,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
             }
             R.id.downOne360 -> {
-                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
+//                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
+                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment,
+                    Bundle().apply {
+                        attractionsObj?.gallery?.let {
+                            putParcelableArrayList(ATTRACTION_GALLERY_LIST,
+                                it as ArrayList<out Parcelable>)
+                        }
+
+                    })
 
             }
             R.id.downOneGallery -> {
