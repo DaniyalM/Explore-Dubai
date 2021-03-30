@@ -3,6 +3,7 @@ package com.app.dubaiculture.ui.postLogin.attractions.detail
 import android.Manifest
 import android.content.Context
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.Parcelable
 import android.speech.tts.TextToSpeech
@@ -32,6 +33,9 @@ import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -46,18 +50,18 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.event_search_toolbar.view.*
+import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.tv_desc_readmore
+import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.tv_km
+import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.tv_times
 import kotlinx.android.synthetic.main.fragment_attraction_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.back
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.bookingCalender
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.favourite
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.share
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
@@ -69,6 +73,14 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             updateGpsCheckUi(status)
         }
     }
+    @Inject
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    @Inject
+    lateinit var locationManager: LocationManager
+
+    @Inject
+    lateinit var locationRequest: LocationRequest
 
 
     @Inject
@@ -76,6 +88,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     @Inject
     lateinit var glide: RequestManager
+
+
     private val attractionDetailViewModel: AttractionViewModel by viewModels()
     private fun subscribeToGpsListener() = attractionDetailViewModel.gpsStatusLiveData
         .observe(viewLifecycleOwner, gpsObserver)
@@ -89,6 +103,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             if (status == TextToSpeech.SUCCESS) {
                 textToSpeechEngine.language = Locale(getCurrentLanguage().language)
             }
+        }
+    }
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            locationIsEmpty(locationResult.lastLocation)
         }
     }
 
@@ -362,14 +381,27 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         Timber.e("Current Location ${location.latitude}")
                         lat = location.latitude.toString()
                         long = location.longitude.toString()
+
+                        if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
+                                attractionsObj.latitude)
+                        ) {
+                            val distance =
+                                locationHelper.distance(lat!!.toDouble(), long!!.toDouble(),
+                                    attractionsObj.latitude!!.toDouble(),
+                                    attractionsObj.longitude!!.toDouble())
+                            binding.root.tv_km.text = "$distance Km Away"
+                        }
+
                     }
                 },
-                object : LocationHelper.LocationCallBack {
-                    override fun getLocationResultCallback(locationResult: LocationResult?) {
-                        Timber.e("LocationResult ${locationResult!!.lastLocation.latitude}")
-                    }
+//                object : LocationHelper.LocationCallBack {
+//                    override fun getLocationResultCallback(locationResult: LocationResult?) {
+//                        Timber.e("LocationResult ${locationResult!!.lastLocation.latitude}")
+//                    }
+//
+//                },
 
-                }, activity)
+                activity, locationCallback = locationCallback)
         }
     }
 
@@ -472,19 +504,26 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun updateGpsCheckUi(status: GpsStatus) {
         when (status) {
             is GpsStatus.Enabled -> {
-                binding.apply {
-                    //                    tvViewMap.visibility = View.VISIBLE
-//                    rvNearEvent.visibility = View.VISIBLE
-//                    root.cardivewRTL.visibility = View.GONE
-                }
+
+                locationPermission()
+
+
             }
             is GpsStatus.Disabled -> {
-                binding.apply {
-
-                }
+                attractionDetailViewModel.showErrorDialog(message = "Please enable Location")
             }
         }
     }
 
-
+    private fun locationIsEmpty(location:Location){
+        if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
+                attractionsObj.latitude)
+        ) {
+            val distance =
+                locationHelper.distance(lat!!.toDouble(), long!!.toDouble(),
+                    attractionsObj.latitude!!.toDouble(),
+                    attractionsObj.longitude!!.toDouble())
+            binding.root.tv_km.text = "$distance Km Away"
+        }
+    }
 }

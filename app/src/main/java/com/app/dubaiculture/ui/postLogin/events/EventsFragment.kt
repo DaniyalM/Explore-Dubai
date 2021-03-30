@@ -31,6 +31,7 @@ import com.app.dubaiculture.utils.location.LocationHelper
 import com.app.neomads.utils.location.LocationUtils.enableLocationFromSettings
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.material.shape.CornerFamily
@@ -75,7 +76,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             updateGpsCheckUI(status)
         }
     }
-
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+        }
+    }
     companion object {
         val nearEventList = ArrayList<Events>()
     }
@@ -194,12 +198,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                         Timber.e("Current Location ${location.latitude}")
                     }
                 },
-                object : LocationHelper.LocationCallBack {
-                    override fun getLocationResultCallback(locationResult: LocationResult?) {
-                        Timber.e("LocationResult ${locationResult!!.lastLocation.latitude}")
-                    }
-
-                }, activity)
+              activity,locationCallback)
         }
     }
 

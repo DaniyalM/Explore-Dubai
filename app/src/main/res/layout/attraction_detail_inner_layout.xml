@@ -634,7 +634,7 @@
                     android:layout_marginTop="@dimen/_18sdp"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:text="@string/what_s_happenings_at_majlis_ghorfat"
+                    android:text="@{attraction.title}"
                     android:textColor="@color/black_200"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintStart_toStartOf="parent"

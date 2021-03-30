@@ -24,7 +24,7 @@ open class LocationHelper @Inject constructor(
 
 
 
-    fun newLocationData(activity: Context) {
+    fun newLocationData(activity: Context,locationCallback: LocationCallback) {
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 0
         locationRequest.fastestInterval = 0
@@ -43,19 +43,19 @@ open class LocationHelper @Inject constructor(
 
     fun locationSetUp(
         iface: LocationLatLng,
-        locationCallback: LocationCallBack,
-        activity: Context
+        activity: Context,
+        locationCallback: LocationCallback
     ) {
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
             val location: Location? = task.result
             if (location == null) {
-                object : LocationCallback() {
-                    override fun onLocationResult(p0: LocationResult?) {
-                        super.onLocationResult(p0)
-                        locationCallback.getLocationResultCallback(p0)
-                    }
-                }
-                newLocationData(activity)
+                newLocationData(activity,locationCallback)
+//                object : LocationCallback() {
+//                    override fun onLocationResult(p0: LocationResult?) {
+//                        super.onLocationResult(p0)
+//                        locationCallback.getLocationResultCallback(p0)
+//                    }
+//                }
             } else {
                 iface.getCurrentLocation(location)
             }

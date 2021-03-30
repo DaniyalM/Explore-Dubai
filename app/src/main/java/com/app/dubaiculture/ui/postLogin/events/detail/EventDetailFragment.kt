@@ -3,7 +3,6 @@ package com.app.dubaiculture.ui.postLogin.events.detail
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -14,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.BuildConfig
@@ -34,11 +34,13 @@ import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAda
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
+import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.dateFormat
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -51,7 +53,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
-import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
@@ -74,6 +75,13 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     val moreEvents = ArrayList<Events>()
     val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
 
+        private val getObserver = Observer<GpsStatus>{
+            it?.let {
+                updateGpsCheckUi(it)
+            }
+        }
+    private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
+        .observe(viewLifecycleOwner, getObserver)
     @Inject
     lateinit var glide: RequestManager
 
@@ -90,12 +98,16 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     lateinit var locationHelper: LocationHelper
 
     var loc = Location("dummyprovider")
-    lateinit var scheduleAdapter: GroupAdapter<GroupieViewHolder>
+
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            locationIsEmpty(locationResult.lastLocation)
+        }
+    }
+
     private var eventObj = Events()
     private val textToSpeechEngine: TextToSpeech by lazy {
-        // Pass in context and the listener.
         TextToSpeech(requireContext()) { status ->
-            // set our locale only if init was success.
             if (status == TextToSpeech.SUCCESS) {
                 textToSpeechEngine.language = Locale(getCurrentLanguage().language)
             }
@@ -125,6 +137,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         mapSetUp()
         uiActions()
         rvSetUp()
+        subscribeToGpsListener()
 
         binding.root.btn_register_now.setOnClickListener {
 
@@ -378,13 +391,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 eventObj.longitude!!.toDouble())
                                 .toString() + resources.getString(R.string.away)
                     }
-                },
-                object : LocationHelper.LocationCallBack {
-                    override fun getLocationResultCallback(locationResult: LocationResult?) {
-                        Timber.e("LocationResult ${locationResult!!.lastLocation.latitude}")
-                    }
-
-                }, activity)
+                },activity,locationCallback)
         }
     }
 
@@ -456,6 +463,30 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
         }
 
+    }
+
+    private fun updateGpsCheckUi(status: GpsStatus) {
+        when (status) {
+            is GpsStatus.Enabled -> {
+                locationPermission()
+
+
+            }
+            is GpsStatus.Disabled -> {
+
+                eventViewModel.showErrorDialog(message = "Please enable Location")
+            }
+        }
+    }
+    private fun locationIsEmpty(location:Location){
+        if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty()) {
+            binding.root.tv_km.text =
+                locationHelper.distance(location.latitude,
+                location.longitude,
+                eventObj.latitude!!.toDouble(),
+                eventObj.longitude!!.toDouble())
+                .toString() + resources.getString(R.string.away)
+        }
     }
 }
 
