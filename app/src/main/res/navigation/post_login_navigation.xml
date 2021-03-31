@@ -268,7 +268,7 @@
     </dialog>
     <fragment
         android:id="@+id/exploreMapFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.explore.ExploreMapFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.explore.map.ExploreMapFragment"
         android:label="ExploreMapFragment" />
 
 

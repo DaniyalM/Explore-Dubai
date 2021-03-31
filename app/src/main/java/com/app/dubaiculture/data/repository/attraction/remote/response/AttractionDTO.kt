@@ -31,10 +31,10 @@ class AttractionDTO {
     var location: String? = null
     @SerializedName("Latitude")
     @Expose
-    var latitude: String? = null
+    var latitude: String?= "24.83250180519734"
     @SerializedName("Longitude")
     @Expose
-    var longitude: String? = null
+    var longitude: String? = "67.08119661055807"
 
     @SerializedName("PortraitImage")
     @Expose

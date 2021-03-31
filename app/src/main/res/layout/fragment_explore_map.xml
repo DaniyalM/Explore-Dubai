@@ -6,7 +6,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.postLogin.explore.ExploreMapFragment">
+    tools:context=".ui.postLogin.explore.map.ExploreMapFragment">
 
     <fragment
         android:layout_width="match_parent"
@@ -50,7 +50,6 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvExploreMap"
-        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/header"
         app:layout_constraintVertical_bias="0.8"
         tools:itemCount="1"
-        tools:listitem="@layout/event_near_items" />
+        tools:listitem="@layout/explore_near_items" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

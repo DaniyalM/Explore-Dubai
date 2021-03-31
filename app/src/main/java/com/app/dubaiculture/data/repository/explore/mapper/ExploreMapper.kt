@@ -43,6 +43,7 @@ fun transformationAttractionCategories(list: ArrayList<AttractionCategoryDTO>): 
         AttractionCategory(
             id = it.id,
             icon = it.icon,
+            selectedSvg = it.selectedSvg,
             title = it.title,
             color = it.color,
             attractions = it.attractions.let {
@@ -53,6 +54,8 @@ fun transformationAttractionCategories(list: ArrayList<AttractionCategoryDTO>): 
                         category = attraction.category,
                         locationTitle = attraction.locationTitle,
                         location = attraction.location,
+                        latitude = attraction.latitude ?:"24.83250180519734",
+                        longitude = attraction.longitude ?:"67.08119661055807",
                         portraitImage = attraction.portraitImage,
                         landscapeImage = attraction.landscapeImage,
                         description = attraction.description,
@@ -74,10 +77,8 @@ fun transformEvents(exploreResponse: ExploreResponse): ArrayList<Events> =
         transformationEvents(this)
     }
 
-fun transformationEvents(eventsDTOList: ArrayList<EventsDTO>): ArrayList<Events> {
-    val eventList = ArrayList<Events>()
-    eventsDTOList.run {
-        eventList.map {
+fun transformationEvents(eventsDTOList: ArrayList<EventsDTO>): ArrayList<Events> =
+    eventsDTOList.map {
             Events(
                 id = it.id,
                 title = it.title,
@@ -101,12 +102,8 @@ fun transformationEvents(eventsDTOList: ArrayList<EventsDTO>): ArrayList<Events>
                 latitude = it.latitude,
                 isFavourite = it.isFavourite,
             )
-        }
-    }
-
-    return eventList
+        } as ArrayList<Events>
 
 
-}
 
 

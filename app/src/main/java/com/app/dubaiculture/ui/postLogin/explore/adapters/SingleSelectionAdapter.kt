@@ -5,9 +5,11 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
+import com.app.dubaiculture.utils.glideInstance
 import com.app.dubaiculture.utils.setTextColorRes
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
 import java.util.*
@@ -34,9 +36,13 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
         RecyclerView.ViewHolder(itemView) {
         fun bind(attractions: AttractionCategory) {
 
+
+                itemView.imgInnerIcon.glideInstance(attractions.icon,true)
+
             if (checkedPosition == -1) {
 //                imageView.visibility = View.GONE
                 // un selected
+
                 itemView.tv_title.setTextColorRes(R.color.black_200)
                 itemView.cardview.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
             } else {
@@ -55,7 +61,7 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
             itemView.tv_title.text = attractions.title
             itemView.setOnClickListener(View.OnClickListener {
                 // un selected
-                iface.getRowClick(title = itemView.tv_title.text.toString())
+                iface.getRowClick(absoluteAdapterPosition)
                 itemView.tv_title.setTextColorRes(R.color.white_900)
                 itemView.cardview.setCardBackgroundColor(Color.parseColor("#5E2E82"))
                 if (checkedPosition != adapterPosition) {
@@ -70,6 +76,7 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
 
     override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
         holder.bind(attractions[position])
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
@@ -81,6 +88,6 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
     override fun getItemCount() = attractions.size
 
 interface InvokeListener{
-    fun getRowClick(title:String)
+    fun getRowClick(position:Int= 0)
 }
 }

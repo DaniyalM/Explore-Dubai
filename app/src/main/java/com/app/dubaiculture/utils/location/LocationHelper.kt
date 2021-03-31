@@ -80,12 +80,12 @@ open class LocationHelper @Inject constructor(
 
     //     24.877287306864435, 67.06273232147993
 //     24.91420473643946, 67.18402864665703
-    open fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
-        val theta = lon1 - lon2
+    open fun distance(lat1: Double, lon1: Double, lat2: Double? =24.83250180519734, lon2: Double ?=67.08119661055807): Double {
+        val theta = lon1 - (lon2?:67.08119661055807)
         var dist = (sin(deg2rad(lat1))
-                * sin(deg2rad(lat2))
+                * sin(deg2rad(lat2?:24.83250180519734))
                 + (cos(deg2rad(lat1))
-                * cos(deg2rad(lat2))
+                * cos(deg2rad(lat2?:24.83250180519734))
                 * cos(deg2rad(theta))))
         dist = acos(dist)
         dist = rad2deg(dist)

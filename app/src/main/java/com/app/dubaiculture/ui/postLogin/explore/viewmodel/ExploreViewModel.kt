@@ -26,13 +26,11 @@ class ExploreViewModel @ViewModelInject constructor(
     val exploreList: LiveData<Result<List<Explore>>> = _exploreList
 
 
-    private val _exploreAttractionsEvents: MutableLiveData<Result<AttractionsEvents>> = MutableLiveData()
-    val exploreAttractionsEvents: LiveData<Result<AttractionsEvents>> = _exploreAttractionsEvents
+
 
     init {
-//        getExploreToScreen(context.auth.locale.toString())
+        getExploreToScreen(context.auth.locale.toString())
     }
-
     fun getExploreToScreen(locale: String) {
         showLoader(true)
         viewModelScope.launch {
@@ -52,29 +50,6 @@ class ExploreViewModel @ViewModelInject constructor(
 
     }
 
-    fun getExploreMap(locale : String){
-        showLoader(true)
-        viewModelScope.launch {
-            when(val result = exploreRepository.getExploreMap(ExploreRequest(culture = locale))){
-                is Result.Success ->{
-                    showLoader(false)
-                    result.value.attractionCategory
-                    result.value.events
-
-                    _exploreAttractionsEvents.value = result
-                }
-                is Result.Failure ->{
-                    showLoader(false)
-
-
-                }
-                is Result.Error ->{
-                    showLoader(false)
-                }
-            }
-        }
-        showLoader(false)
-    }
 
 
 }
