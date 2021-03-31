@@ -43,7 +43,7 @@ class ExploreRepository @Inject constructor(
 
     suspend fun getExploreMap(exploreRequest: ExploreRequest):Result<AttractionsEvents>{
         return when (val resultRDS =
-            exploreRDS.getExplore(transformExploreRequest(exploreRequest))) {
+            exploreRDS.getExploreMap(transformExploreRequest(exploreRequest))) {
             is Result.Success -> {
                 val listRDS = resultRDS
                 if (listRDS.value.statusCode != 200) {

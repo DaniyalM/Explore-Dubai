@@ -12,15 +12,15 @@ class AttractionDTO {
 
     @SerializedName("ID")
     @Expose
-    var id: String? = ""
+    var id: String = ""
 
     @SerializedName("Category")
     @Expose
-    var category: String? = ""
+    var category: String = ""
 
     @SerializedName("Title")
     @Expose
-    var title: String? = ""
+    var title: String = ""
 
     @SerializedName("LocationTitle")
     @Expose
