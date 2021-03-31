@@ -325,7 +325,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         requireActivity().startActivity(Intent.createChooser(intent, ""))
     }
 
-    fun openDiallerBox(number: String) {
+    fun openDiallerBox(number: String?=null) {
         val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
         requireActivity().startActivity(intent)
     }

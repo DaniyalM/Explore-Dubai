@@ -146,7 +146,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
         }
         binding.root.ll_callus.setOnClickListener {
-            openDiallerBox("123123123")
+            openDiallerBox(eventObj.dateFrom)
 
         }
         binding.root.ll_email_us.setOnClickListener {

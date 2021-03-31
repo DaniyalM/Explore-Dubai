@@ -481,10 +481,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
             }
             R.id.ll_call_us -> {
-                openDiallerBox("123123123")
+                openDiallerBox(attractionsObj.number.toString().ifEmpty { "123123123" })
             }
             R.id.ll_emailus -> {
-                openEmailbox("test@gmail.com")
+                openEmailbox(attractionsObj.email.toString().ifEmpty { "test@gmail.com" })
 
             }
 
