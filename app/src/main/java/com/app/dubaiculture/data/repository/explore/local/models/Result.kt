@@ -14,7 +14,12 @@ data class Result(
     @Expose
     var value: List<ExploreDTO>,
 
-//    @SerializedName("Events")
-//    @Expose
-//    var events: ArrayList<EventsDTO>,
+
+
+    @SerializedName("AttractionCategories")
+    @Expose
+    var attractionsCategories: ArrayList<AttractionCategoryDTO>?=null,
+    @SerializedName("Events")
+    @Expose
+    var events: ArrayList<EventsDTO>?=null,
 )

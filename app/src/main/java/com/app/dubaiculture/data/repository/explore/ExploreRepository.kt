@@ -2,7 +2,10 @@ package com.app.dubaiculture.data.repository.explore
 
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
+import com.app.dubaiculture.data.repository.explore.local.models.AttractionsEvents
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
+import com.app.dubaiculture.data.repository.explore.mapper.transformAttractionCategories
+import com.app.dubaiculture.data.repository.explore.mapper.transformEvents
 import com.app.dubaiculture.data.repository.explore.mapper.transformExplore
 import com.app.dubaiculture.data.repository.explore.mapper.transformExploreRequest
 import com.app.dubaiculture.data.repository.explore.remote.ExploreRDS
@@ -35,5 +38,26 @@ class ExploreRepository @Inject constructor(
         }
 
 
+    }
+
+
+    suspend fun getExploreMap(exploreRequest: ExploreRequest):Result<AttractionsEvents>{
+        return when (val resultRDS =
+            exploreRDS.getExplore(transformExploreRequest(exploreRequest))) {
+            is Result.Success -> {
+                val listRDS = resultRDS
+                if (listRDS.value.statusCode != 200) {
+                    Result.Failure(true,listRDS.value.statusCode,null)
+                }else{
+                    val listRDS  = AttractionsEvents( attractionCategory =   transformAttractionCategories(listRDS.value),
+                                events = transformEvents(listRDS.value))
+                    Result.Success(listRDS)
+                }
+
+            }
+            is Result.Error -> resultRDS
+            is Result.Failure -> resultRDS
+
+        }
     }
 }

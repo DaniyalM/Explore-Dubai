@@ -55,6 +55,7 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
             itemView.tv_title.text = attractions.title
             itemView.setOnClickListener(View.OnClickListener {
                 // un selected
+                iface.getRowClick(title = itemView.tv_title.text.toString())
                 itemView.tv_title.setTextColorRes(R.color.white_900)
                 itemView.cardview.setCardBackgroundColor(Color.parseColor("#5E2E82"))
                 if (checkedPosition != adapterPosition) {
@@ -69,7 +70,6 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
 
     override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
         holder.bind(attractions[position])
-        iface.getRowPosition(position = position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
@@ -81,6 +81,6 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
     override fun getItemCount() = attractions.size
 
 interface InvokeListener{
-    fun getRowPosition(position:Int)
+    fun getRowClick(title:String)
 }
 }

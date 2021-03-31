@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.explore.ExploreRepository
+import com.app.dubaiculture.data.repository.explore.local.models.AttractionsEvents
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
@@ -23,8 +25,12 @@ class ExploreViewModel @ViewModelInject constructor(
     private val _exploreList: MutableLiveData<Result<List<Explore>>> = MutableLiveData()
     val exploreList: LiveData<Result<List<Explore>>> = _exploreList
 
+
+    private val _exploreAttractionsEvents: MutableLiveData<Result<AttractionsEvents>> = MutableLiveData()
+    val exploreAttractionsEvents: LiveData<Result<AttractionsEvents>> = _exploreAttractionsEvents
+
     init {
-        getExploreToScreen(context.auth.locale.toString())
+//        getExploreToScreen(context.auth.locale.toString())
     }
 
     fun getExploreToScreen(locale: String) {
@@ -44,6 +50,30 @@ class ExploreViewModel @ViewModelInject constructor(
             showLoader(false)
         }
 
+    }
+
+    fun getExploreMap(locale : String){
+        showLoader(true)
+        viewModelScope.launch {
+            when(val result = exploreRepository.getExploreMap(ExploreRequest(culture = locale))){
+                is Result.Success ->{
+                    showLoader(false)
+                    result.value.attractionCategory
+                    result.value.events
+
+                    _exploreAttractionsEvents.value = result
+                }
+                is Result.Failure ->{
+                    showLoader(false)
+
+
+                }
+                is Result.Error ->{
+                    showLoader(false)
+                }
+            }
+        }
+        showLoader(false)
     }
 
 
