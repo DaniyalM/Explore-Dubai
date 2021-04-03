@@ -19,12 +19,11 @@ import kotlin.math.sin
 @SuppressLint("MissingPermission")
 open class LocationHelper @Inject constructor(
     val fusedLocationProviderClient: FusedLocationProviderClient,
-    val locationRequest: LocationRequest
+    val locationRequest: LocationRequest,
 ) {
 
 
-
-    fun newLocationData(activity: Context,locationCallback: LocationCallback) {
+    fun newLocationData(activity: Context, locationCallback: LocationCallback) {
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 0
         locationRequest.fastestInterval = 0
@@ -44,12 +43,12 @@ open class LocationHelper @Inject constructor(
     fun locationSetUp(
         iface: LocationLatLng,
         activity: Context,
-        locationCallback: LocationCallback
+        locationCallback: LocationCallback,
     ) {
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
             val location: Location? = task.result
             if (location == null) {
-                newLocationData(activity,locationCallback)
+                newLocationData(activity, locationCallback)
 //                object : LocationCallback() {
 //                    override fun onLocationResult(p0: LocationResult?) {
 //                        super.onLocationResult(p0)
@@ -80,12 +79,17 @@ open class LocationHelper @Inject constructor(
 
     //     24.877287306864435, 67.06273232147993
 //     24.91420473643946, 67.18402864665703
-    open fun distance(lat1: Double, lon1: Double, lat2: Double? =24.83250180519734, lon2: Double ?=67.08119661055807): Double {
-        val theta = lon1 - (lon2?:67.08119661055807)
+    open fun distance(
+        lat1: Double,
+        lon1: Double,
+        lat2: Double? = 24.83250180519734,
+        lon2: Double? = 67.08119661055807,
+    ): Double {
+        val theta = lon1 - (lon2 ?: 67.08119661055807)
         var dist = (sin(deg2rad(lat1))
-                * sin(deg2rad(lat2?:24.83250180519734))
+                * sin(deg2rad(lat2 ?: 24.83250180519734))
                 + (cos(deg2rad(lat1))
-                * cos(deg2rad(lat2?:24.83250180519734))
+                * cos(deg2rad(lat2 ?: 24.83250180519734))
                 * cos(deg2rad(theta))))
         dist = acos(dist)
         dist = rad2deg(dist)
@@ -102,10 +106,18 @@ open class LocationHelper @Inject constructor(
     }
 
 
-    open fun milesToKm(dist : Double): Double{
-        val km = dist / 0.62137
-        return String.format("%.1f", km).toDouble()
+    open fun milesToKm(dist: Double): Double {
+        return try {
+            val km = dist / 0.62137
+            String.format("%.1f", km).toDouble()
+        } catch (nfe: NumberFormatException) {
+            0.0
+        }
+
+
     }
+
+
 }
 
 
