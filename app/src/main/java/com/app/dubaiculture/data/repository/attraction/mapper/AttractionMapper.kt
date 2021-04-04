@@ -1,9 +1,6 @@
 package com.app.dubaiculture.data.repository.attraction.mapper
 
-import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
-import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
-import com.app.dubaiculture.data.repository.attraction.local.models.SocialLink
+import com.app.dubaiculture.data.repository.attraction.local.models.*
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequestDTO
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequestDTO
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
@@ -121,6 +118,19 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
                 instagramPageLink = it.instagramPageLink.toString()
             )
         }
+    },
+    asset360 = attraction.asset360?.let {
+        Assets360(
+            image = it.image,
+            imageItems = it.imageItems?.map {
+                ThreeSixtyImageItem(
+                    xAxis = it.xAxis,
+                    yAxis = it.yAxis,
+                    title = it.title,
+                    image = it.image
+                )
+            }
+        )
     }
 
 )
@@ -135,9 +145,9 @@ fun transformAttractions(list: List<AttractionDTO>): List<Attractions> =
     list.run {
         this.map {
             Attractions(
-                id = it.id!!,
-                title = it.title!!,
-                category = it.category!!,
+                id = it.id,
+                title = it.title,
+                category = it.category,
                 IsFavourite = it.isFavourite,
                 locationTitle = it.locationTitle,
                 location = it.location,

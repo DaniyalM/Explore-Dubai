@@ -26,7 +26,8 @@ data class Attractions(
     var endDay: String? = "",
     var startDay: String? = "",
     var color: String? = "",
-    var events: List<Events> ?= null,
-    var gallery: List<Gallery> ?= null,
-    var socialLink: List<SocialLink> ?= null,
+    var events: List<Events>? = null,
+    var gallery: List<Gallery>? = null,
+    var socialLink: List<SocialLink>? = null,
+    var asset360: Assets360? = null,
 ) : Parcelable
