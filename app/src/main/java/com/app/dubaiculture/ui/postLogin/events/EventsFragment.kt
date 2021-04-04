@@ -283,7 +283,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
                             }, event = it, resLayout = R.layout.event_items))
                         }
-                        sortNearEvent(it.value.events!!)
+//                        sortNearEvent(it.value.events!!)
 
                         sortNearEvent(eventViewModel.getNearEvents(it.value.events!!)).forEach {
                             mAdapterNear.add(EventListItem<EventItemsBinding>(
