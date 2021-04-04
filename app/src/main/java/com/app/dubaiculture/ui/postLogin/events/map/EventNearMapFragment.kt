@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,25 +70,45 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
         }
     }
     override fun onMapReady(map: GoogleMap?) {
-        val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
-        map!!.addMarker(MarkerOptions()
-            .position(trafficDigitalLatLng)
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.radius_pin_map)))
-            .title = "Traffic Digital"
-        map.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                trafficDigitalLatLng, 12.0f
-            )
-        )
-        map.cameraPosition.target
+        currentLocation(map)
+        setupMap(map!!)
         pinsOnMap(EventsFragment.nearEventList, map)
     }
     private fun pinsOnMap(list: List<Events>, map: GoogleMap) {
         list.forEach {
-            val locationObj = LatLng(it.latitude!!.toDouble(), it.longitude!!.toDouble())
-            map.addMarker(MarkerOptions().position(locationObj)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_map))
-                .title(it.title))
+            val locationObj = LatLng(it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(), it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble())
+            if(it.distance!! <= 6.0)
+                map.addMarker(MarkerOptions().position(locationObj)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_within_distance_calendar))
+                    .title(it.title))
+            else
+                map.addMarker(MarkerOptions().position(locationObj)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_calendar_away))
+                    .title(it.title))
         }
+    }
+    private fun setupMap(googleMap: GoogleMap?) {
+        googleMap?.addCircle(
+            CircleOptions()
+                .center(LatLng(24.8623, 67.0627))
+                .radius(5000.0)
+                .strokeWidth(1f)
+                .strokeColor(ContextCompat.getColor(requireContext(), R.color.map_radius_color))
+                .fillColor(0x220000FF)
+//                .fillColor(ContextCompat.getColor(requireContext(), R.color.map_radius_color))
+        )
+    }
+    private fun currentLocation(googleMap: GoogleMap?){
+        val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
+        googleMap!!.addMarker(MarkerOptions()
+            .position(trafficDigitalLatLng)
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_current)))
+            .title = "Traffic Digital"
+        googleMap!!.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                trafficDigitalLatLng, 12.0f
+            )
+        )
+        googleMap.cameraPosition.target
     }
 }

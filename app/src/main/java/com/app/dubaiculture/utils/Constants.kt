@@ -49,8 +49,17 @@ object Constants {
         const val TERMS_CONDITIONS: String = "https://uat.weareneomads.com/terms-of-use"
     }
     object StaticLatLng{
-        const val LAT =  24.91420473643946
-        const val LNG = 67.18402864665703
+        const val LAT =  24.8623
+        const val LNG =  67.0627
+    }
+
+    object Categories{
+        const val MUSEUMS = "Museums"
+        const val HERITAGE_SITES = "Heritage Sites"
+        const val ART_GALLERY = "Art Galleries"
+        const val FESTIVALS = "Festivals"
+        const val LIBRARIES = "Libraries"
+
     }
 
 }

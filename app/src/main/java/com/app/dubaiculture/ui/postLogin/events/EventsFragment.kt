@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -43,6 +44,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_events.view.*
 import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -80,6 +82,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         override fun onLocationResult(locationResult: LocationResult) {
         }
     }
+
     companion object {
         val nearEventList = ArrayList<Events>()
     }
@@ -198,7 +201,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                         Timber.e("Current Location ${location.latitude}")
                     }
                 },
-              activity,locationCallback)
+                activity, locationCallback)
         }
     }
 
@@ -280,6 +283,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
                             }, event = it, resLayout = R.layout.event_items))
                         }
+                        sortNearEvent(it.value.events!!)
+
                         sortNearEvent(eventViewModel.getNearEvents(it.value.events!!)).forEach {
                             mAdapterNear.add(EventListItem<EventItemsBinding>(
                                 object : FavouriteChecker {
@@ -309,6 +314,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
                                 }, event = it, resLayout = R.layout.event_items))
                         }
+
+
 
                         if (!it.value.featureEvents.isNullOrEmpty()) {
 //                            featureAdapter.events =
@@ -361,17 +368,22 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     fun sortNearEvent(list: List<Events>): List<Events> {
         val myList = ArrayList<Events>()
-        list.forEach {
-            val distance = locationHelper.distance(LAT,
-                LNG,
-                it.latitude!!.toDouble(),
-                it.longitude!!.toDouble())
-            it.distance = distance
-            myList.sortWith(compareBy({ it.distance }))
-            nearList.add(it)
-            nearEventList.add(it)
-            myList.add(it)
+        val sortedList = ArrayList<Events>()
+            list.forEach {
+                val distance = locationHelper.distance(LAT,
+                    LNG,
+                    it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
+                    it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble())
+                it.distance = distance
+                myList.add(it)
+
+            }
+                myList.sortWith(compareBy(Events::distance))
+                myList.map {
+                    sortedList.add(it)
+                    nearList.add(it)
+                    nearEventList.add(it)
         }
-        return myList
+        return sortedList
     }
 }
