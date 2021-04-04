@@ -102,10 +102,14 @@ open class LocationHelper @Inject constructor(
     }
 
 
-    open fun milesToKm(dist : Double): Double{
-        val km = dist / 0.62137
-        return String.format("%.1f", km).toDouble()
-    }
+//    open fun milesToKm(dist : Double): Double{
+//        val km = dist / 0.62137
+//        return String.format("%.1f", km).toDouble()
+//    }
+open fun milesToKm(dis: Double):Double{
+    val km = dis / 0.62137
+    return Math.round(km * 100).toDouble() / 100
+}
 }
 
 

@@ -96,7 +96,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(eventViewModel)
         if (!this::mAdapterNear.isInitialized) {
-            rvSetUp()
+//            rvSetUp()
         }
 
         cardViewRTL()
@@ -253,6 +253,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     binding.viewAllEvents.visibility = View.VISIBLE
                     binding.tvMoreEventTitle.visibility = View.VISIBLE
                     it.let {
+                        rvSetUp()
+
                         it.value.events!!.forEach {
                             moreList.add(it)
                             mAdapterMore.add(EventListItem<EventItemsBinding>(object :
@@ -285,7 +287,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                         }
 //                        sortNearEvent(it.value.events!!)
 
-                        sortNearEvent(eventViewModel.getNearEvents(it.value.events!!)).forEach {
+                        sortNearEvent(it.value.events!!).forEach {
                             mAdapterNear.add(EventListItem<EventItemsBinding>(
                                 object : FavouriteChecker {
                                     override fun checkFavListener(
