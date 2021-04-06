@@ -12,7 +12,7 @@ import com.app.dubaiculture.databinding.ExploreNearItemsBinding
 import com.app.dubaiculture.utils.AsyncCell
 import com.app.dubaiculture.utils.dateFormat
 
-class ExploreMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class   ExploreMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<ExploreMap>() {
         override fun areItemsTheSame(oldItem: ExploreMap, newItem: ExploreMap): Boolean {
             return oldItem.id == newItem.id

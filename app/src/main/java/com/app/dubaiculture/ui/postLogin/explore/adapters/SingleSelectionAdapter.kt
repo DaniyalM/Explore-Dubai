@@ -14,9 +14,14 @@ import com.app.dubaiculture.utils.setTextColorRes
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
 import java.util.*
 
-open class SingleSelectionAdapter(private val context: Context, employees: ArrayList<AttractionCategory>,val iface : InvokeListener) :
+open class SingleSelectionAdapter(
+    private val context: Context,
+    employees: ArrayList<AttractionCategory>,
+    val iface: InvokeListener,
+) :
     RecyclerView.Adapter<SingleSelectionAdapter.SingleViewHolder?>() {
     private var attractions: ArrayList<AttractionCategory>
+
     init {
         this.attractions = employees
     }
@@ -32,13 +37,15 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
 //    val itemCount: Int
 //        get() = employees.size
 
-     inner class SingleViewHolder(itemView: View) :
+    inner class SingleViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         fun bind(attractions: AttractionCategory) {
-
-
-                itemView.imgInnerIcon.glideInstance(attractions.icon,true)
-
+            if (attractions.icon!!.isNotEmpty()) {
+                itemView.imgInnerIcon.glideInstance(attractions.selectedSvg, true)
+                    .into(itemView.imgInnerIcon)
+            } else {
+                itemView.imgInnerIcon.setImageResource(R.drawable.calender)
+            }
             if (checkedPosition == -1) {
 //                imageView.visibility = View.GONE
                 // un selected
@@ -64,6 +71,12 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
                 iface.getRowClick(absoluteAdapterPosition)
                 itemView.tv_title.setTextColorRes(R.color.white_900)
                 itemView.cardview.setCardBackgroundColor(Color.parseColor("#5E2E82"))
+                if (attractions.icon!!.isNotEmpty()) {
+                    itemView.imgInnerIcon.glideInstance(attractions.icon, true)
+                        .into(itemView.imgInnerIcon)
+                } else {
+                    itemView.imgInnerIcon.setImageResource(R.drawable.calender_white)
+                }
                 if (checkedPosition != adapterPosition) {
 
                     notifyItemChanged(checkedPosition)
@@ -87,7 +100,7 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
 
     override fun getItemCount() = attractions.size
 
-interface InvokeListener{
-    fun getRowClick(position:Int= 0)
-}
+    interface InvokeListener {
+        fun getRowClick(position: Int = 0)
+    }
 }

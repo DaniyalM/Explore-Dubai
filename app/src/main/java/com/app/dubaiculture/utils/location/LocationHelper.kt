@@ -11,6 +11,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 import kotlin.math.acos
 import kotlin.math.cos
@@ -21,6 +22,7 @@ open class LocationHelper @Inject constructor(
     val fusedLocationProviderClient: FusedLocationProviderClient,
     val locationRequest: LocationRequest,
 ) {
+
 
 
     fun newLocationData(activity: Context, locationCallback: LocationCallback) {
@@ -83,9 +85,9 @@ open class LocationHelper @Inject constructor(
         lat1: Double,
         lon1: Double,
         lat2: Double? = 24.83250180519734,
-        lon2: Double? = 67.08119661055807,
+        lon2: Double? = 67.08119661055807
     ): Double {
-        val theta = lon1 - (lon2 ?: 67.08119661055807)
+        val theta = lon1 - (lon2?:67.08119661055807)
         var dist = (sin(deg2rad(lat1))
                 * sin(deg2rad(lat2 ?: 24.83250180519734))
                 + (cos(deg2rad(lat1))
@@ -106,18 +108,14 @@ open class LocationHelper @Inject constructor(
     }
 
 
-    open fun milesToKm(dist: Double): Double {
-        return try {
-            val km = dist / 0.62137
-            String.format("%.1f", km).toDouble()
-        } catch (nfe: NumberFormatException) {
-            0.0
-        }
-
-
+//    open fun milesToKm(dist: Double): Double{
+//        val km = dist / 0.62137
+//        return String.format("%.1f", km, Locale.ENGLISH).toDouble()
+//    }
+    open fun milesToKm(dis: Double):Double{
+        val km = dis / 0.62137
+    return Math.round(km * 100).toDouble() / 100
     }
-
-
 }
 
 
