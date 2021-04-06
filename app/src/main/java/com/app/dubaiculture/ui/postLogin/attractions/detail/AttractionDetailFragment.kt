@@ -515,7 +515,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
             }
             is GpsStatus.Disabled -> {
-                attractionDetailViewModel.showErrorDialog(message = "Please enable Location")
+                attractionDetailViewModel.showToast(message = "Please enable Location")
             }
         }
     }

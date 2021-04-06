@@ -1,5 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
+import android.graphics.Color
+import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
@@ -26,6 +28,8 @@ data class AttractionListItem<T : ViewDataBinding>(
                     attractionImage.setOnClickListener {
                         rowClickListener?.rowClickListener(position)
                     }
+                    cardViewTitle.setCardBackgroundColor(Color.parseColor(attraction.color))
+//                    category.setBackgroundColor(Color.parseColor(attraction.color))
                     favourite.isChecked = attraction.IsFavourite
 
                     favourite.setOnClickListener {

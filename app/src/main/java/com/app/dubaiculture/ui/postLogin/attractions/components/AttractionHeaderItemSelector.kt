@@ -32,7 +32,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var list: List<AttractionCategory>? = null
     private var attractionPager: ViewPager2? = null
     var recyclerView: RecyclerView? = null
-    private lateinit var attractionsFragment: AttractionsFragment
+//    private lateinit var attractionsFragment: AttractionsFragment
 
 
 //    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
@@ -118,11 +118,10 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                         isSelected = isSelected,
                         selectedTextColor = selectedTextColor,
                         unSelectedTextColor = unSelectedTextColor,
-                        selectedBackground = getDrawableFromId(selectedBackground),
-                        unSelectedBackground = getDrawableFromId(unSelectedBackground),
                         selectedInnerImg = model.selectedSvg,
                         unSelectedInnerImg = model.icon,
-                        progressListener = this
+                        progressListener = this,
+                        colorBg = model.color
                     )
                 )
             }
@@ -136,9 +135,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     isSelected = isSelected,
                     selectedTextColor = selectedTextColor,
                     unSelectedTextColor = unSelectedTextColor,
-                    selectedBackground = getDrawableFromId(selectedBackground),
-                    unSelectedBackground = getDrawableFromId(unSelectedBackground),
-                    selectedInnerImg = it.selectedSvg,
+                   selectedInnerImg = it.selectedSvg,
                     colorBg = it.color,
                     unSelectedInnerImg = it.icon,
                     progressListener = this)

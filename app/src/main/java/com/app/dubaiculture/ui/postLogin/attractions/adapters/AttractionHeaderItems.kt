@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
@@ -23,11 +24,6 @@ class AttractionHeaderItems<T>(
     var isSelected: Boolean = false,
     private val selectedTextColor: Int? = null,
     private val unSelectedTextColor: Int? = null,
-    private val selectedBackground: Drawable? = null,
-    private val unSelectedBackground: Drawable? = null,
-
-//    private val selectedInnerImg: Drawable? = null,
-//    private val unSelectedInnerImg: Drawable? = null,
     private val selectedInnerImg: String? = null,
     private val unSelectedInnerImg: String? = null,
     private val progressListener: AttractionHeaderClick? = null,
@@ -48,15 +44,15 @@ class AttractionHeaderItems<T>(
 //                it.glideInstance(selectedInnerImg,true)
 //                it.imgInnerIcon.background = selectedInnerImg
                 isSelected = clickCheckerFlag == position
-                renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.cardview)
+                renderSelection(it.tv_title, it.imgInnerIcon,  it.cardview)
                 it.setOnClickListener {
                     progressListener?.onClick(position)
 
                     if (clickCheckerFlag == position) {
-                        it.glideInstance(unSelectedInnerImg, true).into(it.imgInnerIcon)
+//                        it.glideInstance(unSelectedInnerImg, true).into(it.imgInnerIcon)
 //                        it.imgInnerIcon.background = unSelectedInnerImg
                         isSelected = true
-                        renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.cardview)
+                        renderSelection(it.tv_title, it.imgInnerIcon,  it.cardview)
                     }
 
                 }
@@ -69,15 +65,14 @@ class AttractionHeaderItems<T>(
 
 
     private fun renderSelection(
-        textView: TextView, imageView: ImageView, imgInner: ImageView,
+        textView: TextView,  imgInner: ImageView,
         view: MaterialCardView,
     ) {
 
 
         if (isSelected) {
 
-            view.setCardBackgroundColor(ContextCompat.getColor(view.context,
-                R.color.purple_900))
+            view.setCardBackgroundColor(Color.parseColor(colorBg))
             selectedTextColor?.let { color ->
 
                 textView.setTextColor(color)
