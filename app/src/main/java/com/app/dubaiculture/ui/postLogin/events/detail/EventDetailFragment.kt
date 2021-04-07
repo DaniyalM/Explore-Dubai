@@ -16,7 +16,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -53,7 +52,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
-import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
@@ -254,7 +252,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 tv_category.text = eventObj.category
                 category.text = eventObj.category
                 tv_event_date.text = dateFormat(eventObj.dateFrom)
-                glide.load(BuildConfig.BASE_URL + eventObj.image).into(imageView)
+                glide.load(com.app.dubaiculture.BuildConfig.BASE_URL + eventObj.image).into(imageView)
             }
         }
         binding.root.btn_reg.setOnClickListener(this)
@@ -444,12 +442,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             }
                         }, object : RowClickListener {
                             override fun rowClickListener(position: Int) {
-//                                val eventObj = moreEvents[position]
-//                                val bundle = Bundle()
-//                                bundle.putParcelable(EVENT_OBJECT,
-//                                    eventObj)
-//                                navigate(R.id.action_eventsFragment_to_eventDetailFragment2,
-//                                    bundle)
+                                val eventObj = moreEvents[position]
+                                val bundle = Bundle()
+                                bundle.putParcelable(EVENT_OBJECT,
+                                    eventObj)
+                                navigate(R.id.action_eventDetailFragment2_to_eventDetailFragment2,
+                                    bundle)
 
 
                             }

@@ -78,7 +78,6 @@ class AttractionGalleryFragment : BaseFragment<AttractionGalleryFragmentBinding>
                 }
             }
             LinearSnapHelper().attachToRecyclerView(this)
-
         }
     }
 }

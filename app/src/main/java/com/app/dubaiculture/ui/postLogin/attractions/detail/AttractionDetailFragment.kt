@@ -29,6 +29,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
+import com.app.dubaiculture.utils.Constants.NavBundles.THREESIXTY_GALLERY_LIST
 import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
@@ -50,9 +51,6 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.tv_desc_readmore
-import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.tv_km
-import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.tv_times
 import kotlinx.android.synthetic.main.fragment_attraction_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
@@ -73,6 +71,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             updateGpsCheckUi(status)
         }
     }
+
     @Inject
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -434,10 +433,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 }
             }
             R.id.ll_ar -> {
-                attractionDetailViewModel.showToast("AR")
+//                navigate(R.id.action_attractionDetailFragment_to_ARActivity)
+                navigate(R.id.action_attractionDetailFragment_to_ARFragment)
+
             }
             R.id.ll_360 -> {
-                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
+                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment,
+                    Bundle().apply {
+                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj.asset360)
+                    })
             }
             R.id.ll_img -> {
                 navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
@@ -466,7 +470,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
             }
             R.id.downOne360 -> {
-                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment)
+                navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment,
+                    Bundle().apply {
+                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj.asset360)
+                    })
 
             }
             R.id.downOneGallery -> {
@@ -510,12 +517,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
             }
             is GpsStatus.Disabled -> {
-                attractionDetailViewModel.showErrorDialog(message = "Please enable Location")
+                attractionDetailViewModel.showToast(message = "Please enable Location")
             }
         }
     }
 
-    private fun locationIsEmpty(location:Location){
+    private fun locationIsEmpty(location: Location) {
         if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
                 attractionsObj.latitude)
         ) {

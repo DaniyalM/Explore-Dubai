@@ -5,16 +5,23 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
+import com.app.dubaiculture.utils.glideInstance
 import com.app.dubaiculture.utils.setTextColorRes
-import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
+import kotlinx.android.synthetic.main.explore_map_layout_headers.view.*
 import java.util.*
 
-open class SingleSelectionAdapter(private val context: Context, employees: ArrayList<AttractionCategory>,val iface : InvokeListener) :
+open class SingleSelectionAdapter(
+    private val context: Context,
+    employees: ArrayList<AttractionCategory>,
+    val iface: InvokeListener,
+) :
     RecyclerView.Adapter<SingleSelectionAdapter.SingleViewHolder?>() {
     private var attractions: ArrayList<AttractionCategory>
+
     init {
         this.attractions = employees
     }
@@ -30,13 +37,28 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
 //    val itemCount: Int
 //        get() = employees.size
 
-     inner class SingleViewHolder(itemView: View) :
+    inner class SingleViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         fun bind(attractions: AttractionCategory) {
+            if(absoluteAdapterPosition != 0){
+                itemView.imgInnerIcon.visibility = View.VISIBLE
 
+            }else{
+                itemView.imgInnerIcon.visibility = View.GONE
+
+            }
+
+
+            if (attractions.icon!!.isNotEmpty()) {
+                itemView.imgInnerIcon.glideInstance(attractions.selectedSvg, true)
+                    .into(itemView.imgInnerIcon)
+            } else {
+                itemView.imgInnerIcon.setImageResource(R.drawable.calender)
+            }
             if (checkedPosition == -1) {
 //                imageView.visibility = View.GONE
                 // un selected
+
                 itemView.tv_title.setTextColorRes(R.color.black_200)
                 itemView.cardview.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
             } else {
@@ -55,8 +77,15 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
             itemView.tv_title.text = attractions.title
             itemView.setOnClickListener(View.OnClickListener {
                 // un selected
+                iface.getRowClick(absoluteAdapterPosition)
                 itemView.tv_title.setTextColorRes(R.color.white_900)
                 itemView.cardview.setCardBackgroundColor(Color.parseColor("#5E2E82"))
+                if (attractions.icon!!.isNotEmpty()) {
+                    itemView.imgInnerIcon.glideInstance(attractions.icon, true)
+                        .into(itemView.imgInnerIcon)
+                } else {
+                    itemView.imgInnerIcon.setImageResource(R.drawable.calender_white)
+                }
                 if (checkedPosition != adapterPosition) {
 
                     notifyItemChanged(checkedPosition)
@@ -69,18 +98,18 @@ open class SingleSelectionAdapter(private val context: Context, employees: Array
 
     override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
         holder.bind(attractions[position])
-        iface.getRowPosition(position = position)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val view: View =
-            LayoutInflater.from(context).inflate(R.layout.attraction_title_list_item, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.explore_map_layout_headers, parent, false)
         return SingleViewHolder(view)
     }
 
     override fun getItemCount() = attractions.size
 
-interface InvokeListener{
-    fun getRowPosition(position:Int)
-}
+    interface InvokeListener {
+        fun getRowClick(position: Int = 0)
+    }
 }

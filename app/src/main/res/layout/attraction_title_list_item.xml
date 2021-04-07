@@ -19,15 +19,6 @@
             android:layout_height="match_parent"
             android:textAlignment="center">
 
-            <View
-                android:id="@+id/selectorViewChanger"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ll_bg"
@@ -56,11 +47,14 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_margin="@dimen/_20sdp"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="Sub Title"
+                android:text="All"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/ll_bg"
                 app:layout_constraintEnd_toEndOf="parent"

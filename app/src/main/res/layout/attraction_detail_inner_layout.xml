@@ -122,21 +122,21 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/downOne360"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_weight="1"
+                        android:foreground="@drawable/custom_ripple_black"
                         android:background="@drawable/ar_bg_attraction_icon"
                         android:orientation="horizontal"
                         android:src="@drawable/ar_bg_attraction_icon">
 
                         <LinearLayout
-                            android:id="@+id/downOne360"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center|center_vertical"
-
                             android:orientation="vertical">
 
                             <ImageView

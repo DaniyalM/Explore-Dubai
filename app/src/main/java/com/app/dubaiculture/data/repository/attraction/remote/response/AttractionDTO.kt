@@ -1,7 +1,5 @@
 package com.app.dubaiculture.data.repository.attraction.remote.response
 
-import com.app.dubaiculture.data.repository.attraction.local.models.SocialLink
-import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.remote.response.EventsDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -12,15 +10,15 @@ class AttractionDTO {
 
     @SerializedName("ID")
     @Expose
-    var id: String? = ""
+    var id: String = ""
 
     @SerializedName("Category")
     @Expose
-    var category: String? = ""
+    var category: String = ""
 
     @SerializedName("Title")
     @Expose
-    var title: String? = ""
+    var title: String = ""
 
     @SerializedName("LocationTitle")
     @Expose
@@ -29,12 +27,14 @@ class AttractionDTO {
     @SerializedName("Location")
     @Expose
     var location: String? = null
+
     @SerializedName("Latitude")
     @Expose
-    var latitude: String? = null
+    var latitude: String? = "24.83250180519734"
+
     @SerializedName("Longitude")
     @Expose
-    var longitude: String? = null
+    var longitude: String? = "67.08119661055807"
 
     @SerializedName("PortraitImage")
     @Expose
@@ -74,14 +74,19 @@ class AttractionDTO {
 
     @SerializedName("Events")
     @Expose
-    var events: List<EventsDTO>  ?= null
+    var events: List<EventsDTO>? = null
 
     @SerializedName("SocialLinks")
     @Expose
-    var socialLinks: List<SocialLinkDTO>  ?= null
+    var socialLinks: List<SocialLinkDTO>? = null
 
     @SerializedName("Gallery")
     @Expose
-    var gallery: List<GalleryDTO> ?= null
+    var gallery: List<GalleryDTO>? = null
+
+    @SerializedName("360Assets")
+    @Expose
+    var asset360: Assets360DTO? = null
+
 
 }

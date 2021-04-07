@@ -2,9 +2,182 @@ package com.app.dubaiculture.ui.postLogin.explore.viewmodel
 
 import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.explore.ExploreRepository
+import com.app.dubaiculture.data.repository.explore.local.models.AttractionsEvents
+import com.app.dubaiculture.data.repository.explore.local.models.Explore
+import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
+import com.app.dubaiculture.data.repository.exploremap.model.ExploreMap
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.location.LocationHelper
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.launch
 
-class ExploreMapViewModel @ViewModelInject constructor(application: Application):BaseViewModel(application) {
+class ExploreMapViewModel @ViewModelInject constructor(application: Application,val exploreRepository: ExploreRepository):BaseViewModel(application) {
+
+    private val _exploreAttractionsEvents: MutableLiveData<Result<AttractionsEvents>> = MutableLiveData()
+    val exploreAttractionsEvents: LiveData<Result<AttractionsEvents>> = _exploreAttractionsEvents
 
 
+    fun getExploreMap(locale : String){
+        showLoader(true)
+        viewModelScope.launch {
+            when(val result = exploreRepository.getExploreMap(ExploreRequest(culture = locale))){
+                is Result.Success ->{
+                    showLoader(false)
+                    result.value.attractionCategory
+                    result.value.events
+
+                    _exploreAttractionsEvents.value = result
+                }
+                is Result.Failure ->{
+                    showLoader(false)
+
+
+                }
+                is Result.Error ->{
+                    showLoader(false)
+                }
+            }
+        }
+        showLoader(false)
+    }
+
+
+    fun eventFilter(locationHelper: LocationHelper,exploreMapList : ArrayList<ExploreMap> , eventList : List<Events>):List<ExploreMap> {
+        exploreMapList.clear()
+        sortNearEvent(eventList,locationHelper).forEach {
+            exploreMapList.add(
+                ExploreMap(
+                    id = it.id,
+                    image = it.image,
+                    title = it.title,
+                    location = it.locationTitle,
+                    distance = it.distance,
+                    lat = it.latitude!!,
+                    lng = it.longitude!!,
+                    pin = ""
+                )
+            )
+        }
+        return exploreMapList
+    }
+
+
+
+    fun sortNearEvent(list: List<Events>, locationHelper : LocationHelper): List<Events> {
+        val myList = ArrayList<Events>()
+        list.forEach {
+            val distance = locationHelper.distance(Constants.StaticLatLng.LAT,
+                Constants.StaticLatLng.LNG,
+                it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
+                it.longitude.toString().ifEmpty {"67.08119661055807"}.toDouble())
+            it.distance = distance
+            myList.sortWith(compareBy({ it.distance }))
+            myList.add(it)
+        }
+        return myList
+    }
+
+
+    fun attractionFilter(category: String,locationHelper: LocationHelper,exploreMapList : ArrayList<ExploreMap>,attractions :ArrayList<Attractions>):List<ExploreMap>{
+        exploreMapList.clear()
+        val list =   sortNearAttraction(attractions,locationHelper).filter {
+            it.category.trim() == category
+        }
+        list.forEach {
+            exploreMapList.add(
+                ExploreMap(
+                    id = it.id,
+                    image = it.portraitImage,
+                    title = it.title,
+                    location = it.locationTitle,
+                    distance = it.distance,
+                    lat = it.latitude!!,
+                    lng = it.longitude!!,
+                    pin = ""
+                )
+            )
+        }
+
+        return exploreMapList
+    }
+
+    fun sortNearAttraction(list: List<Attractions>,locationHelper : LocationHelper): List<Attractions> {
+        val myList = ArrayList<Attractions>()
+        list.forEach {
+            val distance = locationHelper.distance(Constants.StaticLatLng.LAT,
+                Constants.StaticLatLng.LNG,
+                ((it.latitude.toString().ifEmpty { "24.83250180519734" }).toDouble()),
+                (it.longitude.toString().ifEmpty {"67.08119661055807"}).toDouble())
+            it.distance = distance
+            myList.sortWith(compareBy({ it.distance }))
+            myList.add(it)
+        }
+        return myList
+    }
+
+
+
+
+
+    fun mergeArrayList(exploreMapList : ArrayList<ExploreMap>,attractions :ArrayList<Attractions>,eventList: List<Events>,locationHelper : LocationHelper) : List<ExploreMap>{
+        exploreMapList.clear()
+        sortNearAttraction(attractions,locationHelper).forEach {
+            exploreMapList.add(
+                ExploreMap(
+                    id = it.id,
+                    image = it.portraitImage,
+                    title = it.title,
+                    location = it.locationTitle,
+                    distance = it.distance,
+                    lat = it.latitude.toString().ifEmpty { "24.83250180519734" },
+                    lng = it.longitude.toString().ifEmpty  {"67.08119661055807"},
+                    pin = ""
+                )
+
+            )
+        }
+        sortNearEvent(eventList,locationHelper).forEach {
+            exploreMapList.add(
+                ExploreMap(
+                    id = it.id,
+                    image = it.image,
+                    title = it.title,
+                    location = it.locationTitle,
+                    distance = it.distance,
+                    lat = it.latitude!!,
+                    lng = it.longitude!!,
+                    pin = ""
+                )
+            )
+        }
+        return exploreMapList
+    }
+
+    fun pinsOnMap(exploreMapList: List<ExploreMap>, map: GoogleMap){
+        map.clear()
+        exploreMapList.forEach {
+            val locationObj = LatLng(it.lat.toString().ifEmpty { "24.83250180519734" }.toDouble(),
+                it.lng.toString().ifEmpty { "67.08119661055807" }.toDouble())
+            if(it.distance!! <= 6.0)
+                map.addMarker(MarkerOptions().position(locationObj)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_within_distance))
+                    .title(it.title))
+      else
+                map.addMarker(MarkerOptions().position(locationObj)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_map_away))
+                    .title(it.title))
+        }
+    }
 }

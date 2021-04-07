@@ -174,5 +174,8 @@
 
     <string name="away">Km Away</string>
     <string name="error_msg">Are you sure you want to close application?</string>
+    <string name="near_you">Near You</string>
+    <string name="recognize">Recognize</string>
+    <string name="ar_detail">AR Detail</string>
 
 </resources>

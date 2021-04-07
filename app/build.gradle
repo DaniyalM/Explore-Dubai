@@ -10,11 +10,17 @@ def config = rootProject.extensions.getByName("ext")
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
 
 
     defaultConfig {
         applicationId "com.app.dubaiculture"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -255,4 +261,13 @@ dependencies {
 
 //    implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation "com.xwray:groupie-databinding:2.7.0"
+
+
+    implementation 'com.google.vr:sdk-audio:1.160.0'
+    implementation 'com.google.vr:sdk-panowidget:1.180.0'
+    implementation 'com.google.vr:sdk-base:1.160.0'
+
+    // wikitude
+    implementation "com.google.ar:core:1.15.0"
+    implementation 'com.wikitude:native:9.6.0'
 }

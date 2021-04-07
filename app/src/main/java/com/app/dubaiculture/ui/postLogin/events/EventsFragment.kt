@@ -107,6 +107,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         subscribeToObservables()
 //        binding.swipeRefresh.setOnRefreshListener {
 //            binding.swipeRefresh.isRefreshing = false
+//            eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
 //        }
         binding.tvViewMap.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventNearMapFragment2)
