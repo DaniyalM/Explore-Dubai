@@ -16,7 +16,7 @@
 <!--            android:layout_width="match_parent"-->
 <!--            android:scrollbars="vertical|horizontal"-->
 <!--            android:layout_height="0dp" />-->
-        <com.app.dubaiculture.ui.postLogin.threesixtygallery.components.CustomImageView
+        <com.app.dubaiculture.ui.postLogin.threesixtygallery.components.VrPanoramaViewComponent
             android:id="@+id/mVrPanoramaSelector"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

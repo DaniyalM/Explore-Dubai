@@ -1,7 +1,10 @@
 package com.app.dubaiculture.ui.postLogin.threesixtygallery
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.PointF
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +26,6 @@ import com.bumptech.glide.RequestManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_three_sixty.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -41,6 +43,7 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
             assets360 = getParcelable(THREESIXTY_GALLERY_LIST)!!
         }
     }
+
     @Inject
     lateinit var glide: RequestManager
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -92,26 +95,17 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
 
 
     }
+
     companion object {
-        fun drawPoint(canvas: Canvas, point: PointF,context: Context?=null) {
+        fun drawPoint(canvas: Canvas, point: PointF) {
             val x = point.x
             val y = point.y
 
-            val paint= Paint()
-            val scale: Float = context!!.resources.displayMetrics.density
-
-            paint.apply {
-                color=Color.BLUE
-                textSize=24*scale
-
-                canvas.drawText("Hello", x, y,
-                    this);
-            }
-
-            canvas.drawCircle(x, y, 10f, Paint().apply {
-                color = Color.RED
-                strokeWidth = 8F
-                style = Paint.Style.STROKE
+            canvas.drawCircle(x, y, 6f, Paint().apply {
+                color = Color.CYAN
+                strokeWidth = 3F
+                style = Paint.Style.FILL_AND_STROKE
+                isAntiAlias=true
 
             })
 

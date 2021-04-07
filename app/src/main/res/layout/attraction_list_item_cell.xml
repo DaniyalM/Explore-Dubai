@@ -51,7 +51,7 @@
                     android:textStyle="bold"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:text="@{attractions.category}"
-                    android:textColor="@color/purple_900"
+                    android:textColor="@color/white_900"
                     android:textSize="@dimen/_9ssp"
                      />
             </com.google.android.material.card.MaterialCardView>
@@ -60,6 +60,7 @@
                 android:id="@+id/img_must_see"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:background="@drawable/must_see_icon_home"
                 android:imageViewUrl='@{attractions.portraitImage}'
                 android:scaleType="fitXY"
