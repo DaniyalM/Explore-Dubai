@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.explore.map
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.SingleSelectionAdapter
 import com.app.dubaiculture.ui.postLogin.explore.map.adapter.ExploreMapAdapter
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreMapViewModel
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.Categories.ART_GALLERY
 import com.app.dubaiculture.utils.Constants.Categories.FESTIVALS
 import com.app.dubaiculture.utils.Constants.Categories.HERITAGE_SITES
@@ -62,8 +64,6 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     lateinit var glide: RequestManager
     lateinit var mapView: MapView
     lateinit var googleMap: GoogleMap
-    lateinit var geofencingClient: GeofencingClient
-    private val GEO_DURATION = (60 * 60 * 1000).toLong()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,13 +71,13 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geofencingClient = LocationServices.getGeofencingClient(requireContext())
         subscribeUiEvents(exploreMapViewModel)
         appendInAttractionCategoryList()
         lifecycleScope.launch {
             exploreMapViewModel.getExploreMap(getCurrentLanguage().language)
         }
         binding.root.back.setOnClickListener(this)
+        binding.ImgChangeView.setOnClickListener (this)
         mapSetUp()
         callingObserver()
         mapView = MapView(context)
@@ -103,6 +103,12 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         when (v?.id) {
             R.id.back -> {
                 back()
+            }
+            R.id.ImgChangeView->{
+                val bundle= Bundle()
+                bundle.putParcelableArrayList(Constants.NavBundles.EXPLORE_MAP_LIST,
+                    exploreMapList as java.util.ArrayList<out Parcelable>)
+                navigate(R.id.action_exploreMapFragment_to_exploreBottomSheetFragment,bundle)
             }
         }
     }
@@ -249,7 +255,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
             .position(trafficDigitalLatLng)
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_current)))
             .title = "Traffic Digital"
-        googleMap!!.animateCamera(
+        googleMap.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
                 trafficDigitalLatLng, 12.0f
             )

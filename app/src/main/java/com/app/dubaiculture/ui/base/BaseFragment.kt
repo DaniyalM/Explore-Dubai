@@ -364,4 +364,5 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
         }
     }
+
 }

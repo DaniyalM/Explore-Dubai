@@ -5,8 +5,6 @@
 
     <!--    android:elevation="@dimen/toolbar_elevation"-->
     <merge>
-
-
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarEventDetail"
             android:layout_width="match_parent"

@@ -38,6 +38,9 @@ class PostLoginActivity : BaseAuthenticationActivity() {
                 R.id.registrationSuccessFragment2 -> {
                     bottomNav.visibility = View.GONE
                 }
+                R.id.ARFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
                 else -> {
                     bottomNav.visibility = View.VISIBLE
 

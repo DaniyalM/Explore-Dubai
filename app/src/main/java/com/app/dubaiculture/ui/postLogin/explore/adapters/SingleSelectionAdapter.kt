@@ -11,7 +11,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.utils.glideInstance
 import com.app.dubaiculture.utils.setTextColorRes
-import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
+import kotlinx.android.synthetic.main.explore_map_layout_headers.view.*
 import java.util.*
 
 open class SingleSelectionAdapter(
@@ -40,6 +40,15 @@ open class SingleSelectionAdapter(
     inner class SingleViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         fun bind(attractions: AttractionCategory) {
+            if(absoluteAdapterPosition != 0){
+                itemView.imgInnerIcon.visibility = View.VISIBLE
+
+            }else{
+                itemView.imgInnerIcon.visibility = View.GONE
+
+            }
+
+
             if (attractions.icon!!.isNotEmpty()) {
                 itemView.imgInnerIcon.glideInstance(attractions.selectedSvg, true)
                     .into(itemView.imgInnerIcon)
@@ -94,7 +103,7 @@ open class SingleSelectionAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val view: View =
-            LayoutInflater.from(context).inflate(R.layout.attraction_title_list_item, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.explore_map_layout_headers, parent, false)
         return SingleViewHolder(view)
     }
 

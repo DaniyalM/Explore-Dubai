@@ -1,5 +1,9 @@
 package com.app.dubaiculture.data.repository.exploremap.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class ExploreMap(
     val id : String ? =null,
     val image : String? = null,
@@ -9,4 +13,4 @@ data class ExploreMap(
     val lng : String? = null,
     val distance : Double? = null,
     val pin : String? = null,
-    )
+    ): Parcelable
