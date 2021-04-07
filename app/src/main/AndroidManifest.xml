@@ -30,7 +30,7 @@
         <activity android:name=".ui.postLogin.attractions.detail.ar.ARActivity"></activity>
 
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
+            android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/map_key" />
 
         <activity

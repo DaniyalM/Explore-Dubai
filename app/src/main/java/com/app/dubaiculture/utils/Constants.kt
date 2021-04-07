@@ -43,6 +43,8 @@ object Constants {
         const val ATTRACTION_GALLERY_LIST: String = "attractionGalleryList"
         const val THREESIXTY_GALLERY_LIST: String = "THREE60_GALLERY_LIST"
         const val EXPLORE_MAP_LIST: String = "explore_map_list"
+        const val EVENT_MAP_LIST: String = "event_map_list"
+
 
     }
 

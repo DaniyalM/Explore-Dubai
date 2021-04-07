@@ -89,15 +89,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_title">
 
                     <LinearLayout
+                        android:id="@+id/downOneAR"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_weight="1"
+                        android:foreground="@drawable/custom_ripple_black"
+
                         android:background="@drawable/ar_bg_attraction_icon"
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:id="@+id/downOneAR"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center|center_vertical"
@@ -157,18 +159,19 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/downOneGallery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_weight="1"
+                        android:foreground="@drawable/custom_ripple_black"
                         android:background="@drawable/ar_bg_attraction_icon"
                         android:gravity="center|center_vertical"
                         android:orientation="horizontal"
                         android:src="@drawable/ar_bg_attraction_icon">
 
                         <LinearLayout
-                            android:id="@+id/downOneGallery"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center|center_vertical"
@@ -277,7 +280,6 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_140sdp"
                     android:layout_marginTop="@dimen/_20sdp"
-                    app:cardBackgroundColor="@color/gray_600"
                     app:cardCornerRadius="@dimen/_12sdp"
                     app:cardElevation="@dimen/_5sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_km"

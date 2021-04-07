@@ -4,6 +4,7 @@ import android.Manifest
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -24,6 +24,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_MAP_LIST
 import com.app.dubaiculture.utils.Constants.StaticLatLng.LAT
 import com.app.dubaiculture.utils.Constants.StaticLatLng.LNG
 import com.app.dubaiculture.utils.GpsStatus
@@ -83,9 +84,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         }
     }
 
-    companion object {
-        val nearEventList = ArrayList<Events>()
-    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -95,22 +93,20 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(eventViewModel)
-        if (!this::mAdapterNear.isInitialized) {
-//            rvSetUp()
-        }
-
         cardViewRTL()
         setupToolbarWithSearchItems()
         subscribeToGpsListener()
         locationPermission()
 //        callingObservables()
         subscribeToObservables()
-//        binding.swipeRefresh.setOnRefreshListener {
-//            binding.swipeRefresh.isRefreshing = false
-//            eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
-//        }
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
+        }
         binding.tvViewMap.setOnClickListener {
-            navigate(R.id.action_eventsFragment_to_eventNearMapFragment2)
+            val bundle = Bundle()
+            bundle.putParcelableArrayList(EVENT_MAP_LIST,nearList  as ArrayList<out Parcelable >)
+            navigate(R.id.action_eventsFragment_to_eventNearMapFragment2,bundle)
         }
         binding.root.view_all_events.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventFilterFragment)
@@ -245,7 +241,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         eventViewModel.eventCategoryList.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    if (nearEventList.isNullOrEmpty()) {
+                    if (nearList.isNullOrEmpty()) {
                         binding.tvViewMap.visibility = View.GONE
                     }
                     binding.tvEventTitle.visibility = View.VISIBLE
@@ -385,7 +381,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 myList.map {
                     sortedList.add(it)
                     nearList.add(it)
-                    nearEventList.add(it)
         }
         return sortedList
     }
