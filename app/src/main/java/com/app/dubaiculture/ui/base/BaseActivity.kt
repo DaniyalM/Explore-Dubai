@@ -9,6 +9,7 @@ import com.app.dubaiculture.utils.event.EventUtilFunctions.showLoader
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showSnackbar
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showToast
 import com.app.dubaiculture.utils.event.UiEvent
+import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.google.android.gms.maps.SupportStreetViewPanoramaFragment
 import com.squareup.otto.Bus
 
@@ -20,6 +21,10 @@ abstract class BaseActivity : LocalizationActivity() {
     private var customProgressDialog: ProgressDialog? = null
 
 
+    override fun onResume() {
+        super.onResume()
+        SystemRequirementsChecker.checkWithDefaultDialogs(this);
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

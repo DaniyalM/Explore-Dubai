@@ -116,9 +116,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             isBusRegistered = false
         }
         groupAdapter.clear()
-//        if (_view != null) {
-//            _view = null
-//        }
+
     }
 
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {

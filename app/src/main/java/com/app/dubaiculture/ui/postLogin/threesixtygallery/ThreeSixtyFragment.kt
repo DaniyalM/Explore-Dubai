@@ -51,7 +51,7 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
         subscribeUiEvents(threeSixtyViewModel)
 
         binding.imgBack.setOnClickListener(this)
-        initRv()
+//        initRv()
         loadVR()
     }
 
@@ -114,21 +114,3 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
         }
     }
 }
-
-//private fun drawOnFace(faceArray: SparseArray<Face>): Bitmap? {
-//    tempBitmap =
-//        Bitmap.createBitmap(myBitmap.getWidth(), myBitmap.getHeight(), Bitmap.Config.RGB_565)
-//    val canvas = Canvas(tempBitmap)
-//    canvas.drawBitmap(myBitmap, 0, 0, null)
-//    for (i in 0 until faceArray.size()) {
-//        val face: Face = faceArray[i]
-//        for (landmark in face.getLandmarks()) {
-//            when (landmark.getType()) {
-//                Landmark.LEFT_EYE -> drawPoint(canvas, landmark.getPosition())
-//                Landmark.RIGHT_EYE -> drawPoint(canvas, landmark.getPosition())
-//            }
-//        }
-//    }
-//    return tempBitmap
-//}
-

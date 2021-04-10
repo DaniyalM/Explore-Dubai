@@ -49,7 +49,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     }
 
     private fun initiatePager() {
-        binding?.pager?.isUserInputEnabled = false
+        binding.pager.isUserInputEnabled = false
 //        binding.swipeRefresh.setOnRefreshListener(null)
 //        binding.swipeRefresh.setOnRefreshListener {
 //            callingObservables()

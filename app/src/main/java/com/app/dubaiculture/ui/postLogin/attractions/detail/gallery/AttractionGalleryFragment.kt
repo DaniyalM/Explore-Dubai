@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
 import com.app.dubaiculture.databinding.AttractionGallaryImageItemBinding
@@ -68,6 +69,7 @@ class AttractionGalleryFragment : BaseFragment<AttractionGalleryFragmentBinding>
                     add(GalleryListItem<AttractionGallaryImageItemBinding>(
                         rowClickListener = object : RowClickListener {
                             override fun rowClickListener(position: Int) {
+//                                glide.load(BuildConfig.BASE_URL+it.galleryImage).into(binding.mainImage)
                                 binding.mainImageSlider.smoothScrollToPosition(position)
                             }
                         },

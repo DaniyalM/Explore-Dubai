@@ -270,4 +270,14 @@ dependencies {
     // wikitude
     implementation "com.google.ar:core:1.15.0"
     implementation 'com.wikitude:native:9.6.0'
+
+
+    //photo view
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    //beacon
+
+    implementation 'com.estimote:sdk:1.0.12'
+
+
 }

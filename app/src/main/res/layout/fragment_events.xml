@@ -38,12 +38,17 @@
                         android:textSize="@dimen/_18ssp"
                         android:layout_marginStart="@dimen/_15sdp"
                         />
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvEvent"
-                        android:layout_marginTop="@dimen/_5sdp"
+                    <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:overScrollMode="never" />
+                        android:layout_height="wrap_content">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvEvent"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:overScrollMode="never" />
+                    </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+
 
                     <LinearLayout
                         android:layout_marginTop="@dimen/_5sdp"
@@ -76,13 +81,16 @@
 
                     </LinearLayout>
 
+                    <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvNearEvent"
                         android:visibility="gone"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:overScrollMode="never" />
+                        android:overScrollMode="never" /></com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
                     <include
                         layout="@layout/plan_a_trip_layout"/>
 
@@ -117,7 +125,9 @@
                             android:layout_marginEnd="@dimen/_15sdp"
                             />
                     </LinearLayout>
-
+                    <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvMoreEvent"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -125,6 +135,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/_60sdp"
                         android:overScrollMode="never" />
+                    </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
 
                 </LinearLayout>
 
