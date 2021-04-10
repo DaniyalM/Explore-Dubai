@@ -54,7 +54,7 @@ class LatestNewsInnerAdapter:
         position: Int,
     ) {
         (holder.itemView as LatestNewsInnerAdapter.LatestNewsInnerItemCell).bindWhenInflated {
-            holder.itemView.binding?.news = latestNews[position]
+//            holder.itemView.binding?.news = latestNews[position]
         }
     }
 }

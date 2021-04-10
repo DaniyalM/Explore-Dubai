@@ -10,11 +10,17 @@ def config = rootProject.extensions.getByName("ext")
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
 
 
     defaultConfig {
         applicationId "com.app.dubaiculture"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -79,7 +85,7 @@ android {
         stag {
             applicationIdSuffix ".stag"
             minifyEnabled false
-            debuggable true
+            debuggable false
             buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -159,6 +165,8 @@ dependencies {
     implementation config.ui_design.materialDesign
     //Complex RecyclerViews
     implementation config.ui_design.complexRv
+    //Complex RecyclerViews
+    implementation config.ui_design.complexRvBinding
     //viewPager_2
     implementation config.ui_design.viewPager2
     //ConstraintLayout
@@ -245,6 +253,31 @@ dependencies {
 
     //Google Map
     implementation "com.google.android.gms:play-services-maps:17.0.0"
+
+    //location Related Work
+    implementation config.google.location_google
+    implementation 'q.rorbin:badgeview:1.1.3'
+    implementation 'com.daimajia.androidanimations:library:2.4@aar'
+
+//    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation "com.xwray:groupie-databinding:2.7.0"
+
+
+    implementation 'com.google.vr:sdk-audio:1.160.0'
+    implementation 'com.google.vr:sdk-panowidget:1.180.0'
+    implementation 'com.google.vr:sdk-base:1.160.0'
+
+    // wikitude
+    implementation "com.google.ar:core:1.15.0"
+    implementation 'com.wikitude:native:9.6.0'
+
+
+    //photo view
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    //beacon
+
+    implementation 'com.estimote:sdk:1.0.12'
 
 
 }

@@ -124,7 +124,7 @@
     <string name="get_directions">Get Directions</string>
     <string name="description">Description</string>
 
-    <string name="read_more">\n\nRead More ^</string>
+    <string name="read_more">\n\nRead More </string>
     <string name="read_less">\n\nRead Less</string>
     <string name="don_t_miss_out_on_any_details">Don’t miss out on any details</string>
     <string name="view_site_map">View Site Map</string>
@@ -133,7 +133,7 @@
     <string name="your_journey">Your Journey</string>
     <string name="email_us">Email us</string>
     <string name="stay_updated">Stay updated</string>
-    <string name="what_s_happenings_at_majlis_ghorfat">What’s Happenings at\nMajlis Ghorfat</string>
+    <string name="what_s_happenings_at_majlis_ghorfat">What’s Happenings at Ghorfat</string>
     <string name="call_us">Call Us</string>
     <string name="museum">Museum</string>
     <string name="swipe_up_for_more">Swipe up for more</string>
@@ -144,4 +144,38 @@
     <string name="feature_events">Feature Events</string>
     <string name="events_near_you">Events Near You</string>
     <string name="view_on_map">View on map</string>
+    <string name="gps_status_enabled">"GPS is Enabled"</string>
+    <string name="gps_status_disabled">"GPS is Disabled"</string>
+    <string name="alert">Alert</string>
+    <string name="please_enable_gps"> Please enable GPS Otherwise Near Event won’t work</string>
+    <string name="the_definitive_guide_to_an_uncertain_world_contribute_to_the_future">The Definitive Guide to an Uncertain World Contribute to The Future</string>
+    <string name="_14_20_nov_2020_sunday_friday">14- 20 Nov,2020 | Sunday - Friday</string>
+    <string name="_10_00_am_1_00_pm">10:00 Am - 1:00 Pm</string>
+    <string name="palm_jumeriah_dubai">Palm Jumeriah, Dubai</string>
+    <string name="_10_km_away">10 Km Away</string>
+    <string name="register_for_event">Register for event</string>
+    <string name="occupation">Occupation</string>
+    <string name="what_do_you_do">What do you do?</string>
+    <string name="select_your_time_period">Select your time period</string>
+    <string name="time">Time</string>
+    <string name="upload_id">Upload ID</string>
+    <string name="jpeg_or_pdf_format_not_exceeding_2mb">JPEG or PDF format not exceeding 2MB</string>
+    <string name="submit">Submit</string>
+    <string name="register_confirm">Registration Confirmed</string>
+    <string name="various_artistic_and_cultural_activities">Various artistic and cultural activities</string>
+    <string name="opening_show_the_wise_poet_a_theatrical_performance_by_al_ahli_dubai_theatre">Opening show ‘The Wise Poet’ a theatrical performance by Al Ahli Dubai Theatre</string>
+    <string name="all">All</string>
+    <string name="this_week">This Week</string>
+    <string name="this_weekend">This Weekend</string>
+    <string name="next_seven_days">Next 7 Days</string>
+    <string name="detail_clip_card_text">Review Majlis Ghorfat\non Trip Advisor</string>
+    <string name="clear_all">Clear All</string>
+    <string name="no_data_found">No Data Found</string>
+
+    <string name="away">Km Away</string>
+    <string name="error_msg">Are you sure you want to close application?</string>
+    <string name="near_you">Near You</string>
+    <string name="recognize">Recognize</string>
+    <string name="ar_detail">AR Detail</string>
+
 </resources>

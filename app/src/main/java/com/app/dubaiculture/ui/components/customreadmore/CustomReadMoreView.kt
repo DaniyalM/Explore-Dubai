@@ -137,20 +137,23 @@ class CustomReadMoreView(context: Context, attrs: AttributeSet?) :
     }
 
     private fun updateCollapsedText(): CharSequence? {
-        var trimEndIndex = mText!!.length
-        when (trimMode) {
-            TRIM_MODE_LINES -> {
-                trimEndIndex = lineEndIndex - (ELLIPSIZE.length + trimCollapsedText!!.length + 1)
-                if (trimEndIndex < 0) {
-                    trimEndIndex = trimLength + 1
+            var trimEndIndex = mText!!.length
+            when (trimMode) {
+                TRIM_MODE_LINES -> {
+                    trimEndIndex = lineEndIndex - (ELLIPSIZE.length + trimCollapsedText!!.length + 1)
+                    if (trimEndIndex < 0) {
+                        trimEndIndex = trimLength + 1
+                    }
                 }
+                TRIM_MODE_LENGTH -> trimEndIndex = trimLength + 1
             }
-            TRIM_MODE_LENGTH -> trimEndIndex = trimLength + 1
-        }
-        val s = SpannableStringBuilder(mText, 0, trimEndIndex)
-            .append(ELLIPSIZE)
-            .append(trimCollapsedText)
-        return addClickableSpan(s, trimCollapsedText)
+            val s = SpannableStringBuilder(mText, 0, trimEndIndex)
+                .append(ELLIPSIZE)
+                .append(trimCollapsedText)
+            return addClickableSpan(s, trimCollapsedText)
+
+
+
     }
 
     private fun updateExpandedText(): CharSequence? {

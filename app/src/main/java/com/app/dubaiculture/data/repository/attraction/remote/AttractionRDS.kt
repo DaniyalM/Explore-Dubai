@@ -5,10 +5,12 @@ import com.app.dubaiculture.data.repository.attraction.remote.request.Attraction
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequestDTO
 import com.app.dubaiculture.data.repository.attraction.service.AttractionService
 import com.app.dubaiculture.data.repository.base.BaseRDS
+import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequestDTO
 import javax.inject.Inject
 
 class AttractionRDS @Inject constructor(private val attractionService: AttractionService) :
-    BaseRDS() {
+    BaseRDS(attractionService) {
+
     suspend fun getAttractionCategories(attractionCategoryRequestDTO: AttractionCategoryRequestDTO) =
         safeApiCall {
             attractionService.getAttractionCategoryApi(attractionCategoryRequestDTO.culture)

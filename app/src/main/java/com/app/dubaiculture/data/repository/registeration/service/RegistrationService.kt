@@ -1,5 +1,6 @@
 package com.app.dubaiculture.data.repository.registeration.service
 
+import com.app.dubaiculture.data.repository.base.BaseService
 import com.app.dubaiculture.data.repository.registeration.remote.request.confirmOTP.ConfirmOTPRequestDTO
 import com.app.dubaiculture.data.repository.registeration.remote.request.resendOTP.ResendOTPRequestDTO
 import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequestDTO
@@ -8,7 +9,7 @@ import com.app.dubaiculture.data.repository.registeration.remote.response.confir
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface RegistrationService {
+interface RegistrationService :BaseService{
 
 
     //Registration

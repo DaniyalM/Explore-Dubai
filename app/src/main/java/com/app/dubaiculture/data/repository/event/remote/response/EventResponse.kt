@@ -5,8 +5,6 @@ import com.app.dubaiculture.data.repository.event.local.models.Result
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class EventResponse constructor(
-    @SerializedName("Result")
-    @Expose
-    val Result: Result
+data class EventResponse constructor(@SerializedName("Result")
+                                     @Expose val Result: Result
 ) : BaseResponse()

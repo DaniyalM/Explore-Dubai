@@ -17,7 +17,7 @@
         android:icon="@drawable/attraction"
         android:title="@string/attractions" />
     <item
-        android:id="@+id/eventFilterFragment"
+        android:id="@+id/moreFragment"
         android:icon="@drawable/more"
         android:title="@string/more" />
 </menu>

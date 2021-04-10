@@ -123,6 +123,10 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
                     }
                 }
         })
+        baseViewModel.userLiveData.observe(viewLifecycleOwner) {
+            application.auth.user = it
+            application.auth.isGuest = false
+        }
     }
 
     fun navigateByDirections(navDirections: NavDirections) {

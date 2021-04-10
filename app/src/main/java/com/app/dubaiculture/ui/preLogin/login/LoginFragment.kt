@@ -14,11 +14,8 @@ import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
-import com.app.dubaiculture.utils.Constants.NavResults.DO_ANIMATION
-import com.app.dubaiculture.utils.getNavigationResult
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.util.*
 
 
@@ -41,7 +38,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
-        lottieAnimationRTL(binding.animationView)
+        lottieAnimationRTL(binding!!.animationView)
         binding.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
                 binding.password to "my_password",
@@ -69,17 +66,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             else setLanguage(Locale.ENGLISH)
         }
 
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    activity.finish()
-                }
-            }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+
         subscribeToObservables()
-        if(isArabic()){
+        if (isArabic()) {
             binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
-        }else{
+        } else {
             binding.imgUaePass.setImageResource(R.drawable.uae_pass)
         }
     }
@@ -87,6 +79,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     private fun subscribeToObservables() {
         loginViewModel.loginStatus.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
+                application.auth.isGuest = false
                 activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             }
         }
@@ -94,22 +87,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.forgot_pass ->{
-                val extras =FragmentNavigatorExtras(
+            R.id.forgot_pass -> {
+                val extras = FragmentNavigatorExtras(
                     binding.password to "my_password",
                     binding.editPassword to "my_edit_password",
                     binding.mobileNumber to "my_phone",
                     binding.editMobNo to "my_edit_phone",
                     binding.tvLoginAccount to "main_title",
                     binding.btnLogin to "action_btn"
-            )
-                findNavController().navigate(R.id.action_loginFragment_to_bottomSheet,
+                )
+                findNavController().navigate(R.id.action_loginFragment_to_forgotFragment,
                     null,
                     null,
                     extras)
             }
             R.id.img_uae_pass -> {
-                navigate(R.id.action_loginFragment_to_eventNearMapFragment)
+//                navigate(R.id.action_loginFragment_to_eventNearMapFragment)
             }
         }
     }
@@ -123,9 +116,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         super.onPause()
         loginViewModel.isPassword.value = true
         loginViewModel.isPhone.value = true
-        loginViewModel. isPhoneEdit.value = true
-        loginViewModel.  isEmailEdit.value = true
+        loginViewModel.isPhoneEdit.value = true
+        loginViewModel.isEmailEdit.value = true
         loginViewModel.isEmail.value = true
     }
+
+
+
+
+
+
+
 
 }

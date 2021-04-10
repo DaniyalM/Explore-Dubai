@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_18sdp"
+                android:cardParsedColor="@{attractions.color}"
                 app:cardBackgroundColor="@color/white_900"
                 app:cardCornerRadius="@dimen/_15sdp"
                 app:cardElevation="@dimen/_5sdp">
@@ -51,7 +52,7 @@
                     android:textStyle="bold"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:text="@{attractions.category}"
-                    android:textColor="@color/purple_900"
+                    android:textColor="@color/white_900"
                     android:textSize="@dimen/_9ssp"
                      />
             </com.google.android.material.card.MaterialCardView>
@@ -60,20 +61,26 @@
                 android:id="@+id/img_must_see"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:background="@drawable/must_see_icon_home"
                 android:imageViewUrl='@{attractions.portraitImage}'
                 android:scaleType="fitXY"
                />
-
-            <ImageView
-                android:id="@+id/img_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <CheckBox
+                android:id="@+id/favourite"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_18sdp"
                 android:layout_gravity="end"
-                android:layout_marginTop="@dimen/_19sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_margin="@dimen/_15sdp"
+                android:button="@null"
+                android:foreground="@drawable/custom_ripple_border"
+                android:checked="@{attractions.isFavourite}"
                 android:background="@drawable/heart_icon_home"
-                android:padding="@dimen/_8sdp" />
+                android:padding="@dimen/_8sdp"
+                android:stateListAnimator="@animator/scale"
+                app:layout_constraintBottom_toBottomOf="@+id/card_view_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/card_view_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"

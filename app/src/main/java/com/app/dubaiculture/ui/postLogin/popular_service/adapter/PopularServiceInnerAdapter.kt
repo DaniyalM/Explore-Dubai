@@ -55,7 +55,7 @@ class PopularServiceInnerAdapter:
         position: Int
     ) {
         (holder.itemView as PopularServiceInnerAdapter.PopularServiceInnerItemCell).bindWhenInflated {
-            holder.itemView.binding?.popularServices=popularService[position]
+//            holder.itemView.binding?.popularServices=popularService[position]
         }
     }
 

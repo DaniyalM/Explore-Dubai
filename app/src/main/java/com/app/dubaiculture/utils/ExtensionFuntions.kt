@@ -3,34 +3,41 @@ package com.app.dubaiculture.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
-import androidx.databinding.BindingAdapter
+import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
-import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import com.rishabhharit.roundedimageview.RoundedImageView
 import okhttp3.RequestBody
 import okio.Buffer
 import java.io.IOException
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
-fun decorateRecyclerView(context: Context,recyclerView: RecyclerView, layoutManager: LinearLayoutManager) {
+fun decorateRecyclerView(
+    context: Context,
+    recyclerView: RecyclerView,
+    layoutManager: LinearLayoutManager
+) {
     val dividerItemDecoration = DividerItemDecoration(context,
         layoutManager.getOrientation())
     recyclerView.addItemDecoration(dividerItemDecoration)
 }
+
+
+
 
 fun requestBodyToString(request: RequestBody?): String? {
     return try {
@@ -42,7 +49,10 @@ fun requestBodyToString(request: RequestBody?): String? {
     }
 
 }
-internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))
+
+
+internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(
+    color))
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
@@ -79,6 +89,7 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
 
 }
 
+
 fun Fragment.handleApiError(
     failure: Result.Failure,
     baseViewModel: BaseViewModel,
@@ -106,7 +117,7 @@ fun Fragment.handleApiError(
         }
     }
 }
-fun <T: Any> ObservableField<T>.getNonNull(): T = get()!!
+fun <T : Any> ObservableField<T>.getNonNull(): T = get()!!
 
 //@BindingAdapter("android:imageViewUrl")
 //fun loadImageView(view: ImageView, url: String?) {
@@ -136,6 +147,75 @@ fun <R> Fragment.getNavigationResult(key: String) =
 
 fun Fragment.setNavigationResult(key: String, data: Any?) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
+
+}
+    fun dateFormat(inputDate: String?): String {
+//        2021-03-31T17:19:00 server date format
+        var parsed: Date? = null
+        var outputDate = ""
+        val df_input =
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+        val df_output =
+            SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        try {
+            parsed = df_input.parse(inputDate)
+            outputDate = df_output.format(parsed)
+        } catch (e: ParseException) {
+        }
+        return outputDate
+    }
+
+
+fun dateFormatEn(inputDate: String?): String {
+//        2021-03-31T17:19:00 server date format
+    var parsed: Date? = null
+    var outputDate = ""
+    val df_input =
+        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    val df_output =
+        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    try {
+        parsed = df_input.parse(inputDate)
+        outputDate = df_output.format(parsed)
+    } catch (e: ParseException) {
+    }
+    return outputDate
 }
 
+fun dayOfWeek(inputDate: String?): String {
+//        2021-03-31T17:19:00 server date format
+    var parsed: Date? = null
+    var outputDate = ""
+    val df_input =
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+    val df_output =
+        SimpleDateFormat("EEEE")
+    try {
+        parsed = df_input.parse(inputDate)
+        outputDate = df_output.format(parsed)
+    } catch (e: ParseException) {
+    }
+    return outputDate
+}
 
+fun getDateObj(dateString: String): Date {
+    var date : Date? =null
+    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+    try {
+         date = format.parse(dateString)
+        System.out.println(date)
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+    return date!!
+}
+
+    fun Date.toString(format: String): String {
+        val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
+        return dateFormatter.format(this)
+    }
+
+
+fun _timeToDateObj(time24: String): Date {
+    return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).parse(time24)
+}

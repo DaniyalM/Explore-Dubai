@@ -5,12 +5,14 @@ import com.app.dubaiculture.data.repository.explore.remote.request.ExploreReques
 import com.app.dubaiculture.data.repository.explore.service.ExploreService
 import javax.inject.Inject
 
-class ExploreRDS @Inject constructor(private val exploreService: ExploreService) : BaseRDS() {
-//    suspend fun getExplore(culture : String) = safeApiCall {
-//        exploreService.getExploreApi(culture)
-//    }
-
+class ExploreRDS @Inject constructor(private val exploreService: ExploreService) : BaseRDS(exploreService) {
     suspend fun getExplore(exploreRequestDTO: ExploreRequestDTO) = safeApiCall {
         exploreService.getExploreApi(exploreRequestDTO.culture)
     }
+
+    suspend fun getExploreMap(exploreRequestDTO: ExploreRequestDTO) = safeApiCall {
+        exploreService.getExploreMap(exploreRequestDTO.culture)
+    }
+
+
 }

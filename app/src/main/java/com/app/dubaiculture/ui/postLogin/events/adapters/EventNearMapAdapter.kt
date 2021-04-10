@@ -10,6 +10,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.EventNearItemsBinding
 import com.app.dubaiculture.utils.AsyncCell
+import com.app.dubaiculture.utils.dateFormat
 
 class EventNearMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<Events>() {
@@ -41,11 +42,9 @@ class EventNearMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         setUpEventNearMapViewHolder(holder = holder as EventNearMapAdapter.EventNearMapViewHolder,
             position)
     }
-
     override fun getItemCount() = events.size
-
     //Data Binding
-    private inner class EventsListItemCell(context: Context) : AsyncCell(context) {
+    private inner class EventsListItemCell(context: Context) : AsyncCell(context,true) {
         var binding: EventNearItemsBinding? = null
         override val layoutId = R.layout.event_near_items
         override fun createDataBindingView(view: View): View? {
@@ -53,7 +52,6 @@ class EventNearMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             return view.rootView
         }
     }
-
     private fun setUpEventNearMapViewHolder(
         holder: EventNearMapAdapter.EventNearMapViewHolder,
         position: Int,
@@ -62,6 +60,7 @@ class EventNearMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.itemView.binding?.let {
                 try {
                     it.events = events[position]
+                    it.tvDate.text = dateFormat(events[position].dateTo)
                 } catch (ex: IndexOutOfBoundsException) {
                     print(ex.stackTrace)
                 }

@@ -4,12 +4,13 @@ import android.graphics.Color
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.event.local.models.Filter
 import com.app.dubaiculture.data.repository.filter.Categories
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.item_category_filter.view.*
 
-class FilterCategoryItems (private val categories : Categories, private var isSelected: Boolean = false ):
+class FilterCategoryItems (private val categories : Filter, private var isSelected: Boolean = false ):
     BaseAdapter(R.layout.item_category_filter) {
     override fun initBinding(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.apply {

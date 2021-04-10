@@ -18,22 +18,14 @@ import timber.log.Timber
 //OnStreetViewPanoramaReadyCallback
 @AndroidEntryPoint
 class PostLoginActivity : BaseAuthenticationActivity() {
+
     lateinit var navController: NavController
     private val mainViewModel: MainViewModel by viewModels()
-//    private lateinit var streetViewPanoramaFragment: SupportStreetViewPanoramaFragment
 
-//    private fun showStreetView() {
-//        streetViewPanoramaFragment =
-//            supportFragmentManager
-//                .findFragmentById(R.id.streetViewFragment) as SupportStreetViewPanoramaFragment
-//        streetViewPanoramaFragment.let {
-//            it.getStreetViewPanoramaAsync(this)
-//        }
-//
-//    }
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
+        applicationEntry.auth.locale = getCurrentLanguage().language
         this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
         subscribeUiEvents(mainViewModel)
@@ -41,6 +33,12 @@ class PostLoginActivity : BaseAuthenticationActivity() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.threeSixtyFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
+                R.id.registrationSuccessFragment2 -> {
+                    bottomNav.visibility = View.GONE
+                }
+                R.id.ARFragment -> {
                     bottomNav.visibility = View.GONE
                 }
                 else -> {
@@ -57,8 +55,7 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     private fun setupViews() {
         val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
         navController = Navigation.findNavController(fragmentContainer)
-        // Finding the Navigation Controller
-        // Setting Navigation Controller with the BottomNavigationView
+
         bottomNav.setupWithNavController(navController)
     }
 
@@ -90,4 +87,8 @@ class PostLoginActivity : BaseAuthenticationActivity() {
         }
     }
 
+
 }
+
+
+

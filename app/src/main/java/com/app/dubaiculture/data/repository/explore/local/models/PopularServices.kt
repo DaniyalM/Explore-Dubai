@@ -10,7 +10,7 @@ data class PopularServices(
 
     @SerializedName("Title")
     @Expose
-    val title:String?="",
+    val title: String? = "",
 
     @SerializedName("ColoredIcon")
     @Expose
@@ -18,7 +18,7 @@ data class PopularServices(
 
     @SerializedName("JsonFile")
     @Expose
-    var jsonFile: String? ="",
+    var jsonFile: String? = "",
 
     @SerializedName("HoveredJsonFile")
     @Expose
@@ -26,7 +26,11 @@ data class PopularServices(
 
     @SerializedName("PlayJson")
     @Expose
-    var playJson: Boolean? = false
+    var playJson: Boolean? = false,
+
+    @SerializedName("Icon")
+    @Expose
+    var icon: String? = null,
 )
 
 

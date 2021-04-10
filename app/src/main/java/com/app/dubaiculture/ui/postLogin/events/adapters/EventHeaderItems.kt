@@ -8,12 +8,11 @@ import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
-import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector
-import com.app.dubaiculture.ui.postLogin.attractions.components.EventHeaderItemSelector
-import com.app.dubaiculture.ui.postLogin.attractions.components.EventHeaderItemSelector.Companion.clickCheckerFlag
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.cardview
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.tv_title
 import kotlinx.android.synthetic.main.event_items_header.view.*
@@ -33,12 +32,14 @@ class EventHeaderItems <T>(
 
     private lateinit var view: View
 
-
     override fun initBinding(viewHolder: GroupieViewHolder, position: Int) {
         view=viewHolder.root
         viewHolder.apply {
 
             root?.let { it ->
+//                YoYo.with(Techniques.BounceInDown)
+//                    .duration(1000)
+//                    .playOn(it)
                 it.tv_title.text = displayValue
                 isSelected = clickCheckerFlag ==position
                 renderSelection(it.tv_title, it.img_bg,it.cardview)

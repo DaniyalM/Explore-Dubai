@@ -34,12 +34,36 @@ object Constants {
 
     object NavBundles {
         const val COMES_FROM_LOGIN: String = "loginFragment"
+        const val COMES_FROM_POST_LOGIN: String = "postloginFragment"
         const val SELECTED_CITY: String = "selectedCity"
+        const val SORTED_LIST: String = "SORTED_EVENT_LIST"
+        const val EVENT_OBJECT: String = "eventObject"
+        const val ATTRACTION_OBJECT: String = "attractionObject"
+        const val ATTRACTION_CAT_OBJECT: String = "attractionCatObject"
+        const val ATTRACTION_GALLERY_LIST: String = "attractionGalleryList"
+        const val THREESIXTY_GALLERY_LIST: String = "THREE60_GALLERY_LIST"
+        const val EXPLORE_MAP_LIST: String = "explore_map_list"
+        const val EVENT_MAP_LIST: String = "event_map_list"
+
+
     }
 
 
     object Links {
         const val TERMS_CONDITIONS: String = "https://uat.weareneomads.com/terms-of-use"
+    }
+    object StaticLatLng{
+        const val LAT =  24.8623
+        const val LNG =  67.0627
+    }
+
+    object Categories{
+        const val MUSEUMS = "Museums"
+        const val HERITAGE_SITES = "Heritage Sites"
+        const val ART_GALLERY = "Art Galleries"
+        const val FESTIVALS = "Festivals"
+        const val LIBRARIES = "Libraries"
+
     }
 
 }

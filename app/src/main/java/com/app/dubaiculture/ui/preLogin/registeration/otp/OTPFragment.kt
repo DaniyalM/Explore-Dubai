@@ -104,6 +104,7 @@ private fun disabledBackButton(){
         }
         loginViewModel.loginStatus.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
+                application.auth.isGuest=false
                 activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             }
         }

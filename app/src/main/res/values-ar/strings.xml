@@ -6,6 +6,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا</string>
 
+
+
     // home tabs
     <string name="explore">اكتشف</string>
     <string name="events">الفعاليات</string>
@@ -18,6 +20,8 @@
     <string name="welcome_to_dubai_culture">مرحبا بك في هيئة دبي للثقافة والفنون</string>
     <string name="sign_up">تسجيل جديد؟</string>
     <string name="forgot_password"> نسيت كلمة السر؟</string>
+
+
 
     <string name="login_to_your_account">الدخول للحساب</string>
     <string name="continue_as_a_guest"><u>الاستمرار كزائر</u></string>
@@ -34,6 +38,8 @@
     <string name="_confirm_password"> تأكيد كلمة السر</string>
     <string name="_email_address">ادخل البريد الالكتروني</string>
     <string name="_password"> كلمة السر</string>
+
+
 
     <string name="forgot_password_">نسيت كلمة السر</string>
     <string name="cancel">الغاء</string>
@@ -57,6 +63,8 @@
     <string name="emirates_id">رقم الهوية الامارتية</string>
     <string name="login_here">تسجيل الدخول</string>
     <string name="err_first_name">اسم خطئ</string>
+
+
 
     <string name="err_email">بريد الكتروني خطئ</string>
     <string name="err_phone">رقم هاتف خطئ</string>
@@ -86,53 +94,85 @@
     <string name="should_contain_a_lowercase_character">يجب أن تتضمن حرف صغير</string>
     <string name="should_contain_a_upper_character">يجب أن تتضمن حرف كبير</string>
     <string name="should_contain_a_special_character">(!@#) يجب أن تتضمن حرف مميز</string>
-    <string name="login_to_continue">Login to Continue</string>
-    <string name="terms_and_conditions">Terms and Conditions</string>
-    <string name="okay">Okay</string>
-    <string name="filters">Filters</string>
-    <string name="search_events_by_keyword">Search events by keyword</string>
-    <string name="location">Location</string>
-    <string name="date_range">Date Range</string>
-    <string name="from">From</string>
-    <string name="to">To</string>
-    <string name="category">Category</string>
-    <string name="type">Type</string>
-    <string name="_free">Free</string>
-    <string name="ticketed">Ticketed</string>
-    <string name="reset_filter">Reset Filter</string>
-    <string name="museums_near_you">Museums Near You</string>
-    <string name="sort">Sort</string>
-    <string name="alphabetically">Alphabetically</string>
-    <string name="a_to_z">A to Z</string>
-    <string name="z_to_a">Z to A</string>
-    <string name="date">Date</string>
-    <string name="newest">Newest</string>
-    <string name="oldest">Oldest</string>
-    <string name="augmented_reality">Augmented Reality</string>
-    <string name="_360_view">360 View</string>
-    <string name="gallery">Gallery</string>
-    <string name="get_directions">Get Directions</string>
-    <string name="description">Description</string>
-    <string name="read_more">Read More ^</string>
-    <string name="read_less">Read Less $</string>
-    <string name="don_t_miss_out_on_any_details">Don’t miss out on any details</string>
-    <string name="view_site_map">View Site Map</string>
+    <string name="login_to_continue">تسجيل الدخول للاستمرار</string>
+    <string name="terms_and_conditions">الشروط والأحكام</string>
+    <string name="okay">حسنا</string>
+    <string name="filters">تصنيف</string>
+    <string name="search_events_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
+    <string name="location">الموقع</string>
+    <string name="date_range">نطاق التاريخ</string>
+    <string name="from">من عند</string>
+    <string name="to">الى</string>
+    <string name="category">الفئة</string>
+    <string name="type">النوع</string>
+    <string name="_free">مجانا</string>
+    <string name="ticketed">تذاكر دخول</string>
+    <string name="reset_filter">اعادة ضبط التصنيف</string>
+    <string name="museums_near_you">متاحف حولك</string>
+    <string name="sort">تصنيف</string>
+    <string name="alphabetically">الأبجدية</string>
+    <string name="a_to_z">أ الى ي</string>
+    <string name="z_to_a">ي الى أ</string>
+    <string name="date">التاريخ</string>
+    <string name="newest">الأجدد</string>
+    <string name="oldest">الأقدم</string>
+    <string name="augmented_reality">الواقع الافتراضي</string>
+    <string name="_360_view">نظرة 360 درجة</string>
+    <string name="gallery">المعرض</string>
+    <string name="get_directions">احصل على الاتجاهات</string>
+    <string name="description">التفاصيل</string>
+    <string name="read_more">اقرأ المزيد</string>
+    <string name="read_less">اقرأ أقل</string>
+    <string name="don_t_miss_out_on_any_details">لا تفوت التفاصيل</string>
+    <string name="view_site_map">عرض خريطة العرض</string>
     <string name="ibeacons">iBeacons</string>
-    <string name="contact_for_inquiries">Contact for inquiries</string>
-    <string name="your_journey">Your Journey</string>
-    <string name="email_us">Email us</string>
-    <string name="stay_updated">Stay updated</string>
-    <string name="what_s_happenings_at_majlis_ghorfat">What’s Happenings at Majlis Ghorfat</string>
-    <string name="call_us">Call Us</string>
-    <string name="museum">Museum</string>
-    <string name="swipe_up_for_more">Swipe up for more</string>
-    <string name="more_events">More Events</string>
-    <string name="event_information">Event Information</string>
-    <string name="schedule">Schedule</string>
-    <string name="search_event_by_keyword">Search Event by keyword</string>
-    <string name="feature_events">Feature Events</string>
-    <string name="events_near_you">Events Near You</string>
-    <string name="view_on_map">View on map</string>
+    <string name="contact_for_inquiries">تواصل معنا للاستفسار</string>
+    <string name="your_journey">رحلتك</string>
+    <string name="email_us">تواصل معنا بالبريد الالكتروني</string>
+    <string name="stay_updated">ابق محدثا</string>
+    <string name="what_s_happenings_at_majlis_ghorfat">ماذا يحدث في مجلس الغرفات</string>
+    <string name="call_us">اتصل بنا</string>
+    <string name="museum">متحف</string>
+    <string name="swipe_up_for_more">اسحب لأعلى للمزيد</string>
+    <string name="more_events">فعاليات أكثر</string>
+    <string name="event_information">تفاصيل الفعالية</string>
+    <string name="schedule">الجدول</string>
+    <string name="search_event_by_keyword">ابحث عن فعالية باستخدام الكلمات</string>
+    <string name="feature_events">فعاليات بارزة</string>
+    <string name="events_near_you">فعاليات حولك</string>
+    <string name="view_on_map">أظهر على الخريطة</string>
+    <string name="gps_status_enabled">"الموقع الحالي مفعّل"</string>
+    <string name="gps_status_disabled">"الموقع الحالي غير مفعّل"</string>
+    <string name="alert">تنبيه</string>
+    <string name="please_enable_gps">يرجى تمكين الموقع الحالي</string>
+    <string name="the_definitive_guide_to_an_uncertain_world_contribute_to_the_future">الدليل لعالم غير مؤكد للاستثمار في المستقبل</string>
+    <string name="_14_20_nov_2020_sunday_friday">14- 20 نوفمبر ,2020 | الأحد - الجمعة</string>
+    <string name="_10_00_am_1_00_pm">10:00 ص - 1:00 م</string>
+    <string name="palm_jumeriah_dubai">جميرا, دبي</string>
+    <string name="_10_km_away">10 كم</string>
+    <string name="register_for_event">التسجيل للفعالية</string>
+    <string name="occupation">المهنة</string>
+    <string name="what_do_you_do">ماذا تعمل؟</string>
+    <string name="select_your_time_period">اختر توقيتك المناسب</string>
+    <string name="time">الوقت</string>
+    <string name="upload_id">تحميل الهوية</string>
+    <string name="jpeg_or_pdf_format_not_exceeding_2mb">الملف لا يمكن أن يتجاوز 2 ميغابايت</string>
+    <string name="submit">أرسل</string>
+    <string name="register_confirm">تم تأكيد التسجيل</string>
+    <string name="various_artistic_and_cultural_activities">مختلف الأنشطة الفنية و الثقافية</string>
+    <string name="opening_show_the_wise_poet_a_theatrical_performance_by_al_ahli_dubai_theatre">افتتاح معرض شبابي في مسرح الأهلي الثقافي</string>
+    <string name="all">الكل</string>
+    <string name="this_week">هذا الأسبوع</string>
+    <string name="this_weekend">عطلة نهاية هذا الأسبوع</string>
+    <string name="next_seven_days">ال7 أيام القادمة</string>
+    <string name="detail_clip_card_text">مراجعة المكان</string>
+    <string name="clear_all">مسح الكل</string>
+    <string name="no_data_found">لم يتم ايجاد نتائج</string>
+    <string name="away">كم</string>
+    <string name="error_msg">هل أنت متاكد من اغلاق التطبيق؟</string>
+    <string name="near_you">حولك</string>
+    <string name="recognize">Recognize</string>
+    <string name="ar_detail">AR Detail</string>
+
+
 </resources>
-
-

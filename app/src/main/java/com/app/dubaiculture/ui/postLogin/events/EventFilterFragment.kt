@@ -1,138 +1,132 @@
 package com.app.dubaiculture.ui.postLogin.events
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
+import androidx.fragment.app.activityViewModels
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
-import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.filter.models.SelectedItems
 import com.app.dubaiculture.databinding.FragmentEventFilterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.components.EventHeaderItemSelector
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventPagerAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
+import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
-import kotlinx.coroutines.launch
+import q.rorbin.badgeview.QBadgeView
+import java.util.*
+
 
 @AndroidEntryPoint
 class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnClickListener {
-    private val eventViewModel: EventViewModel by viewModels()
+    private val eventViewModel: EventViewModel by activityViewModels()
+
+    private var isContentLoaded = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.root.img_filter.setOnClickListener(this)
         binding.root.back.setOnClickListener(this)
+        backArrowRTL(binding.root.back)
+
         subscribeUiEvents(eventViewModel)
-        callingObservables()
-        subscribeToObservables()
+//        callingObservables()
+//        subscribeToObservables()
         initiatePager()
+        viewPagerSetUp()
+
+
+
+
+        eventViewModel.filterDataList.observe(viewLifecycleOwner){
+            if(!it.isNullOrEmpty()){
+                // badge should be visible
+                binding.root.tv_badge.text = it.size.toString()
+                binding.root.tv_badge.visibility = View.VISIBLE
+                binding.showTabHeader.visibility = View.GONE
+            }else{
+                // badge should be gone
+                binding.root.tv_badge.visibility = View.GONE
+                binding.showTabHeader.visibility = View.VISIBLE
+            }
+        }
+
+        binding.root.editSearchEvents.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                eventViewModel._searchBarKeyWord.value = Event(binding.root.editSearchEvents.text.toString())
+                return@OnEditorActionListener true
+            }
+            false
+        })
+
+
+
+
     }
 
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
+//        binding.horizontalSelector.initialize(createItems(),
+//            binding.pager,
+//            this)
     }
 
-    private fun callingObservables() {
-        lifecycleScope.launch {
-            eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
-        }
-    }
 
-    private fun subscribeToObservables() {
-        eventViewModel.eventCategoryList.observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Success -> {
-                    it.let {
-
-                        eventViewModel.showToast("Success")
-//                        binding.horizontalSelector.initialize(it.value, binding.pager)
-//                        binding.pager.adapter = EventPagerAdapter(this, it.value)
-                        binding.horizontalSelector.initialize(createTestItems(), binding.pager)
-                        binding.pager.adapter = EventPagerAdapter(this, "1")
-                    }
-                }
-                is Result.Failure -> {
-
-//                    handleApiError(it, attractionViewModel)
-                }
-            }
-        }
+    private fun viewPagerSetUp(){
+        isContentLoaded = false
+        binding.pager.isSaveEnabled = false
+        binding.horizontalSelector.initialize(createItems(),
+            binding.pager,
+            this)
     }
 
     override fun onResume() {
         super.onResume()
-        binding.horizontalSelector.positionUpdate(EventHeaderItemSelector.clickCheckerFlag)
+        binding.horizontalSelector.positionUpdate(clickCheckerFlag)
     }
 
-    private fun createTestItems(): List<EventHomeListing> =
-        mutableListOf<EventHomeListing>().apply {
-            repeat((1..5).count()) {
-                when(it){
-                    0->{
+    private fun createItems(): List<HeaderModel> =
+        mutableListOf<HeaderModel>().apply {
+            repeat((1..4).count()) {
+                when (it) {
+                    0 -> {
                         add(
-                            EventHomeListing(
-                                category = "All",
-                                events = createAttractionItems()
+                            HeaderModel(
+                                id = it,
+                                title = getString(R.string.all),
                             ))
                     }
-                    1->{
+                    1 -> {
                         add(
-                            EventHomeListing(
-                                category = "This Week",
-                                events = createAttractionItems()
+                            HeaderModel(
+                                id = it,
+                                title = getString(R.string.this_week),
                             ))
+
                     }
-                    2->{
+                    2 -> {
                         add(
-                            EventHomeListing(
-                                category = "This Weekend",
-                                events = createAttractionItems()
+                            HeaderModel(
+                                id = it,
+                                title = getString(R.string.this_weekend),
                             ))
+
                     }
-                    3->{
+                    3 -> {
                         add(
-                            EventHomeListing(
-                                category = "Next 7 Days",
-                                events = createAttractionItems()
-                            ))
-                    }
-                    4->{
-                        add(
-                            EventHomeListing(
-                                category = "Pakistan",
-                                events = createAttractionItems()
+                            HeaderModel(
+                                id = it,
+                                title = getString(R.string.next_seven_days),
                             ))
                     }
                 }
-
             }
+            isContentLoaded = true
         }
-
-    private fun createAttractionItems(): ArrayList<Events> = mutableListOf<Events>().apply {
-        repeat((1..4).count()) {
-            add(Events(
-                id = it.toString(),
-                title = "Photographs in Dialogue\nexhibition: Hala Badri welcomes",
-                category = "ONLINE",
-                image = "https://upload.wikimedia.org/wikipedia/commons/c/cc/Dubai_Skylines_at_night_%28Pexels_3787839%29.jpg",
-                fromDate = "14",
-                fromMonthYear = "NOV, 20",
-                fromTime = "fromTime $it",
-                fromDay = "fromDay $it",
-                toDate = "20",
-                toMonthYear = "NOV, 20",
-                toTime = "toTime $it",
-                toDay = "toDay $it",
-                type = "FREE $it"
-            )
-            )
-        }
-    } as ArrayList<Events>
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -140,14 +134,25 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
     ) = FragmentEventFilterBinding.inflate(inflater, container, false)
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.img_filter->{
+        when (v?.id) {
+            R.id.img_filter -> {
                 navigate(R.id.action_eventFilterFragment_to_filterFragment)
             }
-            R.id.back->{
+            R.id.back -> {
                 back()
             }
         }
     }
+private fun badgeSetUp(list: List<SelectedItems>){
+    QBadgeView(requireContext())
+        .setBadgeBackgroundColor(R.color.purple_900)
+        .bindTarget(binding.root.badge_placement).setBadgeNumber(list.size)
+//        .stroke(R.color.black_900, 6F, true)\
+        .setBadgeGravity(Gravity.START or Gravity.TOP)
+        .setGravityOffset(18F, 6F, true)
+//        .badgeTextColor = Color.parseColor("#FFFFFF")
+
+}
+
 
 }

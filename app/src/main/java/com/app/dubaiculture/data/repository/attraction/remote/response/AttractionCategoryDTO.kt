@@ -1,8 +1,6 @@
 package com.app.dubaiculture.data.repository.attraction.remote.response
 
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.google.gson.annotations.Expose
-
 import com.google.gson.annotations.SerializedName
 
 
@@ -29,9 +27,12 @@ data class AttractionCategoryDTO(
 
     @SerializedName("Attractions")
     @Expose
-    var attractions: ArrayList<AttractionDTO>
+    var attractions: ArrayList<AttractionDTO>,
+    @SerializedName("Color")
+    @Expose
+    var color: String? = null,
 
 
-)
+    )
 
 

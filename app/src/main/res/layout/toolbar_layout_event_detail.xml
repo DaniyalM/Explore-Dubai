@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--    android:elevation="@dimen/toolbar_elevation"-->
     <merge>
-
-
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarEventDetail"
             android:layout_width="match_parent"
@@ -21,38 +20,50 @@
                 android:background="@color/app_bg">
 
                 <FrameLayout
+                    android:id="@+id/imageLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/imageLayout"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/bg_border"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    >
-
+                    app:layout_constraintTop_toTopOf="parent">
 
 
                     <ImageView
                         android:id="@+id/imageView"
+                        android:transitionName="imgScaleUp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/event_detail_icon" />
+                        android:scaleType="centerCrop"
 
+                        />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/image_gradient" />
 
+
                 </FrameLayout>
+                <ImageView
+                    android:id="@+id/bg_border"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/attraction_bg_icon_with_border"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/guideline"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:ignore="UnknownIdInLayout" />
+
 
                 <ImageView
                     android:id="@+id/imageView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_shadow_attraction_icon"
+                    android:layout_marginBottom="@dimen/_100sdp"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -85,17 +96,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_20sdp"
-                    android:drawableStart="@drawable/calender_gray"
+                    android:drawableStart="@drawable/calender_white"
                     android:drawablePadding="@dimen/_10sdp"
                     android:text="14 - 20 Nov, 20"
                     android:textColor="@color/white_900"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintBottom_toTopOf="@+id/btn_login"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_reg"
                     app:layout_constraintStart_toStartOf="@+id/title" />
 
 
                 <com.app.dubaiculture.ui.components.custombutton.CustomButton
-                    android:id="@+id/btn_login"
+                    android:id="@+id/btn_reg"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_20sdp"
@@ -107,22 +118,26 @@
                     android:textAllCaps="false"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:textColor="@color/white_900"
-                    app:layout_constraintBottom_toTopOf="@+id/customTextView4"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_swipe_up_event"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/title" />
 
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                    android:id="@+id/customTextView4"
+                    android:id="@+id/tv_swipe_up_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_45sdp"
+                    android:background="@drawable/custom_ripple_border"
+                    android:drawableEnd="@drawable/up_arrow_attraction_detail_icon"
+                    android:drawablePadding="@dimen/_10sdp"
                     android:text="@string/swipe_up_for_more"
                     android:textColor="@color/gray_600"
-                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintVertical_bias="0.88"
+                    android:textSize="@dimen/_11ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <!--                <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
                 <!--                    android:id="@+id/btn_login"-->
@@ -161,57 +176,57 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/back"
+                        android:id="@+id/back_event"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginTop="@dimen/_30sdp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="@drawable/custom_ripple_black"
                         android:rotation="90"
                         android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:id="@+id/bookingCalender"
+                        android:id="@+id/bookingCalender_event"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="200dp"
                         android:layout_marginEnd="20dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="@drawable/custom_ripple_black"
                         android:rotation="0"
                         android:src="@drawable/add_to_calander"
-                        app:layout_constraintBottom_toBottomOf="@+id/back"
-                        app:layout_constraintEnd_toStartOf="@+id/favourite"
-                        app:layout_constraintStart_toEndOf="@+id/back"
-                        app:layout_constraintTop_toTopOf="@+id/back" />
+                        app:layout_constraintBottom_toBottomOf="@+id/back_event"
+                        app:layout_constraintEnd_toStartOf="@+id/favourite_event"
+                        app:layout_constraintStart_toEndOf="@+id/back_event"
+                        app:layout_constraintTop_toTopOf="@+id/back_event" />
 
-                    <ImageView
-                        android:id="@+id/favourite"
+                    <CheckBox
+                        android:id="@+id/favourite_event"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginEnd="20dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:rotation="0"
-                        android:src="@drawable/heart_icon_home_black"
-                        app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
-                        app:layout_constraintEnd_toStartOf="@+id/share"
-                        app:layout_constraintStart_toEndOf="@+id/bookingCalender"
-                        app:layout_constraintTop_toTopOf="@+id/bookingCalender"
+                        android:background="@drawable/heart_icon_home_black"
+                        android:button="@null"
+                        android:foreground="@drawable/custom_ripple_border"
+                        app:layout_constraintBottom_toBottomOf="@+id/bookingCalender_event"
+                        app:layout_constraintEnd_toStartOf="@+id/img_share_event"
+                        app:layout_constraintStart_toEndOf="@+id/bookingCalender_event"
+                        app:layout_constraintTop_toTopOf="@+id/bookingCalender_event"
                         app:layout_constraintVertical_bias="1.0" />
 
+
                     <ImageView
-                        android:id="@+id/share"
+                        android:id="@+id/img_share_event"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginEnd="30dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="@drawable/custom_ripple_black"
                         android:rotation="0"
                         android:src="@drawable/share"
-                        app:layout_constraintBottom_toBottomOf="@+id/favourite"
+                        app:layout_constraintBottom_toBottomOf="@+id/favourite_event"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/favourite"
-                        app:layout_constraintTop_toTopOf="@+id/favourite" />
+                        app:layout_constraintStart_toEndOf="@+id/favourite_event"
+                        app:layout_constraintTop_toTopOf="@+id/favourite_event" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

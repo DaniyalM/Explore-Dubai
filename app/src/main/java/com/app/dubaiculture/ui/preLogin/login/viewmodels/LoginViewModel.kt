@@ -38,7 +38,7 @@ class LoginViewModel @ViewModelInject constructor(
     val isPhoneEdit = MutableLiveData<Boolean?>(true)
     val isEmailEdit = MutableLiveData<Boolean?>(true)
 
-    val isPassword = MutableLiveData<Boolean?>(true)
+    val isPassword = MutableLiveData(true)
 
     //boolean for checking typing email or number
     val isLoginWithPhone = MutableLiveData<Boolean?>(false)
@@ -60,22 +60,6 @@ class LoginViewModel @ViewModelInject constructor(
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
 
-//    if (!result.value.isConfirmed) {
-//        if(phone.get().toString().startsWith("+")){
-//            resendPhoneVerification()
-//        }else{
-//            Timber.e(result.value.loginResponseDTO.userDTO.Email)
-//            userRepository.saveUser(
-//                userDTO = result.value.loginResponseDTO.userDTO,
-//                loginResponseDTO = result.value.loginResponseDTO)
-//
-//            _loginStatus.value = Event(true)
-//        }
-//    } else {
-//        showLoader(false)
-//        showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
-//
-//    }
 
     fun loginWithPhone(ph: String? = null, pass: String? = null) {
         viewModelScope.launch {
@@ -94,7 +78,8 @@ class LoginViewModel @ViewModelInject constructor(
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
 
-                                setUser(transform(result.value.loginResponseDTO.userDTO,result.value.loginResponseDTO))
+                                setUser(transform(result.value.loginResponseDTO.userDTO,
+                                    result.value.loginResponseDTO))
 
                                 userRepository.saveUser(
                                     userDTO = result.value.loginResponseDTO.userDTO,
@@ -144,7 +129,8 @@ class LoginViewModel @ViewModelInject constructor(
                                 resendEmailVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
-                                setUser(transform(result.value.loginResponseDTO.userDTO,result.value.loginResponseDTO))
+                                setUser(transform(result.value.loginResponseDTO.userDTO,
+                                    result.value.loginResponseDTO))
 
                                 userRepository.saveUser(
                                     userDTO = result.value.loginResponseDTO.userDTO,
@@ -194,8 +180,9 @@ class LoginViewModel @ViewModelInject constructor(
 
                         } else {
                             showLoader(false)
-                            if(result.value.errorMessage.isNullOrEmpty()){
-                                showErrorDialog(message = result.value.errorMessage)}
+                            if (result.value.errorMessage.isNullOrEmpty()) {
+                                showErrorDialog(message = result.value.errorMessage)
+                            }
 
 
                         }

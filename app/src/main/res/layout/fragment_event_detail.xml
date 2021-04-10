@@ -40,9 +40,8 @@
                 android:id="@+id/back"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_30sdp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/custom_ripple_black"
                 android:rotation="90"
                 android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +53,7 @@
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="20dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/custom_ripple_black"
                 android:rotation="0"
                 android:src="@drawable/add_to_calander"
                 app:layout_constraintBottom_toBottomOf="@+id/back"
@@ -62,26 +61,27 @@
                 app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="@+id/back" />
 
-            <ImageView
+            <CheckBox
                 android:id="@+id/favourite"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginEnd="20dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:rotation="0"
-                android:src="@drawable/heart_icon_home_black"
+                android:background="@drawable/heart_icon_home_black"
+                android:button="@null"
+                android:foreground="@drawable/custom_ripple_border"
                 app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
                 app:layout_constraintEnd_toStartOf="@+id/share"
                 app:layout_constraintStart_toEndOf="@+id/bookingCalender"
                 app:layout_constraintTop_toTopOf="@+id/bookingCalender"
                 app:layout_constraintVertical_bias="1.0" />
 
+
             <ImageView
                 android:id="@+id/share"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginEnd="30dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/custom_ripple_black"
                 android:rotation="0"
                 android:src="@drawable/share"
                 app:layout_constraintBottom_toBottomOf="@+id/favourite"
@@ -93,6 +93,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrolview_events"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">

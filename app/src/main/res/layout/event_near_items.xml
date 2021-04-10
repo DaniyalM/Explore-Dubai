@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+
         <variable
             name="events"
             type="com.app.dubaiculture.data.repository.event.local.models.Events" />
@@ -23,7 +24,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_70sdp"
-                    android:background="@drawable/must_see_icon_home"
+                    android:imageUrl="@{events.image}"
                     android:scaleType="center"
                     app:cornerRadius="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +75,7 @@
 
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                    android:id="@+id/customTextView5"
+                    android:id="@+id/tv_date"
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -82,7 +83,6 @@
                     android:drawablePadding="@dimen/_5sdp"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="@{events.toDate}"
                     android:textColor="@color/gray_600"
                     android:textSize="@dimen/_9sdp"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -102,7 +102,7 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10 Km"
+                    android:text="@{Double.toString(events.distance) + `Km`}"
                     android:textColor="@color/black_200"
                     android:textSize="@dimen/_9ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/img"

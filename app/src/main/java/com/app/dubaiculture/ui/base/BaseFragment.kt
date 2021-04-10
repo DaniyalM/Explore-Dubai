@@ -3,23 +3,30 @@ package com.app.dubaiculture.ui.base
 import android.app.Activity
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE
+import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.drawable.Drawable
 import android.net.NetworkRequest
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.annotation.IdRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
@@ -30,38 +37,60 @@ import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
-import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
+import timber.log.Timber
 import java.util.*
 
 
 abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
-
     protected lateinit var application: ApplicationEntry
     protected var isBusRegistered: Boolean = false
     protected lateinit var bus: Bus
     protected lateinit var activity: Activity
+
     protected var customProgressDialog: ProgressDialog? = null
     protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var networkRequest: NetworkRequest
+
+    lateinit var checkBox: CheckBox
 
 
     // data binding
     private lateinit var dataBinding: DB
     protected val binding get() = dataBinding
 
+
+    private var _view: View? = null
+    protected var isPagerFragment = false
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        if (_view == null || isPagerFragment) {
+            dataBinding = getFragmentBinding(inflater, container)
+            _view = dataBinding.root
+        }
+        return _view
+    }
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = (context as Activity)
+
     }
 
     override fun onStart() {
         super.onStart()
-        adjustFontScale(getResources().getConfiguration());
+        adjustFontScale(resources.configuration)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         application = activity.application as ApplicationEntry
         bus = application.bus
         bus.register(this)
@@ -70,14 +99,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         groupAdapter = GroupAdapter()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        dataBinding = getFragmentBinding(inflater, container)
-        return dataBinding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -103,6 +124,11 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             it.getContentIfNotHandled()
                 ?.let { event ->
                     when (event) {
+                        is UiEvent.ShowAlert -> {
+                            showAlert(event.message)
+
+                        }
+
                         is UiEvent.ShowAlert -> {
                             showAlert(event.message)
 
@@ -144,13 +170,13 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
         baseViewModel.userLiveData.observe(viewLifecycleOwner) {
             application.auth.user = it
+            application.auth.isGuest = false
         }
 
     }
 
     fun navigateByDirections(navDirections: NavDirections) {
         EventUtilFunctions.navigateByDirections(this, navDirections)
-
     }
 
     fun navigateByAction(actionId: Int, bundle: Bundle? = null) {
@@ -163,7 +189,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         activity.onBackPressed()
     }
 
-    protected fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
+    fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
         findNavController().navigate(resId, bundle)
     }
 
@@ -176,8 +202,22 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         return (activity as BaseActivity).getCurrentLanguage()
     }
 
-    fun showAlert(message: String) {
-        EventUtilFunctions.showAlert(message, activity)
+    fun showAlert(
+        message: String,
+        title: String = Constants.Alert.DEFAULT_TITLE,
+        textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
+        textNegative: String? = null,
+        actionNegative: (() -> Unit)? = null,
+        actionPositive: (() -> Unit)? = null,
+    ) {
+        EventUtilFunctions.showAlert(
+            message = message,
+            context = activity,
+            title = title,
+            textPositive = textPositive,
+            textNegative = textNegative,
+            actionPositive = actionPositive
+        )
     }
 
     fun showErrorDialog(message: String) {
@@ -208,20 +248,33 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
     }
 
-     fun cardViewRTL(materialCardView: MaterialCardView){
+    fun arrowRTL(img: ImageView) {
+        when {
+            isArabic() -> {
+                img.rotation = -180f
+            }
+            else -> {
+                img.rotation = 180f
+            }
+        }
+    }
+
+    fun cardViewRTL(materialCardView: MaterialCardView) {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-        if(isArabic()){
-            binding.root.materialCardView?.shapeAppearanceModel =  binding.root.materialCardView!!.shapeAppearanceModel
-                .toBuilder()
-                .setBottomLeftCorner(CornerFamily.ROUNDED,radius)
-                .setTopRightCornerSize(radius)
-                .build()
-        }else{
-            binding.root.materialCardView?.shapeAppearanceModel =  binding.root.materialCardView!!.shapeAppearanceModel
-                .toBuilder()
-                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
-                .setBottomRightCornerSize(radius)
-                .build()
+        if (isArabic()) {
+            binding!!.root.materialCardView?.shapeAppearanceModel =
+                binding!!.root.materialCardView!!.shapeAppearanceModel
+                    .toBuilder()
+                    .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                    .setTopRightCornerSize(radius)
+                    .build()
+        } else {
+            binding!!.root.materialCardView?.shapeAppearanceModel =
+                binding!!.root.materialCardView!!.shapeAppearanceModel
+                    .toBuilder()
+                    .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                    .setBottomRightCornerSize(radius)
+                    .build()
         }
     }
 
@@ -252,6 +305,62 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     override fun onResume() {
         super.onResume()
         adjustFontScale(getResources().getConfiguration());
+    }
+
+    protected fun getDrawableFromId(resId: Int?): Drawable? {
+        resId?.let {
+            return if (it == 0) null
+            else ResourcesCompat.getDrawable(resources, it, null)
+        }
+        return null
+    }
+
+
+    fun openEmailbox(email: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "plain/text"
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        requireActivity().startActivity(Intent.createChooser(intent, ""))
+    }
+
+    fun openDiallerBox(number: String?=null) {
+        val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
+        requireActivity().startActivity(intent)
+    }
+
+    fun favouriteClick(
+        checkbox: CheckBox,
+        isFav: Boolean,
+        nav: Int,
+        itemId: String,
+        baseViewModel: BaseViewModel,
+        type: Int = 2,
+    ) {
+        checkBox = checkbox
+        if (application.auth.isGuest) {
+            navigate(nav)
+        } else {
+            if (!isFav) {
+                application.auth.user?.let {
+                    baseViewModel.addToFavourites(AddToFavouriteRequest(
+                        userId = application.auth.user?.userId,
+                        itemId = itemId,
+                        type = type
+                    )
+                    )
+                }
+            } else {
+                application.auth.user?.let {
+                    baseViewModel.addToFavourites(AddToFavouriteRequest(
+                        userId = application.auth.user?.userId,
+                        itemId = itemId,
+                        type = type
+                    )
+                    )
+                }
+            }
+
+        }
     }
 
 }

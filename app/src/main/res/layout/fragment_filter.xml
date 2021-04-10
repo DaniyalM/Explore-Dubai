@@ -2,7 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+    <variable
+        name="viewmodel"
+        type="com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel" />
 
+</data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,8 +38,9 @@
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/tvResend"
+            android:id="@+id/tvReset"
             android:textSize="@dimen/_10ssp"
+            android:foreground="@drawable/custom_ripple_border"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_ripple_border"
@@ -44,7 +50,7 @@
             android:layout_marginEnd="@dimen/_20sdp"
             app:layout_constraintBottom_toBottomOf="@+id/heading_filter"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/heading_login_to_continue" />
+            app:layout_constraintTop_toTopOf="@+id/heading_filter" />
 
 
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
@@ -72,17 +78,19 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_search" />
 
 
-        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        <AutoCompleteTextView
             android:id="@+id/edit_location"
             style="@style/EditTextStyle"
             android:background="@drawable/bg_edit_resiger"
             android:drawableEnd="@drawable/location_fiilter"
             android:hint="@string/location"
-            android:imeOptions="actionNext"
+            android:completionThreshold="1"
+            android:imeOptions="actionDone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/location"
-            tools:src="@drawable/bg_edit_resiger" />
+            tools:src="@drawable/bg_edit_resiger"
+            android:popupBackground="@color/white_900"/>
 
 
 
@@ -94,42 +102,54 @@
             app:layout_constraintStart_toStartOf="@+id/edit_location"
             app:layout_constraintTop_toBottomOf="@+id/edit_location" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-           android:id="@+id/tv_start_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:drawableEnd="@drawable/calender"
-            android:hint="@string/from"
-            android:textColorHint="@color/gray_600"
-            android:textColor="@color/black_200"
-            android:textSize="@dimen/_11sdp"
-            android:paddingStart="@dimen/_15sdp"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/_15sdp"
-            android:background="@drawable/date_range_bg"
-            app:layout_constraintTop_toBottomOf="@+id/date_range"
+
+        <LinearLayout
+            android:id="@+id/ll_dates"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_50sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/edit_location"
             app:layout_constraintStart_toStartOf="@+id/date_range"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/date_range">
 
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/date_range_bg"
+                android:drawableEnd="@drawable/calender"
+                android:gravity="center_vertical"
+                android:hint="@string/from"
+                android:paddingStart="@dimen/_15sdp"
+                android:paddingEnd="@dimen/_15sdp"
+                android:textColor="@color/black_200"
+                android:textColorHint="@color/gray_600"
+                android:textSize="@dimen/_10sdp" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/tv_end_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/date_range_bg"
-            android:drawableEnd="@drawable/calender"
-            android:gravity="center_vertical"
-            android:hint="@string/to"
-            android:paddingStart="@dimen/_15sdp"
-            android:paddingEnd="@dimen/_15sdp"
-            android:textColor="@color/black_200"
-            android:textColorHint="@color/gray_600"
-            android:textSize="@dimen/_11sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_start_date"
-            app:layout_constraintTop_toTopOf="@+id/tv_start_date" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/date_range_bg"
+                android:drawableEnd="@drawable/calender"
+                android:gravity="center_vertical"
+                android:hint="@string/to"
+                android:paddingStart="@dimen/_15sdp"
+                android:paddingEnd="@dimen/_15sdp"
+                android:textColor="@color/black_200"
+                android:textColorHint="@color/gray_600"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </LinearLayout>
+
 
 
 
@@ -138,8 +158,8 @@
             style="@style/TextViewRegistrationStyle"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="@string/category"
-            app:layout_constraintStart_toStartOf="@+id/tv_start_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_start_date" />
+            app:layout_constraintStart_toStartOf="@+id/ll_dates"
+            app:layout_constraintTop_toBottomOf="@+id/ll_dates" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_categories"
@@ -163,8 +183,9 @@
             app:layout_constraintTop_toBottomOf="@+id/rv_categories" />
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/radioGroupFilter"
             android:layout_marginTop="@dimen/_8sdp"
+            android:textAlignment="viewStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_14sdp"
@@ -175,19 +196,25 @@
             >
 
             <RadioButton
+                android:id="@+id/rbFree"
                 android:layout_weight="0.4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/MyRadioButtonStyle"
                 android:paddingStart="@dimen/_5sdp"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
+                android:tag="Free"
+                android:textAlignment="viewStart"
+                android:checked="true"
                 android:textSize="@dimen/_11ssp"
                 android:textColor="@color/black_200"
                 android:text="@string/_free"
                 />
 
             <RadioButton
+                android:id="@+id/rbPaid"
                 android:layout_weight="0.6"
+                android:textAlignment="viewStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/MyRadioButtonStyle"
@@ -218,7 +245,7 @@
             android:textColor="@color/white_900"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupFilter" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

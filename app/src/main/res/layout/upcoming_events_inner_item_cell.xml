@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="events" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
+<!--        <variable name="events" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
+        <variable name="events" type="com.app.dubaiculture.data.repository.event.local.models.Events"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="@dimen/_255sdp"
@@ -66,14 +67,18 @@
                 app:roundedCorners="topRight|topLeft" />
 
 
-            <ImageView
-                android:id="@+id/img_like"
+            <CheckBox
+                android:id="@+id/favourite"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_18sdp"
                 android:layout_gravity="end"
                 android:layout_margin="@dimen/_15sdp"
+                android:button="@null"
+                android:foreground="@drawable/custom_ripple_border"
+                android:checked="@{events.favourite}"
                 android:background="@drawable/heart_icon_home"
                 android:padding="@dimen/_8sdp"
+                android:stateListAnimator="@animator/scale"
                 app:layout_constraintBottom_toBottomOf="@+id/card_view_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/card_view_title" />

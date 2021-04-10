@@ -12,8 +12,6 @@ class SplashViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,
     application: Application,
 ) : BaseViewModel(application) {
-
-
     fun getUserIfExists(): User? {
         var user: User? = null
         viewModelScope.launch {
@@ -21,9 +19,6 @@ class SplashViewModel @ViewModelInject constructor(
                 user = it
             }
         }
-
         return user
     }
-
-
 }

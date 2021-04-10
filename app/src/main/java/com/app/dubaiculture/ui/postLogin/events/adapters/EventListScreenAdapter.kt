@@ -9,9 +9,14 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.ItemEventListingBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.AsyncCell
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
+import kotlinx.android.synthetic.main.item_event_listing.view.*
 
-class EventListScreenAdapter : BaseRecyclerAdapter<Events>() {
+class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , private val rowClickListener: RowClickListener?=null) : BaseRecyclerAdapter<Events>() {
 
 
     var events: List<Events>
@@ -39,6 +44,9 @@ class EventListScreenAdapter : BaseRecyclerAdapter<Events>() {
         override val layoutId = R.layout.item_event_listing
         override fun createDataBindingView(view: View): View? {
             binding = ItemEventListingBinding.bind(view)
+            YoYo.with(Techniques.BounceInDown)
+                .duration(2000)
+                .playOn(binding?.root)
             return view.rootView
         }
     }
@@ -50,23 +58,44 @@ class EventListScreenAdapter : BaseRecyclerAdapter<Events>() {
         (holder.itemView as EventsListItemCell).bindWhenInflated {
             holder.itemView.binding?.let {
                 try {
-                    it.events = events[position]
-                    it.favourite.setOnCheckedChangeListener(null)
 
-                    it.favourite.setOnCheckedChangeListener { p0, p1 ->
-                        if (p1){
-                            it.favourite.isChecked = p1
-                            it.favourite.isSelected = p1
+                    it.events = events[position]
+                    it.favourite.setOnClickListener {
+                        events[position].let { event->
+                            event.id?.let { itemId ->
+                                favChecker!!.checkFavListener(it.favourite,
+                                    position,
+                                    event.isFavourite,
+                                    itemId)
+
+                            }
                         }
-                        else {
-                            it.favourite.isChecked = p1
-                            it.favourite.isSelected = p1
-                        }
-//                        Toast.makeText(context,
-//                            events[position].title,
-//                            Toast.LENGTH_SHORT).show()
 
                     }
+                    it.cardview.setOnClickListener {
+                        rowClickListener!!.rowClickListener(position)
+                    }
+
+//                    it.favourite.setOnCheckedChangeListener { p0, p1 ->
+//                        if(events[position].isFavourite){
+//
+//                        }else{
+//
+//                        }
+//                        if (p1){
+//                            it.favourite.isChecked = p1
+//                            it.favourite.isSelected = p1
+//                        }
+//                        else {
+//                            it.favourite.isChecked = p1
+//                            it.favourite.isSelected = p1
+//                            Toast.makeText(context,
+//                           "check",
+//                            Toast.LENGTH_SHORT).show()
+//                        }
+////
+//
+//                    }
 
                 } catch (ex: IndexOutOfBoundsException) {
                     print(ex.stackTrace)

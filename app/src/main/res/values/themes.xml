@@ -69,6 +69,10 @@
         <item name="android:background">@drawable/rounded_dialog</item>
     </style>
 
+    <style name="CustomDialogStyle" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
     <!--OTP-->
     <style name="OtpStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->

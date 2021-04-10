@@ -1,18 +1,23 @@
 package com.app.dubaiculture.data.repository.event
 
+import android.app.usage.UsageEvents
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
+import com.app.dubaiculture.data.repository.event.local.models.EventFilterData
 import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.event.local.models.schedule.Schedule
 import com.app.dubaiculture.data.repository.event.mapper.*
 import com.app.dubaiculture.data.repository.event.remote.EventRDS
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
+import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
+import com.app.dubaiculture.data.repository.event.remote.response.ScheduleResponse
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
-    BaseRepository<EventRDS>(eventRDS) {
+    BaseRepository(eventRDS) {
 
     suspend fun fetchHomeEvents(homeEventRequest: EventRequest): Result<EventHomeListing> {
         return when (val resultRds =
@@ -35,7 +40,6 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
             is Result.Error -> resultRds
 
         }
-
     }
 
     suspend fun fetchEventsbyFilters(eventRequest: EventRequest): Result<List<Events>> {
@@ -55,16 +59,15 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
         }
     }
 
-    suspend fun fetchEvent(eventDetailRequest: EventRequest): Result<Events> {
+    suspend fun fetchDetailEvent(eventRequest: EventRequest): Result<Events> {
         return when (val resultRds =
-            eventRDS.getEventDetail(transformEventDetailRequest(eventDetailRequest))) {
+            eventRDS.getEventDetail(transformEventDetailRequest(eventRequest))) {
             is Result.Success -> {
                 val eventLDS = resultRds
                 if (eventLDS.value.statusCode != 200) {
                     Result.Failure(true, eventLDS.value.statusCode, null)
                 } else {
-                    val eventRds = transformEventDetail(eventLDS.value)
-                    Result.Success(eventRds)
+                    Result.Success(transformEventDetail(eventLDS.value))
                 }
             }
             is Result.Failure -> resultRds
@@ -72,23 +75,51 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
         }
     }
 
-    suspend fun addToFavourite(addToFavouriteRequest: AddToFavouriteRequest): Result<AddToFavouriteResponse> {
+//    suspend fun addToFavourite(addToFavouriteRequest: AddToFavouriteRequest): Result<AddToFavouriteResponse> {
+//        return when (val resultRds =
+//            eventRDS.addItemtoFavorites(transformAddToFavouriteRequest(addToFavouriteRequest))) {
+//            is Result.Success -> {
+//                val eventLDS = resultRds
+//                if (eventLDS.value.statusCode != 200) {
+//                    Result.Failure(true, eventLDS.value.statusCode, null)
+//                } else {
+//
+//                    val eventRds = eventLDS.value
+//                    Result.Success(eventRds)
+//                }
+//            }
+//            is Result.Failure -> resultRds
+//            is Result.Error -> resultRds
+//
+//        }
+//    }
+
+
+    suspend fun fetchDataFilterBtmSheet(eventRequest: EventRequest): Result<EventFilterData> {
         return when (val resultRds =
-            eventRDS.addItemtoFavorites(transformAddToFavouriteRequest(addToFavouriteRequest))) {
+            eventRDS.getDataFilterBottomSheet(transformHomeEventListingRequest(eventRequest))) {
             is Result.Success -> {
                 val eventLDS = resultRds
                 if (eventLDS.value.statusCode != 200) {
                     Result.Failure(true, eventLDS.value.statusCode, null)
                 } else {
-                    val eventRds = eventLDS.value
-                    Result.Success(eventRds)
+                    Result.Success(EventFilterData(
+
+                        radioGroupList = transformationRadioList(eventLDS.value),
+                        categoryList = transformationCategoryList(eventLDS.value),
+                        locationList = transformationlocationList(eventLDS.value)
+                    ))
                 }
             }
-            is Result.Failure -> resultRds
-            is Result.Error -> resultRds
+            is Result.Failure -> {
+                resultRds
+
+            }
+            is Result.Error -> {
+                resultRds
+            }
 
         }
     }
-
 
 }

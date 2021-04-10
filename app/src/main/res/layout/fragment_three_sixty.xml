@@ -7,12 +7,24 @@
         android:layout_height="match_parent"
         tools:context=".ui.postLogin.threesixtygallery.ThreeSixtyFragment">
 
-        <ImageView
-            android:id="@+id/img_360"
-            android:background="@drawable/event_detail_icon"
+<!--        <com.google.vr.sdk.widgets.pano.VrPanoramaView-->
+<!--            android:id="@+id/mVrPanoramaView"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:scrollbars="vertical|horizontal"-->
+<!--            android:layout_height="0dp" />-->
+        <com.app.dubaiculture.ui.postLogin.threesixtygallery.components.VrPanoramaViewComponent
+            android:id="@+id/mVrPanoramaSelector"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
+            android:scrollbars="vertical|horizontal"
+            android:layout_height="0dp"/>
 
         <ImageView
             android:id="@+id/img_back"
@@ -39,14 +51,15 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="150dp"
             android:alpha="0.5"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/black_700"
             />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_360View"
+            android:id="@+id/rvBottomSelector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

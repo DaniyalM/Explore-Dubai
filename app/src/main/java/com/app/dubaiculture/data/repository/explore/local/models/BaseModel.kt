@@ -3,6 +3,10 @@ package com.app.dubaiculture.data.repository.explore.local.models
 import androidx.databinding.BindingAdapter
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionDTO
+import com.app.dubaiculture.data.repository.attraction.remote.response.GalleryDTO
+import com.app.dubaiculture.data.repository.attraction.remote.response.SocialLinkDTO
+import com.app.dubaiculture.data.repository.event.remote.response.EventsDTO
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.annotations.Expose
@@ -10,8 +14,8 @@ import com.google.gson.annotations.SerializedName
 import com.rishabhharit.roundedimageview.RoundedImageView
 
 class BaseModel {
-    val imgSelected: String=""
-    val imgUnSelected:String=""
+//    val imgSelected: String=""
+//    val imgUnSelected:String=""
 
     @SerializedName("ID")
     @Expose
@@ -21,10 +25,17 @@ class BaseModel {
     @Expose
     var icon: String? = null
 
-
-    @SerializedName("WhiteIcon")
+    @SerializedName("DateTo")
     @Expose
-    var whiteIcon: String? = null
+    var dateTo: String = ""
+    @SerializedName("DateFrom")
+    @Expose
+    var dateFrom: String = ""
+
+
+//    @SerializedName("WhiteIcon")
+//    @Expose
+//    var whiteIcon: String? = null
 
     @SerializedName("Title")
     @Expose
@@ -138,8 +149,48 @@ class BaseModel {
     @Expose
     var playJson: Boolean? = false
 
+    @SerializedName("IsFavourite")
+    @Expose
+    var isFavourite: Boolean = false
+    @SerializedName("AudioLink")
+    @Expose
+    var audioLink: String? = ""
+    @SerializedName("EmailContact")
+    @Expose
+    var emailContact: String? = ""
+    @SerializedName("NumberContact")
+    @Expose
+    var numberContact: String? = ""
+    @SerializedName("Latitude")
+    @Expose
+    var latitude: String? = ""
+    @SerializedName("Longitude")
+    @Expose
+    var longitude: String? = ""
 
+    @SerializedName("Events")
+    @Expose
+    var events: List<EventsDTO>  ?= null
 
+    @SerializedName("SocialLinks")
+    @Expose
+    var socialLinks: List<SocialLinkDTO>  ?= null
+
+    @SerializedName("Gallery")
+    @Expose
+    var gallery: List<GalleryDTO> ?= null
+
+    @SerializedName("WhiteIcon")
+    @Expose
+    var selectedSvg: String? = null
+
+    @SerializedName("NonWhiteIcon")
+    @Expose
+    var unselectedSvg: String? = icon
+
+    @SerializedName("Attractions")
+    @Expose
+    var attractions: ArrayList<AttractionDTO>? =null
 
 
 }
