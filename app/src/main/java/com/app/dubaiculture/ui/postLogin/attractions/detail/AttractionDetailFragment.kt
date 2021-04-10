@@ -66,6 +66,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     OnMapReadyCallback, View.OnClickListener {
 
     private var url: String? = null
+    lateinit var googleMap: GoogleMap
+
     private val gpsObserver = Observer<GpsStatus> { status ->
         status?.let {
             updateGpsCheckUi(status)
@@ -434,6 +436,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     override fun onMapReady(map: GoogleMap?) {
         try {
+            googleMap = map!!
             val attractionLatLng = LatLng(lat?.toDouble()!!, long?.toDouble()!!)
             map!!.addMarker(MarkerOptions()
                 .position(attractionLatLng)
@@ -494,7 +497,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 attractionDetailViewModel.showToast("Swipe up")
             }
             R.id.downOneAR -> {
-                attractionDetailViewModel.showToast("AR")
+                navigate(R.id.action_attractionDetailFragment_to_ARFragment)
 
             }
             R.id.downOne360 -> {
@@ -516,10 +519,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
             }
             R.id.ll_call_us -> {
-                openDiallerBox("123123123")
+                openDiallerBox(attractionsObj.number.toString().ifEmpty { "123123123" })
             }
             R.id.ll_emailus -> {
-                openEmailbox("test@gmail.com")
+                openEmailbox(attractionsObj.email.toString().ifEmpty { "test@gmail.com" })
 
             }
 
@@ -561,4 +564,5 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             binding.root.tv_km.text = "$distance Km Away"
         }
     }
+
 }

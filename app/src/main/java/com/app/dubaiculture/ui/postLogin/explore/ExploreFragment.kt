@@ -73,7 +73,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         }
 
         binding.root.img_drawer.setOnClickListener {
-            navigate(R.id.action_exploreFragment_to_exploreMapFragment)
+//            navigate(R.id.action_exploreFragment_to_exploreMapFragment)
         }
 
         val callback: OnBackPressedCallback =
