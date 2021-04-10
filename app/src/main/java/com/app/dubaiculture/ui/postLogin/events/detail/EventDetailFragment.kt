@@ -72,14 +72,17 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     val parentItemList = ArrayList<EventScheduleItems>()
     val moreEvents = ArrayList<Events>()
     val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
+    var isDetailFavouriteFlag = false
 
-        private val getObserver = Observer<GpsStatus>{
-            it?.let {
-                updateGpsCheckUi(it)
-            }
+    private val getObserver = Observer<GpsStatus> {
+        it?.let {
+            updateGpsCheckUi(it)
         }
+    }
+
     private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
         .observe(viewLifecycleOwner, getObserver)
+
     @Inject
     lateinit var glide: RequestManager
 
@@ -137,6 +140,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         rvSetUp()
         subscribeToGpsListener()
 
+        if (eventObj.isFavourite) {
+            binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
+            binding.root.favourite_event.background =
+                getDrawableFromId(R.drawable.heart_icon_fav)
+        }
+
         binding.root.btn_register_now.setOnClickListener {
 
         }
@@ -151,21 +160,22 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             openEmailbox("test@gmail.com")
         }
         binding.root.imgFb.setOnClickListener {
-            getFacebookPage(eventObj.socialLink?.get(0)?.facebookPageLink!!,activity)
+            getFacebookPage(eventObj.socialLink?.get(0)?.facebookPageLink!!, activity)
         }
         binding.root.imgTwitter.setOnClickListener {
-            openUrl(eventObj.socialLink?.get(0)?.twitterPageLink,activity)
+            openUrl(eventObj.socialLink?.get(0)?.twitterPageLink, activity)
         }
         binding.root.imgInsta.setOnClickListener {
-            openUrl(eventObj.socialLink?.get(0)?.instagramPageLink,activity)
+            openUrl(eventObj.socialLink?.get(0)?.instagramPageLink, activity)
         }
         binding.root.imgUtube.setOnClickListener {
-            openUrl(eventObj.socialLink?.get(0)?.youtubePageLink,activity)
+            openUrl(eventObj.socialLink?.get(0)?.youtubePageLink, activity)
         }
-        binding.root.imgLinkedin.setOnClickListener{
-            openUrl(eventObj.socialLink?.get(0)?.linkedInPageLink,activity)
+        binding.root.imgLinkedin.setOnClickListener {
+            openUrl(eventObj.socialLink?.get(0)?.linkedInPageLink, activity)
         }
         binding.root.favourite_event.setOnClickListener {
+            isDetailFavouriteFlag=true
             eventObj.let { event ->
                 favouriteClick(it.favourite_event,
                     event.isFavourite,
@@ -176,6 +186,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
         }
         binding.favourite.setOnClickListener {
+            isDetailFavouriteFlag=true
             eventObj.let { event ->
                 favouriteClick(it.favourite,
                     event.isFavourite,
@@ -220,17 +231,26 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             when (it) {
                 is Result.Success -> {
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
-//                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
-                        binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
-                        binding.root.favourite_event.background =
-                            getDrawableFromId(R.drawable.heart_icon_fav)
+                        if (isDetailFavouriteFlag){
+                            binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                            binding.root.favourite_event.background =
+                                getDrawableFromId(R.drawable.heart_icon_fav)
+                            isDetailFavouriteFlag=false
+                        }
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
-//                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
-                        binding.favourite.background =
-                            getDrawableFromId(R.drawable.heart_icon_home_black)
-                        binding.root.favourite_event.background =
-                            getDrawableFromId(R.drawable.heart_icon_home_black)
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
+                        if (isDetailFavouriteFlag){
+                            binding.favourite.background =
+                                getDrawableFromId(R.drawable.heart_icon_home_black)
+                            binding.root.favourite_event.background =
+                                getDrawableFromId(R.drawable.heart_icon_home_black)
+                            isDetailFavouriteFlag=false
+
+                        }
+
                     }
                 }
                 is Result.Failure -> handleApiError(it, eventViewModel)
@@ -252,7 +272,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 tv_category.text = eventObj.category
                 category.text = eventObj.category
                 tv_event_date.text = dateFormat(eventObj.dateFrom)
-                glide.load(com.app.dubaiculture.BuildConfig.BASE_URL + eventObj.image).into(imageView)
+                glide.load(com.app.dubaiculture.BuildConfig.BASE_URL + eventObj.image)
+                    .into(imageView)
             }
         }
         binding.root.btn_reg.setOnClickListener(this)
@@ -389,7 +410,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 eventObj.longitude!!.toDouble())
                                 .toString() + resources.getString(R.string.away)
                     }
-                },activity,locationCallback)
+                }, activity, locationCallback)
         }
     }
 
@@ -451,7 +472,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
 
                             }
-                        }, event = it, resLayout = R.layout.event_items))
+                        }, event = it, resLayout = R.layout.event_items, activity))
                     }
                 }
                 is Result.Failure -> {
@@ -476,14 +497,15 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
         }
     }
-    private fun locationIsEmpty(location:Location){
+
+    private fun locationIsEmpty(location: Location) {
         if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty()) {
             binding.root.tv_km.text =
                 locationHelper.distance(location.latitude,
-                location.longitude,
-                eventObj.latitude!!.toDouble(),
-                eventObj.longitude!!.toDouble())
-                .toString() + resources.getString(R.string.away)
+                    location.longitude,
+                    eventObj.latitude!!.toDouble(),
+                    eventObj.longitude!!.toDouble())
+                    .toString() + resources.getString(R.string.away)
         }
     }
 }

@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_18sdp"
+                android:cardParsedColor="@{attractions.color}"
                 app:cardBackgroundColor="@color/white_900"
                 app:cardCornerRadius="@dimen/_15sdp"
                 app:cardElevation="@dimen/_5sdp">
@@ -65,7 +66,6 @@
                 android:imageViewUrl='@{attractions.portraitImage}'
                 android:scaleType="fitXY"
                />
-
             <CheckBox
                 android:id="@+id/favourite"
                 android:layout_width="@dimen/_20sdp"

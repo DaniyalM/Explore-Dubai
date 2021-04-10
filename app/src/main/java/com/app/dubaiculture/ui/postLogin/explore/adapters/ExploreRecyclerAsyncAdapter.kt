@@ -168,8 +168,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 }
                             },
                             resLayout = R.layout.upcoming_events_inner_item_cell,
-                            event = transformBaseToEvent(it)
-                        ))
+                            event = transformBaseToEvent(it),
+                            context = context))
                     }
 
                 }
@@ -245,7 +245,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 }
                             },
                             resLayout = R.layout.must_see_inner_item_cell,
-                            attraction = transformBaseToAttraction(attraction)
+                            attraction = transformBaseToAttraction(attraction),
+                            context = context
                         ))
                     }
 

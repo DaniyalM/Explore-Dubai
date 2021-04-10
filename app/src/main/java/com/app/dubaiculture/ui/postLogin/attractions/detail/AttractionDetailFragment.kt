@@ -97,6 +97,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private var long: String? = 67.0627.toString()
     private lateinit var attractionsObj: Attractions
     private lateinit var contentFlag: String
+
+    private var isDetailFavouriteFlag = false
+
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -153,6 +156,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
         binding.attraction = attraction
+
+        if (attraction.IsFavourite) {
+            binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
+            binding.root.favourite.background =
+                getDrawableFromId(R.drawable.heart_icon_fav)
+        }
+
         binding.root.apply {
             attraction.let {
                 if (TextUtils.isEmpty(it.startDay) || TextUtils.isEmpty(it.endDay)) {
@@ -197,11 +207,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                                 checkbox,
                                                 isFav,
                                                 R.id.action_attractionsFragment_to_postLoginFragment,
-                                                itemId, attractionDetailViewModel
+                                                itemId, attractionDetailViewModel,
+                                                2
                                             )
                                         }
 
-                                    }, object : RowClickListener {
+                                    },
+                                    object : RowClickListener {
                                         override fun rowClickListener(position: Int) {
                                             navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
                                                 Bundle().apply {
@@ -210,8 +222,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                                 })
                                         }
 
-                                    }, event = it,
-                                    resLayout = R.layout.attraction_detail_up_coming_items)
+                                    },
+                                    event = it,
+                                    resLayout = R.layout.attraction_detail_up_coming_items,
+                                    activity)
                             )
                         }
                     }
@@ -224,7 +238,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     private fun callingObservables() {
-        attractionsObj?.let {
+        attractionsObj.let {
             attractionDetailViewModel.getAttractionDetailsToScreen(
                 attractionId = it.id,
                 getCurrentLanguage().language
@@ -236,18 +250,29 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         attractionDetailViewModel.isFavourite.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
+
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
-//                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
-                        binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
-                        binding.root.favourite.background =
-                            getDrawableFromId(R.drawable.heart_icon_fav)
+                        if (isDetailFavouriteFlag) {
+                            binding.favourite.background =
+                                getDrawableFromId(R.drawable.heart_icon_fav)
+                            binding.root.favourite.background =
+                                getDrawableFromId(R.drawable.heart_icon_fav)
+                            isDetailFavouriteFlag = false
+
+                        }
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
-//                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
-                        binding.favourite.background =
-                            getDrawableFromId(R.drawable.heart_icon_home_black)
-                        binding.root.favourite.background =
-                            getDrawableFromId(R.drawable.heart_icon_home_black)
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
+
+                        if (isDetailFavouriteFlag) {
+                            binding.favourite.background =
+                                getDrawableFromId(R.drawable.heart_icon_home_black)
+                            binding.root.favourite.background =
+                                getDrawableFromId(R.drawable.heart_icon_home_black)
+                            isDetailFavouriteFlag = false
+                        }
                     }
                 }
                 is Result.Failure -> handleApiError(it, attractionDetailViewModel)
@@ -260,7 +285,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     contentFlag = "ContentLoaded"
 
                     attractionsObj = it.value
-                    initializeDetails(attractionsObj!!)
+                    initializeDetails(attractionsObj)
                 }
                 is Result.Failure -> {
                     handleApiError(it, attractionDetailViewModel)
@@ -289,9 +314,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         }
         binding.apply {
             root.apply {
-                title.text = attractionsObj?.title
-                category.text = attractionsObj?.category
-                glide.load(BuildConfig.BASE_URL + attractionsObj?.portraitImage)
+                title.text = attractionsObj.title
+                category.text = attractionsObj.category
+                glide.load(BuildConfig.BASE_URL + attractionsObj.portraitImage)
                     .into(detailImageView)
             }
             appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -302,7 +327,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 }
             })
             favourite.setOnClickListener {
-                attractionsObj?.let { attraction ->
+                isDetailFavouriteFlag = true
+                attractionsObj.let { attraction ->
                     favouriteClick(it.favourite,
                         attraction.IsFavourite,
                         R.id.action_attractionDetailFragment_to_postLoginFragment,
@@ -317,7 +343,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             bookingCalender.setOnClickListener {
             }
             toolbarAttractionDetail.favourite.setOnClickListener {
-                attractionsObj?.let { attraction ->
+                isDetailFavouriteFlag = true
+
+                attractionsObj.let { attraction ->
                     favouriteClick(it.favourite,
                         attraction.IsFavourite,
                         R.id.action_attractionDetailFragment_to_postLoginFragment,
@@ -479,7 +507,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.downOneGallery -> {
                 navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
                     Bundle().apply {
-                        attractionsObj?.gallery?.let {
+                        attractionsObj.gallery?.let {
                             putParcelableArrayList(ATTRACTION_GALLERY_LIST,
                                 it as ArrayList<out Parcelable>)
                         }

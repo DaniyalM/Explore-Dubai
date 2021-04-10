@@ -1,5 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.events.adapters
 
+import android.content.Context
+import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -17,6 +19,7 @@ data class EventListItem<T : ViewDataBinding>(
     private val rowClickListener: RowClickListener? = null,
     val event: Events,
     val resLayout: Int = R.layout.item_event_listing,
+    val context:Context
 ) : BindableItem<T>() {
     override fun getLayout() = resLayout
     override fun bind(viewBinding: T, position: Int) {
@@ -24,7 +27,9 @@ data class EventListItem<T : ViewDataBinding>(
             is UpcomingEventsInnerItemCellBinding -> {
                 viewBinding.let {
                     it.events = event
-                    it. favourite.isChecked = event.isFavourite
+                    if (event.isFavourite){
+                        it.favourite.background = ContextCompat.getDrawable(context,R.drawable.heart_icon_fav)
+                    }
 
                     it.favourite.setOnClickListener {
                         event.id?.let { itemId ->
@@ -43,7 +48,11 @@ data class EventListItem<T : ViewDataBinding>(
             is ItemEventListingBinding -> {
                 viewBinding.let {
                     it.events = event
-                    it. favourite.isChecked = event.isFavourite
+
+                    if (event.isFavourite){
+                        it.favourite.background = ContextCompat.getDrawable(context,R.drawable.heart_icon_fav)
+                    }
+
 
                     it.favourite.setOnClickListener {
                         event.id?.let { itemId ->
@@ -62,8 +71,9 @@ data class EventListItem<T : ViewDataBinding>(
             is EventItemsBinding -> {
                 viewBinding.let {
                     it.events = event
-                    it. favourite.isChecked = event.isFavourite
-
+                    if (event.isFavourite){
+                        it.favourite.background = ContextCompat.getDrawable(context,R.drawable.heart_icon_fav)
+                    }
                     it.favourite.setOnClickListener {
                         event.id?.let { itemId ->
                             favChecker!!.checkFavListener(it.favourite,
@@ -81,8 +91,9 @@ data class EventListItem<T : ViewDataBinding>(
             is AttractionDetailUpComingItemsBinding -> {
                 viewBinding.let {
                     it.events = event
-                    it. favourite.isChecked = event.isFavourite
-
+                    if (event.isFavourite){
+                        it.favourite.background = ContextCompat.getDrawable(context,R.drawable.heart_icon_fav)
+                    }
                     it.favourite.setOnClickListener {
                         event.id?.let { itemId ->
                             favChecker!!.checkFavListener(it.favourite,

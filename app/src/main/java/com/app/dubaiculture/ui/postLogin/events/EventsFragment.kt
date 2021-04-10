@@ -282,7 +282,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                         bundle)
                                 }
 
-                            }, event = it, resLayout = R.layout.event_items))
+                            }, event = it, resLayout = R.layout.event_items,activity))
                         }
 //                        sortNearEvent(it.value.events!!)
 
@@ -313,7 +313,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                             bundle)
                                     }
 
-                                }, event = it, resLayout = R.layout.event_items))
+                                }, event = it, resLayout = R.layout.event_items,activity))
                         }
 
 
@@ -348,7 +348,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                             bundle)
                                     }
 
-                                }, event = it, resLayout = R.layout.event_items))
+                                }, event = it, resLayout = R.layout.event_items,activity))
                             }
                         }
                     }

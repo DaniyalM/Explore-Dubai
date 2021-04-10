@@ -156,7 +156,8 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
 
                                         },
                                         event = it,
-                                        resLayout = R.layout.item_event_listing))
+                                        resLayout = R.layout.item_event_listing,
+                                    activity))
                                 }
                             } else
                                 eventViewModel.getWeekend(allList).forEach {
@@ -186,7 +187,8 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
 
                                         },
                                         event = it,
-                                        resLayout = R.layout.item_event_listing))
+                                        resLayout = R.layout.item_event_listing,
+                                    activity))
                                 }
                         }
                         if (allList.isEmpty())

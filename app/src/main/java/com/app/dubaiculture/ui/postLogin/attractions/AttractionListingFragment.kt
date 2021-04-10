@@ -140,7 +140,10 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                                                 })
                                         }
                                     },
-                                    attraction = it))
+                                    attraction = it,
+                                    context = activity
+
+                                ))
                             }
                         }
 
@@ -178,7 +181,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                                                     })
                                             }
                                         },
-                                        attraction = it))
+                                        attraction = it,
+                                        context = activity))
                                 }
                             }
 //                            attractionListScreenAdapter?.attractions = attractions

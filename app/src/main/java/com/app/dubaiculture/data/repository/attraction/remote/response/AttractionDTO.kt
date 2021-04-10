@@ -68,7 +68,7 @@ class AttractionDTO {
     @Expose
     var color: String? = null
 
-    @SerializedName("Is_Favourite")
+    @SerializedName("IsFavourite")
     @Expose
     var isFavourite: Boolean = false
 
