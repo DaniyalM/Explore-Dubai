@@ -14,7 +14,11 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.viewmodel.IbeconViewModel
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
+import com.estimote.coresdk.observation.region.beacon.BeaconRegion
+import com.estimote.coresdk.recognition.packets.Beacon
+import com.estimote.coresdk.service.BeaconManager
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class IbeconFragment : BaseFragment<FragmentIbeconBinding>(),View.OnClickListener {
@@ -30,10 +34,28 @@ class IbeconFragment : BaseFragment<FragmentIbeconBinding>(),View.OnClickListene
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(siteMapViewModel)
         binding.imgClose.setOnClickListener(this)
+        beaconMonitoring()
 
 
 
 //        callingObserver()
+    }
+
+
+    private fun beaconMonitoring(){
+        application.beaconManager.apply {
+            setRangingListener(BeaconManager.BeaconRangingListener { _, beacons ->
+//
+//                val nearestBeacon:Beacon= beacons[0]
+//                nearestBeacon.uniqueKey
+
+
+            })
+
+
+        }
+
+
     }
 
     override fun onClick(v: View?) {
