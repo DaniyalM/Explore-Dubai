@@ -255,9 +255,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             isArabic() -> {
                 img.rotation = -180f
             }
-            else -> {
-                img.rotation = 180f
-            }
         }
     }
 

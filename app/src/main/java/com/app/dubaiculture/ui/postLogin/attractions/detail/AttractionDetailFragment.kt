@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +30,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
+import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_ID
 import com.app.dubaiculture.utils.Constants.NavBundles.THREESIXTY_GALLERY_LIST
 import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.handleApiError
@@ -66,7 +68,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     OnMapReadyCallback, View.OnClickListener {
 
     private var url: String? = null
-    lateinit var googleMap: GoogleMap
 
     private val gpsObserver = Observer<GpsStatus> { status ->
         status?.let {
@@ -220,8 +221,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 }
 
             }
-
-
         }
     }
 
@@ -273,7 +272,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     private fun uiActions() {
         binding.let {
-
             it.root.ll_ar.setOnClickListener(this)
             it.root.ll_360.setOnClickListener(this)
             it.root.ll_img.setOnClickListener(this)
@@ -287,6 +285,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             it.root.img_attraction_speaker.setOnClickListener(this)
             it.root.ll_emailus.setOnClickListener(this)
             it.root.ll_call_us.setOnClickListener(this)
+            it.root.constLayoutSiteMap.setOnClickListener(this)
+            it.root.constLayoutIbecon.setOnClickListener(this)
 
         }
         binding.apply {
@@ -366,7 +366,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         mapFragment!!.getMapAsync(this)
 
     }
-
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
             handleRationale = false
@@ -405,10 +404,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 activity, locationCallback = locationCallback)
         }
     }
-
     override fun onMapReady(map: GoogleMap?) {
         try {
-            googleMap = map!!
             val attractionLatLng = LatLng(lat?.toDouble()!!, long?.toDouble()!!)
             map!!.addMarker(MarkerOptions()
                 .position(attractionLatLng)
@@ -424,9 +421,17 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             e.stackTrace
         }
     }
-
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.constLayoutSiteMap->{
+                val bundle = bundleOf(ATTRACTION_ID to attractionsObj.id)
+                navigate(R.id.action_attractionDetailFragment_to_siteMapFragment,bundle)
+
+            }
+            R.id.constLayoutIbecon->{
+                navigate(R.id.action_attractionDetailFragment_to_ibeconFragment)
+
+            }
             R.id.img_attraction_speaker -> {
                 if (binding.root.tv_desc_readmore.text.isNotEmpty()) {
                     textToSpeechEngine.speak(binding.root.tv_desc_readmore.text,
@@ -436,9 +441,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 }
             }
             R.id.ll_ar -> {
-//                navigate(R.id.action_attractionDetailFragment_to_ARActivity)
-                navigate(R.id.action_attractionDetailFragment_to_ARFragment)
-
+                activity.runWithPermissions(
+                    Manifest.permission.CAMERA,
+                ) {
+                    navigate(R.id.action_attractionDetailFragment_to_ARFragment)
+                }
             }
             R.id.ll_360 -> {
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment,
@@ -453,7 +460,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             putParcelableArrayList(ATTRACTION_GALLERY_LIST,
                                 it as ArrayList<out Parcelable>)
                         }
-
                     })
             }
             R.id.back -> {
@@ -469,7 +475,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 attractionDetailViewModel.showToast("Swipe up")
             }
             R.id.downOneAR -> {
-                navigate(R.id.action_attractionDetailFragment_to_ARFragment)
+                activity.runWithPermissions(
+                    Manifest.permission.CAMERA,
+                ) {
+                    navigate(R.id.action_attractionDetailFragment_to_ARFragment)
+                }
 
             }
             R.id.downOne360 -> {
@@ -477,7 +487,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     Bundle().apply {
                         putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj.asset360)
                     })
-
             }
             R.id.downOneGallery -> {
                 navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
@@ -488,43 +497,33 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         }
 
                     })
-
             }
             R.id.ll_call_us -> {
                 openDiallerBox(attractionsObj.number.toString().ifEmpty { "123123123" })
             }
             R.id.ll_emailus -> {
                 openEmailbox(attractionsObj.email.toString().ifEmpty { "test@gmail.com" })
-
             }
-
         }
     }
-
     override fun onPause() {
         textToSpeechEngine.stop()
         super.onPause()
     }
-
     override fun onDestroy() {
         textToSpeechEngine.shutdown()
         super.onDestroy()
     }
-
     private fun updateGpsCheckUi(status: GpsStatus) {
         when (status) {
             is GpsStatus.Enabled -> {
-
                 locationPermission()
-
-
             }
             is GpsStatus.Disabled -> {
                 attractionDetailViewModel.showToast(message = "Please enable Location")
             }
         }
     }
-
     private fun locationIsEmpty(location: Location) {
         if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
                 attractionsObj.latitude)

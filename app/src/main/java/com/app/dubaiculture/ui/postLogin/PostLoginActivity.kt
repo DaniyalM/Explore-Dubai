@@ -41,6 +41,12 @@ class PostLoginActivity : BaseAuthenticationActivity() {
                 R.id.ARFragment -> {
                     bottomNav.visibility = View.GONE
                 }
+                R.id.siteMapFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
+                R.id.ibeconFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
                 else -> {
                     bottomNav.visibility = View.VISIBLE
 

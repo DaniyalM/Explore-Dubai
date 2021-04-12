@@ -177,5 +177,6 @@
     <string name="near_you">Near You</string>
     <string name="recognize">Recognize</string>
     <string name="ar_detail">AR Detail</string>
+    <string name="site_map">Site Map</string>
 
 </resources>
