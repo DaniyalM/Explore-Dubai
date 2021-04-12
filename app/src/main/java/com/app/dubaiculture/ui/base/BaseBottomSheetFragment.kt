@@ -62,7 +62,6 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         application = activity.application as ApplicationEntry
         bus = application.bus
         bus.register(this)
-        isBusRegistered = true
         dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         return super.onCreateDialog(savedInstanceState)
     }

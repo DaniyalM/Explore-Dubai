@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.nearyou
+package com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,13 +10,15 @@ import com.app.dubaiculture.databinding.FragmentNearYouBinding
 import com.app.dubaiculture.databinding.FragmentYourJourneyBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>() {
-
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
     }
 
     override fun getFragmentBinding(
