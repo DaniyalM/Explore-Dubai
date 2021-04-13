@@ -69,6 +69,7 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
         binding.imgClose.setOnClickListener(this)
         beaconMonitoring()
         callingObserver()
+        backArrowRTL(binding.imgClose)
         binding.constBottomSheet.setOnClickListener {
 
             val bundle = Bundle()
@@ -102,8 +103,10 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
     private fun callingObserver() {
         siteMapViewModel.siteMapData.observe(viewLifecycleOwner) {
             it.let {
+
                 glide.load(BuildConfig.BASE_URL + it.ibeconImg)
                     .into(binding.siteMap)
+                binding.count.text = it.ibeconItems.size.toString()
                 it.ibeconItems.forEach {
                     beconList.add(it)
                 }

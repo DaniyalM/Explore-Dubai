@@ -49,9 +49,12 @@
             android:id="@+id/s"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:background="@drawable/attraction_detail_bg_border"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/_150sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/_133sdp"
            />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView

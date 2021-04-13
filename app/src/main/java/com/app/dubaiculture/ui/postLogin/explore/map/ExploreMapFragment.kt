@@ -188,8 +188,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
             2 -> {
                 category = resources.getString(R.string.museum)
 
-                exploreMapViewModel.pinsOnMap(exploreMapViewModel.attractionFilter(MUSEUMS, locationHelper, exploreMapList, attractions), googleMap)
-                rvSetUp(exploreMapViewModel.attractionFilter(MUSEUMS, locationHelper, exploreMapList, attractions))
+                exploreMapViewModel.pinsOnMap(exploreMapViewModel.attractionFilter(category, locationHelper, exploreMapList, attractions), googleMap)
+                rvSetUp(exploreMapViewModel.attractionFilter(category, locationHelper, exploreMapList, attractions))
             }
             3 -> {
                 category = resources.getString(R.string.heritage)

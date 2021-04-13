@@ -12,5 +12,5 @@ data class IbeconITemsSiteMap(
     val thumbnail : String ? =null,
     val summary : String ? =null,
     val deviceID : String ? =null,
-    val isVisited : Boolean ? =false
+    var isVisited : Boolean  =false
     ) : Parcelable

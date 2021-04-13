@@ -69,6 +69,7 @@ class SiteMapFragment : BaseDialogFragment<FragmentSiteMapBinding>() ,View.OnCli
             siteMapViewModel.siteMap(it?.getString(ATTRACTION_ID).toString(),getCurrentLanguage().language)
         }
         callingObserver()
+        backArrowRTL(binding.imgClose)
         binding.imgClose.setOnClickListener(this)
 
     }
@@ -98,7 +99,7 @@ class SiteMapFragment : BaseDialogFragment<FragmentSiteMapBinding>() ,View.OnCli
     }
     override fun onClick(v: View?) {
         when(v?.id) {
-            R.id.back ->{
+            R.id.img_close ->{
                 back()
             }
         }

@@ -47,10 +47,12 @@
         <ImageView
             android:id="@+id/site_map"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:src="@drawable/site_map"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/constBottomSheet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,6 +91,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/gray_line" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_20sdp"
