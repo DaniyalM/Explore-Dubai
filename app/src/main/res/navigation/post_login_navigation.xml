@@ -344,7 +344,7 @@
 
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ar.detail.ARDetailFragment"
         android:label="ARDetailFragment" />
-    <fragment
+    <dialog
         android:id="@+id/siteMapFragment"
         tools:layout="@layout/fragment_site_map"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapFragment"

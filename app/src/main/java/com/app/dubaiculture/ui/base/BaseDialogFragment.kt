@@ -33,6 +33,8 @@ import com.app.dubaiculture.utils.event.UiEvent
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.CornerFamily
 import com.squareup.otto.Bus
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import java.util.*
 
@@ -44,6 +46,7 @@ abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
     private lateinit var dataBinding: DB
     protected val binding get() = dataBinding
     protected var customProgressDialog: ProgressDialog? = null
+    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -68,6 +71,7 @@ abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
         bus.register(this)
         isBusRegistered = true
         customProgressDialog = ProgressDialog(activity)
+        groupAdapter = GroupAdapter()
 
         return super.onCreateDialog(savedInstanceState)
     }
