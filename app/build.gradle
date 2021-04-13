@@ -274,9 +274,16 @@ dependencies {
     //photo view
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 
+    //Blurry
+    implementation 'jp.wasabeef:blurry:4.0.0'
+
+
     //beacon
 
     implementation 'com.estimote:sdk:1.0.12'
+
+
+
 
 
 }

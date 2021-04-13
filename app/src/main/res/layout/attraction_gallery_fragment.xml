@@ -8,11 +8,11 @@
         android:background="@color/black_200"
         tools:context=".ui.postLogin.threesixtygallery.ThreeSixtyFragment">
 
-<!--        <com.github.chrisbanes.photoview.PhotoView-->
-<!--            android:id="@+id/mainImage"-->
-<!--            android:background="@drawable/event_detail_icon"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"/>-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mainImage"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainImageSlider"
