@@ -5,6 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:orientation="vertical">
 
 
@@ -12,7 +13,6 @@
             android:id="@+id/rvAttractionListing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_60sdp"
             android:clickable="true"
             android:focusable="true" />
 
