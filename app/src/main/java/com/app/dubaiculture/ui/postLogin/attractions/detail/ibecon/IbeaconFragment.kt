@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.fragment_your_journey.*
 class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClickListener {
 
     private val siteMapViewModel: SiteMapViewModel by viewModels()
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<MaterialCardView>
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,27 +61,13 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
 
         binding.imgClose.setOnClickListener(this)
         beaconMonitoring()
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+        binding.constBottomSheet.setOnTouchListener(object : View.OnTouchListener{
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                navigate(R.id.action_ibeconFragment_to_yourJourneyFragment)
+                return true
             }
 
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_EXPANDED -> {
-                        siteMapViewModel.showToast("Open")
-//                        val fragManager: FragmentManager = myContext.getFragmentManager()
-//                        YourJourneyFragment().show(getSupportFragmentManager(),
-//                            "Dialog")
-//                        YourJourneyFragment().test()
-                    }
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                        siteMapViewModel.showToast("Closed")
-                    }
-                    else -> siteMapViewModel.showToast("Persistent Bottom Sheet")
-                }
-            }
         })
 
     }
