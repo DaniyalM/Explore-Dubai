@@ -178,5 +178,9 @@
     <string name="recognize">Recognize</string>
     <string name="ar_detail">AR Detail</string>
     <string name="site_map">Site Map</string>
+    <string name="heritage">Heritage Sites</string>
+    <string name="art_gallery">Art Galleries</string>
+    <string name="festivals">Festivals</string>
+    <string name="libraries">Libraries</string>
 
 </resources>

@@ -1,13 +1,13 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
-import com.app.dubaiculture.databinding.FragmentNearYouBinding
 import com.app.dubaiculture.databinding.FragmentYourJourneyBinding
 import com.app.dubaiculture.databinding.SiteViewMapItemsBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
@@ -16,6 +16,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapAdapt
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
 import com.estimote.coresdk.service.BeaconManager
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>() {
@@ -25,7 +26,12 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(siteMapViewModel)
         siteMapViewModel.showToast("OnActivityCreated.")
+        test()
 
+
+    }
+    init {
+        test()
     }
 
 
@@ -44,5 +50,9 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
         }
     }
 
+  fun test(){
+      Timber.e("testing")
+      Log.e("Test","testing")
 
+  }
 }

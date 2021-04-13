@@ -8,17 +8,13 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentIbeconBinding
 import com.app.dubaiculture.databinding.SiteViewMapItemsBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
-import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
 import com.estimote.coresdk.service.BeaconManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_post_login.*
 import kotlinx.android.synthetic.main.fragment_your_journey.*
-
 
 @AndroidEntryPoint
 class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClickListener {
@@ -30,7 +26,7 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
         container: ViewGroup?,
     ) = FragmentIbeconBinding.inflate(inflater, container, false)
 
-    override fun getTheme()=R.style.FullScreenDialog;
+    override fun getTheme() = R.style.FullScreenDialog;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +72,10 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
                 when (newState) {
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         siteMapViewModel.showToast("Open")
+//                        val fragManager: FragmentManager = myContext.getFragmentManager()
+//                        YourJourneyFragment().show(getSupportFragmentManager(),
+//                            "Dialog")
+//                        YourJourneyFragment().test()
                     }
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         siteMapViewModel.showToast("Closed")
@@ -97,6 +97,7 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
             })
         }
     }
+
     private fun callingObserver() {
         siteMapViewModel.siteMapData.observe(viewLifecycleOwner) {
             it.let {
@@ -110,6 +111,7 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
             }
         }
     }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_close -> {
@@ -117,7 +119,5 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
             }
         }
     }
-
-
 
 }
