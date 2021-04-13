@@ -171,9 +171,13 @@
     <string name="away">كم</string>
     <string name="error_msg">هل أنت متاكد من اغلاق التطبيق؟</string>
     <string name="near_you">حولك</string>
-    <string name="recognize">Recognize</string>
-    <string name="ar_detail">AR Detail</string>
-    <string name="site_map">Site Map</string>
+    <string name="recognize">اكتشف</string>
+    <string name="ar_detail">تفاصيل الواقع الافتراضي</string>
+    <string name="site_map">خريطة الموقع</string>
+    <string name="heritage">المواقع التراثية</string>
+    <string name="art_gallery">متاحف الفن</string>
+    <string name="festivals">المهرجانات</string>
+    <string name="libraries">المكتبات</string>
 
 
 </resources>

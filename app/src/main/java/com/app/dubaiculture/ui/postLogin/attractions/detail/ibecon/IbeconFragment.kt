@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentIbeconBinding
@@ -13,12 +14,10 @@ import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapAdapt
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
 import com.estimote.coresdk.service.BeaconManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_post_login.*
 import kotlinx.android.synthetic.main.fragment_your_journey.*
-
 
 @AndroidEntryPoint
 class IbeconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListener {
@@ -46,6 +45,10 @@ class IbeconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListen
                 when (newState) {
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         siteMapViewModel.showToast("Open")
+//                        val fragManager: FragmentManager = myContext.getFragmentManager()
+//                        YourJourneyFragment().show(getSupportFragmentManager(),
+//                            "Dialog")
+//                        YourJourneyFragment().test()
                     }
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         siteMapViewModel.showToast("Closed")
@@ -87,7 +90,5 @@ class IbeconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListen
             }
         }
     }
-
-
 
 }

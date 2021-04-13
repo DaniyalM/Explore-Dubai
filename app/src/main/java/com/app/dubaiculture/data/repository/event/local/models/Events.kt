@@ -30,6 +30,8 @@ data class Events(
     var dateTo: String = "",
     var dateFrom: String = "",
     var distance: Double = 0.0,
+    var currentLat: Double = 0.0,
+    var currentLng: Double = 0.0,
     var socialLink: List<SocialLink> ?= emptyList(),
     var eventSchedule: List<EventSchedule>? = emptyList(),
     var relatedEvents: List<Events>? = emptyList()

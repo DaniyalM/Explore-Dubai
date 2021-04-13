@@ -79,7 +79,12 @@ open class SingleSelectionAdapter(
                 // un selected
                 iface.getRowClick(absoluteAdapterPosition)
                 itemView.tv_title.setTextColorRes(R.color.white_900)
-                itemView.cardview.setCardBackgroundColor(Color.parseColor("#5E2E82"))
+
+                if(attractions.color.isNullOrEmpty()){
+                    itemView.cardview.setCardBackgroundColor(Color.parseColor("#5E2E82"))
+                }else{
+                    itemView.cardview.setCardBackgroundColor(Color.parseColor(attractions.color))
+                }
                 if (attractions.icon!!.isNotEmpty()) {
                     itemView.imgInnerIcon.glideInstance(attractions.icon, true)
                         .into(itemView.imgInnerIcon)

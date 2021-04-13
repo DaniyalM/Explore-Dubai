@@ -103,7 +103,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     private fun setupMap(googleMap: GoogleMap?) {
         googleMap?.addCircle(
             CircleOptions()
-                .center(LatLng(24.8623, 67.0627))
+                .center(LatLng(mapList[0].currentLat, mapList[0].currentLng))
                 .radius(5000.0)
                 .strokeWidth(1f)
                 .strokeColor(ContextCompat.getColor(requireContext(), R.color.map_radius_color))
@@ -113,11 +113,11 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     }
 
     private fun currentLocation(googleMap: GoogleMap?) {
-        val trafficDigitalLatLng = LatLng(24.8623, 67.0627)
+        val trafficDigitalLatLng = LatLng(mapList[0].currentLat, mapList[0].currentLng)
         googleMap!!.addMarker(MarkerOptions()
             .position(trafficDigitalLatLng)
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_current)))
-            .title = "Traffic Digital"
+            .title = "Current Location"
         googleMap!!.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
                 trafficDigitalLatLng, 12.0f

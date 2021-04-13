@@ -14,6 +14,7 @@ import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.map.adapter.ExploreMapAdapter
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.CATEGORY
 import com.app.dubaiculture.utils.Constants.NavBundles.EXPLORE_MAP_LIST
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,6 +35,7 @@ class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtom
         super.onActivityCreated(savedInstanceState)
         arguments?.apply {
             exploreMapList = getParcelableArrayList(EXPLORE_MAP_LIST)!!
+            binding.headingMuseumsNear.text = "${getString(CATEGORY) + " ${resources.getString(R.string.near_you)}" }"
             rvSetUp(exploreMapList)
         }
 

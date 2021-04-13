@@ -74,6 +74,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     @Inject
     lateinit var locationHelper: LocationHelper
 
+    var lat : Double ? = null
+    var lng : Double ? = null
+
     private val gpsObserver = Observer<GpsStatus> { status ->
         status?.let {
             updateGpsCheckUI(status)
@@ -81,6 +84,11 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     }
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
+            lat = locationResult.lastLocation.latitude
+            lng = locationResult.lastLocation.longitude
+            Timber.e("onLocationResult ${locationResult.lastLocation.latitude}")
+            eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
+
         }
     }
 
@@ -93,10 +101,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(eventViewModel)
+        locationPermission()
         cardViewRTL()
         setupToolbarWithSearchItems()
         subscribeToGpsListener()
-        locationPermission()
 //        callingObservables()
         subscribeToObservables()
         binding.swipeRefresh.setOnRefreshListener {
@@ -195,6 +203,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             locationHelper.locationSetUp(
                 object : LocationHelper.LocationLatLng {
                     override fun getCurrentLocation(location: Location) {
+                        lat = location.latitude
+                        lng = location.longitude
                         Timber.e("Current Location ${location.latitude}")
                     }
                 },
@@ -218,7 +228,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     rvNearEvent.visibility = View.GONE
                     root.cardivewRTL.visibility = View.VISIBLE
                 }
-//                eventViewModel.showAlert(message = resources.getString(R.string.please_enable_gps))
             }
         }
     }
@@ -367,13 +376,16 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     fun sortNearEvent(list: List<Events>): List<Events> {
         val myList = ArrayList<Events>()
+        nearList.clear()
         val sortedList = ArrayList<Events>()
             list.forEach {
-                val distance = locationHelper.distance(LAT,
-                    LNG,
+                val distance = locationHelper.distance(lat?: 24.8623,
+                    lng?:67.0627,
                     it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
                     it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble())
                 it.distance = distance
+                it.currentLat = lat!!
+                it.currentLng = lng!!
                 myList.add(it)
 
             }

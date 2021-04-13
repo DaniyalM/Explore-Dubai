@@ -478,8 +478,9 @@
 
                 <LinearLayout
                     android:id="@+id/ll_emailus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="150dp"
+                    android:layout_height="55dp"
+                    android:foreground="@drawable/custom_ripple_black"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/shape_rounded_purple_border_attraction"
                     android:elevation="5dp"
@@ -494,6 +495,10 @@
                         android:drawableStart="@drawable/mail_icon"
                         android:drawablePadding="@dimen/_5sdp"
                         android:text="@string/email_us"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:textColor="@color/purple_900"
                         android:textSize="@dimen/_10ssp" />
                 </LinearLayout>
@@ -501,6 +506,7 @@
 
                 <LinearLayout
                     android:id="@+id/ll_call_us"
+                    android:foreground="@drawable/custom_ripple_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_5sdp"
