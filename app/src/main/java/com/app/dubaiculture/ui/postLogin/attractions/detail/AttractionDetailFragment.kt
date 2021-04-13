@@ -147,10 +147,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             subscribeToGpsListener()
             subscribeObservables()
             mapSetUp()
+            uiActions()
+            cardViewRTL()
         }
 
-        uiActions()
-        cardViewRTL()
+
     }
 
 
@@ -562,5 +563,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             binding.root.tv_km.text = "$distance Km Away"
         }
     }
+
 
 }

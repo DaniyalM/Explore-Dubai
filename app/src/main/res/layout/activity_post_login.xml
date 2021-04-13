@@ -7,26 +7,41 @@
         android:layout_height="match_parent"
         tools:context=".ui.postLogin.PostLoginActivity">
 
-        <fragment
-            android:id="@+id/nav_host_fragment"
-            class="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:defaultNavHost="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/post_login_navigation" />
+
+
+<!--        <androidx.fragment.app.FragmentContainerView-->
+<!--            android:id="@+id/nav_host_fragment"-->
+<!--            android:name="com.app.dubaiculture.utils.DubaiNavHostFragment"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:defaultNavHost="true"-->
+<!--            app:navGraph="@navigation/post_login_navigation" />-->
+
+
+                <fragment
+                    android:id="@+id/nav_host_fragment"
+                    android:name="com.app.dubaiculture.utils.DubaiNavHostFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:defaultNavHost="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:navGraph="@navigation/post_login_navigation" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/nav_tabbar_new_one"
             android:elevation="@dimen/_10sdp"
             app:elevation="@dimen/_10sdp"
-            android:background="@drawable/nav_tabbar_new_one"
             app:itemIconTint="@color/bottom_nav_color"
             app:itemTextColor="@color/bottom_nav_color"
             app:labelVisibilityMode="labeled"
