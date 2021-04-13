@@ -1,7 +1,5 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.ar
 
-import android.app.Activity
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -9,12 +7,10 @@ import android.view.*
 import android.widget.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentARBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
-import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ar.external.*
 import com.app.dubaiculture.utils.ProgressDialog
 import com.wikitude.NativeStartupConfiguration
@@ -28,21 +24,20 @@ import kotlinx.android.synthetic.main.fragment_a_r.*
 import org.json.JSONObject
 
 
-class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering, ImageTrackerListener {
+class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering,
+    ImageTrackerListener {
     private var wikitudeSDK: WikitudeSDK? = null
     private var customSurfaceView: CustomSurfaceView? = null
     private var driver: Driver? = null
     private var glRenderer: GLRenderer? = null
     private var cloudRecognitionService: CloudRecognitionService? = null
-    var viewGroup : ViewGroup?=null
+    var viewGroup: ViewGroup? = null
 
-    override fun getTheme(): Int {
-        return R.style.FullScreenDialog;
-    }
+    override fun getTheme()=R.style.FullScreenDialog;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.FullScreenDialog)
+        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
 
     }
 
@@ -134,7 +129,7 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering, I
         viewHolder.addView(controls)
         binding.llLayout.addView(viewHolder)
         btnRecognize.setOnClickListener {
-            showLoader(true,customProgressDialog)
+            showLoader(true, customProgressDialog)
             cloudRecognitionService!!.recognize(object : CloudRecognitionServiceListener {
                 override fun onResponse(response: CloudRecognitionServiceResponse?) {
                     if (response!!.isRecognized) {
@@ -142,13 +137,13 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering, I
                         Log.e("response=>", response.toString())
 
                         val ja = JSONObject(response.metadataString)
-                        val desc =    ja.getString("desc")
+                        val desc = ja.getString("desc")
                         Log.e("desc", desc.toString())
 
                         // This needs to be copied since access to the response is invalid after the end of the scope
                         val targetName = response.targetInformationsObject.name
                         requireActivity().runOnUiThread {
-                            showLoader(false,customProgressDialog)
+                            showLoader(false, customProgressDialog)
 
 //                            Log.e("targetName",response.targetInformationsObject.name)
                             Toast.makeText(
@@ -162,7 +157,7 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering, I
                         }
                     } else {
                         requireActivity().runOnUiThread {
-                            showLoader(false,customProgressDialog)
+                            showLoader(false, customProgressDialog)
 //                            Log.e("targetName",response.targetInformationsObject.name)
                             Toast.makeText(
                                 requireContext(),
@@ -186,12 +181,15 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering, I
             })
         }
     }
+
     override fun onTargetsLoaded(p0: ImageTracker?) {
         Log.e("Success", "OnTargetLoaded.")
     }
+
     override fun onErrorLoadingTargets(p0: ImageTracker?, p1: WikitudeError?) {
         Log.e("Success", "onErrorLoadingTargets.")
     }
+
     override fun onImageRecognized(p0: ImageTracker?, target: ImageTarget) {
         Log.e("Success", "onImageRecognized.")
         Log.e("onImageRecognized", target.name + target.uniqueId)
@@ -251,5 +249,5 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering, I
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    )= FragmentARBinding.inflate(inflater,container,false)
+    ) = FragmentARBinding.inflate(inflater, container, false)
 }
