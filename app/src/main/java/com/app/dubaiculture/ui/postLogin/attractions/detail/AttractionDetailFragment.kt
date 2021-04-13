@@ -146,11 +146,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             callingObservables()
             subscribeToGpsListener()
             subscribeObservables()
-
+            mapSetUp()
         }
 
         uiActions()
-        mapSetUp()
         cardViewRTL()
     }
 

@@ -347,7 +347,16 @@
         android:id="@+id/ibeconFragment"
         tools:layout="@layout/fragment_ibecon"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeconFragment"
-        android:label="IbeconFragment" />
+        android:label="IbeconFragment" >
+        <action
+            android:id="@+id/action_ibeconFragment_to_yourJourneyFragment"
+            app:destination="@id/yourJourneyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/yourJourneyFragment"
+        tools:layout="@layout/fragment_your_journey"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyFragment"
+        android:label="YourJourneyFragment" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->

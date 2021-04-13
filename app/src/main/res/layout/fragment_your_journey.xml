@@ -3,9 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:id="@+id/bottomSheet"
+        app:behavior_peekHeight="@dimen/_92sdp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:cardCornerRadius="@dimen/_30sdp"
+        app:cardBackgroundColor="@color/gray_600"
+        android:layout_height="wrap_content">
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+
         tools:context=".ui.postLogin.nearyou.NearYouFragment">
 
 
@@ -60,5 +72,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

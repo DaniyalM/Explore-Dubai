@@ -11,6 +11,7 @@ import com.app.dubaiculture.databinding.FragmentSplashBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_forgot_.view.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -31,7 +32,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     }
 
     private suspend fun navigate() {
-        delay(1000)
+        delay(3000)
         application.auth.isLoggedIn = true
         val user = splashViewModel.getUserIfExists()
         if (user != null) {
@@ -40,8 +41,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         }
         findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
 
-
-    }
+        }
 
 
 }
