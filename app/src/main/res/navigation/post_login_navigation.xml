@@ -354,15 +354,15 @@
         tools:layout="@layout/fragment_ibecon_desc"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeconDescFragment"
         android:label="IbeconDescFragment" />
-    <fragment
+    <dialog
         android:id="@+id/ibeconFragment"
         tools:layout="@layout/fragment_ibecon"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeconFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeaconFragment"
         android:label="IbeconFragment" >
         <action
             android:id="@+id/action_ibeconFragment_to_yourJourneyFragment"
             app:destination="@id/yourJourneyFragment" />
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/yourJourneyFragment"
         tools:layout="@layout/fragment_your_journey"

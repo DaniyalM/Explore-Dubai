@@ -1,13 +1,13 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon
 
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentIbeconBinding
 import com.app.dubaiculture.databinding.SiteViewMapItemsBinding
+import com.app.dubaiculture.ui.base.BaseDialogFragment
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_your_journey.*
 
 
 @AndroidEntryPoint
-class IbeconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListener {
+class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClickListener {
 
     private val siteMapViewModel: SiteMapViewModel by viewModels()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<MaterialCardView>
@@ -29,6 +29,36 @@ class IbeconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListen
         inflater: LayoutInflater,
         container: ViewGroup?,
     ) = FragmentIbeconBinding.inflate(inflater, container, false)
+
+    override fun getTheme()=R.style.FullScreenDialog;
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (dialog != null) {
+            val width = ViewGroup.LayoutParams.MATCH_PARENT
+            val height = ViewGroup.LayoutParams.MATCH_PARENT
+            dialog?.window!!.apply {
+                setLayout(width, height)
+                @Suppress("DEPRECATION")
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    insetsController?.hide(WindowInsets.Type.statusBars())
+                } else {
+                    setFlags(
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN
+                    )
+                }
+
+            }
+
+        }
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
