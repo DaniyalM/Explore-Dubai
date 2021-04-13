@@ -5,19 +5,18 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PointF
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.Assets360
-import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
 import com.app.dubaiculture.databinding.FragmentThreeSixtyBinding
 import com.app.dubaiculture.databinding.Items360GalleryViewBinding
-import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.base.BaseDialogFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.threesixtygallery.adapter.ThreeSixtyListItem
 import com.app.dubaiculture.ui.postLogin.threesixtygallery.viewmodel.ThreeSixtyViewModel
@@ -30,11 +29,43 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnClickListener {
+class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View.OnClickListener {
     private val threeSixtyViewModel: ThreeSixtyViewModel by viewModels()
-    private var gallerList = ArrayList<Gallery>()
+//    private var gallerList = ArrayList<Gallery>()
 
     private lateinit var assets360: Assets360
+
+    override fun getTheme(): Int {
+        return R.style.FullScreenDialog;
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (dialog != null) {
+            val width = ViewGroup.LayoutParams.MATCH_PARENT
+            val height = ViewGroup.LayoutParams.MATCH_PARENT
+            dialog?.window!!.apply {
+                setLayout(width, height)
+                @Suppress("DEPRECATION")
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    insetsController?.hide(WindowInsets.Type.statusBars())
+                } else {
+                    setFlags(
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN
+                    )
+                }
+
+            }
+
+        }
+    }
 
 
     override fun onAttach(context: Context) {
@@ -105,10 +136,9 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
                 color = Color.CYAN
                 strokeWidth = 3F
                 style = Paint.Style.FILL_AND_STROKE
-                isAntiAlias=true
+                isAntiAlias = true
 
             })
-
 
 
         }

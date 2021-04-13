@@ -1,16 +1,16 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap
 
+import android.os.Build
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentSiteMapBinding
 import com.app.dubaiculture.databinding.SiteViewMapItemsBinding
+import com.app.dubaiculture.ui.base.BaseDialogFragment
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_ID
@@ -21,10 +21,41 @@ import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SiteMapFragment : BaseFragment<FragmentSiteMapBinding>() ,View.OnClickListener {
+class SiteMapFragment : BaseDialogFragment<FragmentSiteMapBinding>() ,View.OnClickListener {
     private  val siteMapViewModel : SiteMapViewModel by viewModels()
     @Inject
     lateinit var glide: RequestManager
+
+
+    override fun getTheme()=R.style.FullScreenDialog;
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (dialog != null) {
+            val width = ViewGroup.LayoutParams.MATCH_PARENT
+            val height = ViewGroup.LayoutParams.MATCH_PARENT
+            dialog?.window!!.apply {
+                setLayout(width, height)
+                @Suppress("DEPRECATION")
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    insetsController?.hide(WindowInsets.Type.statusBars())
+                } else {
+                    setFlags(
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN
+                    )
+                }
+
+            }
+
+        }
+    }
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
