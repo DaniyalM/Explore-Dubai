@@ -15,8 +15,9 @@
 
         <ImageView
             android:id="@+id/img_detail_pic"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="@dimen/_200sdp"
+            android:scaleType="fitXY"
             android:src="@drawable/gallery"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,6 +71,7 @@
             />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"

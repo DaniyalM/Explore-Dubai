@@ -38,11 +38,11 @@
             />
         <ImageView
             android:layout_width="1dp"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:background="@color/gray_600"
             android:layout_marginStart="@dimen/_13sdp"
             android:layout_marginTop="@dimen/_40sdp"
-            android:layout_marginBottom="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_80sdp"
             app:layout_constraintBottom_toBottomOf="@+id/rv_ibeacons"
             app:layout_constraintStart_toStartOf="@+id/heading_ibeacons"
             app:layout_constraintTop_toTopOf="@+id/rv_ibeacons"
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_390sdp"
             android:layout_marginBottom="@dimen/_30sdp"
-            android:columnCount="4"
+            android:columnCount="2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/heading_ibeacons"
             app:layout_constraintVertical_bias="0.1"

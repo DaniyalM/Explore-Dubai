@@ -30,6 +30,7 @@ fun transformSiteMapObject(siteMapAttractionDTO: SiteMapAttractionDTO):SiteMapMo
 fun transformIbeconList(iBeaconsItemsDTO : IBeaconsItemsDTO) : IbeconITemsSiteMap = IbeconITemsSiteMap(
     step = iBeaconsItemsDTO.step,
     title = iBeaconsItemsDTO.title,
+    image = iBeaconsItemsDTO.img,
     thumbnail = iBeaconsItemsDTO.thumbnail,
     summary = iBeaconsItemsDTO.summary,
     deviceID = iBeaconsItemsDTO.deviceID,

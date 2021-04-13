@@ -457,7 +457,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
             }
             R.id.constLayoutIbecon->{
-                navigate(R.id.action_attractionDetailFragment_to_ibeconFragment)
+                val bundle = bundleOf(ATTRACTION_ID to attractionsObj.id)
+                navigate(R.id.action_attractionDetailFragment_to_ibeconFragment,bundle)
 
             }
             R.id.img_attraction_speaker -> {

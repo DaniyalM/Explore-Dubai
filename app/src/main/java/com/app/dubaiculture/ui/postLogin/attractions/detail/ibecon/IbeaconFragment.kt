@@ -2,24 +2,28 @@ package com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.*
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.sitemap.local.IbeconITemsSiteMap
 import com.app.dubaiculture.databinding.FragmentIbeconBinding
-import com.app.dubaiculture.databinding.SiteViewMapItemsBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
-import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
+import com.app.dubaiculture.utils.Constants
+import com.bumptech.glide.RequestManager
 import com.estimote.coresdk.service.BeaconManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_your_journey.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClickListener {
-
+    @Inject
+    lateinit var glide: RequestManager
     private val siteMapViewModel: SiteMapViewModel by viewModels()
+    private val beconList = ArrayList<IbeconITemsSiteMap>()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,17 +62,29 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(siteMapViewModel)
-
+        arguments.let {
+            siteMapViewModel.siteMap(it?.getString(Constants.NavBundles.ATTRACTION_ID).toString(),
+                getCurrentLanguage().language)
+        }
         binding.imgClose.setOnClickListener(this)
         beaconMonitoring()
+        callingObserver()
+        binding.constBottomSheet.setOnClickListener {
 
-        binding.constBottomSheet.setOnTouchListener(object : View.OnTouchListener{
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                navigate(R.id.action_ibeconFragment_to_yourJourneyFragment)
-                return true
-            }
+            val bundle = Bundle()
+            bundle.putParcelableArrayList(Constants.NavBundles.BECON_LIST,
+                beconList as ArrayList<out Parcelable>)
+            findNavController().navigate(R.id.action_ibeconFragment_to_yourJourneyFragment, bundle)
 
-        })
+        }
+
+//        binding.constBottomSheet.setOnTouchListener(object : View.OnTouchListener{
+//            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                findNavController().navigate(R.id.action_ibeconFragment_to_yourJourneyFragment)
+//                return true
+//            }
+//
+//        })
 
     }
 
@@ -86,11 +102,10 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
     private fun callingObserver() {
         siteMapViewModel.siteMapData.observe(viewLifecycleOwner) {
             it.let {
+                glide.load(BuildConfig.BASE_URL + it.ibeconImg)
+                    .into(binding.siteMap)
                 it.ibeconItems.forEach {
-                    groupAdapter.add(SiteMapAdapter<SiteViewMapItemsBinding>(
-                        ibeconITemsSiteMap = it,
-                        resLayout = R.layout.site_view_map_items
-                    ))
+                    beconList.add(it)
                 }
 
             }

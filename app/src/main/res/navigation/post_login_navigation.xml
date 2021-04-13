@@ -363,11 +363,15 @@
             android:id="@+id/action_ibeconFragment_to_yourJourneyFragment"
             app:destination="@id/yourJourneyFragment" />
     </dialog>
-    <fragment
+    <dialog
         android:id="@+id/yourJourneyFragment"
         tools:layout="@layout/fragment_your_journey"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyFragment"
-        android:label="YourJourneyFragment" />
+        android:label="YourJourneyFragment" >
+        <action
+            android:id="@+id/action_yourJourneyFragment_to_ibeconDescFragment"
+            app:destination="@id/ibeconDescFragment" />
+    </dialog>
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->
