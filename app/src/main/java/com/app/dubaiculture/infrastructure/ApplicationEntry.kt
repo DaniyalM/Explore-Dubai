@@ -19,7 +19,7 @@ class ApplicationEntry : Application() {
 
 
     lateinit var beaconManager: BeaconManager
-
+    lateinit var region: BeaconRegion
     override fun onCreate() {
         super.onCreate()
         auth = AuthState()
@@ -31,6 +31,22 @@ class ApplicationEntry : Application() {
                 UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
                 22504, 48827))
         }
+
+//        beaconManager.connect {
+//            BeaconManager.ServiceReadyCallback {
+//                Timber.e("Service ready Start Monitoring...")
+//
+//                region = BeaconRegion("ranged region",
+//                    UUID.fromString("be61acf9-cac3-4645-abcb-84955b5cac5b"), null, null)
+//           region =      beaconManager.startMonitoring(BeaconRegion(
+//               "monitored region",
+//               UUID.fromString("be61acf9-cac3-4645-abcb-84955b5cac5b"),
+//               null, null))
+//                beaconManager.startRanging(region)
+
+//            }
+//        }
+
 
         isInternetActive=NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())

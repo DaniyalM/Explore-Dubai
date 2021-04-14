@@ -46,7 +46,8 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
 
     private fun beaconMonitoring() {
         application.beaconManager.apply {
-            setRangingListener(BeaconManager.BeaconRangingListener { _, beacons ->
+            setRangingListener(BeaconManager.BeaconRangingListener { region, beacons ->
+
                 val nearestBeacon: Beacon = beacons[0]
                 siteMapViewModel.showToast("IBecon is Detected...")
                 nearestBeacon.uniqueKey

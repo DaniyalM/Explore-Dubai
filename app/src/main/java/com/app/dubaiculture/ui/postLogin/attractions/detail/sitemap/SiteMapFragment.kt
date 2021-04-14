@@ -85,7 +85,7 @@ class SiteMapFragment : BaseDialogFragment<FragmentSiteMapBinding>() ,View.OnCli
                 it.let {
                     glide.load(BuildConfig.BASE_URL + it.ibeconImg)
                         .into(binding.siteMap)
-                    it.ibeconItems.forEach {
+                    it.ibeconItems?.forEach {
                         groupAdapter.add(SiteMapAdapter<SiteViewMapItemsBinding>(
                             ibeconITemsSiteMap = it,
                             resLayout = R.layout.site_view_map_items

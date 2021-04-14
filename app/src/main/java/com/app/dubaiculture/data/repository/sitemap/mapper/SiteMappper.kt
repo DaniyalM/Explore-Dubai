@@ -21,11 +21,12 @@ fun transformSiteMap(siteMapResponse: SiteMapResponse): SiteMapModel =
         transformSiteMapObject(this)
     }
 fun transformSiteMapObject(siteMapAttractionDTO: SiteMapAttractionDTO):SiteMapModel = SiteMapModel(
+
     attractionID = siteMapAttractionDTO.id,
     ibeconImg = siteMapAttractionDTO.iBeacon.img,
-    ibeconItems = siteMapAttractionDTO.iBeacon.iBeaconsItems!!.map {
+    ibeconItems = siteMapAttractionDTO.iBeacon.iBeaconsItems?.map {
         transformIbeconList(it)
-    } as ArrayList<IbeconITemsSiteMap>
+    }
 )
 fun transformIbeconList(iBeaconsItemsDTO : IBeaconsItemsDTO) : IbeconITemsSiteMap = IbeconITemsSiteMap(
     step = iBeaconsItemsDTO.step,

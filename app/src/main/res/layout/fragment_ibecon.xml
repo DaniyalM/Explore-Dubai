@@ -62,9 +62,13 @@
             android:id="@+id/constBottomSheet"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_65sdp"
-            android:background="@drawable/bottomsheet_shape"
             app:cornerRadius="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bottomsheet_shape"
+                />
 
             <ImageView
                 android:id="@+id/gray_line"

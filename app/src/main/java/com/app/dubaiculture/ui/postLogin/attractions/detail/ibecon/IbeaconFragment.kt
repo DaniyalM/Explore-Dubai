@@ -67,7 +67,6 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
                 getCurrentLanguage().language)
         }
         binding.imgClose.setOnClickListener(this)
-        beaconMonitoring()
         callingObserver()
         backArrowRTL(binding.imgClose)
         binding.constBottomSheet.setOnClickListener {
@@ -106,8 +105,8 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
 
                 glide.load(BuildConfig.BASE_URL + it.ibeconImg)
                     .into(binding.siteMap)
-                binding.count.text = it.ibeconItems.size.toString()
-                it.ibeconItems.forEach {
+                binding.count.text = it.ibeconItems?.size.toString()
+                it.ibeconItems?.forEach {
                     beconList.add(it)
                 }
 
