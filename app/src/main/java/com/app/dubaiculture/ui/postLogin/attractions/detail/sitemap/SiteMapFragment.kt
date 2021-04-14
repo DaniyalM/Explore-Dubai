@@ -3,31 +3,30 @@ package com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap
 import android.os.Build
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.attraction.local.models.SiteMap
 import com.app.dubaiculture.databinding.FragmentSiteMapBinding
 import com.app.dubaiculture.databinding.SiteViewMapItemsBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
-import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
-import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_ID
-import com.app.dubaiculture.utils.glideInstance
+import com.app.dubaiculture.utils.Constants.NavBundles.SITE_MAP_OBJ
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SiteMapFragment : BaseDialogFragment<FragmentSiteMapBinding>() ,View.OnClickListener {
-    private  val siteMapViewModel : SiteMapViewModel by viewModels()
+class SiteMapFragment : BaseDialogFragment<FragmentSiteMapBinding>(), View.OnClickListener {
+    private val siteMapViewModel: SiteMapViewModel by viewModels()
+
     @Inject
     lateinit var glide: RequestManager
 
+    lateinit var siteMapObj: SiteMap
 
-    override fun getTheme()=R.style.FullScreenDialog;
+    override fun getTheme() = R.style.FullScreenDialog;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,11 +50,10 @@ class SiteMapFragment : BaseDialogFragment<FragmentSiteMapBinding>() ,View.OnCli
                         WindowManager.LayoutParams.FLAG_FULLSCREEN
                     )
                 }
-
             }
-
         }
     }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,7 +64,8 @@ class SiteMapFragment : BaseDialogFragment<FragmentSiteMapBinding>() ,View.OnCli
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(siteMapViewModel)
         arguments.let {
-            siteMapViewModel.siteMap(it?.getString(ATTRACTION_ID).toString(),getCurrentLanguage().language)
+            siteMapObj = it!!.getParcelable(SITE_MAP_OBJ)!!
+//            siteMapViewModel.siteMap(it?.getString(SITE_MAP).toString(),getCurrentLanguage().language)
         }
         callingObserver()
         backArrowRTL(binding.imgClose)
@@ -80,26 +79,26 @@ class SiteMapFragment : BaseDialogFragment<FragmentSiteMapBinding>() ,View.OnCli
             adapter = groupAdapter
         }
     }
-    private fun callingObserver(){
-        siteMapViewModel.siteMapData.observe(viewLifecycleOwner){
-                it.let {
-                    glide.load(BuildConfig.BASE_URL + it.ibeconImg)
-                        .into(binding.siteMap)
-                    it.ibeconItems?.forEach {
-                        groupAdapter.add(SiteMapAdapter<SiteViewMapItemsBinding>(
-                            ibeconITemsSiteMap = it,
-                            resLayout = R.layout.site_view_map_items
-                        ))
-                    }
 
+    private fun callingObserver() {
 
-                }
+        siteMapObj.let {
+            glide.load(BuildConfig.BASE_URL + siteMapObj.image)
+                .into(binding.siteMap)
+            it.siteMap?.forEach {
+                groupAdapter.add(SiteMapAdapter<SiteViewMapItemsBinding>(
+                    siteMaps = it,
+                    resLayout = R.layout.site_view_map_items
+                ))
+            }
             rvSetUp()
         }
+
     }
+
     override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.img_close ->{
+        when (v?.id) {
+            R.id.img_close -> {
                 back()
             }
         }

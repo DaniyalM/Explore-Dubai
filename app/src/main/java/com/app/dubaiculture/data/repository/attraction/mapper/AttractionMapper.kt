@@ -72,6 +72,17 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
     endDay = attraction.endDay,
     color = attraction.color,
     IsFavourite = attraction.isFavourite,
+    siteMap = attraction.siteMapDTO?.let {
+        SiteMap(
+            image = it.image,
+            siteMap = it.siteMapDTOS?.map {
+                SiteMaps(
+                    step = it.step,
+                    title = it.title
+                )
+            }
+        )
+    },
     events = attraction.events?.let {
         it.map {
             Events(

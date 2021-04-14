@@ -452,7 +452,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.constLayoutSiteMap->{
-                val bundle = bundleOf(ATTRACTION_ID to attractionsObj.id)
+                val bundle = Bundle()
+                bundle.putParcelable(Constants.NavBundles.SITE_MAP_OBJ,
+                    attractionsObj.siteMap)
                 navigate(R.id.action_attractionDetailFragment_to_siteMapFragment,bundle)
 
             }

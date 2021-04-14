@@ -73,7 +73,9 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         subscribeUiEvents(exploreMapViewModel)
+        backArrowRTL(binding.root.back)
         appendInAttractionCategoryList()
         lifecycleScope.launch {
             exploreMapViewModel.getExploreMap(getCurrentLanguage().language)

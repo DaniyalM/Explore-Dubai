@@ -30,4 +30,6 @@ data class Attractions(
     var gallery: List<Gallery>? = null,
     var socialLink: List<SocialLink>? = null,
     var asset360: Assets360? = null,
-) : Parcelable
+    var siteMap: SiteMap? = null,
+
+    ) : Parcelable

@@ -45,7 +45,10 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         callingObservables()
         subscribeToObservables()
         initiatePager()
-
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+        }
     }
 
     private fun initiatePager() {

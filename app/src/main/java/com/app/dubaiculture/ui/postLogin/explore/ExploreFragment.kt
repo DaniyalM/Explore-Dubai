@@ -69,7 +69,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
-            callingObservables()
+            exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
         }
 
         binding.root.img_drawer.setOnClickListener {

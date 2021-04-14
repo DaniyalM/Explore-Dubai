@@ -48,6 +48,7 @@ object Constants {
         const val CATEGORY: String = "category"
         const val BECON_LIST: String = "becon_list"
         const val BECON_OBJECT: String = "becon_object"
+        const val SITE_MAP_OBJ: String = "siteMap_obj"
 
 
     }
