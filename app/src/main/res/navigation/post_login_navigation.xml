@@ -349,7 +349,7 @@
         tools:layout="@layout/fragment_site_map"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapFragment"
         android:label="SiteMapFragment" />
-    <fragment
+    <dialog
         android:id="@+id/ibeconDescFragment"
         tools:layout="@layout/fragment_ibecon_desc"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeconDescFragment"

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout      xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="135dp"
+    android:layout_height="wrap_content"
     android:id="@+id/rootlayout"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    >
 
 
 
@@ -28,21 +30,25 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
-        android:layout_marginTop="@dimen/_15sdp"
+
         android:layout_height="@dimen/_70sdp"
         android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginBottom="16dp"
         android:elevation="@dimen/_9sdp"
-        app:cardElevation="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_circle"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal">
 
             <com.rishabhharit.roundedimageview.RoundedImageView
                 android:id="@+id/img_museums"
@@ -60,15 +66,15 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_22sdp"
-                android:textColor="@color/black_200"
-                android:textSize="@dimen/_11sdp"
-                android:text="Main Entrance of Majlis Ghorfat Umm Al Sheif"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:lines="2"
+                android:layout_marginEnd="@dimen/_22sdp"
+                android:text="Main Entrance of Majlis Ghorfat Umm Al Sheif"
+                android:textColor="@color/black_200"
+                android:textSize="@dimen/_14sdp"
 
                 />
-
 
 
         </LinearLayout>
@@ -77,10 +83,9 @@
             android:id="@+id/tick_mark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@drawable/checked"
             android:layout_gravity="center|end"
-            />
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@drawable/checked" />
     </androidx.cardview.widget.CardView>
 
 

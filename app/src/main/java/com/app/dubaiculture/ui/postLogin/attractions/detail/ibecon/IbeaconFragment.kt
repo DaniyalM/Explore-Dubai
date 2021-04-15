@@ -69,6 +69,8 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
         binding.imgClose.setOnClickListener(this)
         callingObserver()
         backArrowRTL(binding.imgClose)
+
+
         binding.constBottomSheet.setOnClickListener {
 
             val bundle = Bundle()

@@ -31,7 +31,7 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
         subscribeUiEvents(siteMapViewModel)
         arguments?.apply {
             beconList =
-                this.getParcelableArrayList<IbeconITemsSiteMap>(Constants.NavBundles.BECON_LIST)!!
+                this.getParcelableArrayList(Constants.NavBundles.BECON_LIST)!!
         }
         //for testing purpose
 //        rvBecons()
@@ -60,26 +60,26 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
 
     // for testing purpose
 
-//    private fun rvBecons() {
-//        binding.rvIbeacons.apply {
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//            adapter = groupAdapter
-//        }
-//        beconFilter(beconList,"1234").forEach {
-//            groupAdapter.add(YourJourneyItems<ItemsYourJourneyBinding>(object : RowClickListener {
-//                override fun rowClickListener(position: Int) {
-//                    val beconObj = beconList[position]
-//                    val bundle = Bundle()
-//                    bundle.putParcelable(Constants.NavBundles.BECON_OBJECT, beconObj)
-//                    navigate(R.id.action_yourJourneyFragment_to_ibeconDescFragment, bundle)
-//                }
-//
-//            },
-//                ibeconITemsSiteMap = it,
-//                resLayout = R.layout.items_your_journey
-//            ))
-//        }
-//    }
+    private fun rvBecons() {
+        binding.rvIbeacons.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = groupAdapter
+        }
+        beconFilter(beconList,"1234").forEach {
+            groupAdapter.add(YourJourneyItems<ItemsYourJourneyBinding>(object : RowClickListener {
+                override fun rowClickListener(position: Int) {
+                    val beconObj = beconList[position]
+                    val bundle = Bundle()
+                    bundle.putParcelable(Constants.NavBundles.BECON_OBJECT, beconObj)
+                    navigate(R.id.action_yourJourneyFragment_to_ibeconDescFragment, bundle)
+                }
+
+            },
+                ibeconITemsSiteMap = it,
+                resLayout = R.layout.items_your_journey
+            ))
+        }
+    }
 
 
     // for live scenario
@@ -103,6 +103,8 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                 resLayout = R.layout.items_your_journey
             ))
         }
+
+
     }
 
 

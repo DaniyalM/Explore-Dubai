@@ -70,7 +70,24 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
             exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
+
         }
+
+        binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary,
+            android.R.color.holo_green_dark,
+            android.R.color.holo_orange_dark,
+            android.R.color.holo_blue_dark)
+
+        binding.swipeRefresh.post(object :Runnable{
+            override fun run() {
+                binding.swipeRefresh.isRefreshing = true
+                exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
+
+            }
+
+        })
+
+
 
         binding.root.img_drawer.setOnClickListener {
             navigate(R.id.action_exploreFragment_to_exploreMapFragment)
@@ -128,8 +145,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun subscribeToObservable() {
 
         exploreViewModel.isFavourite.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = false
             when (it) {
                 is Result.Success -> {
+
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
                     }
@@ -141,7 +160,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             }
         }
         exploreViewModel.exploreList.observe(viewLifecycleOwner) {
-
+            binding.swipeRefresh.isRefreshing = false
             when (it) {
                 is Result.Success -> {
 

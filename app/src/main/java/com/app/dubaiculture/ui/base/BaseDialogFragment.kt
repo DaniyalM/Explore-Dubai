@@ -3,17 +3,14 @@ package com.app.dubaiculture.ui.base
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.annotation.IdRes
 import androidx.core.content.res.ResourcesCompat
@@ -23,7 +20,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.NetworkLiveData
@@ -58,7 +54,7 @@ abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         dataBinding = getFragmentBinding(inflater, container)
         return dataBinding.root
@@ -72,7 +68,6 @@ abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
         isBusRegistered = true
         customProgressDialog = ProgressDialog(activity)
         groupAdapter = GroupAdapter()
-
         return super.onCreateDialog(savedInstanceState)
     }
 
@@ -323,7 +318,7 @@ abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
 //            }
 //
 //        }
-    }
+}
 
 
 
