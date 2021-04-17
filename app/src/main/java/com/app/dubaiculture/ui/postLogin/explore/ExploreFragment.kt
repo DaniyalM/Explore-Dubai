@@ -16,7 +16,6 @@ import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
-import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,6 +59,14 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (!this::exploreAdapter.isInitialized) {
+            binding.swipeRefresh.post(object : Runnable {
+                override fun run() {
+                    binding.swipeRefresh.isRefreshing = true
+                    callingObservables()
+
+                }
+
+            })
             setUpRecyclerView()
         }
         subscribeUiEvents(exploreViewModel)
@@ -78,14 +85,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             android.R.color.holo_orange_dark,
             android.R.color.holo_blue_dark)
 
-        binding.swipeRefresh.post(object :Runnable{
-            override fun run() {
-                binding.swipeRefresh.isRefreshing = true
-                exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
 
-            }
-
-        })
 
 
 
@@ -101,7 +101,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                         textPositive = getString(R.string.okay),
                         textNegative = getString(R.string.cancel),
                         actionNegative = {
-                            
+
                         },
                         actionPositive = {
                             activity.finish()
@@ -165,8 +165,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                 is Result.Success -> {
 
                     it.let {
-                        explore = it.value
-                        exploreAdapter.items = explore
+                        exploreAdapter.items=it.value
                     }
                 }
                 is Result.Failure -> handleApiError(it, exploreViewModel)

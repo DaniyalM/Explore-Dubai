@@ -195,6 +195,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     startActivity(instagramNavigationIntent(activity.packageManager))
                 }
                 groupAdapter.apply {
+                    if (this.itemCount>0){
+                        this.clear()
+                    }
                     events?.let { events ->
                         events.forEach {
                             add(

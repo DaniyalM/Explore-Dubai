@@ -91,21 +91,19 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     ) {
         this.list = list
         this.attractionPager = attractionPager
-
-
-
-        if (groupAdapter.itemCount == 0) {
-            this.attractionPager?.adapter = AttractionPagerAdaper(attractionsFragment).apply {
-                provideListToPager(list)
-            }
-            itemsAddnUpdation()
+        this.attractionPager?.adapter = AttractionPagerAdaper(attractionsFragment).apply {
+            provideListToPager(list)
         }
+        itemsAddnUpdation()
     }
 
     fun itemsAddnUpdation(isUpdate: Boolean = false) {
         var isSelected = false
 
         if (!isUpdate) {
+            if (groupAdapter.itemCount>0){
+                groupAdapter.clear()
+            }
             list?.forEachIndexed { index, model ->
                 if (clickCheckerFlag == index) {
                     isSelected = true
