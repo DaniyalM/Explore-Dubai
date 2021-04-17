@@ -32,10 +32,10 @@ data class Events(
     var distance: Double = 0.0,
     var currentLat: Double = 0.0,
     var currentLng: Double = 0.0,
-    var socialLink: List<SocialLink> ?= emptyList(),
+    var socialLink: List<SocialLink>? = emptyList(),
     var eventSchedule: List<EventSchedule>? = emptyList(),
-    var relatedEvents: List<Events>? = emptyList()
-    ) : Parcelable
+    var relatedEvents: List<Events>? = emptyList(),
+) : Parcelable
 
 
 
