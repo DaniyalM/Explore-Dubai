@@ -33,7 +33,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     //    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractionCat: AttractionCategory
-    private var searchQuery: String = ""
+//    private var searchQuery: String = ""
     private var pageNumber: Int = 0
     private var pageSize: Int = 3
     private lateinit var attractions: ArrayList<Attractions>
@@ -74,6 +74,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private fun callingObservables() {
         if (!contentLoaded) {
             progressBar.visibility = View.VISIBLE
+
             attractionCat.id?.let {
                 attractionViewModel.getAttractionThroughCategory(it,
                     pageNumber,

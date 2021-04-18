@@ -1,4 +1,7 @@
 # Add project specific ProGuard rules here.
+-keepnames class com.app.dubaiculture.data.repository.event.local.models.Events
+
+
 # You can control the set of applied configuration files using the
 # proguardFiles setting in build.gradle.
 #

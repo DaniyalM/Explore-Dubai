@@ -53,6 +53,10 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
+        binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary,
+            android.R.color.holo_green_dark,
+            android.R.color.holo_orange_dark,
+            android.R.color.holo_blue_dark)
 //        binding.swipeRefresh.setOnRefreshListener(null)
 //        binding.swipeRefresh.setOnRefreshListener {
 //            callingObservables()
@@ -63,12 +67,17 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     private fun callingObservables() {
         if (!this::attractionCategorys.isInitialized) {
-            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+            binding.swipeRefresh.post {
+                binding.swipeRefresh.isRefreshing = true
+                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+            }
         }
     }
 
     private fun subscribeToObservables() {
         attractionViewModel.attractionCategoryList.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = false
+
             when (it) {
                 is Result.Success -> {
                     it.let { result ->

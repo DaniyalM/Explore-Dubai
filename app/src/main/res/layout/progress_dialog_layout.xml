@@ -10,7 +10,7 @@
         android:id="@+id/animationView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        app:lottie_rawRes="@raw/teadata"
+        app:lottie_rawRes="@raw/girlcycling"
         android:layout_gravity="center"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"/>

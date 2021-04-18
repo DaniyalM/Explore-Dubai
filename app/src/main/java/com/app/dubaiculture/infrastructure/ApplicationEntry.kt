@@ -15,7 +15,7 @@ import java.util.*
 class ApplicationEntry : Application() {
     var bus: Bus = Bus()
     lateinit var auth: AuthState
-    var isInternetActive=false
+    var isInternetActive = false
 
 
     lateinit var beaconManager: BeaconManager
@@ -27,9 +27,8 @@ class ApplicationEntry : Application() {
         beaconManager = BeaconManager(applicationContext)
         beaconManager.connect {
             beaconManager.startMonitoring(BeaconRegion(
-                "monitored region",
-                UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
-                22504, 48827))
+                "com.flagship.dubaiculture",
+                UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"), null, null))
         }
 
 //        beaconManager.connect {
@@ -48,7 +47,7 @@ class ApplicationEntry : Application() {
 //        }
 
 
-        isInternetActive=NetworkLiveData.isInternetAvailable()
+        isInternetActive = NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
         ThemeUtil.applyTheme("light")
 

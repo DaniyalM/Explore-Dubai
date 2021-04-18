@@ -85,6 +85,7 @@ android {
         stag {
             applicationIdSuffix ".stag"
             minifyEnabled false
+            shrinkResources false
             debuggable false
             buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")

@@ -86,6 +86,14 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (!this::exploreAdapter.isInitialized) {
+            binding.swipeRefresh.post(object : Runnable {
+                override fun run() {
+                    binding.swipeRefresh.isRefreshing = true
+                    callingObservables()
+
+                }
+
+            })
             setUpRecyclerView()
         }
         subscribeUiEvents(exploreViewModel)
@@ -95,12 +103,39 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
             exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
+
         }
+
+        binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary,
+            android.R.color.holo_green_dark,
+            android.R.color.holo_orange_dark,
+            android.R.color.holo_blue_dark)
+
+
+
+
 
         binding.root.img_drawer.setOnClickListener {
             locationPermission()
         }
 
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    showAlert(
+                        message = getString(R.string.error_msg),
+                        textPositive = getString(R.string.okay),
+                        textNegative = getString(R.string.cancel),
+                        actionNegative = {
+
+                        },
+                        actionPositive = {
+                            activity.finish()
+                        }
+                    )
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
     }
 
@@ -136,8 +171,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun subscribeToObservable() {
 
         exploreViewModel.isFavourite.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = false
             when (it) {
                 is Result.Success -> {
+
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
                     }
@@ -149,13 +186,12 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             }
         }
         exploreViewModel.exploreList.observe(viewLifecycleOwner) {
-
+            binding.swipeRefresh.isRefreshing = false
             when (it) {
                 is Result.Success -> {
 
                     it.let {
-                        explore = it.value
-                        exploreAdapter.items = explore
+                        exploreAdapter.items=it.value
                     }
                 }
                 is Result.Failure -> handleApiError(it, exploreViewModel)
