@@ -136,7 +136,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         arrowRTL(binding.root.arrow_ibecons)
         arrowRTL(binding.root.arrow_site_map)
 
-
+        binding.root.tv_desc_readmore.setText(attractionsObj.description)
 
         locationPermission()
 
@@ -422,13 +422,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                     }
                 },
-//                object : LocationHelper.LocationCallBack {
-//                    override fun getLocationResultCallback(locationResult: LocationResult?) {
-//                        Timber.e("LocationResult ${locationResult!!.lastLocation.latitude}")
-//                    }
-//
-//                },
-
                 activity, locationCallback = locationCallback)
         }
     }

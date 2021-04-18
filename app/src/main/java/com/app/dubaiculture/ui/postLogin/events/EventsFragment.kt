@@ -384,8 +384,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
                     it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble())
                 it.distance = distance
-                it.currentLat = lat!!
-                it.currentLng = lng!!
+                it.currentLat = lat?:24.8623
+                it.currentLng = lng?:67.0627
                 myList.add(it)
 
             }

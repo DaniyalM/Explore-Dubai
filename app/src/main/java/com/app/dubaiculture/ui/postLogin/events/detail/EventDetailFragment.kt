@@ -430,7 +430,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)
                     }
-                    binding.root.tv_desc_readmore.text = it.value.desc
+                    if(!it.value.desc.isNullOrEmpty()){
+                        binding.root.tv_desc_readmore.setText(  it.value.desc)
+                    }
                     it.value.eventSchedule!!.map {
                         binding.root.tv_schedule_title.text = it.description
                         it.eventScheduleItems.forEach {

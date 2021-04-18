@@ -49,6 +49,8 @@ object Constants {
         const val BECON_LIST: String = "becon_list"
         const val BECON_OBJECT: String = "becon_object"
         const val SITE_MAP_OBJ: String = "siteMap_obj"
+        const val LOCATION_LAT: String = "location_lat"
+        const val LOCATION_LNG: String = "location_lng"
 
 
     }

@@ -312,7 +312,6 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textAlignment="viewStart"
                     android:textSize="@dimen/_9ssp"
-                    android:text="@{attraction.description}"
                     app:colorClickableText="@color/gray_600"
                     app:layout_constraintEnd_toEndOf="@+id/card_map"
                     app:layout_constraintStart_toStartOf="@+id/heading_desc"
