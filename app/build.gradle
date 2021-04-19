@@ -241,7 +241,7 @@ dependencies {
         // for edit mask
 
     //lib phone
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.18'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.19'
     implementation 'com.balysv:material-ripple:1.0.2'
 //    implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
 
