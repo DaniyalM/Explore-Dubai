@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.postLogin.feeds.FeedsFragment">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -54,5 +54,5 @@
         </LinearLayout>
 
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
 </layout>

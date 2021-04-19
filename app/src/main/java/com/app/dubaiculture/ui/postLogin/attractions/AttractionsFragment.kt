@@ -31,6 +31,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         super.onAttach(context)
         arguments?.apply {
             clickCheckerFlag = getInt(ATTRACTION_CAT_OBJECT)
+
         }
     }
 
@@ -49,6 +50,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             binding.swipeRefresh.isRefreshing = false
             attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
         }
+
     }
 
     private fun initiatePager() {
@@ -114,6 +116,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     override fun onResume() {
         super.onResume()
         binding.horizontalSelector.positionUpdate(clickCheckerFlag)
+
     }
 
 
