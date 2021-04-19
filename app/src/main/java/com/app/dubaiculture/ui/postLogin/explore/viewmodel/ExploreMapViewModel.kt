@@ -54,9 +54,9 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
     }
 
 
-    fun eventFilter(locationHelper: LocationHelper,exploreMapList : ArrayList<ExploreMap> , eventList : List<Events>):List<ExploreMap> {
+    fun eventFilter(locationHelper: LocationHelper,exploreMapList : ArrayList<ExploreMap> , eventList : List<Events> ,lat :Double?=null , lng : Double?=null):List<ExploreMap> {
         exploreMapList.clear()
-        sortNearEvent(eventList,locationHelper).forEach {
+        sortNearEvent(eventList,locationHelper,lat,lng).forEach {
             exploreMapList.add(
                 ExploreMap(
                     id = it.id,
@@ -75,11 +75,10 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
 
 
 
-    fun sortNearEvent(list: List<Events>, locationHelper : LocationHelper): List<Events> {
+    fun sortNearEvent(list: List<Events>, locationHelper : LocationHelper, lat :Double?=null , lng : Double?=null): List<Events> {
         val myList = ArrayList<Events>()
         list.forEach {
-            val distance = locationHelper.distance(Constants.StaticLatLng.LAT,
-                Constants.StaticLatLng.LNG,
+            val distance = locationHelper.distance(lat?:24.8623,lng?: 67.0627,
                 it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
                 it.longitude.toString().ifEmpty {"67.08119661055807"}.toDouble())
             it.distance = distance
@@ -90,9 +89,9 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
     }
 
 
-    fun attractionFilter(category: String,locationHelper: LocationHelper,exploreMapList : ArrayList<ExploreMap>,attractions :ArrayList<Attractions>):List<ExploreMap>{
+    fun attractionFilter(category: String,locationHelper: LocationHelper,exploreMapList : ArrayList<ExploreMap>,attractions :ArrayList<Attractions>,lat :Double?=null , lng : Double?=null):List<ExploreMap>{
         exploreMapList.clear()
-        val list =   sortNearAttraction(attractions,locationHelper).filter {
+        val list =   sortNearAttraction(attractions,locationHelper,lat,lng).filter {
             it.category.trim() == category
         }
         list.forEach {
@@ -113,11 +112,10 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
         return exploreMapList
     }
 
-    fun sortNearAttraction(list: List<Attractions>,locationHelper : LocationHelper): List<Attractions> {
+    fun sortNearAttraction(list: List<Attractions>,locationHelper : LocationHelper ,lat :Double?=null , lng : Double?=null): List<Attractions> {
         val myList = ArrayList<Attractions>()
         list.forEach {
-            val distance = locationHelper.distance(Constants.StaticLatLng.LAT,
-                Constants.StaticLatLng.LNG,
+            val distance = locationHelper.distance(lat?:24.8623,lng?: 67.0627,
                 ((it.latitude.toString().ifEmpty { "24.83250180519734" }).toDouble()),
                 (it.longitude.toString().ifEmpty {"67.08119661055807"}).toDouble())
             it.distance = distance
@@ -131,9 +129,9 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
 
 
 
-    fun mergeArrayList(exploreMapList : ArrayList<ExploreMap>,attractions :ArrayList<Attractions>,eventList: List<Events>,locationHelper : LocationHelper) : List<ExploreMap>{
+    fun mergeArrayList(exploreMapList : ArrayList<ExploreMap>,attractions :ArrayList<Attractions>,eventList: List<Events>,locationHelper : LocationHelper,lat :Double?=null , lng : Double?=null) : List<ExploreMap>{
         exploreMapList.clear()
-        sortNearAttraction(attractions,locationHelper).forEach {
+        sortNearAttraction(attractions,locationHelper,lat,lng).forEach {
             exploreMapList.add(
                 ExploreMap(
                     id = it.id,
@@ -148,7 +146,7 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
 
             )
         }
-        sortNearEvent(eventList,locationHelper).forEach {
+        sortNearEvent(eventList,locationHelper,lat, lng).forEach {
             exploreMapList.add(
                 ExploreMap(
                     id = it.id,

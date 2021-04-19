@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/circle_path"
                 android:gravity="center"
+                android:textColor="@color/purple_900"
                 android:text="1"
                 android:textSize="@dimen/_10ssp" />
 
