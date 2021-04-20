@@ -261,6 +261,16 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     it.let {
                         rvSetUp()
 
+                        if (mAdapterMore.itemCount>0){
+                            mAdapterMore.clear()
+                        }
+                        if (mAdapterNear.itemCount>0){
+                            mAdapterNear.clear()
+                        }
+                        if (groupAdapter.itemCount>0){
+                            groupAdapter.clear()
+                        }
+
                         it.value.events!!.forEach {
                             moreList.add(it)
                             mAdapterMore.add(EventListItem<EventItemsBinding>(object :

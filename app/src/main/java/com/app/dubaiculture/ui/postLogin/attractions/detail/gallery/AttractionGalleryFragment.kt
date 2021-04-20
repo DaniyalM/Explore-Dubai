@@ -137,7 +137,6 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
                     ))
                 }
             }
-            LinearSnapHelper().attachToRecyclerView(this)
         }
     }
 

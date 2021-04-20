@@ -12,6 +12,7 @@
             android:id="@+id/mainImage"
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
+            android:visibility="gone"
             android:layout_height="match_parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -49,7 +50,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="140dp"
             android:alpha="0.5"
 
             app:layout_constraintBottom_toBottomOf="parent"
