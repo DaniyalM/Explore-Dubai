@@ -81,7 +81,7 @@ class PostRegisterViewModel @ViewModelInject constructor(
             ).let {
                 when (val result = registrationRepository.register(it)) {
                     is Result.Error -> {
-                        showErrorDialog(message = result.exception.toString())
+                        showErrorDialog(message = result.exception.toString(),colorBg = R.color.red_600)
                     }
                     is Result.Success -> {
                         if (result.value.succeeded) {
@@ -90,11 +90,11 @@ class PostRegisterViewModel @ViewModelInject constructor(
                                     "registerFragment"
                             ))
                         } else {
-                            showErrorDialog(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,  colorBg = R.color.red_600)
                         }
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR,  colorBg = R.color.red_600)
                         Timber.e(result.errorCode?.toString())
                     }
                 }

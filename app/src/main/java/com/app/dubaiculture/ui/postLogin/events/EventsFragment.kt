@@ -25,8 +25,6 @@ import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_MAP_LIST
-import com.app.dubaiculture.utils.Constants.StaticLatLng.LAT
-import com.app.dubaiculture.utils.Constants.StaticLatLng.LNG
 import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
@@ -105,7 +103,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         cardViewRTL()
         setupToolbarWithSearchItems()
         subscribeToGpsListener()
-//        callingObservables()
         subscribeToObservables()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false

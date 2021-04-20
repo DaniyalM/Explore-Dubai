@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
@@ -19,17 +18,31 @@ import timber.log.Timber
 @AndroidEntryPoint
 class PostLoginActivity : BaseAuthenticationActivity() {
 
-    lateinit var navController: NavController
+    //    lateinit var navController: NavController
     private val mainViewModel: MainViewModel by viewModels()
 
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
         applicationEntry.auth.locale = getCurrentLanguage().language
-        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        this.window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         subscribeUiEvents(mainViewModel)
         setupViews()
+
+
+    }
+
+    private fun setupViews() {
+//        val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+//        navController = Navigation.findNavController(fragmentContainer)
+        bottomNav.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.threeSixtyFragment -> {
@@ -55,14 +68,6 @@ class PostLoginActivity : BaseAuthenticationActivity() {
 
 
         }
-
-    }
-
-    private fun setupViews() {
-        val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
-        navController = Navigation.findNavController(fragmentContainer)
-
-        bottomNav.setupWithNavController(navController)
     }
 
     override fun onStart() {

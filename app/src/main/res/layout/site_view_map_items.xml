@@ -32,7 +32,7 @@
                 android:id="@+id/tv_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/circle_path"
+                android:background="@drawable/circle_sitemap"
                 android:gravity="center"
                 android:textColor="@color/purple_900"
                 android:text="1"

@@ -87,7 +87,7 @@ class PostLoginViewModel @ViewModelInject constructor(
                             showLoader(false)
                             showErrorDialog(message = result.value.errorMessage,
                                 colorBg = R.color.red_600)
-                            showToast(message = result.value.errorMessage)
+//                            showToast(message = result.value.errorMessage)
 
                         }
                     }
@@ -97,8 +97,8 @@ class PostLoginViewModel @ViewModelInject constructor(
                     }
                     is Result.Failure -> {
                         showLoader(false)
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
-                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR,  colorBg = R.color.red_600)
+//                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
 
 
                     }
@@ -138,8 +138,8 @@ class PostLoginViewModel @ViewModelInject constructor(
                             }
                         } else {
                             showLoader(false)
-                            showErrorDialog(message = result.value.errorMessage)
-                            showToast(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage  ,colorBg = R.color.red_600)
+//                            showToast(message = result.value.errorMessage)
 
                         }
                     }
@@ -149,8 +149,8 @@ class PostLoginViewModel @ViewModelInject constructor(
 
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
-                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR,  colorBg = R.color.red_600)
+//                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
 
                         showLoader(false)
 
@@ -183,8 +183,8 @@ class PostLoginViewModel @ViewModelInject constructor(
                         } else {
                             showLoader(false)
                             if (result.value.errorMessage.isNullOrEmpty()) {
-                                showErrorDialog(message = result.value.errorMessage)
-                                showToast(message = result.value.errorMessage)
+                                showErrorDialog(message = result.value.errorMessage,  colorBg = R.color.red_600)
+//                                showToast(message = result.value.errorMessage)
 
                             }
                         }
@@ -194,8 +194,8 @@ class PostLoginViewModel @ViewModelInject constructor(
 
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
-                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR,  colorBg = R.color.red_600)
+//                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
 
                     }
                 }
@@ -222,16 +222,16 @@ class PostLoginViewModel @ViewModelInject constructor(
                                 password = password.get().toString().trim(),
                                 screenName = Constants.NavBundles.COMES_FROM_LOGIN))
                         } else {
-                            showErrorDialog(message = result.value.errorMessage)
-                            showToast(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,  colorBg = R.color.red_600)
+//                            showToast(message = result.value.errorMessage)
 
                         }
                     }
                     is Result.Error -> {
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
-                        showToast(message =Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR,  colorBg = R.color.red_600)
+//                        showToast(message =Constants.Error.INTERNET_CONNECTION_ERROR)
 
                     }
                 }

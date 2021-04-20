@@ -73,28 +73,27 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     ) = FragmentExploreBinding.inflate(inflater, container, false)
 
 
-    fun getRecyclerView() = binding.rvExplore
+//    fun getRecyclerView() = binding.rvExplore
 
-    override fun onPause() {
-        super.onPause()
-        lastFirstVisiblePosition =
-            (getRecyclerView().layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+//    override fun onPause() {
+//        super.onPause()
+//        lastFirstVisiblePosition =
+//            (getRecyclerView().layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+//
+//    }
 
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+                if (!this::exploreAdapter.isInitialized) {
+        binding.swipeRefresh.post(object : Runnable {
+            override fun run() {
+                binding.swipeRefresh.isRefreshing = true
+                callingObservables()
 
+            }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        if (!this::exploreAdapter.isInitialized) {
-            binding.swipeRefresh.post(object : Runnable {
-                override fun run() {
-                    binding.swipeRefresh.isRefreshing = true
-                    callingObservables()
-
-                }
-
-            })
-            setUpRecyclerView()
+        })
+        setUpRecyclerView()
         }
         subscribeUiEvents(exploreViewModel)
         subscribeToObservable()
@@ -138,6 +137,12 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
     }
+
+
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//
+//    }
 
     private fun setUpRecyclerView() {
         exploreAdapter = ExploreRecyclerAsyncAdapter(activity,

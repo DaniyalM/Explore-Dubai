@@ -103,13 +103,13 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
 
             }
 
-            addOnItemTouchListener(object : SimpleOnItemTouchListener() {
-                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    // Stop only scrolling.
-                    return rv.scrollState == RecyclerView.SCROLL_STATE_DRAGGING
-                }
-            })
-
+//            addOnItemTouchListener(object : SimpleOnItemTouchListener() {
+//                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+//                    // Stop only scrolling.
+//                    return rv.scrollState == RecyclerView.SCROLL_STATE_DRAGGING
+//                }
+//            })
+//
 
             LinearSnapHelper().attachToRecyclerView(this)
 
