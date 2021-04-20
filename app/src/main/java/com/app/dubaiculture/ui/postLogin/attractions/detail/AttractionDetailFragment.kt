@@ -496,10 +496,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 back()
             }
             R.id.btn_book_a_ticket -> {
-                attractionDetailViewModel.showToast("Book a Ticket")
+//                attractionDetailViewModel.showToast("Book a Ticket")
             }
             R.id.tv_swipe_up -> {
-                attractionDetailViewModel.showToast("Swipe up")
+//                attractionDetailViewModel.showToast("Swipe up")
             }
             R.id.downOneAR -> {
                 activity.runWithPermissions(
@@ -547,7 +547,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 locationPermission()
             }
             is GpsStatus.Disabled -> {
-                attractionDetailViewModel.showToast(message = "Please enable Location")
+                attractionDetailViewModel.showToast(message = "Please turn on your location")
             }
         }
     }

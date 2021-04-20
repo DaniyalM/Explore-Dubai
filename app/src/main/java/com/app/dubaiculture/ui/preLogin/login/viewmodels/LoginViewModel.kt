@@ -140,7 +140,8 @@ class LoginViewModel @ViewModelInject constructor(
                             }
                         } else {
                             showLoader(false)
-                            showErrorDialog(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+
 
                         }
                     }
@@ -181,7 +182,7 @@ class LoginViewModel @ViewModelInject constructor(
                         } else {
                             showLoader(false)
                             if (result.value.errorMessage.isNullOrEmpty()) {
-                                showErrorDialog(message = result.value.errorMessage)
+                                showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
                             }
 
 
@@ -221,7 +222,8 @@ class LoginViewModel @ViewModelInject constructor(
                                 screenName = COMES_FROM_LOGIN))
 
                         } else {
-                            showErrorDialog(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+
                         }
                     }
                     is Result.Error -> {

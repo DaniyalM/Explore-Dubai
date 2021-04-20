@@ -13,7 +13,6 @@ import com.app.dubaiculture.data.repository.forgot.ForgotRepository
 import com.app.dubaiculture.data.repository.forgot.remote.request.ForgotRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostForgotFragmentDirections
-import com.app.dubaiculture.ui.preLogin.forgot.ForgotFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
 import kotlinx.coroutines.launch
@@ -55,7 +54,9 @@ class PostForgotViewModel  @ViewModelInject constructor(private val forgotReposi
                         if(result.value.succeeded){
                             showLoader(false)
                             Timber.e(result.value.forgotResponseDTO.verificationCode)
-                            showToast(result.value.forgotResponseDTO.message.toString())
+//                            showToast(result.value.forgotResponseDTO.message.toString())
+                            showErrorDialog(message = result.value.forgotResponseDTO.message.toString())
+
                             navigateByDirections(PostForgotFragmentDirections.actionPostForgotFragmentToPostOTPDialogFragment(
                                 result.value.forgotResponseDTO.verificationCode,"forgotfragment"
                             ))

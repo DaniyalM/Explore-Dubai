@@ -54,7 +54,11 @@ object Constants {
 
 
     }
+    object IBecons {
+        const val IDENTIFIER: String = "com.flagship.dubaiculture"
+        const val UUID_BECON: String = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
 
+    }
 
     object Links {
         const val TERMS_CONDITIONS: String = "https://uat.weareneomads.com/terms-of-use"

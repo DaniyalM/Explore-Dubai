@@ -35,6 +35,7 @@ import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.dateFormat
+import com.app.dubaiculture.utils.getTimeSpan
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
@@ -74,11 +75,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
     var isDetailFavouriteFlag = false
 
-        private val getObserver = Observer<GpsStatus>{
-            it?.let {
-                updateGpsCheckUi(it)
-            }
+    private val getObserver = Observer<GpsStatus> {
+        it?.let {
+            updateGpsCheckUi(it)
         }
+    }
+
     private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
         .observe(viewLifecycleOwner, getObserver)
 
@@ -138,7 +140,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         uiActions()
         rvSetUp()
         subscribeToGpsListener()
-
+        enableRegistration()
         if (eventObj.isFavourite) {
             binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
             binding.root.favourite_event.background =
@@ -146,7 +148,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
 
         binding.root.btn_register_now.setOnClickListener {
-
+            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
         }
         binding.root.tv_direction.setOnClickListener {
 
@@ -159,40 +161,44 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             openEmailbox("test@gmail.com")
         }
         binding.root.imgFb.setOnClickListener {
-            getFacebookPage(eventObj.socialLink?.get(0)?.facebookPageLink!!,activity)
+            getFacebookPage(eventObj.socialLink?.get(0)?.facebookPageLink!!, activity)
         }
         binding.root.imgTwitter.setOnClickListener {
-            openUrl(eventObj.socialLink?.get(0)?.twitterPageLink,activity)
+            openUrl(eventObj.socialLink?.get(0)?.twitterPageLink, activity)
         }
         binding.root.imgInsta.setOnClickListener {
-            openUrl(eventObj.socialLink?.get(0)?.instagramPageLink,activity)
+            openUrl(eventObj.socialLink?.get(0)?.instagramPageLink, activity)
         }
         binding.root.imgUtube.setOnClickListener {
-            openUrl(eventObj.socialLink?.get(0)?.youtubePageLink,activity)
+            openUrl(eventObj.socialLink?.get(0)?.youtubePageLink, activity)
         }
-        binding.root.imgLinkedin.setOnClickListener{
-            openUrl(eventObj.socialLink?.get(0)?.linkedInPageLink,activity)
+        binding.root.imgLinkedin.setOnClickListener {
+            openUrl(eventObj.socialLink?.get(0)?.linkedInPageLink, activity)
         }
         binding.root.favourite_event.setOnClickListener {
-            isDetailFavouriteFlag=true
+            isDetailFavouriteFlag = true
             eventObj.let { event ->
-                favouriteClick(it.favourite_event,
+                favouriteClick(
+                    it.favourite_event,
                     event.isFavourite,
                     R.id.action_eventDetailFragment2_to_postLoginFragment,
                     event.id!!,
                     eventViewModel,
-                    2)
+                    2
+                )
             }
         }
         binding.favourite.setOnClickListener {
-            isDetailFavouriteFlag=true
+            isDetailFavouriteFlag = true
             eventObj.let { event ->
-                favouriteClick(it.favourite,
+                favouriteClick(
+                    it.favourite,
                     event.isFavourite,
                     R.id.action_eventDetailFragment2_to_postLoginFragment,
                     event.id!!,
                     eventViewModel,
-                    2)
+                    2
+                )
             }
         }
 
@@ -203,9 +209,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.root.rbSchedule.setOnClickListener {
             binding.root.ll_even_info.visibility = View.GONE
             binding.root.ll_schedule.visibility = View.VISIBLE
-            verticalLayoutManager = LinearLayoutManager(requireContext(),
+            verticalLayoutManager = LinearLayoutManager(
+                requireContext(),
                 RecyclerView.VERTICAL,
-                false)
+                false
+            )
             myAdapter = ScheduleExpandAdapter(requireActivity(), parentItemList, childItemHolder)
             binding.root.rvSchedule.apply {
                 setHasFixedSize(true)
@@ -230,23 +238,24 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             when (it) {
                 is Result.Success -> {
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
-                        if (isDetailFavouriteFlag){
-                            binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        if (isDetailFavouriteFlag) {
+                            binding.favourite.background =
+                                getDrawableFromId(R.drawable.heart_icon_fav)
                             binding.root.favourite_event.background =
                                 getDrawableFromId(R.drawable.heart_icon_fav)
-                            isDetailFavouriteFlag=false
+                            isDetailFavouriteFlag = false
                         }
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
 
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
-                        if (isDetailFavouriteFlag){
+                        if (isDetailFavouriteFlag) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
                             binding.root.favourite_event.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
-                            isDetailFavouriteFlag=false
+                            isDetailFavouriteFlag = false
 
                         }
 
@@ -270,8 +279,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 tv_times.text = "${eventObj.fromTime} - ${eventObj.toTime}"
                 tv_category.text = eventObj.category
                 category.text = eventObj.category
-                tv_event_date.text = dateFormat(eventObj.dateFrom)
-                glide.load(com.app.dubaiculture.BuildConfig.BASE_URL + eventObj.image).into(imageView)
+                tv_event_date.text =
+                    "${eventObj.fromDate} - ${eventObj.toDate} ${eventObj.fromMonthYear}"
+                glide.load(com.app.dubaiculture.BuildConfig.BASE_URL + eventObj.image)
+                    .into(imageView)
             }
         }
         binding.root.btn_reg.setOnClickListener(this)
@@ -328,9 +339,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             val trafficDigitalLatLng =
                 LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
 
-            map?.addMarker(MarkerOptions()
-                .position(trafficDigitalLatLng)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location)))!!
+            map?.addMarker(
+                MarkerOptions()
+                    .position(trafficDigitalLatLng)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+            )!!
                 .title = eventObj.title
             map.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
@@ -345,10 +358,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         when (v?.id) {
             R.id.img_event_speaker -> {
                 if (binding.root.tv_desc_readmore.text.isNotEmpty()) {
-                    textToSpeechEngine.speak(binding.root.tv_desc_readmore.text,
+                    textToSpeechEngine.speak(
+                        binding.root.tv_desc_readmore.text,
                         TextToSpeech.QUEUE_FLUSH,
                         null,
-                        "tts1")
+                        "tts1"
+                    )
                 }
             }
             R.id.btn_reg -> {
@@ -365,23 +380,25 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 back()
             }
             R.id.tv_swipe_up_event -> {
-                eventViewModel.showToast("Swipe up")
+//                eventViewModel.showToast("Swipe up")
             }
             R.id.img_share_event -> {
-                eventViewModel.showToast("Share")
+//                eventViewModel.showToast("Share")
             }
             R.id.bookingCalender_event -> {
-                eventViewModel.showToast("Calender")
+//                eventViewModel.showToast("Calender")
             }
             R.id.favourite_event -> {
                 navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
             }
             R.id.speaker_schedule -> {
                 if (binding.root.tv_schedule_title.text.isNotEmpty())
-                    textToSpeechEngine.speak(binding.root.tv_schedule_title.text,
+                    textToSpeechEngine.speak(
+                        binding.root.tv_schedule_title.text,
                         TextToSpeech.QUEUE_FLUSH,
                         null,
-                        "tts1")
+                        "tts1"
+                    )
             }
         }
     }
@@ -402,13 +419,16 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         loc = location
                         Timber.e("Current Location ${location.latitude}")
                         if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty())
-                            binding.root.tv_km.text = locationHelper.distance(loc.latitude,
+                            binding.root.tv_km.text = locationHelper.distance(
+                                loc.latitude,
                                 loc.longitude,
                                 eventObj.latitude!!.toDouble(),
-                                eventObj.longitude!!.toDouble())
+                                eventObj.longitude!!.toDouble()
+                            )
                                 .toString() + resources.getString(R.string.away)
                     }
-                }, activity, locationCallback)
+                }, activity, locationCallback
+            )
         }
     }
 
@@ -430,8 +450,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)
                     }
-                    if(!it.value.desc.isNullOrEmpty()){
-                        binding.root.tv_desc_readmore.setText(  it.value.desc)
+                    if (!it.value.desc.isNullOrEmpty()) {
+                        binding.root.tv_desc_readmore.setText(it.value.desc)
                     }
                     it.value.eventSchedule!!.map {
                         binding.root.tv_schedule_title.text = it.description
@@ -465,10 +485,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             override fun rowClickListener(position: Int) {
                                 val eventObj = moreEvents[position]
                                 val bundle = Bundle()
-                                bundle.putParcelable(EVENT_OBJECT,
-                                    eventObj)
-                                navigate(R.id.action_eventDetailFragment2_to_eventDetailFragment2,
-                                    bundle)
+                                bundle.putParcelable(
+                                    EVENT_OBJECT,
+                                    eventObj
+                                )
+                                navigate(
+                                    R.id.action_eventDetailFragment2_to_eventDetailFragment2,
+                                    bundle
+                                )
 
 
                             }
@@ -497,18 +521,27 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
         }
     }
-    private fun locationIsEmpty(location:Location){
+
+    private fun locationIsEmpty(location: Location) {
         if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty()) {
             binding.root.tv_km.text =
-                locationHelper.distance(location.latitude,
-                location.longitude,
-                eventObj.latitude!!.toDouble(),
-                eventObj.longitude!!.toDouble())
-                .toString() + resources.getString(R.string.away)
+                locationHelper.distance(
+                    location.latitude,
+                    location.longitude,
+                    eventObj.latitude!!.toDouble(),
+                    eventObj.longitude!!.toDouble()
+                )
+                    .toString() + resources.getString(R.string.away)
+        }
+    }
+
+    private fun enableRegistration() {
+        if (!getTimeSpan(eventObj.dateFrom, eventObj.dateTo)) {
+            binding.root.btn_reg.isEnabled = false
+            binding.root.btn_register_now.isEnabled = false
         }
     }
 }
-
 
 
 

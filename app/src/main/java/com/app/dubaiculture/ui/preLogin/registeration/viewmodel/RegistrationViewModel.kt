@@ -92,11 +92,11 @@ class RegistrationViewModel @ViewModelInject constructor(
                                 )
                             )
                         } else {
-                            showErrorDialog(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
                         }
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
                         Timber.e(result.errorCode?.toString())
                     }
                 }

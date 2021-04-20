@@ -119,6 +119,11 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
                         is UiEvent.NavigateByAction -> {
                             navigateByAction(event.actionId, event.bundle)
                         }
+                        is UiEvent.ShowErrorDialog -> {
+                            EventUtilFunctions.showErrorDialog(event.message,
+                                colorBg = event.colorBg,
+                                context = activity)
+                        }
                     }
                 }
         })
@@ -158,4 +163,7 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     }
 
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
+    fun showErrorDialog(message: String) {
+        EventUtilFunctions.showErrorDialog(message, context = activity)
+    }
 }
