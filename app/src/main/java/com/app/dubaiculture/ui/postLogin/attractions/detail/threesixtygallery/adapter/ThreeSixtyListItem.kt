@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.threesixtygallery.adapter
+package com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.adapter
 
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R

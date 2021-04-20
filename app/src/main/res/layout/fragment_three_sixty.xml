@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.postLogin.threesixtygallery.ThreeSixtyFragment">
+        tools:context=".ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment">
 
 <!--        <com.google.vr.sdk.widgets.pano.VrPanoramaView-->
 <!--            android:id="@+id/mVrPanoramaView"-->
@@ -16,7 +16,7 @@
 <!--            android:layout_width="match_parent"-->
 <!--            android:scrollbars="vertical|horizontal"-->
 <!--            android:layout_height="0dp" />-->
-        <com.app.dubaiculture.ui.postLogin.threesixtygallery.components.VrPanoramaViewComponent
+        <com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.components.VrPanoramaViewComponent
             android:id="@+id/mVrPanoramaSelector"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

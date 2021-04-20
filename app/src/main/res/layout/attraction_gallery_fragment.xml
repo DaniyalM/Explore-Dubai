@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white_900"
-        tools:context=".ui.postLogin.threesixtygallery.ThreeSixtyFragment">
+        tools:context=".ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/mainImage"
