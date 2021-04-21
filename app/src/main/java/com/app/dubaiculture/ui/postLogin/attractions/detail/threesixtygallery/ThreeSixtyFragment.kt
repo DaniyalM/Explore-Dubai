@@ -96,7 +96,8 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
 //                    contentFlag = "ContentLoaded"
 
                     attractionsObj = it.value
-                    attractionsObj.asset360?.let { asset -> loadVR(asset.imageItems?.get(0)!!) }
+                    attractionsObj.asset360?.let { asset ->
+                        asset.imageItems?.let { loadVR(it.get(0)) } }
                     attractionsObj.asset360?.imageItems?.forEach {
 //                        if (groupAdapter.itemCount > 0) {
 //                            groupAdapter.clear()

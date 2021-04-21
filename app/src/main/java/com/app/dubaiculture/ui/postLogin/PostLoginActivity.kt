@@ -7,6 +7,7 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
@@ -14,12 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_post_login.*
 import timber.log.Timber
 
-//,
-//OnStreetViewPanoramaReadyCallback
 @AndroidEntryPoint
 class PostLoginActivity : BaseAuthenticationActivity() {
 
-    lateinit var navController: NavController
     private val mainViewModel: MainViewModel by viewModels()
 
 
@@ -32,6 +30,19 @@ class PostLoginActivity : BaseAuthenticationActivity() {
         )
         subscribeUiEvents(mainViewModel)
         setupViews()
+
+
+
+    }
+
+    private fun setupViews() {
+//        val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+//        navController = Navigation.findNavController(fragmentContainer)
+        bottomNav.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.threeSixtyFragment -> {
@@ -58,18 +69,6 @@ class PostLoginActivity : BaseAuthenticationActivity() {
 
         }
 
-
-
-    }
-
-    private fun setupViews() {
-        val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
-//        val navHostFragment =
-//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-//        val navController = navHostFragment.navController
-
-        navController = Navigation.findNavController(fragmentContainer)
-        bottomNav.setupWithNavController(navController)
     }
 
     override fun onStart() {

@@ -9,30 +9,30 @@ import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
 import timber.log.Timber
 
-//@Navigator.Name("fragment")
-//class MyFragmentNavigator(
-//    context: Context,
-//    fm: FragmentManager,
-//    containerId: Int,
-//) : FragmentNavigator(context, fm, containerId) {
-//
-//    override fun navigate(
-//        destination: Destination,
-//        args: Bundle?,
-//        navOptions: NavOptions?,
-//        navigatorExtras: Navigator.Extras?,
-//    ): NavDestination? {
-//        val shouldSkip = navOptions?.run {
-//            popUpTo == destination.id && !isPopUpToInclusive
-//        } ?: false
-//
-//
-//
-//        return if (shouldSkip) null
-//        else super.navigate(destination, args, navOptions, navigatorExtras)
-//    }
-//
-//
-//}
+@Navigator.Name("fragment")
+class MyFragmentNavigator(
+    context: Context,
+    fm: FragmentManager,
+    containerId: Int,
+) : FragmentNavigator(context, fm, containerId) {
+
+    override fun navigate(
+        destination: Destination,
+        args: Bundle?,
+        navOptions: NavOptions?,
+        navigatorExtras: Navigator.Extras?,
+    ): NavDestination? {
+        val shouldSkip = navOptions?.run {
+            popUpTo == destination.id && !isPopUpToInclusive
+        } ?: false
+
+
+
+        return if (shouldSkip) null
+        else super.navigate(destination, args, navOptions, navigatorExtras)
+    }
+
+
+}
 
 
