@@ -88,18 +88,14 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         super.onActivityCreated(savedInstanceState)
         if (!this::exploreAdapter.isInitialized) {
             setUpRecyclerView()
-            binding.swipeRefresh.post(object : Runnable {
-                override fun run() {
-                    binding.swipeRefresh.isRefreshing = true
-                    callingObservables()
-
-                }
-
-            })
-
+            binding.swipeRefresh.post {
+                binding.swipeRefresh.isRefreshing = true
+                callingObservables()
+            }
+            subscribeToObservable()
         }
         subscribeUiEvents(exploreViewModel)
-        subscribeToObservable()
+
         applicationExitDialog()
 
         binding.swipeRefresh.setOnRefreshListener {
@@ -162,8 +158,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
 
     private fun callingObservables() {
-        lifecycleScope.launch {
-            exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
+        if(!this::explore.isInitialized){
+            lifecycleScope.launch {
+                exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
+            }
+
         }
 
     }
