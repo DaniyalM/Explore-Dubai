@@ -26,7 +26,7 @@ class ThreeSixtyViewModel @ViewModelInject constructor(
     ) {
         showLoader(true)
         viewModelScope.launch {
-            when (val result = attractionRepository.getAttractionDetail(
+            when (val result = attractionRepository.getAttractionDetailForThreeSixty(
                 AttractionRequest(
                     attractionId = attractionId,
                     culture = locale

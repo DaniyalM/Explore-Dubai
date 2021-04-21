@@ -17,6 +17,11 @@ interface AttractionService : BaseService {
         @Query("Id") attractionId: String,
         @Query("culture") culture: String,
     ): AttractionResponse
+    @GET("/api/Content/GetAttraction360Image")
+    suspend fun getAttractionDetailForThreeSixty(
+        @Query("Id") attractionId: String,
+        @Query("culture") culture: String,
+    ): AttractionResponse
 
     @GET("/api/Content/GetAttractionsById")
     suspend fun getAttractionsListingByCategory(

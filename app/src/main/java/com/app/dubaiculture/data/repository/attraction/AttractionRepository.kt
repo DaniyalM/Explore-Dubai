@@ -68,6 +68,23 @@ class AttractionRepository @Inject constructor(
         }
     }
 
+    suspend fun getAttractionDetailForThreeSixty(attractionRequest: AttractionRequest): Result<Attractions> {
+        return when (val resultRDS =
+            attractionRDS.getAttractionDetailForThreeSixty(transformAttractionDetailRequest(attractionRequest))) {
+            is Result.Success -> {
+                val attractionRds = resultRDS
+                if (attractionRds.value.statusCode != 200) {
+                    Result.Failure(true, attractionRds.value.statusCode, null)
+                } else {
+                    val attractionLds = transformAttractionDetail(attractionRds.value)
+                    Result.Success(attractionLds)
+                }
+            }
+            is Result.Error -> resultRDS
+            is Result.Failure -> resultRDS
+        }
+    }
+
 
 
 }

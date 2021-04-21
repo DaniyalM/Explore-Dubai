@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.data.repository.attraction.local.models.ThreeSixtyImageItem
 import com.app.dubaiculture.databinding.FragmentThreeSixtyBinding
 import com.app.dubaiculture.databinding.Items360GalleryViewBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
@@ -95,7 +96,7 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
 //                    contentFlag = "ContentLoaded"
 
                     attractionsObj = it.value
-                    attractionsObj.asset360?.let { asset -> loadVR(asset.imageItems?.get(0)?.image!!) }
+                    attractionsObj.asset360?.let { asset -> loadVR(asset.imageItems?.get(0)!!) }
                     attractionsObj.asset360?.imageItems?.forEach {
 //                        if (groupAdapter.itemCount > 0) {
 //                            groupAdapter.clear()
@@ -104,7 +105,7 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
                             ThreeSixtyListItem<Items360GalleryViewBinding>(
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                        loadVR(attractionsObj.asset360?.imageItems?.get(position)?.image!!)
+                                        loadVR(attractionsObj.asset360?.imageItems?.get(position)!!)
                                     }
                                 },
                                 imageItem = it,
@@ -141,10 +142,11 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
         }
     }
 
-    private fun loadVR(image: String) {
+    private fun loadVR(image: ThreeSixtyImageItem) {
+        threeSixtyViewModel.showToast(image.title.toString())
         binding.mVrPanoramaSelector.apply {
             providePanorama(activity)
-            initialize(image)
+            image.image?.let { initialize(it) }
             //            attractionsObj.asset360?.let { initialize(it) }
         }
     }
