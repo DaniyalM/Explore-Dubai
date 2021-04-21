@@ -128,8 +128,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         container: ViewGroup?,
     ) = FragmentAttractionDetailBinding.inflate(inflater, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
         backArrowRTL(binding.root.back)
         backArrowRTL(binding.root.img_back)
@@ -477,7 +477,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.ll_360 -> {
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment,
                     Bundle().apply {
-                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj.asset360)
+                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj)
                     })
             }
             R.id.ll_img -> {
@@ -512,7 +512,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.downOne360 -> {
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment,
                     Bundle().apply {
-                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj.asset360)
+                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj)
                     })
             }
             R.id.downOneGallery -> {

@@ -55,10 +55,10 @@ class VrPanoramaViewComponent(context: Context, attrs: AttributeSet) : FrameLayo
     }
 
 
-    fun initialize(assets360: Assets360) {
+    fun initialize(image: String) {
 
         glide.apply {
-            asBitmap().load(assets360.image).into(object : CustomTarget<Bitmap>() {
+            asBitmap().load(image).into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     panorama.loadImageFromBitmap(resource, VrPanoramaView.Options())
          }

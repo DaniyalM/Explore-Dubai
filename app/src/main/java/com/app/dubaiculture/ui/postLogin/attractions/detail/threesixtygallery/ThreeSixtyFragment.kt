@@ -7,27 +7,27 @@ import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.attraction.local.models.Assets360
+import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.FragmentThreeSixtyBinding
 import com.app.dubaiculture.databinding.Items360GalleryViewBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
-import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.adapter.ThreeSixtyListItem
 import com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.viewmodel.ThreeSixtyViewModel
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants.NavBundles.THREESIXTY_GALLERY_LIST
+import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View.OnClickListener {
     private val threeSixtyViewModel: ThreeSixtyViewModel by viewModels()
-    private lateinit var assets360: Assets360
-//    @Inject
-//    lateinit var glide: RequestManager
+    private lateinit var attractionsObj: Attractions
+
+    @Inject
+    lateinit var glide: RequestManager
 
     override fun getTheme(): Int {
         return R.style.FullScreenDialog;
@@ -64,18 +64,61 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.apply {
-            assets360 = getParcelable(THREESIXTY_GALLERY_LIST)!!
+            attractionsObj = getParcelable(THREESIXTY_GALLERY_LIST)!!
         }
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(threeSixtyViewModel)
-
+        callingObservables()
+        subscribeToObservables()
+        initRv()
         binding.imgBack.setOnClickListener(this)
 //        initRv()
-        loadVR()
+    }
+
+    private fun callingObservables() {
+        attractionsObj.let {
+            threeSixtyViewModel.getAttractionDetailsToScreen(
+                attractionId = it.id,
+                getCurrentLanguage().language
+            )
+        }
+    }
+
+    private fun subscribeToObservables() {
+        threeSixtyViewModel.attractionDetail.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+//                    contentFlag = "ContentLoaded"
+
+                    attractionsObj = it.value
+                    attractionsObj.asset360?.let { asset -> loadVR(asset.imageItems?.get(0)?.image!!) }
+                    attractionsObj.asset360?.imageItems?.forEach {
+//                        if (groupAdapter.itemCount > 0) {
+//                            groupAdapter.clear()
+//                        }
+                        groupAdapter.add(
+                            ThreeSixtyListItem<Items360GalleryViewBinding>(
+                                rowClickListener = object : RowClickListener {
+                                    override fun rowClickListener(position: Int) {
+                                        loadVR(attractionsObj.asset360?.imageItems?.get(position)?.image!!)
+                                    }
+                                },
+                                imageItem = it,
+                                glide = glide
+                            )
+                        )
+                    }
+//                    initializeDetails(attractionsObj)
+                }
+                is Result.Failure -> {
+                    handleApiError(it, threeSixtyViewModel)
+                }
+            }
+        }
     }
 
     override fun getFragmentBinding(
@@ -94,27 +137,16 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
     private fun initRv() {
         binding.rvBottomSelector.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = GroupAdapter<GroupieViewHolder>().apply {
-                assets360.imageItems?.forEach {
-                    add(ThreeSixtyListItem<Items360GalleryViewBinding>(
-                        rowClickListener = object : RowClickListener {
-                            override fun rowClickListener(position: Int) {
-                                Timber.e("Click Handling of Points")
-                            }
-                        },
-                        imageItem = it))
-                }
-            }
+            adapter = groupAdapter
         }
     }
 
-    private fun loadVR() {
+    private fun loadVR(image: String) {
         binding.mVrPanoramaSelector.apply {
             providePanorama(activity)
-            initialize(assets360)
+            initialize(image)
+            //            attractionsObj.asset360?.let { initialize(it) }
         }
-
-
     }
 
 //    companion object {
