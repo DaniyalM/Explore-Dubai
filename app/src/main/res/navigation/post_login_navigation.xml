@@ -130,7 +130,7 @@
     <dialog
         android:id="@+id/threeSixtyFragment"
         tools:layout="@layout/fragment_three_sixty"
-        android:name="com.app.dubaiculture.ui.postLogin.threesixtygallery.ThreeSixtyFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment"
         android:label="ThreeSixtyFragment" />
     <fragment
         android:id="@+id/eventNearMapFragment2"

@@ -83,21 +83,19 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     }
 
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (!this::exploreAdapter.isInitialized) {
-            binding.swipeRefresh.post(object : Runnable {
-                override fun run() {
-                    binding.swipeRefresh.isRefreshing = true
-                    callingObservables()
-
-                }
-
-            })
             setUpRecyclerView()
+            binding.swipeRefresh.post {
+                binding.swipeRefresh.isRefreshing = true
+                callingObservables()
+            }
+            subscribeToObservable()
         }
         subscribeUiEvents(exploreViewModel)
-        subscribeToObservable()
+
         applicationExitDialog()
 
         binding.swipeRefresh.setOnRefreshListener {
@@ -107,9 +105,9 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         }
 
         binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary,
-            android.R.color.holo_green_dark,
-            android.R.color.holo_orange_dark,
-            android.R.color.holo_blue_dark)
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark)
 
 
 
@@ -120,22 +118,23 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         }
 
         val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    showAlert(
-                        message = getString(R.string.error_msg),
-                        textPositive = getString(R.string.okay),
-                        textNegative = getString(R.string.cancel),
-                        actionNegative = {
+                object : OnBackPressedCallback(true /* enabled by default */) {
+                    override fun handleOnBackPressed() {
+                        showAlert(
+                                message = getString(R.string.error_msg),
+                                textPositive = getString(R.string.okay),
+                                textNegative = getString(R.string.cancel),
+                                actionNegative = {
 
-                        },
-                        actionPositive = {
-                            activity.finish()
-                        }
-                    )
+                                },
+                                actionPositive = {
+                                    activity.finish()
+                                }
+                        )
+                    }
                 }
-            }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
 
     }
 
@@ -159,11 +158,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
 
     private fun callingObservables() {
-        if (!this::explore.isInitialized) {
-
+        if(!this::explore.isInitialized){
             lifecycleScope.launch {
                 exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
             }
+
         }
 
     }
@@ -247,4 +246,12 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
         }
     }
+
+//    override fun onStart() {
+//        super.onStart()
+//        isPagerFragment=true
+//
+//    }
+
+
 }

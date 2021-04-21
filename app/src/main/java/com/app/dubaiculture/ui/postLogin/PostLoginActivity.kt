@@ -26,8 +26,10 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
         applicationEntry.auth.locale = getCurrentLanguage().language
-        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        this.window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         subscribeUiEvents(mainViewModel)
         setupViews()
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
@@ -56,12 +58,17 @@ class PostLoginActivity : BaseAuthenticationActivity() {
 
         }
 
+
+
     }
 
     private fun setupViews() {
         val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
-        navController = Navigation.findNavController(fragmentContainer)
+//        val navHostFragment =
+//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//        val navController = navHostFragment.navController
 
+        navController = Navigation.findNavController(fragmentContainer)
         bottomNav.setupWithNavController(navController)
     }
 
