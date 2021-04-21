@@ -76,6 +76,8 @@
     <string name="plan_your_trip">Plan Your Trip</string>
     <string name="view_all">View all</string>
     <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">A One Time Password (OTP) will be sent to your registered email address or mobile number.</string>
+    <string name="_a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">A One Time Password (OTP) will be sent to your registered email address.</string>
+
     <string name="free">FREE</string>
     <string name="confirm">Confirm</string>
     <string name="already_a_member">Already a member?</string>
@@ -124,8 +126,8 @@
     <string name="get_directions">Get Directions</string>
     <string name="description">Description</string>
 
-    <string name="read_more">\n\nRead More </string>
-    <string name="read_less">\n\nRead Less</string>
+    <string name="read_more">\n\nRead More.</string>
+    <string name="read_less">\n\nRead Less.</string>
     <string name="don_t_miss_out_on_any_details">Don’t miss out on any details</string>
     <string name="view_site_map">View Site Map</string>
     <string name="ibeacons">iBeacons</string>

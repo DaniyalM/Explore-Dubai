@@ -106,8 +106,8 @@
                     android:text="@{viewmodel.isfullName ?@string/no_error : context.getString(viewmodel.fullnameError)    }"
                     app:layout_constraintBottom_toBottomOf="@+id/full_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.8"
-                    app:layout_constraintStart_toEndOf="@+id/full_name"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="@+id/edit_fullName"
                     app:layout_constraintTop_toTopOf="@+id/full_name" />
 
                 <ImageView
@@ -133,8 +133,8 @@
                     android:text="@{viewmodel.isEmail ? @string/no_error : context.getString(viewmodel.emailError) }"
                     app:layout_constraintBottom_toBottomOf="@+id/email_address"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.8"
-                    app:layout_constraintStart_toEndOf="@+id/email_address"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="@+id/edit_email_address"
                     app:layout_constraintTop_toTopOf="@+id/email_address" />
 
                 <com.app.dubaiculture.ui.components.customEditText.CustomEditText
@@ -177,8 +177,8 @@
                     android:text="@{viewmodel.isPhone ? @string/no_error : context.getString(viewmodel.errs)}"
                     app:layout_constraintBottom_toBottomOf="@+id/mob_num"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.8"
-                    app:layout_constraintStart_toEndOf="@+id/mob_num"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="@+id/edit_mobile"
                     app:layout_constraintTop_toTopOf="@+id/mob_num" />
 
                 <!--            <com.app.dubaiculture.ui.components.customEditText.CustomEditText-->
@@ -240,8 +240,8 @@
                     android:text="@{viewmodel.isPassword ? @string/no_error : context.getString(viewmodel.passwordError) }"
                     app:layout_constraintBottom_toBottomOf="@+id/password"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.8"
-                    app:layout_constraintStart_toEndOf="@+id/password"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="@+id/edit_pass"
                     app:layout_constraintTop_toTopOf="@+id/password" />
 
                 <com.app.dubaiculture.ui.components.customEditText.CustomEditText
@@ -280,11 +280,11 @@
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     style="@style/TextViewErrorRegistration"
-                    android:text="@{viewmodel.isPasswordConfirm ? @string/no_error : context.getString(viewmodel.passwordConfirmError) }"
-                    app:layout_constraintBottom_toBottomOf="@+id/confirm_pass"
+                                android:text="@{viewmodel.isPasswordConfirm ? @string/no_error : context.getString(viewmodel.passwordConfirmError) }"
+                app:layout_constraintBottom_toBottomOf="@+id/confirm_pass"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.8"
-                    app:layout_constraintStart_toEndOf="@+id/confirm_pass"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="@+id/edit_confirm_pass"
                     app:layout_constraintTop_toTopOf="@+id/confirm_pass" />
 
                 <com.app.dubaiculture.ui.components.customEditText.CustomEditText

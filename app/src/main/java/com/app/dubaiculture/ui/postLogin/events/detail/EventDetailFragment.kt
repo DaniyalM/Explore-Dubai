@@ -288,7 +288,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.root.btn_reg.setOnClickListener(this)
         binding.root.back.setOnClickListener(this)
         binding.root.back_event.setOnClickListener(this)
-        binding.root.tv_swipe_up_event.setOnClickListener(this)
         binding.root.img_share_event.setOnClickListener(this)
         binding.root.bookingCalender_event.setOnClickListener(this)
         binding.root.favourite_event.setOnClickListener(this)
@@ -378,9 +377,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
             R.id.back_event -> {
                 back()
-            }
-            R.id.tv_swipe_up_event -> {
-//                eventViewModel.showToast("Swipe up")
             }
             R.id.img_share_event -> {
 //                eventViewModel.showToast("Share")

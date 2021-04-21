@@ -13,23 +13,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/custom_ripple_border"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/_270sdp">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/attraction_image"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@drawable/custom_ripple_border"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginEnd="19dp"
+            android:layout_marginEnd="@dimen/_15sdp"
             app:cardCornerRadius="@dimen/_24sdp"
-            app:cardElevation="@dimen/_10sdp"
+            app:cardElevation="@dimen/_5sdp"
             app:cardMaxElevation="@dimen/_10sdp"
-            app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_view_title"
@@ -61,7 +62,6 @@
                 android:id="@+id/img_must_see"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:background="@drawable/must_see_icon_home"
                 android:imageViewUrl='@{attractions.portraitImage}'
                 android:scaleType="fitXY"
@@ -81,7 +81,11 @@
                 app:layout_constraintBottom_toBottomOf="@+id/card_view_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/card_view_title" />
-
+            <ImageView
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shadow_black"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,13 +124,6 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_18sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/attraction_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

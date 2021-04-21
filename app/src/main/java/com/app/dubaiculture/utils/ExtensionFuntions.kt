@@ -198,14 +198,14 @@ fun getTimeSpan(fromDate: String?, toDate: String?): Boolean {
     }
 }
 
-fun dayOfWeek(inputDate: String?): String {
+fun dayOfWeek(inputDate: String?, format : String): String {
 //        2021-03-31T17:19:00 server date format
     var parsed: Date? = null
     var outputDate = ""
     val df_input =
         SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
     val df_output =
-        SimpleDateFormat("EEEE")
+        SimpleDateFormat(format)
     try {
         parsed = df_input.parse(inputDate)
         outputDate = df_output.format(parsed)

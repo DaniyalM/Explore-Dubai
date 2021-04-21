@@ -76,5 +76,10 @@ object Constants {
         const val LIBRARIES = "Libraries"
 
     }
+    object Colors {
+        const val WHITE: String = "#ffffff"
+        const val SEE_MORE_BLUE: String = "#103667"
+        const val LINK: String = "#267FB7"
+    }
 
 }
