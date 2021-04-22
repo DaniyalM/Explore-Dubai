@@ -97,7 +97,9 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
 
                     attractionsObj = it.value
                     attractionsObj.asset360?.let { asset ->
-                        asset.imageItems?.let { loadVR(it.get(0)) } }
+                        asset.imageItems?.let { loadVR(it.get(0))
+                        binding.three360Title.text = it[0].title
+                        } }
                     attractionsObj.asset360?.imageItems?.forEach {
 //                        if (groupAdapter.itemCount > 0) {
 //                            groupAdapter.clear()
@@ -106,6 +108,10 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
                             ThreeSixtyListItem<Items360GalleryViewBinding>(
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
+                                        attractionsObj.asset360?.imageItems?.get(position).let {
+                                            binding.three360Title.text = it?.title
+                                        }
+
                                         loadVR(attractionsObj.asset360?.imageItems?.get(position)!!)
                                     }
                                 },
