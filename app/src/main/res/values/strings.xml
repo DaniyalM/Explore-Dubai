@@ -184,5 +184,6 @@
     <string name="art_gallery">Art Galleries</string>
     <string name="festivals">Festivals</string>
     <string name="libraries">Libraries</string>
+    <string name="view_gallery">View Gallery</string>
 
 </resources>
