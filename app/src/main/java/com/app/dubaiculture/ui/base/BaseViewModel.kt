@@ -2,6 +2,7 @@ package com.app.dubaiculture.ui.base
 
 import android.app.Application
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.annotation.ColorRes
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -10,7 +11,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.base.BaseRDS
 import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
@@ -21,8 +21,8 @@ import com.app.dubaiculture.utils.event.UiEvent
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel(
-    application: Application,
-    private var baseRespository: BaseRepository? = null,
+        application: Application,
+        private var baseRespository: BaseRepository? = null,
 ) : AndroidViewModel(application) {
     val gpsStatusLiveData = GpsStatusListener(application)
     private val _uiEventsLiveData = MutableLiveData<Event<UiEvent>>()
@@ -45,13 +45,13 @@ abstract class BaseViewModel(
     }
 
     fun showErrorDialog(
-        title: String? = "Alert",
-        message: String,
-        @ColorRes colorBg: Int? = R.color.purple_900,
+            title: String? = "Alert",
+            message: String,
+            @ColorRes colorBg: Int? = R.color.purple_900,
     ) {
         _uiEventsLiveData.value = Event(UiEvent.ShowErrorDialog(title = title ?: "Alert",
-            message = message,
-            colorBg = colorBg ?: R.color.red_600))
+                message = message,
+                colorBg = colorBg ?: R.color.red_600))
     }
 
     fun showToast(message: String) {
@@ -85,6 +85,12 @@ abstract class BaseViewModel(
                 is Result.Success -> {
                     showLoader(false)
                     _isFavourite.value = result
+                    if (TextUtils.equals(result.value.Result.message, "Added")) {
+                        showToast("Added To Favourites")
+                    }
+                    if (TextUtils.equals(result.value.Result.message, "Deleted")) {
+                        showToast("Removed From Favourites")
+                    }
                 }
                 is Result.Failure -> {
                     showLoader(false)

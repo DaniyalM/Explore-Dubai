@@ -34,7 +34,6 @@ import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.GpsStatus
-import com.app.dubaiculture.utils.dateFormat
 import com.app.dubaiculture.utils.getTimeSpan
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
@@ -58,12 +57,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
 import kotlinx.android.synthetic.main.fragment_event_detail.view.*
-import kotlinx.android.synthetic.main.fragment_event_detail.view.back
-import kotlinx.android.synthetic.main.fragment_event_detail.view.favourite
-import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
-import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.category
-import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.title
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -72,7 +66,7 @@ import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
-    OnMapReadyCallback, View.OnClickListener {
+        OnMapReadyCallback, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private val eventViewModel: EventViewModel by viewModels()
     private lateinit var verticalLayoutManager: RecyclerView.LayoutManager
     private lateinit var myAdapter: RecyclerView.Adapter<*>
@@ -81,7 +75,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
     var isDetailFavouriteFlag = false
 
-    private lateinit var marker:Marker
+    private lateinit var marker: Marker
 
     private val getObserver = Observer<GpsStatus> {
         it?.let {
@@ -90,7 +84,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
-        .observe(viewLifecycleOwner, getObserver)
+            .observe(viewLifecycleOwner, getObserver)
 
     @Inject
     lateinit var glide: RequestManager
@@ -125,8 +119,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
     ): FragmentEventDetailBinding {
         return FragmentEventDetailBinding.inflate(inflater, container, false)
     }
@@ -138,8 +132,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         locationPermission()
         subscribeUiEvents(eventViewModel)
         callingObservables()
@@ -152,7 +146,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         if (eventObj.isFavourite) {
             binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
             binding.root.favourite_event.background =
-                getDrawableFromId(R.drawable.heart_icon_fav)
+                    getDrawableFromId(R.drawable.heart_icon_fav)
         }
 
         binding.root.btn_register_now.setOnClickListener {
@@ -187,12 +181,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             isDetailFavouriteFlag = true
             eventObj.let { event ->
                 favouriteClick(
-                    it.favourite_event,
-                    event.isFavourite,
-                    R.id.action_eventDetailFragment2_to_postLoginFragment,
-                    event.id!!,
-                    eventViewModel,
-                    2
+                        it.favourite_event,
+                        event.isFavourite,
+                        R.id.action_eventDetailFragment2_to_postLoginFragment,
+                        event.id!!,
+                        eventViewModel,
+                        2
                 )
             }
         }
@@ -200,16 +194,15 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             isDetailFavouriteFlag = true
             eventObj.let { event ->
                 favouriteClick(
-                    it.favourite,
-                    event.isFavourite,
-                    R.id.action_eventDetailFragment2_to_postLoginFragment,
-                    event.id!!,
-                    eventViewModel,
-                    2
+                        it.favourite,
+                        event.isFavourite,
+                        R.id.action_eventDetailFragment2_to_postLoginFragment,
+                        event.id!!,
+                        eventViewModel,
+                        2
                 )
             }
         }
-
         binding.root.rbEventInfo.setOnClickListener {
             binding.root.ll_even_info.visibility = View.VISIBLE
             binding.root.ll_schedule.visibility = View.GONE
@@ -218,9 +211,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             binding.root.ll_even_info.visibility = View.GONE
             binding.root.ll_schedule.visibility = View.VISIBLE
             verticalLayoutManager = LinearLayoutManager(
-                requireContext(),
-                RecyclerView.VERTICAL,
-                false
+                    requireContext(),
+                    RecyclerView.VERTICAL,
+                    false
             )
             myAdapter = ScheduleExpandAdapter(requireActivity(), parentItemList, childItemHolder)
             binding.root.rvSchedule.apply {
@@ -229,6 +222,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 adapter = myAdapter
             }
         }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing = false
+            callingObservables()
+        }
+
     }
 
     private fun callingObservables() {
@@ -248,9 +246,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
-                                getDrawableFromId(R.drawable.heart_icon_fav)
+                                    getDrawableFromId(R.drawable.heart_icon_fav)
                             binding.root.favourite_event.background =
-                                getDrawableFromId(R.drawable.heart_icon_fav)
+                                    getDrawableFromId(R.drawable.heart_icon_fav)
                             isDetailFavouriteFlag = false
                         }
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
@@ -260,9 +258,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
-                                getDrawableFromId(R.drawable.heart_icon_home_black)
+                                    getDrawableFromId(R.drawable.heart_icon_home_black)
                             binding.root.favourite_event.background =
-                                getDrawableFromId(R.drawable.heart_icon_home_black)
+                                    getDrawableFromId(R.drawable.heart_icon_home_black)
                             isDetailFavouriteFlag = false
 
                         }
@@ -283,14 +281,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 tv_title.text = eventObj.title
                 tv_location.text = eventObj.locationTitle
                 tv_event_days_date.text =
-                    "${eventObj.toDate}- ${eventObj.fromDate} ${eventObj.fromMonthYear}  |  ${eventObj.fromDay} - ${eventObj.toDay}"
+                        "${eventObj.toDate}- ${eventObj.fromDate} ${eventObj.fromMonthYear}  |  ${eventObj.fromDay} - ${eventObj.toDay}"
                 tv_times.text = "${eventObj.fromTime} - ${eventObj.toTime}"
                 tv_category.text = eventObj.category
                 category.text = eventObj.category
                 tv_event_date.text =
-                    "${eventObj.fromDate} - ${eventObj.toDate} ${eventObj.fromMonthYear}"
+                        "${eventObj.fromDate} - ${eventObj.toDate} ${eventObj.fromMonthYear}"
                 glide.load(com.app.dubaiculture.BuildConfig.BASE_URL + eventObj.image)
-                    .into(imageView)
+                        .into(imageView)
             }
         }
         binding.root.btn_reg.setOnClickListener(this)
@@ -308,24 +306,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         bgEventtRTL(binding.root.img)
 
 
-
-        binding.apply {
-            appbarEventnDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                if (verticalOffset == -binding.root.collapsingToolbarEventDetail.height + binding.root.toolbarEventDetail.height) {
-                    Timber.e(verticalOffset.toString())
-                    //toolbar is collapsed here
-                    //write your code here
-                    defaultCloseToolbar.visibility = View.VISIBLE
-//                    img.visibility = View.VISIBLE
-                    imageView4.visibility = View.VISIBLE
-                } else {
-                    defaultCloseToolbar.visibility = View.GONE
-                    imageView4.visibility = View.GONE
-//                    img.visibility = View.GONE
-                }
-            })
-
-        }
+//        binding.apply {
+//            appbarEventnDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+//
+//            })
+//
+//        }
     }
 
     private fun rvSetUp() {
@@ -347,18 +333,18 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onMapReady(map: GoogleMap?) {
         if (eventObj.latitude!!.isNotEmpty()) {
             val trafficDigitalLatLng =
-                LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
+                    LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
 
             map?.addMarker(
-                MarkerOptions()
-                    .position(trafficDigitalLatLng)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                    MarkerOptions()
+                            .position(trafficDigitalLatLng)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
             )!!
-                .title = eventObj.title
+                    .title = eventObj.title
             map.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    trafficDigitalLatLng, 14.0f
-                )
+                    CameraUpdateFactory.newLatLngZoom(
+                            trafficDigitalLatLng, 14.0f
+                    )
             )
             map.cameraPosition.target
         }
@@ -369,10 +355,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             R.id.img_event_speaker -> {
                 if (binding.root.tv_desc_readmore_event.text.isNotEmpty()) {
                     textToSpeechEngine.speak(
-                        binding.root.tv_desc_readmore_event.text,
-                        TextToSpeech.QUEUE_FLUSH,
-                        null,
-                        "tts1"
+                            binding.root.tv_desc_readmore_event.text,
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            "tts1"
                     )
                 }
             }
@@ -401,10 +387,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             R.id.speaker_schedule -> {
                 if (binding.root.tv_schedule_title.text.isNotEmpty())
                     textToSpeechEngine.speak(
-                        binding.root.tv_schedule_title.text,
-                        TextToSpeech.QUEUE_FLUSH,
-                        null,
-                        "tts1"
+                            binding.root.tv_schedule_title.text,
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            "tts1"
                     )
             }
         }
@@ -412,37 +398,33 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
-            handleRationale = false
+                handleRationale = false
         )
         activity.runWithPermissions(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            options = quickPermissionsOption
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                options = quickPermissionsOption
         ) {
             locationHelper.locationSetUp(
-                object : LocationHelper.LocationLatLng {
-                    @SuppressLint("SetTextI18n")
-                    override fun getCurrentLocation(location: Location) {
-                        loc = location
-                        Timber.e("Current Location ${location.latitude}")
-                        if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty())
-                            binding.root.tv_km.text = locationHelper.distance(
-                                loc.latitude,
-                                loc.longitude,
-                                eventObj.latitude!!.toDouble(),
-                                eventObj.longitude!!.toDouble()
-                            )
-                                .toString() + resources.getString(R.string.away)
-                    }
-                }, activity, locationCallback
+                    object : LocationHelper.LocationLatLng {
+                        @SuppressLint("SetTextI18n")
+                        override fun getCurrentLocation(location: Location) {
+                            loc = location
+                            Timber.e("Current Location ${location.latitude}")
+                            if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty())
+                                binding.root.tv_km.text = locationHelper.distance(
+                                        loc.latitude,
+                                        loc.longitude,
+                                        eventObj.latitude!!.toDouble(),
+                                        eventObj.longitude!!.toDouble()
+                                )
+                                        .toString() + resources.getString(R.string.away)
+                        }
+                    }, activity, locationCallback
             )
         }
     }
 
-    override fun onPause() {
-        textToSpeechEngine.stop()
-        super.onPause()
-    }
 
     override fun onDestroy() {
         textToSpeechEngine.shutdown()
@@ -472,20 +454,20 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
                     moreEvents.map {
                         groupAdapter.add(EventListItem<EventItemsBinding>(object :
-                            FavouriteChecker {
+                                FavouriteChecker {
                             override fun checkFavListener(
-                                checkbox: CheckBox,
-                                pos: Int,
-                                isFav: Boolean,
-                                itemId: String,
+                                    checkbox: CheckBox,
+                                    pos: Int,
+                                    isFav: Boolean,
+                                    itemId: String,
                             ) {
                                 favouriteClick(
-                                    checkbox,
-                                    isFav,
-                                    type = 2,
-                                    itemId = itemId,
-                                    baseViewModel = eventViewModel,
-                                    nav = R.id.action_eventDetailFragment2_to_postLoginFragment
+                                        checkbox,
+                                        isFav,
+                                        type = 2,
+                                        itemId = itemId,
+                                        baseViewModel = eventViewModel,
+                                        nav = R.id.action_eventDetailFragment2_to_postLoginFragment
                                 )
                             }
                         }, object : RowClickListener {
@@ -493,12 +475,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 val eventObj = moreEvents[position]
                                 val bundle = Bundle()
                                 bundle.putParcelable(
-                                    EVENT_OBJECT,
-                                    eventObj
+                                        EVENT_OBJECT,
+                                        eventObj
                                 )
                                 navigate(
-                                    R.id.action_eventDetailFragment2_to_eventDetailFragment2,
-                                    bundle
+                                        R.id.action_eventDetailFragment2_to_eventDetailFragment2,
+                                        bundle
                                 )
 
 
@@ -532,13 +514,13 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     private fun locationIsEmpty(location: Location) {
         if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty()) {
             binding.root.tv_km.text =
-                locationHelper.distance(
-                    location.latitude,
-                    location.longitude,
-                    eventObj.latitude!!.toDouble(),
-                    eventObj.longitude!!.toDouble()
-                )
-                    .toString() + resources.getString(R.string.away)
+                    locationHelper.distance(
+                            location.latitude,
+                            location.longitude,
+                            eventObj.latitude!!.toDouble(),
+                            eventObj.longitude!!.toDouble()
+                    )
+                            .toString() + resources.getString(R.string.away)
         }
     }
 
@@ -546,6 +528,34 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         if (!getTimeSpan(eventObj.dateFrom, eventObj.dateTo)) {
             binding.root.btn_reg.isEnabled = false
             binding.root.btn_register_now.isEnabled = false
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.appbarEventnDetail
+                .addOnOffsetChangedListener(this)
+
+    }
+
+    override fun onPause() {
+        textToSpeechEngine.stop()
+        super.onPause()
+
+        binding.appbarEventnDetail.removeOnOffsetChangedListener(this)
+
+    }
+
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        if (verticalOffset == -binding.root.collapsingToolbarEventDetail.height + binding.root.toolbarEventDetail.height) {
+            binding.defaultCloseToolbar.visibility = View.VISIBLE
+            binding.imageView4.visibility = View.VISIBLE
+            binding. swipeRefreshLayout.isEnabled = false
+        } else {
+            binding.defaultCloseToolbar.visibility = View.GONE
+            binding.imageView4.visibility = View.GONE
+            binding. swipeRefreshLayout.isEnabled = true
         }
     }
 }

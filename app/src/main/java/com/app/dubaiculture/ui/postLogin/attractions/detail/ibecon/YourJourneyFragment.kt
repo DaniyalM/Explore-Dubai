@@ -2,6 +2,7 @@ package com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,18 +26,19 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
     private var beconList = ArrayList<IbeconITemsSiteMap>()
     private var sortedBeconList = ArrayList<IbeconITemsSiteMap>()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         beaconMonitoring()
+
+        //for testing purpose
+//        rvBecons()
         subscribeUiEvents(siteMapViewModel)
         arguments?.apply {
             beconList =
-                this.getParcelableArrayList(Constants.NavBundles.BECON_LIST)!!
+                    this.getParcelableArrayList(Constants.NavBundles.BECON_LIST)!!
         }
-        //for testing purpose
-//        rvBecons()
-
     }
+
 
 
     override fun getFragmentBinding(
@@ -49,7 +51,7 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
             setRangingListener(BeaconManager.BeaconRangingListener { region, beacons ->
 
                 val nearestBeacon: Beacon = beacons[0]
-                siteMapViewModel.showToast("IBecon is Detected...")
+                siteMapViewModel.showToast("IBeacon is Detected...")
                 nearestBeacon.uniqueKey
                 rvBecons(nearestBeacon.proximityUUID.toString())
             })
