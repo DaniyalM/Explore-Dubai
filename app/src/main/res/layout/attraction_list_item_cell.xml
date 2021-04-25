@@ -119,7 +119,7 @@
                     android:drawablePadding="@dimen/_7ssp"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:text='@{TextUtils.isEmpty(attractions.locationTitle) ? "Palm Jumeriah Beach, Dubai\nUnited Arab Emirates" : ""}'                    android:textColor="@color/white_900"
+                    android:text="@{attractions.locationTitle}"                    android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />
 
             </LinearLayout>

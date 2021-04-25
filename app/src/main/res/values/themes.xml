@@ -4,7 +4,6 @@
     <style name="Theme.MyApp" parent="Base.Theme.MyApp">
             <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="android:windowActivityTransitions">true</item>
-
         <item name="android:spotShadowAlpha">0.3</item>
 
     </style>
@@ -78,6 +77,11 @@
         <!-- Customize your theme here. -->
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
     </style>
-
-
+    <style name="my_dialog_theme" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="colorAccent">@color/purple_900</item>                   <!--header background-->
+        <item name="android:windowBackground">@color/colorPrimary</item>     <!--calendar background-->
+        <item name="android:colorControlActivated">@color/colorAccent</item> <!--selected day-->
+<!--        <item name="android:textColorPrimary">@color/colorPrimaryText</item> &lt;!&ndash;days of the month&ndash;&gt;-->
+        <item name="android:textColorSecondary">@color/colorAccent</item>    <!--days of the week-->
+    </style>
 </resources>

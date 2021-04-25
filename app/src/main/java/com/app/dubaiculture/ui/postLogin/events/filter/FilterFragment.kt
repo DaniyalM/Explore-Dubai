@@ -145,7 +145,6 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                             Timber.e("${startDate}")
                         }
                     }).showPicker()
-
             }
             R.id.tv_end_date -> {
                 DatePickerHelper(binding.tvEndDate.text.toString(),
@@ -186,7 +185,6 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                     it.value.locationList!!.forEach { filter ->
                         arrayList.add(filter.title!!)
                     }
-
                     categorysList.map { list ->
                         groupAdapter.add(FilterCategoryItems(list))
                     }

@@ -91,4 +91,11 @@ class AttractionDTO {
     @SerializedName("SiteMap")
     @Expose
     var siteMapDTO: SiteMapDTO? = null
+
+    @SerializedName("EmailContact")
+    @Expose
+    var emailContact: String = ""
+    @SerializedName("NumberContact")
+    @Expose
+    var numberContact: String = ""
 }
