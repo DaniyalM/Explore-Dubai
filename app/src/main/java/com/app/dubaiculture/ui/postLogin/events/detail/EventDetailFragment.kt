@@ -57,7 +57,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
 import kotlinx.android.synthetic.main.fragment_event_detail.view.*
+import kotlinx.android.synthetic.main.fragment_event_detail.view.back
+import kotlinx.android.synthetic.main.fragment_event_detail.view.favourite
+import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
+import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.category
+import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.title
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -296,6 +301,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.root.speaker_schedule.setOnClickListener(this)
         backArrowRTL(binding.root.back_event)
         backArrowRTL(binding.root.back)
+        bgRTL(binding.root.bg_border_event)
+        bgEventtRTL(binding.root.img)
+
 
 
         binding.apply {
@@ -356,9 +364,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_event_speaker -> {
-                if (binding.root.tv_desc_readmore.text.isNotEmpty()) {
+                if (binding.root.tv_desc_readmore_event.text.isNotEmpty()) {
                     textToSpeechEngine.speak(
-                        binding.root.tv_desc_readmore.text,
+                        binding.root.tv_desc_readmore_event.text,
                         TextToSpeech.QUEUE_FLUSH,
                         null,
                         "tts1"
@@ -447,7 +455,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         moreEvents.add(it)
                     }
                     if (!it.value.desc.isNullOrEmpty()) {
-                        binding.root.tv_desc_readmore.setText(it.value.desc)
+                        binding.root.tv_desc_readmore_event.text = it.value.desc
                     }
                     it.value.eventSchedule!!.map {
                         binding.root.tv_schedule_title.text = it.description

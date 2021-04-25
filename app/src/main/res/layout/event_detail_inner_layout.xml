@@ -8,8 +8,7 @@
             android:layout_height="match_parent">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/_100sdp"
-
+                android:layout_marginBottom="@dimen/_50sdp"
                 android:layout_height="0dp">
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
@@ -115,6 +114,8 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_category"
                     android:text="@string/workshop"
+                    android:textStyle="bold"
+                    app:textFont="bold"
                     android:elevation="@dimen/_5sdp"
                     android:textSize="@dimen/_11ssp"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -147,6 +148,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:textStyle="bold"
+                    app:textFont="bold"
                     android:textColor="@color/black_700"
                     android:text="@string/the_definitive_guide_to_an_uncertain_world_contribute_to_the_future"
                     app:layout_constraintStart_toStartOf="@+id/tv_category"
@@ -283,21 +285,21 @@
                     />
 
                 <com.app.dubaiculture.ui.components.customreadmore.CustomReadMoreView
-                    android:id="@+id/tv_desc_readmore"
+                    android:id="@+id/tv_desc_readmore_event"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="viewStart"
                     android:textSize="@dimen/_10ssp"
-                    app:trimLines="2"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa."
-                    app:trimMode="trimModeLine"
-                    app:colorClickableText="@color/gray_600"
+                    app:colorClickableText="@color/gray_700"
                     android:layout_marginTop="@dimen/_10sdp"
                     app:trimCollapsedText="@string/read_more"
                     app:trimExpandedText="@string/read_less"
                     app:layout_constraintEnd_toEndOf="@+id/card_map"
                     app:layout_constraintStart_toStartOf="@+id/heading_desc"
-                    app:layout_constraintTop_toBottomOf="@+id/heading_desc" />
+                    app:layout_constraintTop_toBottomOf="@+id/heading_desc"
+                    app:trimLines="3"
+                    app:trimMode="trimModeLine"
+                    />
 
                 <com.app.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btn_register_now"
@@ -315,7 +317,7 @@
                     android:textColor="@color/white_900"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_desc_readmore" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_desc_readmore_event" />
 
 
 
@@ -414,21 +416,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
 
-                    <LinearLayout
+                    <ImageView
                         android:id="@+id/imgFb"
-                        android:gravity="center"
-                        android:background="@drawable/fb_circle_"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:background="@drawable/fb_"
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:foreground="@drawable/custom_ripple_border"
-                            />
-                    </LinearLayout>
-
+                        android:layout_marginStart="@dimen/_9sdp"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:background="@drawable/custom_ripple_black"
+                        android:src="@drawable/fb_icon_png"
+                        />
                     <ImageView
                         android:id="@+id/imgTwitter"
                         android:layout_marginStart="@dimen/_9sdp"
@@ -463,30 +458,48 @@
                         android:src="@drawable/linkedin_attraction_icon"
                         />
                 </LinearLayout>
+                    <ImageView
+                        android:id="@+id/img"
+                        android:scaleX="-1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_events_two"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_social"
+                        />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:background="#E8E8E8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/img"
+                        >
+
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/heading_up_coming"
+                        android:layout_marginTop="-10dp"
+
+                        android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_200"
+                            android:textSize="@dimen/_18ssp"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:text="@string/more_events"
+                            app:layout_constraintStart_toStartOf="parent"
+                            />
+
+                        <!--        android:layout_marginStart="@dimen/_15sdp"-->
+                        <!--        android:layout_marginEnd="@dimen/_15sdp"-->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_event_up_coming"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/heading_up_coming"
+                            />
+                    </LinearLayout>
 
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                    android:id="@+id/heading_up_coming"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black_200"
-                    android:textSize="@dimen/_18ssp"
-                    android:layout_marginTop="@dimen/_18sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:text="@string/more_events"
-                    app:layout_constraintTop_toBottomOf="@+id/ll_social"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
-
-                <!--        android:layout_marginStart="@dimen/_15sdp"-->
-                <!--        android:layout_marginEnd="@dimen/_15sdp"-->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_event_up_coming"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/heading_up_coming"
-                    />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

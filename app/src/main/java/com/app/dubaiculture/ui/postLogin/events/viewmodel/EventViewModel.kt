@@ -46,6 +46,7 @@ class EventViewModel @ViewModelInject constructor(
     val locationState = MutableLiveData<String>("")
     val dateFrmState = MutableLiveData<String>("")
     val dateToState = MutableLiveData<String>("")
+    val radioBtnState = MutableLiveData<String>("")
 
 
     private var categoryList = mutableListOf<Filter>()
@@ -150,10 +151,6 @@ class EventViewModel @ViewModelInject constructor(
     }
 
 
-    fun getNearEvents(list: List<Events>): List<Events> =
-        list.filter {
-            it.latitude != "" && it.longitude != ""
-        }
 
 
     fun updateHeaderItems(position: Int = 0) {

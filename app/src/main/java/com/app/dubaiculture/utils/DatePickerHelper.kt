@@ -8,29 +8,51 @@ import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DatePickerHelper(var selectedDate : String?=null , var context:Context ,var iface : DatePickerInterface): DatePickerDialog.OnDateSetListener {
+class DatePickerHelper(var selectedDate : String?=null , var context:Context ,var iface : DatePickerInterface,var minDate: Long? = Date().time,var maxDate: Long? = null): DatePickerDialog.OnDateSetListener {
     private val selectCurrentDate = Calendar.getInstance()
     fun showPicker() {
-        when {
-            !selectedDate.isNullOrEmpty() -> {
-                val datePickerDialog = DatePickerDialog(
-                    context, this,
-                    YYYY_MM_DD(selectedDate.toString(), "yyyy"),
-                    YYYY_MM_DD(selectedDate.toString(), "MM").minus(1),
-                    YYYY_MM_DD(selectedDate.toString(), "dd")
-                )
-                datePickerDialog.show()
-            }
-            else -> {
-                val datePickerDialog = DatePickerDialog(
-                    context, this,
-                    selectCurrentDate.get(Calendar.YEAR),
-                    selectCurrentDate.get(Calendar.MONTH),
-                    selectCurrentDate.get(Calendar.DAY_OF_MONTH)
-                )
-                datePickerDialog.show()
-            }
-        }
+        val datePickerDialog = DatePickerDialog(
+            context,
+            this,
+            selectCurrentDate.get(Calendar.YEAR),
+            selectCurrentDate.get(Calendar.MONTH),
+            selectCurrentDate.get(Calendar.DAY_OF_MONTH)
+        )
+
+//        maxDate?.let {
+//            // prevent date picker from being selected future dates
+//            datePickerDialog.datePicker.maxDate = it
+//        } ?: run {
+//            // remove all min/max dates from date picker
+//            minDate?.let {
+//                // prevent date picker from being selected previous dates
+//                datePickerDialog.datePicker.minDate = it
+//            }
+//
+//        }
+
+        datePickerDialog.show()
+
+//        when {
+//            !selectedDate.isNullOrEmpty() -> {
+//                val datePickerDialog = DatePickerDialog(
+//                    context, this,
+//                    YYYY_MM_DD(selectedDate.toString(), "yyyy"),
+//                    YYYY_MM_DD(selectedDate.toString(), "MM").minus(1),
+//                    YYYY_MM_DD(selectedDate.toString(), "dd")
+//                )
+//                datePickerDialog.show()
+//            }
+//            else -> {
+//                val datePickerDialog = DatePickerDialog(
+//                    context, this,
+//                    selectCurrentDate.get(Calendar.YEAR),
+//                    selectCurrentDate.get(Calendar.MONTH),
+//                    selectCurrentDate.get(Calendar.DAY_OF_MONTH)
+//                )
+//                datePickerDialog.show()
+//            }
+//        }
 
     }
 

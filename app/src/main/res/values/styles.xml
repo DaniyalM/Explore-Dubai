@@ -202,7 +202,7 @@
         <item name="selectedBackground1">@color/purple_900</item>
         <item name="selectedTextColor1">@color/white_900</item>
         <item name="unSelectedBackground1">@color/white_900</item>
-        <item name="unSelectedTextColor1">@color/purple_900</item>
+        <item name="unSelectedTextColor1">@color/gray_700</item>
     </style>
 
     <style name="SubmitButtonFilled">

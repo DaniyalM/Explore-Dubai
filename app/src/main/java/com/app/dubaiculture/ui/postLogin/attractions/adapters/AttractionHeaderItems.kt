@@ -70,7 +70,7 @@ class AttractionHeaderItems<T>(
         } else {
             view.setCardBackgroundColor(ContextCompat.getColor(view.context,
                 R.color.white_900))
-            textView.setTextColor(ContextCompat.getColor(view.context,R.color.purple_900))
+            textView.setTextColor(ContextCompat.getColor(view.context,R.color.gray_700))
             unSelectedInnerImg?.let { drawable ->
                 imgInner.glideInstance(drawable, true).into(imgInner)
                 imgInner.setColorFilter(ContextCompat.getColor(view.context, R.color.purple_900))

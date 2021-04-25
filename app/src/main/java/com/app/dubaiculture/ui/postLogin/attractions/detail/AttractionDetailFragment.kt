@@ -68,7 +68,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     OnMapReadyCallback, View.OnClickListener {
 
     private var url: String? = null
-    private var readmore = false
     private val gpsObserver = Observer<GpsStatus> { status ->
         status?.let {
             updateGpsCheckUi(status)
@@ -132,6 +131,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
         backArrowRTL(binding.root.back)
+        bgRTL(binding.root.bg_border_upper)
         backArrowRTL(binding.root.img_back)
         arrowRTL(binding.root.arrow_ibecons)
         arrowRTL(binding.root.arrow_site_map)

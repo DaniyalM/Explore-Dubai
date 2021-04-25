@@ -248,6 +248,28 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
     }
 
+    fun bgRTL(img: ImageView) {
+        when {
+            isArabic() -> {
+                img.scaleX = -1f
+            }
+            else -> {
+                img.scaleX = 1f
+            }
+        }
+    }
+
+    fun bgEventtRTL(img: ImageView) {
+        when {
+            isArabic() -> {
+                img.scaleX = 1f
+            }
+            else -> {
+                img.scaleX = -1f
+            }
+        }
+    }
+
     fun arrowRTL(img: ImageView) {
         when {
             isArabic() -> {

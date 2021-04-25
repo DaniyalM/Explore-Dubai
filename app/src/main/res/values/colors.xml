@@ -35,6 +35,7 @@
 
   <color name="gray_800">#707379</color>
   <color name="gray_600">#B7B9BC</color>
+    <color name="gray_700">#6F7377</color>
 
     <color name="green">#78FF1D</color>
     <color name="map_radius_color">#C8E6E4</color>

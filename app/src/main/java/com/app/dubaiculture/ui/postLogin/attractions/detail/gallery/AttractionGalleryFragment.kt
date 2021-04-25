@@ -5,21 +5,24 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
+import com.app.dubaiculture.data.repository.viewgallery.local.Images
 import com.app.dubaiculture.databinding.AttractionGallaryImageItemBinding
 import com.app.dubaiculture.databinding.AttractionGalleryFragmentBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.gallery.adapter.GalleryListItem
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
+import com.app.dubaiculture.utils.Constants.NavBundles.IMAGES_LIST
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -32,7 +35,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBinding>() {
-    private lateinit var gallerList: ArrayList<Gallery>
+    private  var gallerList= ArrayList<Gallery>()
+    private  var imagesList= ArrayList<Images>()
 
     @Inject
     lateinit var glide: RequestManager
@@ -77,15 +81,24 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.apply {
-            gallerList = getParcelableArrayList(ATTRACTION_GALLERY_LIST)!!
+            try {
+                gallerList = getParcelableArrayList(ATTRACTION_GALLERY_LIST)!!
+            }catch (e : NullPointerException){
+                imagesList = getParcelableArrayList(IMAGES_LIST)!!
+            }
+
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initRv()
+        if(!gallerList.isNullOrEmpty()){
+            gallerList[0].galleryImage?.let { displayBlurryView(it) }
 
-        gallerList[0].galleryImage?.let { displayBlurryView(it) }
+        }else{
+            imagesList[0].image?.let { displayBlurryView(it) }
+        }
         binding.imgBack.setOnClickListener {
             back()
         }
@@ -96,11 +109,25 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
         binding.mainImageSlider.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = GroupAdapter<GroupieViewHolder>().apply {
-                gallerList.forEach {
-                    add(GalleryListItem<AttractionGallaryImageItemBinding>(attraction = it,
-                        glide = glide))
+                if(!gallerList.isNullOrEmpty()){
+                    gallerList.forEach {
+                        add(
+                            GalleryListItem<AttractionGallaryImageItemBinding>(
+                                attraction = it,
+                                glide = glide
+                            )
+                        )
+                    }
+                }else {
+                    imagesList.forEach {
+                        add(
+                            GalleryListItem<AttractionGallaryImageItemBinding>(
+                                images = it,
+                                glide = glide
+                            )
+                        )
+                    }
                 }
-
             }
 
 //            addOnItemTouchListener(object : SimpleOnItemTouchListener() {
@@ -109,32 +136,48 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
 //                    return rv.scrollState == RecyclerView.SCROLL_STATE_DRAGGING
 //                }
 //            })
-//
-
             LinearSnapHelper().attachToRecyclerView(this)
-
         }
         binding.rvBottomSelector.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = GroupAdapter<GroupieViewHolder>().apply {
-                gallerList.forEach {
-                    add(GalleryListItem<AttractionGallaryImageItemBinding>(
-                        rowClickListener = object : RowClickListener {
-                            override fun rowClickListener(position: Int) {
+                if(!gallerList.isNullOrEmpty()){
+                    gallerList.forEach {
+                        add(
+                            GalleryListItem<AttractionGallaryImageItemBinding>(
+                                rowClickListener = object : RowClickListener {
+                                    override fun rowClickListener(position: Int) {
+                                        it.galleryImage?.let {
+                                            displayBlurryView(it)
+                                        }
+                                        binding.mainImageSlider.smoothScrollToPosition(position)
+                                    }
+                                },
+                                attraction = it,
+                                resLayout = R.layout.items_360_gallery_view,
+                                glide = glide
+                            )
+                        )
+                    }
 
-                                it.galleryImage?.let {
-                                    displayBlurryView(it)
-                                }
-
-
-
-                                binding.mainImageSlider.smoothScrollToPosition(position)
-                            }
-                        },
-                        attraction = it,
-                        resLayout = R.layout.items_360_gallery_view,
-                        glide = glide
-                    ))
+                }else{
+                    imagesList.forEach {
+                        add(
+                            GalleryListItem<AttractionGallaryImageItemBinding>(
+                                rowClickListener = object : RowClickListener {
+                                    override fun rowClickListener(position: Int) {
+                                        it.image?.let {
+                                            displayBlurryView(it)
+                                        }
+                                        binding.mainImageSlider.smoothScrollToPosition(position)
+                                    }
+                                },
+                                images = it,
+                                resLayout = R.layout.items_360_gallery_view,
+                                glide = glide
+                            )
+                        )
+                    }
                 }
             }
         }
@@ -155,9 +198,8 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
-                    TODO("Not yet implemented")
-                }
 
+                }
             })
 
     }

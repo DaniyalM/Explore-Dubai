@@ -49,6 +49,8 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:text="@{attraction.category}"
                     android:textAllCaps="true"
+                    android:textStyle="bold"
+                    app:textFont="bold"
                     android:textColor="@color/purple_900"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -72,9 +74,10 @@
                     android:layout_marginTop="@dimen/_6sdp"
                     android:layout_marginEnd="@dimen/_22sdp"
                     android:text="@{attraction.title}"
+                    android:textStyle="bold"
+                    app:textFont="bold"
                     android:textColor="@color/black_700"
                     android:textSize="@dimen/_19ssp"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_category"
                     app:layout_constraintTop_toBottomOf="@+id/tv_category" />
@@ -313,8 +316,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textAlignment="viewStart"
-                    android:textSize="@dimen/_9ssp"
-                    app:colorClickableText="@color/gray_600"
+                    android:textSize="@dimen/_10ssp"
+                    app:colorClickableText="@color/gray_700"
                     app:layout_constraintEnd_toEndOf="@+id/card_map"
                     app:layout_constraintStart_toStartOf="@+id/heading_desc"
                     app:layout_constraintTop_toBottomOf="@+id/heading_desc"
@@ -617,19 +620,14 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="@id/heading_stay"
                     app:layout_constraintTop_toBottomOf="@+id/heading_stay">
-                    <LinearLayout
-                        android:gravity="center"
-                        android:background="@drawable/fb_circle_"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:background="@drawable/fb_"
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:foreground="@drawable/custom_ripple_border"
-                            />
-                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/imgFb"
+                        android:layout_marginStart="@dimen/_9sdp"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:background="@drawable/custom_ripple_black"
+                        android:src="@drawable/fb_icon_png"
+                        />
 
 
                     <ImageView

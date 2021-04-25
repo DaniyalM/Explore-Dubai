@@ -53,7 +53,7 @@
 
 
                 <ImageView
-                    android:id="@+id/bg_border"
+                    android:id="@+id/bg_border_upper"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/attraction_detail_bg_border"

@@ -220,7 +220,7 @@
                     android:drawablePadding="@dimen/_7ssp"
                     android:ellipsize="end"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:text="Palm Jumeriah, Dubai"
+                    android:text="@{events.locationTitle}"
                     android:textColor="@color/gray_600"
                     android:textSize="@dimen/_9ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_end_month_event"
