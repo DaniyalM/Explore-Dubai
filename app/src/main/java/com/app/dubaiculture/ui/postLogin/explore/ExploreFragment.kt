@@ -92,8 +92,9 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                 binding.swipeRefresh.isRefreshing = true
                 callingObservables()
             }
-            subscribeToObservable()
         }
+        subscribeToObservable()
+
         subscribeUiEvents(exploreViewModel)
 
         applicationExitDialog()

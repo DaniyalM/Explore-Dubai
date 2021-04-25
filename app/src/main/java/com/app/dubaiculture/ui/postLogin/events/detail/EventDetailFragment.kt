@@ -49,6 +49,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
@@ -74,6 +75,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     val moreEvents = ArrayList<Events>()
     val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
     var isDetailFavouriteFlag = false
+
+    private lateinit var marker:Marker
 
     private val getObserver = Observer<GpsStatus> {
         it?.let {

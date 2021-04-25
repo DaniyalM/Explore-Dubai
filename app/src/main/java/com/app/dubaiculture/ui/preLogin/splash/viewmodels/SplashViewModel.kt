@@ -21,4 +21,10 @@ class SplashViewModel @ViewModelInject constructor(
         }
         return user
     }
+
+    fun removeUser(user: User){
+        viewModelScope.launch {
+            userRepository.deleteUser(user)
+        }
+    }
 }
