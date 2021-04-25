@@ -42,6 +42,7 @@ class YourJourneyItems<T : ViewDataBinding>(
                 }
             }
         }
+
     }
 
     override fun getLayout() = resLayout
