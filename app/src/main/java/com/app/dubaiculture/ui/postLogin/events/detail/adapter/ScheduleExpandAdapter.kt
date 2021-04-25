@@ -51,7 +51,9 @@ class ScheduleExpandAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.day.text = dayOfWeek(nameList[position].date)
+        holder.day.text = dayOfWeek(nameList[position].date,"EEEE")
+        holder.date.text = "${dayOfWeek(nameList[position].date,"dd")}"
+        holder.monthYear.text = "${dayOfWeek(nameList[position].date,"MMM").toUpperCase()} , ${dayOfWeek(nameList[position].date,"yy")}"
         holder.imgToggle.setImageResource(R.drawable.plus)
         val itemInnerRecyclerView = ScheduleInnerRecyclerviewAdapter(itemNameList[position])
         holder.innerRecycler.layoutManager =

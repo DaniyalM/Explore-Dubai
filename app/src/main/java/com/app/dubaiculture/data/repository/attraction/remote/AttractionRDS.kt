@@ -21,6 +21,11 @@ class AttractionRDS @Inject constructor(private val attractionService: Attractio
             attractionService.getAttractionDetail(attractionId = attractionDetailRequestDTO.attractionId,
                 culture = attractionDetailRequestDTO.culture)
         }
+    suspend fun getAttractionDetailForThreeSixty(attractionDetailRequestDTO: AttractionDetailRequestDTO) =
+        safeApiCall {
+            attractionService.getAttractionDetailForThreeSixty(attractionId = attractionDetailRequestDTO.attractionId,
+                culture = attractionDetailRequestDTO.culture)
+        }
 
     suspend fun getAttractionsListingByCategory(attractionRequestDTO: AttractionRequestDTO) =
         safeApiCall {

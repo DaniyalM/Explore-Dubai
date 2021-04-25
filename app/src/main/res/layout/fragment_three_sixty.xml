@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.postLogin.threesixtygallery.ThreeSixtyFragment">
+        tools:context=".ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment">
 
 <!--        <com.google.vr.sdk.widgets.pano.VrPanoramaView-->
 <!--            android:id="@+id/mVrPanoramaView"-->
@@ -16,7 +16,7 @@
 <!--            android:layout_width="match_parent"-->
 <!--            android:scrollbars="vertical|horizontal"-->
 <!--            android:layout_height="0dp" />-->
-        <com.app.dubaiculture.ui.postLogin.threesixtygallery.components.VrPanoramaViewComponent
+        <com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.components.VrPanoramaViewComponent
             android:id="@+id/mVrPanoramaSelector"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +26,7 @@
             android:scrollbars="vertical|horizontal"
             android:layout_height="0dp"/>
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_back"
             android:background="@drawable/custom_ripple_black"
             android:outlineSpotShadowColor="@color/black_200"
@@ -49,14 +49,32 @@
             app:layout_constraintStart_toStartOf="@+id/img_back"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/three_360_title"
+            android:layout_width="0dp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_11sdp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/white_900"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shadow_title_360"
+            android:layout_marginStart="@dimen/_18sdp"
+            android:layout_marginEnd="@dimen/_18sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_back" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="140dp"
             android:alpha="0.5"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/black_700"
-            />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvBottomSelector"

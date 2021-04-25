@@ -130,7 +130,7 @@
     <dialog
         android:id="@+id/threeSixtyFragment"
         tools:layout="@layout/fragment_three_sixty"
-        android:name="com.app.dubaiculture.ui.postLogin.threesixtygallery.ThreeSixtyFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment"
         android:label="ThreeSixtyFragment" />
     <fragment
         android:id="@+id/eventNearMapFragment2"
@@ -348,7 +348,13 @@
         android:id="@+id/siteMapFragment"
         tools:layout="@layout/fragment_site_map"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapFragment"
-        android:label="SiteMapFragment" />
+        android:label="SiteMapFragment" >
+        <argument
+            android:name="siteMap_obj"
+            android:defaultValue="@null"
+            app:argType="com.app.dubaiculture.data.repository.attraction.local.models.SiteMap"
+            app:nullable="true" />
+    </dialog>
     <dialog
         android:id="@+id/ibeconDescFragment"
         tools:layout="@layout/fragment_ibecon_desc"
@@ -362,6 +368,10 @@
         <action
             android:id="@+id/action_ibeconFragment_to_yourJourneyFragment"
             app:destination="@id/yourJourneyFragment" />
+
+        <argument
+            android:name="attraction_id"
+            app:argType="string"/>
     </dialog>
     <dialog
         android:id="@+id/yourJourneyFragment"

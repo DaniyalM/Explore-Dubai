@@ -3,11 +3,13 @@ package com.app.dubaiculture.ui.components.customreadmore
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.text.style.ImageSpan
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
@@ -140,7 +142,8 @@ class CustomReadMoreView(context: Context, attrs: AttributeSet?) :
             var trimEndIndex = mText!!.length
             when (trimMode) {
                 TRIM_MODE_LINES -> {
-                    trimEndIndex = lineEndIndex - (ELLIPSIZE.length + trimCollapsedText!!.length + 1)
+                    trimEndIndex =
+                        lineEndIndex - (ELLIPSIZE.length + trimCollapsedText!!.length + 1)
                     if (trimEndIndex < 0) {
                         trimEndIndex = trimLength + 1
                     }
@@ -150,7 +153,17 @@ class CustomReadMoreView(context: Context, attrs: AttributeSet?) :
             val s = SpannableStringBuilder(mText, 0, trimEndIndex)
                 .append(ELLIPSIZE)
                 .append(trimCollapsedText)
-            return addClickableSpan(s, trimCollapsedText)
+        val ss = SpannableString.valueOf(s.toString())
+        val image = ContextCompat.getDrawable(context, R.drawable.arrow_readmore_)
+        image!!.setBounds(0, 0, image.intrinsicWidth, image.intrinsicHeight)
+        val imageSpan = ImageSpan(image, ImageSpan.ALIGN_BOTTOM)
+        ss.setSpan(
+            imageSpan,
+            s.length-1 ,
+            s.length,
+            Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+        )
+            return addClickableSpan(ss, trimCollapsedText)
 
 
 
@@ -159,13 +172,23 @@ class CustomReadMoreView(context: Context, attrs: AttributeSet?) :
     private fun updateExpandedText(): CharSequence? {
         if (showTrimExpandedText) {
             val s = SpannableStringBuilder(mText, 0, mText!!.length).append(trimExpandedText)
-            return addClickableSpan(s, trimExpandedText)
+            val ss = SpannableString.valueOf(s.toString())
+            val image = ContextCompat.getDrawable(context, R.drawable.arrow_readless)
+            image!!.setBounds(0, 0, image.intrinsicWidth, image.intrinsicHeight)
+            val imageSpan = ImageSpan(image, ImageSpan.ALIGN_BOTTOM)
+            ss.setSpan(
+                imageSpan,
+                s.length-1,
+                s.length,
+                Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+            )
+            return addClickableSpan(ss, trimExpandedText)
         }
         return mText
     }
 
     private fun addClickableSpan(
-        s: SpannableStringBuilder,
+        s: SpannableString,
         trimText: CharSequence?
     ): CharSequence? {
         s.setSpan(
@@ -203,7 +226,9 @@ class CustomReadMoreView(context: Context, attrs: AttributeSet?) :
     }
 
     inner class ReadMoreClickableSpan : ClickableSpan() {
+
         override fun onClick(widget: View) {
+
             readMore = !readMore
             readMoreClickListener?.onClick(readMore)
             setText()
@@ -211,6 +236,7 @@ class CustomReadMoreView(context: Context, attrs: AttributeSet?) :
 
         override fun updateDrawState(ds: TextPaint) {
             ds.color = colorClickableText
+
         }
     }
 
@@ -256,5 +282,16 @@ class CustomReadMoreView(context: Context, attrs: AttributeSet?) :
                 ResourcesCompat.getFont(context, R.font.neosansarabicbold)
         }
         setTypeface(typeface)
+    }
+    private fun drawImg(){
+        val image = ContextCompat.getDrawable(context, R.drawable.checkbox_tick_mark)
+        image!!.setBounds(0, 0, image.intrinsicWidth, image.intrinsicHeight)
+// Replace blank spaces with image icon
+// Replace blank spaces with image icon
+        val myText = "myText"
+        val textLength = myText.length
+        val sb = SpannableString("$myText   This is another text")
+        val imageSpan = ImageSpan(image, ImageSpan.ALIGN_BOTTOM)
+        sb.setSpan(imageSpan, textLength, textLength + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
     }
 }

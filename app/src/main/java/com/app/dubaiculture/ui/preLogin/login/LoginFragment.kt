@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
@@ -14,8 +14,12 @@ import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.app.dubaiculture.utils.firebase.getFcmToken
+import com.app.dubaiculture.utils.getTimeSpan
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 
 
@@ -48,10 +52,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 binding.tvLoginAccount to "main_title",
                 binding.btnLogin to "action_btn"
             )
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment2,
+            findNavController().navigate(
+                R.id.action_loginFragment_to_registerFragment2,
                 null,
                 null,
-                extras)
+                extras
+            )
         }
         binding.tvAsGuest.setOnClickListener {
             application.auth.apply {
@@ -73,6 +79,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
         } else {
             binding.imgUaePass.setImageResource(R.drawable.uae_pass)
+        }
+        lifecycleScope.launch {
+            Timber.e("Token: ${getFcmToken()}")
         }
     }
 
@@ -96,10 +105,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                     binding.tvLoginAccount to "main_title",
                     binding.btnLogin to "action_btn"
                 )
-                findNavController().navigate(R.id.action_loginFragment_to_forgotFragment,
+                findNavController().navigate(
+                    R.id.action_loginFragment_to_forgotFragment,
                     null,
                     null,
-                    extras)
+                    extras
+                )
             }
             R.id.img_uae_pass -> {
 //                navigate(R.id.action_loginFragment_to_eventNearMapFragment)
@@ -120,12 +131,5 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         loginViewModel.isEmailEdit.value = true
         loginViewModel.isEmail.value = true
     }
-
-
-
-
-
-
-
 
 }

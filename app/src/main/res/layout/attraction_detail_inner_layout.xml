@@ -18,6 +18,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:splitMotionEvents="false"
                 android:layout_marginBottom="@dimen/_100sdp">
 
                 <androidx.constraintlayout.widget.Guideline
@@ -81,6 +82,7 @@
 
                 <LinearLayout
                     android:id="@id/img_ar"
+                    android:splitMotionEvents="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -312,7 +314,6 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textAlignment="viewStart"
                     android:textSize="@dimen/_9ssp"
-                    android:text="@{attraction.description}"
                     app:colorClickableText="@color/gray_600"
                     app:layout_constraintEnd_toEndOf="@+id/card_map"
                     app:layout_constraintStart_toStartOf="@+id/heading_desc"
@@ -321,6 +322,9 @@
                     app:trimExpandedText="@string/read_less"
                     app:trimLines="3"
                     app:trimMode="trimModeLine" />
+
+
+
 
                 <com.app.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btn_filter"

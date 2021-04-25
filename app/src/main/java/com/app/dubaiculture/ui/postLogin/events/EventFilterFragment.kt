@@ -31,6 +31,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         super.onActivityCreated(savedInstanceState)
         binding.root.img_filter.setOnClickListener(this)
         binding.root.back.setOnClickListener(this)
+        binding.root.img_search.setOnClickListener(this)
         backArrowRTL(binding.root.back)
 
         subscribeUiEvents(eventViewModel)
@@ -135,6 +136,9 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.img_search ->{
+                eventViewModel._searchBarKeyWord.value = Event(binding.root.editSearchEvents.text.toString())
+            }
             R.id.img_filter -> {
                 navigate(R.id.action_eventFilterFragment_to_filterFragment)
             }

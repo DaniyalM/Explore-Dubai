@@ -64,12 +64,12 @@ class PostCreatePassViewModel @ViewModelInject constructor(
                             val bundle = bundleOf("post" to "postFragment")
                             navigateByAction(R.id.action_postCreatePassFragment_to_passwordUpdatedFragment2,bundle)
                         } else {
-                            showErrorDialog(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
                         }
                     }
                     is com.app.dubaiculture.data.Result.Failure -> {
                         showLoader(false)
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR,colorBg =  R.color.red_600)
                         Timber.e(result.errorCode.toString())
                     }
                     is com.app.dubaiculture.data.Result.Error -> {

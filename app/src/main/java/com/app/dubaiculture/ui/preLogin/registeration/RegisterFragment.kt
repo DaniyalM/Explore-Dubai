@@ -62,7 +62,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
 
         registrationViewModel.isTermAccepted.observe(viewLifecycleOwner){
             if(it==false){
-                registrationViewModel.showErrorDialog(message = resources.getString(R.string._agree_to_the_terms_and_conditions))
+                registrationViewModel.showErrorDialog(message = resources.getString(R.string._agree_to_the_terms_and_conditions),colorBg = R.color.red_600)
             }
         }
 

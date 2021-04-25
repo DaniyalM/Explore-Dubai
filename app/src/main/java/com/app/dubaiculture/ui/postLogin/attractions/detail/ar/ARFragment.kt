@@ -12,6 +12,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentARBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ar.external.*
+import com.app.dubaiculture.utils.Constants.NavBundles.META_DATA_ID
 import com.app.dubaiculture.utils.ProgressDialog
 import com.wikitude.NativeStartupConfiguration
 import com.wikitude.WikitudeSDK
@@ -137,8 +138,8 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering,
                         Log.e("response=>", response.toString())
 
                         val ja = JSONObject(response.metadataString)
-                        val desc = ja.getString("desc")
-                        Log.e("desc", desc.toString())
+                        val id = ja.getString("id")
+                        Log.e("id", id.toString())
 
                         // This needs to be copied since access to the response is invalid after the end of the scope
                         val targetName = response.targetInformationsObject.name
@@ -151,7 +152,7 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering,
                                 "Recognition Success",
                                 Toast.LENGTH_LONG
                             ).show()
-                            val bundle = bundleOf("desc" to desc)
+                            val bundle = bundleOf(META_DATA_ID to id)
                             findNavController().navigate(R.id.action_ARFragment_to_ARDetailFragment,
                                 bundle)
                         }
@@ -170,6 +171,7 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering,
 
                 override fun onError(response: WikitudeError?) {
                     requireActivity().runOnUiThread {
+                        showLoader(false, customProgressDialog)
                         Toast.makeText(
                             requireContext(),
                             "Recognition failed - " + response!!.description,

@@ -10,13 +10,15 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentRegisterNowBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.layout_back.view.*
 
 @AndroidEntryPoint
 class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.OnClickListener{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding!!.btnSubmit.setOnClickListener(this)
+        binding.btnSubmit.setOnClickListener(this)
+        binding.root.back.setOnClickListener(this)
 
     }
 
@@ -26,6 +28,9 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.On
     )= FragmentRegisterNowBinding.inflate(inflater,container,false)
     override fun onClick(v: View?) {
         when(v?.id){
+            R.id.back->{
+                back()
+            }
             R.id.btn_submit->{
                 val bundle = bundleOf(
                     "key" to "RegisterNow"

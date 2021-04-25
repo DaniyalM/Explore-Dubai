@@ -46,7 +46,7 @@
     <!--Login screen-->
   <color name="black_200">#2A2D31</color>
     <color name="orange">#FE6500</color>
-    <color name="disabled">#EFEDED</color>
+    <color name="disabled">#dddddd</color>
 
     <!--    Alert Dialog  -->
     <color name="alert_title">#231F20</color>

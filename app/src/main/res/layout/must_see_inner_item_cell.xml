@@ -47,7 +47,11 @@
             app:layout_constraintBottom_toBottomOf="@+id/card_view_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/card_view_title" />
-
+        <ImageView
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shadow_black"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

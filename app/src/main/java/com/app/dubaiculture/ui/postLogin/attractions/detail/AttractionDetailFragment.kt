@@ -68,7 +68,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     OnMapReadyCallback, View.OnClickListener {
 
     private var url: String? = null
-
+    private var readmore = false
     private val gpsObserver = Observer<GpsStatus> { status ->
         status?.let {
             updateGpsCheckUi(status)
@@ -128,17 +128,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         container: ViewGroup?,
     ) = FragmentAttractionDetailBinding.inflate(inflater, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
         backArrowRTL(binding.root.back)
         backArrowRTL(binding.root.img_back)
         arrowRTL(binding.root.arrow_ibecons)
         arrowRTL(binding.root.arrow_site_map)
-
-
-
         locationPermission()
+        binding.root.tv_desc_readmore.setText(attractionsObj.description)
 
 
         if (!this::contentFlag.isInitialized) {
@@ -184,9 +182,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             attraction.apply {
                 url = audioLink
                 if (!TextUtils.isEmpty(latitude) && !TextUtils.isEmpty(latitude)) {
-                    val distance = locationHelper.distance(lat!!.toDouble(), long!!.toDouble(),
+                    val distance = locationHelper.distance(
+                        lat!!.toDouble(), long!!.toDouble(),
                         latitude!!.toDouble(),
-                        longitude!!.toDouble())
+                        longitude!!.toDouble()
+                    )
                     tv_km.text = "$distance Km Away"
                 }
 
@@ -195,7 +195,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     startActivity(instagramNavigationIntent(activity.packageManager))
                 }
                 groupAdapter.apply {
-                    if (this.itemCount>0){
+                    if (this.itemCount > 0) {
                         this.clear()
                     }
                     events?.let { events ->
@@ -223,15 +223,18 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                         override fun rowClickListener(position: Int) {
                                             navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
                                                 Bundle().apply {
-                                                    putParcelable(Constants.NavBundles.EVENT_OBJECT,
-                                                        it)
+                                                    putParcelable(
+                                                        Constants.NavBundles.EVENT_OBJECT,
+                                                        it
+                                                    )
                                                 })
                                         }
 
                                     },
                                     event = it,
                                     resLayout = R.layout.attraction_detail_up_coming_items,
-                                    activity)
+                                    activity
+                                )
                             )
                         }
                     }
@@ -306,7 +309,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             it.root.back.setOnClickListener(this)
             it.imgBack.setOnClickListener(this)
             it.root.btn_book_a_ticket.setOnClickListener(this)
-            it.root.tv_swipe_up.setOnClickListener(this)
             it.root.downOneAR.setOnClickListener(this)
             it.root.downOne360.setOnClickListener(this)
             it.root.downOneGallery.setOnClickListener(this)
@@ -334,12 +336,14 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             favourite.setOnClickListener {
                 isDetailFavouriteFlag = true
                 attractionsObj.let { attraction ->
-                    favouriteClick(it.favourite,
+                    favouriteClick(
+                        it.favourite,
                         attraction.IsFavourite,
                         R.id.action_attractionDetailFragment_to_postLoginFragment,
                         attraction.id,
                         attractionDetailViewModel,
-                        1)
+                        1
+                    )
                 }
 
             }
@@ -351,12 +355,14 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 isDetailFavouriteFlag = true
 
                 attractionsObj.let { attraction ->
-                    favouriteClick(it.favourite,
+                    favouriteClick(
+                        it.favourite,
                         attraction.IsFavourite,
                         R.id.action_attractionDetailFragment_to_postLoginFragment,
                         attraction.id,
                         attractionDetailViewModel,
-                        1)
+                        1
+                    )
                 }
             }
             toolbarAttractionDetail.share.setOnClickListener {
@@ -397,6 +403,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         mapFragment!!.getMapAsync(this)
 
     }
+
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
             handleRationale = false
@@ -414,33 +421,33 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         long = location.longitude.toString()
 
                         if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
-                                attractionsObj.latitude)
+                                attractionsObj.latitude
+                            )
                         ) {
                             val distance =
-                                locationHelper.distance(lat!!.toDouble(), long!!.toDouble(),
+                                locationHelper.distance(
+                                    lat!!.toDouble(), long!!.toDouble(),
                                     attractionsObj.latitude!!.toDouble(),
-                                    attractionsObj.longitude!!.toDouble())
+                                    attractionsObj.longitude!!.toDouble()
+                                )
                             binding.root.tv_km.text = "$distance Km Away"
                         }
 
                     }
                 },
-//                object : LocationHelper.LocationCallBack {
-//                    override fun getLocationResultCallback(locationResult: LocationResult?) {
-//                        Timber.e("LocationResult ${locationResult!!.lastLocation.latitude}")
-//                    }
-//
-//                },
-
-                activity, locationCallback = locationCallback)
+                activity, locationCallback = locationCallback
+            )
         }
     }
+
     override fun onMapReady(map: GoogleMap?) {
         try {
             val attractionLatLng = LatLng(lat?.toDouble()!!, long?.toDouble()!!)
-            map!!.addMarker(MarkerOptions()
-                .position(attractionLatLng)
-                .icon(fromResource(R.drawable.pin_location)))
+            map!!.addMarker(
+                MarkerOptions()
+                    .position(attractionLatLng)
+                    .icon(fromResource(R.drawable.pin_location))
+            )
                 .title = "Traffic Digital"
             map.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
@@ -452,26 +459,31 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             e.stackTrace
         }
     }
+
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.constLayoutSiteMap->{
+            R.id.constLayoutSiteMap -> {
                 val bundle = Bundle()
-                bundle.putParcelable(Constants.NavBundles.SITE_MAP_OBJ,
-                    attractionsObj.siteMap)
-                navigate(R.id.action_attractionDetailFragment_to_siteMapFragment,bundle)
-
+                bundle.putParcelable(
+                    Constants.NavBundles.SITE_MAP_OBJ,
+                    attractionsObj.siteMap
+                )
+                navigate(R.id.action_attractionDetailFragment_to_siteMapFragment, bundle)
+//                navigateByDirections(AttractionDetailFragmentDirections.actionAttractionDetailFragmentToSiteMapFragment(attractionsObj.siteMap))
             }
-            R.id.constLayoutIbecon->{
+            R.id.constLayoutIbecon -> {
                 val bundle = bundleOf(ATTRACTION_ID to attractionsObj.id)
-                navigate(R.id.action_attractionDetailFragment_to_ibeconFragment,bundle)
-
+                navigate(R.id.action_attractionDetailFragment_to_ibeconFragment, bundle)
+//                navigateByDirections(AttractionDetailFragmentDirections.actionAttractionDetailFragmentToIbeconFragment(attractionsObj.id))
             }
             R.id.img_attraction_speaker -> {
                 if (binding.root.tv_desc_readmore.text.isNotEmpty()) {
-                    textToSpeechEngine.speak(binding.root.tv_desc_readmore.text,
+                    textToSpeechEngine.speak(
+                        binding.root.tv_desc_readmore.text,
                         TextToSpeech.QUEUE_FLUSH,
                         null,
-                        "tts1")
+                        "tts1"
+                    )
                 }
             }
             R.id.ll_ar -> {
@@ -484,15 +496,17 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.ll_360 -> {
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment,
                     Bundle().apply {
-                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj.asset360)
+                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj)
                     })
             }
             R.id.ll_img -> {
                 navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
                     Bundle().apply {
                         attractionsObj?.gallery?.let {
-                            putParcelableArrayList(ATTRACTION_GALLERY_LIST,
-                                it as ArrayList<out Parcelable>)
+                            putParcelableArrayList(
+                                ATTRACTION_GALLERY_LIST,
+                                it as ArrayList<out Parcelable>
+                            )
                         }
                     })
             }
@@ -503,10 +517,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 back()
             }
             R.id.btn_book_a_ticket -> {
-                attractionDetailViewModel.showToast("Book a Ticket")
-            }
-            R.id.tv_swipe_up -> {
-                attractionDetailViewModel.showToast("Swipe up")
+//                attractionDetailViewModel.showToast("Book a Ticket")
             }
             R.id.downOneAR -> {
                 activity.runWithPermissions(
@@ -519,15 +530,17 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.downOne360 -> {
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment,
                     Bundle().apply {
-                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj.asset360)
+                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj)
                     })
             }
             R.id.downOneGallery -> {
                 navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
                     Bundle().apply {
                         attractionsObj.gallery?.let {
-                            putParcelableArrayList(ATTRACTION_GALLERY_LIST,
-                                it as ArrayList<out Parcelable>)
+                            putParcelableArrayList(
+                                ATTRACTION_GALLERY_LIST,
+                                it as ArrayList<out Parcelable>
+                            )
                         }
 
                     })
@@ -540,32 +553,39 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
         }
     }
+
     override fun onPause() {
         textToSpeechEngine.stop()
         super.onPause()
     }
+
     override fun onDestroy() {
         textToSpeechEngine.shutdown()
         super.onDestroy()
     }
+
     private fun updateGpsCheckUi(status: GpsStatus) {
         when (status) {
             is GpsStatus.Enabled -> {
                 locationPermission()
             }
             is GpsStatus.Disabled -> {
-                attractionDetailViewModel.showToast(message = "Please enable Location")
+                attractionDetailViewModel.showToast(message = "Please turn on your location")
             }
         }
     }
+
     private fun locationIsEmpty(location: Location) {
         if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
-                attractionsObj.latitude)
+                attractionsObj.latitude
+            )
         ) {
             val distance =
-                locationHelper.distance(lat!!.toDouble(), long!!.toDouble(),
+                locationHelper.distance(
+                    lat!!.toDouble(), long!!.toDouble(),
                     attractionsObj.latitude!!.toDouble(),
-                    attractionsObj.longitude!!.toDouble())
+                    attractionsObj.longitude!!.toDouble()
+                )
             binding.root.tv_km.text = "$distance Km Away"
         }
     }

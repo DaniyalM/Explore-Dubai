@@ -16,7 +16,7 @@
         android:background="?android:attr/selectableItemBackground">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_10sdp"
@@ -30,8 +30,9 @@
                 android:id="@+id/img_rounded"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:imageViewUrl='@{threesixty.image}'
                 android:scaleType="fitXY" />
+<!--            android:imageViewUrl='@{threesixty.image}'-->
+
 
 
         </com.google.android.material.card.MaterialCardView>

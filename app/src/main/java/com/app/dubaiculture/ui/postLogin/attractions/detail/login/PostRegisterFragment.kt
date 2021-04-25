@@ -76,7 +76,8 @@ class PostRegisterFragment : BaseFragment<FragmentPostRegisterBinding>(),View.On
 
         postRegisterViewModel.isTermAccepted.observe(viewLifecycleOwner){
             if(it==false){
-                postRegisterViewModel.showErrorDialog(message = resources.getString(R.string._agree_to_the_terms_and_conditions))
+                postRegisterViewModel.showErrorDialog(message = resources.getString(R.string._agree_to_the_terms_and_conditions),colorBg = R.color.red_600)
+
             }
         }
     }

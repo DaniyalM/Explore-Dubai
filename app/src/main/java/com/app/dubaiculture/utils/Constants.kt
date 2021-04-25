@@ -49,10 +49,17 @@ object Constants {
         const val BECON_LIST: String = "becon_list"
         const val BECON_OBJECT: String = "becon_object"
         const val SITE_MAP_OBJ: String = "siteMap_obj"
+        const val LOCATION_LAT: String = "location_lat"
+        const val LOCATION_LNG: String = "location_lng"
+        const val META_DATA_ID: String = "meta_data_id"
 
 
     }
+    object IBecons {
+        const val IDENTIFIER: String = "com.flagship.dubaiculture"
+        const val UUID_BECON: String = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
 
+    }
 
     object Links {
         const val TERMS_CONDITIONS: String = "https://uat.weareneomads.com/terms-of-use"
@@ -69,6 +76,11 @@ object Constants {
         const val FESTIVALS = "Festivals"
         const val LIBRARIES = "Libraries"
 
+    }
+    object Colors {
+        const val WHITE: String = "#ffffff"
+        const val SEE_MORE_BLUE: String = "#103667"
+        const val LINK: String = "#267FB7"
     }
 
 }

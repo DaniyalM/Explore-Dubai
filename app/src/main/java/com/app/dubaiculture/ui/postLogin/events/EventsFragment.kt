@@ -25,8 +25,6 @@ import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_MAP_LIST
-import com.app.dubaiculture.utils.Constants.StaticLatLng.LAT
-import com.app.dubaiculture.utils.Constants.StaticLatLng.LNG
 import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
@@ -105,7 +103,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         cardViewRTL()
         setupToolbarWithSearchItems()
         subscribeToGpsListener()
-//        callingObservables()
         subscribeToObservables()
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
@@ -261,6 +258,16 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     it.let {
                         rvSetUp()
 
+                        if (mAdapterMore.itemCount>0){
+                            mAdapterMore.clear()
+                        }
+                        if (mAdapterNear.itemCount>0){
+                            mAdapterNear.clear()
+                        }
+                        if (groupAdapter.itemCount>0){
+                            groupAdapter.clear()
+                        }
+
                         it.value.events!!.forEach {
                             moreList.add(it)
                             mAdapterMore.add(EventListItem<EventItemsBinding>(object :
@@ -384,8 +391,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
                     it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble())
                 it.distance = distance
-                it.currentLat = lat!!
-                it.currentLng = lng!!
+                it.currentLat = lat?:24.8623
+                it.currentLng = lng?:67.0627
                 myList.add(it)
 
             }

@@ -97,17 +97,12 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                     bundle.putParcelable(Constants.NavBundles.BECON_OBJECT, beconObj)
                     navigate(R.id.action_yourJourneyFragment_to_ibeconDescFragment, bundle)
                 }
-
             },
                 ibeconITemsSiteMap = it,
                 resLayout = R.layout.items_your_journey
             ))
         }
-
-
     }
-
-
 
     private fun beconFilter(beconList : ArrayList<IbeconITemsSiteMap>,uuid : String) : ArrayList<IbeconITemsSiteMap>{
         beconList.forEach {

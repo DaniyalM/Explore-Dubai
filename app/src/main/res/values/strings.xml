@@ -36,7 +36,7 @@
     <string name="_email_address">Email address</string>
 
     <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
-    <string name="_agree_to_the_terms_and_conditions">Please select Terms &amp; Condition</string>
+    <string name="_agree_to_the_terms_and_conditions">Please select Terms &amp; Conditions</string>
 
     <string name="register_now">Register Now</string>
     <string name="confirm_password">Enter Confirm password</string>
@@ -76,6 +76,8 @@
     <string name="plan_your_trip">Plan Your Trip</string>
     <string name="view_all">View all</string>
     <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">A One Time Password (OTP) will be sent to your registered email address or mobile number.</string>
+    <string name="_a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">A One Time Password (OTP) will be sent to your registered email address.</string>
+
     <string name="free">FREE</string>
     <string name="confirm">Confirm</string>
     <string name="already_a_member">Already a member?</string>
@@ -124,8 +126,8 @@
     <string name="get_directions">Get Directions</string>
     <string name="description">Description</string>
 
-    <string name="read_more">\n\nRead More </string>
-    <string name="read_less">\n\nRead Less</string>
+    <string name="read_more">\n\nRead More.</string>
+    <string name="read_less">\n\nRead Less.</string>
     <string name="don_t_miss_out_on_any_details">Don’t miss out on any details</string>
     <string name="view_site_map">View Site Map</string>
     <string name="ibeacons">iBeacons</string>
@@ -135,7 +137,7 @@
     <string name="stay_updated">Stay updated</string>
     <string name="what_s_happenings_at_majlis_ghorfat">What’s Happenings at Ghorfat</string>
     <string name="call_us">Call Us</string>
-    <string name="museum">Museum</string>
+    <string name="museum">Museums</string>
     <string name="swipe_up_for_more">Swipe up for more</string>
     <string name="more_events">More Events</string>
     <string name="event_information">Event Information</string>
@@ -177,10 +179,11 @@
     <string name="near_you">Near You</string>
     <string name="recognize">Recognize</string>
     <string name="ar_detail">AR Detail</string>
-    <string name="site_map">Site Map</string>
+    <string name="site_map">Sitemap</string>
     <string name="heritage">Heritage Sites</string>
     <string name="art_gallery">Art Galleries</string>
     <string name="festivals">Festivals</string>
     <string name="libraries">Libraries</string>
+    <string name="view_gallery">View Gallery</string>
 
 </resources>
