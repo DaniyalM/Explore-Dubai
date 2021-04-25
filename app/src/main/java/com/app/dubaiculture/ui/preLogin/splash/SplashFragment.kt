@@ -11,7 +11,6 @@ import com.app.dubaiculture.databinding.FragmentSplashBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_forgot_.view.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -20,8 +19,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     private val splashViewModel: SplashViewModel by viewModels()
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
     ) = FragmentSplashBinding.inflate(inflater, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -37,11 +36,12 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         val user = splashViewModel.getUserIfExists()
         if (user != null) {
             application.auth.user = user
+            splashViewModel.removeUser(user)
 //            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
         }
         findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
 
-        }
+    }
 
 
 }

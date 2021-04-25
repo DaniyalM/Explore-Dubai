@@ -49,6 +49,7 @@
                     android:id="@+id/bg_border_event"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
+                    autoMirrored="true"
                     android:background="@drawable/attraction_bg_icon_with_border"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

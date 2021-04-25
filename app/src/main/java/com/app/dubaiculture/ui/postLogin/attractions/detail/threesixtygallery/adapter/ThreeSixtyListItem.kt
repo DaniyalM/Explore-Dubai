@@ -29,17 +29,10 @@ class ThreeSixtyListItem<T : ViewDataBinding>(
                     rowClickListener?.rowClickListener(position)
                 }
                 viewBinding.threesixty = imageItem
-                glide?.asBitmap()?.load(imageItem.image)?.into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-            //                        panorama.loadImageFromBitmap(resource, VrPanoramaView.Options())
-                     glide.load(resource).centerCrop().into(  viewBinding.imgRounded)
-//                      .setImageBitmap(resource)
-                    }
+                glide?.let {
+                    it.asBitmap().load(imageItem.image).thumbnail(0.1f).centerCrop().into(viewBinding.imgRounded)
 
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                        TODO("Not yet implemented")
-                    }
-                })
+                }
             }
         }
     }

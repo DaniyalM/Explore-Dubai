@@ -58,11 +58,13 @@ fun transformAttractionDetail(attractionResponse: AttractionResponse): Attractio
     transformAttractionDetail(attractionResponse.Result.attraction)
 
 fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attractions(
-    id = attraction.id.toString(),
-    title = attraction.title.toString(),
-    category = attraction.category.toString(),
+    id = attraction.id,
+    title = attraction.title,
+    category = attraction.category,
     locationTitle = attraction.locationTitle,
     location = attraction.location,
+        latitude = attraction.latitude,
+        longitude = attraction.longitude,
     portraitImage = attraction.portraitImage,
     landscapeImage = attraction.landscapeImage,
     description = attraction.description,

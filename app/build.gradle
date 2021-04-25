@@ -12,7 +12,7 @@ def config = rootProject.extensions.getByName("ext")
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
@@ -132,7 +132,7 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
+        dataBinding true
 
     }
 
