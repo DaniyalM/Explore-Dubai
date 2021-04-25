@@ -150,11 +150,9 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
     }
 
     private fun loadVR(image: ThreeSixtyImageItem) {
-        threeSixtyViewModel.showToast(image.title.toString())
         binding.mVrPanoramaSelector.apply {
             providePanorama(activity)
             image.image?.let { initialize(it) }
-            //            attractionsObj.asset360?.let { initialize(it) }
         }
     }
 
