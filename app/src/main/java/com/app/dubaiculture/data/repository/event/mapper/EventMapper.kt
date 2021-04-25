@@ -153,6 +153,8 @@ fun transformFeatureEventList(featureEvents: ArrayList<EventsDTO>): ArrayList<Ev
             longitude = it.longitude,
             latitude = it.latitude,
             isFavourite = it.isFavourite,
+                emailContact = it.emailContact,
+                numberContact = it.numberContact
         )
     } as ArrayList<Events>
 
@@ -223,6 +225,8 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
     location = eventDTO.location,
     longitude = eventDTO.longitude,
     latitude = eventDTO.latitude,
+        emailContact = eventDTO.emailContact,
+        numberContact = eventDTO.numberContact,
     isFavourite = eventDTO.isFavourite,
     socialLink = eventDTO.socialLinks?.let {
         it.map {

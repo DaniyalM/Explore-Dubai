@@ -34,8 +34,7 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                 this.getParcelableArrayList(Constants.NavBundles.BECON_LIST)!!
         }
         //for testing purpose
-//        rvBecons()
-
+        rvBecons()
     }
 
 
@@ -65,7 +64,7 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = groupAdapter
         }
-        beconFilter(beconList,"1234").forEach {
+        beconFilter(beconList,"12345").forEach {
             groupAdapter.add(YourJourneyItems<ItemsYourJourneyBinding>(object : RowClickListener {
                 override fun rowClickListener(position: Int) {
                     val beconObj = beconList[position]

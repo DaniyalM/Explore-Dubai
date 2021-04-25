@@ -80,6 +80,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     val moreEvents = ArrayList<Events>()
     val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
     var isDetailFavouriteFlag = false
+    var emailContact : String? = null
+    var numberContact : String? = null
 
     private lateinit var marker:Marker
 
@@ -162,11 +164,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
         }
         binding.root.ll_callus.setOnClickListener {
-            openDiallerBox("123123123")
+            openDiallerBox( numberContact)
 
         }
         binding.root.ll_email_us.setOnClickListener {
-            openEmailbox("test@gmail.com")
+            openEmailbox(email = emailContact.toString())
         }
         binding.root.imgFb.setOnClickListener {
             getFacebookPage(eventObj.socialLink?.get(0)?.facebookPageLink!!, activity)
@@ -454,6 +456,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         eventViewModel.eventDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
+                    emailContact = it.value.emailContact
+                    numberContact = it.value.numberContact
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)
                     }
@@ -469,7 +473,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             childItemHolder.add(it.eventScheduleItemsSlots as ArrayList<EventScheduleItemsSlots>)
                         }
                     }
-
                     moreEvents.map {
                         groupAdapter.add(EventListItem<EventItemsBinding>(object :
                             FavouriteChecker {
@@ -500,8 +503,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                     R.id.action_eventDetailFragment2_to_eventDetailFragment2,
                                     bundle
                                 )
-
-
                             }
                         }, event = it, resLayout = R.layout.event_items, activity))
                     }

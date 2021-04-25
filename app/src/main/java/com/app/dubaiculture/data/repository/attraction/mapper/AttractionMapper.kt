@@ -74,6 +74,8 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
     endDay = attraction.endDay,
     color = attraction.color,
     IsFavourite = attraction.isFavourite,
+        emailContact = attraction.emailContact,
+        numberContact = attraction.numberContact,
     siteMap = attraction.siteMapDTO?.let {
         SiteMap(
             image = it.image,

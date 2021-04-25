@@ -70,7 +70,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         OnMapReadyCallback, View.OnClickListener {
 
     private var url: String? = null
-
+    var emailContact : String? = null
+    var numberContact : String? = null
     //    private var readmore = false
     private val gpsObserver = Observer<GpsStatus> { status ->
         status?.let {
@@ -303,7 +304,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             when (it) {
                 is Result.Success -> {
                     contentFlag = "ContentLoaded"
-
+                    emailContact = it.value.emailContact
+                    numberContact = it.value.numberContact
                     attractionsObj = it.value
                     initializeDetails(attractionsObj)
                 }
@@ -563,14 +565,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                         it as ArrayList<out Parcelable>
                                 )
                             }
-
                         })
             }
             R.id.ll_call_us -> {
-                openDiallerBox(attractionsObj.number.toString().ifEmpty { "123123123" })
+                openDiallerBox(numberContact!!.ifEmpty { "123123123" })
             }
             R.id.ll_emailus -> {
-                openEmailbox(attractionsObj.email.toString().ifEmpty { "test@gmail.com" })
+                openEmailbox(emailContact!!.ifEmpty { "test@gmail.com" })
             }
         }
     }

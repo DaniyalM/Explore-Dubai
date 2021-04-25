@@ -32,6 +32,8 @@ data class Events(
     var distance: Double = 0.0,
     var currentLat: Double = 0.0,
     var currentLng: Double = 0.0,
+    var emailContact : String? =null,
+    var numberContact : String?=null,
     var socialLink: List<SocialLink>? = emptyList(),
     var eventSchedule: List<EventSchedule>? = emptyList(),
     var relatedEvents: List<Events>? = emptyList(),
