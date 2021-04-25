@@ -41,6 +41,9 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
         }
         //for testing purpose
         rvBecons()
+        if(!beconList.isNullOrEmpty()){
+            binding.count.text = beconList.size.toString()
+        }
     }
 
 
