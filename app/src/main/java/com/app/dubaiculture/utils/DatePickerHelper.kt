@@ -3,6 +3,7 @@ package com.app.dubaiculture.utils
 import android.app.DatePickerDialog
 import android.content.Context
 import android.widget.DatePicker
+import com.app.dubaiculture.R
 import timber.log.Timber
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -13,6 +14,7 @@ class DatePickerHelper(var selectedDate : String?=null , var context:Context ,va
     fun showPicker() {
         val datePickerDialog = DatePickerDialog(
             context,
+            R.style.my_dialog_theme,
             this,
             selectCurrentDate.get(Calendar.YEAR),
             selectCurrentDate.get(Calendar.MONTH),

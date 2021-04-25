@@ -483,58 +483,82 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
+
                 <LinearLayout
-                    android:id="@+id/ll_emailus"
-                    android:layout_width="150dp"
-                    android:layout_height="55dp"
-                    android:foreground="@drawable/custom_ripple_black"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/shape_rounded_purple_border_attraction"
-                    android:elevation="5dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="@+id/heading_contact"
+                    android:id="@+id/contactus"
+                    android:weightSum="3"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
                     app:layout_constraintTop_toBottomOf="@+id/heading_contact">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/ll_emailus"
+                        android:layout_weight="1.3"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/mail_icon"
-                        android:drawablePadding="@dimen/_5sdp"
-                        android:text="@string/email_us"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:textColor="@color/purple_900"
-                        android:textSize="@dimen/_10ssp" />
+                        android:foreground="@drawable/custom_ripple_black"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/shape_rounded_purple_border_attraction"
+                        android:elevation="5dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/heading_contact"
+                        app:layout_constraintTop_toBottomOf="@+id/heading_contact">
+
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/mail_icon"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:text="@string/email_us"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:textColor="@color/purple_900"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="0.3"
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        />
+
+
+                    <LinearLayout
+                        android:layout_weight="1.3"
+                        android:id="@+id/ll_call_us"
+                        android:foreground="@drawable/custom_ripple_black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/shape_rounded_purple_border_attraction"
+                        android:elevation="5dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                        app:layout_constraintEnd_toEndOf="@+id/divider3"
+                       >
+
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/call_icon"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:text="@string/call_us"
+                            android:textColor="@color/purple_900"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:id="@+id/ll_call_us"
-                    android:foreground="@drawable/custom_ripple_black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:background="@drawable/shape_rounded_purple_border_attraction"
-                    android:elevation="5dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-                    app:layout_constraintEnd_toEndOf="@+id/divider3"
-                    app:layout_constraintStart_toEndOf="@+id/ll_emailus"
-                    app:layout_constraintTop_toTopOf="@+id/ll_emailus">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/call_icon"
-                        android:drawablePadding="@dimen/_5sdp"
-                        android:text="@string/call_us"
-                        android:textColor="@color/purple_900"
-                        android:textSize="@dimen/_10ssp" />
-                </LinearLayout>
+
 
 
                 <com.google.android.material.card.MaterialCardView
@@ -545,7 +569,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     app:cardElevation="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/ll_emailus">
+                    app:layout_constraintTop_toBottomOf="@+id/contactus">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -673,7 +697,7 @@
                     android:layout_marginTop="@dimen/_18sdp"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:text="@{attraction.title}"
+                    android:text="@{attraction.events.empty ? `` : attraction.title}"
                     android:textColor="@color/black_200"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintStart_toStartOf="parent"
