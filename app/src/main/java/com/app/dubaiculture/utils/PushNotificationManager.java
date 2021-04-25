@@ -36,7 +36,7 @@ public class PushNotificationManager {
 
     public static void showNotification(Context context, String title, String message, PendingIntent intent) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setStyle(new NotificationCompat.BigTextStyle()

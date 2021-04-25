@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -15,10 +16,11 @@ import com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.adapter.YourJ
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.PushNotificationManager.showNotification
+import com.estimote.coresdk.observation.region.beacon.BeaconRegion
 import com.estimote.coresdk.recognition.packets.Beacon
 import com.estimote.coresdk.service.BeaconManager
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>() {
@@ -35,21 +37,22 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
         subscribeUiEvents(siteMapViewModel)
         arguments?.apply {
             beconList =
-                this.getParcelableArrayList(Constants.NavBundles.BECON_LIST)!!
+                    this.getParcelableArrayList(Constants.NavBundles.BECON_LIST)!!
         }
         //for testing purpose
         rvBecons()
     }
 
 
-
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
     ) = FragmentYourJourneyBinding.inflate(inflater, container, false)
 
     private fun beaconMonitoring() {
         application.beaconManager.apply {
+            this.startRanging(application.region)
+            this.startMonitoring(application.region)
             setRangingListener(BeaconManager.BeaconRangingListener { region, beacons ->
 
                 val nearestBeacon: Beacon = beacons[0]
@@ -57,9 +60,33 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                 nearestBeacon.uniqueKey
                 rvBecons(nearestBeacon.proximityUUID.toString())
             })
+           setMonitoringListener(object : BeaconManager.BeaconMonitoringListener {
+                override fun onEnteredRegion(beaconRegion: BeaconRegion?, beacons: MutableList<Beacon>?) {
+                    Toast.makeText(activity,"Monitoring has been started", Toast.LENGTH_SHORT).show()
+
+                    showNotification(activity,
+                            "Your gate closes in 47 minutes.",
+                            "Current security wait time is 15 minutes, "
+                                    + "and it's a 5 minute walk from security to the gate. "
+                                    + "Looks like you've got plenty of time!",null)
+                }
+
+                override fun onExitedRegion(beaconRegion: BeaconRegion?) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+
+
+
         }
     }
 
+    override fun onPause() {
+        application.beaconManager.stopRanging(application.region)
+        super.onPause()
+    }
 
 
     // for testing purpose
@@ -69,7 +96,7 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = groupAdapter
         }
-        beconFilter(beconList,"12345").forEach {
+        beconFilter(beconList, "12345").forEach {
             groupAdapter.add(YourJourneyItems<ItemsYourJourneyBinding>(object : RowClickListener {
                 override fun rowClickListener(position: Int) {
                     val beconObj = beconList[position]
@@ -79,8 +106,8 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                 }
 
             },
-                ibeconITemsSiteMap = it,
-                resLayout = R.layout.items_your_journey
+                    ibeconITemsSiteMap = it,
+                    resLayout = R.layout.items_your_journey
             ))
         }
     }
@@ -88,12 +115,12 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
 
     // for live scenario
 
-    private fun rvBecons(uuid : String) {
+    private fun rvBecons(uuid: String) {
         binding.rvIbeacons.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = groupAdapter
         }
-        beconFilter(beconList,uuid).forEach {
+        beconFilter(beconList, uuid).forEach {
             groupAdapter.add(YourJourneyItems<ItemsYourJourneyBinding>(object : RowClickListener {
                 override fun rowClickListener(position: Int) {
                     val beconObj = beconList[position]
@@ -102,23 +129,24 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                     navigate(R.id.action_yourJourneyFragment_to_ibeconDescFragment, bundle)
                 }
             },
-                ibeconITemsSiteMap = it,
-                resLayout = R.layout.items_your_journey
+                    ibeconITemsSiteMap = it,
+                    resLayout = R.layout.items_your_journey
             ))
         }
     }
 
-    private fun beconFilter(beconList : ArrayList<IbeconITemsSiteMap>,uuid : String) : ArrayList<IbeconITemsSiteMap>{
+    private fun beconFilter(beconList: ArrayList<IbeconITemsSiteMap>, uuid: String): ArrayList<IbeconITemsSiteMap> {
+
         beconList.forEach {
-            if(it.deviceID == uuid ){
+            if (it.deviceID == uuid) {
                 it.isVisited = true
                 sortedBeconList.add(it)
-            }else{
+            } else {
                 it.isVisited = false
                 sortedBeconList.add(it)
             }
         }
-        sortedBeconList.sortByDescending  {
+        sortedBeconList.sortByDescending {
             it.isVisited
         }
         return sortedBeconList
