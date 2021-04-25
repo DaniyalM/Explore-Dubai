@@ -1,24 +1,18 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.adapter
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import androidx.databinding.ViewDataBinding
-import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.ThreeSixtyImageItem
 import com.app.dubaiculture.databinding.Items360GalleryViewBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
-import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.xwray.groupie.databinding.BindableItem
 
 class ThreeSixtyListItem<T : ViewDataBinding>(
-    private val rowClickListener: RowClickListener? = null,
-    val imageItem: ThreeSixtyImageItem,
-    val resLayout: Int = R.layout.items_360_gallery_view,
-    val glide: RequestManager? = null
+        private val rowClickListener: RowClickListener? = null,
+        val imageItem: ThreeSixtyImageItem,
+        val resLayout: Int = R.layout.items_360_gallery_view,
+        val glide: RequestManager? = null
 ) : BindableItem<T>() {
     override fun bind(viewBinding: T, position: Int) {
 

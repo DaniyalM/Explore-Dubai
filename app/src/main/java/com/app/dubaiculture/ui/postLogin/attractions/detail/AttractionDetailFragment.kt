@@ -67,7 +67,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
-        OnMapReadyCallback, View.OnClickListener {
+        OnMapReadyCallback, View.OnClickListener,AppBarLayout.OnOffsetChangedListener  {
 
     private var url: String? = null
     var emailContact : String? = null
@@ -144,6 +144,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         locationPermission()
         binding.root.tv_desc_readmore.setText(attractionsObj.description)
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing = false
+            callingObservables()
+        }
+
 
         if (!this::contentFlag.isInitialized) {
             rvSetUp()
@@ -157,14 +162,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
     }
-
-
     private fun initializeDetails(attraction: Attractions) {
 
 
         binding.attraction = attraction
         if (this::marker.isInitialized){
-            marker?.let {
+            marker.let {
                 it.position= LatLng(attraction.latitude?.toDouble()
                         ?: lat?.toDouble()!!, attraction.longitude?.toDouble()
                         ?: long?.toDouble()!!)
@@ -257,7 +260,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
         }
     }
-
     private fun callingObservables() {
         attractionsObj.let {
             attractionDetailViewModel.getAttractionDetailsToScreen(
@@ -266,7 +268,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             )
         }
     }
-
     private fun subscribeObservables() {
         attractionDetailViewModel.isFavourite.observe(viewLifecycleOwner) {
             when (it) {
@@ -316,6 +317,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.appbarAttractionDetail
+                .addOnOffsetChangedListener(this)
+    }
+
+
     private fun uiActions() {
         binding.let {
             it.root.ll_ar.setOnClickListener(this)
@@ -341,13 +349,18 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 glide.load(BuildConfig.BASE_URL + attractionsObj.portraitImage)
                         .into(detailImageView)
             }
-            appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
-                    defaultCloseToolbar.visibility = View.VISIBLE
-                } else {
-                    defaultCloseToolbar.visibility = View.GONE
-                }
-            })
+//            appbarAttractionDetail.addOnOffsetChangedListener(this)
+//            appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+//                if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
+//                    defaultCloseToolbar.visibility = View.VISIBLE
+//                    swipeRefreshLayout.isEnabled = false
+//
+//                } else {
+//                    defaultCloseToolbar.visibility = View.GONE
+//                    swipeRefreshLayout.isEnabled = true
+//
+//                }
+//            })
             favourite.setOnClickListener {
                 isDetailFavouriteFlag = true
                 attractionsObj.let { attraction ->
@@ -463,12 +476,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
                 map?.addMarker(
-                MarkerOptions()
-                        .position(attractionLatLng)
-                        .title(
-                                attractionsObj.title
-                        )
-                        .icon(fromResource(R.drawable.pin_location))
+                        MarkerOptions()
+                                .position(attractionLatLng)
+                                .title(
+                                        attractionsObj.title
+                                )
+                                .icon(fromResource(R.drawable.pin_location))
                 )
                 map?.animateCamera(
                         CameraUpdateFactory.newLatLngZoom(
@@ -579,6 +592,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onPause() {
         textToSpeechEngine.stop()
         super.onPause()
+        binding.appbarAttractionDetail.removeOnOffsetChangedListener(this)
+
     }
 
     override fun onDestroy() {
@@ -609,6 +624,18 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             attractionsObj.longitude!!.toDouble()
                     )
             binding.root.tv_km.text = "$distance Km Away"
+        }
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
+            binding.defaultCloseToolbar.visibility = View.VISIBLE
+            binding. swipeRefreshLayout.isEnabled = false
+
+        } else {
+            binding. defaultCloseToolbar.visibility = View.GONE
+            binding. swipeRefreshLayout.isEnabled = true
+
         }
     }
 
