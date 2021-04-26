@@ -203,7 +203,7 @@
             android:id="@+id/action_postLoginFragment_to_postCreatePassFragment"
             app:destination="@id/postCreatePassFragment" />
     </dialog>
-    <fragment
+    <dialog
         android:id="@+id/registerNowFragment"
         tools:layout="@layout/fragment_register_now"
         android:name="com.app.dubaiculture.ui.postLogin.events.detail.registernow.RegisterNowFragment"
@@ -211,7 +211,7 @@
         <action
             android:id="@+id/action_registerNowFragment_to_registrationSuccessFragment2"
             app:destination="@id/registrationSuccessFragment2" />
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/registrationSuccessFragment2"
         tools:layout="@layout/fragment_registeration_success"

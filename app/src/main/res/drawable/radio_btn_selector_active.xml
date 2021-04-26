@@ -5,7 +5,7 @@
     <!-- When selected, use grey -->
 
 
-    <item android:drawable="@drawable/ic_toggle_btn_active"
+    <item android:drawable="@drawable/shape_test_bg"
         android:state_checked="true" />
     <!-- When not selected, use white-->
     <item android:drawable="@drawable/circle_for_toggle"
