@@ -212,7 +212,7 @@
             android:id="@+id/action_registerNowFragment_to_registrationSuccessFragment2"
             app:destination="@id/registrationSuccessFragment2" />
     </dialog>
-    <fragment
+    <dialog
         android:id="@+id/registrationSuccessFragment2"
         tools:layout="@layout/fragment_registeration_success"
 
@@ -225,7 +225,7 @@
             app:popUpTo="@+id/post_login_navigation"
             app:popUpToInclusive="true"
             />
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/registerFragment"
         tools:layout="@layout/fragment_register"
@@ -338,7 +338,7 @@
             android:id="@+id/action_ARFragment_to_ARDetailFragment"
             app:destination="@id/ARDetailFragment" />
     </dialog>
-    <fragment
+    <dialog
         android:id="@+id/ARDetailFragment"
         tools:layout="@layout/fragment_a_r_detail"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ar.detail.ARDetailFragment"
@@ -348,7 +348,7 @@
             android:id="@+id/action_ARDetailFragment_to_attraction_gallery"
             app:destination="@+id/attractionGalleryFragment"
             />
-    </fragment>
+    </dialog>
     <dialog
         android:id="@+id/siteMapFragment"
         tools:layout="@layout/fragment_site_map"
