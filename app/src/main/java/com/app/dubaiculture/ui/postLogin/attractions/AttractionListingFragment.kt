@@ -34,7 +34,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     //    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractionCat: AttractionCategory
 //    private var searchQuery: String = ""
-    private var pageNumber: Int = 0
+    private var pageNumber: Int = 1
     private var pageSize: Int = 3
     private lateinit var attractions: ArrayList<Attractions>
     var contentLoaded = false
@@ -63,8 +63,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         container: ViewGroup?,
     ) = FragmentAttractionListingBinding.inflate(inflater, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
         callingObservables()
@@ -110,7 +110,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                     progressBar.visibility = View.GONE
                     contentLoadMore = true
 
-                    if (pageNumber < 1) {
+                    if (pageNumber == 1) {
                         attractions = it.value as ArrayList<Attractions>
 //                        attractionListScreenAdapter?.attractions = attractions
                         groupAdapter.apply {

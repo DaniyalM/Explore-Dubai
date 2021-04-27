@@ -25,8 +25,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private lateinit var attractionCategorys: List<AttractionCategory>
 
 
-//    private var binding: FragmentAttractionsBinding? = null
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.apply {
@@ -38,9 +36,8 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentAttractionsBinding.inflate(inflater, container, false)
 
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupToolbarWithSearchItems()
         subscribeUiEvents(attractionViewModel)
         callingObservables()
@@ -53,17 +50,13 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     }
 
+
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
         binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary,
             android.R.color.holo_green_dark,
             android.R.color.holo_orange_dark,
             android.R.color.holo_blue_dark)
-//        binding.swipeRefresh.setOnRefreshListener(null)
-//        binding.swipeRefresh.setOnRefreshListener {
-//            callingObservables()
-//            binding.swipeRefresh.isRefreshing = false
-//        }
     }
 
 
@@ -113,11 +106,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.horizontalSelector.positionUpdate(clickCheckerFlag)
-
-    }
 
 
 }

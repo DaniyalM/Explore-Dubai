@@ -42,6 +42,9 @@ class HeaderInterceptor @Inject constructor(private val context: Context,private
                 //second => if logged in then add token as header
                 if (pair.first) {
                     requestBuilder.addHeader("Authorization", "Bearer ${pair.second}")
+                    if (request.header("Guest-Token")!=null){
+                        requestBuilder.removeHeader("Guest-Token")
+                    }
                 } else {
                     if (request.header("Authorization") != null) {
                         requestBuilder.removeHeader("Authorization")
