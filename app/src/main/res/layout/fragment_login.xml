@@ -299,6 +299,74 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--        <RadioGroup-->
+<!--            android:id="@+id/rgToggle"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="43dp"-->
+<!--            android:layout_marginStart="@dimen/_15sdp"-->
+<!--            android:layout_marginTop="@dimen/_30sdp"-->
+<!--            android:layout_marginEnd="@dimen/_15sdp"-->
+<!--            android:background="@drawable/radion_toggle_bg"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/img_logo"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/img_logo"-->
+<!--            >-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/rbEventInfo"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="49dp"-->
+<!--                android:layout_weight="0.3"-->
+<!--                android:background="@drawable/radio_btn_selector_active"-->
+<!--                android:button="@null"-->
+<!--                android:checked="true"-->
+<!--                android:foreground="@drawable/custom_ripple_border"-->
+<!--                android:gravity="center"-->
+<!--                android:singleLine="true"-->
+<!--                android:tag="@string/event_information"-->
+<!--                android:text="@string/event_information"-->
+<!--                android:textColor="@drawable/toggle_selector" />-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/rbSchedule"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="55dp"-->
+<!--                android:layout_weight="0.7"-->
+<!--                android:background="@drawable/radio_btn_selector_active"-->
+<!--                android:button="@null"-->
+<!--                android:foreground="@drawable/custom_ripple_border"-->
+<!--                android:gravity="center"-->
+<!--                android:singleLine="true"-->
+<!--                android:tag="@string/schedule"-->
+<!--                android:text="@string/schedule"-->
+<!--                android:textColor="@drawable/toggle_selector" />-->
+
+<!--        </RadioGroup>-->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -12,6 +12,8 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentARBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ar.external.*
+import com.app.dubaiculture.utils.Constants.AR.CLIENT_TOKEN
+import com.app.dubaiculture.utils.Constants.AR.TARGET_ID
 import com.app.dubaiculture.utils.Constants.NavBundles.META_DATA_ID
 import com.app.dubaiculture.utils.ProgressDialog
 import com.wikitude.NativeStartupConfiguration
@@ -74,8 +76,8 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering,
         startupConfiguration.cameraPosition = CameraSettings.CameraPosition.BACK
         wikitudeSDK!!.onCreate(requireContext(), requireContext(), startupConfiguration)
         cloudRecognitionService = wikitudeSDK!!.trackerManager.createCloudRecognitionService(
-            "74105670de0506eae3bf7d1c8e40c718",
-            "606aaf5457b50a2f48283f9a",
+                CLIENT_TOKEN,
+                TARGET_ID,
             object : CloudRecognitionServiceInitializationCallback {
                 override fun onError(p0: WikitudeError?) {
                     Log.e("Error", "Error")

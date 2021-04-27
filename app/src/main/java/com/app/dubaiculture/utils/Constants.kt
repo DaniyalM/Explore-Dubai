@@ -83,5 +83,8 @@ object Constants {
         const val SEE_MORE_BLUE: String = "#103667"
         const val LINK: String = "#267FB7"
     }
-
+    object AR {
+        const val CLIENT_TOKEN: String = "2e7e1551d007a8adc3346fa48f07b2c7"
+        const val TARGET_ID: String = "60860b2e7c633e71c8d1e5cb"
+    }
 }

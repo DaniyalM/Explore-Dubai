@@ -42,10 +42,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -158,7 +155,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
         }
         binding.root.ll_callus.setOnClickListener {
-            openDiallerBox( numberContact)
+            openDiallerBox(numberContact)
 
         }
         binding.root.ll_email_us.setOnClickListener {
@@ -329,7 +326,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     private fun mapSetUp() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
-
+//        val mapFragment = SupportMapFragment.newInstance(GoogleMapOptions().zOrderOnTop(true))
+//        mapFragment?.getMapAsync(this)
     }
 
     override fun onMapReady(map: GoogleMap?) {
