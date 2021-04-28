@@ -5,49 +5,97 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import androidx.fragment.app.viewModels
-import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.databinding.FragmentAttractionsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
+import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
+import com.app.dubaiculture.utils.handleApiError
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
 
+@AndroidEntryPoint
 class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
+    private lateinit var attractionCategorys: List<AttractionCategory>
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.apply {
+            clickCheckerFlag = getInt(ATTRACTION_CAT_OBJECT)
+
+        }
+    }
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentAttractionsBinding.inflate(inflater, container, false)
 
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-//        setupToolbarWithSearchItems()
-//        subscribeUiEvents(attractionViewModel)
-//        initiatePager()
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupToolbarWithSearchItems()
+        subscribeUiEvents(attractionViewModel)
+        callingObservables()
+        subscribeToObservables()
+        initiatePager()
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+        }
 
     }
+
 
     private fun initiatePager() {
-        binding.pager.adapter = AttractionPagerAdaper(this)
         binding.pager.isUserInputEnabled = false
-        binding.horizontalSelector.initialize(attractionViewModel.getInterests(), binding.pager)
+        binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary,
+            android.R.color.holo_green_dark,
+            android.R.color.holo_orange_dark,
+            android.R.color.holo_blue_dark)
     }
 
 
+    private fun callingObservables() {
+        if (!this::attractionCategorys.isInitialized) {
+            binding.swipeRefresh.post {
+                binding.swipeRefresh.isRefreshing = true
+                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+            }
+        }
+    }
+
     private fun subscribeToObservables() {
+        attractionViewModel.attractionCategoryList.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = false
+
+            when (it) {
+                is Result.Success -> {
+                    it.let { result ->
+                        attractionCategorys = result.value
+                        binding.let {
+                            it.pager.isSaveEnabled = false
+                            it.horizontalSelector.initialize(result.value, binding.pager, this)
+
+                        }
+
+                    }
+                }
+                is Result.Failure -> {
+                    handleApiError(it, attractionViewModel)
+                }
+            }
+        }
 
     }
 
 
     private fun setupToolbarWithSearchItems() {
-        var searchViewVisibility = false
+//        var searchViewVisibility = false
         binding.root.apply {
             profilePic.visibility = View.GONE
             img_drawer.visibility = View.GONE
@@ -55,27 +103,10 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 visibility = View.VISIBLE
                 text = activity.getString(R.string.attractions)
             }
-            search.setOnClickListener {
-                searchViewVisibility = !searchViewVisibility
-                if (searchViewVisibility) {
-                    binding.root.searchView.visibility = View.VISIBLE
-                    toolbar_title.visibility = View.GONE
-                } else {
-                    binding.root.searchView.visibility = View.GONE
-                    toolbar_title.visibility = View.VISIBLE
-                }
-            }
-
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(p0: String?) = true
-                override fun onQueryTextChange(text: String?): Boolean {
-                    text?.let { bus.post(AttractionBusService().SearchTextQuery(it)) }
-                    return true
-                }
-            })
-
         }
     }
+
+
 
 }
 

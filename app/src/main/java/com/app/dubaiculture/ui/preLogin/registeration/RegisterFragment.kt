@@ -34,35 +34,35 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(registrationViewModel)
-        binding.btnRegister.setOnClickListener(this)
-        binding.tvLoginNow.setOnClickListener(this)
-        binding.header.back.setOnClickListener(this)
-        binding.tvTermCondition.setOnClickListener(this)
+        binding!!.btnRegister.setOnClickListener(this)
+        binding!!.tvLoginNow.setOnClickListener(this)
+        binding!!.header.back.setOnClickListener(this)
+        binding!!.tvTermCondition.setOnClickListener(this)
 
-        binding.viewmodel = registrationViewModel
-        lottieAnimationRTL(binding.animationView)
-        backArrowRTL(binding.header.back)
+        binding!!.viewmodel = registrationViewModel
+        lottieAnimationRTL(binding!!.animationView)
+        backArrowRTL(binding!!.header.back)
         if(isArabic()){
                       val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
             spannable.setSpan(
                 ForegroundColorSpan(resources.getColor(R.color.black_200)),
                 0, 10,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            spannable.setSpan(UnderlineSpan(), 10, binding.tvTermCondition.length(), 36)
-            binding.tvTermCondition.text = spannable
+            spannable.setSpan(UnderlineSpan(), 10, binding!!.tvTermCondition.length(), 36)
+            binding!!.tvTermCondition.text = spannable
         }else{
             val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
             spannable.setSpan(
                 ForegroundColorSpan(resources.getColor(R.color.black_200)),
                 0, 14,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            spannable.setSpan(UnderlineSpan(), 15, binding.tvTermCondition.length(), 27)
-            binding.tvTermCondition.text = spannable
+            spannable.setSpan(UnderlineSpan(), 15, binding!!.tvTermCondition.length(), 27)
+            binding!!.tvTermCondition.text = spannable
         }
 
         registrationViewModel.isTermAccepted.observe(viewLifecycleOwner){
             if(it==false){
-                registrationViewModel.showErrorDialog(message = resources.getString(R.string._agree_to_the_terms_and_conditions))
+                registrationViewModel.showErrorDialog(message = resources.getString(R.string._agree_to_the_terms_and_conditions),colorBg = R.color.red_600)
             }
         }
 

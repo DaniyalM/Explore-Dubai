@@ -1,59 +1,49 @@
 package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
-import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
+//import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
+import com.app.dubaiculture.utils.glideInstance
+import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.*
 
 
 class AttractionHeaderItems<T>(
-
-    val displayValue: String,
+        val displayValue: String,
     val data: T,
     var isSelected: Boolean = false,
-    private val selectedTextColor: Int? = null,
-    private val unSelectedTextColor: Int? = null,
-    private val selectedBackground: Drawable? = null,
-    private val unSelectedBackground: Drawable? = null,
-
-    private val selectedInnerImg: Drawable? = null,
-    private val unSelectedInnerImg: Drawable? = null,
-    private val attractionPager: ViewPager2? = null,
+    private val selectedInnerImg: String? = null,
+    private val unSelectedInnerImg: String? = null,
     private val progressListener: AttractionHeaderClick? = null,
+    private val colorBg  : String? =null
+) : BaseAdapter(R.layout.attraction_title_list_item) {
 
-    ) : BaseAdapter(R.layout.attraction_title_list_item) {
 
-
-    private lateinit var view:View
+    private lateinit var view: View
 
 
     override fun initBinding(viewHolder: GroupieViewHolder, position: Int) {
-        view=viewHolder.root
+        view = viewHolder.root
         viewHolder.apply {
 
             root?.let { it ->
                 it.tv_title.text = displayValue
-                it.imgInnerIcon.background = selectedInnerImg
-                isSelected = clickCheckerFlag==position
-
-                renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it.cardview)
-
+                isSelected = clickCheckerFlag == position
+                renderSelection(it.tv_title, it.imgInnerIcon,  it.cardview)
                 it.setOnClickListener {
                     progressListener?.onClick(position)
-
-                    if (clickCheckerFlag==position){
-                        attractionPager?.currentItem = position
-                        it.imgInnerIcon.background = unSelectedInnerImg
-                        isSelected=true
-                        renderSelection(it.tv_title, it.ll_bg, it.imgInnerIcon, it)
+                    if (clickCheckerFlag == position) {
+                        isSelected = true
+                        renderSelection(it.tv_title, it.imgInnerIcon,  it.cardview)
                     }
 
                 }
@@ -66,46 +56,28 @@ class AttractionHeaderItems<T>(
 
 
     private fun renderSelection(
-        textView: TextView, imageView: ImageView, imgInner: ImageView,
-        view: View,
+        textView: TextView,  imgInner: ImageView,
+        view: MaterialCardView,
     ) {
-
-
         if (isSelected) {
-            view.selectorViewChanger.setBackgroundColor(ContextCompat.getColor(view.context,
-                R.color.purple_900))
-            selectedTextColor?.let { color ->
-
-                textView.setTextColor(color)
-            }
-            selectedBackground?.let { drawable ->
-                imageView.background = drawable
-            }
+            view.setCardBackgroundColor(Color.parseColor(colorBg))
+            textView.setTextColor(ContextCompat.getColor(view.context,R.color.white_900))
             selectedInnerImg?.let { drawable ->
-                imgInner.background = drawable
+                imgInner.glideInstance(drawable, true).into(imgInner)
                 imgInner.setColorFilter(ContextCompat.getColor(view.context, R.color.white_900))
             }
 
         } else {
-            view.selectorViewChanger.setBackgroundColor(ContextCompat.getColor(view.context,
+            view.setCardBackgroundColor(ContextCompat.getColor(view.context,
                 R.color.white_900))
-            unSelectedTextColor?.let { color ->
-
-
-                textView.setTextColor(color)
-            }
-            unSelectedBackground?.let { bg ->
-                imageView.background = bg
-            }
+            textView.setTextColor(ContextCompat.getColor(view.context,R.color.gray_700))
             unSelectedInnerImg?.let { drawable ->
-                imgInner.background = drawable
+                imgInner.glideInstance(drawable, true).into(imgInner)
                 imgInner.setColorFilter(ContextCompat.getColor(view.context, R.color.purple_900))
             }
         }
 
     }
-
-
 
 
 }

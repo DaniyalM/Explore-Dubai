@@ -24,6 +24,8 @@
   <!--color on surface (light)-->
   <color name="black_900">#000000</color>
 
+    <color name="black_700">#272727</color>
+
   <color name="red_200">#cf6679</color> <!--Color error (dark)-->
   <color name="red_600">#b00020</color> <!--Color error (light)-->
 
@@ -33,8 +35,11 @@
 
   <color name="gray_800">#707379</color>
   <color name="gray_600">#B7B9BC</color>
+    <color name="gray_700">#6F7377</color>
 
     <color name="green">#78FF1D</color>
+    <color name="map_radius_color">#C8E6E4</color>
+
 
 
     <color name="green_error">#4bb543</color>
@@ -42,7 +47,10 @@
     <!--Login screen-->
   <color name="black_200">#2A2D31</color>
     <color name="orange">#FE6500</color>
-    <color name="disabled">#EFEDED</color>
+    <color name="disabled">#dddddd</color>
+
+    <!--    Alert Dialog  -->
+    <color name="alert_title">#231F20</color>
 
 <!--    Explore Attraction Color Palatte-->
     <string-array name="colors">

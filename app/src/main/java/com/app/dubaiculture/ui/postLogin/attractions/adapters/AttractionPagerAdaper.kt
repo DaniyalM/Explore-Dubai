@@ -2,31 +2,20 @@ package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionListingFragment
-import com.app.dubaiculture.ui.postLogin.events.EventsFragment
-import com.app.dubaiculture.ui.postLogin.more.MoreFragment
 
 class AttractionPagerAdaper(fragment: Fragment) : FragmentStateAdapter(fragment) {
-    override fun getItemCount() = 9
+    private lateinit var list: List<AttractionCategory>
 
-    override fun createFragment(position: Int): Fragment {
 
-        return when (position) {
-            0 -> {
-                AttractionListingFragment.newInstance(type = "Museum")
-            }
-            1 -> {
-
-                AttractionListingFragment.newInstance(type = "Heritage Sites")
-            }
-            2 -> {
-
-                AttractionListingFragment.newInstance(type = "Festivals")
-            }
-            else -> {
-
-                AttractionListingFragment.newInstance(type = "Attractions")
-            }
-        }
+    override fun getItemCount() = list.size
+    fun provideListToPager(list: List<AttractionCategory>) {
+        this.list = list
     }
+
+    override fun createFragment(position: Int) = AttractionListingFragment.newInstance(attractionCat = list.get(position))
+
 }
+
+

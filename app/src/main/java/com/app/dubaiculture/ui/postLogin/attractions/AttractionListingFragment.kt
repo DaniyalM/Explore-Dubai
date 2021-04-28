@@ -2,23 +2,60 @@ package com.app.dubaiculture.ui.postLogin.attractions
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.CheckBox
 import androidx.fragment.app.viewModels
-import com.app.dubaiculture.databinding.AttractionTitleListItemBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionBusService
+import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
-import com.squareup.otto.Subscribe
-import kotlinx.android.synthetic.main.fragment_attraction_listing.view.*
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.handleApiError
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_attraction_listing.*
 
+
+@AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
 
-    private var attractionCategoryTag: String = ""
-    private var searchQuery: String = ""
+    //    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
+    private lateinit var attractionCat: AttractionCategory
+//    private var searchQuery: String = ""
+    private var pageNumber: Int = 1
+    private var pageSize: Int = 3
+    private lateinit var attractions: ArrayList<Attractions>
+    var contentLoaded = false
+    var contentLoadMore = true
+
+
+    companion object {
+
+        @JvmStatic
+        fun newInstance(attractionCat: AttractionCategory) = AttractionListingFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(Constants.NavBundles.ATTRACTION_CAT_OBJECT, attractionCat)
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isPagerFragment = true
+//        contentLoaded = true
+    }
 
 
     override fun getFragmentBinding(
@@ -26,41 +63,188 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         container: ViewGroup?,
     ) = FragmentAttractionListingBinding.inflate(inflater, container, false)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        subscribeUiEvents(attractionViewModel)
+        initRecyclerView()
+        callingObservables()
+        subscribeToObservables()
+    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        binding.fragName.text=attractionCategoryTag
+    private fun callingObservables() {
+        if (!contentLoaded) {
+            progressBar.visibility = View.VISIBLE
 
+            attractionCat.id?.let {
+                attractionViewModel.getAttractionThroughCategory(it,
+                    pageNumber,
+                    pageSize,
+                    getCurrentLanguage().language)
+                contentLoaded = true
+            }
+
+        }
+
+    }
+
+
+    private fun subscribeToObservables() {
+        attractionViewModel.isFavourite.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    if (TextUtils.equals(it.value.Result.message, "Added")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                    }
+                    if (TextUtils.equals(it.value.Result.message, "Deleted")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+                    }
+                }
+                is Result.Failure -> handleApiError(it, attractionViewModel)
+            }
+        }
+        attractionViewModel.attractionList.observe(viewLifecycleOwner) {
+
+            when (it) {
+
+                is Result.Success -> {
+                    progressBar.visibility = View.GONE
+                    contentLoadMore = true
+
+                    if (pageNumber == 1) {
+                        attractions = it.value as ArrayList<Attractions>
+//                        attractionListScreenAdapter?.attractions = attractions
+                        groupAdapter.apply {
+                            attractions.forEach {
+                                add(AttractionListItem<AttractionListItemCellBinding>(
+                                    favChecker = object : FavouriteChecker {
+                                        override fun checkFavListener(
+                                            checkbox: CheckBox,
+                                            pos: Int,
+                                            isFav: Boolean,
+                                            itemId: String,
+                                        ) {
+                                            favouriteClick(
+                                                checkbox,
+                                                isFav,
+                                                R.id.action_attractionsFragment_to_postLoginFragment,
+                                                itemId, attractionViewModel,
+                                               1
+                                            )
+                                        }
+                                    },
+                                    rowClickListener = object : RowClickListener {
+                                        override fun rowClickListener(position: Int) {
+                                            navigate(R.id.action_attractionsFragment_to_attractionDetailFragment,
+                                                Bundle().apply {
+                                                    putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
+                                                        it)
+                                                })
+                                        }
+                                    },
+                                    attraction = it,
+                                    context = activity
+
+                                ))
+                            }
+                        }
+
+                    } else {
+                        if (it.value.isEmpty()) {
+                            pageNumber -= 1
+                        } else {
+                            groupAdapter.apply {
+                                it.value.forEach {
+                                    attractions.add(it)
+                                    add(AttractionListItem<AttractionListItemCellBinding>(
+                                        favChecker = object : FavouriteChecker {
+                                            override fun checkFavListener(
+                                                checkbox: CheckBox,
+                                                pos: Int,
+                                                isFav: Boolean,
+                                                itemId: String,
+                                            ) {
+                                                favouriteClick(
+                                                    checkbox,
+                                                    isFav,
+                                                    R.id.action_attractionsFragment_to_postLoginFragment,
+                                                    itemId, attractionViewModel,
+                                                    1
+                                                )
+                                            }
+
+                                        },
+                                        rowClickListener = object : RowClickListener {
+                                            override fun rowClickListener(position: Int) {
+                                                navigate(R.id.action_attractionsFragment_to_attractionDetailFragment,
+                                                    Bundle().apply {
+                                                        putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
+                                                            it)
+                                                    })
+                                            }
+                                        },
+                                        attraction = it,
+                                        context = activity))
+                                }
+                            }
+//                            attractionListScreenAdapter?.attractions = attractions
+                        }
+                    }
+                }
+                is Result.Failure -> {
+                    progressBar.visibility = View.GONE
+                    handleApiError(it, attractionViewModel)
+                }
+
+            }
+
+        }
+    }
+
+
+    private fun initRecyclerView() {
+
+        var pastVisiblesItems: Int
+        var visibleItemCount: Int
+        var totalItemCount: Int
+//        attractionListScreenAdapter = AttractionListScreenAdapter()
+        binding.rvAttractionListing.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = groupAdapter
+
+            this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (contentLoaded) {
+                        if (dy > 0) { //check for scroll down
+                            (layoutManager as LinearLayoutManager).apply {
+                                visibleItemCount = this.getChildCount()
+                                totalItemCount = this.getItemCount()
+                                pastVisiblesItems = this.findFirstVisibleItemPosition()
+                            }
+
+
+                            if (contentLoadMore) {
+                                if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                                    contentLoadMore = false
+                                    contentLoaded = false
+                                    pageNumber += 1
+                                    callingObservables()
+                                    // Do pagination.. i.e. fetch new data
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+
+        }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.getString(ATTRACTION_CATEG0RY_TYPE)?.let {
-            attractionCategoryTag=it
-        }
-
-    }
-
-    @Subscribe
-    fun onSearchTextQueryChange(updatedText: AttractionBusService.SearchTextQuery) {
-        searchQuery=updatedText.text
-    }
-
-
-    companion object {
-
-        var ATTRACTION_CATEG0RY_TYPE: String = "AttractionsCategory"
-
-        @JvmStatic
-        fun newInstance(type: String) = AttractionListingFragment().apply {
-            arguments = Bundle().apply {
-                putString(ATTRACTION_CATEG0RY_TYPE, type)
-            }
+        arguments?.apply {
+            attractionCat = getParcelable(Constants.NavBundles.ATTRACTION_CAT_OBJECT)!!
         }
     }
-
-    private fun subscribeToObservable(){
-
-    }
-
 }

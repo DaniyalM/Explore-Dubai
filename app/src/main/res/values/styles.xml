@@ -12,6 +12,20 @@
     </style>
 
 
+
+    <style name="FullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+
+    </style>
+
+
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/LoginLayoutSuccessColor</item>
         <item name="boxStrokeWidth">2dp</item>
@@ -188,6 +202,24 @@
         <item name="selectedBackground1">@color/purple_900</item>
         <item name="selectedTextColor1">@color/white_900</item>
         <item name="unSelectedBackground1">@color/white_900</item>
-        <item name="unSelectedTextColor1">@color/purple_900</item>
+        <item name="unSelectedTextColor1">@color/gray_700</item>
+    </style>
+
+    <style name="SubmitButtonFilled">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_btn_filled</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="cb_textFont">bold</item>
+        <item name="cb_type">filled</item>
+    </style>
+    <style name="SubmitButtonOutLined" parent="SubmitButtonFilled">
+        <item name="android:background">@drawable/bg_btn_outlined</item>
+        <item name="android:textColor">@color/purple_900</item>
+        <item name="cb_type">outlined</item>
     </style>
 </resources>

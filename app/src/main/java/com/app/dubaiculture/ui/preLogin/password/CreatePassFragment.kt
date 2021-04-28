@@ -18,15 +18,15 @@ class CreatePassFragment : BaseFragment<FragmentCreatePassBinding>(),View.OnClic
     private var verificationCode : String?= null
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.viewmodel = createPassViewModel
-        lottieAnimationRTL(binding.animationView)
+        binding!!.viewmodel = createPassViewModel
+        lottieAnimationRTL(binding!!.animationView)
         subscribeUiEvents(createPassViewModel)
-        backArrowRTL(binding.imgClose)
+        backArrowRTL(binding!!.imgClose)
         arguments?.let {             verificationCode = it.getString("verificationCode") }
-        binding.btnSetPassword.setOnClickListener {
+        binding!!.btnSetPassword.setOnClickListener {
             createPassViewModel.setPassword(verificationCode)
         }
-        binding.imgClose.setOnClickListener(this)
+        binding!!.imgClose.setOnClickListener(this)
     }
 
     override fun getFragmentBinding(

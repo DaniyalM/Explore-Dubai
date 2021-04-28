@@ -5,13 +5,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 
-abstract class BaseRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val diffCallback = object : DiffUtil.ItemCallback<BaseModel>() {
-        override fun areItemsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean {
-            return oldItem.id == newItem.id
+abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<T>() {
+        override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
+            return oldItem.hashCode() == newItem.hashCode()
         }
 
-        override fun areContentsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean {
+        override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }

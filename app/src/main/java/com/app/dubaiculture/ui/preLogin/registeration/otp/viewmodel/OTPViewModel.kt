@@ -173,7 +173,8 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                             timer.start()
                             showToast(result.value.confirmOTPResponseDTO.message.toString())
                         }else{
-                            showToast(result.value.errorMessage)
+//                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg = R.color.red_600)
                         }
                     }
                     is Result.Failure -> {

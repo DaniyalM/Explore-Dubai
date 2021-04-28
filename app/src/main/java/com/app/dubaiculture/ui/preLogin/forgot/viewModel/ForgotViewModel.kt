@@ -7,12 +7,12 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.forgot.ForgotRepository
 import com.app.dubaiculture.data.repository.forgot.remote.request.ForgotRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.forgot.ForgotFragmentDirections
-import com.app.dubaiculture.ui.preLogin.registeration.RegisterFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
 import kotlinx.coroutines.launch
@@ -54,12 +54,12 @@ class ForgotViewModel @ViewModelInject constructor(private val forgotRepository:
                         if(result.value.succeeded){
                             showLoader(false)
                             Timber.e(result.value.forgotResponseDTO.verificationCode)
-                            showToast(result.value.forgotResponseDTO.message.toString())
+                            showErrorDialog(message = result.value.forgotResponseDTO.message.toString())
                             navigateByDirections(ForgotFragmentDirections.actionForgotFragmentToBottomSheet(
                                 result.value.forgotResponseDTO.verificationCode,"forgotfragment"
                             ))
                         }else{
-                            showErrorDialog(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
                         }
                     }
                     is Result.Error->{

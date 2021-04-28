@@ -2,34 +2,72 @@ package com.app.dubaiculture.ui.postLogin
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_post_login.*
 import timber.log.Timber
 
-//,
-//OnStreetViewPanoramaReadyCallback
 @AndroidEntryPoint
 class PostLoginActivity : BaseAuthenticationActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
-//    private lateinit var streetViewPanoramaFragment: SupportStreetViewPanoramaFragment
 
-//    private fun showStreetView() {
-//        streetViewPanoramaFragment =
-//            supportFragmentManager
-//                .findFragmentById(R.id.streetViewFragment) as SupportStreetViewPanoramaFragment
-//        streetViewPanoramaFragment.let {
-//            it.getStreetViewPanoramaAsync(this)
-//        }
-//
-//    }
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
+        applicationEntry.auth.locale = getCurrentLanguage().language
+        this.window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         subscribeUiEvents(mainViewModel)
+        setupViews()
+
+
+
+    }
+
+    private fun setupViews() {
+//        val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+//        navController = Navigation.findNavController(fragmentContainer)
+        bottomNav.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when (destination.id) {
+                R.id.threeSixtyFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
+                R.id.registrationSuccessFragment2 -> {
+                    bottomNav.visibility = View.GONE
+                }
+                R.id.ARFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
+                R.id.siteMapFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
+                R.id.ibeconFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
+                else -> {
+                    bottomNav.visibility = View.VISIBLE
+
+                }
+            }
+
+
+        }
 
     }
 
@@ -37,104 +75,32 @@ class PostLoginActivity : BaseAuthenticationActivity() {
         super.onStart()
         Timber.e("Start")
     }
+
     override fun onRestart() {
         super.onRestart()
         Timber.e("Restart")
     }
+
     override fun onResume() {
         super.onResume()
-        adjustFontScale(getResources().getConfiguration());
+        adjustFontScale(resources.configuration)
 
     }
 
 
-    open fun adjustFontScale(configuration: Configuration) {
+    private fun adjustFontScale(configuration: Configuration) {
         if (configuration.fontScale > 1.30) {
             configuration.fontScale = 1.30f
             val metrics = resources.displayMetrics
             val wm = getSystemService(WINDOW_SERVICE) as WindowManager?
             wm!!.defaultDisplay.getMetrics(metrics)
             metrics.scaledDensity = configuration.fontScale * metrics.density
-            this.getResources().updateConfiguration(configuration, metrics)
+            this.resources.updateConfiguration(configuration, metrics)
         }
     }
 
 
-//    override fun onStreetViewPanoramaReady(streetViewPanorama: StreetViewPanorama) {
-////        val sanFrancisco = LatLng(37.754130, -122.447129)
-////        streetViewPanorama.setPosition(sanFrancisco)
-//        newView()
-////        setLocationOfThePanorama(streetViewPanorama)
-//
-//        zoom(streetViewPanorama)
-//        tilt(streetViewPanorama)
-//        animate(streetViewPanorama)
-//    }
-
-//    private fun newView() {
-//        val sanFrancisco = LatLng(37.754130, -122.447129)
-//        val view = StreetViewPanoramaView(
-//            this,
-//            StreetViewPanoramaOptions().position(sanFrancisco)
-//        )
-//    }
-
-//    private fun setLocationOfThePanorama(streetViewPanorama: StreetViewPanorama) {
-//        val sanFrancisco = LatLng(37.754130, -122.447129)
-//
-//        // Set position with LatLng only.
-//        streetViewPanorama.setPosition(sanFrancisco)
-//
-//        // Set position with LatLng and radius.
-//        streetViewPanorama.setPosition(sanFrancisco, 20)
-//
-//        // Set position with LatLng and source.
-//        streetViewPanorama.setPosition(sanFrancisco, StreetViewSource.OUTDOOR)
-//
-//        // Set position with LaLng, radius and source.
-//        streetViewPanorama.setPosition(sanFrancisco, 20, StreetViewSource.OUTDOOR)
-//
-//        streetViewPanorama.location.links.firstOrNull()?.let { link: StreetViewPanoramaLink ->
-//            streetViewPanorama.setPosition(link.panoId)
-//        }
-//    }
-
-//    private fun zoom(streetViewPanorama: StreetViewPanorama) {
-//        val zoomBy = 0.5f
-//        val camera = StreetViewPanoramaCamera.Builder()
-//            .zoom(streetViewPanorama.panoramaCamera.zoom + zoomBy)
-//            .tilt(streetViewPanorama.panoramaCamera.tilt)
-//            .bearing(streetViewPanorama.panoramaCamera.bearing)
-//            .build()
-//    }
-//
-//    private fun pan(streetViewPanorama: StreetViewPanorama) {
-//        val panBy = 30f
-//        val camera = StreetViewPanoramaCamera.Builder()
-//            .zoom(streetViewPanorama.panoramaCamera.zoom)
-//            .tilt(streetViewPanorama.panoramaCamera.tilt)
-//            .bearing(streetViewPanorama.panoramaCamera.bearing - panBy)
-//            .build()
-//    }
-//
-//    private fun tilt(streetViewPanorama: StreetViewPanorama) {
-//        var tilt = streetViewPanorama.panoramaCamera.tilt + 30
-//        tilt = if (tilt > 90) 90f else tilt
-//        val previous = streetViewPanorama.panoramaCamera
-//        val camera = StreetViewPanoramaCamera.Builder(previous)
-//            .tilt(tilt)
-//            .build()
-//    }
-//
-//    private fun animate(streetViewPanorama: StreetViewPanorama) {
-//        // Keeping the zoom and tilt. Animate bearing by 60 degrees in 1000 milliseconds.
-//        val duration: Long = 1000
-//        val camera = StreetViewPanoramaCamera.Builder()
-//            .zoom(streetViewPanorama.panoramaCamera.zoom)
-//            .tilt(streetViewPanorama.panoramaCamera.tilt)
-//            .bearing(streetViewPanorama.panoramaCamera.bearing - 60)
-//            .build()
-//        streetViewPanorama.animateTo(camera, duration)
-//    }
-
 }
+
+
+

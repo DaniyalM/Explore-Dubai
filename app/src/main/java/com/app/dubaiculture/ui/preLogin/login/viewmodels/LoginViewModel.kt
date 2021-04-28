@@ -12,6 +12,8 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
+import com.app.dubaiculture.data.repository.user.local.User
+import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
@@ -37,7 +39,7 @@ class LoginViewModel @ViewModelInject constructor(
     val isPhoneEdit = MutableLiveData<Boolean?>(true)
     val isEmailEdit = MutableLiveData<Boolean?>(true)
 
-    val isPassword = MutableLiveData<Boolean?>(true)
+    val isPassword = MutableLiveData(true)
 
     //boolean for checking typing email or number
     val isLoginWithPhone = MutableLiveData<Boolean?>(false)
@@ -59,22 +61,23 @@ class LoginViewModel @ViewModelInject constructor(
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
 
-//    if (!result.value.isConfirmed) {
-//        if(phone.get().toString().startsWith("+")){
-//            resendPhoneVerification()
-//        }else{
-//            Timber.e(result.value.loginResponseDTO.userDTO.Email)
-//            userRepository.saveUser(
-//                userDTO = result.value.loginResponseDTO.userDTO,
-//                loginResponseDTO = result.value.loginResponseDTO)
-//
-//            _loginStatus.value = Event(true)
-//        }
-//    } else {
-//        showLoader(false)
-//        showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
-//
-//    }
+    private val _user: MutableLiveData<User> = MutableLiveData()
+    val user: LiveData<User> = _user
+
+    fun getUserIfExists() {
+
+        viewModelScope.launch {
+            userRepository.getLastUser()?.let {
+                _user.value=it
+            }
+        }
+    }
+    fun removeUser(user: User) {
+        viewModelScope.launch {
+            userRepository.deleteUser(user)
+        }
+    }
+
 
     fun loginWithPhone(ph: String? = null, pass: String? = null) {
         viewModelScope.launch {
@@ -92,6 +95,10 @@ class LoginViewModel @ViewModelInject constructor(
                                 resendPhoneVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
+
+                                setUser(transform(result.value.loginResponseDTO.userDTO,
+                                    result.value.loginResponseDTO))
+
                                 userRepository.saveUser(
                                     userDTO = result.value.loginResponseDTO.userDTO,
                                     loginResponseDTO = result.value.loginResponseDTO)
@@ -140,6 +147,9 @@ class LoginViewModel @ViewModelInject constructor(
                                 resendEmailVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
+                                setUser(transform(result.value.loginResponseDTO.userDTO,
+                                    result.value.loginResponseDTO))
+
                                 userRepository.saveUser(
                                     userDTO = result.value.loginResponseDTO.userDTO,
                                     loginResponseDTO = result.value.loginResponseDTO
@@ -148,7 +158,8 @@ class LoginViewModel @ViewModelInject constructor(
                             }
                         } else {
                             showLoader(false)
-                            showErrorDialog(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+
 
                         }
                     }
@@ -188,8 +199,9 @@ class LoginViewModel @ViewModelInject constructor(
 
                         } else {
                             showLoader(false)
-                            if(result.value.errorMessage.isNullOrEmpty()){
-                                showErrorDialog(message = result.value.errorMessage)}
+                            if (result.value.errorMessage.isNullOrEmpty()) {
+                                showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+                            }
 
 
                         }
@@ -228,7 +240,8 @@ class LoginViewModel @ViewModelInject constructor(
                                 screenName = COMES_FROM_LOGIN))
 
                         } else {
-                            showErrorDialog(message = result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+
                         }
                     }
                     is Result.Error -> {

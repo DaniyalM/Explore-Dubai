@@ -1,16 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.21"
+    ext.kotlin_version = "1.4.32"
     repositories {
         google()
         jcenter()
+        maven {
+            url 'https://cdn.wikitude.com/sdk/maven'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:4.1.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:2.28.3-alpha"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.3"
-        //        classpath 'com.google.gms:google-services:4.3.3'
+//        classpath "com.google.dagger:hilt-android-gradle-plugin:2.28.3-alpha"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.33-beta"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
+        classpath 'com.google.gms:google-services:4.3.5'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -22,6 +26,9 @@ allprojects {
         google()
         jcenter()
         maven { url "http://jitpack.io/" }
+        maven {
+            url 'https://cdn.wikitude.com/sdk/maven'
+        }
     }
 }
 
@@ -48,10 +55,13 @@ ext {
     navFragment = "2.3.3"
     navKtx = "2.3.3"
     activityKtx = "1.1.0"
-    hilt = "2.28-alpha"
+//    hilt = "2.28-alpha"
+    hilt = "2.33-beta"
     hiltLifeCycleVM = "1.0.0-alpha02"
+//    hiltCompiler = "1.0.0-alpha02"
     hiltCompiler = "1.0.0-alpha02"
-    hiltDagger = "2.28-alpha"
+//    hiltDagger = "2.28-alpha"
+    hiltDagger = "2.33-beta"
     timber = "4.7.1"
     dataStorePref = "1.0.0-alpha02"
     otto = "1.3.8"
@@ -72,12 +82,9 @@ ext {
     google_location_version = "17.1.0"
     google_maps_version = "17.0.0"
     image_crop_api_version = "2.8.0"
-    pinviewversion="2.0.3"
-    glideToVectorYouVersion="v2.0.0"
-    roundedimageviewVersion="0.8.4"
-
-
-
+    pinviewversion = "2.0.3"
+    glideToVectorYouVersion = "v2.0.0"
+    roundedimageviewVersion = "0.8.4"
 
 
     commonDependency = [
@@ -113,7 +120,7 @@ ext {
     image_processing = [
             glide        : "com.github.bumptech.glide:glide:${glide}",
             glideCompiler: "com.github.bumptech.glide:compiler:${glide}",
-            glideToSvg: "com.github.corouteam:GlideToVectorYou:${glideToVectorYouVersion}"
+            glideToSvg   : "com.github.corouteam:GlideToVectorYou:${glideToVectorYouVersion}"
     ]
     logs = [
             timber: "com.jakewharton.timber:timber:${timber}"
@@ -145,6 +152,7 @@ ext {
     ui_design = [
             materialDesign  : "com.google.android.material:material:${materialDesign}",
             complexRv       : "com.xwray:groupie:${complexRv}",
+            complexRvBinding: "com.xwray:groupie-databinding:${complexRv}",
             viewPager2      : "androidx.viewpager2:viewpager2:${viewPager2}",
             constraintLayout: "androidx.constraintlayout:constraintlayout:${constraintlayout}",
             lottieViews     : "com.airbnb.android:lottie:${lottieVersion}",
@@ -166,7 +174,7 @@ ext {
     google = [
             //location
             location_google: "com.google.android.gms:play-services-location:${google_location_version}",
-            map_google: "com.google.android.gms:play-services-maps:${google_maps_version}"
+            map_google     : "com.google.android.gms:play-services-maps:${google_maps_version}"
     ]
 
     media_libraries = [
@@ -174,6 +182,6 @@ ext {
     ]
 
     otp = [
-            otpview_library:"com.github.mukeshsolanki:android-otpview-pinview:${pinviewversion}"
+            otpview_library: "com.github.mukeshsolanki:android-otpview-pinview:${pinviewversion}"
     ]
 }

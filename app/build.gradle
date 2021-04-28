@@ -2,20 +2,28 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-//apply plugin: 'com.google.gms.google-services'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 def config = rootProject.extensions.getByName("ext")
 
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
 
 
     defaultConfig {
         applicationId "com.app.dubaiculture"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -80,6 +88,7 @@ android {
         stag {
             applicationIdSuffix ".stag"
             minifyEnabled false
+            shrinkResources false
             debuggable true
             buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
@@ -88,7 +97,7 @@ android {
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
             signingConfig signingConfigs.stagConfig
 
-//            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
+//            buildConfigField("String", "BASE_URL", "\"https://a04f708a-3b9c-41a5-bc03-1450f93ba4a1.mock.pstmn.io/\"")
 
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
@@ -123,7 +132,7 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
+        dataBinding true
 
     }
 
@@ -138,6 +147,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.firebase:firebase-messaging:21.1.0'
     //Databinding Compiler
     kapt config.commonDependency.dataBinding
     //RetroFit Networking
@@ -160,6 +170,8 @@ dependencies {
     implementation config.ui_design.materialDesign
     //Complex RecyclerViews
     implementation config.ui_design.complexRv
+    //Complex RecyclerViews
+    implementation config.ui_design.complexRvBinding
     //viewPager_2
     implementation config.ui_design.viewPager2
     //ConstraintLayout
@@ -233,11 +245,56 @@ dependencies {
         // for edit mask
 
     //lib phone
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.18'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.19'
     implementation 'com.balysv:material-ripple:1.0.2'
 //    implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
 
     //recycler Animation
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
     implementation 'com.tapadoo.android:alerter:7.0.1'
+    implementation 'com.google.android:flexbox:2.0.1'
+//    implementation 'com.github.devendroid:ReadMoreOption:1.0.2'
+
+
+    //Google Map
+    implementation "com.google.android.gms:play-services-maps:17.0.0"
+
+    //location Related Work
+    implementation config.google.location_google
+    implementation 'q.rorbin:badgeview:1.1.3'
+    implementation 'com.daimajia.androidanimations:library:2.4@aar'
+
+//    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation "com.xwray:groupie-databinding:2.7.0"
+
+
+    implementation 'com.google.vr:sdk-audio:1.160.0'
+    implementation 'com.google.vr:sdk-panowidget:1.180.0'
+    implementation 'com.google.vr:sdk-base:1.160.0'
+
+    // wikitude
+    implementation 'com.wikitude:native:9.6.0'
+
+
+    //photo view
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    //Blurry
+    implementation 'jp.wasabeef:blurry:4.0.0'
+
+
+    //beacon
+
+    implementation 'com.estimote:sdk:1.0.12'
+
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:26.6.0')
+//    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.9'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
+//    implementation "androidx.fragment:fragment-ktx:1.3.2"
+
 }

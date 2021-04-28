@@ -26,21 +26,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        bottomNavigationView = binding.bottomNav
+        bottomNavigationView = binding!!.bottomNav
         initBottomNavigation()
-//        initViewPager()
+        initViewPager()
     }
 
     private fun initBottomNavigation(){
-        binding.pager.adapter = HomePagerAdapter(this)
-        binding.pager.isUserInputEnabled = false
-//        binding.bottomNav.setupWithViewPager(binding.pager as ViewPager)
+        binding!!.pager.adapter = HomePagerAdapter(this)
+        binding!!.pager.isUserInputEnabled = false
+//        binding!!.bottomNav.setupWithViewPager(binding!!.pager as ViewPager)
         bottomNavigationView?.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_explore -> binding.pager.setCurrentItem(0)
-                R.id.action_events -> binding.pager.setCurrentItem(1)
-                R.id.action_forums -> binding.pager.setCurrentItem(2)
-                else -> binding.pager.setCurrentItem(3)
+//                R.id.action_explore -> binding!!.pager.currentItem = 0
+//                R.id.action_events -> binding!!.pager.currentItem = 1
+//                R.id.action_forums -> binding!!.pager.currentItem = 2
+                else -> binding!!.pager.currentItem = 3
             }
             true
         }
@@ -51,14 +51,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
 
 //        TabLayoutMediator(
-//            binding.tabLayout, binding.pager
+//            binding!!.tabLayout, binding!!.pager
 //        ) { tab: TabLayout.Tab, position: Int ->
 //            val tabDetail = homeViewModel.tabDetails[position]
 //            tab.text = getString(tabDetail.first)
 //            tab.icon = ResourcesCompat.getDrawable(resources, tabDetail.second, null)
 //        }.attach()
 //
-//        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+//        binding!!.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 //            override fun onTabSelected(tab: TabLayout.Tab?) {
 //            }
 //
@@ -68,7 +68,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 //            override fun onTabReselected(tab: TabLayout.Tab?) {
 //                tab?.apply {
 //                    val f = childFragmentManager.findFragmentByTag(
-//                        "f" + (binding.pager.adapter as HomePagerAdapter).getItemId(this.position)
+//                        "f" + (binding!!.pager.adapter as HomePagerAdapter).getItemId(this.position)
 //                    )//f0,f1,f2,f3,....
 //                    if (f != null) {
 //                        if (this.position == 0) {

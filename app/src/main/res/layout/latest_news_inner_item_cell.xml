@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
     <data>
-        <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>
+<!--        <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
+        <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.LatestNews"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_60sdp"
         android:layout_width="@dimen/_265sdp"
         android:layout_height="@dimen/_125sdp">
     <com.google.android.material.card.MaterialCardView

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="attraction"
+            type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
+    </data>
+
+    <merge>
+
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarAttractionDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="@color/white_900"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:splitMotionEvents="false"
+                android:layout_height="match_parent"
+                android:background="@color/app_bg">
+
+                <FrameLayout
+                    android:id="@+id/imageLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <ImageView
+                        android:id="@+id/detailImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/must_see_icon_home" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/image_gradient" />
+
+                </FrameLayout>
+
+
+                <ImageView
+                    android:id="@+id/bg_border_upper"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/attraction_detail_bg_border"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/imageView3"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="192dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/imageLayout"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/imageLayout" />-->
+
+                <!--                <View-->
+                <!--                    android:id="@+id/shade_placement"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="80dp"-->
+
+                <!--                    app:layout_constraintBottom_toBottomOf="parent" />-->
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="MUSEUM"
+                    android:textColor="@color/white_900"
+                    android:textSize="@dimen/_12sdp"
+
+                    app:layout_constraintBottom_toTopOf="@+id/title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:textFont="bold" />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/title"
+                    android:layout_width="@dimen/_220sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:text="Museum of the Poet Al Oqaili"
+                    android:textColor="@color/white_900"
+                    android:textSize="@dimen/_20sdp"
+                    app:layout_constraintBottom_toTopOf="@+id/augmentedReality"
+                    app:layout_constraintStart_toStartOf="@+id/category"
+                    app:textFont="bold" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/augmentedReality"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_55sdp"
+                    android:layout_marginBottom="32dp"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_book_a_ticket"
+                    app:layout_constraintStart_toStartOf="@+id/title">
+
+                    <LinearLayout
+                        android:id="@+id/ll_ar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/black_dark_shadow_attraction_icon"
+                        android:foreground="@drawable/custom_ripple_border"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ar_icon_white" />
+
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/augmentedRealityText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:text="@string/augmented_reality"
+                            android:textColor="@color/white_900"
+                            android:textSize="@dimen/_9sdp"
+                            app:textFont="regular" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/view360"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_55sdp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toStartOf="@+id/gallery"
+                    app:layout_constraintStart_toEndOf="@+id/augmentedReality"
+                    app:layout_constraintTop_toTopOf="@+id/augmentedReality">
+
+                    <LinearLayout
+                        android:id="@+id/ll_360"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/black_dark_shadow_attraction_icon"
+                        android:foreground="@drawable/custom_ripple_border"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/_360iconwhite" />
+
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/view360text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:text="@string/_360_view"
+                            android:textColor="@color/white_900"
+
+                            android:textSize="@dimen/_9sdp"
+                            app:textFont="regular" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/gallery"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_55sdp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/view360">
+
+                    <LinearLayout
+                        android:id="@+id/ll_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/black_shadow_attraction_icon"
+                        android:foreground="@drawable/custom_ripple_border"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/gallery_white" />
+
+                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/gallerytext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:text="@string/gallery"
+                            android:textColor="@color/white_900"
+                            android:textSize="@dimen/_9sdp"
+                            app:textFont="regular" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!--                <com.app.dubaiculture.ui.components.customtextview.CustomTextView-->
+                <!--                    android:id="@+id/btn_login"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginBottom="120dp"-->
+                <!--                    android:background="@drawable/btn_border_login"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:text="@string/book_a_ticket"-->
+                <!--                    android:textColor="@color/white_900"-->
+                <!--                    android:textSize="@dimen/_12ssp"-->
+                <!--                    android:transitionName="action_btn"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/imageLayout"-->
+                <!--                    app:layout_constraintEnd_toEndOf="@+id/gallery"-->
+                <!--                    app:layout_constraintStart_toStartOf="@+id/augmentedReality" />-->
+
+
+                <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                    android:id="@+id/btn_book_a_ticket"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:background="@drawable/btn_register"
+                    android:elevation="@dimen/_15sdp"
+                    android:foreground="@drawable/custom_ripple_border"
+                    android:gravity="center"
+                    android:text="@string/book_a_ticket"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white_900"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_swipe_up"
+                    app:layout_constraintEnd_toEndOf="@+id/gallery"
+                    app:layout_constraintStart_toStartOf="@+id/augmentedReality" />
+
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_swipe_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_ripple_border"
+                    android:drawableEnd="@drawable/up_arrow_attraction_detail_icon"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:text="@string/swipe_up_for_more"
+                    android:textColor="@color/gray_600"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.88" />
+
+                <!--                <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
+                <!--                    android:id="@+id/btn_login"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginBottom="120dp"-->
+                <!--                    android:layout_marginStart="@dimen/_25sdp"-->
+                <!--                    android:layout_marginTop="@dimen/_15sdp"-->
+                <!--                    android:layout_marginEnd="@dimen/_25sdp"-->
+                <!--                    android:background="@drawable/btn_register"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    android:foreground="@drawable/custom_ripple_border"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:text="@string/filters"-->
+                <!--                    android:textAllCaps="false"-->
+                <!--                    android:elevation="@dimen/_15sdp"-->
+                <!--                    android:textColor="@color/white_900"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/imageLayout" />-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!--            android:layout_height="@dimen/_210sdp"-->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarAttractionDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentInsetStart="0dp"
+                android:contentInsetLeft="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/back"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_30sdp"
+                        android:background="@drawable/custom_ripple_border"
+                        android:rotation="90"
+                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/bookingCalender"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginStart="200dp"
+                        android:layout_marginEnd="20dp"
+                        android:visibility="invisible"
+                        android:background="@drawable/custom_ripple_black"
+                        android:src="@drawable/add_to_calander"
+                        app:layout_constraintBottom_toBottomOf="@+id/back"
+                        app:layout_constraintEnd_toStartOf="@+id/favourite"
+                        app:layout_constraintStart_toEndOf="@+id/back"
+                        app:layout_constraintTop_toTopOf="@+id/back" />
+
+
+                    <CheckBox
+                        android:id="@+id/favourite"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/heart_icon_home_black"
+                        android:button="@null"
+                        android:checked="@{attraction.isFavourite}"
+                        android:foreground="@drawable/custom_ripple_border"
+                        app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
+                        app:layout_constraintEnd_toStartOf="@+id/share"
+                        app:layout_constraintStart_toEndOf="@+id/bookingCalender"
+                        app:layout_constraintTop_toTopOf="@+id/bookingCalender"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <ImageView
+                        android:id="@+id/share"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginEnd="30dp"
+                        android:background="@drawable/custom_ripple_border"
+                        android:rotation="0"
+                        android:src="@drawable/share"
+                        app:layout_constraintBottom_toBottomOf="@+id/favourite"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/favourite"
+                        app:layout_constraintTop_toTopOf="@+id/favourite" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </merge>
+</layout>
