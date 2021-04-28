@@ -58,12 +58,14 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     private fun callingObserver() {
         postLoginViewModel.loginStatus.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
-                val user = splashViewModel.getUserIfExists()
-                if (user != null) {
-                    application.auth.user = user
-                }
-                dismiss()
+               splashViewModel.getUserIfExists()
             }
+        }
+        splashViewModel.user.observe(viewLifecycleOwner){
+            if (it!=null){
+                application.auth.user = it
+            }
+            dismiss()
         }
     }
     private fun uaePassRTL() {

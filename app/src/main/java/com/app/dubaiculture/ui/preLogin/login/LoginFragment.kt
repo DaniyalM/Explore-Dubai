@@ -36,37 +36,41 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
+        lottieAnimationRTL(binding.animationView)
         applicationExitDialog()
         lottieAnimationRTL(binding!!.animationView)
         binding.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
-                binding.password to "my_password",
-                binding.editPassword to "my_edit_password",
-                binding.mobileNumber to "my_phone",
-                binding.editMobNo to "my_edit_phone",
-                binding.tvLoginAccount to "main_title",
-                binding.btnLogin to "action_btn"
+                    binding.password to "my_password",
+                    binding.editPassword to "my_edit_password",
+                    binding.mobileNumber to "my_phone",
+                    binding.editMobNo to "my_edit_phone",
+                    binding.tvLoginAccount to "main_title",
+                    binding.btnLogin to "action_btn"
             )
             findNavController().navigate(
-                R.id.action_loginFragment_to_registerFragment2,
-                null,
-                null,
-                extras
+                    R.id.action_loginFragment_to_registerFragment2,
+                    null,
+                    null,
+                    extras
             )
         }
         binding.tvAsGuest.setOnClickListener {
+
+            loginViewModel.getUserIfExists()
             application.auth.apply {
                 isLoggedIn = true
                 isGuest = true
             }
             activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+
         }
         binding.languageSwitch.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
             if (b)
@@ -87,12 +91,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         }
     }
 
+
+
     private fun subscribeToObservables() {
         loginViewModel.loginStatus.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 application.auth.isGuest = false
                 activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             }
+        }
+        loginViewModel.user.observe(viewLifecycleOwner){
+            if (it!=null){
+                loginViewModel.removeUser(it)
+            }
+
         }
     }
 

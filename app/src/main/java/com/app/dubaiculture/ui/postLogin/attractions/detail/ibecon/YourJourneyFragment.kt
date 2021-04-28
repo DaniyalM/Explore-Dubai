@@ -40,7 +40,7 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                     this.getParcelableArrayList(Constants.NavBundles.BECON_LIST)!!
         }
         //for testing purpose
-        rvBecons()
+//        rvBecons()
         if(!beconList.isNullOrEmpty()){
             binding.count.text = beconList.size.toString()
         }
