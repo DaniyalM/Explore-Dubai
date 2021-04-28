@@ -109,6 +109,12 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = attractionInnerAdapter
+                    attractionInnerAdapter?.let {
+                        if (it.itemCount>0){
+                            attractionInnerAdapter?.clear()
+                        }
+                    }
+
 
                     item.value.forEach { attractionCat ->
                         attractionInnerAdapter?.add(AttractionCategoryListItem<AttractionsCategoryItemCellBinding>(
@@ -139,6 +145,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = upComingEventsInnerAdapter
+                    upComingEventsInnerAdapter?.let {
+                        if (it.itemCount>0){
+                            upComingEventsInnerAdapter?.clear()
+                        }
+                    }
                     item.value.forEach {
                         upComingEventsInnerAdapter?.add(EventListItem<UpcomingEventsInnerItemCellBinding>(
                             favChecker = object : FavouriteChecker {
@@ -216,6 +227,12 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = mustSeeInnerAdapter
+
+                    mustSeeInnerAdapter?.let {
+                        if (it.itemCount>0){
+                            mustSeeInnerAdapter?.clear()
+                        }
+                    }
                     item.value.forEach { attraction ->
                         mustSeeInnerAdapter?.add(AttractionListItem<MustSeeInnerItemCellBinding>(
                             favChecker = object : FavouriteChecker {
@@ -267,6 +284,12 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = latestNewsInnerAdapter
+                    latestNewsInnerAdapter?.let {
+                        if (it.itemCount>0){
+                            latestNewsInnerAdapter?.clear()
+                        }
+                    }
+
                     item.value.forEach {
                         latestNewsInnerAdapter?.add(LatestNewsListItem<LatestNewsInnerItemCellBinding>(
                             news = LatestNews(
@@ -300,7 +323,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = popularServiceInnerAdapter
-//                    popularServiceInnerAdapter?.popularService =
+                    popularServiceInnerAdapter?.let {
+                        if (it.itemCount>0){
+                            popularServiceInnerAdapter?.clear()
+                        }
+                    }
                     item.value.forEach {
                         popularServiceInnerAdapter?.add(PopularServiceListItem<PopularServiceInnerItemCellBinding>(
                             resLayout = R.layout.popular_service_inner_item_cell,

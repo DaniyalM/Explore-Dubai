@@ -69,7 +69,17 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
         binding.editLocation.setText(eventViewModel.locationState.value.toString())
         binding.tvStartDate.text = eventViewModel.dateFrmState.value.toString()
         binding.tvEndDate.text = eventViewModel.dateToState.value.toString()
-
+        when {
+            eventViewModel.radioBtnState.value.toString() == "Free" -> {
+                binding.rbFree.isChecked = true
+            }
+            eventViewModel.radioBtnState.value.toString() == "Paid" -> {
+                binding.rbPaid.isChecked = true
+            }
+            else -> {
+                binding.rbFree.isChecked = true
+            }
+        }
         binding.radioGroupFilter.setOnCheckedChangeListener { radioGroup, id ->
             val selectedRadioButton =
                 binding.radioGroupFilter.findViewById<View>(radioGroupFilter.checkedRadioButtonId) as RadioButton
@@ -77,10 +87,12 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                 radioBtnList[0].title -> {
                     radioBtnID = radioBtnList[0].id!!
                     radioBtnTitle = radioBtnList[0].title!!
+                    eventViewModel.radioBtnState.value = radioBtnTitle
                 }
                 radioBtnList[1].title -> {
                     radioBtnID = radioBtnList[1].id!!
                     radioBtnTitle = radioBtnList[1].title!!
+                    eventViewModel.radioBtnState.value = radioBtnTitle
                 }
             }
         }
@@ -94,7 +106,6 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
             setLayoutManager(layoutManager)
             adapter = groupAdapter
         }
-
     }
 
     override fun onClick(v: View?) {
@@ -134,7 +145,6 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                             Timber.e("${startDate}")
                         }
                     }).showPicker()
-
             }
             R.id.tv_end_date -> {
                 DatePickerHelper(binding.tvEndDate.text.toString(),
@@ -175,7 +185,6 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                     it.value.locationList!!.forEach { filter ->
                         arrayList.add(filter.title!!)
                     }
-
                     categorysList.map { list ->
                         groupAdapter.add(FilterCategoryItems(list))
                     }
@@ -212,17 +221,16 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
             eventViewModel.locationState.value = binding.editLocation.text.toString()
 
         }
-        if (!startDate.toString().isNullOrEmpty()) {
+        if (!binding.tvStartDate.text.toString().isNullOrEmpty()) {
             list.add(SelectedItems(dateFrom = binding.tvStartDate.text.toString()))
             eventViewModel.dateFrmState.value = binding.tvStartDate.text.toString()
-
         }
-        if (!endDate.toString().isNullOrEmpty()) {
-            list.add(SelectedItems(dateTo = endDate))
-            eventViewModel.dateToState.value = endDate
-
+        if (! binding.tvEndDate.text.toString().isNullOrEmpty()) {
+            list.add(SelectedItems(dateTo =  binding.tvEndDate.text.toString()))
+            eventViewModel.dateToState.value = binding.tvEndDate.text.toString()
         }
-        list.add(SelectedItems(type = radioBtnTitle, id = radioBtnID))
+        radioButtonState(list)
+        eventViewModel.radioBtnState.value = radioBtnTitle
         categorysList.forEach {
             if (it.isSelected)
                 list.add(SelectedItems(category = it.title, id = it.id)
@@ -242,4 +250,26 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
         return id ?: ""
     }
 
+    fun radioButtonState(list : ArrayList<SelectedItems>){
+        when {
+            eventViewModel.radioBtnState.value.toString() == "Free" -> {
+                binding.rbFree.isChecked = true
+                radioBtnID = radioBtnList[0].id!!
+                radioBtnTitle = radioBtnList[0].title!!
+                list.add(SelectedItems(type = radioBtnTitle, id = radioBtnID))
+            }
+            eventViewModel.radioBtnState.value.toString() == "Paid" -> {
+                binding.rbPaid.isChecked = true
+                radioBtnID = radioBtnList[1].id!!
+                radioBtnTitle = radioBtnList[1].title!!
+                list.add(SelectedItems(type = radioBtnTitle, id = radioBtnID))
+            }
+            else -> {
+                binding.rbFree.isChecked = true
+                radioBtnID = radioBtnList[0].id!!
+                radioBtnTitle = radioBtnList[0].title!!
+                list.add(SelectedItems(type = radioBtnTitle, id = radioBtnID))
+            }
+        }
+    }
 }

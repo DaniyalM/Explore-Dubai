@@ -12,6 +12,20 @@
     </style>
 
 
+
+    <style name="FullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+
+    </style>
+
+
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/LoginLayoutSuccessColor</item>
         <item name="boxStrokeWidth">2dp</item>
@@ -188,7 +202,7 @@
         <item name="selectedBackground1">@color/purple_900</item>
         <item name="selectedTextColor1">@color/white_900</item>
         <item name="unSelectedBackground1">@color/white_900</item>
-        <item name="unSelectedTextColor1">@color/purple_900</item>
+        <item name="unSelectedTextColor1">@color/gray_700</item>
     </style>
 
     <style name="SubmitButtonFilled">

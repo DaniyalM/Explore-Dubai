@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
+import android.location.LocationManager
 import android.os.Looper
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -72,11 +73,7 @@ open class LocationHelper @Inject constructor(
         fun getLocationResultCallback(locationResult: LocationResult?)
     }
 
-    val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            Timber.e("CallBack => ${locationResult.lastLocation.toString()}")
-        }
-    }
+
 
     //     24.877287306864435, 67.06273232147993
 //     24.91420473643946, 67.18402864665703
@@ -110,6 +107,11 @@ open fun milesToKm(dis: Double):Double{
     val km = dis / 0.62137
     return Math.round(km * 100).toDouble() / 100
 }
+    fun isLocationEnabled(locationManager: LocationManager): Boolean {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
 }
 
 

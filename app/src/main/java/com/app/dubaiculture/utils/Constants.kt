@@ -44,10 +44,24 @@ object Constants {
         const val THREESIXTY_GALLERY_LIST: String = "THREE60_GALLERY_LIST"
         const val EXPLORE_MAP_LIST: String = "explore_map_list"
         const val EVENT_MAP_LIST: String = "event_map_list"
+        const val ATTRACTION_ID: String = "attraction_id"
+        const val CATEGORY: String = "category"
+        const val BECON_LIST: String = "becon_list"
+        const val BECON_OBJECT: String = "becon_object"
+        const val SITE_MAP_OBJ: String = "siteMap_obj"
+        const val LOCATION_LAT: String = "location_lat"
+        const val LOCATION_LNG: String = "location_lng"
+        const val META_DATA_ID: String = "meta_data_id"
+        const val IMAGES_LIST: String = "images_list"
+        const val IMAGE_POSITION: String = "image_pos"
 
 
     }
+    object IBecons {
+        const val IDENTIFIER: String = "com.flagship.dubaiculture"
+        const val UUID_BECON: String = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
 
+    }
 
     object Links {
         const val TERMS_CONDITIONS: String = "https://uat.weareneomads.com/terms-of-use"
@@ -65,5 +79,13 @@ object Constants {
         const val LIBRARIES = "Libraries"
 
     }
-
+    object Colors {
+        const val WHITE: String = "#ffffff"
+        const val SEE_MORE_BLUE: String = "#103667"
+        const val LINK: String = "#267FB7"
+    }
+    object AR {
+        const val CLIENT_TOKEN: String = "2e7e1551d007a8adc3346fa48f07b2c7"
+        const val TARGET_ID: String = "60860b2e7c633e71c8d1e5cb"
+    }
 }

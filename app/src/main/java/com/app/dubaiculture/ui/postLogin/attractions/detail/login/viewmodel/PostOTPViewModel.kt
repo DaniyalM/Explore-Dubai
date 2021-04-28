@@ -17,6 +17,7 @@ import com.app.dubaiculture.data.repository.registeration.remote.request.confirm
 import com.app.dubaiculture.data.repository.registeration.remote.request.resendOTP.ResendOTPRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -77,13 +78,16 @@ class PostOTPViewModel @ViewModelInject constructor(private val registrationRepo
                             bundle.putString("key","postFragment")
                             navigateByAction(R.id.action_postOTPDialogFragment_to_registrationSuccessFragment2,bundle)
                         }else {
-                            showToast(result.value.errorMessage)
+//                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
                         }
                     }
                     is Result.Failure -> {
                         showLoader(false)
                         Timber.e(result.errorCode.toString())
-                        showToast(result.errorCode.toString())
+//                        showToast(result.errorCode.toString())
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
+
                     }
                     is Result.Error -> {
                         Timber.e(result.exception)
@@ -110,12 +114,13 @@ class PostOTPViewModel @ViewModelInject constructor(private val registrationRepo
                             _loginConfirmOTPStatus.value = Event(true)
                             showToast(result.value.confirmOTPResponseDTO.message.toString())
                         }else {
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
                         }
                     }
                     is Result.Failure -> {
                         Timber.e(result.errorCode.toString())
-                        showToast(Constants.Error.INTERNET_CONNECTION_ERROR)
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
+
                     }
                     is Result.Error -> {
                         Timber.e(result.exception)
@@ -145,12 +150,13 @@ class PostOTPViewModel @ViewModelInject constructor(private val registrationRepo
                             bundle.putString("verificationCode",it.verificationCode)
                             navigateByAction(R.id.action_postOTPDialogFragment_to_postCreatePassFragment,bundle)
                         }else{
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
                         }
                     }
                     is Result.Failure -> {
                         Timber.e(result.errorCode.toString())
-                        showToast(result.errorCode.toString())
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
+
                     }
                     is Result.Error -> {
                         Timber.e(result.exception)
@@ -180,12 +186,12 @@ class PostOTPViewModel @ViewModelInject constructor(private val registrationRepo
                             timer.start()
                             showToast(result.value.confirmOTPResponseDTO.message.toString())
                         }else{
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
                         }
                     }
                     is Result.Failure -> {
                         Timber.e(result.errorCode.toString())
-                        showToast(result.errorCode.toString())
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
                     }
                     is Result.Error -> {
                         Timber.e(result.exception)

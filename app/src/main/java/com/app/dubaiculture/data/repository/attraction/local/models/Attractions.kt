@@ -12,8 +12,8 @@ data class Attractions(
     val IsFavourite: Boolean = false,
     var locationTitle: String? = "",
     var location: String? = "",
-    var longitude: String? = "67.08119661055807",
-    var latitude: String? = "24.83250180519734",
+    var longitude: String? = "",
+    var latitude: String? = "",
     var email: String? = "",
     var number: String? = "",
     var audioLink: String? = "",
@@ -26,8 +26,11 @@ data class Attractions(
     var endDay: String? = "",
     var startDay: String? = "",
     var color: String? = "",
+    var emailContact : String? ="",
+    var numberContact : String?="",
     var events: List<Events>? = null,
     var gallery: List<Gallery>? = null,
     var socialLink: List<SocialLink>? = null,
     var asset360: Assets360? = null,
-) : Parcelable
+    var siteMap: SiteMap? = null,
+    ) : Parcelable

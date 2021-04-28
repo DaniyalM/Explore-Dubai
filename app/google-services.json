@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "761947371809",
+    "project_id": "dubaiculture-e81a7",
+    "storage_bucket": "dubaiculture-e81a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761947371809:android:1d2fc83809d8073887e660",
+        "android_client_info": {
+          "package_name": "com.app.dubaiculture.stag"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761947371809-43nhnt69g8s9gquaosllfjnbbs8ciheq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzX9Op9dq_sbSABtt5dKBA9TZL_TI_T30"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761947371809-43nhnt69g8s9gquaosllfjnbbs8ciheq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

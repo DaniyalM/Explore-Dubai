@@ -62,7 +62,6 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         application = activity.application as ApplicationEntry
         bus = application.bus
         bus.register(this)
-        isBusRegistered = true
         dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         return super.onCreateDialog(savedInstanceState)
     }
@@ -120,6 +119,11 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
                         is UiEvent.NavigateByAction -> {
                             navigateByAction(event.actionId, event.bundle)
                         }
+                        is UiEvent.ShowErrorDialog -> {
+                            EventUtilFunctions.showErrorDialog(event.message,
+                                colorBg = event.colorBg,
+                                context = activity)
+                        }
                     }
                 }
         })
@@ -159,4 +163,7 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     }
 
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
+    fun showErrorDialog(message: String) {
+        EventUtilFunctions.showErrorDialog(message, context = activity)
+    }
 }

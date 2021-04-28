@@ -37,6 +37,7 @@ class ScheduleExpandAdapter(
         var date = itemView.tv_date_schedule
         var monthYear = itemView.tv_month_year_schedule
         var imgToggle = itemView.imgToggle
+        var ll_header = itemView.ll_header
         var innerRecycler: RecyclerView
 
         init {
@@ -51,15 +52,16 @@ class ScheduleExpandAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.day.text = dayOfWeek(nameList[position].date)
+        holder.day.text = dayOfWeek(nameList[position].date,"EEEE")
+        holder.date.text = "${dayOfWeek(nameList[position].date,"dd")}"
+        holder.monthYear.text = "${dayOfWeek(nameList[position].date,"MMM").toUpperCase()} , ${dayOfWeek(nameList[position].date,"yy")}"
         holder.imgToggle.setImageResource(R.drawable.plus)
         val itemInnerRecyclerView = ScheduleInnerRecyclerviewAdapter(itemNameList[position])
         holder.innerRecycler.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        holder.imgToggle.setOnClickListener {
+        holder.ll_header.setOnClickListener {
 
             try {
-
                 if (counter[position] % 2 == 0) {
                     YoYo.with(Techniques.BounceInDown)
                         .duration(1000)
@@ -69,7 +71,6 @@ class ScheduleExpandAdapter(
                 } else {
                     holder.innerRecycler.visibility = View.GONE
                     holder.imgToggle.setImageResource(R.drawable.plus)
-
                     YoYo.with(Techniques.BounceInUp)
                         .duration(1000)
                         .playOn(it)

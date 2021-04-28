@@ -95,6 +95,16 @@ data class EventsDTO(
     @Expose
     var dateFrom: String = "",
 
+
+
+    @SerializedName("EmailContact")
+    @Expose
+    var emailContact: String = "",
+    @SerializedName("NumberContact")
+    @Expose
+    var numberContact: String = "",
+
+
     @SerializedName("EventSchedule")
     @Expose
     val eventSchedule: List<EventScheduleDTO> = emptyList(),

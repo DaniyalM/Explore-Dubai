@@ -1,11 +1,15 @@
 package com.app.dubaiculture.ui.postLogin.explore
 
+import android.Manifest
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,13 +20,22 @@ import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
-import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LAT
+import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LNG
 import com.app.dubaiculture.utils.handleApiError
+import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -31,16 +44,29 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     @Inject
     lateinit var glide: RequestManager
 
+    @Inject
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+
+    @Inject
+    lateinit var locationRequest: LocationRequest
+
+    @Inject
+    lateinit var locationHelper: LocationHelper
+
+    @Inject
+    lateinit var locationManager: LocationManager
     private val exploreViewModel: ExploreViewModel by viewModels()
     private lateinit var exploreAdapter: ExploreRecyclerAsyncAdapter
     private lateinit var explore: List<Explore>
     private var lastFirstVisiblePosition: Int = 0
-    private var mustSeelastFirstVisiblePosition: Int = 0
-    private var eventslastFirstVisiblePosition: Int = 0
-    private var popularServicelastFirstVisiblePosition: Int = 0
-    private var newslastFirstVisiblePosition: Int = 0
-//    val handler = Handler(Looper.getMainLooper())
 
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            exploreViewModel.showLoader(false)
+            Timber.e("onLocationResult ${locationResult.lastLocation.latitude}")
+        }
+    }
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,42 +83,59 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     }
 
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (!this::exploreAdapter.isInitialized) {
             setUpRecyclerView()
+            binding.swipeRefresh.post {
+                binding.swipeRefresh.isRefreshing = true
+                callingObservables()
+            }
         }
-        subscribeUiEvents(exploreViewModel)
-//        callingObservables()
         subscribeToObservable()
 
+        subscribeUiEvents(exploreViewModel)
+
+        applicationExitDialog()
 
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
-            callingObservables()
+            exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
+
         }
 
+        binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark)
+
+
+
+
+
         binding.root.img_drawer.setOnClickListener {
-//            navigate(R.id.action_exploreFragment_to_exploreMapFragment)
+            locationPermission()
         }
 
         val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    showAlert(
-                        message = getString(R.string.error_msg),
-                        textPositive = getString(R.string.okay),
-                        textNegative = getString(R.string.cancel),
-                        actionNegative = {
-                            
-                        },
-                        actionPositive = {
-                            activity.finish()
-                        }
-                    )
+                object : OnBackPressedCallback(true /* enabled by default */) {
+                    override fun handleOnBackPressed() {
+                        showAlert(
+                                message = getString(R.string.error_msg),
+                                textPositive = getString(R.string.okay),
+                                textNegative = getString(R.string.cancel),
+                                actionNegative = {
+
+                                },
+                                actionPositive = {
+                                    activity.finish()
+                                }
+                        )
+                    }
                 }
-            }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
 
     }
 
@@ -116,11 +159,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
 
     private fun callingObservables() {
-        if (!this::explore.isInitialized) {
-
+        if(!this::explore.isInitialized){
             lifecycleScope.launch {
                 exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
             }
+
         }
 
     }
@@ -128,8 +171,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun subscribeToObservable() {
 
         exploreViewModel.isFavourite.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = false
             when (it) {
                 is Result.Success -> {
+
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
                     }
@@ -141,19 +186,73 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             }
         }
         exploreViewModel.exploreList.observe(viewLifecycleOwner) {
-
+            binding.swipeRefresh.isRefreshing = false
             when (it) {
                 is Result.Success -> {
 
                     it.let {
-                        explore = it.value
-                        exploreAdapter.items = explore
+                        exploreAdapter.items=it.value
                     }
                 }
                 is Result.Failure -> handleApiError(it, exploreViewModel)
             }
         }
     }
+
+    private fun applicationExitDialog() {
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    showAlert(
+                        message = getString(R.string.error_msg),
+                        textPositive = getString(R.string.okay),
+                        textNegative = getString(R.string.cancel),
+                        actionNegative = {
+
+                        },
+                        actionPositive = {
+                            activity.finish()
+                        }
+                    )
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+    }
+
+    private fun locationPermission() {
+        val quickPermissionsOption = QuickPermissionsOptions(
+            handleRationale = false
+        )
+        activity.runWithPermissions(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            options = quickPermissionsOption
+        ) {
+            exploreViewModel.showLoader(true)
+            if (!locationHelper.isLocationEnabled(locationManager = locationManager)){
+                exploreViewModel.showLoader(false)
+                exploreViewModel.showErrorDialog(message = resources.getString(R.string.please_enable_gps))
+            }
+            locationHelper.locationSetUp(
+                object : LocationHelper.LocationLatLng {
+                    override fun getCurrentLocation(location: Location) {
+                        exploreViewModel.showLoader(false)
+                        val bundle = bundleOf(LOCATION_LAT to location.latitude, LOCATION_LNG to location.longitude)
+                        navigate(R.id.action_exploreFragment_to_exploreMapFragment,bundle)
+                        Timber.e("Current Location ${location.latitude}")
+                    }
+                },
+                activity,locationCallback =locationCallback )
+//
+
+        }
+    }
+
+//    override fun onStart() {
+//        super.onStart()
+//        isPagerFragment=true
+//
+//    }
 
 
 }

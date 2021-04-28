@@ -23,6 +23,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:splitMotionEvents="false"
                 android:layout_height="match_parent"
                 android:background="@color/app_bg">
 
@@ -52,7 +53,7 @@
 
 
                 <ImageView
-                    android:id="@+id/bg_border"
+                    android:id="@+id/bg_border_upper"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/attraction_detail_bg_border"
@@ -135,7 +136,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="5dp"
-                            android:text="Augmented Reality"
+                            android:text="@string/augmented_reality"
                             android:textColor="@color/white_900"
                             android:textSize="@dimen/_9sdp"
                             app:textFont="regular" />
@@ -179,7 +180,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="5dp"
-                            android:text="360View"
+                            android:text="@string/_360_view"
                             android:textColor="@color/white_900"
 
                             android:textSize="@dimen/_9sdp"
@@ -221,7 +222,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="5dp"
-                            android:text="Gallery"
+                            android:text="@string/gallery"
                             android:textColor="@color/white_900"
                             android:textSize="@dimen/_9sdp"
                             app:textFont="regular" />
@@ -333,6 +334,7 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="200dp"
                         android:layout_marginEnd="20dp"
+                        android:visibility="invisible"
                         android:background="@drawable/custom_ripple_black"
                         android:src="@drawable/add_to_calander"
                         app:layout_constraintBottom_toBottomOf="@+id/back"

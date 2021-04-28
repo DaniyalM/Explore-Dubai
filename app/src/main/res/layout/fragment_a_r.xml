@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    android:id="@+id/ll_layout">
+
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:id="@+id/ll_layout">
 
         <Space
             android:layout_width="match_parent"
@@ -15,84 +18,85 @@
             />
 
 
-<!--        <Button-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/recognize"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:background="#fff"-->
-<!--            android:paddingLeft="10dp"-->
-<!--            android:paddingRight="10dp"-->
-<!--            android:theme="@style/Widget.AppCompat.Button"/>-->
+        <!--        <Button-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:layout_alignParentBottom="true"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/recognize"-->
+        <!--            android:layout_gravity="center_horizontal"-->
+        <!--            android:background="#fff"-->
+        <!--            android:paddingLeft="10dp"-->
+        <!--            android:paddingRight="10dp"-->
+        <!--            android:theme="@style/Widget.AppCompat.Button"/>-->
 
 
-    <com.app.dubaiculture.ui.components.custombutton.CustomButton
-        android:id="@+id/btnRecognize"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_25sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginEnd="@dimen/_25sdp"
-        android:background="@drawable/btn_register"
-        android:foreground="@drawable/custom_ripple_border"
-        android:text="@string/recognize"
-        android:gravity="center"
-        android:textAllCaps="false"
-        android:layout_marginBottom="@dimen/_45sdp"
-        android:elevation="@dimen/_15sdp"
-        android:textColor="@color/white_900"
+        <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            android:id="@+id/btnRecognize"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:background="@drawable/btn_register"
+            android:foreground="@drawable/custom_ripple_border"
+            android:text="@string/recognize"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:layout_marginBottom="@dimen/_45sdp"
+            android:elevation="@dimen/_15sdp"
+            android:textColor="@color/white_900"
 
-        />
-<!--    <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
-<!--        android:id="@+id/btnRecognize"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="@dimen/_25sdp"-->
-<!--        android:layout_marginTop="@dimen/_15sdp"-->
-<!--        android:layout_marginEnd="@dimen/_25sdp"-->
-<!--        android:background="@drawable/btn_register"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:foreground="@drawable/custom_ripple_border"-->
-<!--        android:gravity="center"-->
-<!--        android:text="@string/recognize"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:layout_marginBottom="@dimen/_25sdp"-->
-<!--        android:elevation="@dimen/_15sdp"-->
-<!--        android:textColor="@color/white_900"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/radioGroupFilter" />-->
-<!--    <Space-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"/>-->
+            />
+        <!--    <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
+        <!--        android:id="@+id/btnRecognize"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginStart="@dimen/_25sdp"-->
+        <!--        android:layout_marginTop="@dimen/_15sdp"-->
+        <!--        android:layout_marginEnd="@dimen/_25sdp"-->
+        <!--        android:background="@drawable/btn_register"-->
+        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--        android:foreground="@drawable/custom_ripple_border"-->
+        <!--        android:gravity="center"-->
+        <!--        android:text="@string/recognize"-->
+        <!--        android:textAllCaps="false"-->
+        <!--        android:layout_marginBottom="@dimen/_25sdp"-->
+        <!--        android:elevation="@dimen/_15sdp"-->
+        <!--        android:textColor="@color/white_900"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/radioGroupFilter" />-->
+        <!--    <Space-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="0dp"-->
+        <!--        android:layout_weight="1"/>-->
 
-<!--    <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Recognize"-->
-<!--        android:id="@+id/btnRecognize"-->
-<!--        android:layout_gravity="center_horizontal"-->
-<!--        android:background="#fff"-->
-<!--        android:paddingLeft="10dp"-->
-<!--        android:paddingRight="10dp"-->
-<!--        android:layout_marginBottom="20dp"-->
-<!--        />-->
+        <!--    <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:text="Recognize"-->
+        <!--        android:id="@+id/btnRecognize"-->
+        <!--        android:layout_gravity="center_horizontal"-->
+        <!--        android:background="#fff"-->
+        <!--        android:paddingLeft="10dp"-->
+        <!--        android:paddingRight="10dp"-->
+        <!--        android:layout_marginBottom="20dp"-->
+        <!--        />-->
 
 
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editShowMsg"
-        android:gravity="center_horizontal"
-        android:editable="false"
-        android:layout_marginBottom="60dp"
-        android:background="#fff"
-        android:visibility="gone" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editShowMsg"
+            android:gravity="center_horizontal"
+            android:editable="false"
+            android:layout_marginBottom="60dp"
+            android:background="#fff"
+            android:visibility="gone" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

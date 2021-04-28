@@ -2,6 +2,7 @@ package com.app.dubaiculture.ui.preLogin.splash
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,32 +17,30 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
-    private val splashViewModel: SplashViewModel by viewModels()
+//    private val splashViewModel: SplashViewModel by viewModels()
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
     ) = FragmentSplashBinding.inflate(inflater, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             navigate()
         }
+
     }
+
 
     private suspend fun navigate() {
-        delay(1000)
+        delay(3000)
         application.auth.isLoggedIn = true
-        val user = splashViewModel.getUserIfExists()
-        if (user != null) {
-            application.auth.user = user
-//            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-        }
         findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
-
-
     }
+
+
+
 
 
 }

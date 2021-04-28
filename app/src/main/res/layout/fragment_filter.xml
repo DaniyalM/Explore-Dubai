@@ -105,6 +105,7 @@
 
         <LinearLayout
             android:id="@+id/ll_dates"
+            android:weightSum="3"
             android:layout_width="0dp"
             android:layout_height="@dimen/_50sdp"
             android:orientation="horizontal"
@@ -114,7 +115,8 @@
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_start_date"
-                android:layout_width="wrap_content"
+                android:layout_weight="1.4"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:background="@drawable/date_range_bg"
@@ -130,11 +132,12 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="0.2" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_end_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.4"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:background="@drawable/date_range_bg"
@@ -205,7 +208,6 @@
                 android:textAllCaps="false"
                 android:tag="Free"
                 android:textAlignment="viewStart"
-                android:checked="true"
                 android:textSize="@dimen/_11ssp"
                 android:textColor="@color/black_200"
                 android:text="@string/_free"

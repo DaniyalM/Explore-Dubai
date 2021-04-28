@@ -294,10 +294,17 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                 dateTo = it.dateTo
             }
             if (it.location!!.isNotEmpty() ) {
-                location = it.id
+                if(eventViewModel.locationState.value == ""){
+                    location = eventViewModel.locationState.value.toString()
+
+                }else if(eventViewModel.locationState.value!!.isNotBlank()){
+                    location = eventViewModel.locationState.value.toString()
+
+                }else{
+                    location = it.id
+                }
             }
         }
-
         eventRequest.add(
             EventRequest(
                 category = categoryStringList,
@@ -308,7 +315,6 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                 location = location
             )
         )
-
         eventRequest.map {
             lifecycleScope.launch {
                 eventViewModel.getFilterEventList(EventRequest(

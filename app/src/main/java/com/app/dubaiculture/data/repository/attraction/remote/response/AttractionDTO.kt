@@ -88,5 +88,14 @@ class AttractionDTO {
     @Expose
     var asset360: Assets360DTO? = null
 
+    @SerializedName("SiteMap")
+    @Expose
+    var siteMapDTO: SiteMapDTO? = null
 
+    @SerializedName("EmailContact")
+    @Expose
+    var emailContact: String = ""
+    @SerializedName("NumberContact")
+    @Expose
+    var numberContact: String = ""
 }

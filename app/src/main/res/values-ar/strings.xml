@@ -83,9 +83,7 @@
     <string name="your_password_has_been_updated_continue_to_login">لقد تم تحديث كلمة السر الخاصة بك. أكمل الى تسجيل الدخول</string>
     <string name="mobile_number_new">رقم الهاتف خطئ</string>
     <string name="enter_mobile_number_reg">ادخل رقم الهاتف</string>
-    <string name="book_a_ticket">Book a Ticket</string>
-    <string name="select_date">Select date</string>
-    <string name="add_date_of_visit">Add date of visit</string>
+
     <string name="mm">MM</string>
     <string name="hh">HH</string>
     <string name="required">مطلوب</string>
@@ -121,8 +119,8 @@
     <string name="gallery">المعرض</string>
     <string name="get_directions">احصل على الاتجاهات</string>
     <string name="description">التفاصيل</string>
-    <string name="read_more">اقرأ المزيد</string>
-    <string name="read_less">اقرأ أقل</string>
+    <string name="read_more">\n\n.اقرأ المزيد</string>
+    <string name="read_less">\n\n.اقرأ أقل</string>
     <string name="don_t_miss_out_on_any_details">لا تفوت التفاصيل</string>
     <string name="view_site_map">عرض خريطة العرض</string>
     <string name="ibeacons">iBeacons</string>
@@ -132,7 +130,7 @@
     <string name="stay_updated">ابق محدثا</string>
     <string name="what_s_happenings_at_majlis_ghorfat">ماذا يحدث في مجلس الغرفات</string>
     <string name="call_us">اتصل بنا</string>
-    <string name="museum">متحف</string>
+    <string name="museum">المتاحف</string>
     <string name="swipe_up_for_more">اسحب لأعلى للمزيد</string>
     <string name="more_events">فعاليات أكثر</string>
     <string name="event_information">تفاصيل الفعالية</string>
@@ -171,8 +169,20 @@
     <string name="away">كم</string>
     <string name="error_msg">هل أنت متاكد من اغلاق التطبيق؟</string>
     <string name="near_you">حولك</string>
-    <string name="recognize">Recognize</string>
-    <string name="ar_detail">AR Detail</string>
+    <string name="recognize">اكتشف</string>
+    <string name="ar_detail">تفاصيل الواقع الافتراضي</string>
+    <string name="site_map">خريطة الموقع</string>
+    <string name="heritage">المواقع التراثية</string>
+    <string name="festivals">المهرجانات</string>
+    <string name="libraries">المكتبات</string>
+    <string name="art_gallery">متاحف الفن</string>
 
+    <string name="_a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">سيتم ارسال كلمة مرور لمرة واحدة لبريدك الالكتروني المسجل أو رقم الهاتف.</string>
+    <string name="book_a_ticket">احجز تذكرة</string>
+    <string name="select_date">اختر التاريخ</string>
+    <string name="add_date_of_visit">أضف تاريخ الزيارة</string>
+    <string name="view_gallery">المعرض</string>
+    <string name="reviews">المراجعات</string>
+    <string name="on_trip">على TripAdvisor</string>
 
 </resources>

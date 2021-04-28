@@ -4,7 +4,7 @@
 
 <!--    <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost-->
 <!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
+<!--        android:layout_height="@dimen/_100sdp">-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rVgeneric"
