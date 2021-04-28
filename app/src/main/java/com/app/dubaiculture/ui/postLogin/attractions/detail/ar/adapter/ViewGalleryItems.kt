@@ -1,6 +1,8 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.ar.adapter
 
 import androidx.databinding.ViewDataBinding
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.viewgallery.local.Images
 import com.app.dubaiculture.databinding.ViewGalleryItemsBinding
@@ -19,11 +21,17 @@ class ViewGalleryItems<T : ViewDataBinding>(
     override fun bind(viewBinding: T, position: Int) {
         when (viewBinding) {
             is ViewGalleryItemsBinding -> {
+                val circularProgressDrawable = CircularProgressDrawable(viewBinding.root.context)
+                circularProgressDrawable.strokeWidth = 5f
+                circularProgressDrawable.centerRadius = 30f
+                circularProgressDrawable.start()
                 viewBinding.let {
-                    it.imgRounded.glideInstance(images.image, isSvg = false).into(it.imgRounded)
+                    glide!!.load(BuildConfig.BASE_URL + images.image).placeholder(circularProgressDrawable).into(it.imgRounded)
+//                    it.imgRounded.glideInstance(images.image, isSvg = false).into(it.imgRounded)
                     it.card.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
                     }
+
                 }
             }
         }

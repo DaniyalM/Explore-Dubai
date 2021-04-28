@@ -136,7 +136,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="5dp"
-                            android:text="Augmented Reality"
+                            android:text="@string/augmented_reality"
                             android:textColor="@color/white_900"
                             android:textSize="@dimen/_9sdp"
                             app:textFont="regular" />
@@ -180,7 +180,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="5dp"
-                            android:text="360View"
+                            android:text="@string/_360_view"
                             android:textColor="@color/white_900"
 
                             android:textSize="@dimen/_9sdp"
@@ -222,7 +222,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="5dp"
-                            android:text="Gallery"
+                            android:text="@string/gallery"
                             android:textColor="@color/white_900"
                             android:textSize="@dimen/_9sdp"
                             app:textFont="regular" />

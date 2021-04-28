@@ -5,6 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white_900"
         tools:context=".ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment">
 
 <!--        <com.google.vr.sdk.widgets.pano.VrPanoramaView-->
@@ -49,6 +50,21 @@
             app:layout_constraintStart_toStartOf="@+id/img_back"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/no_data_found"
+            android:textColor="@color/black_200"
+            android:textSize="@dimen/_14ssp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:textFont="bold" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/three_360_title"

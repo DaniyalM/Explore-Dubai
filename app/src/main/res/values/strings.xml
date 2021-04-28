@@ -185,5 +185,7 @@
     <string name="festivals">Festivals</string>
     <string name="libraries">Libraries</string>
     <string name="view_gallery">View Gallery</string>
+    <string name="reviews">Reviews</string>
+    <string name="on_trip">on Trip Advisor</string>
 
 </resources>

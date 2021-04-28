@@ -93,13 +93,29 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
         threeSixtyViewModel.attractionDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-//                    contentFlag = "ContentLoaded"
+
+//                    binding.three360Title.visibility = View.GONE
+//                    binding.appCompatImageView.visibility = View.GONE
+//                    binding.tvNoData.visibility = View.VISIBLE
+
 
                     attractionsObj = it.value
+                    if(attractionsObj.asset360!!.imageItems.isNullOrEmpty()){
+                        binding.three360Title.visibility = View.GONE
+                    binding.appCompatImageView.visibility = View.GONE
+                    binding.tvNoData.visibility = View.VISIBLE
+                    }
+
                     attractionsObj.asset360?.let { asset ->
-                        asset.imageItems?.let { loadVR(it.get(0))
-                        binding.three360Title.text = it[0].title
-                        } }
+                        asset.imageItems?.let {
+                            loadVR(it[0])
+                            if(!it[0].title.isNullOrEmpty()){
+                                binding.three360Title.text = it[0].title
+                            }else{
+                                binding.three360Title.visibility = View.GONE
+                            }
+                        }
+                    }
                     attractionsObj.asset360?.imageItems?.forEach {
 //                        if (groupAdapter.itemCount > 0) {
 //                            groupAdapter.clear()
@@ -109,7 +125,11 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         attractionsObj.asset360?.imageItems?.get(position).let {
-                                            binding.three360Title.text = it?.title
+                                            if(!it?.title.isNullOrEmpty()){
+                                                binding.three360Title.text = it?.title
+                                            }else{
+                                                binding.three360Title.visibility = View.GONE
+                                            }
                                         }
 
                                         loadVR(attractionsObj.asset360?.imageItems?.get(position)!!)

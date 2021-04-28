@@ -12,6 +12,7 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
@@ -95,7 +96,6 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
         initRv()
         if(!gallerList.isNullOrEmpty()){
             gallerList[0].galleryImage?.let { displayBlurryView(it) }
-
         }else{
             imagesList[0].image?.let { displayBlurryView(it) }
         }
@@ -184,12 +184,17 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
     }
 
     private fun displayBlurryView(it: String) {
+        val circularProgressDrawable = CircularProgressDrawable(requireContext())
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.start()
         glide.asBitmap().load(BuildConfig.BASE_URL + it)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?,
                 ) {
+                    circularProgressDrawable.stop()
                     Blurry.with(activity).radius(10)
                         .sampling(8)
                         .color(ContextCompat.getColor(activity, R.color.white_transparent))
@@ -197,6 +202,10 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
                         .animate(500).from(resource).into(binding.mainImage)
                 }
 
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    circularProgressDrawable.stop()
+
+                }
                 override fun onLoadCleared(placeholder: Drawable?) {
 
                 }

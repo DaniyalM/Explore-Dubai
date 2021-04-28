@@ -53,6 +53,7 @@ object Constants {
         const val LOCATION_LNG: String = "location_lng"
         const val META_DATA_ID: String = "meta_data_id"
         const val IMAGES_LIST: String = "images_list"
+        const val IMAGE_POSITION: String = "image_pos"
 
 
     }

@@ -162,19 +162,19 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             openEmailbox(email = emailContact.toString())
         }
         binding.root.imgFb.setOnClickListener {
-            getFacebookPage(eventObj.socialLink?.get(0)?.facebookPageLink!!, activity)
+//            getFacebookPage(eventObj.socialLink?.get(0)?.facebookPageLink!!, activity)
         }
         binding.root.imgTwitter.setOnClickListener {
-            openUrl(eventObj.socialLink?.get(0)?.twitterPageLink, activity)
+//            openUrl(eventObj.socialLink?.get(0)?.twitterPageLink, activity)
         }
         binding.root.imgInsta.setOnClickListener {
-            openUrl(eventObj.socialLink?.get(0)?.instagramPageLink, activity)
+//            openUrl(eventObj.socialLink?.get(0)?.instagramPageLink, activity)
         }
         binding.root.imgUtube.setOnClickListener {
-            openUrl(eventObj.socialLink?.get(0)?.youtubePageLink, activity)
+//            openUrl(eventObj.socialLink?.get(0)?.youtubePageLink, activity)
         }
         binding.root.imgLinkedin.setOnClickListener {
-            openUrl(eventObj.socialLink?.get(0)?.linkedInPageLink, activity)
+//            openUrl(eventObj.socialLink?.get(0)?.linkedInPageLink, activity)
         }
         binding.root.favourite_event.setOnClickListener {
             isDetailFavouriteFlag = true

@@ -11,6 +11,8 @@ import com.app.dubaiculture.ui.base.BaseDialogFragment
 import com.app.dubaiculture.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_back.view.*
+import kotlinx.android.synthetic.main.layout_back.view.back
+import kotlinx.android.synthetic.main.toolbar_layout_detail.view.*
 
 @AndroidEntryPoint
 class RegisterNowFragment : BaseDialogFragment<FragmentRegisterNowBinding>() , View.OnClickListener{
@@ -19,6 +21,8 @@ class RegisterNowFragment : BaseDialogFragment<FragmentRegisterNowBinding>() , V
         super.onViewCreated(view, savedInstanceState)
         binding.btnSubmit.setOnClickListener(this)
         binding.root.back.setOnClickListener(this)
+        backArrowRTL(binding.root.back)
+
     }
 
     override fun getTheme() = R.style.FullScreenDialog;

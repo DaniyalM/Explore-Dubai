@@ -183,6 +183,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
         binding.root.apply {
             attraction.let {
+                tvReviews.text = "${resources.getString(R.string.reviews)} ${it.title} ${resources.getString(R.string.on_trip)}"
                 if (TextUtils.isEmpty(it.startDay) || TextUtils.isEmpty(it.endDay)) {
                     tv_attraction_days.text = "Sunday - Friday"
                 } else {
@@ -349,18 +350,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 glide.load(BuildConfig.BASE_URL + attractionsObj.portraitImage)
                         .into(detailImageView)
             }
-//            appbarAttractionDetail.addOnOffsetChangedListener(this)
-//            appbarAttractionDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-//                if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
-//                    defaultCloseToolbar.visibility = View.VISIBLE
-//                    swipeRefreshLayout.isEnabled = false
-//
-//                } else {
-//                    defaultCloseToolbar.visibility = View.GONE
-//                    swipeRefreshLayout.isEnabled = true
-//
-//                }
-//            })
             favourite.setOnClickListener {
                 isDetailFavouriteFlag = true
                 attractionsObj.let { attraction ->

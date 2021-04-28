@@ -178,8 +178,11 @@
     <string name="art_gallery">متاحف الفن</string>
 
     <string name="_a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">سيتم ارسال كلمة مرور لمرة واحدة لبريدك الالكتروني المسجل أو رقم الهاتف.</string>
-    <string name="book_a_ticket">Book a Ticket</string>
-    <string name="select_date">Select date</string>
-    <string name="add_date_of_visit">Add date of visit</string>
-    <string name="view_gallery">View Gallery</string>
+    <string name="book_a_ticket">احجز تذكرة</string>
+    <string name="select_date">اختر التاريخ</string>
+    <string name="add_date_of_visit">أضف تاريخ الزيارة</string>
+    <string name="view_gallery">المعرض</string>
+    <string name="reviews">المراجعات</string>
+    <string name="on_trip">على TripAdvisor</string>
+
 </resources>

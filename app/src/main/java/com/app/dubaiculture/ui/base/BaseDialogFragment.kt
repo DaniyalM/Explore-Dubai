@@ -271,6 +271,17 @@ abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
         }
         return null
     }
+    fun bgRTL(img: ImageView) {
+        when {
+            isArabic() -> {
+                img.scaleX = -1f
+            }
+            else -> {
+                img.scaleX = 1f
+            }
+        }
+    }
+
 
 
 //    fun openEmailbox(email: String) {

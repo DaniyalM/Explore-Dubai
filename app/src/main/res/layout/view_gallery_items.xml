@@ -19,14 +19,23 @@
         app:cardCornerRadius="@dimen/_12sdp"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardElevation="@dimen/_5sdp"
-        app:cardBackgroundColor="@color/black_200"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progress"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:indeterminateTint="@color/purple_900"-->
+<!--            android:visibility="visible" />-->
+
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_rounded"
-            android:background="@drawable/must_see_icon_home"
+            android:background="@drawable/image_placeholder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY" />

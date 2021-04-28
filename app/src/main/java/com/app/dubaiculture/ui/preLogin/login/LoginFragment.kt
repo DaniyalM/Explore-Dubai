@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -42,6 +43,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
+        applicationExitDialog()
         lottieAnimationRTL(binding!!.animationView)
         binding.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
@@ -130,6 +132,25 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         loginViewModel.isPhoneEdit.value = true
         loginViewModel.isEmailEdit.value = true
         loginViewModel.isEmail.value = true
+    }
+    private fun applicationExitDialog() {
+        val callback: OnBackPressedCallback =
+                object : OnBackPressedCallback(true /* enabled by default */) {
+                    override fun handleOnBackPressed() {
+                        showAlert(
+                                message = getString(R.string.error_msg),
+                                textPositive = getString(R.string.okay),
+                                textNegative = getString(R.string.cancel),
+                                actionNegative = {
+
+                                },
+                                actionPositive = {
+                                    activity.finish()
+                                }
+                        )
+                    }
+                }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
 }
