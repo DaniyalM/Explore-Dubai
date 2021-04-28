@@ -24,6 +24,15 @@
         <action
             android:id="@+id/action_loginFragment_to_forgotFragment"
             app:destination="@id/forgotFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_bottomSheet"
+            app:destination="@id/bottomSheet" />
+        <action
+            android:id="@+id/action_loginFragment_to_createPassFragment"
+            app:destination="@id/createPassFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registrationSuccessFragment"
+            app:destination="@id/registrationSuccessFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
@@ -39,6 +48,7 @@
         tools:layout="@layout/fragment_forgot_"
         android:name="com.app.dubaiculture.ui.preLogin.forgot.ForgotFragment"
         android:label="ForgotFragment" >
+
         <action
             android:id="@+id/action_forgotFragment_to_bottomSheet"
             app:destination="@id/bottomSheet" />
@@ -71,12 +81,32 @@
         <argument
             android:name="verificationCode"
             app:argType="string"/>
+
+        <argument
+            android:name="screen_name"
+            app:argType="string"/>
+
+        <argument
+            android:name="emailorphone"
+            app:nullable="true"
+            android:defaultValue="@null"
+            app:argType="string"/>
+
+        <argument
+            android:name="password"
+            app:nullable="true"
+            android:defaultValue="@null"
+            app:argType="string"/>
+
+
         <action
             android:id="@+id/action_bottomSheet_to_registrationSuccessFragment"
             app:destination="@id/registrationSuccessFragment" />
+
         <action
             android:id="@+id/action_bottomSheet_to_createPassFragment"
             app:destination="@id/createPassFragment" />
+
     </dialog>
     <dialog
         android:id="@+id/passwordUpdatedFragment"

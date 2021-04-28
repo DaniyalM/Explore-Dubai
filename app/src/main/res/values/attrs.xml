@@ -9,6 +9,23 @@
     </declare-styleable>
 
 
+    <declare-styleable name="HorizontalItemSelector">
+        <attr name="selectedTextColor" format="color" />
+        <attr name="unSelectedTextColor" format="color" />
+        <attr name="selectedBackground" format="reference" />
+        <attr name="unSelectedBackground" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="HorizontalAttractionSelector">
+        <attr name="selectedTextColor1" format="color" />
+        <attr name="unSelectedTextColor1" format="color" />
+        <attr name="selectedBackground1" format="reference" />
+        <attr name="unSelectedBackground1" format="reference" />
+
+        <attr name="selectedInnerImg" format="reference" />
+        <attr name="unSelectedInnerImg" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="CustomEditText">
         <attr name="textTypeFont" format="enum">
             <enum name="light" value="0" />
@@ -23,8 +40,6 @@
         <attr name="cradle_vertical_offset" format="dimension"/>
         <attr name="fab_size" format="dimension"/>
     </declare-styleable>
-
-
 
     <declare-styleable name="CustomButton">
         <attr name="cb_textFont" format="enum">

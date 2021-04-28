@@ -1,6 +1,8 @@
 package com.app.dubaiculture.di
 
+import android.content.Context
 import com.app.dubaiculture.BuildConfig
+import com.app.dubaiculture.utils.SessionManager
 import com.app.dubaiculture.utils.interceptors.DecryptionInterceptor
 import com.app.dubaiculture.utils.interceptors.EncryptionInterceptor
 import com.app.dubaiculture.utils.interceptors.HeaderInterceptor
@@ -11,6 +13,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,6 +34,12 @@ object RetrofitModule {
 
     @Provides
     fun provideGson(): Gson = GsonBuilder().setLenient().create()
+
+    @Provides
+    fun provideHeaderInterceptor(
+        @ApplicationContext context: Context,
+        sessionManager: SessionManager
+    ) = HeaderInterceptor(context, sessionManager)
 
     @Provides
     @Singleton

@@ -1,18 +1,17 @@
 package com.app.dubaiculture.ui.preLogin.forgot
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.transition.TransitionInflater
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentForgotBinding
+import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.forgot.viewModel.ForgotViewModel
-import com.app.dubaiculture.ui.preLogin.password.viewModel.CreatePassViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,10 +20,18 @@ class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListene
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    )= FragmentForgotBinding.inflate(inflater,container,false)
+    ): FragmentForgotBinding {
+        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
+        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
+        return FragmentForgotBinding.inflate(inflater, container, false)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.viewmodel = forgotViewModel
+        lottieAnimationRTL(binding.animationView)
+        subscribeUiEvents(forgotViewModel)
+        backArrowRTL(binding.imgClose)
         viewInitialize()
 
     }
@@ -47,5 +54,6 @@ class ForgotFragment : BaseFragment<FragmentForgotBinding>(),View.OnClickListene
         binding.imgClose.setOnClickListener(this)
         binding.tvCancel.setOnClickListener(this)
         binding.btnOtp.setOnClickListener(this)
+
     }
 }

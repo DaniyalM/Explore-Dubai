@@ -8,40 +8,63 @@ import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.viewModels
+import androidx.transition.ChangeBounds
+import androidx.transition.Transition
+import androidx.transition.TransitionInflater
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragment
 import com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_register.*
 
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickListener {
     private val registrationViewModel: RegistrationViewModel by viewModels()
-    private var modalDismissWithAnimation = false
 
-    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        FragmentRegisterBinding.inflate(inflater, container, false)
+    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) :FragmentRegisterBinding{
+        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
+        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds).setDuration(500)
+        return FragmentRegisterBinding.inflate(inflater, container, false)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(registrationViewModel)
         binding.btnRegister.setOnClickListener(this)
         binding.tvLoginNow.setOnClickListener(this)
-        binding.imgClose.setOnClickListener(this)
+        binding.header.back.setOnClickListener(this)
         binding.tvTermCondition.setOnClickListener(this)
 
         binding.viewmodel = registrationViewModel
+        lottieAnimationRTL(binding.animationView)
+        backArrowRTL(binding.header.back)
+        if(isArabic()){
+                      val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
+            spannable.setSpan(
+                ForegroundColorSpan(resources.getColor(R.color.black_200)),
+                0, 10,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(UnderlineSpan(), 10, binding.tvTermCondition.length(), 36)
+            binding.tvTermCondition.text = spannable
+        }else{
+            val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
+            spannable.setSpan(
+                ForegroundColorSpan(resources.getColor(R.color.black_200)),
+                0, 14,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(UnderlineSpan(), 15, binding.tvTermCondition.length(), 27)
+            binding.tvTermCondition.text = spannable
+        }
 
-        val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
-        spannable.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.black_200)),
-            0, 14,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannable.setSpan(UnderlineSpan(), 15, binding.tvTermCondition.length(), 27)
-        binding.tvTermCondition.text = spannable
+        registrationViewModel.isTermAccepted.observe(viewLifecycleOwner){
+            if(it==false){
+                registrationViewModel.showErrorDialog(message = resources.getString(R.string._agree_to_the_terms_and_conditions))
+            }
+        }
 
     }
 
@@ -53,19 +76,26 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
             R.id.tv_login_now -> {
                 back()
             }
-            R.id.img_close -> {
+            R.id.back -> {
                 back()
             }
-            R.id.tv_term_condition->{
+            R.id.tv_term_condition -> {
                 registrationViewModel.showToast("Terms & Conditions")
             }
 
         }
     }
 
-    private fun showModalOTPlBottomSheet() {
-        val modalBottomSheet = OTPFragment.newInstance(modalDismissWithAnimation)
-        modalBottomSheet.show(requireActivity().supportFragmentManager, OTPFragment.TAG)
+    private fun enterTransition(): Transition? {
+        val bounds = ChangeBounds()
+        bounds.duration = 2000
+        return bounds
     }
 
+    private fun returnTransition(): Transition? {
+        val bounds = ChangeBounds()
+        bounds.interpolator = DecelerateInterpolator()
+        bounds.duration = 2000
+        return bounds
+    }
 }

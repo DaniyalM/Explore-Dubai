@@ -9,7 +9,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.components.customtextview.FontStyle
 
-class CustomEditText constructor(context: Context,attributeSet: AttributeSet):
+open class CustomEditText constructor(context: Context,attributeSet: AttributeSet):
     AppCompatEditText(context,attributeSet) {
     private val defaultFontStyle = FontStyle.REGULAR
 
@@ -41,5 +41,6 @@ class CustomEditText constructor(context: Context,attributeSet: AttributeSet):
 
         setTypeface(typeface)
     }
+
 
 }

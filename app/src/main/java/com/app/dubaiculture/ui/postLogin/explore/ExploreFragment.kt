@@ -6,21 +6,18 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
-import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter.Companion.delayAnimate
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,7 +33,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?
+        container: ViewGroup?,
     ) = FragmentExploreBinding.inflate(inflater, container, false)
 
 
@@ -44,10 +41,16 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        explore = ExploreRecyclerAsyncAdapter(activity)
+        explore = ExploreRecyclerAsyncAdapter(activity,isArabic())
+        subscribeUiEvents(exploreViewModel)
         callingObservables()
         subscribeToObservable()
         setUpRecyclerView()
+
+       binding.swipeRefresh.setOnRefreshListener {
+           binding.swipeRefresh.isRefreshing = false
+           callingObservables()
+        }
 
     }
 
@@ -60,8 +63,9 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
             adapter = explore
             explore.provideGlideInstance(glide)
-//            LinearSnapHelper().attachToRecyclerView(this)
 
+            this.itemAnimator = SlideInLeftAnimator()
+//            LinearSnapHelper().attachToRecyclerView(this)
 
         }
 
@@ -69,10 +73,6 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
 
     private fun callingObservables(){
-        customProgressDialog?.let {
-            if (!it.isShowing)
-                it.show()
-        }
         lifecycleScope.launch {
             exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
         }
@@ -83,22 +83,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let { explore.items = it.value }
-
-                    handler.postDelayed({
-                        customProgressDialog?.let {
-                            if (it.isShowing)
-                                it.dismiss()
-                        }
-                    }, delayAnimate.toLong())
-                    delayAnimate += 500
-
                 }
-                is Result.Failure ->handleApiError(it,exploreViewModel)
+                is Result.Failure -> handleApiError(it, exploreViewModel)
             }
-
-
         }
-
     }
 
     override fun onDestroy() {
