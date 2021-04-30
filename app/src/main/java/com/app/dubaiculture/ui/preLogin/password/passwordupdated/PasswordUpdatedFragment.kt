@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
@@ -13,14 +14,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class PasswordUpdatedFragment : BaseBottomSheetFragment<FragmentPasswordUpdatedBinding>(), View.OnClickListener {
 
-    private var dismissWithAnimation = false
-
+var from  : String ? = ""
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.btnContinue.setOnClickListener(this)
-        dismissWithAnimation = arguments?.getBoolean(ARG_DISMISS_WITH_ANIMATION) ?: false
-        (requireDialog() as BottomSheetDialog).dismissWithAnimation = dismissWithAnimation
+        arguments?.let {
+            from = it.getString("post")
+        }
 
+        isCancelable =false
     }
 
 
@@ -32,19 +34,18 @@ class PasswordUpdatedFragment : BaseBottomSheetFragment<FragmentPasswordUpdatedB
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_continue->{
-                findNavController().navigate(R.id.action_passwordUpdatedFragment_to_loginFragment)
+                if(from =="postFragment"){
+//                    findNavController().navigate(R.id.action_passwordUpdatedFragment_to_loginFragment)
+                    findNavController().navigate(R.id.action_passwordUpdatedFragment2_to_exploreFragment)
+
+
+                }else{
+                    findNavController().navigate(R.id.action_passwordUpdatedFragment_to_loginFragment)
+                }
+                dismiss()
             }
 
         }
     }
 
-    companion object {
-        const val TAG = "ModalBottomSheet"
-        private const val ARG_DISMISS_WITH_ANIMATION = "dismiss_with_animation"
-        fun newInstance(dismissWithAnimation: Boolean): PasswordUpdatedFragment {
-            val resetPassBottomSheet = PasswordUpdatedFragment()
-            resetPassBottomSheet.arguments = bundleOf(ARG_DISMISS_WITH_ANIMATION to dismissWithAnimation)
-            return resetPassBottomSheet
-        }
-    }
 }

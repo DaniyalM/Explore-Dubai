@@ -13,8 +13,8 @@ import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.AsyncCell
 import com.bumptech.glide.RequestManager
 
-class PopularServiceInnerAdapter(val glide: RequestManager) :
-    BaseRecyclerAdapter() {
+class PopularServiceInnerAdapter:
+    BaseRecyclerAdapter<BaseModel>() {
 
     var popularService: List<BaseModel>
         get() = differ.currentList
@@ -55,7 +55,7 @@ class PopularServiceInnerAdapter(val glide: RequestManager) :
         position: Int
     ) {
         (holder.itemView as PopularServiceInnerAdapter.PopularServiceInnerItemCell).bindWhenInflated {
-            holder.itemView.binding?.popularServices=popularService[position]
+//            holder.itemView.binding?.popularServices=popularService[position]
         }
     }
 

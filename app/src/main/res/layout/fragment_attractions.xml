@@ -1,10 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.postLogin.feeds.FeedsFragment">
+
+    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include layout="@layout/toolbar_snippet"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/toolbar_snippet" />
+
+            <!--            <FrameLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@color/app_bg"-->
+            <!--                app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--        </FrameLayout>-->
+
+            <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="@dimen/_45sdp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector
+                        android:id="@+id/horizontalSelector"
+                        style="@style/HorizontalAttractionStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+
+        </LinearLayout>
+
+
+    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
 </layout>

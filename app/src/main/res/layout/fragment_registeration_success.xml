@@ -11,9 +11,11 @@
 
         <ImageView
             android:id="@+id/img_close"
+            android:visibility="gone"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/close_btn"
+            android:src="@drawable/close_btn"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_50sdp"
             app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +24,7 @@
 
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view1"
+            android:id="@+id/anim_registration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:lottie_autoPlay="true"
@@ -74,7 +76,7 @@
             android:layout_height="wrap_content"
             android:text="@string/registration_successful"
             android:textSize="@dimen/_18sdp"
-            android:textColor="@color/gray_600"
+            android:textColor="@color/white_900"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -82,18 +84,18 @@
             />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            app:layout_constraintStart_toStartOf="@id/reg_successful"
-            app:layout_constraintEnd_toEndOf="@id/reg_successful"
             android:layout_width="0dp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_9ssp"
-            android:textAlignment="center"
-            android:textColor="@color/gray_600"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur\nadipiscing elit, sed do eiusmod temp\nty orem ipsum dolor sit amet elitsed eiusm"
-            app:layout_constraintTop_toBottomOf="@+id/reg_successful"
-            />
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp ty orem ipsum dolor sit amet elitsed eiusm"
+            android:textAlignment="viewStart"
+            android:textColor="@color/gray_600"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginStart="@dimen/_65sdp"
+            android:layout_marginEnd="@dimen/_60sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reg_successful" />
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -104,6 +106,7 @@
             android:layout_marginBottom="@dimen/_25sdp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_border_login"
+            android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
             android:text="@string/continue_"
             android:textColor="@color/white_900"

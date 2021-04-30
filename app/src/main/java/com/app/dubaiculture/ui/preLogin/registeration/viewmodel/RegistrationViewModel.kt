@@ -1,33 +1,35 @@
 package com.app.dubaiculture.ui.preLogin.registeration.viewmodel
 
 import android.app.Application
-import android.util.Log
 import android.widget.CompoundButton
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.registeration.RegistrationRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.registeration.RegisterFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
+import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class RegistrationViewModel @ViewModelInject constructor(
     application: Application,
-    private val registrationRepository: RegistrationRepository
+    private val registrationRepository: RegistrationRepository,
 ) : BaseViewModel(application) {
 
 
-    private var _otp: MutableLiveData<String> = MutableLiveData()
-    var otp: MutableLiveData<String> = _otp
     // Validation
     var btnEnabled: ObservableBoolean = ObservableBoolean(false)
 
+    // editext get() and set()
     var fullName: ObservableField<String> = ObservableField("")
     var email: ObservableField<String> = ObservableField("")
     var phone: ObservableField<String> = ObservableField("")
@@ -35,15 +37,8 @@ class RegistrationViewModel @ViewModelInject constructor(
     var passwordConifrm: ObservableField<String> = ObservableField("")
     var termsAccepted: ObservableBoolean = ObservableBoolean(false)
 
-    /**
-     * Field Error Messages
-     */    val mobileNumberError = MutableLiveData<String?>()
 
-    val emailError = MutableLiveData<String?>()
-    val fullNameError = MutableLiveData<String?>()
-    val passwordError = MutableLiveData<String?>()
-    val passwordConfirmError = MutableLiveData<String?>()
-    // booleans
+    // booleans for checking regex validation
     val isPhone = MutableLiveData<Boolean?>(true)
     val isEmail = MutableLiveData<Boolean?>(true)
     val isfullName = MutableLiveData<Boolean?>(true)
@@ -51,9 +46,30 @@ class RegistrationViewModel @ViewModelInject constructor(
     val isPasswordConfirm = MutableLiveData<Boolean?>(true)
     val isTermAccepted = MutableLiveData<Boolean?>(true)
 
+    // errors
+
+    private var _fullnameError = MutableLiveData<Int>()
+    var fullnameError: LiveData<Int> = _fullnameError
+
+    private var _emailError = MutableLiveData<Int>()
+    var emailError: LiveData<Int> = _emailError
+
+    private var _phoneError = MutableLiveData<Int>()
+    var phoneError: LiveData<Int> = _phoneError
+
+    private var passwordError_ = MutableLiveData<Int>()
+    var passwordError: LiveData<Int> = passwordError_
+
+    private var passwordConfirmError_ = MutableLiveData<Int>()
+    var passwordConfirmError: LiveData<Int> = passwordConfirmError_
+
+    private val errs_ = MutableLiveData<Int>()
+    val errs: LiveData<Int> = errs_
 
 
     fun register() {
+        if (!isCheckValid())
+            return
         viewModelScope.launch {
             showLoader(true)
             RegistrationRequest(
@@ -65,24 +81,22 @@ class RegistrationViewModel @ViewModelInject constructor(
             ).let {
                 when (val result = registrationRepository.register(it)) {
                     is Result.Error -> {
-                        Timber.e(result.exception.message)
-                        showToast(result.exception.message.toString())
+                        showErrorDialog(message = result.exception.toString())
                     }
                     is Result.Success -> {
                         if (result.value.succeeded) {
                             navigateByDirections(
                                 RegisterFragmentDirections.actionRegisterFragment2ToBottomSheet(
-                                    result.value.registrationResponseDTO.verificationCode
+                                    result.value.registrationResponseDTO.verificationCode,
+                                    "registerFragment"
                                 )
                             )
                         } else {
-                            showToast(result.value.errorMessage)
-//                            showAlert(message = result.value.errorMessage)
-//                            Timber.e(result.value.statusCode.toString())
+                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
                         }
                     }
                     is Result.Failure -> {
-                        showToast(result.errorCode.toString())
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
                         Timber.e(result.errorCode?.toString())
                     }
                 }
@@ -91,57 +105,109 @@ class RegistrationViewModel @ViewModelInject constructor(
         }
     }
 
-    fun enableButton() {
-        btnEnabled.set(
-            fullName.get().toString().trim().isNotEmpty() &&
-                    AuthUtils.isValidMobile(phone.get().toString().trim()) &&
-                    AuthUtils.isEmailValid(email.get().toString().trim()) &&
-                    AuthUtils.isMatchPassword(password.get().toString().trim(),passwordConifrm.get().toString().trim()) &&
-                    AuthUtils.isValidPasswordFormat(password.get().toString().trim())&&
-                    termsAccepted.get()
-        )
-    }
-
 
 
     fun onFullNameChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         fullName.set(s.toString())
-        isfullName.value = s.toString().trim().isNotEmpty()
-        enableButton()
+        if (fullName.get().toString().trim().isNullOrEmpty()) {
+            isfullName.value = false
+            _fullnameError.value = R.string.required
+        }
+
+        if (!fullName.get().toString().trim().isNullOrEmpty()) {
+            isfullName.value = true
+            _fullnameError.value = R.string.no_error
+        }
     }
+
     fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         email.set(s.toString())
-        isEmail.value = AuthUtils.isEmailValid(s.toString().trim())
-        enableButton()
+        isEmail.value = AuthUtils.isEmailErrorsbool(s.toString().trim())
+        _emailError.value = AuthUtils.isEmailErrors(s.toString().trim())
     }
+
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
-        isPhone.value = AuthUtils.isValidMobile(s.toString().trim())
-        if(!s.startsWith("92")){
-            Timber.e("start with 92")
-            mobileNumberError.value = "Start with 92"
-        }else {
-            mobileNumberError.value = "Invalid Phone Number"
-        }
-        enableButton()
+        val number   = AuthUtils.isPhoneNumberValidate(s.toString().trim())
+        isPhone.value = number!!.isValid
+        errs_.value = AuthUtils.errorsPhone(s.toString().trim())
     }
+
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         password.set(s.toString())
-     isPassword.value =   AuthUtils.isValidPasswordFormat(s.toString().trim())
-        enableButton()
+        isPassword.value = AuthUtils.isValidPasswordFormat(s.toString().trim())
+        passwordError_.value = AuthUtils.passwordErrors(s.toString().trim())
     }
+
     fun onConfirmPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         passwordConifrm.set(s.toString())
-        Log.e("password check",password.get().toString())
-        isPasswordConfirm.value = AuthUtils.isMatchPassword(password.get().toString(),s.toString().trim())
-        enableButton()
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(password.get().toString(),
+            passwordConifrm.get().toString().trim())
+        passwordConfirmError_.value =
+            AuthUtils.isMatchPasswordError(password.get().toString().trim(),
+                passwordConifrm.get().toString().trim())
 
     }
+
     fun onTermsChecked(buttonView: CompoundButton, isChecked: Boolean) {
         termsAccepted.set(isChecked)
         isTermAccepted.value = isChecked
-        enableButton()
     }
 
+   private fun isCheckValid(): Boolean {
+        var isValid = true
+        _emailError.value = AuthUtils.isEmailErrors(s = email.get().toString().trim())
+        isEmail.value = AuthUtils.isEmailErrorsbool(email.get().toString().trim())
 
+
+        val number = AuthUtils.isPhoneNumberValidate(phone.get().toString().trim())
+        isPhone.value = number!!.isValid
+
+        errs_.value = AuthUtils.errorsPhone(phone.get().toString().trim())
+        isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
+        passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
+        passwordConfirmError_.value =
+            AuthUtils.isMatchPasswordError(password.get().toString().trim(),
+                passwordConifrm.get().toString().trim())
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(password.get().toString(),
+            passwordConifrm.get().toString().trim())
+        isTermAccepted.value = termsAccepted.get() != false
+
+
+
+
+        if (fullName.get().toString().trim().isNullOrEmpty()) {
+            isfullName.value = false
+            _fullnameError.value = R.string.required
+            isValid = false
+        }
+
+        if (!fullName.get().toString().trim().isNullOrEmpty()) {
+            isfullName.value = true
+            _fullnameError.value = R.string.no_error
+
+        }
+
+        if (!AuthUtils.isEmailErrorsbool(email.get().toString().trim())) {
+            isValid = false
+        }
+        val phoneNum = AuthUtils.isPhoneNumberValidate(mobNumber = phone.get().toString().trim())
+        if (!phoneNum!!.isValid) {
+            isValid = false
+        }
+
+        if (!AuthUtils.isValidPasswordFormat(password.get().toString().trim())) {
+            isValid = false
+        }
+        if (!AuthUtils.isMatchPasswordBool(password.get().toString(),
+                passwordConifrm.get().toString().trim())
+        ) {
+            isValid = false
+        }
+        if (!termsAccepted.get()) {
+            isValid = false
+        }
+
+        return isValid
+    }
 }

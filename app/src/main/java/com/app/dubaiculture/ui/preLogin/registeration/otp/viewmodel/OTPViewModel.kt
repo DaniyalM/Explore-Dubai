@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.preLogin.registeration.otp.viewmodel
 
 import android.app.Application
+import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.format.DateUtils
 import androidx.hilt.lifecycle.ViewModelInject
@@ -11,22 +12,29 @@ import com.app.dubaiculture.data.repository.registeration.RegistrationRepository
 import com.app.dubaiculture.data.repository.registeration.remote.request.confirmOTP.ConfirmOTPRequest
 import com.app.dubaiculture.data.repository.registeration.remote.request.resendOTP.ResendOTPRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
-import junit.runner.Version.id
+import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
+import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 
 class OTPViewModel @ViewModelInject constructor(private val registrationRepository: RegistrationRepository,application: Application):BaseViewModel(application) {
 
     // Countdown time
     private val _currentTime = MutableLiveData<Long>()
-   private val currentTime: LiveData<Long> = _currentTime
+    val currentTime: LiveData<Long> = _currentTime
 
-    // The String version of the current time
-    val currentTimeString = Transformations.map(currentTime) { time ->
+    // this observer when true then handle to navigate from otpFragment to Login.
+    private var _loginConfirmOTPStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
+    var loginConfirmOTPStatus: MutableLiveData<Event<Boolean>> = _loginConfirmOTPStatus
+
+    // The String version of the current time , counter display the time wired in arabic.
+    val currentTimeString = Transformations.map(currentTime){ time ->
         DateUtils.formatElapsedTime(time)
     }
     // Countdown time
     companion object {
+
         // Time when OTP expired
         private const val DONE = 0L
         // Countdown time interval
@@ -61,6 +69,74 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                         showLoader(false)
                         showToast(result.value.confirmOTPResponseDTO.message.toString())
                         navigateByAction(R.id.action_bottomSheet_to_registrationSuccessFragment)
+                        }else {
+                            showToast(result.value.errorMessage)
+                        }
+                    }
+                    is Result.Failure -> {
+                        showLoader(false)
+                        Timber.e(result.errorCode.toString())
+                        showToast(result.errorCode.toString())
+                    }
+                    is Result.Error -> {
+                        Timber.e(result.exception)
+                        showToast(result.exception.toString())
+                    }
+                }
+            }
+            showLoader(false)
+        }
+    }
+
+
+    fun confirmLoginOTP(verificationCode: String , otp : String?="") {
+        viewModelScope.launch {
+            showLoader(true)
+            ConfirmOTPRequest(
+                verificationCode = verificationCode,
+                otp = otp?:""
+            ).let {
+                when (val result = registrationRepository.validateOTP(it)) {
+                    is Result.Success -> {
+                        if(result.value.succeeded){
+                            showLoader(false)
+                            _loginConfirmOTPStatus.value = Event(true)
+                            showToast(result.value.confirmOTPResponseDTO.message.toString())
+                        }else {
+                            showToast(result.value.errorMessage)
+                        }
+                    }
+                    is Result.Failure -> {
+                        Timber.e(result.errorCode.toString())
+                        showToast(INTERNET_CONNECTION_ERROR)
+                    }
+                    is Result.Error -> {
+                        Timber.e(result.exception)
+                        showToast(result.exception.toString())
+                    }
+                }
+            }
+            showLoader(false)
+        }
+    }
+
+
+//ValidateOTP for forgot password  validateOTP and ConfirmOTP has no difference . just change in endpoint dont why he creates a new service for forgot
+    fun validateOTP(verificationCode: String , otp : String?="") {
+        viewModelScope.launch {
+            showLoader(true)
+            ConfirmOTPRequest(
+                verificationCode = verificationCode,
+                otp = otp?:""
+            ).let {
+                when (val result = registrationRepository.validateOTPForgot(it)) {
+                    is Result.Success -> {
+                        if(result.value.succeeded){
+                            showLoader(false)
+                            showToast(result.value.confirmOTPResponseDTO.message.toString())
+                            val bundle = Bundle()
+                            bundle.putString("verificationCode",it.verificationCode)
+                            navigateByAction(R.id.action_bottomSheet_to_createPassFragment,bundle)
                         }else{
                             showToast(result.value.errorMessage)
                         }
@@ -97,7 +173,8 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                             timer.start()
                             showToast(result.value.confirmOTPResponseDTO.message.toString())
                         }else{
-                            showToast(result.value.errorMessage)
+//                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg = R.color.red_600)
                         }
                     }
                     is Result.Failure -> {
@@ -113,4 +190,15 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
             showLoader(false)
             }
         }
+
+//fun isLangArabic(lang:Boolean){
+//    if(lang == true){
+//                "00:"+currentTime
+//    }else{
+//        val currentTimeString = Transformations.map(currentTime){ time ->
+//            DateUtils.formatElapsedTime(time)
+//        }
+//    }
+//}
+
     }

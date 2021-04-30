@@ -1,31 +1,31 @@
 package com.app.dubaiculture.data.repository.explore
 
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.base.BaseRDS
 import com.app.dubaiculture.data.repository.base.BaseRepository
+import com.app.dubaiculture.data.repository.explore.local.models.AttractionsEvents
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
+import com.app.dubaiculture.data.repository.explore.mapper.transformAttractionCategories
+import com.app.dubaiculture.data.repository.explore.mapper.transformEvents
 import com.app.dubaiculture.data.repository.explore.mapper.transformExplore
 import com.app.dubaiculture.data.repository.explore.mapper.transformExploreRequest
 import com.app.dubaiculture.data.repository.explore.remote.ExploreRDS
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
-import okhttp3.ResponseBody
-import retrofit2.HttpException
-import retrofit2.Response
 import javax.inject.Inject
 
 
 class ExploreRepository @Inject constructor(
-    private val exploreRDS: ExploreRDS
-) : BaseRepository()  {
+    private val exploreRDS: ExploreRDS,
+) :BaseRepository(exploreRDS) {
     suspend fun getExplore(exploreRequest: ExploreRequest): Result<List<Explore>> {
-        return when (val resultRDS = exploreRDS.getExplore(transformExploreRequest(exploreRequest))) {
+        return when (val resultRDS =
+            exploreRDS.getExplore(transformExploreRequest(exploreRequest))) {
             is Result.Success -> {
                 // Single Source Of Truth -> get data from server -> save to db -> get from db to provide to UI
                 val listRDS = resultRDS
                 if (listRDS.value.statusCode != 200) {
                     Result.Failure(true,listRDS.value.statusCode,null)
                 }else{
-                    val listLDS = transformExplore(listRDS.value.Result.value)
+                    val listLDS = transformExplore(listRDS.value)
 //                photoLDS.insertAll(listLDS as MutableList<Photo>)
 //                val resultLDS = photoLDS.getAll()
                     Result.Success(listLDS)
@@ -38,5 +38,26 @@ class ExploreRepository @Inject constructor(
         }
 
 
+    }
+
+
+    suspend fun getExploreMap(exploreRequest: ExploreRequest):Result<AttractionsEvents>{
+        return when (val resultRDS =
+            exploreRDS.getExploreMap(transformExploreRequest(exploreRequest))) {
+            is Result.Success -> {
+                val listRDS = resultRDS
+                if (listRDS.value.statusCode != 200) {
+                    Result.Failure(true,listRDS.value.statusCode,null)
+                }else{
+                    val listRDS  = AttractionsEvents( attractionCategory =   transformAttractionCategories(listRDS.value),
+                                events = transformEvents(listRDS.value))
+                    Result.Success(listRDS)
+                }
+
+            }
+            is Result.Error -> resultRDS
+            is Result.Failure -> resultRDS
+
+        }
     }
 }

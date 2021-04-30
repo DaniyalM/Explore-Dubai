@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
@@ -11,9 +12,13 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
+import com.app.dubaiculture.data.repository.user.local.User
+import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.ui.preLogin.login.LoginFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
-import com.app.dubaiculture.utils.AuthUtils.isEmailValid
+import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
+import com.app.dubaiculture.utils.Constants.NavBundles.COMES_FROM_LOGIN
 import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -21,47 +26,192 @@ import timber.log.Timber
 class LoginViewModel @ViewModelInject constructor(
     private val loginRepository: LoginRepository,
     private val userRepository: UserRepository,
-    application: Application
+    application: Application,
 ) : BaseViewModel(application) {
     var phone: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
-    var btnSelected: ObservableBoolean = ObservableBoolean(false)
+    var btnEnabled: ObservableBoolean = ObservableBoolean(false)
 
 
     val isPhone = MutableLiveData<Boolean?>(true)
-    val isPassword = MutableLiveData<Boolean?>(true)
+    val isEmail = MutableLiveData<Boolean?>(true)
+
+    val isPhoneEdit = MutableLiveData<Boolean?>(true)
+    val isEmailEdit = MutableLiveData<Boolean?>(true)
+
+    val isPassword = MutableLiveData(true)
+
+    //boolean for checking typing email or number
+    val isLoginWithPhone = MutableLiveData<Boolean?>(false)
+
     val mobileNumberError = MutableLiveData<String?>()
 
+    val phoneError = MutableLiveData<Boolean?>(false)
 
+    val emailError = MutableLiveData<Boolean?>(false)
+
+
+    private val errs_ = MutableLiveData<Int>().apply { value = R.string.err_password }
+    val errs: LiveData<Int> = errs_
+
+
+    private var passwordError_ = MutableLiveData<Int>()
+    var passwordError: LiveData<Int> = passwordError_
 
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
 
-    fun login() {
+    private val _user: MutableLiveData<User> = MutableLiveData()
+    val user: LiveData<User> = _user
+
+    fun getUserIfExists() {
+
+        viewModelScope.launch {
+            userRepository.getLastUser()?.let {
+                _user.value=it
+            }
+        }
+    }
+    fun removeUser(user: User) {
+        viewModelScope.launch {
+            userRepository.deleteUser(user)
+        }
+    }
+
+
+    fun loginWithPhone(ph: String? = null, pass: String? = null) {
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                phoneNumber = phone.get().toString().trim(),
-                password = password.get().toString().trim()
+                phoneNumber = ph.toString().trim(),
+                password = pass.toString().trim()
             ).let {
                 when (val result = loginRepository.login(it)) {
                     is Result.Success -> {
+                        showLoader(false)
                         if (result.value.succeeded) {
-                            Timber.e(result.value.loginResponseDTO.userDTO.Email)
-                            userRepository.saveUser(
-                                userDTO = result.value.loginResponseDTO.userDTO,
-                                loginResponseDTO = result.value.loginResponseDTO
-                            )
-                            _loginStatus.value = Event(true)
+                            if (!result.value.isConfirmed) {
+                                showErrorDialog(message = result.value.errorMessage)
+                                resendPhoneVerification()
+                            } else {
+                                Timber.e(result.value.loginResponseDTO.userDTO.Email)
+
+                                setUser(transform(result.value.loginResponseDTO.userDTO,
+                                    result.value.loginResponseDTO))
+
+                                userRepository.saveUser(
+                                    userDTO = result.value.loginResponseDTO.userDTO,
+                                    loginResponseDTO = result.value.loginResponseDTO)
+
+                                _loginStatus.value = Event(true)
+                            }
+
                         } else {
-                            showToast(result.value.errorMessage)
+                            showLoader(false)
+                            showErrorDialog(message = result.value.errorMessage,
+                                colorBg = R.color.red_600)
                         }
                     }
                     is Result.Error -> {
-                        showToast(result.exception.toString())
+                        showLoader(false)
+                        showErrorDialog(message = result.exception.toString())
                     }
                     is Result.Failure -> {
-                        showToast(result.errorCode.toString())
+                        showLoader(false)
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
+
+                    }
+                }
+            }
+        }
+    }
+
+
+    fun loginWithEmail(eml: String? = null, pass: String? = null) {
+        if (!isCheckValid())
+            return
+        viewModelScope.launch {
+            showLoader(true)
+            LoginRequest(
+                email = eml.toString().trim(),
+                password = pass.toString().trim()
+            ).let {
+                when (val result = loginRepository.loginWithEmail(it)) {
+                    is Result.Success -> {
+                        if (result.value.succeeded) {
+//                            if(result.value.errorMessage.isNullOrEmpty()){
+//                                showErrorDialog(message = result.value.errorMessage)}
+
+                            if (!result.value.isConfirmed) {
+                                showErrorDialog(message = result.value.errorMessage)
+                                resendEmailVerification()
+                            } else {
+                                Timber.e(result.value.loginResponseDTO.userDTO.Email)
+                                setUser(transform(result.value.loginResponseDTO.userDTO,
+                                    result.value.loginResponseDTO))
+
+                                userRepository.saveUser(
+                                    userDTO = result.value.loginResponseDTO.userDTO,
+                                    loginResponseDTO = result.value.loginResponseDTO
+                                )
+                                _loginStatus.value = Event(true)
+                            }
+                        } else {
+                            showLoader(false)
+                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+
+
+                        }
+                    }
+                    is Result.Error -> {
+                        showLoader(false)
+                        showErrorDialog(message = result.exception.toString())
+                    }
+                    is Result.Failure -> {
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
+                        showLoader(false)
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun resendEmailVerification() {
+        viewModelScope.launch {
+            showLoader(true)
+            LoginRequest(
+                email = phone.get().toString().trim()
+            ).let {
+                when (val result = loginRepository.resendVerification(it)) {
+                    is Result.Success -> {
+                        if (result.value.succeeded) {
+                            showLoader(false)
+                            //  showErrorDialog(message = result.message, colorBg = R.color.green_error)
+                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
+
+                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
+                                verificationCode =
+                                result.value.resendVerificationResponseDTO.verificationCode,
+                                emailorphone = phone.get().toString().trim(),
+                                password = password.get().toString().trim(),
+                                screenName = COMES_FROM_LOGIN))
+
+                        } else {
+                            showLoader(false)
+                            if (result.value.errorMessage.isNullOrEmpty()) {
+                                showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+                            }
+
+
+                        }
+                    }
+                    is Result.Error -> {
+//                        showToast(result.exception.toString())
+
+                    }
+                    is Result.Failure -> {
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
                     }
                 }
             }
@@ -69,30 +219,113 @@ class LoginViewModel @ViewModelInject constructor(
         }
     }
 
-    fun enableButton() {
-        btnSelected.set(
-            AuthUtils.isValidMobile(phone.get().toString().trim()) &&
-                    AuthUtils.isValidPasswordFormat(password.get().toString().trim())
-        )
+    private fun resendPhoneVerification() {
+        viewModelScope.launch {
+            showLoader(true)
+            LoginRequest(
+                phoneNumber = phone.get().toString().trim()
+            ).let {
+                when (val result = loginRepository.resendVerification(it)) {
+                    is Result.Success -> {
+                        if (result.value.succeeded) {
+                            showLoader(false)
+//                            showErrorDialog(message = result.message, colorBg = R.color.green_error)
+                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
+
+                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
+                                verificationCode =
+                                result.value.resendVerificationResponseDTO.verificationCode,
+                                emailorphone = phone.get().toString().trim(),
+                                password = password.get().toString().trim(),
+                                screenName = COMES_FROM_LOGIN))
+
+                        } else {
+                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+
+                        }
+                    }
+                    is Result.Error -> {
+
+                    }
+                    is Result.Failure -> {
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR)
+
+                    }
+                }
+            }
+            showLoader(false)
+        }
     }
 
-
-    fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
+    fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
-        isPhone.value = AuthUtils.isValidMobile(s.toString().trim())
-        if(!s.startsWith("92")){
-            Timber.e("start with 92")
-            mobileNumberError.value = "Start with 92"
-        }else {
-            mobileNumberError.value = "Invalid Phone Number"
-        }
-        enableButton()
+        isLoginWithPhone.value = loginTypeChecker(s)
+        val number = AuthUtils.isPhoneNumberValidate(phone.get().toString().trim())
+        isPhoneEdit.value = number!!.isValid
+//        isPhoneEdit.value = AuthUtils.isValidMobileNumber(s.toString().trim())
+        isEmailEdit.value = AuthUtils.isEmailValid(s.toString().trim())
+
+        phoneError.value = !s.contains("[a-zA-Z]".toRegex())
+        emailError.value = s.contains("[a-zA-Z]".toRegex())
+
+
+
+        errs_.value = AuthUtils.errorsEmailAndPhone(s.toString())
+        // isPhone.value = !phone.get().toString().isNullOrEmpty()
+
     }
 
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         password.set(s.toString())
-        isPassword.value = AuthUtils.isValidPasswordFormat(s.toString().trim())
-        enableButton()
+        if (password.get().toString().trim().isNullOrEmpty()) {
+            passwordError_.value = R.string.required
+            isPassword.value = false
+        } else {
+            passwordError_.value = R.string.no_error
+            isPassword.value = true
+        }
+
+//        isPassword.value = AuthUtils.isValidPasswordFormat(s.toString().trim())
+//        passwordError_.value = AuthUtils.passwordErrors(s.toString().trim())
+    }
+
+    private fun loginTypeChecker(s: CharSequence): Boolean {
+        return if (!s.contains("[a-zA-Z]".toRegex())) {
+//            isPhone.value = AuthUtils.isValidMobileNumber(s.toString().trim())
+            val number = AuthUtils.isPhoneNumberValidate(phone.get().toString().trim())
+            isPhone.value = number!!.isValid
+            Timber.e("Phone")
+            true
+        } else {
+            isEmail.value = AuthUtils.isEmailValid(s.toString().trim())
+            Timber.e("Email")
+            false
+        }
+    }
+
+
+    private fun isCheckValid(): Boolean {
+        var isValid = true
+
+        isPhoneEdit.value = AuthUtils.isValidMobileNumber(phone.get().toString().trim())
+        isEmailEdit.value = AuthUtils.isEmailValid(phone.get().toString().trim())
+        phoneError.value = !phone.get().toString().contains("[a-zA-Z]".toRegex())
+        emailError.value = phone.get().toString().contains("[a-zA-Z]".toRegex())
+        isPhone.value = !phone.get().toString().isNullOrEmpty()
+//        isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
+
+        if (password.get().toString().trim().isNullOrEmpty()) {
+            passwordError_.value = R.string.required
+            isPassword.value = false
+        } else {
+            passwordError_.value = R.string.no_error
+            isPassword.value = true
+        }
+
+//        passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
+        errs_.value = AuthUtils.errorsEmailAndPhone(phone.get().toString().trim())
+
+        return isValid
     }
 
 }

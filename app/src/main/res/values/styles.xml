@@ -12,6 +12,20 @@
     </style>
 
 
+
+    <style name="FullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+
+    </style>
+
+
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/LoginLayoutSuccessColor</item>
         <item name="boxStrokeWidth">2dp</item>
@@ -108,7 +122,6 @@
     </style>
 
 
-
     <style name="TextViewRegistrationStyle">
         <item name="android:layout_marginTop">@dimen/_15sdp</item>
         <item name="android:textColor">@color/black_200</item>
@@ -120,10 +133,11 @@
     <style name="TextViewErrorRegistration">
         <item name="android:layout_marginEnd">@dimen/_5sdp</item>
         <item name="android:textColor">@color/red_600</item>
-        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:textSize">@dimen/_9ssp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
+
     <style name="EditTextLoginStyle">
         <item name="android:layout_marginBottom">@dimen/_12sdp</item>
         <item name="android:paddingStart">@dimen/_15sdp</item>
@@ -136,13 +150,14 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="TextViewCreatePasswordStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/gray_800</item>
-        <item name="android:textSize"> @dimen/_10ssp</item>
-<!--        <item name="android:textStyle">bold</item>-->
-<!--        <item name="android:layout_marginTop">@dimen/_15sdp</item>-->
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <!--        <item name="android:textStyle">bold</item>-->
+        <!--        <item name="android:layout_marginTop">@dimen/_15sdp</item>-->
     </style>
 
 
@@ -157,17 +172,54 @@
         <item name="cornerFamilyTopRight">rounded</item>
         <item name="cornerFamilyBottomLeft">rounded</item>
     </style>
+
     <style name="RoundedShapePlanYourTrip" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-    <item name="cornerSizeTopLeft">35dp</item>
-    <item name="cornerSizeBottomRight">35dp</item>
-    <item name="cornerFamilyTopLeft">rounded</item>
-    <item name="cornerFamilyBottomRight">rounded</item>
-</style>
-<!--    android:layout_marginEnd="@dimen/_12sdp"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-    <style name="RegistrationImgErrorStyle">
+        <item name="cornerSizeTopLeft">35dp</item>
+        <item name="cornerSizeBottomRight">35dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+    </style>
 
+    <style name="RoundedShapePlanYourTripAr" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeTopRight">35dp</item>
+        <item name="cornerSizeBottomLeft">35dp</item>
+    </style>
+    <!--    android:layout_marginEnd="@dimen/_12sdp"-->
+    <!--    android:layout_width="wrap_content"-->
+    <!--    android:layout_height="wrap_content"-->
 
+    <!--    Horizontal recycler style-->
+    <style name="HorizontalItemStyle">
+        <item name="selectedBackground">@drawable/bg_filled</item>
+        <item name="selectedTextColor">@android:color/white</item>
+        <item name="unSelectedBackground">@drawable/bg_bordered</item>
+        <item name="unSelectedTextColor">@android:color/black</item>
+    </style>
+
+    <style name="HorizontalAttractionStyle">
+        <item name="selectedBackground1">@color/purple_900</item>
+        <item name="selectedTextColor1">@color/white_900</item>
+        <item name="unSelectedBackground1">@color/white_900</item>
+        <item name="unSelectedTextColor1">@color/gray_700</item>
+    </style>
+
+    <style name="SubmitButtonFilled">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_btn_filled</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="cb_textFont">bold</item>
+        <item name="cb_type">filled</item>
+    </style>
+    <style name="SubmitButtonOutLined" parent="SubmitButtonFilled">
+        <item name="android:background">@drawable/bg_btn_outlined</item>
+        <item name="android:textColor">@color/purple_900</item>
+        <item name="cb_type">outlined</item>
     </style>
 </resources>

@@ -1,13 +1,19 @@
 package com.app.dubaiculture.utils
 
 import android.os.Build
+import android.text.TextUtils
 import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.EditText
 import com.app.dubaiculture.R
-import java.util.regex.Matcher
+import com.google.i18n.phonenumbers.NumberParseException
+import com.google.i18n.phonenumbers.PhoneNumberUtil
+import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberType
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber
+import timber.log.Timber
+import java.util.*
 import java.util.regex.Pattern
+
 
 object AuthUtils {
     fun isEmailValid(email: String): Boolean {
@@ -28,44 +34,53 @@ object AuthUtils {
             R.string.emirates_id
         else R.string.valid
     }
-    fun isValidMobile(ph: String): Boolean {
-        return Pattern.matches("^(92)\\d{10}\$", ph)
-    }
 
 
-    fun isValidMobileTest(ph: String): String {
-//        return Pattern.matches("^(92)\\d{10}\$", ph)
-            val isvalid = true
-        if(!ph.matches("^(92)\\d{0}\$".toRegex())){
-            return "Start with 92"
 
-        }else if(!ph.matches("^(92)\\d{10}\$".toRegex())){
-            return "Invalid Mobile Number"
+
+    fun isValidMobileNumber(phone: String?): Boolean {
+        if (TextUtils.isEmpty(phone)) return false
+        val phoneNumberUtil = PhoneNumberUtil.getInstance()
+        try {
+
+            val numberProto: PhoneNumber = phoneNumberUtil.parse(phone, "")
+            val countryCode = numberProto.countryCode
+
+            val phoneNumber = phoneNumberUtil.parse(phone, Locale.getDefault().country)
+            Timber.e("Country Code =>$countryCode")
+            val phoneNumberType = phoneNumberUtil.getNumberType(phoneNumber)
+            return phoneNumberType == PhoneNumberType.MOBILE
+            } catch (e: java.lang.Exception) {
         }
-        return ""
-    }
-
-    fun isValidMobile1(ph: String): Int {
-
-        return if (!(Pattern.matches("05\\d{8}", ph)
-                    || Pattern.matches("^0.1{8}", ph)))
-            R.string.mobile_number
-        else R.string.valid
-
-    }
-
-    fun isMatchPassword(password : String ,confirmPass :String):Boolean{
-        return password == confirmPass
-
-    }
-
-    fun isValidPasswordFormat(pass: String): Boolean {
-
-        if(pass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}\$".toRegex()))
-      return true
         return false
     }
 
+    fun isMatchPassword(password: String, confirmPass: String):Boolean{
+        return password == confirmPass
+    }
+    fun isMatchPasswordError(password: String, confirmPass: String):Int{
+        if(confirmPass.isBlank()){
+            return R.string.required
+        }else
+        if(password!=confirmPass){
+            return R.string.err_confirm
+        }
+        return R.string.no_error
+    }
+    fun isMatchPasswordBool(password: String, confirmPass: String):Boolean{
+        if(confirmPass.isBlank() || password.isNullOrEmpty()){
+            return false
+        }else
+            if(password!=confirmPass){
+                return false
+            }
+        return true
+    }
+    fun isValidPasswordFormat(pass: String): Boolean {
+        if(pass.matches("^(?=.*\\d)(?=.*[<>/?!@#\$%^,*()&+=~.])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}\$".toRegex()))
+      return true
+        return false
+    }
 
     fun isValidOTP(otp: String): Boolean {
         val matches = Pattern.matches("\\d{6}", otp)
@@ -87,44 +102,116 @@ object AuthUtils {
         }
 
     }
-//    fun isValidPasswordFormat(password: String): Boolean {
-//        val passwordREGEX = Pattern.compile("^[A-z]" +
-//                "(?=.*[0-9])" +         //at least 1 digit
-//                "(?=.*[a-z])" +         //at least 1 lower case letter
-//                "(?=.*[A-Z])" +         //at least 1 upper case letter
-////                "(?=.*[a-zA-Z])" +      //any letter
-//                "(?=.*[@#$%^&+=])" +    //at least 1 special character
-//                "(?=\\S+$)" +           //no white spaces
-////                ".{2,}" +               //at least 8 characters
-//                "$")
-//        return passwordREGEX.matcher(password).matches()
-//    }
+    fun errorsEmailAndPhone(s: String):Int{
 
+            if(checkLoginType(s)){
+            //Login With Phone
+            return if(s.isNullOrBlank()){
+                R.string.required
+            }else
+            if(!s.startsWith("+")){
+                R.string.mobile_number_
+            }else if(!isValidMobileNumber(s)){
+                R.string.err_phone
+            }else{
+                R.string.no_error
+            }
+        }else{
+            //Login With Email
+            return if(!(isEmailValid(s))){
+                R.string.err_email
+            }else{
+                R.string.err_phone_two
+            }
+        }
+        }
+    fun checkLoginType(s: String):Boolean{
+        return !s.contains("[a-zA-Z]".toRegex())
 
-
+    }
+    fun passwordErrors(s: String):Int{
+        return if(s.isEmpty()){
+            R.string.required
+        }else if(s.length< 8){
+            R.string.should_contain_8_character_long
+        }else if(!s.contains("(?=.*[A-Z])".toRegex())){
+            R.string.should_contain_a_upper_character
+        }else if(!s.contains("(?=.*[a-z])".toRegex())){
+            R.string.lowercase_character
+        }else if(!s.contains("(.*\\d.*)".toRegex())){
+            R.string.at_least_one_digit
+        }else if(!s.contains("(?=.*[<>/?!@#\$%^,*()&+=~.])".toRegex())){
+            R.string.should_contain_a_special_character
+        }else{
+            R.string.err_password
+        }
+    }
+fun isEmailErrors(s: String): Int{
+    return when {
+        s.isBlank() || s.isNullOrEmpty()-> {
+            R.string.required
+        }
+        !isEmailValid(s) -> {
+            R.string.err_email
+        }
+        else -> {
+            R.string.err_phone_two
+        }
+    }
+}
+    fun isEmailErrorsbool(s: String): Boolean{
+        return if(s.trim().isBlank()){
+            false
+        }else isEmailValid(s)
+    }
+    fun errorsPhone(s: String):Int{
+            //Login With Phone
+            return if(s.isBlank()||s.isNullOrBlank()){
+                R.string.required
+            }else
+                if(!s.startsWith("+")){
+                    R.string.mobile_number_
+                }else if(!isValidMobileNumber(s)){
+                    R.string.err_phone
+                }else{
+                    R.string.required
+                }
+        }
+    fun isPhoneNumberValidate(mobNumber: String?): PhoneValidateResponse? {
+        val phoneNumberValidate = PhoneValidateResponse()
+        val phoneNumberUtil = PhoneNumberUtil.getInstance()
+        var phoneNumber: PhoneNumber? = null
+        var finalNumber = false
+        var isMobile: PhoneNumberType? = null
+        var isValid = false
+        try {
+            val numberProto: PhoneNumber = phoneNumberUtil.parse(mobNumber, "")
+            val countryCode = numberProto.countryCode
+            Timber.e("Country Code =>$countryCode")
+            val isoCode = phoneNumberUtil.getRegionCodeForCountryCode(countryCode.toInt())
+            phoneNumber = phoneNumberUtil.parse(mobNumber, isoCode)
+            isValid = phoneNumberUtil.isValidNumber(phoneNumber)
+            isMobile = phoneNumberUtil.getNumberType(phoneNumber)
+            phoneNumberValidate.code = phoneNumber.countryCode.toString()
+            phoneNumberValidate.phone = phoneNumber.nationalNumber.toString()
+            phoneNumberValidate.isValid = false
+        } catch (e: NumberParseException) {
+            e.printStackTrace()
+        } catch (e: java.lang.NullPointerException) {
+            e.printStackTrace()
+        } catch (e: java.lang.NumberFormatException) {
+            e.printStackTrace()
+        }
+        if (isValid && (PhoneNumberType.MOBILE == isMobile ||
+                    PhoneNumberType.FIXED_LINE == isMobile)
+        ) {
+            finalNumber = true
+            phoneNumberValidate.isValid = true
+        }
+        return phoneNumberValidate
+    }
 
 }
 
-//var isValid = false
-//if (pass.matches("(?=.*[A-Z])".toRegex())) {
-//    isValid = true
-//}else {
-//    isValid = false
-//}
-//if (pass.matches(".*[!,@,#,\$,%,^,&,*,?,_,~,-,(,)].*".toRegex())) {
-//    isValid = true
-//}else {
-//    isValid = false
-//}
-//if (pass.matches(".*[a-zA-Z].*".toRegex())) {
-//    isValid = true
-//}else {
-//    isValid = false
-//}
-//if (pass.matches(".*\\d+.*".toRegex())) {
-//    isValid = true
-//}else {
-//    isValid = false
-//}
-//isValid = pass.matches(".{8,}\$".toRegex())
-//return isValid
+
+

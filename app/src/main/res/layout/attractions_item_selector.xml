@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_100sdp">-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rVgeneric"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:overScrollMode="never"
+            android:clipToPadding="false"
+           />
+<!--    </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>-->
+
+</layout>

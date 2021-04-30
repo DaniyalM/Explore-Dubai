@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.postLogin.feeds.FeedsFragment">
 
+    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include layout="@layout/toolbar_snippet"/>
 
+
         <FrameLayout
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/app_bg"
@@ -25,5 +31,6 @@
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
 
 </layout>

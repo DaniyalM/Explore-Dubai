@@ -2,6 +2,9 @@
     <string name="app_name">Dubai Culture</string>
     <string name="english">English</string>
     <string name="arabic">Arabic</string>
+
+    <!--z-->
+    <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>
     <string name="switch_language">Switch Language</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -12,7 +15,9 @@
     <string name="attractions">Attractions</string>
     <string name="more">More</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="password">Enter Password</string>
+    <string name="_password">Password</string>
+
     <string name="login">Login</string>
     <string name="register">Sign Up</string>
     <string name="welcome_to_dubai_culture">Welcome To Dubai Culture</string>
@@ -23,14 +28,19 @@
     <string name="continue_as_a_guest"><u>Continue as a guest</u></string>
     <string name="don_t_have_an_account">Dont have an account?</string>
     <string name="enter_password">Enter password</string>
-    <string name="enter_mobile_number">Enter mobile number</string>
+    <string name="enter_mobile_number">Enter mobile number / email</string>
     <string name="registration">Registration</string>
     <string name="full_name">Full name</string>
     <string name="enter_full_name">Enter full name</string>
-    <string name="email_address">Email address</string>
+    <string name="email_address">Enter Email address</string>
+    <string name="_email_address">Email address</string>
+
     <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
+    <string name="_agree_to_the_terms_and_conditions">Please select Terms &amp; Conditions</string>
+
     <string name="register_now">Register Now</string>
-    <string name="confirm_password">Confirm password</string>
+    <string name="confirm_password">Enter Confirm password</string>
+    <string name="_confirm_password">Confirm password</string>
 
     <string name="forgot_password_">Forgot Password</string>
     <string name="cancel">Cancel</string>
@@ -48,22 +58,134 @@
     <string name="resend_otp">Resend OTP</string>
     <string name="expires_in">Expires in</string>
     <string name="workshop">WORKSHOP</string>
-    <string name="mobile_number">Mobile Number</string>
-    <string name="mobile_number_">Start with 92</string>
+    <string name="mobile_number">Mobile Number / Email</string>
+    <string name="mobile_number_new">Mobile Number</string>
+
+    <string name="mobile_number_">Start with "+"</string>
     <string name="valid" translatable="false">correct</string>
     <string name="emirates_id">Emirates ID</string>
     <string name="login_here">Login Here</string>
     <string name="err_first_name">Invalid Name</string>
 
     <string name="err_email">Invalid Email</string>
-    <string name="err_phone">Invalid Number</string>
+    <string name="err_phone">Invalid mobile Number</string>
     <string name="err_password">Invalid Password</string>
-    <string name="err_confirm">Password does not match</string>
+    <string name="err_confirm">Should be same</string>
     <string name="no_error"></string>
     <string name="create_your_customised_trip">Create your customised trip</string>
     <string name="plan_your_trip">Plan Your Trip</string>
     <string name="view_all">View all</string>
     <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">A One Time Password (OTP) will be sent to your registered email address or mobile number.</string>
+    <string name="_a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">A One Time Password (OTP) will be sent to your registered email address.</string>
 
+    <string name="free">FREE</string>
+    <string name="confirm">Confirm</string>
+    <string name="already_a_member">Already a member?</string>
+    <string name="at_least_one_digit">Should contains at least one digit</string>
+
+
+    <string name="enter_mobile_number_reg">Enter mobile number</string>
+
+    <string name="err_phone_two">e.g: 971-------------</string>
+    <string name="your_password_has_been_updated_continue_to_login">Your password has been updated.\nContinue to login</string>
+    <string name="book_a_ticket">Book a Ticket</string>
+    <string name="select_date">Select date</string>
+    <string name="add_date_of_visit">Add date of visit</string>
+    <string name="mm">MM</string>
+    <string name="hh">HH</string>
+    <string name="required">Required</string>
+    <string name="should_contain_8_character_long">Should be 8 characters long</string>
+    <string name="should_contain_a_lowercase_character">Should contain a lowercase character</string>
+    <string name="should_contain_a_upper_character">Should contains an uppercase character</string>
+    <string name="should_contain_a_special_character">Should contain a special character (!@#)</string>
+    <string name="login_to_continue">Login to Continue</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="okay">Okay</string>
+    <string name="filters">Filters</string>
+    <string name="search_events_by_keyword">Search events by keyword</string>
+    <string name="location">Location</string>
+    <string name="date_range">Date Range</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="category">Category</string>
+    <string name="type">Type</string>
+    <string name="_free">Free</string>
+    <string name="ticketed">Ticketed</string>
+    <string name="reset_filter">Reset Filter</string>
+    <string name="museums_near_you">Museums Near You</string>
+    <string name="sort">Sort</string>
+    <string name="alphabetically">Alphabetically</string>
+    <string name="a_to_z">A to Z</string>
+    <string name="z_to_a">Z to A</string>
+    <string name="date">Date</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
+    <string name="augmented_reality">Augmented Reality</string>
+    <string name="_360_view">360 View</string>
+    <string name="gallery">Gallery</string>
+    <string name="get_directions">Get Directions</string>
+    <string name="description">Description</string>
+
+    <string name="read_more">\n\nRead More.</string>
+    <string name="read_less">\n\nRead Less.</string>
+    <string name="don_t_miss_out_on_any_details">Don’t miss out on any details</string>
+    <string name="view_site_map">View Site Map</string>
+    <string name="ibeacons">iBeacons</string>
+    <string name="contact_for_inquiries">Contact for inquiries</string>
+    <string name="your_journey">Your Journey</string>
+    <string name="email_us">Email us</string>
+    <string name="stay_updated">Stay updated</string>
+    <string name="what_s_happenings_at_majlis_ghorfat">What’s Happenings at Ghorfat</string>
+    <string name="call_us">Call Us</string>
+    <string name="museum">Museums</string>
+    <string name="swipe_up_for_more">Swipe up for more</string>
+    <string name="more_events">More Events</string>
+    <string name="event_information">Event Information</string>
+    <string name="schedule">Schedule</string>
+    <string name="search_event_by_keyword">Search Event by keyword</string>
+    <string name="feature_events">Feature Events</string>
+    <string name="events_near_you">Events Near You</string>
+    <string name="view_on_map">View on map</string>
+    <string name="gps_status_enabled">"GPS is Enabled"</string>
+    <string name="gps_status_disabled">"GPS is Disabled"</string>
+    <string name="alert">Alert</string>
+    <string name="please_enable_gps"> Please enable GPS Otherwise Near Event won’t work</string>
+    <string name="the_definitive_guide_to_an_uncertain_world_contribute_to_the_future">The Definitive Guide to an Uncertain World Contribute to The Future</string>
+    <string name="_14_20_nov_2020_sunday_friday">14- 20 Nov,2020 | Sunday - Friday</string>
+    <string name="_10_00_am_1_00_pm">10:00 Am - 1:00 Pm</string>
+    <string name="palm_jumeriah_dubai">Palm Jumeriah, Dubai</string>
+    <string name="_10_km_away">10 Km Away</string>
+    <string name="register_for_event">Register for event</string>
+    <string name="occupation">Occupation</string>
+    <string name="what_do_you_do">What do you do?</string>
+    <string name="select_your_time_period">Select your time period</string>
+    <string name="time">Time</string>
+    <string name="upload_id">Upload ID</string>
+    <string name="jpeg_or_pdf_format_not_exceeding_2mb">JPEG or PDF format not exceeding 2MB</string>
+    <string name="submit">Submit</string>
+    <string name="register_confirm">Registration Confirmed</string>
+    <string name="various_artistic_and_cultural_activities">Various artistic and cultural activities</string>
+    <string name="opening_show_the_wise_poet_a_theatrical_performance_by_al_ahli_dubai_theatre">Opening show ‘The Wise Poet’ a theatrical performance by Al Ahli Dubai Theatre</string>
+    <string name="all">All</string>
+    <string name="this_week">This Week</string>
+    <string name="this_weekend">This Weekend</string>
+    <string name="next_seven_days">Next 7 Days</string>
+    <string name="detail_clip_card_text">Review Majlis Ghorfat\non Trip Advisor</string>
+    <string name="clear_all">Clear All</string>
+    <string name="no_data_found">No Data Found</string>
+
+    <string name="away">Km Away</string>
+    <string name="error_msg">Are you sure you want to close application?</string>
+    <string name="near_you">Near You</string>
+    <string name="recognize">Recognize</string>
+    <string name="ar_detail">AR Detail</string>
+    <string name="site_map">Sitemap</string>
+    <string name="heritage">Heritage Sites</string>
+    <string name="art_gallery">Art Galleries</string>
+    <string name="festivals">Festivals</string>
+    <string name="libraries">Libraries</string>
+    <string name="view_gallery">View Gallery</string>
+    <string name="reviews">Reviews</string>
+    <string name="on_trip">on Trip Advisor</string>
 
 </resources>

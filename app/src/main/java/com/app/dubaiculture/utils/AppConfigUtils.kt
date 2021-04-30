@@ -7,6 +7,8 @@ import com.rishabhharit.roundedimageview.RoundedImageView
 
 object AppConfigUtils {
     var BASE_URL = "https://jsonplaceholder.typicode.com/"
+    var clickCheckerFlag: Int = 0
+
 
     // Name of Notification Channel for verbose notifications of background work
      val VERBOSE_NOTIFICATION_CHANNEL_NAME: CharSequence = "Verbose WorkManager Notifications"

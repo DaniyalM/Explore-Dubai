@@ -43,6 +43,21 @@ class RegistrationRepository @Inject constructor(private val registrationRDS: Re
     }
 
 
+    suspend fun validateOTPForgot(confirmOTPRequest:ConfirmOTPRequest):Result<ConfirmOTPResponse>{
+        return when (val resultRDS = registrationRDS.validateOTP(transform(confirmOTPRequest))) {
+            is Result.Failure -> {
+                Result.Failure(resultRDS.isNetWorkError, resultRDS.errorCode, resultRDS.errorBody)
+            }
+            is Result.Success -> {
+                Result.Success(resultRDS.value)
+            }
+            is Result.Error -> {
+                Result.Error(resultRDS.exception)
+            }
+        }
+    }
+
+
     suspend fun resendVerificationOTP(resendOTPRequest: ResendOTPRequest):Result<ConfirmOTPResponse>{
         return when (val resultRDS = registrationRDS.resendVerificationOTP(transform(resendOTPRequest))) {
             is Result.Failure -> {

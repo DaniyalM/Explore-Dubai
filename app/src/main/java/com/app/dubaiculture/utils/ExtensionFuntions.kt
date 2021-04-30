@@ -1,24 +1,40 @@
 package com.app.dubaiculture.utils
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.PictureDrawable
-import android.net.Uri
 import android.view.View
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
+import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
-import com.app.dubaiculture.BuildConfig
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
-import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import com.rishabhharit.roundedimageview.RoundedImageView
 import okhttp3.RequestBody
 import okio.Buffer
 import java.io.IOException
-import java.io.InputStream
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+
+fun decorateRecyclerView(
+    context: Context,
+    recyclerView: RecyclerView,
+    layoutManager: LinearLayoutManager
+) {
+    val dividerItemDecoration = DividerItemDecoration(
+        context,
+        layoutManager.orientation
+    )
+    recyclerView.addItemDecoration(dividerItemDecoration)
+}
 
 
 fun requestBodyToString(request: RequestBody?): String? {
@@ -32,6 +48,14 @@ fun requestBodyToString(request: RequestBody?): String? {
 
 }
 
+
+internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(
+    context.getColorCompat(
+        color
+    )
+)
+
+internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
     Intent(this, activity).also {
@@ -67,67 +91,152 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
 
 }
 
+
 fun Fragment.handleApiError(
     failure: Result.Failure,
     baseViewModel: BaseViewModel,
-    retry: (() -> Unit)? = null
+    retry: (() -> Unit)? = null,
 ) {
+    baseViewModel.showLoader(false)
     when {
-        failure.isNetWorkError ->  baseViewModel.showToast(
+        failure.isNetWorkError -> baseViewModel.showToast(
             "Please Check Your Internet Connection"
         )
         failure.errorCode == 401 -> {
-            if (this is LoginFragment){
+            if (this is LoginFragment) {
                 baseViewModel.showToast("You have entered incorrect email or password")
-            }else{
+            } else {
 
                 baseViewModel.showToast("Server Error.")
             }
 
         }
-        else ->{
+        else -> {
 
-            val error= failure.errorBody?.string().toString()
+            val error = failure.errorBody?.string().toString()
             baseViewModel.showToast(error)
 
         }
     }
 }
 
-@BindingAdapter("android:imageUrl")
-fun loadImage(view: RoundedImageView, url: String?) {
-    url?.let {
-        Glide.with(view.context)
-            .load(BuildConfig.BASE_URL + it)
-//                .apply(
-//                    RequestOptions()
-//                        .placeholder(R.drawable.loading_animation)
-//                        .error(R.drawable.ic_broken_image))
-            .into(view)
-    }
-}
+fun <T : Any> ObservableField<T>.getNonNull(): T = get()!!
 
-@BindingAdapter("android:imageViewUrl")
-fun loadImageView(view: ImageView, url: String?) {
-    url?.let {
-        Glide.with(view.context)
-            .load(BuildConfig.BASE_URL + it)
-//                .apply(
-//                    RequestOptions()
-////                        .placeholder(R.drawable.logo)
-////                        .error(R.drawable.logo))
-            .into(view)
-    }
-}
+//@BindingAdapter("android:imageViewUrl")
+//fun loadImageView(view: ImageView, url: String?) {
+//    url?.let {
+//        Glide.with(view.context)
+//            .load(BuildConfig.BASE_URL + it)
+////                .apply(
+////                    RequestOptions()
+//////                        .placeholder(R.drawable.logo)
+//////                        .error(R.drawable.logo))
+//            .into(view)
+//    }
+//}
+//
+//@BindingAdapter("android:svgUrl")
+//fun loadSvgToImageView(view: ImageView, url: String?) {
+//    url?.let {
+//        Glide.with(view.context)
+//            .load(BuildConfig.BASE_URL + it)
+//            .into(view)
+//    }
+//
+//}
 
-@BindingAdapter("android:svgUrl")
-fun loadSvgToImageView(view: ImageView, url: String?){
-    url?.let {
-        Glide.with(view.context)
-            .load(BuildConfig.BASE_URL + it)
-            .into(view)
-    }
+fun <R> Fragment.getNavigationResult(key: String) =
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<R>(key)
+
+fun Fragment.setNavigationResult(key: String, data: Any?) {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
 
 }
 
+fun dateFormat(inputDate: String?): String {
+//        2021-03-31T17:19:00 server date format
+    var parsed: Date? = null
+    var outputDate = ""
+    val df_input =
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+    val df_output =
+        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    try {
+        parsed = df_input.parse(inputDate)
+        outputDate = df_output.format(parsed)
+    } catch (e: ParseException) {
+    }
+    return outputDate
+}
 
+
+fun dateFormatEn(inputDate: String?): String {
+//        2021-03-31T17:19:00 server date format
+    var parsed: Date? = null
+    var outputDate = ""
+    val df_input =
+        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    val df_output =
+        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    try {
+        parsed = df_input.parse(inputDate)
+        outputDate = df_output.format(parsed)
+    } catch (e: ParseException) {
+    }
+    return outputDate
+}
+
+fun getTimeSpan(fromDate: String?, toDate: String?): Boolean {
+    try {
+        val fromDateTime = getDateObj(fromDate ?: "")
+        val toDateTime = getDateObj(toDate ?: "")
+        val currentTime = getDateObj(gettime().toString())
+        return currentTime.after(fromDateTime) && currentTime.before(toDateTime)
+    } catch (e: ParseException) {
+        e.printStackTrace()
+        return false
+    }
+}
+
+fun dayOfWeek(inputDate: String?, format : String): String {
+//        2021-03-31T17:19:00 server date format
+    var parsed: Date? = null
+    var outputDate = ""
+    val df_input =
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+    val df_output =
+        SimpleDateFormat(format)
+    try {
+        parsed = df_input.parse(inputDate)
+        outputDate = df_output.format(parsed)
+    } catch (e: ParseException) {
+    }
+    return outputDate
+}
+
+fun getDateObj(dateString: String): Date {
+    var date: Date? = null
+    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+    try {
+        date = format.parse(dateString)
+        System.out.println(date)
+        return date
+
+    } catch (e: ParseException) {
+        e.printStackTrace()
+        return Date()
+    }
+}
+
+fun Date.toString(format: String): String {
+    val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
+    return dateFormatter.format(this)
+}
+
+
+fun gettime(): String? {
+    val c = Calendar.getInstance()
+    System.out.println("Current time => " + c.time)
+    val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+    return df.format(c.time)
+}

@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="match_parent"
+        android:background="#fff"
         android:layout_height="wrap_content"
         >
 
@@ -11,9 +13,10 @@
             android:id="@id/innerSectionHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:text="@string/attractions"
+            android:elevation="@dimen/_10sdp"
             android:textColor="@color/black_900"
             android:textSize="@dimen/_20sdp"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/innerSectionRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,21 +61,21 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview_plan_trip"
             android:visibility="gone"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="110dp"
             app:layout_constraintTop_toBottomOf="@+id/innerSectionRv"
             app:cardElevation="@dimen/_10sdp"
-            app:shapeAppearance="@style/RoundedShapePlanYourTrip" >
+             >
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
-                    android:layout_weight="1"
+                    android:layout_weight="0.8"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:layout_width="0dp"
@@ -82,7 +85,7 @@
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_16sdp"
                         android:textColor="@color/black_200"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/plan_your_trip" />
@@ -90,17 +93,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:textSize="@dimen/_10ssp"
+                        android:textSize="@dimen/_12ssp"
                         android:text="@string/create_your_customised_trip"
                         />
                 </LinearLayout>
 
                 <com.airbnb.lottie.LottieAnimationView
+                    android:layout_weight="0.2"
                     android:id="@+id/animationView"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:layout_width="@dimen/_70sdp"
+
                     android:layout_height="match_parent"
-                    app:lottie_rawRes="@raw/pinlooped"
+                    app:lottie_rawRes="@raw/pin_nearby_events"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"/>
 <!--                <ImageView-->
@@ -121,4 +126,5 @@
             android:layout_height="@dimen/_20sdp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

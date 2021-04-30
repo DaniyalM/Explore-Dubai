@@ -1,58 +1,188 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Dubai Culture</string>
+    <string name="app_name">هيئة دبي للثقافة والفنون</string>
     <string name="english">English</string>
-    <string name="arabic">Arabic</string>
-    <string name="switch_language">   تبديل اللغة</string>
-    <string name="welcome_to_dubai_culture">Welcome To Dubai Culture</string>
-    <string name="sign_up">سجل</string>
-    <string name="forgot_password">هل نسيت كلمة المرور</string>
+    <string name="arabic">العربية</string>
+    <string name="switch_language">تغيير اللغة</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">مرحبا</string>
+
+
+
+    // home tabs
+    <string name="explore">اكتشف</string>
+    <string name="events">الفعاليات</string>
+    <string name="attractions">الوجهات الثقافية</string>
+    <string name="more">المزيد</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="password">ادخل كلمة السر </string>
     <string name="login">تسجيل الدخول</string>
-    <string name="email">البريد الإلكتروني</string>
-    <string name="password">كلمه السر</string>
-    <string name="login_to_your_account">Login to your account</string>
-    <string name="continue_as_a_guest"><u>Continue as a guest</u></string>
-    <string name="don_t_have_an_account">Don\'t have an account?</string>
-    <string name="enter_password">Enter password</string>
-    <string name="enter_mobile_number">Enter mobile number</string>
-    <string name="registration">Registration</string>
-    <string name="full_name">Full name</string>
-    <string name="enter_full_name">Enter full name</string>
-    <string name="email_address">Email address</string>
-    <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
-    <string name="register_now">Register Now</string>
-    <string name="confirm_password">Confirm password</string>
-    <string name="forgot_password_">Forgot Password</string>
-    <string name="cancel">Cancel</string>
-    <string name="send_otp">Send OTP</string>
-    <string name="create_password">Create Password</string>
-    <string name="your_password_must_contain">Your password must contain:</string>
-    <string name="_8_characters_long">8 characters long</string>
-    <string name="uppercase_character">Uppercase character</string>
-    <string name="lowercase_character">Lowercase character</string>
-    <string name="special_character">Special character (!@#)</string>
-    <string name="password_updated">Password Updated</string>
-    <string name="continue_">Continue</string>
-    <string name="registration_successful">Registration Successful</string>
-    <string name="enter_otp">Enter OTP</string>
-    <string name="resend_otp">Resend OTP</string>
-    <string name="expires_in">Expires in</string>
-    <string name="workshop">WORKSHOP</string>
-    <string name="mobile_number">Mobile Number</string>
-    <string name="valid" translatable="false">correct</string>
-    <string name="emirates_id">Emirates ID</string>
-    <string name="login_here">Testing123!</string>
-    <string name="err_email">Invalid Email</string>
-    <string name="err_phone">Invalid Number</string>
-    <string name="err_password">Invalid Password</string>
-    <string name="err_confirm">Invalid Confirm Password</string>
-    <string name="err_first_name">Invalid Name</string>
-    <string name="mobile_number_">Start with 92</string>
-    <string name="create_your_customised_trip">Create your customised trip</string>
-    <string name="plan_your_trip">Plan Your Trip</string>
+    <string name="register">التسجيل</string>
+    <string name="welcome_to_dubai_culture">مرحبا بك في هيئة دبي للثقافة والفنون</string>
+    <string name="sign_up">تسجيل جديد؟</string>
+    <string name="forgot_password"> نسيت كلمة السر؟</string>
+
+
+
+    <string name="login_to_your_account">الدخول للحساب</string>
+    <string name="continue_as_a_guest"><u>الاستمرار كزائر</u></string>
+    <string name="don_t_have_an_account">ليس لديك حساب؟</string>
+    <string name="enter_password">ادخل كلمة السر</string>
+    <string name="enter_mobile_number">رقم الهاتف \ البريد الالكتروني</string>
+    <string name="registration">التسجيل</string>
+    <string name="full_name">الاسم الكامل</string>
+    <string name="enter_full_name">ادخل اسمك الكامل</string>
+    <string name="email_address">ادخل البريد الالكتروني</string>
+    <string name="i_agree_to_the_terms_and_conditions">أوافق على  <u>الشروط والأحكام</u></string>
+    <string name="register_now">تسجيل</string>
+    <string name="confirm_password">ادخل تأكيد كلمة السر </string>
+    <string name="_confirm_password"> تأكيد كلمة السر</string>
+    <string name="_email_address">ادخل البريد الالكتروني</string>
+    <string name="_password"> كلمة السر</string>
+
+
+
+    <string name="forgot_password_">نسيت كلمة السر</string>
+    <string name="cancel">الغاء</string>
+    <string name="send_otp">أرسل كلمة مرور لمرة واحد</string>
+    <string name="create_password">انشئ كلمة السر</string>
+    <string name="your_password_must_contain">كلمة السر يجب أن تتضمن:</string>
+    <string name="_8_characters_long">8 حروف</string>
+    <string name="uppercase_character">حرف كبير</string>
+    <string name="lowercase_character">حرف صغير</string>
+    <string name="special_character">حرف مميز (!@#)</string>
+    <string name="password_updated">تم تحديث كلمة السر</string>
+    <string name="continue_">استمرار</string>
+    <string name="registration_successful">تم التسجيل بنجاح</string>
+    <string name="enter_otp">أدخل  كلمة مرور لمرة واحد</string>
+    <string name="resend_otp">اعادة ارسال OTP</string>
+    <string name="expires_in">تنتهي في</string>
+    <string name="workshop">ورشة عمل</string>
+    <string name="mobile_number">رقم الهاتف \ البريد الالكتروني</string>
+    <string name="mobile_number_">يبدأ ب "+"</string>
+    <string name="valid" translatable="false">صحيح</string>
+    <string name="emirates_id">رقم الهوية الامارتية</string>
+    <string name="login_here">تسجيل الدخول</string>
+    <string name="err_first_name">اسم خطئ</string>
+
+
+
+    <string name="err_email">بريد الكتروني خطئ</string>
+    <string name="err_phone">رقم هاتف خطئ</string>
+    <string name="err_password">كلمة مرور خطئ</string>
+    <string name="err_confirm">يجب أن يكون متشابه</string>
     <string name="no_error"></string>
-    <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">A One Time Password (OTP) will be sent to your registered email address or mobile number.</string>
+    <string name="create_your_customised_trip">انشاء رحلتك الخاصة</string>
+    <string name="plan_your_trip">خطط لرحلتك</string>
+    <string name="view_all">اظهار الكل</string>
+    <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">سيتم ارسال كلمة مرور لمرة واحدة لبريدك الالكتروني المسجل أو رقم الهاتف.</string>
+    <string name="free">مجانا</string>
+    <string name="confirm">تأكيد</string>
+    <string name="already_a_member">لديك حساب؟</string>
+    <string name="at_least_one_digit">يجب أن تتضمن رقم</string>
+    <string name="err_phone_two" >e.g: 971-------------</string>
+    <string name="your_password_has_been_updated_continue_to_login">لقد تم تحديث كلمة السر الخاصة بك. أكمل الى تسجيل الدخول</string>
+    <string name="mobile_number_new">رقم الهاتف خطئ</string>
+    <string name="enter_mobile_number_reg">ادخل رقم الهاتف</string>
+
+    <string name="mm">MM</string>
+    <string name="hh">HH</string>
+    <string name="required">مطلوب</string>
+    <string name="_agree_to_the_terms_and_conditions">أوافق على  <u>الشروط والأحكام</u></string>
+    <string name="should_contain_8_character_long">يجب أن يتكون من 8 حروف</string>
+    <string name="should_contain_a_lowercase_character">يجب أن تتضمن حرف صغير</string>
+    <string name="should_contain_a_upper_character">يجب أن تتضمن حرف كبير</string>
+    <string name="should_contain_a_special_character">(!@#) يجب أن تتضمن حرف مميز</string>
+    <string name="login_to_continue">تسجيل الدخول للاستمرار</string>
+    <string name="terms_and_conditions">الشروط والأحكام</string>
+    <string name="okay">حسنا</string>
+    <string name="filters">تصنيف</string>
+    <string name="search_events_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
+    <string name="location">الموقع</string>
+    <string name="date_range">نطاق التاريخ</string>
+    <string name="from">من عند</string>
+    <string name="to">الى</string>
+    <string name="category">الفئة</string>
+    <string name="type">النوع</string>
+    <string name="_free">مجانا</string>
+    <string name="ticketed">تذاكر دخول</string>
+    <string name="reset_filter">اعادة ضبط التصنيف</string>
+    <string name="museums_near_you">متاحف حولك</string>
+    <string name="sort">تصنيف</string>
+    <string name="alphabetically">الأبجدية</string>
+    <string name="a_to_z">أ الى ي</string>
+    <string name="z_to_a">ي الى أ</string>
+    <string name="date">التاريخ</string>
+    <string name="newest">الأجدد</string>
+    <string name="oldest">الأقدم</string>
+    <string name="augmented_reality">الواقع الافتراضي</string>
+    <string name="_360_view">نظرة 360 درجة</string>
+    <string name="gallery">المعرض</string>
+    <string name="get_directions">احصل على الاتجاهات</string>
+    <string name="description">التفاصيل</string>
+    <string name="read_more">\n\n.اقرأ المزيد</string>
+    <string name="read_less">\n\n.اقرأ أقل</string>
+    <string name="don_t_miss_out_on_any_details">لا تفوت التفاصيل</string>
+    <string name="view_site_map">عرض خريطة العرض</string>
+    <string name="ibeacons">iBeacons</string>
+    <string name="contact_for_inquiries">تواصل معنا للاستفسار</string>
+    <string name="your_journey">رحلتك</string>
+    <string name="email_us">تواصل معنا بالبريد الالكتروني</string>
+    <string name="stay_updated">ابق محدثا</string>
+    <string name="what_s_happenings_at_majlis_ghorfat">ماذا يحدث في مجلس الغرفات</string>
+    <string name="call_us">اتصل بنا</string>
+    <string name="museum">المتاحف</string>
+    <string name="swipe_up_for_more">اسحب لأعلى للمزيد</string>
+    <string name="more_events">فعاليات أكثر</string>
+    <string name="event_information">تفاصيل الفعالية</string>
+    <string name="schedule">الجدول</string>
+    <string name="search_event_by_keyword">ابحث عن فعالية باستخدام الكلمات</string>
+    <string name="feature_events">فعاليات بارزة</string>
+    <string name="events_near_you">فعاليات حولك</string>
+    <string name="view_on_map">أظهر على الخريطة</string>
+    <string name="gps_status_enabled">"الموقع الحالي مفعّل"</string>
+    <string name="gps_status_disabled">"الموقع الحالي غير مفعّل"</string>
+    <string name="alert">تنبيه</string>
+    <string name="please_enable_gps">يرجى تمكين الموقع الحالي</string>
+    <string name="the_definitive_guide_to_an_uncertain_world_contribute_to_the_future">الدليل لعالم غير مؤكد للاستثمار في المستقبل</string>
+    <string name="_14_20_nov_2020_sunday_friday">14- 20 نوفمبر ,2020 | الأحد - الجمعة</string>
+    <string name="_10_00_am_1_00_pm">10:00 ص - 1:00 م</string>
+    <string name="palm_jumeriah_dubai">جميرا, دبي</string>
+    <string name="_10_km_away">10 كم</string>
+    <string name="register_for_event">التسجيل للفعالية</string>
+    <string name="occupation">المهنة</string>
+    <string name="what_do_you_do">ماذا تعمل؟</string>
+    <string name="select_your_time_period">اختر توقيتك المناسب</string>
+    <string name="time">الوقت</string>
+    <string name="upload_id">تحميل الهوية</string>
+    <string name="jpeg_or_pdf_format_not_exceeding_2mb">الملف لا يمكن أن يتجاوز 2 ميغابايت</string>
+    <string name="submit">أرسل</string>
+    <string name="register_confirm">تم تأكيد التسجيل</string>
+    <string name="various_artistic_and_cultural_activities">مختلف الأنشطة الفنية و الثقافية</string>
+    <string name="opening_show_the_wise_poet_a_theatrical_performance_by_al_ahli_dubai_theatre">افتتاح معرض شبابي في مسرح الأهلي الثقافي</string>
+    <string name="all">الكل</string>
+    <string name="this_week">هذا الأسبوع</string>
+    <string name="this_weekend">عطلة نهاية هذا الأسبوع</string>
+    <string name="next_seven_days">ال7 أيام القادمة</string>
+    <string name="detail_clip_card_text">مراجعة المكان</string>
+    <string name="clear_all">مسح الكل</string>
+    <string name="no_data_found">لم يتم ايجاد نتائج</string>
+    <string name="away">كم</string>
+    <string name="error_msg">هل أنت متاكد من اغلاق التطبيق؟</string>
+    <string name="near_you">حولك</string>
+    <string name="recognize">اكتشف</string>
+    <string name="ar_detail">تفاصيل الواقع الافتراضي</string>
+    <string name="site_map">خريطة الموقع</string>
+    <string name="heritage">المواقع التراثية</string>
+    <string name="festivals">المهرجانات</string>
+    <string name="libraries">المكتبات</string>
+    <string name="art_gallery">متاحف الفن</string>
+
+    <string name="_a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">سيتم ارسال كلمة مرور لمرة واحدة لبريدك الالكتروني المسجل أو رقم الهاتف.</string>
+    <string name="book_a_ticket">احجز تذكرة</string>
+    <string name="select_date">اختر التاريخ</string>
+    <string name="add_date_of_visit">أضف تاريخ الزيارة</string>
+    <string name="view_gallery">المعرض</string>
+    <string name="reviews">المراجعات</string>
+    <string name="on_trip">على TripAdvisor</string>
 
 </resources>
-
-

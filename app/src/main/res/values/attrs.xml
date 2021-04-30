@@ -9,6 +9,23 @@
     </declare-styleable>
 
 
+    <declare-styleable name="HorizontalItemSelector">
+        <attr name="selectedTextColor" format="color" />
+        <attr name="unSelectedTextColor" format="color" />
+        <attr name="selectedBackground" format="reference" />
+        <attr name="unSelectedBackground" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="HorizontalAttractionSelector">
+        <attr name="selectedTextColor1" format="color" />
+        <attr name="unSelectedTextColor1" format="color" />
+        <attr name="selectedBackground1" format="reference" />
+        <attr name="unSelectedBackground1" format="reference" />
+
+        <attr name="selectedInnerImg" format="reference" />
+        <attr name="unSelectedInnerImg" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="CustomEditText">
         <attr name="textTypeFont" format="enum">
             <enum name="light" value="0" />
@@ -24,8 +41,6 @@
         <attr name="fab_size" format="dimension"/>
     </declare-styleable>
 
-
-
     <declare-styleable name="CustomButton">
         <attr name="cb_textFont" format="enum">
             <enum name="light" value="0" />
@@ -37,5 +52,25 @@
             <enum name="outlined" value="1" />
         </attr>
     </declare-styleable>
+
+
+    <declare-styleable name="CustomReadMoreView">
+        <attr name="trimExpandedText" format="string" />
+        <attr name="trimCollapsedText" format="string" />
+        <attr name="trimLength" format="integer" />
+        <attr name="showTrimExpandedText" format="boolean" />
+        <attr name="colorClickableText" format="color" />
+        <attr name="trimLines" format="integer" />
+        <attr name="trimMode">
+            <enum name="trimModeLine" value="0" />
+            <enum name="trimModeLength" value="1" />
+        </attr>
+        <attr name="customReadMoreTextFont" format="enum">
+            <enum name="light" value="0" />
+            <enum name="regular" value="1" />
+            <enum name="bold" value="2" />
+        </attr>
+    </declare-styleable>
+
 
 </resources>
