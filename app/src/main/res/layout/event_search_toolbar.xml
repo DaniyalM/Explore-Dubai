@@ -44,6 +44,7 @@
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:inputType="textCapSentences"
                     android:hint="@string/search_event_by_keyword"
                     android:imeOptions="actionSearch"
                     android:maxLines="1"
@@ -51,7 +52,6 @@
                     android:paddingStart="@dimen/_15ssp"
                     android:textColorHint="@color/gray_600"
                     android:textSize="@dimen/_10ssp"
-
                     />
 
                 <ImageView

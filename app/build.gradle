@@ -5,6 +5,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
 //apply plugin: 'com.google.gms.google-services'
 //apply plugin: 'com.google.gms.google-services'
 def config = rootProject.extensions.getByName("ext")
@@ -89,7 +91,7 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable true
+            debuggable false
             buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -290,7 +292,7 @@ dependencies {
 
     //firebase
     implementation platform('com.google.firebase:firebase-bom:26.6.0')
-//    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging-ktx'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.9'

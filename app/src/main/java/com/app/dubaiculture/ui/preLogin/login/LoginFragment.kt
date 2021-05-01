@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CompoundButton
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -154,7 +155,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                                 textPositive = getString(R.string.okay),
                                 textNegative = getString(R.string.cancel),
                                 actionNegative = {
-
                                 },
                                 actionPositive = {
                                     activity.finish()
