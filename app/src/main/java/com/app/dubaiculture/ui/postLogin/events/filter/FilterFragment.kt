@@ -28,6 +28,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_filter.*
+import kotlinx.android.synthetic.main.spinner_text.view.*
 import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
@@ -46,7 +47,7 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
     private var radioBtnTitle: String = ""
     private var endDate: String? = ""
     private var startDate: String? = ""
-
+    private var startDateObj : Date?= null
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,12 +66,17 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
         recyclerViewSetUp()
 
 
+
+
         binding.editSearch.setText(eventViewModel.keywordState.value.toString())
         binding.editLocation.setText(eventViewModel.locationState.value.toString())
         binding.tvStartDate.text = eventViewModel.dateFrmState.value.toString()
         binding.tvEndDate.text = eventViewModel.dateToState.value.toString()
         when {
             eventViewModel.radioBtnState.value.toString() == "Free" -> {
+                binding.rbFree.isChecked = true
+            }
+            eventViewModel.radioBtnState.value.toString() == "Booking Available" -> {
                 binding.rbFree.isChecked = true
             }
             eventViewModel.radioBtnState.value.toString() == "Paid" -> {
@@ -138,6 +144,7 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                     object : DatePickerHelper.DatePickerInterface {
                         override fun onDateSelected(calendar: Calendar) {
                             val date: Date = calendar.time
+                            startDateObj = date
                             val format = "yyyy-MM-dd"
                             val str = date.toString(format)
                             binding.tvStartDate.text = str
@@ -159,7 +166,7 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                             Timber.e("${endDate}")
 
                         }
-                    }).showPicker()
+                    },minDate = startDateObj?.time).showPicker()
             }
         }
     }
