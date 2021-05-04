@@ -98,4 +98,8 @@ class AttractionDTO {
     @SerializedName("NumberContact")
     @Expose
     var numberContact: String = ""
+
+    @SerializedName("Type")
+    @Expose
+    var type: String = ""
 }

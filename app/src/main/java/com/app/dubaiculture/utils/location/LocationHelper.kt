@@ -105,7 +105,7 @@ open class LocationHelper @Inject constructor(
 //    }
 open fun milesToKm(dis: Double):Double{
     val km = dis / 0.62137
-    return Math.round(km * 100).toDouble() / 100
+    return Math.round(km * 10).toDouble() / 10
 }
     fun isLocationEnabled(locationManager: LocationManager): Boolean {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(

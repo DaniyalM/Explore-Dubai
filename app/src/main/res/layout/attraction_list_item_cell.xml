@@ -54,7 +54,7 @@
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:textStyle="bold"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:text="@{attractions.category}"
+                    android:text="@{attractions.type}"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_9ssp"
                      />
