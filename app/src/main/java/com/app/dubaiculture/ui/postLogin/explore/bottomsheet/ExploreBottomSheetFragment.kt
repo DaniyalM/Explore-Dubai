@@ -42,7 +42,7 @@ class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtom
 
     }
     private fun rvSetUp(list: List<ExploreMap>) {
-        exploreNearAdapter = ExploreMapAdapter()
+        exploreNearAdapter = ExploreMapAdapter(isArabic())
         binding.rvListing.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)

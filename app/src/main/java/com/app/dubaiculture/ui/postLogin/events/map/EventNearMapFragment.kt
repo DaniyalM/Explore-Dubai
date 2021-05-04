@@ -55,7 +55,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     }
 
     private fun rvSetUp() {
-        eventNearAdapter = EventNearMapAdapter()
+        eventNearAdapter = EventNearMapAdapter(isArabic())
         binding.rvNearEvent.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
