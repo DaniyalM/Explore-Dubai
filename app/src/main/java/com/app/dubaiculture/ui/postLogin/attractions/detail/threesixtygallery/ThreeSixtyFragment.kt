@@ -1,9 +1,10 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -12,7 +13,7 @@ import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.attraction.local.models.ThreeSixtyImageItem
 import com.app.dubaiculture.databinding.FragmentThreeSixtyBinding
 import com.app.dubaiculture.databinding.Items360GalleryViewBinding
-import com.app.dubaiculture.ui.base.BaseDialogFragment
+import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.adapter.ThreeSixtyListItem
 import com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.viewmodel.ThreeSixtyViewModel
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
@@ -23,43 +24,43 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View.OnClickListener {
+class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnClickListener {
     private val threeSixtyViewModel: ThreeSixtyViewModel by viewModels()
     private lateinit var attractionsObj: Attractions
 
     @Inject
     lateinit var glide: RequestManager
 
-    override fun getTheme(): Int {
-        return R.style.FullScreenDialog;
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (dialog != null) {
-            val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.MATCH_PARENT
-            dialog?.window!!.apply {
-                setLayout(width, height)
-                @Suppress("DEPRECATION")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    insetsController?.hide(WindowInsets.Type.statusBars())
-                } else {
-                    setFlags(
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    )
-                }
-
-            }
-
-        }
-    }
+//    override fun getTheme(): Int {
+//        return R.style.FullScreenDialog;
+//    }
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
+//    }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        if (dialog != null) {
+//            val width = ViewGroup.LayoutParams.MATCH_PARENT
+//            val height = ViewGroup.LayoutParams.MATCH_PARENT
+//            dialog?.window!!.apply {
+//                setLayout(width, height)
+//                @Suppress("DEPRECATION")
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                    insetsController?.hide(WindowInsets.Type.statusBars())
+//                } else {
+//                    setFlags(
+//                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                        WindowManager.LayoutParams.FLAG_FULLSCREEN
+//                    )
+//                }
+//
+//            }
+//
+//        }
+//    }
 
 
     override fun onAttach(context: Context) {
@@ -100,18 +101,18 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
 
 
                     attractionsObj = it.value
-                    if(attractionsObj.asset360!!.imageItems.isNullOrEmpty()){
+                    if (attractionsObj.asset360!!.imageItems.isNullOrEmpty()) {
                         binding.three360Title.visibility = View.GONE
-                    binding.appCompatImageView.visibility = View.GONE
-                    binding.tvNoData.visibility = View.VISIBLE
+                        binding.appCompatImageView.visibility = View.GONE
+                        binding.tvNoData.visibility = View.VISIBLE
                     }
 
                     attractionsObj.asset360?.let { asset ->
                         asset.imageItems?.let {
                             loadVR(it[0])
-                            if(!it[0].title.isNullOrEmpty()){
+                            if (!it[0].title.isNullOrEmpty()) {
                                 binding.three360Title.text = it[0].title
-                            }else{
+                            } else {
                                 binding.three360Title.visibility = View.GONE
                             }
                         }
@@ -125,9 +126,9 @@ class ThreeSixtyFragment : BaseDialogFragment<FragmentThreeSixtyBinding>(), View
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         attractionsObj.asset360?.imageItems?.get(position).let {
-                                            if(!it?.title.isNullOrEmpty()){
+                                            if (!it?.title.isNullOrEmpty()) {
                                                 binding.three360Title.text = it?.title
-                                            }else{
+                                            } else {
                                                 binding.three360Title.visibility = View.GONE
                                             }
                                         }

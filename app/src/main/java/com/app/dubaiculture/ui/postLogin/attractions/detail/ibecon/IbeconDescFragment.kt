@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.*
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_ibecon.view.*
 import kotlinx.android.synthetic.main.fragment_ibecon_desc.view.*
 
 @AndroidEntryPoint
-class IbeconDescFragment : BaseDialogFragment<FragmentIbeconDescBinding>() , View.OnClickListener{
+class IbeconDescFragment : BaseFragment<FragmentIbeconDescBinding>() , View.OnClickListener{
 
 
     private lateinit var beconObj: IbeconITemsSiteMap
@@ -28,49 +29,24 @@ class IbeconDescFragment : BaseDialogFragment<FragmentIbeconDescBinding>() , Vie
         inflater: LayoutInflater,
         container: ViewGroup?,
     ) = FragmentIbeconDescBinding.inflate(inflater,container,false)
-    override fun getTheme() = R.style.FullScreenDialog;
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.FullScreenDialog)
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (dialog != null) {
-            val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.MATCH_PARENT
-            dialog?.window!!.apply {
-                setLayout(width, height)
-                @Suppress("DEPRECATION")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    insetsController?.hide(WindowInsets.Type.statusBars())
-                } else {
-                    setFlags(
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    )
-                }
-
-            }
-
-        }
-    }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         arguments?.apply {
             beconObj = getParcelable(Constants.NavBundles.BECON_OBJECT)!!
-
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.imgDetailPic.glideInstance(beconObj.image, false).into(binding.imgDetailPic)
         binding.tvTitle.text = beconObj.title
         binding.desc.text = beconObj.summary
         binding.imgBack.setOnClickListener(this)
-
     }
+
+
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.img_back->{

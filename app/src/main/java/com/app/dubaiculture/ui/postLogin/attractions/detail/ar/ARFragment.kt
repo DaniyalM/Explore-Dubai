@@ -1,16 +1,14 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.ar
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.core.os.bundleOf
-import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentARBinding
-import com.app.dubaiculture.ui.base.BaseDialogFragment
+import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ar.external.*
 import com.app.dubaiculture.utils.Constants.AR.CLIENT_TOKEN
 import com.app.dubaiculture.utils.Constants.AR.TARGET_ID
@@ -27,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_a_r.*
 import org.json.JSONObject
 
 
-class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering,
+class ARFragment : BaseFragment<FragmentARBinding>(), ExternalRendering,
     ImageTrackerListener {
     private var wikitudeSDK: WikitudeSDK? = null
     private var customSurfaceView: CustomSurfaceView? = null
@@ -36,48 +34,46 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering,
     private var cloudRecognitionService: CloudRecognitionService? = null
     var viewGroup: ViewGroup? = null
 
-    override fun getTheme()=R.style.FullScreenDialog;
+//    override fun getTheme()=R.style.FullScreenDialog;
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
+//
+//    }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        if (dialog != null) {
+//            val width = ViewGroup.LayoutParams.MATCH_PARENT
+//            val height = ViewGroup.LayoutParams.MATCH_PARENT
+//            dialog?.window!!.apply {
+//                setLayout(width, height)
+//                @Suppress("DEPRECATION")
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                    insetsController?.hide(WindowInsets.Type.statusBars())
+//                } else {
+//                    setFlags(
+//                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                        WindowManager.LayoutParams.FLAG_FULLSCREEN
+//                    )
+//                }
+//
+//            }
+//
+//        }
+//    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (dialog != null) {
-            val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.MATCH_PARENT
-            dialog?.window!!.apply {
-                setLayout(width, height)
-                @Suppress("DEPRECATION")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    insetsController?.hide(WindowInsets.Type.statusBars())
-                } else {
-                    setFlags(
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    )
-                }
-
-            }
-
-        }
-    }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         wikitudeSDK = WikitudeSDK(this)
         val startupConfiguration = NativeStartupConfiguration()
         startupConfiguration.licenseKey = WikitudeSDKConstants.WIKITUDE_SDK_KEY
         startupConfiguration.cameraPosition = CameraSettings.CameraPosition.BACK
         wikitudeSDK!!.onCreate(requireContext(), requireContext(), startupConfiguration)
         cloudRecognitionService = wikitudeSDK!!.trackerManager.createCloudRecognitionService(
-                CLIENT_TOKEN,
-                TARGET_ID,
+            CLIENT_TOKEN,
+            TARGET_ID,
             object : CloudRecognitionServiceInitializationCallback {
                 override fun onError(p0: WikitudeError?) {
                     Log.e("Error", "Error")
@@ -97,8 +93,8 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering,
             null
         )
 //        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-    }
 
+    }
 
     override fun onResume() {
         super.onResume()
@@ -155,8 +151,10 @@ class ARFragment : BaseDialogFragment<FragmentARBinding>(), ExternalRendering,
                                 Toast.LENGTH_LONG
                             ).show()
                             val bundle = bundleOf(META_DATA_ID to id)
-                            findNavController().navigate(R.id.action_ARFragment_to_ARDetailFragment,
-                                bundle)
+                            findNavController().navigate(
+                                R.id.action_ARFragment_to_ARDetailFragment,
+                                bundle
+                            )
                         }
                     } else {
                         requireActivity().runOnUiThread {
