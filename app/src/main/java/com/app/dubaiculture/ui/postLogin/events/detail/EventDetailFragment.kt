@@ -74,7 +74,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     var emailContact : String? = null
     var numberContact : String? = null
 
-    private lateinit var marker: Marker
 
     private val getObserver = Observer<GpsStatus> {
         it?.let {
@@ -99,6 +98,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     @Inject
     lateinit var locationHelper: LocationHelper
+    private var mapView: MapView? = null
+
 
     var loc = Location("dummyprovider")
 
@@ -137,7 +138,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         subscribeUiEvents(eventViewModel)
         callingObservables()
 
-        mapSetUp()
+        mapSetUp(savedInstanceState)
         uiActions()
         rvSetUp()
         subscribeToGpsListener()
@@ -323,11 +324,17 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     }
 
-    private fun mapSetUp() {
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-        mapFragment?.getMapAsync(this)
+    private fun mapSetUp(savedInstanceState: Bundle?) {
+//        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+//        mapFragment?.getMapAsync(this)
 //        val mapFragment = SupportMapFragment.newInstance(GoogleMapOptions().zOrderOnTop(true))
 //        mapFragment?.getMapAsync(this)
+        mapView = binding.root.findViewById(R.id.map)
+        mapView?.let {
+            it.getMapAsync(this)
+            it.onCreate(savedInstanceState)
+
+        }
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -429,7 +436,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onDestroy() {
         textToSpeechEngine.shutdown()
         super.onDestroy()
+        mapView?.onDestroy()
     }
+
 
 
     private fun initiateExpander() {
@@ -532,6 +541,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     override fun onResume() {
         super.onResume()
+        mapView?.onResume()
+
         binding.appbarEventnDetail
                 .addOnOffsetChangedListener(this)
 
@@ -540,6 +551,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onPause() {
         textToSpeechEngine.stop()
         super.onPause()
+        mapView?.onPause()
 
         binding.appbarEventnDetail.removeOnOffsetChangedListener(this)
 

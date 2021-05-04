@@ -13,6 +13,7 @@ import com.app.dubaiculture.data.repository.viewgallery.local.Images
 import com.app.dubaiculture.databinding.FragmentARDetailBinding
 import com.app.dubaiculture.databinding.ViewGalleryItemsBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
+import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ar.adapter.ViewGalleryItems
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ar.viewModel.ARDetailViewModel
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ARDetailFragment : BaseDialogFragment<FragmentARDetailBinding>(), View.OnClickListener {
+class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickListener {
 
     private val arDetailViewModel: ARDetailViewModel by viewModels()
     private val imagesList = ArrayList<Images>()
@@ -35,35 +36,35 @@ class ARDetailFragment : BaseDialogFragment<FragmentARDetailBinding>(), View.OnC
             container: ViewGroup?,
     ) = FragmentARDetailBinding.inflate(inflater, container, false)
 
-    override fun getTheme() = R.style.FullScreenDialog;
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (dialog != null) {
-            val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.MATCH_PARENT
-            dialog?.window!!.apply {
-                setLayout(width, height)
-                @Suppress("DEPRECATION")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    insetsController?.hide(WindowInsets.Type.statusBars())
-                } else {
-                    setFlags(
-                            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                            WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    )
-                }
-
-            }
-
-        }
-    }
+//    override fun getTheme() = R.style.FullScreenDialog;
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
+//
+//    }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        if (dialog != null) {
+//            val width = ViewGroup.LayoutParams.MATCH_PARENT
+//            val height = ViewGroup.LayoutParams.MATCH_PARENT
+//            dialog?.window!!.apply {
+//                setLayout(width, height)
+//                @Suppress("DEPRECATION")
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                    insetsController?.hide(WindowInsets.Type.statusBars())
+//                } else {
+//                    setFlags(
+//                            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                            WindowManager.LayoutParams.FLAG_FULLSCREEN
+//                    )
+//                }
+//
+//            }
+//
+//        }
+//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

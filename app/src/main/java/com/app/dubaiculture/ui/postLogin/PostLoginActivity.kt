@@ -60,6 +60,9 @@ class PostLoginActivity : BaseAuthenticationActivity() {
                 R.id.ibeconFragment -> {
                     bottomNav.visibility = View.GONE
                 }
+                R.id.attractionGalleryFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
                 else -> {
                     bottomNav.visibility = View.VISIBLE
 

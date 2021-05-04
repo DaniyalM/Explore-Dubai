@@ -3,12 +3,9 @@ package com.app.dubaiculture.ui.postLogin.attractions.detail.gallery
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -19,7 +16,7 @@ import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
 import com.app.dubaiculture.data.repository.viewgallery.local.Images
 import com.app.dubaiculture.databinding.AttractionGallaryImageItemBinding
 import com.app.dubaiculture.databinding.AttractionGalleryFragmentBinding
-import com.app.dubaiculture.ui.base.BaseDialogFragment
+import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.gallery.adapter.GalleryListItem
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
@@ -35,44 +32,44 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBinding>() {
-    private  var gallerList= ArrayList<Gallery>()
-    private  var imagesList= ArrayList<Images>()
+class AttractionGalleryFragment : BaseFragment<AttractionGalleryFragmentBinding>() {
+    private var gallerList = ArrayList<Gallery>()
+    private var imagesList = ArrayList<Images>()
 
     @Inject
     lateinit var glide: RequestManager
 
-    override fun getTheme(): Int {
-        return R.style.FullScreenDialog;
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (dialog != null) {
-            val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.MATCH_PARENT
-            dialog?.window!!.apply {
-                setLayout(width, height)
-                @Suppress("DEPRECATION")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    insetsController?.hide(WindowInsets.Type.statusBars())
-                } else {
-                    setFlags(
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    )
-                }
-
-            }
-
-        }
-    }
+//    override fun getTheme(): Int {
+//        return R.style.FullScreenDialog;
+//    }
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
+//
+//    }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        if (dialog != null) {
+//            val width = ViewGroup.LayoutParams.MATCH_PARENT
+//            val height = ViewGroup.LayoutParams.MATCH_PARENT
+//            dialog?.window!!.apply {
+//                setLayout(width, height)
+//                @Suppress("DEPRECATION")
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                    insetsController?.hide(WindowInsets.Type.statusBars())
+//                } else {
+//                    setFlags(
+//                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                        WindowManager.LayoutParams.FLAG_FULLSCREEN
+//                    )
+//                }
+//
+//            }
+//
+//        }
+//    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -84,7 +81,7 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
         arguments?.apply {
             try {
                 gallerList = getParcelableArrayList(ATTRACTION_GALLERY_LIST)!!
-            }catch (e : NullPointerException){
+            } catch (e: NullPointerException) {
                 imagesList = getParcelableArrayList(IMAGES_LIST)!!
             }
 
@@ -94,9 +91,9 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initRv()
-        if(!gallerList.isNullOrEmpty()){
+        if (!gallerList.isNullOrEmpty()) {
             gallerList[0].galleryImage?.let { displayBlurryView(it) }
-        }else{
+        } else {
             imagesList[0].image?.let { displayBlurryView(it) }
         }
         binding.imgBack.setOnClickListener {
@@ -109,7 +106,7 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
         binding.mainImageSlider.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = GroupAdapter<GroupieViewHolder>().apply {
-                if(!gallerList.isNullOrEmpty()){
+                if (!gallerList.isNullOrEmpty()) {
                     gallerList.forEach {
                         add(
                             GalleryListItem<AttractionGallaryImageItemBinding>(
@@ -118,7 +115,7 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
                             )
                         )
                     }
-                }else {
+                } else {
                     imagesList.forEach {
                         add(
                             GalleryListItem<AttractionGallaryImageItemBinding>(
@@ -141,7 +138,7 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
         binding.rvBottomSelector.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = GroupAdapter<GroupieViewHolder>().apply {
-                if(!gallerList.isNullOrEmpty()){
+                if (!gallerList.isNullOrEmpty()) {
                     gallerList.forEach {
                         add(
                             GalleryListItem<AttractionGallaryImageItemBinding>(
@@ -160,7 +157,7 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
                         )
                     }
 
-                }else{
+                } else {
                     imagesList.forEach {
                         add(
                             GalleryListItem<AttractionGallaryImageItemBinding>(
@@ -206,6 +203,7 @@ class AttractionGalleryFragment : BaseDialogFragment<AttractionGalleryFragmentBi
                     circularProgressDrawable.stop()
 
                 }
+
                 override fun onLoadCleared(placeholder: Drawable?) {
 
                 }
