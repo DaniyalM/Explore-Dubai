@@ -21,17 +21,17 @@ class DatePickerHelper(var selectedDate : String?=null , var context:Context ,va
             selectCurrentDate.get(Calendar.DAY_OF_MONTH)
         )
 
-//        maxDate?.let {
-//            // prevent date picker from being selected future dates
-//            datePickerDialog.datePicker.maxDate = it
-//        } ?: run {
-//            // remove all min/max dates from date picker
-//            minDate?.let {
-//                // prevent date picker from being selected previous dates
-//                datePickerDialog.datePicker.minDate = it
-//            }
-//
-//        }
+        maxDate?.let {
+            // prevent date picker from being selected future dates
+            datePickerDialog.datePicker.maxDate = it
+        } ?: run {
+            // remove all min/max dates from date picker
+            minDate?.let {
+                // prevent date picker from being selected previous dates
+                datePickerDialog.datePicker.minDate = it
+            }
+
+        }
 
         datePickerDialog.show()
 
