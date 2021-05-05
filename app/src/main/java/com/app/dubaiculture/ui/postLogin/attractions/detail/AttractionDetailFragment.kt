@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -217,12 +218,16 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             attraction.apply {
                 url = audioLink
                 if (!TextUtils.isEmpty(latitude) && !TextUtils.isEmpty(latitude)) {
-                    val distance = locationHelper.distance(
-                        lat!!.toDouble(), long!!.toDouble(),
-                        latitude!!.toDouble(),
-                        longitude!!.toDouble()
-                    )
-                    tv_km.text = "$distance Km Away"
+                    try{
+                        val distance = locationHelper.distance(
+                            lat!!.toDouble(), long!!.toDouble(),
+                            latitude!!.toDouble(),
+                            longitude!!.toDouble()
+                        )
+                        tv_km.text = "$distance Km Away"
+                    }catch (e: java.lang.NumberFormatException){
+                    }
+
                 }
 
 
