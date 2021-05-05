@@ -11,7 +11,7 @@
 
     <merge>
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -220,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:textColor="@color/gray_800"
+                    android:textColor="@color/gray_750"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.12"
@@ -260,7 +260,7 @@
                     android:drawableStart="@drawable/right_arrow"
                     android:drawablePadding="@dimen/_2sdp"
                     android:text="@string/get_directions"
-                    android:textColor="@color/gray_600"
+                    android:textColor="@color/gray_750"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toStartOf="@+id/tv_km"
                     app:layout_constraintHorizontal_bias="0.17"
@@ -273,7 +273,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/_2sdp"
-                    android:textColor="@color/gray_800"
+                    android:textColor="@color/gray_750"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_direction"
                     app:layout_constraintEnd_toEndOf="@+id/divider"
@@ -316,7 +316,9 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textAlignment="viewStart"
                     android:textSize="@dimen/_10ssp"
-                    app:colorClickableText="@color/gray_700"
+                    android:lineSpacingExtra="3dp"
+                    android:textColor="@color/gray_750"
+                    app:colorClickableText="@color/gray_500"
                     app:layout_constraintEnd_toEndOf="@+id/card_map"
                     app:layout_constraintStart_toStartOf="@+id/heading_desc"
                     app:layout_constraintTop_toBottomOf="@+id/heading_desc"
@@ -372,7 +374,7 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/_10sdp"
                         android:text="@string/don_t_miss_out_on_any_details"
-                        android:textColor="@color/gray_800"
+                        android:textColor="@color/gray_500"
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.2"
@@ -432,7 +434,7 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/_10sdp"
                         android:text="Lorem ipsum dolar sit amet"
-                        android:textColor="@color/gray_800"
+                        android:textColor="@color/gray_500"
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.2"
@@ -516,7 +518,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.4"
                         android:orientation="horizontal" />
 
 
@@ -703,7 +705,7 @@
                 <!--        tools:listitem="@layout/attraction_detail_up_coming_items"-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </merge>
 
 </layout>

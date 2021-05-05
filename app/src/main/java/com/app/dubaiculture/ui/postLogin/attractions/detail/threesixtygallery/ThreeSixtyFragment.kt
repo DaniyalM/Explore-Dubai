@@ -127,6 +127,8 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
                                     override fun rowClickListener(position: Int) {
                                         attractionsObj.asset360?.imageItems?.get(position).let {
                                             if (!it?.title.isNullOrEmpty()) {
+                                                binding.three360Title.visibility = View.VISIBLE
+
                                                 binding.three360Title.text = it?.title
                                             } else {
                                                 binding.three360Title.visibility = View.GONE
