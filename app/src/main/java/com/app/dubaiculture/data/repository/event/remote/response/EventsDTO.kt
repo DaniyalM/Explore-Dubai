@@ -96,6 +96,10 @@ data class EventsDTO(
     var dateFrom: String = "",
 
 
+    @SerializedName("RegistrationDate")
+    @Expose
+    var registrationDate: String = "",
+
 
     @SerializedName("EmailContact")
     @Expose

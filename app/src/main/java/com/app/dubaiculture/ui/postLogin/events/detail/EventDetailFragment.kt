@@ -142,7 +142,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         uiActions()
         rvSetUp()
         subscribeToGpsListener()
-        enableRegistration()
+        enableRegistration(eventObj.registrationDate)
         if (eventObj.isFavourite) {
             binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
             binding.root.favourite_event.background =
@@ -236,7 +236,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 is Result.Success -> {
                     eventObj = it.value
                 }
-
                 is Result.Failure -> handleApiError(it, eventViewModel)
             }
         }
@@ -264,7 +263,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             isDetailFavouriteFlag = false
 
                         }
-
                     }
                 }
                 is Result.Failure -> handleApiError(it, eventViewModel)
@@ -447,6 +445,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 is Result.Success -> {
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
+                    enableRegistration(it.value.registrationDate)
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)
                     }
@@ -497,7 +496,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     }
                 }
                 is Result.Failure -> {
-                    eventViewModel.showErrorDialog(message = INTERNET_CONNECTION_ERROR)
+//                    eventViewModel.showErrorDialog(message = INTERNET_CONNECTION_ERROR)
+                    handleApiError(it, eventViewModel)
 
                 }
             }
@@ -532,10 +532,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    private fun enableRegistration() {
-        if (!getTimeSpan(eventObj.dateFrom, eventObj.dateTo)) {
-            binding.root.btn_reg.isEnabled = false
-            binding.root.btn_register_now.isEnabled = false
+    private fun enableRegistration(registrationDate : String) {
+        if (getTimeSpan(registrationDate)) {
+            binding.root.btn_reg.visibility = View.GONE
+            binding.root.btn_register_now.visibility = View.GONE
         }
     }
 

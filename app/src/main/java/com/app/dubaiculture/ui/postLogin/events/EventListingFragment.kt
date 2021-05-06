@@ -182,7 +182,11 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                         },
                                         object : RowClickListener {
                                             override fun rowClickListener(position: Int) {
-                                                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2)
+                                                val eventObj = allList[position]
+                                                val bundle = Bundle()
+                                                bundle.putParcelable(EVENT_OBJECT, eventObj)
+                                                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2,
+                                                    bundle)
                                             }
 
                                         },

@@ -181,9 +181,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         if (this::marker.isInitialized) {
             marker.let {
                 it.position = LatLng(
-                    attraction.latitude?.toDouble()
-                        ?: lat?.toDouble()!!, attraction.longitude?.toDouble()
-                        ?: long?.toDouble()!!
+                    attraction.latitude?.toDouble() ?: lat?.toDouble()!!, attraction.longitude?.toDouble() ?: long?.toDouble()!!
                 )
             }
         }
@@ -646,18 +644,22 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     private fun locationIsEmpty(location: Location) {
-        if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
-                attractionsObj.latitude
-            )
-        ) {
-            val distance =
-                locationHelper.distance(
-                    lat!!.toDouble(), long!!.toDouble(),
-                    attractionsObj.latitude!!.toDouble(),
-                    attractionsObj.longitude!!.toDouble()
+        try {
+            if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
+                    attractionsObj.latitude
                 )
-            binding.root.tv_km.text = "$distance Km Away"
-        }
+            ) {
+                val distance =
+                    locationHelper.distance(
+                        location.latitude, location.longitude,
+                        attractionsObj.latitude!!.toDouble(),
+                        attractionsObj.longitude!!.toDouble()
+                    )
+                binding.root.tv_km.text = "$distance Km Away"
+            }
+        }catch (e:java.lang.NumberFormatException)
+        { }
+
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {

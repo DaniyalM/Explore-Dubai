@@ -70,17 +70,18 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                         showToast(result.value.confirmOTPResponseDTO.message.toString())
                         navigateByAction(R.id.action_bottomSheet_to_registrationSuccessFragment)
                         }else {
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg = R.color.red_600)
+
                         }
                     }
                     is Result.Failure -> {
                         showLoader(false)
                         Timber.e(result.errorCode.toString())
-                        showToast(result.errorCode.toString())
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
+
                     }
                     is Result.Error -> {
                         Timber.e(result.exception)
-                        showToast(result.exception.toString())
                     }
                 }
             }
@@ -103,16 +104,16 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                             _loginConfirmOTPStatus.value = Event(true)
                             showToast(result.value.confirmOTPResponseDTO.message.toString())
                         }else {
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg = R.color.red_600)
+
                         }
                     }
                     is Result.Failure -> {
                         Timber.e(result.errorCode.toString())
-                        showToast(INTERNET_CONNECTION_ERROR)
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
                     }
                     is Result.Error -> {
                         Timber.e(result.exception)
-                        showToast(result.exception.toString())
                     }
                 }
             }
@@ -138,16 +139,15 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                             bundle.putString("verificationCode",it.verificationCode)
                             navigateByAction(R.id.action_bottomSheet_to_createPassFragment,bundle)
                         }else{
-                            showToast(result.value.errorMessage)
+                            showErrorDialog(message = result.value.errorMessage,colorBg = R.color.red_600)
                         }
                     }
                     is Result.Failure -> {
                         Timber.e(result.errorCode.toString())
-                        showToast(result.errorCode.toString())
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
                     }
                     is Result.Error -> {
                         Timber.e(result.exception)
-                        showToast(result.exception.toString())
                     }
                 }
             }
@@ -179,11 +179,10 @@ class OTPViewModel @ViewModelInject constructor(private val registrationReposito
                     }
                     is Result.Failure -> {
                         Timber.e(result.errorCode.toString())
-                        showToast(result.errorCode.toString())
+                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
                     }
                     is Result.Error -> {
                         Timber.e(result.exception)
-                        showToast(result.exception.toString())
                     }
                 }
             }

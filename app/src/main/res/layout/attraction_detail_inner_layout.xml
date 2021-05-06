@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="android.text.TextUtils"/>
         <variable
             name="attraction"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
@@ -685,7 +685,7 @@
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@{attraction.events.empty ? `` : attraction.title}"
+                    android:text="@{attraction.events == null ? `` : attraction.title}"
                     android:textColor="@color/black_200"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintEnd_toEndOf="parent"

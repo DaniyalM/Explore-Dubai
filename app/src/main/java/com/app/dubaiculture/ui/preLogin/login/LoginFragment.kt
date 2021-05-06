@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CompoundButton
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -16,9 +15,10 @@ import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.app.dubaiculture.utils.PushNotificationManager
 import com.app.dubaiculture.utils.firebase.getFcmToken
-import com.app.dubaiculture.utils.getTimeSpan
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
+import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -29,7 +29,7 @@ import java.util.*
 class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener {
 
     private val loginViewModel: LoginViewModel by viewModels()
-
+    var check = -1
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,21 +46,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.imgUaePass.setOnClickListener(this)
         lottieAnimationRTL(binding.animationView)
         applicationExitDialog()
+        Timber.e(check.toDouble().toString())
         lottieAnimationRTL(binding!!.animationView)
         binding.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
-                    binding.password to "my_password",
-                    binding.editPassword to "my_edit_password",
-                    binding.mobileNumber to "my_phone",
-                    binding.editMobNo to "my_edit_phone",
-                    binding.tvLoginAccount to "main_title",
-                    binding.btnLogin to "action_btn"
+                binding.password to "my_password",
+                binding.editPassword to "my_edit_password",
+                binding.mobileNumber to "my_phone",
+                binding.editMobNo to "my_edit_phone",
+                binding.tvLoginAccount to "main_title",
+                binding.btnLogin to "action_btn"
             )
             findNavController().navigate(
-                    R.id.action_loginFragment_to_registerFragment2,
-                    null,
-                    null,
-                    extras
+                R.id.action_loginFragment_to_registerFragment2,
+                null,
+                null,
+                extras
             )
         }
         binding.tvAsGuest.setOnClickListener {
@@ -128,7 +129,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 )
             }
             R.id.img_uae_pass -> {
-//                navigate(R.id.action_loginFragment_to_eventNearMapFragment)
+//                navigate(R.id.action_loginFragment_to_bottomSheet)
             }
         }
     }
@@ -136,6 +137,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     override fun onResume() {
         super.onResume()
         binding.animationView.playAnimation()
+        SystemRequirementsChecker.checkWithDefaultDialogs(requireActivity())
     }
 
     override fun onPause() {
@@ -151,18 +153,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 object : OnBackPressedCallback(true /* enabled by default */) {
                     override fun handleOnBackPressed() {
                         showAlert(
-                                message = getString(R.string.error_msg),
-                                textPositive = getString(R.string.okay),
-                                textNegative = getString(R.string.cancel),
-                                actionNegative = {
-                                },
-                                actionPositive = {
-                                    activity.finish()
-                                }
+                            message = getString(R.string.error_msg),
+                            textPositive = getString(R.string.okay),
+                            textNegative = getString(R.string.cancel),
+                            actionNegative = {
+                            },
+                            actionPositive = {
+                                activity.finish()
+                            }
                         )
                     }
                 }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
-
 }
