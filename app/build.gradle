@@ -147,7 +147,6 @@ dependencies {
     implementation config.commonDependency.multidex
     implementation config.commonDependency.appcompat
     implementation config.commonDependency.legacySupport
-    implementation config.google.firebase_messaging_version
     //Databinding Compiler
     kapt config.commonDependency.dataBinding
     //RetroFit Networking
@@ -181,6 +180,7 @@ dependencies {
     // Coroutines //Work Manager
     implementation config.backgroundAndAsynThreading.coroutines
     implementation config.backgroundAndAsynThreading.workManager
+    implementation config.backgroundAndAsynThreading.coroutinesPlayServices
 
     // Navigation Component
     implementation config.navigationDependency.navFragment
@@ -194,6 +194,8 @@ dependencies {
     implementation config.commonDependency.activityKtx
     //Dagger - Hilt
     implementation config.di.hilt
+    implementation config.di.hiltLifeCycleVM
+    kapt config.di.hiltCompiler
     kapt config.di.hiltDagger
     // Timber
     implementation config.logs.timber
@@ -227,6 +229,7 @@ dependencies {
     //lib phone
     implementation config.ui_design.libphoneNumber
     implementation config.ui_design.materialRipple
+    implementation config.ui_design.androidAnimations
 //    implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
 
     //recycler Animation
@@ -236,7 +239,6 @@ dependencies {
 //    implementation 'com.github.devendroid:ReadMoreOption:1.0.2'
 
     implementation config.ui_design.badgeView
-    implementation config.ui_design.recyclerAnimators
     implementation config.ui_design.searchablespinner
     //photo view
 //    implementation config.image_processing.photoView
@@ -275,10 +277,10 @@ dependencies {
     //firebase
 
     implementation platform(config.google.firebase_bom)
+//    implementation config.google.firebase_messaging_version
     implementation config.google.firebase_crashlytics
     implementation config.google.firebase_analytics
     implementation config.google.firebase_messaging
-    implementation config.backgroundAndAsynThreading.coroutinesPlayServices
 //    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
 //    implementation "androidx.fragment:fragment-ktx:1.3.2"
 
