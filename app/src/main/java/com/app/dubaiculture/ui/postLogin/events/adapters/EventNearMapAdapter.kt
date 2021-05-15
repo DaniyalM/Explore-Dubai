@@ -3,6 +3,7 @@ package com.app.dubaiculture.ui.postLogin.events.adapters
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ import com.app.dubaiculture.databinding.EventNearItemsBinding
 import com.app.dubaiculture.utils.AsyncCell
 import com.app.dubaiculture.utils.dateFormat
 
-class EventNearMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EventNearMapAdapter(var isArabic : Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<Events>() {
         override fun areItemsTheSame(oldItem: Events, newItem: Events): Boolean {
             return oldItem.id == newItem.id
@@ -58,12 +59,24 @@ class EventNearMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     ) {
         (holder.itemView as EventNearMapAdapter.EventsListItemCell).bindWhenInflated {
             holder.itemView.binding?.let {
+                arrowtRTL(isArabic,it.arrow)
                 try {
                     it.events = events[position]
                     it.tvDate.text = dateFormat(events[position].dateTo)
                 } catch (ex: IndexOutOfBoundsException) {
                     print(ex.stackTrace)
                 }
+            }
+        }
+    }
+
+    fun arrowtRTL(isArabic : Boolean,img: ImageView) {
+        when {
+            isArabic -> {
+                img.scaleX = -1f
+            }
+            else -> {
+                img.scaleX = 1f
             }
         }
     }

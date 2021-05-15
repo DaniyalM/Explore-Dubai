@@ -151,7 +151,7 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                             startDate = str
                             Timber.e("${startDate}")
                         }
-                    }).showPicker()
+                    },fromDate = false).showPicker()
             }
             R.id.tv_end_date -> {
                 DatePickerHelper(binding.tvEndDate.text.toString(),

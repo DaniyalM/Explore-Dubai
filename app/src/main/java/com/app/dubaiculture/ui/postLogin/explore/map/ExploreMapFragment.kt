@@ -262,7 +262,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     }
 
     private fun rvSetUp(list: List<ExploreMap>) {
-        exploreNearAdapter = ExploreMapAdapter()
+        exploreNearAdapter = ExploreMapAdapter(isArabic())
         binding.rvExploreMap.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)

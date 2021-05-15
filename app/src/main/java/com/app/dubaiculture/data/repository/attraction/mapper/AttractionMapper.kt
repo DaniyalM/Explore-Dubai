@@ -163,6 +163,7 @@ fun transformAttractions(list: List<AttractionDTO>): List<Attractions> =
                         id = it.id,
                         title = it.title,
                         category = it.category,
+                        type = it.type,
                         IsFavourite = it.isFavourite,
                         locationTitle = it.locationTitle,
                         location = it.location,

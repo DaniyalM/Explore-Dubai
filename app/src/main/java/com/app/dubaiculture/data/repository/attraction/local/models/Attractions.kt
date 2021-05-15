@@ -15,6 +15,7 @@ data class Attractions(
     var longitude: String? = "",
     var latitude: String? = "",
     var email: String? = "",
+    var type : String?="",
     var number: String? = "",
     var audioLink: String? = "",
     var portraitImage: String? = "",
