@@ -27,8 +27,7 @@ class AttractionViewModel @ViewModelInject constructor(
 
     private val _attractionDetail: MutableLiveData<Result<Attractions>> = MutableLiveData()
     val attractionDetail: LiveData<Result<Attractions>> = _attractionDetail
-    private var _isPlaying: MutableLiveData<Boolean> = MutableLiveData(false)
-    var isPlaying: LiveData<Boolean> = _isPlaying
+
 
 
     fun getAttractionCategoryToScreen(locale: String) {
@@ -101,22 +100,4 @@ class AttractionViewModel @ViewModelInject constructor(
     }
 
 
-
-
-//    fun getInterests(): List<AttractionCategory> {
-//        val list = mutableListOf<AttractionCategory>()
-//        list.add(AttractionCategory("1", "Museum", "", R.drawable.museum, R.drawable.museum))
-//        list.add(AttractionCategory("2",
-//            "Heritage Sites",
-//            "",
-//            R.drawable.heritage,
-//            R.drawable.heritage))
-//        list.add(AttractionCategory("3", "Festivals", "", R.drawable.festival, R.drawable.festival))
-//        list.add(AttractionCategory("4",
-//            "Attractions",
-//            "",
-//            R.drawable.museums_icon_home,
-//            R.drawable.museums_icon_home))
-//        return list
-//    }
 }

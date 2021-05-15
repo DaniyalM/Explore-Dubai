@@ -48,20 +48,16 @@ ext {
     espresso = "3.3.0"
     materialDesign = "1.2.1"
     lifecyleViewModel = "2.2.0"
-    room = "2.2.5"
+    room = "2.3.0"
     glide = "4.11.0"
     lifeCycleExtension = "2.2.0"
-    coroutines = "1.4.0-M1"
+    coroutines = "1.4.1"
+    coroutinesPlayServices = "1.3.9"
     navFragment = "2.3.3"
     navKtx = "2.3.3"
     activityKtx = "1.1.0"
-//    hilt = "2.28-alpha"
-    hilt = "2.33-beta"
-    hiltLifeCycleVM = "1.0.0-alpha02"
-//    hiltCompiler = "1.0.0-alpha02"
-    hiltCompiler = "1.0.0-alpha02"
-//    hiltDagger = "2.28-alpha"
-    hiltDagger = "2.33-beta"
+    hilt = "2.35.1"
+    hiltCompiler = "2.35.1"
     timber = "4.7.1"
     dataStorePref = "1.0.0-alpha02"
     otto = "1.3.8"
@@ -69,7 +65,7 @@ ext {
     mockitoVersion = '2.25.0'
     viewPager2 = "1.0.0"
     databinding = "3.1.4"
-    constraintlayout = "2.0.2"
+    constraintlayout = "2.0.4"
     ktx_core = "1.3.2"
     multidex = "1.0.3"
     appcompat = "1.2.0"
@@ -80,11 +76,30 @@ ext {
     work_version = "2.4.0"
     circle_image_version = "3.1.0"
     google_location_version = "17.1.0"
-    google_maps_version = "17.0.0"
+    google_maps_version = "17.0.1"
     image_crop_api_version = "2.8.0"
     pinviewversion = "2.0.3"
     glideToVectorYouVersion = "v2.0.0"
     roundedimageviewVersion = "0.8.4"
+    libphoneNumber = "8.12.19"
+    materialRipple = "1.0.2"
+    rvAnimations = "4.0.2"
+    tapadoAlerter = "7.0.1"
+    flexBox = "2.0.1"
+    playServicesMaps = "17.0.1"
+    badgeView = "1.1.3"
+    androidAnimations = "2.4@aar"
+    vrSdkAudio = "1.160.0"
+    vrSdkPanoWidget = "1.180.0"
+    vrSdkBase = "1.160.0"
+    wikitudeNative = "9.6.0"
+    photoView = "2.0.0"
+    blurry = "4.0.0"
+    estimoteSdk = "1.0.12"
+    searchableSpinner = "1.3.1"
+    firebaseMessaging = "22.1.0"
+    firebaseBom = "26.6.0"
+    legacySupport = "1.0.0"
 
 
     commonDependency = [
@@ -95,11 +110,13 @@ ext {
             gson         : "com.google.code.gson:gson:${gson}",
             activityKtx  : "androidx.activity:activity-ktx:${activityKtx}",
             dataStorePref: "androidx.datastore:datastore-preferences:${dataStorePref}",
-            otto         : "com.squareup:otto:${otto}"
+            otto         : "com.squareup:otto:${otto}",
+            legacySupport: "androidx.legacy:legacy-support-v4:${legacySupport}"
     ]
     backgroundAndAsynThreading = [
-            coroutines : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutines}",
-            workManager: "androidx.work:work-runtime-ktx:${work_version}"
+            coroutines            : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutines}",
+            coroutinesPlayServices: "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${coroutinesPlayServices}",
+            workManager           : "androidx.work:work-runtime-ktx:${work_version}"
     ]
     retrofitDependency = [
             retrofit2             : "com.squareup.retrofit2:retrofit:${retrofit2}",
@@ -112,15 +129,14 @@ ext {
             navKtx     : "androidx.navigation:navigation-ui-ktx:${navKtx}"
     ]
     di = [
-            hilt           : "com.google.dagger:hilt-android:${hilt}",
-            hiltLifeCycleVM: "androidx.hilt:hilt-lifecycle-viewmodel:${hiltLifeCycleVM}",
-            hiltCompiler   : "androidx.hilt:hilt-compiler:${hiltCompiler}",
-            hiltDagger     : "com.google.dagger:hilt-android-compiler:${hiltDagger}"
+            hilt      : "com.google.dagger:hilt-android:${hilt}",
+            hiltDagger: "com.google.dagger:hilt-compiler:${hilt}"
     ]
     image_processing = [
             glide        : "com.github.bumptech.glide:glide:${glide}",
             glideCompiler: "com.github.bumptech.glide:compiler:${glide}",
-            glideToSvg   : "com.github.corouteam:GlideToVectorYou:${glideToVectorYouVersion}"
+            glideToSvg   : "com.github.corouteam:GlideToVectorYou:${glideToVectorYouVersion}",
+            photoView   : "com.github.chrisbanes:PhotoView:${photoView}"
     ]
     logs = [
             timber: "com.jakewharton.timber:timber:${timber}"
@@ -150,18 +166,26 @@ ext {
 
     ]
     ui_design = [
-            materialDesign  : "com.google.android.material:material:${materialDesign}",
-            complexRv       : "com.xwray:groupie:${complexRv}",
-            complexRvBinding: "com.xwray:groupie-databinding:${complexRv}",
-            viewPager2      : "androidx.viewpager2:viewpager2:${viewPager2}",
-            constraintLayout: "androidx.constraintlayout:constraintlayout:${constraintlayout}",
-            lottieViews     : "com.airbnb.android:lottie:${lottieVersion}",
-            quickPermission : "com.github.quickpermissions:quickpermissions-kotlin:${quickpermissionsVersion}",
-            localization    : "com.akexorcist:localization:$localizationVersion",
-            ssp             : "com.intuit.ssp:ssp-android:$textSize",
-            sdp             : "com.intuit.sdp:sdp-android:$textSize",
-            circleimageview : "de.hdodenhof:circleimageview:$circle_image_version",
-            roundedImageView: "com.rishabhharit.roundedimageview:RoundedImageView:${roundedimageviewVersion}"
+            materialDesign   : "com.google.android.material:material:${materialDesign}",
+            complexRv        : "com.xwray:groupie:${complexRv}",
+            complexRvBinding : "com.xwray:groupie-databinding:${complexRv}",
+            viewPager2       : "androidx.viewpager2:viewpager2:${viewPager2}",
+            constraintLayout : "androidx.constraintlayout:constraintlayout:${constraintlayout}",
+            lottieViews      : "com.airbnb.android:lottie:${lottieVersion}",
+            quickPermission  : "com.github.quickpermissions:quickpermissions-kotlin:${quickpermissionsVersion}",
+            localization     : "com.akexorcist:localization:$localizationVersion",
+            ssp              : "com.intuit.ssp:ssp-android:$textSize",
+            sdp              : "com.intuit.sdp:sdp-android:$textSize",
+            circleimageview  : "de.hdodenhof:circleimageview:$circle_image_version",
+            roundedImageView : "com.rishabhharit.roundedimageview:RoundedImageView:${roundedimageviewVersion}",
+            libphoneNumber   : "com.googlecode.libphonenumber:libphonenumber:${libphoneNumber}",
+            materialRipple   : "com.balysv:material-ripple:${materialRipple}",
+            tapadoAlerter    : "com.tapadoo.android:alerter:${tapadoAlerter}",
+            flexBox          : "com.google.android:flexbox:${flexBox}",
+            badgeView          : "q.rorbin:badgeview:${badgeView}",
+            blurry          : "jp.wasabeef:blurry:${blurry}",
+            searchablespinner: "com.toptoche.searchablespinner:searchablespinnerlibrary:${searchableSpinner}",
+            recyclerAnimators: "jp.wasabeef:recyclerview-animators:${rvAnimations}"
 
     ]
 
@@ -173,8 +197,26 @@ ext {
 
     google = [
             //location
-            location_google: "com.google.android.gms:play-services-location:${google_location_version}",
-            map_google     : "com.google.android.gms:play-services-maps:${google_maps_version}"
+            location_google     : "com.google.android.gms:play-services-location:${google_location_version}",
+            map_google          : "com.google.android.gms:play-services-maps:${google_maps_version}",
+
+            firebase_crashlytics: "com.google.firebase:firebase-crashlytics-ktx",
+            firebase_analytics  : "com.google.firebase:firebase-analytics-ktx",
+            firebase_messaging  : "com.google.firebase:firebase-messaging-ktx",
+            firebase_messaging_version  : "com.google.firebase:firebase-messaging:${firebaseMessaging}",
+            firebase_bom        : "com.google.firebase:firebase-bom:${firebaseBom}"
+    ]
+
+    ar = [
+            wikitude: "com.wikitude:native:${wikitudeNative}"
+    ]
+    vr = [
+            vr_sdk: "com.google.vr:sdk-audio:${vrSdkAudio}",
+            vr_panowidget: "com.google.vr:sdk-panowidget:${vrSdkPanoWidget}",
+            vr_base: "com.google.vr:sdk-base:${vrSdkBase}"
+    ]
+    beacons=[
+            estimode:"com.estimote:sdk:${estimoteSdk}"
     ]
 
     media_libraries = [

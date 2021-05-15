@@ -46,7 +46,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.imgUaePass.setOnClickListener(this)
         lottieAnimationRTL(binding.animationView)
         applicationExitDialog()
-        lottieAnimationRTL(binding!!.animationView)
+        lottieAnimationRTL(binding.animationView)
         binding.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
                     binding.password to "my_password",
