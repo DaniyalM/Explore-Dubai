@@ -1,5 +1,6 @@
 package com.app.dubaiculture.data.repository.attraction.remote.response
 
+import com.app.dubaiculture.data.repository.attraction.local.models.Ibecons
 import com.app.dubaiculture.data.repository.event.remote.response.EventsDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -102,4 +103,9 @@ class AttractionDTO {
     @SerializedName("Type")
     @Expose
     var type: String = ""
+
+
+    @SerializedName("IBeacon")
+    @Expose
+    var ibecon : IbeconDTO? =null
 }

@@ -4,6 +4,7 @@
 
     <data>
         <import type="android.text.TextUtils"/>
+        <import type="android.view.View" />
         <variable
             name="attraction"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
@@ -304,6 +305,7 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:text="@string/description"
+                    android:visibility="@{TextUtils.isEmpty(attraction.description) ? View.GONE : View.VISIBLE}"
                     android:textColor="@color/black_200"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -316,6 +318,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textAlignment="viewStart"
                     android:textSize="@dimen/_10ssp"
+                    android:visibility="@{TextUtils.isEmpty(attraction.description) ? View.GONE : View.VISIBLE}"
                     android:lineSpacingExtra="3dp"
                     android:textColor="@color/gray_750"
                     app:colorClickableText="@color/gray_500"
@@ -351,6 +354,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:visibility="@{attraction.siteMap.siteMap == null ? View.GONE : View.VISIBLE}"
                     android:background="@drawable/custom_ripple_border"
                     app:layout_constraintEnd_toEndOf="@+id/divider"
                     app:layout_constraintStart_toStartOf="@+id/tv_title"
@@ -396,6 +400,7 @@
 
                 <View
                     android:id="@+id/divider2"
+                    android:visibility="@{attraction.siteMap.siteMap == null ? View.GONE : View.VISIBLE}"
                     android:layout_width="0dp"
                     android:layout_height="0.2dp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -411,6 +416,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="@{attraction.ibecons.ibeconItems == null ? View.GONE : View.VISIBLE}"
                     android:background="@drawable/custom_ripple_border"
                     app:layout_constraintEnd_toEndOf="@+id/divider2"
                     app:layout_constraintStart_toStartOf="@+id/tv_title"
@@ -454,6 +460,7 @@
 
                 <View
                     android:id="@+id/divider3"
+                    android:visibility="@{attraction.ibecons.ibeconItems == null ? View.GONE : View.VISIBLE}"
                     android:layout_width="0dp"
                     android:layout_height="0.2dp"
                     android:layout_marginTop="@dimen/_10sdp"

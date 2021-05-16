@@ -123,6 +123,7 @@
                     android:drawableStart="@drawable/heritiage_icon_home"
                     android:drawablePadding="@dimen/_7ssp"
                     android:maxLines="2"
+                    android:visibility="@{TextUtils.isEmpty(attractions.locationTitle) ? View.INVISIBLE : View.VISIBLE}"
                     android:ellipsize="end"
                     android:text="@{attractions.locationTitle}"                    android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />

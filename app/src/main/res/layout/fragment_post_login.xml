@@ -48,7 +48,7 @@
             android:id="@+id/mob_num"
             style="@style/TextViewRegistrationStyle"
             android:layout_marginTop="@dimen/_25sdp"
-            android:text="@string/mobile_number_new"
+            android:text="@string/mobile_number"
             android:transitionName="my_phone"
             app:layout_constraintStart_toStartOf="@+id/heading_login_to_continue"
             app:layout_constraintTop_toBottomOf="@+id/heading_login_to_continue" />
@@ -56,12 +56,13 @@
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvPhoneErrors"
             style="@style/TextViewErrorRegistration"
-            android:text="@{viewmodel.isEmail ? @string/no_error : @string/err_email}"
-            android:visibility="@{viewmodel.emailError? View.VISIBLE : View.GONE}"
+            app:layout_constraintHorizontal_bias="0.9"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:text="@{viewmodel.isPhone ? @string/no_error : context.getString(viewmodel.errs)}"
+            android:visibility="@{viewmodel.phoneError? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/mob_num"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toEndOf="@+id/mob_num"
+            app:layout_constraintStart_toStartOf="@+id/mob_num"
             app:layout_constraintTop_toTopOf="@+id/mob_num" />
 
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
@@ -107,11 +108,12 @@
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_pass_error"
             style="@style/TextViewErrorRegistration"
-            android:text=""
+            android:text="@{viewmodel.isPassword ? @string/no_error : context.getString(viewmodel.passwordError) }"
             app:layout_constraintBottom_toBottomOf="@+id/pass_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toEndOf="@+id/pass_text"
+            app:layout_constraintHorizontal_bias="0.9"
+            android:layout_marginEnd="@dimen/_15sdp"
+            app:layout_constraintStart_toStartOf="@+id/pass_text"
             app:layout_constraintTop_toTopOf="@+id/pass_text" />
 
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
@@ -133,9 +135,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:background="@{viewmodel.isPassword ? null : @drawable/error }"
             android:layout_marginEnd="@dimen/_12sdp"
-            android:background="@drawable/error"
             app:layout_constraintBottom_toBottomOf="@+id/edit_password"
             app:layout_constraintEnd_toEndOf="@+id/edit_password"
             app:layout_constraintTop_toTopOf="@+id/edit_password" />

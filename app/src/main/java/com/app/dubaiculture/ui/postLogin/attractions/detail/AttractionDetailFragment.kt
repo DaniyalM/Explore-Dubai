@@ -603,10 +603,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     })
             }
             R.id.ll_call_us -> {
-                openDiallerBox(numberContact!!.ifEmpty { "123123123" })
+                openDiallerBox(numberContact)
             }
             R.id.ll_emailus -> {
-                openEmailbox(emailContact!!.ifEmpty { "test@gmail.com" })
+                openEmailbox(emailContact.toString())
             }
         }
     }

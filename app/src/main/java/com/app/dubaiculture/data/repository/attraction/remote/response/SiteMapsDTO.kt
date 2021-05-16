@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class SiteMapsDTO(
+class   SiteMapsDTO(
     @SerializedName("Step")
     @Expose
     val step : String ? =null,

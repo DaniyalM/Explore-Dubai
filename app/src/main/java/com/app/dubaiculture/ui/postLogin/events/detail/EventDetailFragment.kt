@@ -56,6 +56,7 @@ import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
 import kotlinx.android.synthetic.main.fragment_event_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
+import java.lang.NumberFormatException
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -336,23 +337,28 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        if (eventObj.latitude!!.isNotEmpty()) {
-            val trafficDigitalLatLng =
-                    LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
+        try {
+            if (eventObj.latitude!!.isNotEmpty()) {
+                val trafficDigitalLatLng =
+                        LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
 
-            map?.addMarker(
-                    MarkerOptions()
-                            .position(trafficDigitalLatLng)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
-            )!!
-                    .title = eventObj.title
-            map.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                            trafficDigitalLatLng, 14.0f
-                    )
-            )
-            map.cameraPosition.target
+                map?.addMarker(
+                        MarkerOptions()
+                                .position(trafficDigitalLatLng)
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                )!!
+                        .title = eventObj.title
+                map.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                                trafficDigitalLatLng, 14.0f
+                        )
+                )
+                map.cameraPosition.target
+            }
+        }catch (e:NumberFormatException){
+
         }
+
     }
 
     override fun onClick(v: View?) {
