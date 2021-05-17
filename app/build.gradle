@@ -146,10 +146,7 @@ dependencies {
     implementation config.commonDependency.ktx_core
     implementation config.commonDependency.multidex
     implementation config.commonDependency.appcompat
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.google.firebase:firebase-messaging:21.1.0'
+    implementation config.commonDependency.legacySupport
     //Databinding Compiler
     kapt config.commonDependency.dataBinding
     //RetroFit Networking
@@ -160,7 +157,7 @@ dependencies {
 
     implementation config.commonDependency.gson
     // rx java
-    implementation config.reactive_extension.rxJava2
+//    implementation config.reactive_extension.rxJava2
     // testing
     implementation config.testing.junit
     implementation config.testing.junitExtension
@@ -168,16 +165,8 @@ dependencies {
     implementation config.testing.mockito
     testImplementation config.testing.mockitoTestImplementation
     androidTestImplementation config.testing.mockitoAndroidTestImplementation
-    // material design
-    implementation config.ui_design.materialDesign
-    //Complex RecyclerViews
-    implementation config.ui_design.complexRv
-    //Complex RecyclerViews
-    implementation config.ui_design.complexRvBinding
-    //viewPager_2
-    implementation config.ui_design.viewPager2
-    //ConstraintLayout
-    implementation config.ui_design.constraintLayout
+
+
     // room
     implementation config.database.room
     kapt config.database.roomAnnotation
@@ -188,16 +177,19 @@ dependencies {
     implementation config.androidArchitectureComponents.lifeCycleRuntime
     implementation config.androidArchitectureComponents.lifeCycleRuntimeKtx
     implementation config.androidArchitectureComponents.lifecyleViewModel
-    // Coroutines
+    // Coroutines //Work Manager
     implementation config.backgroundAndAsynThreading.coroutines
-    //Work Manager
     implementation config.backgroundAndAsynThreading.workManager
+    implementation config.backgroundAndAsynThreading.coroutinesPlayServices
+
     // Navigation Component
     implementation config.navigationDependency.navFragment
     implementation config.navigationDependency.navKtx
-    // Glide
+    // Glide // SVG Glide
     implementation config.image_processing.glide
     kapt config.image_processing.glideCompiler
+    implementation config.image_processing.glideToSvg
+
     // Activity KTX for viewModels()
     implementation config.commonDependency.activityKtx
     //Dagger - Hilt
@@ -211,6 +203,16 @@ dependencies {
     implementation config.commonDependency.dataStorePref
     //For Event Management
     api config.commonDependency.otto
+    // material design
+    implementation config.ui_design.materialDesign
+
+    //Complex RecyclerViews Groupie
+    implementation config.ui_design.complexRv
+    implementation config.ui_design.complexRvBinding
+    //viewPager_2
+    implementation config.ui_design.viewPager2
+    //ConstraintLayout
+    implementation config.ui_design.constraintLayout
     //For Lottie
     implementation config.ui_design.lottieViews
     //QuickPermissions for runtime permission
@@ -223,80 +225,63 @@ dependencies {
     implementation config.ui_design.sdp
 
     implementation config.ui_design.circleimageview
+    implementation config.ui_design.roundedImageView
+    //lib phone
+    implementation config.ui_design.libphoneNumber
+    implementation config.ui_design.materialRipple
+    implementation config.ui_design.androidAnimations
+//    implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
+
+    //recycler Animation
+    implementation config.ui_design.recyclerAnimators
+    implementation config.ui_design.tapadoAlerter
+    implementation config.ui_design.flexBox
+//    implementation 'com.github.devendroid:ReadMoreOption:1.0.2'
+
+    implementation config.ui_design.badgeView
+    implementation config.ui_design.searchablespinner
+    //photo view
+//    implementation config.image_processing.photoView
+
+    //Blurry
+    implementation config.ui_design.blurry
+
+//    implementation 'com.facebook.shimmer:shimmer:0.5.0'
     //paging3
     implementation config.paging3.pagingRuntime
     implementation config.paging3.pagingRuntimeKtx
 
 
-    //location Related Work
-    implementation config.google.location_google
-
     //Image Cropping Api
     implementation config.media_libraries.image_crop_api
 
 
-    // GMS
+    // GoogleMapServices     //location Related Work
     implementation config.google.map_google
+    implementation config.google.location_google
 
     //OTP
     implementation config.otp.otpview_library
-    implementation config.ui_design.roundedImageView
 
- //   SVG Glide
-    implementation config.image_processing.glideToSvg
-        // for edit mask
-
-    //lib phone
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.19'
-    implementation 'com.balysv:material-ripple:1.0.2'
-//    implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
-
-    //recycler Animation
-    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
-    implementation 'com.tapadoo.android:alerter:7.0.1'
-    implementation 'com.google.android:flexbox:2.0.1'
-//    implementation 'com.github.devendroid:ReadMoreOption:1.0.2'
-
-
-    //Google Map
-    implementation "com.google.android.gms:play-services-maps:17.0.0"
-
-    //location Related Work
-    implementation config.google.location_google
-    implementation 'q.rorbin:badgeview:1.1.3'
-    implementation 'com.daimajia.androidanimations:library:2.4@aar'
-
-//    implementation 'com.facebook.shimmer:shimmer:0.5.0'
-    implementation "com.xwray:groupie-databinding:2.7.0"
-
-
-    implementation 'com.google.vr:sdk-audio:1.160.0'
-    implementation 'com.google.vr:sdk-panowidget:1.180.0'
-    implementation 'com.google.vr:sdk-base:1.160.0'
+    implementation config.vr.vr_sdk
+    implementation config.vr.vr_panowidget
+    implementation config.vr.vr_base
 
     // wikitude
-    implementation 'com.wikitude:native:9.6.0'
-
-
-    //photo view
-    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
-
-    //Blurry
-    implementation 'jp.wasabeef:blurry:4.0.0'
-
+    implementation config.ar.wikitude
 
     //beacon
-
-    implementation 'com.estimote:sdk:1.0.12'
+    implementation config.beacons.estimode
 
 
     //firebase
-    implementation platform('com.google.firebase:firebase-bom:26.6.0')
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-messaging-ktx'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.9'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
+
+    implementation platform(config.google.firebase_bom)
+//    implementation config.google.firebase_messaging_version
+    implementation config.google.firebase_crashlytics
+    implementation config.google.firebase_analytics
+    implementation config.google.firebase_messaging
+//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
 //    implementation "androidx.fragment:fragment-ktx:1.3.2"
-    implementation 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1'
+
 }

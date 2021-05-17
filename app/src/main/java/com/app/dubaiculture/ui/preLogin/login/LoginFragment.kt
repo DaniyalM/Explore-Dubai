@@ -15,10 +15,8 @@ import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
-import com.app.dubaiculture.utils.PushNotificationManager
 import com.app.dubaiculture.utils.firebase.getFcmToken
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -29,7 +27,7 @@ import java.util.*
 class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener {
 
     private val loginViewModel: LoginViewModel by viewModels()
-    var check = -1
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,8 +44,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.imgUaePass.setOnClickListener(this)
         lottieAnimationRTL(binding.animationView)
         applicationExitDialog()
-        Timber.e(check.toDouble().toString())
-        lottieAnimationRTL(binding!!.animationView)
+        lottieAnimationRTL(binding.animationView)
         binding.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
                 binding.password to "my_password",
@@ -94,7 +91,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     }
 
 
-
     private fun subscribeToObservables() {
         loginViewModel.loginStatus.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
@@ -102,8 +98,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             }
         }
-        loginViewModel.user.observe(viewLifecycleOwner){
-            if (it!=null){
+        loginViewModel.user.observe(viewLifecycleOwner) {
+            if (it != null) {
                 loginViewModel.removeUser(it)
             }
 
@@ -129,7 +125,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 )
             }
             R.id.img_uae_pass -> {
-//                navigate(R.id.action_loginFragment_to_bottomSheet)
+//                navigate(R.id.action_loginFragment_to_eventNearMapFragment)
             }
         }
     }
@@ -137,7 +133,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     override fun onResume() {
         super.onResume()
         binding.animationView.playAnimation()
-        SystemRequirementsChecker.checkWithDefaultDialogs(requireActivity())
     }
 
     override fun onPause() {
@@ -148,22 +143,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         loginViewModel.isEmailEdit.value = true
         loginViewModel.isEmail.value = true
     }
+
     private fun applicationExitDialog() {
         val callback: OnBackPressedCallback =
-                object : OnBackPressedCallback(true /* enabled by default */) {
-                    override fun handleOnBackPressed() {
-                        showAlert(
-                            message = getString(R.string.error_msg),
-                            textPositive = getString(R.string.okay),
-                            textNegative = getString(R.string.cancel),
-                            actionNegative = {
-                            },
-                            actionPositive = {
-                                activity.finish()
-                            }
-                        )
-                    }
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    showAlert(
+                        message = getString(R.string.error_msg),
+                        textPositive = getString(R.string.okay),
+                        textNegative = getString(R.string.cancel),
+                        actionNegative = {
+                        },
+                        actionPositive = {
+                            activity.finish()
+                        }
+                    )
                 }
+            }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
+
 }
