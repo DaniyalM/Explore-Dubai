@@ -31,6 +31,8 @@ import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.event.UiEvent
+import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
+import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.CornerFamily
 import com.squareup.otto.Bus
@@ -107,6 +109,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //ViewModel is set as Binding Variable
         dataBinding.apply { lifecycleOwner = viewLifecycleOwner }
+
+
     }
 
     protected abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): DB

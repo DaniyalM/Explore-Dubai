@@ -187,5 +187,7 @@
     <string name="view_gallery">View Gallery</string>
     <string name="reviews">Reviews</string>
     <string name="on_trip">on Trip Advisor</string>
+    <string name="turn_on_your_location_to_view_nearby_events">Turn on your location to view nearby events</string>
+    <string name="account">Account</string>
 
 </resources>

@@ -184,5 +184,7 @@
     <string name="view_gallery">المعرض</string>
     <string name="reviews">المراجعات</string>
     <string name="on_trip">على TripAdvisor</string>
+    <string name="turn_on_your_location_to_view_nearby_events">Turn on your location to view nearby events</string>
+    <string name="account">Account</string>
 
 </resources>

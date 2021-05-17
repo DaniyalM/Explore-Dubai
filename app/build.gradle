@@ -84,8 +84,6 @@ android {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
             manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-
-
         }
         stag {
             applicationIdSuffix ".stag"
@@ -106,7 +104,6 @@ android {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
             manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-
         }
         prod {
             applicationIdSuffix ".prod"

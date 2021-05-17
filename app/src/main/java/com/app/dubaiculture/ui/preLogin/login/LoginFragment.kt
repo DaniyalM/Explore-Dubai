@@ -1,5 +1,7 @@
 package com.app.dubaiculture.ui.preLogin.login
 
+import android.bluetooth.BluetoothAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,8 @@ import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.firebase.getFcmToken
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
+import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
+import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -42,6 +46,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
+//        SystemRequirementsChecker.Requirement.LOCATION_DISABLED
+
+
         lottieAnimationRTL(binding.animationView)
         applicationExitDialog()
         lottieAnimationRTL(binding.animationView)
@@ -62,14 +69,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             )
         }
         binding.tvAsGuest.setOnClickListener {
-
+        if(SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(requireContext())){
             loginViewModel.getUserIfExists()
             application.auth.apply {
                 isLoggedIn = true
                 isGuest = true
             }
             activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-
+        }else if(!SystemRequirementsHelper.isBluetoothEnabled(requireContext())){
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivityForResult(enableBtIntent, 1)
+        }else{
+            SystemRequirementsChecker.checkWithDefaultDialogs(requireActivity())
+        }
         }
         binding.languageSwitch.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
             if (b)
@@ -143,7 +155,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         loginViewModel.isEmailEdit.value = true
         loginViewModel.isEmail.value = true
     }
-
     private fun applicationExitDialog() {
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {

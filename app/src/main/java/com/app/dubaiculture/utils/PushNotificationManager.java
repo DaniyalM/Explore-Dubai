@@ -1,21 +1,14 @@
 package com.app.dubaiculture.utils;
 
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-
-
 import com.app.dubaiculture.R;
-import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel;
 
 
 public class PushNotificationManager {
@@ -37,7 +30,6 @@ public class PushNotificationManager {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
     public static void showNotification(Context context, String title, String message, PendingIntent intent) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher)
@@ -48,7 +40,7 @@ public class PushNotificationManager {
                 .setPriority(NotificationManager.IMPORTANCE_HIGH)
                 .setAutoCancel(true);
 
-        if(intent !=null){
+        if (intent != null) {
             builder.setContentIntent(intent);
         }
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
@@ -56,6 +48,4 @@ public class PushNotificationManager {
         // notificationId is a unique int for each notification that you must define
         notificationManager.notify(NOTIF_ID, builder.build());
     }
-
-
 }
