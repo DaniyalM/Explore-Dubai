@@ -9,7 +9,7 @@ import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DatePickerHelper(var selectedDate : String?=null , var context:Context ,var iface : DatePickerInterface,var minDate: Long? = Date().time,var maxDate: Long? = null): DatePickerDialog.OnDateSetListener {
+class DatePickerHelper(var selectedDate : String?=null , var context:Context ,var iface : DatePickerInterface,var minDate: Long? = Date().time,var maxDate: Long? = null,var fromDate : Boolean?=true): DatePickerDialog.OnDateSetListener {
     private val selectCurrentDate = Calendar.getInstance()
     fun showPicker() {
         val datePickerDialog = DatePickerDialog(
@@ -21,17 +21,18 @@ class DatePickerHelper(var selectedDate : String?=null , var context:Context ,va
             selectCurrentDate.get(Calendar.DAY_OF_MONTH)
         )
 
-//        maxDate?.let {
-//            // prevent date picker from being selected future dates
-//            datePickerDialog.datePicker.maxDate = it
-//        } ?: run {
-//            // remove all min/max dates from date picker
-//            minDate?.let {
-//                // prevent date picker from being selected previous dates
-//                datePickerDialog.datePicker.minDate = it
-//            }
-//
-//        }
+        if(fromDate == true) {
+            maxDate?.let {
+                // prevent date picker from being selected future dates
+                datePickerDialog.datePicker.maxDate = it
+            } ?: run {
+                // remove all min/max dates from date picker
+                minDate?.let {
+                    // prevent date picker from being selected previous dates
+                    datePickerDialog.datePicker.minDate = it
+                }
+            }
+        }
 
         datePickerDialog.show()
 

@@ -127,7 +127,7 @@
             android:id="@+id/action_eventDetailFragment2_to_postLoginFragment2"
             app:destination="@id/postLoginFragment" />
     </fragment>
-    <dialog
+    <fragment
         android:id="@+id/threeSixtyFragment"
         tools:layout="@layout/fragment_three_sixty"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment"
@@ -299,7 +299,7 @@
             android:id="@+id/action_postForgotFragment_to_postOTPDialogFragment"
             app:destination="@id/postOTPDialogFragment" />
     </fragment>
-    <dialog
+    <fragment
         android:id="@+id/attractionGalleryFragment"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.gallery.AttractionGalleryFragment"
         android:label="AttractionGalleryFragment" />
@@ -329,7 +329,7 @@
         tools:layout="@layout/fragment_explore_buttom_sheet"
         android:name="com.app.dubaiculture.ui.postLogin.explore.bottomsheet.ExploreBottomSheetFragment"
         android:label="ExploreBottomSheetFragment" />
-    <dialog
+    <fragment
         android:id="@+id/ARFragment"
         tools:layout="@layout/fragment_a_r"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ar.ARFragment"
@@ -337,8 +337,8 @@
         <action
             android:id="@+id/action_ARFragment_to_ARDetailFragment"
             app:destination="@id/ARDetailFragment" />
-    </dialog>
-    <dialog
+    </fragment>
+    <fragment
         android:id="@+id/ARDetailFragment"
         tools:layout="@layout/fragment_a_r_detail"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ar.detail.ARDetailFragment"
@@ -348,8 +348,8 @@
             android:id="@+id/action_ARDetailFragment_to_attraction_gallery"
             app:destination="@+id/attractionGalleryFragment"
             />
-    </dialog>
-    <dialog
+    </fragment>
+    <fragment
         android:id="@+id/siteMapFragment"
         tools:layout="@layout/fragment_site_map"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapFragment"
@@ -359,13 +359,13 @@
             android:defaultValue="@null"
             app:argType="com.app.dubaiculture.data.repository.attraction.local.models.SiteMap"
             app:nullable="true" />
-    </dialog>
-    <dialog
+    </fragment>
+    <fragment
         android:id="@+id/ibeconDescFragment"
         tools:layout="@layout/fragment_ibecon_desc"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeconDescFragment"
         android:label="IbeconDescFragment" />
-    <dialog
+    <fragment
         android:id="@+id/ibeconFragment"
         tools:layout="@layout/fragment_ibecon"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeaconFragment"
@@ -377,7 +377,7 @@
         <argument
             android:name="attraction_id"
             app:argType="string"/>
-    </dialog>
+    </fragment>
     <dialog
         android:id="@+id/yourJourneyFragment"
         tools:layout="@layout/fragment_your_journey"

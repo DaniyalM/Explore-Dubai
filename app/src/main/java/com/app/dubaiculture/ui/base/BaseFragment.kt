@@ -37,7 +37,6 @@ import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
-import timber.log.Timber
 import java.util.*
 
 
@@ -72,8 +71,12 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             dataBinding = getFragmentBinding(inflater, container)
             _view = dataBinding.root
         }
+
+
         return _view
     }
+
+
 
 
     override fun onAttach(context: Context) {
@@ -128,11 +131,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                             showAlert(event.message)
 
                         }
-
-                        is UiEvent.ShowAlert -> {
-                            showAlert(event.message)
-
-                        }
                         is UiEvent.ShowToast -> {
                             EventUtilFunctions.showToast(event.message, activity)
                         }
@@ -153,9 +151,11 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                             navigateByAction(event.actionId, event.bundle)
                         }
                         is UiEvent.ShowErrorDialog -> {
-                            EventUtilFunctions.showErrorDialog(event.message,
+                            EventUtilFunctions.showErrorDialog(
+                                event.message,
                                 colorBg = event.colorBg,
-                                context = activity)
+                                context = activity
+                            )
                         }
                     }
                 }
@@ -342,7 +342,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         requireActivity().startActivity(Intent.createChooser(intent, ""))
     }
 
-    fun openDiallerBox(number: String?=null) {
+    fun openDiallerBox(number: String? = null) {
         val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
         requireActivity().startActivity(intent)
     }
@@ -361,20 +361,22 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         } else {
             if (!isFav) {
                 application.auth.user?.let {
-                    baseViewModel.addToFavourites(AddToFavouriteRequest(
-                        userId = application.auth.user?.userId,
-                        itemId = itemId,
-                        type = type
-                    )
+                    baseViewModel.addToFavourites(
+                        AddToFavouriteRequest(
+                            userId = application.auth.user?.userId,
+                            itemId = itemId,
+                            type = type
+                        )
                     )
                 }
             } else {
                 application.auth.user?.let {
-                    baseViewModel.addToFavourites(AddToFavouriteRequest(
-                        userId = application.auth.user?.userId,
-                        itemId = itemId,
-                        type = type
-                    )
+                    baseViewModel.addToFavourites(
+                        AddToFavouriteRequest(
+                            userId = application.auth.user?.userId,
+                            itemId = itemId,
+                            type = type
+                        )
                     )
                 }
             }

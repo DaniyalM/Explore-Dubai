@@ -3,6 +3,7 @@ package com.app.dubaiculture.ui.postLogin.explore.map.adapter
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ import com.app.dubaiculture.databinding.ExploreNearItemsBinding
 import com.app.dubaiculture.utils.AsyncCell
 import com.app.dubaiculture.utils.dateFormat
 
-class   ExploreMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class   ExploreMapAdapter(var isArabic : Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<ExploreMap>() {
         override fun areItemsTheSame(oldItem: ExploreMap, newItem: ExploreMap): Boolean {
             return oldItem.id == newItem.id
@@ -61,11 +62,24 @@ class   ExploreMapAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     ) {
         (holder.itemView as ExploreMapAdapter.ExploreItemCell).bindWhenInflated {
             holder.itemView.binding?.let {
+                arrowtRTL(isArabic,it.arrow)
                 try {
                     it.explore = explore[position]
                 } catch (ex: IndexOutOfBoundsException) {
                     print(ex.stackTrace)
                 }
+            }
+        }
+    }
+
+
+    fun arrowtRTL(isArabic : Boolean,img: ImageView) {
+        when {
+            isArabic -> {
+                img.scaleX = -1f
+            }
+            else -> {
+                img.scaleX = 1f
             }
         }
     }

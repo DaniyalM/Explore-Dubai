@@ -92,6 +92,25 @@
             tools:src="@drawable/bg_edit_resiger"
             android:popupBackground="@color/white_900"/>
 
+        <com.app.dubaiculture.ui.components.customspinner.CustomSearchableSpinner
+            android:id="@+id/sp_spinner"
+            style="@style/spinner_style"
+            app:hintText="@string/location"
+            android:visibility="gone"
+            android:imeOptions="actionDone"
+            app:layout_constraintEnd_toEndOf="@+id/edit_search"
+            app:layout_constraintStart_toStartOf="@+id/location"
+            app:layout_constraintTop_toBottomOf="@+id/location"
+            tools:src="@drawable/bg_edit_resiger" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@drawable/location_fiilter"
+            app:layout_constraintBottom_toBottomOf="@+id/sp_spinner"
+            app:layout_constraintEnd_toEndOf="@+id/sp_spinner"
+            app:layout_constraintTop_toTopOf="@+id/sp_spinner" />
 
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView

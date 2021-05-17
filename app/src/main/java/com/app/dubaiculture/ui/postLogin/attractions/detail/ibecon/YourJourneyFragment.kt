@@ -1,5 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon
 
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.adapter.YourJourneyItems
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.PushNotificationManager.showNotification
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion
@@ -27,13 +30,10 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
     private val siteMapViewModel: SiteMapViewModel by viewModels()
     private var beconList = ArrayList<IbeconITemsSiteMap>()
     private var sortedBeconList = ArrayList<IbeconITemsSiteMap>()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         beaconMonitoring()
 
-        //for testing purpose
-//        rvBecons()
         subscribeUiEvents(siteMapViewModel)
         arguments?.apply {
             beconList =
@@ -43,7 +43,9 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
 //        rvBecons()
         if(!beconList.isNullOrEmpty()){
             binding.count.text = beconList.size.toString()
+            rvBecons()
         }
+
     }
 
 
@@ -66,16 +68,18 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
            setMonitoringListener(object : BeaconManager.BeaconMonitoringListener {
                 override fun onEnteredRegion(beaconRegion: BeaconRegion?, beacons: MutableList<Beacon>?) {
                     Toast.makeText(activity,"Monitoring has been started", Toast.LENGTH_SHORT).show()
-
+                    val intent  = Intent(requireContext(), PreLoginActivity::class.java)
+                    val resultPendingIntent =
+                        PendingIntent.getActivity(requireContext(),1,intent, PendingIntent.FLAG_UPDATE_CURRENT)
                     showNotification(activity,
                             "Your gate closes in 47 minutes.",
                             "Current security wait time is 15 minutes, "
                                     + "and it's a 5 minute walk from security to the gate. "
-                                    + "Looks like you've got plenty of time!",null)
+                                    + "Looks like you've got plenty of time!",resultPendingIntent)
                 }
 
                 override fun onExitedRegion(beaconRegion: BeaconRegion?) {
-                    TODO("Not yet implemented")
+
                 }
 
             })

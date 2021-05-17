@@ -102,7 +102,7 @@
             android:textColor="@color/gray_800"
             android:textSize="@dimen/_10ssp"
             android:textAlignment="viewStart"
-            android:text="@string/a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number"
+            android:text="@string/_a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/_25sdp"

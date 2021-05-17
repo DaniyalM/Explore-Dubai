@@ -5,6 +5,7 @@
 
     <data>
         <import type="android.text.TextUtils"/>
+        <import type="android.view.View" />
         <variable
             name="attractions"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
@@ -24,14 +25,15 @@
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
             app:cardCornerRadius="@dimen/_24sdp"
-            app:cardElevation="@dimen/_5sdp"
+            app:cardElevation="@dimen/_3sdp"
             app:cardMaxElevation="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+<!--            android:cardParsedColor="@{attractions.color}"-->
 
 
             <com.google.android.material.card.MaterialCardView
@@ -39,23 +41,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_18sdp"
-                android:cardParsedColor="@{attractions.color}"
+                android:layout_marginTop="@dimen/_15sdp"
                 app:cardBackgroundColor="@color/white_900"
-                app:cardCornerRadius="@dimen/_15sdp"
-                app:cardElevation="@dimen/_5sdp">
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:textStyle="bold"
+                    android:layout_marginStart="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_14sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:text="@{attractions.category}"
-                    android:textColor="@color/white_900"
+                    android:visibility="@{TextUtils.isEmpty(attractions.type) ? View.GONE : View.VISIBLE}"
+                    android:textStyle="bold"
+                    app:textFont="bold"
+                    android:text="@{attractions.type}"
+                    android:textColor="@color/purple_900"
                     android:textSize="@dimen/_9ssp"
                      />
             </com.google.android.material.card.MaterialCardView>
@@ -118,6 +123,7 @@
                     android:drawableStart="@drawable/heritiage_icon_home"
                     android:drawablePadding="@dimen/_7ssp"
                     android:maxLines="2"
+                    android:visibility="@{TextUtils.isEmpty(attractions.locationTitle) ? View.INVISIBLE : View.VISIBLE}"
                     android:ellipsize="end"
                     android:text="@{attractions.locationTitle}"                    android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />

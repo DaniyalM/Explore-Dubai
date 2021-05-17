@@ -111,6 +111,10 @@ fun Fragment.handleApiError(
             }
 
         }
+        failure.errorCode == 500 ->{
+            baseViewModel.showToast("Internal Server Error")
+
+        }
         else -> {
 
             val error = failure.errorBody?.string().toString()
@@ -186,15 +190,14 @@ fun dateFormatEn(inputDate: String?): String {
     return outputDate
 }
 
-fun getTimeSpan(fromDate: String?, toDate: String?): Boolean {
-    try {
-        val fromDateTime = getDateObj(fromDate ?: "")
-        val toDateTime = getDateObj(toDate ?: "")
+fun getTimeSpan( registerDate: String?): Boolean {
+    return try {
+        val registerEventDate = getDateObj(registerDate ?: "")
         val currentTime = getDateObj(gettime().toString())
-        return currentTime.after(fromDateTime) && currentTime.before(toDateTime)
+        currentTime >= registerEventDate
     } catch (e: ParseException) {
         e.printStackTrace()
-        return false
+        false
     }
 }
 

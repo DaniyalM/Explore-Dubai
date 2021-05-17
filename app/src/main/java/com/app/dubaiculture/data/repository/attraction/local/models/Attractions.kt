@@ -15,6 +15,7 @@ data class Attractions(
     var longitude: String? = "",
     var latitude: String? = "",
     var email: String? = "",
+    var type : String?="",
     var number: String? = "",
     var audioLink: String? = "",
     var portraitImage: String? = "",
@@ -33,4 +34,5 @@ data class Attractions(
     var socialLink: List<SocialLink>? = null,
     var asset360: Assets360? = null,
     var siteMap: SiteMap? = null,
+    var ibecons : Ibecons? =null
     ) : Parcelable

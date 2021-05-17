@@ -29,6 +29,8 @@ data class Events(
     var color: String? = null,
     var dateTo: String = "",
     var dateFrom: String = "",
+    var registrationDate : String = "",
+
     var distance: Double = 0.0,
     var currentLat: Double = 0.0,
     var currentLng: Double = 0.0,

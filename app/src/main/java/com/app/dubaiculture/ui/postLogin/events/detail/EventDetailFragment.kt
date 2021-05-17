@@ -56,6 +56,7 @@ import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
 import kotlinx.android.synthetic.main.fragment_event_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
+import java.lang.NumberFormatException
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -74,7 +75,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     var emailContact : String? = null
     var numberContact : String? = null
 
-    private lateinit var marker: Marker
 
     private val getObserver = Observer<GpsStatus> {
         it?.let {
@@ -99,6 +99,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     @Inject
     lateinit var locationHelper: LocationHelper
+    private var mapView: MapView? = null
+
 
     var loc = Location("dummyprovider")
 
@@ -137,11 +139,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         subscribeUiEvents(eventViewModel)
         callingObservables()
 
-        mapSetUp()
+        mapSetUp(savedInstanceState)
         uiActions()
         rvSetUp()
         subscribeToGpsListener()
-        enableRegistration()
+        enableRegistration(eventObj.registrationDate)
         if (eventObj.isFavourite) {
             binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
             binding.root.favourite_event.background =
@@ -235,7 +237,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 is Result.Success -> {
                     eventObj = it.value
                 }
-
                 is Result.Failure -> handleApiError(it, eventViewModel)
             }
         }
@@ -263,7 +264,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             isDetailFavouriteFlag = false
 
                         }
-
                     }
                 }
                 is Result.Failure -> handleApiError(it, eventViewModel)
@@ -323,31 +323,42 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     }
 
-    private fun mapSetUp() {
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-        mapFragment?.getMapAsync(this)
+    private fun mapSetUp(savedInstanceState: Bundle?) {
+//        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+//        mapFragment?.getMapAsync(this)
 //        val mapFragment = SupportMapFragment.newInstance(GoogleMapOptions().zOrderOnTop(true))
 //        mapFragment?.getMapAsync(this)
+        mapView = binding.root.findViewById(R.id.map)
+        mapView?.let {
+            it.getMapAsync(this)
+            it.onCreate(savedInstanceState)
+
+        }
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        if (eventObj.latitude!!.isNotEmpty()) {
-            val trafficDigitalLatLng =
-                    LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
+        try {
+            if (eventObj.latitude!!.isNotEmpty()) {
+                val trafficDigitalLatLng =
+                        LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
 
-            map?.addMarker(
-                    MarkerOptions()
-                            .position(trafficDigitalLatLng)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
-            )!!
-                    .title = eventObj.title
-            map.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                            trafficDigitalLatLng, 14.0f
-                    )
-            )
-            map.cameraPosition.target
+                map?.addMarker(
+                        MarkerOptions()
+                                .position(trafficDigitalLatLng)
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                )!!
+                        .title = eventObj.title
+                map.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                                trafficDigitalLatLng, 14.0f
+                        )
+                )
+                map.cameraPosition.target
+            }
+        }catch (e:NumberFormatException){
+
         }
+
     }
 
     override fun onClick(v: View?) {
@@ -429,7 +440,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onDestroy() {
         textToSpeechEngine.shutdown()
         super.onDestroy()
+        mapView?.onDestroy()
     }
+
 
 
     private fun initiateExpander() {
@@ -438,6 +451,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 is Result.Success -> {
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
+                    enableRegistration(it.value.registrationDate)
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)
                     }
@@ -488,7 +502,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     }
                 }
                 is Result.Failure -> {
-                    eventViewModel.showErrorDialog(message = INTERNET_CONNECTION_ERROR)
+//                    eventViewModel.showErrorDialog(message = INTERNET_CONNECTION_ERROR)
+                    handleApiError(it, eventViewModel)
 
                 }
             }
@@ -523,15 +538,17 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    private fun enableRegistration() {
-        if (!getTimeSpan(eventObj.dateFrom, eventObj.dateTo)) {
-            binding.root.btn_reg.isEnabled = false
-            binding.root.btn_register_now.isEnabled = false
+    private fun enableRegistration(registrationDate : String) {
+        if (getTimeSpan(registrationDate)) {
+            binding.root.btn_reg.visibility = View.GONE
+            binding.root.btn_register_now.visibility = View.GONE
         }
     }
 
     override fun onResume() {
         super.onResume()
+        mapView?.onResume()
+
         binding.appbarEventnDetail
                 .addOnOffsetChangedListener(this)
 
@@ -540,6 +557,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onPause() {
         textToSpeechEngine.stop()
         super.onPause()
+        mapView?.onPause()
 
         binding.appbarEventnDetail.removeOnOffsetChangedListener(this)
 

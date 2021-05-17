@@ -25,7 +25,6 @@ data class AttractionListItem<T : ViewDataBinding>(
     override fun getLayout() = resLayout
     override fun bind(viewBinding: T, position: Int) {
         when (viewBinding) {
-
             is AttractionListItemCellBinding -> {
                 viewBinding.attractions = attraction
                 viewBinding.apply {
@@ -44,9 +43,7 @@ data class AttractionListItem<T : ViewDataBinding>(
                             attraction.IsFavourite,
                             attraction.id)
                     }
-
                 }
-
             }
             is MustSeeInnerItemCellBinding -> {
                 viewBinding.attractions = attraction
@@ -54,7 +51,6 @@ data class AttractionListItem<T : ViewDataBinding>(
                     attractionImage.setOnClickListener {
                         rowClickListener?.rowClickListener(position)
                     }
-
                     if (attraction.IsFavourite){
                         favourite.background = ContextCompat.getDrawable(context,R.drawable.heart_icon_fav)
                     }
@@ -64,10 +60,8 @@ data class AttractionListItem<T : ViewDataBinding>(
                             attraction.IsFavourite,
                             attraction.id)
                     }
-
                 }
             }
-
         }
     }
 }

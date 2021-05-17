@@ -11,6 +11,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.sitemap.local.IbeconITemsSiteMap
 import com.app.dubaiculture.databinding.FragmentIbeconBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
+import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
 import com.app.dubaiculture.utils.Constants
 import com.bumptech.glide.RequestManager
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClickListener {
+class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListener {
     @Inject
     lateinit var glide: RequestManager
     private val siteMapViewModel: SiteMapViewModel by viewModels()
@@ -29,35 +30,35 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
         container: ViewGroup?,
     ) = FragmentIbeconBinding.inflate(inflater, container, false)
 
-    override fun getTheme() = R.style.FullScreenDialog;
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (dialog != null) {
-            val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.MATCH_PARENT
-            dialog?.window!!.apply {
-                setLayout(width, height)
-                @Suppress("DEPRECATION")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    insetsController?.hide(WindowInsets.Type.statusBars())
-                } else {
-                    setFlags(
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    )
-                }
-
-            }
-
-        }
-    }
+//    override fun getTheme() = R.style.FullScreenDialog;
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
+//
+//    }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        if (dialog != null) {
+//            val width = ViewGroup.LayoutParams.MATCH_PARENT
+//            val height = ViewGroup.LayoutParams.MATCH_PARENT
+//            dialog?.window!!.apply {
+//                setLayout(width, height)
+//                @Suppress("DEPRECATION")
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                    insetsController?.hide(WindowInsets.Type.statusBars())
+//                } else {
+//                    setFlags(
+//                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                        WindowManager.LayoutParams.FLAG_FULLSCREEN
+//                    )
+//                }
+//
+//            }
+//
+//        }
+//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -91,15 +92,15 @@ class IbeaconFragment : BaseDialogFragment<FragmentIbeconBinding>(), View.OnClic
     }
 
 
-    private fun beaconMonitoring() {
-        application.beaconManager.apply {
-            setRangingListener(BeaconManager.BeaconRangingListener { _, beacons ->
+//    private fun beaconMonitoring() {
+//        application.beaconManager.apply {
+//            setRangingListener(BeaconManager.BeaconRangingListener { _, beacons ->
 //
 //                val nearestBeacon:Beacon= beacons[0]
 //                nearestBeacon.uniqueKey
-            })
-        }
-    }
+//            })
+//        }
+//    }
 
     private fun callingObserver() {
         siteMapViewModel.siteMapData.observe(viewLifecycleOwner) {
