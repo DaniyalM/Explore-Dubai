@@ -7,28 +7,36 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.app.dubaiculture.databinding.FragmentProfileBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.layout_back.view.*
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) = FragmentProfileBinding.inflate(inflater, container, false)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lottieAnimationRTL(binding.animationView)
-        backArrowRTL(binding.header.back)
-        backArrowRTLProfile(binding.arrowFavourite)
-        backArrowRTLProfile(binding.arrowChangePassword)
-        backArrowRTLProfile(binding.arrowEvents)
-        backArrowRTLProfile(binding.arrowMyServices)
-        backArrowRTLProfile(binding.arrowMyTrips)
-        backArrowRTLProfile(binding.arrowPlacesVisited)
+
+        binding.apply {
+            header.back.setOnClickListener {
+                back()
+            }
+            lottieAnimationRTL(animationView)
+            backArrowRTL(header.back)
+            backArrowRTLProfile(arrowFavourite)
+            backArrowRTLProfile(arrowChangePassword)
+            backArrowRTLProfile(arrowEvents)
+            backArrowRTLProfile(arrowMyServices)
+            backArrowRTLProfile(arrowMyTrips)
+            backArrowRTLProfile(arrowPlacesVisited)
+        }
+
     }
 
     fun backArrowRTLProfile(img: ImageView) {
         when {
             isArabic() -> {
-                img.rotation = -180f
+                img.rotation = 180f
             }
             else -> {
-                img.rotation = 90f
+                img.rotation = 0f
             }
         }
     }
