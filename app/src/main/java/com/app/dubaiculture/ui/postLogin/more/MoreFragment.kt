@@ -25,12 +25,15 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>() {
         container: ViewGroup?
     ) = FragmentMoreBinding.inflate(inflater, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(moreViewModel)
         moreViewModel.setupToolbarWithSearchItems(binding.root.profilePic,binding.root.img_drawer,binding.root.toolbar_title,resources.getString(R.string.more))
         cardViewRTL()
     }
+
+
+
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         binding.root.apply {
