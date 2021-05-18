@@ -71,36 +71,15 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
            setMonitoringListener(object : BeaconManager.BeaconMonitoringListener {
                 override fun onEnteredRegion(beaconRegion: BeaconRegion?, beacons: MutableList<Beacon>?) {
                     Toast.makeText(activity,"Monitoring has been started", Toast.LENGTH_SHORT).show()
-//                    val intent  = Intent(requireContext(), PreLoginActivity::class.java)
-//                    val resultPendingIntent =
-//                        PendingIntent.getActivity(requireContext(),1,intent, PendingIntent.FLAG_UPDATE_CURRENT)
-//                    showNotification(activity,
-//                            "Your gate closes in 47 minutes.",
-//                            "Current security wait time is 15 minutes, "
-//                                    + "and it's a 5 minute walk from security to the gate. "
-//                                    + "Looks like you've got plenty of time!",resultPendingIntent)
                     beconFilterForNotification(beconList,UUID_BECON)
                 }
 
                 override fun onExitedRegion(beaconRegion: BeaconRegion?) {
-
+                    siteMapViewModel.showToast("You are leaving the Region")
                 }
 
             })
 
-           application. beaconManager.setScanStatusListener(object : BeaconManager.ScanStatusListener {
-                override fun onScanStart() {
-//                        PushNotificationManager.showNotification(
-//                            applicationContext,
-//                            "Beacon Scanning has begin.",
-//                            "Dubai Culture Scanning has been started", null
-//                        )
-
-                }
-
-                override fun onScanStop() {
-                }
-            })
 
 
         }
