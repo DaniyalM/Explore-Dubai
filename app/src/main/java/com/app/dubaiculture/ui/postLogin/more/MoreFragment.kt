@@ -33,6 +33,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUiEvents(moreViewModel)
+        binding.llRateUs.setOnClickListener(this)
+        binding.llShareApp.setOnClickListener(this)
+
         moreViewModel.setupToolbarWithSearchItems(
             binding.root.profilePic,
             binding.root.img_drawer,
@@ -75,7 +78,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     override fun rowClickListener(position: Int) {
 
                     }
-                },moreModel = it , resLayout = R.layout.items_more_layout,requireContext()))
+                },moreModel = it , resLayout = R.layout.items_more_layout,requireContext(),isArabic()))
         }
         binding.rvServices.apply {
             isNestedScrollingEnabled = false
@@ -88,7 +91,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     override fun rowClickListener(position: Int) {
 
                     }
-                },moreModel = it , resLayout = R.layout.items_more_layout,requireContext()))
+                },moreModel = it , resLayout = R.layout.items_more_layout,requireContext(),isArabic()))
         }
         binding.rvNews.apply {
             isNestedScrollingEnabled = false
@@ -101,7 +104,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     override fun rowClickListener(position: Int) {
 
                     }
-                },moreModel = it , resLayout = R.layout.items_more_layout,requireContext()))
+                },moreModel = it , resLayout = R.layout.items_more_layout,requireContext(),isArabic()))
         }
         binding.rvSettings.apply {
             isNestedScrollingEnabled = false
@@ -113,7 +116,12 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.ll_share_app->{
 
+            }
+            R.id.ll_rate_us->{
+
+            }
         }
     }
 }
