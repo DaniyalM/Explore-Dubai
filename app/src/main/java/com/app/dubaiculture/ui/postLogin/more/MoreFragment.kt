@@ -30,6 +30,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>() {
         subscribeUiEvents(moreViewModel)
         moreViewModel.setupToolbarWithSearchItems(binding.root.profilePic,binding.root.img_drawer,binding.root.toolbar_title,resources.getString(R.string.more))
         cardViewRTL()
+        binding.materialCardView2.setOnClickListener {
+            navigate(R.id.action_moreFragment_to_profileFragment)
+        }
     }
 
 
