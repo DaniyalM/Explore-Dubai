@@ -67,7 +67,11 @@
         android:id="@+id/moreFragment"
         tools:layout="@layout/fragment_more"
         android:name="com.app.dubaiculture.ui.postLogin.more.MoreFragment"
-        android:label="MoreFragment" />
+        android:label="MoreFragment" >
+        <action
+            android:id="@+id/action_moreFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/attractionDetailFragment"
         tools:layout="@layout/fragment_attraction_detail"
@@ -387,6 +391,10 @@
             android:id="@+id/action_yourJourneyFragment_to_ibeconDescFragment"
             app:destination="@id/ibeconDescFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.profile.ProfileFragment"
+        android:label="ProfileFragment" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->
