@@ -205,7 +205,6 @@
     <string name="rate_us">Rate Us</string>
 
 
-
     <string name="public_libraries_services">Public Libraries Services</string>
     <string name="renting_more">Renting Services</string>
     <string name="general_more">General Services</string>
@@ -219,7 +218,7 @@
     <string name="setting_more">Settings</string>
     <string name="accessiblitiy_more">Accessibility</string>
     <string name="logout_more">Logout</string>
-
+    <string name="are_you_sure_want_to_logout">Are you sure\nyou want to logout?</string>
 
 
 </resources>

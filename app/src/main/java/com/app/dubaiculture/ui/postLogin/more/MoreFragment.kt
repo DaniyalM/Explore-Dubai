@@ -128,7 +128,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 MoreItems<ItemsMoreLayoutBinding>(
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
-
+                            if(position == 3){
+                                navigate(R.id.action_moreFragment_to_logoutFragment)
+                            }
                         }
                     },
                     moreModel = it,

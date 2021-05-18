@@ -71,6 +71,9 @@
         <action
             android:id="@+id/action_moreFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_logoutFragment"
+            app:destination="@id/logoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/attractionDetailFragment"
@@ -395,6 +398,10 @@
         android:id="@+id/profileFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.profile.ProfileFragment"
         android:label="ProfileFragment" />
+    <dialog
+        android:id="@+id/logoutFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.bottomsheet.LogoutFragment"
+        android:label="LogoutFragment" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->
