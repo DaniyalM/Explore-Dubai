@@ -219,6 +219,12 @@
     <string name="accessiblitiy_more">Accessibility</string>
     <string name="logout_more">Logout</string>
     <string name="are_you_sure_want_to_logout">Are you sure\nyou want to logout?</string>
+    <string name="settings_">Settings</string>
+    <string name="turn_on_location">Turn on Location</string>
+    <string name="reset_settings">Reset Settings</string>
+    <string name="push_notifications">Push Notifications</string>
+    <string name="location_based_notifications">Location based Notifications</string>
+    <string name="sms">SMS</string>
 
 
 </resources>
