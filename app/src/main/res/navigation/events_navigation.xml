@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/events_navigation"
     app:startDestination="@id/eventsFragment">
+
+    <include app:graph="@navigation/event_detail_navigation"/>
+    <include app:graph="@navigation/post_login_bottom_navigation"/>
     <fragment
         android:id="@+id/eventsFragment"
         tools:layout="@layout/fragment_events"
@@ -17,14 +20,29 @@
             app:destination="@id/eventFilterFragment" />
         <action
             android:id="@+id/action_eventsFragment_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
+            app:destination="@id/post_login_bottom_navigation" />
         <action
             android:id="@+id/action_eventsFragment_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2" />
+            app:destination="@id/event_detail_navigation" />
         <action
             android:id="@+id/action_eventsFragment_to_eventListingFragment"
             app:destination="@id/eventListingFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/eventListingFragment"
+        tools:layout="@layout/fragment_event_listing"
+        android:name="com.app.dubaiculture.ui.postLogin.events.EventListingFragment"
+        android:label="EventListingFragment" >
+        <action
+            android:id="@+id/action_eventListingFragment_to_postLoginFragment"
+            app:destination="@id/post_login_bottom_navigation" />
+    </fragment>
+    <dialog
+        android:id="@+id/filterFragment"
+        tools:layout="@layout/fragment_filter"
+        android:name="com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment"
+        android:label="FilterFragment" />
     <fragment
         android:id="@+id/eventNearMapFragment2"
         tools:layout="@layout/fragment_event_near_map"
@@ -38,24 +56,25 @@
     </fragment>
 
     <fragment
-        android:id="@+id/eventDetailFragment2"
-        tools:layout="@layout/fragment_event_detail"
-        android:name="com.app.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"
-        android:label="EventDetailFragment" >
-
+        android:id="@+id/eventFilterFragment"
+        tools:layout="@layout/fragment_event_filter"
+        android:name="com.app.dubaiculture.ui.postLogin.events.EventFilterFragment"
+        android:label="EventFilterFragment" >
         <action
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/eventDetailFragment2"
-            android:id="@+id/action_eventDetailFragment2_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2" />
+            android:id="@+id/action_eventFilterFragment_to_eventListingFragment"
+            app:destination="@id/eventListingFragment" />
         <action
-            android:id="@+id/action_eventDetailFragment2_to_registerNowFragment"
-            app:destination="@id/registerNowFragment" />
+            android:id="@+id/action_eventFilterFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
         <action
-            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
+            android:id="@+id/action_eventFilterFragment_to_eventDetailFragment2"
+            app:destination="@id/event_detail_navigation" />
         <action
-            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment2"
-            app:destination="@id/postLoginFragment" />
+            android:id="@+id/action_eventFilterFragment_to_filterFragment2"
+            app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_eventFilterFragment_to_postLoginFragment"
+            app:destination="@id/post_login_bottom_navigation" />
     </fragment>
+
 </navigation>

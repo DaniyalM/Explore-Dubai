@@ -4,6 +4,7 @@
     <style name="Theme.MyApp" parent="Base.Theme.MyApp">
             <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="android:windowActivityTransitions">true</item>
+
         <item name="android:spotShadowAlpha">0.3</item>
 
     </style>

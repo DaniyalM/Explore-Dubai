@@ -5,6 +5,7 @@
     android:id="@+id/explore_navigation"
     app:startDestination="@id/exploreFragment">
 
+
     <fragment
         android:id="@+id/exploreFragment"
         tools:layout="@layout/fragment_explore"
@@ -13,13 +14,13 @@
         android:menuCategory="secondary">
         <action
             android:id="@+id/action_exploreFragment_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
+            app:destination="@id/post_login_bottom_navigation" />
         <action
             android:id="@+id/action_exploreFragment_to_attractionDetailFragment"
-            app:destination="@id/attractionDetailFragment" />
+            app:destination="@id/attraction_detail_navigation" />
         <action
             android:id="@+id/action_exploreFragment_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2" />
+            app:destination="@id/event_detail_navigation" />
         <action
             android:id="@+id/action_exploreFragment_to_attractionsFragment"
             app:destination="@id/attractionsFragment" />
@@ -43,13 +44,13 @@
             app:destination="@id/filterFragment" />
         <action
             android:id="@+id/action_eventFilterFragment_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2" />
+            app:destination="@id/event_detail_navigation" />
         <action
             android:id="@+id/action_eventFilterFragment_to_filterFragment2"
             app:destination="@id/filterFragment" />
         <action
             android:id="@+id/action_eventFilterFragment_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
+            app:destination="@id/post_login_bottom_navigation" />
     </fragment>
     <fragment
         android:id="@+id/exploreMapFragment"
@@ -60,71 +61,30 @@
             android:id="@+id/action_exploreMapFragment_to_exploreBottomSheetFragment"
             app:destination="@id/exploreBottomSheetFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/exploreBottomSheetFragment"
+        tools:layout="@layout/fragment_explore_buttom_sheet"
+        android:name="com.app.dubaiculture.ui.postLogin.explore.bottomsheet.ExploreBottomSheetFragment"
+        android:label="ExploreBottomSheetFragment" />
+
     <fragment
-        android:id="@+id/attractionDetailFragment"
-        tools:layout="@layout/fragment_attraction_detail"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment"
-        android:label="AttractionDetailFragment" >
+        android:id="@+id/eventListingFragment"
+        tools:layout="@layout/fragment_event_listing"
+        android:name="com.app.dubaiculture.ui.postLogin.events.EventListingFragment"
+        android:label="EventListingFragment" >
         <action
-            android:id="@+id/action_attractionDetailFragment_to_threeSixtyFragment"
-            app:destination="@id/threeSixtyFragment"
-            />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2"
-            app:popUpTo="@+id/attractionDetailFragment"
-            />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_attractionGalleryFragment"
-            app:destination="@id/attractionGalleryFragment"
-            app:popUpTo="@+id/attractionDetailFragment"
-            />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_ARFragment"
-            app:destination="@id/ARFragment"
-            app:popUpTo="@+id/attractionDetailFragment"
-            />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_siteMapFragment"
-            app:destination="@id/siteMapFragment"
-            app:popUpTo="@+id/attractionDetailFragment"
-            />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_ibeconFragment"
-            app:destination="@id/ibeconFragment"
-            app:popUpTo="@+id/attractionDetailFragment"
-            />
+            android:id="@+id/action_eventListingFragment_to_postLoginFragment"
+            app:destination="@id/post_login_bottom_navigation" />
     </fragment>
-    <fragment
-        android:id="@+id/eventDetailFragment2"
-        tools:layout="@layout/fragment_event_detail"
-        android:name="com.app.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"
-        android:label="EventDetailFragment" >
+    <dialog
+        android:id="@+id/filterFragment"
+        tools:layout="@layout/fragment_filter"
+        android:name="com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment"
+        android:label="FilterFragment" />
 
-        <action
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/eventDetailFragment2"
-            android:id="@+id/action_eventDetailFragment2_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2" />
-        <action
-            android:id="@+id/action_eventDetailFragment2_to_registerNowFragment"
-            app:destination="@id/registerNowFragment" />
-        <action
-            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
-        <action
-            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment2"
-            app:destination="@id/postLoginFragment" />
-    </fragment>
+    <include app:graph="@navigation/attraction_detail_navigation"/>
+    <include app:graph="@navigation/post_login_bottom_navigation"/>
+    <include app:graph="@navigation/event_detail_navigation"/>
 
 
-
-    <fragment
-        android:id="@+id/threeSixtyFragment"
-        tools:layout="@layout/fragment_three_sixty"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment"
-        android:label="ThreeSixtyFragment" />
 </navigation>

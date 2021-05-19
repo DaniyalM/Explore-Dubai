@@ -168,20 +168,20 @@
 <!--            android:id="@+id/action_eventFilterFragment_to_postLoginFragment"-->
 <!--            app:destination="@id/postLoginFragment" />-->
 <!--    </fragment>-->
-    <fragment
-        android:id="@+id/eventListingFragment"
-        tools:layout="@layout/fragment_event_listing"
-        android:name="com.app.dubaiculture.ui.postLogin.events.EventListingFragment"
-        android:label="EventListingFragment" >
-        <action
-            android:id="@+id/action_eventListingFragment_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
-    </fragment>
-    <dialog
-        android:id="@+id/filterFragment"
-        tools:layout="@layout/fragment_filter"
-        android:name="com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment"
-        android:label="FilterFragment" />
+<!--    <fragment-->
+<!--        android:id="@+id/eventListingFragment"-->
+<!--        tools:layout="@layout/fragment_event_listing"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.events.EventListingFragment"-->
+<!--        android:label="EventListingFragment" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_eventListingFragment_to_postLoginFragment"-->
+<!--            app:destination="@id/postLoginFragment" />-->
+<!--    </fragment>-->
+<!--    <dialog-->
+<!--        android:id="@+id/filterFragment"-->
+<!--        tools:layout="@layout/fragment_filter"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment"-->
+<!--        android:label="FilterFragment" />-->
     <dialog
         android:id="@+id/postLoginFragment"
         tools:layout="@layout/fragment_post_login"
@@ -303,10 +303,10 @@
             android:id="@+id/action_postForgotFragment_to_postOTPDialogFragment"
             app:destination="@id/postOTPDialogFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/attractionGalleryFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.gallery.AttractionGalleryFragment"
-        android:label="AttractionGalleryFragment" />
+<!--    <fragment-->
+<!--        android:id="@+id/attractionGalleryFragment"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.gallery.AttractionGalleryFragment"-->
+<!--        android:label="AttractionGalleryFragment" />-->
     <dialog
         android:id="@+id/passwordUpdatedFragment2"
         tools:layout="@layout/fragment_password_updated"

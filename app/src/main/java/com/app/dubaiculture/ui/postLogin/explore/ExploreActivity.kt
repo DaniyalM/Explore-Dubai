@@ -24,11 +24,9 @@ class ExploreActivity : BaseAuthenticationActivity() {
     override fun baseOnCreate(savedInstanceState: Bundle?) {
 
         binding= DataBindingUtil.setContentView(this, R.layout.activity_generic)
-
         setupViews(R.navigation.explore_navigation)
         BottomInit(binding.bottomNav,R.id.exploreFragment)
-        val postLoginFragment = PostLoginFragment()
-        postLoginFragment.show(supportFragmentManager,"Login")
+
     }
 
 

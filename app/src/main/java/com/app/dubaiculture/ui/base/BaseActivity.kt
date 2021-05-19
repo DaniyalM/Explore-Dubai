@@ -7,12 +7,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.CheckBox
+import androidx.annotation.IdRes
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.NavController
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragment
 import com.app.dubaiculture.utils.ProgressDialog
+import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showAlert
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showLoader
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showSnackbar
@@ -26,6 +29,7 @@ abstract class BaseActivity : LocalizationActivity() {
     protected lateinit var bus: Bus
     protected var isBusRegistered: Boolean = false
     private var customProgressDialog: ProgressDialog? = null
+    protected lateinit var navController: NavController
 
     lateinit var checkBox: CheckBox
 
@@ -108,10 +112,19 @@ abstract class BaseActivity : LocalizationActivity() {
                                         event.action
                                 )
                             }
+                            is UiEvent.ShowErrorDialog -> {
+                                EventUtilFunctions.showErrorDialog(
+                                        event.message,
+                                        colorBg = event.colorBg,
+                                        context = this
+                                )
+                            }
                         }
                     }
         })
     }
+
+
 
 
     override fun onDestroy() {
@@ -139,49 +152,11 @@ abstract class BaseActivity : LocalizationActivity() {
         }
     }
 
-//    fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
-//        findNavController().navigate(resId, bundle)
-//    }
-
-
-    fun favouriteClick(
-            checkbox: CheckBox,
-            isFav: Boolean,
-            nav: Int,
-            itemId: String,
-            baseViewModel: BaseViewModel,
-            type: Int = 2,
-    ) {
-        checkBox = checkbox
-        if (applicationEntry.auth.isGuest) {
-            val postLoginFragment = PostLoginFragment()
-            postLoginFragment.show(supportFragmentManager,"Login")
-//            navigate(nav)
-        } else {
-            if (!isFav) {
-                applicationEntry.auth.user?.let {
-                    baseViewModel.addToFavourites(
-                            AddToFavouriteRequest(
-                                    userId = applicationEntry.auth.user?.userId,
-                                    itemId = itemId,
-                                    type = type
-                            )
-                    )
-                }
-            } else {
-                applicationEntry.auth.user?.let {
-                    baseViewModel.addToFavourites(
-                            AddToFavouriteRequest(
-                                    userId = applicationEntry.auth.user?.userId,
-                                    itemId = itemId,
-                                    type = type
-                            )
-                    )
-                }
-            }
-
-        }
+    fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
+        navController.navigate(resId, bundle)
     }
+
+
 
 
 }
