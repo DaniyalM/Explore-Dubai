@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/more_navigation"
+    app:startDestination="@id/moreFragment">
+    <fragment
+        android:id="@+id/moreFragment"
+        tools:layout="@layout/fragment_more"
+        android:name="com.app.dubaiculture.ui.postLogin.more.MoreFragment"
+        android:label="MoreFragment" >
+        <action
+            android:id="@+id/action_moreFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+</navigation>

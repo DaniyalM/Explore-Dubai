@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.explore.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.os.Handler
@@ -20,6 +21,7 @@ import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
+import com.app.dubaiculture.ui.postLogin.attractions.AttractionActivity
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionCategoryListItem
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
 import com.app.dubaiculture.ui.postLogin.attractions.mappers.transformBaseToAttraction
@@ -32,6 +34,7 @@ import com.app.dubaiculture.ui.postLogin.explore.ExploreFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsListItem
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
+import com.app.dubaiculture.utils.AppConfigUtils
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.google.android.material.shape.CornerFamily
@@ -121,9 +124,13 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             attractionCat = transformBaseToAttractionCategory(attractionCat),
                             rowClickListener = object:RowClickListener{
                                 override fun rowClickListener(position: Int) {
-                                   fragment?.navigate(R.id.action_exploreFragment_to_attractionsFragment,Bundle().apply {
-                                       putInt(ATTRACTION_CAT_OBJECT,position)
-                                   })
+                                    AppConfigUtils.clickCheckerFlag=position
+                                   context.startActivity(Intent(context,AttractionActivity::class.java))
+
+
+//                                   fragment?.navigate(R.id.action_exploreFragment_to_attractionsFragment,Bundle().apply {
+//                                       putInt(ATTRACTION_CAT_OBJECT,position)
+//                                   })
                                 }
                             },
                             isArabic = isArabic ?: false)

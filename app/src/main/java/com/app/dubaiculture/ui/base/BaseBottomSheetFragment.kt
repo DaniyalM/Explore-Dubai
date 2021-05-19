@@ -1,27 +1,22 @@
 package com.app.dubaiculture.ui.base
 
-import android.R
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface.OnShowListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.FrameLayout
 import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
-import com.app.dubaiculture.utils.event.EventUtilFunctions.showAlert
 import com.app.dubaiculture.utils.event.UiEvent
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
@@ -51,6 +46,8 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         activity = (context as Activity)
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         application = activity.application as ApplicationEntry
@@ -58,6 +55,7 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         customProgressDialog = ProgressDialog(activity)
 
     }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         application = activity.application as ApplicationEntry
         bus = application.bus
@@ -82,9 +80,9 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         dataBinding = getFragmentBinding(inflater, container)
         return dataBinding.root
@@ -94,38 +92,38 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()
-                ?.let { event ->
-                    when (event) {
-                        is UiEvent.ShowAlert -> {
-                            showAlert(event.message)
+                    ?.let { event ->
+                        when (event) {
+                            is UiEvent.ShowAlert -> {
+                                showAlert(event.message)
 
-                        }
-                        is UiEvent.ShowToast -> {
-                            EventUtilFunctions.showToast(event.message,activity)
-                        }
-                        is UiEvent.ShowLoader -> {
-                            EventUtilFunctions.showLoader(event.show, customProgressDialog)
-                        }
-                        is UiEvent.ShowSnackbar -> {
-                            EventUtilFunctions.showSnackbar(
-                                requireView(),
-                                event.message,
-                                event.action
-                            )
-                        }
-                        is UiEvent.NavigateByDirections -> {
-                            navigateByDirections(event.navDirections)
-                        }
-                        is UiEvent.NavigateByAction -> {
-                            navigateByAction(event.actionId, event.bundle)
-                        }
-                        is UiEvent.ShowErrorDialog -> {
-                            EventUtilFunctions.showErrorDialog(event.message,
-                                colorBg = event.colorBg,
-                                context = activity)
+                            }
+                            is UiEvent.ShowToast -> {
+                                EventUtilFunctions.showToast(event.message, activity)
+                            }
+                            is UiEvent.ShowLoader -> {
+                                EventUtilFunctions.showLoader(event.show, customProgressDialog)
+                            }
+                            is UiEvent.ShowSnackbar -> {
+                                EventUtilFunctions.showSnackbar(
+                                        requireView(),
+                                        event.message,
+                                        event.action
+                                )
+                            }
+                            is UiEvent.NavigateByDirections -> {
+                                navigateByDirections(event.navDirections)
+                            }
+                            is UiEvent.NavigateByAction -> {
+                                navigateByAction(event.actionId, event.bundle)
+                            }
+                            is UiEvent.ShowErrorDialog -> {
+                                EventUtilFunctions.showErrorDialog(event.message,
+                                        colorBg = event.colorBg,
+                                        context = activity)
+                            }
                         }
                     }
-                }
         })
         baseViewModel.userLiveData.observe(viewLifecycleOwner) {
             application.auth.user = it
@@ -158,6 +156,7 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     fun getCurrentLanguage(): Locale {
         return (activity as BaseActivity).getCurrentLanguage()
     }
+
     fun showAlert(message: String) {
         EventUtilFunctions.showAlert(message, activity)
     }

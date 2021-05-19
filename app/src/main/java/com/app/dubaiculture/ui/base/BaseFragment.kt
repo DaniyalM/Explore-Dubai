@@ -31,8 +31,6 @@ import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.event.UiEvent
-import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
-import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.CornerFamily
 import com.squareup.otto.Bus
@@ -65,9 +63,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected var isPagerFragment = false
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?,
     ): View? {
         if (_view == null || isPagerFragment) {
             dataBinding = getFragmentBinding(inflater, container)
@@ -77,8 +75,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
         return _view
     }
-
-
 
 
     override fun onAttach(context: Context) {
@@ -129,40 +125,40 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()
-                ?.let { event ->
-                    when (event) {
-                        is UiEvent.ShowAlert -> {
-                            showAlert(event.message)
+                    ?.let { event ->
+                        when (event) {
+                            is UiEvent.ShowAlert -> {
+                                showAlert(event.message)
 
-                        }
-                        is UiEvent.ShowToast -> {
-                            EventUtilFunctions.showToast(event.message, activity)
-                        }
-                        is UiEvent.ShowLoader -> {
-                            EventUtilFunctions.showLoader(event.show, customProgressDialog)
-                        }
-                        is UiEvent.ShowSnackbar -> {
-                            EventUtilFunctions.showSnackbar(
-                                requireView(),
-                                event.message,
-                                event.action
-                            )
-                        }
-                        is UiEvent.NavigateByDirections -> {
-                            navigateByDirections(event.navDirections)
-                        }
-                        is UiEvent.NavigateByAction -> {
-                            navigateByAction(event.actionId, event.bundle)
-                        }
-                        is UiEvent.ShowErrorDialog -> {
-                            EventUtilFunctions.showErrorDialog(
-                                event.message,
-                                colorBg = event.colorBg,
-                                context = activity
-                            )
+                            }
+                            is UiEvent.ShowToast -> {
+                                EventUtilFunctions.showToast(event.message, activity)
+                            }
+                            is UiEvent.ShowLoader -> {
+                                EventUtilFunctions.showLoader(event.show, customProgressDialog)
+                            }
+                            is UiEvent.ShowSnackbar -> {
+                                EventUtilFunctions.showSnackbar(
+                                        requireView(),
+                                        event.message,
+                                        event.action
+                                )
+                            }
+                            is UiEvent.NavigateByDirections -> {
+                                navigateByDirections(event.navDirections)
+                            }
+                            is UiEvent.NavigateByAction -> {
+                                navigateByAction(event.actionId, event.bundle)
+                            }
+                            is UiEvent.ShowErrorDialog -> {
+                                EventUtilFunctions.showErrorDialog(
+                                        event.message,
+                                        colorBg = event.colorBg,
+                                        context = activity
+                                )
+                            }
                         }
                     }
-                }
         })
 
         NetworkLiveData.observe(viewLifecycleOwner) {
@@ -207,20 +203,20 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     fun showAlert(
-        message: String,
-        title: String = Constants.Alert.DEFAULT_TITLE,
-        textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
-        textNegative: String? = null,
-        actionNegative: (() -> Unit)? = null,
-        actionPositive: (() -> Unit)? = null,
+            message: String,
+            title: String = Constants.Alert.DEFAULT_TITLE,
+            textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
+            textNegative: String? = null,
+            actionNegative: (() -> Unit)? = null,
+            actionPositive: (() -> Unit)? = null,
     ) {
         EventUtilFunctions.showAlert(
-            message = message,
-            context = activity,
-            title = title,
-            textPositive = textPositive,
-            textNegative = textNegative,
-            actionPositive = actionPositive
+                message = message,
+                context = activity,
+                title = title,
+                textPositive = textPositive,
+                textNegative = textNegative,
+                actionPositive = actionPositive
         )
     }
 
@@ -285,26 +281,26 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     fun cardViewRTL(materialCardView: MaterialCardView) {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         if (isArabic()) {
-            binding!!.root.materialCardView?.shapeAppearanceModel =
-                binding!!.root.materialCardView!!.shapeAppearanceModel
-                    .toBuilder()
-                    .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                    .setTopRightCornerSize(radius)
-                    .build()
+            binding.root.materialCardView?.shapeAppearanceModel =
+                    binding.root.materialCardView!!.shapeAppearanceModel
+                            .toBuilder()
+                            .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                            .setTopRightCornerSize(radius)
+                            .build()
         } else {
-            binding!!.root.materialCardView?.shapeAppearanceModel =
-                binding!!.root.materialCardView!!.shapeAppearanceModel
-                    .toBuilder()
-                    .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                    .setBottomRightCornerSize(radius)
-                    .build()
+            binding.root.materialCardView?.shapeAppearanceModel =
+                    binding.root.materialCardView!!.shapeAppearanceModel
+                            .toBuilder()
+                            .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                            .setBottomRightCornerSize(radius)
+                            .build()
         }
     }
 
 
     open fun hideKeyboard(activity: Activity) {
         val imm: InputMethodManager =
-            activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         //Find the currently focused view, so we can grab the correct window token from it.
         var view = activity.currentFocus
         //If no view currently has focus, create a new one, just so we can grab a window token from it
@@ -352,12 +348,12 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     fun favouriteClick(
-        checkbox: CheckBox,
-        isFav: Boolean,
-        nav: Int,
-        itemId: String,
-        baseViewModel: BaseViewModel,
-        type: Int = 2,
+            checkbox: CheckBox,
+            isFav: Boolean,
+            nav: Int,
+            itemId: String,
+            baseViewModel: BaseViewModel,
+            type: Int = 2,
     ) {
         checkBox = checkbox
         if (application.auth.isGuest) {
@@ -366,26 +362,34 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             if (!isFav) {
                 application.auth.user?.let {
                     baseViewModel.addToFavourites(
-                        AddToFavouriteRequest(
-                            userId = application.auth.user?.userId,
-                            itemId = itemId,
-                            type = type
-                        )
+                            AddToFavouriteRequest(
+                                    userId = application.auth.user?.userId,
+                                    itemId = itemId,
+                                    type = type
+                            )
                     )
                 }
             } else {
                 application.auth.user?.let {
                     baseViewModel.addToFavourites(
-                        AddToFavouriteRequest(
-                            userId = application.auth.user?.userId,
-                            itemId = itemId,
-                            type = type
-                        )
+                            AddToFavouriteRequest(
+                                    userId = application.auth.user?.userId,
+                                    itemId = itemId,
+                                    type = type
+                            )
                     )
                 }
             }
 
         }
+    }
+
+
+    protected fun openFragment(fragment: Fragment,tag:String?){
+        requireActivity().supportFragmentManager.beginTransaction()
+                .add(fragment, tag)
+                .addToBackStack(null)
+                .commit();
     }
 
 }

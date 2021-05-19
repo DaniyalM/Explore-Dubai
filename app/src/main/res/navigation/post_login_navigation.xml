@@ -50,19 +50,19 @@
             android:id="@+id/action_eventsFragment_to_eventListingFragment"
             app:destination="@id/eventListingFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/attractionsFragment"
-        tools:layout="@layout/fragment_attractions"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment"
-        android:label="AttractionsFragment" >
+<!--    <fragment-->
+<!--        android:id="@+id/attractionsFragment"-->
+<!--        tools:layout="@layout/fragment_attractions"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment"-->
+<!--        android:label="AttractionsFragment" >-->
 
-        <action
-            android:id="@+id/action_attractionsFragment_to_attractionDetailFragment"
-            app:destination="@id/attractionDetailFragment" />
-        <action
-            android:id="@+id/action_attractionsFragment_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
-    </fragment>
+<!--        <action-->
+<!--            android:id="@+id/action_attractionsFragment_to_attractionDetailFragment"-->
+<!--            app:destination="@id/attractionDetailFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_attractionsFragment_to_postLoginFragment"-->
+<!--            app:destination="@id/postLoginFragment" />-->
+<!--    </fragment>-->
     <fragment
         android:id="@+id/moreFragment"
         tools:layout="@layout/fragment_more"
@@ -72,102 +72,102 @@
             android:id="@+id/action_moreFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/attractionDetailFragment"
-        tools:layout="@layout/fragment_attraction_detail"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment"
-        android:label="AttractionDetailFragment" >
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_threeSixtyFragment"
-            app:destination="@id/threeSixtyFragment"
-            />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2"
-            app:popUpTo="@+id/attractionDetailFragment"
-            />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_attractionGalleryFragment"
-            app:destination="@id/attractionGalleryFragment"
-            app:popUpTo="@+id/attractionDetailFragment"
-            />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_ARFragment"
-            app:destination="@id/ARFragment"
-            app:popUpTo="@+id/attractionDetailFragment"
-            />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_siteMapFragment"
-            app:destination="@id/siteMapFragment"
-            app:popUpTo="@+id/attractionDetailFragment"
-            />
-        <action
-            android:id="@+id/action_attractionDetailFragment_to_ibeconFragment"
-            app:destination="@id/ibeconFragment"
-            app:popUpTo="@+id/attractionDetailFragment"
-            />
-    </fragment>
-    <fragment
-        android:id="@+id/eventDetailFragment2"
-        tools:layout="@layout/fragment_event_detail"
-        android:name="com.app.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"
-        android:label="EventDetailFragment" >
+<!--    <fragment-->
+<!--        android:id="@+id/attractionDetailFragment"-->
+<!--        tools:layout="@layout/fragment_attraction_detail"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment"-->
+<!--        android:label="AttractionDetailFragment" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_attractionDetailFragment_to_threeSixtyFragment"-->
+<!--            app:destination="@id/threeSixtyFragment"-->
+<!--            />-->
+<!--        <action-->
+<!--            android:id="@+id/action_attractionDetailFragment_to_postLoginFragment"-->
+<!--            app:destination="@id/postLoginFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_attractionDetailFragment_to_eventDetailFragment2"-->
+<!--            app:destination="@id/eventDetailFragment2"-->
+<!--            app:popUpTo="@+id/attractionDetailFragment"-->
+<!--            />-->
+<!--        <action-->
+<!--            android:id="@+id/action_attractionDetailFragment_to_attractionGalleryFragment"-->
+<!--            app:destination="@id/attractionGalleryFragment"-->
+<!--            app:popUpTo="@+id/attractionDetailFragment"-->
+<!--            />-->
+<!--        <action-->
+<!--            android:id="@+id/action_attractionDetailFragment_to_ARFragment"-->
+<!--            app:destination="@id/ARFragment"-->
+<!--            app:popUpTo="@+id/attractionDetailFragment"-->
+<!--            />-->
+<!--        <action-->
+<!--            android:id="@+id/action_attractionDetailFragment_to_siteMapFragment"-->
+<!--            app:destination="@id/siteMapFragment"-->
+<!--            app:popUpTo="@+id/attractionDetailFragment"-->
+<!--            />-->
+<!--        <action-->
+<!--            android:id="@+id/action_attractionDetailFragment_to_ibeconFragment"-->
+<!--            app:destination="@id/ibeconFragment"-->
+<!--            app:popUpTo="@+id/attractionDetailFragment"-->
+<!--            />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/eventDetailFragment2"-->
+<!--        tools:layout="@layout/fragment_event_detail"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"-->
+<!--        android:label="EventDetailFragment" >-->
 
-        <action
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/eventDetailFragment2"
-            android:id="@+id/action_eventDetailFragment2_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2" />
-        <action
-            android:id="@+id/action_eventDetailFragment2_to_registerNowFragment"
-            app:destination="@id/registerNowFragment" />
-        <action
-            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
-        <action
-            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment2"
-            app:destination="@id/postLoginFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/threeSixtyFragment"
-        tools:layout="@layout/fragment_three_sixty"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment"
-        android:label="ThreeSixtyFragment" />
-    <fragment
-        android:id="@+id/eventNearMapFragment2"
-        tools:layout="@layout/fragment_event_near_map"
-        android:name="com.app.dubaiculture.ui.postLogin.events.map.EventNearMapFragment"
-        android:label="EventNearMapFragment" >
+<!--        <action-->
+<!--            app:popUpToInclusive="true"-->
+<!--            app:popUpTo="@id/eventDetailFragment2"-->
+<!--            android:id="@+id/action_eventDetailFragment2_to_eventDetailFragment2"-->
+<!--            app:destination="@id/eventDetailFragment2" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_eventDetailFragment2_to_registerNowFragment"-->
+<!--            app:destination="@id/registerNowFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment"-->
+<!--            app:destination="@id/postLoginFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment2"-->
+<!--            app:destination="@id/postLoginFragment" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/threeSixtyFragment"-->
+<!--        tools:layout="@layout/fragment_three_sixty"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment"-->
+<!--        android:label="ThreeSixtyFragment" />-->
+<!--    <fragment-->
+<!--        android:id="@+id/eventNearMapFragment2"-->
+<!--        tools:layout="@layout/fragment_event_near_map"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.events.map.EventNearMapFragment"-->
+<!--        android:label="EventNearMapFragment" >-->
 
-        <argument
-            android:name="getEvents"
-            app:argType="com.app.dubaiculture.data.repository.event.local.models.Events[]"
-            app:nullable="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/eventFilterFragment"
-        tools:layout="@layout/fragment_event_filter"
-        android:name="com.app.dubaiculture.ui.postLogin.events.EventFilterFragment"
-        android:label="EventFilterFragment" >
-        <action
-            android:id="@+id/action_eventFilterFragment_to_eventListingFragment"
-            app:destination="@id/eventListingFragment" />
-        <action
-            android:id="@+id/action_eventFilterFragment_to_filterFragment"
-            app:destination="@id/filterFragment" />
-        <action
-            android:id="@+id/action_eventFilterFragment_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2" />
-        <action
-            android:id="@+id/action_eventFilterFragment_to_filterFragment2"
-            app:destination="@id/filterFragment" />
-        <action
-            android:id="@+id/action_eventFilterFragment_to_postLoginFragment"
-            app:destination="@id/postLoginFragment" />
-    </fragment>
+<!--        <argument-->
+<!--            android:name="getEvents"-->
+<!--            app:argType="com.app.dubaiculture.data.repository.event.local.models.Events[]"-->
+<!--            app:nullable="true" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/eventFilterFragment"-->
+<!--        tools:layout="@layout/fragment_event_filter"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.events.EventFilterFragment"-->
+<!--        android:label="EventFilterFragment" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_eventFilterFragment_to_eventListingFragment"-->
+<!--            app:destination="@id/eventListingFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_eventFilterFragment_to_filterFragment"-->
+<!--            app:destination="@id/filterFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_eventFilterFragment_to_eventDetailFragment2"-->
+<!--            app:destination="@id/eventDetailFragment2" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_eventFilterFragment_to_filterFragment2"-->
+<!--            app:destination="@id/filterFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_eventFilterFragment_to_postLoginFragment"-->
+<!--            app:destination="@id/postLoginFragment" />-->
+<!--    </fragment>-->
     <fragment
         android:id="@+id/eventListingFragment"
         tools:layout="@layout/fragment_event_listing"
@@ -391,10 +391,7 @@
             android:id="@+id/action_yourJourneyFragment_to_ibeconDescFragment"
             app:destination="@id/ibeconDescFragment" />
     </dialog>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.more.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->

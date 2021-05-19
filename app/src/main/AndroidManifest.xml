@@ -34,6 +34,16 @@
             android:value="@string/map_key" />
 
         <activity
+            android:name=".ui.postLogin.explore.ExploreActivity"
+            android:launchMode="singleInstance"
+            />
+        <activity android:name=".ui.postLogin.events.EventActivity"
+            android:launchMode="singleInstance"/>
+        <activity android:name=".ui.postLogin.attractions.AttractionActivity"      android:launchMode="singleInstance"/>
+        <activity android:name=".ui.postLogin.more.MoreActivity"      android:launchMode="singleInstance"/>
+
+
+        <activity
             android:name=".ui.preLogin.PreLoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
