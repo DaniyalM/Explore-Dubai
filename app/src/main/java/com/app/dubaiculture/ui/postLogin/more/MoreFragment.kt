@@ -35,6 +35,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         subscribeUiEvents(moreViewModel)
         binding.llRateUs.setOnClickListener(this)
         binding.llShareApp.setOnClickListener(this)
+        binding.llNotification.setOnClickListener(this)
 
         moreViewModel.setupToolbarWithSearchItems(
             binding.root.profilePic,
@@ -128,7 +129,12 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 MoreItems<ItemsMoreLayoutBinding>(
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
-
+                            if(position == 0){
+                                navigate(R.id.action_moreFragment_to_settingFragment)
+                            }
+                            if (position == 3) {
+                                navigate(R.id.action_moreFragment_to_logoutFragment)
+                            }
                         }
                     },
                     moreModel = it,
@@ -145,7 +151,6 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         }
     }
 
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_app -> {
@@ -153,6 +158,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             }
             R.id.ll_rate_us -> {
 
+            }
+            R.id.ll_notification->{
+                navigate(R.id.action_moreFragment_to_notificationFragment)
             }
         }
     }

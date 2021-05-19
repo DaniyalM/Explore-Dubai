@@ -114,6 +114,8 @@
                         android:layout_marginEnd="@dimen/_15sdp"
                         >
                         <LinearLayout
+                            android:id="@+id/ll_notification"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:orientation="vertical"
                             android:gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"

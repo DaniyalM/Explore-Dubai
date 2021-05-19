@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.databinding.ActivityGenericBinding
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionActivity
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragment
 import com.app.dubaiculture.ui.postLogin.events.EventActivity
 import com.app.dubaiculture.ui.postLogin.explore.ExploreActivity
 import com.app.dubaiculture.ui.postLogin.more.MoreActivity
@@ -18,12 +16,10 @@ import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import com.app.dubaiculture.utils.startNewActivityWithPre
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_post_login.*
 
 abstract class BaseAuthenticationActivity : BaseActivity() {
 
     protected lateinit var binding: ActivityGenericBinding
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +64,7 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
 
     }
 
-    protected fun setupViews(navigation: Int) {
+    protected fun setupViews(navigation: Int,bottomNav: BottomNavigationView) {
 //        val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
         val navHostFragment =
                 supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

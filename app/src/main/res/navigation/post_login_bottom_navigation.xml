@@ -53,6 +53,18 @@
             android:id="@+id/action_postCreatePassFragment_to_passwordUpdatedFragment2"
             app:destination="@id/passwordUpdatedFragment2" />
     </fragment>
+    <dialog
+        android:id="@+id/passwordUpdatedFragment2"
+        tools:layout="@layout/fragment_password_updated"
+        android:name="com.app.dubaiculture.ui.preLogin.password.passwordupdated.PasswordUpdatedFragment"
+        android:label="PasswordUpdatedFragment" >
+        <action
+            android:id="@+id/action_passwordUpdatedFragment2_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/post_login_navigation"
+            app:popUpToInclusive="true" />
+    </dialog>
     <fragment
         android:id="@+id/postRegisterFragment"
         tools:layout="@layout/fragment_post_register"

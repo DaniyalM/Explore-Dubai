@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentOTPBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.postLogin.PostLoginActivity
+import com.app.dubaiculture.ui.postLogin.explore.ExploreActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.ui.preLogin.registeration.otp.viewmodel.OTPViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.COMES_FROM_LOGIN
@@ -105,7 +105,7 @@ private fun disabledBackButton(){
         loginViewModel.loginStatus.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 application.auth.isGuest=false
-                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+                activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
             }
         }
     }
