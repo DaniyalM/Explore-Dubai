@@ -25,6 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/museum_services"
+        android:textColor="@color/black_200"
+        android:textSize="@dimen/_12sdp"
         android:layout_marginStart="@dimen/_15sdp"
         app:layout_constraintBottom_toBottomOf="@+id/img"
         app:layout_constraintStart_toEndOf="@+id/img"
@@ -32,13 +34,13 @@
         />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/forward_arrow"
         app:layout_constraintBottom_toBottomOf="@+id/tv_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toEndOf="@+id/img"
         app:layout_constraintTop_toTopOf="@+id/img" />
 
@@ -49,7 +51,7 @@
         android:background="#E8E8E8"
         android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="@+id/img"
-        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="@+id/arrow"
         app:layout_constraintTop_toBottomOf="@+id/img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,7 +76,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         val list = ArrayList<MoreModel>()
         list.add(
             MoreModel(
-                R.drawable.museum_more,
+                R.drawable.news_more,
                 getApplication<Application>().getString(R.string.news_more),
                 R.drawable.forward_arrow,
                 false
@@ -84,7 +84,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         )
         list.add(
             MoreModel(
-                R.drawable.mob_register,
+                R.drawable.phone_more,
                 getApplication<Application>().getString(R.string.contact_more),
                 R.drawable.forward_arrow,
                 false
@@ -92,7 +92,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         )
         list.add(
             MoreModel(
-                R.drawable.renting_more,
+                R.drawable.question_mark_more,
                 getApplication<Application>().getString(R.string.help_more),
                 R.drawable.forward_arrow,
                 false
@@ -100,7 +100,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         )
         list.add(
             MoreModel(
-                R.drawable.mob_register,
+                R.drawable.mobile_more,
                 getApplication<Application>().getString(R.string.related_more),
                 R.drawable.forward_arrow,
                 false
@@ -108,7 +108,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         )
         list.add(
             MoreModel(
-                R.drawable.privacy_more,
+                R.drawable.noun_policy_more,
                 getApplication<Application>().getString(R.string.privacy_more),
                 R.drawable.forward_arrow,
                 false
@@ -132,7 +132,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         val list = ArrayList<MoreModel>()
         list.add(
             MoreModel(
-                R.drawable.museum_more,
+                R.drawable.setting_more,
                 getApplication<Application>().getString(R.string.setting_more),
                 R.drawable.forward_arrow,
                 false
@@ -140,7 +140,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         )
         list.add(
             MoreModel(
-                R.drawable.mob_register,
+                R.drawable.accessibility_more,
                 getApplication<Application>().getString(R.string.accessiblitiy_more),
                 R.drawable.forward_arrow,
                 false
@@ -148,7 +148,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         )
         list.add(
             MoreModel(
-                R.drawable.renting_more,
+                R.drawable.a_more,
                 getApplication<Application>().getString(R.string.switch_language),
                 R.drawable.forward_arrow,
                 false
@@ -156,7 +156,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         )
         list.add(
             MoreModel(
-                R.drawable.mob_register,
+                R.drawable.logout_morre,
                 getApplication<Application>().getString(R.string.logout_more),
                 R.drawable.forward_arrow,
                 false
