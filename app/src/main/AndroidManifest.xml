@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <uses-feature android:name="android.hardware.location.gps" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -29,18 +30,29 @@
         android:theme="@style/Theme.MyApp"
         android:usesCleartextTraffic="true">
 
+<!--        android:value="@string/map_key"-->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="@string/map_key" />
+            android:value="${mapsApiKey}"
+
+            />
 
         <activity
             android:name=".ui.postLogin.explore.ExploreActivity"
             android:launchMode="singleInstance"
-            />
-        <activity android:name=".ui.postLogin.events.EventActivity"
-            android:launchMode="singleInstance"/>
-        <activity android:name=".ui.postLogin.attractions.AttractionActivity"      android:launchMode="singleInstance"/>
-        <activity android:name=".ui.postLogin.more.MoreActivity"      android:launchMode="singleInstance"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.postLogin.events.EventActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.postLogin.attractions.AttractionActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.postLogin.more.MoreActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
 
 
         <activity
@@ -52,9 +64,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.postLogin.PostLoginActivity"
-            android:screenOrientation="portrait"></activity> <!-- <activity android:name="com.app.dubaiculture.ui.widgets.DcWidget"> -->
+        <!--        <activity-->
+        <!--            android:name=".ui.postLogin.PostLoginActivity"-->
+        <!--            android:screenOrientation="portrait"></activity>-->
+        <!-- <activity android:name="com.app.dubaiculture.ui.widgets.DcWidget"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /> -->
         <!-- </intent-filter> -->
