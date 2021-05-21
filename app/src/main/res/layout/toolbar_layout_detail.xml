@@ -21,11 +21,13 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/constraintLayout3"
                 android:layout_width="match_parent"
-                android:splitMotionEvents="false"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg">
+                android:background="@color/app_bg"
+                android:splitMotionEvents="false"
+                app:layoutDescription="@xml/toolbar_layout_detail_xml_constraintlayout3_scene">
 
                 <FrameLayout
                     android:id="@+id/imageLayout"
@@ -299,7 +301,7 @@
                 <!--                    app:layout_constraintEnd_toEndOf="parent"-->
                 <!--                    app:layout_constraintStart_toStartOf="parent"-->
                 <!--                    app:layout_constraintTop_toBottomOf="@+id/imageLayout" />-->
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.motion.widget.MotionLayout>
 
 
             <!--            android:layout_height="@dimen/_210sdp"-->

@@ -15,12 +15,12 @@ class PreLoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
-        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
+//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     override fun onResume() {
         super.onResume()
-        adjustFontScale(getResources().getConfiguration())
+        adjustFontScale(resources.configuration)
     }
 //    open fun adjustFontScale(configuration: Configuration) {
 //        if (configuration.fontScale > 1.30) {
