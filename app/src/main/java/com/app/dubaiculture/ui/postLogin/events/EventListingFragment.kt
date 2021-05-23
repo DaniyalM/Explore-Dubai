@@ -298,7 +298,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                 dateTo = it.dateTo
             }
             if (it.location!!.isNotEmpty() ) {
-                    if(it.id!=null){
+                    if(!it.id.isNullOrEmpty()){
                         location =  it.id
                     }else{
                         location = eventViewModel.locationState.value

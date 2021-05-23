@@ -364,7 +364,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
                                 }, event = it, resLayout = R.layout.event_items,activity))
                             }
+                        }else{
+                            binding.tvEventTitle.visibility = View.GONE
                         }
+
                     }
                 }
                 is Result.Failure -> {

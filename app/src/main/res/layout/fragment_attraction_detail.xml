@@ -64,7 +64,7 @@
 
             <CheckBox
                 android:id="@+id/favourite"
-                android:layout_width="@dimen/_20sdp"
+                android:layout_width="@dimen/_22sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/heart_icon_home_black"

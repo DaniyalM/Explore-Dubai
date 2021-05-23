@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItems
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItemsSlots
-import com.app.dubaiculture.utils.dateFormat
 import com.app.dubaiculture.utils.dayOfWeek
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo

@@ -12,6 +12,7 @@ import com.app.dubaiculture.data.repository.event.remote.response.EventScheduleI
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import kotlinx.android.synthetic.main.schedule_expand.view.*
+import java.util.*
 
 
 class ScheduleInnerRecyclerviewAdapter(var nameList : ArrayList<EventScheduleItemsSlots>) :
