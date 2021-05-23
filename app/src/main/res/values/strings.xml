@@ -174,7 +174,7 @@
     <string name="clear_all">Clear All</string>
     <string name="no_data_found">No Data Found</string>
 
-    <string name="away">Km Away</string>
+    <string name="away"> Km Away</string>
     <string name="error_msg">Are you sure you want to close application?</string>
     <string name="near_you">Near You</string>
     <string name="recognize">Recognize</string>

@@ -159,7 +159,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
 
         binding.root.btn_register_now.setOnClickListener {
-            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
+//            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
         }
         binding.root.tv_direction.setOnClickListener {
 
@@ -382,7 +382,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 }
             }
             R.id.btn_reg -> {
-                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
+//                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
             }
 //            R.id.favourite -> {
 //
@@ -436,8 +436,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                         loc.longitude,
                                         eventObj.latitude!!.toDouble(),
                                         eventObj.longitude!!.toDouble()
-                                )
-                                        .toString() + resources.getString(R.string.away)
+                                ).toString()+" " + resources.getString(R.string.away)
                         }
                     }, activity, locationCallback
             )

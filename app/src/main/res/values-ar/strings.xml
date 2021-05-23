@@ -166,7 +166,7 @@
     <string name="detail_clip_card_text">مراجعة المكان</string>
     <string name="clear_all">مسح الكل</string>
     <string name="no_data_found">لم يتم ايجاد نتائج</string>
-    <string name="away">كم</string>
+    <string name="away"> كم</string>
     <string name="error_msg">هل أنت متاكد من اغلاق التطبيق؟</string>
     <string name="near_you">حولك</string>
     <string name="recognize">اكتشف</string>

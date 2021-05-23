@@ -349,10 +349,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     }
 
                     if(numberContact.isNullOrEmpty()){
-                        binding.root.ll_call_us.alpha = 0.2f
+                        binding.root.ll_call_us.alpha = 0.4f
                         binding.root.ll_call_us.isClickable = false}
                     if(emailContact.isNullOrEmpty()){
-                        binding.root.ll_emailus.alpha = 0.2f
+                        binding.root.ll_emailus.alpha = 0.4f
                         binding.root.ll_emailus.isClickable = false}
                     initializeDetails(attractionsObj)
                 }
