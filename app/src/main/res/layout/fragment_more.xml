@@ -1,9 +1,424 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include layout="@layout/toolbar_snippet"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/plan_trip"
+            layout="@layout/toolbar_snippet"/>
+
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+        <include
+            layout="@layout/plan_a_trip_layout"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account"
+                        android:textSize="@dimen/_15ssp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textColor="@color/black_200"
+                        />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/materialCardView2"
+                        app:cardElevation="@dimen/_12sdp"
+                        android:outlineSpotShadowColor="@color/gray_600"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_height="@dimen/_115sdp"
+                        app:layout_constraintStart_toStartOf="@+id/account"
+                        app:layout_constraintTop_toBottomOf="@+id/account"
+                        app:layout_constraintWidth_percent="0.42">
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="@dimen/_15sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/img_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/green_circle"
+                                />
+                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/my_profile"
+                                android:textSize="@dimen/_12ssp"
+                                android:textColor="@color/black_200"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                />
+                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableEnd="@drawable/forward_arrow"
+                                android:text="@string/login"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:textSize="@dimen/_10ssp"
+                                android:textColor="@color/purple_900"
+
+                                />
+
+                        </LinearLayout>
+
+
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        app:cardElevation="@dimen/_12sdp"
+                        android:outlineSpotShadowColor="@color/gray_600"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintWidth_percent="0.42"
+                        android:layout_height="@dimen/_115sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/account"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        >
+                        <LinearLayout
+                            android:id="@+id/ll_notification"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:orientation="vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="@dimen/_15sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/img_notification"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/orange_circle"
+                                />
+
+                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="@string/notifications"
+                                android:textColor="@color/black_200"
+                                android:textSize="@dimen/_12ssp" />
+                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/circle_purple"
+                                android:text="05 new"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:textSize="@dimen/_9ssp"
+                                android:textColor="@color/gray_500"
+                                />
+
+                        </LinearLayout>
+
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/services"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/services"
+                        android:textSize="@dimen/_15ssp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
+                        android:textColor="@color/black_200"
+                        />
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardview_service"
+                        android:layout_width="0dp"
+                        app:cardElevation="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:outlineSpotShadowColor="@color/gray_600"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/services"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        >
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_services"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/items_more_layout"
+                            />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/your_voice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_voice"
+                        android:textSize="@dimen/_15ssp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardview_service"
+                        android:textColor="@color/black_200"
+                        />
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardview_ur_voice"
+                        app:cardElevation="@dimen/_12sdp"
+                        android:outlineSpotShadowColor="@color/gray_600"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_height="@dimen/_68sdp"
+                        app:layout_constraintStart_toStartOf="@+id/account"
+                        app:layout_constraintTop_toBottomOf="@+id/your_voice"
+                        app:layout_constraintWidth_percent="0.42">
+
+                        <LinearLayout
+                            android:id="@+id/ll_share_app"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:background="@drawable/logout_more"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_12sdp"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@string/share_this_app"
+                                android:textColor="@color/black_200"
+                                />
+
+                        </LinearLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        app:cardElevation="@dimen/_12sdp"
+                        android:outlineSpotShadowColor="@color/gray_600"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintWidth_percent="0.42"
+                        android:layout_height="@dimen/_68sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/your_voice"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        >
+
+                        <LinearLayout
+                            android:id="@+id/ll_rate_us"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:background="@drawable/rate_us_more"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@string/rate_us"
+                                android:textSize="@dimen/_12sdp"
+                                android:textColor="@color/black_200"
+                                />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/information"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/information"
+                        android:textSize="@dimen/_15ssp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardview_ur_voice"
+                        android:textColor="@color/black_200"
+                        />
+
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardview_about_info"
+                        android:layout_width="0dp"
+                        app:cardElevation="@dimen/_12sdp"
+                        android:outlineSpotShadowColor="@color/gray_600"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        app:layout_constraintStart_toStartOf="@id/information"
+                        app:layout_constraintTop_toBottomOf="@+id/information"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        >
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="About \nDubai Culture"
+                                android:textSize="@dimen/_15ssp"
+                                android:layout_weight="1"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:layout_marginStart="@dimen/_15sdp"
+                                android:textColor="@color/black_200"
+                                />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/eagle"
+                                />
+                        </LinearLayout>
+
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_news"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/information"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/items_more_layout"
+                        app:layout_constraintTop_toBottomOf="@+id/cardview_about_info"
+                        />
+
+
+
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/settings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings"
+                        android:textSize="@dimen/_15ssp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_news"
+                        android:textColor="@color/black_200"
+                        />
+
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_settings"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="@id/information"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/items_more_layout"
+                        app:layout_constraintTop_toBottomOf="@+id/settings"
+                        />
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tv_version_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Version:9.0"
+                        android:textColor="@color/gray_600"
+                        android:textSize="@dimen/_9ssp"
+                        android:layout_marginTop="@dimen/_25sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/rv_settings"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_settings"
+                        />
+
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tv_updated_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Updated on:Dec 23,2020"
+                        android:textColor="@color/gray_600"
+                        android:textSize="@dimen/_9ssp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/rv_settings"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_version_no"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="@dimen/_120sdp"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+            </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
 
 
 

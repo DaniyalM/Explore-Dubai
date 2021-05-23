@@ -23,7 +23,6 @@ abstract class BaseActivity : LocalizationActivity() {
 
     override fun onResume() {
         super.onResume()
-        SystemRequirementsChecker.checkWithDefaultDialogs(this);
     }
 
 

@@ -1,7 +1,9 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail
 
 import android.Manifest
+import android.bluetooth.BluetoothAdapter
 import android.content.Context
+import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -37,6 +39,8 @@ import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
+import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
+import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -549,8 +553,16 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 //                navigateByDirections(AttractionDetailFragmentDirections.actionAttractionDetailFragmentToSiteMapFragment(attractionsObj.siteMap))
             }
             R.id.constLayoutIbecon -> {
-                val bundle = bundleOf(ATTRACTION_ID to attractionsObj.id)
-                navigate(R.id.action_attractionDetailFragment_to_ibeconFragment, bundle)
+                if(SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(requireContext())) {
+                    val bundle = bundleOf(ATTRACTION_ID to attractionsObj.id)
+                    navigate(R.id.action_attractionDetailFragment_to_ibeconFragment, bundle)
+                }else if(!SystemRequirementsHelper.isBluetoothEnabled(requireContext())){
+                    val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                    startActivityForResult(enableBtIntent, 1)
+                }else{
+                    SystemRequirementsChecker.checkWithDefaultDialogs(requireActivity())
+                }
+
 //                navigateByDirections(AttractionDetailFragmentDirections.actionAttractionDetailFragmentToIbeconFragment(attractionsObj.id))
             }
             R.id.img_attraction_speaker -> {

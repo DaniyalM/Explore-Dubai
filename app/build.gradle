@@ -73,7 +73,7 @@ android {
             applicationIdSuffix ".debug"
             minifyEnabled false
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://dc.qa.greenlightlabs.tech/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -84,15 +84,13 @@ android {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
             manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-
-
         }
         stag {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable false
-            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            debuggable true
+            buildConfigField("String", "BASE_URL", "\"https://dc.qa.greenlightlabs.tech/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
@@ -106,7 +104,6 @@ android {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
             manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-
         }
         prod {
             applicationIdSuffix ".prod"
@@ -130,7 +127,7 @@ android {
     }
     // For Kotlin projects
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     buildFeatures {
@@ -147,6 +144,7 @@ dependencies {
     implementation config.commonDependency.multidex
     implementation config.commonDependency.appcompat
     implementation config.commonDependency.legacySupport
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //Databinding Compiler
     kapt config.commonDependency.dataBinding
     //RetroFit Networking

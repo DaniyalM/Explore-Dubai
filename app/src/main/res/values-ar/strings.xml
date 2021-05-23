@@ -184,5 +184,45 @@
     <string name="view_gallery">المعرض</string>
     <string name="reviews">المراجعات</string>
     <string name="on_trip">على TripAdvisor</string>
+    <string name="turn_on_your_location_to_view_nearby_events">Turn on your location to view nearby events</string>
+    <string name="account">Account</string>
+    <string name="my_events">My Events</string>
+    <string name="places_visited">Places Visited</string>
+    <string name="my_trips">My Trips</string>
+    <string name="change_password">Change Password</string>
+    <string name="my_profile">My Profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="services">Services</string>
+    <string name="museum_services">Museum Services</string>
+    <string name="your_voice">Your Voice</string>
+    <string name="information">Information</string>
+    <string name="about_dubai_culture">About Dubai Culture</string>
+    <string name="settings">Settings</string>
+    <string name="share_this_app">Share this app</string>
+    <string name="rate_us">Rate Us</string>
 
+
+
+
+    <string name="public_libraries_services">Public Libraries Services</string>
+    <string name="renting_more">Renting Services</string>
+    <string name="general_more">General Services</string>
+    <string name="heritage_more">Heritage Sites</string>
+    <string name="news_more">News</string>
+    <string name="contact_more">Contact Us</string>
+    <string name="help_more">Help &amp; FAQs</string>
+    <string name="related_more">Related Apps</string>
+    <string name="privacy_more">Privacy Policy</string>
+    <string name="terms_more">Terms and Conditions</string>
+    <string name="setting_more">Settings</string>
+    <string name="accessiblitiy_more">Accessibility</string>
+    <string name="logout_more">Logout</string>
+    <string name="are_you_sure_want_to_logout">Are you sure want to logout</string>
+    <string name="settings_">Settings</string>
+    <string name="turn_on_location">Turn on Location</string>
+    <string name="reset_settings">Reset Settings</string>
+    <string name="push_notifications">Push Notifications</string>
+    <string name="location_based_notifications">Location based Notifications</string>
+    <string name="sms">SMS</string>
+    <string name="latest_news">Latest News</string>
 </resources>

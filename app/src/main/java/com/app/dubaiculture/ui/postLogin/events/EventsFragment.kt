@@ -169,6 +169,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         binding.root.apply {
+            animationViewEvent.visibility = View.VISIBLE
+            animationView.visibility = View.GONE
             if (isArabic()) {
                 cardivewRTL?.shapeAppearanceModel =
                     cardivewRTL!!.shapeAppearanceModel
@@ -185,7 +187,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                         .build()
             }
         }
-
     }
 
     private fun locationPermission() {

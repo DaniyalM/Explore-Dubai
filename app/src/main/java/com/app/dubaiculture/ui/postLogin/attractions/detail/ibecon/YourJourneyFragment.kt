@@ -19,6 +19,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.Si
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.IBecons.UUID_BECON
 import com.app.dubaiculture.utils.PushNotificationManager.showNotification
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion
 import com.estimote.coresdk.recognition.packets.Beacon
@@ -64,26 +65,20 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                 siteMapViewModel.showToast("IBeacon is Detected...")
                 nearestBeacon.uniqueKey
                 rvBecons(nearestBeacon.proximityUUID.toString())
+                beconFilterForNotification(beconList,UUID_BECON)
+
             })
            setMonitoringListener(object : BeaconManager.BeaconMonitoringListener {
                 override fun onEnteredRegion(beaconRegion: BeaconRegion?, beacons: MutableList<Beacon>?) {
                     Toast.makeText(activity,"Monitoring has been started", Toast.LENGTH_SHORT).show()
-                    val intent  = Intent(requireContext(), PreLoginActivity::class.java)
-                    val resultPendingIntent =
-                        PendingIntent.getActivity(requireContext(),1,intent, PendingIntent.FLAG_UPDATE_CURRENT)
-                    showNotification(activity,
-                            "Your gate closes in 47 minutes.",
-                            "Current security wait time is 15 minutes, "
-                                    + "and it's a 5 minute walk from security to the gate. "
-                                    + "Looks like you've got plenty of time!",resultPendingIntent)
+                    beconFilterForNotification(beconList,UUID_BECON)
                 }
 
                 override fun onExitedRegion(beaconRegion: BeaconRegion?) {
-
+                    siteMapViewModel.showToast("You are leaving the Region")
                 }
 
             })
-
 
 
 
@@ -158,6 +153,20 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
         }
         return sortedBeconList
 
+    }
+
+    private fun beconFilterForNotification(beconList: ArrayList<IbeconITemsSiteMap>, uuid: String){
+
+        beconList.forEach {
+            val intent  = Intent(requireContext(), PreLoginActivity::class.java)
+            val resultPendingIntent =
+                PendingIntent.getActivity(requireContext(),1,intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            if (it.deviceID == uuid) {
+                showNotification(activity,
+                    it.title,
+                    it.summary,resultPendingIntent)
+            }
+        }
     }
 }
 
