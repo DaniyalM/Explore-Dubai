@@ -26,28 +26,28 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+            inflater: LayoutInflater,
+            container: ViewGroup?
     ) = FragmentMoreBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        subscribeUiEvents(moreViewModel)
-//        binding.llRateUs.setOnClickListener(this)
-//        binding.llShareApp.setOnClickListener(this)
-//        binding.llNotification.setOnClickListener(this)
-//
-//        moreViewModel.setupToolbarWithSearchItems(
-//            binding.root.profilePic,
-//            binding.root.img_drawer,
-//            binding.root.toolbar_title,
-//            resources.getString(R.string.more)
-//        )
-//        rvSetUp()
-//        cardViewRTL()
-//        binding.materialCardView2.setOnClickListener {
-//            navigate(R.id.action_moreFragment_to_profileFragment)
-//        }
+        subscribeUiEvents(moreViewModel)
+        binding.llRateUs.setOnClickListener(this)
+        binding.llShareApp.setOnClickListener(this)
+        binding.llNotification.setOnClickListener(this)
+
+        moreViewModel.setupToolbarWithSearchItems(
+                binding.root.profilePic,
+                binding.root.img_drawer,
+                binding.root.toolbar_title,
+                resources.getString(R.string.more)
+        )
+        rvSetUp()
+        cardViewRTL()
+        binding.materialCardView2.setOnClickListener {
+            navigate(R.id.action_moreFragment_to_profileFragment)
+        }
     }
 
     private fun cardViewRTL() {
@@ -57,18 +57,18 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             subHeading.visibility = View.VISIBLE
             if (isArabic()) {
                 cardivewRTL?.shapeAppearanceModel =
-                    cardivewRTL.shapeAppearanceModel
-                        .toBuilder()
-                        .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                        .setTopRightCornerSize(radius)
-                        .build()
+                        cardivewRTL.shapeAppearanceModel
+                                .toBuilder()
+                                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                                .setTopRightCornerSize(radius)
+                                .build()
             } else {
                 cardivewRTL?.shapeAppearanceModel =
-                    cardivewRTL.shapeAppearanceModel
-                        .toBuilder()
-                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                        .setBottomRightCornerSize(radius)
-                        .build()
+                        cardivewRTL.shapeAppearanceModel
+                                .toBuilder()
+                                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                                .setBottomRightCornerSize(radius)
+                                .build()
             }
         }
     }
@@ -83,17 +83,17 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
 
             groupAdapter.add(
-                MoreItems<ItemsMoreLayoutBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
+                    MoreItems<ItemsMoreLayoutBinding>(
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
 
-                        }
-                    },
-                    moreModel = it,
-                    resLayout = R.layout.items_more_layout,
-                    requireContext(),
-                    isArabic()
-                )
+                                }
+                            },
+                            moreModel = it,
+                            resLayout = R.layout.items_more_layout,
+                            requireContext(),
+                            isArabic()
+                    )
             )
         }
         binding.rvServices.apply {
@@ -106,17 +106,17 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 //                newsAdapter.clear()
 //            }
             newsAdapter.add(
-                MoreItems<ItemsMoreLayoutBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
+                    MoreItems<ItemsMoreLayoutBinding>(
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
 
-                        }
-                    },
-                    moreModel = it,
-                    resLayout = R.layout.items_more_layout,
-                    requireContext(),
-                    isArabic()
-                )
+                                }
+                            },
+                            moreModel = it,
+                            resLayout = R.layout.items_more_layout,
+                            requireContext(),
+                            isArabic()
+                    )
             )
         }
         binding.rvNews.apply {
@@ -126,22 +126,23 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         }
         moreViewModel.settingsList().map {
             settingAdapter.add(
-                MoreItems<ItemsMoreLayoutBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
-                            if(position == 0){
-                                navigate(R.id.action_moreFragment_to_settingFragment)
-                            }
-                            if (position == 3) {
-                                navigate(R.id.action_moreFragment_to_logoutFragment)
-                            }
-                        }
-                    },
-                    moreModel = it,
-                    resLayout = R.layout.items_more_layout,
-                    requireContext(),
-                    isArabic()
-                )
+                    MoreItems<ItemsMoreLayoutBinding>(
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
+                                    if (position == 0) {
+                                        navigate(R.id.action_moreFragment_to_settingFragment)
+                                    }
+                                    if (position == 3) {
+                                        navigate(R.id.action_moreFragment_to_logoutFragment)
+                                    }
+                                }
+                            },
+                            moreModel = it,
+                            resLayout = R.layout.items_more_layout,
+                            requireContext(),
+                            isArabic(),
+                            application.auth.isGuest
+                    )
             )
         }
         binding.rvSettings.apply {
@@ -159,7 +160,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             R.id.ll_rate_us -> {
 
             }
-            R.id.ll_notification->{
+            R.id.ll_notification -> {
                 navigate(R.id.action_moreFragment_to_notificationFragment)
             }
         }

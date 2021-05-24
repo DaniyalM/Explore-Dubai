@@ -28,12 +28,15 @@ abstract class BaseViewModel(
     private val _uiEventsLiveData = MutableLiveData<Event<UiEvent>>()
     val uiEvents: LiveData<Event<UiEvent>> = _uiEventsLiveData
 
-    private val _userLiveData = MutableLiveData<User>()
+    protected val _userLiveData = MutableLiveData<User>()
     val userLiveData: LiveData<User> = _userLiveData
 
 
     protected var _isFavourite: MutableLiveData<Result<AddToFavouriteResponse>> = MutableLiveData()
     var isFavourite: LiveData<Result<AddToFavouriteResponse>> = _isFavourite
+
+//    protected val _user: MutableLiveData<User> = MutableLiveData()
+//    val user: LiveData<User> = _user
 
 
     fun showLoader(show: Boolean) {
@@ -100,6 +103,7 @@ abstract class BaseViewModel(
         }
 
     }
+
 
 
 }

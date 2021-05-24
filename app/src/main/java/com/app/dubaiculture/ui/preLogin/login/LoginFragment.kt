@@ -43,6 +43,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
+
+
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
@@ -70,7 +72,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         }
         binding.tvAsGuest.setOnClickListener {
         if(SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(requireContext())){
-            loginViewModel.getUserIfExists()
+
             application.auth.apply {
                 isLoggedIn = true
                 isGuest = true
@@ -93,6 +95,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
         subscribeToObservables()
+        loginViewModel.getUserIfExists()
         if (isArabic()) {
             binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
         } else {
@@ -110,10 +113,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 application.auth.isGuest = false
                 activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
             }
+
         }
-        loginViewModel.user.observe(viewLifecycleOwner) {
+        loginViewModel.userLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
-                loginViewModel.removeUser(it)
+                application.auth.isLoggedIn = true
+                activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
+//                loginViewModel.removeUser(it)
             }
         }
     }

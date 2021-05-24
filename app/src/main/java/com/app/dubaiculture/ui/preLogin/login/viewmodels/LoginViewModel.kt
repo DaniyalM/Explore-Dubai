@@ -61,14 +61,13 @@ class LoginViewModel @ViewModelInject constructor(
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
 
-    private val _user: MutableLiveData<User> = MutableLiveData()
-    val user: LiveData<User> = _user
+
 
     fun getUserIfExists() {
 
         viewModelScope.launch {
             userRepository.getLastUser()?.let {
-                _user.value=it
+                setUser(it)
             }
         }
     }
