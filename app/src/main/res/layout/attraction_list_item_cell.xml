@@ -10,6 +10,12 @@
             name="attractions"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/custom_ripple_border"
@@ -125,7 +131,8 @@
                     android:maxLines="2"
                     android:visibility="@{TextUtils.isEmpty(attractions.locationTitle) ? View.INVISIBLE : View.VISIBLE}"
                     android:ellipsize="end"
-                    android:text="@{attractions.locationTitle}"                    android:textColor="@color/white_900"
+                    android:text="@{attractions.locationTitle}"
+                    android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />
 
             </LinearLayout>
@@ -134,5 +141,33 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:id="@+id/visited_date_container"
+
+            >
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/events"
+                android:id="@+id/visited_date_icon"/>
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:layout_width="match_parent"
+                android:id="@+id/visited_date_time"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:text="Visited on: 12 Nov, 2020"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </layout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profile_navigation"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_placesVisited"
+            app:destination="@id/placesVisited" />
+    </fragment>
+    <fragment
+        android:id="@+id/placesVisited"
+        android:name="com.app.dubaiculture.ui.postLogin.more.profile.placesvisited.PlacesVisitedFragment"
+        android:label="PlacesVisited" />
+</navigation>

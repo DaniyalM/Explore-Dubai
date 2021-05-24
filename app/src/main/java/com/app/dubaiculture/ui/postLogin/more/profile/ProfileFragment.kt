@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentProfileBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.layout_back.view.*
@@ -26,6 +27,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             backArrowRTLProfile(arrowMyServices)
             backArrowRTLProfile(arrowMyTrips)
             backArrowRTLProfile(arrowPlacesVisited)
+
+            placesVisitedView.setOnClickListener {
+                navigate(R.id.action_profileFragment_to_placesVisited)
+            }
         }
 
     }
