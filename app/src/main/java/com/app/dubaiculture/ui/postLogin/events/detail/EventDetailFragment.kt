@@ -51,7 +51,15 @@ import com.google.android.material.appbar.AppBarLayout
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
+import kotlinx.android.synthetic.main.event_detail_inner_layout.view.imgFb
+import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_category
+import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_direction
+import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_km
+import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_location
+import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_times
+import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_title
 import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
 import kotlinx.android.synthetic.main.fragment_event_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
@@ -151,7 +159,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
 
         binding.root.btn_register_now.setOnClickListener {
-            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
+//            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
         }
         binding.root.tv_direction.setOnClickListener {
 
@@ -374,7 +382,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 }
             }
             R.id.btn_reg -> {
-                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
+//                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
             }
 //            R.id.favourite -> {
 //
@@ -428,8 +436,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                         loc.longitude,
                                         eventObj.latitude!!.toDouble(),
                                         eventObj.longitude!!.toDouble()
-                                )
-                                        .toString() + resources.getString(R.string.away)
+                                ).toString()+" " + resources.getString(R.string.away)
                         }
                     }, activity, locationCallback
             )
@@ -452,6 +459,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
                     enableRegistration(it.value.registrationDate)
+                    if(numberContact.isNullOrEmpty()){
+                        binding.root.ll_callus.alpha = 0.2f
+                        binding.root.ll_callus.isClickable = false}
+                    if(emailContact.isNullOrEmpty()){
+                        binding.root.ll_email_us.alpha = 0.2f
+                        binding.root.ll_email_us.isClickable = false}
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)
                     }

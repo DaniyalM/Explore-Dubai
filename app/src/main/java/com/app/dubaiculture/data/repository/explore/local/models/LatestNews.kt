@@ -22,5 +22,5 @@ data class LatestNews(
 
     @SerializedName("Date")
     @Expose
-    var date: String? = null,
+    var date: String? = null
 )

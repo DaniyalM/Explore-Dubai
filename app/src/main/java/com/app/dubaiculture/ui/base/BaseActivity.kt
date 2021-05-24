@@ -39,10 +39,10 @@ abstract class BaseActivity : LocalizationActivity() {
         adjustFontScale(resources.configuration)
     }
 
-    override fun onResume() {
-        super.onResume()
-        adjustFontScale(resources.configuration)
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        adjustFontScale(resources.configuration)
+//    }
 
     protected fun getDrawableFromId(resId: Int?): Drawable? {
         resId?.let {

@@ -47,6 +47,7 @@
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:text="@{events.type}"
                         android:textStyle="bold"
+                        android:textAllCaps="true"
                         android:textColor="@color/purple_900"
                         android:textSize="@dimen/_7ssp"
                         app:textFont="bold" />
@@ -184,6 +185,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:text="@{events.category}"
+                    app:textAllCaps="true"
                     android:textAlignment="viewStart"
                     android:textColor="@color/purple_900"
                     android:textSize="@dimen/_10ssp"

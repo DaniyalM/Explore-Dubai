@@ -174,7 +174,7 @@
     <string name="clear_all">Clear All</string>
     <string name="no_data_found">No Data Found</string>
 
-    <string name="away">Km Away</string>
+    <string name="away"> Km Away</string>
     <string name="error_msg">Are you sure you want to close application?</string>
     <string name="near_you">Near You</string>
     <string name="recognize">Recognize</string>
@@ -190,6 +190,7 @@
     <string name="turn_on_your_location_to_view_nearby_events">Turn on your location to view nearby events</string>
     <string name="account">Account</string>
     <string name="my_events">My Events</string>
+    <string name="places_visited">Places Visited</string>
     <string name="my_trips">My Trips</string>
     <string name="change_password">Change Password</string>
     <string name="my_profile">My Profile</string>
@@ -224,7 +225,7 @@
     <string name="push_notifications">Push Notifications</string>
     <string name="location_based_notifications">Location based Notifications</string>
     <string name="sms">SMS</string>
-    <string name="places_visited">Places Visited</string>
+    <string name="latest_news">Latest News</string>
 
 
 </resources>

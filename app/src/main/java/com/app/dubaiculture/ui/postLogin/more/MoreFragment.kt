@@ -32,22 +32,22 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeUiEvents(moreViewModel)
-        binding.llRateUs.setOnClickListener(this)
-        binding.llShareApp.setOnClickListener(this)
-        binding.llNotification.setOnClickListener(this)
-
-        moreViewModel.setupToolbarWithSearchItems(
-            binding.root.profilePic,
-            binding.root.img_drawer,
-            binding.root.toolbar_title,
-            resources.getString(R.string.more)
-        )
-        rvSetUp()
-        cardViewRTL()
-        binding.materialCardView2.setOnClickListener {
-            navigate(R.id.action_moreFragment_to_profileFragment)
-        }
+//        subscribeUiEvents(moreViewModel)
+//        binding.llRateUs.setOnClickListener(this)
+//        binding.llShareApp.setOnClickListener(this)
+//        binding.llNotification.setOnClickListener(this)
+//
+//        moreViewModel.setupToolbarWithSearchItems(
+//            binding.root.profilePic,
+//            binding.root.img_drawer,
+//            binding.root.toolbar_title,
+//            resources.getString(R.string.more)
+//        )
+//        rvSetUp()
+//        cardViewRTL()
+//        binding.materialCardView2.setOnClickListener {
+//            navigate(R.id.action_moreFragment_to_profileFragment)
+//        }
     }
 
     private fun cardViewRTL() {

@@ -46,6 +46,7 @@
                         android:layout_marginEnd="@dimen/_14sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:text="@{events.type}"
+                        android:textAllCaps="true"
                         android:textColor="@color/purple_900"
                         android:textSize="@dimen/_7ssp"
                         app:textFont="bold" />
@@ -58,6 +59,7 @@
                     android:layout_height="0dp"
                     android:imageViewUrl="@{events.image}"
                     android:scaleType="fitXY"
+
                     app:cornerRadius="@dimen/_15sdp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -182,9 +184,11 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:text="@{events.category}"
+                    app:textAllCaps="true"
                     android:textAlignment="viewStart"
                     android:textColor="@color/purple_900"
                     android:textSize="@dimen/_10ssp"
+                    android:textAllCaps="true"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/lines"
                     app:layout_constraintTop_toTopOf="@+id/tv_start_date_event"
