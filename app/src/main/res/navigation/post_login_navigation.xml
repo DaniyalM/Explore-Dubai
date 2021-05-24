@@ -80,6 +80,9 @@
         <action
             android:id="@+id/action_moreFragment_to_notificationFragment"
             app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_latestNewsFragment"
+            app:destination="@id/latestNewsFragment" />
     </fragment>
     <fragment
         android:id="@+id/attractionDetailFragment"
@@ -424,6 +427,10 @@
         android:id="@+id/notificationFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.notification.NotificationFragment"
         android:label="NotificationFragment" />
+    <fragment
+        android:id="@+id/latestNewsFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.news.LatestNewsFragment"
+        android:label="LatestNewsFragment" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/streetViewFragment"-->

@@ -8,6 +8,8 @@ import com.app.dubaiculture.data.repository.notification.NotificationModel
 import com.app.dubaiculture.databinding.ItemsLatestNewsBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.glideInstance
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.xwray.groupie.databinding.BindableItem
 
 data class NewsItems <T : ViewDataBinding>(
@@ -20,6 +22,9 @@ data class NewsItems <T : ViewDataBinding>(
         when (viewBinding) {
             is ItemsLatestNewsBinding ->{
                 viewBinding.let {
+                    YoYo.with(Techniques.BounceInUp)
+                        .duration(1000)
+                        .playOn(it.root)
                     it.imgNews.glideInstance(latestNews.image, false).into(it.imgNews)
                     it.tvTitle.text = latestNews.title
                     it.tvDate.text = latestNews.date
