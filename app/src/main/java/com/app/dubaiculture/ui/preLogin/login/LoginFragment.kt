@@ -115,7 +115,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             if (it != null) {
                 loginViewModel.removeUser(it)
             }
-
         }
     }
 

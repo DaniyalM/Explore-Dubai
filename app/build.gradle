@@ -7,8 +7,6 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
-//apply plugin: 'com.google.gms.google-services'
-//apply plugin: 'com.google.gms.google-services'
 def config = rootProject.extensions.getByName("ext")
 
 
@@ -55,7 +53,7 @@ android {
             applicationIdSuffix ".release"
             minifyEnabled false
             debuggable false
-            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -73,7 +71,7 @@ android {
             applicationIdSuffix ".debug"
             minifyEnabled false
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -90,27 +88,27 @@ android {
             minifyEnabled false
             shrinkResources false
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
             signingConfig signingConfigs.stagConfig
-//            https://dc.qa.greenlightlabs.tech/
+
 //            buildConfigField("String", "BASE_URL", "\"https://a04f708a-3b9c-41a5-bc03-1450f93ba4a1.mock.pstmn.io/\"")
 
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk") ]
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
         }
         prod {
             applicationIdSuffix ".prod"
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_PROD\"")

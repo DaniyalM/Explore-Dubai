@@ -118,6 +118,7 @@
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:background="@drawable/btn_register"
                     android:elevation="@dimen/_15sdp"
+                    android:alpha="0.4"
                     android:foreground="@drawable/custom_ripple_border"
                     android:gravity="center"
                     android:text="@string/register_now"

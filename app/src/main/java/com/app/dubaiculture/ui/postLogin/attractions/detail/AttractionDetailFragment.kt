@@ -158,8 +158,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         locationPermission()
         binding.root.tv_desc_readmore.text = attractionsObj.description
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.swipeRefreshLayout.isRefreshing = false
+        binding.root.swipeRefreshLayout.setOnRefreshListener {
+            binding.root.swipeRefreshLayout.isRefreshing = false
             callingObservables()
         }
 
@@ -335,6 +335,25 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
                     attractionsObj = it.value
+                    if(it.value.gallery.isNullOrEmpty()){
+                        binding.root.downOneGallery.alpha = 0.4f
+                        binding.root.downOneGallery.isClickable = false
+                        binding.root.ll_img.isClickable = false
+                        binding.root.ll_img.isClickable = false
+                    }
+                    if(it.value.asset360?.imageItems.isNullOrEmpty()){
+                        binding.root.ll_360.alpha = 0.4f
+                        binding.root.downOne360.alpha = 0.4f
+                        binding.root.ll_360.isClickable = false
+                        binding.root.downOne360.isClickable = false
+                    }
+
+                    if(numberContact.isNullOrEmpty()){
+                        binding.root.ll_call_us.alpha = 0.4f
+                        binding.root.ll_call_us.isClickable = false}
+                    if(emailContact.isNullOrEmpty()){
+                        binding.root.ll_emailus.alpha = 0.4f
+                        binding.root.ll_emailus.isClickable = false}
                     initializeDetails(attractionsObj)
                 }
                 is Result.Failure -> {
@@ -615,10 +634,14 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     })
             }
             R.id.ll_call_us -> {
-                openDiallerBox(numberContact)
+                if(!numberContact.isNullOrEmpty()){
+                    openDiallerBox(numberContact)
+                }
             }
             R.id.ll_emailus -> {
-                openEmailbox(emailContact.toString())
+                if(!emailContact.toString().isNullOrEmpty()){
+                    openEmailbox(emailContact.toString())
+                }
             }
         }
     }
@@ -677,11 +700,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
         if (verticalOffset == -binding.root.collapsingToolbarAttractionDetail.height + binding.root.toolbarAttractionDetail.height) {
             binding.defaultCloseToolbar.visibility = View.VISIBLE
-            binding.swipeRefreshLayout.isEnabled = false
+            binding.root.swipeRefreshLayout.isEnabled = false
 
         } else {
             binding.defaultCloseToolbar.visibility = View.GONE
-            binding.swipeRefreshLayout.isEnabled = true
+            binding.root.swipeRefreshLayout.isEnabled = true
 
         }
     }
