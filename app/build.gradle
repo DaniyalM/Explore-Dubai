@@ -7,6 +7,8 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
+//apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 def config = rootProject.extensions.getByName("ext")
 
 
@@ -53,7 +55,7 @@ android {
             applicationIdSuffix ".release"
             minifyEnabled false
             debuggable false
-            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/\"")
+            buildConfigField("String", "BASE_URL", "\"https://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -71,7 +73,7 @@ android {
             applicationIdSuffix ".debug"
             minifyEnabled false
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -108,7 +110,7 @@ android {
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_PROD\"")
