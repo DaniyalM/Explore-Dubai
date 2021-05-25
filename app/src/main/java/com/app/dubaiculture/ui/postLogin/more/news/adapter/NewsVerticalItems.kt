@@ -4,30 +4,29 @@ import android.content.Context
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.LatestNews
-import com.app.dubaiculture.data.repository.notification.NotificationModel
-import com.app.dubaiculture.databinding.ItemCategoryFilterBinding
-import com.app.dubaiculture.databinding.ItemNewsArticleBinding
-import com.app.dubaiculture.databinding.ItemsLatestNewsBinding
+import com.app.dubaiculture.databinding.ItemMoreNewsBinding
+import com.app.dubaiculture.databinding.ItemsNewsVerticalLayoutBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.glideInstance
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.xwray.groupie.databinding.BindableItem
 
-data class NewsItems <T : ViewDataBinding>(
+data class NewsVerticalItems<T : ViewDataBinding>(
     private val rowClickListener: RowClickListener? = null,
     val latestNews: LatestNews,
-    val resLayout: Int = R.layout.items_latest_news,
+    val resLayout: Int = R.layout.items_news_vertical_layout,
     val context: Context,
 ) : BindableItem<T>() {
     override fun bind(viewBinding: T, position: Int) {
         when (viewBinding) {
-            is ItemsLatestNewsBinding ->{
+            is ItemsNewsVerticalLayoutBinding -> {
                 viewBinding.let {
                     YoYo.with(Techniques.BounceInUp)
                         .duration(1000)
                         .playOn(it.root)
-                    it.imgNews.glideInstance(latestNews.image, false).into(it.imgNews)
+                    it.imgNewsVertical.glideInstance(latestNews.image, false)
+                        .into(it.imgNewsVertical)
                     it.tvTitle.text = latestNews.title
                     it.tvDate.text = latestNews.date
                     it.materialCardView.setOnClickListener {
@@ -35,9 +34,11 @@ data class NewsItems <T : ViewDataBinding>(
                     }
                 }
             }
-            is ItemNewsArticleBinding ->{
+            is ItemMoreNewsBinding -> {
                 viewBinding.let {
-                    it.tvTitleCategory.text = latestNews.title
+                    it.imgUpcomingBg.glideInstance(latestNews.image, false).into(it.imgUpcomingBg)
+                    it.title.text = latestNews.title.toString()
+                    it.date.text = latestNews.date
                 }
             }
         }
