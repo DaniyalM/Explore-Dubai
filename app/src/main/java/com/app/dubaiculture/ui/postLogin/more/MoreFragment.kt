@@ -19,6 +19,7 @@ import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
+import java.util.*
 
 @AndroidEntryPoint
 class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
@@ -133,6 +134,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                                 override fun rowClickListener(position: Int) {
                                     if (position == 0) {
                                         navigate(R.id.action_moreFragment_to_settingFragment)
+                                    }
+                                    if (position == 2) {
+// change the locale here
                                     }
                                     if (position == 3) {
                                         navigate(R.id.action_moreFragment_to_logoutFragment)
