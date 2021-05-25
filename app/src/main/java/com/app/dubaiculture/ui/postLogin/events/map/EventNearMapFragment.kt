@@ -1,7 +1,9 @@
 package com.app.dubaiculture.ui.postLogin.events.map
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.transition.Transition
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,8 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.EventsFragment
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventNearMapAdapter
 import com.app.dubaiculture.utils.Constants
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -93,10 +97,26 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
                 map.addMarker(MarkerOptions().position(locationObj)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_within_distance_calendar))
                     .title(it.title))
-            else
-                map.addMarker(MarkerOptions().position(locationObj)
+            else{
+           val marker =     map.addMarker(MarkerOptions().position(locationObj)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_calendar_away))
                     .title(it.title))
+//                Glide.with(requireContext())
+//                    .asBitmap()
+//                    .load("http://dc.qa.greenlightlabs.tech/api/-/media/DC/Home-Modules/museums-icon.svg")
+//                    .into(object : SimpleTarget<Bitmap>() {
+//                        override fun onResourceReady(
+//                            resource: Bitmap,
+//                            transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
+//                        ) {
+//                            if (resource != null) {
+//                                val icon = BitmapDescriptorFactory.fromBitmap(resource)
+//                                marker.setIcon(icon)
+//                            }
+//                        }
+//
+//                    })
+            }
         }
     }
 
