@@ -21,11 +21,9 @@ data class MoreItems<T : ViewDataBinding>(
     override fun bind(viewBinding: T, position: Int) {
         when (viewBinding) {
             is ItemsMoreLayoutBinding -> {
-
-
                 viewBinding.let {
                     if (isVisible){
-                       it.rootView.visibility=View.GONE
+                       it.rootView.visibility=View.VISIBLE
                     }
                     arrowRTL(isArabic, it.arrow)
                     it.img.setImageResource(moreModel.leftImg!!)
@@ -38,6 +36,8 @@ data class MoreItems<T : ViewDataBinding>(
                     if (moreModel.title == context.resources.getString(R.string.logout_more)) {
                         it.arrow.visibility = View.GONE
                     }
+
+
                     it.rootView.setOnClickListener {
                         rowClickListener?.rowClickListener(position)
                     }

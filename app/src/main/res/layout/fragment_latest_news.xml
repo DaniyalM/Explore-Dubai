@@ -67,7 +67,7 @@
             tools:itemCount="1"
             tools:listitem="@layout/items_latest_news" />
 
-        <me.relex.circleindicator.CircleIndicator2
+            <me.relex.circleindicator.CircleIndicator2
             android:id="@+id/indicator"
             android:layout_width="wrap_content"
             app:ci_drawable="@drawable/purple_indicator"

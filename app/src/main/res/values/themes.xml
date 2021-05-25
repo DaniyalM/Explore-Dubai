@@ -22,7 +22,7 @@
         <item name="colorSecondaryVariant">@color/gray_800</item>
         <item name="colorOnSecondary">@color/white_900</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/purple_600</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white_900</item>
         <!-- Customize your theme here. -->
 
         <item name="colorSurface">@color/white_900</item>

@@ -86,11 +86,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             SystemRequirementsChecker.checkWithDefaultDialogs(requireActivity())
         }
         }
-        binding.languageSwitch.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
-            if (b)
-                setLanguage(Locale("ar"))
-            else setLanguage(Locale.ENGLISH)
-        }
 
 
 

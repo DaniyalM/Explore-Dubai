@@ -37,9 +37,18 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
     }
 
     private fun rvSetUp() {
+
         newsArticleAdapter = GroupAdapter()
         moreNewsAdapter = GroupAdapter()
-
+        if (groupAdapter.itemCount > 0) {
+            groupAdapter.clear()
+        }
+        if (newsArticleAdapter.itemCount > 0) {
+            newsArticleAdapter.clear()
+        }
+        if (moreNewsAdapter.itemCount > 0) {
+            moreNewsAdapter.clear()
+        }
         newsDetailViewModel.newsList().map {
             groupAdapter.add(
                 NewsSliderItems<ItemSliderBinding>(
@@ -57,6 +66,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
             pagerSnapHelper.attachToRecyclerView(this)
             binding.indicator.attachToRecyclerView(this, pagerSnapHelper)
         }
+
+
         newsDetailViewModel.articleList().map {
             newsArticleAdapter.add(
                 NewsItems<ItemNewsArticleBinding>(
@@ -70,22 +81,22 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = newsArticleAdapter
         }
-
-
-        newsDetailViewModel.newsList().map {
-            groupAdapter.add(
-                NewsItems<ItemsLatestNewsBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
-                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
-
-                        }
-
-                    }, latestNews = it, R.layout.items_latest_news, requireContext()
-                )
-            )
-
-        }
+//
+//
+//        newsDetailViewModel.newsList().map {
+//            groupAdapter.add(
+//                NewsItems<ItemsLatestNewsBinding>(
+//                    object : RowClickListener {
+//                        override fun rowClickListener(position: Int) {
+//                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
+//
+//                        }
+//
+//                    }, latestNews = it, R.layout.items_latest_news, requireContext()
+//                )
+//            )
+//
+//        }
         newsDetailViewModel.morenewsList().map {
             moreNewsAdapter.add(
                 NewsVerticalItems<ItemMoreNewsBinding>(
@@ -104,5 +115,6 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = moreNewsAdapter
         }
+
     }
 }
