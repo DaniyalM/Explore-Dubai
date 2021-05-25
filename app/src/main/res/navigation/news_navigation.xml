@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/news_navigation"
+    app:startDestination="@id/latestNewsFragment">
+    <fragment
+        android:id="@+id/latestNewsFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.news.LatestNewsFragment"
+        android:label="LatestNewsFragment" >
+        <action
+            android:id="@+id/action_latestNewsFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.news.detail.NewsDetailFragment"
+        android:label="NewsDetailFragment" />
+</navigation>

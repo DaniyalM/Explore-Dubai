@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:id="@+id/root_item_selection"
+        android:background="@drawable/flex_shape"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_title_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="Management"
+                android:textColor="@color/gray_600"
+                android:textSize="@dimen/_10ssp" />
+
+
+    </LinearLayout>
+
+</layout>

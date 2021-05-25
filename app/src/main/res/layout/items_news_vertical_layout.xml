@@ -4,13 +4,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_130sdp">
+        android:layout_height="@dimen/_125sdp">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
             android:layout_width="match_parent"
+            app:cardElevation="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_12sdp"
+            android:outlineSpotShadowColor="@color/gray_600"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_height="@dimen/_116sdp"
+            android:layout_height="@dimen/_105sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,8 +34,8 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:elevation="@dimen/_5sdp"
-                    android:layout_width="@dimen/_95sdp"
-                    android:layout_height="@dimen/_95sdp"
+                    android:layout_width="@dimen/_85sdp"
+                    android:layout_height="@dimen/_85sdp"
                     app:cornerRadius="@dimen/_10sdp"
                     android:scaleType="fitXY"
                     android:background="@drawable/must_see_icon_home"
@@ -58,6 +62,7 @@
 
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/calender_gray"

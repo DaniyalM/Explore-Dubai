@@ -106,17 +106,19 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 //                newsAdapter.clear()
 //            }
             newsAdapter.add(
-                    MoreItems<ItemsMoreLayoutBinding>(
-                            object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-
-                                }
-                            },
-                            moreModel = it,
-                            resLayout = R.layout.items_more_layout,
-                            requireContext(),
-                            isArabic()
-                    )
+                MoreItems<ItemsMoreLayoutBinding>(
+                    object : RowClickListener {
+                        override fun rowClickListener(position: Int) {
+                            if(position == 0){
+                                navigate(R.id.action_moreFragment_to_latestNewsFragment)
+                            }
+                        }
+                    },
+                    moreModel = it,
+                    resLayout = R.layout.items_more_layout,
+                    requireContext(),
+                    isArabic()
+                )
             )
         }
         binding.rvNews.apply {

@@ -6,11 +6,15 @@
     app:startDestination="@id/moreFragment">
 
     <include app:graph="@navigation/profile_navigation"/>
+    <include app:graph="@navigation/news_navigation"/>
     <fragment
         android:id="@+id/moreFragment"
         tools:layout="@layout/fragment_more"
         android:name="com.app.dubaiculture.ui.postLogin.more.MoreFragment"
         android:label="MoreFragment" >
+        <action
+            android:id="@+id/action_moreFragment_to_latestNewsFragment"
+            app:destination="@id/news_navigation" />
         <action
             android:id="@+id/action_moreFragment_to_profileFragment"
             app:destination="@id/profile_navigation" />
