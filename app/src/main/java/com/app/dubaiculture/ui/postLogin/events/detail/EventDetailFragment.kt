@@ -511,7 +511,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                         bundle
                                 )
                             }
-                        }, event = it, resLayout = R.layout.event_items, activity))
+                        }, event = it, resLayout = R.layout.event_items, activity
+                            ))
                     }
                 }
                 is Result.Failure -> {

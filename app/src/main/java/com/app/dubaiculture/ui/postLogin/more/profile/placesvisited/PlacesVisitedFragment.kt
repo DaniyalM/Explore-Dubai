@@ -30,7 +30,7 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
             header.back.setOnClickListener {
                 back()
             }
-            placesVisitedRv.apply {
+            personalRv.apply {
                 isNestedScrollingEnabled = false
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 adapter = groupAdapter

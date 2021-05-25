@@ -52,8 +52,8 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(eventViewModel)
         initRecyclerView()
         callingObservables()
@@ -67,6 +67,8 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
 //            eventViewModel.updateHeaderItems(eventID ?: 0)
 //        }
     }
+
+
 
 
     private fun callingObservablesForSearchBarKeyWord() {

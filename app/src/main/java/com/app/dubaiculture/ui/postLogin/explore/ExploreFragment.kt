@@ -82,10 +82,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     }
 
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (!this::exploreAdapter.isInitialized) {
             setUpRecyclerView()
             binding.swipeRefresh.post {
@@ -135,9 +133,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                     }
                 }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
-
     }
+
 
     private fun setUpRecyclerView() {
         exploreAdapter = ExploreRecyclerAsyncAdapter(activity,
@@ -243,16 +240,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                     }
                 },
                 activity,locationCallback =locationCallback )
-//
 
         }
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//        isPagerFragment=true
-//
-//    }
+
 
 
 }
