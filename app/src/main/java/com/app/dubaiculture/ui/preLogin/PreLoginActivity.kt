@@ -1,5 +1,7 @@
 package com.app.dubaiculture.ui.preLogin
 
+import android.bluetooth.BluetoothAdapter
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Window
@@ -15,6 +17,9 @@ class PreLoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
+//        val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+
+
 //        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 

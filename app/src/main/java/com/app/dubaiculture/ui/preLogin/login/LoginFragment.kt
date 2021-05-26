@@ -71,20 +71,23 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             )
         }
         binding.tvAsGuest.setOnClickListener {
-        if(SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(requireContext())){
+            if (SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(
+                    requireContext()
+                )
+            ) {
 
-            application.auth.apply {
-                isLoggedIn = true
-                isGuest = true
-            }
+                application.auth.apply {
+                    isLoggedIn = true
+                    isGuest = true
+                }
 //            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-            activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
-        }else if(!SystemRequirementsHelper.isBluetoothEnabled(requireContext())){
-            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            startActivityForResult(enableBtIntent, 1)
-        }else{
-            SystemRequirementsChecker.checkWithDefaultDialogs(requireActivity())
-        }
+                activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
+            } else if (!SystemRequirementsHelper.isBluetoothEnabled(requireContext())) {
+                val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                startActivityForResult(enableBtIntent, 1)
+            } else {
+                SystemRequirementsChecker.checkWithDefaultDialogs(requireActivity())
+            }
         }
 
 
@@ -112,9 +115,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         }
         loginViewModel.userLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
+
                 application.auth.isLoggedIn = true
                 activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
-//                loginViewModel.removeUser(it)
+
             }
         }
     }
@@ -156,6 +160,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         loginViewModel.isEmailEdit.value = true
         loginViewModel.isEmail.value = true
     }
+
     private fun applicationExitDialog() {
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {

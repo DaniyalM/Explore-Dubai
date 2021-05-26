@@ -101,6 +101,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //ViewModel is set as Binding Variable

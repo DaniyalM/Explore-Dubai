@@ -11,9 +11,16 @@
         <action
             android:id="@+id/action_profileFragment_to_placesVisited"
             app:destination="@id/placesVisited" />
+        <action
+            android:id="@+id/action_profileFragment_to_myEventsFragment"
+            app:destination="@id/myEventsFragment" />
     </fragment>
     <fragment
         android:id="@+id/placesVisited"
         android:name="com.app.dubaiculture.ui.postLogin.more.profile.placesvisited.PlacesVisitedFragment"
         android:label="PlacesVisited" />
+    <fragment
+        android:id="@+id/myEventsFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.events.myevents.MyEventsFragment"
+        android:label="MyEventsFragment" />
 </navigation>
