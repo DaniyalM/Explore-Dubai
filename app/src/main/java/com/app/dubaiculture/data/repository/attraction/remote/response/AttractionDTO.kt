@@ -49,6 +49,10 @@ class AttractionDTO {
     @Expose
     var description: String? = null
 
+    @SerializedName("Summary")
+    @Expose
+    var summary: String? = null
+
     @SerializedName("StartTime")
     @Expose
     var startTime: String? = null

@@ -9,15 +9,14 @@
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="285dp"
+    android:layout_width="265dp"
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/attraction_image"
-        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginStart="@dimen/_15sdp"
-        app:cardMaxElevation="@dimen/_10sdp"
-        app:cardElevation="@dimen/_8sdp"
+        app:cardMaxElevation="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:layout_width="250dp"
         android:layout_height="330dp"
@@ -72,10 +71,10 @@
                     android:id="@+id/category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginEnd="@dimen/_9sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
                     android:text="@{attractions.category}"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />

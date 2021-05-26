@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Context.WINDOW_SERVICE
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.NetworkRequest
 import android.net.Uri
@@ -386,6 +387,15 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
 
         }
+    }
+    fun getColorWithAlpha(color: Int, ratio: Float): Int {
+        var newColor = 0
+        val alpha = Math.round(Color.alpha(color) * ratio).toInt()
+        val r: Int = Color.red(color)
+        val g: Int = Color.green(color)
+        val b: Int = Color.blue(color)
+        newColor = Color.argb(alpha, r, g, b)
+        return newColor
     }
 
 }

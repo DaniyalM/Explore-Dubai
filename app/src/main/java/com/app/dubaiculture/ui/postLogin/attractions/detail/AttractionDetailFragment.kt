@@ -234,7 +234,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
                 instagram.setOnClickListener {
-                    startActivity(instagramNavigationIntent(activity.packageManager))
+//                    startActivity(instagramNavigationIntent(activity.packageManager))
                 }
                 groupAdapter.apply {
                     if (this.itemCount > 0) {
@@ -354,6 +354,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     if(emailContact.isNullOrEmpty()){
                         binding.root.ll_emailus.alpha = 0.4f
                         binding.root.ll_emailus.isClickable = false}
+                    binding.root.tv_desc_readmore.text = "${it.value.summary} ${""} ${it.value.description}"
                     initializeDetails(attractionsObj)
                 }
                 is Result.Failure -> {

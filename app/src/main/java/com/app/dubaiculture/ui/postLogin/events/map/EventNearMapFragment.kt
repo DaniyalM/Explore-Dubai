@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.events.map
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -104,10 +105,10 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
         googleMap?.addCircle(
             CircleOptions()
                 .center(LatLng(mapList[0].currentLat, mapList[0].currentLng))
+                .fillColor(getColorWithAlpha(Color.CYAN, 0.15f))
+                .strokeColor(getColorWithAlpha(Color.CYAN, 0.15f))
                 .radius(5000.0)
                 .strokeWidth(1f)
-                .strokeColor(ContextCompat.getColor(requireContext(), R.color.map_radius_color))
-                .fillColor(0x220000FF)
 //                .fillColor(ContextCompat.getColor(requireContext(), R.color.map_radius_color))
         )
     }

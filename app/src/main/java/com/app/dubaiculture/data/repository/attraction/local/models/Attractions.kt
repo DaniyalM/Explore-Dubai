@@ -21,6 +21,7 @@ data class Attractions(
     var portraitImage: String? = "",
     var landscapeImage: String? = "",
     var description: String? = "",
+    var summary: String? = "",
     var distance: Double = 0.0,
     var startTime: String? = "",
     var endTime: String? = "",

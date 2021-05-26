@@ -298,6 +298,9 @@
                         android:layout_height="match_parent" />
                 </androidx.cardview.widget.CardView>
 
+
+
+
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/heading_desc"
                     android:layout_width="wrap_content"
@@ -327,8 +330,9 @@
                     app:layout_constraintTop_toBottomOf="@+id/heading_desc"
                     app:trimCollapsedText="@string/read_more"
                     app:trimExpandedText="@string/read_less"
-                    app:trimLines="3"
-                    app:trimMode="trimModeLine" />
+                    app:trimLength="150"
+                    app:trimMode="trimModeLength"/>
+
 
 
                 <com.app.dubaiculture.ui.components.custombutton.CustomButton

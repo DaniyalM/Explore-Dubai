@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.explore.map
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -110,8 +111,10 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
             }
             R.id.ImgChangeView -> {
                 val bundle = Bundle()
-                bundle.putParcelableArrayList(Constants.NavBundles.EXPLORE_MAP_LIST,
-                    exploreMapList as java.util.ArrayList<out Parcelable>)
+                bundle.putParcelableArrayList(
+                    Constants.NavBundles.EXPLORE_MAP_LIST,
+                    exploreMapList as java.util.ArrayList<out Parcelable>
+                )
                 bundle.putString(CATEGORY, category)
                 navigate(R.id.action_exploreMapFragment_to_exploreBottomSheetFragment, bundle)
             }
@@ -132,14 +135,22 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                         eventList.add(it)
                     }
                     setupRecyclerView()
-                    rvSetUp(exploreMapViewModel.mergeArrayList(exploreMapList,
-                        attractions,
-                        eventList,
-                        locationHelper,lat,lng))
-                    exploreMapViewModel.pinsOnMap(exploreMapViewModel.mergeArrayList(exploreMapList,
-                        attractions,
-                        eventList,
-                        locationHelper,lat,lng), googleMap)
+                    rvSetUp(
+                        exploreMapViewModel.mergeArrayList(
+                            exploreMapList,
+                            attractions,
+                            eventList,
+                            locationHelper, lat, lng
+                        )
+                    )
+                    exploreMapViewModel.pinsOnMap(
+                        exploreMapViewModel.mergeArrayList(
+                            exploreMapList,
+                            attractions,
+                            eventList,
+                            locationHelper, lat, lng
+                        ), googleMap
+                    )
                     currentLocation(googleMap)
                     setupMap(googleMap)
                 }
@@ -178,80 +189,140 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         when (position) {
             0 -> {
                 category = resources.getString(R.string.all)
-                exploreMapViewModel.pinsOnMap(exploreMapViewModel.mergeArrayList(exploreMapList,
-                    attractions,
-                    eventList,
-                    locationHelper,lat,lng), googleMap)
-                rvSetUp(exploreMapViewModel.mergeArrayList(exploreMapList,
-                    attractions,
-                    eventList,
-                    locationHelper,lat,lng))
+                exploreMapViewModel.pinsOnMap(
+                    exploreMapViewModel.mergeArrayList(
+                        exploreMapList,
+                        attractions,
+                        eventList,
+                        locationHelper, lat, lng
+                    ), googleMap
+                )
+                rvSetUp(
+                    exploreMapViewModel.mergeArrayList(
+                        exploreMapList,
+                        attractions,
+                        eventList,
+                        locationHelper, lat, lng
+                    )
+                )
             }
             1 -> {
                 category = resources.getString(R.string.events)
 
-                exploreMapViewModel.pinsOnMap(exploreMapViewModel.eventFilter(locationHelper,
-                    exploreMapList,
-                    eventList,lat,lng), googleMap)
-                rvSetUp(exploreMapViewModel.eventFilter(locationHelper, exploreMapList, eventList,lat,lng))
+                exploreMapViewModel.pinsOnMap(
+                    exploreMapViewModel.eventFilter(
+                        locationHelper,
+                        exploreMapList,
+                        eventList, lat, lng
+                    ), googleMap
+                )
+                rvSetUp(
+                    exploreMapViewModel.eventFilter(
+                        locationHelper,
+                        exploreMapList,
+                        eventList,
+                        lat,
+                        lng
+                    )
+                )
             }
             2 -> {
                 category = resources.getString(R.string.museum)
 
-                exploreMapViewModel.pinsOnMap(exploreMapViewModel.attractionFilter(category,
-                    locationHelper,
-                    exploreMapList,
-                    attractions,lat,lng), googleMap)
-                rvSetUp(exploreMapViewModel.attractionFilter(category,
-                    locationHelper,
-                    exploreMapList,
-                    attractions,lat,lng))
+                exploreMapViewModel.pinsOnMap(
+                    exploreMapViewModel.attractionFilter(
+                        category,
+                        locationHelper,
+                        exploreMapList,
+                        attractions, lat, lng
+                    ), googleMap
+                )
+                rvSetUp(
+                    exploreMapViewModel.attractionFilter(
+                        category,
+                        locationHelper,
+                        exploreMapList,
+                        attractions, lat, lng
+                    )
+                )
             }
             3 -> {
                 category = resources.getString(R.string.heritage)
-                exploreMapViewModel.pinsOnMap(exploreMapViewModel.attractionFilter(HERITAGE_SITES,
-                    locationHelper,
-                    exploreMapList,
-                    attractions,lat,lng), googleMap)
-                rvSetUp(exploreMapViewModel.attractionFilter(HERITAGE_SITES,
-                    locationHelper,
-                    exploreMapList,
-                    attractions,lat,lng))
+                exploreMapViewModel.pinsOnMap(
+                    exploreMapViewModel.attractionFilter(
+                        HERITAGE_SITES,
+                        locationHelper,
+                        exploreMapList,
+                        attractions, lat, lng
+                    ), googleMap
+                )
+                rvSetUp(
+                    exploreMapViewModel.attractionFilter(
+                        HERITAGE_SITES,
+                        locationHelper,
+                        exploreMapList,
+                        attractions, lat, lng
+                    )
+                )
             }
             4 -> {
                 category = resources.getString(R.string.art_gallery)
-                exploreMapViewModel.pinsOnMap(exploreMapViewModel.attractionFilter(ART_GALLERY,
-                    locationHelper,
-                    exploreMapList,
-                    attractions,lat,lng), googleMap)
-                rvSetUp(exploreMapViewModel.attractionFilter(ART_GALLERY,
-                    locationHelper,
-                    exploreMapList,
-                    attractions,lat,lng))
+                exploreMapViewModel.pinsOnMap(
+                    exploreMapViewModel.attractionFilter(
+                        ART_GALLERY,
+                        locationHelper,
+                        exploreMapList,
+                        attractions, lat, lng
+                    ), googleMap
+                )
+                rvSetUp(
+                    exploreMapViewModel.attractionFilter(
+                        ART_GALLERY,
+                        locationHelper,
+                        exploreMapList,
+                        attractions, lat, lng
+                    )
+                )
 
 
             }
             5 -> {
                 category = resources.getString(R.string.festivals)
-                exploreMapViewModel.pinsOnMap(exploreMapViewModel.attractionFilter(FESTIVALS,
-                    locationHelper,
-                    exploreMapList,
-                    attractions,lat,lng), googleMap)
-                rvSetUp(exploreMapViewModel.attractionFilter(FESTIVALS,
-                    locationHelper,
-                    exploreMapList,
-                    attractions,lat,lng))
+                exploreMapViewModel.pinsOnMap(
+                    exploreMapViewModel.attractionFilter(
+                        FESTIVALS,
+                        locationHelper,
+                        exploreMapList,
+                        attractions, lat, lng
+                    ), googleMap
+                )
+                rvSetUp(
+                    exploreMapViewModel.attractionFilter(
+                        FESTIVALS,
+                        locationHelper,
+                        exploreMapList,
+                        attractions, lat, lng
+                    )
+                )
             }
             6 -> {
                 category = resources.getString(R.string.libraries)
-                exploreMapViewModel.pinsOnMap(exploreMapViewModel.attractionFilter(LIBRARIES,
-                    locationHelper,
-                    exploreMapList,
-                    attractions,lat,lng), googleMap)
-                rvSetUp(exploreMapViewModel.attractionFilter(LIBRARIES,
-                    locationHelper,
-                    exploreMapList,
-                    attractions,lat,lng))
+                exploreMapViewModel.pinsOnMap(
+                    exploreMapViewModel.attractionFilter(
+                        LIBRARIES,
+                        locationHelper,
+                        exploreMapList,
+                        attractions, lat, lng
+                    ), googleMap
+                )
+                rvSetUp(
+                    exploreMapViewModel.attractionFilter(
+                        LIBRARIES,
+                        locationHelper,
+                        exploreMapList,
+                        attractions, lat, lng
+                    )
+                )
 
             }
         }
@@ -277,20 +348,21 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     private fun setupMap(googleMap: GoogleMap?) {
         googleMap?.addCircle(
             CircleOptions()
-                .center(LatLng(lat?:24.8623,lng?: 67.0627))
+                .fillColor(getColorWithAlpha(Color.CYAN, 0.15f))
+                .strokeColor(getColorWithAlpha(Color.CYAN, 0.15f))
+                .center(LatLng(lat ?: 24.8623, lng ?: 67.0627))
                 .radius(5000.0)
                 .strokeWidth(1f)
-                .strokeColor(ContextCompat.getColor(requireContext(), R.color.map_radius_color))
-                .fillColor(0x220000FF)
-//                .fillColor(ContextCompat.getColor(requireContext(), R.color.map_radius_color))
         )
     }
 
     private fun currentLocation(googleMap: GoogleMap?) {
-        val trafficDigitalLatLng = LatLng(lat?:24.8623,lng?: 67.0627)
-        googleMap!!.addMarker(MarkerOptions()
-            .position(trafficDigitalLatLng)
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_current)))
+        val trafficDigitalLatLng = LatLng(lat ?: 24.8623, lng ?: 67.0627)
+        googleMap!!.addMarker(
+            MarkerOptions()
+                .position(trafficDigitalLatLng)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_current))
+        )
             .title = "Current Location"
         googleMap.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
@@ -299,4 +371,6 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         )
         googleMap.cameraPosition.target
     }
+
+
 }
