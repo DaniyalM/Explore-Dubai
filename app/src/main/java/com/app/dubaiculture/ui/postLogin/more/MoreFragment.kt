@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.more
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.more.MoreModel
 import com.app.dubaiculture.databinding.FragmentMoreBinding
 import com.app.dubaiculture.databinding.ItemsMoreLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.more.adapter.MoreItems
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
+import com.app.dubaiculture.utils.SettingsUtils.settingsList
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -75,11 +80,18 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     }
 
     private fun rvSetUp() {
+        newsAdapter = GroupAdapter()
+        settingAdapter = GroupAdapter()
         if (groupAdapter.itemCount > 0) {
             groupAdapter.clear()
         }
-        newsAdapter = GroupAdapter()
-        settingAdapter = GroupAdapter()
+        if (newsAdapter.itemCount > 0) {
+            newsAdapter.clear()
+        }
+        if (settingAdapter.itemCount > 0) {
+            settingAdapter.clear()
+        }
+
         moreViewModel.servicesList().map {
 
 
@@ -127,7 +139,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = newsAdapter
         }
-        moreViewModel.settingsList().map {
+       settingsList(requireContext()).map {
             settingAdapter.add(
                     MoreItems<ItemsMoreLayoutBinding>(
                             object : RowClickListener {
@@ -135,8 +147,12 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                                     if (position == 0) {
                                         navigate(R.id.action_moreFragment_to_settingFragment)
                                     }
-                                    if (position == 2) {
-// change the locale here
+                                    if(position ==2){
+                                        if(isArabic()){
+                                            setLanguage(Locale.ENGLISH)
+                                        }else{
+                                            setLanguage(Locale("ar"))
+                                        }
                                     }
                                     if (position == 3) {
                                         navigate(R.id.action_moreFragment_to_logoutFragment)
@@ -170,5 +186,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 navigate(R.id.action_moreFragment_to_notificationFragment)
             }
         }
+
     }
+
+
+
+
 }

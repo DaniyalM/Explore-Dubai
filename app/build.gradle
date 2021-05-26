@@ -285,4 +285,6 @@ dependencies {
 
     // indicator
     implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'com.caverock:androidsvg-aar:1.4'
+
 }

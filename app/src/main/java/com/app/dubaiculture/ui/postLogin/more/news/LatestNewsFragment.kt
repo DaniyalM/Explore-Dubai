@@ -43,6 +43,13 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
 
     private fun rvSetup(){
         newsVerticalAdapter = GroupAdapter()
+
+        if (groupAdapter.itemCount > 0) {
+            groupAdapter.clear()
+        }
+        if (newsVerticalAdapter.itemCount > 0) {
+            newsVerticalAdapter.clear()
+        }
         newsViewModel.newsList().map {
             groupAdapter.add(
                 NewsItems<ItemsLatestNewsBinding>(
@@ -71,6 +78,7 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
             val pagerSnapHelper = PagerSnapHelper()
+            this.onFlingListener = null
             pagerSnapHelper.attachToRecyclerView(this)
             binding.indicator.attachToRecyclerView(this,pagerSnapHelper)
 

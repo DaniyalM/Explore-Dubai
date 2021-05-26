@@ -1,12 +1,15 @@
 package com.app.dubaiculture.ui.postLogin.more.viewmodel
 
 import android.app.Application
+import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.more.MoreModel
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 
 class MoreViewModel @ViewModelInject constructor(application: Application) :
@@ -128,12 +131,12 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
 
 
 
-    fun settingsList(): ArrayList<MoreModel> {
+    fun settingsList(context : Context): ArrayList<MoreModel> {
         val list = ArrayList<MoreModel>()
         list.add(
             MoreModel(
                 R.drawable.setting_more,
-                getApplication<Application>().getString(R.string.setting_more),
+                getApplication<ApplicationEntry>().resources.getString(R.string.setting_more),
                 R.drawable.forward_arrow,
                 false
             )
@@ -141,7 +144,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         list.add(
             MoreModel(
                 R.drawable.accessibility_more,
-                getApplication<Application>().getString(R.string.accessiblitiy_more),
+                  getApplication<ApplicationEntry>().resources.getString(R.string.accessiblitiy_more),
                 R.drawable.forward_arrow,
                 false
             )
@@ -149,7 +152,7 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         list.add(
             MoreModel(
                 R.drawable.a_more,
-                getApplication<Application>().getString(R.string.switch_language),
+                getApplication<ApplicationEntry>().resources.getString(R.string.english),
                 R.drawable.forward_arrow,
                 false
             )
@@ -157,12 +160,11 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         list.add(
             MoreModel(
                 R.drawable.logout_morre,
-                getApplication<Application>().getString(R.string.logout_more),
+                  getApplication<ApplicationEntry>().resources.getString(R.string.logout_more),
                 R.drawable.forward_arrow,
                 false
             )
         )
-
         return list
     }
 
