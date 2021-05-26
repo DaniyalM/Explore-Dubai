@@ -11,7 +11,7 @@ class ExploreActivity : BaseAuthenticationActivity() {
 
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+//        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_generic)
         setupViews(R.navigation.explore_navigation,binding.bottomNav)

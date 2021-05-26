@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
@@ -65,12 +66,14 @@ fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
 }
 fun <A : Activity> Activity.startNewActivityWithPre(activity: Class<A>) {
     Intent(this, activity).also {
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         startActivity(it)
     }
 }
 
 fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>) {
     Intent(this, activity).also {
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(it)
         finish()
