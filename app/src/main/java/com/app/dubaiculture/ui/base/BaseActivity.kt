@@ -11,6 +11,7 @@ import androidx.annotation.IdRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragment
@@ -67,6 +68,7 @@ abstract class BaseActivity : LocalizationActivity() {
 
 
     open fun adjustFontScale(configuration: Configuration) {
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         if (configuration.fontScale > 1.30) {
             configuration.fontScale = 1.30f
             val metrics = resources.displayMetrics

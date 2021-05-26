@@ -39,19 +39,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     private suspend fun navigate() {
 
-        if (SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(
-                requireContext()
-            )
-        ) {
-            delay(3000)
-            application.auth.isLoggedIn = true
-            findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
-        } else if (!SystemRequirementsHelper.isBluetoothEnabled(requireContext())) {
-            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            startActivityForResult(enableBtIntent, 1)
-        } else {
-            SystemRequirementsChecker.checkWithDefaultDialogs(requireActivity())
-        }
+        delay(3000)
+        application.auth.isLoggedIn = true
+        findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
    }
 
 

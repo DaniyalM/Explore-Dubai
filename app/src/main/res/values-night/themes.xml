@@ -12,6 +12,7 @@
 <!--        <item name="colorSecondaryVariant">@color/blue_light</item>-->
 <!--        <item name="colorOnSecondary">@color/black</item>-->
         <!-- Status bar color. -->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
 
 
         <item name="android:statusBarColor" tools:targetApi="l">@color/black_800</item>
@@ -39,6 +40,10 @@
 
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
+    </style>
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
 </resources>

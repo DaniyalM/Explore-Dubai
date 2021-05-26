@@ -17,7 +17,7 @@ class PreLoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
-        val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+//        val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
 
 
 //        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)

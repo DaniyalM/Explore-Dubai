@@ -27,9 +27,10 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         checkLoginStatus()
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         baseOnCreate(savedInstanceState)
     }
+
 
     private fun checkLoginStatus() {
 

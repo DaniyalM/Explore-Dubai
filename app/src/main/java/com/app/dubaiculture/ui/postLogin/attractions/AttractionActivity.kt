@@ -19,5 +19,7 @@ class AttractionActivity : BaseAuthenticationActivity() {
         super.onResume()
         adjustFontScale(resources.configuration)
 
+
+
     }
 }
