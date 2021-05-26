@@ -9,6 +9,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AttractionActivity : BaseAuthenticationActivity() {
     override fun baseOnCreate(savedInstanceState: Bundle?) {
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_generic)
 
         setupViews(R.navigation.attraction_navigation,binding.bottomNav)
