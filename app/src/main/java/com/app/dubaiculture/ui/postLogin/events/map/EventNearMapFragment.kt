@@ -35,7 +35,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     OnMapReadyCallback {
     lateinit var eventNearAdapter: EventNearMapAdapter
     private  var mapList = ArrayList<Events>()
-    private var mapView: MapView? = null
+    private lateinit var mapView: MapView
     lateinit var googleMap: GoogleMap
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -94,11 +94,14 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     }
 
     private fun mapSetUp(savedInstanceState: Bundle?) {
-        mapView = binding.root.findViewById(R.id.google_map)
-        mapView?.let {
-            it.getMapAsync(this)
-            it.onCreate(savedInstanceState)
+        if(!this::mapView.isInitialized){
+            mapView = binding.root.findViewById(R.id.google_map)
+            mapView?.let {
+                it.getMapAsync(this)
+                it.onCreate(savedInstanceState)
+            }
         }
+
     }
 
     override fun onClick(v: View?) {

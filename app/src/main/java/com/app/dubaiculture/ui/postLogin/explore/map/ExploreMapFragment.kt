@@ -69,8 +69,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         container: ViewGroup?,
     ) = FragmentExploreMapBinding.inflate(inflater, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(exploreMapViewModel)
         arguments?.apply {
             lat = getDouble(LOCATION_LAT)
@@ -85,8 +85,9 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         binding.ImgChangeView.setOnClickListener(this)
         mapSetUp()
         callingObserver()
-        mapView = MapView(context)
+        mapView = MapView(activity)
     }
+
 
     private fun setupRecyclerView() {
         mAdapter = SingleSelectionAdapter(requireContext(),
