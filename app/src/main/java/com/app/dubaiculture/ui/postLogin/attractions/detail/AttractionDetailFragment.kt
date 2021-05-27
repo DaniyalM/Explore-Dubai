@@ -2,10 +2,12 @@ package com.app.dubaiculture.ui.postLogin.attractions.detail
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.speech.tts.TextToSpeech
@@ -390,6 +392,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             it.root.ll_call_us.setOnClickListener(this)
             it.root.constLayoutSiteMap.setOnClickListener(this)
             it.root.constLayoutIbecon.setOnClickListener(this)
+            it.root.tv_direction.setOnClickListener(this)
 
         }
         binding.apply {
@@ -544,6 +547,18 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.tv_direction -> {
+                if(!attractionsObj.latitude.isNullOrEmpty()) {
+                    val uri = "http://maps.google.com/maps?saddr=" + lat.toString() + "," + long.toString() + "&daddr=" + attractionsObj.latitude.toString() + "," + attractionsObj.longitude
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                    intent.setPackage("com.google.android.apps.maps")
+                    try {
+                        startActivity(intent)
+                    } catch (ex: ActivityNotFoundException) {
+                        attractionDetailViewModel.showToast("Please install a maps application")
+                    }
+                }
+            }
             R.id.constLayoutSiteMap -> {
                 val bundle = Bundle()
                 bundle.putParcelable(

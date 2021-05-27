@@ -1,7 +1,10 @@
 package com.app.dubaiculture.ui.postLogin.events.map
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +16,12 @@ import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventNearMapBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.EventsFragment
+import com.app.dubaiculture.ui.postLogin.events.`interface`.DirectionClickListener
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventNearMapAdapter
 import com.app.dubaiculture.utils.Constants
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.app.dubaiculture.utils.event.EventUtilFunctions.showToast
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
@@ -32,6 +35,8 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     OnMapReadyCallback {
     lateinit var eventNearAdapter: EventNearMapAdapter
     private  var mapList = ArrayList<Events>()
+    private var mapView: MapView? = null
+    lateinit var googleMap: GoogleMap
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,18 +50,41 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.header.back.setOnClickListener(this)
         backArrowRTL(binding.header.back)
-
+        mapSetUp(savedInstanceState)
         rvSetUp()
-        mapSetUp()
+
     }
 
     private fun rvSetUp() {
-        eventNearAdapter = EventNearMapAdapter(isArabic())
+        eventNearAdapter = EventNearMapAdapter(isArabic(), object : RowClickListener{
+            override fun rowClickListener(position: Int) {
+
+                val eventObj = mapList[position]
+                val bundle = Bundle()
+                bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT,
+                        eventObj)
+                navigate(R.id.action_eventNearMapFragment2_to_eventDetailFragment2,bundle)
+
+            }
+        },object : DirectionClickListener{
+            override fun directionClickListener(position: Int) {
+                if (!mapList[position].latitude.isNullOrEmpty()) {
+                    val uri = Constants.GoogleMap.LINK_URI + mapList[position].currentLat.toString() + "," + mapList[position].currentLng + Constants.GoogleMap.DESTINATION + mapList[position].latitude.toString() + "," + mapList[position].longitude
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                    intent.setPackage(Constants.GoogleMap.PACKAGE_NAME_GOOGLE_MAP)
+                    try {
+                        startActivity(intent)
+                    } catch (ex: ActivityNotFoundException) {
+                      showToast("Please install a Google map application",requireContext())
+                    }
+                }
+            }
+
+        })
         binding.rvNearEvent.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
@@ -65,10 +93,12 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
         eventNearAdapter.events = mapList
     }
 
-    private fun mapSetUp() {
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.google_map) as? SupportMapFragment
-        mapFragment!!.getMapAsync(this)
+    private fun mapSetUp(savedInstanceState: Bundle?) {
+        mapView = binding.root.findViewById(R.id.google_map)
+        mapView?.let {
+            it.getMapAsync(this)
+            it.onCreate(savedInstanceState)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -80,22 +110,25 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        currentLocation(map)
-        setupMap(map!!)
-        pinsOnMap(mapList, map)
+        googleMap = map!!
+        googleMap.clear()
+        setupMap(googleMap)
+        pinsOnMap(mapList, googleMap)
+        currentLocation(googleMap)
+
     }
 
-    private fun pinsOnMap(list: List<Events>, map: GoogleMap) {
+    private fun pinsOnMap(list: List<Events>, map: GoogleMap?) {
         list.forEach {
             val locationObj =
                 LatLng(it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
                     it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble())
             if (it.distance!! <= 6.0)
-                map.addMarker(MarkerOptions().position(locationObj)
+                map?.addMarker(MarkerOptions().position(locationObj)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_within_distance_calendar))
                     .title(it.title))
             else
-                map.addMarker(MarkerOptions().position(locationObj)
+                map?.addMarker(MarkerOptions().position(locationObj)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_calendar_away))
                     .title(it.title))
         }
@@ -115,15 +148,31 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
 
     private fun currentLocation(googleMap: GoogleMap?) {
         val trafficDigitalLatLng = LatLng(mapList[0].currentLat, mapList[0].currentLng)
-        googleMap!!.addMarker(MarkerOptions()
+        googleMap?.addMarker(MarkerOptions()
             .position(trafficDigitalLatLng)
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_current)))
-            .title = "Current Location"
-        googleMap!!.animateCamera(
+        googleMap?.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
                 trafficDigitalLatLng, 12.0f
             )
         )
-        googleMap.cameraPosition.target
+        googleMap?.cameraPosition?.target
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView?.onResume()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView?.onPause()
+
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView?.onPause()
+
     }
 }

@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.EventNearItemsBinding
+import com.app.dubaiculture.ui.postLogin.events.`interface`.DirectionClickListener
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.AsyncCell
 import com.app.dubaiculture.utils.dateFormat
 
-class EventNearMapAdapter(var isArabic : Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EventNearMapAdapter(var isArabic : Boolean,var rowClickListener: RowClickListener, var directionClickListener: DirectionClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<Events>() {
         override fun areItemsTheSame(oldItem: Events, newItem: Events): Boolean {
             return oldItem.id == newItem.id
@@ -61,6 +63,12 @@ class EventNearMapAdapter(var isArabic : Boolean) : RecyclerView.Adapter<Recycle
             holder.itemView.binding?.let {
                 arrowtRTL(isArabic,it.arrow)
                 try {
+                    it.img.setOnClickListener {
+                        directionClickListener.directionClickListener(position)
+                    }
+                    it.cl.setOnClickListener {
+                        rowClickListener.rowClickListener(position)
+                    }
                     it.events = events[position]
                     it.tvDate.text = dateFormat(events[position].dateTo)
                 } catch (ex: IndexOutOfBoundsException) {

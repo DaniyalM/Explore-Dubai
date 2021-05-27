@@ -155,6 +155,9 @@
             android:name="getEvents"
             app:argType="com.app.dubaiculture.data.repository.event.local.models.Events[]"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_eventNearMapFragment2_to_eventDetailFragment2"
+            app:destination="@id/eventDetailFragment2" />
     </fragment>
     <fragment
         android:id="@+id/eventFilterFragment"

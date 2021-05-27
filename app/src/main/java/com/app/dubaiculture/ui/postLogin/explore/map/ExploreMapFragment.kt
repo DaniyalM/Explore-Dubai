@@ -348,8 +348,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     private fun setupMap(googleMap: GoogleMap?) {
         googleMap?.addCircle(
             CircleOptions()
-                .fillColor(getColorWithAlpha(Color.CYAN, 0.15f))
-                .strokeColor(getColorWithAlpha(Color.CYAN, 0.15f))
+                    .fillColor(getColorWithAlpha(Color.CYAN, 0.15f))
+                    .strokeColor(getColorWithAlpha(Color.CYAN, 0.15f))
                 .center(LatLng(lat ?: 24.8623, lng ?: 67.0627))
                 .radius(5000.0)
                 .strokeWidth(1f)

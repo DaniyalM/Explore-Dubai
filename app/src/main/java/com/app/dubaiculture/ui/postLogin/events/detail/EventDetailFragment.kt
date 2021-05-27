@@ -2,9 +2,12 @@ package com.app.dubaiculture.ui.postLogin.events.detail
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.text.TextUtils
@@ -24,14 +27,14 @@ import com.app.dubaiculture.data.repository.event.local.models.schedule.EventSch
 import com.app.dubaiculture.databinding.EventItemsBinding
 import com.app.dubaiculture.databinding.FragmentEventDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.getFacebookPage
-import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
-import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
+import com.app.dubaiculture.utils.Constants.GoogleMap.DESTINATION
+import com.app.dubaiculture.utils.Constants.GoogleMap.LINK_URI
+import com.app.dubaiculture.utils.Constants.GoogleMap.PACKAGE_NAME_GOOGLE_MAP
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.GpsStatus
 import com.app.dubaiculture.utils.getTimeSpan
@@ -42,29 +45,22 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
 import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.event_detail_inner_layout.view.imgFb
-import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_category
-import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_direction
-import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_km
-import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_location
-import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_times
-import kotlinx.android.synthetic.main.event_detail_inner_layout.view.tv_title
 import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
 import kotlinx.android.synthetic.main.fragment_event_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
-import java.lang.NumberFormatException
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -80,8 +76,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     val moreEvents = ArrayList<Events>()
     val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
     var isDetailFavouriteFlag = false
-    var emailContact : String? = null
-    var numberContact : String? = null
+    var emailContact: String? = null
+    var numberContact: String? = null
 
 
     private val getObserver = Observer<GpsStatus> {
@@ -146,7 +142,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         locationPermission()
         subscribeUiEvents(eventViewModel)
         callingObservables()
-
         mapSetUp(savedInstanceState)
         uiActions()
         rvSetUp()
@@ -160,9 +155,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
         binding.root.btn_register_now.setOnClickListener {
 //            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
-        }
-        binding.root.tv_direction.setOnClickListener {
-
         }
         binding.root.ll_callus.setOnClickListener {
             openDiallerBox(numberContact)
@@ -307,6 +299,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.root.favourite.setOnClickListener(this)
         binding.root.img_event_speaker.setOnClickListener(this)
         binding.root.speaker_schedule.setOnClickListener(this)
+        binding.root.tvDirectionEvent.setOnClickListener(this)
+
         backArrowRTL(binding.root.back_event)
         backArrowRTL(binding.root.back)
         bgRTL(binding.root.bg_border_event)
@@ -332,10 +326,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     private fun mapSetUp(savedInstanceState: Bundle?) {
-//        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-//        mapFragment?.getMapAsync(this)
-//        val mapFragment = SupportMapFragment.newInstance(GoogleMapOptions().zOrderOnTop(true))
-//        mapFragment?.getMapAsync(this)
+
+
         mapView = binding.root.findViewById(R.id.map)
         mapView?.let {
             it.getMapAsync(this)
@@ -363,14 +355,26 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 )
                 map.cameraPosition.target
             }
-        }catch (e:NumberFormatException){
-
+        } catch (e: NumberFormatException) {
+            print(e.stackTrace)
         }
 
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.tvDirectionEvent -> {
+                if (!eventObj.latitude.isNullOrEmpty()) {
+                    val uri = LINK_URI + loc.latitude.toString() + "," + loc.longitude.toString() + DESTINATION + eventObj.latitude.toString() + "," + eventObj.longitude
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                    intent.setPackage(PACKAGE_NAME_GOOGLE_MAP)
+                    try {
+                        startActivity(intent)
+                    } catch (ex: ActivityNotFoundException) {
+                        eventViewModel.showToast("Please install a Google map application")
+                    }
+                }
+            }
             R.id.img_event_speaker -> {
                 if (binding.root.tv_desc_readmore_event.text.isNotEmpty()) {
                     textToSpeechEngine.speak(
@@ -436,7 +440,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                         loc.longitude,
                                         eventObj.latitude!!.toDouble(),
                                         eventObj.longitude!!.toDouble()
-                                ).toString()+" " + resources.getString(R.string.away)
+                                ).toString() + " " + resources.getString(R.string.away)
                         }
                     }, activity, locationCallback
             )
@@ -451,7 +455,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
 
-
     private fun initiateExpander() {
         eventViewModel.eventDetail.observe(viewLifecycleOwner) {
             when (it) {
@@ -459,12 +462,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
                     enableRegistration(it.value.registrationDate)
-                    if(numberContact.isNullOrEmpty()){
+                    if (numberContact.isNullOrEmpty()) {
                         binding.root.ll_callus.alpha = 0.2f
-                        binding.root.ll_callus.isClickable = false}
-                    if(emailContact.isNullOrEmpty()){
+                        binding.root.ll_callus.isClickable = false
+                    }
+                    if (emailContact.isNullOrEmpty()) {
                         binding.root.ll_email_us.alpha = 0.2f
-                        binding.root.ll_email_us.isClickable = false}
+                        binding.root.ll_email_us.isClickable = false
+                    }
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)
                     }
@@ -479,6 +484,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         parentItemList.forEach {
                             childItemHolder.add(it.eventScheduleItemsSlots as ArrayList<EventScheduleItemsSlots>)
                         }
+                    }
+                    if (groupAdapter.itemCount > 0) {
+                        groupAdapter.clear()
                     }
                     moreEvents.map {
                         groupAdapter.add(EventListItem<EventItemsBinding>(object :
@@ -551,7 +559,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    private fun enableRegistration(registrationDate : String) {
+    private fun enableRegistration(registrationDate: String) {
         if (getTimeSpan(registrationDate)) {
             binding.root.btn_reg.visibility = View.GONE
             binding.root.btn_register_now.visibility = View.GONE
@@ -581,11 +589,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         if (verticalOffset == -binding.root.collapsingToolbarEventDetail.height + binding.root.toolbarEventDetail.height) {
             binding.defaultCloseToolbar.visibility = View.VISIBLE
             binding.imageView4.visibility = View.VISIBLE
-            binding. swipeRefreshLayout.isEnabled = false
+            binding.swipeRefreshLayout.isEnabled = false
         } else {
             binding.defaultCloseToolbar.visibility = View.GONE
             binding.imageView4.visibility = View.GONE
-            binding. swipeRefreshLayout.isEnabled = true
+            binding.swipeRefreshLayout.isEnabled = true
         }
     }
 }
