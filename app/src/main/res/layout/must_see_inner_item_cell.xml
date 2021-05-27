@@ -3,36 +3,33 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-<!--        <variable name="mustsee" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
+        <!--        <variable name="mustsee" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
         <variable
             name="attractions"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
-
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="285dp"
-        android:layout_height="wrap_content"
-        app:layoutDescription="@xml/must_see_inner_item_cell_xml_constraintlayout_scene">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="265dp"
+        android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/attraction_image"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:cardMaxElevation="@dimen/_5sdp"
+            app:cardElevation="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:layout_width="250dp"
             android:layout_height="330dp"
-            android:layout_marginTop="@dimen/_15sdp"
             app:cardCornerRadius="@dimen/_24sdp"
-            app:cardElevation="@dimen/_8sdp"
-            app:cardMaxElevation="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
             <ImageView
                 android:id="@+id/img_must_see"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:background="@drawable/must_see_icon_home"
+                android:scaleType="center"
                 android:imageViewUrl='@{attractions.portraitImage}'
-                android:scaleType="centerCrop" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <CheckBox
                 android:id="@+id/favourite"
@@ -40,22 +37,20 @@
                 android:layout_height="@dimen/_18sdp"
                 android:layout_gravity="end"
                 android:layout_margin="@dimen/_15sdp"
-                android:background="@drawable/heart_icon_home"
                 android:button="@null"
-                android:checked="@{attractions.IsFavourite}"
                 android:foreground="@drawable/custom_ripple_border"
+                android:checked="@{attractions.IsFavourite}"
+                android:background="@drawable/heart_icon_home"
                 android:padding="@dimen/_8sdp"
                 android:stateListAnimator="@animator/scale"
                 app:layout_constraintBottom_toBottomOf="@+id/card_view_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/card_view_title" />
-
             <ImageView
+                android:layout_gravity="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@drawable/shadow_black" />
-
+                android:background="@drawable/shadow_black"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,10 +71,10 @@
                         android:id="@+id/category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_marginEnd="@dimen/_9sdp"
+                        android:layout_marginBottom="@dimen/_3sdp"
                         android:text="@{attractions.category}"
                         android:textColor="@color/white_900"
                         android:textSize="@dimen/_10ssp" />
@@ -116,15 +111,13 @@
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
-
         <View
-            android:id="@+id/view4"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_15sdp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/attraction_image" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/attraction_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_15sdp"/>
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

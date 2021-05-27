@@ -15,19 +15,25 @@
         <include layout="@layout/toolbar_snippet"/>
 
 
-        <FrameLayout
-            android:layout_marginTop="@dimen/_10sdp"
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@color/app_bg"
+            app:layoutDescription="@xml/fragment_explore_xml_constraintlayout_scene"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvExplore"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:overScrollMode="never" />
-        </FrameLayout>
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
