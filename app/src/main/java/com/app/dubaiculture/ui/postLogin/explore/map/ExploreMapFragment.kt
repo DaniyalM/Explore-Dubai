@@ -1,8 +1,13 @@
 package com.app.dubaiculture.ui.postLogin.explore.map
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.transition.Transition
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +22,8 @@ import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.exploremap.model.ExploreMap
 import com.app.dubaiculture.databinding.FragmentExploreMapBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.events.`interface`.DirectionClickListener
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.explore.adapters.SingleSelectionAdapter
 import com.app.dubaiculture.ui.postLogin.explore.map.adapter.ExploreMapAdapter
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreMapViewModel
@@ -28,14 +35,14 @@ import com.app.dubaiculture.utils.Constants.Categories.LIBRARIES
 import com.app.dubaiculture.utils.Constants.NavBundles.CATEGORY
 import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LAT
 import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LNG
+import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
+import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.target.SimpleTarget
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_back.view.*
 import kotlinx.coroutines.launch
@@ -131,6 +138,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             attractions.add(it)
                         }
                     }
+
+
                     it.value.events!!.forEach {
                         eventList.add(it)
                     }
@@ -152,7 +161,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                         ), googleMap
                     )
                     currentLocation(googleMap)
-                    setupMap(googleMap)
+                    radiusOnMap(googleMap)
                 }
                 is com.app.dubaiculture.data.Result.Failure -> {
                     handleApiError(it, exploreMapViewModel)
@@ -185,6 +194,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         mapFragment!!.getMapAsync(this)
     }
 
+    // filter a/c to the design position  0 -> All , 1 -> Event 2-> museum etc pins on map loaded setup of Rv call
     private fun filter(position: Int) {
         when (position) {
             0 -> {
@@ -332,8 +342,21 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         googleMap = map!!
     }
 
+    // rv setUp get the sorted by distance and a/c to the top header categories List e.g if press on heritage so it sorted by distance and all heritage items
     private fun rvSetUp(list: List<ExploreMap>) {
-        exploreNearAdapter = ExploreMapAdapter(isArabic())
+        exploreNearAdapter = ExploreMapAdapter(isArabic(), object : RowClickListener {
+            override fun rowClickListener(position: Int) {
+            }
+        }, object: DirectionClickListener{
+            override fun directionClickListener(position: Int) {
+                if (!attractions[position].latitude.isNullOrEmpty()) {
+                    // open google map application
+                    navigateToGoogl eMap(lat.toString(),lng.toString(),attractions[position].latitude.toString(),attractions[position].longitude.toString())
+                }
+            }
+
+
+        })
         binding.rvExploreMap.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
@@ -342,10 +365,11 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         exploreNearAdapter.explore = list
         exploreNearAdapter.notifyDataSetChanged()
         currentLocation(googleMap)
-        setupMap(googleMap)
+        radiusOnMap(googleMap)
     }
 
-    private fun setupMap(googleMap: GoogleMap?) {
+        // show radius of map 5 Km meter
+    private fun radiusOnMap(googleMap: GoogleMap?) {
         googleMap?.addCircle(
             CircleOptions()
                     .fillColor(getColorWithAlpha(Color.CYAN, 0.15f))
@@ -355,7 +379,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                 .strokeWidth(1f)
         )
     }
-
+        // show current location on map
     private fun currentLocation(googleMap: GoogleMap?) {
         val trafficDigitalLatLng = LatLng(lat ?: 24.8623, lng ?: 67.0627)
         googleMap!!.addMarker(
@@ -373,4 +397,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     }
 
 
+
+
 }
+

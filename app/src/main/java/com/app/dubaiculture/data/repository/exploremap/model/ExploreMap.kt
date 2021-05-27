@@ -12,5 +12,6 @@ data class ExploreMap(
     val lat : String? = null,
     val lng : String? = null,
     val distance : Double? = null,
-    val pin : String? = null,
+    val pinInRadius : String? = null,
+    val pinOutRadius : String? = null
     ): Parcelable

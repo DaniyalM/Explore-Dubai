@@ -47,7 +47,6 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
         arguments?.apply {
             mapList =  this.getParcelableArrayList<Events>(Constants.NavBundles.EVENT_MAP_LIST)!!
         }
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -23,6 +23,8 @@ data class Attractions(
     var description: String? = "",
     var summary: String? = "",
     var distance: Double = 0.0,
+    var withinRadiusIconURL: String = "",
+    var outOfRadiusIconURL: String = "",
     var startTime: String? = "",
     var endTime: String? = "",
     var endDay: String? = "",
@@ -35,5 +37,7 @@ data class Attractions(
     var socialLink: List<SocialLink>? = null,
     var asset360: Assets360? = null,
     var siteMap: SiteMap? = null,
-    var ibecons : Ibecons? =null
+    var ibecons : Ibecons? =null,
+    var withinRadiusIcon : String ? ="",
+    var outOfRadiusIcon : String ? ="",
     ) : Parcelable

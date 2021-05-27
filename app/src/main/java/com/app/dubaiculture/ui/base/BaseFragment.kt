@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.base
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE
 import android.content.Intent
@@ -31,6 +32,7 @@ import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
+import com.app.dubaiculture.utils.event.EventUtilFunctions.showToast
 import com.app.dubaiculture.utils.event.UiEvent
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
@@ -398,4 +400,14 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         return newColor
     }
 
+    fun navigateToGoogleMap(currentLat : String , currentLng : String , destinationLat : String , destinationLng:String){
+        val uri = Constants.GoogleMap.LINK_URI + currentLat + "," + currentLng + Constants.GoogleMap.DESTINATION + destinationLat + "," + destinationLng
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        intent.setPackage(Constants.GoogleMap.PACKAGE_NAME_GOOGLE_MAP)
+        try {
+            startActivity(intent)
+        } catch (ex: ActivityNotFoundException) {
+          showToast("Please install a Google map application", requireContext())
+        }
+    }
 }

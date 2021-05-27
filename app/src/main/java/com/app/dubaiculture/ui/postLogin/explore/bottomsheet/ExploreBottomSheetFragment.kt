@@ -12,6 +12,8 @@ import com.app.dubaiculture.data.repository.exploremap.model.ExploreMap
 import com.app.dubaiculture.databinding.FragmentExploreButtomSheetBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.events.`interface`.DirectionClickListener
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.explore.map.adapter.ExploreMapAdapter
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.CATEGORY
@@ -42,7 +44,15 @@ class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtom
 
     }
     private fun rvSetUp(list: List<ExploreMap>) {
-        exploreNearAdapter = ExploreMapAdapter(isArabic())
+        exploreNearAdapter = ExploreMapAdapter(isArabic(), object : RowClickListener{
+            override fun rowClickListener(position: Int) {
+            }
+
+        },object : DirectionClickListener{
+            override fun directionClickListener(position: Int) {
+            }
+
+        })
         binding.rvListing.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
