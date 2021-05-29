@@ -11,11 +11,9 @@ import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.explore.ExploreRepository
 import com.app.dubaiculture.data.repository.explore.local.models.AttractionsEvents
-import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
-import com.app.dubaiculture.data.repository.exploremap.model.ExploreMap
+import com.app.dubaiculture.data.repository.explore.local.models.ExploreMap
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -54,7 +52,7 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
     }
 
 
-    fun eventFilter(locationHelper: LocationHelper,exploreMapList : ArrayList<ExploreMap> , eventList : List<Events> ,lat :Double?=null , lng : Double?=null):List<ExploreMap> {
+    fun eventFilter(locationHelper: LocationHelper, exploreMapList : ArrayList<ExploreMap>, eventList : List<Events>, lat :Double?=null, lng : Double?=null):List<ExploreMap> {
         exploreMapList.clear()
         sortNearEvent(eventList,locationHelper,lat,lng).forEach {
             exploreMapList.add(
@@ -89,7 +87,7 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
     }
 
 
-    fun attractionFilter(category: String,locationHelper: LocationHelper,exploreMapList : ArrayList<ExploreMap>,attractions :ArrayList<Attractions>,lat :Double?=null , lng : Double?=null):List<ExploreMap>{
+    fun attractionFilter(category: String, locationHelper: LocationHelper, exploreMapList : ArrayList<ExploreMap>, attractions :ArrayList<Attractions>, lat :Double?=null, lng : Double?=null):List<ExploreMap>{
         exploreMapList.clear()
         val list =   sortNearAttraction(attractions,locationHelper,lat,lng).filter {
             it.category.trim() == category
@@ -129,7 +127,7 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
 
 
 
-    fun mergeArrayList(exploreMapList : ArrayList<ExploreMap>,attractions :ArrayList<Attractions>,eventList: List<Events>,locationHelper : LocationHelper,lat :Double?=null , lng : Double?=null) : List<ExploreMap>{
+    fun mergeArrayList(exploreMapList : ArrayList<ExploreMap>, attractions :ArrayList<Attractions>, eventList: List<Events>, locationHelper : LocationHelper, lat :Double?=null, lng : Double?=null) : List<ExploreMap>{
         exploreMapList.clear()
         sortNearAttraction(attractions,locationHelper,lat,lng).forEach {
             exploreMapList.add(

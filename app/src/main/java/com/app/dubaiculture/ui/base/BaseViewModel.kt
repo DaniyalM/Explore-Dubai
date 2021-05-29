@@ -43,8 +43,8 @@ abstract class BaseViewModel(
         _uiEventsLiveData.postValue(Event(UiEvent.ShowLoader(show)))
     }
 
-    fun showAlert(title: String = "Alert", message: String) {
-        _uiEventsLiveData.value = Event(UiEvent.ShowAlert(title = title, message = message))
+    fun showAlert(title: String = "Alert", message: String? = null) {
+        _uiEventsLiveData.value = Event(UiEvent.ShowAlert(title = title, message = message!!))
     }
 
     fun showErrorDialog(
@@ -103,7 +103,6 @@ abstract class BaseViewModel(
         }
 
     }
-
 
 
 }

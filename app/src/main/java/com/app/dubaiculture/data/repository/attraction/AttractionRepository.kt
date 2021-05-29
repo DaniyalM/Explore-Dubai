@@ -7,17 +7,14 @@ import com.app.dubaiculture.data.repository.attraction.mapper.*
 import com.app.dubaiculture.data.repository.attraction.remote.AttractionRDS
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
 import com.app.dubaiculture.data.repository.base.BaseRepository
-import com.app.dubaiculture.data.repository.event.mapper.transformAddToFavouriteRequest
-import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
-import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import javax.inject.Inject
 
 class AttractionRepository @Inject constructor(
-    private val attractionRDS: AttractionRDS,
+        private val attractionRDS: AttractionRDS,
 ) : BaseRepository(attractionRDS) {
     suspend fun getAttractionCategories(attractionRequest: AttractionRequest): Result<List<AttractionCategory>> {
         return when (val resultRDS = attractionRDS.getAttractionCategories(
-            transformAttractionCategoryRequest(attractionRequest))) {
+                transformAttractionCategoryRequest(attractionRequest))) {
             is Result.Success -> {
                 // Single Source Of Truth -> get data from server -> save to db -> get from db to provide to UI
                 val listRDS = resultRDS
@@ -34,10 +31,11 @@ class AttractionRepository @Inject constructor(
             is Result.Failure -> resultRDS
         }
     }
+
     suspend fun getAttractionsByCategory(attractionRequest: AttractionRequest): Result<List<Attractions>> {
         return when (val resultRDS =
-            attractionRDS.getAttractionsListingByCategory(transformAttractionsRequest(
-                attractionRequest))) {
+                attractionRDS.getAttractionsListingByCategory(transformAttractionsRequest(
+                        attractionRequest))) {
             is Result.Success -> {
                 val attractionRds = resultRDS
                 if (attractionRds.value.statusCode != 200) {
@@ -51,9 +49,10 @@ class AttractionRepository @Inject constructor(
             is Result.Failure -> resultRDS
         }
     }
+
     suspend fun getAttractionDetail(attractionRequest: AttractionRequest): Result<Attractions> {
         return when (val resultRDS =
-            attractionRDS.getAttractionDetail(transformAttractionDetailRequest(attractionRequest))) {
+                attractionRDS.getAttractionDetail(transformAttractionDetailRequest(attractionRequest))) {
             is Result.Success -> {
                 val attractionRds = resultRDS
                 if (attractionRds.value.statusCode != 200) {
@@ -70,7 +69,7 @@ class AttractionRepository @Inject constructor(
 
     suspend fun getAttractionDetailForThreeSixty(attractionRequest: AttractionRequest): Result<Attractions> {
         return when (val resultRDS =
-            attractionRDS.getAttractionDetailForThreeSixty(transformAttractionDetailRequest(attractionRequest))) {
+                attractionRDS.getAttractionDetailForThreeSixty(transformAttractionDetailRequest(attractionRequest))) {
             is Result.Success -> {
                 val attractionRds = resultRDS
                 if (attractionRds.value.statusCode != 200) {
@@ -84,7 +83,6 @@ class AttractionRepository @Inject constructor(
             is Result.Failure -> resultRDS
         }
     }
-
 
 
 }

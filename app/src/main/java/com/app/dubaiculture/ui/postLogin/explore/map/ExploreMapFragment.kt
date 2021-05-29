@@ -13,7 +13,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.data.repository.exploremap.model.ExploreMap
+import com.app.dubaiculture.data.repository.explore.local.models.ExploreMap
 import com.app.dubaiculture.databinding.FragmentExploreMapBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.SingleSelectionAdapter

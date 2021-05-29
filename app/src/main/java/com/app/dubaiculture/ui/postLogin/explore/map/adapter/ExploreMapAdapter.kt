@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.exploremap.model.ExploreMap
+import com.app.dubaiculture.data.repository.explore.local.models.ExploreMap
 import com.app.dubaiculture.databinding.ExploreNearItemsBinding
 import com.app.dubaiculture.utils.AsyncCell
-import com.app.dubaiculture.utils.dateFormat
 
 class   ExploreMapAdapter(var isArabic : Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<ExploreMap>() {
