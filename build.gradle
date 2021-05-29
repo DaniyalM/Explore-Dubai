@@ -86,6 +86,7 @@ ext {
     google_location_version = "17.1.0"
     google_maps_version = "17.0.1"
     image_crop_api_version = "2.8.0"
+    image_picker = "2.1"
     pinviewversion = "2.0.3"
     glideToVectorYouVersion = "v2.0.0"
     roundedimageviewVersion = "0.8.4"
@@ -108,6 +109,7 @@ ext {
     firebaseMessaging = "22.1.0"
     firebaseBom = "26.6.0"
     legacySupport = "1.0.0"
+    fragmentKtx = "1.3.4"
 
 
     commonDependency = [
@@ -117,6 +119,7 @@ ext {
             dataBinding  : "com.android.databinding:compiler:${databinding}",
             gson         : "com.google.code.gson:gson:${gson}",
             activityKtx  : "androidx.activity:activity-ktx:${activityKtx}",
+            fragmentKtx  : "androidx.fragment:fragment-ktx:${fragmentKtx}",
             dataStorePref: "androidx.datastore:datastore-preferences:${dataStorePref}",
             otto         : "com.squareup:otto:${otto}",
             legacySupport: "androidx.legacy:legacy-support-v4:${legacySupport}"
@@ -232,7 +235,8 @@ ext {
     ]
 
     media_libraries = [
-            image_crop_api: "com.theartofdev.edmodo:android-image-cropper:${image_crop_api_version}"
+            image_crop_api: "com.theartofdev.edmodo:android-image-cropper:${image_crop_api_version}",
+            image_picker: "com.github.dhaval2404:imagepicker:${image_picker}"
     ]
 
     otp = [
