@@ -73,7 +73,7 @@ android {
             applicationIdSuffix ".debug"
             minifyEnabled false
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -89,7 +89,7 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable false
+            debuggable true
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -144,7 +144,6 @@ dependencies {
     implementation config.commonDependency.multidex
     implementation config.commonDependency.appcompat
     implementation config.commonDependency.legacySupport
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //Databinding Compiler
     kapt config.commonDependency.dataBinding
     //RetroFit Networking
@@ -190,6 +189,7 @@ dependencies {
 
     // Activity KTX for viewModels()
     implementation config.commonDependency.activityKtx
+    implementation config.commonDependency.fragmentKtx
     //Dagger - Hilt
     implementation config.di.hilt
     implementation config.di.hiltLifeCycleVM
@@ -250,8 +250,10 @@ dependencies {
     implementation config.paging3.pagingRuntimeKtx
 
 
-    //Image Cropping Api
+    //Image Cropping Api and Media Libs
     implementation config.media_libraries.image_crop_api
+    implementation config.media_libraries.image_picker
+
 
 
     // GoogleMapServices     //location Related Work
@@ -280,7 +282,6 @@ dependencies {
     implementation config.google.firebase_analytics
     implementation config.google.firebase_messaging
 //    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
-    implementation "androidx.fragment:fragment-ktx:1.3.4"
 
 
     // indicator
