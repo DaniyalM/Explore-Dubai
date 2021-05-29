@@ -7,7 +7,7 @@ import com.app.dubaiculture.data.repository.profile.service.ProfileService
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class ProfileRDS @Inject constructor(val profileService: ProfileService) : BaseRDS() {
+class ProfileRDS @Inject constructor(private val profileService: ProfileService) : BaseRDS() {
     suspend fun uploadProfilePicture(image: MultipartBody.Part): Result<UploadProfileResponse> {
         return safeApiCall {
             profileService.uploadAvatar(image)

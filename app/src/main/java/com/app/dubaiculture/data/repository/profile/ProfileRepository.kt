@@ -26,7 +26,8 @@ class ProfileRepository @Inject constructor(
                 }
             }
             is Result.Error -> resultRDS
-            is Result.Failure ->Result.Failure(true, null, null, "Some Thing Went Wrong")
+            is Result.Failure ->
+                Result.Failure(true, null, null, "Some Thing Went Wrong")
 
         }
     }

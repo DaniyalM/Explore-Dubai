@@ -29,7 +29,7 @@ class ProfileViewModel @ViewModelInject constructor(application: Application, pr
 //                    userRepository.updatePersonalInfoDB(this)
 //                }
             } else if (result is Result.Failure) {
-                showAlert(result.errorMessage!!)
+                showToast(result.errorMessage!!)
             }
             showLoader(false)
         }
