@@ -29,6 +29,14 @@ class AttractionDTO {
     @Expose
     var location: String? = null
 
+    @SerializedName("MapIconColored")
+    @Expose
+    var mapIconColored: String? = null
+
+    @SerializedName("MapIconGreyscale")
+    @Expose
+    var mapIconGreyscale: String? = null
+
     @SerializedName("Latitude")
     @Expose
     var latitude: String? = "24.83250180519734"
@@ -48,6 +56,10 @@ class AttractionDTO {
     @SerializedName("Description")
     @Expose
     var description: String? = null
+
+    @SerializedName("Summary")
+    @Expose
+    var summary: String? = null
 
     @SerializedName("StartTime")
     @Expose

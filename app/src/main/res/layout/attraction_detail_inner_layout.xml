@@ -62,6 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_20sdp"
+                    android:foreground="@drawable/custom_ripple_border"
                     android:background="@drawable/speakers"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_category"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -261,6 +262,7 @@
                     android:drawableStart="@drawable/right_arrow"
                     android:drawablePadding="@dimen/_2sdp"
                     android:text="@string/get_directions"
+                    android:foreground="@drawable/custom_ripple_border"
                     android:textColor="@color/gray_750"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toStartOf="@+id/tv_km"
@@ -298,6 +300,9 @@
                         android:layout_height="match_parent" />
                 </androidx.cardview.widget.CardView>
 
+
+
+
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/heading_desc"
                     android:layout_width="wrap_content"
@@ -327,8 +332,9 @@
                     app:layout_constraintTop_toBottomOf="@+id/heading_desc"
                     app:trimCollapsedText="@string/read_more"
                     app:trimExpandedText="@string/read_less"
-                    app:trimLines="3"
-                    app:trimMode="trimModeLine" />
+                    app:trimLength="150"
+                    app:trimMode="trimModeLength"/>
+
 
 
                 <com.app.dubaiculture.ui.components.custombutton.CustomButton

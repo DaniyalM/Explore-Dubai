@@ -1,14 +1,21 @@
 package com.app.dubaiculture.ui.postLogin.explore.bottomsheet
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
 import com.app.dubaiculture.data.repository.explore.local.models.ExploreMap
 import com.app.dubaiculture.databinding.FragmentExploreButtomSheetBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
+import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.events.`interface`.DirectionClickListener
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.explore.map.adapter.ExploreMapAdapter
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.CATEGORY
 import com.app.dubaiculture.utils.Constants.NavBundles.EXPLORE_MAP_LIST
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +44,15 @@ class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtom
 
     }
     private fun rvSetUp(list: List<ExploreMap>) {
-        exploreNearAdapter = ExploreMapAdapter(isArabic())
+        exploreNearAdapter = ExploreMapAdapter(isArabic(), object : RowClickListener{
+            override fun rowClickListener(position: Int) {
+            }
+
+        },object : DirectionClickListener{
+            override fun directionClickListener(position: Int) {
+            }
+
+        })
         binding.rvListing.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
