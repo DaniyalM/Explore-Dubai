@@ -2,6 +2,7 @@ package com.app.dubaiculture.ui.postLogin.attractions.detail
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.location.Location
@@ -236,7 +237,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
                 instagram.setOnClickListener {
-                    startActivity(instagramNavigationIntent(activity.packageManager))
+//                    startActivity(instagramNavigationIntent(activity.packageManager))
                 }
                 groupAdapter.apply {
                     if (this.itemCount > 0) {
@@ -356,8 +357,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     }
                     if (emailContact.isNullOrEmpty()) {
                         binding.root.ll_emailus.alpha = 0.4f
-                        binding.root.ll_emailus.isClickable = false
-                    }
+                        binding.root.ll_emailus.isClickable = false}
+                    binding.root.tv_desc_readmore.text = "${it.value.summary} ${""} ${it.value.description}"
                     initializeDetails(attractionsObj)
                 }
                 is Result.Failure -> {
@@ -549,10 +550,16 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_direction -> {
-                val uri = "http://maps.google.com/maps?saddr=" + lat.toString() + "," + long.toString() + "&daddr=" +   attractionsObj.latitude.toString() + "," +   attractionsObj.longitude
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-                intent.setPackage("com.google.android.apps.maps")
-                startActivity(intent)
+                if(!attractionsObj.latitude.isNullOrEmpty()) {
+                    val uri = "http://maps.google.com/maps?saddr=" + lat.toString() + "," + long.toString() + "&daddr=" + attractionsObj.latitude.toString() + "," + attractionsObj.longitude
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                    intent.setPackage("com.google.android.apps.maps")
+                    try {
+                        startActivity(intent)
+                    } catch (ex: ActivityNotFoundException) {
+                        attractionDetailViewModel.showToast("Please install a maps application")
+                    }
+                }
             }
             R.id.constLayoutSiteMap -> {
                 val bundle = Bundle()

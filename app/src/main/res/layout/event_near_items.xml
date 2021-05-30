@@ -13,9 +13,11 @@
             android:layout_height="@dimen/_95sdp"
             android:layout_margin="@dimen/_12sdp"
             app:cardCornerRadius="@dimen/_10sdp"
-            app:cardElevation="@dimen/_10sdp"
+            app:cardElevation="@dimen/_5sdp"
             >
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -95,6 +97,9 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_26sdp"
+                    android:background="@drawable/custom_ripple_black"
+                    android:outlineSpotShadowColor="@color/gray_700"
+                    android:outlineAmbientShadowColor="@color/gray_700"
                     android:src="@drawable/location_in_km"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

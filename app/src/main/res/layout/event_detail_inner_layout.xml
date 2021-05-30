@@ -129,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_20sdp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:foreground="@drawable/custom_ripple_border"
                         android:src="@drawable/speakers"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_category"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -205,12 +205,13 @@
                         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                        android:id="@+id/tv_direction"
+                        android:id="@+id/tvDirectionEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/custom_ripple_border"
                         android:drawableStart="@drawable/right_arrow"
                         android:drawablePadding="@dimen/_2sdp"
+                        android:foreground="@drawable/custom_ripple_border"
                         android:text="@string/get_directions"
                         android:textColor="@color/gray_750"
                         android:textSize="@dimen/_10ssp"
@@ -227,7 +228,7 @@
                         android:drawablePadding="@dimen/_2sdp"
                         android:textColor="@color/gray_750"
                         android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_direction"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvDirectionEvent"
                         app:layout_constraintEnd_toEndOf="@+id/divider"
                         app:layout_constraintHorizontal_bias="0.8"
                         app:layout_constraintTop_toBottomOf="@+id/tv_location" />
@@ -242,7 +243,7 @@
                         app:cardElevation="@dimen/_5sdp"
                         app:layout_constraintEnd_toEndOf="@+id/tv_km"
                         app:layout_constraintStart_toStartOf="@+id/tv_location"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_direction">
+                        app:layout_constraintTop_toBottomOf="@+id/tvDirectionEvent">
 
                         <com.google.android.gms.maps.MapView
                             android:id="@+id/map"

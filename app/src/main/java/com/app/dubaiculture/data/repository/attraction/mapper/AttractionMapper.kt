@@ -69,6 +69,7 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
         portraitImage = attraction.portraitImage,
         landscapeImage = attraction.landscapeImage,
         description = attraction.description,
+        summary = attraction.summary,
         startTime = attraction.startTime,
         endTime = attraction.endTime,
         startDay = attraction.startDay,

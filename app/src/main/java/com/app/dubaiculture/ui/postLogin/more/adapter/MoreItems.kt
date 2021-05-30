@@ -22,9 +22,7 @@ data class MoreItems<T : ViewDataBinding>(
         when (viewBinding) {
             is ItemsMoreLayoutBinding -> {
                 viewBinding.let {
-                    if (isVisible){
-                       it.rootView.visibility=View.VISIBLE
-                    }
+
                     arrowRTL(isArabic, it.arrow)
                     it.img.setImageResource(moreModel.leftImg!!)
                     it.tvTitle.text = moreModel.title
@@ -34,6 +32,9 @@ data class MoreItems<T : ViewDataBinding>(
                         it.dividerLine.visibility = View.INVISIBLE
                     }
                     if (moreModel.title == context.resources.getString(R.string.logout_more)) {
+                        if (isVisible){
+                            it.rootView.visibility=View.GONE
+                        }
                         it.arrow.visibility = View.GONE
                     }
 

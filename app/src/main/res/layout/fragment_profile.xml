@@ -27,7 +27,7 @@
                 app:lottie_repeatCount="0" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/profileImage"
                 android:layout_width="@dimen/_102sdp"
                 android:layout_height="@dimen/_102sdp"
                 android:layout_marginTop="8dp"
@@ -38,13 +38,13 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <FrameLayout
-                android:id="@+id/frameLayout"
+                android:id="@+id/frameLayoutImagePicker"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:background="@drawable/ellipse"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-                app:layout_constraintEnd_toEndOf="@+id/imageView7"
-                app:layout_constraintTop_toTopOf="@+id/imageView7"
+                app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+                app:layout_constraintEnd_toEndOf="@+id/profileImage"
+                app:layout_constraintTop_toTopOf="@+id/profileImage"
                 app:layout_constraintVertical_bias="0.882">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -66,9 +66,9 @@
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/imageView7"
-                app:layout_constraintStart_toStartOf="@+id/imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                app:layout_constraintEnd_toEndOf="@+id/profileImage"
+                app:layout_constraintStart_toStartOf="@+id/profileImage"
+                app:layout_constraintTop_toBottomOf="@+id/profileImage"
                 app:textFont="bold" />
 
             <View

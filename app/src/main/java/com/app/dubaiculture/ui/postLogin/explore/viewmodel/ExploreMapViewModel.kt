@@ -1,10 +1,13 @@
 package com.app.dubaiculture.ui.postLogin.explore.viewmodel
 
 import android.app.Application
+import android.content.Context
+import android.graphics.Bitmap
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
@@ -12,14 +15,17 @@ import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.explore.ExploreRepository
 import com.app.dubaiculture.data.repository.explore.local.models.AttractionsEvents
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
+import com.app.dubaiculture.data.repository.explore.local.models.ExploreMap
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
-import com.app.dubaiculture.data.repository.exploremap.model.ExploreMap
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.location.LocationHelper
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.launch
 
@@ -66,7 +72,6 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
                     distance = it.distance,
                     lat = it.latitude!!,
                     lng = it.longitude!!,
-                    pin = ""
                 )
             )
         }
@@ -104,7 +109,8 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
                     distance = it.distance,
                     lat = it.latitude!!,
                     lng = it.longitude!!,
-                    pin = ""
+                        pinOutRadius = it.outOfRadiusIcon,
+                        pinInRadius = it.withinRadiusIcon
                 )
             )
         }
@@ -129,7 +135,7 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
 
 
 
-    fun mergeArrayList(exploreMapList : ArrayList<ExploreMap>,attractions :ArrayList<Attractions>,eventList: List<Events>,locationHelper : LocationHelper,lat :Double?=null , lng : Double?=null) : List<ExploreMap>{
+   fun mergeArrayList(exploreMapList : ArrayList<ExploreMap>,attractions :ArrayList<Attractions>,eventList: List<Events>,locationHelper : LocationHelper,lat :Double?=null , lng : Double?=null) : List<ExploreMap>{
         exploreMapList.clear()
         sortNearAttraction(attractions,locationHelper,lat,lng).forEach {
             exploreMapList.add(
@@ -141,7 +147,8 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
                     distance = it.distance,
                     lat = it.latitude.toString().ifEmpty { "24.83250180519734" },
                     lng = it.longitude.toString().ifEmpty  {"67.08119661055807"},
-                    pin = ""
+                    pinInRadius = it.withinRadiusIcon,
+                        pinOutRadius = it.outOfRadiusIcon
                 )
 
             )
@@ -156,7 +163,6 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
                     distance = it.distance,
                     lat = it.latitude!!,
                     lng = it.longitude!!,
-                    pin = ""
                 )
             )
         }
@@ -168,14 +174,33 @@ class ExploreMapViewModel @ViewModelInject constructor(application: Application,
         exploreMapList.forEach {
             val locationObj = LatLng(it.lat.toString().ifEmpty { "24.83250180519734" }.toDouble(),
                 it.lng.toString().ifEmpty { "67.08119661055807" }.toDouble())
-            if(it.distance!! <= 6.0)
-                map.addMarker(MarkerOptions().position(locationObj)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_within_distance))
+            if(it.distance!! <= 6.0){
+              val marker =  map.addMarker(MarkerOptions().position(locationObj)
                     .title(it.title))
+                setURLIcon(it.pinInRadius.toString(),marker,getApplication<Application>())
+            }
       else
-                map.addMarker(MarkerOptions().position(locationObj)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_map_away))
+            {
+               val marker =  map.addMarker(MarkerOptions().position(locationObj)
+//                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_map_away))
                     .title(it.title))
+                setURLIcon(it.pinOutRadius.toString(),marker,getApplication<Application>())
+
+            }
         }
+    }
+
+    private fun setURLIcon(url :String ,marker : Marker,context : Context){
+        Glide.with(context)
+                .asBitmap()
+                .load(BuildConfig.BASE_URL+url)
+                .into(object : SimpleTarget<Bitmap>() {
+                    override fun onResourceReady(bitmap: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
+                        if (bitmap != null) {
+                            val icon = BitmapDescriptorFactory.fromBitmap(bitmap)
+                            marker.setIcon(icon)
+                        }
+                    }
+                })
     }
 }

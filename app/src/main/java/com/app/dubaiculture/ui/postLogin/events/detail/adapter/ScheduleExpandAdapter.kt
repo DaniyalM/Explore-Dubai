@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
@@ -16,9 +17,9 @@ import kotlinx.android.synthetic.main.schedule_collapse.view.*
 
 
 class ScheduleExpandAdapter(
-  internal var context: Context,
-    nameList: ArrayList<EventScheduleItems>,
-    itemNameList: ArrayList<ArrayList<EventScheduleItemsSlots>>,
+        internal var context: Context,
+        nameList: ArrayList<EventScheduleItems>,
+        itemNameList: ArrayList<ArrayList<EventScheduleItemsSlots>>,
 ) : RecyclerView.Adapter<ScheduleExpandAdapter.ViewHolder>() {
     internal var nameList = ArrayList<EventScheduleItems>()
     internal var counter = ArrayList<Int>()
@@ -26,6 +27,7 @@ class ScheduleExpandAdapter(
     init {
         this.nameList = nameList
         this.itemNameList = itemNameList
+        this.context =context
         for (i in 0 until nameList.size) {
             counter.add(0)
         }
@@ -37,23 +39,24 @@ class ScheduleExpandAdapter(
         var monthYear = itemView.tv_month_year_schedule
         var imgToggle = itemView.imgToggle
         var ll_header = itemView.ll_header
-        var innerRecycler: RecyclerView
+        var innerRecycler=  itemView.innerRecyclerView
 
-        init {
-            innerRecycler = itemView.findViewById(R.id.innerRecyclerView)
-        }
+//        init {
+//            innerRecycler = itemView.findViewById(R.id.innerRecyclerView)
+//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.schedule_collapse, parent, false)
-        return ViewHolder(v)
+        val vh: ScheduleExpandAdapter.ViewHolder = ViewHolder(v)
+        return vh
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.day.text = dayOfWeek(nameList[position].date,"EEEE")
-        holder.date.text = "${dayOfWeek(nameList[position].date,"dd")}"
-        holder.monthYear.text = "${dayOfWeek(nameList[position].date,"MMM").toUpperCase()} , ${dayOfWeek(nameList[position].date,"yy")}"
+        holder.day.text = dayOfWeek(nameList[position].date, "EEEE")
+        holder.date.text = "${dayOfWeek(nameList[position].date, "dd")}"
+        holder.monthYear.text = "${dayOfWeek(nameList[position].date, "MMM").toUpperCase()} , ${dayOfWeek(nameList[position].date, "yy")}"
         holder.imgToggle.setImageResource(R.drawable.plus)
         val itemInnerRecyclerView = ScheduleInnerRecyclerviewAdapter(itemNameList[position])
         holder.innerRecycler.layoutManager =
@@ -74,7 +77,7 @@ class ScheduleExpandAdapter(
                         .duration(1000)
                         .playOn(it)
                 }
-                counter[position] = counter[position] + 1
+                counter.set(position, counter[position] + 1)
             }catch (e: IndexOutOfBoundsException){
                 e.stackTrace
             }

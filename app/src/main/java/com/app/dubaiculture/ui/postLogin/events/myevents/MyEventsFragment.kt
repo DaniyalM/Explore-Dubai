@@ -29,7 +29,7 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            customTextView3.text= R.string.my_events.toString()
+            customTextView3.text= activity.resources.getString(R.string.my_events)
             header.back.setOnClickListener {
                 back()
             }
@@ -73,7 +73,8 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
                         },
                         event = it,
                         resLayout = R.layout.item_event_listing,
-                        activity,hasSurvey = true)
+                        activity,
+                                hasSurvey = true)
                     )
 
             }

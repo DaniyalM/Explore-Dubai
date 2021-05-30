@@ -1,4 +1,4 @@
-package com.app.dubaiculture.data.repository.exploremap.model
+package com.app.dubaiculture.data.repository.explore.local.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -12,5 +12,6 @@ data class ExploreMap(
     val lat : String? = null,
     val lng : String? = null,
     val distance : Double? = null,
-    val pin : String? = null,
+    val pinInRadius : String? = null,
+    val pinOutRadius : String? = null
     ): Parcelable

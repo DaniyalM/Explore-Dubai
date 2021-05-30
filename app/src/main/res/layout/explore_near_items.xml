@@ -5,7 +5,7 @@
 
         <variable
             name="explore"
-            type="com.app.dubaiculture.data.repository.exploremap.model.ExploreMap" />
+            type="com.app.dubaiculture.data.repository.explore.local.models.ExploreMap" />
     </data>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="@dimen/_250sdp"
@@ -15,6 +15,7 @@
         app:cardElevation="@dimen/_10sdp"
         >
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl"
         android:layout_width="match_parent"
         android:background="@color/white_900"
         android:layout_height="wrap_content"
@@ -80,6 +81,9 @@
             app:cardElevation="@dimen/_1sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_width="@dimen/_30sdp"
+            android:background="@drawable/custom_ripple_black"
+            android:outlineSpotShadowColor="@color/gray_700"
+            android:outlineAmbientShadowColor="@color/gray_700"
             android:layout_height="@dimen/_26sdp"
             android:src="@drawable/location_in_km"
             app:layout_constraintBottom_toBottomOf="@+id/view2"

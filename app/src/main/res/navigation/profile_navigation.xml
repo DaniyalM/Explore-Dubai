@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_profileFragment_to_myEventsFragment"
             app:destination="@id/myEventsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_avatarPickerFragment"
+            app:destination="@id/avatarPickerFragment" />
     </fragment>
     <fragment
         android:id="@+id/placesVisited"
@@ -23,4 +26,8 @@
         android:id="@+id/myEventsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.myevents.MyEventsFragment"
         android:label="MyEventsFragment" />
+    <dialog
+        android:id="@+id/avatarPickerFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.profile.avatarPicker.AvatarPickerFragment"
+        android:label="AvatarPickerFragment" />
 </navigation>

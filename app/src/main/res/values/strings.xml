@@ -229,6 +229,9 @@
     <string name="more_news">More News</string>
     <string name="submit_survey">Submit Survey</string>
     <string name="survey_submitted">Survey Submitted</string>
+    <string name="summary">Summary</string>
+    <string name="take_new_photo">Take new photo</string>
+    <string name="select_photo_from_gallery">Select photo from gallery</string>
 
 
 </resources>

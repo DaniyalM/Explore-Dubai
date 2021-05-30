@@ -88,4 +88,10 @@ object Constants {
         const val CLIENT_TOKEN: String = "2e7e1551d007a8adc3346fa48f07b2c7"
         const val TARGET_ID: String = "60860b2e7c633e71c8d1e5cb"
     }
+
+    object GoogleMap {
+        const val LINK_URI: String = "http://maps.google.com/maps?saddr="
+        const val PACKAGE_NAME_GOOGLE_MAP: String = "com.google.android.apps.maps"
+        const val DESTINATION = "&daddr="
+    }
 }

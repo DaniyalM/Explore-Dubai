@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.exploremap.model.ExploreMap
+import com.app.dubaiculture.data.repository.explore.local.models.ExploreMap
 import com.app.dubaiculture.databinding.ExploreNearItemsBinding
+import com.app.dubaiculture.ui.postLogin.events.`interface`.DirectionClickListener
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.AsyncCell
-import com.app.dubaiculture.utils.dateFormat
 
-class   ExploreMapAdapter(var isArabic : Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class   ExploreMapAdapter(var isArabic : Boolean, var rowClickListener: RowClickListener, var directionClickListener: DirectionClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<ExploreMap>() {
         override fun areItemsTheSame(oldItem: ExploreMap, newItem: ExploreMap): Boolean {
             return oldItem.id == newItem.id
@@ -64,6 +65,12 @@ class   ExploreMapAdapter(var isArabic : Boolean) : RecyclerView.Adapter<Recycle
             holder.itemView.binding?.let {
                 arrowtRTL(isArabic,it.arrow)
                 try {
+                    it.cl.setOnClickListener {
+                        rowClickListener.rowClickListener(position)
+                    }
+                    it.loc.setOnClickListener {
+                        directionClickListener.directionClickListener(position)
+                    }
                     it.explore = explore[position]
                 } catch (ex: IndexOutOfBoundsException) {
                     print(ex.stackTrace)
