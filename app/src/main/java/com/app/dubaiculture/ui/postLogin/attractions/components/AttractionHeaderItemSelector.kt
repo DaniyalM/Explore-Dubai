@@ -12,9 +12,10 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
-import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.services.AttractionServices
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
+import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -24,6 +25,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var list: List<AttractionCategory>? = null
     private var attractionPager: ViewPager2? = null
     var recyclerView: RecyclerView? = null
+    var bus: Bus? = null
 
     companion object {
         var previousPosition: Int = 0
@@ -45,14 +47,16 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     @JvmName("attractionHeaders")
     fun initialize(
             list: List<AttractionCategory>,
-            attractionPager: ViewPager2? = null,
-            attractionsFragment: AttractionsFragment,
+            bus: Bus
+//            attractionPager: ViewPager2? = null,
+//            attractionsFragment: AttractionsFragment,
     ) {
         this.list = list
-        this.attractionPager = attractionPager
-        this.attractionPager?.adapter = AttractionPagerAdaper(attractionsFragment).apply {
-            provideListToPager(list)
-        }
+        this.bus=bus
+//        this.attractionPager = attractionPager
+//        this.attractionPager?.adapter = AttractionPagerAdaper(attractionsFragment).apply {
+//            provideListToPager(list)
+//        }
         itemsAddnUpdation()
     }
 
@@ -115,9 +119,8 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     fun positionUpdate(position: Int) {
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
-        attractionPager?.currentItem = position
-
-
+        bus?.post(AttractionServices.CategoryClick(position))
+//        attractionPager?.currentItem = position
     }
 
 

@@ -49,7 +49,7 @@ class AttractionViewModel @ViewModelInject constructor(
     }
 
     fun getAttractionThroughCategory(
-        categoryId: String,
+        categoryId: String?,
         pageNum: Int,
         pageSize: Int,
         locale: String,
