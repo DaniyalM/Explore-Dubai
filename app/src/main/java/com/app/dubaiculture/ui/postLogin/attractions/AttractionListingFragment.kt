@@ -2,7 +2,6 @@ package com.app.dubaiculture.ui.postLogin.attractions
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -35,7 +34,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     //    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractionCat: AttractionCategory
-//    private var searchQuery: String = ""
+
+    //    private var searchQuery: String = ""
     private var pageNumber: Int = 1
     private var pageSize: Int = 3
     private lateinit var attractions: ArrayList<Attractions>
@@ -202,11 +202,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         }
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putParcelable("KeyForLayoutManagerState", lay.onSaveInstanceState());
-//
-//    }
 
 
 
@@ -215,10 +210,9 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         var pastVisiblesItems: Int
         var visibleItemCount: Int
         var totalItemCount: Int
-//        attractionListScreenAdapter = AttractionListScreenAdapter()
-       linearLayoutManger= LinearLayoutManager(activity)
+        linearLayoutManger = LinearLayoutManager(activity)
         binding.rvAttractionListing.apply {
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = linearLayoutManger
             adapter = groupAdapter
 
             this.addOnScrollListener(object : RecyclerView.OnScrollListener() {

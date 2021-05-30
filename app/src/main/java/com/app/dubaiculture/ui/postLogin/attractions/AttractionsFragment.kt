@@ -45,19 +45,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (this::clickChecker.isInitialized) {
-            if (clickCheckerFlag != clickChecker.toInt()) {
-               initiateRequest()
-            }
-
-        }
-
-
-
-
-    }
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
             FragmentAttractionsBinding.inflate(inflater, container, false)
@@ -70,7 +57,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         callingObservables()
         subscribeToObservables()
         initiateRequest()
-
+        initiatePager()
 
     }
 
@@ -94,7 +81,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
 
             }
-            initiatePager()
+//            initiatePager()
         }
     }
 
