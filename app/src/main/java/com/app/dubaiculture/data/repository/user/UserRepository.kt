@@ -24,9 +24,10 @@ class UserRepository @Inject constructor(
 
     suspend fun saveUser(userDTO: UserDTO, loginResponseDTO: LoginResponseDTO) {
         val user = transform(userDTO, loginResponseDTO)
-        userLDS.insert(
-                user
-        )
+        userLDS.insert(user)
+    }
+    suspend fun updateUser(user: User){
+        userLDS.insert(user)
     }
 
     suspend fun getLastUser(): User? = userLDS.getUser()

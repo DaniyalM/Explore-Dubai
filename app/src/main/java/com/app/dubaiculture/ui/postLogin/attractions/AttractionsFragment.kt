@@ -67,11 +67,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         subscribeToObservables()
         initiateRequest()
         initiatePager()
-
-
-//        handleCategoryClick(AttractionServices.CategoryClick(clickCheckerFlag))
-
-
     }
 
 
@@ -108,7 +103,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                         attractionCategorys = result.value
                         binding.horizontalSelector.initialize(attractionCategorys, bus)
                         pagerAdapter.list = attractionCategorys
-
                     }
                 }
                 is Result.Failure -> {

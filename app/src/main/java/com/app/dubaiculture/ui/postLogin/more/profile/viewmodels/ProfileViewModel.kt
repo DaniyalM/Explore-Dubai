@@ -7,11 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.profile.ProfileRepository
+import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 
-class ProfileViewModel @ViewModelInject constructor(application: Application, private val profileRepository: ProfileRepository) :
+class ProfileViewModel @ViewModelInject constructor(
+        application: Application,
+        private val profileRepository: ProfileRepository,
+        private val userRepository: UserRepository,
+        ) :
         BaseViewModel(application) {
 
 
@@ -23,11 +28,11 @@ class ProfileViewModel @ViewModelInject constructor(application: Application, pr
             val result = profileRepository.uploadProfilePicture(uri)
             if (result is Result.Success) {
                 val url = result.value.value
-//                val info = userRepository.getPersonalInfo()
-//                info?.apply {
-//                    profileImage = url
-//                    userRepository.updatePersonalInfoDB(this)
-//                }
+                val info = userRepository.getLastUser()
+                info?.apply {
+                    userImage = url
+                    userRepository.updateUser(this)
+                }
             } else if (result is Result.Failure) {
                 showToast(result.errorMessage!!)
             }
