@@ -11,6 +11,7 @@ data class User(
     var email: String,
     var phoneNumber: String,
     var userName: String,
+    var userImage: String,
     var token: String,
     var expireIn: Int?,
     var refreshToken: String,

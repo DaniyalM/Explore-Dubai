@@ -1,6 +1,5 @@
 package com.app.dubaiculture.ui.postLogin.attractions
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +14,6 @@ import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAda
 import com.app.dubaiculture.ui.postLogin.attractions.services.AttractionServices
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
-import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.app.dubaiculture.utils.handleApiError
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,9 +27,20 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private lateinit var attractionCategorys: List<AttractionCategory>
     private lateinit var clickChecker: String
 
+    override fun onResume() {
+        super.onResume()
+        if (this::clickChecker.isInitialized) {
+            if (clickChecker.toInt() != clickCheckerFlag) {
+                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+                binding.pager.currentItem = clickCheckerFlag
+
+            }
+        }
+
+    }
 
 
-    fun initiateRequest() {
+    private fun initiateRequest() {
         binding.swipeRefresh.apply {
             setColorSchemeResources(R.color.colorPrimary,
                     android.R.color.holo_green_dark,
@@ -41,6 +49,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             setOnRefreshListener {
                 binding.swipeRefresh.isRefreshing = false
                 attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+
             }
         }
     }
@@ -58,6 +67,10 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         subscribeToObservables()
         initiateRequest()
         initiatePager()
+
+
+//        handleCategoryClick(AttractionServices.CategoryClick(clickCheckerFlag))
+
 
     }
 
@@ -81,7 +94,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
 
             }
-//            initiatePager()
+
         }
     }
 

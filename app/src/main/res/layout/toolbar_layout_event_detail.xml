@@ -14,12 +14,10 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
 
-            <androidx.constraintlayout.motion.widget.MotionLayout
-                android:id="@+id/constraintLayout4"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg"
-                app:layoutDescription="@xml/toolbar_layout_detail_xml_constraintlayout3_scene">
+                android:background="@color/app_bg">
 
                 <FrameLayout
                     android:id="@+id/imageLayout"
@@ -34,13 +32,12 @@
 
                     <ImageView
                         android:id="@+id/imageView"
+                        android:transitionName="imgScaleUp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:transitionName="imgScaleUp"
 
                         />
-
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -48,12 +45,11 @@
 
 
                 </FrameLayout>
-
                 <ImageView
                     android:id="@+id/bg_border_event"
-                    autoMirrored="true"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
+                    autoMirrored="true"
                     android:background="@drawable/attraction_bg_icon_with_border"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +110,6 @@
                     android:id="@+id/btn_reg"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:background="@drawable/btn_register"
                     android:elevation="@dimen/_15sdp"
@@ -123,6 +118,7 @@
                     android:gravity="center"
                     android:text="@string/register_now"
                     android:textAllCaps="false"
+                    android:layout_marginEnd="@dimen/_15sdp"
                     android:textColor="@color/white_900"
                     app:layout_constraintBottom_toTopOf="@+id/tv_swipe_up_event"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -138,12 +134,12 @@
                     android:drawablePadding="@dimen/_10sdp"
                     android:text="@string/swipe_up_for_more"
                     android:textColor="@color/gray_600"
+                    app:layout_constraintVertical_bias="0.88"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.88" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <!--                <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
                 <!--                    android:id="@+id/btn_login"-->
@@ -164,7 +160,7 @@
                 <!--                    app:layout_constraintEnd_toEndOf="parent"-->
                 <!--                    app:layout_constraintStart_toStartOf="parent"-->
                 <!--                    app:layout_constraintTop_toBottomOf="@+id/imageLayout" />-->
-            </androidx.constraintlayout.motion.widget.MotionLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <!--            android:layout_height="@dimen/_210sdp"-->

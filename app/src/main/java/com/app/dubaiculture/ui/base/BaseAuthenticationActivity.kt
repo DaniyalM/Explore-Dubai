@@ -92,6 +92,15 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
                 R.id.attractionGalleryFragment -> {
                     bottomNav.visibility = View.GONE
                 }
+                R.id.myEventsFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
+                R.id.placesVisited -> {
+                    bottomNav.visibility = View.GONE
+                }
+                R.id.notificationFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
                 else -> {
                     bottomNav.visibility = View.VISIBLE
 

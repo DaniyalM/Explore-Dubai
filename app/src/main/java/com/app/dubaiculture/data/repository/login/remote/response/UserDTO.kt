@@ -11,4 +11,6 @@ open class UserDTO (
     val PhoneNumber: String,
     @SerializedName(value = "UserName")
     val UserName: String,
+    @SerializedName(value = "UserImage")
+    val UserImage: String
 )

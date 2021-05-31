@@ -23,7 +23,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         FrameLayout(context, attrs), AttractionHeaderClick {
     val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var list: List<AttractionCategory>? = null
-    private var attractionPager: ViewPager2? = null
     var recyclerView: RecyclerView? = null
     var bus: Bus? = null
 
@@ -48,15 +47,9 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     fun initialize(
             list: List<AttractionCategory>,
             bus: Bus
-//            attractionPager: ViewPager2? = null,
-//            attractionsFragment: AttractionsFragment,
     ) {
         this.list = list
         this.bus=bus
-//        this.attractionPager = attractionPager
-//        this.attractionPager?.adapter = AttractionPagerAdaper(attractionsFragment).apply {
-//            provideListToPager(list)
-//        }
         itemsAddnUpdation()
     }
 
@@ -120,7 +113,6 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
         bus?.post(AttractionServices.CategoryClick(position))
-//        attractionPager?.currentItem = position
     }
 
 

@@ -53,7 +53,8 @@
         <activity
             android:name=".ui.postLogin.more.MoreActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+           />
 
 
         <activity
