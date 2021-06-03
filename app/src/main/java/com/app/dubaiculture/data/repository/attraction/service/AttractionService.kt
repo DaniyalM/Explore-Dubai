@@ -30,4 +30,9 @@ interface AttractionService : BaseService {
         @Query("pageSize") pageSize: Int,
         @Query("culture") culture: String,
     ): AttractionResponse
+
+    @GET("Content/GetVisitedPlace")
+    suspend fun getVisitedPlaces(
+//            @Query("culture") culture: String
+    ): AttractionResponse
 }

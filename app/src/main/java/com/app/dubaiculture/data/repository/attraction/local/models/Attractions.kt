@@ -40,4 +40,5 @@ data class Attractions(
     var ibecons : Ibecons? =null,
     var withinRadiusIcon : String ? ="",
     var outOfRadiusIcon : String ? ="",
+    var visitedDateTime : String  ="12 Nov, 2020",
     ) : Parcelable

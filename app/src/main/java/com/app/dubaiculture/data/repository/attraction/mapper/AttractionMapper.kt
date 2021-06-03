@@ -19,6 +19,8 @@ fun transformAttractionsRequest(attractionRequest: AttractionRequest) =
                 pageSize = attractionRequest.pageSize!!,
                 culture = attractionRequest.culture
         )
+fun transformVisitedAttractionsRequest(attractionRequest: AttractionRequest) =
+        AttractionRequestDTO(culture = attractionRequest.culture)
 
 fun transformAttractionDetailRequest(attractionRequest: AttractionRequest) =
         AttractionDetailRequestDTO(
@@ -193,7 +195,8 @@ fun transformAttractions(list: List<AttractionDTO>): List<Attractions> =
                         endTime = it.endTime,
                         endDay = it.endDay,
                         startDay = it.startDay,
-                        color = it.color
+                        color = it.color,
+                        visitedDateTime = it.visitedDateTime
                 )
             }
         }

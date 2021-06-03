@@ -30,7 +30,7 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             customTextView3.text= activity.resources.getString(R.string.my_events)
-            header.back.setOnClickListener {
+            headerVisited.back.setOnClickListener {
                 back()
             }
             personalRv.apply {

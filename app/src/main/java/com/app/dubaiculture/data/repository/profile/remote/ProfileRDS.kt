@@ -1,6 +1,8 @@
 package com.app.dubaiculture.data.repository.profile.remote
 
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequestDTO
+import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionResponse
 import com.app.dubaiculture.data.repository.base.BaseRDS
 import com.app.dubaiculture.data.repository.profile.remote.response.UploadProfileResponse
 import com.app.dubaiculture.data.repository.profile.service.ProfileService
@@ -18,6 +20,7 @@ class ProfileRDS @Inject constructor(private val profileService: ProfileService)
     suspend fun getSettings(): Result<UserSettingResponse> = safeApiCall {
         profileService.getUserSettings()
     }
+
 
     suspend fun updateSettings(userSettingsDTO: UserSettingsDTO)=safeApiCall {
         profileService.updateSettings(userSettingsDTO)
