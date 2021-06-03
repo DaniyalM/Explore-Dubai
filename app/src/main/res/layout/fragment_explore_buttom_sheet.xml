@@ -9,7 +9,7 @@
     tools:context=".ui.postLogin.explore.bottomsheet.ExploreBottomSheetFragment">
 
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/gray_line"
         android:layout_marginTop="@dimen/_20sdp"
         android:background="@drawable/gray_line"

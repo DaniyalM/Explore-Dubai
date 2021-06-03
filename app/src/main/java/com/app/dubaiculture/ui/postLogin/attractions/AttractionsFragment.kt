@@ -66,7 +66,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         callingObservables()
         subscribeToObservables()
         initiateRequest()
-        initiatePager()
+
     }
 
 
@@ -89,7 +89,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
 
             }
-
+            initiatePager()
         }
     }
 
@@ -103,6 +103,8 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                         attractionCategorys = result.value
                         binding.horizontalSelector.initialize(attractionCategorys, bus)
                         pagerAdapter.list = attractionCategorys
+                        binding.pager.currentItem = clickCheckerFlag
+
                     }
                 }
                 is Result.Failure -> {

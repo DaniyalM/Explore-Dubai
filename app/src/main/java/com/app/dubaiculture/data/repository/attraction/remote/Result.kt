@@ -1,4 +1,4 @@
-package com.app.dubaiculture.data.repository.attraction.local.models
+package com.app.dubaiculture.data.repository.attraction.remote
 
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionCategoryDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionDTO

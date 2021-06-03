@@ -30,7 +30,7 @@
                     app:layout_constraintGuide_percent="0.00" />
 
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bg_border"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -57,7 +57,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/guideline"
                     app:textFont="bold" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_attraction_speaker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
 
                             android:orientation="vertical">
 
-                            <ImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/ar" />
@@ -148,7 +148,7 @@
                             android:gravity="center|center_vertical"
                             android:orientation="vertical">
 
-                            <ImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/_360icon" />
@@ -185,7 +185,7 @@
 
                             android:orientation="vertical">
 
-                            <ImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/gallery_" />
@@ -392,7 +392,7 @@
                         app:layout_constraintStart_toStartOf="@+id/view_site_map"
                         app:layout_constraintTop_toBottomOf="@+id/view_site_map" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/arrow_site_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -454,7 +454,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ibeacons" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/arrow_ibecons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -625,7 +625,7 @@
                             app:lottie_autoPlay="true"
                             app:lottie_loop="true"
                             app:lottie_rawRes="@raw/star_attraction" />
-                        <!--                <ImageView-->
+                        <!--                <androidx.appcompat.widget.AppCompatImageView-->
                         <!--                    android:background="@drawable/dc_location_icon"-->
                         <!--                    android:layout_gravity="center_vertical"-->
                         <!--                    android:layout_margin="@dimen/_10sdp"-->
@@ -658,7 +658,7 @@
                     app:layout_constraintStart_toStartOf="@id/heading_stay"
                     app:layout_constraintTop_toBottomOf="@+id/heading_stay">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imgFb"
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_35sdp"
@@ -667,7 +667,7 @@
                         android:src="@drawable/fb_icon_png" />
 
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
@@ -675,7 +675,7 @@
 
                         android:foreground="@drawable/custom_ripple_border" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/instagram"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -683,7 +683,7 @@
                         android:background="@drawable/insta_attraction_icon"
                         android:foreground="@drawable/custom_ripple_border" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
@@ -691,7 +691,7 @@
 
                         android:foreground="@drawable/custom_ripple_border" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"

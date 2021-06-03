@@ -232,4 +232,8 @@
     <string name="summary">Summary</string>
     <string name="take_new_photo">Take new photo</string>
     <string name="select_photo_from_gallery">Select photo from gallery</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="new_password">New Password</string>
+    <string name="current_password">Current Password</string>
 </resources>

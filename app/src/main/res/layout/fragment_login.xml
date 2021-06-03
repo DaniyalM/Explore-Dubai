@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:background="@color/purple_900">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView4"
             android:layout_width="0dp"
             android:layout_height="@dimen/_170sdp"
@@ -48,7 +48,7 @@
             app:layout_constraintBottom_toTopOf="@+id/imageView4" />
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
             app:layout_constraintStart_toStartOf="@+id/password" />
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
             app:layout_constraintEnd_toEndOf="@+id/btn_login"
             app:layout_constraintStart_toStartOf="@+id/btn_login" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
@@ -231,7 +231,7 @@
         <!--        android:enabled="@{viewmodel.btnSelected}"-->
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_uae_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

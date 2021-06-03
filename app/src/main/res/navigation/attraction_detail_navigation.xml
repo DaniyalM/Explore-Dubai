@@ -5,6 +5,7 @@
     app:startDestination="@id/attractionDetailFragment"
     android:id="@+id/attraction_detail_navigation">
     <include app:graph="@navigation/post_login_bottom_navigation"/>
+    <include app:graph="@navigation/event_detail_navigation"/>
 
     <fragment
         android:id="@+id/attractionDetailFragment"
@@ -20,7 +21,7 @@
             app:destination="@id/post_login_bottom_navigation" />
         <action
             android:id="@+id/action_attractionDetailFragment_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2"
+            app:destination="@id/event_detail_navigation"
             app:popUpTo="@+id/attractionDetailFragment"
             />
         <action

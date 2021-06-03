@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         >
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgSlider"
             android:scaleType="fitXY"
             android:src="@drawable/must_see_icon_home"

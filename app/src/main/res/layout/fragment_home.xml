@@ -60,7 +60,7 @@
             app:menu="@menu/my_navigation_items">
 
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_add"
                 android:layout_width="80dp"
                 android:layout_gravity="center"

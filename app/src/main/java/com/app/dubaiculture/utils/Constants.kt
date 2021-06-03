@@ -54,6 +54,8 @@ object Constants {
         const val META_DATA_ID: String = "meta_data_id"
         const val IMAGES_LIST: String = "images_list"
         const val IMAGE_POSITION: String = "image_pos"
+        const val SETTINGS_BUNDLE: String = "settings_bundle"
+
 
 
     }
@@ -87,6 +89,20 @@ object Constants {
     object AR {
         const val CLIENT_TOKEN: String = "2e7e1551d007a8adc3346fa48f07b2c7"
         const val TARGET_ID: String = "60860b2e7c633e71c8d1e5cb"
+    }
+    object ImagePicker {
+        const val TAKE_PHOTO: String = "Take photo"
+        const val CHOOSE_FROM_LIBRARY: String = "Choose from gallery"
+        const val CANCEL: String = "Cancel"
+        const val MAX_WIDTH: Int = 1920
+        const val MAX_HEIGHT: Int = 1080
+        const val IMAGE_SIZE_LIMIT = 7.0
+        const val CAMERA: Int = 1
+        const val GALLERY: Int = 2
+        const val DELETE: Int = 3
+        const val BOTH: Int = 4
+        const val REQUEST_CODE: Int = 200
+
     }
 
     object GoogleMap {

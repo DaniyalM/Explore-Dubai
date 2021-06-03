@@ -22,7 +22,7 @@
                     app:layout_constraintGuide_percent="0.00" />
 
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_detail"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_200sdp"
@@ -33,7 +33,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bg_border"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -124,7 +124,7 @@
                         app:layout_constraintTop_toTopOf="@id/ll_even_info"
                         app:textFont="bold" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/img_event_speaker"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -424,7 +424,7 @@
                         app:layout_constraintStart_toStartOf="@id/heading_stay"
                         app:layout_constraintTop_toBottomOf="@+id/heading_stay">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imgFb"
                             android:layout_width="@dimen/_35sdp"
                             android:layout_height="@dimen/_35sdp"
@@ -432,7 +432,7 @@
                             android:background="@drawable/custom_ripple_black"
                             android:src="@drawable/fb_icon_png" />
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imgTwitter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -440,7 +440,7 @@
                             android:background="@drawable/custom_ripple_black"
                             android:src="@drawable/twitter_attraction_icon" />
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imgInsta"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -448,7 +448,7 @@
                             android:background="@drawable/custom_ripple_black"
                             android:src="@drawable/insta_attraction_icon" />
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imgUtube"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -456,7 +456,7 @@
                             android:background="@drawable/custom_ripple_black"
                             android:src="@drawable/utube__attraction_icon" />
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imgLinkedin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -465,7 +465,7 @@
                             android:src="@drawable/linkedin_attraction_icon" />
                     </LinearLayout>
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/img"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

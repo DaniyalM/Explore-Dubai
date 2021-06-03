@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="user"
+            type="com.app.dubaiculture.data.repository.user.local.User" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootView"
         android:layout_width="match_parent"
@@ -71,14 +76,18 @@
                             android:layout_height="match_parent">
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/img_profile"
+                                android:imageViewUrl="@{user.userImage}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/green_circle"
                                 />
+<!--                          -->
+
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/my_profile"
+
                                 android:textSize="@dimen/_12ssp"
                                 android:textColor="@color/black_200"
                                 android:layout_marginTop="@dimen/_5sdp"
@@ -224,7 +233,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <ImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:background="@drawable/logout_more"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
@@ -263,7 +272,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <ImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:background="@drawable/rate_us_more"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
@@ -323,7 +332,7 @@
                                 android:layout_marginStart="@dimen/_15sdp"
                                 android:textColor="@color/black_200"
                                 />
-                            <ImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/eagle"

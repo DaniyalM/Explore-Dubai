@@ -37,7 +37,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/detailImageView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -52,7 +52,7 @@
                 </FrameLayout>
 
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bg_border_upper"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -62,7 +62,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <!--                <ImageView-->
+                <!--                <androidx.appcompat.widget.AppCompatImageView-->
                 <!--                    android:id="@+id/imageView3"-->
                 <!--                    android:layout_width="match_parent"-->
                 <!--                    android:layout_height="wrap_content"-->
@@ -316,7 +316,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/back"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
@@ -328,7 +328,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/bookingCalender"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
@@ -358,7 +358,7 @@
                         app:layout_constraintTop_toTopOf="@+id/bookingCalender"
                         app:layout_constraintVertical_bias="1.0" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/share"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"

@@ -9,7 +9,7 @@
         android:background="@color/purple_900"
         tools:context=".ui.preLogin.password.CreatePassFragment">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_close"
             android:visibility="gone"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -49,7 +49,7 @@
             app:lottie_speed="1" />
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:visibility="gone"
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="@+id/reg_successful"
             app:layout_constraintStart_toStartOf="@+id/reg_successful" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:visibility="gone"
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_17sdp"

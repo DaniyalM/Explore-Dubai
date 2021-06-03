@@ -27,6 +27,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     private val moreViewModel: MoreViewModel by viewModels()
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
+
+
     override fun getFragmentBinding(
             inflater: LayoutInflater,
             container: ViewGroup?
@@ -35,6 +37,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(moreViewModel)
+
         binding.llRateUs.setOnClickListener(this)
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
@@ -45,16 +48,21 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 binding.root.toolbar_title,
                 resources.getString(R.string.more)
         )
-        rvSetUp()
-        cardViewRTL()
+
+
         if (application.auth.isGuest) {
             binding.materialCardView2.visibility = View.GONE
-            binding.materialCardView4.visibility = View.GONE
-            binding.account.visibility=View.GONE
+        } else {
+
+            binding.user = application.auth.user
+            binding.materialCardView2.setOnClickListener {
+                navigate(R.id.action_moreFragment_to_profileFragment)
+            }
+
         }
-        binding.materialCardView2.setOnClickListener {
-            navigate(R.id.action_moreFragment_to_profileFragment)
-        }
+
+        rvSetUp()
+        cardViewRTL()
     }
 
     private fun cardViewRTL() {

@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.app.dubaiculture.BuildConfig
-import com.app.dubaiculture.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -14,23 +13,31 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.card.MaterialCardView
 import com.rishabhharit.roundedimageview.RoundedImageView
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 fun View.glideInstance(url: String?, isSvg: Boolean = false): RequestBuilder<Drawable> {
-    val urlConcat = BuildConfig.BASE_URL + url
+    var urlConcat = BuildConfig.BASE_URL + url
 //    val urlConcat="http://dc.wewanttraffic.me/api/" + url
+
     val glide = Glide.with(this.context)
     return if (!isSvg) {
+        if (urlConcat.contains("Uploads")){
+          urlConcat=  urlConcat.replace("/api/~","")
+        }
+
         glide.setDefaultRequestOptions(
-            RequestOptions()
+                RequestOptions()
 //                .placeholder(R.drawable.logo)
 //                .error(android.R.drawable.stat_notify_error)
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                        .diskCacheStrategy(DiskCacheStrategy.DATA)
         ).load(urlConcat).transition(DrawableTransitionOptions.withCrossFade())
+
+
     } else {
         glide
-            .load(urlConcat)
-            .transition(DrawableTransitionOptions.withCrossFade())
+                .load(urlConcat)
+                .transition(DrawableTransitionOptions.withCrossFade())
     }
 }
 
@@ -52,6 +59,7 @@ fun ImageView.loadImageView(url: String?) {
 
     }
 }
+
 
 @BindingAdapter("android:cardParsedColor")
 fun MaterialCardView.backColor(color: String?) {

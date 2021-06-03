@@ -17,7 +17,7 @@
             app:lottie_rawRes="@raw/green_animation_login"
             app:lottie_repeatCount="0" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_close"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
@@ -67,7 +67,7 @@
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_12ssp" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="@dimen/_7sdp"
                 android:layout_height="@dimen/_12sdp"
                 android:background="@drawable/forward_arrow" />
@@ -149,7 +149,7 @@
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_12ssp" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="@dimen/_7sdp"
                 android:layout_height="@dimen/_12sdp"
                 android:background="@drawable/forward_arrow" />

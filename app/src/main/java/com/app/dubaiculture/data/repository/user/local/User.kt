@@ -12,6 +12,7 @@ data class User(
     var phoneNumber: String,
     var userName: String,
     var userImage: String,
+    var userImageUri: String?=null,
     var token: String,
     var expireIn: Int?,
     var refreshToken: String,

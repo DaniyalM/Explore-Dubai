@@ -19,7 +19,7 @@
         tools:context=".ui.postLogin.attractions.detail.login.PostLoginFragment">
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/gray_line"
             android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/gray_line"
@@ -80,7 +80,7 @@
             app:layout_constraintTop_toBottomOf="@+id/mob_num"
             tools:src="@drawable/bg_edit_resiger" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@{viewmodel.isPhoneEdit || viewmodel.isEmailEdit ?  null : @drawable/error }"
@@ -132,7 +132,7 @@
             app:layout_constraintTop_toBottomOf="@+id/pass_text"
             tools:src="@drawable/bg_edit_resiger" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@{viewmodel.isPassword ? null : @drawable/error }"
@@ -178,7 +178,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_forgot_pass" />
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_uae_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

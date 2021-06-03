@@ -73,7 +73,7 @@
                     android:textColor="@color/black_200"
                     android:layout_gravity="center_vertical"
                     />
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imgToggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

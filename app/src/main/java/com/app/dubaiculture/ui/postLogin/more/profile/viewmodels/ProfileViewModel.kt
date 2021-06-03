@@ -7,31 +7,37 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.profile.ProfileRepository
+import com.app.dubaiculture.data.repository.settings.local.UserSettings
 import com.app.dubaiculture.data.repository.user.UserRepository
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.event.Event
+import com.estimote.coresdk.cloud.model.User
 import kotlinx.coroutines.launch
 
 class ProfileViewModel @ViewModelInject constructor(
         application: Application,
         private val profileRepository: ProfileRepository,
         private val userRepository: UserRepository,
-        ) :
+) :
         BaseViewModel(application) {
+    private val _userSetting:MutableLiveData<Event<UserSettings>> = MutableLiveData()
+    val userSettings:LiveData<Event<UserSettings>> = _userSetting
 
 
-
-
-    fun uploadProfile(uri: String) {
+    fun uploadProfile(uri: String, application: ApplicationEntry) {
         viewModelScope.launch {
             showLoader(true)
             val result = profileRepository.uploadProfilePicture(uri)
             if (result is Result.Success) {
-                val url = result.value.value
+                var url = result.value.result.userImage
                 val info = userRepository.getLastUser()
                 info?.apply {
+
                     userImage = url
+                    userImageUri = uri
                     userRepository.updateUser(this)
+                    application.auth.user = this
                 }
             } else if (result is Result.Failure) {
                 showToast(result.errorMessage!!)
@@ -41,7 +47,20 @@ class ProfileViewModel @ViewModelInject constructor(
     }
 
 
+    fun getSettings(){
+        viewModelScope.launch {
+            showLoader(true)
+            val result = profileRepository.getSettings()
+            when(result){
+                is Result.Success -> {
+                    _userSetting.value=result.value
+                }
+                is Result.Error -> result.exception
+                is Result.Failure -> result.isNetWorkError
+            }
+        }
 
+    }
 
 
 }
