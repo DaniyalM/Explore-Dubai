@@ -31,6 +31,9 @@ data class Events(
     var dateFrom: String = "",
     var registrationDate : String = "",
 
+
+    var isSurveySubmitted : Boolean = false,
+
     var distance: Double = 0.0,
     var currentLat: Double = 0.0,
     var currentLng: Double = 0.0,

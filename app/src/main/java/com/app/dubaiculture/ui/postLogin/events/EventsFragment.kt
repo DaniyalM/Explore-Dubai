@@ -96,8 +96,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         container: ViewGroup?,
     ) = FragmentEventsBinding.inflate(inflater, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(eventViewModel)
         locationPermission()
         cardViewRTL()
@@ -123,6 +123,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             enableLocationFromSettings(requireActivity())
         }
     }
+
 
     private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
         .observe(viewLifecycleOwner, gpsObserver)

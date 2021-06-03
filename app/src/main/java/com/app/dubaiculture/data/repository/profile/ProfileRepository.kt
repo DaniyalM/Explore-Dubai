@@ -7,6 +7,7 @@ import com.app.dubaiculture.data.repository.profile.local.ProfileLDS
 import com.app.dubaiculture.data.repository.profile.remote.response.UploadProfileResponse
 import com.app.dubaiculture.data.repository.profile.utils.MultipartFormHelpers.getMultiPartData
 import com.app.dubaiculture.data.repository.settings.local.UserSettings
+import com.app.dubaiculture.data.repository.settings.mapper.transformUserSettingRequest
 import com.app.dubaiculture.data.repository.settings.mapper.transformUserSettings
 import com.app.dubaiculture.data.repository.settings.remote.response.UserSettingResponse
 import com.app.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
@@ -48,6 +49,20 @@ class ProfileRepository @Inject constructor(
         is Result.Error -> resultRds
         is Result.Failure -> resultRds
     }
+
+
+    suspend fun updateSettings(userSettings: UserSettings)=
+        when(val resultRDS=profileRDS.updateSettings(transformUserSettingRequest(userSettings))){
+            is Result.Success -> {
+                if(resultRDS.value.succeeded){
+                    Result.Success(Event(resultRDS.value.result.message))
+                }else{
+                    Result.Failure(false,null,null,resultRDS.value.errorMessage)
+                }
+            }
+            is Result.Error -> resultRDS
+            is Result.Failure -> resultRDS
+        }
 
 
 

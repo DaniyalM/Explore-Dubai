@@ -12,17 +12,16 @@ import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.event.Event
-import com.estimote.coresdk.cloud.model.User
 import kotlinx.coroutines.launch
 
 class ProfileViewModel @ViewModelInject constructor(
-        application: Application,
-        private val profileRepository: ProfileRepository,
-        private val userRepository: UserRepository,
+    application: Application,
+    private val profileRepository: ProfileRepository,
+    private val userRepository: UserRepository,
 ) :
-        BaseViewModel(application) {
-    private val _userSetting:MutableLiveData<Event<UserSettings>> = MutableLiveData()
-    val userSettings:LiveData<Event<UserSettings>> = _userSetting
+    BaseViewModel(application) {
+    private val _userSetting: MutableLiveData<Event<UserSettings>> = MutableLiveData()
+    val userSettings: LiveData<Event<UserSettings>> = _userSetting
 
 
     fun uploadProfile(uri: String, application: ApplicationEntry) {
@@ -47,13 +46,33 @@ class ProfileViewModel @ViewModelInject constructor(
     }
 
 
-    fun getSettings(){
+    fun getSettings() {
         viewModelScope.launch {
             showLoader(true)
             val result = profileRepository.getSettings()
-            when(result){
+            when (result) {
                 is Result.Success -> {
-                    _userSetting.value=result.value
+                    _userSetting.value = result.value
+                    showLoader(false)
+                }
+                is Result.Error -> result.exception
+                is Result.Failure -> result.isNetWorkError
+            }
+        }
+
+    }
+
+    fun updateSettings(settings: UserSettings,isRefresh:Boolean=false) {
+        viewModelScope.launch {
+            showLoader(true)
+            val result = profileRepository.updateSettings(userSettings = settings)
+            when (result) {
+                is Result.Success -> {
+                    showToast(result.message)
+                    showLoader(false)
+                    if(isRefresh){
+                        getSettings()
+                    }
                 }
                 is Result.Error -> result.exception
                 is Result.Failure -> result.isNetWorkError

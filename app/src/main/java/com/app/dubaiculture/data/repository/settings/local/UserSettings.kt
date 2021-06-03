@@ -1,9 +1,13 @@
 package com.app.dubaiculture.data.repository.settings.local
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class UserSettings(
-        val turnOnLocation:Boolean=false,
-        val pushNotification:Boolean=false,
-        val locationBasedNotifications:Boolean=false,
-        val email:Boolean=false,
-        val sms:Boolean=false
-)
+        var turnOnLocation:Boolean=false,
+        var pushNotification:Boolean=false,
+        var locationBasedNotifications:Boolean=false,
+        var email:Boolean=false,
+        var sms:Boolean=false
+):Parcelable

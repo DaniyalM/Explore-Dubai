@@ -11,7 +11,6 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.acos
 import kotlin.math.cos
@@ -24,8 +23,7 @@ open class LocationHelper @Inject constructor(
 ) {
 
 
-
-    fun newLocationData(activity: Context,locationCallback: LocationCallback) {
+    fun newLocationData(activity: Context, locationCallback: LocationCallback) {
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 0
         locationRequest.fastestInterval = 0
@@ -50,7 +48,7 @@ open class LocationHelper @Inject constructor(
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
             val location: Location? = task.result
             if (location == null) {
-                newLocationData(activity,locationCallback)
+                newLocationData(activity, locationCallback)
 //                object : LocationCallback() {
 //                    override fun onLocationResult(p0: LocationResult?) {
 //                        super.onLocationResult(p0)
@@ -72,7 +70,6 @@ open class LocationHelper @Inject constructor(
     interface LocationCallBack {
         fun getLocationResultCallback(locationResult: LocationResult?)
     }
-
 
 
     //     24.877287306864435, 67.06273232147993
@@ -99,14 +96,15 @@ open class LocationHelper @Inject constructor(
     }
 
 
-//    open fun milesToKm(dist : Double): Double{
+    //    open fun milesToKm(dist : Double): Double{
 //        val km = dist / 0.62137
 //        return String.format("%.1f", km).toDouble()
 //    }
-open fun milesToKm(dis: Double):Double{
-    val km = dis / 0.62137
-    return Math.round(km * 10).toDouble() / 10
-}
+    open fun milesToKm(dis: Double): Double {
+        val km = dis / 0.62137
+        return Math.round(km * 10).toDouble() / 10
+    }
+
     fun isLocationEnabled(locationManager: LocationManager): Boolean {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER

@@ -11,3 +11,11 @@ fun transformUserSettings(userSettingsDTO: UserSettingsDTO)= UserSettings(
         sms = userSettingsDTO.SMS
 
 )
+
+fun transformUserSettingRequest(userSettings: UserSettings)=UserSettingsDTO(
+        TurnOnLocation = userSettings.turnOnLocation,
+        PushNotification = userSettings.pushNotification,
+        LocationBasedNotifications = userSettings.locationBasedNotifications,
+        Email = userSettings.email,
+        SMS = userSettings.sms
+)
