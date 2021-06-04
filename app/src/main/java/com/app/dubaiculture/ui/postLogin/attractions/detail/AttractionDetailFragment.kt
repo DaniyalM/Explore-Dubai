@@ -144,8 +144,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     }
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
     ) = FragmentAttractionDetailBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -188,7 +188,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         if (this::marker.isInitialized) {
             marker.let {
                 it.position = LatLng(
-                    attraction.latitude?.toDouble() ?: lat?.toDouble()!!, attraction.longitude?.toDouble() ?: long?.toDouble()!!
+                        attraction.latitude?.toDouble()
+                                ?: lat?.toDouble()!!, attraction.longitude?.toDouble()
+                        ?: long?.toDouble()!!
                 )
             }
         }
@@ -204,7 +206,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             attraction.let {
                 tvReviews.text = "${resources.getString(R.string.reviews)} ${it.title} ${
                     resources.getString(
-                        R.string.on_trip
+                            R.string.on_trip
                     )
                 }"
                 if (TextUtils.isEmpty(it.startDay) || TextUtils.isEmpty(it.endDay)) {
@@ -225,9 +227,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 if (!TextUtils.isEmpty(latitude) && !TextUtils.isEmpty(latitude)) {
                     try{
                         val distance = locationHelper.distance(
-                            lat!!.toDouble(), long!!.toDouble(),
-                            latitude!!.toDouble(),
-                            longitude!!.toDouble()
+                                lat!!.toDouble(), long!!.toDouble(),
+                                latitude!!.toDouble(),
+                                longitude!!.toDouble()
                         )
                         tv_km.text = "$distance Km Away"
                     }catch (e: java.lang.NumberFormatException){
@@ -246,40 +248,40 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     events?.let { events ->
                         events.forEach {
                             add(
-                                EventListItem<AttractionDetailUpComingItemsBinding>(
-                                    object : FavouriteChecker {
-                                        override fun checkFavListener(
-                                            checkbox: CheckBox,
-                                            pos: Int,
-                                            isFav: Boolean,
-                                            itemId: String,
-                                        ) {
-                                            favouriteClick(
-                                                checkbox,
-                                                isFav,
-                                                R.id.action_attractionsFragment_to_postLoginFragment,
-                                                itemId, attractionDetailViewModel,
-                                                2
-                                            )
-                                        }
-
-                                    },
-                                    object : RowClickListener {
-                                        override fun rowClickListener(position: Int) {
-                                            navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
-                                                Bundle().apply {
-                                                    putParcelable(
-                                                        Constants.NavBundles.EVENT_OBJECT,
-                                                        it
+                                    EventListItem<AttractionDetailUpComingItemsBinding>(
+                                            object : FavouriteChecker {
+                                                override fun checkFavListener(
+                                                        checkbox: CheckBox,
+                                                        pos: Int,
+                                                        isFav: Boolean,
+                                                        itemId: String,
+                                                ) {
+                                                    favouriteClick(
+                                                            checkbox,
+                                                            isFav,
+                                                            R.id.action_attractionsFragment_to_postLoginFragment,
+                                                            itemId, attractionDetailViewModel,
+                                                            2
                                                     )
-                                                })
-                                        }
+                                                }
 
-                                    },
-                                    event = it,
-                                    resLayout = R.layout.attraction_detail_up_coming_items,
-                                    activity
-                                )
+                                            },
+                                            object : RowClickListener {
+                                                override fun rowClickListener(position: Int) {
+                                                    navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
+                                                            Bundle().apply {
+                                                                putParcelable(
+                                                                        Constants.NavBundles.EVENT_OBJECT,
+                                                                        it
+                                                                )
+                                                            })
+                                                }
+
+                                            },
+                                            event = it,
+                                            resLayout = R.layout.attraction_detail_up_coming_items,
+                                            activity
+                                    )
                             )
                         }
                     }
@@ -292,8 +294,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun callingObservables() {
         attractionsObj.let {
             attractionDetailViewModel.getAttractionDetailsToScreen(
-                attractionId = it.id,
-                getCurrentLanguage().language
+                    attractionId = it.id,
+                    getCurrentLanguage().language
             )
         }
     }
@@ -306,9 +308,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
-                                getDrawableFromId(R.drawable.heart_icon_fav)
+                                    getDrawableFromId(R.drawable.heart_icon_fav)
                             binding.root.favourite.background =
-                                getDrawableFromId(R.drawable.heart_icon_fav)
+                                    getDrawableFromId(R.drawable.heart_icon_fav)
                             isDetailFavouriteFlag = false
 
                         }
@@ -320,9 +322,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
-                                getDrawableFromId(R.drawable.heart_icon_home_black)
+                                    getDrawableFromId(R.drawable.heart_icon_home_black)
                             binding.root.favourite.background =
-                                getDrawableFromId(R.drawable.heart_icon_home_black)
+                                    getDrawableFromId(R.drawable.heart_icon_home_black)
                             isDetailFavouriteFlag = false
                         }
                     }
@@ -338,23 +340,24 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
                     attractionsObj = it.value
-                    if(it.value.gallery.isNullOrEmpty()){
+                    if (it.value.gallery.isNullOrEmpty()) {
                         binding.root.downOneGallery.alpha = 0.4f
                         binding.root.downOneGallery.isClickable = false
                         binding.root.ll_img.isClickable = false
                         binding.root.ll_img.isClickable = false
                     }
-                    if(it.value.asset360?.imageItems.isNullOrEmpty()){
+                    if (it.value.asset360?.imageItems.isNullOrEmpty()) {
                         binding.root.ll_360.alpha = 0.4f
                         binding.root.downOne360.alpha = 0.4f
                         binding.root.ll_360.isClickable = false
                         binding.root.downOne360.isClickable = false
                     }
 
-                    if(numberContact.isNullOrEmpty()){
+                    if (numberContact.isNullOrEmpty()) {
                         binding.root.ll_call_us.alpha = 0.4f
-                        binding.root.ll_call_us.isClickable = false}
-                    if(emailContact.isNullOrEmpty()){
+                        binding.root.ll_call_us.isClickable = false
+                    }
+                    if (emailContact.isNullOrEmpty()) {
                         binding.root.ll_emailus.alpha = 0.4f
                         binding.root.ll_emailus.isClickable = false}
                     binding.root.tv_desc_readmore.text = "${it.value.summary} ${""} ${it.value.description}"
@@ -407,12 +410,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 isDetailFavouriteFlag = true
                 attractionsObj.let { attraction ->
                     favouriteClick(
-                        it.favourite,
-                        attraction.IsFavourite,
-                        R.id.action_attractionDetailFragment_to_postLoginFragment,
-                        attraction.id,
-                        attractionDetailViewModel,
-                        1
+                            it.favourite,
+                            attraction.IsFavourite,
+                            R.id.action_attractionDetailFragment_to_postLoginFragment,
+                            attraction.id,
+                            attractionDetailViewModel,
+                            1
                     )
                 }
 
@@ -426,12 +429,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                 attractionsObj.let { attraction ->
                     favouriteClick(
-                        it.favourite,
-                        attraction.IsFavourite,
-                        R.id.action_attractionDetailFragment_to_postLoginFragment,
-                        attraction.id,
-                        attractionDetailViewModel,
-                        1
+                            it.favourite,
+                            attraction.IsFavourite,
+                            R.id.action_attractionDetailFragment_to_postLoginFragment,
+                            attraction.id,
+                            attractionDetailViewModel,
+                            1
                     )
                 }
             }
@@ -481,36 +484,36 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
-            handleRationale = false
+                handleRationale = false
         )
         activity.runWithPermissions(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            options = quickPermissionsOption
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                options = quickPermissionsOption
         ) {
             locationHelper.locationSetUp(
-                object : LocationHelper.LocationLatLng {
-                    override fun getCurrentLocation(location: Location) {
-                        Timber.e("Current Location ${location.latitude}")
-                        lat = location.latitude.toString()
-                        long = location.longitude.toString()
+                    object : LocationHelper.LocationLatLng {
+                        override fun getCurrentLocation(location: Location) {
+                            Timber.e("Current Location ${location.latitude}")
+                            lat = location.latitude.toString()
+                            long = location.longitude.toString()
 
-                        if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
-                                attractionsObj.latitude
-                            )
-                        ) {
-                            val distance =
-                                locationHelper.distance(
-                                    lat!!.toDouble(), long!!.toDouble(),
-                                    attractionsObj.latitude?.toDouble()!!,
-                                    attractionsObj.longitude?.toDouble()!!
-                                )
-                            binding.root.tv_km.text = "$distance Km Away"
+                            if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
+                                            attractionsObj.latitude
+                                    )
+                            ) {
+                                val distance =
+                                        locationHelper.distance(
+                                                lat!!.toDouble(), long!!.toDouble(),
+                                                attractionsObj.latitude?.toDouble()!!,
+                                                attractionsObj.longitude?.toDouble()!!
+                                        )
+                                binding.root.tv_km.text = "$distance Km Away"
+                            }
+
                         }
-
-                    }
-                },
-                activity, locationCallback = locationCallback
+                    },
+                    activity, locationCallback = locationCallback
             )
         }
     }
@@ -520,23 +523,23 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
             if (!attractionsObj.latitude.isNullOrEmpty() && !attractionsObj.longitude.isNullOrEmpty()) {
                 val attractionLatLng = LatLng(
-                    attractionsObj.latitude?.toDouble()!!,
-                    attractionsObj.longitude?.toDouble()!!
+                        attractionsObj.latitude?.toDouble()!!,
+                        attractionsObj.longitude?.toDouble()!!
                 )
 
 
                 map?.addMarker(
-                    MarkerOptions()
-                        .position(attractionLatLng)
-                        .title(
-                            attractionsObj.title
-                        )
-                        .icon(fromResource(R.drawable.pin_location))
+                        MarkerOptions()
+                                .position(attractionLatLng)
+                                .title(
+                                        attractionsObj.title
+                                )
+                                .icon(fromResource(R.drawable.pin_location))
                 )
                 map?.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        attractionLatLng, 14.0f
-                    )
+                        CameraUpdateFactory.newLatLngZoom(
+                                attractionLatLng, 14.0f
+                        )
                 )
                 map?.cameraPosition?.target
 
@@ -563,20 +566,20 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.constLayoutSiteMap -> {
                 val bundle = Bundle()
                 bundle.putParcelable(
-                    Constants.NavBundles.SITE_MAP_OBJ,
-                    attractionsObj.siteMap
+                        Constants.NavBundles.SITE_MAP_OBJ,
+                        attractionsObj.siteMap
                 )
                 navigate(R.id.action_attractionDetailFragment_to_siteMapFragment, bundle)
 //                navigateByDirections(AttractionDetailFragmentDirections.actionAttractionDetailFragmentToSiteMapFragment(attractionsObj.siteMap))
             }
             R.id.constLayoutIbecon -> {
-                if(SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(requireContext())) {
+                if (SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(requireContext())) {
                     val bundle = bundleOf(ATTRACTION_ID to attractionsObj.id)
                     navigate(R.id.action_attractionDetailFragment_to_ibeconFragment, bundle)
-                }else if(!SystemRequirementsHelper.isBluetoothEnabled(requireContext())){
+                } else if (!SystemRequirementsHelper.isBluetoothEnabled(requireContext())) {
                     val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                     startActivityForResult(enableBtIntent, 1)
-                }else{
+                } else {
                     SystemRequirementsChecker.checkWithDefaultDialogs(requireActivity())
                 }
 
@@ -585,36 +588,36 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.img_attraction_speaker -> {
                 if (binding.root.tv_desc_readmore.text.isNotEmpty()) {
                     textToSpeechEngine.speak(
-                        binding.root.tv_desc_readmore.text,
-                        TextToSpeech.QUEUE_FLUSH,
-                        null,
-                        "tts1"
+                            binding.root.tv_desc_readmore.text,
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            "tts1"
                     )
                 }
             }
             R.id.ll_ar -> {
                 activity.runWithPermissions(
-                    Manifest.permission.CAMERA,
+                        Manifest.permission.CAMERA,
                 ) {
                     navigate(R.id.action_attractionDetailFragment_to_ARFragment)
                 }
             }
             R.id.ll_360 -> {
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment,
-                    Bundle().apply {
-                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj)
-                    })
+                        Bundle().apply {
+                            putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj)
+                        })
             }
             R.id.ll_img -> {
                 navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
-                    Bundle().apply {
-                        attractionsObj.gallery?.let {
-                            putParcelableArrayList(
-                                ATTRACTION_GALLERY_LIST,
-                                it as ArrayList<out Parcelable>
-                            )
-                        }
-                    })
+                        Bundle().apply {
+                            attractionsObj.gallery?.let {
+                                putParcelableArrayList(
+                                        ATTRACTION_GALLERY_LIST,
+                                        it as ArrayList<out Parcelable>
+                                )
+                            }
+                        })
             }
             R.id.back -> {
                 back()
@@ -627,7 +630,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
             R.id.downOneAR -> {
                 activity.runWithPermissions(
-                    Manifest.permission.CAMERA,
+                        Manifest.permission.CAMERA,
                 ) {
                     navigate(R.id.action_attractionDetailFragment_to_ARFragment)
                 }
@@ -635,28 +638,28 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
             R.id.downOne360 -> {
                 navigate(R.id.action_attractionDetailFragment_to_threeSixtyFragment,
-                    Bundle().apply {
-                        putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj)
-                    })
+                        Bundle().apply {
+                            putParcelable(THREESIXTY_GALLERY_LIST, attractionsObj)
+                        })
             }
             R.id.downOneGallery -> {
                 navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
-                    Bundle().apply {
-                        attractionsObj.gallery?.let {
-                            putParcelableArrayList(
-                                ATTRACTION_GALLERY_LIST,
-                                it as ArrayList<out Parcelable>
-                            )
-                        }
-                    })
+                        Bundle().apply {
+                            attractionsObj.gallery?.let {
+                                putParcelableArrayList(
+                                        ATTRACTION_GALLERY_LIST,
+                                        it as ArrayList<out Parcelable>
+                                )
+                            }
+                        })
             }
             R.id.ll_call_us -> {
-                if(!numberContact.isNullOrEmpty()){
+                if (!numberContact.isNullOrEmpty()) {
                     openDiallerBox(numberContact)
                 }
             }
             R.id.ll_emailus -> {
-                if(!emailContact.toString().isNullOrEmpty()){
+                if (!emailContact.toString().isNullOrEmpty()) {
                     openEmailbox(emailContact.toString())
                 }
             }
@@ -698,18 +701,18 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun locationIsEmpty(location: Location) {
         try {
             if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
-                    attractionsObj.latitude
-                )
+                            attractionsObj.latitude
+                    )
             ) {
                 val distance =
                     locationHelper.distance(
-                        location.latitude, location.longitude,
-                        attractionsObj.latitude!!.toDouble(),
-                        attractionsObj.longitude!!.toDouble()
+                            location.latitude, location.longitude,
+                            attractionsObj.latitude!!.toDouble(),
+                            attractionsObj.longitude!!.toDouble()
                     )
                 binding.root.tv_km.text = "$distance Km Away"
             }
-        }catch (e:java.lang.NumberFormatException)
+        }catch (e: java.lang.NumberFormatException)
         { }
 
     }

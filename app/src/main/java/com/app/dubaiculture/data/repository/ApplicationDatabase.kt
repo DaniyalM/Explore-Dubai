@@ -11,7 +11,7 @@ import com.app.dubaiculture.data.repository.user.local.UserDao
 import com.app.dubaiculture.data.repository.user.local.guest.Guest
 import com.app.dubaiculture.data.repository.user.local.guest.GuestDao
 
-@Database(entities = [Photo::class, User::class, Guest::class,Profile::class], version = 2)
+@Database(entities = [Photo::class, User::class, Guest::class,Profile::class], version = 3)
 abstract class ApplicationDatabase : RoomDatabase() {
 
     abstract fun photoDao(): PhotoDao
