@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_close"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
@@ -88,7 +88,7 @@
             android:text="@{viewmodel.email}"
             app:layout_constraintTop_toBottomOf="@+id/email_address" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"

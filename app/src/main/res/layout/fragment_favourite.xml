@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.postLogin.feeds.FeedsFragment">
+
+    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/toolbar_snippet" />
+
+            <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.app.dubaiculture.ui.postLogin.more.profile.favourite.components.FavouriteHeaderItemSelector
+                        android:id="@+id/horizontalSelector"
+                        style="@style/HorizontalAttractionStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:orientation="vertical">
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvListing"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/_100sdp"
+                            android:indeterminate="true"
+                            android:indeterminateTint="@color/colorPrimaryDark"
+                            android:indeterminateTintMode="src_atop" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+
+        </LinearLayout>
+
+
+    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
+</layout>

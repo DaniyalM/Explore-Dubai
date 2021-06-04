@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         tools:context=".ui.postLogin.nearyou.NearYouFragment">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/gray_line"
             android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/gray_line"

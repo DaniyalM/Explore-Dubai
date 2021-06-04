@@ -13,6 +13,7 @@ import com.app.dubaiculture.data.repository.attraction.remote.request.Attraction
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
+import com.app.dubaiculture.utils.event.Event
 
 class AttractionViewModel @ViewModelInject constructor(
     application: Application,
@@ -24,6 +25,8 @@ class AttractionViewModel @ViewModelInject constructor(
     val attractionCategoryList: LiveData<Result<List<AttractionCategory>>> = _attractionCategoryList
     private val _attractionList: MutableLiveData<Result<List<Attractions>>> = MutableLiveData()
     val attractionList: LiveData<Result<List<Attractions>>> = _attractionList
+    private val _visitedAttractionList: MutableLiveData<Event<List<Attractions>>> = MutableLiveData()
+    val visitedAttractionList: LiveData<Event<List<Attractions>>> = _visitedAttractionList
 
     private val _attractionDetail: MutableLiveData<Result<Attractions>> = MutableLiveData()
     val attractionDetail: LiveData<Result<Attractions>> = _attractionDetail
@@ -49,7 +52,7 @@ class AttractionViewModel @ViewModelInject constructor(
     }
 
     fun getAttractionThroughCategory(
-        categoryId: String,
+        categoryId: String?,
         pageNum: Int,
         pageSize: Int,
         locale: String,
@@ -72,6 +75,24 @@ class AttractionViewModel @ViewModelInject constructor(
                 }
 
 
+            }
+        }
+    }
+
+    fun getVisitedAttractions(
+        locale: String,
+    ) {
+        showLoader(true)
+        viewModelScope.launch {
+            when (val result = attractionRepository.getVisitedPlaces(
+//                AttractionRequest(culture = locale)
+            )) {
+                is Result.Success -> {
+                    showLoader(false)
+                    _visitedAttractionList.value = result.value
+                }
+                is Result.Failure ->result
+                is Result.Error ->result
             }
         }
     }

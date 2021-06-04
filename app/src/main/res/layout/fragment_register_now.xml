@@ -79,7 +79,7 @@
             app:layout_constraintStart_toEndOf="@+id/full_name"
             app:layout_constraintTop_toTopOf="@+id/full_name" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
             app:layout_constraintStart_toEndOf="@+id/full_name"
             app:layout_constraintTop_toTopOf="@+id/occupation" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
@@ -181,7 +181,7 @@
             app:layout_constraintStart_toEndOf="@+id/edit_time"
             app:layout_constraintTop_toTopOf="@+id/time" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
@@ -233,7 +233,7 @@
             app:layout_constraintStart_toEndOf="@+id/tv_upload"
             app:layout_constraintTop_toTopOf="@+id/upload" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"

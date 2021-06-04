@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="user"
+            type="com.app.dubaiculture.data.repository.user.local.User" />
+    </data>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,12 +30,13 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/green_animation_login"
                 app:lottie_repeatCount="0" />
-
+<!--            -->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profileImage"
                 android:layout_width="@dimen/_102sdp"
                 android:layout_height="@dimen/_102sdp"
                 android:layout_marginTop="8dp"
+                android:imageViewUrl="@{user.userImage}"
                 android:src="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/header"
@@ -62,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:text="Abdullah Bin Suleman"
+                android:text="@{user.userName}"
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"
@@ -86,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="abdullahsuleman@gmail.com"
+                android:text="@{user.email}"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toEndOf="@+id/view3"
                 app:layout_constraintStart_toStartOf="@+id/view3"
@@ -98,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="+971 3213 6578"
+                android:text="@{user.phoneNumber}"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toEndOf="@+id/email_address"
                 app:layout_constraintStart_toStartOf="@+id/email_address"
@@ -150,6 +156,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+                        android:id="@+id/favouriteContainer"
                         android:layout_height="@dimen/_40sdp">
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -382,6 +389,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+                        android:id="@+id/changePasswordView"
                         android:layout_height="@dimen/_40sdp">
 
                         <androidx.appcompat.widget.AppCompatImageView

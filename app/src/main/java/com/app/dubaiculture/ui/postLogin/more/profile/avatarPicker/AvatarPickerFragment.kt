@@ -25,14 +25,13 @@ class AvatarPickerFragment : BaseBottomSheetFragment<FragmentImagePickerBinding>
         subscribeUiEvents(profileViewModel)
         binding.apply {
             cameraPickerContainer.setOnClickListener {
-
-                bus.post(ImagePickerService.cameraClick(true))
-//                profileViewModel.showToast("Triggered")
-//                profileViewModel.triggerImageSelection(true)
+                bus.post(ImagePickerService.CameraClick)
+                dismiss()
             }
 
             galleryPickerContainer.setOnClickListener {
-                bus.post(ImagePickerService.galleryClick(true))
+                bus.post(ImagePickerService.GalleryClick)
+                dismiss()
             }
         }
     }

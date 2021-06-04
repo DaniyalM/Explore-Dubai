@@ -9,31 +9,29 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.cardview
 import kotlinx.android.synthetic.main.attraction_title_list_item.view.tv_title
 import kotlinx.android.synthetic.main.event_items_header.view.*
 
-class EventHeaderItems <T>(
-    val displayValue: String,
-    val data: T,
-    var isSelected: Boolean = false,
-    private val selectedTextColor: Int? = null,
-    private val unSelectedTextColor: Int? = null,
-    private val selectedBackground: Drawable? = null,
-    private val unSelectedBackground: Drawable? = null,
-    private val progressListener: AttractionHeaderClick? = null,
+class EventHeaderItems<T>(
+        val displayValue: String,
+        val data: T,
+        var isSelected: Boolean = false,
+        private val selectedTextColor: Int? = null,
+        private val unSelectedTextColor: Int? = null,
+        private val selectedBackground: Drawable? = null,
+        private val unSelectedBackground: Drawable? = null,
+        private val progressListener: AttractionHeaderClick? = null,
 
-    ) : BaseAdapter(R.layout.event_items_header) {
+        ) : BaseAdapter(R.layout.event_items_header) {
 
 
     private lateinit var view: View
 
     override fun initBinding(viewHolder: GroupieViewHolder, position: Int) {
-        view=viewHolder.root
+        view = viewHolder.root
         viewHolder.apply {
 
             root?.let { it ->
@@ -41,14 +39,14 @@ class EventHeaderItems <T>(
 //                    .duration(1000)
 //                    .playOn(it)
                 it.tv_title.text = displayValue
-                isSelected = clickCheckerFlag ==position
-                renderSelection(it.tv_title, it.img_bg,it.cardview)
+                isSelected = clickCheckerFlag == position
+                renderSelection(it.tv_title, it.img_bg, it.cardview)
                 it.setOnClickListener {
                     progressListener?.onClick(position)
 
-                    if (clickCheckerFlag ==position){
-                        isSelected=true
-                        renderSelection(it.tv_title, it.img_bg ,it.cardview)
+                    if (clickCheckerFlag == position) {
+                        isSelected = true
+                        renderSelection(it.tv_title, it.img_bg, it.cardview)
                     }
                 }
             }
@@ -57,13 +55,13 @@ class EventHeaderItems <T>(
 
 
     private fun renderSelection(
-        textView: TextView,
-        imageView: ImageView,
-        view: MaterialCardView,
+            textView: TextView,
+            imageView: ImageView,
+            view: MaterialCardView,
     ) {
         if (isSelected) {
             view.setCardBackgroundColor(ContextCompat.getColor(view.context,
-                R.color.purple_900))
+                    R.color.purple_900))
             selectedTextColor?.let { color ->
 
                 textView.setTextColor(color)
@@ -78,7 +76,7 @@ class EventHeaderItems <T>(
 
         } else {
             view.setCardBackgroundColor(ContextCompat.getColor(view.context,
-                R.color.white_900))
+                    R.color.white_900))
             unSelectedTextColor?.let { color ->
 
 

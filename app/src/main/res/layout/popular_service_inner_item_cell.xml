@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_margin="5dp"
         android:layout_height="match_parent">
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginStart="@dimen/_15sdp"

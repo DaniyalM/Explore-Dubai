@@ -2,13 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <include
-                android:id="@+id/header"
-                layout="@layout/layout_back" />
+
+            <include android:id="@+id/headerVisited" layout="@layout/layout_back" />
+
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/customTextView3"
                 android:layout_width="wrap_content"
@@ -23,16 +28,15 @@
                 app:textFont="regular" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/personalRv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
-                android:id="@+id/personalRv"
-                android:layout_marginBottom="@dimen/_70sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/customTextView3" />
         </LinearLayout>
 
-
+    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
 
 </layout>

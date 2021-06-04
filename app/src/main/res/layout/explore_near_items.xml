@@ -89,7 +89,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/view2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" >
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/arrow"
                 android:layout_gravity="center"
                 android:background="@drawable/direction_arrow"

@@ -10,7 +10,7 @@
 
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_close"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
@@ -62,8 +62,9 @@
                 android:textSize="@dimen/_12ssp" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch_loc"
+                android:id="@+id/push_not_switch"
                 android:layout_width="wrap_content"
+                android:theme="@style/Widget.AppCompat.CompoundButton.Switch"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black_200"
                 />
@@ -104,7 +105,7 @@
                 android:textSize="@dimen/_12ssp" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch_loc1"
+                android:id="@+id/location_based_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black_200"
@@ -150,7 +151,7 @@
                 android:textSize="@dimen/_12ssp" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch_loc2"
+                android:id="@+id/email_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black_200"
@@ -196,7 +197,7 @@
                 android:textSize="@dimen/_12ssp" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch_loc3"
+                android:id="@+id/sms_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black_200"

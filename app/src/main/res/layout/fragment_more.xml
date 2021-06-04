@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="user"
+            type="com.app.dubaiculture.data.repository.user.local.User" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootView"
         android:layout_width="match_parent"
@@ -71,14 +76,18 @@
                             android:layout_height="match_parent">
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/img_profile"
+                                android:imageViewUrl="@{user.userImage}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/green_circle"
                                 />
+<!--                          -->
+
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/my_profile"
+
                                 android:textSize="@dimen/_12ssp"
                                 android:textColor="@color/black_200"
                                 android:layout_marginTop="@dimen/_5sdp"
@@ -103,31 +112,32 @@
 
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/materialCardView4"
                         android:layout_width="0dp"
-                        app:cardElevation="@dimen/_12sdp"
+                        android:layout_height="@dimen/_115sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
                         android:outlineSpotShadowColor="@color/gray_600"
                         app:cardCornerRadius="@dimen/_8sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:layout_constraintWidth_percent="0.42"
-                        android:layout_height="@dimen/_115sdp"
-                        app:layout_constraintTop_toBottomOf="@+id/account"
+                        app:cardElevation="@dimen/_12sdp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        >
+                        app:layout_constraintTop_toBottomOf="@+id/account"
+                        app:layout_constraintWidth_percent="0.42">
+
                         <LinearLayout
                             android:id="@+id/ll_notification"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:orientation="vertical"
-                            android:gravity="center_vertical"
-                            android:layout_marginStart="@dimen/_15sdp"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_15sdp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/img_notification"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/orange_circle"
-                                />
+                                android:background="@drawable/orange_circle" />
 
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
@@ -136,18 +146,17 @@
                                 android:text="@string/notifications"
                                 android:textColor="@color/black_200"
                                 android:textSize="@dimen/_12ssp" />
+
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/circle_purple"
-                                android:text="05 new"
                                 android:drawablePadding="@dimen/_5sdp"
-                                android:textSize="@dimen/_9ssp"
+                                android:text="05 new"
                                 android:textColor="@color/gray_500"
-                                />
+                                android:textSize="@dimen/_9ssp" />
 
                         </LinearLayout>
-
 
 
                     </com.google.android.material.card.MaterialCardView>
@@ -157,14 +166,13 @@
                         android:id="@+id/services"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/services"
-                        android:textSize="@dimen/_15ssp"
-                        android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginStart="@dimen/_15sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/services"
                         android:textColor="@color/black_200"
-                        />
+                        android:textSize="@dimen/_15ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialCardView4" />
 
 
                     <com.google.android.material.card.MaterialCardView
@@ -225,7 +233,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <ImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:background="@drawable/logout_more"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
@@ -264,7 +272,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <ImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:background="@drawable/rate_us_more"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
@@ -324,7 +332,7 @@
                                 android:layout_marginStart="@dimen/_15sdp"
                                 android:textColor="@color/black_200"
                                 />
-                            <ImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/eagle"

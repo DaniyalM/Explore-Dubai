@@ -57,7 +57,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     private var attractions = ArrayList<Attractions>()
     private var exploreMapList = ArrayList<ExploreMap>()
     private var eventList = ArrayList<Events>()
-    private var mAdapter: SingleSelectionAdapter? = null
+    private lateinit var mAdapter: SingleSelectionAdapter
     private var category: String = ""
     private var lat: Double? = null
     private var lng: Double? = null
@@ -98,17 +98,18 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
 
     private fun setupRecyclerView() {
         mAdapter = SingleSelectionAdapter(requireContext(),
-            attractionCategoryList,
-            object : SingleSelectionAdapter.InvokeListener {
+                object : SingleSelectionAdapter.InvokeListener {
                 override fun getRowClick(position: Int) {
                     filter(position)
                 }
             })
+
         binding.rvMapHeader.apply {
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = mAdapter
+            mAdapter.attractions=attractionCategoryList
         }
     }
 

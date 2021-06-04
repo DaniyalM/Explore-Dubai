@@ -1,8 +1,10 @@
 package com.app.dubaiculture.data.repository.attraction.remote
 
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionCategoryRequestDTO
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionDetailRequestDTO
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequestDTO
+import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionResponse
 import com.app.dubaiculture.data.repository.attraction.service.AttractionService
 import com.app.dubaiculture.data.repository.base.BaseRDS
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequestDTO
@@ -29,9 +31,16 @@ class AttractionRDS @Inject constructor(private val attractionService: Attractio
 
     suspend fun getAttractionsListingByCategory(attractionRequestDTO: AttractionRequestDTO) =
         safeApiCall {
-            attractionService.getAttractionsListingByCategory(attractionCatId = attractionRequestDTO.attractionCategoryId,
-                pageNumber = attractionRequestDTO.pageNumber,
-                pageSize = attractionRequestDTO.pageSize,
+            attractionService.getAttractionsListingByCategory(attractionCatId = attractionRequestDTO.attractionCategoryId!!,
+                pageNumber = attractionRequestDTO.pageNumber!!,
+                pageSize = attractionRequestDTO.pageSize!!,
                 culture = attractionRequestDTO.culture)
         }
+
+    suspend fun getVisitedPlaces()= safeApiCall {
+        attractionService.getVisitedPlaces(
+//                attractionRequestDTO.culture
+        )
+    }
+
 }

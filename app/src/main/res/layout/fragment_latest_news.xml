@@ -9,7 +9,7 @@
         tools:context=".ui.postLogin.more.news.LatestNewsFragment">
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_close"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"

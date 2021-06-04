@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/profile_navigation"
     app:startDestination="@id/profileFragment">
+    <include app:graph="@navigation/attraction_detail_navigation"/>
+    <include app:graph="@navigation/post_login_bottom_navigation"/>
 
     <fragment
         android:id="@+id/profileFragment"
@@ -17,11 +19,27 @@
         <action
             android:id="@+id/action_profileFragment_to_avatarPickerFragment"
             app:destination="@id/avatarPickerFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_passwordChangeFragment"
+            app:destination="@id/passwordChangeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/placesVisited"
         android:name="com.app.dubaiculture.ui.postLogin.more.profile.placesvisited.PlacesVisitedFragment"
-        android:label="PlacesVisited" />
+        android:label="PlacesVisited" >
+        <action
+            android:id="@+id/action_placesVisited_to_attraction_detail_navigation"
+            app:destination="@id/attraction_detail_navigation" />
+        <action
+            android:id="@+id/action_placesVisited_to_post_login_bottom_navigation"
+            app:destination="@id/post_login_bottom_navigation" />
+    </fragment>
     <fragment
         android:id="@+id/myEventsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.myevents.MyEventsFragment"
@@ -30,4 +48,20 @@
         android:id="@+id/avatarPickerFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.profile.avatarPicker.AvatarPickerFragment"
         android:label="AvatarPickerFragment" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.profile.editProfile.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_avatarPickerFragment"
+            app:destination="@id/avatarPickerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordChangeFragment"
+        android:name="com.app.dubaiculture.ui.preLogin.password.changepassword.PasswordChangeFragment"
+        android:label="PasswordChangeFragment" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.profile.favourite.FavouriteFragment"
+        android:label="FavouriteFragment" />
 </navigation>

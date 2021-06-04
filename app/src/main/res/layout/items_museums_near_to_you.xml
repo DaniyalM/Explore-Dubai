@@ -57,7 +57,7 @@
         app:layout_constraintStart_toEndOf="@+id/img_museums"
         app:layout_constraintTop_toBottomOf="@+id/tv_place" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/loc"
         android:elevation="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_15sdp"

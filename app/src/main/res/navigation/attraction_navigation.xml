@@ -16,6 +16,9 @@
             android:id="@+id/action_attractionsFragment_to_attractionDetailFragment"
             app:destination="@id/attraction_detail_navigation" />
         <action
+            android:id="@+id/action_attractionsFragment_to_attractionsFragment"
+            app:destination="@id/attractionsFragment" />
+        <action
             android:id="@+id/action_attractionsFragment_to_postLoginFragment"
             app:destination="@id/post_login_bottom_navigation" />
     </fragment>

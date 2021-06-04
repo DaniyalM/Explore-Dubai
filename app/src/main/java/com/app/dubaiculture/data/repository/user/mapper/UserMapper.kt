@@ -11,6 +11,7 @@ fun transform(userDTO: UserDTO ,loginResponseDTO: LoginResponseDTO): User{
             email = userDTO.Email,
             phoneNumber = userDTO.PhoneNumber,
             userName = userDTO.UserName,
+            userImage = userDTO.UserImage,
             token = loginResponseDTO.Token,
             expireIn = loginResponseDTO.ExpiresIn,
             refreshToken = loginResponseDTO.RefreshToken)

@@ -31,9 +31,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         return FragmentRegisterBinding.inflate(inflater, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(registrationViewModel)
+
         binding.btnRegister.setOnClickListener(this)
         binding.tvLoginNow.setOnClickListener(this)
         binding.header.back.setOnClickListener(this)
@@ -43,7 +44,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         lottieAnimationRTL(binding.animationView)
         backArrowRTL(binding.header.back)
         if(isArabic()){
-                      val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
+            val spannable = SpannableString(resources.getString(R.string.i_agree_to_the_terms_and_conditions))
             spannable.setSpan(
                 ForegroundColorSpan(resources.getColor(R.color.black_200)),
                 0, 10,
@@ -65,8 +66,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
                 registrationViewModel.showErrorDialog(message = resources.getString(R.string._agree_to_the_terms_and_conditions),colorBg = R.color.red_600)
             }
         }
-
     }
+
+
 
     override fun onClick(v: View?) {
         when (v?.id) {

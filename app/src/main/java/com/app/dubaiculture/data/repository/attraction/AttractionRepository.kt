@@ -7,6 +7,7 @@ import com.app.dubaiculture.data.repository.attraction.mapper.*
 import com.app.dubaiculture.data.repository.attraction.remote.AttractionRDS
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
 import com.app.dubaiculture.data.repository.base.BaseRepository
+import com.app.dubaiculture.utils.event.Event
 import javax.inject.Inject
 
 class AttractionRepository @Inject constructor(
@@ -83,6 +84,24 @@ class AttractionRepository @Inject constructor(
             is Result.Failure -> resultRDS
         }
     }
+
+    suspend fun getVisitedPlaces(
+//            attractionRequest: AttractionRequest
+    ) =
+            when (val resultRDS = attractionRDS.getVisitedPlaces(
+//                    transformVisitedAttractionsRequest(attractionRequest)
+            )) {
+                is Result.Success -> {
+                    if (resultRDS.value.succeeded) {
+                        Result.Success(Event(transformAttractions(resultRDS.value)))
+                    } else {
+                        Result.Failure(false, null, null, resultRDS.value.errorMessage)
+                    }
+
+                }
+                is Result.Error -> resultRDS
+                is Result.Failure -> resultRDS
+            }
 
 
 }
