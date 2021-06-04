@@ -2,7 +2,6 @@ package com.app.dubaiculture.ui.postLogin.explore.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,10 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
-import com.app.dubaiculture.data.repository.explore.local.models.LatestNews
+import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.data.repository.explore.local.models.PopularServices
 import com.app.dubaiculture.databinding.*
-import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.AttractionActivity
@@ -36,7 +34,6 @@ import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsListItem
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.app.dubaiculture.utils.AppConfigUtils
 import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder

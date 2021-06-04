@@ -1,8 +1,8 @@
-package com.app.dubaiculture.ui.postLogin.more.news.detail.viewmodel
+package com.app.dubaiculture.ui.postLogin.latestnews.detail.viewmodel
 
 import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
-import com.app.dubaiculture.data.repository.explore.local.models.LatestNews
+import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.ui.base.BaseViewModel
 
 class NewsDetailViewModel @ViewModelInject constructor(application: Application) : BaseViewModel(application) {
@@ -40,7 +40,6 @@ class NewsDetailViewModel @ViewModelInject constructor(application: Application)
         )
         return list
     }
-
     fun articleList(): ArrayList<LatestNews> {
         val list = ArrayList<LatestNews>()
         list.add(
@@ -64,9 +63,6 @@ class NewsDetailViewModel @ViewModelInject constructor(application: Application)
 
         return list
     }
-
-
-
     fun morenewsList(): ArrayList<LatestNews> {
         val list = ArrayList<LatestNews>()
         list.add(

@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.more.news.detail
+package com.app.dubaiculture.ui.postLogin.latestnews.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +11,10 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.app.dubaiculture.ui.postLogin.more.news.adapter.NewsItems
-import com.app.dubaiculture.ui.postLogin.more.news.adapter.NewsVerticalItems
-import com.app.dubaiculture.ui.postLogin.more.news.detail.adapter.NewsSliderItems
-import com.app.dubaiculture.ui.postLogin.more.news.detail.viewmodel.NewsDetailViewModel
+import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
+import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsVerticalItems
+import com.app.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsSliderItems
+import com.app.dubaiculture.ui.postLogin.latestnews.detail.viewmodel.NewsDetailViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint

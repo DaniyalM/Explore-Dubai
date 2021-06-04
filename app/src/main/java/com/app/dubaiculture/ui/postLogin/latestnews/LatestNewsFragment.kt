@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.more.news
+package com.app.dubaiculture.ui.postLogin.latestnews
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,20 +13,19 @@ import com.app.dubaiculture.databinding.ItemsLatestNewsBinding
 import com.app.dubaiculture.databinding.ItemsNewsVerticalLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.app.dubaiculture.ui.postLogin.more.news.adapter.NewsItems
-import com.app.dubaiculture.ui.postLogin.more.news.adapter.NewsVerticalItems
-import com.app.dubaiculture.ui.postLogin.more.news.viewmodel.NewsViewModel
+import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
+import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsVerticalItems
+import com.app.dubaiculture.ui.postLogin.latestnews.viewmodel.NewsViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import me.relex.circleindicator.CircleIndicator2
 
 
 class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnClickListener {
-    private val newsViewModel : NewsViewModel by viewModels()
-    lateinit var newsVerticalAdapter : GroupAdapter<GroupieViewHolder>
+    private val newsViewModel: NewsViewModel by viewModels()
+    lateinit var newsVerticalAdapter: GroupAdapter<GroupieViewHolder>
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+            inflater: LayoutInflater,
+            container: ViewGroup?
     ) = FragmentLatestNewsBinding.inflate(inflater, container, false)
 
 
@@ -35,13 +34,14 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
         subscribeUiEvents(newsViewModel)
         rvSetup()
     }
+
     override fun onClick(v: View?) {
         when (v?.id) {
 
         }
     }
 
-    private fun rvSetup(){
+    private fun rvSetup() {
         newsVerticalAdapter = GroupAdapter()
 
         if (groupAdapter.itemCount > 0) {
@@ -52,15 +52,15 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
         }
         newsViewModel.newsList().map {
             groupAdapter.add(
-                NewsItems<ItemsLatestNewsBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
-                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
+                    NewsItems<ItemsLatestNewsBinding>(
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
+                                    navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
 
-                        }
+                                }
 
-                    }, latestNews = it, R.layout.items_latest_news, requireContext()
-                )
+                            }, latestNews = it, R.layout.items_latest_news, requireContext()
+                    )
             )
             newsVerticalAdapter.add(
                     NewsVerticalItems<ItemsNewsVerticalLayoutBinding>(
@@ -80,7 +80,7 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
             val pagerSnapHelper = PagerSnapHelper()
             this.onFlingListener = null
             pagerSnapHelper.attachToRecyclerView(this)
-            binding.indicator.attachToRecyclerView(this,pagerSnapHelper)
+            binding.indicator.attachToRecyclerView(this, pagerSnapHelper)
 
         }
 

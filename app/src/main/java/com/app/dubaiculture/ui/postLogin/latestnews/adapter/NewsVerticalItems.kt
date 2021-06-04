@@ -1,9 +1,9 @@
-package com.app.dubaiculture.ui.postLogin.more.news.adapter
+package com.app.dubaiculture.ui.postLogin.latestnews.adapter
 
 import android.content.Context
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.LatestNews
+import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.databinding.ItemMoreNewsBinding
 import com.app.dubaiculture.databinding.ItemsNewsVerticalLayoutBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
@@ -13,10 +13,10 @@ import com.daimajia.androidanimations.library.YoYo
 import com.xwray.groupie.databinding.BindableItem
 
 data class NewsVerticalItems<T : ViewDataBinding>(
-    private val rowClickListener: RowClickListener? = null,
-    val latestNews: LatestNews,
-    val resLayout: Int = R.layout.items_news_vertical_layout,
-    val context: Context,
+        private val rowClickListener: RowClickListener? = null,
+        val latestNews: LatestNews,
+        val resLayout: Int = R.layout.items_news_vertical_layout,
+        val context: Context,
 ) : BindableItem<T>() {
     override fun bind(viewBinding: T, position: Int) {
         when (viewBinding) {

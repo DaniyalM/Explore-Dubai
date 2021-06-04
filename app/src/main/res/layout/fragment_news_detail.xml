@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.postLogin.more.news.detail.NewsDetailFragment">
+        tools:context=".ui.postLogin.latestnews.detail.NewsDetailFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_close"

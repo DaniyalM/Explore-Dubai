@@ -4,7 +4,7 @@
     xmlns:bind="http://schemas.android.com/tools">
     <data>
 <!--        <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
-        <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.LatestNews"/>
+        <variable name="news" type="com.app.dubaiculture.data.repository.news.local.LatestNews"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="@dimen/_5sdp"
