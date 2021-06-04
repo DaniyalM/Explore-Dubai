@@ -123,5 +123,5 @@ class AttractionDTO {
 
     @SerializedName("VisitedDateTime")
     @Expose
-    var visitedDateTime : String ="12 Nov, 2020"
+    var visitedDateTime : String? ="12 Nov, 2020"
 }

@@ -57,7 +57,7 @@ data class AttractionListItem<T : ViewDataBinding>(
                                 val str = date.toString(format)
                                 visitedDateTime.text = str
                             }
-                        },fromDate = false).YYYY_MM_DD(attraction.visitedDateTime,"dd MMM yyyy")
+                        },fromDate = false).YYYY_MM_DD(attraction.visitedDateTime!!,"dd MMM yyyy")
 
                     }
                 }
