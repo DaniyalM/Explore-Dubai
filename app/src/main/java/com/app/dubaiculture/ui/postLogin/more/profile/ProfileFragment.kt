@@ -65,6 +65,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 changePasswordView.setOnClickListener {
                     navigate(R.id.action_profileFragment_to_passwordChangeFragment)
                 }
+                favouriteContainer.setOnClickListener {
+                    navigate(R.id.action_profileFragment_to_favouriteFragment)
+                }
+
 
 
             }

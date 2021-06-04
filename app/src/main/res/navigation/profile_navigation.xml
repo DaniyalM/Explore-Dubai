@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_profileFragment_to_passwordChangeFragment"
             app:destination="@id/passwordChangeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/placesVisited"
@@ -57,4 +60,8 @@
         android:id="@+id/passwordChangeFragment"
         android:name="com.app.dubaiculture.ui.preLogin.password.changepassword.PasswordChangeFragment"
         android:label="PasswordChangeFragment" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.profile.favourite.FavouriteFragment"
+        android:label="FavouriteFragment" />
 </navigation>

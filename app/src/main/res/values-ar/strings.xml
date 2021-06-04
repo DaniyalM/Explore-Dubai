@@ -40,6 +40,7 @@
     <string name="_password"> كلمة السر</string>
 
 
+    <string name="favourites">Favourites</string>
 
     <string name="forgot_password_">نسيت كلمة السر</string>
     <string name="cancel">الغاء</string>

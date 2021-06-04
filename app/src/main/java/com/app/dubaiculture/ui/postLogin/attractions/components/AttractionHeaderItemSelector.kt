@@ -7,10 +7,8 @@ import android.widget.FrameLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
-import com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.app.dubaiculture.ui.postLogin.attractions.services.AttractionServices
@@ -32,7 +30,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     init {
 
-        val view = inflate(context, R.layout.attractions_item_selector, null)
+        val view = inflate(context, R.layout.single_selection_item_cell, null)
         recyclerView = view.findViewById(R.id.rVgeneric)
         recyclerView?.let {
             it.layoutManager =

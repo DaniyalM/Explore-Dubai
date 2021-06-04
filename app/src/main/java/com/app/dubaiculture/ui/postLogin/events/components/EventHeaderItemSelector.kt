@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.event.local.models.EventHomeListing
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.app.dubaiculture.ui.postLogin.events.EventFilterFragment
 import com.app.dubaiculture.ui.postLogin.events.HeaderModel
@@ -66,7 +65,7 @@ class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
             }
         }
         typeArray.recycle()
-        val view = inflate(context, R.layout.attractions_item_selector, null)
+        val view = inflate(context, R.layout.single_selection_item_cell, null)
         recyclerView = view.findViewById(R.id.rVgeneric)
 
         recyclerView?.let {
