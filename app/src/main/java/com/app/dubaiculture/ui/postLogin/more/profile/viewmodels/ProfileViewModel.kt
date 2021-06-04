@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.profile.ProfileRepository
+import com.app.dubaiculture.data.repository.profile.local.Favourite
 import com.app.dubaiculture.data.repository.settings.local.UserSettings
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.infrastructure.ApplicationEntry
@@ -15,13 +16,16 @@ import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 
 class ProfileViewModel @ViewModelInject constructor(
-    application: Application,
-    private val profileRepository: ProfileRepository,
-    private val userRepository: UserRepository,
+        application: Application,
+        private val profileRepository: ProfileRepository,
+        private val userRepository: UserRepository,
 ) :
-    BaseViewModel(application) {
+        BaseViewModel(application,profileRepository) {
     private val _userSetting: MutableLiveData<Event<UserSettings>> = MutableLiveData()
     val userSettings: LiveData<Event<UserSettings>> = _userSetting
+
+    private val _favourite: MutableLiveData<Event<Favourite>> = MutableLiveData()
+    val favourite: LiveData<Event<Favourite>> = _favourite
 
 
     fun uploadProfile(uri: String, application: ApplicationEntry) {
@@ -62,7 +66,7 @@ class ProfileViewModel @ViewModelInject constructor(
 
     }
 
-    fun updateSettings(settings: UserSettings,isRefresh:Boolean=false) {
+    fun updateSettings(settings: UserSettings, isRefresh: Boolean = false) {
         viewModelScope.launch {
             showLoader(true)
             val result = profileRepository.updateSettings(userSettings = settings)
@@ -70,7 +74,7 @@ class ProfileViewModel @ViewModelInject constructor(
                 is Result.Success -> {
                     showToast(result.message)
                     showLoader(false)
-                    if(isRefresh){
+                    if (isRefresh) {
                         getSettings()
                     }
                 }
@@ -79,6 +83,20 @@ class ProfileViewModel @ViewModelInject constructor(
             }
         }
 
+    }
+
+
+    fun getFavourites() {
+        viewModelScope.launch {
+            val result = profileRepository.getFavourites()
+            when (result) {
+                is Result.Success -> {
+                    _favourite.value=result.value
+                }
+                is Result.Error -> result
+                is Result.Failure -> result
+            }
+        }
     }
 
 

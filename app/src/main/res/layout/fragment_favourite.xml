@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.postLogin.feeds.FeedsFragment">
 
     <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
@@ -13,7 +14,21 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/toolbar_snippet" />
+
+            <include android:id="@+id/headerVisited" layout="@layout/layout_back" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/customTextView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/places_visited"
+                android:textColor="@color/black_200"
+                android:textSize="32sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/header"
+                app:textFont="regular" />
 
             <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                 android:layout_width="match_parent"
@@ -36,12 +51,23 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
                         android:orientation="vertical">
 
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvListing"
+                            android:id="@+id/rveventListing"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clickable="true"
+                            android:focusable="true" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvAttractionListing"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clickable="true"
+                            android:focusable="true" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvServicesListing"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:clickable="true"
@@ -51,6 +77,7 @@
                             android:id="@+id/progressBar"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
+                            android:visibility="gone"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_gravity="center"

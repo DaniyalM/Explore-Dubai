@@ -82,8 +82,9 @@ abstract class BaseViewModel(
     }
 
     fun addToFavourites(addToFavouriteRequest: AddToFavouriteRequest) {
-        showLoader(true)
+
         viewModelScope.launch {
+            showLoader(true)
             when (val result = baseRespository?.addToFavourite(addToFavouriteRequest)) {
                 is Result.Success -> {
                     showLoader(false)
@@ -95,6 +96,7 @@ abstract class BaseViewModel(
                         showToast("Removed From Favourites")
                     }
                 }
+                is Result.Error->result
                 is Result.Failure -> {
                     showLoader(false)
                     _isFavourite.value = result

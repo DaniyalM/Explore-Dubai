@@ -4,6 +4,7 @@
     android:id="@+id/profile_navigation"
     app:startDestination="@id/profileFragment">
     <include app:graph="@navigation/attraction_detail_navigation"/>
+    <include app:graph="@navigation/event_detail_navigation"/>
     <include app:graph="@navigation/post_login_bottom_navigation"/>
 
     <fragment
@@ -63,5 +64,15 @@
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.profile.favourite.FavouriteFragment"
-        android:label="FavouriteFragment" />
+        android:label="FavouriteFragment" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_post_login_bottom_navigation"
+            app:destination="@id/post_login_bottom_navigation" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_event_detail_navigation"
+            app:destination="@id/event_detail_navigation" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_attraction_detail_navigation"
+            app:destination="@id/attraction_detail_navigation" />
+    </fragment>
 </navigation>
