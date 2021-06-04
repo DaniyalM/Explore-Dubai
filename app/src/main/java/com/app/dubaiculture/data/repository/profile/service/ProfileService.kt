@@ -15,6 +15,9 @@ interface ProfileService : BaseService {
     @GET("/api/Profile/GetUserSettings")
     suspend fun getUserSettings(): UserSettingResponse
 
+    @GET("Content/GetFavorites")
+    suspend fun getfavourites(): UploadProfileResponse
+
     @POST("/api/Profile/UpdateSettings")
     suspend fun updateSettings(@Body settingsDTO: UserSettingsDTO): UploadProfileResponse
 }

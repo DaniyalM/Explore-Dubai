@@ -101,6 +101,9 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
                 R.id.notificationFragment -> {
                     bottomNav.visibility = View.GONE
                 }
+                R.id.favouriteFragment -> {
+                    bottomNav.visibility = View.GONE
+                }
                 else -> {
                     bottomNav.visibility = View.VISIBLE
 

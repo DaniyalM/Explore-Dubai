@@ -48,7 +48,8 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
                     if (groupAdapter.itemCount>0){
                         groupAdapter.clear()
                     }
-                    groupAdapter.add(AttractionListItem<AttractionListItemCellBinding>(
+                    groupAdapter.add(
+                            AttractionListItem<AttractionListItemCellBinding>(
                             favChecker = object : FavouriteChecker {
                                 override fun checkFavListener(
                                         checkbox: CheckBox,
