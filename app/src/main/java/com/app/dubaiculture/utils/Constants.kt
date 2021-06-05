@@ -56,6 +56,9 @@ object Constants {
         const val IMAGE_POSITION: String = "image_pos"
         const val SETTINGS_BUNDLE: String = "settings_bundle"
         const val FAVOURITE_BUNDLE: String = "favourite_bundle"
+        const val TERMS_CONDITION_PRIVACY_POLICY: String = "terms_condition_privacy_policy"
+        const val TERMS_CONDITION: String = "terms_condition"
+        const val PRIVACY_POLICY: String = "privacy_policy"
 
 
 

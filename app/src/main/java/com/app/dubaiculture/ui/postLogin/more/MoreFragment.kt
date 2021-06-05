@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -13,6 +14,9 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.more.adapter.MoreItems
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
+import com.app.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
+import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION
+import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY
 import com.app.dubaiculture.utils.SettingsUtils.settingsList
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
@@ -135,6 +139,15 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                                 override fun rowClickListener(position: Int) {
                                     if (position == 0) {
                                         navigate(R.id.action_moreFragment_to_latestNewsFragment)
+                                    }
+                                    if(position == 4){
+                                        val bundle = bundleOf(TERMS_CONDITION_PRIVACY_POLICY to TERMS_CONDITION)
+                                        navigate(R.id.action_moreFragment_to_privacyTermConditionFragment,bundle)
+                                    }
+                                    if (position ==5){
+                                        val bundle = bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)
+                                        navigate(R.id.action_moreFragment_to_privacyTermConditionFragment,bundle)
+
                                     }
                                 }
                             },

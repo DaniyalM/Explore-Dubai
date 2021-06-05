@@ -22,32 +22,32 @@
                 app:lottie_rawRes="@raw/green_animation_login"
                 app:lottie_repeatCount="0" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_close"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:rotation="90"
-                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_close"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:rotation="90"
+                    android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="@string/settings"
-                android:textColor="@color/black_200"
-                android:textSize="@dimen/_25ssp"
-                app:layout_constraintStart_toStartOf="@+id/img_close"
-                app:layout_constraintTop_toBottomOf="@+id/img_close" />
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="@string/settings"
+                    android:textColor="@color/black_200"
+                    android:textSize="@dimen/_25ssp"
+                    app:layout_constraintStart_toStartOf="@+id/img_close"
+                    app:layout_constraintTop_toBottomOf="@+id/img_close" />
 
             <LinearLayout
                 android:id="@+id/noti"
