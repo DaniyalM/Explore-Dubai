@@ -3,6 +3,7 @@ package com.app.dubaiculture.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -25,14 +26,15 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 fun decorateRecyclerView(
-    context: Context,
-    recyclerView: RecyclerView,
-    layoutManager: LinearLayoutManager
+        context: Context,
+        recyclerView: RecyclerView,
+        layoutManager: LinearLayoutManager
 ) {
     val dividerItemDecoration = DividerItemDecoration(
-        context,
-        layoutManager.orientation
+            context,
+            layoutManager.orientation
     )
     recyclerView.addItemDecoration(dividerItemDecoration)
 }
@@ -51,9 +53,9 @@ fun requestBodyToString(request: RequestBody?): String? {
 
 
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(
-    context.getColorCompat(
-        color
-    )
+        context.getColorCompat(
+                color
+        )
 )
 
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
@@ -64,6 +66,7 @@ fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
         startActivity(it)
     }
 }
+
 fun <A : Activity> Activity.startNewActivityWithPre(activity: Class<A>) {
     Intent(this, activity).also {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -101,14 +104,14 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
 
 
 fun Fragment.handleApiError(
-    failure: Result.Failure,
-    baseViewModel: BaseViewModel,
-    retry: (() -> Unit)? = null,
+        failure: Result.Failure,
+        baseViewModel: BaseViewModel,
+        retry: (() -> Unit)? = null,
 ) {
     baseViewModel.showLoader(false)
     when {
         failure.isNetWorkError -> baseViewModel.showToast(
-            "Please Check Your Internet Connection"
+                "Please Check Your Internet Connection"
         )
         failure.errorCode == 401 -> {
             if (this is LoginFragment) {
@@ -119,7 +122,7 @@ fun Fragment.handleApiError(
             }
 
         }
-        failure.errorCode == 500 ->{
+        failure.errorCode == 500 -> {
             baseViewModel.showToast("Internal Server Error")
 
         }
@@ -158,7 +161,7 @@ fun <T : Any> ObservableField<T>.getNonNull(): T = get()!!
 //}
 
 fun <R> Fragment.getNavigationResult(key: String) =
-    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<R>(key)
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<R>(key)
 
 fun Fragment.setNavigationResult(key: String, data: Any?) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
@@ -170,9 +173,9 @@ fun dateFormat(inputDate: String?): String {
     var parsed: Date? = null
     var outputDate = ""
     val df_input =
-        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
     val df_output =
-        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     try {
         parsed = df_input.parse(inputDate)
         outputDate = df_output.format(parsed)
@@ -187,9 +190,9 @@ fun dateFormatEn(inputDate: String?): String {
     var parsed: Date? = null
     var outputDate = ""
     val df_input =
-        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     val df_output =
-        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     try {
         parsed = df_input.parse(inputDate)
         outputDate = df_output.format(parsed)
@@ -198,7 +201,7 @@ fun dateFormatEn(inputDate: String?): String {
     return outputDate
 }
 
-fun getTimeSpan( registerDate: String?): Boolean {
+fun getTimeSpan(registerDate: String?): Boolean {
     return try {
         val registerEventDate = getDateObj(registerDate ?: "")
         val currentTime = getDateObj(gettime().toString())
@@ -209,14 +212,14 @@ fun getTimeSpan( registerDate: String?): Boolean {
     }
 }
 
-fun dayOfWeek(inputDate: String?, format : String): String {
+fun dayOfWeek(inputDate: String?, format: String): String {
 //        2021-03-31T17:19:00 server date format
     var parsed: Date? = null
     var outputDate = ""
     val df_input =
-        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
     val df_output =
-        SimpleDateFormat(format)
+            SimpleDateFormat(format)
     try {
         parsed = df_input.parse(inputDate)
         outputDate = df_output.format(parsed)

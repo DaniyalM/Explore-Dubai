@@ -30,7 +30,7 @@ fun View.glideInstance(url: String?, isSvg: Boolean = false): RequestBuilder<Dra
                 RequestOptions()
 //                .placeholder(R.drawable.logo)
 //                .error(android.R.drawable.stat_notify_error)
-                        .diskCacheStrategy(DiskCacheStrategy.DATA)
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         ).load(urlConcat).transition(DrawableTransitionOptions.withCrossFade())
 
 

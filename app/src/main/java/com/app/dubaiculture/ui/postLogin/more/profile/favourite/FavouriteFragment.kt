@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.more.profile.favourite
 
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.profile.local.Favourite
 import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.databinding.FragmentFavouriteBinding
 import com.app.dubaiculture.databinding.ItemEventListingBinding
@@ -23,6 +25,7 @@ import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.more.profile.favourite.models.FavouriteHeader
 import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewModel
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.FAVOURITE_BUNDLE
 import com.app.dubaiculture.utils.handleApiError
 import com.squareup.otto.Subscribe
 import com.xwray.groupie.GroupAdapter
@@ -46,11 +49,21 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         attractionsAdapter = null
     }
 
-    private fun initiateRequest() {
-        binding.swipeRefresh.post {
-            binding.swipeRefresh.isRefreshing = true
-            profileViewModel.getFavourites()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.apply {
+            getParcelable<Favourite>(FAVOURITE_BUNDLE)?.let {
+                events=it.events
+                attractions=it.attractions
+            }
         }
+    }
+
+    private fun initiateRequest() {
+//        binding.swipeRefresh.post {
+//            binding.swipeRefresh.isRefreshing = true
+//            profileViewModel.getFavourites()
+//        }
         binding.swipeRefresh.apply {
             setColorSchemeResources(
                 R.color.colorPrimary,
@@ -77,6 +90,8 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         binding.headerVisited.back.setOnClickListener {
             back()
         }
+        binding.horizontalSelector.initialize(initializeHeaders(), bus)
+
 //        setupToolbarWithSearchItems()
         initiateRequest()
         subscribeToObservables()
@@ -104,6 +119,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+                        profileViewModel.getFavourites()
                     }
                 }
                 is Result.Failure -> handleApiError(it, profileViewModel)

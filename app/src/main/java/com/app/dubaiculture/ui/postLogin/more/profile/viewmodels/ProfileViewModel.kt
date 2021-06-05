@@ -88,9 +88,11 @@ class ProfileViewModel @ViewModelInject constructor(
 
     fun getFavourites() {
         viewModelScope.launch {
+            showLoader(true)
             val result = profileRepository.getFavourites()
             when (result) {
                 is Result.Success -> {
+                    showLoader(false)
                     _favourite.value=result.value
                 }
                 is Result.Error -> result

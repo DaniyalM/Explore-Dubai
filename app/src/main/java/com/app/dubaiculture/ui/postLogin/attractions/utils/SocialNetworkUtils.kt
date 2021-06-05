@@ -1,19 +1,34 @@
 package com.app.dubaiculture.ui.postLogin.attractions.utils
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 
 
 object SocialNetworkUtils {
+    fun openUrl(
+        url: String, context: Activity,
+        isFacebook:Boolean=false,
+        isTwitter:Boolean=false,
+        isLinkedIn:Boolean=false,
+        isInstagram:Boolean=false,
+        isYoutube:Boolean=false
+    ) {
 
+        Intent(Intent.ACTION_VIEW).apply {
+            var URL = url
+            if (URL == "null" || URL.isEmpty()) {
+                if (isFacebook){ URL="https://www.facebook.com/DubaiCulture/" }
+                if (isTwitter){ URL="https://twitter.com/DubaiCulture" }
+                if (isInstagram){ URL="https://www.instagram.com/dubaiculture/" }
+                if (isLinkedIn){ URL="https://www.linkedin.com/company/dubai-culture-&-arts-authority/" }
+                if (isYoutube){ URL="https://www.youtube.com/user/DubaiCulture" }
+            }
+            data = Uri.parse(URL)
+            context.startActivity(this)
+        }
 
-    fun openUrl(url: String?, context: Activity) {
-        val i = Intent(Intent.ACTION_VIEW)
-        i.data = Uri.parse(url)
-        context.startActivity(i)
     }
 
     fun getFacebookPage(faceBookUrl: String, context: Activity) {

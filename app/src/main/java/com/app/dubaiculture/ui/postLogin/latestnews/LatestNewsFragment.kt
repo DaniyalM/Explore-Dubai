@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.data.repository.news.remote.request.NewsRequest
@@ -25,12 +26,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnClickListener {
     private val newsViewModel: NewsViewModel by viewModels()
     private var newsRequest: NewsRequest = NewsRequest(
-            0,3
+        0, 6
     )
+    var contentLoadMore = true
     var newsVerticalAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ) = FragmentLatestNewsBinding.inflate(inflater, container, false)
 
 
@@ -52,10 +54,10 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
         }
         binding.swipeRefresh.apply {
             setColorSchemeResources(
-                    R.color.colorPrimary,
-                    android.R.color.holo_green_dark,
-                    android.R.color.holo_orange_dark,
-                    android.R.color.holo_blue_dark
+                R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark
             )
             setOnRefreshListener {
                 binding.swipeRefresh.isRefreshing = false
@@ -86,39 +88,43 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
         }
         latestNews.forEach {
             groupAdapter.add(
-                    NewsItems<ItemsLatestNewsBinding>(
-                            object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-                                    navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
+                NewsItems<ItemsLatestNewsBinding>(
+                    object : RowClickListener {
+                        override fun rowClickListener(position: Int) {
+                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
 
-                                }
+                        }
 
-                            }, latestNews = it, R.layout.items_latest_news, requireContext()
-                    )
+                    }, latestNews = it, R.layout.items_latest_news, requireContext()
+                )
             )
 
         }
 
-        binding.indicator.attachToRecyclerView( binding.rvHorizontalNews,PagerSnapHelper())
+        binding.indicator.attachToRecyclerView(binding.rvHorizontalNews, PagerSnapHelper())
 
     }
 
     private fun addNews(latestNews: List<LatestNews>) {
+        if (latestNews.isEmpty()) {
+            newsRequest.pageNumber -= 1
+        }
+
         if (newsVerticalAdapter.itemCount > 0) {
             newsVerticalAdapter.clear()
         }
 
         latestNews.forEach {
             newsVerticalAdapter.add(
-                    NewsItems<ItemsNewsVerticalLayoutBinding>(
-                            object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-                                    navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
+                NewsItems<ItemsNewsVerticalLayoutBinding>(
+                    object : RowClickListener {
+                        override fun rowClickListener(position: Int) {
+                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
 
-                                }
+                        }
 
-                            }, latestNews = it, R.layout.items_news_vertical_layout, requireContext()
-                    )
+                    }, latestNews = it, R.layout.items_news_vertical_layout, requireContext()
+                )
             )
         }
 
@@ -136,9 +142,39 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
         }
 
         binding.rvVerticalNews.apply {
+            var pastVisiblesItems: Int
+            var visibleItemCount: Int
+            var totalItemCount: Int
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = newsVerticalAdapter
+
+            this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    if (dy > 0) { //check for scroll down
+                        (layoutManager as LinearLayoutManager).apply {
+                            visibleItemCount = this.getChildCount()
+                            totalItemCount = this.getItemCount()
+                            pastVisiblesItems = this.findFirstVisibleItemPosition()
+                        }
+
+
+                        if (contentLoadMore) {
+                            if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                                contentLoadMore = false
+                                newsRequest.pageNumber += 1
+                                newsViewModel.showToast("Load More Triggered")
+                                initiateRequest()
+                                // Do pagination.. i.e. fetch new data
+                            }
+                        }
+                    }
+
+                }
+            })
 
         }
     }

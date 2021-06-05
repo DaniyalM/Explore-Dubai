@@ -27,6 +27,7 @@ import com.app.dubaiculture.data.repository.event.local.models.schedule.EventSch
 import com.app.dubaiculture.databinding.EventItemsBinding
 import com.app.dubaiculture.databinding.FragmentEventDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
@@ -164,19 +165,19 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             openEmailbox(email = emailContact.toString())
         }
         binding.root.imgFb.setOnClickListener {
-//            getFacebookPage(eventObj.socialLink?.get(0)?.facebookPageLink!!, activity)
+            SocialNetworkUtils.openUrl(eventObj.socialLink?.get(0)!!.facebookPageLink,activity,isFacebook = true)
         }
         binding.root.imgTwitter.setOnClickListener {
-//            openUrl(eventObj.socialLink?.get(0)?.twitterPageLink, activity)
+            SocialNetworkUtils.openUrl(eventObj.socialLink?.get(0)!!.twitterPageLink,activity,isTwitter = true)
         }
         binding.root.imgInsta.setOnClickListener {
-//            openUrl(eventObj.socialLink?.get(0)?.instagramPageLink, activity)
+            SocialNetworkUtils.openUrl(eventObj.socialLink?.get(0)!!.instagramPageLink,activity,isInstagram = true)
         }
         binding.root.imgUtube.setOnClickListener {
-//            openUrl(eventObj.socialLink?.get(0)?.youtubePageLink, activity)
+            SocialNetworkUtils.openUrl(eventObj.socialLink?.get(0)!!.youtubePageLink,activity,isYoutube = true)
         }
         binding.root.imgLinkedin.setOnClickListener {
-//            openUrl(eventObj.socialLink?.get(0)?.linkedInPageLink, activity)
+            SocialNetworkUtils.openUrl(eventObj.socialLink?.get(0)!!.linkedInPageLink,activity,isLinkedIn = true)
         }
         binding.root.favourite_event.setOnClickListener {
             isDetailFavouriteFlag = true
@@ -537,12 +538,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         when (status) {
             is GpsStatus.Enabled -> {
                 locationPermission()
-
-
             }
             is GpsStatus.Disabled -> {
-
-                eventViewModel.showErrorDialog(message = "Please enable Location")
+                eventViewModel.showToast(message = "Please enable location !")
             }
         }
     }

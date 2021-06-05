@@ -669,10 +669,10 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
+                        android:id="@+id/imgTwitterAttraction"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:background="@drawable/twitter_attraction_icon"
-
                         android:foreground="@drawable/custom_ripple_border" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -687,8 +687,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
+                        android:id="@+id/imgYoutube"
                         android:background="@drawable/utube__attraction_icon"
-
                         android:foreground="@drawable/custom_ripple_border" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -696,7 +696,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:background="@drawable/linkedin_attraction_icon"
-
+                        android:id="@+id/imgLinkedinAttraction"
                         android:foreground="@drawable/custom_ripple_border" />
                 </LinearLayout>
 

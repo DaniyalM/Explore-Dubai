@@ -55,6 +55,7 @@ object Constants {
         const val IMAGES_LIST: String = "images_list"
         const val IMAGE_POSITION: String = "image_pos"
         const val SETTINGS_BUNDLE: String = "settings_bundle"
+        const val FAVOURITE_BUNDLE: String = "favourite_bundle"
 
 
 
