@@ -87,7 +87,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/my_profile"
-
                                 android:textSize="@dimen/_12ssp"
                                 android:textColor="@color/black_200"
                                 android:layout_marginTop="@dimen/_5sdp"
@@ -97,6 +96,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawableEnd="@drawable/forward_arrow"
                                 android:text="@string/login"
+                                android:id="@+id/btn_login"
                                 android:drawablePadding="@dimen/_5sdp"
                                 android:textSize="@dimen/_10ssp"
                                 android:textColor="@color/purple_900"

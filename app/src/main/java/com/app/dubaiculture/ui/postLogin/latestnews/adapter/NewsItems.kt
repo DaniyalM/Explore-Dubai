@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.news.local.LatestNews
-import com.app.dubaiculture.databinding.ItemNewsArticleBinding
-import com.app.dubaiculture.databinding.ItemsLatestNewsBinding
+import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.glideInstance
 import com.daimajia.androidanimations.library.Techniques
@@ -25,9 +24,18 @@ data class NewsItems <T : ViewDataBinding>(
                     YoYo.with(Techniques.BounceInUp)
                         .duration(1000)
                         .playOn(it.root)
-                    it.imgNews.glideInstance(latestNews.image, false).into(it.imgNews)
-                    it.tvTitle.text = latestNews.title
-                    it.tvDate.text = latestNews.date
+                    it.news=latestNews
+                    it.materialCardView.setOnClickListener {
+                        rowClickListener?.rowClickListener(position)
+                    }
+                }
+            }
+            is ItemsNewsVerticalLayoutBinding -> {
+                viewBinding.let {
+                    YoYo.with(Techniques.BounceInUp)
+                            .duration(1000)
+                            .playOn(it.root)
+                    it.news=latestNews
                     it.materialCardView.setOnClickListener {
                         rowClickListener?.rowClickListener(position)
                     }
@@ -37,6 +45,20 @@ data class NewsItems <T : ViewDataBinding>(
                 viewBinding.let {
                     it.tvTitleCategory.text = latestNews.title
                 }
+            }
+            is ItemMoreNewsBinding -> {
+                viewBinding.let {
+                    YoYo.with(Techniques.BounceInUp)
+                            .duration(1000)
+                            .playOn(it.root)
+                    it.news=latestNews
+                }
+            }
+            is LatestNewsInnerItemCellBinding -> {
+                YoYo.with(Techniques.BounceInUp)
+                        .duration(1000)
+                        .playOn(viewBinding.root)
+                viewBinding.news = latestNews
             }
         }
     }

@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
-import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.data.repository.explore.local.models.PopularServices
+import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
@@ -30,7 +30,7 @@ import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.mapper.transformBaseToEvent
 import com.app.dubaiculture.ui.postLogin.explore.ExploreFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
-import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsListItem
+import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.app.dubaiculture.utils.AppConfigUtils
 import com.app.dubaiculture.utils.Constants
@@ -40,12 +40,12 @@ import com.xwray.groupie.GroupieViewHolder
 
 
 class ExploreRecyclerAsyncAdapter internal constructor(
-    private val context: Context,
-    private var isArabic: Boolean? = null,
-    private var fragment: ExploreFragment? = null,
-    private var baseViewModel: BaseViewModel?=null
+        private val context: Context,
+        private var isArabic: Boolean? = null,
+        private var fragment: ExploreFragment? = null,
+        private var baseViewModel: BaseViewModel? = null
 ) :
-    BaseRecyclerAdapter<Explore>() {
+        BaseRecyclerAdapter<Explore>() {
     private var attractionInnerAdapter: GroupAdapter<GroupieViewHolder>? = null
     private var upComingEventsInnerAdapter: GroupAdapter<GroupieViewHolder>? = null
     private var mustSeeInnerAdapter: GroupAdapter<GroupieViewHolder>? = null
@@ -74,15 +74,15 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when (viewType) {
-            ViewTypes.ATTRACTION.type -> AttractionViewHolder(AttractionItemCell(parent.context).apply { inflate() })
-            ViewTypes.MUSTSEE.type -> MustSeeViewHolder(MustSeeItemCell(parent.context).apply { inflate() })
-            ViewTypes.UPCOMINGEVENTS.type -> UpComingEventsViewHolder(UpComingEventsItemCell(parent.context).apply { inflate() })
-            ViewTypes.POPULARSERVICES.type -> PopularServiceViewHolder(PopularServiceCell(parent.context).apply { inflate() })
+            when (viewType) {
+                ViewTypes.ATTRACTION.type -> AttractionViewHolder(AttractionItemCell(parent.context).apply { inflate() })
+                ViewTypes.MUSTSEE.type -> MustSeeViewHolder(MustSeeItemCell(parent.context).apply { inflate() })
+                ViewTypes.UPCOMINGEVENTS.type -> UpComingEventsViewHolder(UpComingEventsItemCell(parent.context).apply { inflate() })
+                ViewTypes.POPULARSERVICES.type -> PopularServiceViewHolder(PopularServiceCell(parent.context).apply { inflate() })
 //            ViewTypes.LATESTNEWS.type ->
-            else -> LatestNewViewHolder(LatestNewsItemCell(parent.context).apply { inflate() })
+                else -> LatestNewViewHolder(LatestNewsItemCell(parent.context).apply { inflate() })
 
-        }
+            }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         setAnimation(holder.itemView)
@@ -97,8 +97,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     //Setting Up View Holders
     private fun setUpAttractionViewHolder(
-        holder: ExploreRecyclerAsyncAdapter.AttractionViewHolder,
-        position: Int,
+            holder: ExploreRecyclerAsyncAdapter.AttractionViewHolder,
+            position: Int,
     ) {
 
         (holder.itemView as AttractionItemCell).bindWhenInflated {
@@ -107,10 +107,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = attractionInnerAdapter
                     attractionInnerAdapter?.let {
-                        if (it.itemCount>0){
+                        if (it.itemCount > 0) {
                             attractionInnerAdapter?.clear()
                         }
                     }
@@ -118,19 +118,19 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
                     item.value.forEach { attractionCat ->
                         attractionInnerAdapter?.add(AttractionCategoryListItem<AttractionsCategoryItemCellBinding>(
-                            attractionCat = transformBaseToAttractionCategory(attractionCat),
-                            rowClickListener = object:RowClickListener{
-                                override fun rowClickListener(position: Int) {
-                                    AppConfigUtils.clickCheckerFlag=position
-                                   context.startActivity(Intent(context,AttractionActivity::class.java))
+                                attractionCat = transformBaseToAttractionCategory(attractionCat),
+                                rowClickListener = object : RowClickListener {
+                                    override fun rowClickListener(position: Int) {
+                                        AppConfigUtils.clickCheckerFlag = position
+                                        context.startActivity(Intent(context, AttractionActivity::class.java))
 
 
 //                                   fragment?.navigate(R.id.action_exploreFragment_to_attractionsFragment,Bundle().apply {
 //                                       putInt(ATTRACTION_CAT_OBJECT,position)
 //                                   })
-                                }
-                            },
-                            isArabic = isArabic ?: false)
+                                    }
+                                },
+                                isArabic = isArabic ?: false)
                         )
                     }
                 }
@@ -140,51 +140,51 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
     private fun setUpComingEventsViewHolder(
-        holder: ExploreRecyclerAsyncAdapter.UpComingEventsViewHolder,
-        position: Int,
+            holder: ExploreRecyclerAsyncAdapter.UpComingEventsViewHolder,
+            position: Int,
     ) {
         (holder.itemView as UpComingEventsItemCell).bindWhenInflated {
             items[position].let { item ->
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = upComingEventsInnerAdapter
                     upComingEventsInnerAdapter?.let {
-                        if (it.itemCount>0){
+                        if (it.itemCount > 0) {
                             upComingEventsInnerAdapter?.clear()
                         }
                     }
                     item.value.forEach {
                         upComingEventsInnerAdapter?.add(EventListItem<UpcomingEventsInnerItemCellBinding>(
-                            favChecker = object : FavouriteChecker {
-                                override fun checkFavListener(
-                                    checkbox: CheckBox,
-                                    pos: Int,
-                                    isFav: Boolean,
-                                    itemId: String,
-                                ) {
-                                    fragment?.favouriteClick(
-                                        checkbox,
-                                        isFav,
-                                        R.id.action_exploreFragment_to_postLoginFragment,
-                                        itemId, baseViewModel!!,
-                                        1
-                                    )
-                                }
+                                favChecker = object : FavouriteChecker {
+                                    override fun checkFavListener(
+                                            checkbox: CheckBox,
+                                            pos: Int,
+                                            isFav: Boolean,
+                                            itemId: String,
+                                    ) {
+                                        fragment?.favouriteClick(
+                                                checkbox,
+                                                isFav,
+                                                R.id.action_exploreFragment_to_postLoginFragment,
+                                                itemId, baseViewModel!!,
+                                                1
+                                        )
+                                    }
 
-                            },
-                            rowClickListener = object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-                                    fragment?.navigate(R.id.action_exploreFragment_to_eventDetailFragment2,
-                                        Bundle().apply {
-                                            putParcelable(Constants.NavBundles.EVENT_OBJECT,
-                                                transformBaseToEvent(it))
-                                        })
-                                }
-                            },
-                            resLayout = R.layout.upcoming_events_inner_item_cell,
-                            event = transformBaseToEvent(it),
-                            context = context))
+                                },
+                                rowClickListener = object : RowClickListener {
+                                    override fun rowClickListener(position: Int) {
+                                        fragment?.navigate(R.id.action_exploreFragment_to_eventDetailFragment2,
+                                                Bundle().apply {
+                                                    putParcelable(Constants.NavBundles.EVENT_OBJECT,
+                                                            transformBaseToEvent(it))
+                                                })
+                                    }
+                                },
+                                resLayout = R.layout.upcoming_events_inner_item_cell,
+                                event = transformBaseToEvent(it),
+                                context = context))
                     }
 
                 }
@@ -202,26 +202,26 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
     private fun setMustSeeViewHolder(
-        holder: ExploreRecyclerAsyncAdapter.MustSeeViewHolder,
-        position: Int,
+            holder: ExploreRecyclerAsyncAdapter.MustSeeViewHolder,
+            position: Int,
     ) {
         (holder.itemView as MustSeeItemCell).bindWhenInflated {
             items[position].let { item ->
                 val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
                 if (isArabic == true) {
                     holder.itemView.binding?.cardviewPlanTrip?.shapeAppearanceModel =
-                        holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
-                            .toBuilder()
-                            .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                            .setTopRightCornerSize(radius)
-                            .build()
+                            holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
+                                    .toBuilder()
+                                    .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                                    .setTopRightCornerSize(radius)
+                                    .build()
                 } else {
                     holder.itemView.binding?.cardviewPlanTrip?.shapeAppearanceModel =
-                        holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
-                            .toBuilder()
-                            .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                            .setBottomRightCornerSize(radius)
-                            .build()
+                            holder.itemView.binding?.cardviewPlanTrip!!.shapeAppearanceModel
+                                    .toBuilder()
+                                    .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                                    .setBottomRightCornerSize(radius)
+                                    .build()
                 }
 
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
@@ -229,45 +229,45 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                 holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = mustSeeInnerAdapter
 
                     mustSeeInnerAdapter?.let {
-                        if (it.itemCount>0){
+                        if (it.itemCount > 0) {
                             mustSeeInnerAdapter?.clear()
                         }
                     }
                     item.value.forEach { attraction ->
                         mustSeeInnerAdapter?.add(AttractionListItem<MustSeeInnerItemCellBinding>(
-                            favChecker = object : FavouriteChecker {
-                                override fun checkFavListener(
-                                    checkbox: CheckBox,
-                                    pos: Int,
-                                    isFav: Boolean,
-                                    itemId: String,
-                                ) {
-                                    fragment?.favouriteClick(
-                                        checkbox,
-                                        isFav,
-                                        R.id.action_exploreFragment_to_postLoginFragment,
-                                        itemId, baseViewModel!!,
-                                    )
-                                }
+                                favChecker = object : FavouriteChecker {
+                                    override fun checkFavListener(
+                                            checkbox: CheckBox,
+                                            pos: Int,
+                                            isFav: Boolean,
+                                            itemId: String,
+                                    ) {
+                                        fragment?.favouriteClick(
+                                                checkbox,
+                                                isFav,
+                                                R.id.action_exploreFragment_to_postLoginFragment,
+                                                itemId, baseViewModel!!,
+                                        )
+                                    }
 
-                            },
-                            rowClickListener = object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-                                    fragment?.navigate(R.id.action_exploreFragment_to_attractionDetailFragment,
-                                        Bundle().apply {
-                                            putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
-                                                transformBaseToAttraction(attraction))
-                                        })
+                                },
+                                rowClickListener = object : RowClickListener {
+                                    override fun rowClickListener(position: Int) {
+                                        fragment?.navigate(R.id.action_exploreFragment_to_attractionDetailFragment,
+                                                Bundle().apply {
+                                                    putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
+                                                            transformBaseToAttraction(attraction))
+                                                })
 
-                                }
-                            },
-                            resLayout = R.layout.must_see_inner_item_cell,
-                            attraction = transformBaseToAttraction(attraction),
-                            context = context
+                                    }
+                                },
+                                resLayout = R.layout.must_see_inner_item_cell,
+                                attraction = transformBaseToAttraction(attraction),
+                                context = context
                         ))
                     }
 
@@ -278,32 +278,37 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
     private fun setLatestNewsViewHolder(
-        holder: ExploreRecyclerAsyncAdapter.LatestNewViewHolder,
-        position: Int,
+            holder: ExploreRecyclerAsyncAdapter.LatestNewViewHolder,
+            position: Int,
     ) {
         (holder.itemView as LatestNewsItemCell).bindWhenInflated {
             items[position].let { item ->
 
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = latestNewsInnerAdapter
                     latestNewsInnerAdapter?.let {
-                        if (it.itemCount>0){
+                        if (it.itemCount > 0) {
                             latestNewsInnerAdapter?.clear()
                         }
                     }
 
                     item.value.forEach {
-                        latestNewsInnerAdapter?.add(LatestNewsListItem<LatestNewsInnerItemCellBinding>(
-                            news = LatestNews(
-                                id = it.id,
-                                title = it.title,
-                                image = it.image,
-                                postedDate = it.postedDate,
-                                date = it.date
-                            )
-                        ))
+                        latestNewsInnerAdapter?.add(NewsItems<LatestNewsInnerItemCellBinding>(
+                                latestNews = LatestNews(
+                                        id = it.id,
+                                        title = it.title,
+                                        image = it.image,
+                                        postedDate = it.postedDate,
+                                        date = it.date,
+
+                                        ),
+                                context = context,
+                                resLayout = R.layout.latest_news_inner_item_cell
+                        )
+
+                        )
                     }
 
                 }
@@ -317,33 +322,33 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     }
 
     private fun setPopularServiceViewHolder(
-        holder: ExploreRecyclerAsyncAdapter.PopularServiceViewHolder,
-        position: Int,
+            holder: ExploreRecyclerAsyncAdapter.PopularServiceViewHolder,
+            position: Int,
     ) {
         (holder.itemView as PopularServiceCell).bindWhenInflated {
             items[position].let { item ->
 
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     it.adapter = popularServiceInnerAdapter
                     popularServiceInnerAdapter?.let {
-                        if (it.itemCount>0){
+                        if (it.itemCount > 0) {
                             popularServiceInnerAdapter?.clear()
                         }
                     }
                     item.value.forEach {
                         popularServiceInnerAdapter?.add(PopularServiceListItem<PopularServiceInnerItemCellBinding>(
-                            resLayout = R.layout.popular_service_inner_item_cell,
-                            services = PopularServices(
-                                id = it.id,
-                                title = it.title,
-                                coloredIcon = it.coloredIcon,
-                                jsonFile = it.jsonFile,
-                                hoveredJsonFile = it.hoveredJsonFile,
-                                playJson = it.playJson,
-                                icon = it.icon
-                            )
+                                resLayout = R.layout.popular_service_inner_item_cell,
+                                services = PopularServices(
+                                        id = it.id,
+                                        title = it.title,
+                                        coloredIcon = it.coloredIcon,
+                                        jsonFile = it.jsonFile,
+                                        hoveredJsonFile = it.hoveredJsonFile,
+                                        playJson = it.playJson,
+                                        icon = it.icon
+                                )
                         ))
                     }
 
@@ -374,14 +379,14 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
     //        items[position].code % 2 == 0 -> ViewTypes.ATTRACTION.type
     override fun getItemViewType(position: Int): Int =
-        when (items[position].category) {
-            "AttractionsCategory" -> ViewTypes.ATTRACTION.type
-            "Attractions" -> ViewTypes.MUSTSEE.type
-            "Events" -> ViewTypes.UPCOMINGEVENTS.type
-            "EServices" -> ViewTypes.POPULARSERVICES.type
-            "News" -> ViewTypes.LATESTNEWS.type
-            else -> ViewTypes.ATTRACTION.type
-        }
+            when (items[position].category) {
+                "AttractionsCategory" -> ViewTypes.ATTRACTION.type
+                "Attractions" -> ViewTypes.MUSTSEE.type
+                "Events" -> ViewTypes.UPCOMINGEVENTS.type
+                "EServices" -> ViewTypes.POPULARSERVICES.type
+                "News" -> ViewTypes.LATESTNEWS.type
+                else -> ViewTypes.ATTRACTION.type
+            }
 
 
     //Item Cells of ViewTypes
@@ -402,8 +407,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private fun setAnimation(view: View?) {
         handler.postDelayed({
             val animation: Animation = AnimationUtils.loadAnimation(
-                context,
-                android.R.anim.slide_in_left
+                    context,
+                    android.R.anim.slide_in_left
             )
             if (view != null) {
                 view.startAnimation(animation)

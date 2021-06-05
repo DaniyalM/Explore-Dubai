@@ -8,11 +8,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.app.dubaiculture.R
-import com.app.dubaiculture.databinding.*
+import com.app.dubaiculture.databinding.FragmentNewsDetailBinding
+import com.app.dubaiculture.databinding.ItemMoreNewsBinding
+import com.app.dubaiculture.databinding.ItemNewsArticleBinding
+import com.app.dubaiculture.databinding.ItemSliderBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
-import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsVerticalItems
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsSliderItems
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.viewmodel.NewsDetailViewModel
 import com.xwray.groupie.GroupAdapter
@@ -29,7 +31,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        FragmentNewsDetailBinding.inflate(inflater, container, false)
+            FragmentNewsDetailBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,11 +53,11 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
         }
         newsDetailViewModel.newsList().map {
             groupAdapter.add(
-                NewsSliderItems<ItemSliderBinding>(
-                    latestNews = it,
-                    resLayout = R.layout.item_slider,
-                    context = requireContext()
-                )
+                    NewsSliderItems<ItemSliderBinding>(
+                            latestNews = it,
+                            resLayout = R.layout.item_slider,
+                            context = requireContext()
+                    )
             )
 
         }
@@ -70,11 +72,11 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 
         newsDetailViewModel.articleList().map {
             newsArticleAdapter.add(
-                NewsItems<ItemNewsArticleBinding>(
-                    latestNews = it,
-                    resLayout = R.layout.item_news_article,
-                    context = requireContext()
-                )
+                    NewsItems<ItemNewsArticleBinding>(
+                            latestNews = it,
+                            resLayout = R.layout.item_news_article,
+                            context = requireContext()
+                    )
             )
         }
         binding.rvNewsArticle.apply {
@@ -99,14 +101,14 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 //        }
         newsDetailViewModel.morenewsList().map {
             moreNewsAdapter.add(
-                NewsVerticalItems<ItemMoreNewsBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
+                    NewsItems<ItemMoreNewsBinding>(
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
 
-                        }
+                                }
 
-                    }, latestNews = it, R.layout.item_more_news, requireContext()
-                )
+                            }, latestNews = it, R.layout.item_more_news, requireContext()
+                    )
             )
         }
 

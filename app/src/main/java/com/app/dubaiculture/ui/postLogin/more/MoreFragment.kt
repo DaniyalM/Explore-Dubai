@@ -51,9 +51,11 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
 
         if (application.auth.isGuest) {
-            binding.materialCardView2.visibility = View.GONE
+            binding.btnLogin.setOnClickListener {
+                navigate(R.id.action_moreFragment_to_post_login_bottom_navigation)
+            }
         } else {
-
+            binding.btnLogin.visibility = View.GONE
             binding.user = application.auth.user
             binding.materialCardView2.setOnClickListener {
                 navigate(R.id.action_moreFragment_to_profileFragment)
