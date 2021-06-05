@@ -30,6 +30,12 @@
         <action
             android:id="@+id/action_moreFragment_to_post_login_bottom_navigation"
             app:destination="@id/post_login_bottom_navigation" />
+        <action
+            android:id="@+id/action_moreFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_termsAndConditionsFragment"
+            app:destination="@id/termsAndConditionsFragment" />
     </fragment>
 
     <dialog
@@ -52,4 +58,12 @@
         android:id="@+id/notificationFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.notification.NotificationFragment"
         android:label="NotificationFragment" />
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.privacypolicy.PrivacyPolicyFragment"
+        android:label="PrivacyPolicyFragment" />
+    <fragment
+        android:id="@+id/termsAndConditionsFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.termsandconditions.TermsAndConditionsFragment"
+        android:label="TermsAndConditionsFragment" />
 </navigation>

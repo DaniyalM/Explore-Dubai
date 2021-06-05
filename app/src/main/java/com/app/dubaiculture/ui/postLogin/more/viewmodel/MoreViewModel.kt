@@ -16,6 +16,8 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
     BaseViewModel(application) {
 
 
+    
+
     fun setupToolbarWithSearchItems(
         logoImg: ImageView,
         pin: ImageView,

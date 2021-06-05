@@ -136,6 +136,12 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                                     if (position == 0) {
                                         navigate(R.id.action_moreFragment_to_latestNewsFragment)
                                     }
+                                    if (position == 4) {
+                                        navigate(R.id.action_moreFragment_to_privacyPolicyFragment)
+                                    }
+                                    if (position == 5) {
+                                        navigate(R.id.action_moreFragment_to_termsAndConditionsFragment)
+                                    }
                                 }
                             },
                             moreModel = it,
