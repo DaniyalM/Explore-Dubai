@@ -11,6 +11,8 @@ import com.app.dubaiculture.databinding.MustSeeInnerItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.DatePickerHelper
+import com.app.dubaiculture.utils.dateFormat
+import com.app.dubaiculture.utils.dateFormatVisitedPlace
 import com.app.dubaiculture.utils.toString
 import com.xwray.groupie.databinding.BindableItem
 import kotlinx.android.synthetic.main.item_event_listing.view.*
@@ -49,15 +51,7 @@ data class AttractionListItem<T : ViewDataBinding>(
 
                     if (isVisited){
                         visitedDateContainer.visibility=View.VISIBLE
-                        DatePickerHelper(attraction.visitedDateTime,context,
-                        object :DatePickerHelper.DatePickerInterface{
-                            override fun onDateSelected(calendar: Calendar) {
-                                val date: Date = calendar.time
-                                val format = "dd-MM-yyyy"
-                                val str = date.toString(format)
-                                visitedDateTime.text = str
-                            }
-                        },fromDate = false).YYYY_MM_DD(attraction.visitedDateTime!!,"dd MMM yyyy")
+                        visitedDateTime.text = "${context.resources.getString(R.string.visited_on)} ${dateFormatVisitedPlace(attraction.visitedDateTime,"dd MMM,yyyy")}"
 
                     }
                 }

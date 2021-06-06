@@ -240,6 +240,7 @@
     <string name="contact_center">Contact Center</string>
     <string name="reach_us">Reach Us</string>
     <string name="suggestion_amp_complaints"><![CDATA[Suggestion & Complaints]]></string>
+    <string name="visited_on">Visited on: </string>
 
 
 </resources>

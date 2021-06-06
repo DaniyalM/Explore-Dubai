@@ -185,6 +185,22 @@ fun dateFormat(inputDate: String?): String {
 }
 
 
+fun dateFormatVisitedPlace(inputDate: String? ,formatter : String): String {
+//        2021-03-31T17:19:00 server date format
+    var parsed: Date? = null
+    var outputDate = ""
+    val df_input =
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+    val df_output =
+        SimpleDateFormat(formatter, Locale.ENGLISH)
+    try {
+        parsed = df_input.parse(inputDate)
+        outputDate = df_output.format(parsed)
+    } catch (e: ParseException) {
+    }
+    return outputDate
+}
+
 fun dateFormatEn(inputDate: String?): String {
 //        2021-03-31T17:19:00 server date format
     var parsed: Date? = null

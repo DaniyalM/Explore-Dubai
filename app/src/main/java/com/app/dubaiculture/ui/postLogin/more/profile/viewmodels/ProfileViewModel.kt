@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.more.profile.viewmodels
 
 import android.app.Application
+import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +13,7 @@ import com.app.dubaiculture.data.repository.settings.local.UserSettings
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 
@@ -27,6 +29,24 @@ class ProfileViewModel @ViewModelInject constructor(
     private val _favourite: MutableLiveData<Event<Favourite>> = MutableLiveData()
     val favourite: LiveData<Event<Favourite>> = _favourite
 
+
+
+    // booleans for checking regex validation
+    val isPhone = MutableLiveData<Boolean?>(true)
+    val isEmail = MutableLiveData<Boolean?>(true)
+
+    // editext get() and set()
+    var email: ObservableField<String> = ObservableField("")
+    var phone: ObservableField<String> = ObservableField("")
+
+    // errors
+    private var _emailError = MutableLiveData<Int>()
+    var emailError: LiveData<Int> = _emailError
+
+    private var _phoneError = MutableLiveData<Int>()
+    var phoneError: LiveData<Int> = _phoneError
+    private val errs_ = MutableLiveData<Int>()
+    val errs: LiveData<Int> = errs_
 
     fun uploadProfile(uri: String, application: ApplicationEntry) {
         viewModelScope.launch {
@@ -100,6 +120,34 @@ class ProfileViewModel @ViewModelInject constructor(
             }
         }
     }
+    fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
+        email.set(s.toString())
+        isEmail.value = AuthUtils.isEmailErrorsbool(s.toString().trim())
+        _emailError.value = AuthUtils.isEmailErrors(s.toString().trim())
+    }
+
+    fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
+        phone.set(s.toString())
+        val number   = AuthUtils.isPhoneNumberValidate(s.toString().trim())
+        isPhone.value = number!!.isValid
+        errs_.value = AuthUtils.errorsPhone(s.toString().trim())
+    }
 
 
+    fun isCheckValidation():Boolean{
+        var isValid = true
+        _emailError.value = AuthUtils.isEmailErrors(s = email.get().toString().trim())
+        isEmail.value = AuthUtils.isEmailErrorsbool(email.get().toString().trim())
+        val number = AuthUtils.isPhoneNumberValidate(phone.get().toString().trim())
+        isPhone.value = number!!.isValid
+        errs_.value = AuthUtils.errorsPhone(phone.get().toString().trim())
+        if (!AuthUtils.isEmailErrorsbool(email.get().toString().trim())) {
+            isValid = false
+        }
+        val phoneNum = AuthUtils.isPhoneNumberValidate(mobNumber = phone.get().toString().trim())
+        if (!phoneNum!!.isValid) {
+            isValid = false
+        }
+        return isValid
+    }
 }

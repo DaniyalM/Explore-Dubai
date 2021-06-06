@@ -1,7 +1,8 @@
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequestDTO
-
+import com.app.dubaiculture.data.repository.login.remote.request.changedpass.ChangedPassRequest
+import com.app.dubaiculture.data.repository.login.remote.request.changedpass.ChangedPassRequestDTO
 
 
 fun transform(loginRequest: LoginRequest): LoginRequestDTO {
@@ -13,3 +14,11 @@ fun transform(loginRequest: LoginRequest): LoginRequestDTO {
 
 }
 
+fun transformChangedPass(changedPassRequest: ChangedPassRequest): ChangedPassRequestDTO {
+    return ChangedPassRequestDTO(
+        OldPassword = changedPassRequest.oldPass,
+        NewPassword = changedPassRequest.newPass,
+        ConfirmPassword = changedPassRequest.confirmPass
+    )
+
+}

@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.databinding.FragmentPlacesVisitedBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -21,6 +20,8 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_places_visited.*
+import kotlinx.android.synthetic.main.layout_back.view.*
 
 @AndroidEntryPoint
 class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
@@ -108,12 +109,12 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
         initiateRequest()
         attractionViewModel.getVisitedAttractions(getCurrentLanguage().language)
 
-
+        headerVisited.back.setOnClickListener {
+            back()
+        }
 
         binding.apply {
-            headerVisited.back.setOnClickListener {
-                back()
-            }
+
             personalRv.apply {
                 isNestedScrollingEnabled = false
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
