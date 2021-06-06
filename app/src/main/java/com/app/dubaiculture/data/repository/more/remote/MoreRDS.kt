@@ -16,5 +16,10 @@ class MoreRDS @Inject constructor(private val moreService: MoreService) : BaseRD
             moreService.getTermsAndCondition(privacyAndTermRequestDTO.culture)
         }
 
+    suspend fun getContactCenter(privacyAndTermRequestDTO: PrivacyAndTermRequestDTO) =
+        safeApiCall {
+            moreService.getContactCenter(privacyAndTermRequestDTO.culture)
+        }
+
 
 }

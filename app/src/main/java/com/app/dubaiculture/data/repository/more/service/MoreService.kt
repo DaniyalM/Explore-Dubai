@@ -16,4 +16,7 @@ interface MoreService: BaseService {
     @GET("Content/GetTermsAndCondition")
     suspend fun getTermsAndCondition(@Query("culture") culture:String): MoreResponse
 
+    @GET("Content/GetContactCenter")
+    suspend fun getContactCenter(@Query("culture") culture:String): MoreResponse
+
 }
