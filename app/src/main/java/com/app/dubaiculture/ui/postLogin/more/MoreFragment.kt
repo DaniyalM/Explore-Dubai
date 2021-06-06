@@ -167,6 +167,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                                         if (isArabic()) {
                                             setLanguage(Locale.ENGLISH)
                                         } else {
+                                            
                                             setLanguage(Locale("ar"))
                                         }
                                     }
