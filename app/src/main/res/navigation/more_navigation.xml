@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_moreFragment_to_privacyTermConditionFragment"
             app:destination="@id/privacyTermConditionFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
 
     <dialog
@@ -59,4 +62,9 @@
         android:id="@+id/privacyTermConditionFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment"
         android:label="PrivacyTermConditionFragment" />
+    <fragment
+        android:id="@+id/contactFragment"
+        tools:layout="@layout/fragment_contact"
+        android:name="com.app.dubaiculture.ui.postLogin.more.contact.ContactFragment"
+        android:label="ContactFragment" />
 </navigation>

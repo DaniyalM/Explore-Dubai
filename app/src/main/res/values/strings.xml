@@ -237,6 +237,9 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="new_password">New Password</string>
     <string name="current_password">Current Password</string>
+    <string name="contact_center">Contact Center</string>
+    <string name="reach_us">Reach Us</string>
+    <string name="suggestion_amp_complaints"><![CDATA[Suggestion & Complaints]]></string>
 
 
 </resources>
