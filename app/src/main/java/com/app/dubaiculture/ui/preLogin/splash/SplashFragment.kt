@@ -20,7 +20,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SplashFragment : BaseFragment<FragmentSplashBinding>() {
+class   SplashFragment : BaseFragment<FragmentSplashBinding>() {
 //    private val splashViewModel: SplashViewModel by viewModels()
 
     override fun getFragmentBinding(

@@ -11,4 +11,4 @@ data class Profile(
     var phoneNumber: String,
     var avatar: String,
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis(),
-    )
+)

@@ -30,17 +30,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="@string/settings"
             android:textColor="@color/black_200"
             android:textSize="@dimen/_25ssp"
             app:layout_constraintStart_toStartOf="@+id/img_close"
             app:layout_constraintTop_toBottomOf="@+id/img_close" />
-        <ScrollView
-            android:layout_marginTop="@dimen/_15sdp"
+        <androidx.core.widget.NestedScrollView
+            android:layout_marginTop="@dimen/_115sdp"
             app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="match_parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,14 +57,15 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_12ssp"
                 android:textColor="@color/gray_750"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="@dimen/_25sdp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 

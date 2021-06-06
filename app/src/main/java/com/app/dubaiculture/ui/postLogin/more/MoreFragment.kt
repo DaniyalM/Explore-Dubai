@@ -41,11 +41,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(moreViewModel)
-
         binding.llRateUs.setOnClickListener(this)
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
-
         moreViewModel.setupToolbarWithSearchItems(
                 binding.root.profilePic,
                 binding.root.img_drawer,
@@ -64,13 +62,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             binding.materialCardView2.setOnClickListener {
                 navigate(R.id.action_moreFragment_to_profileFragment)
             }
-
         }
-
         rvSetUp()
         cardViewRTL()
     }
-
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         binding.root.apply {
@@ -106,10 +101,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         if (settingAdapter.itemCount > 0) {
             settingAdapter.clear()
         }
-
         moreViewModel.servicesList().map {
-
-
             groupAdapter.add(
                     MoreItems<ItemsMoreLayoutBinding>(
                             object : RowClickListener {
@@ -141,11 +133,11 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                                         navigate(R.id.action_moreFragment_to_latestNewsFragment)
                                     }
                                     if(position == 4){
-                                        val bundle = bundleOf(TERMS_CONDITION_PRIVACY_POLICY to TERMS_CONDITION)
+                                        val bundle = bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)
                                         navigate(R.id.action_moreFragment_to_privacyTermConditionFragment,bundle)
                                     }
                                     if (position ==5){
-                                        val bundle = bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)
+                                        val bundle = bundleOf(TERMS_CONDITION_PRIVACY_POLICY to TERMS_CONDITION)
                                         navigate(R.id.action_moreFragment_to_privacyTermConditionFragment,bundle)
 
                                     }
@@ -197,7 +189,6 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             adapter = settingAdapter
         }
     }
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_app -> {
@@ -210,8 +201,5 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 navigate(R.id.action_moreFragment_to_notificationFragment)
             }
         }
-
     }
-
-
 }

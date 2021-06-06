@@ -7,13 +7,67 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.more.MoreModel
+import com.app.dubaiculture.data.repository.more.MoreRepository
+import com.app.dubaiculture.data.repository.more.local.PrivacyPolicy
+import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequest
+import com.app.dubaiculture.data.repository.profile.local.Favourite
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.event.Event
+import kotlinx.coroutines.launch
 
-class MoreViewModel @ViewModelInject constructor(application: Application) :
+class MoreViewModel @ViewModelInject constructor(application: Application,val moreRepository: MoreRepository) :
     BaseViewModel(application) {
+
+    private val _termsCondition: MutableLiveData<Event<PrivacyPolicy>> = MutableLiveData()
+    val termsCondition: LiveData<Event<PrivacyPolicy>> = _termsCondition
+
+    private val _privacyPolice: MutableLiveData<Event<PrivacyPolicy>> = MutableLiveData()
+    val privacyPolice: LiveData<Event<PrivacyPolicy>> = _privacyPolice
+
+
+    fun termsCondition(locale :String){
+        showLoader(true)
+        viewModelScope.launch {
+            when(val result =
+                moreRepository.getTermsAndCondition(PrivacyAndTermRequest(locale))){
+                is Result.Success->{
+                    showLoader(false)
+                    _termsCondition.value = result.value
+                }
+                is Result.Failure->{
+                    showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                    showLoader(false)
+                }
+            }
+        }
+    }
+
+    fun privacyPolicy(locale :String){
+        showLoader(true)
+        viewModelScope.launch {
+            when(val result =
+                moreRepository.getPrivacyPolicy(PrivacyAndTermRequest(locale))){
+                is Result.Success->{
+                    showLoader(false)
+                    _privacyPolice.value = result.value
+
+                }
+                is Result.Failure->{
+                    showLoader(false)
+
+                }
+            }
+        }
+    }
 
 
     fun setupToolbarWithSearchItems(
@@ -27,8 +81,6 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
         tvTitle.visibility = View.VISIBLE
         tvTitle.text = heading
     }
-
-
     fun servicesList(): ArrayList<MoreModel> {
         val list = ArrayList<MoreModel>()
         list.add(
@@ -71,10 +123,8 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
                 true
             )
         )
-
         return list
     }
-
     fun newsList(): ArrayList<MoreModel> {
         val list = ArrayList<MoreModel>()
         list.add(
@@ -125,48 +175,6 @@ class MoreViewModel @ViewModelInject constructor(application: Application) :
                 false
             )
         )
-
         return list
     }
-
-
-
-    fun settingsList(context : Context): ArrayList<MoreModel> {
-        val list = ArrayList<MoreModel>()
-        list.add(
-            MoreModel(
-                R.drawable.setting_more,
-                getApplication<ApplicationEntry>().resources.getString(R.string.setting_more),
-                R.drawable.forward_arrow,
-                false
-            )
-        )
-        list.add(
-            MoreModel(
-                R.drawable.accessibility_more,
-                  getApplication<ApplicationEntry>().resources.getString(R.string.accessiblitiy_more),
-                R.drawable.forward_arrow,
-                false
-            )
-        )
-        list.add(
-            MoreModel(
-                R.drawable.a_more,
-                getApplication<ApplicationEntry>().resources.getString(R.string.english),
-                R.drawable.forward_arrow,
-                false
-            )
-        )
-        list.add(
-            MoreModel(
-                R.drawable.logout_morre,
-                  getApplication<ApplicationEntry>().resources.getString(R.string.logout_more),
-                R.drawable.forward_arrow,
-                false
-            )
-        )
-        return list
-    }
-
-
 }
