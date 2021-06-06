@@ -35,10 +35,10 @@ abstract class BaseActivity : LocalizationActivity() {
     lateinit var checkBox: CheckBox
 
 
-    override fun onStart() {
-        super.onStart()
-        adjustFontScale(resources.configuration)
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        adjustFontScale(resources.configuration)
+//    }
 
 //    override fun onResume() {
 //        super.onResume()

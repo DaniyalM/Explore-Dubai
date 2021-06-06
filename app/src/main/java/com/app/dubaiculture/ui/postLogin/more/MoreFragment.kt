@@ -34,8 +34,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ) = FragmentMoreBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,10 +45,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
-                binding.root.profilePic,
-                binding.root.img_drawer,
-                binding.root.toolbar_title,
-                resources.getString(R.string.more)
+            binding.root.profilePic,
+            binding.root.img_drawer,
+            binding.root.toolbar_title,
+            resources.getString(R.string.more)
         )
 
 
@@ -66,6 +66,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         rvSetUp()
         cardViewRTL()
     }
+
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         binding.root.apply {
@@ -73,18 +74,18 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             subHeading.visibility = View.VISIBLE
             if (isArabic()) {
                 cardivewRTL?.shapeAppearanceModel =
-                        cardivewRTL.shapeAppearanceModel
-                                .toBuilder()
-                                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                                .setTopRightCornerSize(radius)
-                                .build()
+                    cardivewRTL.shapeAppearanceModel
+                        .toBuilder()
+                        .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                        .setTopRightCornerSize(radius)
+                        .build()
             } else {
                 cardivewRTL?.shapeAppearanceModel =
-                        cardivewRTL.shapeAppearanceModel
-                                .toBuilder()
-                                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                                .setBottomRightCornerSize(radius)
-                                .build()
+                    cardivewRTL.shapeAppearanceModel
+                        .toBuilder()
+                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                        .setBottomRightCornerSize(radius)
+                        .build()
             }
         }
     }
@@ -103,17 +104,17 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         }
         moreViewModel.servicesList().map {
             groupAdapter.add(
-                    MoreItems<ItemsMoreLayoutBinding>(
-                            object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
+                MoreItems<ItemsMoreLayoutBinding>(
+                    object : RowClickListener {
+                        override fun rowClickListener(position: Int) {
 
-                                }
-                            },
-                            moreModel = it,
-                            resLayout = R.layout.items_more_layout,
-                            requireContext(),
-                            isArabic()
-                    )
+                        }
+                    },
+                    moreModel = it,
+                    resLayout = R.layout.items_more_layout,
+                    requireContext(),
+                    isArabic()
+                )
             )
         }
         binding.rvServices.apply {
@@ -126,28 +127,39 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 //                newsAdapter.clear()
 //            }
             newsAdapter.add(
-                    MoreItems<ItemsMoreLayoutBinding>(
-                            object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-                                    if (position == 0) {
-                                        navigate(R.id.action_moreFragment_to_latestNewsFragment)
-                                    }
-                                    if(position == 4){
-                                        val bundle = bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)
-                                        navigate(R.id.action_moreFragment_to_privacyTermConditionFragment,bundle)
-                                    }
-                                    if (position ==5){
-                                        val bundle = bundleOf(TERMS_CONDITION_PRIVACY_POLICY to TERMS_CONDITION)
-                                        navigate(R.id.action_moreFragment_to_privacyTermConditionFragment,bundle)
+                MoreItems<ItemsMoreLayoutBinding>(
+                    object : RowClickListener {
+                        override fun rowClickListener(position: Int) {
+                            if (position == 0) {
+                                navigate(R.id.action_moreFragment_to_latestNewsFragment)
+                            }
+                            if (position == 1) {
+                                navigate(R.id.action_moreFragment_to_contactFragment)
+                            }
+                            if (position == 4) {
+                                val bundle =
+                                    bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)
+                                navigate(
+                                    R.id.action_moreFragment_to_privacyTermConditionFragment,
+                                    bundle
+                                )
+                            }
+                            if (position == 5) {
+                                val bundle =
+                                    bundleOf(TERMS_CONDITION_PRIVACY_POLICY to TERMS_CONDITION)
+                                navigate(
+                                    R.id.action_moreFragment_to_privacyTermConditionFragment,
+                                    bundle
+                                )
 
-                                    }
-                                }
-                            },
-                            moreModel = it,
-                            resLayout = R.layout.items_more_layout,
-                            requireContext(),
-                            isArabic()
-                    )
+                            }
+                        }
+                    },
+                    moreModel = it,
+                    resLayout = R.layout.items_more_layout,
+                    requireContext(),
+                    isArabic()
+                )
             )
         }
         binding.rvNews.apply {
@@ -157,31 +169,31 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         }
         settingsList(requireContext()).map {
             settingAdapter.add(
-                    MoreItems<ItemsMoreLayoutBinding>(
-                            object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-                                    if (position == 0) {
-                                        navigate(R.id.action_moreFragment_to_settingFragment)
-                                    }
-                                    if (position == 2) {
-                                        if (isArabic()) {
-                                            setLanguage(Locale.ENGLISH)
-                                        } else {
-                                            
-                                            setLanguage(Locale("ar"))
-                                        }
-                                    }
-                                    if (position == 3) {
-                                        navigate(R.id.action_moreFragment_to_logoutFragment)
-                                    }
+                MoreItems<ItemsMoreLayoutBinding>(
+                    object : RowClickListener {
+                        override fun rowClickListener(position: Int) {
+                            if (position == 0) {
+                                navigate(R.id.action_moreFragment_to_settingFragment)
+                            }
+
+                            if (position == 2) {
+                                if (isArabic()) {
+                                    setLanguage(Locale.ENGLISH)
+                                } else {
+                                    setLanguage(Locale("ar"))
                                 }
-                            },
-                            moreModel = it,
-                            resLayout = R.layout.items_more_layout,
-                            requireContext(),
-                            isArabic(),
-                            application.auth.isGuest
-                    )
+                            }
+                            if (position == 3) {
+                                navigate(R.id.action_moreFragment_to_logoutFragment)
+                            }
+                        }
+                    },
+                    moreModel = it,
+                    resLayout = R.layout.items_more_layout,
+                    requireContext(),
+                    isArabic(),
+                    application.auth.isGuest
+                )
             )
         }
         binding.rvSettings.apply {
@@ -190,6 +202,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             adapter = settingAdapter
         }
     }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_app -> {

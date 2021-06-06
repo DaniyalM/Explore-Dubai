@@ -15,6 +15,8 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.more.MoreModel
 import com.app.dubaiculture.data.repository.more.MoreRepository
+import com.app.dubaiculture.data.repository.more.local.ContactCenter
+import com.app.dubaiculture.data.repository.more.local.ContactCenterLocation
 import com.app.dubaiculture.data.repository.more.local.PrivacyPolicy
 import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequest
 import com.app.dubaiculture.data.repository.profile.local.Favourite
@@ -22,6 +24,11 @@ import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.Event
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.launch
 
 class MoreViewModel @ViewModelInject constructor(application: Application,val moreRepository: MoreRepository) :
@@ -33,6 +40,8 @@ class MoreViewModel @ViewModelInject constructor(application: Application,val mo
     private val _privacyPolice: MutableLiveData<Event<PrivacyPolicy>> = MutableLiveData()
     val privacyPolice: LiveData<Event<PrivacyPolicy>> = _privacyPolice
 
+    private val _contactUs: MutableLiveData<Event<ContactCenter>> = MutableLiveData()
+    val contactUs: LiveData<Event<ContactCenter>> = _contactUs
 
     fun termsCondition(locale :String){
         showLoader(true)
@@ -68,7 +77,22 @@ class MoreViewModel @ViewModelInject constructor(application: Application,val mo
             }
         }
     }
+     fun contactUs(locale : String){
+         showLoader(true)
+         viewModelScope.launch {
+             when(val result = moreRepository.getContactCenter(PrivacyAndTermRequest(locale))){
+                 is Result.Success->{
+                     showLoader(false)
+                     _contactUs.value = result.value
 
+                 }
+                 is Result.Failure ->{
+                     showLoader(false)
+
+                 }
+             }
+         }
+     }
 
     fun setupToolbarWithSearchItems(
         logoImg: ImageView,
@@ -177,4 +201,36 @@ class MoreViewModel @ViewModelInject constructor(application: Application,val mo
         )
         return list
     }
+
+    fun setPinOnMap(map : GoogleMap, contactCenterLocation: ContactCenterLocation){
+        try {
+
+            if (!contactCenterLocation.mapLatitude.isNullOrEmpty() && !contactCenterLocation.mapLongitude.isNullOrEmpty()) {
+                val attractionLatLng = LatLng(
+                    contactCenterLocation.mapLatitude?.toDouble(),
+                    contactCenterLocation.mapLongitude?.toDouble()
+                )
+
+
+                map?.addMarker(
+                    MarkerOptions()
+                        .position(attractionLatLng)
+                        .title(
+                            contactCenterLocation.subtitle
+                        )
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                )
+                map?.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        attractionLatLng, 14.0f
+                    )
+                )
+                map?.cameraPosition?.target
+
+            }
+        } catch (e: NumberFormatException) {
+            e.stackTrace
+        }
+    }
+
 }

@@ -429,8 +429,8 @@
                             android:layout_width="@dimen/_35sdp"
                             android:layout_height="@dimen/_35sdp"
                             android:layout_marginStart="@dimen/_9sdp"
-                            android:background="@drawable/custom_ripple_black"
-                            android:src="@drawable/fb_icon_png" />
+                            android:foreground="@drawable/custom_ripple_border"
+                            android:background="@drawable/fb_icon_png" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imgTwitter"
