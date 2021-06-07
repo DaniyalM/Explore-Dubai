@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_15sdp"
+        app:cardElevation="@dimen/_8sdp"
+        android:outlineSpotShadowColor="@color/gray_600"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardBackgroundColor="@color/gray_600"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_questions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_weight="1"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:textColor="@color/purple_900"
+                    android:text="What is Dubai Culture  Arts Authority?"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgToggle"
+                    android:background="@drawable/plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_gravity="center_vertical|end"
+                    />
+            </LinearLayout>
+
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+               android:id="@+id/tv_answer"
+                android:visibility="gone"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:textColor="@color/gray_750"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="3dp"
+                android:text="Dubai Culture represents the city’s soul, celebrates its identity, promotes cultural exchange  innovation and positions Dubai on the global cultural map. Launched on March 8, 2008 by His Highness Sheikh Mohammed Bin Rashid Al Maktoum, UAE Vice President & Prime Minister and Ruler of Dubai, the activities of Dubai Culture are aligned to the Dubai Plan 2021 to achieve a city of happy, creative and empowered people, who celebrate their cultural identity."
+                />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
