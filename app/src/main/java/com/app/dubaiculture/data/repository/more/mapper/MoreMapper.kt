@@ -92,3 +92,17 @@ fun transformContactCenterSuggestionComplains(contactCenterSuggestionComplainsDT
         image2Url = contactCenterSuggestionComplainsDTO.Image2URL,
         subTitle = contactCenterSuggestionComplainsDTO.Subtitle
     )
+
+
+fun  transformFAQsRequest(moreresponse: MoreResponse)=
+    moreresponse.Result.run {
+        FAQs(
+            faqTitle = FaqTitle,
+            faqItems = FaqItems.map {
+                FaqItem(
+                    answer = it.Answer,
+                    question = it.Question
+                )
+            }
+        )
+    }

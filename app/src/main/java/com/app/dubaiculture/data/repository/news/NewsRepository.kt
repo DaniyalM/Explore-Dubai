@@ -39,7 +39,6 @@ class NewsRepository @Inject constructor(private val newsRDS: NewsRDS) : BaseRep
 
     suspend fun getNewsDetails(newsRequest: NewsRequest) =
         when (val result = newsRDS.getNewsDetails(transformNewsRequest(newsRequest))) {
-
             is Result.Success -> {
                 if (result.value.succeeded) {
                     Result.Success(Event(transformNewsDetail(result.value)))

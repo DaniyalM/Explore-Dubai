@@ -21,5 +21,10 @@ class MoreRDS @Inject constructor(private val moreService: MoreService) : BaseRD
             moreService.getContactCenter(privacyAndTermRequestDTO.culture)
         }
 
+    suspend fun getFaqs(privacyAndTermRequestDTO: PrivacyAndTermRequestDTO) =
+        safeApiCall {
+            moreService.getFAQs(privacyAndTermRequestDTO.culture)
+        }
+
 
 }
