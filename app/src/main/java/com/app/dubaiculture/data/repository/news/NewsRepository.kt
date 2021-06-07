@@ -41,7 +41,7 @@ class NewsRepository @Inject constructor(private val newsRDS: NewsRDS) : BaseRep
         when (val result = newsRDS.getNewsDetails(transformNewsRequest(newsRequest))) {
             is Result.Success -> {
                 if (result.value.succeeded) {
-                    Result.Success(Event(transformNewsDetail(result.value)))
+                    Result.Success(Event(transformNewsDetail(result.value!! )))
                 } else {
                     Result.Failure(false, null, null, result.value.errorMessage)
                 }

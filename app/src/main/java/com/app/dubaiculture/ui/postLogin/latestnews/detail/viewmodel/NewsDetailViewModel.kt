@@ -2,108 +2,43 @@ package com.app.dubaiculture.ui.postLogin.latestnews.detail.viewmodel
 
 import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.app.dubaiculture.data.repository.news.NewsRepository
 import com.app.dubaiculture.data.repository.news.local.LatestNews
+import com.app.dubaiculture.data.repository.news.local.News
+import com.app.dubaiculture.data.repository.news.local.NewsDetail
+import com.app.dubaiculture.data.repository.news.remote.request.NewsRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.event.Event
+import kotlinx.coroutines.launch
 
-class NewsDetailViewModel @ViewModelInject constructor(application: Application) : BaseViewModel(application) {
-
-    fun newsList(): ArrayList<LatestNews> {
-        val list = ArrayList<LatestNews>()
-        list.add(
-            LatestNews(
-                image =  "/-/media/DC/News-Detail/2.jpg",
-            )
-        )
-
-        list.add(
-            LatestNews(
-                image =  "/-/media/DC/News-Detail/2.jpg",
-            )
-        )
-
-        list.add(
-            LatestNews(
-                image =  "/-/media/DC/News-Detail/2.jpg",
-            )
-        )
-
-        list.add(
-            LatestNews(
-                image =  "/-/media/DC/News-Detail/2.jpg",
-            )
-        )
-
-        list.add(
-            LatestNews(
-                image =  "/-/media/DC/News-Detail/2.jpg",
-            )
-        )
-        return list
-    }
-    fun articleList(): ArrayList<LatestNews> {
-        val list = ArrayList<LatestNews>()
-        list.add(
-            LatestNews(
-                title = "Management"
-                )
-        )
-
-        list.add(
-            LatestNews(
-                title = "Heritage"
-                )
-        )
+class NewsDetailViewModel @ViewModelInject constructor(application: Application,val newsRepository: NewsRepository) : BaseViewModel(application) {
 
 
-        list.add(
-            LatestNews(
-                title = "Culture"
-            )
-        )
+    private val _newsDetail: MutableLiveData<Event<NewsDetail>> = MutableLiveData()
+    val newsDetail: LiveData<Event<NewsDetail>> = _newsDetail
 
-        return list
-    }
-    fun morenewsList(): ArrayList<LatestNews> {
-        val list = ArrayList<LatestNews>()
-        list.add(
-            LatestNews(
-                image =  "/-/media/DC/News-Detail/2.jpg",
-                title = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-                date = "12 Nov, 2020"
-            )
-        )
 
-        list.add(
-            LatestNews(
-                image =  "/-/media/DC/News-Detail/2.jpg",
-                title = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-                date = "12 Nov, 2020"
-            )
-        )
 
-        list.add(
-            LatestNews(
-                image =  "/-/media/DC/News-Detail/2.jpg",
-                title = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-                date = "12 Nov, 2020"
-            )
-        )
 
-        list.add(
-            LatestNews(
-                image =  "/-/media/DC/News-Detail/2.jpg",
-                title = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-                date = "12 Nov, 2020"
-            )
-        )
 
-        list.add(
-            LatestNews(
-                image =  "/-/media/DC/News-Detail/2.jpg",
-                title = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-                date = "12 Nov, 2020"
-            )
-        )
-        return list
+    fun newsDetail(id : String , locale : String){
+        showLoader(true)
+        viewModelScope.launch {
+            when (val result = newsRepository.getNewsDetails(NewsRequest(id = id,culture = locale))){
+                is com.app.dubaiculture.data.Result.Success->{
+                    showLoader(false)
+                    _newsDetail.value =  result.value
+
+                }
+                is com.app.dubaiculture.data.Result.Failure->{
+                    showLoader(false)
+
+                }
+            }
+        }
+
     }
 }

@@ -14,7 +14,6 @@ import com.app.dubaiculture.databinding.ItemNewsArticleBinding
 import com.app.dubaiculture.databinding.ItemSliderBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsSliderItems
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.viewmodel.NewsDetailViewModel
 import com.xwray.groupie.GroupAdapter
@@ -31,10 +30,11 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
-            FragmentNewsDetailBinding.inflate(inflater, container, false)
+        FragmentNewsDetailBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        subscribeUiEvents(newsDetailViewModel)
         rvSetUp()
     }
 
@@ -51,16 +51,51 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
         if (moreNewsAdapter.itemCount > 0) {
             moreNewsAdapter.clear()
         }
-        newsDetailViewModel.newsList().map {
-            groupAdapter.add(
+
+        newsDetailViewModel.newsDetail.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                binding.tvTitle.text = it.title
+                binding.tvDate.text = it.postedDate
+                binding.tvDesc.text = it.description
+                binding.tvDescBg.text = it.blockQuote.get(0).summary
+                binding.tvTitleBg.text = it.blockQuote.get(0).title
+                binding.tvMoreDetail.text = it.moreDetail.get(0).summary
+                binding.tvMoreTitleDetail.text = it.moreDetail.get(0).title
+
+                groupAdapter.add(
                     NewsSliderItems<ItemSliderBinding>(
-                            latestNews = it,
-                            resLayout = R.layout.item_slider,
-                            context = requireContext()
+                        newsDetail = it,
+                        resLayout = R.layout.item_slider,
+                        context = requireContext()
                     )
-            )
+                )
+                newsArticleAdapter.add(
+                    NewsSliderItems<ItemNewsArticleBinding>(
+                        newsDetail = it,
+                        resLayout = R.layout.item_news_article,
+                        context = requireContext()
+                    )
+                )
+
+                moreNewsAdapter.add(
+                    NewsSliderItems<ItemMoreNewsBinding>(
+                        object : RowClickListener {
+                            override fun rowClickListener(position: Int) {
+
+
+                            }
+
+                        }, newsDetail = it, R.layout.item_more_news, requireContext()
+                    )
+                )
+
+            }
+
 
         }
+
+
+
         binding.rvSlider.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
@@ -70,15 +105,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
         }
 
 
-        newsDetailViewModel.articleList().map {
-            newsArticleAdapter.add(
-                    NewsItems<ItemNewsArticleBinding>(
-                            latestNews = it,
-                            resLayout = R.layout.item_news_article,
-                            context = requireContext()
-                    )
-            )
-        }
+
         binding.rvNewsArticle.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = newsArticleAdapter
@@ -99,18 +126,6 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 //            )
 //
 //        }
-        newsDetailViewModel.morenewsList().map {
-            moreNewsAdapter.add(
-                    NewsItems<ItemMoreNewsBinding>(
-                            object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-
-                                }
-
-                            }, latestNews = it, R.layout.item_more_news, requireContext()
-                    )
-            )
-        }
 
 
         binding.rvMoreNews.apply {
