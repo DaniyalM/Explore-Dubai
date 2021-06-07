@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_moreFragment_to_contactFragment"
             app:destination="@id/contactFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_FAQsFragment"
+            app:destination="@id/FAQsFragment" />
     </fragment>
 
     <dialog
@@ -67,4 +70,8 @@
         tools:layout="@layout/fragment_contact"
         android:name="com.app.dubaiculture.ui.postLogin.more.contact.ContactFragment"
         android:label="ContactFragment" />
+    <fragment
+        android:id="@+id/FAQsFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.more.faqs.FAQsFragment"
+        android:label="FAQsFragment" />
 </navigation>

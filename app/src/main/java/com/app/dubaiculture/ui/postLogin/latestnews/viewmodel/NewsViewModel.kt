@@ -34,47 +34,4 @@ class NewsViewModel @ViewModelInject constructor(application: Application,
     }
 
 
-    fun newsList(): ArrayList<LatestNews> {
-        val list = ArrayList<LatestNews>()
-        list.add(
-                LatestNews(
-                        image = "/-/media/DC/News-Detail/2.jpg",
-                        title = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-                        date = "12 Nov, 2020"
-                )
-        )
-
-        list.add(
-                LatestNews(
-                        image = "/-/media/DC/News-Detail/2.jpg",
-                        title = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-                        date = "12 Nov, 2020"
-                )
-        )
-
-        list.add(
-                LatestNews(
-                        image = "/-/media/DC/News-Detail/2.jpg",
-                        title = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-                        date = "12 Nov, 2020"
-                )
-        )
-
-        list.add(
-                LatestNews(
-                        image = "/-/media/DC/News-Detail/2.jpg",
-                        title = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-                        date = "12 Nov, 2020"
-                )
-        )
-
-        list.add(
-                LatestNews(
-                        image = "/-/media/DC/News-Detail/2.jpg",
-                        title = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
-                        date = "12 Nov, 2020"
-                )
-        )
-        return list
-    }
 }

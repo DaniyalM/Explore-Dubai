@@ -136,6 +136,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                             if (position == 1) {
                                 navigate(R.id.action_moreFragment_to_contactFragment)
                             }
+                            if (position == 2) {
+                                navigate(R.id.action_moreFragment_to_FAQsFragment)
+                            }
                             if (position == 4) {
                                 val bundle =
                                     bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)

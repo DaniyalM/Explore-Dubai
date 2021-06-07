@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnClickListener {
     private val newsViewModel: NewsViewModel by viewModels()
     private var newsRequest: NewsRequest = NewsRequest(
-        0, 6
+        pageNumber = 0, pageSize =  6
     )
     var contentLoadMore = true
     var newsVerticalAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
