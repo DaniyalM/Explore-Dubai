@@ -14,4 +14,13 @@ class NewsRDS @Inject constructor(val newsService: NewsService) : BaseRDS(newsSe
                         newsRequestDTO.culture
                 )
             }
+
+
+    suspend fun getNewsDetails(newsRequestDTO: NewsRequestDTO) =
+        safeApiCall {
+            newsService.getNewsDetail(
+                newsRequestDTO.id!!,
+                newsRequestDTO.culture
+            )
+        }
 }

@@ -12,4 +12,12 @@ interface NewsService : BaseService {
             @Query("pageSize") pageSize: Int,
             @Query("culture") culture: String,
     ): NewsResponse
+
+    @GET("Content/GetNewsDetails")
+    suspend fun getNewsDetail(
+            @Query("Id") id: String,
+            @Query("culture") culture: String
+    ): NewsResponse
+
+
 }
