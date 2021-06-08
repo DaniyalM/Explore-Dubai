@@ -1,12 +1,14 @@
 package com.app.dubaiculture.ui.postLogin.latestnews.detail
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentNewsDetailBinding
 import com.app.dubaiculture.databinding.ItemMoreNewsBinding
@@ -14,11 +16,16 @@ import com.app.dubaiculture.databinding.ItemNewsArticleBinding
 import com.app.dubaiculture.databinding.ItemSliderBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
+import com.app.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsArticleAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsSliderItems
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.viewmodel.NewsDetailViewModel
+import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -27,15 +34,39 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
     private val newsDetailViewModel: NewsDetailViewModel by viewModels()
     private lateinit var newsArticleAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var moreNewsAdapter: GroupAdapter<GroupieViewHolder>
-
-
+    private lateinit var articleAdapter: RecyclerView.Adapter<*>
+    private val textToSpeechEngine: TextToSpeech by lazy {
+        TextToSpeech(requireContext()) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                textToSpeechEngine.language = Locale(getCurrentLanguage().language)
+            }
+        }
+    }
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentNewsDetailBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(newsDetailViewModel)
+        arguments?.let {
+            newsDetailViewModel.newsDetail(
+                id = it.getString(NEWS_ID).toString(),
+                locale = getCurrentLanguage().language
+            )
+        }
         rvSetUp()
+        binding.imgClose.setOnClickListener {
+            back()
+        }
+        binding.imgSpeaker.setOnClickListener {
+            textToSpeechEngine.speak(
+                binding.tvTitle.text,
+                TextToSpeech.QUEUE_FLUSH,
+                null,
+                "tts1"
+            )
+        }
+
     }
 
     private fun rvSetUp() {
@@ -57,10 +88,25 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
                 binding.tvTitle.text = it.title
                 binding.tvDate.text = it.postedDate
                 binding.tvDesc.text = it.description
-                binding.tvDescBg.text = it.blockQuote.get(0).summary
-                binding.tvTitleBg.text = it.blockQuote.get(0).title
-                binding.tvMoreDetail.text = it.moreDetail.get(0).summary
-                binding.tvMoreTitleDetail.text = it.moreDetail.get(0).title
+                if (!it.blockQuote.isNullOrEmpty()) {
+                    binding.tvDescBg.text = it.blockQuote[0].summary
+                    binding.tvTitleBg.text = it.blockQuote[0].title
+                } else {
+                    binding.llDescBg.visibility = View.GONE
+                }
+                if (!it.moreDetail.isNullOrEmpty()) {
+                    binding.tvMoreDetail.text = it.moreDetail[0].summary
+                    binding.tvMoreTitleDetail.text = it.moreDetail[0].title
+                } else {
+                    binding.tvMoreDetail.visibility = View.GONE
+                    binding.tvMoreTitleDetail.visibility = View.GONE
+                }
+
+                articleAdapter = NewsArticleAdapter(it.tags!!)
+                binding.rvNewsArticle.apply {
+                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    adapter = articleAdapter
+                }
 
                 groupAdapter.add(
                     NewsSliderItems<ItemSliderBinding>(
@@ -69,26 +115,27 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
                         context = requireContext()
                     )
                 )
-                newsArticleAdapter.add(
-                    NewsSliderItems<ItemNewsArticleBinding>(
-                        newsDetail = it,
-                        resLayout = R.layout.item_news_article,
-                        context = requireContext()
-                    )
-                )
-
-                moreNewsAdapter.add(
-                    NewsSliderItems<ItemMoreNewsBinding>(
-                        object : RowClickListener {
-                            override fun rowClickListener(position: Int) {
 
 
-                            }
+                if (!it.relatedData.isNullOrEmpty()) {
+                    it.relatedData.map {
+                        moreNewsAdapter.add(
+                            NewsItems<ItemMoreNewsBinding>(
+                                object : RowClickListener {
+                                    override fun rowClickListener(position: Int) {
 
-                        }, newsDetail = it, R.layout.item_more_news, requireContext()
-                    )
-                )
 
+                                    }
+
+                                }, latestNews = it, R.layout.item_more_news, requireContext()
+                        )
+                        )
+
+                    }
+
+                } else {
+                    binding.llMoreNews.visibility = View.GONE
+                }
             }
 
 
@@ -106,26 +153,6 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 
 
 
-        binding.rvNewsArticle.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = newsArticleAdapter
-        }
-//
-//
-//        newsDetailViewModel.newsList().map {
-//            groupAdapter.add(
-//                NewsItems<ItemsLatestNewsBinding>(
-//                    object : RowClickListener {
-//                        override fun rowClickListener(position: Int) {
-//                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
-//
-//                        }
-//
-//                    }, latestNews = it, R.layout.items_latest_news, requireContext()
-//                )
-//            )
-//
-//        }
 
 
         binding.rvMoreNews.apply {

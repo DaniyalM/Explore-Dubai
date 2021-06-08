@@ -44,20 +44,20 @@ fun transformNewsDetail(newsResponse: NewsResponse) = newsResponse.Result.detail
         id = ID,
         image = Image,
         description = Description,
-        blockQuote = BlockQuoteDTO.map {
+        blockQuote = BlockQuote?.map {
             BlockQuote(
                 summary = it.Summary,
                 title = it.Title
             )
         },
-        moreDetail = MoreDetailDTO.map {
+        moreDetail = MoreDetail?.map {
             MoreDetail(
                 description = it.Description,
                 summary = it.Summary,
                 title = it.Title
             )
         },
-        relatedData = RelatedData.map {
+        relatedData = RelatedData?.map {
             LatestNews(
                 id = it.id,
                 title = it.title,
@@ -67,7 +67,7 @@ fun transformNewsDetail(newsResponse: NewsResponse) = newsResponse.Result.detail
             )
         },
         tags = Tags,
-        twoColumnImageModule = TwoColumnImageModuleDTO.map {
+        twoColumnImageModule = TwoColumnImageModuleDTO?.map {
             TwoColumnImageModule(
                 image1 = it.Image1,
                 image2 = it.Image2

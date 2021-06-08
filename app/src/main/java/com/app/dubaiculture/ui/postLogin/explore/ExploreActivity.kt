@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.explore
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
@@ -16,6 +17,7 @@ class ExploreActivity : BaseAuthenticationActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_generic)
         setupViews(R.navigation.explore_navigation,binding.bottomNav)
         BottomInit(binding.bottomNav, R.id.exploreFragment)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
     }
 

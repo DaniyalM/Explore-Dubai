@@ -36,26 +36,11 @@ data class NewsSliderItems <T : ViewDataBinding>(
                     YoYo.with(Techniques.BounceInUp)
                         .duration(1000)
                         .playOn(it.root)
-
-                    newsDetail.tags.forEach {items->
+                    newsDetail.tags?.forEach {items->
                         it.tvTitleCategory.text = items
                     }
-
                 }
-
             }
-            is ItemMoreNewsBinding->{
-                viewBinding.let {
-                    YoYo.with(Techniques.BounceInUp)
-                        .duration(1000)
-                        .playOn(it.root)
-
-                        newsDetail.relatedData.map { items->
-                            it.news =items
-                        }
-
-                }
-                }
         }
     }
     override fun getLayout() = resLayout

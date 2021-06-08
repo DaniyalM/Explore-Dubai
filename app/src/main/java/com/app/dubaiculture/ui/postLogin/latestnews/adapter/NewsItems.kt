@@ -60,6 +60,13 @@ data class NewsItems <T : ViewDataBinding>(
                         .playOn(viewBinding.root)
                 viewBinding.news = latestNews
             }
+            is ItemMoreNewsBinding -> {
+                YoYo.with(Techniques.BounceInUp)
+                    .duration(1000)
+                    .playOn(viewBinding.root)
+                viewBinding.news = latestNews
+
+            }
         }
     }
 

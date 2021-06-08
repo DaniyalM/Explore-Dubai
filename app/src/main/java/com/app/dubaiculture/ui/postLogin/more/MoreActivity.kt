@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.more
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
@@ -15,6 +16,8 @@ class MoreActivity : BaseAuthenticationActivity() {
 
         setupViews(R.navigation.more_navigation,binding.bottomNav)
         BottomInit(binding.bottomNav, R.id.moreFragment)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
     }
     override fun onResume() {
         super.onResume()

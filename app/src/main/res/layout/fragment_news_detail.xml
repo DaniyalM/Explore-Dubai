@@ -80,7 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:foreground="@drawable/custom_ripple_border"
+                    android:background="@drawable/speakers"
                     android:src="@drawable/speakers"
                     app:layout_constraintBottom_toBottomOf="@+id/tvDate"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -92,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:text="Collaboration is an essential factor for supporting the emirate’s creative sector"
                     android:textColor="@color/black_700"
+
                     android:textSize="@dimen/_20ssp"
                     android:layout_marginTop="@dimen/_12sdp"
                     app:textFont="bold"
@@ -131,11 +133,19 @@
                     app:layout_constraintTop_toBottomOf="@id/divider"
                     app:layout_constraintStart_toStartOf="@id/divider"
                     app:layout_constraintEnd_toEndOf="@id/divider"
-                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:textColor="@color/gray_750"
                     android:text="Hala Badri, Director General of Dubai Culture and Arts Authority, affirmed that the Authority is progressively fulfilling its role with a steadfast vision by constantly communicating with the creative community and working with its partners to ensure the continuity of creativity in various fields across the cultural sector and enable creatives to stay their course despite the repercussions caused by the COVID-19 pandemic. This came as part of her visit to AlSerkal Avenue, which is one of the most prominent creative incubators for cultural events in Dubai. It was also part of the continuous support of HH Sheikha Latifa bint Mohammed bin Rashid Al Maktoum, chairperson of Dubai Culture, to follow up on the cultural scene in the emirate based on Her Highness’s keenness to constantly be conscious of the business conditions in the sector. Her Highness also seeks to find solutions that would ensure the continuity of the sector and enhance the ability of all creatives within it to rise up to the challenges and pursue the emirate’s procedural path of development and prosperity."
                     />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_60sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_desc"
+                    app:layout_constraintStart_toStartOf="@+id/tv_desc"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
 
 
                 <LinearLayout
@@ -154,13 +164,11 @@
                         android:id="@+id/tv_title_bg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_13ssp"
+                        android:textSize="@dimen/_12ssp"
                         android:layout_marginTop="@dimen/_35sdp"
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:textColor="@color/red_600"
-                        android:textStyle="bold"
-                        app:textFont="bold"
+                        android:textColor="@color/sea_green"
                         app:textAllCaps="true"
                         android:text="Hala Belcon said that :"
 
@@ -170,7 +178,7 @@
                         android:id="@+id/tv_desc_bg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_13ssp"
+                        android:textSize="@dimen/_12ssp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
@@ -202,7 +210,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_more_title_detail"
                     app:layout_constraintStart_toStartOf="@id/divider"
                     app:layout_constraintEnd_toEndOf="@id/divider"
-                    android:textSize="@dimen/_13ssp"
+                    android:textSize="@dimen/_12ssp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColor="@color/gray_750"
                     android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
@@ -219,6 +227,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/llMoreNews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#E8E8E8"

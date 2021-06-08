@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -18,6 +19,7 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.latestnews.viewmodel.NewsViewModel
+import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +44,9 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
         subscribeToObservables()
         initiateRequest()
         rvSetup()
+        binding.imgClose.setOnClickListener {
+            back()
+        }
     }
 
 
@@ -91,7 +96,8 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
                 NewsItems<ItemsLatestNewsBinding>(
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
-                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
+                            val bundle = bundleOf(NEWS_ID to it.id)
+                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment,bundle)
 
                         }
 
@@ -119,7 +125,8 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
                 NewsItems<ItemsNewsVerticalLayoutBinding>(
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
-                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment)
+                            val bundle = bundleOf(NEWS_ID to it.id)
+                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment,bundle)
 
                         }
 

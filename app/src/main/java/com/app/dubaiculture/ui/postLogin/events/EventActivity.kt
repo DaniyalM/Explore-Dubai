@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.events
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
@@ -16,6 +17,8 @@ class EventActivity : BaseAuthenticationActivity() {
 
         setupViews(R.navigation.events_navigation,binding.bottomNav)
         BottomInit(binding.bottomNav, R.id.eventsFragment)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
     }
 
     override fun onResume() {

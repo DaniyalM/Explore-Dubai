@@ -20,7 +20,7 @@ class PreLoginActivity : BaseActivity() {
 //        val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
 
 
-//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     override fun onResume() {

@@ -1,14 +1,14 @@
 package com.app.dubaiculture.data.repository.news.remote.request
 
 data class NewsDetailDTO(
-    val BlockQuoteDTO: List<BlockQuoteDTO>,
+    val BlockQuote: List<BlockQuoteDTO> ?= emptyList(),
     val Description: String,
     val ID: String,
     val Image: String,
-    val MoreDetailDTO: List<MoreDetailDTO>,
+    val MoreDetail: List<MoreDetailDTO> ?=  emptyList(),
     val PostedDate: String,
-    val RelatedData: List<LatestNewsDTO>,
-    val Tags: List<String>,
+    val RelatedData: List<LatestNewsDTO> ?=  emptyList(),
+    val Tags: List<String> ?= emptyList(),
     val Title: String,
-    val TwoColumnImageModuleDTO: List<TwoColumnImageModuleDTO>
+    val TwoColumnImageModuleDTO: List<TwoColumnImageModuleDTO>?=  emptyList()
 )
