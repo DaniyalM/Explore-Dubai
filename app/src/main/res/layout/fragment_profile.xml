@@ -47,6 +47,7 @@
                 android:id="@+id/frameLayoutImagePicker"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
+                android:foreground="@drawable/custom_ripple_black"
                 android:background="@drawable/ellipse"
                 app:layout_constraintBottom_toBottomOf="@+id/profileImage"
                 app:layout_constraintEnd_toEndOf="@+id/profileImage"
@@ -128,6 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Edit Profile"
+                    android:background="@drawable/custom_ripple_black"
                     android:textColor="@color/purple_600"
                     android:textSize="@dimen/_8sdp"
                     app:layout_constraintEnd_toEndOf="@+id/mob_num"
@@ -141,7 +143,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-
                 app:cardCornerRadius="@dimen/_20sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/editButtonFrame"
@@ -157,6 +158,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:id="@+id/favouriteContainer"
+                        android:background="@drawable/custom_ripple_black"
                         android:layout_height="@dimen/_40sdp">
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -224,6 +226,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:id="@+id/myEventsView"
+                        android:background="@drawable/custom_ripple_black"
                         android:layout_height="@dimen/_40sdp">
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -266,6 +269,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:id="@+id/placesVisitedView"
+                        android:background="@drawable/custom_ripple_black"
                         android:layout_height="@dimen/_40sdp">
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -390,6 +394,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:id="@+id/changePasswordView"
+                        android:background="@drawable/custom_ripple_black"
                         android:layout_height="@dimen/_40sdp">
 
                         <androidx.appcompat.widget.AppCompatImageView

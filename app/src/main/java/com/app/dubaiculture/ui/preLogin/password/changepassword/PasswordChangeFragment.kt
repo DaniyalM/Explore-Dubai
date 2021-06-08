@@ -10,6 +10,7 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.password.changepassword.viewmodel.ChangedPasswordViewModel
 import com.app.dubaiculture.ui.preLogin.password.viewModel.CreatePassViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.layout_back.view.*
 
 @AndroidEntryPoint
 class PasswordChangeFragment : BaseFragment<FragmentPasswordChangeBinding>() {
@@ -24,7 +25,18 @@ class PasswordChangeFragment : BaseFragment<FragmentPasswordChangeBinding>() {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(changedPasswordViewModel)
         binding.viewmodel = changedPasswordViewModel
-
-
+        binding.root.back.setOnClickListener {
+            back()
+        }
+        callingObserver()
+    }
+    private fun callingObserver(){
+        changedPasswordViewModel.changedPasswordStatus.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let {
+                if(it == true){
+                    back()
+                }
+            }
+        }
     }
 }

@@ -30,6 +30,9 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>() {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(notificationViewModel)
         rvSetup()
+        binding.imgClose.setOnClickListener {
+            back()
+        }
     }
 
     private fun rvSetup() {

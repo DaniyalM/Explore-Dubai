@@ -94,7 +94,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     navigate(R.id.action_profileFragment_to_myEventsFragment)
                 }
                 editProfile.setOnClickListener {
-                    navigate(R.id.action_profileFragment_to_editProfileFragment)
+//                    navigate(R.id.action_profileFragment_to_editProfileFragment)
                 }
                 changePasswordView.setOnClickListener {
                     navigate(R.id.action_profileFragment_to_passwordChangeFragment)

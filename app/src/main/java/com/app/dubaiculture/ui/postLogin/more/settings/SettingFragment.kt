@@ -84,6 +84,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
         profileViewModel.getSettings()
         subscribeToObservable()
 
+        binding.imgClose.setOnClickListener {
+            back()
+        }
+
     }
 
     private fun initiateRequest() {

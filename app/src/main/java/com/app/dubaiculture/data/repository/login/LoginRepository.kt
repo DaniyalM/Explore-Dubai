@@ -52,7 +52,7 @@ class LoginRepository @Inject constructor(private val loginRDS: LoginRDS):
             is Result.Success ->{
                 val listRDS = resultRDS
                 if (listRDS.value.statusCode != 200) {
-                    Result.Failure(true,listRDS.value.statusCode,null)
+                    Result.Failure(true,listRDS.value.statusCode,null,listRDS.value.errorMessage)
                 }else{
                     Result.Success(listRDS.value)
                 }

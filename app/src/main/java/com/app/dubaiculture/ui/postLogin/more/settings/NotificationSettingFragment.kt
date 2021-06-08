@@ -43,7 +43,9 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
         markLocationBaseSwitch()
         markEmailSwitch()
         markSmsSwitch()
-
+        binding.imgClose.setOnClickListener {
+            back()
+        }
     }
 
 
