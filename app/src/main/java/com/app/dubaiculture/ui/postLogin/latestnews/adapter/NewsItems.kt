@@ -63,7 +63,7 @@ data class NewsItems <T : ViewDataBinding>(
                     rowClickListener?.rowClickListener(position)
                 }
             }
-        
+
         }
     }
 

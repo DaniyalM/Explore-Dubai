@@ -194,21 +194,26 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         val quickPermissionsOption = QuickPermissionsOptions(
             handleRationale = false
         )
-        activity.runWithPermissions(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            options = quickPermissionsOption
-        ) {
-            locationHelper.locationSetUp(
-                object : LocationHelper.LocationLatLng {
-                    override fun getCurrentLocation(location: Location) {
-                        lat = location.latitude
-                        lng = location.longitude
-                        Timber.e("Current Location ${location.latitude}")
-                    }
-                },
-                activity, locationCallback)
-        }
+
+        try{
+            activity.runWithPermissions(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    options = quickPermissionsOption
+            ) {
+                locationHelper.locationSetUp(
+                        object : LocationHelper.LocationLatLng {
+                            override fun getCurrentLocation(location: Location) {
+                                lat = location.latitude
+                                lng = location.longitude
+                                Timber.e("Current Location ${location.latitude}")
+                            }
+                        },
+                        activity, locationCallback)
+            }
+        }catch (ex:IllegalStateException){}
+
+
     }
 
     private fun updateGpsCheckUI(status: GpsStatus) {
