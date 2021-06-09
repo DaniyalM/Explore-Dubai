@@ -16,7 +16,7 @@ class MoreActivity : BaseAuthenticationActivity() {
 
         setupViews(R.navigation.more_navigation,binding.bottomNav)
         BottomInit(binding.bottomNav, R.id.moreFragment)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
     }
     override fun onResume() {

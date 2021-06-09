@@ -1,6 +1,8 @@
 package com.app.dubaiculture.ui.postLogin.events
 
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import com.app.dubaiculture.R
@@ -14,10 +16,9 @@ class EventActivity : BaseAuthenticationActivity() {
 //        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_generic)
-
         setupViews(R.navigation.events_navigation,binding.bottomNav)
         BottomInit(binding.bottomNav, R.id.eventsFragment)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
 
     }
 
