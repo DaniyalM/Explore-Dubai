@@ -76,4 +76,21 @@ class MoreRepository @Inject constructor(private val moreRDS: MoreRDS) : BaseRep
             is Result.Failure -> result
         }
 
+    suspend fun getCultureConnoisseur(privacyAndTermRequest: PrivacyAndTermRequest) =
+            when (val result =
+                    moreRDS.getCultureConnoisseur(transformPrivacyAndTermsRequest(privacyAndTermRequest))) {
+                is Result.Success -> {
+                    if (result.value.succeeded) {
+                        Result.Success(
+                                Event(
+                                        transformCultureConnoisseur(result.value)
+                                )
+                        )
+                    } else {
+                        Result.Failure(false, null, null, result.value.errorMessage)
+                    }
+                }
+                is Result.Error -> result
+                is Result.Failure -> result
+            }
 }

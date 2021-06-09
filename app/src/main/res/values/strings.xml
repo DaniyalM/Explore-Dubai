@@ -241,6 +241,9 @@
     <string name="reach_us">Reach Us</string>
     <string name="suggestion_amp_complaints"><![CDATA[Suggestion & Complaints]]></string>
     <string name="visited_on">Visited on: </string>
+    <string name="libraries_we_used">LIBRARIES WE USED</string>
+    <string name="share_your_feedback">Share Your Feedback</string>
+    <string name="subject">Subject</string>
 
 
 </resources>

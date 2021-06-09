@@ -27,6 +27,19 @@ fun transformTermsAndConditionsResponse(moreresponse: MoreResponse) =
         )
     }
 
+fun transformCultureConnoisseur(moreresponse: MoreResponse)=
+        moreresponse.Result.run {
+            CultureConnoisseur(
+                    description = cultureConnoisseur.Description,
+                    dubaiLogo = cultureConnoisseur.DubaiLogo,
+                    govtLogo = cultureConnoisseur.GovtLogo,
+                    readMoreTitle = cultureConnoisseur.ReadMoreTitle,
+                    readMoreURL = cultureConnoisseur.ReadMoreURL,
+                    title = cultureConnoisseur.Title
+            )
+        }
+
+
 
 fun transformationContactCenter(moreresponse: MoreResponse) = moreresponse.Result.run {
     ContactCenter(

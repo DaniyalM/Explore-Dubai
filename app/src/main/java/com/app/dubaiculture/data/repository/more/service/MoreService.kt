@@ -19,4 +19,6 @@ interface MoreService : BaseService {
     @GET("Content/GetFAQ")
     suspend fun getFAQs(@Query("culture") culture: String): MoreResponse
 
+    @GET("Content/GetCultureConnoisseur")
+    suspend fun getCultureConnoisseur(@Query("culture") culture: String): MoreResponse
 }
