@@ -16,15 +16,11 @@ class AttractionActivity : BaseAuthenticationActivity() {
 
         setupViews(R.navigation.attraction_navigation,binding.bottomNav)
         BottomInit(binding.bottomNav, R.id.attractionsFragment)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
     }
 
     override fun onResume() {
         super.onResume()
         adjustFontScale(resources.configuration)
-
-
-
     }
 }

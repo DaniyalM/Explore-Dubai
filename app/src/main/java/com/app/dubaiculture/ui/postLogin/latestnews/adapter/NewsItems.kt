@@ -59,14 +59,11 @@ data class NewsItems <T : ViewDataBinding>(
                         .duration(1000)
                         .playOn(viewBinding.root)
                 viewBinding.news = latestNews
+                viewBinding.cardview.setOnClickListener {
+                    rowClickListener?.rowClickListener(position)
+                }
             }
-            is ItemMoreNewsBinding -> {
-                YoYo.with(Techniques.BounceInUp)
-                    .duration(1000)
-                    .playOn(viewBinding.root)
-                viewBinding.news = latestNews
 
-            }
         }
     }
 

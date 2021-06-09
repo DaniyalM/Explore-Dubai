@@ -5,6 +5,11 @@
     android:id="@+id/explore_navigation"
     app:startDestination="@id/exploreFragment">
 
+    <include app:graph="@navigation/attraction_detail_navigation"/>
+    <include app:graph="@navigation/post_login_bottom_navigation"/>
+    <include app:graph="@navigation/event_detail_navigation"/>
+    <include app:graph="@navigation/news_navigation"/>
+
 
     <fragment
         android:id="@+id/exploreFragment"
@@ -30,6 +35,12 @@
         <action
             android:id="@+id/action_exploreFragment_to_eventFilterFragment"
             app:destination="@id/eventFilterFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_news_navigation"
+            app:destination="@id/news_navigation" />
+        <action
+            android:id="@+id/action_exploreFragment_to_newsDetailFragmentExplore"
+            app:destination="@id/newsDetailFragmentExplore" />
     </fragment>
     <fragment
         android:id="@+id/eventFilterFragment"
@@ -81,10 +92,14 @@
         tools:layout="@layout/fragment_filter"
         android:name="com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment"
         android:label="FilterFragment" />
-
-    <include app:graph="@navigation/attraction_detail_navigation"/>
-    <include app:graph="@navigation/post_login_bottom_navigation"/>
-    <include app:graph="@navigation/event_detail_navigation"/>
+<!--    <fragment-->
+<!--        android:id="@+id/ARFragment2"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ar.ARFragment"-->
+<!--        android:label="ARFragment" />-->
+    <fragment
+        android:id="@+id/newsDetailFragmentExplore"
+        android:name="com.app.dubaiculture.ui.postLogin.latestnews.detail.NewsDetailFragment"
+        android:label="NewsDetailFragment" />
 
 
 </navigation>

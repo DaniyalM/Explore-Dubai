@@ -1,8 +1,11 @@
 package com.app.dubaiculture.ui.base
 
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.CheckBox
 import androidx.navigation.fragment.NavHostFragment
 import com.app.dubaiculture.R
@@ -25,8 +28,16 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-
         checkLoginStatus()
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
         baseOnCreate(savedInstanceState)
     }
 

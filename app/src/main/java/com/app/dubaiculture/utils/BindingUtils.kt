@@ -31,13 +31,14 @@ fun View.glideInstance(url: String?, isSvg: Boolean = false): RequestBuilder<Dra
 //                .placeholder(R.drawable.logo)
 //                .error(android.R.drawable.stat_notify_error)
                         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-        ).load(urlConcat).transition(DrawableTransitionOptions.withCrossFade())
+        ).load(urlConcat)
+//                .transition(DrawableTransitionOptions.withCrossFade())
 
 
     } else {
         glide
                 .load(urlConcat)
-                .transition(DrawableTransitionOptions.withCrossFade())
+//                .transition(DrawableTransitionOptions.withCrossFade())
     }
 }
 
