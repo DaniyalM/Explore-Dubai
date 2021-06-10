@@ -243,7 +243,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_15sdp"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:background="@drawable/bg_btn_filled_disabled"
                 android:elevation="@dimen/_2sdp"
                 android:foreground="@drawable/custom_ripple_border"

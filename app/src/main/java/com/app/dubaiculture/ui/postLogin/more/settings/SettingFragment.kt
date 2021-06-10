@@ -11,12 +11,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.settings.local.UserSettings
 import com.app.dubaiculture.databinding.FragmentSettingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.GpsStatus
+import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -108,14 +110,24 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
 
     private fun subscribeToObservable() {
         profileViewModel.userSettings.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let {
-                userSettings = it
-                userSettings.let {
-                    binding.noti.setOnClickListener(this)
-                    binding.reset.setOnClickListener(this)
-                    markPushNotificationSwitch()
+
+            when(it){
+                is Result.Success ->{
+                    it.value.getContentIfNotHandled()?.let {
+                        userSettings = it
+                        userSettings.let {
+                            binding.noti.setOnClickListener(this)
+                            binding.reset.setOnClickListener(this)
+                            markPushNotificationSwitch()
+                        }
+                    }
                 }
+                is Result.Failure ->handleApiError(it,profileViewModel)
             }
+
+
+
+
         }
     }
 

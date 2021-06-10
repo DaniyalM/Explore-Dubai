@@ -108,6 +108,7 @@ fun Fragment.handleApiError(
         failure: Result.Failure,
         baseViewModel: BaseViewModel,
         retry: (() -> Unit)? = null,
+//        error: Result.Error?=null,
 ) {
     baseViewModel.showLoader(false)
     when {
@@ -134,6 +135,8 @@ fun Fragment.handleApiError(
 
         }
     }
+
+
 }
 
 fun <T : Any> ObservableField<T>.getNonNull(): T = get()!!

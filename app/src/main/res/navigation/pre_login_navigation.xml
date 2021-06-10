@@ -11,7 +11,11 @@
         android:label="fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -20,19 +24,39 @@
         android:label="fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment2"
-            app:destination="@id/registerFragment2" />
+            app:destination="@id/registerFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_loginFragment_to_forgotFragment"
-            app:destination="@id/forgotFragment" />
+            app:destination="@id/forgotFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_loginFragment_to_bottomSheet"
-            app:destination="@id/bottomSheet" />
+            app:destination="@id/bottomSheet"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_loginFragment_to_createPassFragment"
-            app:destination="@id/createPassFragment" />
+            app:destination="@id/createPassFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_loginFragment_to_registrationSuccessFragment"
-            app:destination="@id/registrationSuccessFragment" />
+            app:destination="@id/registrationSuccessFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
@@ -41,7 +65,11 @@
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment2_to_bottomSheet"
-            app:destination="@id/bottomSheet" />
+            app:destination="@id/bottomSheet"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/forgotFragment"
@@ -51,7 +79,11 @@
 
         <action
             android:id="@+id/action_forgotFragment_to_bottomSheet"
-            app:destination="@id/bottomSheet" />
+            app:destination="@id/bottomSheet"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/createPassFragment"
@@ -60,7 +92,11 @@
         android:label="CreatePassFragment" >
         <action
             android:id="@+id/action_createPassFragment_to_passwordUpdatedFragment"
-            app:destination="@id/passwordUpdatedFragment" />
+            app:destination="@id/passwordUpdatedFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/registrationSuccessFragment"
@@ -72,7 +108,11 @@
             app:popUpTo="@+id/pre_login_nav_host_fragment"
             app:popUpToInclusive="true"
             android:id="@+id/action_registrationSuccessFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheet"
@@ -101,11 +141,19 @@
 
         <action
             android:id="@+id/action_bottomSheet_to_registrationSuccessFragment"
-            app:destination="@id/registrationSuccessFragment" />
+            app:destination="@id/registrationSuccessFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
 
         <action
             android:id="@+id/action_bottomSheet_to_createPassFragment"
-            app:destination="@id/createPassFragment" />
+            app:destination="@id/createPassFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
 
     </dialog>
     <dialog
@@ -119,7 +167,11 @@
             app:popUpTo="@+id/pre_login_nav_host_fragment"
             app:popUpToInclusive="true"
             android:id="@+id/action_passwordUpdatedFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </dialog>
 
 </navigation>

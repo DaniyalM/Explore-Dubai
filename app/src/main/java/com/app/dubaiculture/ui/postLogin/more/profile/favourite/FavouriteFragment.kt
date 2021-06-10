@@ -23,6 +23,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.more.profile.favourite.models.FavouriteHeader
+import com.app.dubaiculture.ui.postLogin.more.profile.favourite.services.FavouriteServices
 import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.FAVOURITE_BUNDLE
@@ -38,8 +39,8 @@ import kotlinx.android.synthetic.main.toolbar_layout.view.*
 class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
     private lateinit var linearLayoutManger: LinearLayoutManager
     private val profileViewModel: ProfileViewModel by viewModels()
-    private lateinit var events: List<Events>
-    private lateinit var attractions: List<Attractions>
+    private  var events: List<Events> =  emptyList()
+    private  var attractions: List<Attractions> = emptyList()
     var eventsAdapter: GroupAdapter<GroupieViewHolder>? = GroupAdapter()
     var attractionsAdapter: GroupAdapter<GroupieViewHolder>? = GroupAdapter()
 
@@ -53,17 +54,21 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         super.onAttach(context)
         arguments?.apply {
             getParcelable<Favourite>(FAVOURITE_BUNDLE)?.let {
-                events=it.events
-                attractions=it.attractions
+                events = it.events
+                attractions = it.attractions
             }
         }
     }
 
     private fun initiateRequest() {
-//        binding.swipeRefresh.post {
-//            binding.swipeRefresh.isRefreshing = true
-//            profileViewModel.getFavourites()
-//        }
+        if (events.isEmpty()){
+           binding.swipeRefresh.post {
+                binding.swipeRefresh.isRefreshing = true
+                profileViewModel.getFavourites()
+            }
+        }
+
+
         binding.swipeRefresh.apply {
             setColorSchemeResources(
                 R.color.colorPrimary,
@@ -102,11 +107,16 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
     private fun subscribeToObservables() {
         profileViewModel.favourite.observe(viewLifecycleOwner) {
             binding.swipeRefresh.isRefreshing = false
-            it.getContentIfNotHandled()?.let {
-                events = it.events
-                attractions = it.attractions
-                binding.horizontalSelector.initialize(initializeHeaders(), bus)
+            when (it) {
 
+                is Result.Success -> {
+                    it.value.getContentIfNotHandled()?.let {
+                        events = it.events
+                        attractions = it.attractions
+                        binding.horizontalSelector.initialize(initializeHeaders(), bus)
+                    }
+                }
+                is Result.Failure -> handleApiError(it, profileViewModel)
             }
         }
 
@@ -241,10 +251,12 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         rveventListing.visibility = View.VISIBLE
         rvAttractionListing.visibility = View.GONE
         rvServicesListing.visibility = View.GONE
+
         eventsAdapter?.apply {
             if (this.itemCount > 0) {
                 this.clear()
             }
+
             events.forEach {
                 add(
                     EventListItem<ItemEventListingBinding>(
@@ -295,6 +307,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         rvAttractionListing.visibility = View.VISIBLE
         rveventListing.visibility = View.GONE
         rvServicesListing.visibility = View.GONE
+    
         attractionsAdapter?.apply {
             if (this.itemCount > 0) {
                 this.clear()
