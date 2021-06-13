@@ -107,7 +107,6 @@ object Constants {
         const val DELETE: Int = 3
         const val BOTH: Int = 4
         const val REQUEST_CODE: Int = 200
-
     }
 
     object GoogleMap {
@@ -115,4 +114,15 @@ object Constants {
         const val PACKAGE_NAME_GOOGLE_MAP: String = "com.google.android.apps.maps"
         const val DESTINATION = "&daddr="
     }
+    object DateFormats {
+        const val TIME_STAMP_WITH_ZONE: String = "yyyy-MM-dd'T'HH:mm:ss"
+        const val YYYY_MM_DD: String = "yyyy-MM-dd"
+        const val MMM_YYYY: String = "MMM YYYY"
+        const val DD_MMM_YYYY: String = "dd MMM,YYYY"
+        const val MMM_DD_YYYY: String = "MMM dd,YYYY"
+        const val DD_MM_YY: String = "dd/MM/yy"
+        const val HH_MM_A: String = "hh:mm aa"
+        const val HH_MM: String = "HH:mm"
+    }
+
 }

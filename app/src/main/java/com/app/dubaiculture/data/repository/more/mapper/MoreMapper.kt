@@ -30,16 +30,23 @@ fun transformTermsAndConditionsResponse(moreresponse: MoreResponse) =
 fun transformCultureConnoisseur(moreresponse: MoreResponse)=
         moreresponse.Result.run {
             CultureConnoisseur(
-                    description = cultureConnoisseur.Description,
-                    dubaiLogo = cultureConnoisseur.DubaiLogo,
-                    govtLogo = cultureConnoisseur.GovtLogo,
-                    readMoreTitle = cultureConnoisseur.ReadMoreTitle,
-                    readMoreURL = cultureConnoisseur.ReadMoreURL,
-                    title = cultureConnoisseur.Title
+                    description = Description,
+                    dubaiLogo = DubaiLogo,
+                    govtLogo = GovtLogo,
+                    readMoreTitle = ReadMoreTitle,
+                    readMoreURL = ReadMoreURL,
+                    title = Title
             )
         }
 
 
+fun transformFeedbackType(moreresponse: MoreResponse)=
+    moreresponse.Result.FeedbacksType.map {
+        FeedbacksType(
+            id = it.ID,
+            title = it.Title
+        )
+    }
 
 fun transformationContactCenter(moreresponse: MoreResponse) = moreresponse.Result.run {
     ContactCenter(

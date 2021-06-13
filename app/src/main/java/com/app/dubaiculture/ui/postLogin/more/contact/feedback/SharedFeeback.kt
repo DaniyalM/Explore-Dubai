@@ -6,13 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.dubaiculture.R
+import com.app.dubaiculture.databinding.FragmentSharedFeebackBinding
+import com.app.dubaiculture.ui.base.BaseFragment
 
-class SharedFeeback : Fragment() {
+class SharedFeeback : BaseFragment<FragmentSharedFeebackBinding>() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shared_feeback, container, false)
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentSharedFeebackBinding.inflate(inflater, container, false)
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
 }

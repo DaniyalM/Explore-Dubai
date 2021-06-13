@@ -35,11 +35,12 @@ class LogoutFragment : BaseBottomSheetFragment<FragmentLogoutBinding>() ,View.On
     }
     override fun onClick(v: View?) {
         when(v?.id){
-
             R.id.btn_logout -> {
                 loginViewModel.loginStatus.postValue(Event(false))
             }
-
+            R.id.tv_cancel->{
+                back()
+            }
         }
     }
 

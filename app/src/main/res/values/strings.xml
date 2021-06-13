@@ -244,6 +244,10 @@
     <string name="libraries_we_used">LIBRARIES WE USED</string>
     <string name="share_your_feedback">Share Your Feedback</string>
     <string name="subject">Subject</string>
+    <string name="what_are_you_writing_about">What are you writing about?</string>
+    <string name="select_type">Select Type</string>
+    <string name="type_your_message_here">Type your message here...</string>
+    <string name="message">Message</string>
 
 
 </resources>

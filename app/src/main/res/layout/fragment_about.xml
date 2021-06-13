@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="cultureCon"
+            type="com.app.dubaiculture.data.repository.more.local.CultureConnoisseur" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="The Culture Connoisseurs"
+            android:text="@{cultureCon.title}"
             android:textColor="@color/black_200"
             android:textSize="@dimen/_20ssp"
             android:textStyle="bold"
@@ -69,20 +76,20 @@
                     android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:lineSpacingExtra="3dp"
-                    android:text="The Dubai Culture  Arts Authority (Dubai Culture) was launched on March 8, 2008 by His Highness Sheikh Mohammed Bin Rashid Al Maktoum, UAE Vice President  Prime Minister and Ruler of Dubai. Dubai Culture plays a critical part in achieving the vision of the Dubai Strategic Plan 2021 of enhancing Dubai’s position as a creative and sustainable global city for culture, heritage, arts, and literature, with the aim to empower these sectors by developing creative and innovative projects and initiatives locally, regionally, and globally. Under the leadership of His Excellency Abdul Rahman Al Owais, Chairman; and Her Highness Sheikha Latifa Bint Mohammed Bin Rashid Al Maktoum, Vice Chairman of the Board of Directors, Dubai Culture has played a crucial role in further establishing Dubai as a vibrant, global Arabian metropolis that shapes culture and the arts in the region. The Authority will build upon Dubai’s status as a world-renowned multicultural city, actively encouraging more than 200 nationalities living and working together in Dubai to contribute to a renaissance of the cultural scene in the region and the world."
+                    android:text="@{cultureCon.description}"
                     android:textColor="@color/gray_750"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:textFont="light" />
+                    app:textFont="regular" />
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_read_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_25sdp"
-                    android:text="Read more details on:"
+                    android:text="@{cultureCon.readMoreTitle}"
                     android:textColor="@color/gray_500"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_desc"
@@ -94,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="www.dubaiculture.com/aboutus"
+                    android:text="@{cultureCon.readMoreURL}"
                     android:textColor="@color/purple_900"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_read_more"
@@ -102,6 +109,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/ll_privacy"
+                    android:background="@drawable/custom_ripple_black"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_50sdp"
                     android:layout_marginTop="@dimen/_15sdp"
@@ -176,9 +184,10 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/ll_terms"
+                    android:background="@drawable/custom_ripple_black"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_20sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginEnd="@dimen/_15sdp"
@@ -272,31 +281,21 @@
                         android:id="@+id/rootView"
                         android:background="@drawable/custom_ripple_black"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
                         >
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/img5"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_13sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/museum_more"
-                            />
 
                         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/tv_title1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/museum_services"
+                            android:text="Lorem ipsum dolor"
                             android:textColor="@color/black_200"
                             android:textSize="@dimen/_12sdp"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            app:layout_constraintBottom_toBottomOf="@+id/img5"
-                            app:layout_constraintStart_toEndOf="@+id/img5"
-                            app:layout_constraintTop_toTopOf="@+id/img5"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             />
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -307,18 +306,9 @@
                             app:layout_constraintBottom_toBottomOf="@+id/tv_title1"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.95"
-                            app:layout_constraintStart_toEndOf="@+id/img5"
-                            app:layout_constraintTop_toTopOf="@+id/img5" />
+                            android:layout_marginEnd="@dimen/_15sdp"
+                            app:layout_constraintTop_toTopOf="@+id/tv_title1" />
 
-                        <View
-                            android:id="@+id/dividerLine"
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:background="#E8E8E8"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            app:layout_constraintStart_toStartOf="@+id/img5"
-                            app:layout_constraintEnd_toEndOf="@+id/arrow5"
-                            app:layout_constraintTop_toBottomOf="@+id/img5" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -330,31 +320,21 @@
 
                         android:background="@drawable/custom_ripple_black"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
                         >
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/img6"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_13sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/museum_more"
-                            />
 
                         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/tv_title2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/museum_services"
+                            android:text="Lorem ipsum dolor"
                             android:textColor="@color/black_200"
                             android:textSize="@dimen/_12sdp"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            app:layout_constraintBottom_toBottomOf="@+id/img6"
-                            app:layout_constraintStart_toEndOf="@+id/img6"
-                            app:layout_constraintTop_toTopOf="@+id/img6"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             />
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -365,18 +345,9 @@
                             app:layout_constraintBottom_toBottomOf="@+id/tv_title2"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.95"
-                            app:layout_constraintStart_toEndOf="@+id/img6"
-                            app:layout_constraintTop_toTopOf="@+id/img6" />
+                            android:layout_marginEnd="@dimen/_15sdp"
+                            app:layout_constraintTop_toTopOf="@+id/tv_title2" />
 
-                        <View
-                            android:id="@+id/dividerLine2"
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:background="#E8E8E8"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            app:layout_constraintStart_toStartOf="@+id/img6"
-                            app:layout_constraintEnd_toEndOf="@+id/arrow6"
-                            app:layout_constraintTop_toBottomOf="@+id/img6" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -388,31 +359,21 @@
 
                             android:background="@drawable/custom_ripple_black"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
                             >
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/img7"
-                                android:layout_marginStart="@dimen/_10sdp"
-                                android:layout_marginTop="@dimen/_13sdp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/museum_more"
-                                />
 
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:id="@+id/tv_title3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/museum_services"
+                                android:text="Lorem ipsum dolor"
                                 android:textColor="@color/black_200"
                                 android:textSize="@dimen/_12sdp"
-                                android:layout_marginStart="@dimen/_15sdp"
-                                app:layout_constraintBottom_toBottomOf="@+id/img7"
-                                app:layout_constraintStart_toEndOf="@+id/img7"
-                                app:layout_constraintTop_toTopOf="@+id/img7"
+                                android:layout_marginStart="@dimen/_20sdp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 />
 
                             <androidx.appcompat.widget.AppCompatImageView
@@ -423,18 +384,9 @@
                                 app:layout_constraintBottom_toBottomOf="@+id/tv_title3"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.95"
-                                app:layout_constraintStart_toEndOf="@+id/img7"
-                                app:layout_constraintTop_toTopOf="@+id/img7" />
+                                android:layout_marginEnd="@dimen/_15sdp"
+                                app:layout_constraintTop_toTopOf="@+id/tv_title3" />
 
-                            <View
-                                android:id="@+id/dividerLine3"
-                                android:layout_width="0dp"
-                                android:layout_height="1dp"
-                                android:background="#E8E8E8"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                app:layout_constraintStart_toStartOf="@+id/img7"
-                                app:layout_constraintEnd_toEndOf="@+id/arrow7"
-                                app:layout_constraintTop_toBottomOf="@+id/img7" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -447,31 +399,21 @@
                             android:id="@+id/rootView3"
                             android:background="@drawable/custom_ripple_black"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
                             >
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/img8"
-                                android:layout_marginStart="@dimen/_10sdp"
-                                android:layout_marginTop="@dimen/_13sdp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/museum_more"
-                                />
 
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:id="@+id/tv_title4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/museum_services"
+                                android:text="Lorem ipsum dolor"
                                 android:textColor="@color/black_200"
                                 android:textSize="@dimen/_12sdp"
-                                android:layout_marginStart="@dimen/_15sdp"
-                                app:layout_constraintBottom_toBottomOf="@+id/img8"
-                                app:layout_constraintStart_toEndOf="@+id/img8"
-                                app:layout_constraintTop_toTopOf="@+id/img8"
+                                android:layout_marginStart="@dimen/_20sdp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 />
 
                             <androidx.appcompat.widget.AppCompatImageView
@@ -482,18 +424,12 @@
                                 app:layout_constraintBottom_toBottomOf="@+id/tv_title4"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.95"
-                                app:layout_constraintStart_toEndOf="@+id/img8"
-                                app:layout_constraintTop_toTopOf="@+id/img8" />
+                                android:layout_marginEnd="@dimen/_15sdp"
+                                app:layout_constraintTop_toTopOf="@+id/tv_title4"
 
-                            <View
-                                android:id="@+id/dividerLine4"
-                                android:layout_width="0dp"
-                                android:layout_height="1dp"
-                                android:background="#E8E8E8"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                app:layout_constraintStart_toStartOf="@+id/img8"
-                                app:layout_constraintEnd_toEndOf="@+id/arrow8"
-                                app:layout_constraintTop_toBottomOf="@+id/img8" />
+                                />
+
+
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 

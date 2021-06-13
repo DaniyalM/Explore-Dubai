@@ -318,6 +318,8 @@
                         >
 
                         <LinearLayout
+                            android:id="@+id/llCultureConnoisseur"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
                             android:layout_width="match_parent"

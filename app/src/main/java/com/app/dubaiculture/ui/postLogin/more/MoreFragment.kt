@@ -44,6 +44,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llRateUs.setOnClickListener(this)
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
+        binding.llCultureConnoisseur.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
             binding.root.profilePic,
             binding.root.img_drawer,
@@ -217,6 +218,11 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             R.id.ll_notification -> {
                 navigate(R.id.action_moreFragment_to_notificationFragment)
             }
+            R.id.llCultureConnoisseur->{
+                navigate(R.id.action_moreFragment_to_aboutFragment)
+
+            }
+
         }
     }
 }

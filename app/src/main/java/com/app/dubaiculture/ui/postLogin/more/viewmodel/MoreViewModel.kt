@@ -17,6 +17,7 @@ import com.app.dubaiculture.data.repository.more.MoreModel
 import com.app.dubaiculture.data.repository.more.MoreRepository
 import com.app.dubaiculture.data.repository.more.local.ContactCenter
 import com.app.dubaiculture.data.repository.more.local.ContactCenterLocation
+import com.app.dubaiculture.data.repository.more.local.CultureConnoisseur
 import com.app.dubaiculture.data.repository.more.local.PrivacyPolicy
 import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequest
 import com.app.dubaiculture.data.repository.profile.local.Favourite
@@ -34,6 +35,9 @@ import kotlinx.coroutines.launch
 class MoreViewModel @ViewModelInject constructor(application: Application,val moreRepository: MoreRepository) :
     BaseViewModel(application) {
 
+    private val _cultureCon: MutableLiveData<Event<CultureConnoisseur>> = MutableLiveData()
+    val cultureCon: LiveData<Event<CultureConnoisseur>> = _cultureCon
+
     private val _termsCondition: MutableLiveData<Event<PrivacyPolicy>> = MutableLiveData()
     val termsCondition: LiveData<Event<PrivacyPolicy>> = _termsCondition
 
@@ -42,6 +46,23 @@ class MoreViewModel @ViewModelInject constructor(application: Application,val mo
 
     private val _contactUs: MutableLiveData<Event<ContactCenter>> = MutableLiveData()
     val contactUs: LiveData<Event<ContactCenter>> = _contactUs
+
+    fun getCultureConnoisseur(locale: String){
+        showLoader(true)
+        viewModelScope.launch {
+            when(val result =
+                moreRepository.getCultureConnoisseur(privacyAndTermRequest = PrivacyAndTermRequest(culture = locale))){
+                is Result.Success ->{
+                    showLoader(false)
+                    _cultureCon.value = result.value
+                }
+                is Result.Failure->{
+                    showLoader(false)
+                    showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR)
+                }
+            }
+        }
+    }
 
     fun termsCondition(locale :String){
         showLoader(true)

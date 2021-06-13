@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_moreFragment_to_FAQsFragment"
             app:destination="@id/FAQsFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
 
     <dialog
@@ -63,6 +66,7 @@
         android:label="NotificationFragment" />
     <dialog
         android:id="@+id/privacyTermConditionFragment"
+        tools:layout="@layout/fragment_privacy_policy"
         android:name="com.app.dubaiculture.ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment"
         android:label="PrivacyTermConditionFragment" />
     <fragment
@@ -74,4 +78,13 @@
         android:id="@+id/FAQsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.faqs.FAQsFragment"
         android:label="FAQsFragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        tools:layout="@layout/fragment_about"
+        android:name="com.app.dubaiculture.ui.postLogin.more.about.AboutFragment"
+        android:label="AboutFragment" >
+        <action
+            android:id="@+id/action_aboutFragment_to_privacyTermConditionFragment"
+            app:destination="@id/privacyTermConditionFragment" />
+    </fragment>
 </navigation>

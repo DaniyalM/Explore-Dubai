@@ -108,7 +108,7 @@ android {
         prod {
             applicationIdSuffix ".prod"
             minifyEnabled true
-            debuggable false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
@@ -288,5 +288,5 @@ dependencies {
     // indicator
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.caverock:androidsvg-aar:1.4'
-
+    implementation 'com.github.aliab:RTLMaterialSpinner:1.2.1'
 }
