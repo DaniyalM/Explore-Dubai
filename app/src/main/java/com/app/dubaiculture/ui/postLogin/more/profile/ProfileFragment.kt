@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.profile.local.Favourite
 import com.app.dubaiculture.data.repository.profile.utils.ImageFilePath
 import com.app.dubaiculture.databinding.FragmentProfileBinding
@@ -21,6 +22,7 @@ import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewMode
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.FAVOURITE_BUNDLE
 import com.app.dubaiculture.utils.FileUtils
+import com.app.dubaiculture.utils.handleApiError
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.RESULT_ERROR
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.getError
@@ -41,10 +43,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     private fun subscribeToObservables() {
         profileViewModel.favourite.observe(viewLifecycleOwner) {
-
-            it.getContentIfNotHandled()?.let {
-                favourite = it
-                binding.badgeText.text = "${it.events.size + it.attractions.size}"
+            when (it) {
+                is Result.Success -> {
+                    it.value.getContentIfNotHandled()?.let {
+                        favourite = it
+                        binding.badgeText.text = "${it.events.size + it.attractions.size}"
+                    }
+                }
+                is Result.Failure -> handleApiError(it, profileViewModel)
             }
         }
     }
@@ -100,9 +106,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     navigate(R.id.action_profileFragment_to_passwordChangeFragment)
                 }
                 favouriteContainer.setOnClickListener {
-                    navigate(R.id.action_profileFragment_to_favouriteFragment, Bundle().apply {
-                        putParcelable(FAVOURITE_BUNDLE, favourite)
-                    })
+                    if (this@ProfileFragment::favourite.isInitialized) {
+                        navigate(R.id.action_profileFragment_to_favouriteFragment, Bundle().apply {
+                            putParcelable(FAVOURITE_BUNDLE, favourite)
+                        })
+                    } else {
+                        navigate(R.id.action_profileFragment_to_favouriteFragment)
+                    }
+
                 }
 
 

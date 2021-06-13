@@ -15,34 +15,62 @@
         <action
             android:id="@+id/action_attractionDetailFragment_to_threeSixtyFragment"
             app:destination="@id/threeSixtyFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             />
         <action
             android:id="@+id/action_attractionDetailFragment_to_postLoginFragment"
-            app:destination="@id/post_login_bottom_navigation" />
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_attractionDetailFragment_to_eventDetailFragment2"
             app:destination="@id/event_detail_navigation"
             app:popUpTo="@+id/attractionDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             />
         <action
             android:id="@+id/action_attractionDetailFragment_to_attractionGalleryFragment"
             app:destination="@id/attractionGalleryFragment"
             app:popUpTo="@+id/attractionDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             />
         <action
             android:id="@+id/action_attractionDetailFragment_to_ARFragment"
             app:destination="@id/ARFragment"
             app:popUpTo="@+id/attractionDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             />
         <action
             android:id="@+id/action_attractionDetailFragment_to_siteMapFragment"
             app:destination="@id/siteMapFragment"
             app:popUpTo="@+id/attractionDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             />
         <action
             android:id="@+id/action_attractionDetailFragment_to_ibeconFragment"
             app:destination="@id/ibeconFragment"
             app:popUpTo="@+id/attractionDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             />
     </fragment>
 
@@ -69,7 +97,11 @@
         android:label="IbeconFragment" >
         <action
             android:id="@+id/action_ibeconFragment_to_yourJourneyFragment"
-            app:destination="@id/yourJourneyFragment" />
+            app:destination="@id/yourJourneyFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
 
         <argument
             android:name="attraction_id"
@@ -82,7 +114,11 @@
         android:label="YourJourneyFragment" >
         <action
             android:id="@+id/action_yourJourneyFragment_to_ibeconDescFragment"
-            app:destination="@id/ibeconDescFragment" />
+            app:destination="@id/ibeconDescFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </dialog>
     <fragment
         android:id="@+id/ARDetailFragment"
@@ -93,6 +129,10 @@
         <action
             android:id="@+id/action_ARDetailFragment_to_attraction_gallery"
             app:destination="@+id/attractionGalleryFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             />
     </fragment>
     <fragment
@@ -102,7 +142,11 @@
         android:label="ARFragment" >
         <action
             android:id="@+id/action_ARFragment_to_ARDetailFragment"
-            app:destination="@id/ARDetailFragment" />
+            app:destination="@id/ARDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment

@@ -22,13 +22,12 @@ class ProfileViewModel @ViewModelInject constructor(
         private val profileRepository: ProfileRepository,
         private val userRepository: UserRepository,
 ) :
-        BaseViewModel(application,profileRepository) {
-    private val _userSetting: MutableLiveData<Event<UserSettings>> = MutableLiveData()
-    val userSettings: LiveData<Event<UserSettings>> = _userSetting
+        BaseViewModel(application, profileRepository) {
+    private val _userSetting: MutableLiveData<Result<Event<UserSettings>>> = MutableLiveData()
+    val userSettings: LiveData<Result<Event<UserSettings>>> = _userSetting
 
-    private val _favourite: MutableLiveData<Event<Favourite>> = MutableLiveData()
-    val favourite: LiveData<Event<Favourite>> = _favourite
-
+    private val _favourite: MutableLiveData<Result<Event<Favourite>>> = MutableLiveData()
+    val favourite: LiveData<Result<Event<Favourite>>> = _favourite
 
 
     // booleans for checking regex validation
@@ -76,11 +75,17 @@ class ProfileViewModel @ViewModelInject constructor(
             val result = profileRepository.getSettings()
             when (result) {
                 is Result.Success -> {
-                    _userSetting.value = result.value
                     showLoader(false)
+                    _userSetting.value = result
                 }
-                is Result.Error -> result.exception
-                is Result.Failure -> result.isNetWorkError
+                is Result.Error -> {
+                    showLoader(false)
+                    _userSetting.value = result
+                }
+                is Result.Failure -> {
+                    showLoader(false)
+                    _userSetting.value = result
+                }
             }
         }
 
@@ -113,13 +118,18 @@ class ProfileViewModel @ViewModelInject constructor(
             when (result) {
                 is Result.Success -> {
                     showLoader(false)
-                    _favourite.value=result.value
+                    _favourite.value = result
                 }
-                is Result.Error -> result
-                is Result.Failure -> result
+                is Result.Error -> {
+                    _favourite.value = result
+                }
+                is Result.Failure -> {
+                    _favourite.value = result
+                }
             }
         }
     }
+
     fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         email.set(s.toString())
         isEmail.value = AuthUtils.isEmailErrorsbool(s.toString().trim())
@@ -128,13 +138,13 @@ class ProfileViewModel @ViewModelInject constructor(
 
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
-        val number   = AuthUtils.isPhoneNumberValidate(s.toString().trim())
+        val number = AuthUtils.isPhoneNumberValidate(s.toString().trim())
         isPhone.value = number!!.isValid
         errs_.value = AuthUtils.errorsPhone(s.toString().trim())
     }
 
 
-    fun isCheckValidation():Boolean{
+    fun isCheckValidation(): Boolean {
         var isValid = true
         _emailError.value = AuthUtils.isEmailErrors(s = email.get().toString().trim())
         isEmail.value = AuthUtils.isEmailErrorsbool(email.get().toString().trim())

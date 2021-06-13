@@ -15,16 +15,32 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/eventDetailFragment2"
             android:id="@+id/action_eventDetailFragment2_to_eventDetailFragment2"
-            app:destination="@id/eventDetailFragment2" />
+            app:destination="@id/eventDetailFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_eventDetailFragment2_to_registerNowFragment"
-            app:destination="@id/registerNowFragment" />
+            app:destination="@id/registerNowFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_eventDetailFragment2_to_postLoginFragment"
-            app:destination="@id/post_login_bottom_navigation" />
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_eventDetailFragment2_to_postLoginFragment2"
-            app:destination="@id/post_login_bottom_navigation" />
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <include app:graph="@navigation/post_login_bottom_navigation"/>
 
@@ -35,7 +51,11 @@
         android:label="RegisterNowFragment" >
         <action
             android:id="@+id/action_registerNowFragment_to_registrationSuccessFragment2"
-            app:destination="@id/registrationSuccessFragment2" />
+            app:destination="@id/registrationSuccessFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </dialog>
 
 

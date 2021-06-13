@@ -19,28 +19,60 @@
         android:menuCategory="secondary">
         <action
             android:id="@+id/action_exploreFragment_to_postLoginFragment"
-            app:destination="@id/post_login_bottom_navigation" />
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_exploreFragment_to_attractionDetailFragment"
-            app:destination="@id/attraction_detail_navigation" />
+            app:destination="@id/attraction_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_exploreFragment_to_eventDetailFragment2"
-            app:destination="@id/event_detail_navigation" />
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_exploreFragment_to_attractionsFragment"
-            app:destination="@id/attractionsFragment" />
+            app:destination="@id/attractionsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_exploreFragment_to_exploreMapFragment"
-            app:destination="@id/exploreMapFragment" />
+            app:destination="@id/exploreMapFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_exploreFragment_to_eventFilterFragment"
-            app:destination="@id/eventFilterFragment" />
+            app:destination="@id/eventFilterFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_exploreFragment_to_news_navigation"
-            app:destination="@id/news_navigation" />
+            app:destination="@id/news_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_exploreFragment_to_newsDetailFragmentExplore"
-            app:destination="@id/newsDetailFragmentExplore" />
+            app:destination="@id/newsDetailFragmentExplore"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/eventFilterFragment"
@@ -49,19 +81,39 @@
         android:label="EventFilterFragment" >
         <action
             android:id="@+id/action_eventFilterFragment_to_eventListingFragment"
-            app:destination="@id/eventListingFragment" />
+            app:destination="@id/eventListingFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_eventFilterFragment_to_filterFragment"
-            app:destination="@id/filterFragment" />
+            app:destination="@id/filterFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_eventFilterFragment_to_eventDetailFragment2"
-            app:destination="@id/event_detail_navigation" />
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_eventFilterFragment_to_filterFragment2"
-            app:destination="@id/filterFragment" />
+            app:destination="@id/filterFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_eventFilterFragment_to_postLoginFragment"
-            app:destination="@id/post_login_bottom_navigation" />
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/exploreMapFragment"
@@ -70,7 +122,11 @@
         android:label="ExploreMapFragment" >
         <action
             android:id="@+id/action_exploreMapFragment_to_exploreBottomSheetFragment"
-            app:destination="@id/exploreBottomSheetFragment" />
+            app:destination="@id/exploreBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <dialog
         android:id="@+id/exploreBottomSheetFragment"
@@ -85,7 +141,11 @@
         android:label="EventListingFragment" >
         <action
             android:id="@+id/action_eventListingFragment_to_postLoginFragment"
-            app:destination="@id/post_login_bottom_navigation" />
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <dialog
         android:id="@+id/filterFragment"

@@ -14,22 +14,46 @@
         android:label="PostLoginFragment" >
         <action
             android:id="@+id/action_postLoginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_postLoginFragment_to_forgotFragment2"
-            app:destination="@id/forgotFragment2" />
+            app:destination="@id/forgotFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_postLoginFragment_to_postRegisterFragment"
-            app:destination="@id/postRegisterFragment" />
+            app:destination="@id/postRegisterFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_postLoginFragment_to_postOTPDialogFragment"
-            app:destination="@id/postOTPDialogFragment" />
+            app:destination="@id/postOTPDialogFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_postLoginFragment_to_postForgotFragment"
-            app:destination="@id/postForgotFragment" />
+            app:destination="@id/postForgotFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_postLoginFragment_to_postCreatePassFragment"
-            app:destination="@id/postCreatePassFragment" />
+            app:destination="@id/postCreatePassFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </dialog>
     <fragment
         android:id="@+id/registerFragment"
@@ -48,10 +72,18 @@
         android:label="PostCreatePassFragment" >
         <action
             android:id="@+id/action_postCreatePassFragment_to_registrationSuccessFragment2"
-            app:destination="@id/registrationSuccessFragment2" />
+            app:destination="@id/registrationSuccessFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_postCreatePassFragment_to_passwordUpdatedFragment2"
-            app:destination="@id/passwordUpdatedFragment2" />
+            app:destination="@id/passwordUpdatedFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <dialog
         android:id="@+id/passwordUpdatedFragment2"
@@ -63,7 +95,11 @@
             app:destination="@id/exploreFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/post_login_navigation"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </dialog>
     <fragment
         android:id="@+id/postRegisterFragment"
@@ -73,7 +109,11 @@
         android:label="PostRegisterFragment" >
         <action
             android:id="@+id/action_postRegisterFragment_to_postOTPDialogFragment"
-            app:destination="@id/postOTPDialogFragment" />
+            app:destination="@id/postOTPDialogFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <dialog
         android:id="@+id/postOTPDialogFragment"
@@ -102,10 +142,18 @@
             app:argType="string"/>
         <action
             android:id="@+id/action_postOTPDialogFragment_to_postCreatePassFragment"
-            app:destination="@id/postCreatePassFragment" />
+            app:destination="@id/postCreatePassFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_postOTPDialogFragment_to_registrationSuccessFragment2"
-            app:destination="@id/registrationSuccessFragment2" />
+            app:destination="@id/registrationSuccessFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </dialog>
     <fragment
         android:id="@+id/postForgotFragment"
@@ -114,7 +162,11 @@
         tools:layout="@layout/fragment_post_forgot" >
         <action
             android:id="@+id/action_postForgotFragment_to_postOTPDialogFragment"
-            app:destination="@id/postOTPDialogFragment" />
+            app:destination="@id/postOTPDialogFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <dialog
         android:id="@+id/registrationSuccessFragment2"
@@ -128,6 +180,10 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/post_login_navigation"
             app:popUpToInclusive="true"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             />
     </dialog>
 
