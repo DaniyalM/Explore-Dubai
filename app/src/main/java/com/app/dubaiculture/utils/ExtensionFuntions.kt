@@ -3,7 +3,6 @@ package com.app.dubaiculture.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -29,13 +28,13 @@ import java.util.*
 
 
 fun decorateRecyclerView(
-        context: Context,
-        recyclerView: RecyclerView,
-        layoutManager: LinearLayoutManager
+    context: Context,
+    recyclerView: RecyclerView,
+    layoutManager: LinearLayoutManager
 ) {
     val dividerItemDecoration = DividerItemDecoration(
-            context,
-            layoutManager.orientation
+        context,
+        layoutManager.orientation
     )
     recyclerView.addItemDecoration(dividerItemDecoration)
 }
@@ -54,9 +53,9 @@ fun requestBodyToString(request: RequestBody?): String? {
 
 
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(
-        context.getColorCompat(
-                color
-        )
+    context.getColorCompat(
+        color
+    )
 )
 
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
@@ -106,15 +105,15 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
 
 
 fun Fragment.handleApiError(
-        failure: Result.Failure,
-        baseViewModel: BaseViewModel,
-        retry: (() -> Unit)? = null,
+    failure: Result.Failure,
+    baseViewModel: BaseViewModel,
+    retry: (() -> Unit)? = null,
 //        error: Result.Error?=null,
 ) {
     baseViewModel.showLoader(false)
     when {
         failure.isNetWorkError -> baseViewModel.showToast(
-                "Please Check Your Internet Connection"
+            "Please Check Your Internet Connection"
         )
         failure.errorCode == 401 -> {
             if (this is LoginFragment) {
@@ -132,6 +131,8 @@ fun Fragment.handleApiError(
         else -> {
 
             val error = failure.errorBody?.string().toString()
+            baseViewModel.showToast("${error} Try to restart the app.")
+
             startNewActivity(PreLoginActivity::class.java)
         }
     }
@@ -165,7 +166,7 @@ fun <T : Any> ObservableField<T>.getNonNull(): T = get()!!
 //}
 
 fun <R> Fragment.getNavigationResult(key: String) =
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<R>(key)
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<R>(key)
 
 fun Fragment.setNavigationResult(key: String, data: Any?) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
@@ -177,9 +178,9 @@ fun dateFormat(inputDate: String?): String {
     var parsed: Date? = null
     var outputDate = ""
     val df_input =
-            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
     val df_output =
-            SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     try {
         parsed = df_input.parse(inputDate)
         outputDate = df_output.format(parsed)
@@ -189,7 +190,7 @@ fun dateFormat(inputDate: String?): String {
 }
 
 
-fun dateFormatVisitedPlace(inputDate: String? ,formatter : String): String {
+fun dateFormatVisitedPlace(inputDate: String?, formatter: String): String {
 //        2021-03-31T17:19:00 server date format
     var parsed: Date? = null
     var outputDate = ""
@@ -210,9 +211,9 @@ fun dateFormatEn(inputDate: String?): String {
     var parsed: Date? = null
     var outputDate = ""
     val df_input =
-            SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     val df_output =
-            SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     try {
         parsed = df_input.parse(inputDate)
         outputDate = df_output.format(parsed)
@@ -237,9 +238,9 @@ fun dayOfWeek(inputDate: String?, format: String): String {
     var parsed: Date? = null
     var outputDate = ""
     val df_input =
-            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
     val df_output =
-            SimpleDateFormat(format)
+        SimpleDateFormat(format)
     try {
         parsed = df_input.parse(inputDate)
         outputDate = df_output.format(parsed)
