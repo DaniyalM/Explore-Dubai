@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="popular_services" type="com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings"/>
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_15sdp"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_8sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.rishabhharit.roundedimageview.RoundedImageView
+                android:id="@+id/imageView10"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/customTextView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:drawableStart="@drawable/calender"
+                android:drawablePadding="@dimen/_10sdp"
+                android:text="@{popular_services.category}"
+                android:textColor="@color/purple_600"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintTop_toTopOf="@+id/imageView10"
+                app:textFont="bold" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/customTextView5"
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lines="2"
+                android:text="@{popular_services.title}"
+                android:textColor="@color/black_200"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="@+id/appCompatImageView2"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/customTextView4"
+                app:layout_constraintTop_toBottomOf="@+id/customTextView4" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/appCompatImageView2"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/cuplayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customTextView5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/booking_date_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Booking Date"
+                        android:textColor="@color/purple_600"
+                        />
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/booking_date_title_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{popular_services.booking_date}"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="@+id/booking_date_title"
+                        app:layout_constraintTop_toBottomOf="@+id/booking_date_title"
+                     />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/booking_time_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Booking Time"
+                        android:textColor="@color/purple_600"
+                       />
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/booking_time_title_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{popular_services.booking_time}"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="@+id/booking_date_title"
+                        app:layout_constraintTop_toBottomOf="@+id/booking_date_title"
+                    />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/no_of_tickets_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No. of tickets"
+                        android:textColor="@color/purple_600"
+                      />
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/no_of_tickets_title_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{popular_services.no_of_tickets}"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="@+id/booking_date_title"
+                        app:layout_constraintTop_toBottomOf="@+id/booking_date_title"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--            <androidx.appcompat.widget.AppCompatImageView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="40dp"-->
+            <!--                android:layout_marginStart="8dp"-->
+            <!--                android:id="@+id/first_seperator"-->
+            <!--                android:background="@drawable/linetesting"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@+id/booking_date_title_value"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2"-->
+            <!--                app:layout_constraintVertical_bias="0.547" />-->
+            <!--            <com.app.dubaiculture.ui.components.customtextview.CustomTextView-->
+            <!--                android:id="@+id/booking_time_title"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="16dp"-->
+            <!--                android:layout_marginTop="5dp"-->
+            <!--                android:text="Booking Date"-->
+            <!--                android:textColor="@color/purple_600"-->
+            <!--                app:layout_constraintStart_toStartOf="@+id/first_seperator"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2"-->
+            <!--                app:textFont="bold" />-->
+
+
+            <!--            <com.app.dubaiculture.ui.components.customtextview.CustomTextView-->
+            <!--                android:id="@+id/booking_time_title_value"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:text="12 Nov, 2020"-->
+            <!--                android:textSize="@dimen/_12sdp"-->
+            <!--                app:layout_constraintStart_toStartOf="@+id/booking_time_title"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/booking_time_title"-->
+            <!--                app:textFont="bold" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

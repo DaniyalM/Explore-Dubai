@@ -12,6 +12,9 @@ import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.data.repository.user.remote.UserRDS
 import com.app.dubaiculture.data.repository.user.remote.request.GuestTokenRequestDTO
 import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequestDTO
+import com.estimote.coresdk.repackaged.okhttp_v2_2_0.com.squareup.okhttp.ResponseBody
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -34,22 +37,40 @@ class UserRepository @Inject constructor(
     suspend fun getLastGuestUser(): Guest? = guestLDS.getGuestUser()
 
     suspend fun refreshToken(token: String, refreshToken: String): User? {
-        Timber.e("Token Refresh")
         when (val resultRDS = userRDS.refreshToken(RefreshTokenRequestDTO(Token = token, RefreshToken = refreshToken))) {
             is Result.Success -> {
-                if (resultRDS.value.statusCode != 200) {
-                    Result.Failure(resultRDS.value.succeeded, resultRDS.value.statusCode, null)
-                } else {
-                    val user = userLDS.getUser()
-                    Timber.e("Request Perform ${user?.token}")
-                    user?.apply {
-                        val resp = resultRDS.value.refreshTokenResponseDTO
-                        this.refreshToken = resp.refreshToken
-                        this.token = resp.token
-                        userLDS.update(this)
-                        return userLDS.getUser()
+                when(resultRDS.value.statusCode){
+                    200->{
+                        val user = userLDS.getUser()
+                        Timber.e("Request Perform ${user?.token}")
+                        user?.apply {
+                            val resp = resultRDS.value.refreshTokenResponseDTO
+                            this.refreshToken = resp.refreshToken
+                            this.token = resp.token
+                            userLDS.update(this)
+                            return userLDS.getUser()
+                        }
+                 }
+                    else ->{
+                        userLDS.getUser()?.let { userLDS.delete(it) }
+                        Result.Failure(resultRDS.value.succeeded, resultRDS.value.statusCode, null,errorMessage = resultRDS.value.errorMessage)
+
                     }
                 }
+
+//                if (resultRDS.value.statusCode != 200) {
+//                    Result.Failure(resultRDS.value.succeeded, resultRDS.value.statusCode, null)
+//                } else {
+//                    val user = userLDS.getUser()
+//                    Timber.e("Request Perform ${user?.token}")
+//                    user?.apply {
+//                        val resp = resultRDS.value.refreshTokenResponseDTO
+//                        this.refreshToken = resp.refreshToken
+//                        this.token = resp.token
+//                        userLDS.update(this)
+//                        return userLDS.getUser()
+//                    }
+//                }
 
             }
 

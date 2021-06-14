@@ -53,6 +53,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_profileFragment_to_myServicesFragment"
+            app:destination="@id/myServicesFragment" />
     </fragment>
     <fragment
         android:id="@+id/placesVisited"
@@ -123,4 +126,8 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
     </fragment>
+    <fragment
+        android:id="@+id/myServicesFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.popular_service.myservices.MyServicesFragment"
+        android:label="MyServicesFragment" />
 </navigation>

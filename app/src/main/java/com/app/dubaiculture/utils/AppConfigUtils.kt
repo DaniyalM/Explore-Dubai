@@ -9,6 +9,7 @@ object AppConfigUtils {
     var BASE_URL = "https://jsonplaceholder.typicode.com/"
     var clickCheckerFlag: Int = 0
     var favouriteclickCheckerFlag: Int = 0
+    var serviceClickCheckerFlag: Int = 0
 
 
     // Name of Notification Channel for verbose notifications of background work
