@@ -106,9 +106,9 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
                 R.id.myEventsFragment -> {
                     bottomNav.visibility = View.GONE
                 }
-                R.id.placesVisited -> {
-                    bottomNav.visibility = View.GONE
-                }
+//                R.id.placesVisited -> {
+//                    bottomNav.visibility = View.GONE
+//                }
                 R.id.notificationFragment -> {
                     bottomNav.visibility = View.GONE
                 }

@@ -131,7 +131,7 @@ fun Fragment.handleApiError(
         else -> {
 
             val error = failure.errorBody?.string().toString()
-            baseViewModel.showToast(error)
+            baseViewModel.killSession()
 
         }
     }

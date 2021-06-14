@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.base
 
 import android.app.Application
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.annotation.ColorRes
@@ -15,6 +16,7 @@ import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import com.app.dubaiculture.data.repository.user.local.User
+import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.GpsStatusListener
 import com.app.dubaiculture.utils.event.Event
 import com.app.dubaiculture.utils.event.UiEvent
@@ -26,6 +28,8 @@ abstract class BaseViewModel(
 ) : AndroidViewModel(application) {
     val gpsStatusLiveData = GpsStatusListener(application)
     private val _uiEventsLiveData = MutableLiveData<Event<UiEvent>>()
+    private val contextViemodel = getApplication<Application>().applicationContext
+
     val uiEvents: LiveData<Event<UiEvent>> = _uiEventsLiveData
 
     protected val _userLiveData = MutableLiveData<User>()
@@ -37,6 +41,10 @@ abstract class BaseViewModel(
 
 //    protected val _user: MutableLiveData<User> = MutableLiveData()
 //    val user: LiveData<User> = _user
+
+    fun killSession(){
+        contextViemodel.startActivity(Intent(contextViemodel,PreLoginActivity::class.java))
+    }
 
 
     fun showLoader(show: Boolean) {
