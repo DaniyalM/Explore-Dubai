@@ -88,9 +88,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             registerForActivityResult()
 
             binding.apply {
-                myServicesView.setOnClickListener {
-                    navigate(R.id.action_profileFragment_to_myServicesFragment)
-                }
+//                myServicesView.setOnClickListener {
+//                    navigate(R.id.action_profileFragment_to_myServicesFragment)
+//                }
 
                 frameLayoutImagePicker.setOnClickListener {
                     navigate(R.id.action_profileFragment_to_avatarPickerFragment)
