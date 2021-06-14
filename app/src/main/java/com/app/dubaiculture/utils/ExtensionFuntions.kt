@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.RequestBody
@@ -131,8 +132,7 @@ fun Fragment.handleApiError(
         else -> {
 
             val error = failure.errorBody?.string().toString()
-            baseViewModel.killSession()
-
+            startNewActivity(PreLoginActivity::class.java)
         }
     }
 

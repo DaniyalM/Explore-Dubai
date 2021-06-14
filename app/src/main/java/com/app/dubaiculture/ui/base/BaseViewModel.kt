@@ -23,8 +23,8 @@ import com.app.dubaiculture.utils.event.UiEvent
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel(
-        application: Application,
-        private var baseRespository: BaseRepository? = null,
+    application: Application,
+    private var baseRespository: BaseRepository? = null,
 ) : AndroidViewModel(application) {
     val gpsStatusLiveData = GpsStatusListener(application)
     private val _uiEventsLiveData = MutableLiveData<Event<UiEvent>>()
@@ -42,8 +42,11 @@ abstract class BaseViewModel(
 //    protected val _user: MutableLiveData<User> = MutableLiveData()
 //    val user: LiveData<User> = _user
 
-    fun killSession(){
-        contextViemodel.startActivity(Intent(contextViemodel,PreLoginActivity::class.java))
+    fun killSession() {
+        Intent(contextViemodel, PreLoginActivity::class.java).also {
+            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            contextViemodel.startActivity(it)
+        }
     }
 
 
@@ -56,13 +59,17 @@ abstract class BaseViewModel(
     }
 
     fun showErrorDialog(
-            title: String? = "Alert",
-            message: String,
-            @ColorRes colorBg: Int? = R.color.purple_900,
+        title: String? = "Alert",
+        message: String,
+        @ColorRes colorBg: Int? = R.color.purple_900,
     ) {
-        _uiEventsLiveData.value = Event(UiEvent.ShowErrorDialog(title = title ?: "Alert",
+        _uiEventsLiveData.value = Event(
+            UiEvent.ShowErrorDialog(
+                title = title ?: "Alert",
                 message = message,
-                colorBg = colorBg ?: R.color.red_600))
+                colorBg = colorBg ?: R.color.red_600
+            )
+        )
     }
 
     fun showToast(message: String) {
@@ -104,7 +111,7 @@ abstract class BaseViewModel(
                         showToast("Removed From Favourites")
                     }
                 }
-                is Result.Error->result
+                is Result.Error -> result
                 is Result.Failure -> {
                     showLoader(false)
                     _isFavourite.value = result

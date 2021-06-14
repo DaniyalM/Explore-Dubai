@@ -31,9 +31,13 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
         checkLoginStatus()
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
+            window?.let {
+//                it.insetsController?.let {
+//                    it.hide(WindowInsets.Type.statusBars())
+//                }
+            }
         } else {
-            window.setFlags(
+            window?.setFlags(
                     WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
