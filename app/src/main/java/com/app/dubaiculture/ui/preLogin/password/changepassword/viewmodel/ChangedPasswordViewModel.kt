@@ -107,7 +107,7 @@ class ChangedPasswordViewModel @ViewModelInject constructor(application: Applica
         if (!AuthUtils.isValidPasswordFormat(passwordNew.get().toString().trim())) {
             isValid = false
         }
-        if (!AuthUtils.isMatchPasswordBool(password.get().toString(),
+        if (!AuthUtils.isMatchPasswordBool(passwordNew.get().toString().trim(),
                         passwordConifrm.get().toString().trim())
         ) {
             isValid = false

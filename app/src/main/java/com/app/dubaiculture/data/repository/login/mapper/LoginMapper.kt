@@ -11,7 +11,6 @@ fun transform(loginRequest: LoginRequest): LoginRequestDTO {
         Password = loginRequest.password,
         Email = loginRequest.email
     )
-
 }
 
 fun transformChangedPass(changedPassRequest: ChangedPassRequest): ChangedPassRequestDTO {

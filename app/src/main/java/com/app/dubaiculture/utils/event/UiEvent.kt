@@ -13,5 +13,6 @@ sealed class UiEvent {
     class ShowErrorDialog(val title:String,val message:String,@ColorRes val colorBg : Int):UiEvent()
     class NavigateByAction(val actionId: Int, val bundle: Bundle? = null) : UiEvent()
     class NavigateByDirections(val navDirections: NavDirections) : UiEvent()
+    class NavigateByBack() : UiEvent()
 
 }

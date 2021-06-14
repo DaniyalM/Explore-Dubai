@@ -4,6 +4,8 @@ import com.app.dubaiculture.data.repository.attraction.local.models.SocialLink
 import com.app.dubaiculture.data.repository.more.local.*
 import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequest
 import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequestDTO
+import com.app.dubaiculture.data.repository.more.remote.request.ShareFeedBackRequestDTO
+import com.app.dubaiculture.data.repository.more.remote.request.ShareFeedbackRequest
 import com.app.dubaiculture.data.repository.more.remote.response.*
 
 fun transformPrivacyAndTermsRequest(privacyAndTermRequest: PrivacyAndTermRequest) =
@@ -121,8 +123,19 @@ fun  transformFAQsRequest(moreresponse: MoreResponse)=
             faqItems = FaqItems.map {
                 FaqItem(
                     answer = it.Answer,
-                    question = it.Question
+                    question = it.Question,
+
                 )
             }
         )
     }
+
+fun transformPostFeedBack(shareFeedBackRequest : ShareFeedbackRequest)=
+    ShareFeedBackRequestDTO(
+        Culture = shareFeedBackRequest.culture,
+        FullName = shareFeedBackRequest.fullName,
+        Email = shareFeedBackRequest.email,
+        Message = shareFeedBackRequest.message,
+        Type = shareFeedBackRequest.type
+    )
+

@@ -154,6 +154,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                                         event.action
                                 )
                             }
+                            is UiEvent.NavigateByBack -> {
+                                navigateBack()
+                            }
                             is UiEvent.NavigateByDirections -> {
                                 navigateByDirections(event.navDirections)
                             }
@@ -197,6 +200,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected fun back() {
         hideKeyboard(requireActivity())
         activity.onBackPressed()
+    }
+    fun navigateBack(){
+        EventUtilFunctions.navigateBack(this)
     }
 
     fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {

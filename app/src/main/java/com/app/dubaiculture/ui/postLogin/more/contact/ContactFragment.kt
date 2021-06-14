@@ -53,6 +53,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             it.emailLl.setOnClickListener(this)
             it.faxLl.setOnClickListener(this)
             it.websiteLl.setOnClickListener(this)
+            it.llShareFeedBack.setOnClickListener(this)
         }
 
         binding.imgLinkedinAttraction.setOnClickListener(this)
@@ -83,6 +84,9 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
     }
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.ll_share_feed_back->{
+                navigate(R.id.action_contactFragment_to_sharedFeeback)
+            }
             R.id.img_close -> {
                 back()
             }

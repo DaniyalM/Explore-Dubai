@@ -94,6 +94,7 @@ object EventUtilFunctions {
             }
 
         }
+
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
 //            snackbar.setTextColor(view.context.getColor(R.color.colorPrimary))
 //            snackbar.setActionTextColor(view.context.getColor(R.color.colorPrimary))
@@ -103,6 +104,9 @@ object EventUtilFunctions {
 //        }
 
         snackbar.show()
+    }
+    fun navigateBack(fragment: Fragment){
+        fragment.findNavController().popBackStack()
     }
 }
 

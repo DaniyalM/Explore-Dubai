@@ -73,6 +73,10 @@ abstract class BaseViewModel(
         _uiEventsLiveData.value = Event(UiEvent.NavigateByDirections(navDirections))
     }
 
+    fun navigateByBack() {
+        _uiEventsLiveData.value = Event(UiEvent.NavigateByBack())
+    }
+
     fun navigateByAction(actionId: Int, bundle: Bundle? = null) {
         _uiEventsLiveData.value = Event(UiEvent.NavigateByAction(actionId, bundle))
     }

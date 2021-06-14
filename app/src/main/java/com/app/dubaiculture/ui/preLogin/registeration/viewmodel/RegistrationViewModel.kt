@@ -46,16 +46,16 @@ class RegistrationViewModel @ViewModelInject constructor(
     val isPasswordConfirm = MutableLiveData<Boolean?>(true)
     val isTermAccepted = MutableLiveData<Boolean?>(true)
 
-    // errors
+        // errors
 
-    private var _fullnameError = MutableLiveData<Int>()
-    var fullnameError: LiveData<Int> = _fullnameError
+        private var _fullnameError = MutableLiveData<Int>()
+        var fullnameError: LiveData<Int> = _fullnameError
 
-    private var _emailError = MutableLiveData<Int>()
-    var emailError: LiveData<Int> = _emailError
+        private var _emailError = MutableLiveData<Int>()
+        var emailError: LiveData<Int> = _emailError
 
-    private var _phoneError = MutableLiveData<Int>()
-    var phoneError: LiveData<Int> = _phoneError
+        private var _phoneError = MutableLiveData<Int>()
+        var phoneError: LiveData<Int> = _phoneError
 
     private var passwordError_ = MutableLiveData<Int>()
     var passwordError: LiveData<Int> = passwordError_

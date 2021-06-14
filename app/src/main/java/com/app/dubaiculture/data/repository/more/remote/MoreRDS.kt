@@ -2,6 +2,7 @@ package com.app.dubaiculture.data.repository.more.remote
 
 import com.app.dubaiculture.data.repository.base.BaseRDS
 import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequestDTO
+import com.app.dubaiculture.data.repository.more.remote.request.ShareFeedBackRequestDTO
 import com.app.dubaiculture.data.repository.more.service.MoreService
 import javax.inject.Inject
 
@@ -35,4 +36,8 @@ class MoreRDS @Inject constructor(private val moreService: MoreService) : BaseRD
             = safeApiCall {
         moreService.getFeedBackType(privacyAndTermRequestDTO.culture)
     }
+    suspend fun postFeedBack(shareFeedBackRequestDTO: ShareFeedBackRequestDTO) =
+        safeApiCall {
+            moreService.postFeedBack(shareFeedBackRequestDTO)
+        }
 }

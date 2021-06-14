@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_8sdp"
         app:cardElevation="@dimen/_8sdp"
-
         android:foreground="@drawable/custom_ripple_black"
         android:outlineSpotShadowColor="@color/gray_600"
         app:cardCornerRadius="@dimen/_12sdp"
@@ -22,6 +21,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         >
         <LinearLayout
+            android:id="@+id/ll"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -36,7 +37,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="01"
-                    android:visibility="gone"
                     android:textStyle="bold"
                     app:textFont="bold"
                     android:layout_marginStart="@dimen/_10sdp"

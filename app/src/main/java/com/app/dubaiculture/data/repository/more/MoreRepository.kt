@@ -6,6 +6,7 @@ import com.app.dubaiculture.data.repository.more.local.ContactCenter
 import com.app.dubaiculture.data.repository.more.mapper.*
 import com.app.dubaiculture.data.repository.more.remote.MoreRDS
 import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequest
+import com.app.dubaiculture.data.repository.more.remote.request.ShareFeedbackRequest
 import com.app.dubaiculture.utils.event.Event
 import javax.inject.Inject
 
@@ -77,24 +78,24 @@ class MoreRepository @Inject constructor(private val moreRDS: MoreRDS) : BaseRep
         }
 
     suspend fun getCultureConnoisseur(privacyAndTermRequest: PrivacyAndTermRequest) =
-            when (val result =
-                    moreRDS.getCultureConnoisseur(transformPrivacyAndTermsRequest(privacyAndTermRequest))) {
-                is Result.Success -> {
-                    if (result.value.succeeded) {
-                        Result.Success(
-                                Event(
-                                        transformCultureConnoisseur(result.value)
-                                )
+        when (val result =
+            moreRDS.getCultureConnoisseur(transformPrivacyAndTermsRequest(privacyAndTermRequest))) {
+            is Result.Success -> {
+                if (result.value.succeeded) {
+                    Result.Success(
+                        Event(
+                            transformCultureConnoisseur(result.value)
                         )
-                    } else {
-                        Result.Failure(false, null, null, result.value.errorMessage)
-                    }
+                    )
+                } else {
+                    Result.Failure(false, null, null, result.value.errorMessage)
                 }
-                is Result.Error -> result
-                is Result.Failure -> result
             }
+            is Result.Error -> result
+            is Result.Failure -> result
+        }
 
-    suspend fun getFeedback(privacyAndTermRequest: PrivacyAndTermRequest) =
+    suspend fun getFeedbackType(privacyAndTermRequest: PrivacyAndTermRequest) =
         when (val result =
             moreRDS.getFeedBackType(transformPrivacyAndTermsRequest(privacyAndTermRequest))) {
             is Result.Success -> {
@@ -111,4 +112,24 @@ class MoreRepository @Inject constructor(private val moreRDS: MoreRDS) : BaseRep
             is Result.Error -> result
             is Result.Failure -> result
         }
+
+
+    suspend fun postFeedBack(shareFeedbackRequest: ShareFeedbackRequest) =
+        when (val result =
+            moreRDS.postFeedBack(transformPostFeedBack(shareFeedbackRequest))) {
+            is Result.Success -> {
+                if (result.value.succeeded) {
+                   Result.Success(
+                        Event(
+                            Event((result.value))
+                        )
+                    )
+                } else {
+                    Result.Failure(false, null, null, result.value.errorMessage)
+                }
+            }
+            is Result.Error -> result
+            is Result.Failure -> result
+        }
+
 }

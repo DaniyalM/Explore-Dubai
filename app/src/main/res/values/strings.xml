@@ -248,6 +248,7 @@
     <string name="select_type">Select Type</string>
     <string name="type_your_message_here">Type your message here...</string>
     <string name="message">Message</string>
+    <string name="what_are_you_looking_for">What are you looking for?</string>
 
 
 </resources>
