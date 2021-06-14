@@ -142,28 +142,7 @@ fun Fragment.handleApiError(
 
 fun <T : Any> ObservableField<T>.getNonNull(): T = get()!!
 
-//@BindingAdapter("android:imageViewUrl")
-//fun loadImageView(view: ImageView, url: String?) {
-//    url?.let {
-//        Glide.with(view.context)
-//            .load(BuildConfig.BASE_URL + it)
-////                .apply(
-////                    RequestOptions()
-//////                        .placeholder(R.drawable.logo)
-//////                        .error(R.drawable.logo))
-//            .into(view)
-//    }
-//}
-//
-//@BindingAdapter("android:svgUrl")
-//fun loadSvgToImageView(view: ImageView, url: String?) {
-//    url?.let {
-//        Glide.with(view.context)
-//            .load(BuildConfig.BASE_URL + it)
-//            .into(view)
-//    }
-//
-//}
+
 
 fun <R> Fragment.getNavigationResult(key: String) =
     findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<R>(key)
