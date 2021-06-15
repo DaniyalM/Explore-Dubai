@@ -1,6 +1,9 @@
 package com.app.dubaiculture.ui.postLogin.more.contact
 
+import android.Manifest
 import android.content.Intent
+import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,10 +19,17 @@ import com.app.dubaiculture.databinding.FragmentContactBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
+import com.app.dubaiculture.utils.location.LocationHelper
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -32,10 +42,28 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
     private lateinit var contactCenterReach: ContactCenterReach
     private lateinit var map: GoogleMap
 
+    @Inject
+    lateinit var locationManager: LocationManager
+
+    @Inject
+    lateinit var locationHelper: LocationHelper
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentContactBinding.inflate(inflater, container, false)
+
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            moreViewModel.showLoader(false)
+            navigateToGoogleMap(
+                locationResult.lastLocation.latitude.toString(),
+                locationResult.lastLocation.longitude.toString(),
+                contactCenterLocation.mapLatitude,
+                contactCenterLocation.mapLongitude
+            )
+            Timber.e("onLocationResult ${locationResult.lastLocation.latitude}")
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,10 +82,12 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             it.faxLl.setOnClickListener(this)
             it.websiteLl.setOnClickListener(this)
             it.llShareFeedBack.setOnClickListener(this)
+            it.getDirection.setOnClickListener(this)
         }
 
         binding.imgLinkedinAttraction.setOnClickListener(this)
     }
+
     private fun mapSetUp(savedInstanceState: Bundle?) {
         if (!this::mapView.isInitialized) {
 
@@ -69,6 +99,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
         }
     }
+
     private fun callingObserver() {
         moreViewModel.contactUs(getCurrentLanguage().language)
         moreViewModel.contactUs.observe(viewLifecycleOwner) {
@@ -82,9 +113,10 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
         }
     }
+
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.ll_share_feed_back->{
+            R.id.ll_share_feed_back -> {
                 navigate(R.id.action_contactFragment_to_sharedFeeback)
             }
             R.id.img_close -> {
@@ -135,12 +167,48 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
 
             }
             R.id.website_ll -> {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.BASE_URL+contactCenterReach.websiteContent))
+                val browserIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(BuildConfig.BASE_URL + contactCenterReach.websiteContent)
+                )
                 startActivity(browserIntent)
             }
             R.id.getDirection -> {
-
+                locationPermission()
             }
+        }
+    }
+
+    private fun locationPermission() {
+        val quickPermissionsOption = QuickPermissionsOptions(
+            handleRationale = false
+        )
+        activity.runWithPermissions(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            options = quickPermissionsOption
+        ) {
+            moreViewModel.showLoader(true)
+            if (!locationHelper.isLocationEnabled(locationManager = locationManager)) {
+                moreViewModel.showLoader(false)
+                moreViewModel.showErrorDialog(message = resources.getString(R.string.turn_on))
+            }
+            locationHelper.locationSetUp(
+                object : LocationHelper.LocationLatLng {
+                    override fun getCurrentLocation(location: Location) {
+                        moreViewModel.showLoader(false)
+                        navigateToGoogleMap(
+                            location.latitude.toString(),
+                            location.longitude.toString(),
+                            contactCenterLocation.mapLatitude,
+                            contactCenterLocation.mapLongitude
+                        )
+                        Timber.e("Current Location ${location.latitude}")
+
+                    }
+                },
+                activity, locationCallback = locationCallback
+            )
 
         }
     }

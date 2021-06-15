@@ -377,7 +377,7 @@
                                 app:layout_constraintTop_toTopOf="parent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/email_notification"
+                                android:src="@drawable/fax_icon"
                                 />
 
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -437,7 +437,7 @@
                                 app:layout_constraintTop_toTopOf="parent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/email_notification"
+                                android:src="@drawable/website_icon"
                                 />
 
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -518,7 +518,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:src="@drawable/clock_purple"
+                        android:src="@drawable/feedback_icon"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_share" />
 <!--                    android:text="@{contactCenter.contactCenterFeedback.title}"-->

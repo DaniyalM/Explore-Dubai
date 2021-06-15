@@ -250,5 +250,6 @@
     <string name="message">Message</string>
     <string name="what_are_you_looking_for">What are you looking for?</string>
     <string name="my_services">My Services</string>
+    <string name="turn_on"> Please turn on your location</string>
 
 </resources>
