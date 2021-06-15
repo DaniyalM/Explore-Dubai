@@ -56,25 +56,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
 
-    private fun initiateRequest() {
 
-//        binding.swipeRefresh.post {
-//            binding.swipeRefresh.isRefreshing = true
-//
-//        }
-//        binding.swipeRefresh.apply {
-//            setColorSchemeResources(
-//                R.color.colorPrimary,
-//                android.R.color.holo_green_dark,
-//                android.R.color.holo_orange_dark,
-//                android.R.color.holo_blue_dark
-//            )
-//            setOnRefreshListener {
-//                binding.swipeRefresh.isRefreshing = false
-//                profileViewModel.getFavourites()
-//            }
-//        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

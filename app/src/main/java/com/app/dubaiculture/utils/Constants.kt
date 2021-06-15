@@ -60,6 +60,7 @@ object Constants {
         const val TERMS_CONDITION: String = "terms_condition"
         const val PRIVACY_POLICY: String = "privacy_policy"
         const val NEWS_ID: String = "news_id"
+        const val MORE_FRAGMENT: String = "more_fragment"
 
 
 

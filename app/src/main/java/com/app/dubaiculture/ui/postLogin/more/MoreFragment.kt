@@ -14,9 +14,12 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.more.adapter.MoreItems
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
+import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY
+import com.app.dubaiculture.utils.SettingsUtils.newsList
+import com.app.dubaiculture.utils.SettingsUtils.servicesList
 import com.app.dubaiculture.utils.SettingsUtils.settingsList
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
@@ -55,7 +58,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
         if (application.auth.isGuest) {
             binding.btnLogin.setOnClickListener {
-                navigate(R.id.action_moreFragment_to_post_login_bottom_navigation)
+                val bundle = bundleOf(MORE_FRAGMENT to MORE_FRAGMENT)
+                navigate(R.id.action_moreFragment_to_post_login_bottom_navigation,bundle)
             }
         } else {
             binding.btnLogin.visibility = View.GONE
@@ -103,7 +107,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         if (settingAdapter.itemCount > 0) {
             settingAdapter.clear()
         }
-        moreViewModel.servicesList().map {
+        servicesList(requireContext()).map {
             groupAdapter.add(
                 MoreItems<ItemsMoreLayoutBinding>(
                     object : RowClickListener {
@@ -123,7 +127,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = groupAdapter
         }
-        moreViewModel.newsList().map {
+        newsList(requireContext()).map {
 //            if (newsAdapter.itemCount > 0) {
 //                newsAdapter.clear()
 //            }

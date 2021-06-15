@@ -79,7 +79,7 @@
                                 android:imageViewUrl="@{user.userImage}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/green_circle"
+                                android:background="@drawable/profile_icon_bg"
                                 />
 <!--                          -->
 
@@ -137,7 +137,7 @@
                                 android:id="@+id/img_notification"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/orange_circle" />
+                                android:background="@drawable/notification_with_bell" />
 
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
