@@ -137,7 +137,7 @@ fun Fragment.handleApiError(
         else -> {
 
             val error = failure.errorBody?.string().toString()
-            baseViewModel.showToast("${error} Try to restart the app.")
+            baseViewModel.showToast("Try to restart the app.")
 
             startNewActivity(PreLoginActivity::class.java)
         }
