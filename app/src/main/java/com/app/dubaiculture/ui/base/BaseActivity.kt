@@ -102,21 +102,9 @@ abstract class BaseActivity : LocalizationActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       try {
-           @Suppress("DEPRECATION")
-           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-               window?.let {
-                   it.insetsController?.let {
-                       it.hide(WindowInsets.Type.statusBars())
-                   }
-               }
-           } else {
-               window?.setFlags(
-                   WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                   WindowManager.LayoutParams.FLAG_FULLSCREEN
-               )
-           }
-       } catch (ex:NullPointerException){}
+
+
+
 
         applicationEntry = application as ApplicationEntry
         bus = applicationEntry.bus
