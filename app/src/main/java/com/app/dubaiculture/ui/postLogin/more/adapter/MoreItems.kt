@@ -23,7 +23,6 @@ data class MoreItems<T : ViewDataBinding>(
             is ItemsMoreLayoutBinding -> {
                 viewBinding.let {
 
-                    arrowRTL(isArabic, it.arrow)
                     it.img.setImageResource(moreModel.leftImg!!)
                     it.tvTitle.text = moreModel.title
                     if (!moreModel.dividerLine) {
@@ -50,16 +49,5 @@ data class MoreItems<T : ViewDataBinding>(
 
     override fun getLayout() = resLayout
 
-    private fun arrowRTL(isArabic: Boolean, img: ImageView) {
-        when {
-            isArabic -> {
-                img.scaleX = -1f
-
-            }
-            else -> {
-                img.scaleX = 1f
-            }
-        }
-    }
 
 }

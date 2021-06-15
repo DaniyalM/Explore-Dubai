@@ -101,4 +101,12 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:popupBackground">@color/gray_600</item>
     </style>
+
+    app:track="@drawable/switch_track_circle_shape"
+    <style name="SwitchStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:thumb">@drawable/switch_thumb_circle_shape</item>
+
+    </style>
 </resources>

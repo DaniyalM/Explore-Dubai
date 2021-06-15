@@ -79,7 +79,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        backArrowRTL(binding.imgClose)
         subscribeUiEvents(profileViewModel)
         subscribeToGpsListener()
         initiateRequest()

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.data.repository.settings.local.UserSettings
 import com.app.dubaiculture.databinding.FragmentNotificationSettingBinding
@@ -39,6 +38,7 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(profileViewModel)
+        backArrowRTL(binding.imgClose)
         markPushNotificationSwitch()
         markLocationBaseSwitch()
         markEmailSwitch()

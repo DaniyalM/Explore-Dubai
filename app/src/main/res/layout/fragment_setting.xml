@@ -66,6 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textAlignment="viewStart"
                     android:drawableStart="@drawable/bell_noti"
                     android:drawablePadding="@dimen/_10sdp"
                     android:text="@string/notifications"
@@ -106,6 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textAlignment="viewStart"
                     android:drawableStart="@drawable/location_pin"
                     android:drawablePadding="@dimen/_10sdp"
                     android:text="@string/turn_on_location"
@@ -114,9 +116,9 @@
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_loc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black_200" />
+                    style="@style/SwitchStyle"
+                    app:track="@drawable/switch_track_circle_shape"
+                    />
 
             </LinearLayout>
 
@@ -147,6 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textAlignment="viewStart"
                     android:drawableStart="@drawable/reset_icon"
                     android:drawablePadding="@dimen/_10sdp"
                     android:text="@string/reset_settings"
