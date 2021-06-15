@@ -8,9 +8,6 @@
             type="com.app.dubaiculture.data.repository.user.local.User" />
     </data>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_550sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -30,7 +27,25 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/green_animation_login"
                 app:lottie_repeatCount="0" />
-<!--            -->
+
+            <ScrollView
+                android:fillViewport="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_main_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/header"
+                android:layout_marginBottom="@dimen/_15sdp"
+                >
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profileImage"
                 android:layout_width="@dimen/_102sdp"
@@ -39,8 +54,8 @@
                 android:imageViewUrl="@{user.userImage}"
                 android:src="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/header"
-                app:layout_constraintTop_toBottomOf="@+id/header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <FrameLayout
@@ -60,15 +75,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/pick_avatar_icon" />
-
-
             </FrameLayout>
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:text="@{user.userName}"
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_16ssp"
@@ -80,10 +93,10 @@
 
             <View
                 android:id="@+id/view3"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/_170sdp"
                 android:layout_height="@dimen/_1sdp"
-                android:layout_margin="12dp"
-                android:background="@color/gray_500"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/line_light_gray"
                 app:layout_constraintEnd_toEndOf="@+id/name"
                 app:layout_constraintStart_toStartOf="@+id/name"
                 app:layout_constraintTop_toBottomOf="@+id/name" />
@@ -92,9 +105,10 @@
                 android:id="@+id/email_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:text="@{user.email}"
                 android:textSize="@dimen/_10ssp"
+                android:textColor="@color/gray_500"
                 app:layout_constraintEnd_toEndOf="@+id/view3"
                 app:layout_constraintStart_toStartOf="@+id/view3"
                 app:layout_constraintTop_toBottomOf="@+id/view3"
@@ -104,13 +118,13 @@
                 android:id="@+id/mob_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
                 android:text="@{user.phoneNumber}"
-                android:textSize="@dimen/_10ssp"
+                android:textSize="@dimen/_9ssp"
+                android:textColor="@color/gray_500"
                 app:layout_constraintEnd_toEndOf="@+id/email_address"
                 app:layout_constraintStart_toStartOf="@+id/email_address"
                 app:layout_constraintTop_toBottomOf="@+id/email_address"
-                app:textFont="bold" />
+                />
 
             <FrameLayout
                 android:id="@+id/editButtonFrame"
@@ -128,8 +142,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Edit Profile"
                     android:background="@drawable/custom_ripple_black"
+                    android:text="@string/edit_profile"
                     android:textColor="@color/purple_600"
                     android:textSize="@dimen/_8sdp"
                     app:layout_constraintEnd_toEndOf="@+id/mob_num"
@@ -140,11 +154,13 @@
 
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:cardCornerRadius="@dimen/_20sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:outlineSpotShadowColor="@color/gray_600"
+                android:outlineAmbientShadowColor="@color/gray_600"
+                app:cardCornerRadius="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="@+id/editButtonFrame"
                 app:layout_constraintStart_toStartOf="@+id/editButtonFrame"
                 app:layout_constraintTop_toBottomOf="@+id/editButtonFrame">
@@ -442,7 +458,13 @@
 
             </androidx.cardview.widget.CardView>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/cardview"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </ScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 </layout>

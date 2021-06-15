@@ -9,7 +9,11 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPostLoginBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostLoginViewModel
+import com.app.dubaiculture.ui.postLogin.explore.ExploreActivity
+import com.app.dubaiculture.ui.postLogin.more.MoreActivity
 import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
+import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
+import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.panorama_view_container.*
 
@@ -21,6 +25,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     private var postCreatePassFragment: PostCreatePassFragment?=null
     private var postRegisterFragment: PostRegisterFragment?=null
     private var postForgotFragment: PostForgotFragment?=null
+    private var from: String?=null
 
     init {
         postCreatePassFragment = PostCreatePassFragment()
@@ -35,6 +40,9 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+          from =  it.getString(MORE_FRAGMENT)
+        }
 
         binding.viewmodel = postLoginViewModel
         binding.fragment = this
@@ -76,6 +84,9 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                 application.auth.user = it
             }
             dismiss()
+            if(!from.isNullOrEmpty()){
+            activity.killSessionAndStartNewActivity(MoreActivity::class.java)
+            }
         }
     }
 
