@@ -102,12 +102,22 @@ private fun disabledBackButton(){
                 }
             }
         }
-        loginViewModel.loginStatus.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let {
-                application.auth.isGuest=false
+
+        loginViewModel.userLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+
+                application.auth.isLoggedIn = true
+                application.auth.isGuest = false
                 activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
+
             }
         }
+//        loginViewModel.loginStatus.observe(viewLifecycleOwner) {
+//            it.getContentIfNotHandled()?.let {
+//                application.auth.isGuest=false
+//                activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
+//            }
+//        }
     }
 }
 

@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import androidx.activity.OnBackPressedCallback
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseActivity
 import com.app.dubaiculture.utils.AuthUtils.hideStatusBar
@@ -18,14 +19,30 @@ class PreLoginActivity : BaseActivity() {
         hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
 //        val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+        applicationExitDialog()
 
-
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     override fun onResume() {
         super.onResume()
         adjustFontScale(resources.configuration)
+    }
+
+    private fun applicationExitDialog() {
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    showAlert(
+                        message = getString(R.string.error_msg),
+                        textPositive = getString(R.string.okay),
+                        textNegative = getString(R.string.cancel),
+                        actionPositive = {
+                            finish()
+                        }
+                    )
+                }
+            }
+      onBackPressedDispatcher.addCallback(this, callback)
     }
 
 }

@@ -1,10 +1,11 @@
 package com.app.dubaiculture.ui.postLogin.more
 
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
+import com.app.dubaiculture.ui.postLogin.more.services.MoreService
+import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,5 +24,15 @@ class MoreActivity : BaseAuthenticationActivity() {
         super.onResume()
         adjustFontScale(resources.configuration)
 
+    }
+
+    @Subscribe
+    fun initiateLogout(service: MoreService) {
+        when (service) {
+            is MoreService.Logout -> {
+                applicationEntry.auth.isLoggedIn = false
+                checkLoginStatus()
+            }
+        }
     }
 }

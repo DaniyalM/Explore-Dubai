@@ -181,10 +181,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         }
 
-        baseViewModel.userLiveData.observe(viewLifecycleOwner) {
-            application.auth.user = it
-            application.auth.isGuest = false
-        }
 
     }
 

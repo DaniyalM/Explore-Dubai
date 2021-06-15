@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,7 +23,6 @@ import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.*
 
 
 @AndroidEntryPoint
@@ -33,8 +31,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     private val loginViewModel: LoginViewModel by viewModels()
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
     ): FragmentLoginBinding {
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
@@ -43,6 +41,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
+        loginViewModel.getUserIfExists()
 
 
         binding.fragment = this
@@ -52,28 +51,28 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
         lottieAnimationRTL(binding.animationView)
-        applicationExitDialog()
+//        applicationExitDialog()
         lottieAnimationRTL(binding.animationView)
         binding.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
-                binding.password to "my_password",
-                binding.editPassword to "my_edit_password",
-                binding.mobileNumber to "my_phone",
-                binding.editMobNo to "my_edit_phone",
-                binding.tvLoginAccount to "main_title",
-                binding.btnLogin to "action_btn"
+                    binding.password to "my_password",
+                    binding.editPassword to "my_edit_password",
+                    binding.mobileNumber to "my_phone",
+                    binding.editMobNo to "my_edit_phone",
+                    binding.tvLoginAccount to "main_title",
+                    binding.btnLogin to "action_btn"
             )
             findNavController().navigate(
-                R.id.action_loginFragment_to_registerFragment2,
-                null,
-                null,
-                extras
+                    R.id.action_loginFragment_to_registerFragment2,
+                    null,
+                    null,
+                    extras
             )
         }
         binding.tvAsGuest.setOnClickListener {
             if (SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(
-                    requireContext()
-                )
+                            requireContext()
+                    )
             ) {
 
                 application.auth.apply {
@@ -93,7 +92,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
         subscribeToObservables()
-        loginViewModel.getUserIfExists()
+
         if (isArabic()) {
             binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
         } else {
@@ -106,19 +105,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
     private fun subscribeToObservables() {
-        loginViewModel.loginStatus.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let {
-                application.auth.isGuest = false
-                activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
-            }
-
-        }
         loginViewModel.userLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
-
-                application.auth.isLoggedIn = true
+                application.auth.user = it
+                application.auth.isGuest = false
+                application.auth.isLoggedIn=true
                 activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
-
             }
         }
     }
@@ -127,18 +119,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         when (v?.id) {
             R.id.forgot_pass -> {
                 val extras = FragmentNavigatorExtras(
-                    binding.password to "my_password",
-                    binding.editPassword to "my_edit_password",
-                    binding.mobileNumber to "my_phone",
-                    binding.editMobNo to "my_edit_phone",
-                    binding.tvLoginAccount to "main_title",
-                    binding.btnLogin to "action_btn"
+                        binding.password to "my_password",
+                        binding.editPassword to "my_edit_password",
+                        binding.mobileNumber to "my_phone",
+                        binding.editMobNo to "my_edit_phone",
+                        binding.tvLoginAccount to "main_title",
+                        binding.btnLogin to "action_btn"
                 )
                 findNavController().navigate(
-                    R.id.action_loginFragment_to_forgotFragment,
-                    null,
-                    null,
-                    extras
+                        R.id.action_loginFragment_to_forgotFragment,
+                        null,
+                        null,
+                        extras
                 )
             }
             R.id.img_uae_pass -> {
@@ -163,20 +155,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     private fun applicationExitDialog() {
         val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    showAlert(
-                        message = getString(R.string.error_msg),
-                        textPositive = getString(R.string.okay),
-                        textNegative = getString(R.string.cancel),
-                        actionNegative = {
-                        },
-                        actionPositive = {
-                            activity.finish()
-                        }
-                    )
+                object : OnBackPressedCallback(true /* enabled by default */) {
+                    override fun handleOnBackPressed() {
+                        showAlert(
+                                message = getString(R.string.error_msg),
+                                textPositive = getString(R.string.okay),
+                                textNegative = getString(R.string.cancel),
+                                actionNegative = {
+                                },
+                                actionPositive = {
+                                    activity.finish()
+                                }
+                        )
+                    }
                 }
-            }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
