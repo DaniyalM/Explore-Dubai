@@ -22,7 +22,7 @@ class EventActivity : BaseAuthenticationActivity() {
 
         setupViews(R.navigation.events_navigation,binding.bottomNav)
         BottomInit(binding.bottomNav, R.id.eventsFragment)
-
+        recieveLogout()
 
     }
 

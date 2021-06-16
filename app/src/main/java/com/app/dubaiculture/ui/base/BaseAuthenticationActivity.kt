@@ -1,10 +1,13 @@
 package com.app.dubaiculture.ui.base
 
-import android.os.Build
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
 import android.widget.CheckBox
 import androidx.navigation.fragment.NavHostFragment
 import com.app.dubaiculture.R
@@ -15,11 +18,10 @@ import com.app.dubaiculture.ui.postLogin.events.EventActivity
 import com.app.dubaiculture.ui.postLogin.explore.ExploreActivity
 import com.app.dubaiculture.ui.postLogin.more.MoreActivity
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
-import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import com.app.dubaiculture.utils.startNewActivityWithPre
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 abstract class BaseAuthenticationActivity : BaseActivity() {
 
@@ -163,5 +165,26 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
             }
 
         }
+    }
+
+
+    fun initiateLogout(){
+        val broadcastIntent = Intent()
+        broadcastIntent.action = "com.package.ACTION_LOGOUT"
+        sendBroadcast(broadcastIntent)
+    }
+
+
+    fun recieveLogout(){
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.package.ACTION_LOGOUT")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                Log.d("onReceive", "Logout in progress")
+                //At this point you should start the login activity and finish this one
+                finish()
+            }
+
+        }, intentFilter)
     }
 }
