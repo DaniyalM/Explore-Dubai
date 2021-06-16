@@ -44,6 +44,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(moreViewModel)
+        bgAboutRTL(binding.imgEagle)
         binding.llRateUs.setOnClickListener(this)
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)

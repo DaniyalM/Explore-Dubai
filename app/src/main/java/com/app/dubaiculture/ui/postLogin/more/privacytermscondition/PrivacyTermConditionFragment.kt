@@ -31,13 +31,12 @@ class PrivacyTermConditionFragment : BaseBottomSheetFragment<FragmentPrivacyTerm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(moreViewModel)
+        backArrowRTL(binding.imgClose)
         arguments?.let {
             from = it.getString(Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY).toString()
         }
         binding.imgClose.setOnClickListener(this)
         callingObserver()
-
-
     }
     private fun callingObserver(){
         if(from == TERMS_CONDITION){
@@ -75,4 +74,5 @@ class PrivacyTermConditionFragment : BaseBottomSheetFragment<FragmentPrivacyTerm
             }
         }
     }
+
 }

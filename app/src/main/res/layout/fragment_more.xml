@@ -310,7 +310,7 @@
                         android:outlineSpotShadowColor="@color/gray_600"
                         app:cardCornerRadius="@dimen/_8sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_height="@dimen/_100sdp"
+                        android:layout_height="158dp"
                         app:layout_constraintStart_toStartOf="@id/information"
                         app:layout_constraintTop_toBottomOf="@+id/information"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -327,17 +327,20 @@
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="About \nDubai Culture"
+                                android:text="@string/about_ndubai_culture"
                                 android:textSize="@dimen/_15ssp"
                                 android:layout_weight="1"
+                                android:textAlignment="viewStart"
                                 android:layout_marginTop="@dimen/_10sdp"
                                 android:layout_marginStart="@dimen/_15sdp"
                                 android:textColor="@color/black_200"
                                 />
                             <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/eagle"
+                                android:id="@+id/img_eagle"
+                                android:layout_width="@dimen/_150sdp"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:background="@drawable/about"
                                 />
                         </LinearLayout>
 

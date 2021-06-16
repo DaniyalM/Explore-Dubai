@@ -140,6 +140,7 @@
                         android:id="@+id/tv_title"
                         style="@style/TextViewRegistrationStyle"
                         android:layout_width="0dp"
+                        android:textAlignment="viewStart"
                         android:layout_marginTop="@dimen/_6sdp"
                         android:layout_marginEnd="@dimen/_22sdp"
                         android:text="@string/the_definitive_guide_to_an_uncertain_world_contribute_to_the_future"

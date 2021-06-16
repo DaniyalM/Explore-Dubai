@@ -36,11 +36,14 @@ class FAQsItems<T : ViewDataBinding>(
                         if(isExpand==false){
                             isExpand= true
                             it.tvQuestionNum.setTextColorRes(R.color.purple_900)
+                            it.tvQuestions.setTextColorRes(R.color.purple_900)
+
                             it.imgToggle.setImageResource(R.drawable.remove)
                             it.tvAnswer.visibility = View.VISIBLE
                                 it.tvAnswer.text = faqs.answer
                         }else{
                             isExpand= false
+                            it.tvQuestions.setTextColorRes(R.color.black_200)
                             it.tvQuestionNum.setTextColorRes(R.color.gray_750)
                             it.imgToggle.setImageResource(R.drawable.plus)
                             it.tvAnswer.visibility = View.GONE

@@ -33,6 +33,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favourite.*
+import kotlinx.android.synthetic.main.layout_back.view.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
 @AndroidEntryPoint
@@ -90,6 +91,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(profileViewModel)
+        backArrowRTL(binding.root.back)
         binding.customTextView3.text = activity.resources.getString(R.string.favourites)
 
         binding.headerVisited.back.setOnClickListener {

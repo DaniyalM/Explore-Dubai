@@ -2,17 +2,19 @@ package com.app.dubaiculture.ui.postLogin.latestnews.detail
 
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.speech.tts.Voice
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.news.local.NewsDetail
 import com.app.dubaiculture.databinding.FragmentNewsDetailBinding
 import com.app.dubaiculture.databinding.ItemMoreNewsBinding
-import com.app.dubaiculture.databinding.ItemNewsArticleBinding
 import com.app.dubaiculture.databinding.ItemSliderBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
@@ -35,10 +37,15 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
     private lateinit var newsArticleAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var moreNewsAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var articleAdapter: RecyclerView.Adapter<*>
+    private lateinit var newsDetails : NewsDetail
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
-                textToSpeechEngine.language = Locale(getCurrentLanguage().language)
+                TextToSpeech(requireContext()) { status ->
+                    if (status == TextToSpeech.SUCCESS) {
+                        textToSpeechEngine.language = Locale(getCurrentLanguage().language)
+                    }
+                }
             }
         }
     }
@@ -48,6 +55,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(newsDetailViewModel)
+        backArrowRTL(binding.imgClose)
         arguments?.let {
             newsDetailViewModel.newsDetail(
                 id = it.getString(NEWS_ID).toString(),
@@ -59,14 +67,14 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
             back()
         }
         binding.imgSpeaker.setOnClickListener {
+            if(!newsDetails.title.isNullOrEmpty())
             textToSpeechEngine.speak(
-                binding.tvTitle.text,
+                newsDetails.title,
                 TextToSpeech.QUEUE_FLUSH,
                 null,
                 "tts1"
             )
         }
-
     }
 
     private fun rvSetUp() {
@@ -85,6 +93,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 
         newsDetailViewModel.newsDetail.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
+                newsDetails =it
                 binding.tvTitle.text = it.title
                 binding.tvDate.text = it.postedDate
                 binding.tvDesc.text = it.description
@@ -104,7 +113,11 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 
                 articleAdapter = NewsArticleAdapter(it.tags!!)
                 binding.rvNewsArticle.apply {
-                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    layoutManager = LinearLayoutManager(
+                        context,
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
                     adapter = articleAdapter
                 }
 
@@ -128,7 +141,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
                                     }
 
                                 }, latestNews = it, R.layout.item_more_news, requireContext()
-                        )
+                            )
                         )
 
                     }
@@ -160,5 +173,13 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
             adapter = moreNewsAdapter
         }
 
+    }
+    override fun onDestroy() {
+        textToSpeechEngine.shutdown()
+        super.onDestroy()
+    }
+    override fun onPause() {
+        textToSpeechEngine.stop()
+        super.onPause()
     }
 }

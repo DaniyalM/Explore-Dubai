@@ -91,9 +91,7 @@
                     android:id="@+id/tv_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Collaboration is an essential factor for supporting the emirate’s creative sector"
                     android:textColor="@color/black_700"
-
                     android:textSize="@dimen/_20ssp"
                     android:layout_marginTop="@dimen/_12sdp"
                     app:textFont="bold"

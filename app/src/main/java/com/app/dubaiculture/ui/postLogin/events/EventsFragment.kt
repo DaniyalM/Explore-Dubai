@@ -45,6 +45,7 @@ import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.lang.Exception
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -191,11 +192,11 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     }
 
     private fun locationPermission() {
-        val quickPermissionsOption = QuickPermissionsOptions(
+        try{
+            val quickPermissionsOption = QuickPermissionsOptions(
             handleRationale = false
         )
 
-        try{
             activity.runWithPermissions(
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -211,7 +212,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                         },
                         activity, locationCallback)
             }
-        }catch (ex:IllegalStateException){}
+        }catch (ex:Exception){
+            ex.stackTrace
+        }
 
 
     }

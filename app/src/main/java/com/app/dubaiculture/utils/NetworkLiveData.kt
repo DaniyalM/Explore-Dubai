@@ -26,23 +26,27 @@ object NetworkLiveData : LiveData<Boolean>() {
             .build()
     }
     private fun getDetails() {
-        val cm = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        cm.registerNetworkCallback(networkRequest, object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                super.onAvailable(network)
-                NetworkLiveData.postValue(true)
-            }
+        try{
+            val cm = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            cm.registerNetworkCallback(networkRequest, object : ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    super.onAvailable(network)
+                    NetworkLiveData.postValue(true)
+                }
 
-            override fun onUnavailable() {
-                super.onUnavailable()
-                NetworkLiveData.postValue(false)
-            }
+                override fun onUnavailable() {
+                    super.onUnavailable()
+                    NetworkLiveData.postValue(false)
+                }
 
-            override fun onLost(network: Network) {
-                super.onLost(network)
-                NetworkLiveData.postValue(false)
-            }
-        })
+                override fun onLost(network: Network) {
+                    super.onLost(network)
+                    NetworkLiveData.postValue(false)
+                }
+            })
+        }catch (e:Exception){
+            e.stackTrace
+        }
     }
 
      fun isInternetAvailable(): Boolean {

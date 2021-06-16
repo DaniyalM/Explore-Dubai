@@ -41,6 +41,7 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(newsViewModel)
+        backArrowRTL(binding.imgClose)
         subscribeToObservables()
         initiateRequest()
         rvSetup()

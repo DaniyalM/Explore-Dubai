@@ -158,6 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                app:cardElevation="@dimen/_8sdp"
                 android:outlineSpotShadowColor="@color/gray_600"
                 android:outlineAmbientShadowColor="@color/gray_600"
                 app:cardCornerRadius="@dimen/_12sdp"

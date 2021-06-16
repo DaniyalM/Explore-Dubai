@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ImageView
 import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -164,5 +165,15 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
     fun showErrorDialog(message: String) {
         EventUtilFunctions.showErrorDialog(message, context = activity)
+    }
+    fun backArrowRTL(img: ImageView) {
+        when {
+            isArabic() -> {
+                img.rotation = -90f
+            }
+            else -> {
+                img.rotation = 90f
+            }
+        }
     }
 }
