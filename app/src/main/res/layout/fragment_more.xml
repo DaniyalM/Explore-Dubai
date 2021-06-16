@@ -81,12 +81,12 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/profile_icon_bg"
                                 />
-<!--                          -->
 
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/my_profile"
+                                android:id="@id/title"
                                 android:textSize="@dimen/_12ssp"
                                 android:textColor="@color/black_200"
                                 android:layout_marginTop="@dimen/_5sdp"

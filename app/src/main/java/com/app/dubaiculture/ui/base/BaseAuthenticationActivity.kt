@@ -45,7 +45,7 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
         //IF User has logged In Proceed with Activity Other Wise Navigate User to Login Screen
         //We will get the User Session From DataStore to check If its LoggedIn Or not
         if (!applicationEntry.auth.isLoggedIn) {
-            killSessionAndStartNewActivity(PreLoginActivity::class.java,true)
+            killSessionAndStartNewActivity(PreLoginActivity::class.java)
         }
 
 

@@ -3,6 +3,7 @@ package com.app.dubaiculture.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -75,17 +76,13 @@ fun <A : Activity> Activity.startNewActivityWithPre(activity: Class<A>) {
     }
 }
 
-fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>,clearHistory:Boolean=false) {
+fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>) {
+
     Intent(this, activity).also {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        if (clearHistory){
-            it.flags= Intent.FLAG_ACTIVITY_NO_HISTORY
-        }
-        it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-        finish()
-
-        startActivity(it)
+        it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        finishAffinity()
+        ContextCompat.startActivity(this,it, Bundle())
 
     }
 }

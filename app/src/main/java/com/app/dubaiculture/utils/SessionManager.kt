@@ -58,7 +58,7 @@ class SessionManager @Inject constructor(private val userRepository: Lazy<UserRe
 
             // check for null as db query might fail
             return if (user != null) {
-                Pair(true, user.token!!)
+                Pair(true, user.token)
             } else {
                 Pair(false, "")
             }
