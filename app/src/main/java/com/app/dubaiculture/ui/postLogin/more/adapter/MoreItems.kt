@@ -30,9 +30,14 @@ data class MoreItems<T : ViewDataBinding>(
                     } else {
                         it.dividerLine.visibility = View.INVISIBLE
                     }
+                    if (moreModel.title==context.resources.getString(R.string.settings)){
+                        if (isVisible){
+                            it.rootView.visibility=View.GONE
+                        }
+                        it.arrow.visibility = View.GONE
+                    }
 
-                    if (moreModel.title == context.resources.getString(R.string.logout_more) &&
-                        moreModel.title==context.resources.getString(R.string.settings)) {
+                    if (moreModel.title == context.resources.getString(R.string.logout_more)) {
                         if (isVisible){
                             it.rootView.visibility=View.GONE
                         }

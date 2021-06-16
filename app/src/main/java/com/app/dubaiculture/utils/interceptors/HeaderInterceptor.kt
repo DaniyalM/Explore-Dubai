@@ -46,9 +46,6 @@ class HeaderInterceptor @Inject constructor(private val context: Context,private
                         requestBuilder.removeHeader("Guest-Token")
                     }
                 } else {
-                    if (request.header("Authorization") != null) {
-                        requestBuilder.removeHeader("Authorization")
-                    }
                     guestPass = true
                 }
             }
@@ -56,10 +53,14 @@ class HeaderInterceptor @Inject constructor(private val context: Context,private
         }
 
         if (guestPass) {
+
             runBlocking {
                 val pairGuest = sessionManager.getGuestToken(android_id)
                 pairGuest?.let {
                     requestBuilder.addHeader("Guest-Token", it.token)
+                }
+                if (request.header("Authorization") != null) {
+                    requestBuilder.removeHeader("Authorization")
                 }
             }
         }

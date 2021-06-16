@@ -80,10 +80,8 @@ fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>) {
 
     Intent(this, activity).also {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        finishAffinity()
-        ContextCompat.startActivity(this,it, Bundle())
-
+        finish()
+        startActivity(it)
     }
 }
 

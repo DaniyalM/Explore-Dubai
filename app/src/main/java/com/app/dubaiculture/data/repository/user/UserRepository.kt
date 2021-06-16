@@ -1,5 +1,6 @@
 package com.app.dubaiculture.data.repository.user
 
+import android.content.Intent
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.login.remote.response.LoginResponseDTO
@@ -12,11 +13,8 @@ import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.data.repository.user.remote.UserRDS
 import com.app.dubaiculture.data.repository.user.remote.request.GuestTokenRequestDTO
 import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequestDTO
-import com.estimote.coresdk.repackaged.okhttp_v2_2_0.com.squareup.okhttp.ResponseBody
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.ResponseBody.Companion.toResponseBody
-import timber.log.Timber
 import javax.inject.Inject
+
 
 class UserRepository @Inject constructor(
         private val userRDS: UserRDS,

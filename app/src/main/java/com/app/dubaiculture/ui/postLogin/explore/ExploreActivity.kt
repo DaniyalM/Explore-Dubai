@@ -22,7 +22,7 @@ class ExploreActivity : BaseAuthenticationActivity() {
         setupViews(R.navigation.explore_navigation,binding.bottomNav)
         BottomInit(binding.bottomNav, R.id.exploreFragment)
 //        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
+        recieveLogout()
     }
 
     override fun onResume() {
