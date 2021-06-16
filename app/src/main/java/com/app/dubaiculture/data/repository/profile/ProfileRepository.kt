@@ -75,7 +75,7 @@ class ProfileRepository @Inject constructor(
                         events = transformEventList(resultRDS.value.result.events)
                 )))
             } else {
-                Result.Failure(false, null, null, resultRDS.value.errorMessage)
+                Result.Failure(false, resultRDS.value.statusCode, null, resultRDS.value.errorMessage)
             }
         }
         is Result.Error -> resultRDS

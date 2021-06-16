@@ -3,7 +3,6 @@ package com.app.dubaiculture.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -132,8 +131,8 @@ fun Fragment.handleApiError(
         else -> {
 
             val error = failure.errorBody?.string().toString()
-            baseViewModel.showToast("Try to restart the app.")
-
+//            baseViewModel.showToast("Try to restart the app.")
+            initiateLogout(this)
             startNewActivity(PreLoginActivity::class.java)
         }
     }
@@ -141,8 +140,13 @@ fun Fragment.handleApiError(
 
 }
 
-fun <T : Any> ObservableField<T>.getNonNull(): T = get()!!
+fun initiateLogout(fragment: Fragment) {
+    val broadcastIntent = Intent()
+    broadcastIntent.action = "com.package.ACTION_LOGOUT"
+    fragment.activity?.sendBroadcast(broadcastIntent)
+}
 
+fun <T : Any> ObservableField<T>.getNonNull(): T = get()!!
 
 
 fun <R> Fragment.getNavigationResult(key: String) =
