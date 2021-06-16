@@ -4,7 +4,9 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.CheckBox
 import androidx.annotation.IdRes
@@ -15,6 +17,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragment
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showAlert
@@ -53,6 +56,23 @@ abstract class BaseActivity : LocalizationActivity() {
         return null
     }
 
+    fun showAlert(
+        message: String,
+        title: String = Constants.Alert.DEFAULT_TITLE,
+        textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
+        textNegative: String? = null,
+        actionNegative: (() -> Unit)? = null,
+        actionPositive: (() -> Unit)? = null,
+    ) {
+        showAlert(
+            message = message,
+            context = this,
+            title = title,
+            textPositive = textPositive,
+            textNegative = textNegative,
+            actionPositive = actionPositive
+        )
+    }
 
     fun openEmailbox(email: String) {
         val intent = Intent(Intent.ACTION_SEND)
@@ -82,6 +102,10 @@ abstract class BaseActivity : LocalizationActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
+
         applicationEntry = application as ApplicationEntry
         bus = applicationEntry.bus
         applicationEntry.auth.locale = getCurrentLanguage().language

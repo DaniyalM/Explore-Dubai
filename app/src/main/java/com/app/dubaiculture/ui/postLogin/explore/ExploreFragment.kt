@@ -20,6 +20,7 @@ import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
+import com.app.dubaiculture.ui.preLogin.login.LoginFragment
 import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LAT
 import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LNG
 import com.app.dubaiculture.utils.handleApiError
@@ -119,6 +120,9 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         val callback: OnBackPressedCallback =
                 object : OnBackPressedCallback(true /* enabled by default */) {
                     override fun handleOnBackPressed() {
+
+
+
                         showAlert(
                                 message = getString(R.string.error_msg),
                                 textPositive = getString(R.string.okay),

@@ -75,12 +75,18 @@ fun <A : Activity> Activity.startNewActivityWithPre(activity: Class<A>) {
     }
 }
 
-fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>) {
+fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>,clearHistory:Boolean=false) {
     Intent(this, activity).also {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(it)
+        if (clearHistory){
+            it.flags= Intent.FLAG_ACTIVITY_NO_HISTORY
+        }
+        it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
         finish()
+
+        startActivity(it)
+
     }
 }
 
@@ -131,7 +137,7 @@ fun Fragment.handleApiError(
         else -> {
 
             val error = failure.errorBody?.string().toString()
-            baseViewModel.showToast("${error} Try to restart the app.")
+            baseViewModel.showToast("Try to restart the app.")
 
             startNewActivity(PreLoginActivity::class.java)
         }

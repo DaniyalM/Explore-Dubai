@@ -24,31 +24,31 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class LoginViewModel @ViewModelInject constructor(
-    private val loginRepository: LoginRepository,
-    private val userRepository: UserRepository,
-    application: Application,
+        private val loginRepository: LoginRepository,
+        private val userRepository: UserRepository,
+        application: Application,
 ) : BaseViewModel(application) {
     var phone: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
     var btnEnabled: ObservableBoolean = ObservableBoolean(false)
 
 
-    val isPhone = MutableLiveData<Boolean?>(true)
-    val isEmail = MutableLiveData<Boolean?>(true)
+    val isPhone = MutableLiveData(true)
+    val isEmail = MutableLiveData(true)
 
-    val isPhoneEdit = MutableLiveData<Boolean?>(true)
-    val isEmailEdit = MutableLiveData<Boolean?>(true)
+    val isPhoneEdit = MutableLiveData(true)
+    val isEmailEdit = MutableLiveData(true)
 
     val isPassword = MutableLiveData(true)
 
     //boolean for checking typing email or number
-    val isLoginWithPhone = MutableLiveData<Boolean?>(false)
+    val isLoginWithPhone = MutableLiveData(false)
 
     val mobileNumberError = MutableLiveData<String?>()
 
-    val phoneError = MutableLiveData<Boolean?>(false)
+    val phoneError = MutableLiveData(false)
 
-    val emailError = MutableLiveData<Boolean?>(false)
+    val emailError = MutableLiveData(false)
 
 
     private val errs_ = MutableLiveData<Int>().apply { value = R.string.err_password }
@@ -57,9 +57,6 @@ class LoginViewModel @ViewModelInject constructor(
 
     private var passwordError_ = MutableLiveData<Int>()
     var passwordError: LiveData<Int> = passwordError_
-
-    private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
-    var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
 
 
 
@@ -71,9 +68,11 @@ class LoginViewModel @ViewModelInject constructor(
             }
         }
     }
+
     fun removeUser(user: User) {
         viewModelScope.launch {
             userRepository.deleteUser(user)
+            _userLiveData.value = null
         }
     }
 
@@ -82,8 +81,8 @@ class LoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                phoneNumber = ph.toString().trim(),
-                password = pass.toString().trim()
+                    phoneNumber = ph.toString().trim(),
+                    password = pass.toString().trim()
             ).let {
                 when (val result = loginRepository.login(it)) {
                     is Result.Success -> {
@@ -96,19 +95,18 @@ class LoginViewModel @ViewModelInject constructor(
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
 
                                 setUser(transform(result.value.loginResponseDTO.userDTO,
-                                    result.value.loginResponseDTO))
+                                        result.value.loginResponseDTO))
 
                                 userRepository.saveUser(
-                                    userDTO = result.value.loginResponseDTO.userDTO,
-                                    loginResponseDTO = result.value.loginResponseDTO)
+                                        userDTO = result.value.loginResponseDTO.userDTO,
+                                        loginResponseDTO = result.value.loginResponseDTO)
 
-                                _loginStatus.value = Event(true)
                             }
 
                         } else {
                             showLoader(false)
                             showErrorDialog(message = result.value.errorMessage,
-                                colorBg = R.color.red_600)
+                                    colorBg = R.color.red_600)
                         }
                     }
                     is Result.Error -> {
@@ -132,8 +130,8 @@ class LoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                email = eml.toString().trim(),
-                password = pass.toString().trim()
+                    email = eml.toString().trim(),
+                    password = pass.toString().trim()
             ).let {
                 when (val result = loginRepository.loginWithEmail(it)) {
                     is Result.Success -> {
@@ -147,17 +145,16 @@ class LoginViewModel @ViewModelInject constructor(
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
                                 setUser(transform(result.value.loginResponseDTO.userDTO,
-                                    result.value.loginResponseDTO))
+                                        result.value.loginResponseDTO))
 
                                 userRepository.saveUser(
-                                    userDTO = result.value.loginResponseDTO.userDTO,
-                                    loginResponseDTO = result.value.loginResponseDTO
+                                        userDTO = result.value.loginResponseDTO.userDTO,
+                                        loginResponseDTO = result.value.loginResponseDTO
                                 )
-                                _loginStatus.value = Event(true)
                             }
                         } else {
                             showLoader(false)
-                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
 
 
                         }
@@ -180,7 +177,7 @@ class LoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                email = phone.get().toString().trim()
+                    email = phone.get().toString().trim()
             ).let {
                 when (val result = loginRepository.resendVerification(it)) {
                     is Result.Success -> {
@@ -190,16 +187,16 @@ class LoginViewModel @ViewModelInject constructor(
                             Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
                             navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
-                                verificationCode =
-                                result.value.resendVerificationResponseDTO.verificationCode,
-                                emailorphone = phone.get().toString().trim(),
-                                password = password.get().toString().trim(),
-                                screenName = COMES_FROM_LOGIN))
+                                    verificationCode =
+                                    result.value.resendVerificationResponseDTO.verificationCode,
+                                    emailorphone = phone.get().toString().trim(),
+                                    password = password.get().toString().trim(),
+                                    screenName = COMES_FROM_LOGIN))
 
                         } else {
                             showLoader(false)
                             if (result.value.errorMessage.isNullOrEmpty()) {
-                                showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+                                showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
                             }
 
 
@@ -222,7 +219,7 @@ class LoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                phoneNumber = phone.get().toString().trim()
+                    phoneNumber = phone.get().toString().trim()
             ).let {
                 when (val result = loginRepository.resendVerification(it)) {
                     is Result.Success -> {
@@ -232,14 +229,14 @@ class LoginViewModel @ViewModelInject constructor(
                             Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
                             navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
-                                verificationCode =
-                                result.value.resendVerificationResponseDTO.verificationCode,
-                                emailorphone = phone.get().toString().trim(),
-                                password = password.get().toString().trim(),
-                                screenName = COMES_FROM_LOGIN))
+                                    verificationCode =
+                                    result.value.resendVerificationResponseDTO.verificationCode,
+                                    emailorphone = phone.get().toString().trim(),
+                                    password = password.get().toString().trim(),
+                                    screenName = COMES_FROM_LOGIN))
 
                         } else {
-                            showErrorDialog(message = result.value.errorMessage,colorBg =  R.color.red_600)
+                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
 
                         }
                     }

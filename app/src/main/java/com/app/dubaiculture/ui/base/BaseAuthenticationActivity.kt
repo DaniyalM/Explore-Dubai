@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.CheckBox
 import androidx.navigation.fragment.NavHostFragment
@@ -16,6 +15,8 @@ import com.app.dubaiculture.ui.postLogin.events.EventActivity
 import com.app.dubaiculture.ui.postLogin.explore.ExploreActivity
 import com.app.dubaiculture.ui.postLogin.more.MoreActivity
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
+import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import com.app.dubaiculture.utils.startNewActivityWithPre
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -29,29 +30,22 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
 
         super.onCreate(savedInstanceState)
         checkLoginStatus()
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window?.let {
-//                it.insetsController?.let {
-//                    it.hide(WindowInsets.Type.statusBars())
-//                }
-            }
-        } else {
-            window?.setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
+
         baseOnCreate(savedInstanceState)
     }
 
 
-    private fun checkLoginStatus() {
+
+
+
+
+
+  protected fun checkLoginStatus() {
 
         //IF User has logged In Proceed with Activity Other Wise Navigate User to Login Screen
         //We will get the User Session From DataStore to check If its LoggedIn Or not
         if (!applicationEntry.auth.isLoggedIn) {
-            killSessionAndStartNewActivity(PreLoginActivity::class.java)
+            killSessionAndStartNewActivity(PreLoginActivity::class.java,true)
         }
 
 
@@ -62,7 +56,8 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
     protected fun BottomInit(bottomNav: BottomNavigationView, itemId: Int) {
         bottomNav.apply {
             selectedItemId = itemId
-            setOnNavigationItemSelectedListener(object : BottomNavigationView.OnNavigationItemSelectedListener {
+            setOnNavigationItemSelectedListener(object :
+                BottomNavigationView.OnNavigationItemSelectedListener {
                 override fun onNavigationItemSelected(item: MenuItem): Boolean {
                     when (item.itemId) {
                         R.id.exploreFragment -> startNewActivityWithPre(ExploreActivity::class.java)
@@ -79,10 +74,11 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
 
     }
 
-    protected fun setupViews(navigation: Int,bottomNav: BottomNavigationView) {
+
+    protected fun setupViews(navigation: Int, bottomNav: BottomNavigationView) {
 //        val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
         val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         val graph = navController.navInflater.inflate(navigation)
@@ -133,12 +129,12 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
 
 
     fun favouriteClick(
-            checkbox: CheckBox,
-            isFav: Boolean,
-            nav: Int,
-            itemId: String,
-            baseViewModel: BaseViewModel,
-            type: Int = 2,
+        checkbox: CheckBox,
+        isFav: Boolean,
+        nav: Int,
+        itemId: String,
+        baseViewModel: BaseViewModel,
+        type: Int = 2,
     ) {
         checkBox = checkbox
         if (applicationEntry.auth.isGuest) {
@@ -147,21 +143,21 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
             if (!isFav) {
                 applicationEntry.auth.user?.let {
                     baseViewModel.addToFavourites(
-                            AddToFavouriteRequest(
-                                    userId = applicationEntry.auth.user?.userId,
-                                    itemId = itemId,
-                                    type = type
-                            )
+                        AddToFavouriteRequest(
+                            userId = applicationEntry.auth.user?.userId,
+                            itemId = itemId,
+                            type = type
+                        )
                     )
                 }
             } else {
                 applicationEntry.auth.user?.let {
                     baseViewModel.addToFavourites(
-                            AddToFavouriteRequest(
-                                    userId = applicationEntry.auth.user?.userId,
-                                    itemId = itemId,
-                                    type = type
-                            )
+                        AddToFavouriteRequest(
+                            userId = applicationEntry.auth.user?.userId,
+                            itemId = itemId,
+                            type = type
+                        )
                     )
                 }
             }

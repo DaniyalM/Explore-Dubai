@@ -113,6 +113,9 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                     contentLoadMore = true
 
                     if (pageNumber == 1) {
+                        if (groupAdapter.itemCount>0){
+                            groupAdapter.clear()
+                        }
                         attractions = it.value as ArrayList<Attractions>
 //                        attractionListScreenAdapter?.attractions = attractions
                         groupAdapter.apply {
