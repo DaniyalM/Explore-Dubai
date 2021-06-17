@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,13 +29,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnClickListener {
     private val newsViewModel: NewsViewModel by viewModels()
     private var newsRequest: NewsRequest = NewsRequest(
-        pageNumber = 0, pageSize =  6
+            pageNumber = 0, pageSize = 6
     )
     var contentLoadMore = true
     var newsVerticalAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+            inflater: LayoutInflater,
+            container: ViewGroup?
     ) = FragmentLatestNewsBinding.inflate(inflater, container, false)
 
 
@@ -60,10 +61,10 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
         }
         binding.swipeRefresh.apply {
             setColorSchemeResources(
-                R.color.colorPrimary,
-                android.R.color.holo_green_dark,
-                android.R.color.holo_orange_dark,
-                android.R.color.holo_blue_dark
+                    R.color.colorPrimary,
+                    android.R.color.holo_green_dark,
+                    android.R.color.holo_orange_dark,
+                    android.R.color.holo_blue_dark
             )
             setOnRefreshListener {
                 binding.swipeRefresh.isRefreshing = false
@@ -94,16 +95,16 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
         }
         latestNews.forEach {
             groupAdapter.add(
-                NewsItems<ItemsLatestNewsBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
-                            val bundle = bundleOf(NEWS_ID to it.id)
-                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment,bundle)
+                    NewsItems<ItemsLatestNewsBinding>(
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
+                                    val bundle = bundleOf(NEWS_ID to it.id)
+                                    navigate(R.id.action_latestNewsFragment_to_newsDetailFragment, bundle)
 
-                        }
+                                }
 
-                    }, latestNews = it, R.layout.items_latest_news, requireContext()
-                )
+                            }, latestNews = it, R.layout.items_latest_news, requireContext()
+                    )
             )
 
         }
@@ -123,16 +124,16 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
 
         latestNews.forEach {
             newsVerticalAdapter.add(
-                NewsItems<ItemsNewsVerticalLayoutBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
-                            val bundle = bundleOf(NEWS_ID to it.id)
-                            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment,bundle)
+                    NewsItems<ItemsNewsVerticalLayoutBinding>(
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
+                                    val bundle = bundleOf(NEWS_ID to it.id)
+                                    navigate(R.id.action_latestNewsFragment_to_newsDetailFragment, bundle)
 
-                        }
+                                }
 
-                    }, latestNews = it, R.layout.items_news_vertical_layout, requireContext()
-                )
+                            }, latestNews = it, R.layout.items_news_vertical_layout, requireContext()
+                    )
             )
         }
 
@@ -153,9 +154,11 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
             var pastVisiblesItems: Int
             var visibleItemCount: Int
             var totalItemCount: Int
-            isNestedScrollingEnabled = false
+            this.isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = newsVerticalAdapter
+
+
 
             this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -164,8 +167,8 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
 
                     if (dy > 0) { //check for scroll down
                         (layoutManager as LinearLayoutManager).apply {
-                            visibleItemCount = this.getChildCount()
-                            totalItemCount = this.getItemCount()
+                            visibleItemCount = this.childCount
+                            totalItemCount = this.itemCount
                             pastVisiblesItems = this.findFirstVisibleItemPosition()
                         }
 
@@ -185,7 +188,16 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
             })
 
         }
+//        binding.nestedScrollView.viewTreeObserver.addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
+//            override fun onScrollChanged() {
+//
+//                val diff: Int = binding.nestedScrollView.getChildAt(binding.nestedScrollView.getChildCount() - 1).bottom - (binding.nestedScrollView.getHeight() + binding.nestedScrollView
+//                        .getScrollY())
+//                if(diff == 0)
+//
+//            }
+//        })
+//    }
+
     }
-
-
 }

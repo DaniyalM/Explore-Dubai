@@ -113,14 +113,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 back()
             }
             lottieAnimationRTL(animationView)
-
             backArrowRTL(header.back)
-            backArrowRTLProfile(arrowFavourite)
-            backArrowRTLProfile(arrowChangePassword)
-            backArrowRTLProfile(arrowEvents)
-            backArrowRTLProfile(arrowMyServices)
-            backArrowRTLProfile(arrowMyTrips)
-            backArrowRTLProfile(arrowPlacesVisited)
         }
     }
 
