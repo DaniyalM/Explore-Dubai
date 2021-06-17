@@ -68,6 +68,7 @@
         <com.app.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_mobile"
             style="@style/EditTextStyle"
+            android:overScrollMode="always"
             android:background="@{viewmodel.isPhoneEdit || viewmodel.isEmailEdit ? @drawable/bg_edit_resiger : @drawable/error_login  }"
             android:drawableEnd="@drawable/mob_login"
             android:hint="@string/enter_mobile_number"

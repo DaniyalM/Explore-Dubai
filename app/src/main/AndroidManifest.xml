@@ -64,8 +64,8 @@
             android:name=".ui.postLogin.more.MoreActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
            />
-
 
         <activity
             android:name=".ui.preLogin.PreLoginActivity"

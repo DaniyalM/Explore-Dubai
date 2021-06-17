@@ -58,20 +58,16 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
     protected fun BottomInit(bottomNav: BottomNavigationView, itemId: Int) {
         bottomNav.apply {
             selectedItemId = itemId
-            setOnNavigationItemSelectedListener(object :
-                BottomNavigationView.OnNavigationItemSelectedListener {
-                override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                    when (item.itemId) {
-                        R.id.exploreFragment -> startNewActivityWithPre(ExploreActivity::class.java)
-                        R.id.eventsFragment -> startNewActivityWithPre(EventActivity::class.java)
-                        R.id.attractionsFragment -> startNewActivityWithPre(AttractionActivity::class.java)
-                        R.id.moreFragment -> startNewActivityWithPre(MoreActivity::class.java)
-                    }
-
-                    return false
-
+            setOnNavigationItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.exploreFragment -> startNewActivityWithPre(ExploreActivity::class.java)
+                    R.id.eventsFragment -> startNewActivityWithPre(EventActivity::class.java)
+                    R.id.attractionsFragment -> startNewActivityWithPre(AttractionActivity::class.java)
+                    R.id.moreFragment -> startNewActivityWithPre(MoreActivity::class.java)
                 }
-            })
+
+                false
+            }
         }
 
     }
@@ -166,15 +162,11 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
 
         }
     }
-
-
     fun initiateLogout(){
         val broadcastIntent = Intent()
         broadcastIntent.action = "com.package.ACTION_LOGOUT"
         sendBroadcast(broadcastIntent)
     }
-
-
     fun recieveLogout(){
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.package.ACTION_LOGOUT")
@@ -184,7 +176,6 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
                 //At this point you should start the login activity and finish this one
                 finish()
             }
-
         }, intentFilter)
     }
 }

@@ -53,6 +53,12 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         binding.tvForgotPass.setOnClickListener(this)
         callingObserver()
         uaePassRTL()
+        binding.editMobile.setOnFocusChangeListener( object : View.OnFocusChangeListener{
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+
+            }
+
+        })
     }
 
     override fun onClick(v: View?) {
