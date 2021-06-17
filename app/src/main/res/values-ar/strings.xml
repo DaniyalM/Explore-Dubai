@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">هيئة دبي للثقافة والفنون</string>
-    <string name="english">English</string>
     <string name="arabic">العربية</string>
     <string name="switch_language">تغيير اللغة</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -185,6 +184,10 @@
     <string name="view_gallery">المعرض</string>
     <string name="reviews">المراجعات</string>
     <string name="on_trip">على TripAdvisor</string>
+
+    <!--Sprint 3 Content need for translation.-->
+    <!--Please translate from English to Arabic from here  "These are sprint 3 Content."-->
+
     <string name="turn_on_your_location_to_view_nearby_events">Turn on your location to view nearby events</string>
     <string name="account">Account</string>
     <string name="my_events">My Events</string>
@@ -201,10 +204,6 @@
     <string name="settings">Settings</string>
     <string name="share_this_app">Share this app</string>
     <string name="rate_us">Rate Us</string>
-
-
-
-
     <string name="public_libraries_services">Public Libraries Services</string>
     <string name="renting_more">Renting Services</string>
     <string name="general_more">General Services</string>
@@ -229,7 +228,6 @@
     <string name="more_news">More News</string>
     <string name="submit_survey">Submit Survey</string>
     <string name="survey_submitted">Survey Submitted</string>
-
     <string name="summary">Summary</string>
     <string name="take_new_photo">Take new photo</string>
     <string name="select_photo_from_gallery">Select photo from gallery</string>
@@ -252,5 +250,8 @@
     <string name="my_services">My Services</string>
     <string name="turn_on"> Please turn on your location</string>
     <string name="about_ndubai_culture">About \nDubai Culture</string>
+    <string name="english">English</string>
 
+
+    <!--End of Sprint 3-->
 </resources>
