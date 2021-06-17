@@ -64,7 +64,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             }
             binding.materialCardView2.setOnClickListener(null)
         } else {
-            binding.btnLogin.visibility = View.GONE
+            binding.btnLogin.visibility = View.INVISIBLE
             binding.user = application.auth.user
             binding.title.text= application.auth.user?.userName?:resources.getString(R.string.my_profile)
 
