@@ -253,5 +253,8 @@
 
     <string name="turn_on"> Please turn on your location</string>
     <string name="about_ndubai_culture">About \nDubai Culture</string>
+    <string name="discover">Discover</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get Started</string>
 
 </resources>
