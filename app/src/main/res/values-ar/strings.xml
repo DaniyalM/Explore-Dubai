@@ -38,8 +38,7 @@
     <string name="_email_address">ادخل البريد الالكتروني</string>
     <string name="_password"> كلمة السر</string>
 
-
-    <string name="favourites">Favourites</string>
+    <string name="favourites">المفضلة</string>
 
     <string name="forgot_password_">نسيت كلمة السر</string>
     <string name="cancel">الغاء</string>
