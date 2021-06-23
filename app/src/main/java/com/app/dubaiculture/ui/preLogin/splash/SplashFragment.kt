@@ -41,8 +41,10 @@ class   SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
         delay(3000)
         application.auth.isLoggedIn = true
+//        findNavController(this).navigate(R.id.action_splashFragment_to_onBoardingFragment)
         findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
-   }
+
+    }
 
 
 

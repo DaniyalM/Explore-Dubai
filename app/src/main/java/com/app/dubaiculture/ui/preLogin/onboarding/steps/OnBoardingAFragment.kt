@@ -7,21 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentOnBoardingABinding
-import com.app.dubaiculture.databinding.FragmentOnBoardingBinding
-import com.app.dubaiculture.databinding.FragmentOnBoardingDBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OnBoardingAFragment : BaseFragment<FragmentOnBoardingABinding>() {
+class OnBoardingAFragment : BaseFragment<FragmentOnBoardingABinding>(), View.OnClickListener {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.btnSkip.setOnClickListener(this)
     }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     )= FragmentOnBoardingABinding.inflate(inflater,container,false)
+
+    override fun onClick(v: View?) {
+       when(v?.id){
+           R.id.btn_skip->{
+
+           }
+       }
+    }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.preLogin.onboarding.OnBoardingFragment">
@@ -13,10 +13,13 @@
             android:id="@+id/anim_lottie"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_230sdp"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/_100sdp"
+            android:layout_marginTop="@dimen/_85sdp"
+            app:lottie_rawRes="@raw/workplace_dummy"
             />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -48,40 +51,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
             />
-        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-            android:id="@+id/worm_dots_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:dotsColor="@color/sea_green"
-            app:dotsStrokeColor="@color/gray_750"
-            app:dotsCornerRadius="8dp"
-            android:layout_marginTop="@dimen/_14sdp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_desc"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:dotsSize="16dp"
-            app:dotsSpacing="4dp"
-            app:dotsStrokeWidth="2dp"
-            />
 
 
         <com.app.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btn_skip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/my_event_btn_enable"
-            android:elevation="@dimen/_2sdp"
-            android:layout_marginTop="@dimen/_24sdp"
-            android:foreground="@drawable/custom_ripple_border"
-            android:gravity="center"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
-            app:layout_constraintTop_toBottomOf="@+id/worm_dots_indicator"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/my_event_btn_enable"
+            android:elevation="@dimen/_2sdp"
+            app:layout_constraintVertical_bias="0.7"
+            android:foreground="@drawable/custom_ripple_border"
+            android:gravity="center"
             android:text="@string/skip"
             android:textAllCaps="false"
-            android:textColor="@color/purple_900" />
+            android:textColor="@color/purple_900"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -16,6 +16,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_splashFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -173,5 +176,38 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
     </dialog>
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.OnBoardingFragment"
+        android:label="OnBoardingFragment" >
+        <action
+            android:id="@+id/action_onBoardingFragment_to_onBoardingAFragment"
+            app:destination="@id/onBoardingAFragment" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_onBoardingBFragment"
+            app:destination="@id/onBoardingBFragment" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_onBoardingCFragment"
+            app:destination="@id/onBoardingCFragment" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_onBoardingDFragment"
+            app:destination="@id/onBoardingDFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingAFragment"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.steps.OnBoardingAFragment"
+        android:label="OnBoardingAFragment" />
+    <fragment
+        android:id="@+id/onBoardingBFragment"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.steps.OnBoardingBFragment"
+        android:label="OnBoardingBFragment" />
+    <fragment
+        android:id="@+id/onBoardingCFragment"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.steps.OnBoardingCFragment"
+        android:label="OnBoardingCFragment" />
+    <fragment
+        android:id="@+id/onBoardingDFragment"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.steps.OnBoardingDFragment"
+        android:label="OnBoardingDFragment" />
 
 </navigation>
