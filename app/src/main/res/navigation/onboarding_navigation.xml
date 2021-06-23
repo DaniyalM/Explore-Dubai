@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/onBoardingFragment"
+    android:id="@+id/onboarding_navigation">
+    <fragment
+        android:id="@+id/onBoardingBFragment"
+        tools:layout="@layout/fragment_on_boarding_b"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.steps.OnBoardingBFragment"
+        android:label="OnBoardingBFragment" />
+
+    <fragment
+        android:id="@+id/onBoardingCFragment"
+        tools:layout="@layout/fragment_on_boarding_c"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.steps.OnBoardingCFragment"
+        android:label="OnBoardingCFragment" />
+    <fragment
+        android:id="@+id/onBoardingAFragment"
+        tools:layout="@layout/fragment_on_boarding_a"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.steps.OnBoardingAFragment"
+        android:label="OnBoardingAFragment" />
+    <fragment
+        android:id="@+id/onBoardingDFragment"
+        tools:layout="@layout/fragment_on_boarding_d"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.steps.OnBoardingDFragment"
+        android:label="OnBoardingDFragment" />
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.OnBoardingFragment"
+        android:label="OnBoardingFragment">
+        <action
+            android:id="@+id/action_onBoardingFragment_to_onBoardingAFragment"
+            app:destination="@id/onBoardingAFragment" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_onBoardingBFragment"
+            app:destination="@id/onBoardingBFragment" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_onBoardingCFragment"
+            app:destination="@id/onBoardingCFragment" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_onBoardingDFragment"
+            app:destination="@id/onBoardingDFragment" />
+    </fragment>
+
+</navigation>
