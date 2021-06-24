@@ -44,6 +44,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             android:textSize="@dimen/_10ssp"
+            android:lines="3"
+            android:ellipsize="end"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_30sdp"

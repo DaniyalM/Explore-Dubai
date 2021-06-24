@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_on_boarding.*
 
 @AndroidEntryPoint
 class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
-
     private val context: Fragment = this
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -7,7 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.preLogin.onboarding.OnBoardingFragment">
-
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/anim_lottie"
             android:layout_width="match_parent"
@@ -19,6 +18,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_85sdp"
             app:lottie_rawRes="@raw/workplace_dummy"
+
             />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -42,6 +42,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             android:textSize="@dimen/_10ssp"
+            android:lines="3"
+            android:ellipsize="end"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_30sdp"
@@ -51,25 +53,26 @@
             android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
             />
 
-
         <com.app.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btn_skip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
+            app:layout_constraintVertical_bias="0.7"
             android:background="@drawable/my_event_btn_enable"
             android:elevation="@dimen/_2sdp"
             android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
             android:text="@string/skip"
-            app:layout_constraintVertical_bias="0.7"
             android:textAllCaps="false"
             android:textColor="@color/purple_900"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

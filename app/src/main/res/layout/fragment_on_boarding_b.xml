@@ -20,6 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_85sdp"
             app:lottie_rawRes="@raw/workplace_dummy"
+
             />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -30,7 +31,7 @@
             android:textColor="@color/purple_900"
             android:textSize="24dp"
             app:textFont="bold"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_45sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textStyle="bold"
@@ -43,6 +44,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             android:textSize="@dimen/_10ssp"
+            android:lines="3"
+            android:ellipsize="end"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_30sdp"
@@ -51,7 +54,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
             />
-
 
         <com.app.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btn_skip"

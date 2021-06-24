@@ -26,7 +26,7 @@
         app:dotsCornerRadius="8dp"
         app:dotsSize="7dp"
         app:selectedDotColor="@color/sea_green"
-        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintVertical_bias="0.83"
         app:dotsStrokeWidth="2dp"
         app:dotsSpacing="2dp"
         app:layout_constraintBottom_toBottomOf="parent"

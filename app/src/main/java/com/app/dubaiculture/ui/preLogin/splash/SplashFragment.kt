@@ -40,8 +40,8 @@ class   SplashFragment : BaseFragment<FragmentSplashBinding>() {
     private suspend fun navigate() {
         delay(3000)
         application.auth.isLoggedIn = true
-//        findNavController(this).navigate(R.id.action_splashFragment_to_onboarding_navigation)
-        findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
+        findNavController(this).navigate(R.id.action_splashFragment_to_onboarding_navigation)
+//        findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
 
     }
 
