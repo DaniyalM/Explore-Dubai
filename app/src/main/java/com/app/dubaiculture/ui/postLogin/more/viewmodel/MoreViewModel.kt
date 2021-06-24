@@ -1,11 +1,15 @@
 package com.app.dubaiculture.ui.postLogin.more.viewmodel
 
 import android.app.Application
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,6 +28,8 @@ import com.app.dubaiculture.data.repository.profile.local.Favourite
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.playStoreAppLink.OPEN_PLAYSTORE_APP
+import com.app.dubaiculture.utils.Constants.playStoreAppLink.OPEN_PLAYSTORE_WEB
 import com.app.dubaiculture.utils.event.Event
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -158,5 +164,11 @@ class MoreViewModel @ViewModelInject constructor(application: Application,val mo
             e.stackTrace
         }
     }
-
+fun playStoreOpen(context: Context){
+    try {
+        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(OPEN_PLAYSTORE_APP)))
+    } catch (e: ActivityNotFoundException) {
+        context. startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(OPEN_PLAYSTORE_WEB)))
+    }
+}
 }

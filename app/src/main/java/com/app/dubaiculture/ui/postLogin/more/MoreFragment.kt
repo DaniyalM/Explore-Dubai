@@ -1,10 +1,12 @@
 package com.app.dubaiculture.ui.postLogin.more
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -34,7 +36,6 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     private val moreViewModel: MoreViewModel by viewModels()
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
-
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -148,6 +149,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                             if (position == 2) {
                                 navigate(R.id.action_moreFragment_to_FAQsFragment)
                             }
+                            if(position == 3){
+                                moreViewModel.playStoreOpen(activity)
+                            }
                             if (position == 4) {
                                 val bundle =
                                     bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)
@@ -163,7 +167,6 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                                     R.id.action_moreFragment_to_privacyTermConditionFragment,
                                     bundle
                                 )
-
                             }
                         }
                     },

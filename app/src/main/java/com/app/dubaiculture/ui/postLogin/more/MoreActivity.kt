@@ -34,6 +34,7 @@ class MoreActivity : BaseAuthenticationActivity() {
         when (service) {
             is MoreService.Logout -> {
                 applicationEntry.auth.isLoggedIn = false
+                // Subscribe broadcast from here.  when user logout click from moreFragment. then broadcast fire
                 initiateLogout()
                 checkLoginStatus()
             }
