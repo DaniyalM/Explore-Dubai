@@ -65,10 +65,14 @@ object Constants {
 
 
     }
+
+    object playStoreAppLink {
+        const val OPEN_PLAYSTORE_APP : String = "market://search?q=pub:Dubai Culture and Arts Authority"
+        const val OPEN_PLAYSTORE_WEB : String = "https://play.google.com/store/apps/details?id=Dubai+Culture+and+Arts+Authority"
+    }
     object IBecons {
         const val IDENTIFIER: String = "com.flagship.dubaiculture"
         const val UUID_BECON: String = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-
     }
 
     object Links {
