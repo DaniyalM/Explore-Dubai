@@ -26,20 +26,21 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:textColor="@color/black_200"
             android:textSize="@dimen/_25ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_15sdp"
             app:layout_constraintStart_toStartOf="@+id/img_close"
             app:layout_constraintTop_toBottomOf="@+id/img_close" />
         <androidx.core.widget.NestedScrollView
-            android:layout_marginTop="@dimen/_115sdp"
             app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

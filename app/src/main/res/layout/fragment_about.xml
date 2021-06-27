@@ -6,6 +6,9 @@
     <data>
         <import type="android.view.View" />
         <variable
+            name="fragment"
+            type="com.app.dubaiculture.ui.postLogin.more.about.AboutFragment" />
+        <variable
             name="cultureCon"
             type="com.app.dubaiculture.data.repository.more.local.CultureConnoisseur" />
     </data>
@@ -41,13 +44,15 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
             android:text="@{cultureCon.title}"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
             android:textColor="@color/black_200"
             android:textSize="@dimen/_20ssp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/imageView8"
             app:layout_constraintTop_toBottomOf="@+id/imageView8"
             app:textFont="bold" />
@@ -100,8 +105,10 @@
                     android:id="@+id/tv_web_link"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:foreground="@drawable/custom_ripple_border"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="@{cultureCon.readMoreURL}"
+                    android:onClick="@{()->fragment.openWebURL(cultureCon.readMoreURL)}"
                     android:textColor="@color/purple_900"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_read_more"

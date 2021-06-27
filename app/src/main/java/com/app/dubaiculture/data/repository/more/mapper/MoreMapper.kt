@@ -50,6 +50,14 @@ fun transformFeedbackType(moreresponse: MoreResponse)=
         )
     }
 
+fun transformPostFeedBackMessage(moreresponse: MoreResponse)=
+        moreresponse.Result.run {
+            GetMessage(
+                    message = Message
+            )
+        }
+
+
 fun transformationContactCenter(moreresponse: MoreResponse) = moreresponse.Result.run {
     ContactCenter(
         title = this.Title,

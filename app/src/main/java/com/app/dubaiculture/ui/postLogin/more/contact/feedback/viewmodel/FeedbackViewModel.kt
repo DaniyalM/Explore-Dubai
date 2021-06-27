@@ -156,8 +156,9 @@ class FeedbackViewModel @ViewModelInject constructor(
             ).let {
                 when (val result = moreRepository.postFeedBack(it)) {
                     is Result.Success -> {
+
                         showLoader(false)
-                        showToast(message = result.message)
+                        showToast(message =  result.value.message)
                         navigateByBack()
 
 

@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.settings.local.UserSettings
@@ -363,6 +364,13 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         intent.type = "plain/text"
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
         requireActivity().startActivity(Intent.createChooser(intent, ""))
+    }
+    fun openWebURL(url : String){
+        val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(BuildConfig.BASE_URL + url)
+        )
+        startActivity(browserIntent)
     }
 
     fun openDiallerBox(number: String? = null) {
