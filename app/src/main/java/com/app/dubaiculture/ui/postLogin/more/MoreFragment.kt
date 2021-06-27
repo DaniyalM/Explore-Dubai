@@ -58,7 +58,6 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             resources.getString(R.string.more)
         )
 
-
         if (application.auth.isGuest) {
             binding.btnLogin.setOnClickListener {
                 val bundle = bundleOf(MORE_FRAGMENT to MORE_FRAGMENT)

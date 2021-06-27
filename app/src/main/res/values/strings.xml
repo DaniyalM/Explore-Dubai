@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Dubai Culture</string>
-    <string name="english">English</string>
     <string name="arabic">Arabic</string>
+    <string name="english">عربي</string>
 
     <!--z-->
     <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>
