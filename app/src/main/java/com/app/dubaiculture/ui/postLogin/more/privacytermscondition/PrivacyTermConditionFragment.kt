@@ -11,8 +11,6 @@ import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPrivacyTermConditionBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.more.notification.viewmodel.NotificationViewModel
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION

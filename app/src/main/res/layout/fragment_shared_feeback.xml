@@ -183,10 +183,11 @@
                     tools:src="@drawable/bg_edit_resiger" />
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@{viewmodel.isSubject ? null : @drawable/error }"
                     android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="@{viewmodel.isSubject ? null : @drawable/error }"
                     app:layout_constraintBottom_toBottomOf="@+id/edit_subject"
                     app:layout_constraintEnd_toEndOf="@+id/edit_subject"
                     app:layout_constraintTop_toTopOf="@+id/edit_subject" />
@@ -200,6 +201,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/edit_subject" />
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/customTextView6"
                     style="@style/TextViewErrorRegistration"
                     android:text="@{viewmodel.isType ?@string/no_error : context.getString(viewmodel.typeError)    }"
                     app:layout_constraintBottom_toBottomOf="@+id/type"
@@ -213,13 +215,15 @@
                     android:id="@+id/sp_type"
                     android:editable="false"
                     android:drawableEnd="@drawable/arrow_readmore_"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:dropDownHeight="@dimen/_150sdp"
                     android:hint="@string/select_type"
                     android:paddingStart="@dimen/_15sdp"
                     android:paddingEnd="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginEnd="@dimen/_25sdp"
                     android:singleLine="true"
                     android:onTextChanged="@{viewmodel::onTypeChanged}"
                     android:text="@={viewmodel.type}"

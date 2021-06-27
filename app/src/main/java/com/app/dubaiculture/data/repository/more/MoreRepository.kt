@@ -120,9 +120,9 @@ class MoreRepository @Inject constructor(private val moreRDS: MoreRDS) : BaseRep
             is Result.Success -> {
                 if (result.value.succeeded) {
                    Result.Success(
-                        Event(
-                            Event((result.value))
-                        )
+                       transformPostFeedBackMessage(result.value)
+//                            Event((result.value))
+
                     )
                 } else {
                     Result.Failure(false, null, null, result.value.errorMessage)

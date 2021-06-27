@@ -167,11 +167,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
 
             }
             R.id.website_ll -> {
-                val browserIntent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(BuildConfig.BASE_URL + contactCenterReach.websiteContent)
-                )
-                startActivity(browserIntent)
+               openWebURL(contactCenterReach.websiteContent)
             }
             R.id.getDirection -> {
                 locationPermission()

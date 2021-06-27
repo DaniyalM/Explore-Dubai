@@ -27,11 +27,10 @@
         android:text="@string/museum_services"
         android:textColor="@color/black_200"
         android:textSize="@dimen/_12sdp"
-        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_33sdp"
         app:layout_constraintBottom_toBottomOf="@+id/img"
-        app:layout_constraintStart_toEndOf="@+id/img"
-        app:layout_constraintTop_toTopOf="@+id/img"
-        />
+        app:layout_constraintStart_toStartOf="@+id/img"
+        app:layout_constraintTop_toTopOf="@+id/img" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/arrow"

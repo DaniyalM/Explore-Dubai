@@ -21,6 +21,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() , View.OnClickListene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(moreViewModel)
+        binding.fragment = this
         binding.root.back.setOnClickListener(this)
         binding.llPrivacy.setOnClickListener(this)
         binding.llTerms.setOnClickListener(this)

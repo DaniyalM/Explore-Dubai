@@ -6,15 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentSplashBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
-import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
-import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -36,16 +32,10 @@ class   SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     }
 
-
     private suspend fun navigate() {
-
         delay(3000)
         application.auth.isLoggedIn = true
         findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
    }
-
-
-
-
 
 }
