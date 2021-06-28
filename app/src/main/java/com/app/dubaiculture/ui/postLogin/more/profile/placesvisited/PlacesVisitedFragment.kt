@@ -107,7 +107,7 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initiateRequest()
-        arrowRTL(binding.root.back)
+        backArrowRTL(binding.root.back)
         attractionViewModel.getVisitedAttractions(getCurrentLanguage().language)
 
         headerVisited.back.setOnClickListener {

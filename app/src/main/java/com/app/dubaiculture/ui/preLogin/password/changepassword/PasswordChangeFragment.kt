@@ -23,6 +23,8 @@ class PasswordChangeFragment : BaseFragment<FragmentPasswordChangeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        backArrowRTL(binding.header.back)
+        lottieAnimationRTL(binding.animationView)
         subscribeUiEvents(changedPasswordViewModel)
         binding.viewmodel = changedPasswordViewModel
         binding.root.back.setOnClickListener {

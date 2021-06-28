@@ -21,6 +21,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.latestnews.viewmodel.NewsViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
+import com.app.dubaiculture.utils.LinePagerIndicatorDecoration
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -146,6 +147,7 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
             val pagerSnapHelper = PagerSnapHelper()
             this.onFlingListener = null
             pagerSnapHelper.attachToRecyclerView(this)
+//            addItemDecoration(LinePagerIndicatorDecoration(requireContext()))
 
         }
 

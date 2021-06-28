@@ -1,16 +1,13 @@
 package com.app.dubaiculture.ui.postLogin.more.contact
 
 import android.Manifest
-import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.SocialLink
 import com.app.dubaiculture.data.repository.more.local.ContactCenterLocation
@@ -30,7 +27,6 @@ import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOption
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickListener,
@@ -67,6 +63,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        backArrowRTL(binding.imgClose)
         subscribeUiEvents(moreViewModel)
         mapSetUp(savedInstanceState)
         callingObserver()
