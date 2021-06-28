@@ -499,8 +499,9 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="20dp"
                     android:background="#F0F0F0"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_contact_desc"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginEnd="@dimen/_17sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/imageView4"
                     app:layout_constraintTop_toBottomOf="@+id/rv_reach_us" />
 
@@ -513,12 +514,14 @@
                     app:layout_constraintStart_toStartOf="@+id/imageView4"
                     app:layout_constraintTop_toBottomOf="@+id/iv_separator_share_1"
                     >
+
                     <ImageView
                         android:id="@+id/iv_share"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
                         android:src="@drawable/feedback_icon"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView14"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_share" />
 <!--                    android:text="@{contactCenter.contactCenterFeedback.title}"-->
@@ -528,8 +531,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
-                        android:layout_marginTop="30dp"
                         android:text="@{contactCenter.contactCenterFeedback.title}"
+                        android:layout_marginTop="@dimen/_18sdp"
                         android:textColor="@color/black_200"
                         android:textSize="@dimen/_13ssp"
                         app:layout_constraintStart_toEndOf="@+id/iv_share"
@@ -549,7 +552,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:src="@drawable/forward_arrow"
-                        android:layout_marginEnd="@dimen/_18sdp"
+                        android:layout_marginEnd="@dimen/_17sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView14"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_share" />
@@ -562,8 +565,9 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:background="#F0F0F0"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_contact_desc"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginEnd="@dimen/_17sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/imageView4"
                     app:layout_constraintTop_toBottomOf="@+id/ll_share_feed_back" />
 

@@ -28,6 +28,7 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/back_arrow"
+            android:padding="@dimen/_15sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

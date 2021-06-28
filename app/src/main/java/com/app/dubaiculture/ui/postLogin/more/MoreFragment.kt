@@ -1,12 +1,10 @@
 package com.app.dubaiculture.ui.postLogin.more
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -15,7 +13,6 @@ import com.app.dubaiculture.databinding.ItemsMoreLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.more.adapter.MoreItems
-import com.app.dubaiculture.ui.postLogin.more.enum.MoreNewsType
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
@@ -39,8 +36,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+            inflater: LayoutInflater,
+            container: ViewGroup?
     ) = FragmentMoreBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,22 +49,27 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llNotification.setOnClickListener(this)
         binding.llCultureConnoisseur.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
-            binding.root.profilePic,
-            binding.root.img_drawer,
-            binding.root.toolbar_title,
-            resources.getString(R.string.more)
+                binding.root.profilePic,
+                binding.root.img_drawer,
+                binding.root.toolbar_title,
+                resources.getString(R.string.more)
         )
 
         if (application.auth.isGuest) {
             binding.btnLogin.setOnClickListener {
                 val bundle = bundleOf(MORE_FRAGMENT to MORE_FRAGMENT)
-                navigate(R.id.action_moreFragment_to_post_login_bottom_navigation,bundle)
+                navigate(R.id.action_moreFragment_to_post_login_bottom_navigation, bundle)
             }
             binding.materialCardView2.setOnClickListener(null)
         } else {
-            binding.btnLogin.visibility = View.INVISIBLE
+            if (   binding.title.lineCount>=2) {
+                binding.btnLogin.visibility = View.GONE
+            } else {
+                binding.btnLogin.visibility = View.INVISIBLE
+            }
             binding.user = application.auth.user
-            binding.title.text= application.auth.user?.userName?:resources.getString(R.string.my_profile)
+            binding.title.text = application.auth.user?.userName
+                    ?: resources.getString(R.string.my_profile)
 
             binding.materialCardView2.setOnClickListener {
                 navigate(R.id.action_moreFragment_to_profileFragment)
@@ -84,18 +86,18 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             subHeading.visibility = View.VISIBLE
             if (isArabic()) {
                 cardivewRTL?.shapeAppearanceModel =
-                    cardivewRTL.shapeAppearanceModel
-                        .toBuilder()
-                        .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                        .setTopRightCornerSize(radius)
-                        .build()
+                        cardivewRTL.shapeAppearanceModel
+                                .toBuilder()
+                                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                                .setTopRightCornerSize(radius)
+                                .build()
             } else {
                 cardivewRTL?.shapeAppearanceModel =
-                    cardivewRTL.shapeAppearanceModel
-                        .toBuilder()
-                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                        .setBottomRightCornerSize(radius)
-                        .build()
+                        cardivewRTL.shapeAppearanceModel
+                                .toBuilder()
+                                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                                .setBottomRightCornerSize(radius)
+                                .build()
             }
         }
     }
@@ -114,17 +116,17 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         }
         servicesList(requireContext()).map {
             groupAdapter.add(
-                MoreItems<ItemsMoreLayoutBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
+                    MoreItems<ItemsMoreLayoutBinding>(
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
 
-                        }
-                    },
-                    moreModel = it,
-                    resLayout = R.layout.items_more_layout,
-                    requireContext(),
-                    isArabic()
-                )
+                                }
+                            },
+                            moreModel = it,
+                            resLayout = R.layout.items_more_layout,
+                            requireContext(),
+                            isArabic()
+                    )
             )
         }
         binding.rvServices.apply {
@@ -137,44 +139,44 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 //                newsAdapter.clear()
 //            }
             newsAdapter.add(
-                MoreItems<ItemsMoreLayoutBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
-                            if (position == 0) {
-                                navigate(R.id.action_moreFragment_to_latestNewsFragment)
-                            }
-                            if (position == 1) {
-                                navigate(R.id.action_moreFragment_to_contactFragment)
-                            }
-                            if (position == 2) {
-                                navigate(R.id.action_moreFragment_to_FAQsFragment)
-                            }
-                            if(position == 3){
-                                moreViewModel.playStoreOpen(activity)
-                            }
-                            if (position == 4) {
-                                val bundle =
-                                    bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)
-                                navigate(
-                                    R.id.action_moreFragment_to_privacyTermConditionFragment,
-                                    bundle
-                                )
-                            }
-                            if (position == 5) {
-                                val bundle =
-                                    bundleOf(TERMS_CONDITION_PRIVACY_POLICY to TERMS_CONDITION)
-                                navigate(
-                                    R.id.action_moreFragment_to_privacyTermConditionFragment,
-                                    bundle
-                                )
-                            }
-                        }
-                    },
-                    moreModel = it,
-                    resLayout = R.layout.items_more_layout,
-                    requireContext(),
-                    isArabic()
-                )
+                    MoreItems<ItemsMoreLayoutBinding>(
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
+                                    if (position == 0) {
+                                        navigate(R.id.action_moreFragment_to_latestNewsFragment)
+                                    }
+                                    if (position == 1) {
+                                        navigate(R.id.action_moreFragment_to_contactFragment)
+                                    }
+                                    if (position == 2) {
+                                        navigate(R.id.action_moreFragment_to_FAQsFragment)
+                                    }
+                                    if (position == 3) {
+                                        moreViewModel.playStoreOpen(activity)
+                                    }
+                                    if (position == 4) {
+                                        val bundle =
+                                                bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)
+                                        navigate(
+                                                R.id.action_moreFragment_to_privacyTermConditionFragment,
+                                                bundle
+                                        )
+                                    }
+                                    if (position == 5) {
+                                        val bundle =
+                                                bundleOf(TERMS_CONDITION_PRIVACY_POLICY to TERMS_CONDITION)
+                                        navigate(
+                                                R.id.action_moreFragment_to_privacyTermConditionFragment,
+                                                bundle
+                                        )
+                                    }
+                                }
+                            },
+                            moreModel = it,
+                            resLayout = R.layout.items_more_layout,
+                            requireContext(),
+                            isArabic()
+                    )
             )
         }
         binding.rvNews.apply {
@@ -184,31 +186,31 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         }
         settingsList(requireContext()).map {
             settingAdapter.add(
-                MoreItems<ItemsMoreLayoutBinding>(
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
-                            if (position == 0) {
-                                navigate(R.id.action_moreFragment_to_settingFragment)
-                            }
+                    MoreItems<ItemsMoreLayoutBinding>(
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
+                                    if (position == 0) {
+                                        navigate(R.id.action_moreFragment_to_settingFragment)
+                                    }
 
-                            if (position == 2) {
-                                if (isArabic()) {
-                                    setLanguage(Locale.ENGLISH)
-                                } else {
-                                    setLanguage(Locale("ar"))
+                                    if (position == 2) {
+                                        if (isArabic()) {
+                                            setLanguage(Locale.ENGLISH)
+                                        } else {
+                                            setLanguage(Locale("ar"))
+                                        }
+                                    }
+                                    if (position == 3) {
+                                        navigate(R.id.action_moreFragment_to_logoutFragment)
+                                    }
                                 }
-                            }
-                            if (position == 3) {
-                                navigate(R.id.action_moreFragment_to_logoutFragment)
-                            }
-                        }
-                    },
-                    moreModel = it,
-                    resLayout = R.layout.items_more_layout,
-                    requireContext(),
-                    isArabic(),
-                    application.auth.isGuest
-                )
+                            },
+                            moreModel = it,
+                            resLayout = R.layout.items_more_layout,
+                            requireContext(),
+                            isArabic(),
+                            application.auth.isGuest
+                    )
             )
         }
         binding.rvSettings.apply {
@@ -229,7 +231,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             R.id.ll_notification -> {
                 navigate(R.id.action_moreFragment_to_notificationFragment)
             }
-            R.id.llCultureConnoisseur->{
+            R.id.llCultureConnoisseur -> {
                 navigate(R.id.action_moreFragment_to_aboutFragment)
 
             }
