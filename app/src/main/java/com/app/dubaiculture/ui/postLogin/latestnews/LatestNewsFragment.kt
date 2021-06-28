@@ -100,7 +100,6 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
                                 override fun rowClickListener(position: Int) {
                                     val bundle = bundleOf(NEWS_ID to it.id)
                                     navigate(R.id.action_latestNewsFragment_to_newsDetailFragment, bundle)
-
                                 }
 
                             }, latestNews = it, R.layout.items_latest_news, requireContext()
