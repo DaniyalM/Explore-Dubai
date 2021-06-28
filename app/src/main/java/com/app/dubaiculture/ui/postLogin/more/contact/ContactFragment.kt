@@ -69,7 +69,6 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(moreViewModel)
         mapSetUp(savedInstanceState)
-
         callingObserver()
         binding.let {
             it.imgClose.setOnClickListener(this)
@@ -87,7 +86,6 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
 
         binding.imgLinkedinAttraction.setOnClickListener(this)
     }
-
     private fun mapSetUp(savedInstanceState: Bundle?) {
         if (!this::mapView.isInitialized) {
 
@@ -99,7 +97,6 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
         }
     }
-
     private fun callingObserver() {
         moreViewModel.contactUs(getCurrentLanguage().language)
         moreViewModel.contactUs.observe(viewLifecycleOwner) {
@@ -113,7 +110,6 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
         }
     }
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_feed_back -> {
@@ -174,7 +170,6 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
         }
     }
-
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
             handleRationale = false
@@ -205,7 +200,6 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 },
                 activity, locationCallback = locationCallback
             )
-
         }
     }
 
@@ -227,5 +221,4 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
     override fun onMapReady(p0: GoogleMap) {
         map = p0
     }
-
 }

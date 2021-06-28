@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">هيئة دبي للثقافة والفنون</string>
     <string name="arabic">العربية</string>
+    <string name="english">English</string>
     <string name="switch_language">تغيير اللغة</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا</string>
@@ -38,8 +39,7 @@
     <string name="_email_address">ادخل البريد الالكتروني</string>
     <string name="_password"> كلمة السر</string>
 
-
-    <string name="favourites">Favourites</string>
+    <string name="favourites">المفضلة</string>
 
     <string name="forgot_password_">نسيت كلمة السر</string>
     <string name="cancel">الغاء</string>
@@ -249,7 +249,6 @@
     <string name="my_services">خدماتي</string>
     <string name="turn_on"> يرجى تشغيل الموقع</string>
     <string name="about_ndubai_culture">عن هيئة دبي للثقافة والفنون</string>
-    <string name="english">عربي</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
