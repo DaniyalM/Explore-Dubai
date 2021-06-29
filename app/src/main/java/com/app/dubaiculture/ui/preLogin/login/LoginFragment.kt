@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.postLogin.explore.ExploreActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.firebase.getFcmToken
@@ -80,7 +81,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                     isGuest = true
                 }
 //            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-                activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
+                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             } else if (!SystemRequirementsHelper.isBluetoothEnabled(requireContext())) {
                 val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                 startActivityForResult(enableBtIntent, 1)
@@ -110,7 +111,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 application.auth.user = it
                 application.auth.isGuest = false
                 application.auth.isLoggedIn=true
-                activity.killSessionAndStartNewActivity(ExploreActivity::class.java)
+                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             }
         }
     }

@@ -96,7 +96,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
         subscribeUiEvents(exploreViewModel)
 
-        applicationExitDialog()
+//        applicationExitDialog()
 
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
@@ -200,25 +200,25 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         }
     }
 
-    private fun applicationExitDialog() {
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    showAlert(
-                        message = getString(R.string.error_msg),
-                        textPositive = getString(R.string.okay),
-                        textNegative = getString(R.string.cancel),
-                        actionNegative = {
-
-                        },
-                        actionPositive = {
-                            activity.finish()
-                        }
-                    )
-                }
-            }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-    }
+//    private fun applicationExitDialog() {
+//        val callback: OnBackPressedCallback =
+//            object : OnBackPressedCallback(true /* enabled by default */) {
+//                override fun handleOnBackPressed() {
+//                    showAlert(
+//                        message = getString(R.string.error_msg),
+//                        textPositive = getString(R.string.okay),
+//                        textNegative = getString(R.string.cancel),
+//                        actionNegative = {
+//
+//                        },
+//                        actionPositive = {
+//                            activity.finish()
+//                        }
+//                    )
+//                }
+//            }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+//    }
 
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(

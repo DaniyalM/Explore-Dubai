@@ -173,12 +173,11 @@ class PostLoginViewModel @ViewModelInject constructor(
                             //  showErrorDialog(message = result.message, colorBg = R.color.green_error)
                             Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
-                            navigateByDirections(PostLoginFragmentDirections.actionPostLoginFragmentToPostOTPDialogFragment(
-                                    verificationCode =
-                                    result.value.resendVerificationResponseDTO.verificationCode,
-                                    emailorphone = phone.get().toString().trim(),
-                                    password = password.get().toString().trim(),
-                                    screenName = Constants.NavBundles.COMES_FROM_LOGIN))
+//                            navigateByDirections(PostLoginFragmentDirections.actionPostLoginFragmentToPostOTPDialogFragment(
+//                                    verificationCode = result.value.resendVerificationResponseDTO.verificationCode,
+//                                    emailorphone = phone.get().toString().trim(),
+//                                    password = password.get().toString().trim(),
+//                                    screenName = Constants.NavBundles.COMES_FROM_LOGIN))
 
                         } else {
                             showLoader(false)
@@ -216,12 +215,12 @@ class PostLoginViewModel @ViewModelInject constructor(
                             showLoader(false)
 //                            showErrorDialog(message = result.message, colorBg = R.color.green_error)
                             Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
-                            navigateByDirections(PostLoginFragmentDirections.actionPostLoginFragmentToPostOTPDialogFragment(
-                                    verificationCode =
-                                    result.value.resendVerificationResponseDTO.verificationCode,
-                                    emailorphone = phone.get().toString().trim(),
-                                    password = password.get().toString().trim(),
-                                    screenName = Constants.NavBundles.COMES_FROM_LOGIN))
+//                            navigateByDirections(PostLoginFragmentDirections.actionPostLoginFragmentToPostOTPDialogFragment(
+//                                    verificationCode =
+//                                    result.value.resendVerificationResponseDTO.verificationCode,
+//                                    emailorphone = phone.get().toString().trim(),
+//                                    password = password.get().toString().trim(),
+//                                    screenName = Constants.NavBundles.COMES_FROM_LOGIN))
                         } else {
                             showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
 //                            showToast(message = result.value.errorMessage)

@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
@@ -72,7 +72,7 @@ android {
         debug {
             applicationIdSuffix ".debug"
             minifyEnabled false
-            debuggable true
+            debuggable false
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -181,8 +181,12 @@ dependencies {
     implementation config.backgroundAndAsynThreading.coroutinesPlayServices
 
     // Navigation Component
+    implementation config.navigationDependency.navFragmentKtx
     implementation config.navigationDependency.navFragment
-    implementation config.navigationDependency.navKtx
+    implementation config.navigationDependency.navUiKtx
+    implementation config.navigationDependency.navRuntime
+    implementation config.navigationDependency.navRuntimeKtx
+    implementation config.navigationDependency.navUi
     // Glide // SVG Glide
     implementation config.image_processing.glide
     kapt config.image_processing.glideCompiler

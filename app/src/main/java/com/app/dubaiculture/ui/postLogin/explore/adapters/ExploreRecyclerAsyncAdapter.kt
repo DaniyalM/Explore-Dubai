@@ -35,6 +35,7 @@ import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.app.dubaiculture.utils.AppConfigUtils
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
@@ -125,17 +126,17 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         AppConfigUtils.clickCheckerFlag = position
-                                        context.startActivity(
-                                            Intent(
-                                                context,
-                                                AttractionActivity::class.java
-                                            )
-                                        )
+//                                        context.startActivity(
+//                                            Intent(
+//                                                context,
+//                                                AttractionActivity::class.java
+//                                            )
+//                                        )
 
 
-//                                   fragment?.navigate(R.id.action_exploreFragment_to_attractionsFragment,Bundle().apply {
-//                                       putInt(ATTRACTION_CAT_OBJECT,position)
-//                                   })
+                                   fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,Bundle().apply {
+                                       putInt(ATTRACTION_CAT_OBJECT,position)
+                                   })
                                     }
                                 },
                                 isArabic = isArabic ?: false

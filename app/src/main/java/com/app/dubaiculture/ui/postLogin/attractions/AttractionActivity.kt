@@ -14,8 +14,8 @@ class AttractionActivity : BaseAuthenticationActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_generic)
         hideStatusBar(window)
-        setupViews(R.navigation.attraction_navigation, binding.bottomNav)
-        BottomInit(binding.bottomNav, R.id.attractionsFragment)
+//        setupViews(R.navigation.attraction_navigation, binding.bottomNav)
+//        BottomInit(binding.bottomNav, R.id.attractionsFragment)
         recieveLogout()
     }
 

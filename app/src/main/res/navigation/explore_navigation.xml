@@ -6,9 +6,14 @@
     app:startDestination="@id/exploreFragment">
 
     <include app:graph="@navigation/attraction_detail_navigation"/>
+
     <include app:graph="@navigation/post_login_bottom_navigation"/>
     <include app:graph="@navigation/event_detail_navigation"/>
     <include app:graph="@navigation/news_navigation"/>
+
+    <include app:graph="@navigation/attraction_navigation"/>
+    <include app:graph="@navigation/more_navigation"/>
+    <include app:graph="@navigation/events_navigation"/>
 
 
     <fragment
@@ -73,6 +78,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_exploreFragment_to_attraction_navigation"
+            app:destination="@id/attraction_navigation" />
     </fragment>
     <fragment
         android:id="@+id/eventFilterFragment"

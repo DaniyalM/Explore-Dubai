@@ -16,8 +16,8 @@ class MoreActivity : BaseAuthenticationActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_generic)
         hideStatusBar(window)
-        setupViews(R.navigation.more_navigation, binding.bottomNav)
-        BottomInit(binding.bottomNav, R.id.moreFragment)
+//        setupViews(R.navigation.more_navigation, binding.bottomNav)
+//        BottomInit(binding.bottomNav, R.id.moreFragment)
 //        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         recieveLogout()
 

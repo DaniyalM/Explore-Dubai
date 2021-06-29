@@ -12,6 +12,7 @@ import android.widget.CheckBox
 import androidx.annotation.IdRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
@@ -180,6 +181,12 @@ abstract class BaseActivity : LocalizationActivity() {
 
     fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
         navController.navigate(resId, bundle)
+    }
+
+    protected fun getNavControllerFun(int: Int): NavController {
+        val navHostFragment =
+                supportFragmentManager.findFragmentById(int) as NavHostFragment
+        return navHostFragment.navController
     }
 
 

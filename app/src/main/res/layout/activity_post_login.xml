@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.postLogin.PostLoginActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="com.app.dubaiculture.utils.DubaiNavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/post_login_navigation" />
+
+
+    <!--                <fragment-->
+    <!--                    android:id="@+id/nav_host_fragment"-->
+    <!--                    class="com.app.dubaiculture.utils.DubaiNavHostFragment"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="0dp"-->
+    <!--                    app:defaultNavHost="true"-->
+    <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--                    app:layout_constraintRight_toRightOf="parent"-->
+    <!--                    app:layout_constraintTop_toTopOf="parent"-->
+    <!--                    app:navGraph="@navigation/post_login_navigation" />-->
+
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottomNav"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="@drawable/nav_tabbar_new_one"-->
+<!--        android:elevation="@dimen/_10sdp"-->
+<!--        app:elevation="@dimen/_10sdp"-->
+<!--        app:itemIconTint="@color/bottom_nav_color"-->
+<!--        app:itemTextColor="@color/bottom_nav_color"-->
+<!--        app:labelVisibilityMode="labeled"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:menu="@menu/my_navigation_items">-->
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_add"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:layout_alignBottom="@+id/bottomNav"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/happiness_meter"-->
+<!--            android:contentDescription="@string/bottom_sheet_behavior" />-->
+
+<!--    </com.google.android.material.bottomnavigation.BottomNavigationView>-->
+
+    <!--    <fragment-->
+    <!--        android:name="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"-->
+    <!--        android:id="@+id/streetViewFragment"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"/>-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/title"-->
+    <!--        android:textSize="@dimen/_16ssp"-->
+    <!--        android:text="@string/welcome_to_dubai_culture"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"/>-->
+
+    <!--    <fragment-->
+    <!--        android:visibility="gone"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/title"-->
+    <!--        android:name="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"-->
+    <!--        android:id="@+id/streetViewFragment"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"/>-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

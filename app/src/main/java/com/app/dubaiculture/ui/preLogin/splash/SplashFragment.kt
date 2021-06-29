@@ -7,7 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+//import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentSplashBinding
 import com.app.dubaiculture.ui.base.BaseFragment

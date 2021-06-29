@@ -54,70 +54,70 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
 
     protected abstract fun baseOnCreate(savedInstanceState: Bundle?)
 
-    protected fun BottomInit(bottomNav: BottomNavigationView, itemId: Int) {
-        bottomNav.apply {
-            selectedItemId = itemId
-            setOnNavigationItemSelectedListener { item ->
-                when (item.itemId) {
-                    R.id.exploreFragment -> startNewActivityWithPre(ExploreActivity::class.java)
-                    R.id.eventsFragment -> startNewActivityWithPre(EventActivity::class.java)
-                    R.id.attractionsFragment -> startNewActivityWithPre(AttractionActivity::class.java)
-                    R.id.moreFragment -> startNewActivityWithPre(MoreActivity::class.java)
-                }
+//    protected fun BottomInit(bottomNav: BottomNavigationView, itemId: Int) {
+//        bottomNav.apply {
+//            selectedItemId = itemId
+//            setOnNavigationItemSelectedListener { item ->
+//                when (item.itemId) {
+//                    R.id.exploreFragment -> startNewActivityWithPre(ExploreActivity::class.java)
+//                    R.id.eventsFragment -> startNewActivityWithPre(EventActivity::class.java)
+//                    R.id.attractionsFragment -> startNewActivityWithPre(AttractionActivity::class.java)
+//                    R.id.moreFragment -> startNewActivityWithPre(MoreActivity::class.java)
+//                }
+//
+//                false
+//            }
+//        }
+//
+//    }
 
-                false
-            }
-        }
 
-    }
-
-
-    protected fun setupViews(navigation: Int, bottomNav: BottomNavigationView) {
-//        val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
-
-        val graph = navController.navInflater.inflate(navigation)
-        navHostFragment.navController.graph = graph
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when (destination.id) {
-                R.id.threeSixtyFragment -> {
-                    bottomNav.visibility = View.GONE
-                }
-                R.id.registrationSuccessFragment2 -> {
-                    bottomNav.visibility = View.GONE
-                }
-                R.id.ARFragment -> {
-                    bottomNav.visibility = View.GONE
-                }
-                R.id.siteMapFragment -> {
-                    bottomNav.visibility = View.GONE
-                }
-                R.id.ibeconFragment -> {
-                    bottomNav.visibility = View.GONE
-                }
-                R.id.attractionGalleryFragment -> {
-                    bottomNav.visibility = View.GONE
-                }
-                R.id.myEventsFragment -> {
-                    bottomNav.visibility = View.GONE
-                }
-//                R.id.placesVisited -> {
+//    protected fun setupViews(navigation: Int, bottomNav: BottomNavigationView) {
+////        val fragmentContainer = findViewById<View>(R.id.nav_host_fragment)
+//        val navHostFragment =
+//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//        navController = navHostFragment.navController
+//
+//        val graph = navController.navInflater.inflate(navigation)
+//        navHostFragment.navController.graph = graph
+//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+//            when (destination.id) {
+//                R.id.threeSixtyFragment -> {
 //                    bottomNav.visibility = View.GONE
 //                }
-                R.id.notificationFragment -> {
+//                R.id.registrationSuccessFragment2 -> {
 //                    bottomNav.visibility = View.GONE
-                }
-                R.id.favouriteFragment -> {
-                    bottomNav.visibility = View.GONE
-                }
-                else -> {
-                    bottomNav.visibility = View.VISIBLE
-                }
-            }
-        }
-    }
+//                }
+//                R.id.ARFragment -> {
+//                    bottomNav.visibility = View.GONE
+//                }
+//                R.id.siteMapFragment -> {
+//                    bottomNav.visibility = View.GONE
+//                }
+//                R.id.ibeconFragment -> {
+//                    bottomNav.visibility = View.GONE
+//                }
+//                R.id.attractionGalleryFragment -> {
+//                    bottomNav.visibility = View.GONE
+//                }
+//                R.id.myEventsFragment -> {
+//                    bottomNav.visibility = View.GONE
+//                }
+////                R.id.placesVisited -> {
+////                    bottomNav.visibility = View.GONE
+////                }
+//                R.id.notificationFragment -> {
+////                    bottomNav.visibility = View.GONE
+//                }
+//                R.id.favouriteFragment -> {
+//                    bottomNav.visibility = View.GONE
+//                }
+//                else -> {
+//                    bottomNav.visibility = View.VISIBLE
+//                }
+//            }
+//        }
+//    }
 
     fun favouriteClick(
         checkbox: CheckBox,

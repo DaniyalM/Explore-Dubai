@@ -66,7 +66,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected val binding get() = dataBinding
 
 
-    private var _view: View? = null
+    protected var _view: View? = null
     protected var isPagerFragment = false
 
 
@@ -80,10 +80,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             dataBinding = getFragmentBinding(inflater, container)
             _view = dataBinding.root
         }
-
-
-
-
         return _view
     }
 

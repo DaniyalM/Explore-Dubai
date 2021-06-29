@@ -2,14 +2,16 @@ package com.app.dubaiculture.ui.postLogin.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.viewpager.widget.ViewPager
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentHomeBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.home.adapters.HomePagerAdapter
 import com.app.dubaiculture.ui.postLogin.home.viewmodels.HomeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -17,69 +19,115 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val homeViewModel: HomeViewModel by viewModels()
     private var bottomNavigationView: BottomNavigationView? = null
+//    private var currentNavController: LiveData<NavController>? = null
+
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+            inflater: LayoutInflater,
+            container: ViewGroup?
     ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        bottomNavigationView = binding!!.bottomNav
-        initBottomNavigation()
-        initViewPager()
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bottomNavigationView = binding.bottomNav
+        applicationExitDialog()
+        setupBottomNavVisibility()
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    if (_view!=null){
+                        getNavController().popBackStack()
+                    }else {
+                        showAlert(
+                            message = getString(R.string.error_msg),
+                            textPositive = getString(R.string.okay),
+                            textNegative = getString(R.string.cancel),
+                            actionNegative = {
 
-    private fun initBottomNavigation(){
-        binding!!.pager.adapter = HomePagerAdapter(this)
-        binding!!.pager.isUserInputEnabled = false
-//        binding!!.bottomNav.setupWithViewPager(binding!!.pager as ViewPager)
-        bottomNavigationView?.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-//                R.id.action_explore -> binding!!.pager.currentItem = 0
-//                R.id.action_events -> binding!!.pager.currentItem = 1
-//                R.id.action_forums -> binding!!.pager.currentItem = 2
-                else -> binding!!.pager.currentItem = 3
+                            },
+                            actionPositive = {
+                                activity.finish()
+                            }
+                        )
+                    }
+
+
+                }
             }
-            true
-        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
-    private fun initViewPager() {
+    private fun getNavController(): NavController {
+        val navHostFragment =
+                childFragmentManager.findFragmentById(R.id.nav_home_container_view) as NavHostFragment
+        return navHostFragment.navController
+    }
 
+    private fun setupBottomNavVisibility() {
 
-
-//        TabLayoutMediator(
-//            binding!!.tabLayout, binding!!.pager
-//        ) { tab: TabLayout.Tab, position: Int ->
-//            val tabDetail = homeViewModel.tabDetails[position]
-//            tab.text = getString(tabDetail.first)
-//            tab.icon = ResourcesCompat.getDrawable(resources, tabDetail.second, null)
-//        }.attach()
-//
-//        binding!!.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//                tab?.apply {
-//                    val f = childFragmentManager.findFragmentByTag(
-//                        "f" + (binding!!.pager.adapter as HomePagerAdapter).getItemId(this.position)
-//                    )//f0,f1,f2,f3,....
-//                    if (f != null) {
-//                        if (this.position == 0) {
-//                            val fragment: ExploreFragment = f as ExploreFragment
-//                            fragment.getRecyclerView().smoothScrollToPosition(0)
-//                        }
-//                    }
+        bottomNavigationView?.apply {
+            val navigationController=getNavController()
+            setupWithNavController(navigationController)
+            navigationController.addOnDestinationChangedListener { _, destination, _ ->
+                when (destination.id) {
+                    R.id.threeSixtyFragment -> {
+                        visibility = View.GONE
+                    }
+                    R.id.registrationSuccessFragment2 -> {
+                        visibility = View.GONE
+                    }
+                    R.id.ARFragment -> {
+                        visibility = View.GONE
+                    }
+                    R.id.siteMapFragment -> {
+                        visibility = View.GONE
+                    }
+                    R.id.ibeconFragment -> {
+                        visibility = View.GONE
+                    }
+                    R.id.attractionGalleryFragment -> {
+                        visibility = View.GONE
+                    }
+                    R.id.myEventsFragment -> {
+                        visibility = View.GONE
+                    }
+//                R.id.placesVisited -> {
+//                    bottomNav.visibility = View.GONE
 //                }
-//
-//            }
-//
-//        })
+                    R.id.notificationFragment -> {
+//                    bottomNav.visibility = View.GONE
+                    }
+                    R.id.favouriteFragment -> {
+                        visibility = View.GONE
+                    }
+                    else -> {
+                        visibility = View.VISIBLE
+                    }
+                }
+
+            }
+
+        }
+
     }
+    private fun applicationExitDialog() {
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    showAlert(
+                        message = getString(R.string.error_msg),
+                        textPositive = getString(R.string.okay),
+                        textNegative = getString(R.string.cancel),
+                        actionNegative = {
+
+                        },
+                        actionPositive = {
+                            activity.finish()
+                        }
+                    )
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+    }
+
 }

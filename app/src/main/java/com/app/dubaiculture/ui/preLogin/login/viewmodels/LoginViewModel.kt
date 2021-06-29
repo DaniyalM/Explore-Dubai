@@ -184,14 +184,14 @@ class LoginViewModel @ViewModelInject constructor(
                         if (result.value.succeeded) {
                             showLoader(false)
                             //  showErrorDialog(message = result.message, colorBg = R.color.green_error)
-                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
+//                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
-                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
-                                    verificationCode =
-                                    result.value.resendVerificationResponseDTO.verificationCode,
-                                    emailorphone = phone.get().toString().trim(),
-                                    password = password.get().toString().trim(),
-                                    screenName = COMES_FROM_LOGIN))
+//                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
+//                                    verificationCode =
+//                                    result.value.resendVerificationResponseDTO.verificationCode,
+//                                    emailorphone = phone.get().toString().trim(),
+//                                    password = password.get().toString().trim(),
+//                                    screenName = COMES_FROM_LOGIN))
 
                         } else {
                             showLoader(false)
@@ -226,14 +226,14 @@ class LoginViewModel @ViewModelInject constructor(
                         if (result.value.succeeded) {
                             showLoader(false)
 //                            showErrorDialog(message = result.message, colorBg = R.color.green_error)
-                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
+//                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
-                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
-                                    verificationCode =
-                                    result.value.resendVerificationResponseDTO.verificationCode,
-                                    emailorphone = phone.get().toString().trim(),
-                                    password = password.get().toString().trim(),
-                                    screenName = COMES_FROM_LOGIN))
+//                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
+//                                    verificationCode =
+//                                    result.value.resendVerificationResponseDTO.verificationCode,
+//                                    emailorphone = phone.get().toString().trim(),
+//                                    password = password.get().toString().trim(),
+//                                    screenName = COMES_FROM_LOGIN))
 
                         } else {
                             showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)

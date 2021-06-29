@@ -25,19 +25,24 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private lateinit var pagerAdapter: AttractionPagerAdaper
     private val attractionViewModel: AttractionViewModel by viewModels()
     private lateinit var attractionCategorys: List<AttractionCategory>
-    private lateinit var clickChecker: String
+    private  var clickChecker: String="0"
 
-    override fun onResume() {
-        super.onResume()
-        if (this::clickChecker.isInitialized) {
-            if (clickChecker.toInt() != clickCheckerFlag) {
-                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-                binding.pager.currentItem = clickCheckerFlag
+//    override fun onResume() {
+//        super.onResume()
+//            if (clickChecker.toInt() != clickCheckerFlag) {
+//                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+//                binding.pager.currentItem = clickCheckerFlag
+//
+//            }else{
+//                if (_view!=null){
+//                    attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+//                    binding.pager.currentItem = clickCheckerFlag
+//                }
+//            }
+//
+//        }
 
-            }
-        }
 
-    }
 
 
     private fun initiateRequest() {

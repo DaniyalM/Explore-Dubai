@@ -20,8 +20,8 @@ class EventActivity : BaseAuthenticationActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_generic)
         hideStatusBar(window)
 
-        setupViews(R.navigation.events_navigation,binding.bottomNav)
-        BottomInit(binding.bottomNav, R.id.eventsFragment)
+//        setupViews(R.navigation.events_navigation,binding.bottomNav)
+//        BottomInit(binding.bottomNav, R.id.eventsFragment)
         recieveLogout()
 
     }
