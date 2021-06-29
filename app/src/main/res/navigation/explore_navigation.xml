@@ -10,7 +10,10 @@
     <include app:graph="@navigation/post_login_bottom_navigation"/>
     <include app:graph="@navigation/event_detail_navigation"/>
     <include app:graph="@navigation/news_navigation"/>
+
     <include app:graph="@navigation/attraction_navigation"/>
+    <include app:graph="@navigation/more_navigation"/>
+    <include app:graph="@navigation/events_navigation"/>
 
 
     <fragment
