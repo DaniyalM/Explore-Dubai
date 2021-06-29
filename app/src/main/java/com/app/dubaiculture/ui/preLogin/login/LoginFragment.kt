@@ -51,7 +51,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //        SystemRequirementsChecker.Requirement.LOCATION_DISABLED
 
 
-        lottieAnimationRTL(binding.animationView)
 //        applicationExitDialog()
         lottieAnimationRTL(binding.animationView)
         binding.tvRegisterNow.setOnClickListener {

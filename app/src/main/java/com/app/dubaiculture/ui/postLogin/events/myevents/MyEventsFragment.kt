@@ -18,6 +18,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
+import kotlinx.android.synthetic.main.layout_back.view.*
 
 class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
     private val eventViewModel: EventViewModel by viewModels()
@@ -29,6 +30,7 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            backArrowRTL(root.back)
             customTextView3.text= activity.resources.getString(R.string.my_events)
             headerVisited.back.setOnClickListener {
                 back()

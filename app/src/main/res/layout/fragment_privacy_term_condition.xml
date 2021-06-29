@@ -13,7 +13,7 @@
             android:id="@+id/img_close"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_30sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:rotation="90"
@@ -26,15 +26,16 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/title"
+            android:textAlignment="viewStart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:textColor="@color/black_200"
             android:textSize="@dimen/_25ssp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/_15sdp"
-            app:layout_constraintStart_toStartOf="@+id/img_close"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_close" />
         <androidx.core.widget.NestedScrollView
             app:layout_constraintTop_toBottomOf="@+id/title"
@@ -46,14 +47,15 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="@+id/title"
-            android:layout_marginEnd="@dimen/_18sdp"
-            android:layout_marginStart="@dimen/_18sdp"
+            android:layout_marginEnd="@dimen/_13sdp"
+            android:layout_marginStart="@dimen/_13sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title">
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_desc"
                 android:layout_width="0dp"
+                android:textAlignment="viewStart"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_12ssp"
                 android:textColor="@color/gray_750"

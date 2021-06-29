@@ -84,7 +84,6 @@
 
                     <me.relex.circleindicator.CircleIndicator2
                         android:id="@+id/indicator"
-                        app:ci_drawable_unselected="@drawable/circle_purple"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_20sdp"
                         app:ci_drawable="@drawable/purple_indicator"
