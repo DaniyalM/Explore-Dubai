@@ -1,6 +1,6 @@
-package com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel
+package com.app.dubaiculture.ui.postLogin.login.viewmodel
 
-//import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragmentDirections
+//import com.app.dubaiculture.ui.postLogin.login.PostLoginFragmentDirections
 import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
@@ -15,7 +15,6 @@ import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.Event

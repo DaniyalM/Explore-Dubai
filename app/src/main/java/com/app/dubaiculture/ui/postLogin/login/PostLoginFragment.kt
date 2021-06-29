@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.attractions.detail.login
+package com.app.dubaiculture.ui.postLogin.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,24 +8,23 @@ import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPostLoginBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostLoginViewModel
-import com.app.dubaiculture.ui.postLogin.explore.ExploreActivity
-import com.app.dubaiculture.ui.postLogin.more.MoreActivity
+import com.app.dubaiculture.ui.postLogin.PostLoginActivity
+import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel
 import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.panorama_view_container.*
+
 
 @AndroidEntryPoint
 class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         View.OnClickListener {
     private val postLoginViewModel: PostLoginViewModel by viewModels()
     private val splashViewModel: SplashViewModel by viewModels()
-    private var postCreatePassFragment: PostCreatePassFragment?=null
-    private var postRegisterFragment: PostRegisterFragment?=null
-    private var postForgotFragment: PostForgotFragment?=null
-    private var from: String?=null
+    private var postCreatePassFragment: PostCreatePassFragment? = null
+    private var postRegisterFragment: PostRegisterFragment? = null
+    private var postForgotFragment: PostForgotFragment? = null
+    private var from: String? = null
 
     init {
         postCreatePassFragment = PostCreatePassFragment()
@@ -41,7 +40,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-          from =  it.getString(MORE_FRAGMENT)
+            from = it.getString(MORE_FRAGMENT)
         }
 
         binding.viewmodel = postLoginViewModel
@@ -53,7 +52,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         binding.tvForgotPass.setOnClickListener(this)
         callingObserver()
         uaePassRTL()
-        binding.editMobile.setOnFocusChangeListener( object : View.OnFocusChangeListener{
+        binding.editMobile.setOnFocusChangeListener(object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
 
             }
@@ -90,8 +89,8 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                 application.auth.user = it
             }
             dismiss()
-            if(!from.isNullOrEmpty()){
-            activity.killSessionAndStartNewActivity(MoreActivity::class.java)
+            if (!from.isNullOrEmpty()) {
+                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             }
         }
     }
@@ -115,9 +114,9 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
 
     override fun onDestroyView() {
         super.onDestroyView()
-        postForgotFragment=null
-        postRegisterFragment=null
-        postCreatePassFragment=null
+        postForgotFragment = null
+        postRegisterFragment = null
+        postCreatePassFragment = null
 
     }
 }

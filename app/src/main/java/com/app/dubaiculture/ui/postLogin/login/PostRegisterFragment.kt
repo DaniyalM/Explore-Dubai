@@ -1,11 +1,10 @@
-package com.app.dubaiculture.ui.postLogin.attractions.detail.login
+package com.app.dubaiculture.ui.postLogin.login
 
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,7 @@ import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPostRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostRegisterViewModel
-import com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel
+import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostRegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

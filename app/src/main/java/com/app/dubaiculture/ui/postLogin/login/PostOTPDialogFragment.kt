@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.attractions.detail.login
+package com.app.dubaiculture.ui.postLogin.login
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.PostOtpFragmentDialogBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostOTPViewModel
+import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostOTPViewModel
 import com.app.dubaiculture.ui.postLogin.explore.ExploreActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.Constants
