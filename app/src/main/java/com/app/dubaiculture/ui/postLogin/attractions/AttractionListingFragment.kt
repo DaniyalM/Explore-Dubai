@@ -18,13 +18,16 @@ import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
+import com.app.dubaiculture.ui.postLogin.attractions.services.AttractionServices
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
+import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_attraction_listing.*
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -104,7 +107,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                 is Result.Failure -> handleApiError(it, attractionViewModel)
             }
         }
-        attractionViewModel.attractionList.observe(viewLifecycleOwner) {
+        attractionViewModel.attractionList.observe(viewLifecycleOwner) { it ->
 
             when (it) {
 
@@ -116,11 +119,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                         if (groupAdapter.itemCount>0){
                             groupAdapter.clear()
                         }
-                        attractions = it.value as ArrayList<Attractions>
-//                        attractionListScreenAdapter?.attractions = attractions
                         groupAdapter.apply {
-                            attractions.forEach {
-                                add(AttractionListItem<AttractionListItemCellBinding>(
+                            it.value.forEach { add(AttractionListItem<AttractionListItemCellBinding>(
                                         favChecker = object : FavouriteChecker {
                                             override fun checkFavListener(
                                                     checkbox: CheckBox,
@@ -159,7 +159,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                         } else {
                             groupAdapter.apply {
                                 it.value.forEach {
-                                    attractions.add(it)
                                     add(AttractionListItem<AttractionListItemCellBinding>(
                                             favChecker = object : FavouriteChecker {
                                                 override fun checkFavListener(
@@ -191,7 +190,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                                             context = activity))
                                 }
                             }
-//                            attractionListScreenAdapter?.attractions = attractions
                         }
                     }
                 }
@@ -222,29 +220,42 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if (contentLoaded) {
-                        if (dy > 0) { //check for scroll down
-                            (layoutManager as LinearLayoutManager).apply {
-                                visibleItemCount = this.getChildCount()
-                                totalItemCount = this.getItemCount()
-                                pastVisiblesItems = this.findFirstVisibleItemPosition()
-                            }
+                    if (dy > 0) { //check for scroll down
+                        (layoutManager as LinearLayoutManager).apply {
+                            visibleItemCount = this.childCount
+                            totalItemCount = this.itemCount
+                            pastVisiblesItems = this.findFirstVisibleItemPosition()
+                        }
 
 
-                            if (contentLoadMore) {
-                                if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                                    contentLoadMore = false
-                                    contentLoaded = false
-                                    pageNumber += 1
-                                    callingObservables()
-                                    // Do pagination.. i.e. fetch new data
-                                }
+                        if (contentLoadMore) {
+                            if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                                contentLoadMore = false
+                                contentLoaded = false
+                                pageNumber += 1
+                                callingObservables()
+                                // Do pagination.. i.e. fetch new data
                             }
                         }
                     }
                 }
             })
 
+        }
+    }
+
+
+    @Subscribe
+    fun handlingRefresh(attractionServices: AttractionServices){
+        when(attractionServices){
+            is AttractionServices.TriggerRefresh ->{
+                if (groupAdapter.itemCount>0){
+                    groupAdapter.clear()
+                }
+                contentLoaded=false
+                pageNumber=1
+                callingObservables()
+            }
         }
     }
 

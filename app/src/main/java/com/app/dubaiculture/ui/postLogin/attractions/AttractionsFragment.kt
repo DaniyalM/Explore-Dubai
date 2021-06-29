@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.databinding.FragmentAttractionsBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionPagerAdaper
@@ -24,38 +23,36 @@ import kotlinx.android.synthetic.main.toolbar_layout.view.*
 class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private lateinit var pagerAdapter: AttractionPagerAdaper
     private val attractionViewModel: AttractionViewModel by viewModels()
-    private lateinit var attractionCategorys: List<AttractionCategory>
-    private  var clickChecker: String="0"
+    private var contentLoaded = false
 
-//    override fun onResume() {
-//        super.onResume()
-//            if (clickChecker.toInt() != clickCheckerFlag) {
-//                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-//                binding.pager.currentItem = clickCheckerFlag
-//
-//            }else{
-//                if (_view!=null){
-//                    attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-//                    binding.pager.currentItem = clickCheckerFlag
-//                }
-//            }
-//
-//        }
+    override fun onResume() {
+        super.onResume()
+        if (binding.pager.currentItem!= clickCheckerFlag){
+            attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+        }
 
 
+    }
 
 
     private fun initiateRequest() {
+
         binding.swipeRefresh.apply {
             setColorSchemeResources(R.color.colorPrimary,
                     android.R.color.holo_green_dark,
                     android.R.color.holo_orange_dark,
                     android.R.color.holo_blue_dark)
             setOnRefreshListener {
-                binding.swipeRefresh.isRefreshing = false
+                contentLoaded = false
                 attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-
             }
+            if (!contentLoaded) {
+                post {
+                    binding.swipeRefresh.isRefreshing = true
+                    attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+                }
+            }
+
         }
     }
 
@@ -68,7 +65,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbarWithSearchItems()
         subscribeUiEvents(attractionViewModel)
-        callingObservables()
+        initiatePager()
         subscribeToObservables()
         initiateRequest()
 
@@ -87,17 +84,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     }
 
 
-    private fun callingObservables() {
-        if (!this::attractionCategorys.isInitialized) {
-            binding.swipeRefresh.post {
-                binding.swipeRefresh.isRefreshing = true
-                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-
-            }
-            initiatePager()
-        }
-    }
-
     private fun subscribeToObservables() {
         attractionViewModel.attractionCategoryList.observe(viewLifecycleOwner) {
             binding.swipeRefresh.isRefreshing = false
@@ -105,10 +91,14 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             when (it) {
                 is Result.Success -> {
                     it.let { result ->
-                        attractionCategorys = result.value
-                        binding.horizontalSelector.initialize(attractionCategorys, bus)
-                        pagerAdapter.list = attractionCategorys
-                        binding.pager.currentItem = clickCheckerFlag
+                        contentLoaded = true
+
+                        binding.horizontalSelector.initialize(result.value, bus)
+                        pagerAdapter.list = result.value
+
+                        //Below expression will trigger the refresh inside listing fragment
+                        bus.post(AttractionServices.TriggerRefresh())
+
 
                     }
                 }
@@ -125,7 +115,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     fun handleCategoryClick(attractionServices: AttractionServices) {
         when (attractionServices) {
             is AttractionServices.CategoryClick -> {
-                clickChecker = attractionServices.position.toString()
                 binding.pager.currentItem = attractionServices.position
             }
         }
