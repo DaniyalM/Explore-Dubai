@@ -53,7 +53,7 @@ fun transformFeedbackType(moreresponse: MoreResponse)=
 fun transformPostFeedBackMessage(moreresponse: MoreResponse)=
         moreresponse.Result.run {
             GetMessage(
-                    message = Message
+                    message = MessageBody
             )
         }
 
@@ -120,7 +120,8 @@ fun transformContactCenterSuggestionComplains(contactCenterSuggestionComplainsDT
         image1Url = contactCenterSuggestionComplainsDTO.Image1URL,
         image2 = contactCenterSuggestionComplainsDTO.Image2,
         image2Url = contactCenterSuggestionComplainsDTO.Image2URL,
-        subTitle = contactCenterSuggestionComplainsDTO.Subtitle
+        subTitle = contactCenterSuggestionComplainsDTO.Subtitle,
+        image3 = contactCenterSuggestionComplainsDTO.Image3
     )
 
 

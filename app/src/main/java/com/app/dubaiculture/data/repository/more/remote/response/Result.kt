@@ -7,7 +7,7 @@ import com.app.dubaiculture.data.repository.more.remote.request.*
 data class Result(
     var PrivacyPolicy: List<PrivacyPolicyDTO>,
     var TermsAndCondition: List<TermsAndConditionDTO>,
-    var Message: String,
+    var MessageBody: String,
     var Title: String,
     var Description: String,
     val DubaiLogo: String,
