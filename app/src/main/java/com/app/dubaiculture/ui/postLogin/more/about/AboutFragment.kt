@@ -22,7 +22,8 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() , View.OnClickListene
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(moreViewModel)
         binding.fragment = this
-        binding.root.back.setOnClickListener(this)
+        backArrowRTL(binding.imgClose)
+        binding.imgClose.setOnClickListener(this)
         binding.llPrivacy.setOnClickListener(this)
         binding.llTerms.setOnClickListener(this)
 
@@ -37,7 +38,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() , View.OnClickListene
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.back->{
+            R.id.img_close->{
                 back()
             }
             R.id.ll_terms->{

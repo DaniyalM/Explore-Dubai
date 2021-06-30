@@ -86,11 +86,11 @@
                         android:id="@+id/indicator"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_20sdp"
+                        app:layout_constraintCircleRadius="@dimen/_200sdp"
                         app:ci_drawable="@drawable/purple_indicator"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/rv_horizontal_news" />
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_vertical_news"
                         android:layout_width="match_parent"
