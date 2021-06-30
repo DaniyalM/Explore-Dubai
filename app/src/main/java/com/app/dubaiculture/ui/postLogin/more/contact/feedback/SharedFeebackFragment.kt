@@ -26,6 +26,7 @@ class SharedFeebackFragment : BaseFragment<FragmentSharedFeebackBinding>(),View.
         subscribeUiEvents(feedbackViewModel)
         binding.viewmodel = feedbackViewModel
         callingObserver()
+        backArrowRTL(binding.imgClose)
         binding.imgClose.setOnClickListener(this)
         binding.spType.setOnClickListener{
             hideKeyboard(activity)

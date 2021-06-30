@@ -62,15 +62,14 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             }
             binding.materialCardView2.setOnClickListener(null)
         } else {
-            if (   binding.title.lineCount>=2) {
+            binding.user = application.auth.user
+            binding.title.text = application.auth.user?.userName
+                    ?: resources.getString(R.string.my_profile)
+            if (   binding.title.text.length>=15) {
                 binding.btnLogin.visibility = View.GONE
             } else {
                 binding.btnLogin.visibility = View.INVISIBLE
             }
-            binding.user = application.auth.user
-            binding.title.text = application.auth.user?.userName
-                    ?: resources.getString(R.string.my_profile)
-
             binding.materialCardView2.setOnClickListener {
                 navigate(R.id.action_moreFragment_to_profileFragment)
             }
