@@ -10,5 +10,4 @@ data class ContactCenter(
     var contactCenterFeedback: ContactCenterFeedback,
     var contactCenterSuggestionComplains: ContactCenterSuggestionComplains,
     var socialLinks: List<SocialLink>
-
 )

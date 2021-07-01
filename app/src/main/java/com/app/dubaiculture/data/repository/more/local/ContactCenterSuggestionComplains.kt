@@ -7,4 +7,5 @@ data class ContactCenterSuggestionComplains(
     var image2:String,
     var image2Url:String,
     var image3:String,
-)
+    var image3URL:String,
+    )

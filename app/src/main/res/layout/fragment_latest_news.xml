@@ -82,12 +82,16 @@
                         tools:itemCount="1"
                         tools:listitem="@layout/items_latest_news" />
 
+
+
                     <me.relex.circleindicator.CircleIndicator2
                         android:id="@+id/indicator"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_20sdp"
+                        android:layout_height="wrap_content"
+                        app:ci_drawable_unselected="@drawable/shape_gray_icon"
                         app:layout_constraintCircleRadius="@dimen/_200sdp"
-                        app:ci_drawable="@drawable/purple_indicator"
+                        app:ci_drawable="@drawable/bg_edit_login"
+                        app:layout_constraintCircleAngle="50"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/rv_horizontal_news" />

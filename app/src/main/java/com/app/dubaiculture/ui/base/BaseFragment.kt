@@ -373,6 +373,13 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         startActivity(browserIntent)
     }
 
+    fun openWebWithoutBaseUrl(url : String){
+        val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse( url)
+        )
+        startActivity(browserIntent)
+    }
     fun openDiallerBox(number: String? = null) {
         val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
         requireActivity().startActivity(intent)

@@ -124,7 +124,7 @@
                     android:foreground="@drawable/custom_ripple_border"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="@{cultureCon.readMoreURL}"
-                    android:onClick="@{()->fragment.openWebURL(cultureCon.readMoreURL)}"
+                    android:onClick="@{()->fragment.openWebWithoutBaseUrl(cultureCon.readMoreURL)}"
                     android:textColor="@color/purple_900"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_read_more"

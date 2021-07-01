@@ -64,6 +64,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         backArrowRTL(binding.imgClose)
+        binding.fragment = this
         subscribeUiEvents(moreViewModel)
         mapSetUp(savedInstanceState)
         callingObserver()
@@ -110,7 +111,11 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_feed_back -> {
-                navigate(R.id.action_contactFragment_to_sharedFeeback)
+                if(application.auth.isGuest){
+                    navigate(R.id.action_contactFragment_to_post_login_bottom_navigation)
+                }else{
+                    navigate(R.id.action_contactFragment_to_sharedFeeback)
+                }
             }
             R.id.img_close -> {
                 back()

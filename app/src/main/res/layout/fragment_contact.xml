@@ -4,9 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
     <data>
         <import type="android.view.View" />
+        <variable
+            name="fragment"
+            type="com.app.dubaiculture.ui.postLogin.more.contact.ContactFragment" />
         <variable
             name="contactCenter"
             type="com.app.dubaiculture.data.repository.more.local.ContactCenter" />
@@ -605,7 +607,9 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="20dp"
                             android:id="@+id/cv_e_complaint"
+                            android:onClick="@{()-> fragment.openWebWithoutBaseUrl(contactCenter.contactCenterSuggestionComplains.image1Url)}"
                             android:layout_width="@dimen/_130sdp"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:cardCornerRadius="@dimen/_8sdp"
                             app:cardElevation="@dimen/_5sdp"
                             android:outlineSpotShadowColor="@color/gray_600"
@@ -625,7 +629,9 @@
                             android:layout_marginStart="20dp"
                             android:layout_width="@dimen/_130sdp"
                             app:cardCornerRadius="@dimen/_8sdp"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:cardElevation="@dimen/_5sdp"
+                            android:onClick="@{()-> fragment.openWebWithoutBaseUrl(contactCenter.contactCenterSuggestionComplains.image2Url)}"
                             android:outlineSpotShadowColor="@color/gray_600"
                             android:layout_height="100dp"
                             >
@@ -643,7 +649,9 @@
                             android:layout_marginStart="20dp"
                             android:layout_width="@dimen/_130sdp"
                             app:cardCornerRadius="@dimen/_8sdp"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:cardElevation="@dimen/_5sdp"
+                            android:onClick="@{()-> fragment.openWebWithoutBaseUrl(contactCenter.contactCenterSuggestionComplains.image3URL)}"
                             android:outlineSpotShadowColor="@color/gray_600"
                             android:layout_height="100dp"
                             >

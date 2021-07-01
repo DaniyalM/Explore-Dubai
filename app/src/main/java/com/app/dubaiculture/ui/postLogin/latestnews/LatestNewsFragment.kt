@@ -136,7 +136,6 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
             this.onFlingListener = null
             pagerSnapHelper.attachToRecyclerView(this)
 //            addItemDecoration(LinePagerIndicatorDecoration(requireContext()))
-
         }
 
         binding.rvVerticalNews.apply {

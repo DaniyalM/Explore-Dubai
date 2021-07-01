@@ -189,9 +189,12 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                             object : RowClickListener {
                                 override fun rowClickListener(position: Int) {
                                     if (position == 0) {
-                                        navigate(R.id.action_moreFragment_to_settingFragment)
+                                        if (application.auth.isGuest) {
+                                            navigate(R.id.action_moreFragment_to_post_login_bottom_navigation)
+                                        } else {
+                                            navigate(R.id.action_moreFragment_to_settingFragment)
+                                        }
                                     }
-
                                     if (position == 2) {
                                         if (isArabic()) {
                                             setLanguage(Locale.ENGLISH)
