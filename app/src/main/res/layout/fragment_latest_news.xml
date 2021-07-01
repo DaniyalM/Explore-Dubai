@@ -87,10 +87,11 @@
                     <me.relex.circleindicator.CircleIndicator2
                         android:id="@+id/indicator"
                         android:layout_width="wrap_content"
+                        app:ci_margin="@dimen/_2sdp"
                         android:layout_height="wrap_content"
                         app:ci_drawable_unselected="@drawable/shape_gray_icon"
                         app:layout_constraintCircleRadius="@dimen/_200sdp"
-                        app:ci_drawable="@drawable/bg_edit_login"
+                        app:ci_drawable="@drawable/rectangle_icon_shape"
                         app:layout_constraintCircleAngle="50"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
