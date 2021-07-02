@@ -3,6 +3,7 @@ package com.app.dubaiculture.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.RequestBody
@@ -25,6 +25,11 @@ import java.io.IOException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
+
+fun Activity.enableLocationFromSettings() {
+    startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+}
 
 
 fun decorateRecyclerView(
@@ -131,19 +136,19 @@ fun Fragment.handleApiError(
         else -> {
 
             val error = failure.errorBody?.string().toString()
-//            baseViewModel.showToast("Try to restart the app.")
-            initiateLogout(this)
-            startNewActivity(PreLoginActivity::class.java)
+            initiateLogout()
+            baseViewModel.showToast(error)
+//            startNewActivity(PreLoginActivity::class.java)
         }
     }
 
 
 }
 
-fun initiateLogout(fragment: Fragment) {
+fun Fragment.initiateLogout() {
     val broadcastIntent = Intent()
     broadcastIntent.action = "com.package.ACTION_LOGOUT"
-    fragment.activity?.sendBroadcast(broadcastIntent)
+    activity?.sendBroadcast(broadcastIntent)
 }
 
 fun <T : Any> ObservableField<T>.getNonNull(): T = get()!!

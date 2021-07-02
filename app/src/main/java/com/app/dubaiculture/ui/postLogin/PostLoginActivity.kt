@@ -18,7 +18,6 @@ import timber.log.Timber
 @AndroidEntryPoint
 class PostLoginActivity : BaseAuthenticationActivity(), NavController.OnDestinationChangedListener {
 
-    private val mainViewModel: MainViewModel by viewModels()
 
     private val navHolding: Int = R.id.nav_host_fragment
 
@@ -27,7 +26,6 @@ class PostLoginActivity : BaseAuthenticationActivity(), NavController.OnDestinat
         setContentView(R.layout.activity_post_login)
         applicationEntry.auth.locale = getCurrentLanguage().language
         hideStatusBar(window)
-        subscribeUiEvents(mainViewModel)
         getNavControllerFun(navHolding).addOnDestinationChangedListener(this)
 
         recieveLogout()

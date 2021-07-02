@@ -61,6 +61,7 @@ object Constants {
         const val PRIVACY_POLICY: String = "privacy_policy"
         const val NEWS_ID: String = "news_id"
         const val MORE_FRAGMENT: String = "more_fragment"
+        const val SETTING_DESTINATION: String = "setting_fragment_destination"
 
 
 

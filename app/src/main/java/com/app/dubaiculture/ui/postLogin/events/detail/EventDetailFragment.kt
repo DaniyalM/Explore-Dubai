@@ -69,7 +69,7 @@ import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
-        OnMapReadyCallback, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
+    OnMapReadyCallback, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private val eventViewModel: EventViewModel by viewModels()
     private lateinit var verticalLayoutManager: RecyclerView.LayoutManager
     private lateinit var myAdapter: RecyclerView.Adapter<*>
@@ -88,7 +88,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
-            .observe(viewLifecycleOwner, getObserver)
+        .observe(viewLifecycleOwner, getObserver)
 
     @Inject
     lateinit var glide: RequestManager
@@ -125,8 +125,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
     ): FragmentEventDetailBinding {
         return FragmentEventDetailBinding.inflate(inflater, container, false)
     }
@@ -151,7 +151,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         if (eventObj.isFavourite) {
             binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
             binding.root.favourite_event.background =
-                    getDrawableFromId(R.drawable.heart_icon_fav)
+                getDrawableFromId(R.drawable.heart_icon_fav)
         }
 
         binding.root.btn_register_now.setOnClickListener {
@@ -165,30 +165,50 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             openEmailbox(email = emailContact.toString())
         }
         binding.root.imgFb.setOnClickListener {
-            SocialNetworkUtils.openUrl(eventObj.socialLink?.get(0)!!.facebookPageLink,activity,isFacebook = true)
+            SocialNetworkUtils.openUrl(
+                eventObj.socialLink?.get(0)!!.facebookPageLink,
+                activity,
+                isFacebook = true
+            )
         }
         binding.root.imgTwitter.setOnClickListener {
-            SocialNetworkUtils.openUrl(eventObj.socialLink?.get(0)!!.twitterPageLink,activity,isTwitter = true)
+            SocialNetworkUtils.openUrl(
+                eventObj.socialLink?.get(0)!!.twitterPageLink,
+                activity,
+                isTwitter = true
+            )
         }
         binding.root.imgInsta.setOnClickListener {
-            SocialNetworkUtils.openUrl(eventObj.socialLink?.get(0)!!.instagramPageLink,activity,isInstagram = true)
+            SocialNetworkUtils.openUrl(
+                eventObj.socialLink?.get(0)!!.instagramPageLink,
+                activity,
+                isInstagram = true
+            )
         }
         binding.root.imgUtube.setOnClickListener {
-            SocialNetworkUtils.openUrl(eventObj.socialLink?.get(0)!!.youtubePageLink,activity,isYoutube = true)
+            SocialNetworkUtils.openUrl(
+                eventObj.socialLink?.get(0)!!.youtubePageLink,
+                activity,
+                isYoutube = true
+            )
         }
         binding.root.imgLinkedin.setOnClickListener {
-            SocialNetworkUtils.openUrl(eventObj.socialLink?.get(0)!!.linkedInPageLink,activity,isLinkedIn = true)
+            SocialNetworkUtils.openUrl(
+                eventObj.socialLink?.get(0)!!.linkedInPageLink,
+                activity,
+                isLinkedIn = true
+            )
         }
         binding.root.favourite_event.setOnClickListener {
             isDetailFavouriteFlag = true
             eventObj.let { event ->
                 favouriteClick(
-                        it.favourite_event,
-                        event.isFavourite,
-                        R.id.action_eventDetailFragment2_to_postLoginFragment,
-                        event.id!!,
-                        eventViewModel,
-                        2
+                    it.favourite_event,
+                    event.isFavourite,
+                    R.id.action_eventDetailFragment2_to_postLoginFragment,
+                    event.id!!,
+                    eventViewModel,
+                    2
                 )
             }
         }
@@ -196,12 +216,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             isDetailFavouriteFlag = true
             eventObj.let { event ->
                 favouriteClick(
-                        it.favourite,
-                        event.isFavourite,
-                        R.id.action_eventDetailFragment2_to_postLoginFragment,
-                        event.id!!,
-                        eventViewModel,
-                        2
+                    it.favourite,
+                    event.isFavourite,
+                    R.id.action_eventDetailFragment2_to_postLoginFragment,
+                    event.id!!,
+                    eventViewModel,
+                    2
                 )
             }
         }
@@ -213,9 +233,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             binding.root.ll_even_info.visibility = View.GONE
             binding.root.ll_schedule.visibility = View.VISIBLE
             verticalLayoutManager = LinearLayoutManager(
-                    requireContext(),
-                    RecyclerView.VERTICAL,
-                    false
+                requireContext(),
+                RecyclerView.VERTICAL,
+                false
             )
             myAdapter = ScheduleExpandAdapter(requireActivity(), parentItemList, childItemHolder)
             binding.root.rvSchedule.apply {
@@ -247,9 +267,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
-                                    getDrawableFromId(R.drawable.heart_icon_fav)
+                                getDrawableFromId(R.drawable.heart_icon_fav)
                             binding.root.favourite_event.background =
-                                    getDrawableFromId(R.drawable.heart_icon_fav)
+                                getDrawableFromId(R.drawable.heart_icon_fav)
                             isDetailFavouriteFlag = false
                         }
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
@@ -259,9 +279,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
-                                    getDrawableFromId(R.drawable.heart_icon_home_black)
+                                getDrawableFromId(R.drawable.heart_icon_home_black)
                             binding.root.favourite_event.background =
-                                    getDrawableFromId(R.drawable.heart_icon_home_black)
+                                getDrawableFromId(R.drawable.heart_icon_home_black)
                             isDetailFavouriteFlag = false
 
                         }
@@ -281,14 +301,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 tv_title.text = eventObj.title
                 tv_location.text = eventObj.locationTitle
                 tv_event_days_date.text =
-                        "${eventObj.toDate}- ${eventObj.fromDate} ${eventObj.fromMonthYear}  |  ${eventObj.fromDay} - ${eventObj.toDay}"
+                    "${eventObj.toDate}- ${eventObj.fromDate} ${eventObj.fromMonthYear}  |  ${eventObj.fromDay} - ${eventObj.toDay}"
                 tv_times.text = "${eventObj.fromTime} - ${eventObj.toTime}"
                 tv_category.text = eventObj.category
                 category.text = eventObj.category
                 tv_event_date.text =
-                        "${eventObj.fromDate} - ${eventObj.toDate} ${eventObj.fromMonthYear}"
+                    "${eventObj.fromDate} - ${eventObj.toDate} ${eventObj.fromMonthYear}"
                 glide.load(com.app.dubaiculture.BuildConfig.BASE_URL + eventObj.image)
-                        .into(imageView)
+                    .into(imageView)
             }
         }
         binding.root.btn_reg.setOnClickListener(this)
@@ -341,18 +361,18 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         try {
             if (eventObj.latitude!!.isNotEmpty()) {
                 val trafficDigitalLatLng =
-                        LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
+                    LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
 
                 map?.addMarker(
-                        MarkerOptions()
-                                .position(trafficDigitalLatLng)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                    MarkerOptions()
+                        .position(trafficDigitalLatLng)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
                 )!!
-                        .title = eventObj.title
+                    .title = eventObj.title
                 map.animateCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                                trafficDigitalLatLng, 14.0f
-                        )
+                    CameraUpdateFactory.newLatLngZoom(
+                        trafficDigitalLatLng, 14.0f
+                    )
                 )
                 map.cameraPosition.target
             }
@@ -366,7 +386,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         when (v?.id) {
             R.id.tvDirectionEvent -> {
                 if (!eventObj.latitude.isNullOrEmpty()) {
-                    val uri = LINK_URI + loc.latitude.toString() + "," + loc.longitude.toString() + DESTINATION + eventObj.latitude.toString() + "," + eventObj.longitude
+                    val uri =
+                        LINK_URI + loc.latitude.toString() + "," + loc.longitude.toString() + DESTINATION + eventObj.latitude.toString() + "," + eventObj.longitude
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                     intent.setPackage(PACKAGE_NAME_GOOGLE_MAP)
                     try {
@@ -379,10 +400,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             R.id.img_event_speaker -> {
                 if (binding.root.tv_desc_readmore_event.text.isNotEmpty()) {
                     textToSpeechEngine.speak(
-                            binding.root.tv_desc_readmore_event.text,
-                            TextToSpeech.QUEUE_FLUSH,
-                            null,
-                            "tts1"
+                        binding.root.tv_desc_readmore_event.text,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "tts1"
                     )
                 }
             }
@@ -411,10 +432,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             R.id.speaker_schedule -> {
                 if (binding.root.tv_schedule_title.text.isNotEmpty())
                     textToSpeechEngine.speak(
-                            binding.root.tv_schedule_title.text,
-                            TextToSpeech.QUEUE_FLUSH,
-                            null,
-                            "tts1"
+                        binding.root.tv_schedule_title.text,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "tts1"
                     )
             }
         }
@@ -422,28 +443,29 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
-                handleRationale = false
+            handleRationale = false
         )
         activity.runWithPermissions(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                options = quickPermissionsOption
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            options = quickPermissionsOption
         ) {
             locationHelper.locationSetUp(
-                    object : LocationHelper.LocationLatLng {
-                        @SuppressLint("SetTextI18n")
-                        override fun getCurrentLocation(location: Location) {
-                            loc = location
-                            Timber.e("Current Location ${location.latitude}")
-                            if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty())
-                                binding.root.tv_km.text = locationHelper.distance(
-                                        loc.latitude,
-                                        loc.longitude,
-                                        eventObj.latitude!!.toDouble(),
-                                        eventObj.longitude!!.toDouble()
-                                ).toString() + " " + resources.getString(R.string.away)
-                        }
-                    }, activity, locationCallback
+                object : LocationHelper.LocationLatLng {
+                    @SuppressLint("SetTextI18n")
+                    override fun getCurrentLocation(location: Location) {
+                        loc = location
+                        Timber.e("Current Location ${location.latitude}")
+                        if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty())
+                            binding.root.tv_km.text = locationHelper.distance(
+                                loc.latitude,
+                                loc.longitude,
+                                eventObj.latitude!!.toDouble(),
+                                eventObj.longitude!!.toDouble()
+                            ).toString() + " " + resources.getString(R.string.away)
+                    }
+                },
+                locationCallback
             )
         }
     }
@@ -491,20 +513,20 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     }
                     moreEvents.map {
                         groupAdapter.add(EventListItem<EventItemsBinding>(object :
-                                FavouriteChecker {
+                            FavouriteChecker {
                             override fun checkFavListener(
-                                    checkbox: CheckBox,
-                                    pos: Int,
-                                    isFav: Boolean,
-                                    itemId: String,
+                                checkbox: CheckBox,
+                                pos: Int,
+                                isFav: Boolean,
+                                itemId: String,
                             ) {
                                 favouriteClick(
-                                        checkbox,
-                                        isFav,
-                                        type = 2,
-                                        itemId = itemId,
-                                        baseViewModel = eventViewModel,
-                                        nav = R.id.action_eventDetailFragment2_to_postLoginFragment
+                                    checkbox,
+                                    isFav,
+                                    type = 2,
+                                    itemId = itemId,
+                                    baseViewModel = eventViewModel,
+                                    nav = R.id.action_eventDetailFragment2_to_postLoginFragment
                                 )
                             }
                         }, object : RowClickListener {
@@ -512,16 +534,17 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 val eventObj = moreEvents[position]
                                 val bundle = Bundle()
                                 bundle.putParcelable(
-                                        EVENT_OBJECT,
-                                        eventObj
+                                    EVENT_OBJECT,
+                                    eventObj
                                 )
                                 navigate(
-                                        R.id.action_eventDetailFragment2_to_eventDetailFragment2,
-                                        bundle
+                                    R.id.action_eventDetailFragment2_to_eventDetailFragment2,
+                                    bundle
                                 )
                             }
                         }, event = it, resLayout = R.layout.event_items, activity
-                            ))
+                        )
+                        )
                     }
                 }
                 is Result.Failure -> {
@@ -548,13 +571,13 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     private fun locationIsEmpty(location: Location) {
         if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty()) {
             binding.root.tv_km.text =
-                    locationHelper.distance(
-                            location.latitude,
-                            location.longitude,
-                            eventObj.latitude!!.toDouble(),
-                            eventObj.longitude!!.toDouble()
-                    )
-                            .toString() + resources.getString(R.string.away)
+                locationHelper.distance(
+                    location.latitude,
+                    location.longitude,
+                    eventObj.latitude!!.toDouble(),
+                    eventObj.longitude!!.toDouble()
+                )
+                    .toString() + resources.getString(R.string.away)
         }
     }
 
@@ -570,7 +593,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         mapView?.onResume()
 
         binding.appbarEventnDetail
-                .addOnOffsetChangedListener(this)
+            .addOnOffsetChangedListener(this)
 
     }
 

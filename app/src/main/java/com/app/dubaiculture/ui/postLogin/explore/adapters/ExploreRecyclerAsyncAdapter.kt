@@ -1,7 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.explore.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,7 +19,6 @@ import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.AttractionActivity
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionCategoryListItem
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
 import com.app.dubaiculture.ui.postLogin.attractions.mappers.transformBaseToAttraction

@@ -3,13 +3,21 @@ package com.app.dubaiculture.utils.location
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
+import android.os.Bundle
 import android.os.Looper
+import android.provider.Settings
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.app.dubaiculture.R
+import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.Constants
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import javax.inject.Inject
 import kotlin.math.acos
@@ -19,17 +27,23 @@ import kotlin.math.sin
 @SuppressLint("MissingPermission")
 open class LocationHelper @Inject constructor(
     val fusedLocationProviderClient: FusedLocationProviderClient,
-    val locationRequest: LocationRequest
+    val locationRequest: LocationRequest,
+    val locationManager: LocationManager,
+    val activity: Context
 ) {
+    private var context: Context? = null
+    fun provideContext(context: Context) {
+        this.context = context
+    }
 
 
-    fun newLocationData(activity: Context, locationCallback: LocationCallback) {
+    fun newLocationData(locationCallback: LocationCallback) {
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 0
         locationRequest.fastestInterval = 0
         locationRequest.numUpdates = 1
 
-        activity.runWithPermissions(
+        context.runWithPermissions(
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
         ) {
@@ -41,22 +55,16 @@ open class LocationHelper @Inject constructor(
     }
 
     fun locationSetUp(
-        iface: LocationLatLng,
-        activity: Context,
+        locationLatLongInterface: LocationLatLng,
         locationCallback: LocationCallback
+
     ) {
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
             val location: Location? = task.result
             if (location == null) {
-                newLocationData(activity, locationCallback)
-//                object : LocationCallback() {
-//                    override fun onLocationResult(p0: LocationResult?) {
-//                        super.onLocationResult(p0)
-//                        locationCallback.getLocationResultCallback(p0)
-//                    }
-//                }
+                newLocationData(locationCallback)
             } else {
-                iface.getCurrentLocation(location)
+                locationLatLongInterface.getCurrentLocation(location)
             }
         }
 
@@ -65,10 +73,6 @@ open class LocationHelper @Inject constructor(
 
     interface LocationLatLng {
         fun getCurrentLocation(location: Location)
-    }
-
-    interface LocationCallBack {
-        fun getLocationResultCallback(locationResult: LocationResult?)
     }
 
 
@@ -105,11 +109,14 @@ open class LocationHelper @Inject constructor(
         return Math.round(km * 10).toDouble() / 10
     }
 
-    fun isLocationEnabled(locationManager: LocationManager): Boolean {
+    fun isLocationEnabled(): Boolean {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
     }
+
+
+
 }
 
 

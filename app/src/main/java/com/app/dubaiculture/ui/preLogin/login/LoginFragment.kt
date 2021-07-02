@@ -15,7 +15,6 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
-import com.app.dubaiculture.ui.postLogin.explore.ExploreActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.firebase.getFcmToken
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity

@@ -550,7 +550,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                     }
                 },
-                activity, locationCallback = locationCallback
+//                activity,
+                locationCallback = locationCallback
             )
         }
     }

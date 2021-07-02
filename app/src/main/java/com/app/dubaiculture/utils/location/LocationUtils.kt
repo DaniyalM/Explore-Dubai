@@ -15,7 +15,6 @@ import com.google.android.gms.location.LocationRequest
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 
 object LocationUtils {
-    @SuppressLint("MissingPermission")
     fun newLocationData(
         fusedLocationProviderClient: FusedLocationProviderClient,
         locationRequest: LocationRequest,
@@ -41,7 +40,5 @@ object LocationUtils {
 
 
 
-    fun enableLocationFromSettings(activity: Activity) {
-        activity.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-    }
+
 }

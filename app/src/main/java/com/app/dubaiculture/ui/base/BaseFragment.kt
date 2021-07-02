@@ -37,12 +37,15 @@ import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showToast
 import com.app.dubaiculture.utils.event.UiEvent
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.CornerFamily
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.event_search_toolbar.view.*
+import timber.log.Timber
 import java.util.*
 
 
@@ -436,7 +439,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         requireActivity().supportFragmentManager.beginTransaction()
                 .add(fragment, tag)
                 .addToBackStack(null)
-                .commit();
+                .commit()
     }
+
+
 
 }

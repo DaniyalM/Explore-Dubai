@@ -7,8 +7,6 @@ apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
-//apply plugin: 'com.google.gms.google-services'
-//apply plugin: 'com.google.gms.google-services'
 def config = rootProject.extensions.getByName("ext")
 
 
