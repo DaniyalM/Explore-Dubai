@@ -87,7 +87,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             lng = locationResult.lastLocation.longitude
             Timber.e("onLocationResult ${locationResult.lastLocation.latitude}")
             eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
-
         }
     }
 
