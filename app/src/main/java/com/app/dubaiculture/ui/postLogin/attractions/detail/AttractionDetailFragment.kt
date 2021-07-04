@@ -8,6 +8,8 @@ import android.content.Intent
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.Parcelable
 import android.speech.tts.TextToSpeech
 import android.text.TextUtils
@@ -21,6 +23,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -145,29 +148,31 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.root.detailImageView.transitionName = attractionsObj.id
-
         subscribeUiEvents(attractionDetailViewModel)
         backArrowRTL(binding.root.back)
         bgRTL(binding.root.bg_border_upper)
         backArrowRTL(binding.root.img_back)
         arrowRTL(binding.root.arrow_ibecons)
         arrowRTL(binding.root.arrow_site_map)
-        locationPermission()
+        rvSetUp()
         binding.root.tv_desc_readmore.text = attractionsObj.description
-
+        subscribeToGpsListener()
+        callingObservables()
         binding.root.swipeRefreshLayout.setOnRefreshListener {
             binding.root.swipeRefreshLayout.isRefreshing = false
             callingObservables()
         }
-
-        rvSetUp()
-        callingObservables()
-        subscribeToGpsListener()
-        subscribeObservables()
-
-        uiActions()
         cardViewRTL()
         mapSetUp(savedInstanceState)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            runOnUiThread {
+                locationPermission()
+                subscribeObservables()
+                uiActions()
+            }
+        }, 500)
+
 
 
     }
@@ -532,10 +537,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             lat = location.latitude.toString()
                             long = location.longitude.toString()
 
-                            if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
-                                            attractionsObj.latitude
-                                    )
-                            ) {
+                            if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(attractionsObj.latitude)) {
                                 val distance =
                                         locationHelper.distance(
                                                 lat!!.toDouble(), long!!.toDouble(),

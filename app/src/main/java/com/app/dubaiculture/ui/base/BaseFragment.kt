@@ -208,11 +208,16 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     fun navigate(@IdRes resId: Int, bundle: Bundle? = null, extras: Navigator.Extras? = null) {
-        if (extras == null) {
-            findNavController().navigate(resId, bundle)
-        } else {
-            findNavController().navigate(resId, bundle, null, navigatorExtras = extras)
+        try {
+            if (extras == null) {
+                findNavController().navigate(resId, bundle)
+            } else {
+                findNavController().navigate(resId, bundle, null, navigatorExtras = extras)
+            }
+        }catch (ex:IllegalArgumentException){
+
         }
+
     }
 
     fun setLanguage(locale: Locale) {
