@@ -76,6 +76,7 @@
                 android:id="@+id/img_must_see"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:transitionName="imageView"
                 android:background="@drawable/must_see_icon_home"
                 android:imageViewUrl='@{attractions.portraitImage}'
                 android:scaleType="fitXY"

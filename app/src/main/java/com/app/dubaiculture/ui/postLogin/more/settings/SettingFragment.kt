@@ -19,6 +19,7 @@ import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.enableLocationFromSettings
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
+import com.estimote.coresdk.cloud.model.User
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +45,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.switchLoc.isChecked=locationHelper.isLocationEnabled()
 
         subscribeUiEvents(profileViewModel)
         binding.apply {
@@ -57,7 +57,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
         initiateRequest()
         profileViewModel.getSettings()
         subscribeToObservable()
-
+        markPushNotificationSwitch()
 
     }
 
@@ -86,7 +86,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
                         userSettings = it
                         binding.noti.setOnClickListener(this)
                         binding.reset.setOnClickListener(this)
-                        markPushNotificationSwitch()
+
 
                     }
                 }
@@ -127,7 +127,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
     fun markPushNotificationSwitch() {
         binding.switchLoc.apply {
             setOnCheckedChangeListener(null)
-            isChecked = userSettings.turnOnLocation
+            isChecked = locationHelper.isLocationEnabled()
             setOnTouchListener { _, _ ->
                 isTouched = true
 
@@ -140,11 +140,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
                         userSettings.turnOnLocation = isChecked
                         locationPermission()
                         binding.switchLoc.isChecked = userSettings.turnOnLocation
-
-//                        if (!isChecked&&locationHelper.isLocationEnabled()){
-//
-//                        }else
-//                        binding.switchLoc.isChecked = userSettings.turnOnLocation
                         profileViewModel.updateSettings(userSettings)
                     }
                 }
@@ -156,6 +151,11 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
     override fun onResume() {
         super.onResume()
         binding.switchLoc.isChecked=locationHelper.isLocationEnabled()
+        if (this::userSettings.isInitialized){
+            userSettings.turnOnLocation=  binding.switchLoc.isChecked
+            profileViewModel.updateSettings(userSettings)
+        }
+
     }
 
     private fun locationPermission() {

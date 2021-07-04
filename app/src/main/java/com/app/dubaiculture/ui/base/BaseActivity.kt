@@ -113,6 +113,7 @@ abstract class BaseActivity : LocalizationActivity() {
 
     }
 
+
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(this, {
             it.getContentIfNotHandled()
@@ -154,6 +155,9 @@ abstract class BaseActivity : LocalizationActivity() {
         super.onDestroy()
 
         if (customProgressDialog != null) {
+            if (customProgressDialog!!.isShowing){
+                customProgressDialog!!.dismiss()
+            }
             customProgressDialog = null
         }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -97,6 +98,10 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
                                     navigate(R.id.action_latestNewsFragment_to_newsDetailFragment, bundle)
                                 }
 
+                                override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                                }
+
                             }, latestNews = it, R.layout.items_latest_news, requireContext()
                     )
             )
@@ -119,6 +124,10 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
                                 override fun rowClickListener(position: Int) {
                                     val bundle = bundleOf(NEWS_ID to it.id)
                                     navigate(R.id.action_latestNewsFragment_to_newsDetailFragment, bundle)
+                                }
+
+                                override fun rowClickListener(position: Int, imageView: ImageView) {
+
                                 }
                             }, latestNews = it, R.layout.items_news_vertical_layout, requireContext()
                     )

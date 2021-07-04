@@ -65,12 +65,14 @@ class AttractionViewModel @ViewModelInject constructor(
                     pageNumber = pageNum,
                     pageSize = pageSize,
                     culture = locale))) {
+
+
                 is Result.Success -> {
-                    showLoader(false)
+//                    showLoader(false)
                     _attractionList.value = result
                 }
                 is Result.Failure -> {
-                    showLoader(false)
+//                    showLoader(false)
                     _attractionList.value = result
                 }
 

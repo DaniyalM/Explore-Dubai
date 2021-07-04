@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -149,6 +150,9 @@ class AttractionGalleryFragment : BaseFragment<AttractionGalleryFragmentBinding>
                                         }
                                         binding.mainImageSlider.smoothScrollToPosition(position)
                                     }
+
+                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+                                    }
                                 },
                                 attraction = it,
                                 resLayout = R.layout.items_360_gallery_view,
@@ -167,6 +171,10 @@ class AttractionGalleryFragment : BaseFragment<AttractionGalleryFragmentBinding>
                                             displayBlurryView(it)
                                         }
                                         binding.mainImageSlider.smoothScrollToPosition(position)
+                                    }
+
+                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+
                                     }
                                 },
                                 images = it,

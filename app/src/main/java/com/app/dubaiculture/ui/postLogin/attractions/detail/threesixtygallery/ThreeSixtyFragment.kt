@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -136,6 +137,10 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
                                         }
 
                                         loadVR(attractionsObj.asset360?.imageItems?.get(position)!!)
+                                    }
+
+                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+
                                     }
                                 },
                                 imageItem = it,

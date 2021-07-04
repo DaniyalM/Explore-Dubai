@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -541,6 +542,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                     R.id.action_eventDetailFragment2_to_eventDetailFragment2,
                                     bundle
                                 )
+                            }
+
+                            override fun rowClickListener(position: Int, imageView: ImageView) {
+
                             }
                         }, event = it, resLayout = R.layout.event_items, activity
                         )

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -67,6 +68,10 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
                 bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT,
                         eventObj)
                 navigate(R.id.action_eventNearMapFragment2_to_eventDetailFragment2,bundle)
+
+            }
+
+            override fun rowClickListener(position: Int, imageView: ImageView) {
 
             }
         },object : DirectionClickListener{

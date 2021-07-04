@@ -1,22 +1,17 @@
 package com.app.dubaiculture.ui.postLogin.explore
 
 import android.Manifest
-import android.content.Intent
 import android.location.Location
 import android.os.Bundle
-import android.provider.Settings
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
@@ -26,7 +21,6 @@ import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LNG
 import com.app.dubaiculture.utils.enableLocationFromSettings
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
-import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
@@ -40,122 +34,76 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     @Inject
-    lateinit var glide: RequestManager
-
-    @Inject
     lateinit var locationHelper: LocationHelper
-
-    //    @Inject
-//    lateinit var locationManager: LocationManager
     private val exploreViewModel: ExploreViewModel by viewModels()
-    private lateinit var exploreAdapter: ExploreRecyclerAsyncAdapter
+    private var exploreAdapter: ExploreRecyclerAsyncAdapter? = null
     private var lastFirstVisiblePosition: Int = 0
 
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
     ) = FragmentExploreBinding.inflate(inflater, container, false)
 
 
-    fun getRecyclerView() = binding.rvExplore
-
+    private fun getRecyclerView() = binding.rvExplore
     override fun onPause() {
         super.onPause()
         lastFirstVisiblePosition =
-            (getRecyclerView().layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                (getRecyclerView().layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         locationHelper.provideContext(activity)
-        if (!this::exploreAdapter.isInitialized) {
-            setUpRecyclerView()
-            binding.swipeRefresh.post {
-                binding.swipeRefresh.isRefreshing = true
-                callingObservables()
-            }
-        }
         subscribeToObservable()
-
         subscribeUiEvents(exploreViewModel)
+        binding.swipeRefresh.apply {
+            if (exploreAdapter == null) {
+                setUpRecyclerView()
+                exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
+            }
+            setOnRefreshListener {
 
-//        applicationExitDialog()
+                isRefreshing = false
+                exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
 
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = false
-            exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
 
+            }
+            setColorSchemeResources(
+                    R.color.colorPrimary,
+                    android.R.color.holo_green_dark,
+                    android.R.color.holo_orange_dark,
+                    android.R.color.holo_blue_dark
+            )
         }
-
-        binding.swipeRefresh.setColorSchemeResources(
-            R.color.colorPrimary,
-            android.R.color.holo_green_dark,
-            android.R.color.holo_orange_dark,
-            android.R.color.holo_blue_dark
-        )
-
-
-
-
-
         binding.root.img_drawer.setOnClickListener {
             locationPermission()
         }
 
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
 
 
-                    showAlert(
-                        message = getString(R.string.error_msg),
-                        textPositive = getString(R.string.okay),
-                        textNegative = getString(R.string.cancel),
-                        actionNegative = {
 
-                        },
-                        actionPositive = {
-                            activity.finish()
-                        }
-                    )
-                }
-            }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
-
 
     private fun setUpRecyclerView() {
         exploreAdapter = ExploreRecyclerAsyncAdapter(
-            activity,
-            fragment = this,
-            baseViewModel = exploreViewModel
+                activity,
+                fragment = this,
+                baseViewModel = exploreViewModel
         )
-//        explore.items = createTestItems()
         binding.rvExplore.apply {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
             adapter = exploreAdapter
             this.itemAnimator = SlideInLeftAnimator()
             (layoutManager as LinearLayoutManager).scrollToPosition(lastFirstVisiblePosition)
-
-//            LinearSnapHelper().attachToRecyclerView(this)
-
         }
 
     }
 
-
-    private fun callingObservables() {
-        exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
-
-
-
-    }
-
     private fun subscribeToObservable() {
-
         exploreViewModel.isFavourite.observe(viewLifecycleOwner) {
             binding.swipeRefresh.isRefreshing = false
             when (it) {
@@ -177,7 +125,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                 is Result.Success -> {
 
                     it.let {
-                        exploreAdapter.items = it.value
+                        exploreAdapter?.items = it.value
                     }
                 }
                 is Result.Failure -> handleApiError(it, exploreViewModel)
@@ -185,44 +133,42 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         }
     }
 
-
-
     private fun locationPermission(destination: Int = R.id.action_exploreFragment_to_exploreMapFragment) {
         val quickPermissionsOption = QuickPermissionsOptions(
-            handleRationale = false
+                handleRationale = false
         )
         activity.runWithPermissions(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            options = quickPermissionsOption
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                options = quickPermissionsOption
         ) {
 
             if (!locationHelper.isLocationEnabled()) {
                 exploreViewModel.showToast(message = resources.getString(R.string.please_enable_gps))
                 if (!application.auth.isGuest) {
                     navigate(R.id.action_exploreFragment_to_settingFragment)
-                }else {
+                } else {
                     activity.enableLocationFromSettings()
                 }
 
             }
             locationHelper.locationSetUp(
-                object : LocationHelper.LocationLatLng {
-                    override fun getCurrentLocation(location: Location) {
-                        exploreViewModel.showLoader(false)
-                        val bundle = bundleOf(
-                            LOCATION_LAT to location.latitude,
-                            LOCATION_LNG to location.longitude
-                        )
+                    object : LocationHelper.LocationLatLng {
+                        override fun getCurrentLocation(location: Location) {
+                            exploreViewModel.showLoader(false)
+                            val bundle = bundleOf(
+                                    LOCATION_LAT to location.latitude,
+                                    LOCATION_LNG to location.longitude
+                            )
 
-                        navigate(destination, bundle)
-                    }
-                },
-                object : LocationCallback() {
-                    override fun onLocationResult(locationResult: LocationResult) {
+                            navigate(destination, bundle)
+                        }
+                    },
+                    object : LocationCallback() {
+                        override fun onLocationResult(locationResult: LocationResult) {
 //                        Timber.e("LocationCallback ${locationResult.lastLocation.latitude}")
+                        }
                     }
-                }
             )
 
         }

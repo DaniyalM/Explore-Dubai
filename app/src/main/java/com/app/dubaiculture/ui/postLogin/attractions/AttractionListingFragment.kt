@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -26,8 +27,7 @@ import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_attraction_listing.*
-import timber.log.Timber
+import kotlinx.android.synthetic.main.toolbar_layout_event_detail.*
 
 
 @AndroidEntryPoint
@@ -41,7 +41,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     //    private var searchQuery: String = ""
     private var pageNumber: Int = 1
     private var pageSize: Int = 3
-    private lateinit var attractions: ArrayList<Attractions>
     var contentLoaded = false
     var contentLoadMore = true
 
@@ -64,8 +63,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
     ) = FragmentAttractionListingBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,13 +77,16 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     private fun callingObservables() {
         if (!contentLoaded) {
-            progressBar.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
 
             attractionCat.id?.let {
-                attractionViewModel.getAttractionThroughCategory(it,
-                        pageNumber,
-                        pageSize,
-                        getCurrentLanguage().language)
+
+                attractionViewModel.getAttractionThroughCategory(
+                    it,
+                    pageNumber,
+                    pageSize,
+                    getCurrentLanguage().language
+                )
                 contentLoaded = true
             }
 
@@ -112,44 +114,69 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             when (it) {
 
                 is Result.Success -> {
-                    progressBar.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
+
                     contentLoadMore = true
 
+
+
                     if (pageNumber == 1) {
-                        if (groupAdapter.itemCount>0){
+                        if (groupAdapter.itemCount > 0) {
                             groupAdapter.clear()
                         }
                         groupAdapter.apply {
-                            it.value.forEach { add(AttractionListItem<AttractionListItemCellBinding>(
+                            it.value.forEach {
+                                add(
+                                    AttractionListItem<AttractionListItemCellBinding>(
                                         favChecker = object : FavouriteChecker {
                                             override fun checkFavListener(
-                                                    checkbox: CheckBox,
-                                                    pos: Int,
-                                                    isFav: Boolean,
-                                                    itemId: String,
+                                                checkbox: CheckBox,
+                                                pos: Int,
+                                                isFav: Boolean,
+                                                itemId: String,
                                             ) {
                                                 favouriteClick(
-                                                        checkbox,
-                                                        isFav,
-                                                        R.id.action_attractionsFragment_to_postLoginFragment,
-                                                        itemId, attractionViewModel,
-                                                        1
+                                                    checkbox,
+                                                    isFav,
+                                                    R.id.action_attractionsFragment_to_postLoginFragment,
+                                                    itemId, attractionViewModel,
+                                                    1
                                                 )
                                             }
                                         },
                                         rowClickListener = object : RowClickListener {
                                             override fun rowClickListener(position: Int) {
-                                                navigate(R.id.action_attractionsFragment_to_attractionDetailFragment,
-                                                        Bundle().apply {
-                                                            putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
-                                                                    it)
-                                                        })
+
+
+                                            }
+
+                                            override fun rowClickListener(
+                                                position: Int,
+                                                imageView: ImageView
+                                            ) {
+                                                imageView.transitionName=it.id
+                                                val extras = FragmentNavigatorExtras(
+                                                    imageView to it.id
+                                                )
+
+                                                navigate(
+                                                    R.id.action_attractionsFragment_to_attractionDetailFragment,
+                                                    Bundle().apply {
+                                                        putParcelable(
+                                                            Constants.NavBundles.ATTRACTION_OBJECT,
+                                                            it
+                                                        )
+                                                    },
+                                                    extras = extras
+
+                                                )
                                             }
                                         },
                                         attraction = it,
                                         context = activity
 
-                                ))
+                                    )
+                                )
                             }
                         }
 
@@ -159,51 +186,72 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                         } else {
                             groupAdapter.apply {
                                 it.value.forEach {
-                                    add(AttractionListItem<AttractionListItemCellBinding>(
+                                    add(
+                                        AttractionListItem<AttractionListItemCellBinding>(
                                             favChecker = object : FavouriteChecker {
                                                 override fun checkFavListener(
-                                                        checkbox: CheckBox,
-                                                        pos: Int,
-                                                        isFav: Boolean,
-                                                        itemId: String,
+                                                    checkbox: CheckBox,
+                                                    pos: Int,
+                                                    isFav: Boolean,
+                                                    itemId: String,
                                                 ) {
                                                     favouriteClick(
-                                                            checkbox,
-                                                            isFav,
-                                                            R.id.action_attractionsFragment_to_postLoginFragment,
-                                                            itemId, attractionViewModel,
-                                                            1
+                                                        checkbox,
+                                                        isFav,
+                                                        R.id.action_attractionsFragment_to_postLoginFragment,
+                                                        itemId, attractionViewModel,
+                                                        1
                                                     )
                                                 }
 
                                             },
                                             rowClickListener = object : RowClickListener {
                                                 override fun rowClickListener(position: Int) {
+
+                                                }
+
+                                                override fun rowClickListener(
+                                                    position: Int,
+                                                    imageView: ImageView
+                                                ) {
+                                                    imageView.transitionName=it.id
+                                                    val extras = FragmentNavigatorExtras(
+                                                        imageView to it.id
+                                                    )
+
                                                     navigate(R.id.action_attractionsFragment_to_attractionDetailFragment,
-                                                            Bundle().apply {
-                                                                putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
-                                                                        it)
-                                                            })
+                                                        Bundle().apply {
+                                                            putParcelable(
+                                                                Constants.NavBundles.ATTRACTION_OBJECT,
+                                                                it
+                                                            )
+                                                        },
+                                                    extras=extras)
                                                 }
                                             },
                                             attraction = it,
-                                            context = activity))
+                                            context = activity
+                                        )
+                                    )
                                 }
                             }
                         }
                     }
                 }
                 is Result.Failure -> {
-                    progressBar.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
+
                     handleApiError(it, attractionViewModel)
+                }
+                is Result.Error -> {
+                    binding.progressBar.visibility = View.GONE
+
                 }
 
             }
 
         }
     }
-
-
 
 
     private fun initRecyclerView() {
@@ -216,7 +264,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             layoutManager = linearLayoutManger
             adapter = groupAdapter
 
-            this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -246,14 +294,14 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
 
     @Subscribe
-    fun handlingRefresh(attractionServices: AttractionServices){
-        when(attractionServices){
-            is AttractionServices.TriggerRefresh ->{
-                if (groupAdapter.itemCount>0){
+    fun handlingRefresh(attractionServices: AttractionServices) {
+        when (attractionServices) {
+            is AttractionServices.TriggerRefresh -> {
+                if (groupAdapter.itemCount > 0) {
                     groupAdapter.clear()
                 }
-                contentLoaded=false
-                pageNumber=1
+                contentLoaded = false
+                pageNumber = 1
                 callingObservables()
             }
         }

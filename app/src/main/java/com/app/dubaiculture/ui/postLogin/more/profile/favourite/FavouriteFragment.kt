@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -292,6 +293,10 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                                 )
                             }
 
+                            override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                            }
+
                         },
                         event = it,
                         resLayout = R.layout.item_event_listing,
@@ -342,6 +347,10 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                                             it
                                         )
                                     })
+                            }
+
+                            override fun rowClickListener(position: Int, imageView: ImageView) {
+
                             }
                         },
                         attraction = it,

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -120,6 +121,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                         override fun rowClickListener(position: Int) {
 
                         }
+
+                        override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                        }
                     },
                     moreModel = it,
                     resLayout = R.layout.items_more_layout,
@@ -170,6 +175,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                                 )
                             }
                         }
+
+                        override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                        }
                     },
                     moreModel = it,
                     resLayout = R.layout.items_more_layout,
@@ -202,6 +211,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                             if (position == 3) {
                                 navigate(R.id.action_moreFragment_to_logoutFragment)
                             }
+                        }
+
+                        override fun rowClickListener(position: Int, imageView: ImageView) {
+
                         }
                     },
                     moreModel = it,

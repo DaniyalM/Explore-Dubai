@@ -17,6 +17,7 @@ import com.app.dubaiculture.utils.handleApiError
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -29,28 +30,27 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         super.onResume()
         if (binding.pager.currentItem!= clickCheckerFlag){
             attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+            Timber.e("Triggered")
         }
-
-
     }
 
 
     private fun initiateRequest() {
 
         binding.swipeRefresh.apply {
-            setColorSchemeResources(R.color.colorPrimary,
-                    android.R.color.holo_green_dark,
-                    android.R.color.holo_orange_dark,
-                    android.R.color.holo_blue_dark)
-            setOnRefreshListener {
-                contentLoaded = false
-                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-            }
             if (!contentLoaded) {
                 post {
                     binding.swipeRefresh.isRefreshing = true
                     attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
                 }
+            }
+
+            setColorSchemeResources(R.color.colorPrimary,
+                    android.R.color.holo_green_dark,
+                    android.R.color.holo_orange_dark,
+                    android.R.color.holo_blue_dark)
+            setOnRefreshListener {
+                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
             }
 
         }
@@ -73,20 +73,27 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
 
     private fun initiatePager() {
-        pagerAdapter = AttractionPagerAdaper(this)
-        binding.pager.apply {
-            isUserInputEnabled = false
-            isSaveEnabled = false
-            adapter = pagerAdapter
+        if (!contentLoaded){
+            pagerAdapter = AttractionPagerAdaper(this)
+            binding.pager.apply {
+                isUserInputEnabled = false
+                isSaveEnabled = false
+                adapter = pagerAdapter
+            }
+            Timber.e("Triggered On Initialize")
+
         }
-
-
     }
 
 
     private fun subscribeToObservables() {
         attractionViewModel.attractionCategoryList.observe(viewLifecycleOwner) {
-            binding.swipeRefresh.isRefreshing = false
+            //Below expression will trigger the refresh inside listing fragment
+            if (binding.swipeRefresh.isRefreshing){
+                bus.post(AttractionServices.TriggerRefresh())
+                binding.swipeRefresh.isRefreshing = false
+            }
+
 
             when (it) {
                 is Result.Success -> {
@@ -96,8 +103,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                         binding.horizontalSelector.initialize(result.value, bus)
                         pagerAdapter.list = result.value
 
-                        //Below expression will trigger the refresh inside listing fragment
-                        bus.post(AttractionServices.TriggerRefresh())
 
 
                     }

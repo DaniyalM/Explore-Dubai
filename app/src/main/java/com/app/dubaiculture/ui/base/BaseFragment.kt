@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.location.LocationManager
 import android.net.NetworkRequest
 import android.net.Uri
 import android.os.Bundle
@@ -24,27 +23,23 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
+import androidx.navigation.Navigator
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.BuildConfig
-import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
-import com.app.dubaiculture.data.repository.settings.local.UserSettings
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
+import com.app.dubaiculture.utils.event.EventUtilFunctions.showLoader
+import com.app.dubaiculture.utils.event.EventUtilFunctions.showSnackbar
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showToast
 import com.app.dubaiculture.utils.event.UiEvent
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationResult
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.shape.CornerFamily
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import timber.log.Timber
 import java.util.*
 
@@ -73,11 +68,10 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected var isPagerFragment = false
 
 
-
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         if (_view == null || isPagerFragment) {
             dataBinding = getFragmentBinding(inflater, container)
@@ -110,6 +104,13 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         groupAdapter = GroupAdapter()
     }
 
+    override fun onPause() {
+        super.onPause()
+        if (customProgressDialog!!.isShowing) {
+            customProgressDialog!!.dismiss()
+        }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -130,48 +131,52 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
         groupAdapter.clear()
 
+        if (customProgressDialog != null) {
+            customProgressDialog = null
+        }
+
     }
 
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()
-                    ?.let { event ->
-                        when (event) {
-                            is UiEvent.ShowAlert -> {
-                                showAlert(event.message)
+                ?.let { event ->
+                    when (event) {
+                        is UiEvent.ShowAlert -> {
+                            showAlert(event.message)
 
-                            }
-                            is UiEvent.ShowToast -> {
-                                EventUtilFunctions.showToast(event.message, activity)
-                            }
-                            is UiEvent.ShowLoader -> {
-                                EventUtilFunctions.showLoader(event.show, customProgressDialog)
-                            }
-                            is UiEvent.ShowSnackbar -> {
-                                EventUtilFunctions.showSnackbar(
-                                        requireView(),
-                                        event.message,
-                                        event.action
-                                )
-                            }
-                            is UiEvent.NavigateByBack -> {
-                                navigateBack()
-                            }
-                            is UiEvent.NavigateByDirections -> {
-                                navigateByDirections(event.navDirections)
-                            }
-                            is UiEvent.NavigateByAction -> {
-                                navigateByAction(event.actionId, event.bundle)
-                            }
-                            is UiEvent.ShowErrorDialog -> {
-                                EventUtilFunctions.showErrorDialog(
-                                        event.message,
-                                        colorBg = event.colorBg,
-                                        context = activity
-                                )
-                            }
+                        }
+                        is UiEvent.ShowToast -> {
+                            showToast(event.message, activity)
+                        }
+                        is UiEvent.ShowLoader -> {
+                            showLoader(event.show, customProgressDialog)
+                        }
+                        is UiEvent.ShowSnackbar -> {
+                            showSnackbar(
+                                requireView(),
+                                event.message,
+                                event.action
+                            )
+                        }
+                        is UiEvent.NavigateByBack -> {
+                            navigateBack()
+                        }
+                        is UiEvent.NavigateByDirections -> {
+                            navigateByDirections(event.navDirections)
+                        }
+                        is UiEvent.NavigateByAction -> {
+                            navigateByAction(event.actionId, event.bundle)
+                        }
+                        is UiEvent.ShowErrorDialog -> {
+                            EventUtilFunctions.showErrorDialog(
+                                event.message,
+                                colorBg = event.colorBg,
+                                context = activity
+                            )
                         }
                     }
+                }
         })
 
         NetworkLiveData.observe(viewLifecycleOwner) {
@@ -197,38 +202,42 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         hideKeyboard(requireActivity())
         activity.onBackPressed()
     }
-    fun navigateBack(){
+
+    fun navigateBack() {
         EventUtilFunctions.navigateBack(this)
     }
 
-    fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
-        findNavController().navigate(resId, bundle)
+    fun navigate(@IdRes resId: Int, bundle: Bundle? = null, extras: Navigator.Extras? = null) {
+        if (extras == null) {
+            findNavController().navigate(resId, bundle)
+        } else {
+            findNavController().navigate(resId, bundle, null, navigatorExtras = extras)
+        }
     }
 
-
-    public fun setLanguage(locale: Locale) {
+    fun setLanguage(locale: Locale) {
         (activity as BaseActivity).setLanguage(locale)
     }
 
-    public fun getCurrentLanguage(): Locale {
+    fun getCurrentLanguage(): Locale {
         return (activity as BaseActivity).getCurrentLanguage()
     }
 
     fun showAlert(
-            message: String,
-            title: String = Constants.Alert.DEFAULT_TITLE,
-            textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
-            textNegative: String? = null,
-            actionNegative: (() -> Unit)? = null,
-            actionPositive: (() -> Unit)? = null,
+        message: String,
+        title: String = Constants.Alert.DEFAULT_TITLE,
+        textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
+        textNegative: String? = null,
+        actionNegative: (() -> Unit)? = null,
+        actionPositive: (() -> Unit)? = null,
     ) {
         EventUtilFunctions.showAlert(
-                message = message,
-                context = activity,
-                title = title,
-                textPositive = textPositive,
-                textNegative = textNegative,
-                actionPositive = actionPositive
+            message = message,
+            context = activity,
+            title = title,
+            textPositive = textPositive,
+            textNegative = textNegative,
+            actionPositive = actionPositive
         )
     }
 
@@ -237,7 +246,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
-
     fun lottieAnimationRTL(img: LottieAnimationView) {
         when {
             isArabic() -> {
@@ -300,30 +308,29 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         }
     }
-
-    fun cardViewRTL(materialCardView: MaterialCardView) {
-        val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-        if (isArabic()) {
-            binding!!.root.materialCardView?.shapeAppearanceModel =
-                    binding!!.root.materialCardView!!.shapeAppearanceModel
-                            .toBuilder()
-                            .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                            .setTopRightCornerSize(radius)
-                            .build()
-        } else {
-            binding!!.root.materialCardView?.shapeAppearanceModel =
-                    binding!!.root.materialCardView!!.shapeAppearanceModel
-                            .toBuilder()
-                            .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                            .setBottomRightCornerSize(radius)
-                            .build()
-        }
-    }
+//    fun cardViewRTL(materialCardView: MaterialCardView) {
+//        val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
+//        if (isArabic()) {
+//            binding.root.materialCardView?.shapeAppearanceModel =
+//                    binding.root.materialCardView!!.shapeAppearanceModel
+//                            .toBuilder()
+//                            .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+//                            .setTopRightCornerSize(radius)
+//                            .build()
+//        } else {
+//            binding.root.materialCardView?.shapeAppearanceModel =
+//                    binding.root.materialCardView!!.shapeAppearanceModel
+//                            .toBuilder()
+//                            .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+//                            .setBottomRightCornerSize(radius)
+//                            .build()
+//        }
+//    }
 
 
     open fun hideKeyboard(activity: Activity) {
         val imm: InputMethodManager =
-                activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         //Find the currently focused view, so we can grab the correct window token from it.
         var view = activity.currentFocus
         //If no view currently has focus, create a new one, just so we can grab a window token from it
@@ -340,13 +347,13 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             val wm = requireContext().getSystemService(WINDOW_SERVICE) as WindowManager?
             wm!!.defaultDisplay.getMetrics(metrics)
             metrics.scaledDensity = configuration.fontScale * metrics.density
-            this.getResources().updateConfiguration(configuration, metrics)
+            this.resources.updateConfiguration(configuration, metrics)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        adjustFontScale(getResources().getConfiguration());
+        adjustFontScale(resources.configuration)
     }
 
     protected fun getDrawableFromId(resId: Int?): Drawable? {
@@ -364,10 +371,11 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
         requireActivity().startActivity(Intent.createChooser(intent, ""))
     }
-    fun openWebURL(url : String){
+
+    fun openWebURL(url: String) {
         val browserIntent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(BuildConfig.BASE_URL + url)
+            Intent.ACTION_VIEW,
+            Uri.parse(BuildConfig.BASE_URL + url)
         )
         startActivity(browserIntent)
     }
@@ -378,12 +386,12 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     fun favouriteClick(
-            checkbox: CheckBox,
-            isFav: Boolean,
-            nav: Int,
-            itemId: String,
-            baseViewModel: BaseViewModel,
-            type: Int = 2,
+        checkbox: CheckBox,
+        isFav: Boolean,
+        nav: Int,
+        itemId: String,
+        baseViewModel: BaseViewModel,
+        type: Int = 2,
     ) {
         checkBox = checkbox
         if (application.auth.isGuest) {
@@ -392,21 +400,21 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             if (!isFav) {
                 application.auth.user?.let {
                     baseViewModel.addToFavourites(
-                            AddToFavouriteRequest(
-                                    userId = application.auth.user?.userId,
-                                    itemId = itemId,
-                                    type = type
-                            )
+                        AddToFavouriteRequest(
+                            userId = application.auth.user?.userId,
+                            itemId = itemId,
+                            type = type
+                        )
                     )
                 }
             } else {
                 application.auth.user?.let {
                     baseViewModel.addToFavourites(
-                            AddToFavouriteRequest(
-                                    userId = application.auth.user?.userId,
-                                    itemId = itemId,
-                                    type = type
-                            )
+                        AddToFavouriteRequest(
+                            userId = application.auth.user?.userId,
+                            itemId = itemId,
+                            type = type
+                        )
                     )
                 }
             }
@@ -424,8 +432,14 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         return newColor
     }
 
-    fun navigateToGoogleMap(currentLat: String, currentLng: String, destinationLat: String, destinationLng: String) {
-        val uri = Constants.GoogleMap.LINK_URI + currentLat + "," + currentLng + Constants.GoogleMap.DESTINATION + destinationLat + "," + destinationLng
+    fun navigateToGoogleMap(
+        currentLat: String,
+        currentLng: String,
+        destinationLat: String,
+        destinationLng: String
+    ) {
+        val uri =
+            Constants.GoogleMap.LINK_URI + currentLat + "," + currentLng + Constants.GoogleMap.DESTINATION + destinationLat + "," + destinationLng
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
         intent.setPackage(Constants.GoogleMap.PACKAGE_NAME_GOOGLE_MAP)
         try {
@@ -435,13 +449,12 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
     }
 
-    protected fun openFragment(fragment: Fragment, tag: String?) {
-        requireActivity().supportFragmentManager.beginTransaction()
-                .add(fragment, tag)
-                .addToBackStack(null)
-                .commit()
-    }
-
+//    protected fun openFragment(fragment: Fragment, tag: String?) {
+//        requireActivity().supportFragmentManager.beginTransaction()
+//                .add(fragment, tag)
+//                .addToBackStack(null)
+//                .commit()
+//    }
 
 
 }

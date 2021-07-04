@@ -11,6 +11,7 @@ import android.transition.Transition
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -348,6 +349,10 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     private fun rvSetUp(list: List<ExploreMap>) {
         exploreNearAdapter = ExploreMapAdapter(isArabic(), object : RowClickListener {
             override fun rowClickListener(position: Int) {
+            }
+
+            override fun rowClickListener(position: Int, imageView: ImageView) {
+
             }
         }, object: DirectionClickListener{
             override fun directionClickListener(position: Int) {
