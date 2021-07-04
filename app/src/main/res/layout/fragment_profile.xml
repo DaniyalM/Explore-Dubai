@@ -52,7 +52,7 @@
                 android:layout_height="@dimen/_102sdp"
                 android:layout_marginTop="8dp"
                 android:imageViewUrl="@{user.userImage}"
-                android:src="@color/colorPrimaryDark"
+                android:background="@drawable/profile_icon_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

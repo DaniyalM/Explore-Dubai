@@ -37,8 +37,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+            inflater: LayoutInflater,
+            container: ViewGroup?
     ) = FragmentMoreBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -198,9 +198,12 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
                             if (position == 0) {
-                                navigate(R.id.action_moreFragment_to_settingFragment)
+                                if (application.auth.isGuest) {
+                                    navigate(R.id.action_moreFragment_to_post_login_bottom_navigation)
+                                } else {
+                                    navigate(R.id.action_moreFragment_to_settingFragment)
+                                }
                             }
-
                             if (position == 2) {
                                 if (isArabic()) {
                                     setLanguage(Locale.ENGLISH)

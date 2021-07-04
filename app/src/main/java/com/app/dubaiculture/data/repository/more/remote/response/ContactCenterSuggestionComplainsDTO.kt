@@ -6,5 +6,6 @@ data class ContactCenterSuggestionComplainsDTO(
     val Image2: String,
     val Image2URL: String,
     val Subtitle: String,
-    val Image3: String
+    val Image3: String,
+    val Image3URL: String
 )
