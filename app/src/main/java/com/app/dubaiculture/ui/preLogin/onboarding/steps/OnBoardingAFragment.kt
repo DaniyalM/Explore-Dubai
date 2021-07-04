@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentOnBoardingABinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.utils.dataStore.DataStoreManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnBoardingAFragment : BaseFragment<FragmentOnBoardingABinding>(), View.OnClickListener {
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,7 +28,6 @@ class OnBoardingAFragment : BaseFragment<FragmentOnBoardingABinding>(), View.OnC
     override fun onClick(v: View?) {
        when(v?.id){
            R.id.btn_skip->{
-
            }
        }
     }
