@@ -70,7 +70,7 @@ android {
         debug {
             applicationIdSuffix ".debug"
             minifyEnabled false
-            debuggable false
+            debuggable true
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -290,5 +290,7 @@ dependencies {
     // indicator
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.caverock:androidsvg-aar:1.4'
+    implementation 'com.tbuonomo:dotsindicator:4.2'
+    implementation 'com.github.aliab:RTLMaterialSpinner:1.2.1'
     implementation 'com.tbuonomo:dotsindicator:4.2'
 }

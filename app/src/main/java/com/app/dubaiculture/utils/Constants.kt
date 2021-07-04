@@ -131,4 +131,8 @@ object Constants {
         const val HH_MM: String = "HH:mm"
     }
 
+    object DataStore{
+        const val SKIP : String = "skip"
+    }
+
 }

@@ -1,25 +1,24 @@
 package com.app.dubaiculture.ui.preLogin.splash
 
-import android.bluetooth.BluetoothAdapter
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-//import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentSplashBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.utils.dataStore.DataStoreManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class   SplashFragment : BaseFragment<FragmentSplashBinding>() {
-//    private val splashViewModel: SplashViewModel by viewModels()
-
+class SplashFragment : BaseFragment<FragmentSplashBinding>() {
+    //    private val splashViewModel: SplashViewModel by viewModels()
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
     override fun getFragmentBinding(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -28,15 +27,18 @@ class   SplashFragment : BaseFragment<FragmentSplashBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
+//            Timber.e("DataStore==>"+dataStoreManager.getBoolean(preferencesKey(Constants.DataStore.SKIP)).toString())
             navigate()
         }
 
     }
 
+
     private suspend fun navigate() {
+
         delay(3000)
-        application.auth.isLoggedIn = true
-        findNavController(this).navigate(R.id.action_splashFragment_to_loginFragment)
-   }
+        navigate(R.id.action_splashFragment_to_onboarding_navigation)
+    }
+
 
 }
