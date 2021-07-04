@@ -25,7 +25,7 @@ class OnBoardingDFragment : BaseFragment<FragmentOnBoardingDBinding>(), View.OnC
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_get_start->{
-                o
+                navigate(R.id.action_onBoardingDFragment_to_loginFragment2)
             }
         }
 
