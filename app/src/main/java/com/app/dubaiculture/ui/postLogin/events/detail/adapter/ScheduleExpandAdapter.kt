@@ -40,6 +40,7 @@ class ScheduleExpandAdapter(
         var imgToggle = itemView.imgToggle
         var ll_header = itemView.ll_header
         var innerRecycler=  itemView.innerRecyclerView
+        var lineSchedule = itemView.lines_schedule
 
 //        init {
 //            innerRecycler = itemView.findViewById(R.id.innerRecyclerView)
@@ -56,8 +57,11 @@ class ScheduleExpandAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.day.text = dayOfWeek(nameList[position].date, "EEEE")
         holder.date.text = "${dayOfWeek(nameList[position].date, "dd")}"
-        holder.monthYear.text = "${dayOfWeek(nameList[position].date, "MMM").toUpperCase()} , ${dayOfWeek(nameList[position].date, "yy")}"
+        holder.monthYear.text = "${dayOfWeek(nameList[position].date, "MMM").toUpperCase()},${dayOfWeek(nameList[position].date, "yy")}"
         holder.imgToggle.setImageResource(R.drawable.plus)
+        if(position == itemCount -1){
+            holder.lineSchedule.visibility = View.GONE
+        }
         val itemInnerRecyclerView = ScheduleInnerRecyclerviewAdapter(itemNameList[position])
         holder.innerRecycler.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)

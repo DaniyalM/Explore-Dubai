@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+
         android:text="11"
         app:textFont="bold"
         android:textColor="@color/purple_900"
@@ -35,74 +36,85 @@
         app:layout_constraintStart_toStartOf="@+id/tv_date_schedule"
         app:layout_constraintTop_toBottomOf="@+id/tv_date_schedule" />
 
+    <ImageView
+        android:id="@+id/lines_schedule"
+        android:layout_width="1dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_height="0dp"
+        android:paddingBottom="@dimen/_30sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/linetesting"
+        app:layout_constraintEnd_toEndOf="@+id/tv_month_year_schedule"
+        app:layout_constraintStart_toStartOf="@+id/tv_month_year_schedule"
+        app:layout_constraintTop_toBottomOf="@+id/tv_month_year_schedule" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_5sdp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:cardElevation="@dimen/_3sdp"
+        android:outlineSpotShadowColor="@color/gray_600"
+        android:outlineAmbientShadowColor="@color/gray_600"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_date_schedule"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
             <LinearLayout
                 android:id="@+id/ll_header"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp">
+                android:layout_height="@dimen/_40sdp"
+                android:orientation="horizontal">
+
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_weekdays"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_height="wrap_content"
-                    android:text="Sunday"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:textSize="@dimen/_11ssp"
-                    android:textColor="@color/black_200"
                     android:layout_gravity="center_vertical"
-                    />
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:text="Sunday"
+                    android:textColor="@color/black_200"
+                    android:textSize="@dimen/_11ssp" />
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imgToggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_gravity="center_vertical|end"
-                    />
+                    android:layout_marginEnd="@dimen/_15sdp" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/ll_child"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/innerRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    />
-
+                    android:visibility="gone" />
 
 
             </LinearLayout>
 
 
         </LinearLayout>
-
 
 
     </com.google.android.material.card.MaterialCardView>
