@@ -4,18 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.datastore.preferences.preferencesKey
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentOnBoardingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.onboarding.adapter.OnBoardingAdapter
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ZoomOutPageTransformer
+import com.app.dubaiculture.utils.dataStore.DataStoreManager
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewPagerSetUp()
@@ -27,9 +34,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
     ) = FragmentOnBoardingBinding.inflate(inflater, container, false)
 
     private fun viewPagerSetUp() {
-//        Handler(Looper.getMainLooper()).postDelayed({ binding.wormDotsIndicator.refreshDots() }, 50)
         binding.pager.adapter = OnBoardingAdapter(this)
-//        binding.pager.isUserInputEnabled = false
         binding.apply {
             val zoomOutPageTransformer = ZoomOutPageTransformer()
             pager.setPageTransformer { page, position ->
@@ -45,6 +50,9 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
                             binding.btnSkip.visibility = View.GONE
                             binding.getStarted.visibility = View.VISIBLE
                             binding.getStarted.setOnClickListener {
+                                lifecycleScope.launch {
+                                    dataStoreManager.setData(preferencesKey(Constants.DataStore.SKIP), true)
+                                }
                                 application.auth.isLoggedIn = true
                                 navigate(R.id.action_onBoardingFragment_to_LoginFragment)
                             }
@@ -53,7 +61,8 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
                             binding.btnSkip.visibility = View.VISIBLE
                             binding.getStarted.visibility = View.GONE
                             binding.btnSkip.setOnClickListener {
-                                pager.currentItem += 1
+                                application.auth.isLoggedIn = true
+                                navigate(R.id.action_onBoardingFragment_to_LoginFragment)
                             }
                         }
                     }
