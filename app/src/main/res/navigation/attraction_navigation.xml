@@ -19,7 +19,6 @@
         <action
             android:id="@+id/action_attractionsFragment_to_attractionDetailFragment"
             app:destination="@id/attraction_detail_navigation"
-
             />
         <action
             android:id="@+id/action_attractionsFragment_to_attractionsFragment"

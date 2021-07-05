@@ -199,7 +199,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     protected fun back() {
-        hideKeyboard(requireActivity())
+        hideKeyboard(activity)
         activity.onBackPressed()
     }
 
