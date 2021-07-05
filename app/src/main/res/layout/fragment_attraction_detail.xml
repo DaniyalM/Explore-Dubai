@@ -21,7 +21,6 @@
             android:id="@+id/appbarAttractionDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
             android:fitsSystemWindows="true"
             app:elevation="0dp">
 
@@ -108,7 +107,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/app_bg">
+                        >
 
 
                         <include
@@ -121,9 +120,7 @@
 
 
         </androidx.core.widget.NestedScrollView>
-<!--       -->
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
-    <!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 </layout>

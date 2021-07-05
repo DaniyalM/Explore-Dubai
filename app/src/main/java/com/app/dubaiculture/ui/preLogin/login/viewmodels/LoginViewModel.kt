@@ -13,13 +13,11 @@ import com.app.dubaiculture.data.repository.login.LoginRepository
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.data.repository.user.local.User
+import com.app.dubaiculture.data.repository.user.local.guest.Guest
 import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.ui.preLogin.login.LoginFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
-import com.app.dubaiculture.utils.Constants.NavBundles.COMES_FROM_LOGIN
-import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -59,7 +57,6 @@ class LoginViewModel @ViewModelInject constructor(
     var passwordError: LiveData<Int> = passwordError_
 
 
-
     fun getUserIfExists() {
 
         viewModelScope.launch {
@@ -69,10 +66,31 @@ class LoginViewModel @ViewModelInject constructor(
         }
     }
 
+    fun getGuestUserIfExists() {
+
+        viewModelScope.launch {
+            userRepository.getLastGuestUser().let {
+                if (it != null) {
+                    setGuestUser(it)
+                } else {
+                    _userGuestLiveData.value = null
+                }
+
+            }
+        }
+    }
+
     fun removeUser(user: User) {
         viewModelScope.launch {
             userRepository.deleteUser(user)
             _userLiveData.value = null
+        }
+    }
+
+    fun removeGuestUser(user: Guest) {
+        viewModelScope.launch {
+            userRepository.deleteGuestUser(user)
+            _userGuestLiveData.value = null
         }
     }
 

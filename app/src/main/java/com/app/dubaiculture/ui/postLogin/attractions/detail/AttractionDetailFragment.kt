@@ -171,7 +171,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 subscribeObservables()
                 uiActions()
             }
-        }, 500)
+        }, 200)
 
 
 

@@ -109,8 +109,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 application.auth.user = it
                 application.auth.isGuest = false
                 application.auth.isLoggedIn=true
-                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+                loginViewModel.getGuestUserIfExists()
+
             }
+        }
+
+        loginViewModel.userGuestLiveData.observe(viewLifecycleOwner){
+            if (it!=null){
+                loginViewModel.removeGuestUser(it)
+            }
+            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+
         }
     }
 
