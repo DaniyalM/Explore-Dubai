@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
->
-
-
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-        android:id="@+id/tv_schedule_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
-        android:text="Activities schedule at the workshop"
-        android:textColor="@color/black_200"
-        android:textSize="@dimen/_18ssp"
-        app:layout_constraintEnd_toStartOf="@+id/speaker_schedule"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/speaker_schedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_15sdp"
-        android:src="@drawable/speakers"
-        android:foreground="@drawable/custom_ripple_border"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_schedule_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_schedule_title" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/_70sdp"
-        android:layout_marginBottom="@dimen/_60sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:background="@drawable/linetesting"
-        app:layout_constraintBottom_toBottomOf="@+id/rvSchedule"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_title" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSchedule"
-        android:layout_marginTop="@dimen/_10sdp"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:itemCount="3"
-        tools:listitem="@layout/schedule_collapse"
-        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_title"
-        />
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_schedule_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:text="Activities schedule at the workshop"
+                android:textColor="@color/black_200"
+                android:textSize="@dimen/_18ssp"
+                app:layout_constraintEnd_toStartOf="@+id/speaker_schedule"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/speaker_schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:foreground="@drawable/custom_ripple_border"
+                android:src="@drawable/speakers"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_schedule_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_schedule_title" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_70sdp"
+                android:layout_marginBottom="@dimen/_60sdp"
+                android:background="@drawable/linetesting"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/rvSchedule"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_schedule_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSchedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_schedule_title"
+                tools:itemCount="3"
+                tools:listitem="@layout/schedule_collapse" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>
 
