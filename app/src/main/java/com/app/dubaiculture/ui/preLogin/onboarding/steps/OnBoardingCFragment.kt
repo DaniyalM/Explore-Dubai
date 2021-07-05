@@ -10,12 +10,11 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OnBoardingCFragment : BaseFragment<FragmentOnBoardingCBinding>(), View.OnClickListener {
+class OnBoardingCFragment : BaseFragment<FragmentOnBoardingCBinding>() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnSkip.setOnClickListener(this)
     }
 
     override fun getFragmentBinding(
@@ -23,11 +22,4 @@ class OnBoardingCFragment : BaseFragment<FragmentOnBoardingCBinding>(), View.OnC
         container: ViewGroup?
     ) = FragmentOnBoardingCBinding.inflate(inflater, container, false)
 
-    override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.btn_skip->{
-
-            }
-        }
-    }
 }

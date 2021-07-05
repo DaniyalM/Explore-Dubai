@@ -19,11 +19,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class OnBoardingAFragment : BaseFragment<FragmentOnBoardingABinding>(), View.OnClickListener {
 
-    @Inject
-    lateinit var dataStoreManager: DataStoreManager
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnSkip.setOnClickListener(this)
     }
 
     override fun getFragmentBinding(
@@ -33,11 +30,9 @@ class OnBoardingAFragment : BaseFragment<FragmentOnBoardingABinding>(), View.OnC
 
     override fun onClick(v: View?) {
        when(v?.id){
-           R.id.btn_skip->{
-               lifecycleScope.launch {
-                   dataStoreManager.setData(preferencesKey(Constants.DataStore.SKIP),true)
-               }
-           }
+//           R.id.btn_skip->{
+//
+//           }
        }
     }
 }

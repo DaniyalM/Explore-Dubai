@@ -10,24 +10,15 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OnBoardingDFragment : BaseFragment<FragmentOnBoardingDBinding>(), View.OnClickListener {
+class OnBoardingDFragment : BaseFragment<FragmentOnBoardingDBinding>() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnGetStart.setOnClickListener(this)
     }
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentOnBoardingDBinding.inflate(inflater, container, false)
 
-    override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.btn_get_start->{
-//                navigate(R.id.action_onBoardingDFragment_to_loginFragment2)
-            }
-        }
-
-    }
 }
