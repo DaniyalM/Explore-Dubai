@@ -45,12 +45,12 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     var contentLoaded = false
     var contentLoadMore = true
 
-    override fun onPause() {
-        super.onPause()
-        lastFirstVisiblePosition =
-                (binding.rvAttractionListing.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
-
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        lastFirstVisiblePosition =
+//                (binding.rvAttractionListing.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+//
+//    }
 
 
     companion object {
@@ -293,9 +293,9 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                     }
                 }
             })
-            try {
-                binding.rvAttractionListing.smoothScrollToPosition(lastFirstVisiblePosition)
-            }catch (ex:IllegalArgumentException){ }
+//            try {
+//                binding.rvAttractionListing.smoothScrollToPosition(lastFirstVisiblePosition)
+//            }catch (ex:IllegalArgumentException){ }
 
         }
 

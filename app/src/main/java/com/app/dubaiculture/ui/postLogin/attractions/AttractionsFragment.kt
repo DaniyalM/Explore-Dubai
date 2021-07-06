@@ -104,7 +104,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             pagerAdapter = AttractionPagerAdaper(this)
             binding.pager.apply {
                 isUserInputEnabled = false
-                isSaveEnabled = false
+                isSaveEnabled = true
                 adapter = pagerAdapter
             }
 
