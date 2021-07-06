@@ -51,12 +51,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                 (binding.rvAttractionListing.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
 
     }
-    override fun onResume() {
-        super.onResume()
-        try {
-            binding.rvAttractionListing.smoothScrollToPosition(lastFirstVisiblePosition)
-        }catch (ex:IllegalArgumentException){ }
-    }
+
 
     companion object {
 
@@ -84,6 +79,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
+
         callingObservables()
         subscribeToObservables()
     }
@@ -297,8 +293,12 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                     }
                 }
             })
+            try {
+                binding.rvAttractionListing.smoothScrollToPosition(lastFirstVisiblePosition)
+            }catch (ex:IllegalArgumentException){ }
 
         }
+
     }
 
 
