@@ -25,4 +25,7 @@ class ProgressDialog(context: Context) : Dialog(context) {
 //        iv_logo.startAnimation(rotate)
 
     }
+
+
+
 }

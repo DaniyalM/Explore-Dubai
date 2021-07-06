@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/exploreFragment"
+        android:id="@+id/explore_navigation"
         android:icon="@drawable/explore"
         android:title="@string/explore" />
     <item
-        android:id="@+id/eventsFragment"
+        android:id="@+id/events_navigation"
         android:icon="@drawable/events"
         android:title="@string/events" />
 
@@ -13,11 +13,11 @@
         android:id="@+id/hidden"
         android:title="" />
     <item
-        android:id="@+id/attractionsFragment"
+        android:id="@+id/attraction_navigation"
         android:icon="@drawable/attraction"
         android:title="@string/attractions" />
     <item
-        android:id="@+id/moreFragment"
+        android:id="@+id/more_navigation"
         android:icon="@drawable/more"
         android:title="@string/more" />
 </menu>

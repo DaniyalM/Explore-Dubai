@@ -3,12 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
-//apply plugin: 'com.google.gms.google-services'
-//apply plugin: 'com.google.gms.google-services'
 def config = rootProject.extensions.getByName("ext")
 
 
@@ -181,8 +179,12 @@ dependencies {
     implementation config.backgroundAndAsynThreading.coroutinesPlayServices
 
     // Navigation Component
+    implementation config.navigationDependency.navFragmentKtx
     implementation config.navigationDependency.navFragment
-    implementation config.navigationDependency.navKtx
+    implementation config.navigationDependency.navUiKtx
+    implementation config.navigationDependency.navRuntime
+    implementation config.navigationDependency.navRuntimeKtx
+    implementation config.navigationDependency.navUi
     // Glide // SVG Glide
     implementation config.image_processing.glide
     kapt config.image_processing.glideCompiler
@@ -288,5 +290,7 @@ dependencies {
     // indicator
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.caverock:androidsvg-aar:1.4'
+    implementation 'com.tbuonomo:dotsindicator:4.2'
+    implementation 'com.github.aliab:RTLMaterialSpinner:1.2.1'
     implementation 'com.tbuonomo:dotsindicator:4.2'
 }

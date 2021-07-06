@@ -93,4 +93,5 @@ class UserRepository @Inject constructor(
     }
 
     suspend fun deleteUser(user: User) = userLDS.delete(user)
+    suspend fun deleteGuestUser(guestUser: Guest) = guestLDS.delete(guestUser)
 }

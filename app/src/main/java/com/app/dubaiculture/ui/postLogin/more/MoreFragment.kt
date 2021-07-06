@@ -1,9 +1,11 @@
 package com.app.dubaiculture.ui.postLogin.more
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,7 @@ import com.app.dubaiculture.ui.postLogin.more.adapter.MoreItems
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
+import com.app.dubaiculture.utils.Constants.NavBundles.SETTING_DESTINATION
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY
 import com.app.dubaiculture.utils.SettingsUtils.newsList
@@ -34,14 +37,27 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     private val moreViewModel: MoreViewModel by viewModels()
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
+    var navigateSettings = false
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ) = FragmentMoreBinding.inflate(inflater, container, false)
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.let {
+           navigateSettings = it.getBoolean(SETTING_DESTINATION)
+        }
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (navigateSettings) {
+            navigateSettings=false
+            navigate(R.id.action_moreFragment_to_settingFragment)
+        }
         subscribeUiEvents(moreViewModel)
         bgAboutRTL(binding.imgEagle)
         binding.llRateUs.setOnClickListener(this)
@@ -49,10 +65,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llNotification.setOnClickListener(this)
         binding.llCultureConnoisseur.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
-                binding.root.profilePic,
-                binding.root.img_drawer,
-                binding.root.toolbar_title,
-                resources.getString(R.string.more)
+            binding.root.profilePic,
+            binding.root.img_drawer,
+            binding.root.toolbar_title,
+            resources.getString(R.string.more)
         )
 
         if (application.auth.isGuest) {
@@ -64,8 +80,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         } else {
             binding.user = application.auth.user
             binding.title.text = application.auth.user?.userName
-                    ?: resources.getString(R.string.my_profile)
-            if (   binding.title.text.length>=15) {
+                ?: resources.getString(R.string.my_profile)
+            if (binding.title.text.length >= 15) {
                 binding.btnLogin.visibility = View.GONE
             } else {
                 binding.btnLogin.visibility = View.INVISIBLE
@@ -76,6 +92,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         }
         rvSetUp()
         cardViewRTL()
+
     }
 
     private fun cardViewRTL() {
@@ -85,18 +102,18 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             subHeading.visibility = View.VISIBLE
             if (isArabic()) {
                 cardivewRTL?.shapeAppearanceModel =
-                        cardivewRTL.shapeAppearanceModel
-                                .toBuilder()
-                                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                                .setTopRightCornerSize(radius)
-                                .build()
+                    cardivewRTL.shapeAppearanceModel
+                        .toBuilder()
+                        .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                        .setTopRightCornerSize(radius)
+                        .build()
             } else {
                 cardivewRTL?.shapeAppearanceModel =
-                        cardivewRTL.shapeAppearanceModel
-                                .toBuilder()
-                                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                                .setBottomRightCornerSize(radius)
-                                .build()
+                    cardivewRTL.shapeAppearanceModel
+                        .toBuilder()
+                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                        .setBottomRightCornerSize(radius)
+                        .build()
             }
         }
     }
@@ -113,19 +130,23 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         if (settingAdapter.itemCount > 0) {
             settingAdapter.clear()
         }
-        servicesList(requireContext()).map {
+        servicesList(activity).map {
             groupAdapter.add(
-                    MoreItems<ItemsMoreLayoutBinding>(
-                            object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
+                MoreItems<ItemsMoreLayoutBinding>(
+                    object : RowClickListener {
+                        override fun rowClickListener(position: Int) {
 
-                                }
-                            },
-                            moreModel = it,
-                            resLayout = R.layout.items_more_layout,
-                            requireContext(),
-                            isArabic()
-                    )
+                        }
+
+                        override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                        }
+                    },
+                    moreModel = it,
+                    resLayout = R.layout.items_more_layout,
+                    requireContext(),
+                    isArabic()
+                )
             )
         }
         binding.rvServices.apply {
@@ -133,91 +154,99 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = groupAdapter
         }
-        newsList(requireContext()).map {
+        newsList(activity).map {
 //            if (newsAdapter.itemCount > 0) {
 //                newsAdapter.clear()
 //            }
             newsAdapter.add(
-                    MoreItems<ItemsMoreLayoutBinding>(
-                            object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-                                    if (position == 0) {
-                                        navigate(R.id.action_moreFragment_to_latestNewsFragment)
-                                    }
-                                    if (position == 1) {
-                                        navigate(R.id.action_moreFragment_to_contactFragment)
-                                    }
-                                    if (position == 2) {
-                                        navigate(R.id.action_moreFragment_to_FAQsFragment)
-                                    }
-                                    if (position == 3) {
-                                        moreViewModel.playStoreOpen(activity)
-                                    }
-                                    if (position == 4) {
-                                        val bundle =
-                                                bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)
-                                        navigate(
-                                                R.id.action_moreFragment_to_privacyTermConditionFragment,
-                                                bundle
-                                        )
-                                    }
-                                    if (position == 5) {
-                                        val bundle =
-                                                bundleOf(TERMS_CONDITION_PRIVACY_POLICY to TERMS_CONDITION)
-                                        navigate(
-                                                R.id.action_moreFragment_to_privacyTermConditionFragment,
-                                                bundle
-                                        )
-                                    }
-                                }
-                            },
-                            moreModel = it,
-                            resLayout = R.layout.items_more_layout,
-                            requireContext(),
-                            isArabic()
-                    )
+                MoreItems<ItemsMoreLayoutBinding>(
+                    object : RowClickListener {
+                        override fun rowClickListener(position: Int) {
+                            if (position == 0) {
+                                navigate(R.id.action_moreFragment_to_latestNewsFragment)
+                            }
+                            if (position == 1) {
+                                navigate(R.id.action_moreFragment_to_contactFragment)
+                            }
+                            if (position == 2) {
+                                navigate(R.id.action_moreFragment_to_FAQsFragment)
+                            }
+                            if (position == 3) {
+                                moreViewModel.playStoreOpen(activity)
+                            }
+                            if (position == 4) {
+                                val bundle =
+                                    bundleOf(TERMS_CONDITION_PRIVACY_POLICY to PRIVACY_POLICY)
+                                navigate(
+                                    R.id.action_moreFragment_to_privacyTermConditionFragment,
+                                    bundle
+                                )
+                            }
+                            if (position == 5) {
+                                val bundle =
+                                    bundleOf(TERMS_CONDITION_PRIVACY_POLICY to TERMS_CONDITION)
+                                navigate(
+                                    R.id.action_moreFragment_to_privacyTermConditionFragment,
+                                    bundle
+                                )
+                            }
+                        }
+
+                        override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                        }
+                    },
+                    moreModel = it,
+                    resLayout = R.layout.items_more_layout,
+                    requireContext(),
+                    isArabic()
+                )
             )
         }
         binding.rvNews.apply {
             isNestedScrollingEnabled = false
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = newsAdapter
         }
-        settingsList(requireContext()).map {
+        settingsList(activity).map {
             settingAdapter.add(
-                    MoreItems<ItemsMoreLayoutBinding>(
-                            object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-                                    if (position == 0) {
-                                        if (application.auth.isGuest) {
-                                            navigate(R.id.action_moreFragment_to_post_login_bottom_navigation)
-                                        } else {
-                                            navigate(R.id.action_moreFragment_to_settingFragment)
-                                        }
-                                    }
-                                    if (position == 2) {
-                                        if (isArabic()) {
-                                            setLanguage(Locale.ENGLISH)
-                                        } else {
-                                            setLanguage(Locale("ar"))
-                                        }
-                                    }
-                                    if (position == 3) {
-                                        navigate(R.id.action_moreFragment_to_logoutFragment)
-                                    }
+                MoreItems<ItemsMoreLayoutBinding>(
+                    object : RowClickListener {
+                        override fun rowClickListener(position: Int) {
+                            if (position == 0) {
+                                if (application.auth.isGuest) {
+                                    navigate(R.id.action_moreFragment_to_post_login_bottom_navigation)
+                                } else {
+                                    navigate(R.id.action_moreFragment_to_settingFragment)
                                 }
-                            },
-                            moreModel = it,
-                            resLayout = R.layout.items_more_layout,
-                            requireContext(),
-                            isArabic(),
-                            application.auth.isGuest
-                    )
+                            }
+                            if (position == 2) {
+                                if (isArabic()) {
+                                    setLanguage(Locale.ENGLISH)
+                                } else {
+                                    setLanguage(Locale("ar"))
+                                }
+                            }
+                            if (position == 3) {
+                                navigate(R.id.action_moreFragment_to_logoutFragment)
+                            }
+                        }
+
+                        override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                        }
+                    },
+                    moreModel = it,
+                    resLayout = R.layout.items_more_layout,
+                    activity,
+                    isArabic(),
+                    application.auth.isGuest
+                )
             )
         }
         binding.rvSettings.apply {
             isNestedScrollingEnabled = false
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = settingAdapter
         }
     }

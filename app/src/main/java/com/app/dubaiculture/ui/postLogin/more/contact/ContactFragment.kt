@@ -48,18 +48,6 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
         container: ViewGroup?
     ) = FragmentContactBinding.inflate(inflater, container, false)
 
-    private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            moreViewModel.showLoader(false)
-            navigateToGoogleMap(
-                locationResult.lastLocation.latitude.toString(),
-                locationResult.lastLocation.longitude.toString(),
-                contactCenterLocation.mapLatitude,
-                contactCenterLocation.mapLongitude
-            )
-            Timber.e("onLocationResult ${locationResult.lastLocation.latitude}")
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,7 +76,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
         if (!this::mapView.isInitialized) {
 
             mapView = binding.root.findViewById(R.id.map)
-            mapView?.let {
+            mapView.let {
                 it.getMapAsync(this)
                 it.onCreate(savedInstanceState)
 
@@ -122,28 +110,28 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
             R.id.imgFb -> {
                 SocialNetworkUtils.openUrl(
-                    socialList.get(0)!!.facebookPageLink,
+                    socialList.get(0).facebookPageLink,
                     activity,
                     isFacebook = true
                 )
             }
             R.id.imgTwitterAttraction -> {
                 SocialNetworkUtils.openUrl(
-                    socialList.get(0)!!.twitterPageLink,
+                    socialList.get(0).twitterPageLink,
                     activity,
                     isTwitter = true
                 )
             }
             R.id.instagram -> {
                 SocialNetworkUtils.openUrl(
-                    socialList.get(0)!!.instagramPageLink,
+                    socialList.get(0).instagramPageLink,
                     activity,
                     isInstagram = true
                 )
             }
             R.id.imgYoutube -> {
                 SocialNetworkUtils.openUrl(
-                    socialList.get(0)!!.youtubePageLink,
+                    socialList.get(0).youtubePageLink,
                     activity,
                     isYoutube = true
                 )
@@ -182,7 +170,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             options = quickPermissionsOption
         ) {
             moreViewModel.showLoader(true)
-            if (!locationHelper.isLocationEnabled(locationManager = locationManager)) {
+            if (!locationHelper.isLocationEnabled()) {
                 moreViewModel.showLoader(false)
                 moreViewModel.showErrorDialog(message = resources.getString(R.string.turn_on))
             }
@@ -200,24 +188,35 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
 
                     }
                 },
-                activity, locationCallback = locationCallback
+                locationCallback = object : LocationCallback() {
+                    override fun onLocationResult(locationResult: LocationResult) {
+                        moreViewModel.showLoader(false)
+                        navigateToGoogleMap(
+                            locationResult.lastLocation.latitude.toString(),
+                            locationResult.lastLocation.longitude.toString(),
+                            contactCenterLocation.mapLatitude,
+                            contactCenterLocation.mapLongitude
+                        )
+                        Timber.e("onLocationResult ${locationResult.lastLocation.latitude}")
+                    }
+                }
             )
         }
     }
 
     override fun onResume() {
         super.onResume()
-        mapView?.onResume()
+        mapView.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView?.onPause()
+        mapView.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView?.onDestroy()
+        mapView.onDestroy()
     }
 
     override fun onMapReady(p0: GoogleMap) {

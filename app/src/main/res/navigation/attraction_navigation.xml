@@ -12,13 +12,14 @@
         android:name="com.app.dubaiculture.ui.postLogin.attractions.AttractionsFragment"
         android:label="AttractionsFragment" >
 
+<!--        app:enterAnim="@anim/slide_in_right"-->
+<!--        app:exitAnim="@anim/fade_out"-->
+<!--        app:popEnterAnim="@anim/slide_in_right"-->
+<!--        app:popExitAnim="@anim/fade_out"-->
         <action
             android:id="@+id/action_attractionsFragment_to_attractionDetailFragment"
             app:destination="@id/attraction_detail_navigation"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            />
         <action
             android:id="@+id/action_attractionsFragment_to_attractionsFragment"
             app:destination="@id/attractionsFragment"

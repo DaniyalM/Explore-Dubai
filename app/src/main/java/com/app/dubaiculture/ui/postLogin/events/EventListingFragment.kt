@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -156,6 +157,10 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                                     bundle)
                                             }
 
+                                            override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                                            }
+
                                         },
                                         event = it,
                                         resLayout = R.layout.item_event_listing,
@@ -189,6 +194,10 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                                 bundle.putParcelable(EVENT_OBJECT, eventObj)
                                                 navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2,
                                                     bundle)
+                                            }
+
+                                            override fun rowClickListener(position: Int, imageView: ImageView) {
+
                                             }
 
                                         },

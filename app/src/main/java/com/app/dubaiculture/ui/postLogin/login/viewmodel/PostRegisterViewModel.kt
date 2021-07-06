@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel
+package com.app.dubaiculture.ui.postLogin.login.viewmodel
 
 import android.app.Application
 import android.widget.CompoundButton
@@ -12,8 +12,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.registeration.RegistrationRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostRegisterFragment
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostRegisterFragmentDirections
+import com.app.dubaiculture.ui.postLogin.login.PostRegisterFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
 import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequest
@@ -85,7 +84,8 @@ class PostRegisterViewModel @ViewModelInject constructor(
                     }
                     is Result.Success -> {
                         if (result.value.succeeded) {
-                            navigateByDirections(PostRegisterFragmentDirections.actionPostRegisterFragmentToPostOTPDialogFragment(
+                            navigateByDirections(
+                                PostRegisterFragmentDirections.actionPostRegisterFragmentToPostOTPDialogFragment(
                                 result.value.registrationResponseDTO.verificationCode,
                                     "registerFragment"
                             ))

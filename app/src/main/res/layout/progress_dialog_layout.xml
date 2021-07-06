@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<FrameLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#00000000"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
         app:lottie_rawRes="@raw/girlcycling"
         android:layout_gravity="center"
         app:lottie_autoPlay="true"

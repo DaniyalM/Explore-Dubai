@@ -23,7 +23,8 @@ class MyFragmentNavigator(
         navigatorExtras: Navigator.Extras?,
     ): NavDestination? {
         val shouldSkip = navOptions?.run {
-            popUpTo == destination.id && !isPopUpToInclusive
+
+            popUpToId == destination.id && !isPopUpToInclusive()
         } ?: false
 
 

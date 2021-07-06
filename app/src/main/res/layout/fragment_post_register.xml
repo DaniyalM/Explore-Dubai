@@ -8,7 +8,7 @@
         <import type="android.content.Context" />
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostRegisterViewModel" />
+            type="com.app.dubaiculture.ui.postLogin.login.viewmodel.PostRegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

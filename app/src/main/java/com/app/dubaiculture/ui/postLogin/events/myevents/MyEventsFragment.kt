@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -70,6 +71,10 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
 //                                navigate(
 //                                    R.id.action_eventFilterFragment_to_eventDetailFragment2,
 //                                    bundle)
+                            }
+
+                            override fun rowClickListener(position: Int, imageView: ImageView) {
+
                             }
 
                         },

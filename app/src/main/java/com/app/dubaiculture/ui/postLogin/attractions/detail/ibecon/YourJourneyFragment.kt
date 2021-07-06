@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -107,6 +108,10 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                     navigate(R.id.action_yourJourneyFragment_to_ibeconDescFragment, bundle)
                 }
 
+                override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                }
+
             },
                     ibeconITemsSiteMap = it,
                     resLayout = R.layout.items_your_journey
@@ -129,6 +134,10 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                     val bundle = Bundle()
                     bundle.putParcelable(Constants.NavBundles.BECON_OBJECT, beconObj)
                     navigate(R.id.action_yourJourneyFragment_to_ibeconDescFragment, bundle)
+                }
+
+                override fun rowClickListener(position: Int, imageView: ImageView) {
+
                 }
             },
                     ibeconITemsSiteMap = it,

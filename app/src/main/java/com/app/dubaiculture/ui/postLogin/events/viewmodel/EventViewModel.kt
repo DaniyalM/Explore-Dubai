@@ -42,11 +42,11 @@ class EventViewModel @ViewModelInject constructor(
     var category: ObservableField<String> = ObservableField("")
     var type: ObservableField<String> = ObservableField("")
 
-    val keywordState = MutableLiveData<String>("")
-    val locationState = MutableLiveData<String>("")
-    val dateFrmState = MutableLiveData<String>("")
-    val dateToState = MutableLiveData<String>("")
-    val radioBtnState = MutableLiveData<String>("")
+    val keywordState = MutableLiveData("")
+    val locationState = MutableLiveData("")
+    val dateFrmState = MutableLiveData("")
+    val dateToState = MutableLiveData("")
+    val radioBtnState = MutableLiveData("")
 
 
     private var categoryList = mutableListOf<Filter>()

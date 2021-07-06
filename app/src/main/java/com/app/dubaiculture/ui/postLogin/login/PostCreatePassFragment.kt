@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.attractions.detail.login
+package com.app.dubaiculture.ui.postLogin.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,7 @@ import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPostCreatePassBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostCreatePassViewModel
-import com.app.dubaiculture.ui.preLogin.password.viewModel.CreatePassViewModel
+import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostCreatePassViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

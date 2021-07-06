@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">هيئة دبي للثقافة والفنون</string>
     <string name="arabic">العربية</string>
-    <string name="english">English</string>
     <string name="switch_language">تغيير اللغة</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا</string>
@@ -249,6 +248,10 @@
     <string name="my_services">خدماتي</string>
     <string name="turn_on"> يرجى تشغيل الموقع</string>
     <string name="about_ndubai_culture">عن هيئة دبي للثقافة والفنون</string>
+    <string name="english">عربي</string>
+    <string name="discover">Discover</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get Started</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->

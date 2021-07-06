@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -74,6 +75,10 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
                                         putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
                                                 it)
                                     })
+                                }
+
+                                override fun rowClickListener(position: Int, imageView: ImageView) {
+
                                 }
                             },
                             attraction = it,

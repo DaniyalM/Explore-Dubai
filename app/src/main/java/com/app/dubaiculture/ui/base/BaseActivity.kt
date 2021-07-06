@@ -4,19 +4,16 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.CheckBox
 import androidx.annotation.IdRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragment
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
@@ -116,6 +113,7 @@ abstract class BaseActivity : LocalizationActivity() {
 
     }
 
+
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(this, {
             it.getContentIfNotHandled()
@@ -157,6 +155,9 @@ abstract class BaseActivity : LocalizationActivity() {
         super.onDestroy()
 
         if (customProgressDialog != null) {
+            if (customProgressDialog!!.isShowing){
+                customProgressDialog!!.dismiss()
+            }
             customProgressDialog = null
         }
 
@@ -180,6 +181,12 @@ abstract class BaseActivity : LocalizationActivity() {
 
     fun navigate(@IdRes resId: Int, bundle: Bundle? = null) {
         navController.navigate(resId, bundle)
+    }
+
+    protected fun getNavControllerFun(int: Int): NavController {
+        val navHostFragment =
+                supportFragmentManager.findFragmentById(int) as NavHostFragment
+        return navHostFragment.navController
     }
 
 

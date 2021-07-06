@@ -15,6 +15,7 @@ import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.event.Event
+import kotlinx.coroutines.channels.actor
 import kotlinx.coroutines.launch
 
 class ProfileViewModel @ViewModelInject constructor(
@@ -46,6 +47,10 @@ class ProfileViewModel @ViewModelInject constructor(
     var phoneError: LiveData<Int> = _phoneError
     private val errs_ = MutableLiveData<Int>()
     val errs: LiveData<Int> = errs_
+
+    init {
+        getSettings()
+    }
 
     fun uploadProfile(uri: String, application: ApplicationEntry) {
         viewModelScope.launch {
@@ -97,7 +102,7 @@ class ProfileViewModel @ViewModelInject constructor(
             val result = profileRepository.updateSettings(userSettings = settings)
             when (result) {
                 is Result.Success -> {
-                    showToast(result.message)
+                    showToast("Permissions Updated !")
                     showLoader(false)
                     if (isRefresh) {
                         getSettings()

@@ -13,7 +13,8 @@ class AttractionPagerAdaper(fragment: Fragment) : BaseFragmentStateAdapter<Attra
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
-    override fun createFragment(position: Int) = AttractionListingFragment.newInstance(attractionCat = list.get(position))
+    override fun createFragment(position: Int) =
+            AttractionListingFragment.newInstance(attractionCat = list[position])
 
 }
 

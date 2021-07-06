@@ -10,7 +10,7 @@
         android:id="@+id/postLoginFragment"
         tools:layout="@layout/fragment_post_login"
 
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.login.PostLoginFragment"
         android:label="PostLoginFragment" >
         <action
             android:id="@+id/action_postLoginFragment_to_registerFragment"
@@ -68,7 +68,7 @@
     <fragment
         android:id="@+id/postCreatePassFragment"
         tools:layout="@layout/fragment_post_create_pass"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostCreatePassFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.login.PostCreatePassFragment"
         android:label="PostCreatePassFragment" >
         <action
             android:id="@+id/action_postCreatePassFragment_to_registrationSuccessFragment2"
@@ -105,7 +105,7 @@
         android:id="@+id/postRegisterFragment"
         tools:layout="@layout/fragment_post_register"
 
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostRegisterFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.login.PostRegisterFragment"
         android:label="PostRegisterFragment" >
         <action
             android:id="@+id/action_postRegisterFragment_to_postOTPDialogFragment"
@@ -118,7 +118,7 @@
     <dialog
         android:id="@+id/postOTPDialogFragment"
         tools:layout="@layout/post_otp_fragment_dialog"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostOTPDialogFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.login.PostOTPDialogFragment"
         android:label="PostOTPDialogFragment" >
 
         <argument
@@ -157,7 +157,7 @@
     </dialog>
     <fragment
         android:id="@+id/postForgotFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostForgotFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.login.PostForgotFragment"
         android:label="fragment_post_forgot"
         tools:layout="@layout/fragment_post_forgot" >
         <action

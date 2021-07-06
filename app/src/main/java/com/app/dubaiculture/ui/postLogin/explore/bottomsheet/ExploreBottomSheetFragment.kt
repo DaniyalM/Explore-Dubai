@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
@@ -46,6 +47,10 @@ class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtom
     private fun rvSetUp(list: List<ExploreMap>) {
         exploreNearAdapter = ExploreMapAdapter(isArabic(), object : RowClickListener{
             override fun rowClickListener(position: Int) {
+            }
+
+            override fun rowClickListener(position: Int, imageView: ImageView) {
+
             }
 
         },object : DirectionClickListener{

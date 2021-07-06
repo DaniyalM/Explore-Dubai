@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel
+package com.app.dubaiculture.ui.postLogin.login.viewmodel
 
 import android.app.Application
 import androidx.core.os.bundleOf

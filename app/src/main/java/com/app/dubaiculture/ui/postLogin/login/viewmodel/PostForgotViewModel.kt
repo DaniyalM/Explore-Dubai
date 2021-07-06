@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel
+package com.app.dubaiculture.ui.postLogin.login.viewmodel
 
 import android.app.Application
 import androidx.databinding.ObservableBoolean
@@ -12,7 +12,7 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.forgot.ForgotRepository
 import com.app.dubaiculture.data.repository.forgot.remote.request.ForgotRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostForgotFragmentDirections
+import com.app.dubaiculture.ui.postLogin.login.PostForgotFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
 import kotlinx.coroutines.launch
@@ -57,7 +57,8 @@ class PostForgotViewModel  @ViewModelInject constructor(private val forgotReposi
 //                            showToast(result.value.forgotResponseDTO.message.toString())
                             showErrorDialog(message = result.value.forgotResponseDTO.message.toString())
 
-                            navigateByDirections(PostForgotFragmentDirections.actionPostForgotFragmentToPostOTPDialogFragment(
+                            navigateByDirections(
+                                PostForgotFragmentDirections.actionPostForgotFragmentToPostOTPDialogFragment(
                                 result.value.forgotResponseDTO.verificationCode,"forgotfragment"
                             ))
                         }else{

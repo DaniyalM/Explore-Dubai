@@ -9,7 +9,7 @@ import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import java.util.*
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object LocationModule {
     @Singleton
     @Provides
     fun provideFusedLocationProviderClient(@ApplicationContext context: Context) =
@@ -42,6 +42,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideLocationHelper(@ApplicationContext context: Context) =
-        LocationHelper(provideFusedLocationProviderClient(context),
-            provideLocationRequest())
+        LocationHelper(
+            provideFusedLocationProviderClient(context),
+            provideLocationRequest(),
+            locationProvider(context),
+            context
+        )
 }

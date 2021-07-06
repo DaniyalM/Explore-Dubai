@@ -9,10 +9,10 @@
         <import type="java.util.Locale" />
         <variable
             name="fragment"
-            type="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostOTPDialogFragment" />
+            type="com.app.dubaiculture.ui.postLogin.login.PostOTPDialogFragment" />
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostOTPViewModel" />
+            type="com.app.dubaiculture.ui.postLogin.login.viewmodel.PostOTPViewModel" />
 
     </data>
 

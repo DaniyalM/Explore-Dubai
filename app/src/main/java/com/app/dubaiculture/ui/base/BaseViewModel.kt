@@ -16,6 +16,7 @@ import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import com.app.dubaiculture.data.repository.user.local.User
+import com.app.dubaiculture.data.repository.user.local.guest.Guest
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.GpsStatusListener
 import com.app.dubaiculture.utils.event.Event
@@ -23,8 +24,8 @@ import com.app.dubaiculture.utils.event.UiEvent
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel(
-    application: Application,
-    private var baseRespository: BaseRepository? = null,
+        application: Application,
+        private var baseRespository: BaseRepository? = null,
 ) : AndroidViewModel(application) {
     val gpsStatusLiveData = GpsStatusListener(application)
     private val _uiEventsLiveData = MutableLiveData<Event<UiEvent>>()
@@ -34,6 +35,8 @@ abstract class BaseViewModel(
 
     protected val _userLiveData = MutableLiveData<User>()
     val userLiveData: LiveData<User> = _userLiveData
+    protected val _userGuestLiveData = MutableLiveData<Guest>()
+    val userGuestLiveData: LiveData<Guest> = _userGuestLiveData
 
 
     protected var _isFavourite: MutableLiveData<Result<AddToFavouriteResponse>> = MutableLiveData()
@@ -59,16 +62,16 @@ abstract class BaseViewModel(
     }
 
     fun showErrorDialog(
-        title: String? = "Alert",
-        message: String,
-        @ColorRes colorBg: Int? = R.color.purple_900,
+            title: String? = "Alert",
+            message: String,
+            @ColorRes colorBg: Int? = R.color.purple_900,
     ) {
         _uiEventsLiveData.value = Event(
-            UiEvent.ShowErrorDialog(
-                title = title ?: "Alert",
-                message = message,
-                colorBg = colorBg ?: R.color.red_600
-            )
+                UiEvent.ShowErrorDialog(
+                        title = title ?: "Alert",
+                        message = message,
+                        colorBg = colorBg ?: R.color.red_600
+                )
         )
     }
 
@@ -98,6 +101,10 @@ abstract class BaseViewModel(
 
     fun setUser(user: User) {
         _userLiveData.value = user
+    }
+
+    fun setGuestUser(user: Guest) {
+        _userGuestLiveData.value = user
     }
 
     fun addToFavourites(addToFavouriteRequest: AddToFavouriteRequest) {

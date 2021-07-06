@@ -7,16 +7,16 @@
 
         <variable
             name="fragment"
-            type="com.app.dubaiculture.ui.postLogin.attractions.detail.login.PostLoginFragment" />
+            type="com.app.dubaiculture.ui.postLogin.login.PostLoginFragment" />
 
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostLoginViewModel" />
+            type="com.app.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.postLogin.attractions.detail.login.PostLoginFragment">
+        tools:context=".ui.postLogin.login.PostLoginFragment">
 
 
         <androidx.appcompat.widget.AppCompatImageView

@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -132,6 +133,10 @@ class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickLi
                                                     R.id.action_ARDetailFragment_to_attraction_gallery,
                                                     bundle
                                             )
+                                        }
+
+                                        override fun rowClickListener(position: Int, imageView: ImageView) {
+
                                         }
                                     }, images = it,
                                     resLayout = R.layout.view_gallery_items,

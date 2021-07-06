@@ -1,19 +1,15 @@
-package com.app.dubaiculture.ui.postLogin.attractions.detail.login
+package com.app.dubaiculture.ui.postLogin.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
-import com.app.dubaiculture.databinding.FragmentForgotBinding
 import com.app.dubaiculture.databinding.FragmentPostForgotBinding
-import com.app.dubaiculture.databinding.FragmentPostRegisterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostForgotViewModel
-import com.app.dubaiculture.ui.preLogin.forgot.viewModel.ForgotViewModel
+import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostForgotViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
