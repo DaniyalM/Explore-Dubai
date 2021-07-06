@@ -42,29 +42,37 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
     ) = FragmentExploreBinding.inflate(inflater, container, false)
 
 
     private fun getRecyclerView() = binding.rvExplore
     override fun onPause() {
         super.onPause()
+
+
         lastFirstVisiblePosition =
-            (getRecyclerView().layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                (getRecyclerView().layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
+        try {
+            getRecyclerView().smoothScrollToPosition(lastFirstVisiblePosition)
+        }catch (ex:IllegalArgumentException){ }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         locationHelper.provideContext(activity)
-        subscribeToObservable()
+
         subscribeUiEvents(exploreViewModel)
         binding.swipeRefresh.apply {
-            if (exploreAdapter == null) {
-                setUpRecyclerView()
-                exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
-            }
+
+            setUpRecyclerView()
+            subscribeToObservable()
             setOnRefreshListener {
 
                 isRefreshing = false
@@ -73,10 +81,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
             }
             setColorSchemeResources(
-                R.color.colorPrimary,
-                android.R.color.holo_green_dark,
-                android.R.color.holo_orange_dark,
-                android.R.color.holo_blue_dark
+                    R.color.colorPrimary,
+                    android.R.color.holo_green_dark,
+                    android.R.color.holo_orange_dark,
+                    android.R.color.holo_blue_dark
             )
         }
         binding.root.img_drawer.setOnClickListener {
@@ -88,16 +96,15 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     private fun setUpRecyclerView() {
         exploreAdapter = ExploreRecyclerAsyncAdapter(
-            activity,
-            fragment = this,
-            baseViewModel = exploreViewModel
+                activity,
+                fragment = this,
+                baseViewModel = exploreViewModel
         )
         binding.rvExplore.apply {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
             adapter = exploreAdapter
             this.itemAnimator = SlideInLeftAnimator()
-            (layoutManager as LinearLayoutManager).scrollToPosition(lastFirstVisiblePosition)
         }
 
     }
@@ -134,12 +141,12 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     private fun locationPermission(destination: Int = R.id.action_exploreFragment_to_exploreMapFragment) {
         val quickPermissionsOption = QuickPermissionsOptions(
-            handleRationale = false
+                handleRationale = false
         )
         activity.runWithPermissions(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            options = quickPermissionsOption
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                options = quickPermissionsOption
         ) {
 
             if (!locationHelper.isLocationEnabled()) {
@@ -155,25 +162,30 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
             }
             locationHelper.locationSetUp(
-                object : LocationHelper.LocationLatLng {
-                    override fun getCurrentLocation(location: Location) {
-                        exploreViewModel.showLoader(false)
-                        val bundle = bundleOf(
-                            LOCATION_LAT to location.latitude,
-                            LOCATION_LNG to location.longitude
-                        )
+                    object : LocationHelper.LocationLatLng {
+                        override fun getCurrentLocation(location: Location) {
+                            exploreViewModel.showLoader(false)
+                            val bundle = bundleOf(
+                                    LOCATION_LAT to location.latitude,
+                                    LOCATION_LNG to location.longitude
+                            )
 
-                        navigate(destination, bundle)
-                    }
-                },
-                object : LocationCallback() {
-                    override fun onLocationResult(locationResult: LocationResult) {
+                            navigate(destination, bundle)
+                        }
+                    },
+                    object : LocationCallback() {
+                        override fun onLocationResult(locationResult: LocationResult) {
 //                        Timber.e("LocationCallback ${locationResult.lastLocation.latitude}")
+                        }
                     }
-                }
             )
 
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exploreAdapter=null
     }
 
 

@@ -37,6 +37,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     //    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractionCat: AttractionCategory
+    private var lastFirstVisiblePosition: Int = 0
 
     //    private var searchQuery: String = ""
     private var pageNumber: Int = 1
@@ -44,6 +45,18 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     var contentLoaded = false
     var contentLoadMore = true
 
+    override fun onPause() {
+        super.onPause()
+        lastFirstVisiblePosition =
+                (binding.rvAttractionListing.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+
+    }
+    override fun onResume() {
+        super.onResume()
+        try {
+            binding.rvAttractionListing.smoothScrollToPosition(lastFirstVisiblePosition)
+        }catch (ex:IllegalArgumentException){ }
+    }
 
     companion object {
 
@@ -115,11 +128,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-
                     contentLoadMore = true
-
-
-
                     if (pageNumber == 1) {
                         if (groupAdapter.itemCount > 0) {
                             groupAdapter.clear()
@@ -299,10 +308,11 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             is AttractionServices.TriggerRefresh -> {
                 if (groupAdapter.itemCount > 0) {
                     groupAdapter.clear()
+                    contentLoaded = false
+                    pageNumber = 1
+                    callingObservables()
                 }
-                contentLoaded = false
-                pageNumber = 1
-                callingObservables()
+
             }
         }
     }

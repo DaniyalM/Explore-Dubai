@@ -35,10 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setupBottomNavVisibility()
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
-                    if (_view!=null){
-                        getNavController().popBackStack()
-                    }else {
-                        showAlert(
+                    showAlert(
                             message = getString(R.string.error_msg),
                             textPositive = getString(R.string.okay),
                             textNegative = getString(R.string.cancel),
@@ -48,8 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             actionPositive = {
                                 activity.finish()
                             }
-                        )
-                    }
+                    )
 
 
                 }

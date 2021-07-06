@@ -40,7 +40,10 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.let {
-            attraction = it.getParcelable(ATTRACTION_OBJECT)!!
+            if (it.getParcelable<Attractions>(ATTRACTION_OBJECT) != null) {
+                attraction = it.getParcelable(ATTRACTION_OBJECT)
+            }
+
         }
     }
 
@@ -48,21 +51,16 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private fun initiateRequest() {
 
         binding.swipeRefresh.apply {
-            if (!contentLoaded) {
-                post {
-                    binding.swipeRefresh.isRefreshing = true
-                    attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-                }
-            }
 
             setColorSchemeResources(
-                R.color.colorPrimary,
-                android.R.color.holo_green_dark,
-                android.R.color.holo_orange_dark,
-                android.R.color.holo_blue_dark
+                    R.color.colorPrimary,
+                    android.R.color.holo_green_dark,
+                    android.R.color.holo_orange_dark,
+                    android.R.color.holo_blue_dark
             )
             setOnRefreshListener {
                 attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+                bus.post(AttractionServices.TriggerRefresh())
             }
 
         }
@@ -70,7 +68,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        FragmentAttractionsBinding.inflate(inflater, container, false)
+            FragmentAttractionsBinding.inflate(inflater, container, false)
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
@@ -85,8 +83,8 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             backflagNavigation = true
             navigate(R.id.action_attractionsFragment_to_attractionDetailFragment, Bundle().apply {
                 putParcelable(
-                    ATTRACTION_OBJECT,
-                    attraction
+                        ATTRACTION_OBJECT,
+                        attraction
                 )
             })
 
@@ -101,9 +99,8 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     }
 
 
-
     private fun initiatePager() {
-        if (!contentLoaded) {
+
             pagerAdapter = AttractionPagerAdaper(this)
             binding.pager.apply {
                 isUserInputEnabled = false
@@ -111,17 +108,14 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 adapter = pagerAdapter
             }
 
-        }
+
     }
 
 
     private fun subscribeToObservables() {
         attractionViewModel.attractionCategoryList.observe(viewLifecycleOwner) {
             //Below expression will trigger the refresh inside listing fragment
-            if (binding.swipeRefresh.isRefreshing) {
-                bus.post(AttractionServices.TriggerRefresh())
-                binding.swipeRefresh.isRefreshing = false
-            }
+            binding.swipeRefresh.isRefreshing = false
 
 
             when (it) {
