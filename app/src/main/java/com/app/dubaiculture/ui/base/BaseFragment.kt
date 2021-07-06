@@ -64,7 +64,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected val binding get() = dataBinding
 
 
-    protected var _view: View? = null
+    private var _view: View? = null
     protected var isPagerFragment = false
 
 
@@ -73,11 +73,13 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        if (_view == null || isPagerFragment) {
-            dataBinding = getFragmentBinding(inflater, container)
-            _view = dataBinding.root
-        }
-        return _view
+//        if (_view == null || isPagerFragment) {
+//            dataBinding = getFragmentBinding(inflater, container)
+//            _view = dataBinding.root
+//        }
+        dataBinding = getFragmentBinding(inflater, container)
+//        return _view
+        return  dataBinding.root
     }
 
 
@@ -199,7 +201,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     protected fun back() {
-        hideKeyboard(requireActivity())
+        hideKeyboard(activity)
         activity.onBackPressed()
     }
 

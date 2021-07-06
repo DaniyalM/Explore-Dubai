@@ -18,6 +18,7 @@ import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAd
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LAT
 import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LNG
+import com.app.dubaiculture.utils.Constants.NavBundles.SETTING_DESTINATION
 import com.app.dubaiculture.utils.enableLocationFromSettings
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
@@ -49,21 +50,29 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun getRecyclerView() = binding.rvExplore
     override fun onPause() {
         super.onPause()
+
+
         lastFirstVisiblePosition =
                 (getRecyclerView().layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
+        try {
+            getRecyclerView().smoothScrollToPosition(lastFirstVisiblePosition)
+        }catch (ex:IllegalArgumentException){ }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         locationHelper.provideContext(activity)
-        subscribeToObservable()
+
         subscribeUiEvents(exploreViewModel)
         binding.swipeRefresh.apply {
-            if (exploreAdapter == null) {
-                setUpRecyclerView()
-                exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
-            }
+
+            setUpRecyclerView()
+            subscribeToObservable()
             setOnRefreshListener {
 
                 isRefreshing = false
@@ -83,8 +92,6 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         }
 
 
-
-
     }
 
     private fun setUpRecyclerView() {
@@ -98,7 +105,6 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             layoutManager = LinearLayoutManager(activity)
             adapter = exploreAdapter
             this.itemAnimator = SlideInLeftAnimator()
-            (layoutManager as LinearLayoutManager).scrollToPosition(lastFirstVisiblePosition)
         }
 
     }
@@ -146,7 +152,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             if (!locationHelper.isLocationEnabled()) {
                 exploreViewModel.showToast(message = resources.getString(R.string.please_enable_gps))
                 if (!application.auth.isGuest) {
-                    navigate(R.id.action_exploreFragment_to_settingFragment)
+
+                    navigate(R.id.action_exploreFragment_to_more_navigation, Bundle().apply {
+                        putBoolean(SETTING_DESTINATION, true)
+                    })
                 } else {
                     activity.enableLocationFromSettings()
                 }
@@ -172,6 +181,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             )
 
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exploreAdapter=null
     }
 
 

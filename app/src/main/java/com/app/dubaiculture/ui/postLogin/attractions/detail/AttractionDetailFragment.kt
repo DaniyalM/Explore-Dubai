@@ -136,7 +136,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isPagerFragment = true
-        sharedElementEnterTransition = TransitionInflater.from(activity).inflateTransition(android.R.transition.move)
+//        sharedElementEnterTransition = TransitionInflater.from(activity).inflateTransition(android.R.transition.move)
 
     }
 
@@ -145,8 +145,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             container: ViewGroup?,
     ) = FragmentAttractionDetailBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         binding.root.detailImageView.transitionName = attractionsObj.id
         subscribeUiEvents(attractionDetailViewModel)
         backArrowRTL(binding.root.back)
@@ -157,7 +157,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         rvSetUp()
         binding.root.tv_desc_readmore.text = attractionsObj.description
         subscribeToGpsListener()
-        callingObservables()
+
         binding.root.swipeRefreshLayout.setOnRefreshListener {
             binding.root.swipeRefreshLayout.isRefreshing = false
             callingObservables()
@@ -167,15 +167,16 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
         Handler(Looper.getMainLooper()).postDelayed({
             runOnUiThread {
+                callingObservables()
                 locationPermission()
                 subscribeObservables()
                 uiActions()
             }
-        }, 500)
-
+        }, 200)
 
 
     }
+
 
     private fun initializeDetails(attraction: Attractions) {
 

@@ -57,6 +57,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private val moreList = mutableListOf<Events>()
     private val nearList = mutableListOf<Events>()
 
+
     @Inject
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -81,29 +82,26 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             updateGpsCheckUI(status)
         }
     }
-    private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            lat = locationResult.lastLocation.latitude
-            lng = locationResult.lastLocation.longitude
-            Timber.e("onLocationResult ${locationResult.lastLocation.latitude}")
-            eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
-        }
-    }
 
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
     ) = FragmentEventsBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(eventViewModel)
         locationPermission()
         cardViewRTL()
         setupToolbarWithSearchItems()
         subscribeToGpsListener()
-        subscribeToObservables()
+        
+        if (!this::mAdapterMore.isInitialized){
+            rvSetUp()
+            subscribeToObservables()
+        }
+
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
             eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
@@ -126,7 +124,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
 
     private fun subscribeToGpsListener() = eventViewModel.gpsStatusLiveData
-        .observe(viewLifecycleOwner, gpsObserver)
+            .observe(viewLifecycleOwner, gpsObserver)
 
     private fun rvSetUp() {
         mAdapterNear = GroupAdapter()
@@ -174,18 +172,18 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             animationView.visibility = View.GONE
             if (isArabic()) {
                 cardivewRTL?.shapeAppearanceModel =
-                    cardivewRTL!!.shapeAppearanceModel
-                        .toBuilder()
-                        .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                        .setTopRightCornerSize(radius)
-                        .build()
+                        cardivewRTL!!.shapeAppearanceModel
+                                .toBuilder()
+                                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                                .setTopRightCornerSize(radius)
+                                .build()
             } else {
                 cardivewRTL?.shapeAppearanceModel =
-                    cardivewRTL!!.shapeAppearanceModel
-                        .toBuilder()
-                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                        .setBottomRightCornerSize(radius)
-                        .build()
+                        cardivewRTL!!.shapeAppearanceModel
+                                .toBuilder()
+                                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                                .setBottomRightCornerSize(radius)
+                                .build()
             }
         }
     }
@@ -193,23 +191,29 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     private fun locationPermission() {
         try {
             val quickPermissionsOption = QuickPermissionsOptions(
-                handleRationale = false
+                    handleRationale = false
             )
 
             activity.runWithPermissions(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                options = quickPermissionsOption
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    options = quickPermissionsOption
             ) {
                 locationHelper.locationSetUp(
-                    object : LocationHelper.LocationLatLng {
-                        override fun getCurrentLocation(location: Location) {
-                            lat = location.latitude
-                            lng = location.longitude
-                            Timber.e("Current Location ${location.latitude}")
+                        object : LocationHelper.LocationLatLng {
+                            override fun getCurrentLocation(location: Location) {
+                                lat = location.latitude
+                                lng = location.longitude
+                                Timber.e("Current Location ${location.latitude}")
+                            }
+                        },
+                        object : LocationCallback() {
+                            override fun onLocationResult(locationResult: LocationResult) {
+                                lat = locationResult.lastLocation.latitude
+                                lng = locationResult.lastLocation.longitude
+                                eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
+                            }
                         }
-                    },
-                    locationCallback
                 )
             }
         } catch (ex: Exception) {
@@ -266,7 +270,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                     binding.viewAllEvents.visibility = View.VISIBLE
                     binding.tvMoreEventTitle.visibility = View.VISIBLE
                     it.let {
-                        rvSetUp()
+
 
                         if (mAdapterMore.itemCount > 0) {
                             mAdapterMore.clear()
@@ -281,18 +285,18 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                         it.value.events!!.forEach {
                             moreList.add(it)
                             mAdapterMore.add(EventListItem<EventItemsBinding>(object :
-                                FavouriteChecker {
+                                    FavouriteChecker {
                                 override fun checkFavListener(
-                                    checkbox: CheckBox,
-                                    pos: Int,
-                                    isFav: Boolean,
-                                    itemId: String,
+                                        checkbox: CheckBox,
+                                        pos: Int,
+                                        isFav: Boolean,
+                                        itemId: String,
                                 ) {
                                     favouriteClick(
-                                        checkbox,
-                                        isFav,
-                                        R.id.action_eventsFragment_to_postLoginFragment,
-                                        itemId, eventViewModel
+                                            checkbox,
+                                            isFav,
+                                            R.id.action_eventsFragment_to_postLoginFragment,
+                                            itemId, eventViewModel
                                     )
                                 }
 
@@ -301,12 +305,12 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                     val eventObj = moreList[position]
                                     val bundle = Bundle()
                                     bundle.putParcelable(
-                                        Constants.NavBundles.EVENT_OBJECT,
-                                        eventObj
+                                            Constants.NavBundles.EVENT_OBJECT,
+                                            eventObj
                                     )
                                     navigate(
-                                        R.id.action_eventsFragment_to_eventDetailFragment2,
-                                        bundle
+                                            R.id.action_eventsFragment_to_eventDetailFragment2,
+                                            bundle
                                     )
                                 }
 
@@ -320,34 +324,34 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
                         sortNearEvent(it.value.events!!).forEach {
                             mAdapterNear.add(EventListItem<EventItemsBinding>(
-                                object : FavouriteChecker {
-                                    override fun checkFavListener(
-                                        checkbox: CheckBox,
-                                        pos: Int,
-                                        isFav: Boolean,
-                                        itemId: String,
-                                    ) {
-                                        favouriteClick(
-                                            checkbox,
-                                            isFav,
-                                            R.id.action_eventsFragment_to_postLoginFragment,
-                                            itemId, eventViewModel
-                                        )
-                                    }
+                                    object : FavouriteChecker {
+                                        override fun checkFavListener(
+                                                checkbox: CheckBox,
+                                                pos: Int,
+                                                isFav: Boolean,
+                                                itemId: String,
+                                        ) {
+                                            favouriteClick(
+                                                    checkbox,
+                                                    isFav,
+                                                    R.id.action_eventsFragment_to_postLoginFragment,
+                                                    itemId, eventViewModel
+                                            )
+                                        }
 
-                                }, object : RowClickListener {
-                                    override fun rowClickListener(position: Int) {
-                                        val eventObj = nearList[position]
-                                        val bundle = Bundle()
-                                        bundle.putParcelable(
+                                    }, object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
+                                    val eventObj = nearList[position]
+                                    val bundle = Bundle()
+                                    bundle.putParcelable(
                                             Constants.NavBundles.EVENT_OBJECT,
                                             eventObj
-                                        )
-                                        navigate(
+                                    )
+                                    navigate(
                                             R.id.action_eventsFragment_to_eventDetailFragment2,
                                             bundle
-                                        )
-                                    }
+                                    )
+                                }
 
                                 override fun rowClickListener(position: Int, imageView: ImageView) {
 
@@ -365,18 +369,18 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                             it.value.featureEvents!!.forEach {
                                 featureList.add(it)
                                 groupAdapter.add(EventListItem<EventItemsBinding>(object :
-                                    FavouriteChecker {
+                                        FavouriteChecker {
                                     override fun checkFavListener(
-                                        checkbox: CheckBox,
-                                        pos: Int,
-                                        isFav: Boolean,
-                                        itemId: String,
+                                            checkbox: CheckBox,
+                                            pos: Int,
+                                            isFav: Boolean,
+                                            itemId: String,
                                     ) {
                                         favouriteClick(
-                                            checkbox,
-                                            isFav,
-                                            R.id.action_eventsFragment_to_postLoginFragment,
-                                            itemId, eventViewModel
+                                                checkbox,
+                                                isFav,
+                                                R.id.action_eventsFragment_to_postLoginFragment,
+                                                itemId, eventViewModel
                                         )
                                     }
 
@@ -385,12 +389,12 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                         val eventObj = featureList[position]
                                         val bundle = Bundle()
                                         bundle.putParcelable(
-                                            Constants.NavBundles.EVENT_OBJECT,
-                                            eventObj
+                                                Constants.NavBundles.EVENT_OBJECT,
+                                                eventObj
                                         )
                                         navigate(
-                                            R.id.action_eventsFragment_to_eventDetailFragment2,
-                                            bundle
+                                                R.id.action_eventsFragment_to_eventDetailFragment2,
+                                                bundle
                                         )
                                     }
 
@@ -426,10 +430,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         val sortedList = ArrayList<Events>()
         list.forEach {
             val distance = locationHelper.distance(
-                lat ?: 24.8623,
-                lng ?: 67.0627,
-                it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
-                it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble()
+                    lat ?: 24.8623,
+                    lng ?: 67.0627,
+                    it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
+                    it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble()
             )
             it.distance = distance
             it.currentLat = lat ?: 24.8623

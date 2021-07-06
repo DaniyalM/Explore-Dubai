@@ -49,7 +49,7 @@ class UserRepository @Inject constructor(
                         }
                  }
                     else ->{
-//                        userLDS.getUser()?.let { userLDS.delete(it) }
+                        userLDS.getUser()?.let { userLDS.delete(it) }
                         Result.Failure(resultRDS.value.succeeded, resultRDS.value.statusCode, null,errorMessage = resultRDS.value.errorMessage)
                     }
                 }
@@ -93,4 +93,5 @@ class UserRepository @Inject constructor(
     }
 
     suspend fun deleteUser(user: User) = userLDS.delete(user)
+    suspend fun deleteGuestUser(guestUser: Guest) = guestLDS.delete(guestUser)
 }

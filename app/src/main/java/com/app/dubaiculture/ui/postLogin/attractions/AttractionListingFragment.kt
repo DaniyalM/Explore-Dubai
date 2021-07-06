@@ -37,12 +37,20 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     //    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractionCat: AttractionCategory
+    private var lastFirstVisiblePosition: Int = 0
 
     //    private var searchQuery: String = ""
     private var pageNumber: Int = 1
     private var pageSize: Int = 3
     var contentLoaded = false
     var contentLoadMore = true
+
+    override fun onPause() {
+        super.onPause()
+        lastFirstVisiblePosition =
+                (binding.rvAttractionListing.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+
+    }
 
 
     companion object {
@@ -71,6 +79,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
+
         callingObservables()
         subscribeToObservables()
     }
@@ -115,11 +124,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-
                     contentLoadMore = true
-
-
-
                     if (pageNumber == 1) {
                         if (groupAdapter.itemCount > 0) {
                             groupAdapter.clear()
@@ -288,8 +293,12 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                     }
                 }
             })
+            try {
+                binding.rvAttractionListing.smoothScrollToPosition(lastFirstVisiblePosition)
+            }catch (ex:IllegalArgumentException){ }
 
         }
+
     }
 
 
@@ -299,10 +308,11 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
             is AttractionServices.TriggerRefresh -> {
                 if (groupAdapter.itemCount > 0) {
                     groupAdapter.clear()
+                    contentLoaded = false
+                    pageNumber = 1
+                    callingObservables()
                 }
-                contentLoaded = false
-                pageNumber = 1
-                callingObservables()
+
             }
         }
     }

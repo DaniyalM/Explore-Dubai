@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.more
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.app.dubaiculture.ui.postLogin.more.adapter.MoreItems
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
+import com.app.dubaiculture.utils.Constants.NavBundles.SETTING_DESTINATION
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY
 import com.app.dubaiculture.utils.SettingsUtils.newsList
@@ -35,14 +37,27 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     private val moreViewModel: MoreViewModel by viewModels()
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
+    var navigateSettings = false
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ) = FragmentMoreBinding.inflate(inflater, container, false)
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.let {
+           navigateSettings = it.getBoolean(SETTING_DESTINATION)
+        }
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (navigateSettings) {
+            navigateSettings=false
+            navigate(R.id.action_moreFragment_to_settingFragment)
+        }
         subscribeUiEvents(moreViewModel)
         bgAboutRTL(binding.imgEagle)
         binding.llRateUs.setOnClickListener(this)
@@ -77,6 +92,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         }
         rvSetUp()
         cardViewRTL()
+
     }
 
     private fun cardViewRTL() {

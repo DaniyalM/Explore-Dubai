@@ -36,6 +36,7 @@ import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceL
 import com.app.dubaiculture.utils.AppConfigUtils
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
+import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
@@ -276,18 +277,17 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                     }
 
                                     override fun rowClickListener(position: Int, imageView: ImageView) {
-                                        imageView.transitionName=attraction.id
-                                        val extras = FragmentNavigatorExtras(
-                                                imageView to attraction.id!!
-                                        )
-                                        fragment?.navigate(R.id.action_exploreFragment_to_attractionDetailFragment,
+//                                        imageView.transitionName=attraction.id
+//                                        val extras = FragmentNavigatorExtras(
+//                                                imageView to attraction.id!!
+//                                        )
+                                        fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,
                                                 Bundle().apply {
                                                     putParcelable(
-                                                            Constants.NavBundles.ATTRACTION_OBJECT,
+                                                            ATTRACTION_OBJECT,
                                                             transformBaseToAttraction(attraction)
                                                     )
-                                                },
-                                        extras=extras)
+                                                })
 
                                     }
                                 },

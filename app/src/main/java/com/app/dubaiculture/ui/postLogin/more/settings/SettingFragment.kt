@@ -55,7 +55,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
             }
         }
         initiateRequest()
-        profileViewModel.getSettings()
         subscribeToObservable()
         markPushNotificationSwitch()
 

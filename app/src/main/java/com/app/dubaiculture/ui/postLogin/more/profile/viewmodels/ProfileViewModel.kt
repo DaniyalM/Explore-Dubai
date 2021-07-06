@@ -48,6 +48,10 @@ class ProfileViewModel @ViewModelInject constructor(
     private val errs_ = MutableLiveData<Int>()
     val errs: LiveData<Int> = errs_
 
+    init {
+        getSettings()
+    }
+
     fun uploadProfile(uri: String, application: ApplicationEntry) {
         viewModelScope.launch {
             showLoader(true)
