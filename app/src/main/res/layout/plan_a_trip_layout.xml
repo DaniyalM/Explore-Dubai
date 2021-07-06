@@ -8,7 +8,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardivewRTL"
         android:layout_marginStart="@dimen/_15sdp"
-        android:outlineSpotShadowColor="@color/gray_600"
+        android:outlineSpotShadowColor="?attr/color_card_views_shadow"
         android:foreground="@drawable/custom_ripple_black"
         android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_10sdp"
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:text="@string/turn_on_your_location_to_view_nearby_events"
-                    android:textColor="@color/black_200"
+                    android:textColor="?attr/colorSecondary"
                     android:textSize="@dimen/_14sdp" />
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView

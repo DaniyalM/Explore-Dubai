@@ -5,7 +5,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="match_parent"
-        android:background="#fff"
         android:layout_height="wrap_content"
         >
 
@@ -17,7 +16,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/attractions"
             android:elevation="@dimen/_10sdp"
-            android:textColor="@color/black_900"
+            android:textColor="?attr/colorSecondary"
             android:textSize="@dimen/_20sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -86,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_16sdp"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/plan_your_trip" />
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView

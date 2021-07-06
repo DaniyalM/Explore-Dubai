@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
@@ -10,6 +11,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
+import com.app.dubaiculture.utils.getColorFromAttr
 //import com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector.Companion.clickCheckerFlag
 import com.app.dubaiculture.utils.glideInstance
 import com.google.android.material.card.MaterialCardView
@@ -38,7 +40,8 @@ class AttractionHeaderItems<T>(
             root?.let { it ->
                 it.tv_title.text = displayValue
                 isSelected = clickCheckerFlag == position
-                renderSelection(it.tv_title, it.imgInnerIcon,  it.cardview)
+                renderSelection(it.tv_title, it.imgInnerIcon,  it.cardview,
+                )
                 it.setOnClickListener {
                     progressListener?.onClick(position)
                     if (clickCheckerFlag == position) {
@@ -57,7 +60,7 @@ class AttractionHeaderItems<T>(
 
     private fun renderSelection(
         textView: TextView,  imgInner: ImageView,
-        view: MaterialCardView,
+        view: MaterialCardView
     ) {
         if (isSelected) {
             view.setCardBackgroundColor(Color.parseColor(colorBg))
@@ -68,8 +71,7 @@ class AttractionHeaderItems<T>(
             }
 
         } else {
-            view.setCardBackgroundColor(ContextCompat.getColor(view.context,
-                R.color.white_900))
+            view.setCardBackgroundColor(view.context.getColorFromAttr(R.attr.colorOnSecondary))
             textView.setTextColor(ContextCompat.getColor(view.context,R.color.gray_700))
             unSelectedInnerImg?.let { drawable ->
                 imgInner.glideInstance(drawable, true).into(imgInner)

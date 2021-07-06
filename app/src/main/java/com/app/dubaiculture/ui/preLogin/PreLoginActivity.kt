@@ -19,7 +19,6 @@ class PreLoginActivity : BaseActivity() {
         hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
 //        val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-        applicationExitDialog()
 
     }
 
@@ -28,21 +27,6 @@ class PreLoginActivity : BaseActivity() {
         adjustFontScale(resources.configuration)
     }
 
-    private fun applicationExitDialog() {
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    showAlert(
-                        message = getString(R.string.error_msg),
-                        textPositive = getString(R.string.okay),
-                        textNegative = getString(R.string.cancel),
-                        actionPositive = {
-                            finish()
-                        }
-                    )
-                }
-            }
-      onBackPressedDispatcher.addCallback(this, callback)
-    }
+
 
 }

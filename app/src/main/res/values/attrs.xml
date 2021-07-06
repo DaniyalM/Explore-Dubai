@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="color_dubai_logo" format="color" />
+    <attr name="color_light_gray_svg" format="color"/>
+    <attr name="color_light_white_dark_gray" format="color"/>
+    <attr name="color_edit_text_bg" format="color"/>
+    <attr name="color_card_views_shadow" format="color"/>
+
+
     <declare-styleable name="CustomTextView">
         <attr name="textFont" format="enum">
             <enum name="light" value="0" />

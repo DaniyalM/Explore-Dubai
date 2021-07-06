@@ -4,8 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
+import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableField
@@ -160,6 +163,15 @@ fun <R> Fragment.getNavigationResult(key: String) =
 fun Fragment.setNavigationResult(key: String, data: Any?) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
 
+}
+@ColorInt
+fun Context.getColorFromAttr(
+        @AttrRes attrColor: Int,
+        typedValue: TypedValue = TypedValue(),
+        resolveRefs: Boolean = true
+): Int {
+    theme.resolveAttribute(attrColor, typedValue, resolveRefs)
+    return typedValue.data
 }
 
 fun dateFormat(inputDate: String?): String {

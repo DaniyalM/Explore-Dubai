@@ -22,8 +22,8 @@
         <item name="colorPrimary">@color/purple_600</item>
         <item name="colorPrimaryVariant">@color/purple_900</item>
         <item name="colorOnPrimary">@color/white_900</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/gray_600</item>
+        <!-- Secondary brand color. Title -->
+        <item name="colorSecondary">@color/black_200</item>
         <item name="colorSecondaryVariant">@color/gray_800</item>
         <item name="colorOnSecondary">@color/white_900</item>
         <!-- Status bar color. -->
@@ -31,13 +31,21 @@
         <!-- Customize your theme here. -->
 
         <item name="colorSurface">@color/white_900</item>
-        <item name="colorOnSurface">@color/white_900</item>
+        <item name="colorOnSurface">@color/black_800</item>
         <!--for error-->
         <item name="colorOnError">@color/red_200</item>
         <item name="colorError">@color/red_600</item>
         <!--bg-->
         <item name="android:colorBackground">@color/white_900</item>
         <item name="colorOnBackground">@color/white_900</item>
+        <item name="android:navigationBarColor">@color/white_900</item>
+        <item name="color_dubai_logo">@color/purple_650</item>
+        <item name="color_light_gray_svg">@color/black_200</item>
+        <item name="color_light_white_dark_gray">@color/white_900</item>
+        <item name="color_edit_text_bg">@color/edit_text_white_shade_bg</item>
+        <item name="color_card_views_shadow">@color/gray_600</item>
+
+
 
 
     </style>
@@ -45,7 +53,7 @@
     <style name="Base.Theme.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">?android:attr/colorBackground</item>
+<!--        <item name="android:navigationBarColor" tools:ignore="NewApi">?android:attr/colorBackground</item>-->
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
         <item name="android:navigationBarDividerColor" tools:ignore="NewApi">?attr/colorControlHighlight</item>
     </style>
@@ -102,7 +110,8 @@
         <item name="android:popupBackground">@color/gray_600</item>
     </style>
 
-    app:track="@drawable/switch_track_circle_shape"
+<!--    app:track="@drawable/switch_track_circle_shape"-->
+
     <style name="SwitchStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

@@ -24,7 +24,6 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgSlider"
             android:scaleType="fitXY"
-            android:src="@drawable/must_see_icon_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </com.google.android.material.card.MaterialCardView>

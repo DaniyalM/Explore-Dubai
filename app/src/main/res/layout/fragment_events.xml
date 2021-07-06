@@ -20,7 +20,6 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -34,7 +33,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/feature_events"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="@dimen/_18ssp"
                         android:layout_marginStart="@dimen/_15sdp"
                         />
@@ -62,7 +61,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/events_near_you"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="@dimen/_18ssp"
                         android:layout_marginStart="@dimen/_15sdp"
                         />
@@ -110,7 +109,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/more_events"
-                            android:textColor="@color/black_200"
+                            android:textColor="?attr/colorSecondary"
                             android:textSize="@dimen/_18ssp"
                             android:layout_marginStart="@dimen/_15sdp"
                             />
@@ -121,6 +120,7 @@
                             android:textSize="@dimen/_12ssp"
                             android:foreground="@drawable/custom_ripple_border"
                             android:gravity="end"
+                            android:textColor="?attr/colorSecondary"
                             android:id="@+id/view_all_events"
                             android:layout_marginEnd="@dimen/_15sdp"
                             />

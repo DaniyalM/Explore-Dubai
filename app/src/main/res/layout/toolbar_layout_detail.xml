@@ -43,7 +43,7 @@
                         android:layout_height="match_parent"
                         android:transitionName="imageView"
                         android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/must_see_icon_home" />
+                         />
 
                     <View
                         android:layout_width="match_parent"

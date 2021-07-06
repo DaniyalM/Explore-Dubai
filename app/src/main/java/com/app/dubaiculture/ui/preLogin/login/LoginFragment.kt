@@ -42,8 +42,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
         loginViewModel.getUserIfExists()
-
-
+        applicationExitDialog()
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)

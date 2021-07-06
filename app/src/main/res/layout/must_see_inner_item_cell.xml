@@ -92,7 +92,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="@{attractions.title}"
-                    android:textColor="@color/white_900"
+                    android:textColor="?attr/color_light_white_dark_gray"
                     android:textSize="@dimen/_14ssp" />
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView

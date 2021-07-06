@@ -54,13 +54,13 @@
                         android:layout_marginStart="@dimen/_15sdp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/materialCardView2"
                         app:cardElevation="@dimen/_12sdp"
-                        android:outlineSpotShadowColor="@color/gray_600"
+                        android:outlineSpotShadowColor="?attr/color_card_views_shadow"
                         app:cardCornerRadius="@dimen/_8sdp"
                         android:layout_width="0dp"
                         android:layout_marginTop="@dimen/_10sdp"
@@ -92,7 +92,7 @@
                                 android:maxLines="2"
                                 android:ellipsize="end"
                                 android:textSize="@dimen/_13ssp"
-                                android:textColor="@color/black_200"
+                                android:textColor="?attr/colorSecondary"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 />
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -120,7 +120,7 @@
                         android:layout_height="@dimen/_115sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:outlineSpotShadowColor="@color/gray_600"
+                        android:outlineSpotShadowColor="?attr/color_card_views_shadow"
                         app:cardCornerRadius="@dimen/_8sdp"
                         app:cardElevation="@dimen/_12sdp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -147,7 +147,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:text="@string/notifications"
-                                android:textColor="@color/black_200"
+                                android:textColor="?attr/colorSecondary"
                                 android:textSize="@dimen/_13ssp" />
 
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -172,7 +172,7 @@
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginTop="16dp"
                         android:text="@string/services"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="@dimen/_15ssp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/materialCardView4" />
@@ -184,7 +184,7 @@
                         app:cardElevation="@dimen/_12sdp"
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:outlineSpotShadowColor="@color/gray_600"
+                        android:outlineSpotShadowColor="?attr/color_card_views_shadow"
                         app:cardCornerRadius="@dimen/_8sdp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
@@ -214,12 +214,12 @@
                         android:layout_marginStart="@dimen/_15sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cardview_service"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         />
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardview_ur_voice"
                         app:cardElevation="@dimen/_12sdp"
-                        android:outlineSpotShadowColor="@color/gray_600"
+                        android:outlineSpotShadowColor="?attr/color_card_views_shadow"
                         app:cardCornerRadius="@dimen/_8sdp"
                         android:layout_width="0dp"
                         android:layout_marginTop="@dimen/_10sdp"
@@ -246,7 +246,7 @@
                                 android:textSize="@dimen/_12sdp"
                                 android:layout_marginTop="@dimen/_4sdp"
                                 android:text="@string/share_this_app"
-                                android:textColor="@color/black_200"
+                                android:textColor="?attr/colorSecondary"
                                 />
 
                         </LinearLayout>
@@ -257,7 +257,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
                         app:cardElevation="@dimen/_12sdp"
-                        android:outlineSpotShadowColor="@color/gray_600"
+                        android:outlineSpotShadowColor="?attr/color_card_views_shadow"
                         app:cardCornerRadius="@dimen/_8sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintWidth_percent="0.42"
@@ -285,7 +285,7 @@
                                 android:layout_marginTop="@dimen/_4sdp"
                                 android:text="@string/rate_us"
                                 android:textSize="@dimen/_12sdp"
-                                android:textColor="@color/black_200"
+                                android:textColor="?attr/colorSecondary"
                                 />
 
                         </LinearLayout>
@@ -301,7 +301,7 @@
                         android:layout_marginStart="@dimen/_15sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cardview_ur_voice"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         />
 
 
@@ -310,7 +310,7 @@
                         android:id="@+id/cardview_about_info"
                         android:layout_width="0dp"
                         app:cardElevation="@dimen/_12sdp"
-                        android:outlineSpotShadowColor="@color/gray_600"
+                        android:outlineSpotShadowColor="?attr/color_card_views_shadow"
                         app:cardCornerRadius="@dimen/_8sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_height="158dp"
@@ -336,7 +336,7 @@
                                 android:textAlignment="viewStart"
                                 android:layout_marginTop="@dimen/_10sdp"
                                 android:layout_marginStart="@dimen/_15sdp"
-                                android:textColor="@color/black_200"
+                                android:textColor="?attr/colorSecondary"
                                 />
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/img_eagle"
@@ -378,7 +378,7 @@
                         android:layout_marginStart="@dimen/_15sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/rv_news"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         />
 
 

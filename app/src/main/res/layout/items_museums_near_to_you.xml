@@ -11,7 +11,6 @@
         android:elevation="@dimen/_5sdp"
         android:layout_width="@dimen/_75sdp"
         android:layout_height="@dimen/_75sdp"
-        android:src="@drawable/must_see_icon_home"
         app:cornerRadius="@dimen/_10sdp"
         android:scaleType="fitXY"
         app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight"

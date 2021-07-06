@@ -126,21 +126,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         AppConfigUtils.clickCheckerFlag = position
-//                                        context.startActivity(
-//                                            Intent(
-//                                                context,
-//                                                AttractionActivity::class.java
-//                                            )
-//                                        )
-
-
                                    fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,Bundle().apply {
                                        putInt(ATTRACTION_CAT_OBJECT,position)
                                    })
                                     }
-
                                     override fun rowClickListener(position: Int, imageView: ImageView) {
-
                                     }
                                 },
                                 isArabic = isArabic ?: false

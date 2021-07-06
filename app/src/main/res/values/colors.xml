@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-<!--    SearchView Color Palette-->
+    <!--    SearchView Color Palette-->
     <color name="bgSearch">#ECF0F4</color>
 
     <!--  bottom tabs - home-->
@@ -14,30 +14,36 @@
 
     <color name="app_bg">@color/white_900</color>
 
+    <color name="edit_text_white_shade_bg">#f8f8f8</color>
 
 
-  <color name="purple_900">#5E2E82</color>
-  <color name="purple_600">#6D438D</color>
+    <color name="purple_900">#5E2E82</color>
+    <color name="purple_600">#6D438D</color>
+    <color name="purple_650">#5D2E82</color>
 
-  <color name="black_800">#121212</color> <!--Color surface (dark)-->
-  <!--Color on secondary (light), color on background (light),-->
-  <!--color on surface (light)-->
-  <color name="black_900">#000000</color>
+    <color name="black_800">#121212</color> <!--Color surface (dark)-->
+    <!--Color on secondary (light), color on background (light),-->
+    <!--color on surface (light)-->
+    <color name="black_900">#000000</color>
+    <color name="bg_app_black_900">#0A0A0A</color>
 
     <color name="black_700">#272727</color>
+    <color name="black_750">#151515</color>
 
-  <color name="red_200">#cf6679</color> <!--Color error (dark)-->
-  <color name="red_600">#b00020</color> <!--Color error (light)-->
+
+    <color name="red_200">#cf6679</color> <!--Color error (dark)-->
+    <color name="red_600">#b00020</color> <!--Color error (light)-->
 
     <color name="sea_green">#0FBFB5</color> <!--Color error (light)-->
 
     <!--Color surface (light), color on error (light), -->
-  <!--color on surface (dark), color on surface (dark)-->
-  <color name="white_900">#ffffff</color>
+    <!--color on surface (dark), color on surface (dark)-->
+    <color name="white_900">#ffffff</color>
 
-  <color name="gray_800">#707379</color>
-  <color name="gray_600">#B7B9BC</color>
+    <color name="gray_800">#707379</color>
+    <color name="gray_600">#B7B9BC</color>
     <color name="gray_700">#6F7377</color>
+    <color name="gray_400">#D5D5D6</color>
 
     <color name="gray_750">#707378</color>
     <color name="gray_500">#969696</color>
@@ -46,18 +52,17 @@
     <color name="map_radius_color">#00FFAA</color>
 
 
-
     <color name="green_error">#4bb543</color>
 
     <!--Login screen-->
-  <color name="black_200">#2A2D31</color>
+    <color name="black_200">#2A2D31</color>
     <color name="orange">#FE6500</color>
     <color name="disabled">#dddddd</color>
 
     <!--    Alert Dialog  -->
     <color name="alert_title">#231F20</color>
 
-<!--    Explore Attraction Color Palatte-->
+    <!--    Explore Attraction Color Palatte-->
     <string-array name="colors">
         <item>#572C82</item>
         <item>#00BBAE</item>

@@ -21,25 +21,41 @@
         <item name="colorPrimary">@color/purple_600</item>
         <item name="colorPrimaryVariant">@color/purple_900</item>
 
-        <!--for text title color-->
-        <item name="colorSecondary">@color/gray_600</item>
+        <!--for TextView title color-->
+        <item name="colorSecondary">@color/gray_400</item>
+        <item name="color_light_white_dark_gray">@color/gray_400</item>
         <item name="colorSecondaryVariant">@color/gray_800</item>
 
-        <item name="colorOnPrimary">@color/black_900</item>
-        <item name="colorOnSecondary">@color/black_900</item>
 
-        <item name="colorOnBackground">@color/black_900</item>
-        <item name="android:colorBackground">@color/black_900</item>
+        <!--Cardview colors-->
+        <item name="colorOnPrimary">@color/bg_app_black_900</item>
+        <item name="colorOnSecondary">@color/black_750</item>
 
+        <!--for background color through out the app-->
+        <item name="colorOnBackground">@color/bg_app_black_900</item>
+        <item name="android:colorBackground">@color/bg_app_black_900</item>
 
-        <item name="colorSurface">@color/black_800</item>
-        <item name="colorOnSurface">@color/white_900</item>
+        <!--for all material card and card view-->
+        <item name="colorSurface">@color/black_900</item>
+        <!--back arrow svgs-->
+        <item name="colorOnSurface">@color/gray_400</item>
 
         <item name="colorOnError">@color/red_600</item>
         <item name="colorError">@color/red_200</item>
 
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
+
+        <item name="android:navigationBarColor">@color/black_900</item>
+
+        <!--for dubai logo svg-->
+        <item name="color_dubai_logo">@color/white_900</item>
+        <item name="color_light_gray_svg">@color/gray_400</item>
+        <item name="color_edit_text_bg">@color/black_750</item>
+        <!--cardview shadow color-->
+        <item name="color_card_views_shadow">@color/black_900</item>
+
+
     </style>
     <style name="WindowAnimationTransition">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>

@@ -10,7 +10,6 @@ import com.app.dubaiculture.utils.Constants.IBecons.UUID_BECON
 import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.PushNotificationManager
 import com.app.dubaiculture.utils.ThemeUtil
-import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion
 import com.estimote.coresdk.recognition.packets.Beacon
 import com.estimote.coresdk.service.BeaconManager
@@ -61,9 +60,6 @@ class ApplicationEntry : Application() {
                     override fun onScanStop() {
                     }
                 })
-
-
-
                 beaconManager.setMonitoringListener(object :
                     BeaconManager.BeaconMonitoringListener {
                     override fun onEnteredRegion(
@@ -85,22 +81,14 @@ class ApplicationEntry : Application() {
                                     + "Looks like you've got plenty of time!", resultPendingIntent
                         )
                     }
-
                     override fun onExitedRegion(beaconRegion: BeaconRegion?) {
                     }
 
                 })
             }
         })
-
-
-
         isInternetActive = NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
-        ThemeUtil.applyTheme("light")
-
+        ThemeUtil.applyTheme("dark")
     }
-
-
-
 }
