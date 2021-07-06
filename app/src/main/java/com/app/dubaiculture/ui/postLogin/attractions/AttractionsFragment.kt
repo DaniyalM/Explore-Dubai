@@ -51,6 +51,12 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private fun initiateRequest() {
 
         binding.swipeRefresh.apply {
+            if (!contentLoaded) {
+                post {
+                    binding.swipeRefresh.isRefreshing = true
+                    attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+                }
+            }
 
             setColorSchemeResources(
                     R.color.colorPrimary,
@@ -100,7 +106,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
 
     private fun initiatePager() {
-
+        if (!contentLoaded) {
             pagerAdapter = AttractionPagerAdaper(this)
             binding.pager.apply {
                 isUserInputEnabled = false
@@ -108,7 +114,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 adapter = pagerAdapter
             }
 
-
+        }
     }
 
 
