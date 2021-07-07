@@ -4,6 +4,7 @@
     <dimen name="my_corner_radius">24dp</dimen>
     <dimen name="my_corner_radius_plan">35dp</dimen>
     <dimen name="my_corner_radius_corner">0dp</dimen>
+    <dimen name="_5sdp">5.00dp</dimen>
 
 
 </resources>

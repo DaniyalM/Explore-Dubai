@@ -41,7 +41,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
-        loginViewModel.getUserIfExists()
         applicationExitDialog()
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
@@ -97,7 +96,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             binding.imgUaePass.setImageResource(R.drawable.uae_pass)
         }
         lifecycleScope.launch {
-            Timber.e("Token: ${getFcmToken()}")
+//            Timber.e("Token: ${getFcmToken()}")
         }
     }
 

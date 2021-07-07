@@ -22,9 +22,9 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class LoginViewModel @ViewModelInject constructor(
-        private val loginRepository: LoginRepository,
-        private val userRepository: UserRepository,
-        application: Application,
+    private val loginRepository: LoginRepository,
+    private val userRepository: UserRepository,
+    application: Application,
 ) : BaseViewModel(application) {
     var phone: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
@@ -55,6 +55,10 @@ class LoginViewModel @ViewModelInject constructor(
 
     private var passwordError_ = MutableLiveData<Int>()
     var passwordError: LiveData<Int> = passwordError_
+
+    init {
+        getUserIfExists()
+    }
 
 
     fun getUserIfExists() {
@@ -99,8 +103,8 @@ class LoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                    phoneNumber = ph.toString().trim(),
-                    password = pass.toString().trim()
+                phoneNumber = ph.toString().trim(),
+                password = pass.toString().trim()
             ).let {
                 when (val result = loginRepository.login(it)) {
                     is Result.Success -> {
@@ -112,19 +116,26 @@ class LoginViewModel @ViewModelInject constructor(
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
 
-                                setUser(transform(result.value.loginResponseDTO.userDTO,
-                                        result.value.loginResponseDTO))
+                                setUser(
+                                    transform(
+                                        result.value.loginResponseDTO.userDTO,
+                                        result.value.loginResponseDTO
+                                    )
+                                )
 
                                 userRepository.saveUser(
-                                        userDTO = result.value.loginResponseDTO.userDTO,
-                                        loginResponseDTO = result.value.loginResponseDTO)
+                                    userDTO = result.value.loginResponseDTO.userDTO,
+                                    loginResponseDTO = result.value.loginResponseDTO
+                                )
 
                             }
 
                         } else {
                             showLoader(false)
-                            showErrorDialog(message = result.value.errorMessage,
-                                    colorBg = R.color.red_600)
+                            showErrorDialog(
+                                message = result.value.errorMessage,
+                                colorBg = R.color.red_600
+                            )
                         }
                     }
                     is Result.Error -> {
@@ -148,8 +159,8 @@ class LoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                    email = eml.toString().trim(),
-                    password = pass.toString().trim()
+                email = eml.toString().trim(),
+                password = pass.toString().trim()
             ).let {
                 when (val result = loginRepository.loginWithEmail(it)) {
                     is Result.Success -> {
@@ -162,17 +173,24 @@ class LoginViewModel @ViewModelInject constructor(
                                 resendEmailVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
-                                setUser(transform(result.value.loginResponseDTO.userDTO,
-                                        result.value.loginResponseDTO))
+                                setUser(
+                                    transform(
+                                        result.value.loginResponseDTO.userDTO,
+                                        result.value.loginResponseDTO
+                                    )
+                                )
 
                                 userRepository.saveUser(
-                                        userDTO = result.value.loginResponseDTO.userDTO,
-                                        loginResponseDTO = result.value.loginResponseDTO
+                                    userDTO = result.value.loginResponseDTO.userDTO,
+                                    loginResponseDTO = result.value.loginResponseDTO
                                 )
                             }
                         } else {
                             showLoader(false)
-                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
+                            showErrorDialog(
+                                message = result.value.errorMessage,
+                                colorBg = R.color.red_600
+                            )
 
 
                         }
@@ -195,7 +213,7 @@ class LoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                    email = phone.get().toString().trim()
+                email = phone.get().toString().trim()
             ).let {
                 when (val result = loginRepository.resendVerification(it)) {
                     is Result.Success -> {
@@ -214,7 +232,10 @@ class LoginViewModel @ViewModelInject constructor(
                         } else {
                             showLoader(false)
                             if (result.value.errorMessage.isNullOrEmpty()) {
-                                showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
+                                showErrorDialog(
+                                    message = result.value.errorMessage,
+                                    colorBg = R.color.red_600
+                                )
                             }
 
 
@@ -237,7 +258,7 @@ class LoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                    phoneNumber = phone.get().toString().trim()
+                phoneNumber = phone.get().toString().trim()
             ).let {
                 when (val result = loginRepository.resendVerification(it)) {
                     is Result.Success -> {
@@ -254,7 +275,10 @@ class LoginViewModel @ViewModelInject constructor(
 //                                    screenName = COMES_FROM_LOGIN))
 
                         } else {
-                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
+                            showErrorDialog(
+                                message = result.value.errorMessage,
+                                colorBg = R.color.red_600
+                            )
 
                         }
                     }
