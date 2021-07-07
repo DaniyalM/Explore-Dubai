@@ -3,6 +3,7 @@
 
     <style name="Theme.MyApp" parent="Base.Theme.MyApp">
 
+
         <!-- Primary brand color. -->
 <!--        <item name="colorPrimary">@color/green_light</item>-->
 <!--        <item name="colorPrimaryVariant">@color/green</item>-->
@@ -32,7 +33,7 @@
         <item name="colorOnSecondary">@color/black_750</item>
 
         <!--for background color through out the app-->
-        <item name="colorOnBackground">@color/bg_app_black_900</item>
+        <item name="colorOnBackground">@color/black_750</item>
         <item name="android:colorBackground">@color/bg_app_black_900</item>
 
         <!--for all material card and card view-->

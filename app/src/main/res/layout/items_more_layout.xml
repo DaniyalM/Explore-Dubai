@@ -46,7 +46,7 @@
     <View
         android:id="@+id/dividerLine"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="1dp"
         android:background="@drawable/line_more_cardview"
         android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="@+id/img"
