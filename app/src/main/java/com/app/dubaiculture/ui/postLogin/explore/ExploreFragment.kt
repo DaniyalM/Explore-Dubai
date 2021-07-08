@@ -28,7 +28,6 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
-import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import javax.inject.Inject
 
 
@@ -87,7 +86,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                     android.R.color.holo_blue_dark
             )
         }
-        binding.root.img_drawer.setOnClickListener {
+        binding.toolbarSnippet.toolbarLayout.imgDrawer.setOnClickListener {
             locationPermission()
         }
 

@@ -12,7 +12,6 @@ import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.AsyncCell
 import com.google.android.material.shape.CornerFamily
-import kotlinx.android.synthetic.main.attractions_category_item_cell.view.*
 
 
 class AttractionInnerAdapter(
@@ -61,7 +60,7 @@ class AttractionInnerAdapter(
             val radius = resources.getDimension(R.dimen.my_corner_radius)
             val zeroDp = resources.getDimension(R.dimen.my_corner_radius)
             holder.itemView.binding?.apply {
-                attraction_image.setOnClickListener {
+                attractionImage.setOnClickListener {
                     rowClickListener!!.rowClickListener(position)
                 }
                 if (isArabic)

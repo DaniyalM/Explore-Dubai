@@ -45,7 +45,6 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.layout_back.view.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -84,12 +83,12 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
             lat = getDouble(LOCATION_LAT)
             lng = getDouble(LOCATION_LNG)
         }
-        backArrowRTL(binding.root.back)
+        backArrowRTL(binding.header.back)
         appendInAttractionCategoryList()
         lifecycleScope.launch {
             exploreMapViewModel.getExploreMap(getCurrentLanguage().language)
         }
-        binding.root.back.setOnClickListener(this)
+        binding.header.back.setOnClickListener(this)
         binding.ImgChangeView.setOnClickListener(this)
         mapSetUp()
         callingObserver()

@@ -15,7 +15,6 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.dateFormatVisitedPlace
 import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.GroupieViewHolder
-import kotlinx.android.synthetic.main.item_event_listing.view.*
 
 
 data class AttractionListItem<T : ViewDataBinding>(
@@ -45,7 +44,7 @@ data class AttractionListItem<T : ViewDataBinding>(
                         favourite.background = ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
                     }
                     favourite.setOnClickListener {
-                        favChecker?.checkFavListener(it.favourite,
+                        favChecker?.checkFavListener(favourite,
                                 position,
                                 attraction.IsFavourite,
                                 attraction.id)
@@ -69,7 +68,7 @@ data class AttractionListItem<T : ViewDataBinding>(
                         favourite.background = ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
                     }
                     favourite.setOnClickListener {
-                        favChecker?.checkFavListener(it.favourite,
+                        favChecker?.checkFavListener(favourite,
                                 position,
                                 attraction.IsFavourite,
                                 attraction.id)

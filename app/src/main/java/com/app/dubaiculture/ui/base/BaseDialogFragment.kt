@@ -31,7 +31,6 @@ import com.google.android.material.shape.CornerFamily
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import java.util.*
 
 abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
@@ -219,15 +218,15 @@ abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
     fun cardViewRTL(materialCardView: MaterialCardView) {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         if (isArabic()) {
-            binding.root.materialCardView?.shapeAppearanceModel =
-                binding.root.materialCardView!!.shapeAppearanceModel
+            materialCardView.shapeAppearanceModel =
+                materialCardView.shapeAppearanceModel
                     .toBuilder()
                     .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                     .setTopRightCornerSize(radius)
                     .build()
         } else {
-            binding.root.materialCardView?.shapeAppearanceModel =
-                binding.root.materialCardView!!.shapeAppearanceModel
+            materialCardView.shapeAppearanceModel =
+                materialCardView.shapeAppearanceModel
                     .toBuilder()
                     .setTopLeftCorner(CornerFamily.ROUNDED, radius)
                     .setBottomRightCornerSize(radius)

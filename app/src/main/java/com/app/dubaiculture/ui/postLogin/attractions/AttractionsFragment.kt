@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -19,7 +21,6 @@ import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_OBJECT
 import com.app.dubaiculture.utils.handleApiError
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
 
 @AndroidEntryPoint
@@ -110,7 +111,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             pagerAdapter = AttractionPagerAdaper(this)
             binding.pager.apply {
                 isUserInputEnabled = false
-                isSaveEnabled = true
+                isSaveEnabled = false
                 adapter = pagerAdapter
             }
 
@@ -156,10 +157,12 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
 
     private fun setupToolbarWithSearchItems() {
+
         binding.root.apply {
-            profilePic.visibility = View.GONE
-            img_drawer.visibility = View.GONE
-            toolbar_title.apply {
+
+            binding.toolbarSnippet.toolbarLayout.profilePic.visibility = View.GONE
+            binding.toolbarSnippet.toolbarLayout.imgDrawer.visibility = View.GONE
+            binding.toolbarSnippet.toolbarLayout.toolbarTitle.apply {
                 visibility = View.VISIBLE
                 text = activity.getString(R.string.attractions)
             }

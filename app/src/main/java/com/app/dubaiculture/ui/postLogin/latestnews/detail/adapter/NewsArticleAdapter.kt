@@ -2,9 +2,9 @@ package com.app.dubaiculture.ui.postLogin.latestnews.detail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import kotlinx.android.synthetic.main.item_news_article.view.*
 
 class NewsArticleAdapter (val mlist: List<String>) : RecyclerView.Adapter<NewsArticleAdapter.MyViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)  = MyViewHolder(parent)
@@ -20,7 +20,7 @@ class NewsArticleAdapter (val mlist: List<String>) : RecyclerView.Adapter<NewsAr
         LayoutInflater.from(parent.context)
         .inflate(R.layout.item_news_article, parent, false)){
         val context = itemView.context!!
-        val tvArticle = itemView.tv_title_category!!
+        val tvArticle = itemView.findViewById<TextView>(R.id.tv_title_category)!!
 
     }
 }

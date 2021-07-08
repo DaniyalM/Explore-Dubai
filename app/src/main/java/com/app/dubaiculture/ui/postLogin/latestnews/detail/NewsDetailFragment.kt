@@ -27,7 +27,6 @@ import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.attraction_detail_inner_layout.view.*
 import java.util.*
 
 

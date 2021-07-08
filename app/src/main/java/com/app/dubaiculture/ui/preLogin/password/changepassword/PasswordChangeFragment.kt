@@ -10,7 +10,6 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.preLogin.password.changepassword.viewmodel.ChangedPasswordViewModel
 import com.app.dubaiculture.ui.preLogin.password.viewModel.CreatePassViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.layout_back.view.*
 
 @AndroidEntryPoint
 class PasswordChangeFragment : BaseFragment<FragmentPasswordChangeBinding>() {
@@ -27,7 +26,7 @@ class PasswordChangeFragment : BaseFragment<FragmentPasswordChangeBinding>() {
         lottieAnimationRTL(binding.animationView)
         subscribeUiEvents(changedPasswordViewModel)
         binding.viewmodel = changedPasswordViewModel
-        binding.root.back.setOnClickListener {
+        binding.header.back.setOnClickListener {
             back()
         }
         callingObserver()

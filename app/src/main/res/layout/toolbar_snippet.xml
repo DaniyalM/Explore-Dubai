@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,18 +12,21 @@
         android:fitsSystemWindows="true">
 
 
-<!--       app:layout_scrollFlags="scroll|enterAlwaysCollapsed"       -->
+        <!--       app:layout_scrollFlags="scroll|enterAlwaysCollapsed"       -->
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/uniqueToolbar"
-                android:layout_marginTop="@dimen/_20sdp">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/uniqueToolbar"
+            android:layout_marginTop="@dimen/_20sdp">
 
-                <include layout="@layout/toolbar_layout"/>
+            <include android:id="@+id/toolbar_layout" layout="@layout/toolbar_layout"/>
 
-            </FrameLayout>
+        </FrameLayout>
 
 
     </com.google.android.material.appbar.AppBarLayout>
+
+
 </merge>
+</layout>

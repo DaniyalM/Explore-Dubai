@@ -9,7 +9,6 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.glideInstance
 import com.app.dubaiculture.utils.setTextColorRes
 import com.xwray.groupie.databinding.BindableItem
-import kotlinx.android.synthetic.main.explore_map_layout_headers.view.*
 
 class YourJourneyItems<T : ViewDataBinding>(
     private val rowClickListener: RowClickListener? = null,

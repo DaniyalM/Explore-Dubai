@@ -42,9 +42,7 @@ import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOption
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_events.view.*
-import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
-import kotlinx.android.synthetic.main.toolbar_layout.view.*
+
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -111,13 +109,13 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             bundle.putParcelableArrayList(EVENT_MAP_LIST, nearList as ArrayList<out Parcelable>)
             navigate(R.id.action_eventsFragment_to_eventNearMapFragment2, bundle)
         }
-        binding.root.view_all_events.setOnClickListener {
+        binding.viewAllEvents.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventFilterFragment)
         }
-        binding.root.search.setOnClickListener {
+        binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
             navigate(R.id.action_eventsFragment_to_eventFilterFragment)
         }
-        binding.root.cardivewRTL.setOnClickListener {
+        binding.planATripLayout.cardivewRTL.setOnClickListener {
             activity.enableLocationFromSettings()
         }
     }
@@ -155,10 +153,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     }
 
     private fun setupToolbarWithSearchItems() {
-        binding.root.apply {
+        binding.toolbarSnippet.toolbarLayout.apply {
             profilePic.visibility = View.GONE
-            img_drawer.visibility = View.GONE
-            toolbar_title.apply {
+            imgDrawer.visibility = View.GONE
+            toolbarTitle.apply {
                 visibility = View.VISIBLE
                 text = activity.getString(R.string.events)
             }
@@ -167,7 +165,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-        binding.root.apply {
+        binding.planATripLayout.apply {
             animationViewEvent.visibility = View.VISIBLE
             animationView.visibility = View.GONE
             if (isArabic()) {
@@ -229,7 +227,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 binding.apply {
                     tvViewMap.visibility = View.VISIBLE
                     rvNearEvent.visibility = View.VISIBLE
-                    root.cardivewRTL.visibility = View.GONE
+                    planATripLayout.cardivewRTL.visibility = View.GONE
                 }
 
             }
@@ -237,7 +235,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 binding.apply {
                     tvViewMap.visibility = View.GONE
                     rvNearEvent.visibility = View.GONE
-                    root.cardivewRTL.visibility = View.VISIBLE
+                    planATripLayout.cardivewRTL.visibility = View.VISIBLE
                 }
             }
         }

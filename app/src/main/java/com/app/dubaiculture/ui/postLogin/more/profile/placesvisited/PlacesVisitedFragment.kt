@@ -21,8 +21,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_places_visited.*
-import kotlinx.android.synthetic.main.layout_back.view.*
+
 
 @AndroidEntryPoint
 class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
@@ -112,12 +111,18 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initiateRequest()
-        backArrowRTL(binding.root.back)
+        binding.headerVisited.apply {
+            back.apply {
+                backArrowRTL(this)
+                setOnClickListener {
+                    back()
+                }
+            }
+
+        }
+
         attractionViewModel.getVisitedAttractions(getCurrentLanguage().language)
 
-        headerVisited.back.setOnClickListener {
-            back()
-        }
 
         binding.apply {
 

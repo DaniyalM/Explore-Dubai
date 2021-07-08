@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
         <include
-            android:id="@+id/plan_trip"
+            android:id="@+id/toolbar_snippet"
             layout="@layout/toolbar_snippet"/>
 
 
@@ -38,6 +38,7 @@
 
 
         <include
+            android:id="@+id/plan_a_trip_layout"
             layout="@layout/plan_a_trip_layout"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
