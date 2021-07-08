@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@color/purple_900"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            >
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/customTextView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="1/3 Question"
+                android:textColor="@color/gray_600"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+               android:id="@+id/tv_questions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:textColor="@color/black_200"
+                android:text="Q1:Lorem Ipsum is simply dummy text of the printing and typesetting industry? "
+                app:layout_constraintStart_toStartOf="@+id/customTextView7"
+                app:layout_constraintTop_toBottomOf="@+id/customTextView7" />
+
+            <!--Comments-->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/commentsCardView"
+                app:cardCornerRadius="@dimen/_8sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_questions">
+
+
+<!--                <com.app.dubaiculture.ui.components.customEditText.CustomEditText-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text=""-->
+<!--                    android:textColor="@color/black_200"-->
+<!--                    />-->
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--Radio Buttons-->
+            <RadioGroup
+                android:visibility="gone"
+                android:id="@+id/radioGroupYesNo"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textAlignment="viewStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                app:layout_constraintStart_toStartOf="@+id/type"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/tv_questions"
+                >
+
+                <RadioButton
+                    android:id="@+id/rbYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyRadioButtonStyle"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:textAllCaps="false"
+                    android:tag="Yes"
+                    android:textAlignment="viewStart"
+                    android:textSize="@dimen/_11ssp"
+                    android:textColor="@color/black_200"
+                    android:text="@string/yes"
+                    />
+                <RadioButton
+                    android:id="@+id/rbNo"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:textAlignment="viewStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyRadioButtonStyle"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_11ssp"
+                    android:textColor="@color/black_200"
+                    android:text="@string/no"
+                    />
+
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

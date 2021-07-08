@@ -256,5 +256,10 @@
     <string name="discover">Discover</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get Started</string>
+    <string name="fill_out_the_survey">Fill out the Survey</string>
+    <string name="share_your_feedback_and_help_us_improve_nyour_experience">Share your feedback and help us improve \nyour experience</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="add_your_comment_here">Add your comment here...</string>
 
 </resources>

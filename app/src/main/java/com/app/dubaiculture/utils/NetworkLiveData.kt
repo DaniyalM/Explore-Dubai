@@ -72,12 +72,11 @@ object NetworkLiveData : LiveData<Boolean>() {
                         ConnectivityManager.TYPE_ETHERNET -> true
                         else -> false
                     }
-
                 }
             }
         }
-
         return result
     }
-
 }
+
+//https://medium.com/@iamsdt/observing-network-state-with-live-data-90167a8ba04d
