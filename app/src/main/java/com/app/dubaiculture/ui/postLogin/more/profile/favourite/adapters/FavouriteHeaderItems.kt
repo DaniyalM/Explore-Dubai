@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
-import com.app.dubaiculture.utils.AppConfigUtils.favouriteclickCheckerFlag
+import com.app.dubaiculture.utils.AppConfigUtils.favouriteClickCheckerFlag
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 
@@ -30,11 +30,11 @@ class FavouriteHeaderItems<T>(
             val imageView=root.findViewById<ImageView>(R.id.imgInnerIcon)
             val cardView=root.findViewById<MaterialCardView>(R.id.cardview)
             textView.text = displayValue
-            isSelected = favouriteclickCheckerFlag == position
+            isSelected = favouriteClickCheckerFlag == position
             renderSelection(textView, imageView, cardView)
             root.setOnClickListener {
                 progressListener?.onClick(position)
-                if (favouriteclickCheckerFlag == position) {
+                if (favouriteClickCheckerFlag == position) {
                     isSelected = true
                     renderSelection(textView, imageView, cardView)
                 }

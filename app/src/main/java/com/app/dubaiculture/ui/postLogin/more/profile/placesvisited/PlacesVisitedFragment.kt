@@ -92,6 +92,7 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
 
     private fun initiateRequest() {
         binding.swipeRefresh.apply {
+            attractionViewModel.getVisitedAttractions(getCurrentLanguage().language)
             setColorSchemeResources(R.color.colorPrimary,
                     android.R.color.holo_green_dark,
                     android.R.color.holo_orange_dark,

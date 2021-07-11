@@ -49,8 +49,6 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun getRecyclerView() = binding.rvExplore
     override fun onPause() {
         super.onPause()
-
-
         lastFirstVisiblePosition =
                 (getRecyclerView().layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
 

@@ -33,9 +33,7 @@ class AttractionViewModel @ViewModelInject constructor(
     private val _attractionDetail: MutableLiveData<Result<Attractions>> = MutableLiveData()
     val attractionDetail: LiveData<Result<Attractions>> = _attractionDetail
 
-    init {
-        getVisitedAttractions(context.auth.locale.toString())
-    }
+
 
 
     fun getAttractionCategoryToScreen(locale: String) {

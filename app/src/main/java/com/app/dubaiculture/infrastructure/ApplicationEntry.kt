@@ -33,6 +33,13 @@ class ApplicationEntry : Application() {
         auth = AuthState()
         NetworkLiveData.initNetwork(this)
         PushNotificationManager.createNotificationChannel(this)
+        beaconImplementation()
+        isInternetActive = NetworkLiveData.isInternetAvailable()
+        Timber.plant(Timber.DebugTree())
+        ThemeUtil.applyTheme("light")
+    }
+
+    private fun beaconImplementation(){
         beaconManager = BeaconManager(applicationContext)
 
         beaconManager.connect(object : BeaconManager.ServiceReadyCallback {
@@ -89,6 +96,6 @@ class ApplicationEntry : Application() {
         })
         isInternetActive = NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
-        ThemeUtil.applyTheme("light")
+        ThemeUtil.applyTheme("dark")
     }
 }
