@@ -26,6 +26,8 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
 import com.squareup.otto.Subscribe
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -38,6 +40,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     private var pageSize: Int = 3
     var contentLoaded = false
     private var lastFirstVisiblePosition: Int = 0
+    private var attractionListingAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
     var contentLoadMore = true
     override fun onPause() {
@@ -51,7 +54,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         super.onResume()
         try {
             binding.rvAttractionListing.smoothScrollToPosition(lastFirstVisiblePosition)
-        }catch (ex:IllegalArgumentException){ }
+        } catch (ex: IllegalArgumentException) {
+        }
     }
 
     companion object {
@@ -127,10 +131,10 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                     binding.progressBar.visibility = View.GONE
                     contentLoadMore = true
                     if (pageNumber == 1) {
-                        if (groupAdapter.itemCount > 0) {
-                            groupAdapter.clear()
+                        if (attractionListingAdapter.itemCount > 0) {
+                            attractionListingAdapter.clear()
                         }
-                        groupAdapter.apply {
+                        attractionListingAdapter.apply {
                             it.value.forEach {
                                 add(
                                     AttractionListItem<AttractionListItemCellBinding>(
@@ -190,7 +194,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                         if (it.value.isEmpty()) {
                             pageNumber -= 1
                         } else {
-                            groupAdapter.apply {
+                            attractionListingAdapter.apply {
                                 it.value.forEach {
                                     add(
                                         AttractionListItem<AttractionListItemCellBinding>(
@@ -270,7 +274,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         linearLayoutManger = LinearLayoutManager(activity)
         binding.rvAttractionListing.apply {
             layoutManager = linearLayoutManger
-            adapter = groupAdapter
+            adapter = attractionListingAdapter
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -305,8 +309,8 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     fun handlingRefresh(attractionServices: AttractionServices) {
         when (attractionServices) {
             is AttractionServices.TriggerRefresh -> {
-                if (groupAdapter.itemCount > 0) {
-                    groupAdapter.clear()
+                if (attractionListingAdapter.itemCount > 0) {
+                    attractionListingAdapter.clear()
                     contentLoaded = false
                     pageNumber = 1
                     callingObservables()

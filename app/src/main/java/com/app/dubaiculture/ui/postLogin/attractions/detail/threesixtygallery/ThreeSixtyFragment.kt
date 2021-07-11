@@ -21,6 +21,8 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants.NavBundles.THREESIXTY_GALLERY_LIST
 import com.app.dubaiculture.utils.handleApiError
 import com.bumptech.glide.RequestManager
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,40 +30,11 @@ import javax.inject.Inject
 class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnClickListener {
     private val threeSixtyViewModel: ThreeSixtyViewModel by viewModels()
     private lateinit var attractionsObj: Attractions
+    var threeSixtyListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
     @Inject
     lateinit var glide: RequestManager
 
-//    override fun getTheme(): Int {
-//        return R.style.FullScreenDialog;
-//    }
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialog)
-//    }
-//
-//    override fun onStart() {
-//        super.onStart()
-//        if (dialog != null) {
-//            val width = ViewGroup.LayoutParams.MATCH_PARENT
-//            val height = ViewGroup.LayoutParams.MATCH_PARENT
-//            dialog?.window!!.apply {
-//                setLayout(width, height)
-//                @Suppress("DEPRECATION")
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//                    insetsController?.hide(WindowInsets.Type.statusBars())
-//                } else {
-//                    setFlags(
-//                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                        WindowManager.LayoutParams.FLAG_FULLSCREEN
-//                    )
-//                }
-//
-//            }
-//
-//        }
-//    }
 
 
     override fun onAttach(context: Context) {
@@ -119,10 +92,10 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
                         }
                     }
                     attractionsObj.asset360?.imageItems?.forEach {
-//                        if (groupAdapter.itemCount > 0) {
-//                            groupAdapter.clear()
+//                        if (threeSixtyListAdapter.itemCount > 0) {
+//                            threeSixtyListAdapter.clear()
 //                        }
-                        groupAdapter.add(
+                        threeSixtyListAdapter.add(
                             ThreeSixtyListItem<Items360GalleryViewBinding>(
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
@@ -173,7 +146,7 @@ class ThreeSixtyFragment : BaseFragment<FragmentThreeSixtyBinding>(), View.OnCli
     private fun initRv() {
         binding.rvBottomSelector.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = groupAdapter
+            adapter = threeSixtyListAdapter
         }
     }
 

@@ -62,6 +62,8 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.shape.CornerFamily
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -76,6 +78,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     var numberContact: String? = null
     lateinit var detailInnerLayout: AttractionDetailInnerLayoutBinding
     lateinit var toolbarLayout: ToolbarLayoutDetailBinding
+    var detailListAdapter:GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
     //    private var readmore = false
     private val gpsObserver = Observer<GpsStatus> { status ->
@@ -192,9 +195,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
         if (attraction.IsFavourite) {
+            toolbarLayout.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
             binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
-            binding.favourite.background =
-                getDrawableFromId(R.drawable.heart_icon_fav)
         }
 
         binding.root.apply {
@@ -235,7 +237,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                 }
 
-                groupAdapter.apply {
+                detailListAdapter.apply {
                     if (this.itemCount > 0) {
                         this.clear()
                     }
@@ -275,7 +277,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                             position: Int,
                                             imageView: ImageView
                                         ) {
-                                            TODO("Not yet implemented")
+
                                         }
 
                                     },
@@ -486,7 +488,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun rvSetUp() {
         detailInnerLayout.rvUpComing.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = groupAdapter
+            adapter = detailListAdapter
         }
     }
 

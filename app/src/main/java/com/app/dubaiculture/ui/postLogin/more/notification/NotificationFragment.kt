@@ -12,12 +12,15 @@ import com.app.dubaiculture.databinding.ItemsNotitifcationsLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.more.notification.adapter.NotificationItems
 import com.app.dubaiculture.ui.postLogin.more.notification.viewmodel.NotificationViewModel
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NotificationFragment : BaseFragment<FragmentNotificationBinding>() {
 
     private val notificationViewModel: NotificationViewModel by viewModels()
+    var notificationListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
 
     override fun getFragmentBinding(
@@ -38,7 +41,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>() {
 
     private fun rvSetup() {
         notificationViewModel.notificationList().map {
-            groupAdapter.add(
+            notificationListAdapter.add(
                 NotificationItems<ItemsNotitifcationsLayoutBinding>(
                     notificationModel = it,
                     resLayout = R.layout.items_notitifcations_layout,
@@ -49,7 +52,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>() {
         }
         binding.rvNotifications.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = groupAdapter
+            adapter = notificationListAdapter
         }
     }
 }

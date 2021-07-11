@@ -14,11 +14,15 @@ import com.app.dubaiculture.databinding.FragmentFAQsBinding
 import com.app.dubaiculture.databinding.ItemFaqsLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.more.faqs.viewmodel.FAQsViewModel
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
     private val faqsViewModel: FAQsViewModel by viewModels()
+    var faqsListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+
     private val tempArrayList = ArrayList<FaqItem>()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -44,7 +48,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
                 it.faqItems.map {
                     tempArrayList.add(it)
 
-                    groupAdapter.add(
+                    faqsListAdapter.add(
                         FAQsItems<ItemFaqsLayoutBinding>(
                             faqs = it,
                             resLayout = R.layout.item_faqs_layout,
@@ -57,7 +61,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
 
             binding.rvFaqs.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = groupAdapter
+                adapter = faqsListAdapter
             }
         }
     }
@@ -74,7 +78,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val myKey = binding.editSearchFaqs.text.toString().trim()
-                groupAdapter.clear()
+                faqsListAdapter.clear()
                 val list = tempArrayList.filter {
                     it.question.contains(myKey, ignoreCase = true)
                 }
@@ -82,7 +86,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
                 if (myKey.trim().isNullOrEmpty()) {
                     binding.imgCancel.visibility= View.GONE
                     tempArrayList.map {
-                        groupAdapter.add(
+                        faqsListAdapter.add(
                             FAQsItems<ItemFaqsLayoutBinding>(
                                 faqs = it,
                                 resLayout = R.layout.item_faqs_layout,
@@ -94,7 +98,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
                 }else{
                     binding.imgCancel.visibility= View.VISIBLE
                     list.map {
-                        groupAdapter.add(
+                        faqsListAdapter.add(
                             FAQsItems<ItemFaqsLayoutBinding>(
                                 faqs = it,
                                 resLayout = R.layout.item_faqs_layout,
@@ -104,7 +108,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
                         )
                     }
                 }
-                groupAdapter.notifyDataSetChanged()
+                faqsListAdapter.notifyDataSetChanged()
             }
 
         })

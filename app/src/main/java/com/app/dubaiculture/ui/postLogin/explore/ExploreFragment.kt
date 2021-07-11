@@ -126,7 +126,6 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             binding.swipeRefresh.isRefreshing = false
             when (it) {
                 is Result.Success -> {
-
                     it.let {
                         exploreAdapter?.items = it.value
                     }
