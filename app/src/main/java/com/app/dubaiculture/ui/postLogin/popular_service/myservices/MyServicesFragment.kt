@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings
 import com.app.dubaiculture.databinding.FragmentMyServicesBinding
-import com.app.dubaiculture.databinding.ItemMyServiceLayoutBinding
+import com.app.dubaiculture.databinding.ItemsBookATicketLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.app.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
@@ -18,14 +18,13 @@ import com.squareup.otto.Subscribe
 class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
     private lateinit var linearLayoutManger: LinearLayoutManager
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) = FragmentMyServicesBinding.inflate(inflater, container, false)
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.customTextView3.text = activity.resources.getString(R.string.my_services)
         binding.headerVisited.back.setOnClickListener {
             back()
         }
-        binding.horizontalSelector.initialize(initializeHeaders(), bus)
+//         binding.horizontalSelector.initialize(initializeHeaders(), bus)
         initServiceRvListing()
 
     }
@@ -36,6 +35,8 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
             layoutManager = linearLayoutManger
             adapter = groupAdapter
         }
+        binding.horizontalSelector.initialize(initializeHeaders(), bus)
+
     }
 
 
@@ -49,7 +50,7 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
                         addMyServices()
                     }
                     else -> {
-                       binding.rvServiceListing.visibility=View.GONE
+                       binding.rvServiceListing.visibility = View.GONE
                     }
                 }
             }
@@ -66,8 +67,8 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
             }
 
             testPlaces().forEach {
-                add(PopularServiceListItem<ItemMyServiceLayoutBinding>(
-                        resLayout = R.layout.item_my_service_layout,
+                add(PopularServiceListItem<ItemsBookATicketLayoutBinding>(
+                        resLayout = R.layout.items_book_a_ticket_layout,
                         servicesBookings = it
                 ))
             }

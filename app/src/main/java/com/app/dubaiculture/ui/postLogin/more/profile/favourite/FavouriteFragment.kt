@@ -96,7 +96,6 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         binding.headerVisited.back.setOnClickListener {
             back()
         }
-        binding.horizontalSelector.initialize(initializeHeaders(), bus)
 
 //        setupToolbarWithSearchItems()
         initiateRequest()
@@ -109,7 +108,6 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         profileViewModel.favourite.observe(viewLifecycleOwner) {
             binding.swipeRefresh.isRefreshing = false
             when (it) {
-
                 is Result.Success -> {
                     it.value.getContentIfNotHandled()?.let {
                         events = it.events

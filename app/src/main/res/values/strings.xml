@@ -261,5 +261,9 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="add_your_comment_here">Add your comment here...</string>
+    <string name="booking_date">Booking Date</string>
+    <string name="no_of_tickets">No. of tickets</string>
+    <string name="event_ticket">EVENT TICKET</string>
+    <string name="booking_time">Booking Time</string>
 
 </resources>
