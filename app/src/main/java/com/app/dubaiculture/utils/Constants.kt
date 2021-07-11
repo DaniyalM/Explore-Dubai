@@ -38,6 +38,7 @@ object Constants {
         const val SELECTED_CITY: String = "selectedCity"
         const val SORTED_LIST: String = "SORTED_EVENT_LIST"
         const val EVENT_OBJECT: String = "eventObject"
+        const val EVENT_FILTER: String = "eventFiler"
         const val ATTRACTION_OBJECT: String = "attractionObject"
         const val ATTRACTION_CAT_OBJECT: String = "attractionCatObject"
         const val ATTRACTION_GALLERY_LIST: String = "attractionGalleryList"
@@ -60,6 +61,7 @@ object Constants {
         const val TERMS_CONDITION: String = "terms_condition"
         const val PRIVACY_POLICY: String = "privacy_policy"
         const val NEWS_ID: String = "news_id"
+        const val NEWS_NAVIGATION: String = "news_navigation"
         const val MORE_FRAGMENT: String = "more_fragment"
         const val SETTING_DESTINATION: String = "setting_fragment_destination"
 

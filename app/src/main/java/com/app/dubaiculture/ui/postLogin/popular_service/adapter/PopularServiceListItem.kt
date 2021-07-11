@@ -4,6 +4,7 @@ import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.PopularServices
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings
+import com.app.dubaiculture.databinding.ItemLayoutServicesHeaderBinding
 import com.app.dubaiculture.databinding.ItemMyServiceLayoutBinding
 import com.app.dubaiculture.databinding.PopularServiceInnerItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
@@ -23,8 +24,12 @@ class PopularServiceListItem<T : ViewDataBinding>(
             }
             is ItemMyServiceLayoutBinding -> {
                 viewBinding.apply {
-                    popularServices=servicesBookings
+                    popularServices = servicesBookings
                 }
+            }
+            is ItemLayoutServicesHeaderBinding -> {
+                viewBinding.popularServices = services
+
             }
 
         }

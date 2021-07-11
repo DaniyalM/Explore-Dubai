@@ -21,6 +21,8 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants.NavBundles.IMAGES_LIST
 import com.app.dubaiculture.utils.Constants.NavBundles.META_DATA_ID
 import com.bumptech.glide.RequestManager
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,6 +32,8 @@ class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickLi
     private val arDetailViewModel: ARDetailViewModel by viewModels()
     private val imagesList = ArrayList<Images>()
     private var id : String?=null
+    var arDetailListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+
     @Inject
     lateinit var glide: RequestManager
     override fun getFragmentBinding(
@@ -103,8 +107,8 @@ class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickLi
             it?.let {
 
                 rvSetUp()
-                if (groupAdapter.itemCount>0){
-                    groupAdapter.clear()
+                if (arDetailListAdapter.itemCount>0){
+                    arDetailListAdapter.clear()
                 }
 
                 val circularProgressDrawable = CircularProgressDrawable(requireContext())
@@ -119,7 +123,7 @@ class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickLi
 //                binding.imgDetailPic.glideInstance(it.images!![0].image, isSvg = false)
                 it.images?.map {
                     imagesList.add(it)
-                    groupAdapter.add(
+                    arDetailListAdapter.add(
                             ViewGalleryItems<ViewGalleryItemsBinding>(
                                     object : RowClickListener {
                                         override fun rowClickListener(position: Int) {
@@ -154,7 +158,7 @@ class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickLi
     private fun rvSetUp() {
         binding.rvViewGallery.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = groupAdapter
+            adapter = arDetailListAdapter
         }
 
     }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.data.repository.news.local.NewsDetail
 import com.app.dubaiculture.databinding.FragmentNewsDetailBinding
 import com.app.dubaiculture.databinding.ItemMoreNewsBinding
@@ -23,6 +24,7 @@ import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsArticleAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsSliderItems
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.viewmodel.NewsDetailViewModel
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -32,7 +34,8 @@ import java.util.*
 
 @AndroidEntryPoint
 class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
-
+    var newsListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+    var latestNews: LatestNews? = null
     private val newsDetailViewModel: NewsDetailViewModel by viewModels()
     private lateinit var newsArticleAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var moreNewsAdapter: GroupAdapter<GroupieViewHolder>
@@ -61,6 +64,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
                 id = it.getString(NEWS_ID).toString(),
                 locale = getCurrentLanguage().language
             )
+
         }
         rvSetUp()
         binding.imgClose.setOnClickListener {
@@ -81,8 +85,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 
         newsArticleAdapter = GroupAdapter()
         moreNewsAdapter = GroupAdapter()
-        if (groupAdapter.itemCount > 0) {
-            groupAdapter.clear()
+        if (newsListAdapter.itemCount > 0) {
+            newsListAdapter.clear()
         }
         if (newsArticleAdapter.itemCount > 0) {
             newsArticleAdapter.clear()
@@ -121,7 +125,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
                     adapter = articleAdapter
                 }
 
-                groupAdapter.add(
+                newsListAdapter.add(
                     NewsSliderItems<ItemSliderBinding>(
                         newsDetail = it,
                         resLayout = R.layout.item_slider,
@@ -162,7 +166,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 
         binding.rvSlider.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = groupAdapter
+            adapter = newsListAdapter
             val pagerSnapHelper = PagerSnapHelper()
             pagerSnapHelper.attachToRecyclerView(this)
             binding.indicator.attachToRecyclerView(this, pagerSnapHelper)

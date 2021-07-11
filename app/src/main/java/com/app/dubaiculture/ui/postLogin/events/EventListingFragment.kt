@@ -27,6 +27,8 @@ import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.dateFormatEn
 import com.app.dubaiculture.utils.handleApiError
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -36,6 +38,8 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
     private val allList = mutableListOf<Events>()
     lateinit var adapterEvents: FilterHeaderAdapter
     private var selectedItemsList = ArrayList<SelectedItems>()
+    var eventListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+
 
     var eventID: Int? = 0
     private var isContentLoaded = false
@@ -69,16 +73,16 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
     }
 
 
-
-
     private fun callingObservablesForSearchBarKeyWord() {
         eventViewModel.searchBarKeyWord.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 lifecycleScope.launch {
-                    eventViewModel.getFilterEventList(EventRequest(
-                        culture = getCurrentLanguage().language,
-                        keyword = it
-                    ))
+                    eventViewModel.getFilterEventList(
+                        EventRequest(
+                            culture = getCurrentLanguage().language,
+                            keyword = it
+                        )
+                    )
                 }
             }
         }
@@ -93,7 +97,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
     private fun initRecyclerView() {
         binding.rvEventListing.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = groupAdapter
+            adapter = eventListAdapter
         }
         adapterEvents = FilterHeaderAdapter(object : FilterHeaderAdapter.RemoveHeaderItem {
             override fun onItemRemove(pos: Int, list: List<SelectedItems>) {
@@ -123,86 +127,103 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                         allList.clear()
                         allList.addAll(it.value)
 
-                        groupAdapter.clear()
-                        groupAdapter.apply {
+                        eventListAdapter.clear()
+                        eventListAdapter.apply {
 //                                    when (it) {
                             if (eventID != 2) {
                                 allList.forEach {
-                                    add(EventListItem<ItemEventListingBinding>(object :
-                                        FavouriteChecker {
-                                        override fun checkFavListener(
-                                            checkbox: CheckBox,
-                                            pos: Int,
-                                            isFav: Boolean,
-                                            itemId: String,
-                                        ) {
-                                            favouriteClick(
-                                                checkbox,
-                                                isFav,
-                                                type = 2,
-                                                itemId = itemId,
-                                                baseViewModel = eventViewModel,
-                                                nav = R.id.action_eventFilterFragment_to_postLoginFragment
-                                                )
-                                        }
+                                    add(
+                                        EventListItem<ItemEventListingBinding>(
+                                            object :
+                                                FavouriteChecker {
+                                                override fun checkFavListener(
+                                                    checkbox: CheckBox,
+                                                    pos: Int,
+                                                    isFav: Boolean,
+                                                    itemId: String,
+                                                ) {
+                                                    favouriteClick(
+                                                        checkbox,
+                                                        isFav,
+                                                        type = 2,
+                                                        itemId = itemId,
+                                                        baseViewModel = eventViewModel,
+                                                        nav = R.id.action_eventFilterFragment_to_postLoginFragment
+                                                    )
+                                                }
 
-                                    },
-                                        object : RowClickListener {
-                                            override fun rowClickListener(position: Int) {
-                                                val eventObj = allList[position]
-                                                val bundle = Bundle()
-                                                bundle.putParcelable(EVENT_OBJECT, eventObj)
-                                                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2,
-                                                    bundle)
-                                            }
+                                            },
+                                            object : RowClickListener {
+                                                override fun rowClickListener(position: Int) {
+                                                    val eventObj = allList[position]
+                                                    val bundle = Bundle()
+                                                    bundle.putParcelable(EVENT_OBJECT, eventObj)
+                                                    navigate(
+                                                        R.id.action_eventFilterFragment_to_eventDetailFragment2,
+                                                        bundle
+                                                    )
+                                                }
 
-                                            override fun rowClickListener(position: Int, imageView: ImageView) {
+                                                override fun rowClickListener(
+                                                    position: Int,
+                                                    imageView: ImageView
+                                                ) {
 
-                                            }
+                                                }
 
-                                        },
-                                        event = it,
-                                        resLayout = R.layout.item_event_listing,
-                                    activity))
+                                            },
+                                            event = it,
+                                            resLayout = R.layout.item_event_listing,
+                                            activity
+                                        )
+                                    )
                                 }
                             } else
                                 eventViewModel.getWeekend(allList).forEach {
-                                    add(EventListItem<ItemEventListingBinding>(
-                                        object : FavouriteChecker {
-                                            override fun checkFavListener(
-                                                checkbox: CheckBox,
-                                                pos: Int,
-                                                isFav: Boolean,
-                                                itemId: String,
-                                            ) {
-                                                favouriteClick(
-                                                    checkbox,
-                                                    isFav,
-                                                    type = 2,
-                                                    itemId = itemId,
-                                                    baseViewModel = eventViewModel,
-                                                    nav = R.id.action_eventFilterFragment_to_postLoginFragment
-                                                )
-                                            }
+                                    add(
+                                        EventListItem<ItemEventListingBinding>(
+                                            object : FavouriteChecker {
+                                                override fun checkFavListener(
+                                                    checkbox: CheckBox,
+                                                    pos: Int,
+                                                    isFav: Boolean,
+                                                    itemId: String,
+                                                ) {
+                                                    favouriteClick(
+                                                        checkbox,
+                                                        isFav,
+                                                        type = 2,
+                                                        itemId = itemId,
+                                                        baseViewModel = eventViewModel,
+                                                        nav = R.id.action_eventFilterFragment_to_postLoginFragment
+                                                    )
+                                                }
 
-                                        },
-                                        object : RowClickListener {
-                                            override fun rowClickListener(position: Int) {
-                                                val eventObj = allList[position]
-                                                val bundle = Bundle()
-                                                bundle.putParcelable(EVENT_OBJECT, eventObj)
-                                                navigate(R.id.action_eventFilterFragment_to_eventDetailFragment2,
-                                                    bundle)
-                                            }
+                                            },
+                                            object : RowClickListener {
+                                                override fun rowClickListener(position: Int) {
+                                                    val eventObj = allList[position]
+                                                    val bundle = Bundle()
+                                                    bundle.putParcelable(EVENT_OBJECT, eventObj)
+                                                    navigate(
+                                                        R.id.action_eventFilterFragment_to_eventDetailFragment2,
+                                                        bundle
+                                                    )
+                                                }
 
-                                            override fun rowClickListener(position: Int, imageView: ImageView) {
+                                                override fun rowClickListener(
+                                                    position: Int,
+                                                    imageView: ImageView
+                                                ) {
 
-                                            }
+                                                }
 
-                                        },
-                                        event = it,
-                                        resLayout = R.layout.item_event_listing,
-                                    activity))
+                                            },
+                                            event = it,
+                                            resLayout = R.layout.item_event_listing,
+                                            activity
+                                        )
+                                    )
                                 }
                         }
                         if (allList.isEmpty())
@@ -307,12 +328,12 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
             if (it.dateTo!!.isNotEmpty()) {
                 dateTo = it.dateTo
             }
-            if (it.location!!.isNotEmpty() ) {
-                    if(!it.id.isNullOrEmpty()){
-                        location =  it.id
-                    }else{
-                        location = eventViewModel.locationState.value
-                    }
+            if (it.location!!.isNotEmpty()) {
+                if (!it.id.isNullOrEmpty()) {
+                    location = it.id
+                } else {
+                    location = eventViewModel.locationState.value
+                }
             }
         }
         eventRequest.add(
@@ -327,15 +348,17 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
         )
         eventRequest.map {
             lifecycleScope.launch {
-                eventViewModel.getFilterEventList(EventRequest(
-                    culture = getCurrentLanguage().language,
-                    category = it.category,
-                    keyword = it.keyword,
-                    location = it.location,
-                    dateFrom = dateFormatEn(it.dateFrom),
-                    dateTo = dateFormatEn(it.dateTo),
-                    type = it.type
-                ))
+                eventViewModel.getFilterEventList(
+                    EventRequest(
+                        culture = getCurrentLanguage().language,
+                        category = it.category,
+                        keyword = it.keyword,
+                        location = it.location,
+                        dateFrom = dateFormatEn(it.dateFrom),
+                        dateTo = dateFormatEn(it.dateTo),
+                        type = it.type
+                    )
+                )
             }
         }
         return eventRequest

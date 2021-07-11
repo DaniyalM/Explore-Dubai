@@ -51,7 +51,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected lateinit var activity: Activity
 
     protected var customProgressDialog: ProgressDialog? = null
-    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
+//    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var networkRequest: NetworkRequest
 
 
@@ -100,7 +100,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         bus.register(this)
         isBusRegistered = true
         customProgressDialog = ProgressDialog(activity)
-        groupAdapter = GroupAdapter()
+//        groupAdapter = GroupAdapter()
     }
 
     override fun onPause() {
@@ -128,7 +128,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             bus.unregister(this)
             isBusRegistered = false
         }
-        groupAdapter.clear()
+//        groupAdapter.clear()
 
         if (customProgressDialog != null) {
             customProgressDialog = null
@@ -312,24 +312,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         }
     }
-//    fun cardViewRTL(materialCardView: MaterialCardView) {
-//        val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-//        if (isArabic()) {
-//            binding.root.materialCardView?.shapeAppearanceModel =
-//                    binding.root.materialCardView!!.shapeAppearanceModel
-//                            .toBuilder()
-//                            .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-//                            .setTopRightCornerSize(radius)
-//                            .build()
-//        } else {
-//            binding.root.materialCardView?.shapeAppearanceModel =
-//                    binding.root.materialCardView!!.shapeAppearanceModel
-//                            .toBuilder()
-//                            .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-//                            .setBottomRightCornerSize(radius)
-//                            .build()
-//        }
-//    }
+
 
 
     open fun hideKeyboard(activity: Activity) {
