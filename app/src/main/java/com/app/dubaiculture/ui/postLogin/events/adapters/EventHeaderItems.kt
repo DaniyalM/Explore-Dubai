@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
@@ -11,9 +12,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHe
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.android.synthetic.main.attraction_title_list_item.view.cardview
-import kotlinx.android.synthetic.main.attraction_title_list_item.view.tv_title
-import kotlinx.android.synthetic.main.event_items_header.view.*
+
 
 class EventHeaderItems<T>(
         val displayValue: String,
@@ -38,15 +37,19 @@ class EventHeaderItems<T>(
 //                YoYo.with(Techniques.BounceInDown)
 //                    .duration(1000)
 //                    .playOn(it)
-                it.tv_title.text = displayValue
+               val title= it.findViewById<TextView>(R.id.tv_title)
+               val imageBackground= it.findViewById<ImageView>(R.id.img_bg)
+               val cardView= it.findViewById<MaterialCardView>(R.id.cardView)
+
+                   title.text = displayValue
                 isSelected = clickCheckerFlag == position
-                renderSelection(it.tv_title, it.img_bg, it.cardview)
+                renderSelection(  title, imageBackground, cardView)
                 it.setOnClickListener {
                     progressListener?.onClick(position)
 
                     if (clickCheckerFlag == position) {
                         isSelected = true
-                        renderSelection(it.tv_title, it.img_bg, it.cardview)
+                        renderSelection(title, imageBackground, cardView)
                     }
                 }
             }

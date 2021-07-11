@@ -34,10 +34,13 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     }
     private suspend fun navigate() {
         delay(3000)
+        navigate(R.id.action_splashFragment_to_onboarding_navigation)
 //        if(dataStoreManager.getBoolean(preferencesKey(Constants.DataStore.SKIP)) == true){
 //            navigate(R.id.action_splashFragment_to_loginFragment)
+//
 //        }else{
-            navigate(R.id.action_splashFragment_to_onboarding_navigation)
+    //    navigate(R.id.action_splashFragment_to_onboarding_navigation)
+
 //        }
     }
 

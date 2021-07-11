@@ -9,7 +9,6 @@ import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentPlacesVisitedBinding
 import com.app.dubaiculture.databinding.ItemEventListingBinding
@@ -18,8 +17,6 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
-import com.app.dubaiculture.utils.Constants
-import kotlinx.android.synthetic.main.layout_back.view.*
 
 class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
     private val eventViewModel: EventViewModel by viewModels()
@@ -31,8 +28,8 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            backArrowRTL(root.back)
-            customTextView3.text= activity.resources.getString(R.string.my_events)
+            backArrowRTL(headerVisited.back)
+            customTextView3.text = activity.resources.getString(R.string.my_events)
             headerVisited.back.setOnClickListener {
                 back()
             }
@@ -44,14 +41,15 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
 
             testPlaces().forEach {
                 groupAdapter.add(
-                        EventListItem<ItemEventListingBinding>(object :
-                        FavouriteChecker {
-                        override fun checkFavListener(
-                            checkbox: CheckBox,
-                            pos: Int,
-                            isFav: Boolean,
-                            itemId: String,
-                        ) {
+                    EventListItem<ItemEventListingBinding>(
+                        object :
+                            FavouriteChecker {
+                            override fun checkFavListener(
+                                checkbox: CheckBox,
+                                pos: Int,
+                                isFav: Boolean,
+                                itemId: String,
+                            ) {
 //                            favouriteClick(
 //                                checkbox,
 //                                isFav,
@@ -60,9 +58,9 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
 //                                baseViewModel = eventViewModel,
 //                                nav = R.id.action_eventFilterFragment_to_postLoginFragment
 //                            )
-                        }
+                            }
 
-                    },
+                        },
                         object : RowClickListener {
                             override fun rowClickListener(position: Int) {
 //                                val eventObj = allList[position]
@@ -81,22 +79,21 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
                         event = it,
                         resLayout = R.layout.item_event_listing,
                         activity,
-                                hasSurvey = true)
+                        hasSurvey = true
                     )
+                )
 
             }
 
         }
 
 
-
-
     }
 
 
-    private fun testPlaces():MutableList<Events>{
-        val placesVisited= ArrayList<Events>()
-        repeat(10){
+    private fun testPlaces(): MutableList<Events> {
+        val placesVisited = ArrayList<Events>()
+        repeat(10) {
 
             placesVisited.add(
                 Events(

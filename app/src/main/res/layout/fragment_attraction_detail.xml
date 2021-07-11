@@ -25,6 +25,7 @@
             app:elevation="0dp">
 
             <include
+                android:id="@+id/toolbar_layout_detail"
                 layout="@layout/toolbar_layout_detail"
                 app:attraction="@{attraction}" />
         </com.google.android.material.appbar.AppBarLayout>
@@ -111,6 +112,7 @@
 
 
                         <include
+                            android:id="@+id/attraction_detail_inner_layout"
                             layout="@layout/attraction_detail_inner_layout"
                             app:attraction="@{attraction}" />
 

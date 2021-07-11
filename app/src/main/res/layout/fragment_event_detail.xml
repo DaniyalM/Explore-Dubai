@@ -20,7 +20,8 @@
             app:elevation="0dp">
 
             <!--            <include layout="@layout/toolbar_snippet"/>-->
-            <include layout="@layout/toolbar_layout_event_detail" />
+            <include android:id="@+id/toolbar_layout_event_detail"
+                layout="@layout/toolbar_layout_event_detail" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -113,7 +114,9 @@
                     android:background="@color/app_bg">
 
 
-                    <include layout="@layout/event_detail_inner_layout" />
+                    <include
+                        android:id="@+id/event_detail_inner_layout"
+                        layout="@layout/event_detail_inner_layout" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

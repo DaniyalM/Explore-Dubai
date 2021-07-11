@@ -21,7 +21,6 @@ import com.wikitude.common.camera.CameraSettings
 import com.wikitude.common.rendering.RenderExtension
 import com.wikitude.rendering.ExternalRendering
 import com.wikitude.tracker.*
-import kotlinx.android.synthetic.main.fragment_a_r.*
 import org.json.JSONObject
 
 
@@ -127,7 +126,7 @@ class ARFragment : BaseFragment<FragmentARBinding>(), ExternalRendering,
         val controls = inflater.inflate(R.layout.fragment_a_r, viewGroup, false)
         viewHolder.addView(controls)
         binding.llLayout.addView(viewHolder)
-        btnRecognize.setOnClickListener {
+        binding.btnRecognize.setOnClickListener {
             showLoader(true, customProgressDialog)
             cloudRecognitionService!!.recognize(object : CloudRecognitionServiceListener {
                 override fun onResponse(response: CloudRecognitionServiceResponse?) {

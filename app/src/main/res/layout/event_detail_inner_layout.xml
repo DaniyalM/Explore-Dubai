@@ -99,7 +99,7 @@
                     android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@+id/rgToggle">
 
-                    <include layout="@layout/event_detail_schedule_layout" />
+                    <include android:id="@+id/event_detail_schedule_layout" layout="@layout/event_detail_schedule_layout" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

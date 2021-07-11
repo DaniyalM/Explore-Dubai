@@ -5,7 +5,7 @@ import com.app.dubaiculture.data.repository.attraction.remote.response.SocialLin
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class EventsDTO(

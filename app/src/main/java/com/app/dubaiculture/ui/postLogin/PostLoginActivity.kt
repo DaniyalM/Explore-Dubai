@@ -12,7 +12,6 @@ import com.app.dubaiculture.ui.postLogin.more.services.MoreService
 import com.app.dubaiculture.utils.AuthUtils.hideStatusBar
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_post_login.*
 import timber.log.Timber
 
 @AndroidEntryPoint

@@ -13,7 +13,6 @@ import com.app.dubaiculture.databinding.UpcomingEventsInnerItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.xwray.groupie.databinding.BindableItem
-import kotlinx.android.synthetic.main.item_event_listing.view.*
 
 data class EventListItem<T : ViewDataBinding>(
     private val favChecker: FavouriteChecker? = null,
@@ -27,17 +26,17 @@ data class EventListItem<T : ViewDataBinding>(
     override fun bind(viewBinding: T, position: Int) {
         when (viewBinding) {
             is UpcomingEventsInnerItemCellBinding -> {
-                viewBinding.let {
-                    it.events = event
+                viewBinding.let {binding->
+                    binding.events = event
                     if (event.isFavourite) {
-                        it.favourite.background =
+                        binding.favourite.background =
                             ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
                     }
 
-                    it.favourite.setOnClickListener {
+                    binding.favourite.setOnClickListener {
                         event.id?.let { itemId ->
                             favChecker!!.checkFavListener(
-                                it.favourite,
+                                binding.favourite,
                                 position,
                                 event.isFavourite,
                                 itemId
@@ -45,38 +44,38 @@ data class EventListItem<T : ViewDataBinding>(
 
                         }
                     }
-                    it.cardview.setOnClickListener {
+                    binding.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
                     }
                 }
             }
             is ItemEventListingBinding -> {
-                viewBinding.let {
-                    it.events = event
+                viewBinding.let { binding->
+                    binding.events = event
 
                     if (event.isFavourite) {
-                        it.favourite.background =
+                        binding.favourite.background =
                             ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
                     }
 
 
                     if (hasSurvey) {
-                        it.btnSurvery.visibility = View.VISIBLE
+                        binding.btnSurvery.visibility = View.VISIBLE
                         if (!event.isSurveySubmitted) {
-                            it.btnSurvery.background = ContextCompat.getDrawable(
+                            binding.btnSurvery.background = ContextCompat.getDrawable(
                                 context,
                                 R.drawable.my_event_btn_enable
                             //if you want to disable then use R.drawable.bg_btn_filled_disabled.
                             // change text color too white to purple.
                             )
-                            it.btnSurvery.text = "Survey Submitted"
+                            binding.btnSurvery.text = "Survey Submitted"
                         }
                     }
 
-                    it.favourite.setOnClickListener {
+                    binding.favourite.setOnClickListener {
                         event.id?.let { itemId ->
                             favChecker!!.checkFavListener(
-                                it.favourite,
+                                binding.favourite,
                                 position,
                                 event.isFavourite,
                                 itemId
@@ -84,22 +83,22 @@ data class EventListItem<T : ViewDataBinding>(
 
                         }
                     }
-                    it.cardview.setOnClickListener {
+                    binding.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
                     }
                 }
             }
             is EventItemsBinding -> {
-                viewBinding.let {
-                    it.events = event
+                viewBinding.let {binding->
+                    binding.events = event
                     if (event.isFavourite) {
-                        it.favourite.background =
+                        binding.favourite.background =
                             ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
                     }
-                    it.favourite.setOnClickListener {
+                    binding.favourite.setOnClickListener {
                         event.id?.let { itemId ->
                             favChecker!!.checkFavListener(
-                                it.favourite,
+                                binding.favourite,
                                 position,
                                 event.isFavourite,
                                 itemId
@@ -107,23 +106,23 @@ data class EventListItem<T : ViewDataBinding>(
 
                         }
                     }
-                    it.cardview.setOnClickListener {
+                    binding.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
                     }
 
                 }
             }
             is AttractionDetailUpComingItemsBinding -> {
-                viewBinding.let {
-                    it.events = event
+                viewBinding.let {binding->
+                    binding.events = event
                     if (event.isFavourite) {
-                        it.favourite.background =
+                        binding.favourite.background =
                             ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
                     }
-                    it.favourite.setOnClickListener {
+                    binding.favourite.setOnClickListener {
                         event.id?.let { itemId ->
                             favChecker!!.checkFavListener(
-                                it.favourite,
+                                binding.favourite,
                                 position,
                                 event.isFavourite,
                                 itemId
@@ -131,7 +130,7 @@ data class EventListItem<T : ViewDataBinding>(
 
                         }
                     }
-                    it.cardview.setOnClickListener {
+                    binding.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
                     }
                 }

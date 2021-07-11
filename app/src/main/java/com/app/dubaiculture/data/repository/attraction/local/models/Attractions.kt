@@ -2,8 +2,7 @@ package com.app.dubaiculture.data.repository.attraction.local.models
 
 import android.os.Parcelable
 import com.app.dubaiculture.data.repository.event.local.models.Events
-import kotlinx.android.parcel.Parcelize
-
+import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Attractions(
     val id: String,

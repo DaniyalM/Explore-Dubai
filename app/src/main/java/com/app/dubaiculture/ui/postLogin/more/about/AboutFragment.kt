@@ -13,7 +13,6 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
 import com.app.dubaiculture.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.layout_back.view.*
 
 @AndroidEntryPoint
 class AboutFragment : BaseFragment<FragmentAboutBinding>() , View.OnClickListener {

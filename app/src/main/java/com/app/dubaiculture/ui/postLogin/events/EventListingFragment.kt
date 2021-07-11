@@ -28,7 +28,6 @@ import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.dateFormatEn
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

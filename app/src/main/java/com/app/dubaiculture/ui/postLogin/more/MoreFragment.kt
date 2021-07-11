@@ -28,8 +28,6 @@ import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.plan_a_trip_layout.view.*
-import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import java.util.*
 
 @AndroidEntryPoint
@@ -65,9 +63,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llNotification.setOnClickListener(this)
         binding.llCultureConnoisseur.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
-            binding.root.profilePic,
-            binding.root.img_drawer,
-            binding.root.toolbar_title,
+            binding.toolbarSnippet.toolbarLayout.profilePic,
+            binding.toolbarSnippet.toolbarLayout.imgDrawer,
+            binding.toolbarSnippet.toolbarLayout.toolbarTitle,
             resources.getString(R.string.more)
         )
 
@@ -97,7 +95,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-        binding.root.apply {
+        binding.planATripLayout.apply {
             tvTrip.text = resources.getString(R.string.plan_your_trip)
             subHeading.visibility = View.VISIBLE
             if (isArabic()) {
