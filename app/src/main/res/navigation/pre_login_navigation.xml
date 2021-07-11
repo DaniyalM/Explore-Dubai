@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pre_login_navigation"
     app:startDestination="@id/splashFragment">
-    <include
-        app:graph="@navigation/onboarding_navigation" />
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.app.dubaiculture.ui.preLogin.splash.SplashFragment"
@@ -18,14 +16,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
-
         <action
-            android:id="@+id/action_splashFragment_to_onboarding_navigation"
-            app:destination="@+id/onboarding_navigation"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            android:id="@+id/action_splashFragment_to_onBoardingFragment2"
+            app:destination="@id/onBoardingFragment2" />
 
     </fragment>
 
@@ -185,5 +178,14 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
     </dialog>
+    <fragment
+        android:id="@+id/onBoardingFragment2"
+        tools:layout="@layout/fragment_on_boarding"
+        android:name="com.app.dubaiculture.ui.preLogin.onboarding.OnBoardingFragment"
+        android:label="OnBoardingFragment" >
+        <action
+            android:id="@+id/action_onBoardingFragment2_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 </navigation>

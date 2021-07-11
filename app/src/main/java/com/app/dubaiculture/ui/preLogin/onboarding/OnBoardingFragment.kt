@@ -53,7 +53,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
 //                                    )
 //                                }
                                 application.auth.isLoggedIn = true
-                                navigate(R.id.action_onBoardingFragment_to_LoginFragment)
+                                navigate(R.id.action_onBoardingFragment2_to_loginFragment)
                             }
                         }
                         else -> {
