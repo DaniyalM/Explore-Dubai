@@ -8,7 +8,7 @@ import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.Toast
 import com.app.dubaiculture.R
-import java.lang.String
+
 import java.util.*
 
 class DcWidget : AppWidgetProvider() {

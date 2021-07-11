@@ -298,4 +298,6 @@ dependencies {
     implementation 'com.github.aliab:RTLMaterialSpinner:1.2.1'
     implementation 'com.tbuonomo:dotsindicator:4.2'
 
+    
+
 }

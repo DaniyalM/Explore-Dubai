@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.popular_service.myservices
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +15,24 @@ import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceL
 import com.app.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
 import com.app.dubaiculture.ui.postLogin.popular_service.service.PopularServiceBus
 import com.squareup.otto.Subscribe
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 
+//@AndroidEntryPoint
 class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
     private lateinit var linearLayoutManger: LinearLayoutManager
-    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) = FragmentMyServicesBinding.inflate(inflater, container, false)
+    private var ticketsAdapter:GroupAdapter<GroupieViewHolder> = GroupAdapter()
+    private var statusAdapter:GroupAdapter<GroupieViewHolder> = GroupAdapter()
+
+    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentMyServicesBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+
         binding.customTextView3.text = activity.resources.getString(R.string.my_services)
         binding.headerVisited.back.setOnClickListener {
             back()
@@ -32,12 +44,11 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
 
     private fun initServiceRvListing() {
         linearLayoutManger = LinearLayoutManager(activity)
-        binding.rvServiceListing.apply {
+        binding.rvServiceStatusListing.apply {
             layoutManager = linearLayoutManger
-            adapter = groupAdapter
+            adapter = statusAdapter
         }
     }
-
 
 
     @Subscribe
@@ -49,7 +60,7 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
                         addMyServices()
                     }
                     else -> {
-                       binding.rvServiceListing.visibility=View.GONE
+                        binding.rvServiceStatusListing.visibility = View.GONE
                     }
                 }
             }
@@ -57,19 +68,20 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
     }
 
 
-
     private fun addMyServices() {
-        binding.rvServiceListing.visibility=View.VISIBLE
-        groupAdapter.apply {
+        binding.rvServiceStatusListing.visibility = View.VISIBLE
+        statusAdapter.apply {
             if (this.itemCount > 0) {
                 this.clear()
             }
 
             testPlaces().forEach {
-                add(PopularServiceListItem<ItemMyServiceLayoutBinding>(
+                add(
+                    PopularServiceListItem<ItemMyServiceLayoutBinding>(
                         resLayout = R.layout.item_my_service_layout,
                         servicesBookings = it
-                ))
+                    )
+                )
             }
         }
     }
@@ -82,6 +94,7 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
         }
         return placesVisited
     }
+
     private fun initializeHeaders(): MutableList<ServiceHeader> {
         val placesVisited = ArrayList<ServiceHeader>()
         repeat(2) {
