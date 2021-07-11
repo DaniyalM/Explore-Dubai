@@ -50,9 +50,9 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
                             binding.btnSkip.visibility = View.GONE
                             binding.getStarted.visibility = View.VISIBLE
                             binding.getStarted.setOnClickListener {
-                                lifecycleScope.launch {
-                                    dataStoreManager.setData(preferencesKey(Constants.DataStore.SKIP), true)
-                                }
+//                                lifecycleScope.launch {
+//                                    dataStoreManager.setData(preferencesKey(Constants.DataStore.SKIP), true)
+//                                }
                                 application.auth.isLoggedIn = true
                                 navigate(R.id.action_onBoardingFragment_to_LoginFragment)
                             }
@@ -61,8 +61,8 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
                             binding.btnSkip.visibility = View.VISIBLE
                             binding.getStarted.visibility = View.GONE
                             binding.btnSkip.setOnClickListener {
-                                application.auth.isLoggedIn = true
-                                navigate(R.id.action_onBoardingFragment_to_LoginFragment)
+                                binding.pager.currentItem = position+1
+
                             }
                         }
                     }
