@@ -33,9 +33,7 @@ import com.squareup.otto.Subscribe
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_favourite.*
-import kotlinx.android.synthetic.main.layout_back.view.*
-import kotlinx.android.synthetic.main.toolbar_layout.view.*
+
 
 @AndroidEntryPoint
 class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
@@ -92,7 +90,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(profileViewModel)
-        backArrowRTL(binding.root.back)
+        backArrowRTL(binding.headerVisited.back)
         binding.customTextView3.text = activity.resources.getString(R.string.favourites)
 
         binding.headerVisited.back.setOnClickListener {
@@ -234,26 +232,26 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
     }
 
     private fun setupToolbarWithSearchItems() {
-        binding.root.apply {
-//            profilePic.visibility = View.GONE
-//            img_drawer.visibility = View.GONE
-            toolbar_title.apply {
-                visibility = View.VISIBLE
-                text = activity.getString(R.string.favourites)
-            }
-        }
+//        binding.headerVisited.apply {
+////            profilePic.visibility = View.GONE
+////            img_drawer.visibility = View.GONE
+//            toolbar_title.apply {
+//                visibility = View.VISIBLE
+//                text = activity.getString(R.string.favourites)
+//            }
+//        }
     }
 
     private fun addServices() {
-        rveventListing.visibility = View.GONE
-        rvAttractionListing.visibility = View.GONE
-        rvServicesListing.visibility = View.VISIBLE
+        binding.rveventListing.visibility = View.GONE
+        binding.rvAttractionListing.visibility = View.GONE
+        binding.rvServicesListing.visibility = View.VISIBLE
     }
 
     private fun addEvents() {
-        rveventListing.visibility = View.VISIBLE
-        rvAttractionListing.visibility = View.GONE
-        rvServicesListing.visibility = View.GONE
+        binding.rveventListing.visibility = View.VISIBLE
+        binding.rvAttractionListing.visibility = View.GONE
+        binding.rvServicesListing.visibility = View.GONE
 
         eventsAdapter?.apply {
             if (this.itemCount > 0) {
@@ -311,9 +309,9 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
     }
 
     private fun addAttractions() {
-        rvAttractionListing.visibility = View.VISIBLE
-        rveventListing.visibility = View.GONE
-        rvServicesListing.visibility = View.GONE
+        binding.rvAttractionListing.visibility = View.VISIBLE
+        binding. rveventListing.visibility = View.GONE
+        binding.rvServicesListing.visibility = View.GONE
     
         attractionsAdapter?.apply {
             if (this.itemCount > 0) {

@@ -4,12 +4,13 @@ package com.app.dubaiculture.ui.postLogin.events.detail.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItemsSlots
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import kotlinx.android.synthetic.main.schedule_expand.view.*
 import java.util.*
 
 
@@ -17,8 +18,8 @@ class ScheduleInnerRecyclerviewAdapter(var nameList: ArrayList<EventScheduleItem
     RecyclerView.Adapter<ScheduleInnerRecyclerviewAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val time = itemView.tv_start_time
-        val summary = itemView.tv_summary
+        val time = itemView.findViewById<TextView>(R.id.tv_start_time)
+        val summary = itemView.findViewById<TextView>(R.id.tv_summary)
         val context = itemView.context
     }
 //    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

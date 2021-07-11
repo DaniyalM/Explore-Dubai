@@ -25,8 +25,7 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItems
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItemsSlots
-import com.app.dubaiculture.databinding.EventItemsBinding
-import com.app.dubaiculture.databinding.FragmentEventDetailBinding
+import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
@@ -58,10 +57,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.event_detail_inner_layout.view.*
-import kotlinx.android.synthetic.main.event_detail_schedule_layout.view.*
-import kotlinx.android.synthetic.main.fragment_event_detail.view.*
-import kotlinx.android.synthetic.main.toolbar_layout_event_detail.view.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -80,6 +75,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     var isDetailFavouriteFlag = false
     var emailContact: String? = null
     var numberContact: String? = null
+
+    lateinit var eventDetailInnerLayout: EventDetailInnerLayoutBinding
+    lateinit var eventDetailScheduleLayoutBinding: EventDetailScheduleLayoutBinding
+    lateinit var toolbarLayoutEventDetailBinding: ToolbarLayoutEventDetailBinding
 
 
     private val getObserver = Observer<GpsStatus> {
@@ -141,6 +140,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        eventDetailInnerLayout=binding.eventDetailInnerLayout
         locationPermission()
         subscribeUiEvents(eventViewModel)
         callingObservables()
@@ -151,60 +151,60 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         enableRegistration(eventObj.registrationDate)
         if (eventObj.isFavourite) {
             binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
-            binding.root.favourite_event.background =
+            binding.toolbarLayoutEventDetail.favouriteEvent.background =
                 getDrawableFromId(R.drawable.heart_icon_fav)
         }
 
-        binding.root.btn_register_now.setOnClickListener {
+        eventDetailInnerLayout.btnRegisterNow.setOnClickListener {
 //            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
         }
-        binding.root.ll_callus.setOnClickListener {
+        eventDetailInnerLayout.llCallus.setOnClickListener {
             openDiallerBox(numberContact)
 
         }
-        binding.root.ll_email_us.setOnClickListener {
+        eventDetailInnerLayout.llEmailUs.setOnClickListener {
             openEmailbox(email = emailContact.toString())
         }
-        binding.root.imgFb.setOnClickListener {
+        eventDetailInnerLayout.imgFb.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj.socialLink?.get(0)!!.facebookPageLink,
                 activity,
                 isFacebook = true
             )
         }
-        binding.root.imgTwitter.setOnClickListener {
+        eventDetailInnerLayout.imgTwitter.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj.socialLink?.get(0)!!.twitterPageLink,
                 activity,
                 isTwitter = true
             )
         }
-        binding.root.imgInsta.setOnClickListener {
+        eventDetailInnerLayout.imgInsta.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj.socialLink?.get(0)!!.instagramPageLink,
                 activity,
                 isInstagram = true
             )
         }
-        binding.root.imgUtube.setOnClickListener {
+        eventDetailInnerLayout.imgUtube.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj.socialLink?.get(0)!!.youtubePageLink,
                 activity,
                 isYoutube = true
             )
         }
-        binding.root.imgLinkedin.setOnClickListener {
+        eventDetailInnerLayout.imgLinkedin.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj.socialLink?.get(0)!!.linkedInPageLink,
                 activity,
                 isLinkedIn = true
             )
         }
-        binding.root.favourite_event.setOnClickListener {
+        binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener {
             isDetailFavouriteFlag = true
             eventObj.let { event ->
                 favouriteClick(
-                    it.favourite_event,
+                    binding.toolbarLayoutEventDetail.favouriteEvent,
                     event.isFavourite,
                     R.id.action_eventDetailFragment2_to_postLoginFragment,
                     event.id!!,
@@ -217,7 +217,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             isDetailFavouriteFlag = true
             eventObj.let { event ->
                 favouriteClick(
-                    it.favourite,
+                    binding.favourite,
                     event.isFavourite,
                     R.id.action_eventDetailFragment2_to_postLoginFragment,
                     event.id!!,
@@ -226,20 +226,20 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 )
             }
         }
-        binding.root.rbEventInfo.setOnClickListener {
-            binding.root.ll_even_info.visibility = View.VISIBLE
-            binding.root.ll_schedule.visibility = View.GONE
+        eventDetailInnerLayout.rbEventInfo.setOnClickListener {
+            eventDetailInnerLayout.llEvenInfo.visibility = View.VISIBLE
+            eventDetailInnerLayout.llSchedule.visibility = View.GONE
         }
-        binding.root.rbSchedule.setOnClickListener {
-            binding.root.ll_even_info.visibility = View.GONE
-            binding.root.ll_schedule.visibility = View.VISIBLE
+        eventDetailInnerLayout.rbSchedule.setOnClickListener {
+            eventDetailInnerLayout.llEvenInfo.visibility = View.GONE
+            eventDetailInnerLayout.llSchedule.visibility = View.VISIBLE
             verticalLayoutManager = LinearLayoutManager(
                 requireContext(),
                 RecyclerView.VERTICAL,
                 false
             )
             myAdapter = ScheduleExpandAdapter(requireActivity(), parentItemList, childItemHolder)
-            binding.root.rvSchedule.apply {
+            eventDetailInnerLayout.eventDetailScheduleLayout.rvSchedule.apply {
                 setHasFixedSize(true)
                 layoutManager = verticalLayoutManager
                 adapter = myAdapter
@@ -269,7 +269,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_fav)
-                            binding.root.favourite_event.background =
+                            binding.toolbarLayoutEventDetail.favouriteEvent.background =
                                 getDrawableFromId(R.drawable.heart_icon_fav)
                             isDetailFavouriteFlag = false
                         }
@@ -281,7 +281,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
-                            binding.root.favourite_event.background =
+                            toolbarLayoutEventDetailBinding.favouriteEvent.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
                             isDetailFavouriteFlag = false
 
@@ -296,37 +296,47 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
 
     private fun uiActions() {
+
+        binding.toolbarLayoutEventDetail.btnReg.setOnClickListener(this)
+        binding.toolbarLayoutEventDetail.backEvent.setOnClickListener(this)
+        binding.toolbarLayoutEventDetail.imgShareEvent.setOnClickListener(this)
+        binding.toolbarLayoutEventDetail.bookingCalenderEvent.setOnClickListener(this)
+        binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener(this)
+
+        binding.eventDetailInnerLayout.imgEventSpeaker.setOnClickListener(this)
+        binding.eventDetailInnerLayout.eventDetailScheduleLayout.speakerSchedule.setOnClickListener(this)
+        binding.eventDetailInnerLayout.tvDirectionEvent.setOnClickListener(this)
+        backArrowRTL(binding.back)
+        bgRTL(binding.toolbarLayoutEventDetail.bgBorderEvent)
+        bgEventtRTL(binding.eventDetailInnerLayout.img)
+
         binding.apply {
-            root.apply {
+            toolbarLayoutEventDetail.apply {
+                backArrowRTL(backEvent)
+
                 title.text = eventObj.title
-                tv_title.text = eventObj.title
-                tv_location.text = eventObj.locationTitle
-                tv_event_days_date.text =
-                    "${eventObj.toDate}- ${eventObj.fromDate} ${eventObj.fromMonthYear}  |  ${eventObj.fromDay} - ${eventObj.toDay}"
-                tv_times.text = "${eventObj.fromTime} - ${eventObj.toTime}"
-                tv_category.text = eventObj.category
                 category.text = eventObj.category
-                tv_event_date.text =
+                tvEventDate.text =
                     "${eventObj.fromDate} - ${eventObj.toDate} ${eventObj.fromMonthYear}"
+            }
+            eventDetailInnerLayout.apply {
+                tvTitle.text = eventObj.title
+                tvLocation.text = eventObj.locationTitle
+                tvEventDaysDate.text =
+                    "${eventObj.toDate}- ${eventObj.fromDate} ${eventObj.fromMonthYear}  |  ${eventObj.fromDay} - ${eventObj.toDay}"
+                tvTimes.text = "${eventObj.fromTime} - ${eventObj.toTime}"
+                tvCategory.text = eventObj.category
+
                 glide.load(com.app.dubaiculture.BuildConfig.BASE_URL + eventObj.image)
-                    .into(imageView)
+                    .into(toolbarLayoutEventDetail.imageView)
             }
         }
-        binding.root.btn_reg.setOnClickListener(this)
-        binding.root.back.setOnClickListener(this)
-        binding.root.back_event.setOnClickListener(this)
-        binding.root.img_share_event.setOnClickListener(this)
-        binding.root.bookingCalender_event.setOnClickListener(this)
-        binding.root.favourite_event.setOnClickListener(this)
-        binding.root.favourite.setOnClickListener(this)
-        binding.root.img_event_speaker.setOnClickListener(this)
-        binding.root.speaker_schedule.setOnClickListener(this)
-        binding.root.tvDirectionEvent.setOnClickListener(this)
+        binding.back.setOnClickListener(this)
 
-        backArrowRTL(binding.root.back_event)
-        backArrowRTL(binding.root.back)
-        bgRTL(binding.root.bg_border_event)
-        bgEventtRTL(binding.root.img)
+        binding.favourite.setOnClickListener(this)
+
+
+
 
 
 //        binding.apply {
@@ -338,7 +348,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     private fun rvSetUp() {
-        binding.root.rv_event_up_coming.apply {
+        eventDetailInnerLayout.rvEventUpComing.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
@@ -399,9 +409,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 }
             }
             R.id.img_event_speaker -> {
-                if (binding.root.tv_desc_readmore_event.text.isNotEmpty()) {
+                if (binding.eventDetailInnerLayout.tvDescReadmoreEvent.text.isNotEmpty()) {
                     textToSpeechEngine.speak(
-                        binding.root.tv_desc_readmore_event.text,
+                        binding.eventDetailInnerLayout.tvDescReadmoreEvent.text,
                         TextToSpeech.QUEUE_FLUSH,
                         null,
                         "tts1"
@@ -431,9 +441,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
             }
             R.id.speaker_schedule -> {
-                if (binding.root.tv_schedule_title.text.isNotEmpty())
+                if (binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text.isNotEmpty())
                     textToSpeechEngine.speak(
-                        binding.root.tv_schedule_title.text,
+                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text,
                         TextToSpeech.QUEUE_FLUSH,
                         null,
                         "tts1"
@@ -458,7 +468,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         loc = location
                         Timber.e("Current Location ${location.latitude}")
                         if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty())
-                            binding.root.tv_km.text = locationHelper.distance(
+                            binding.eventDetailInnerLayout.tvKm.text = locationHelper.distance(
                                 loc.latitude,
                                 loc.longitude,
                                 eventObj.latitude!!.toDouble(),
@@ -487,21 +497,21 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     numberContact = it.value.numberContact
                     enableRegistration(it.value.registrationDate)
                     if (numberContact.isNullOrEmpty()) {
-                        binding.root.ll_callus.alpha = 0.2f
-                        binding.root.ll_callus.isClickable = false
+                        binding.eventDetailInnerLayout.llCallus.alpha = 0.2f
+                        binding.eventDetailInnerLayout.llCallus.isClickable = false
                     }
                     if (emailContact.isNullOrEmpty()) {
-                        binding.root.ll_email_us.alpha = 0.2f
-                        binding.root.ll_email_us.isClickable = false
+                        binding.eventDetailInnerLayout.llEmailUs.alpha = 0.2f
+                        binding.eventDetailInnerLayout.llEmailUs.isClickable = false
                     }
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)
                     }
                     if (!it.value.desc.isNullOrEmpty()) {
-                        binding.root.tv_desc_readmore_event.text = it.value.desc
+                        binding.eventDetailInnerLayout.tvDescReadmoreEvent.text = it.value.desc
                     }
                     it.value.eventSchedule!!.map {
-                        binding.root.tv_schedule_title.text = it.description
+                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text = it.description
                         it.eventScheduleItems.forEach {
                             parentItemList.add(it)
                         }
@@ -544,7 +554,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 )
                             }
 
-                            override fun rowClickListener(position: Int, imageView: ImageView) {
+                            override fun rowClickListener(
+                                position: Int,
+                                imageView: ImageView
+                            ) {
 
                             }
                         }, event = it, resLayout = R.layout.event_items, activity
@@ -575,7 +588,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun locationIsEmpty(location: Location) {
         if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty()) {
-            binding.root.tv_km.text =
+            binding.eventDetailInnerLayout.tvKm.text =
                 locationHelper.distance(
                     location.latitude,
                     location.longitude,
@@ -588,8 +601,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun enableRegistration(registrationDate: String) {
         if (getTimeSpan(registrationDate)) {
-            binding.root.btn_reg.visibility = View.GONE
-            binding.root.btn_register_now.visibility = View.GONE
+            binding.toolbarLayoutEventDetail.btnReg.visibility = View.GONE
+            binding.eventDetailInnerLayout.btnRegisterNow.visibility = View.GONE
         }
     }
 
@@ -613,7 +626,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-        if (verticalOffset == -binding.root.collapsingToolbarEventDetail.height + binding.root.toolbarEventDetail.height) {
+        if (verticalOffset == -binding.toolbarLayoutEventDetail.collapsingToolbarEventDetail.height + binding.toolbarLayoutEventDetail.toolbarEventDetail.height) {
             binding.defaultCloseToolbar.visibility = View.VISIBLE
             binding.imageView4.visibility = View.VISIBLE
             binding.swipeRefreshLayout.isEnabled = false

@@ -16,8 +16,6 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.glideInstance
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_ibecon.view.*
-import kotlinx.android.synthetic.main.fragment_ibecon_desc.view.*
 
 @AndroidEntryPoint
 class IbeconDescFragment : BaseFragment<FragmentIbeconDescBinding>() , View.OnClickListener{

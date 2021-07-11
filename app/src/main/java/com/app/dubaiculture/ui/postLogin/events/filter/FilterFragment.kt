@@ -27,8 +27,6 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_filter.*
-import kotlinx.android.synthetic.main.spinner_text.view.*
 import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
@@ -88,7 +86,7 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
         }
         binding.radioGroupFilter.setOnCheckedChangeListener { radioGroup, id ->
             val selectedRadioButton =
-                binding.radioGroupFilter.findViewById<View>(radioGroupFilter.checkedRadioButtonId) as RadioButton
+                binding.radioGroupFilter.findViewById<View>( binding.radioGroupFilter.checkedRadioButtonId) as RadioButton
             when (selectedRadioButton.text.toString()) {
                 radioBtnList[0].title -> {
                     radioBtnID = radioBtnList[0].id!!

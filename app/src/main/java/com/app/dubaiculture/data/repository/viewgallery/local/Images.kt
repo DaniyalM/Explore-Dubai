@@ -1,7 +1,7 @@
 package com.app.dubaiculture.data.repository.viewgallery.local
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Images(

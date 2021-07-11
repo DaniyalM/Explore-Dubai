@@ -5,20 +5,22 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
 import com.app.dubaiculture.utils.glideInstance
 import com.app.dubaiculture.utils.setTextColorRes
-import kotlinx.android.synthetic.main.explore_map_layout_headers.view.*
+import com.google.android.material.card.MaterialCardView
 import java.util.*
 
 open class SingleSelectionAdapter(
-        private val context: Context,
-        val iface: InvokeListener,
+    private val context: Context,
+    val iface: InvokeListener,
 ) :
-        BaseRecyclerAdapter<AttractionCategory>() {
+    BaseRecyclerAdapter<AttractionCategory>() {
 
     var attractions: List<AttractionCategory>
         get() = differ.currentList
@@ -27,58 +29,62 @@ open class SingleSelectionAdapter(
     private var checkedPosition = 0
 
     inner class SingleViewHolder(itemView: View) :
-            RecyclerView.ViewHolder(itemView) {
+        RecyclerView.ViewHolder(itemView) {
         fun bind(attractions: AttractionCategory) {
+            val imageView=itemView.findViewById<ImageView>(R.id.imgInnerIcon)
+            val tvTitle= itemView.findViewById<TextView>(R.id.tv_title)
+            val materialCardView= itemView.findViewById<MaterialCardView>(R.id.cardview)
+
             if (absoluteAdapterPosition != 0) {
-                itemView.imgInnerIcon.visibility = View.VISIBLE
+                imageView.visibility = View.VISIBLE
 
             } else {
-                itemView.imgInnerIcon.visibility = View.GONE
+                imageView.visibility = View.GONE
 
             }
 
 
             if (attractions.icon!!.isNotEmpty()) {
-                itemView.imgInnerIcon.glideInstance(attractions.selectedSvg, true)
-                        .into(itemView.imgInnerIcon)
+                imageView.glideInstance(attractions.selectedSvg, true)
+                    .into(imageView)
             } else {
-                itemView.imgInnerIcon.setImageResource(R.drawable.calender)
+                imageView.setImageResource(R.drawable.calender)
             }
             if (checkedPosition == -1) {
 //                imageView.visibility = View.GONE
                 // un selected
 
-                itemView.tv_title.setTextColorRes(R.color.black_200)
-                itemView.cardview.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+                itemView.findViewById<TextView>(R.id.tv_title).setTextColorRes(R.color.black_200)
+                itemView.findViewById<MaterialCardView>(R.id.cardview).setCardBackgroundColor(Color.parseColor("#FFFFFF"))
             } else {
                 if (checkedPosition == absoluteAdapterPosition) {
                     //  selected
-                    itemView.tv_title.setTextColorRes(R.color.white_900)
-                    itemView.cardview.setCardBackgroundColor(Color.parseColor("#5E2E82"))
+                   tvTitle.setTextColorRes(R.color.white_900)
+                    materialCardView.setCardBackgroundColor(Color.parseColor("#5E2E82"))
 //                    imageView.visibility = View.VISIBLE
                 } else {
                     // un selected
-                    itemView.tv_title.setTextColorRes(R.color.black_200)
-                    itemView.cardview.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+                    tvTitle.setTextColorRes(R.color.black_200)
+                    materialCardView.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
 //                    imageView.visibility = View.GONE
                 }
             }
-            itemView.tv_title.text = attractions.title
+            tvTitle.text = attractions.title
             itemView.setOnClickListener(View.OnClickListener {
                 // un selected
                 iface.getRowClick(absoluteAdapterPosition)
-                itemView.tv_title.setTextColorRes(R.color.white_900)
+                tvTitle.setTextColorRes(R.color.white_900)
 
                 if (attractions.color.isNullOrEmpty()) {
-                    itemView.cardview.setCardBackgroundColor(Color.parseColor("#5E2E82"))
+                    materialCardView.setCardBackgroundColor(Color.parseColor("#5E2E82"))
                 } else {
-                    itemView.cardview.setCardBackgroundColor(Color.parseColor(attractions.color))
+                    materialCardView.setCardBackgroundColor(Color.parseColor(attractions.color))
                 }
                 if (attractions.icon!!.isNotEmpty()) {
-                    itemView.imgInnerIcon.glideInstance(attractions.icon, true)
-                            .into(itemView.imgInnerIcon)
+                    imageView.glideInstance(attractions.icon, true)
+                        .into(imageView)
                 } else {
-                    itemView.imgInnerIcon.setImageResource(R.drawable.calender_white)
+                   imageView.setImageResource(R.drawable.calender_white)
                 }
                 if (checkedPosition != absoluteAdapterPosition) {
 
@@ -91,7 +97,7 @@ open class SingleSelectionAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val view: View =
-                LayoutInflater.from(context).inflate(R.layout.explore_map_layout_headers, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.explore_map_layout_headers, parent, false)
         return SingleViewHolder(view)
     }
 

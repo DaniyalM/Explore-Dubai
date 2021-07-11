@@ -28,7 +28,6 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 
 
 @AndroidEntryPoint

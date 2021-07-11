@@ -10,13 +10,13 @@ import android.widget.TextView.OnEditorActionListener
 import androidx.fragment.app.activityViewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.filter.models.SelectedItems
+import com.app.dubaiculture.databinding.EventSearchToolbarBinding
 import com.app.dubaiculture.databinding.FragmentEventFilterBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.event_search_toolbar.view.*
 import q.rorbin.badgeview.QBadgeView
 import java.util.*
 
@@ -26,13 +26,19 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
     private val eventViewModel: EventViewModel by activityViewModels()
 
     private var isContentLoaded = false
+    lateinit var eventSearchToolbarBinding: EventSearchToolbarBinding
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.root.img_filter.setOnClickListener(this)
-        binding.root.back.setOnClickListener(this)
-        binding.root.img_search.setOnClickListener(this)
-        backArrowRTL(binding.root.back)
+
+        binding.eventSearchToolbar.imgFilter.setOnClickListener(this)
+        binding.eventSearchToolbar.back.setOnClickListener(this)
+        binding.eventSearchToolbar.imgSearch.setOnClickListener(this)
+        backArrowRTL(binding.eventSearchToolbar.back)
 
         subscribeUiEvents(eventViewModel)
 //        callingObservables()
@@ -46,19 +52,19 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
         eventViewModel.filterDataList.observe(viewLifecycleOwner){
             if(!it.isNullOrEmpty()){
                 // badge should be visible
-                binding.root.tv_badge.text = it.size.toString()
-                binding.root.tv_badge.visibility = View.VISIBLE
+                eventSearchToolbarBinding.tvBadge.text = it.size.toString()
+                eventSearchToolbarBinding.tvBadge.visibility = View.VISIBLE
                 binding.showTabHeader.visibility = View.GONE
             }else{
                 // badge should be gone
-                binding.root.tv_badge.visibility = View.GONE
+                eventSearchToolbarBinding.tvBadge.visibility = View.GONE
                 binding.showTabHeader.visibility = View.VISIBLE
             }
         }
 
-        binding.root.editSearchEvents.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+        eventSearchToolbarBinding.editSearchEvents.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                eventViewModel._searchBarKeyWord.value = Event(binding.root.editSearchEvents.text.toString())
+                eventViewModel._searchBarKeyWord.value = Event(eventSearchToolbarBinding.editSearchEvents.text.toString())
                 return@OnEditorActionListener true
             }
             false
@@ -137,7 +143,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_search ->{
-                eventViewModel._searchBarKeyWord.value = Event(binding.root.editSearchEvents.text.toString())
+                eventViewModel._searchBarKeyWord.value = Event(eventSearchToolbarBinding.editSearchEvents.text.toString())
             }
             R.id.img_filter -> {
                 navigate(R.id.action_eventFilterFragment_to_filterFragment)
@@ -150,7 +156,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 private fun badgeSetUp(list: List<SelectedItems>){
     QBadgeView(requireContext())
         .setBadgeBackgroundColor(R.color.purple_900)
-        .bindTarget(binding.root.badge_placement).setBadgeNumber(list.size)
+        .bindTarget(eventSearchToolbarBinding.badgePlacement).setBadgeNumber(list.size)
 //        .stroke(R.color.black_900, 6F, true)\
         .setBadgeGravity(Gravity.START or Gravity.TOP)
         .setGravityOffset(18F, 6F, true)

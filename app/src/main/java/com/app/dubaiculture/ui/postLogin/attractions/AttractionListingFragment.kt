@@ -27,7 +27,6 @@ import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.toolbar_layout_event_detail.*
 
 
 @AndroidEntryPoint
@@ -37,15 +36,13 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     //    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractionCat: AttractionCategory
-    private var lastFirstVisiblePosition: Int = 0
+//    private var lastFirstVisiblePosition: Int = 0
 
     //    private var searchQuery: String = ""
     private var pageNumber: Int = 1
     private var pageSize: Int = 3
     var contentLoaded = false
     var contentLoadMore = true
-
-
 
 
     companion object {
@@ -74,7 +71,6 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(attractionViewModel)
         initRecyclerView()
-
         callingObservables()
         subscribeToObservables()
     }
@@ -154,7 +150,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                                                 position: Int,
                                                 imageView: ImageView
                                             ) {
-                                                imageView.transitionName=it.id
+                                                imageView.transitionName = it.id
                                                 val extras = FragmentNavigatorExtras(
                                                     imageView to it.id
                                                 )
@@ -214,19 +210,21 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
                                                     position: Int,
                                                     imageView: ImageView
                                                 ) {
-                                                    imageView.transitionName=it.id
+                                                    imageView.transitionName = it.id
                                                     val extras = FragmentNavigatorExtras(
                                                         imageView to it.id
                                                     )
 
-                                                    navigate(R.id.action_attractionsFragment_to_attractionDetailFragment,
+                                                    navigate(
+                                                        R.id.action_attractionsFragment_to_attractionDetailFragment,
                                                         Bundle().apply {
                                                             putParcelable(
                                                                 Constants.NavBundles.ATTRACTION_OBJECT,
                                                                 it
                                                             )
                                                         },
-                                                    extras=extras)
+                                                        extras = extras
+                                                    )
                                                 }
                                             },
                                             attraction = it,

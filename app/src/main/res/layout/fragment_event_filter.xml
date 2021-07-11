@@ -13,7 +13,9 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
-            <include layout="@layout/event_search_toolbar"/>
+            <include
+                android:id="@+id/event_search_toolbar"
+                layout="@layout/event_search_toolbar"/>
 
             <FrameLayout
                 android:id="@+id/showTabHeader"

@@ -14,7 +14,6 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.AsyncCell
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import kotlinx.android.synthetic.main.item_event_listing.view.*
 
 class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , private val rowClickListener: RowClickListener?=null) : BaseRecyclerAdapter<Events>() {
 
@@ -56,14 +55,14 @@ class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , p
         position: Int,
     ) {
         (holder.itemView as EventsListItemCell).bindWhenInflated {
-            holder.itemView.binding?.let {
+            holder.itemView.binding?.let {binding->
                 try {
 
-                    it.events = events[position]
-                    it.favourite.setOnClickListener {
+                    binding.events = events[position]
+                    binding.favourite.setOnClickListener {
                         events[position].let { event->
                             event.id?.let { itemId ->
-                                favChecker!!.checkFavListener(it.favourite,
+                                favChecker!!.checkFavListener(binding.favourite,
                                     position,
                                     event.isFavourite,
                                     itemId)
@@ -72,7 +71,7 @@ class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , p
                         }
 
                     }
-                    it.cardview.setOnClickListener {
+                    binding.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
                     }
 

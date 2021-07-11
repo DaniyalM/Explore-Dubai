@@ -10,7 +10,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/toolbar_snippet"/>
+            <include
+                android:id="@+id/toolbar_snippet"
+                layout="@layout/toolbar_snippet"/>
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -91,6 +93,7 @@
                         android:layout_height="match_parent"
                         android:overScrollMode="never" /></com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
                     <include
+                        android:id="@+id/plan_a_trip_layout"
                         layout="@layout/plan_a_trip_layout"/>
 
 

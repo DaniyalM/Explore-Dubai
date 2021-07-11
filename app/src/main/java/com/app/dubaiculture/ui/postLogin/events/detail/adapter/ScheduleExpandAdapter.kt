@@ -4,6 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,11 +16,10 @@ import com.app.dubaiculture.data.repository.event.local.models.schedule.EventSch
 import com.app.dubaiculture.utils.dayOfWeek
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import kotlinx.android.synthetic.main.schedule_collapse.view.*
 
 
 class ScheduleExpandAdapter(
-        internal var context: Context,
+        private var context: Context,
         nameList: ArrayList<EventScheduleItems>,
         itemNameList: ArrayList<ArrayList<EventScheduleItemsSlots>>,
 ) : RecyclerView.Adapter<ScheduleExpandAdapter.ViewHolder>() {
@@ -27,20 +29,19 @@ class ScheduleExpandAdapter(
     init {
         this.nameList = nameList
         this.itemNameList = itemNameList
-        this.context =context
         for (i in 0 until nameList.size) {
             counter.add(0)
         }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var day = itemView.tv_weekdays
-        var date = itemView.tv_date_schedule
-        var monthYear = itemView.tv_month_year_schedule
-        var imgToggle = itemView.imgToggle
-        var ll_header = itemView.ll_header
-        var innerRecycler=  itemView.innerRecyclerView
-        var lineSchedule = itemView.lines_schedule
+        var day = itemView.findViewById<TextView>(R.id.tv_weekdays)
+        var date = itemView.findViewById<TextView>(R.id.tv_date_schedule)
+        var monthYear = itemView.findViewById<TextView>(R.id.tv_month_year_schedule)
+        var imgToggle = itemView.findViewById<ImageView>(R.id.imgToggle)
+        var ll_header = itemView.findViewById<LinearLayout>(R.id.ll_header)
+        var innerRecycler=  itemView.findViewById<RecyclerView>(R.id.innerRecyclerView)
+        var lineSchedule = itemView.findViewById<ImageView>(R.id.lines_schedule)
 
 //        init {
 //            innerRecycler = itemView.findViewById(R.id.innerRecyclerView)
