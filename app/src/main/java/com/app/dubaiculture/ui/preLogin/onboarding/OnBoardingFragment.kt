@@ -53,17 +53,15 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
 //                                    )
 //                                }
                                 application.auth.isLoggedIn = true
-                                navigate(R.id.action_onBoardingFragment_to_LoginFragment)
+                                navigate(R.id.action_onBoardingFragment2_to_loginFragment)
                             }
                         }
                         else -> {
                             binding.btnSkip.visibility = View.VISIBLE
                             binding.getStarted.visibility = View.GONE
                             binding.btnSkip.setOnClickListener {
-                                binding.pager.currentItem +=1
+                                binding.pager.currentItem = position+1
 
-//                                application.auth.isLoggedIn = true
-//                                navigate(R.id.action_onBoardingFragment_to_LoginFragment)
                             }
                         }
                     }

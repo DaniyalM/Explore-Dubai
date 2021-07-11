@@ -162,7 +162,6 @@
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:onTextChanged="@{viewmodel::onPasswordChanged}"
-            android:text="@={viewmodel.password}"
             android:transitionName="my_edit_password"
             app:layout_constraintBottom_toTopOf="@+id/forgot_pass"
             app:layout_constraintEnd_toEndOf="@+id/btn_login"

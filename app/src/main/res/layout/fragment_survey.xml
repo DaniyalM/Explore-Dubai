@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_900"
+    tools:context=".ui.postLogin.survey.SurveyFragment">
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_35sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:background="@drawable/cross_btn_survey_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/new_one"
+        app:lottie_repeatCount="0" />
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/fill_out_survey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:text="@string/fill_out_the_survey"
+        android:textColor="@color/white_900"
+        android:textSize="@dimen/_25ssp"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/share_your_feedback_and_help_us_improve_nyour_experience"
+        android:textColor="@color/gray_600"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fill_out_survey"
+        app:layout_constraintTop_toBottomOf="@+id/fill_out_survey" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
