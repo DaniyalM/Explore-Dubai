@@ -49,8 +49,6 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun getRecyclerView() = binding.rvExplore
     override fun onPause() {
         super.onPause()
-
-
         lastFirstVisiblePosition =
                 (getRecyclerView().layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
 
@@ -128,7 +126,6 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             binding.swipeRefresh.isRefreshing = false
             when (it) {
                 is Result.Success -> {
-
                     it.let {
                         exploreAdapter?.items = it.value
                     }

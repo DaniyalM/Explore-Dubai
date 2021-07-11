@@ -10,13 +10,17 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.databinding.FragmentMoreBinding
 import com.app.dubaiculture.databinding.ItemsMoreLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.more.adapter.MoreItems
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
+import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
+import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_NAVIGATION
 import com.app.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
 import com.app.dubaiculture.utils.Constants.NavBundles.SETTING_DESTINATION
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION
@@ -36,6 +40,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
     var navigateSettings = false
+    var latestNews: String? = null
+    var moreListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+    var backflagNavigation = false
+    var latestNewsListingFlag = false
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -45,17 +53,37 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.let {
-           navigateSettings = it.getBoolean(SETTING_DESTINATION)
+            navigateSettings = it.getBoolean(SETTING_DESTINATION)
+            latestNewsListingFlag = it.getBoolean(NEWS_NAVIGATION)
+            latestNews=it.getString(NEWS_ID)
         }
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (backflagNavigation) {
+            backflagNavigation = false
+            navigateSettings = false
+            latestNewsListingFlag = false
+            latestNews=null
+            navigateBack()
+        }
         if (navigateSettings) {
-            navigateSettings=false
+            backflagNavigation = true
             navigate(R.id.action_moreFragment_to_settingFragment)
         }
+        if (latestNewsListingFlag) {
+            backflagNavigation = true
+            navigate(R.id.action_moreFragment_to_latestNewsFragment)
+        }
+        if (!latestNews.isNullOrEmpty()){
+            backflagNavigation = true
+            val bundle = bundleOf(NEWS_ID to latestNews)
+            navigate(R.id.action_moreFragment_to_latestNewsFragment,bundle)
+        }
+
+
         subscribeUiEvents(moreViewModel)
         bgAboutRTL(binding.imgEagle)
         binding.llRateUs.setOnClickListener(this)
@@ -119,8 +147,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     private fun rvSetUp() {
         newsAdapter = GroupAdapter()
         settingAdapter = GroupAdapter()
-        if (groupAdapter.itemCount > 0) {
-            groupAdapter.clear()
+        if (moreListAdapter.itemCount > 0) {
+            moreListAdapter.clear()
         }
         if (newsAdapter.itemCount > 0) {
             newsAdapter.clear()
@@ -129,7 +157,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             settingAdapter.clear()
         }
         servicesList(activity).map {
-            groupAdapter.add(
+            moreListAdapter.add(
                 MoreItems<ItemsMoreLayoutBinding>(
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
@@ -150,7 +178,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.rvServices.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = groupAdapter
+            adapter = moreListAdapter
         }
         newsList(activity).map {
 //            if (newsAdapter.itemCount > 0) {

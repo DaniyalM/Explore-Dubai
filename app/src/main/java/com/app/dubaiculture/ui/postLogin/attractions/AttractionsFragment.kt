@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -21,11 +19,12 @@ import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_OBJECT
 import com.app.dubaiculture.utils.handleApiError
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 @AndroidEntryPoint
 class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
-    private lateinit var pagerAdapter: AttractionPagerAdaper
+    private var pagerAdapter: AttractionPagerAdaper? = null
     private val attractionViewModel: AttractionViewModel by viewModels()
     private var contentLoaded = false
     private var attraction: Attractions? = null
@@ -33,6 +32,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
     override fun onResume() {
         super.onResume()
+        initiateRequest()
         if (binding.pager.currentItem != clickCheckerFlag) {
             attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
         }
@@ -53,21 +53,18 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
         binding.swipeRefresh.apply {
             if (!contentLoaded) {
-                post {
-                    binding.swipeRefresh.isRefreshing = true
-                    attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-                }
+                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
             }
 
             setColorSchemeResources(
-                    R.color.colorPrimary,
-                    android.R.color.holo_green_dark,
-                    android.R.color.holo_orange_dark,
-                    android.R.color.holo_blue_dark
+                R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark
             )
             setOnRefreshListener {
                 attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-                bus.post(AttractionServices.TriggerRefresh())
+
             }
 
         }
@@ -75,7 +72,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
-            FragmentAttractionsBinding.inflate(inflater, container, false)
+        FragmentAttractionsBinding.inflate(inflater, container, false)
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
@@ -90,8 +87,8 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
             backflagNavigation = true
             navigate(R.id.action_attractionsFragment_to_attractionDetailFragment, Bundle().apply {
                 putParcelable(
-                        ATTRACTION_OBJECT,
-                        attraction
+                    ATTRACTION_OBJECT,
+                    attraction
                 )
             })
 
@@ -102,36 +99,43 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         subscribeUiEvents(attractionViewModel)
         initiatePager()
         subscribeToObservables()
-        initiateRequest()
+
     }
 
 
     private fun initiatePager() {
-        if (!contentLoaded) {
+        if (pagerAdapter==null) {
             pagerAdapter = AttractionPagerAdaper(this)
             binding.pager.apply {
                 isUserInputEnabled = false
                 isSaveEnabled = false
-                adapter = pagerAdapter
             }
-
         }
+
+
+
+
     }
 
 
     private fun subscribeToObservables() {
         attractionViewModel.attractionCategoryList.observe(viewLifecycleOwner) {
-            //Below expression will trigger the refresh inside listing fragment
-            binding.swipeRefresh.isRefreshing = false
 
+            if (binding.swipeRefresh.isRefreshing){
+                //Below expression will trigger the refresh inside listing fragment
+                bus.post(AttractionServices.TriggerRefresh())
+                binding.swipeRefresh.isRefreshing = false
 
+            }
             when (it) {
                 is Result.Success -> {
                     it.let { result ->
                         contentLoaded = true
-
+                        binding.pager.adapter = pagerAdapter
                         binding.horizontalSelector.initialize(result.value, bus)
-                        pagerAdapter.list = result.value
+                        pagerAdapter?.list = result.value
+
+
 
 
                     }

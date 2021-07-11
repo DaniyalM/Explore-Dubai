@@ -56,6 +56,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -79,6 +81,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     lateinit var eventDetailInnerLayout: EventDetailInnerLayoutBinding
     lateinit var eventDetailScheduleLayoutBinding: EventDetailScheduleLayoutBinding
     lateinit var toolbarLayoutEventDetailBinding: ToolbarLayoutEventDetailBinding
+
+    var eventListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
 
     private val getObserver = Observer<GpsStatus> {
@@ -138,9 +142,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        eventDetailInnerLayout=binding.eventDetailInnerLayout
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        eventDetailInnerLayout = binding.eventDetailInnerLayout
         locationPermission()
         subscribeUiEvents(eventViewModel)
         callingObservables()
@@ -252,6 +256,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     }
 
+
     private fun callingObservables() {
         eventViewModel.getEventDetailsToScreen(eventObj.id!!, getCurrentLanguage().language)
         eventViewModel.eventDetail.observe(viewLifecycleOwner) {
@@ -304,7 +309,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener(this)
 
         binding.eventDetailInnerLayout.imgEventSpeaker.setOnClickListener(this)
-        binding.eventDetailInnerLayout.eventDetailScheduleLayout.speakerSchedule.setOnClickListener(this)
+        binding.eventDetailInnerLayout.eventDetailScheduleLayout.speakerSchedule.setOnClickListener(
+            this
+        )
         binding.eventDetailInnerLayout.tvDirectionEvent.setOnClickListener(this)
         backArrowRTL(binding.back)
         bgRTL(binding.toolbarLayoutEventDetail.bgBorderEvent)
@@ -336,9 +343,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.favourite.setOnClickListener(this)
 
 
-
-
-
 //        binding.apply {
 //            appbarEventnDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
 //
@@ -351,7 +355,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         eventDetailInnerLayout.rvEventUpComing.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = groupAdapter
+            adapter = eventListAdapter
         }
         initiateExpander()
 
@@ -511,7 +515,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         binding.eventDetailInnerLayout.tvDescReadmoreEvent.text = it.value.desc
                     }
                     it.value.eventSchedule!!.map {
-                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text = it.description
+                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text =
+                            it.description
                         it.eventScheduleItems.forEach {
                             parentItemList.add(it)
                         }
@@ -519,11 +524,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             childItemHolder.add(it.eventScheduleItemsSlots as ArrayList<EventScheduleItemsSlots>)
                         }
                     }
-                    if (groupAdapter.itemCount > 0) {
-                        groupAdapter.clear()
+                    if (eventListAdapter.itemCount > 0) {
+                        eventListAdapter.clear()
                     }
                     moreEvents.map {
-                        groupAdapter.add(EventListItem<EventItemsBinding>(object :
+                        eventListAdapter.add(EventListItem<EventItemsBinding>(object :
                             FavouriteChecker {
                             override fun checkFavListener(
                                 checkbox: CheckBox,

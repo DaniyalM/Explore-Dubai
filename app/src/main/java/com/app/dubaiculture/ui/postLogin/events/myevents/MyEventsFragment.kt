@@ -17,9 +17,12 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 
 class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
-    private val eventViewModel: EventViewModel by viewModels()
+//    private val eventViewModel: EventViewModel by viewModels()
+    var eventListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentPlacesVisitedBinding.inflate(inflater, container, false)
@@ -36,11 +39,11 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
             personalRv.apply {
                 isNestedScrollingEnabled = false
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = groupAdapter
+                adapter = eventListAdapter
             }
 
             testPlaces().forEach {
-                groupAdapter.add(
+                eventListAdapter.add(
                     EventListItem<ItemEventListingBinding>(
                         object :
                             FavouriteChecker {

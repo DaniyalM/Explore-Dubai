@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.latestnews
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,9 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.latestnews.viewmodel.NewsViewModel
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
+import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_NAVIGATION
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,9 +31,19 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnClickListener {
     private val newsViewModel: NewsViewModel by viewModels()
+    var newsListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+    var backflagNavigation = false
+    var latestNews: String? = null
     private var newsRequest: NewsRequest = NewsRequest(
             pageNumber = 0, pageSize = 6
     )
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.let {
+            latestNews=it.getString(NEWS_ID)
+        }
+
+    }
     var contentLoadMore = true
     var newsVerticalAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     override fun getFragmentBinding(
@@ -41,6 +54,17 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (backflagNavigation) {
+            backflagNavigation = false
+            latestNews=null
+            navigateBack()
+        }
+        if (!latestNews.isNullOrEmpty()){
+            backflagNavigation = true
+            val bundle = bundleOf(NEWS_ID to latestNews)
+            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment,bundle)
+        }
+
         subscribeUiEvents(newsViewModel)
         backArrowRTL(binding.imgClose)
         subscribeToObservables()
@@ -86,11 +110,11 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
         }
     }
     private fun addLatestNews(latestNews: List<LatestNews>) {
-        if (groupAdapter.itemCount > 0) {
-            groupAdapter.clear()
+        if (newsListAdapter.itemCount > 0) {
+            newsListAdapter.clear()
         }
         latestNews.forEach {
-            groupAdapter.add(
+            newsListAdapter.add(
                     NewsItems<ItemsLatestNewsBinding>(
                             object : RowClickListener {
                                 override fun rowClickListener(position: Int) {
@@ -140,7 +164,7 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
     private fun rvSetup() {
         binding.rvHorizontalNews.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = groupAdapter
+            adapter = newsListAdapter
             val pagerSnapHelper = PagerSnapHelper()
             this.onFlingListener = null
             pagerSnapHelper.attachToRecyclerView(this)

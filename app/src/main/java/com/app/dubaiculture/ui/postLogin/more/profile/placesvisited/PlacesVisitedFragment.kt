@@ -20,12 +20,15 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.handleApiError
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
+    var placesVisitedListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) = FragmentPlacesVisitedBinding.inflate(inflater, container, false)
 
@@ -46,10 +49,10 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
         attractionViewModel.visitedAttractionList.observe(viewLifecycleOwner){
             it.getContentIfNotHandled()?.let {
                 it.forEach {
-                    if (groupAdapter.itemCount>0){
-                        groupAdapter.clear()
+                    if (placesVisitedListAdapter.itemCount>0){
+                        placesVisitedListAdapter.clear()
                     }
-                    groupAdapter.add(
+                    placesVisitedListAdapter.add(
                             AttractionListItem<AttractionListItemCellBinding>(
                             favChecker = object : FavouriteChecker {
                                 override fun checkFavListener(
@@ -92,6 +95,7 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
 
     private fun initiateRequest() {
         binding.swipeRefresh.apply {
+            attractionViewModel.getVisitedAttractions(getCurrentLanguage().language)
             setColorSchemeResources(R.color.colorPrimary,
                     android.R.color.holo_green_dark,
                     android.R.color.holo_orange_dark,
@@ -129,7 +133,7 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
             personalRv.apply {
                 isNestedScrollingEnabled = false
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = groupAdapter
+                adapter = placesVisitedListAdapter
             }
             subscribeToObservables()
 

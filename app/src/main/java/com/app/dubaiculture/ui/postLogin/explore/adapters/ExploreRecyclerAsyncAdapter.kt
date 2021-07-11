@@ -34,13 +34,18 @@ import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.app.dubaiculture.utils.AppConfigUtils
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_OBJECT
+import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_FILTER
+import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
+import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_NAVIGATION
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import java.util.*
 
 
 class ExploreRecyclerAsyncAdapter internal constructor(
@@ -126,7 +131,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 attractionCat = transformBaseToAttractionCategory(attractionCat),
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                        AppConfigUtils.clickCheckerFlag = position
+                                       clickCheckerFlag = position
                                    fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,Bundle().apply {
                                        putInt(ATTRACTION_CAT_OBJECT,position)
                                    })
@@ -181,10 +186,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 },
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                        fragment?.navigate(R.id.action_exploreFragment_to_eventDetailFragment2,
+//                                        fragment?.navigate(R.id.action_exploreFragment_to_eventDetailFragment2,
+                                        fragment?.navigate(R.id.action_exploreFragment_to_events_navigation,
                                             Bundle().apply {
                                                 putParcelable(
-                                                    Constants.NavBundles.EVENT_OBJECT,
+                                                    EVENT_OBJECT,
                                                     transformBaseToEvent(it)
                                                 )
                                             })
@@ -207,7 +213,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
                     it.viewAll.setOnClickListener {
-                        fragment?.navigate(R.id.action_exploreFragment_to_eventFilterFragment)
+                        fragment?.navigate(R.id.action_exploreFragment_to_events_navigation,Bundle().apply {
+                            putBoolean(EVENT_FILTER,true)
+                        })
                     }
                 }
 
@@ -337,7 +345,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         val bundle = bundleOf(NEWS_ID to it.id)
-                                        fragment?.navigate(R.id.action_exploreFragment_to_newsDetailFragmentExplore,bundle)
+                                        fragment?.navigate(R.id.action_exploreFragment_to_more_navigation,bundle)
                                     }
 
                                     override fun rowClickListener(position: Int, imageView: ImageView) {
@@ -354,7 +362,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
                     it.viewAll.setOnClickListener {
-                        fragment?.navigate(R.id.action_exploreFragment_to_news_navigation)
+                        fragment?.navigate(R.id.action_exploreFragment_to_more_navigation,Bundle().apply {
+                            putBoolean(NEWS_NAVIGATION,true)
+                        })
                     }
                 }
 

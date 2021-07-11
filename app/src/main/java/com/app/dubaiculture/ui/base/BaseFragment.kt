@@ -40,7 +40,6 @@ import com.app.dubaiculture.utils.event.UiEvent
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import timber.log.Timber
 import java.util.*
 
 
@@ -52,7 +51,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected lateinit var activity: Activity
 
     protected var customProgressDialog: ProgressDialog? = null
-    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
+//    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var networkRequest: NetworkRequest
 
 
@@ -73,13 +72,11 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-//        if (_view == null || isPagerFragment) {
-//            dataBinding = getFragmentBinding(inflater, container)
-//            _view = dataBinding.root
-//        }
-        dataBinding = getFragmentBinding(inflater, container)
-//        return _view
-        return  dataBinding.root
+        if (_view == null || isPagerFragment) {
+            dataBinding = getFragmentBinding(inflater, container)
+            _view = dataBinding.root
+        }
+        return _view
     }
 
 
@@ -103,7 +100,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         bus.register(this)
         isBusRegistered = true
         customProgressDialog = ProgressDialog(activity)
-        groupAdapter = GroupAdapter()
+//        groupAdapter = GroupAdapter()
     }
 
     override fun onPause() {
@@ -131,7 +128,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             bus.unregister(this)
             isBusRegistered = false
         }
-        groupAdapter.clear()
+//        groupAdapter.clear()
 
         if (customProgressDialog != null) {
             customProgressDialog = null
@@ -216,7 +213,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             } else {
                 findNavController().navigate(resId, bundle, null, navigatorExtras = extras)
             }
-        }catch (ex:IllegalArgumentException){
+        } catch (ex: IllegalArgumentException) {
 
         }
 
@@ -315,24 +312,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         }
     }
-//    fun cardViewRTL(materialCardView: MaterialCardView) {
-//        val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
-//        if (isArabic()) {
-//            binding.root.materialCardView?.shapeAppearanceModel =
-//                    binding.root.materialCardView!!.shapeAppearanceModel
-//                            .toBuilder()
-//                            .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-//                            .setTopRightCornerSize(radius)
-//                            .build()
-//        } else {
-//            binding.root.materialCardView?.shapeAppearanceModel =
-//                    binding.root.materialCardView!!.shapeAppearanceModel
-//                            .toBuilder()
-//                            .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-//                            .setBottomRightCornerSize(radius)
-//                            .build()
-//        }
-//    }
+
 
 
     open fun hideKeyboard(activity: Activity) {
@@ -387,13 +367,14 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         startActivity(browserIntent)
     }
 
-    fun openWebWithoutBaseUrl(url : String){
+    fun openWebWithoutBaseUrl(url: String) {
         val browserIntent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse( url)
+            Intent.ACTION_VIEW,
+            Uri.parse(url)
         )
         startActivity(browserIntent)
     }
+
     fun openDiallerBox(number: String? = null) {
         val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
         requireActivity().startActivity(intent)

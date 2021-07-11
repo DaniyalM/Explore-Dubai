@@ -42,6 +42,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+
+
                     <com.app.dubaiculture.ui.postLogin.popular_service.components.ServicesHeaderItemSelector
                         android:id="@+id/horizontalSelector"
                         style="@style/HorizontalAttractionStyle"
@@ -56,7 +58,7 @@
 
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvServiceListing"
+                            android:id="@+id/rvServiceStatusListing"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             tools:itemCount="2"

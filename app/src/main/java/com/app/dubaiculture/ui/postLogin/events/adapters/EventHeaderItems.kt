@@ -39,7 +39,7 @@ class EventHeaderItems<T>(
 //                    .playOn(it)
                val title= it.findViewById<TextView>(R.id.tv_title)
                val imageBackground= it.findViewById<ImageView>(R.id.img_bg)
-               val cardView= it.findViewById<MaterialCardView>(R.id.cardView)
+               val cardView= it.findViewById<MaterialCardView>(R.id.cardview)
 
                    title.text = displayValue
                 isSelected = clickCheckerFlag == position
