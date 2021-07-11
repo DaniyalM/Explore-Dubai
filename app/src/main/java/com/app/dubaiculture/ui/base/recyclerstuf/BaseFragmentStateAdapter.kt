@@ -16,4 +16,5 @@ abstract class BaseFragmentStateAdapter<T>(fragment: Fragment) : FragmentStateAd
         }
     }
     protected val differ = AsyncListDiffer(this, diffCallback)
+
 }

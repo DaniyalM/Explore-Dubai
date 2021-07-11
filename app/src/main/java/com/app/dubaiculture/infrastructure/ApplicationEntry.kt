@@ -33,8 +33,14 @@ class ApplicationEntry : Application() {
         auth = AuthState()
         NetworkLiveData.initNetwork(this)
         PushNotificationManager.createNotificationChannel(this)
-        beaconManager = BeaconManager(applicationContext)
+        beaconImplementation()
+        isInternetActive = NetworkLiveData.isInternetAvailable()
+        Timber.plant(Timber.DebugTree())
+        ThemeUtil.applyTheme("light")
+    }
 
+    private fun beaconImplementation(){
+        beaconManager = BeaconManager(applicationContext)
         beaconManager.connect(object : BeaconManager.ServiceReadyCallback {
             override fun onServiceReady() {
 //                showNotification("Beacon Monitoring", "Service ready Start Monitoring...")
@@ -54,7 +60,7 @@ class ApplicationEntry : Application() {
 //                            "Beacon Scanning has begin.",
 //                            "Dubai Culture Scanning has been started", null
 //                        )
-                      Toast.makeText(applicationContext,"Scanning has been started",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext,"Scanning has been started",Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onScanStop() {
@@ -87,8 +93,5 @@ class ApplicationEntry : Application() {
                 })
             }
         })
-        isInternetActive = NetworkLiveData.isInternetAvailable()
-        Timber.plant(Timber.DebugTree())
-        ThemeUtil.applyTheme("dark")
     }
 }

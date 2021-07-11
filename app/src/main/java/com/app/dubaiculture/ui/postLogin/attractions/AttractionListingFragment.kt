@@ -33,17 +33,26 @@ import dagger.hilt.android.AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
     private lateinit var linearLayoutManger: LinearLayoutManager
     private val attractionViewModel: AttractionViewModel by viewModels()
-
-    //    private var attractionListScreenAdapter: AttractionListScreenAdapter? = null
     private lateinit var attractionCat: AttractionCategory
-//    private var lastFirstVisiblePosition: Int = 0
-
-    //    private var searchQuery: String = ""
     private var pageNumber: Int = 1
     private var pageSize: Int = 3
     var contentLoaded = false
-    var contentLoadMore = true
+    private var lastFirstVisiblePosition: Int = 0
 
+    var contentLoadMore = true
+    override fun onPause() {
+        super.onPause()
+        lastFirstVisiblePosition =
+            (binding.rvAttractionListing.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        try {
+            binding.rvAttractionListing.smoothScrollToPosition(lastFirstVisiblePosition)
+        }catch (ex:IllegalArgumentException){ }
+    }
 
     companion object {
 
@@ -76,6 +85,7 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
     }
 
     private fun callingObservables() {
+
         if (!contentLoaded) {
             binding.progressBar.visibility = View.VISIBLE
 

@@ -9,6 +9,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Filter
 import com.app.dubaiculture.data.repository.filter.Categories
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
+import com.google.android.flexbox.FlexboxLayout
 import com.xwray.groupie.GroupieViewHolder
 
 class FilterCategoryItems (private val categories : Filter, private var isSelected: Boolean = false ):
@@ -18,19 +19,19 @@ class FilterCategoryItems (private val categories : Filter, private var isSelect
             root?.let {
                 it.findViewById<TextView>(R.id.tv_title_category).text = categories.title
                 if(categories.isSelected){
-                    it.findViewById<TextView>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp_purple)
+                    it.findViewById<FlexboxLayout>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp_purple)
                     it.findViewById<TextView>(R.id.tv_title_category).setTextColor(Color.parseColor("#FFFFFF"))
                 }else{
-                    it.findViewById<TextView>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp)
+                    it.findViewById<FlexboxLayout>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp)
                     it.findViewById<TextView>(R.id.tv_title_category).setTextColor(Color.parseColor("#2A2D31"))
                 }
                     root.findViewById<LinearLayout>(R.id.root_item_selection).setOnClickListener {
                         categories.isSelected = !categories.isSelected
                         if (categories.isSelected) {
-                            root.findViewById<TextView>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp_purple)
+                            root.findViewById<FlexboxLayout>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp_purple)
                             it.findViewById<TextView>(R.id.tv_title_category).setTextColor(Color.parseColor("#FFFFFF"))
                         } else
-                            root.findViewById<TextView>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp)
+                            root.findViewById<FlexboxLayout>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp)
                         it.findViewById<TextView>(R.id.tv_title_category).setTextColor(Color.parseColor("#2A2D31"))
                         notifyChanged()
                     }

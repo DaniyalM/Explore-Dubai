@@ -34,6 +34,7 @@ import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.app.dubaiculture.utils.AppConfigUtils
+import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_OBJECT
@@ -126,7 +127,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 attractionCat = transformBaseToAttractionCategory(attractionCat),
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                        AppConfigUtils.clickCheckerFlag = position
+                                       clickCheckerFlag = position
                                    fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,Bundle().apply {
                                        putInt(ATTRACTION_CAT_OBJECT,position)
                                    })

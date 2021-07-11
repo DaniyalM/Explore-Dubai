@@ -12,7 +12,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHe
 import com.app.dubaiculture.ui.postLogin.more.profile.favourite.services.FavouriteServices
 import com.app.dubaiculture.ui.postLogin.more.profile.favourite.adapters.FavouriteHeaderItems
 import com.app.dubaiculture.ui.postLogin.more.profile.favourite.models.FavouriteHeader
-import com.app.dubaiculture.utils.AppConfigUtils.favouriteclickCheckerFlag
+import com.app.dubaiculture.utils.AppConfigUtils.favouriteClickCheckerFlag
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -82,9 +82,9 @@ class FavouriteHeaderItemSelector(context: Context, attrs: AttributeSet) :
         }
 
         list?.forEachIndexed { index, model ->
-            if (favouriteclickCheckerFlag == index) {
+            if (favouriteClickCheckerFlag == index) {
                 isSelected = true
-                positionUpdate(favouriteclickCheckerFlag)
+                positionUpdate(favouriteClickCheckerFlag)
             }
             groupAdapter.add(
                     FavouriteHeaderItems(
@@ -101,13 +101,13 @@ class FavouriteHeaderItemSelector(context: Context, attrs: AttributeSet) :
     }
 
     override fun onClick(position: Int) {
-        previousPosition = favouriteclickCheckerFlag
+        previousPosition = favouriteClickCheckerFlag
         positionUpdate(position)
         itemIndexUpdate()
     }
 
     fun positionUpdate(position: Int) {
-        favouriteclickCheckerFlag = position
+        favouriteClickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
         bus?.post(FavouriteServices.HeaderItemClick(position))
     }

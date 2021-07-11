@@ -16,7 +16,7 @@ import com.app.dubaiculture.utils.dateFormatVisitedPlace
 import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.GroupieViewHolder
 
-
+//val attraction: Attractions,
 data class AttractionListItem<T : ViewDataBinding>(
         private val favChecker: FavouriteChecker? = null,
         private val rowClickListener: RowClickListener? = null,

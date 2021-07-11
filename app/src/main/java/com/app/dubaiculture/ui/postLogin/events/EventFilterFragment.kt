@@ -30,15 +30,11 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        binding.eventSearchToolbar.imgFilter.setOnClickListener(this)
-        binding.eventSearchToolbar.back.setOnClickListener(this)
-        binding.eventSearchToolbar.imgSearch.setOnClickListener(this)
-        backArrowRTL(binding.eventSearchToolbar.back)
+        eventSearchToolbarBinding=binding.eventSearchToolbar
+        eventSearchToolbarBinding.imgFilter.setOnClickListener(this)
+        eventSearchToolbarBinding.back.setOnClickListener(this)
+        eventSearchToolbarBinding.imgSearch.setOnClickListener(this)
+        backArrowRTL(eventSearchToolbarBinding.back)
 
         subscribeUiEvents(eventViewModel)
 //        callingObservables()
@@ -49,13 +45,13 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
 
 
-        eventViewModel.filterDataList.observe(viewLifecycleOwner){
-            if(!it.isNullOrEmpty()){
+        eventViewModel.filterDataList.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
                 // badge should be visible
                 eventSearchToolbarBinding.tvBadge.text = it.size.toString()
                 eventSearchToolbarBinding.tvBadge.visibility = View.VISIBLE
                 binding.showTabHeader.visibility = View.GONE
-            }else{
+            } else {
                 // badge should be gone
                 eventSearchToolbarBinding.tvBadge.visibility = View.GONE
                 binding.showTabHeader.visibility = View.VISIBLE
@@ -64,16 +60,14 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
         eventSearchToolbarBinding.editSearchEvents.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                eventViewModel._searchBarKeyWord.value = Event(eventSearchToolbarBinding.editSearchEvents.text.toString())
+                eventViewModel._searchBarKeyWord.value =
+                    Event(eventSearchToolbarBinding.editSearchEvents.text.toString())
                 return@OnEditorActionListener true
             }
             false
         })
-
-
-
-
     }
+
 
     private fun initiatePager() {
         binding.pager.isUserInputEnabled = false
@@ -83,12 +77,14 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
     }
 
 
-    private fun viewPagerSetUp(){
+    private fun viewPagerSetUp() {
         isContentLoaded = false
         binding.pager.isSaveEnabled = false
-        binding.horizontalSelector.initialize(createItems(),
+        binding.horizontalSelector.initialize(
+            createItems(),
             binding.pager,
-            this)
+            this
+        )
     }
 
     override fun onResume() {
@@ -105,14 +101,16 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
                             HeaderModel(
                                 id = it,
                                 title = getString(R.string.all),
-                            ))
+                            )
+                        )
                     }
                     1 -> {
                         add(
                             HeaderModel(
                                 id = it,
                                 title = getString(R.string.this_week),
-                            ))
+                            )
+                        )
 
                     }
                     2 -> {
@@ -120,7 +118,8 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
                             HeaderModel(
                                 id = it,
                                 title = getString(R.string.this_weekend),
-                            ))
+                            )
+                        )
 
                     }
                     3 -> {
@@ -128,7 +127,8 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
                             HeaderModel(
                                 id = it,
                                 title = getString(R.string.next_seven_days),
-                            ))
+                            )
+                        )
                     }
                 }
             }
@@ -142,8 +142,9 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.img_search ->{
-                eventViewModel._searchBarKeyWord.value = Event(eventSearchToolbarBinding.editSearchEvents.text.toString())
+            R.id.img_search -> {
+                eventViewModel._searchBarKeyWord.value =
+                    Event(eventSearchToolbarBinding.editSearchEvents.text.toString())
             }
             R.id.img_filter -> {
                 navigate(R.id.action_eventFilterFragment_to_filterFragment)
@@ -153,16 +154,17 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
             }
         }
     }
-private fun badgeSetUp(list: List<SelectedItems>){
-    QBadgeView(requireContext())
-        .setBadgeBackgroundColor(R.color.purple_900)
-        .bindTarget(eventSearchToolbarBinding.badgePlacement).setBadgeNumber(list.size)
+
+    private fun badgeSetUp(list: List<SelectedItems>) {
+        QBadgeView(requireContext())
+            .setBadgeBackgroundColor(R.color.purple_900)
+            .bindTarget(eventSearchToolbarBinding.badgePlacement).setBadgeNumber(list.size)
 //        .stroke(R.color.black_900, 6F, true)\
-        .setBadgeGravity(Gravity.START or Gravity.TOP)
-        .setGravityOffset(18F, 6F, true)
+            .setBadgeGravity(Gravity.START or Gravity.TOP)
+            .setGravityOffset(18F, 6F, true)
 //        .badgeTextColor = Color.parseColor("#FFFFFF")
 
-}
+    }
 
 
 }

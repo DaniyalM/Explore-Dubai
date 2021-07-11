@@ -94,10 +94,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         cardViewRTL()
         setupToolbarWithSearchItems()
         subscribeToGpsListener()
-        
+        subscribeToObservables()
         if (!this::mAdapterMore.isInitialized){
             rvSetUp()
-            subscribeToObservables()
         }
 
         binding.swipeRefresh.setOnRefreshListener {
