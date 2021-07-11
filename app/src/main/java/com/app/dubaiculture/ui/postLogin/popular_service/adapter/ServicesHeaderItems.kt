@@ -29,7 +29,7 @@ class ServicesHeaderItems<T>(
         viewHolder.apply {
 
             root?.let { it ->
-                val title = it.findViewById<TextView>(R.id.tv_location)
+                val title = it.findViewById<TextView>(R.id.tv_title)
                 val image = it.findViewById<ImageView>(R.id.imgInnerIcon)
                 val card = it.findViewById<MaterialCardView>(R.id.cardview)
                 title.text = displayValue
