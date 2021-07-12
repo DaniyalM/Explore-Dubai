@@ -70,22 +70,22 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             registerForActivityResult()
 
             binding.apply {
-                myServicesView.setOnClickListener {
-                    navigate(R.id.action_profileFragment_to_myServicesFragment)
-                }
+//                myServicesView.setOnClickListener {
+////                    navigate(R.id.action_profileFragment_to_myServicesFragment)
+//                }
 
                 frameLayoutImagePicker.setOnClickListener {
                     navigate(R.id.action_profileFragment_to_avatarPickerFragment)
                 }
-                placesVisitedView.setOnClickListener {
-//                    navigate(R.id.action_profileFragment_to_placesVisited)
-                }
-                myEventsView.setOnClickListener {
-//                    navigate(R.id.action_profileFragment_to_myEventsFragment)
-                }
-                editProfile.setOnClickListener {
-//                    navigate(R.id.action_profileFragment_to_editProfileFragment)
-                }
+//                placesVisitedView.setOnClickListener {
+////                    navigate(R.id.action_profileFragment_to_placesVisited)
+//                }
+//                myEventsView.setOnClickListener {
+////                    navigate(R.id.action_profileFragment_to_myEventsFragment)
+//                }
+//                editProfile.setOnClickListener {
+////                    navigate(R.id.action_profileFragment_to_editProfileFragment)
+//                }
                 changePasswordView.setOnClickListener {
                     navigate(R.id.action_profileFragment_to_passwordChangeFragment)
                 }

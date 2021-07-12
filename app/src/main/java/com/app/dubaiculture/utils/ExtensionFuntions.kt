@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
@@ -139,8 +140,16 @@ fun Fragment.handleApiError(
         else -> {
 
             val error = failure.errorBody?.string().toString()
+            baseViewModel.showToast("Session Timeout From Server")
             initiateLogout()
-            baseViewModel.showToast(error)
+//            if (!TextUtils.isEmpty(error) || !TextUtils.equals(error,"null")){
+////                baseViewModel.showToast(error)
+//                baseViewModel.showToast("Session Timeout From Server")
+//            }
+//            else {
+//                baseViewModel.showToast("Session Timeout From Server")
+//            }
+
 //            startNewActivity(PreLoginActivity::class.java)
         }
     }

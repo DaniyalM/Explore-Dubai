@@ -101,7 +101,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(activity)
             adapter = exploreAdapter
-            this.itemAnimator = SlideInLeftAnimator()
+//            this.itemAnimator = SlideInLeftAnimator()
         }
 
     }

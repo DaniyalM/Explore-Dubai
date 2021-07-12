@@ -62,10 +62,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private var popularServiceInnerAdapter: GroupAdapter<GroupieViewHolder>? = null
 
     //global variable
-    companion object {
-        val handler = Handler(Looper.getMainLooper())
-        var delayAnimate = 300
-    }
+//    companion object {
+//        val handler = Handler(Looper.getMainLooper())
+//        var delayAnimate = 300
+//    }
 
     init {
         attractionInnerAdapter = GroupAdapter()
@@ -104,10 +104,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         }
     }
 
-    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        setAnimation(holder.itemView)
-    }
+//    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+//        super.onViewAttachedToWindow(holder)
+//        setAnimation(holder.itemView)
+//    }
 
     //Setting Up View Holders
     private fun setUpAttractionViewHolder(
@@ -456,29 +456,29 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         LATESTNEWS(4),
     }
 
-    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        stopAnimation()
-    }
+//    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+//        super.onViewDetachedFromWindow(holder)
+//        stopAnimation()
+//    }
 
 
-    private fun setAnimation(view: View?) {
-        handler.postDelayed({
-            val animation: Animation = AnimationUtils.loadAnimation(
-                context,
-                R.anim.item_fall_down_animation
-            )
-            if (view != null) {
-                view.startAnimation(animation)
-                view.visibility = View.VISIBLE
-            }
-        }, delayAnimate.toLong())
-        delayAnimate += 500
-    }
-
-    private fun stopAnimation() {
-        handler.removeCallbacksAndMessages(null)
-    }
+//    private fun setAnimation(view: View?) {
+//        handler.postDelayed({
+//            val animation: Animation = AnimationUtils.loadAnimation(
+//                context,
+//                R.anim.item_fall_down_animation
+//            )
+//            if (view != null) {
+//                view.startAnimation(animation)
+//                view.visibility = View.VISIBLE
+//            }
+//        }, delayAnimate.toLong())
+//        delayAnimate += 500
+//    }
+//
+//    private fun stopAnimation() {
+//        handler.removeCallbacksAndMessages(null)
+//    }
 }
 
 //
