@@ -5,6 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--    android:elevation="@dimen/toolbar_elevation"-->
+
+    <data>
+
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
+    </data>
     <merge>
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarEventDetail"
@@ -33,6 +40,7 @@
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imageView"
                         android:transitionName="imgScaleUp"
+                        android:animate="@{technique.BounceIn}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"

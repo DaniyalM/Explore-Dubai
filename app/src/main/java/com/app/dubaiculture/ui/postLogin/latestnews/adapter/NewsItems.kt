@@ -21,9 +21,6 @@ data class NewsItems <T : ViewDataBinding>(
         when (viewBinding) {
             is ItemsLatestNewsBinding ->{
                 viewBinding.let {
-                    YoYo.with(Techniques.BounceInUp)
-                        .duration(1000)
-                        .playOn(it.root)
                     it.news=latestNews
                     it.materialCardView.setOnClickListener {
                         rowClickListener?.rowClickListener(position)
@@ -32,9 +29,6 @@ data class NewsItems <T : ViewDataBinding>(
             }
             is ItemsNewsVerticalLayoutBinding -> {
                 viewBinding.let {
-                    YoYo.with(Techniques.BounceInUp)
-                            .duration(1000)
-                            .playOn(it.root)
                     it.news=latestNews
                     it.materialCardView.setOnClickListener {
                         rowClickListener?.rowClickListener(position)
@@ -48,16 +42,11 @@ data class NewsItems <T : ViewDataBinding>(
             }
             is ItemMoreNewsBinding -> {
                 viewBinding.let {
-                    YoYo.with(Techniques.BounceInUp)
-                            .duration(1000)
-                            .playOn(it.root)
+
                     it.news=latestNews
                 }
             }
             is LatestNewsInnerItemCellBinding -> {
-                YoYo.with(Techniques.BounceInUp)
-                        .duration(1000)
-                        .playOn(viewBinding.root)
                 viewBinding.news = latestNews
                 viewBinding.cardview.setOnClickListener {
                     rowClickListener?.rowClickListener(position)

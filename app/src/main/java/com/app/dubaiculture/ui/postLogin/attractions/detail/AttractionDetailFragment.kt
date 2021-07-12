@@ -46,6 +46,8 @@ import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.RequestManager
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.location.LocationCallback
@@ -147,7 +149,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         super.onViewStateRestored(savedInstanceState)
         detailInnerLayout = binding.attractionDetailInnerLayout
         toolbarLayout = binding.toolbarLayoutDetail
-
         toolbarLayout.detailImageView.transitionName = attractionsObj.id
         subscribeUiEvents(attractionDetailViewModel)
         backArrowRTL(toolbarLayout.back)

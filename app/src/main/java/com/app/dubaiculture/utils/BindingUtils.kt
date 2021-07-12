@@ -9,12 +9,18 @@ import com.app.dubaiculture.BuildConfig
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.card.MaterialCardView
 import com.rishabhharit.roundedimageview.RoundedImageView
-import de.hdodenhof.circleimageview.CircleImageView
 
+@BindingAdapter("android:animate")
+fun View.animate(animation: Techniques) {
+    YoYo.with(animation)
+        .delay(100)
+        .playOn(this)
+}
 
 fun View.glideInstance(url: String?, isSvg: Boolean = false): RequestBuilder<Drawable> {
     var urlConcat = BuildConfig.BASE_URL + url
@@ -22,22 +28,22 @@ fun View.glideInstance(url: String?, isSvg: Boolean = false): RequestBuilder<Dra
 
     val glide = Glide.with(this.context)
     return if (!isSvg) {
-        if (urlConcat.contains("Uploads")){
-          urlConcat=  urlConcat.replace("/api/~","")
+        if (urlConcat.contains("Uploads")) {
+            urlConcat = urlConcat.replace("/api/~", "")
         }
 
         glide.setDefaultRequestOptions(
-                RequestOptions()
+            RequestOptions()
 //                .placeholder(R.drawable.logo)
 //                .error(android.R.drawable.stat_notify_error)
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         ).load(urlConcat)
 //                .transition(DrawableTransitionOptions.withCrossFade())
 
 
     } else {
         glide
-                .load(urlConcat)
+            .load(urlConcat)
 //                .transition(DrawableTransitionOptions.withCrossFade())
     }
 }

@@ -94,7 +94,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        setAnimation(holder.itemView)
+
         when (holder) {
             is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
             is UpComingEventsViewHolder -> setUpComingEventsViewHolder(holder, position)
@@ -102,6 +102,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
             is PopularServiceViewHolder -> setPopularServiceViewHolder(holder, position)
             is LatestNewViewHolder -> setLatestNewsViewHolder(holder, position)
         }
+    }
+
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        setAnimation(holder.itemView)
     }
 
     //Setting Up View Holders
@@ -461,7 +466,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         handler.postDelayed({
             val animation: Animation = AnimationUtils.loadAnimation(
                 context,
-                android.R.anim.slide_in_left
+                R.anim.item_fall_down_animation
             )
             if (view != null) {
                 view.startAnimation(animation)

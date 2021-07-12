@@ -3,9 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="news" type="com.app.dubaiculture.data.repository.news.local.LatestNews"/>
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:animate="@{technique.BounceInUp}"
         android:layout_height="@dimen/_125sdp">
 
         <com.google.android.material.card.MaterialCardView

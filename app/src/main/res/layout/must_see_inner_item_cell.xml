@@ -7,9 +7,13 @@
         <variable
             name="attractions"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="285dp"
+        android:animate="@{technique.BounceInUp}"
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView

@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
     <data>
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
 <!--        <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
         <variable name="news" type="com.app.dubaiculture.data.repository.news.local.LatestNews"/>
     </data>
@@ -10,6 +13,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_60sdp"
         android:layout_width="@dimen/_265sdp"
+        android:animate="@{technique.BounceInUp}"
         android:layout_height="@dimen/_125sdp">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview"

@@ -90,9 +90,9 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
         intentFilter.addAction("com.package.ACTION_LOGOUT")
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                Log.d("onReceive", "Logout in progress")
+//                Log.d("onReceive", "Logout in progress")
                 //At this point you should start the login activity and finish this one
-                finish()
+                killSessionAndStartNewActivity(PreLoginActivity::class.java)
             }
         }, intentFilter)
     }
