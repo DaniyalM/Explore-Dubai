@@ -14,7 +14,7 @@
         android:id="@+id/imageView13"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_168sdp"
-        android:background="@drawable/book_a_ticket_bg"
+        android:background="@drawable/ticket"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
