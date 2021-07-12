@@ -6,17 +6,56 @@
         <variable name="popular_services" type="com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:background="@color/gray_400"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imageView13"
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/imageView13"-->
+<!--        android:outlineSpotShadowColor="@color/gray_600"-->
+<!--        android:outlineAmbientShadowColor="@color/gray_600"-->
+<!--        android:layout_margin="@dimen/_10sdp"-->
+<!--        android:elevation="@dimen/_10sdp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_138sdp"-->
+<!--        android:background="@drawable/ticket"-->
+<!--        tools:src="@color/gray_600"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" >-->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_168sdp"
-        android:background="@drawable/book_a_ticket_bg"
+        android:layout_height="@dimen/_155sdp"
+        app:cardBackgroundColor="#F2F2F2"
+        app:cardElevation="@dimen/_12sdp"
+        app:cardCornerRadius="@dimen/_1sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+
+
+    <com.rishabhharit.roundedimageview.RoundedImageView
+        android:id="@+id/imageView13"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/_11sdp"
+        android:layout_marginEnd="@dimen/_11sdp"
+        android:layout_height="@dimen/_138sdp"
+        app:elevation="@dimen/_12sdp"
+        android:background="@drawable/ticket"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
         <com.rishabhharit.roundedimageview.RoundedImageView
             android:id="@+id/img"
@@ -24,8 +63,8 @@
             app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight"
             android:layout_width="@dimen/_61sdp"
             android:layout_height="@dimen/_56sdp"
-            android:layout_marginStart="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_26sdp"
+            android:layout_marginTop="@dimen/_13sdp"
             android:background="@drawable/must_see_icon_home"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -55,27 +94,29 @@
         android:id="@+id/tv_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         android:drawablePadding="@dimen/_5sdp"
         android:layout_marginStart="@dimen/_12sdp"
         android:text="@{popular_services.title}"
+        tools:text="The Definitive Guide to an Uncertain World"
         android:textColor="@color/black_200"
         android:layout_marginEnd="@dimen/_40sdp"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintStart_toEndOf="@+id/img"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        app:textAllCaps="true" />
+         />
 
 
     <ImageView
         android:id="@+id/line"
         android:layout_width="0dp"
         android:layout_height="4dp"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_18sdp"
         android:background="@drawable/shape_horizontal_line"
-        app:layout_constraintEnd_toEndOf="@id/tv_desc"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/_3sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
         app:layout_constraintStart_toStartOf="@id/img"
         app:layout_constraintTop_toBottomOf="@id/img" />
 
@@ -111,7 +152,7 @@
         android:id="@+id/booking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_15sdp"
         android:text="@string/booking_date"
         android:textColor="@color/purple_900"
@@ -148,7 +189,7 @@
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:text="@string/booking_time"
         android:textColor="@color/purple_900"
         android:textSize="@dimen/_8ssp"
@@ -175,7 +216,7 @@
         android:id="@+id/tickets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:text="@string/no_of_tickets"
         android:textColor="@color/purple_900"
         android:textSize="@dimen/_8ssp"
@@ -196,6 +237,11 @@
         app:layout_constraintStart_toStartOf="@+id/tickets"
         app:layout_constraintTop_toBottomOf="@+id/booking" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 </layout>

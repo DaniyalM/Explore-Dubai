@@ -188,7 +188,7 @@
     <!--Please translate from English to Arabic from here  "These are sprint 3 Content."-->
     <string name="turn_on_your_location_to_view_nearby_events">فعّل الموقع الحالي لعرض الفعاليات القريبة منك</string>
     <string name="account">الحساب</string>
-    <string name="my_events">فعالياتي</string>
+    <string name="my_events">أنشطة مختاره</string>
     <string name="places_visited">المواقع التي زرتها</string>
     <string name="my_trips">رحلاتي</string>
     <string name="change_password">تغيير كلمة المرور</string>
