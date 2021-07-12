@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">هيئة دبي للثقافة والفنون</string>
-    <string name="arabic">العربية</string>
+    <string name="arabic">English</string>
+<!--    <string name="arabic">العربية</string>-->
     <string name="switch_language">تغيير اللغة</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا</string>
@@ -71,7 +72,7 @@
     <string name="err_confirm">يجب أن يكون متشابه</string>
     <string name="no_error"></string>
     <string name="create_your_customised_trip">انشاء رحلتك الخاصة</string>
-    <string name="plan_your_trip">خطط لرحلتك</string>
+    <string name="plan_your_trip">مخطِّط برامج الرحلات</string>
     <string name="view_all">اظهار الكل</string>
     <string name="a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number">سيتم ارسال كلمة مرور لمرة واحدة لبريدك الالكتروني المسجل أو رقم الهاتف.</string>
     <string name="free">مجانا</string>
@@ -92,7 +93,7 @@
     <string name="should_contain_a_upper_character">يجب أن تتضمن حرف كبير</string>
     <string name="should_contain_a_special_character">(!@#) يجب أن تتضمن حرف مميز</string>
     <string name="login_to_continue">تسجيل الدخول للاستمرار</string>
-    <string name="terms_and_conditions">الشروط والأحكام</string>
+    <string name="terms_and_conditions">الأحكام والشروط</string>
     <string name="okay">حسنا</string>
     <string name="filters">تصنيف</string>
     <string name="search_events_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
@@ -192,7 +193,7 @@
     <string name="places_visited">المواقع التي زرتها</string>
     <string name="my_trips">رحلاتي</string>
     <string name="change_password">تغيير كلمة المرور</string>
-    <string name="my_profile">حسابي</string>
+    <string name="my_profile">ملفي الشخصي</string>
     <string name="notifications">الاشعارات</string>
     <string name="services">الخدمات</string>
     <string name="museum_services">خدمات المتاحف</string>
@@ -200,20 +201,21 @@
     <string name="information">معلومات</string>
     <string name="about_dubai_culture">عن هيئة دبي للثقافة والفنون</string>
     <string name="settings">الإعدادات</string>
-    <string name="share_this_app">شارك التطبيق</string>
-    <string name="rate_us">تقييم التطبيق</string>
+    <string name="share_this_app">شارك هذا التطبيق</string>
+    <string name="rate_us">قيّم هذا التطبيق</string>
     <string name="public_libraries_services">خدمات المكتبات العامة</string>
     <string name="renting_more">خدمات التأجير</string>
     <string name="general_more">الخدمات العامة</string>
     <string name="heritage_more">المواقع التراثية</string>
-    <string name="news_more">الأخبار</string>
+    <string name="news_more">أخبار</string>
     <string name="contact_more">تواصل معنا</string>
-    <string name="help_more">الأسئلة الشائعة</string>
+    <string name="help_more">المساعدة و الأسئلة الشائعة</string>
     <string name="related_more">تطبيقات ذات صلة</string>
-    <string name="privacy_more">خصوصية الاستخدام</string>
+<!--    <string name="privacy_more">خصوصية الاستخدام</string>-->
+    <string name="privacy_more">سياسة أمن المعلومات</string>
     <string name="terms_more">الأحكام والشروط</string>
     <string name="setting_more">الإعدادات</string>
-    <string name="accessiblitiy_more">سهولة الإستخدام</string>
+    <string name="accessiblitiy_more">إمكانية الوصول</string>
     <string name="logout_more">تسجيل الخروج</string>
     <string name="are_you_sure_want_to_logout">تأكيد تسجيل الخروج</string>
     <string name="settings_">الإعدادات</string>
