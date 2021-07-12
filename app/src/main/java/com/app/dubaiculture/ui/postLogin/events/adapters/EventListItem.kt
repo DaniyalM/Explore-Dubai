@@ -12,6 +12,8 @@ import com.app.dubaiculture.databinding.ItemEventListingBinding
 import com.app.dubaiculture.databinding.UpcomingEventsInnerItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.xwray.groupie.databinding.BindableItem
 
 data class EventListItem<T : ViewDataBinding>(
@@ -114,6 +116,9 @@ data class EventListItem<T : ViewDataBinding>(
             }
             is AttractionDetailUpComingItemsBinding -> {
                 viewBinding.let {binding->
+                    YoYo.with(Techniques.Swing)
+                        .duration(1000)
+                        .playOn(binding.root)
                     binding.events = event
                     if (event.isFavourite) {
                         binding.favourite.background =

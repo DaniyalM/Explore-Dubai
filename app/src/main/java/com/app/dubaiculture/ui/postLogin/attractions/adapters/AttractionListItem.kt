@@ -13,6 +13,8 @@ import com.app.dubaiculture.databinding.MustSeeInnerItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.dateFormatVisitedPlace
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.GroupieViewHolder
 
@@ -59,6 +61,7 @@ data class AttractionListItem<T : ViewDataBinding>(
             }
             is MustSeeInnerItemCellBinding -> {
                 viewBinding.attractions = attraction
+
                 viewBinding.apply {
                     attractionImage.setOnClickListener {
 //                        rowClickListener?.rowClickListener(position)
@@ -78,16 +81,16 @@ data class AttractionListItem<T : ViewDataBinding>(
         }
     }
 
-    override fun onViewAttachedToWindow(viewHolder: GroupieViewHolder<T>) {
-        super.onViewAttachedToWindow(viewHolder)
-    }
-
-    private fun setAnimation(viewToAnimate: View, position: Int) {
-        // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition) {
-            val animation: Animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left)
-            viewToAnimate.startAnimation(animation)
-            lastPosition = position
-        }
-    }
+//    override fun onViewAttachedToWindow(viewHolder: GroupieViewHolder<T>) {
+//        super.onViewAttachedToWindow(viewHolder)
+//    }
+//
+//    private fun setAnimation(viewToAnimate: View, position: Int) {
+//        // If the bound view wasn't previously displayed on screen, it's animated
+//        if (position > lastPosition) {
+//            val animation: Animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left)
+//            viewToAnimate.startAnimation(animation)
+//            lastPosition = position
+//        }
+//    }
 }
