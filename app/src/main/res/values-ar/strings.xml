@@ -261,6 +261,8 @@
     <string name="no_of_tickets">No. of tickets</string>
     <string name="event_ticket">EVENT TICKET</string>
     <string name="booking_time">Booking Time</string>
+    <string name="service_status">Service Status</string>
+    <string name="booking_tickets"><![CDATA[Booking & Tickets]]></string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->

@@ -28,7 +28,7 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
         binding.headerVisited.back.setOnClickListener {
             back()
         }
-//         binding.horizontalSelector.initialize(initializeHeaders(), bus)
+         binding.horizontalSelector.initialize(initializeHeaders(), bus)
         initServiceRvListing()
 
     }
@@ -39,12 +39,7 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
             layoutManager = linearLayoutManger
             adapter = groupAdapter
         }
-        binding.horizontalSelector.initialize(initializeHeaders(), bus)
-
     }
-
-
-
     @Subscribe
     fun handleHeaderClick(popularServiceBus: PopularServiceBus) {
         when (popularServiceBus) {
@@ -60,9 +55,6 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
             }
         }
     }
-
-
-
     private fun addMyServices() {
         binding.rvServiceStatusListing.visibility=View.VISIBLE
         groupAdapter.apply {
@@ -96,7 +88,7 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
                 0 -> {
                     serviceHeader.apply {
                         id = it
-                        title = "Booking & Tickets"
+                        title = getString(R.string.booking_tickets)
                         selectedColor = R.color.purple_900
                         unSelectedColor = R.color.white_900
                         selectedIcon = R.drawable.bookingticketspurpleicon
@@ -106,7 +98,7 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
                 1 -> {
                     serviceHeader.apply {
                         id = it
-                        title = "Service Status"
+                        title = getString(R.string.service_status)
                         selectedColor = R.color.purple_900
                         unSelectedColor = R.color.white_900
                         selectedIcon = R.drawable.servicesiconwhite

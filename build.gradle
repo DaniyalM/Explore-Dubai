@@ -47,8 +47,9 @@ ext {
     gson = "2.8.6"
     retrofit2AdatperRxJava = "2.9.0"
     rxJava2 = "2.1.1"
-    junit = "4.12"
+    junit = "4.13"
     junitExtension = "1.1.2"
+    assertTruth ="1.1.3"
     espresso = "3.3.0"
     materialDesign = "1.2.1"
     lifecyleViewModel = "2.2.0"
@@ -171,6 +172,7 @@ ext {
     testing = [
             junit                           : "junit:junit:${junit}",
             junitExtension                  : "androidx.test.ext:junit:${junitExtension}",
+            truth                           : "com.google.truth:truth:${assertTruth}",
             espresso                        : "androidx.test.espresso:espresso-core:${espresso}",
             mockito                         : "org.mockito:mockito-core:${mockitoVersion}",
             mockitoTestImplementation       : "org.mockito:mockito-inline:${mockitoVersion}",

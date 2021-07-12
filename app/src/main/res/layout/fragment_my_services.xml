@@ -6,11 +6,11 @@
 
     <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
         android:id="@+id/swipe_refresh"
-        android:background="@color/gray_400"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:background="@color/gray_600"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
