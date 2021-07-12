@@ -34,6 +34,12 @@ object AuthUtils {
             R.string.emirates_id
         else R.string.valid
     }
+    fun fullNameIsNotEmpty(fullName : String):Boolean{
+        if(fullName.isEmpty()){
+            return false
+        }
+        return true
+    }
 
 
 

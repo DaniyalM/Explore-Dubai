@@ -10,6 +10,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:background="@color/gray_600"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -60,6 +61,8 @@
                             android:id="@+id/rvServiceStatusListing"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            tools:itemCount="2"
+                            tools:listitem="@layout/items_book_a_ticket_layout"
                             android:clickable="true"
                             android:focusable="true" />
 

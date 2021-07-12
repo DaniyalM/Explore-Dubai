@@ -162,6 +162,7 @@ dependencies {
     implementation config.testing.junit
     implementation config.testing.junitExtension
     implementation config.testing.espresso
+    testImplementation config.testing.truth
     implementation config.testing.mockito
     testImplementation config.testing.mockitoTestImplementation
     androidTestImplementation config.testing.mockitoAndroidTestImplementation
@@ -293,9 +294,7 @@ dependencies {
 
     // indicator
     implementation 'me.relex:circleindicator:2.1.6'
-    implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.tbuonomo:dotsindicator:4.2'
-    implementation 'com.github.aliab:RTLMaterialSpinner:1.2.1'
     implementation 'com.tbuonomo:dotsindicator:4.2'
 
     

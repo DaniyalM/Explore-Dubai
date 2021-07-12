@@ -42,7 +42,7 @@ class ServicesHeaderItemSelector(context: Context, attrs: AttributeSet) :
     }
 
 
-    @JvmName("favouriteHeaders")
+    @JvmName("ServiceHeaders")
     fun initialize(
             list: List<ServiceHeader>,
             bus: Bus
@@ -64,7 +64,7 @@ class ServicesHeaderItemSelector(context: Context, attrs: AttributeSet) :
     fun itemIndexUpdate() {
         list?.get(previousPosition)?.let {
             groupAdapter.notifyItemChanged(previousPosition, ServicesHeaderItems(
-                    displayValue = it.title!!,
+                    displayValue = it.title?:"test",
                     data = list,
                     isSelected = isSelected,
                     selectedInnerImg = getDrawableFromId(it.selectedIcon),
