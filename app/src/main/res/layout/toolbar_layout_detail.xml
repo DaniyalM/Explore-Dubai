@@ -8,6 +8,10 @@
         <variable
             name="attraction"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
+
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
     </data>
 
     <merge>
@@ -23,9 +27,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:splitMotionEvents="false"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg">
+                android:background="@color/app_bg"
+                android:splitMotionEvents="false">
 
                 <FrameLayout
                     android:id="@+id/imageLayout"
@@ -41,9 +45,9 @@
                         android:id="@+id/detailImageView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:transitionName="imageView"
+                        android:animate="@{technique.BounceIn}"
                         android:scaleType="centerCrop"
-                         />
+                        android:transitionName="imageView" />
 
                     <View
                         android:layout_width="match_parent"
@@ -63,20 +67,6 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <!--                <androidx.appcompat.widget.AppCompatImageView-->
-                <!--                    android:id="@+id/imageView3"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="192dp"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="@+id/imageLayout"-->
-                <!--                    app:layout_constraintTop_toTopOf="@+id/imageLayout" />-->
-
-                <!--                <View-->
-                <!--                    android:id="@+id/shade_placement"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="80dp"-->
-
-                <!--                    app:layout_constraintBottom_toBottomOf="parent" />-->
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/category"
@@ -111,6 +101,7 @@
                     app:cardBackgroundColor="@color/transparent"
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:cardElevation="0dp"
+                    android:animate="@{technique.Shake}"
                     app:layout_constraintBottom_toTopOf="@+id/btn_book_a_ticket"
                     app:layout_constraintStart_toStartOf="@+id/title">
 
@@ -119,6 +110,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
+
                         android:background="@drawable/black_dark_shadow_attraction_icon"
                         android:foreground="@drawable/custom_ripple_border"
                         android:orientation="vertical">
@@ -154,6 +146,7 @@
                     app:cardBackgroundColor="@color/transparent"
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:cardElevation="0dp"
+                    android:animate="@{technique.Shake}"
                     app:layout_constraintEnd_toStartOf="@+id/gallery"
                     app:layout_constraintStart_toEndOf="@+id/augmentedReality"
                     app:layout_constraintTop_toTopOf="@+id/augmentedReality">
@@ -197,6 +190,7 @@
                     app:cardBackgroundColor="@color/transparent"
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:cardElevation="0dp"
+                    android:animate="@{technique.Shake}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/view360">
 
@@ -252,9 +246,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
+                    android:alpha="0.4"
                     android:background="@drawable/btn_register"
                     android:elevation="@dimen/_15sdp"
-                    android:alpha="0.4"
                     android:foreground="@drawable/custom_ripple_border"
                     android:gravity="center"
                     android:text="@string/book_a_ticket"
@@ -335,9 +329,9 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="200dp"
                         android:layout_marginEnd="20dp"
-                        android:visibility="invisible"
                         android:background="@drawable/custom_ripple_black"
                         android:src="@drawable/add_to_calander"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="@+id/back"
                         app:layout_constraintEnd_toStartOf="@+id/favourite"
                         app:layout_constraintStart_toEndOf="@+id/back"

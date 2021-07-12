@@ -6,6 +6,8 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.databinding.AttractionsCategoryItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.databinding.BindableItem
 
@@ -23,6 +25,9 @@ class AttractionCategoryListItem<T : ViewDataBinding>(
             is AttractionsCategoryItemCellBinding -> {
 
                 viewBinding.attractionsCat = attractionCat
+                YoYo.with(Techniques.RollIn)
+                    .duration(1000)
+                    .playOn(viewBinding.root)
                 viewBinding.apply {
                     attractionImage.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)

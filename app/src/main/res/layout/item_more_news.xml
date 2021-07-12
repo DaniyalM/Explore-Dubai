@@ -2,11 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
         <variable name="news" type="com.app.dubaiculture.data.repository.news.local.LatestNews"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_265sdp"
         android:layout_height="@dimen/_125sdp"
+        android:animate="@{technique.BounceInUp}"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_60sdp">
 

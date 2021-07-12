@@ -7,12 +7,16 @@
         <import type="android.text.TextUtils"/>
         <import type="android.view.View" />
         <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
+        <variable
             name="attractions"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animate="@{technique.BounceInUp}"
         android:orientation="vertical">
 
 

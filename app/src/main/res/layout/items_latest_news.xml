@@ -6,12 +6,17 @@
         <variable
             name="news"
             type="com.app.dubaiculture.data.repository.news.local.LatestNews" />
+        <variable
+        name="technique"
+        type="com.daimajia.androidanimations.library.Techniques" />
     </data>
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="286dp"
         android:layout_height="@dimen/_236sdp"
         android:layout_margin="@dimen/_10sdp"
+        android:animate="@{technique.BounceInUp}"
+
         android:outlineSpotShadowColor="@color/gray_500"
         app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="@dimen/_6sdp">
