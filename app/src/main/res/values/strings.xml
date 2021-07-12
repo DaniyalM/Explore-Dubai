@@ -265,7 +265,10 @@
     <string name="no_of_tickets">No. of tickets</string>
     <string name="event_ticket">EVENT TICKET</string>
     <string name="booking_time">Booking Time</string>
-    <string name="service_status">Service Status</string>
     <string name="booking_tickets"><![CDATA[Booking & Tickets]]></string>
+    <string name="completed">Completed</string>
+    <string name="view_status_detail">View Status Detail</string>
+    <string name="pending">Pending</string>
+    <string name="service_status">Service Status</string>
 
 </resources>
