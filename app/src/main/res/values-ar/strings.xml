@@ -259,6 +259,10 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="add_your_comment_here">Add your comment here...</string>
+    <string name="completed">Completed</string>
+    <string name="view_status_detail">View Status Detail</string>
+    <string name="pending">Pending</string>
+    <string name="service_status">Service Status</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
