@@ -270,5 +270,7 @@
     <string name="view_status_detail">View Status Detail</string>
     <string name="pending">Pending</string>
     <string name="service_status">Service Status</string>
+    <string name="request_received">Request Received</string>
+    <string name="in_progress">In Progress</string>
 
 </resources>
