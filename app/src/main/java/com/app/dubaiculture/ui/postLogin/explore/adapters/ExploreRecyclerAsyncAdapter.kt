@@ -456,29 +456,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         LATESTNEWS(4),
     }
 
-//    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
-//        super.onViewDetachedFromWindow(holder)
-//        stopAnimation()
-//    }
-
-
-//    private fun setAnimation(view: View?) {
-//        handler.postDelayed({
-//            val animation: Animation = AnimationUtils.loadAnimation(
-//                context,
-//                R.anim.item_fall_down_animation
-//            )
-//            if (view != null) {
-//                view.startAnimation(animation)
-//                view.visibility = View.VISIBLE
-//            }
-//        }, delayAnimate.toLong())
-//        delayAnimate += 500
-//    }
-//
-//    private fun stopAnimation() {
-//        handler.removeCallbacksAndMessages(null)
-//    }
 }
 
-//
+

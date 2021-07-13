@@ -8,6 +8,12 @@ import com.app.dubaiculture.ui.base.BaseFragment
 
 //@AndroidEntryPoint
 class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>() {
+
+    private var headerList:MutableList<String> = mutableListOf(
+        ""
+    )
+
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -15,6 +21,12 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-//        binding.serviceHeaderPager.adapter=
+
+    }
+
+    private fun tabInit(){
+        binding.serviceDetailHeaderTabs.apply {
+            addTab(this.newTab().setText(""))
+        }
     }
 }

@@ -19,14 +19,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabs"
+                    android:id="@+id/service_detail_header_tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/service_header_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
