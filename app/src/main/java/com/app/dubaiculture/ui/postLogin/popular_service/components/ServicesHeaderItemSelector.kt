@@ -22,11 +22,8 @@ class ServicesHeaderItemSelector(context: Context, attrs: AttributeSet) :
     val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var list: List<ServiceHeader>? = null
     var recyclerView: RecyclerView? = null
-    private var _headerPosition: MutableLiveData<Int> = MutableLiveData()
+    private var _headerPosition: MutableLiveData<Int> = MutableLiveData(serviceClickCheckerFlag)
     var headerPosition: LiveData<Int> = _headerPosition
-
-
-//    var bus: Bus? = null
 
     companion object {
         var previousPosition: Int = 0
@@ -49,10 +46,8 @@ class ServicesHeaderItemSelector(context: Context, attrs: AttributeSet) :
     @JvmName("ServiceHeaders")
     fun initialize(
         list: List<ServiceHeader>,
-//        bus: Bus
     ) {
         this.list = list
-//        this.bus = bus
         itemAddition()
     }
 

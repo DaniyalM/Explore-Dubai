@@ -132,7 +132,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                     it.let { result ->
                         contentLoaded = true
                         binding.pager.adapter = pagerAdapter
-                        binding.horizontalSelector.initialize(result.value, bus)
+                        binding.horizontalSelector.initialize(result.value)
                         pagerAdapter?.list = result.value
 
 
@@ -145,19 +145,13 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 }
             }
         }
-
-
-    }
-
-    @Subscribe
-    fun handleCategoryClick(attractionServices: AttractionServices) {
-        when (attractionServices) {
-            is AttractionServices.CategoryClick -> {
-                binding.pager.currentItem = attractionServices.position
-            }
+        binding.horizontalSelector.headerPosition.observe(viewLifecycleOwner){
+            binding.pager.currentItem = it
         }
 
+
     }
+
 
 
     private fun setupToolbarWithSearchItems() {
