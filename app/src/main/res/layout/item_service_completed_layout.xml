@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="serviceStatus"
+            type="com.app.dubaiculture.data.repository.explore.local.models.ServiceStatus"/>
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black_200">
+  >
 
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview"
         android:layout_width="match_parent"
-        app:cardElevation="@dimen/_15sdp"
-        android:outlineSpotShadowColor="@color/gray_600"
-        android:outlineAmbientShadowColor="@color/gray_600"
+        app:cardElevation="@dimen/_5sdp"
+        android:outlineSpotShadowColor="@color/gray_750"
         app:cardCornerRadius="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginBottom="@dimen/_12sdp"
@@ -32,7 +38,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_13ssp"
                 android:layout_marginStart="@dimen/_13sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:textColor="?attr/colorSecondary"
@@ -40,7 +46,8 @@
                 android:layout_marginTop="@dimen/_13sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="The Definitive Guide to an Uncertain World world"
+                android:text="@{serviceStatus.title}"
+                tools:text="The Definitive Guide to an Uncertain World world"
                 />
 
 
@@ -49,9 +56,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3sdp"
-                android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes"
+                android:text="@{serviceStatus.desc}"
+                tools:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes"
                 android:textColor="@color/gray_750"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/_11ssp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_title"
                 app:layout_constraintStart_toStartOf="@+id/tv_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title" />
@@ -67,14 +75,13 @@
                 />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_completed"
                 android:orientation="horizontal"
                 android:layout_width="0dp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center_vertical"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/main_cl"
                 app:layout_constraintTop_toBottomOf="@+id/line"
                 app:layout_constraintStart_toStartOf="@id/line"
@@ -101,7 +108,8 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/calender_ticket_book"
                     android:drawablePadding="@dimen/_8sdp"
-                    android:text="12 Nov,2020"
+                    tools:text="12 Nov,2020"
+                    android:text="@{serviceStatus.date}"
                     android:textSize="@dimen/_10sdp"
                     android:outlineSpotShadowColor="@color/black_200"
                     android:outlineAmbientShadowColor="@color/black_200"
@@ -112,19 +120,20 @@
 
             <LinearLayout
                 android:id="@+id/ll_pending"
-
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center_vertical"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/main_cl"
                 app:layout_constraintTop_toBottomOf="@+id/line"
                 app:layout_constraintStart_toStartOf="@id/line"
                 app:layout_constraintEnd_toEndOf="@id/line"
                 >
                 <LinearLayout
+                    android:id="@+id/ll_viewStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -159,7 +168,7 @@
                 <LinearLayout
                     android:id="@+id/ll_expand"
                     android:visibility="gone"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:orientation="vertical"
                     android:background="@drawable/gray_bg"
                     android:layout_width="match_parent"
@@ -227,7 +236,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/in_progress"
                             android:textSize="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_18sdp"
                             android:textColor="@color/black_200"
                             android:layout_marginStart="@dimen/_20sdp"
                             app:layout_constraintTop_toBottomOf="@+id/tv_date_request"
@@ -252,13 +261,16 @@
                             android:background="@drawable/unknown"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
                             app:layout_constraintTop_toBottomOf="@+id/tv_expected_date" >
 
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="@dimen/_8sdp"
+                                android:textSize="@dimen/_9ssp"
+                                android:gravity="center"
+                                android:textColor="@color/purple_900"
                                 android:drawablePadding="@dimen/_5sdp"
                                 android:drawableStart="@drawable/phone_more"
                                 android:text="Inquire:0800 3DCAA"
