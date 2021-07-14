@@ -1,4 +1,4 @@
-package com.app.dubaiculture.data.repository.explore.local.models
+package com.app.dubaiculture.data.repository.popular_service.local.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

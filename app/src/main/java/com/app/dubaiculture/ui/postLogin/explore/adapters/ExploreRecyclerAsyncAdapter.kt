@@ -2,21 +2,16 @@ package com.app.dubaiculture.ui.postLogin.explore.adapters
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
-import com.app.dubaiculture.data.repository.explore.local.models.PopularServices
+import com.app.dubaiculture.data.repository.popular_service.local.model.PopularServices
 import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.base.BaseViewModel
@@ -33,9 +28,7 @@ import com.app.dubaiculture.ui.postLogin.explore.ExploreFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
-import com.app.dubaiculture.utils.AppConfigUtils
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
-import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_FILTER
@@ -45,7 +38,6 @@ import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_NAVIGATION
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import java.util.*
 
 
 class ExploreRecyclerAsyncAdapter internal constructor(
