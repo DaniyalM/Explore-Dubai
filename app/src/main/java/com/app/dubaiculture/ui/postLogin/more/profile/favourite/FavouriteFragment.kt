@@ -61,12 +61,12 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
     }
 
     private fun initiateRequest() {
-        if (events.isEmpty()){
+
            binding.swipeRefresh.post {
                 binding.swipeRefresh.isRefreshing = true
                 profileViewModel.getFavourites()
             }
-        }
+
 
 
         binding.swipeRefresh.apply {

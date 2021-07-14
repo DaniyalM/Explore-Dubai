@@ -46,7 +46,6 @@ class HeaderInterceptor @Inject constructor(private val context: Context,private
                         requestBuilder.removeHeader("Guest-Token")
                     }
                 } else {
-
                     guestPass = true
                 }
             }

@@ -9,11 +9,12 @@ import com.app.dubaiculture.data.repository.login.remote.request.changedpass.Cha
 import com.app.dubaiculture.data.repository.login.remote.response.LoginResponse
 import com.app.dubaiculture.data.repository.login.remote.response.changepassword.ChangedPasswordResponse
 import com.app.dubaiculture.data.repository.login.remote.response.resendverification.ResendVerificationResponse
+import com.app.dubaiculture.utils.security.rds.SecurityManagerRDS
 import transform
 import transformChangedPass
 import javax.inject.Inject
 
-class LoginRepository @Inject constructor(private val loginRDS: LoginRDS):
+class LoginRepository @Inject constructor(private val loginRDS: LoginRDS,private val securityManager: SecurityManagerRDS):
     BaseRepository() {
 
     suspend fun login(loginRequest: LoginRequest): Result<LoginResponse> {

@@ -55,7 +55,18 @@
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_profileFragment_to_myServicesFragment"
-            app:destination="@id/myServicesFragment" />
+            app:destination="@id/myServicesFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_profileFragment_to_serviceDetailFragment"
+            app:destination="@id/serviceDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
     </fragment>
     <fragment
         android:id="@+id/placesVisited"
@@ -130,4 +141,8 @@
         android:id="@+id/myServicesFragment"
         android:name="com.app.dubaiculture.ui.postLogin.popular_service.myservices.MyServicesFragment"
         android:label="MyServicesFragment" />
+    <fragment
+        android:id="@+id/serviceDetailFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"
+        android:label="ServiceDetailFragment" />
 </navigation>
