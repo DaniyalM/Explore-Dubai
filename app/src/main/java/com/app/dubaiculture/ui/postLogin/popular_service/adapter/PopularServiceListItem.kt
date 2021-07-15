@@ -3,7 +3,7 @@ package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 import android.content.Context
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.popular_service.local.model.PopularServices
+import com.app.dubaiculture.data.repository.popular_service.local.models.PopularServices
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings
 import com.app.dubaiculture.databinding.ItemsBookATicketLayoutBinding
 import com.app.dubaiculture.databinding.PopularServiceInnerItemCellBinding

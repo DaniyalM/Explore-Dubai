@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
-import com.app.dubaiculture.data.repository.popular_service.local.model.PopularServices
+import com.app.dubaiculture.data.repository.popular_service.local.models.PopularServices
 import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.base.BaseViewModel
