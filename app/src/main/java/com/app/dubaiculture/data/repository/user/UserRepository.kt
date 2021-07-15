@@ -1,8 +1,10 @@
 package com.app.dubaiculture.data.repository.user
 
-import android.content.Intent
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
+import com.app.dubaiculture.data.repository.login.LoginRepository
+import com.app.dubaiculture.data.repository.login.remote.LoginRDS
+import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.login.remote.response.LoginResponseDTO
 import com.app.dubaiculture.data.repository.login.remote.response.UserDTO
 import com.app.dubaiculture.data.repository.user.local.User
@@ -13,13 +15,15 @@ import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.data.repository.user.remote.UserRDS
 import com.app.dubaiculture.data.repository.user.remote.request.GuestTokenRequestDTO
 import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequestDTO
+import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_200
+import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_401
 import javax.inject.Inject
 
 
 class UserRepository @Inject constructor(
-        private val userRDS: UserRDS,
-        private val userLDS: UserLDS,
-        private val guestLDS: GuestLDS
+    private val userRDS: UserRDS,
+    private val userLDS: UserLDS,
+    private val guestLDS: GuestLDS,
 ) : BaseRepository() {
 
 
@@ -27,7 +31,8 @@ class UserRepository @Inject constructor(
         val user = transform(userDTO, loginResponseDTO)
         userLDS.insert(user)
     }
-    suspend fun updateUser(user: User){
+
+    suspend fun updateUser(user: User) {
         userLDS.insert(user)
     }
 
@@ -35,22 +40,44 @@ class UserRepository @Inject constructor(
     suspend fun getLastGuestUser(): Guest? = guestLDS.getGuestUser()
 
     suspend fun refreshToken(token: String, refreshToken: String): User? {
-        when (val resultRDS = userRDS.refreshToken(RefreshTokenRequestDTO(Token = token, RefreshToken = refreshToken))) {
+        when (val resultRDS = userRDS.refreshToken(
+            RefreshTokenRequestDTO(
+                Token = token,
+                RefreshToken = refreshToken
+            )
+        )) {
             is Result.Success -> {
-                when(resultRDS.value.statusCode){
-                    200->{
+                when (resultRDS.value.statusCode) {
+                    HTTP_200 -> {
                         val user = userLDS.getUser()
                         user?.apply {
                             val resp = resultRDS.value.refreshTokenResponseDTO
                             this.refreshToken = resp.refreshToken
                             this.token = resp.token
+
                             userLDS.update(this)
                             return userLDS.getUser()
                         }
-                 }
-                    else ->{
+                    }
+
+//                    HTTP_401 -> {
+////                        val user = userLDS.getUser()?.let {
+////                            loginRDS.loginWithEmail(transform(LoginRequest(
+////                                email = it.email,
+////                                password =
+////                            ))
+////                        }
+//
+//                    }
+
+                    else -> {
                         userLDS.getUser()?.let { userLDS.delete(it) }
-                        Result.Failure(resultRDS.value.succeeded, resultRDS.value.statusCode, null,errorMessage = resultRDS.value.errorMessage)
+                        Result.Failure(
+                            resultRDS.value.succeeded,
+                            resultRDS.value.statusCode,
+                            null,
+                            errorMessage = resultRDS.value.errorMessage
+                        )
                     }
                 }
 

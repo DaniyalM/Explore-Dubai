@@ -5,6 +5,7 @@ object AppConfigUtils {
     var clickCheckerFlag: Int = 0
     var favouriteClickCheckerFlag: Int = 0
     var serviceClickCheckerFlag: Int = 0
+    var SERVICE_DETAIL_HEADER_FLAG: Int = 0
 
 
     // Name of Notification Channel for verbose notifications of background work

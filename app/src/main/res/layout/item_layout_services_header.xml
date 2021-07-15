@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <variable name="popular_services" type="com.app.dubaiculture.data.repository.explore.local.models.PopularServices"/>
+        <variable name="popular_services" type="com.app.dubaiculture.data.repository.popular_service.local.models.PopularServices"/>
     </data>
   <com.app.dubaiculture.ui.components.customtextview.CustomTextView
       android:layout_width="wrap_content"

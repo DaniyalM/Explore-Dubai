@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
-import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
@@ -22,6 +21,8 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
+import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_401
+import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_500
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.RequestBody
 import okio.Buffer
@@ -124,7 +125,7 @@ fun Fragment.handleApiError(
         failure.isNetWorkError -> baseViewModel.showToast(
             "Please Check Your Internet Connection"
         )
-        failure.errorCode == 401 -> {
+        failure.errorCode == HTTP_401 -> {
             if (this is LoginFragment) {
                 baseViewModel.showToast("You have entered incorrect email or password")
             } else {
@@ -133,24 +134,14 @@ fun Fragment.handleApiError(
             }
 
         }
-        failure.errorCode == 500 -> {
+        failure.errorCode == HTTP_500 -> {
             baseViewModel.showToast("Internal Server Error")
 
         }
         else -> {
-
-            val error = failure.errorBody?.string().toString()
+//            val error = failure.errorBody?.string().toString()
             baseViewModel.showToast("Session Timeout From Server")
             initiateLogout()
-//            if (!TextUtils.isEmpty(error) || !TextUtils.equals(error,"null")){
-////                baseViewModel.showToast(error)
-//                baseViewModel.showToast("Session Timeout From Server")
-//            }
-//            else {
-//                baseViewModel.showToast("Session Timeout From Server")
-//            }
-
-//            startNewActivity(PreLoginActivity::class.java)
         }
     }
 
@@ -173,11 +164,12 @@ fun Fragment.setNavigationResult(key: String, data: Any?) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
 
 }
+
 @ColorInt
 fun Context.getColorFromAttr(
-        @AttrRes attrColor: Int,
-        typedValue: TypedValue = TypedValue(),
-        resolveRefs: Boolean = true
+    @AttrRes attrColor: Int,
+    typedValue: TypedValue = TypedValue(),
+    resolveRefs: Boolean = true
 ): Int {
     theme.resolveAttribute(attrColor, typedValue, resolveRefs)
     return typedValue.data
