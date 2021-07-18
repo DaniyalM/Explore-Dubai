@@ -1,10 +1,11 @@
 package com.app.dubaiculture.ui.postLogin.popular_service
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.popular_service.local.models.ServiceCategory
 import com.app.dubaiculture.databinding.FragmentPopularServiceBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
@@ -20,10 +21,16 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() {
         container: ViewGroup?
     ) = FragmentPopularServiceBinding.inflate(inflater, container, false)
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        subscribeToObservable()
+    }
+
     fun subscribeToObservable() {
         popularServiceViewModel.eServices.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
+                    binding.horizontalSelector.initialize(initializeHeaders(it.value.serviceCategory))
 
                 }
                 is Result.Failure -> handleApiError(it, popularServiceViewModel)
@@ -31,13 +38,15 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() {
         }
     }
 
-    private fun initializeHeaders(): MutableList<ServiceHeader> {
+    private fun initializeHeaders(headers: List<ServiceCategory>): MutableList<ServiceHeader> {
         val serviceListingHeader = ArrayList<ServiceHeader>()
-        repeat(2) {
-            val serviceHeader = ServiceHeader(selectedIcon = null, unselectedIcon = null)
-
-            serviceListingHeader.add(serviceHeader)
-
+        headers.forEach {
+            serviceListingHeader.add(
+                ServiceHeader(
+                    title = it.title,
+                    selectedIcon = null, unselectedIcon = null
+                )
+            )
         }
 
 

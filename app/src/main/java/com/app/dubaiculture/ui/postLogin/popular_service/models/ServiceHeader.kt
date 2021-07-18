@@ -5,8 +5,8 @@ data class ServiceHeader(
         var title: String = "Test",
         var selectedIcon: Int?,
         var unselectedIcon: Int?,
-        var selectedIconString: String?,
-        var unSelectedIconString: String?,
+        var selectedIconString: String?="",
+        var unSelectedIconString: String?="",
         var selectedColor: Int? = 0,
         var unSelectedColor: Int? = 0,
         var color: String? = "#582c83"

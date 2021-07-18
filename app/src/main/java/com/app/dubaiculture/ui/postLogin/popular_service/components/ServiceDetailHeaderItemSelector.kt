@@ -41,7 +41,6 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         recyclerViewRow?.let {
             it.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            addView(view)
             it.adapter = groupAdapterRow
         }
 
@@ -49,15 +48,16 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         recyclerViewCol?.let {
             it.layoutManager =
                 LinearLayoutManager(context)
-            addView(view)
             it.adapter = groupAdapterCol
-        }
 
+        }
+        addView(view)
         itemAddition()
 
     }
 
     fun initializeSelector() {}
+
     fun itemAddition() {
         if (groupAdapterRow?.itemCount!! > 0) {
             groupAdapterRow?.clear()

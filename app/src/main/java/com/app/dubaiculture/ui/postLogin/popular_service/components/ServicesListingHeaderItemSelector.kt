@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServiceListingHeaderItem
+import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServicesHeaderItems
 import com.app.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -74,9 +75,25 @@ class ServicesListingHeaderItemSelector(context: Context, attrs: AttributeSet) :
             )
         }
     }
+    fun itemIndexUpdate() {
+        list?.get(PREVIOUS_POSITION)?.let {
+            groupAdapter.notifyItemChanged(
+                PREVIOUS_POSITION, ServiceListingHeaderItem(
+                    displayValue = it.title,
+                    data = it,
+                    isSelected = isSelected,
+                    selectedInnerImg = it.selectedIconString,
+                    unSelectedInnerImg = it.unSelectedIconString,
+                    progressListener = this,
+                    colorBg = it.color
+                )
+            )
+        }
+    }
 
     override fun onClick(position: Int) {
         positionUpdate(true)
+        itemIndexUpdate()
     }
 
     fun positionUpdate(isPositionUpdate:Boolean=false) {
