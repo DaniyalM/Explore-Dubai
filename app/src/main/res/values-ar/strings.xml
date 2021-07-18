@@ -279,6 +279,7 @@
     <string name="website">Website</string>
     <string name="amount">Amount</string>
     <string name="federal_fees">Federal Fees</string>
+    <string name="was_this_information_helpful">Was this information helpful?</string>
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>
