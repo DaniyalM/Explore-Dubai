@@ -280,5 +280,7 @@
     <string name="service_channels">Service Channels</string>
     <string name="mobile">Mobile</string>
     <string name="website">Website</string>
+    <string name="amount">Amount</string>
+    <string name="federal_fees">Federal Fees</string>
 
 </resources>
