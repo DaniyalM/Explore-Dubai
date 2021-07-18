@@ -295,8 +295,7 @@ dependencies {
     // indicator
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.tbuonomo:dotsindicator:4.2'
-    implementation 'com.tbuonomo:dotsindicator:4.2'
-
+    implementation 'com.github.vipulasri:timelineview:1.1.5'
     
 
 }
