@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
 
-    <include layout="@layout/service_desc_layout"/>
+    <include layout="@layout/items_service_detail_desc_layout"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
