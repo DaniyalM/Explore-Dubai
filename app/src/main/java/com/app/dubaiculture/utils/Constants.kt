@@ -66,13 +66,15 @@ object Constants {
         const val SETTING_DESTINATION: String = "setting_fragment_destination"
 
 
-
     }
 
     object playStoreAppLink {
-        const val OPEN_PLAYSTORE_APP : String = "market://search?q=pub:Dubai Culture and Arts Authority"
-        const val OPEN_PLAYSTORE_WEB : String = "https://play.google.com/store/apps/details?id=Dubai+Culture+and+Arts+Authority"
+        const val OPEN_PLAYSTORE_APP: String =
+            "market://search?q=pub:Dubai Culture and Arts Authority"
+        const val OPEN_PLAYSTORE_WEB: String =
+            "https://play.google.com/store/apps/details?id=Dubai+Culture+and+Arts+Authority"
     }
+
     object IBecons {
         const val IDENTIFIER: String = "com.flagship.dubaiculture"
         const val UUID_BECON: String = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
@@ -81,12 +83,13 @@ object Constants {
     object Links {
         const val TERMS_CONDITIONS: String = "https://uat.weareneomads.com/terms-of-use"
     }
-    object StaticLatLng{
-        const val LAT =  24.8623
-        const val LNG =  67.0627
+
+    object StaticLatLng {
+        const val LAT = 24.8623
+        const val LNG = 67.0627
     }
 
-    object Categories{
+    object Categories {
         const val MUSEUMS = "Museums"
         const val HERITAGE_SITES = "Heritage Sites"
         const val ART_GALLERY = "Art Galleries"
@@ -94,15 +97,18 @@ object Constants {
         const val LIBRARIES = "Libraries"
 
     }
+
     object Colors {
         const val WHITE: String = "#ffffff"
         const val SEE_MORE_BLUE: String = "#103667"
         const val LINK: String = "#267FB7"
     }
+
     object AR {
         const val CLIENT_TOKEN: String = "2e7e1551d007a8adc3346fa48f07b2c7"
         const val TARGET_ID: String = "60860b2e7c633e71c8d1e5cb"
     }
+
     object ImagePicker {
         const val TAKE_PHOTO: String = "Take photo"
         const val CHOOSE_FROM_LIBRARY: String = "Choose from gallery"
@@ -122,6 +128,7 @@ object Constants {
         const val PACKAGE_NAME_GOOGLE_MAP: String = "com.google.android.apps.maps"
         const val DESTINATION = "&daddr="
     }
+
     object DateFormats {
         const val TIME_STAMP_WITH_ZONE: String = "yyyy-MM-dd'T'HH:mm:ss"
         const val YYYY_MM_DD: String = "yyyy-MM-dd"
@@ -133,8 +140,14 @@ object Constants {
         const val HH_MM: String = "HH:mm"
     }
 
-    object DataStore{
-        const val SKIP : String = "skip"
+    object DataStore {
+        const val SKIP: String = "skip"
+    }
+
+    object HTTP_RESPONSE {
+        const val HTTP_200: Int = 200
+        const val HTTP_401: Int = 401
+        const val HTTP_500: Int = 500
     }
 
 }

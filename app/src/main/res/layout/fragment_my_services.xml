@@ -60,6 +60,7 @@
                             android:id="@+id/rvServiceStatusListing"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/_50sdp"
                             tools:itemCount="2"
                             tools:listitem="@layout/items_book_a_ticket_layout"
                             android:clickable="true"
@@ -69,6 +70,7 @@
                             android:id="@+id/rvAttractionListing"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/_50sdp"
                             android:visibility="gone"
                             android:clickable="true"
                             android:focusable="true" />

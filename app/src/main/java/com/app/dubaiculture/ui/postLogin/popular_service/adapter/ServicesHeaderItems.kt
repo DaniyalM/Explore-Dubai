@@ -2,7 +2,6 @@ package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.media.Image
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView

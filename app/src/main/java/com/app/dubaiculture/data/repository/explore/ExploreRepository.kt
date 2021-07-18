@@ -10,25 +10,25 @@ import com.app.dubaiculture.data.repository.explore.mapper.transformExplore
 import com.app.dubaiculture.data.repository.explore.mapper.transformExploreRequest
 import com.app.dubaiculture.data.repository.explore.remote.ExploreRDS
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
+import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_200
 import javax.inject.Inject
 
 
 class ExploreRepository @Inject constructor(
     private val exploreRDS: ExploreRDS,
-) :BaseRepository(exploreRDS) {
+) : BaseRepository(exploreRDS) {
     suspend fun getExplore(exploreRequest: ExploreRequest): Result<List<Explore>> {
         return when (val resultRDS =
             exploreRDS.getExplore(transformExploreRequest(exploreRequest))) {
             is Result.Success -> {
                 // Single Source Of Truth -> get data from server -> save to db -> get from db to provide to UI
-                val listRDS = resultRDS
-                if (listRDS.value.statusCode != 200) {
-                    Result.Failure(true,listRDS.value.statusCode,null)
-                }else{
-                    val listLDS = transformExplore(listRDS.value)
+
+                if (resultRDS.value.statusCode != HTTP_200) {
+                    Result.Failure(true, resultRDS.value.statusCode, null)
+                } else {
 //                photoLDS.insertAll(listLDS as MutableList<Photo>)
 //                val resultLDS = photoLDS.getAll()
-                    Result.Success(listLDS)
+                    Result.Success(transformExplore(resultRDS.value))
                 }
 
             }
@@ -41,17 +41,19 @@ class ExploreRepository @Inject constructor(
     }
 
 
-    suspend fun getExploreMap(exploreRequest: ExploreRequest):Result<AttractionsEvents>{
+    suspend fun getExploreMap(exploreRequest: ExploreRequest): Result<AttractionsEvents> {
         return when (val resultRDS =
             exploreRDS.getExploreMap(transformExploreRequest(exploreRequest))) {
             is Result.Success -> {
-                val listRDS = resultRDS
-                if (listRDS.value.statusCode != 200) {
-                    Result.Failure(true,listRDS.value.statusCode,null)
-                }else{
-                    val listRDS  = AttractionsEvents( attractionCategory =   transformAttractionCategories(listRDS.value),
-                                events = transformEvents(listRDS.value))
-                    Result.Success(listRDS)
+                if (resultRDS.value.statusCode != HTTP_200) {
+                    Result.Failure(true, resultRDS.value.statusCode, null)
+                } else {
+                    Result.Success(
+                        AttractionsEvents(
+                            attractionCategory = transformAttractionCategories(resultRDS.value),
+                            events = transformEvents(resultRDS.value)
+                        )
+                    )
                 }
 
             }

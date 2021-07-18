@@ -3,9 +3,9 @@ package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.explore.local.models.PopularServices
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceStatus
+import com.app.dubaiculture.data.repository.popular_service.local.models.PopularServices
 import com.app.dubaiculture.databinding.ItemServiceCompletedLayoutBinding
 import com.app.dubaiculture.databinding.ItemsBookATicketLayoutBinding
 import com.app.dubaiculture.databinding.PopularServiceInnerItemCellBinding
@@ -13,11 +13,11 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.xwray.groupie.databinding.BindableItem
 
 class PopularServiceListItem<T : ViewDataBinding>(
-    private val rowClickListener: RowClickListener? = null,
-    val services: PopularServices? = null,
-    val servicesBookings: ServiceBookings? = null,
-    val myServiceStatus : ServiceStatus?=null,
-    val resLayout: Int = R.layout.popular_service_inner_item_cell,
+        private val rowClickListener: RowClickListener? = null,
+        val services: PopularServices? = null,
+        val servicesBookings: ServiceBookings? = null,
+        val myServiceStatus : ServiceStatus?=null,
+        val resLayout: Int = R.layout.popular_service_inner_item_cell,
 ) : BindableItem<T>() {
     override fun getLayout() = resLayout
     override fun bind(viewBinding: T, position: Int) {
@@ -40,8 +40,10 @@ class PopularServiceListItem<T : ViewDataBinding>(
                     }
                     llViewStatus.setOnClickListener {
                         if(!isExpand){
+                            isExpand = true
                             llExpand.visibility = View.VISIBLE
                         }else{
+                            isExpand =false
                             llExpand.visibility = View.GONE
                         }
                     }

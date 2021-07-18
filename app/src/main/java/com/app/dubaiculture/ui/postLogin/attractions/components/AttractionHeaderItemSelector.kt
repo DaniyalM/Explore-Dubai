@@ -5,6 +5,8 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
@@ -12,17 +14,22 @@ import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCa
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
 import com.app.dubaiculture.ui.postLogin.attractions.services.AttractionServices
+import com.app.dubaiculture.utils.AppConfigUtils
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
 class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
-        FrameLayout(context, attrs), AttractionHeaderClick {
+    FrameLayout(context, attrs), AttractionHeaderClick {
     val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var list: List<AttractionCategory>? = null
     var recyclerView: RecyclerView? = null
-    var bus: Bus? = null
+
+    //    var bus: Bus? = null
+    private var _headerPosition: MutableLiveData<Int> =
+        MutableLiveData(clickCheckerFlag)
+    var headerPosition: LiveData<Int> = _headerPosition
 
     companion object {
         var previousPosition: Int = 0
@@ -34,7 +41,7 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
         recyclerView = view.findViewById(R.id.rVgeneric)
         recyclerView?.let {
             it.layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             addView(view)
             it.adapter = groupAdapter
         }
@@ -43,11 +50,11 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     @JvmName("attractionHeaders")
     fun initialize(
-            list: List<AttractionCategory>,
-            bus: Bus
+        list: List<AttractionCategory>,
+//        bus: Bus
     ) {
         this.list = list
-        this.bus=bus
+//        this.bus = bus
         itemsAddnUpdation()
     }
 
@@ -64,29 +71,31 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
                     positionUpdate(clickCheckerFlag)
                 }
                 groupAdapter.add(
-                        AttractionHeaderItems(
-                                displayValue = model.title!!,
-                                data = list,
-                                isSelected = isSelected,
-                                selectedInnerImg = model.selectedSvg,
-                                unSelectedInnerImg = model.icon,
-                                progressListener = this,
-                                colorBg = model.color
-                        )
+                    AttractionHeaderItems(
+                        displayValue = model.title!!,
+                        data = list,
+                        isSelected = isSelected,
+                        selectedInnerImg = model.selectedSvg,
+                        unSelectedInnerImg = model.icon,
+                        progressListener = this,
+                        colorBg = model.color
+                    )
                 )
             }
 
 
         } else {
             list?.get(previousPosition)?.let {
-                groupAdapter.notifyItemChanged(previousPosition, AttractionHeaderItems(
+                groupAdapter.notifyItemChanged(
+                    previousPosition, AttractionHeaderItems(
                         displayValue = it.title!!,
                         data = list,
                         isSelected = isSelected,
                         selectedInnerImg = it.selectedSvg,
                         colorBg = it.color,
                         unSelectedInnerImg = it.icon,
-                        progressListener = this)
+                        progressListener = this
+                    )
                 )
             }
         }
@@ -110,7 +119,8 @@ class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
     fun positionUpdate(position: Int) {
         clickCheckerFlag = position
         recyclerView?.smoothScrollToPosition(position)
-        bus?.post(AttractionServices.CategoryClick(position))
+        _headerPosition.value=position
+//        bus?.post(AttractionServices.CategoryClick(position))
     }
 
 

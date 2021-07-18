@@ -77,15 +77,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 frameLayoutImagePicker.setOnClickListener {
                     navigate(R.id.action_profileFragment_to_avatarPickerFragment)
                 }
-                placesVisitedView.setOnClickListener {
-//                    navigate(R.id.action_profileFragment_to_placesVisited)
-                }
+//                placesVisitedView.setOnClickListener {
+////                    navigate(R.id.action_profileFragment_to_placesVisited)
+//                }
                 myEventsView.setOnClickListener {
+
+                    navigate(R.id.action_profileFragment_to_serviceDetailFragment)
 //                    navigate(R.id.action_profileFragment_to_myEventsFragment)
                 }
-                editProfile.setOnClickListener {
-//                    navigate(R.id.action_profileFragment_to_editProfileFragment)
-                }
+//                editProfile.setOnClickListener {
+////                    navigate(R.id.action_profileFragment_to_editProfileFragment)
+//                }
                 changePasswordView.setOnClickListener {
                     navigate(R.id.action_profileFragment_to_passwordChangeFragment)
                 }
