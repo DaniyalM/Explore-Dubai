@@ -136,7 +136,9 @@ fun Fragment.handleApiError(
         }
         failure.errorCode == HTTP_500 -> {
             baseViewModel.showToast("Internal Server Error")
-
+        }
+        failure.errorCode == HTTP_500 -> {
+            baseViewModel.showToast("Internal Server Error")
         }
         else -> {
 //            val error = failure.errorBody?.string().toString()

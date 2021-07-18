@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.ui.postLogin.events.EventFilterFragment
 import com.app.dubaiculture.ui.postLogin.events.HeaderModel
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventHeaderItems
@@ -20,7 +20,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
 class EventHeaderItemSelector(context: Context, attrs: AttributeSet) :
-    FrameLayout(context, attrs), AttractionHeaderClick {
+    FrameLayout(context, attrs), TabsHeaderClick {
     private var selectedTextColor: Int? = null
     private var unSelectedTextColor: Int? = null
     private var selectedBackground: Int? = null

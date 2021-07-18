@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.utils.AppConfigUtils.favouriteClickCheckerFlag
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
@@ -19,7 +19,7 @@ class FavouriteHeaderItems<T>(
     var isSelected: Boolean = false,
     private val selectedInnerImg: Drawable? = null,
     private val unSelectedInnerImg: Drawable? = null,
-    private val progressListener: AttractionHeaderClick? = null,
+    private val progressListener: TabsHeaderClick? = null,
     private val colorBg: String? = null
 ) : BaseAdapter(R.layout.attraction_title_list_item) {
     private lateinit var view: View

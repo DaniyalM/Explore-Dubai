@@ -148,6 +148,7 @@ object Constants {
         const val HTTP_200: Int = 200
         const val HTTP_401: Int = 401
         const val HTTP_500: Int = 500
+        const val HTTP_400: Int = 400
     }
 
 }

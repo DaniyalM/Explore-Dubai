@@ -1,6 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.attractions.clicklisteners
 
-interface AttractionHeaderClick {
+interface TabsHeaderClick {
     fun onClick(position: Int)
 }
 

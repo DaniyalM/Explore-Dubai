@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.app.dubaiculture.utils.getColorFromAttr
 import com.app.dubaiculture.utils.glideInstance
@@ -21,7 +21,7 @@ class AttractionHeaderItems<T>(
     var isSelected: Boolean = false,
     private val selectedInnerImg: String? = null,
     private val unSelectedInnerImg: String? = null,
-    private val progressListener: AttractionHeaderClick? = null,
+    private val progressListener: TabsHeaderClick? = null,
     private val colorBg: String? = null
 ) : BaseAdapter(R.layout.attraction_title_list_item) {
 
@@ -47,7 +47,8 @@ class AttractionHeaderItems<T>(
                         renderSelection(
                             it.findViewById(R.id.tv_title), it.findViewById(R.id.imgInnerIcon),
                             it.findViewById(R.id.cardview)
-                        )                    }
+                        )
+                    }
 
                 }
 
