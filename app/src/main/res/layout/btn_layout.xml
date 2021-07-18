@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+
+    <com.app.dubaiculture.ui.components.custombutton.CustomButton
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:background="@drawable/btn_register"
+        app:layout_constraintTop_toTopOf="parent"
+        android:foreground="@drawable/custom_ripple_border"
+        android:gravity="center"
+        android:text="@string/filters"
+        android:textAllCaps="false"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:elevation="@dimen/_15sdp"
+        android:textColor="@color/white_900"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+  />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
