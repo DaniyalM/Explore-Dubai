@@ -6,7 +6,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceStatus
 import com.app.dubaiculture.data.repository.popular_service.local.models.PopularServices
-import com.app.dubaiculture.databinding.ItemServiceCompletedLayoutBinding
+import com.app.dubaiculture.databinding.ItemServiceCompletedPendingLayoutBinding
 import com.app.dubaiculture.databinding.ItemsBookATicketLayoutBinding
 import com.app.dubaiculture.databinding.PopularServiceInnerItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
@@ -30,7 +30,7 @@ class PopularServiceListItem<T : ViewDataBinding>(
                     popularServices=servicesBookings
                 }
             }
-            is ItemServiceCompletedLayoutBinding ->{
+            is ItemServiceCompletedPendingLayoutBinding ->{
                 viewBinding.apply {
                     var isExpand = false
                     serviceStatus = myServiceStatus

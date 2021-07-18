@@ -9,12 +9,11 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceStatus
 import com.app.dubaiculture.databinding.FragmentMyServicesBinding
-import com.app.dubaiculture.databinding.ItemServiceCompletedLayoutBinding
+import com.app.dubaiculture.databinding.ItemServiceCompletedPendingLayoutBinding
 import com.app.dubaiculture.databinding.ItemsBookATicketLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.app.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
-import com.squareup.otto.Subscribe
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -88,8 +87,8 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
                 if(index == 1){
                     it.completed = false
                 }
-                add(PopularServiceListItem<ItemServiceCompletedLayoutBinding>(
-                        resLayout = R.layout.item_service_completed_layout,
+                add(PopularServiceListItem<ItemServiceCompletedPendingLayoutBinding>(
+                        resLayout = R.layout.item_service_completed_pending_layout,
                         myServiceStatus = it,
                 ))
             }

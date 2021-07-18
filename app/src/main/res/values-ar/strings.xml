@@ -269,6 +269,8 @@
     <string name="booking_tickets"><![CDATA[Booking & Tickets]]></string>
     <string name="request_received">Request Received</string>
     <string name="in_progress">In Progress</string>
+    <string name="view_details">View Details</string>
+    <string name="start_service">Start Service</string>
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>
