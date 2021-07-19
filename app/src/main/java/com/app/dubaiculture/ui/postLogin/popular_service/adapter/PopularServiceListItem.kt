@@ -34,6 +34,7 @@ class PopularServiceListItem<T : ViewDataBinding>(
                 viewBinding.apply {
                     var isExpand = false
                     serviceStatus = myServiceStatus
+                    tvViewStatus.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.plus,0)
                     if(myServiceStatus?.completed ==false){
                         llCompleted.visibility = View.GONE
                         llPending.visibility = View.VISIBLE
@@ -42,9 +43,11 @@ class PopularServiceListItem<T : ViewDataBinding>(
                         if(!isExpand){
                             isExpand = true
                             llExpand.visibility = View.VISIBLE
+                            tvViewStatus.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.remove,0)
                         }else{
                             isExpand =false
                             llExpand.visibility = View.GONE
+                            tvViewStatus.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.plus,0)
                         }
                     }
                 }
