@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServiceListingHeaderItem
-import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServicesHeaderItems
 import com.app.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -60,7 +59,7 @@ class ServicesListingHeaderItemSelector(context: Context, attrs: AttributeSet) :
         list?.forEachIndexed { index, model ->
             if (SERVICE_CLICK_CHECKER_FLAG == index) {
                 isSelected = true
-                positionUpdate(isSelected)
+                positionUpdate(SERVICE_CLICK_CHECKER_FLAG)
             }
             groupAdapter.add(
                 ServiceListingHeaderItem(
@@ -75,6 +74,7 @@ class ServicesListingHeaderItemSelector(context: Context, attrs: AttributeSet) :
             )
         }
     }
+
     fun itemIndexUpdate() {
         list?.get(PREVIOUS_POSITION)?.let {
             groupAdapter.notifyItemChanged(
@@ -92,16 +92,17 @@ class ServicesListingHeaderItemSelector(context: Context, attrs: AttributeSet) :
     }
 
     override fun onClick(position: Int) {
-        positionUpdate(true)
+        PREVIOUS_POSITION = SERVICE_CLICK_CHECKER_FLAG
+        positionUpdate(position)
         itemIndexUpdate()
     }
 
-    fun positionUpdate(isPositionUpdate:Boolean=false) {
-        if (isPositionUpdate){
-            PREVIOUS_POSITION = SERVICE_CLICK_CHECKER_FLAG
-        }
-        recyclerView?.smoothScrollToPosition(SERVICE_CLICK_CHECKER_FLAG)
-        _headerPosition.value = SERVICE_CLICK_CHECKER_FLAG
+    fun positionUpdate(position: Int) {
+        SERVICE_CLICK_CHECKER_FLAG = position
+        recyclerView?.smoothScrollToPosition(position)
+        _headerPosition.value = position
+//        bus?.post(PopularServiceBus.HeaderItemClick(position))
     }
+
 
 }

@@ -5,6 +5,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include android:id="@+id/headerVisited" layout="@layout/layout_back" />
         <com.app.dubaiculture.ui.postLogin.popular_service.components.ServicesListingHeaderItemSelector
             android:id="@+id/horizontalSelector"
             style="@style/HorizontalAttractionStyle"
