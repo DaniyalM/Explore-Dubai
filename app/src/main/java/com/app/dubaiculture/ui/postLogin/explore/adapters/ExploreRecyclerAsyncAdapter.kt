@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
-import com.app.dubaiculture.data.repository.popular_service.local.models.PopularServices
 import com.app.dubaiculture.data.repository.news.local.LatestNews
+import com.app.dubaiculture.data.repository.popular_service.local.models.PopularServices
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
@@ -128,12 +128,18 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 attractionCat = transformBaseToAttractionCategory(attractionCat),
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                       clickCheckerFlag = position
-                                   fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,Bundle().apply {
-                                       putInt(ATTRACTION_CAT_OBJECT,position)
-                                   })
+                                        clickCheckerFlag = position
+                                        fragment?.navigate(
+                                            R.id.action_exploreFragment_to_attraction_navigation,
+                                            Bundle().apply {
+                                                putInt(ATTRACTION_CAT_OBJECT, position)
+                                            })
                                     }
-                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
                                     }
                                 },
                                 isArabic = isArabic ?: false
@@ -193,7 +199,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                             })
                                     }
 
-                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
 
                                     }
                                 },
@@ -210,9 +219,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
                     it.viewAll.setOnClickListener {
-                        fragment?.navigate(R.id.action_exploreFragment_to_events_navigation,Bundle().apply {
-                            putBoolean(EVENT_FILTER,true)
-                        })
+                        fragment?.navigate(
+                            R.id.action_exploreFragment_to_events_navigation,
+                            Bundle().apply {
+                                putBoolean(EVENT_FILTER, true)
+                            })
                     }
                 }
 
@@ -281,18 +292,21 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
                                     }
 
-                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
 //                                        imageView.transitionName=attraction.id
 //                                        val extras = FragmentNavigatorExtras(
 //                                                imageView to attraction.id!!
 //                                        )
                                         fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,
-                                                Bundle().apply {
-                                                    putParcelable(
-                                                            ATTRACTION_OBJECT,
-                                                            transformBaseToAttraction(attraction)
-                                                    )
-                                                })
+                                            Bundle().apply {
+                                                putParcelable(
+                                                    ATTRACTION_OBJECT,
+                                                    transformBaseToAttraction(attraction)
+                                                )
+                                            })
 
                                     }
                                 },
@@ -342,10 +356,16 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         val bundle = bundleOf(NEWS_ID to it.id)
-                                        fragment?.navigate(R.id.action_exploreFragment_to_more_navigation,bundle)
+                                        fragment?.navigate(
+                                            R.id.action_exploreFragment_to_more_navigation,
+                                            bundle
+                                        )
                                     }
 
-                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
 
                                     }
                                 },
@@ -359,9 +379,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
                     it.viewAll.setOnClickListener {
-                        fragment?.navigate(R.id.action_exploreFragment_to_more_navigation,Bundle().apply {
-                            putBoolean(NEWS_NAVIGATION,true)
-                        })
+                        fragment?.navigate(
+                            R.id.action_exploreFragment_to_more_navigation,
+                            Bundle().apply {
+                                putBoolean(NEWS_NAVIGATION, true)
+                            })
                     }
                 }
 
@@ -406,6 +428,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                 holder.itemView.binding?.let {
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
+                    it.viewAll.setOnClickListener {
+                        fragment?.navigate(R.id.action_exploreFragment_to_popularServiceFragment)
+                    }
                 }
 
             }

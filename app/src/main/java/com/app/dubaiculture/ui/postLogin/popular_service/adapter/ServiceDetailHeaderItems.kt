@@ -5,14 +5,14 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.ItemLayoutTabHeaderBinding
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.utils.AppConfigUtils.SERVICE_DETAIL_HEADER_FLAG
 import com.xwray.groupie.databinding.BindableItem
 
 class ServiceDetailHeaderItems(
     val displayValue: String,
     var isSelected: Boolean = false,
-    private val progressListener: AttractionHeaderClick? = null,
+    private val progressListener: TabsHeaderClick? = null,
 
     ) : BindableItem<ItemLayoutTabHeaderBinding>() {
     override fun bind(viewBinding: ItemLayoutTabHeaderBinding, position: Int) {

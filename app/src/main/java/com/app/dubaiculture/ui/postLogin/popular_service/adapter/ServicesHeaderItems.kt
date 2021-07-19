@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
-import com.app.dubaiculture.utils.AppConfigUtils.serviceClickCheckerFlag
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
+import com.app.dubaiculture.ui.postLogin.popular_service.components.ServicesHeaderItemSelector.Companion.SERVICE_CLICK_CHECKER_FLAG
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 
@@ -19,7 +19,7 @@ class ServicesHeaderItems<T>(
     var isSelected: Boolean = false,
     private val selectedInnerImg: Drawable? = null,
     private val unSelectedInnerImg: Drawable? = null,
-    private val progressListener: AttractionHeaderClick? = null,
+    private val progressListener: TabsHeaderClick? = null,
     private val colorBg: String? = null
 ) : BaseAdapter(R.layout.attraction_title_list_item) {
     private lateinit var view: View
@@ -32,11 +32,11 @@ class ServicesHeaderItems<T>(
                 val image = it.findViewById<ImageView>(R.id.imgInnerIcon)
                 val card = it.findViewById<MaterialCardView>(R.id.cardview)
                 title.text = displayValue
-                isSelected = serviceClickCheckerFlag == position
+                isSelected = SERVICE_CLICK_CHECKER_FLAG == position
                 renderSelection(title, image, card)
                 it.setOnClickListener {
                     progressListener?.onClick(position)
-                    if (serviceClickCheckerFlag == position) {
+                    if (SERVICE_CLICK_CHECKER_FLAG == position) {
                         isSelected = true
                         renderSelection(title, image, card)
                     }

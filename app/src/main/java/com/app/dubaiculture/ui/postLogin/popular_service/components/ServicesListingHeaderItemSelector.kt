@@ -1,32 +1,31 @@
 package com.app.dubaiculture.ui.postLogin.popular_service.components
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
-import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServicesHeaderItems
+import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServiceListingHeaderItem
 import com.app.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
-
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
-class ServicesHeaderItemSelector(context: Context, attrs: AttributeSet) :
-    FrameLayout(context, attrs), TabsHeaderClick {
+class ServicesListingHeaderItemSelector(context: Context, attrs: AttributeSet) :
+    FrameLayout(context, attrs),
+    TabsHeaderClick {
     val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var list: List<ServiceHeader>? = null
     var recyclerView: RecyclerView? = null
-    private var _headerPosition: MutableLiveData<Int> = MutableLiveData(SERVICE_CLICK_CHECKER_FLAG)
+    private var _headerPosition: MutableLiveData<Int> =
+        MutableLiveData(ServicesHeaderItemSelector.SERVICE_CLICK_CHECKER_FLAG)
     var headerPosition: LiveData<Int> = _headerPosition
 
     companion object {
-        var previousPosition: Int = 0
+        var PREVIOUS_POSITION: Int = 0
         var SERVICE_CLICK_CHECKER_FLAG: Int = 0
     }
 
@@ -43,7 +42,6 @@ class ServicesHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     }
 
-
     @JvmName("ServiceHeaders")
     fun initialize(
         list: List<ServiceHeader>,
@@ -52,30 +50,6 @@ class ServicesHeaderItemSelector(context: Context, attrs: AttributeSet) :
         itemAddition()
     }
 
-    private fun getDrawableFromId(resId: Int?): Drawable? {
-        resId?.let {
-            return if (it == 0) null
-            else ResourcesCompat.getDrawable(resources, it, null)
-        }
-        return null
-    }
-
-
-    fun itemIndexUpdate() {
-        list?.get(previousPosition)?.let {
-            groupAdapter.notifyItemChanged(
-                previousPosition, ServicesHeaderItems(
-                    displayValue = it.title ?: "test",
-                    data = list,
-                    isSelected = isSelected,
-                    selectedInnerImg = getDrawableFromId(it.selectedIcon),
-                    unSelectedInnerImg = getDrawableFromId(it.unselectedIcon),
-                    progressListener = this,
-                    colorBg = it.color
-                )
-            )
-        }
-    }
 
     fun itemAddition() {
         if (groupAdapter.itemCount > 0) {
@@ -88,12 +62,12 @@ class ServicesHeaderItemSelector(context: Context, attrs: AttributeSet) :
                 positionUpdate(SERVICE_CLICK_CHECKER_FLAG)
             }
             groupAdapter.add(
-                ServicesHeaderItems(
+                ServiceListingHeaderItem(
                     displayValue = model.title,
-                    data = list,
+                    data = model,
                     isSelected = isSelected,
-                    selectedInnerImg = getDrawableFromId(model.selectedIcon),
-                    unSelectedInnerImg = getDrawableFromId(model.unselectedIcon),
+                    selectedInnerImg = model.selectedIconString,
+                    unSelectedInnerImg = model.unSelectedIconString,
                     progressListener = this,
                     colorBg = model.color
                 )
@@ -101,8 +75,24 @@ class ServicesHeaderItemSelector(context: Context, attrs: AttributeSet) :
         }
     }
 
+    fun itemIndexUpdate() {
+        list?.get(PREVIOUS_POSITION)?.let {
+            groupAdapter.notifyItemChanged(
+                PREVIOUS_POSITION, ServiceListingHeaderItem(
+                    displayValue = it.title,
+                    data = it,
+                    isSelected = isSelected,
+                    selectedInnerImg = it.selectedIconString,
+                    unSelectedInnerImg = it.unSelectedIconString,
+                    progressListener = this,
+                    colorBg = it.color
+                )
+            )
+        }
+    }
+
     override fun onClick(position: Int) {
-        previousPosition = SERVICE_CLICK_CHECKER_FLAG
+        PREVIOUS_POSITION = SERVICE_CLICK_CHECKER_FLAG
         positionUpdate(position)
         itemIndexUpdate()
     }
@@ -113,4 +103,6 @@ class ServicesHeaderItemSelector(context: Context, attrs: AttributeSet) :
         _headerPosition.value = position
 //        bus?.post(PopularServiceBus.HeaderItemClick(position))
     }
+
+
 }

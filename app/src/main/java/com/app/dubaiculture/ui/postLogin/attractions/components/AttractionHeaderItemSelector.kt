@@ -12,16 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionHeaderItems
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
-import com.app.dubaiculture.ui.postLogin.attractions.services.AttractionServices
-import com.app.dubaiculture.utils.AppConfigUtils
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
-import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
 class AttractionHeaderItemSelector(context: Context, attrs: AttributeSet) :
-    FrameLayout(context, attrs), AttractionHeaderClick {
+    FrameLayout(context, attrs), TabsHeaderClick {
     val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var list: List<AttractionCategory>? = null
     var recyclerView: RecyclerView? = null

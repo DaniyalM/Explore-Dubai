@@ -1,45 +1,44 @@
-package com.app.dubaiculture.ui.postLogin.more.profile.favourite.adapters
+package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 
 import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
-import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
+import com.app.dubaiculture.databinding.AttractionTitleListItemBinding
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
-import com.app.dubaiculture.utils.AppConfigUtils.favouriteClickCheckerFlag
+import com.app.dubaiculture.ui.postLogin.popular_service.components.ServicesHeaderItemSelector
+import com.app.dubaiculture.ui.postLogin.popular_service.components.ServicesListingHeaderItemSelector.Companion.SERVICE_CLICK_CHECKER_FLAG
 import com.google.android.material.card.MaterialCardView
-import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.databinding.BindableItem
 
-class FavouriteHeaderItems<T>(
+class ServiceListingHeaderItem<T>(
     val displayValue: String,
     val data: T,
     var isSelected: Boolean = false,
-    private val selectedInnerImg: Drawable? = null,
-    private val unSelectedInnerImg: Drawable? = null,
+    private val selectedInnerImg: String? = null,
+    private val unSelectedInnerImg: String? = null,
     private val progressListener: TabsHeaderClick? = null,
-    private val colorBg: String? = null
-) : BaseAdapter(R.layout.attraction_title_list_item) {
-    private lateinit var view: View
-    override fun initBinding(viewHolder: GroupieViewHolder, position: Int) {
-        view = viewHolder.root
-        viewHolder.apply {
-            val textView=root.findViewById<TextView>(R.id.tv_title)
-            val imageView=root.findViewById<ImageView>(R.id.imgInnerIcon)
-            val cardView=root.findViewById<MaterialCardView>(R.id.cardview)
-            textView.text = displayValue
-            isSelected = favouriteClickCheckerFlag == position
-            renderSelection(textView, imageView, cardView)
-            root.setOnClickListener {
-                progressListener?.onClick(position)
-                if (favouriteClickCheckerFlag == position) {
-                    isSelected = true
-                    renderSelection(textView, imageView, cardView)
-                }
+    private val colorBg: String? = null,
+    private val resLayout: Int = R.layout.attraction_title_list_item
+) : BindableItem<AttractionTitleListItemBinding>() {
 
+
+    override fun getLayout() = resLayout
+    override fun bind(viewBinding: AttractionTitleListItemBinding, position: Int) {
+        val title = viewBinding.tvTitle
+        val image = viewBinding.imgInnerIcon
+        val card = viewBinding.cardview
+        title.text = displayValue
+        isSelected = SERVICE_CLICK_CHECKER_FLAG == position
+        renderSelection(title, image, card)
+        viewBinding.root.setOnClickListener {
+            progressListener?.onClick(position)
+            if (SERVICE_CLICK_CHECKER_FLAG == position) {
+                isSelected = true
+                renderSelection(title, image, card)
             }
+
         }
     }
 
@@ -52,7 +51,7 @@ class FavouriteHeaderItems<T>(
             textView.setTextColor(ContextCompat.getColor(view.context, R.color.white_900))
             selectedInnerImg?.let { drawable ->
 //                imgInner.glideInstance(drawable, true).into(imgInner)
-                imgInner.setImageDrawable(drawable)
+//                imgInner.setImageDrawable(drawable)
                 imgInner.setColorFilter(ContextCompat.getColor(view.context, R.color.white_900))
             }
 
@@ -66,7 +65,7 @@ class FavouriteHeaderItems<T>(
             textView.setTextColor(ContextCompat.getColor(view.context, R.color.gray_700))
             unSelectedInnerImg?.let { drawable ->
 //                imgInner.glideInstance(drawable, true).into(imgInner)
-                imgInner.setImageDrawable(drawable)
+//                imgInner.setImageDrawable(drawable)
                 imgInner.setColorFilter(ContextCompat.getColor(view.context, R.color.purple_900))
             }
         }

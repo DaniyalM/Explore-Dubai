@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailHeaderItems
 import com.app.dubaiculture.ui.postLogin.popular_service.detail.TabHeaders
 import com.app.dubaiculture.utils.AppConfigUtils.SERVICE_DETAIL_HEADER_FLAG
@@ -17,7 +17,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
 class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
-    FrameLayout(context, attrs), AttractionHeaderClick {
+    FrameLayout(context, attrs), TabsHeaderClick {
     var groupAdapterRow: GroupAdapter<GroupieViewHolder>? = null
     var groupAdapterCol: GroupAdapter<GroupieViewHolder>? = null
     private var _headerPosition: MutableLiveData<Int> = MutableLiveData(SERVICE_DETAIL_HEADER_FLAG)
@@ -41,7 +41,6 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         recyclerViewRow?.let {
             it.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            addView(view)
             it.adapter = groupAdapterRow
         }
 
@@ -49,15 +48,16 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         recyclerViewCol?.let {
             it.layoutManager =
                 LinearLayoutManager(context)
-            addView(view)
             it.adapter = groupAdapterCol
-        }
 
+        }
+        addView(view)
         itemAddition()
 
     }
 
     fun initializeSelector() {}
+
     fun itemAddition() {
         if (groupAdapterRow?.itemCount!! > 0) {
             groupAdapterRow?.clear()
