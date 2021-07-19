@@ -21,7 +21,7 @@ class ServicesListingHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private var list: List<ServiceHeader>? = null
     var recyclerView: RecyclerView? = null
     private var _headerPosition: MutableLiveData<Int> =
-        MutableLiveData(ServicesHeaderItemSelector.SERVICE_CLICK_CHECKER_FLAG)
+        MutableLiveData(SERVICE_CLICK_CHECKER_FLAG)
     var headerPosition: LiveData<Int> = _headerPosition
 
     companion object {

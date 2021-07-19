@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.popular_service.local.models.EServices
 import com.app.dubaiculture.data.repository.popular_service.local.models.ServiceCategory
 import com.app.dubaiculture.databinding.FragmentPopularServiceBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -16,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() {
     private val popularServiceViewModel: PopularServiceViewModel by viewModels()
+    private var eServices: EServices? = null
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -30,11 +32,14 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() {
         popularServiceViewModel.eServices.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    binding.horizontalSelector.initialize(initializeHeaders(it.value.serviceCategory))
-
+                    eServices = it.value
+                    binding.horizontalSelector.initialize(initializeHeaders(eServices!!.serviceCategory))
                 }
                 is Result.Failure -> handleApiError(it, popularServiceViewModel)
             }
+        }
+        binding.horizontalSelector.headerPosition.observe(viewLifecycleOwner){
+            eServices!!.serviceCategory.get(it).id
         }
     }
 
