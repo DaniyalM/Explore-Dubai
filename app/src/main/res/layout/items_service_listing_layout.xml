@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
+
+        <variable
+            name="serviceListing"
+            type="com.app.dubaiculture.data.repository.popular_service.local.models.EService" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+
+
+    >
 
 
     <com.google.android.material.card.MaterialCardView
@@ -34,7 +53,7 @@
                 android:layout_marginStart="@dimen/_13sdp"
                 android:layout_marginTop="@dimen/_13sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
-                android:text="@{serviceStatus.title}"
+                android:text="@{serviceListing.title}"
                 android:textColor="?attr/colorSecondary"
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +67,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3sdp"
-                android:text="@{serviceStatus.desc}"
+                android:text="@{serviceListing.summary}"
                 android:textColor="@color/gray_750"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_title"
@@ -143,3 +162,4 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
