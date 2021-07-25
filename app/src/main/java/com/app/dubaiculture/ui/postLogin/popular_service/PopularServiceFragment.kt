@@ -50,9 +50,10 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() {
                 is Result.Failure -> handleApiError(it, popularServiceViewModel)
             }
         }
-        binding.horizontalSelector.headerPosition.observe(viewLifecycleOwner) {
+        binding.horizontalSelector.headerPosition.observe(viewLifecycleOwner){
+
             groupAdapter.clear()
-            getCategoryID(eServices?.serviceCategory?.get(it)?.id?:"89F321A2034E49AEACE41865CD5862DA")
+            getCategoryID(categoryID = eServices!!.serviceCategory[it].id?:"89F321A2034E49AEACE41865CD5862DA")
         }
     }
 
