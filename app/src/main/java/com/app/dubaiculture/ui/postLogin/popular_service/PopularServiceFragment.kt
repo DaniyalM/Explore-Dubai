@@ -39,7 +39,7 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() {
             }
         }
         binding.horizontalSelector.headerPosition.observe(viewLifecycleOwner){
-            eServices!!.serviceCategory.get(it).id
+            eServices!!.serviceCategory[it].id
         }
     }
 
