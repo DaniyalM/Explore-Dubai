@@ -48,7 +48,7 @@ android:layout_width="match_parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/like"
+                android:background="@drawable/thumb_up"
                 app:layout_constraintStart_toStartOf="@+id/customTextView4"
                 app:layout_constraintTop_toBottomOf="@+id/customTextView4" />
 
@@ -56,9 +56,9 @@ android:layout_width="match_parent"
                 android:id="@+id/thumb_down"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/like"
+                android:background="@drawable/thumb_down"
+
                 app:layout_constraintBottom_toBottomOf="@+id/thumb_up"
-                app:layout_constraintEnd_toEndOf="@+id/customTextView4"
                 app:layout_constraintStart_toEndOf="@+id/thumb_up"
                 app:layout_constraintTop_toTopOf="@+id/thumb_up" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@ import com.xwray.groupie.GroupieViewHolder
 class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
     private lateinit var linearLayoutManger: LinearLayoutManager
     private var groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
-    var serviceStatusAdapter: GroupAdapter<GroupieViewHolder>? = GroupAdapter()
+    private var serviceStatusAdapter: GroupAdapter<GroupieViewHolder>? = GroupAdapter()
 
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) = FragmentMyServicesBinding.inflate(inflater, container, false)
