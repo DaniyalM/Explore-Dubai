@@ -44,7 +44,7 @@ class PopularServiceViewModel @ViewModelInject constructor(
         }
     }
 
-    fun returnFilterList(categoryID:String?=null,list: ArrayList<EService>? = null) : MutableList<EService>{
+    fun returnFilterList(categoryID:String?=null,list: List<EService>? = null) : MutableList<EService>{
         /*temporary for testing*/
         val getFilterData = list?.filter {
             true

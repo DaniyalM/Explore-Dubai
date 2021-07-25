@@ -161,6 +161,11 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 MoreItems<ItemsMoreLayoutBinding>(
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
+                            when(position){
+                                0->{
+                                    navigate(R.id.action_moreFragment_to_popularServiceFragment2)
+                                }
+                            }
 
                         }
 
