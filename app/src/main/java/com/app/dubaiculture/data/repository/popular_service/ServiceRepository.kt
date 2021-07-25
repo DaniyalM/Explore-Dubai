@@ -3,7 +3,9 @@ package com.app.dubaiculture.data.repository.popular_service
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.popular_service.local.models.EServices
+import com.app.dubaiculture.data.repository.popular_service.local.models.EServicesDetail
 import com.app.dubaiculture.data.repository.popular_service.mapper.transformService
+import com.app.dubaiculture.data.repository.popular_service.mapper.transformServiceDetail
 import com.app.dubaiculture.data.repository.popular_service.remote.ServiceRDS
 import com.app.dubaiculture.data.repository.popular_service.remote.request.EServiceRequest
 import javax.inject.Inject
@@ -22,6 +24,20 @@ class ServiceRepository @Inject constructor(
             }
             is Result.Failure -> resultRDS
             is Result.Error -> resultRDS
+        }
+    }
+
+    suspend fun getEServiceDetail(eServiceRequest: EServiceRequest): Result<EServicesDetail> {
+        return when (val resultRds = serviceRDS.getEServicesDetail(eServiceRequest)) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success(transformServiceDetail(resultRds.value.Result.EServicesDetail))
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Failure -> resultRds
+            is Result.Error -> resultRds
         }
     }
 

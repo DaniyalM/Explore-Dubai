@@ -89,7 +89,7 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable true
+            debuggable false
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -296,6 +296,7 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.tbuonomo:dotsindicator:4.2'
     implementation 'com.github.vipulasri:timelineview:1.1.5'
-    
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.32"
+
 
 }

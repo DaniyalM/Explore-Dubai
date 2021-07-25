@@ -10,4 +10,7 @@ interface PopularService : BaseService {
 
     @GET("Content/GetEServices")
     suspend fun getEServices(@Query("culture") culture: String): ServiceResponse
+
+    @GET("Content/GetEServicesDetail")
+    suspend fun getEServicesDetail(@Query("culture") culture: String, @Query("Id") Id: String): ServiceResponse
 }

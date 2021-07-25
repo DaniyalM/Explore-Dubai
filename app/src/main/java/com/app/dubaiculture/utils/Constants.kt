@@ -40,6 +40,7 @@ object Constants {
         const val EVENT_OBJECT: String = "eventObject"
         const val EVENT_FILTER: String = "eventFiler"
         const val ATTRACTION_OBJECT: String = "attractionObject"
+        const val SERVICE_OBJECT: String = "ServiceObject"
         const val ATTRACTION_CAT_OBJECT: String = "attractionCatObject"
         const val ATTRACTION_GALLERY_LIST: String = "attractionGalleryList"
         const val THREESIXTY_GALLERY_LIST: String = "THREE60_GALLERY_LIST"

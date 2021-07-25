@@ -9,12 +9,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.popular_service.local.models.Description
+import com.app.dubaiculture.data.repository.popular_service.local.models.EServicesDetail
+import com.app.dubaiculture.data.repository.popular_service.local.models.Procedure
+import com.app.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
+import com.app.dubaiculture.databinding.ItemsServiceDetailProcedureLayoutBinding
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailHeaderItems
+import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailListingItems
 import com.app.dubaiculture.ui.postLogin.popular_service.detail.TabHeaders
 import com.app.dubaiculture.utils.AppConfigUtils.SERVICE_DETAIL_HEADER_FLAG
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import java.util.*
 
 class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), TabsHeaderClick {
@@ -24,7 +31,9 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
     var headerPosition: LiveData<Int> = _headerPosition
     var recyclerViewRow: RecyclerView? = null
     var recyclerViewCol: RecyclerView? = null
+    var blockColumnScroll = false
     var looper = TabHeaders.values()
+
 
     companion object {
         var previousPosition: Int = 0
@@ -46,9 +55,36 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
         groupAdapterCol = GroupAdapter()
         recyclerViewCol?.let {
-            it.layoutManager =
-                LinearLayoutManager(context)
+            val linearLayoutManager = LinearLayoutManager(context)
+            it.layoutManager = linearLayoutManager
+
+
+
             it.adapter = groupAdapterCol
+
+            it.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    onClick(linearLayoutManager.findLastVisibleItemPosition())
+
+
+                }
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    when (newState) {
+                        1 -> {
+                            blockColumnScroll = false
+                        }
+                        -1 -> {
+                            blockColumnScroll = true
+                        }
+                    }
+                }
+
+
+            })
 
         }
         addView(view)
@@ -56,7 +92,27 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     }
 
-    fun initializeSelector() {}
+    fun initializeSelector(eServicesDetail: EServicesDetail) {
+        columnAddition(eServicesDetail)
+    }
+
+    fun columnAddition(eServicesDetail: EServicesDetail) {
+        if (groupAdapterCol?.itemCount!! > 0) {
+            groupAdapterCol?.clear()
+        }
+        groupAdapterCol?.add(
+            ServiceDetailListingItems<ItemsServiceDetailDescLayoutBinding, Description>(
+                eService = eServicesDetail.description?.get(0)
+            )
+        )
+        groupAdapterCol?.add(
+            ServiceDetailListingItems<ItemsServiceDetailProcedureLayoutBinding, Procedure>(
+                eService = eServicesDetail.procedure?.get(0),
+                resLayout = R.layout.items_service_detail_procedure_layout
+            )
+        )
+
+    }
 
     fun itemAddition() {
         if (groupAdapterRow?.itemCount!! > 0) {
@@ -70,7 +126,9 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
             }
             groupAdapterRow?.add(
                 ServiceDetailHeaderItems(
-                    displayValue = model.name,
+                    displayValue = model.name.substring(0, 1)
+                        .toUpperCase(Locale.ROOT) + model.name.substring(1)
+                        .toLowerCase(Locale.ROOT),
                     isSelected = isSelected,
                     progressListener = this
                 )
@@ -93,8 +151,13 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     fun positionUpdate(position: Int) {
         SERVICE_DETAIL_HEADER_FLAG = position
-        recyclerViewRow?.smoothScrollToPosition(position)
         _headerPosition.value = position
+        recyclerViewRow?.smoothScrollToPosition(position)
+        if (!blockColumnScroll) {
+            recyclerViewCol?.smoothScrollToPosition(position)
+        }
+        blockColumnScroll = false
+
     }
 
     override fun onClick(position: Int) {

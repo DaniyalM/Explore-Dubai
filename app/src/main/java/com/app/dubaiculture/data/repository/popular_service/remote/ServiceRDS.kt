@@ -10,4 +10,7 @@ class ServiceRDS @Inject constructor(private val popularService: PopularService)
         suspend fun getEServices(eServiceRequest: EServiceRequest)=safeApiCall {
             popularService.getEServices(eServiceRequest.culture)
         }
+       suspend fun getEServicesDetail(eServiceRequest: EServiceRequest)=safeApiCall {
+            popularService.getEServicesDetail(eServiceRequest.culture, eServiceRequest.id.toString())
+        }
 }

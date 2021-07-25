@@ -1,62 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
+    <data>
 
-    <com.github.vipulasri.timelineview.TimelineView
-        android:id="@+id/timeline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:markerSize="@dimen/_22sdp"
-        app:marker="@drawable/circle_sitemap"
-        app:lineWidth="2dp"
-        app:lineStyleDashGap="3dp"
-        android:layout_marginStart="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:startLineColor="@color/gray_600"
-        app:endLineColor="@color/gray_600"
-        app:lineStyle="dash"
-        app:lineStyleDashLength="@dimen/_4sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        <variable
+            name="procedure"
+            type="com.app.dubaiculture.data.repository.popular_service.local.models.Procedure" />
 
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_10sdp"
-        android:text="Submit Documents"
-        android:textColor="?attr/colorSecondary"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintBottom_toBottomOf="@+id/timeline"
-        app:layout_constraintStart_toEndOf="@+id/timeline"
-        app:layout_constraintTop_toTopOf="@id/timeline" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.github.vipulasri.timelineview.TimelineView
+            android:id="@+id/timeline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:markerSize="@dimen/_22sdp"
+            app:marker="@drawable/circle_sitemap"
+            app:lineWidth="2dp"
+            app:lineStyleDashGap="3dp"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:startLineColor="@color/gray_600"
+            app:endLineColor="@color/gray_600"
+            app:lineStyle="dash"
+            app:lineStyleDashLength="@dimen/_4sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="Submit Documents"
+            android:textColor="?attr/colorSecondary"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/timeline"
+            app:layout_constraintStart_toEndOf="@+id/timeline"
+            app:layout_constraintTop_toTopOf="@id/timeline" />
 
 
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-        android:id="@+id/tv_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_6sdp"
-        android:paddingStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes"
-        android:textColor="@color/gray_750"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintStart_toEndOf="@+id/timeline"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-        android:id="@+id/tv_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        android:textColor="@color/purple_900"
-        android:textSize="@dimen/_10ssp"
-        app:layout_constraintBottom_toBottomOf="@+id/timeline"
-        app:layout_constraintEnd_toEndOf="@+id/timeline"
-        app:layout_constraintStart_toStartOf="@+id/timeline"
-        app:layout_constraintTop_toTopOf="@+id/timeline" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes"
+            android:textColor="@color/gray_750"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintStart_toEndOf="@+id/timeline"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/purple_900"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/timeline"
+            app:layout_constraintEnd_toEndOf="@+id/timeline"
+            app:layout_constraintStart_toStartOf="@+id/timeline"
+            app:layout_constraintTop_toTopOf="@+id/timeline" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
