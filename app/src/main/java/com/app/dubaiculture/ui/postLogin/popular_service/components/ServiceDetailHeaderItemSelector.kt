@@ -4,8 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -32,12 +31,16 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), TabsHeaderClick {
     var groupAdapterRow: GroupAdapter<GroupieViewHolder>? = null
     var groupAdapterCol: GroupAdapter<GroupieViewHolder>? = null
-    private var _headerPosition: MutableLiveData<Int> = MutableLiveData(SERVICE_DETAIL_HEADER_FLAG)
-    var headerPosition: LiveData<Int> = _headerPosition
+
+    //    private var _headerPosition: MutableLiveData<Int> = MutableLiveData(SERVICE_DETAIL_HEADER_FLAG)
+//    var headerPosition: LiveData<Int> = _headerPosition
     var recyclerViewRow: RecyclerView? = null
     var recyclerViewCol: RecyclerView? = null
+    var recyclerViewColnested: NestedScrollView? = null
     var blockColumnScroll = false
-    private var firstVisibleInListview = 0
+//    var paymentItemPosition = 0
+//    var descItemPosition = 0
+//    var procedureItemPosition = 0
 
     var looper = TabHeaders.values()
 
@@ -50,7 +53,8 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         val view = inflate(context, R.layout.single_selection_item_cell, null)
         recyclerViewRow = view.findViewById(R.id.rVgeneric)
         recyclerViewCol = view.findViewById(R.id.rVgenericColumn)
-        recyclerViewCol?.visibility = View.VISIBLE
+        recyclerViewColnested = view.findViewById(R.id.rVgenericColumnnested)
+        recyclerViewColnested?.visibility = View.VISIBLE
 
 
         groupAdapterRow = GroupAdapter()
@@ -98,23 +102,33 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         if (groupAdapterCol?.itemCount!! > 0) {
             groupAdapterCol?.clear()
         }
-        groupAdapterCol?.add(
+        val description = eServicesDetail.description?.get(0)
+        val descriptionItem =
             ServiceDetailListingItems<ItemsServiceDetailDescLayoutBinding, Description>(
-                eService = eServicesDetail.description?.get(0)
+                eService = description
             )
-        )
-        groupAdapterCol?.add(
+        val procedure = eServicesDetail.procedure?.get(0)
+        val procedureItem =
             ServiceDetailListingItems<ItemsServiceDetailProcedureLayoutBinding, Procedure>(
-                eService = eServicesDetail.procedure?.get(0),
+                eService = procedure,
                 resLayout = R.layout.items_service_detail_procedure_layout
             )
-        )
-        groupAdapterCol?.add(
+        val payments = eServicesDetail.payments?.get(0)
+
+        val paymentsItem =
             ServiceDetailListingItems<ItemsServiceDetailPaymentLayoutBinding, Payment>(
-                eService = eServicesDetail.payments?.get(0),
+                eService = payments,
                 resLayout = R.layout.items_service_detail_payment_layout
             )
-        )
+        groupAdapterCol?.add(descriptionItem)
+        groupAdapterCol?.add(procedureItem)
+        groupAdapterCol?.add(paymentsItem)
+//        descItemPosition = groupAdapterCol?.getAdapterPosition(descriptionItem)!!
+//
+//        procedureItemPosition = groupAdapterCol?.getAdapterPosition(procedureItem)!!
+//
+//        paymentItemPosition = groupAdapterCol?.getAdapterPosition(paymentsItem)!!
+
 
     }
 
@@ -155,7 +169,7 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     fun positionUpdate(position: Int) {
         SERVICE_DETAIL_HEADER_FLAG = position
-        _headerPosition.value = position
+//        _headerPosition.value = position
         recyclerViewRow?.smoothScrollToPosition(position)
 
 
@@ -166,10 +180,26 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         positionUpdate(position)
         itemIndexUpdate()
         if (!blockColumnScroll) {
-            recyclerViewCol?.smoothScrollToPosition(position)
+//            recyclerViewCol?.smoothScrollToPosition(position)
+            recyclerViewColnested?.post {
+                when (position) {
+                    1 -> checkPosition(position)
+                    2 -> checkPosition(position)
+                    else -> recyclerViewColnested?.fullScroll(View.FOCUS_UP)
+                }
+            }
+
         }
 
 
+    }
+
+    private fun checkPosition(position: Int) {
+        if (SERVICE_DETAIL_HEADER_FLAG > position) {
+            recyclerViewColnested?.fullScroll(View.FOCUS_UP)
+        } else {
+            recyclerViewColnested?.fullScroll(View.FOCUS_DOWN)
+        }
     }
 
     fun destroySelector() {
