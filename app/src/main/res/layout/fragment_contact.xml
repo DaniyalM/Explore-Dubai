@@ -41,7 +41,7 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="@{contactCenter.title}"
-            android:textColor="@color/black_200"
+            style="@style/TextViewStyle"
             android:textSize="@dimen/_20ssp"
             app:layout_constraintStart_toStartOf="@+id/img_close"
             app:layout_constraintTop_toBottomOf="@+id/img_close" />
@@ -82,8 +82,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@{contactCenter.contactCenterLocation.subtitle}"
-                    android:textColor="@color/black_200"
                     android:textSize="@dimen/_18ssp"
+                    style="@style/TextViewStyle"
                     app:layout_constraintStart_toStartOf="@+id/tv_contact_desc"
                     app:layout_constraintTop_toBottomOf="@+id/tv_contact_desc" />
 
@@ -102,8 +102,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:text="@{contactCenter.contactCenterLocation.day}"
-                    android:textColor="@color/black_200"
                     android:textSize="@dimen/_12ssp"
+                    style="@style/TextViewStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="@+id/imageView4" />
@@ -143,8 +143,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:text="@{contactCenter.contactCenterLocation.houseContent}"
-                    android:textColor="@color/black_200"
                     android:textSize="@dimen/_12ssp"
+                    style="@style/TextViewStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="@+id/imageView6" />
@@ -176,7 +176,7 @@
                     android:textAlignment="viewStart"
                     android:text="@{contactCenter.contactCenterLocation.pinContent}"
                     android:textSize="@dimen/_12ssp"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView9"
                     app:layout_constraintEnd_toEndOf="@+id/tv_contact_desc"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -222,8 +222,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:text="@{contactCenter.contactCenterReach.subTitle}"
-                    android:textColor="@color/black_200"
                     android:textSize="22sp"
+                    style="@style/TextViewStyle"
                     app:layout_constraintStart_toStartOf="@+id/tv_contact_desc"
                     app:layout_constraintTop_toBottomOf="@+id/card_map" />
 
@@ -268,8 +268,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{contactCenter.contactCenterReach.callTitle}"
-                        android:textColor="@color/black_200"
                         android:textSize="@dimen/_12sdp"
+                        style="@style/TextViewStyle"
                         android:layout_marginStart="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/img"
                         app:layout_constraintStart_toEndOf="@+id/img"
@@ -329,7 +329,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@{contactCenter.contactCenterReach.emailTitle}"
-                                android:textColor="@color/black_200"
+                                style="@style/TextViewStyle"
+
                                 android:textSize="@dimen/_12sdp"
                                 android:layout_marginStart="@dimen/_15sdp"
                                 app:layout_constraintBottom_toBottomOf="@+id/email"
@@ -389,7 +390,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@{contactCenter.contactCenterReach.faxTitle}"
-                                android:textColor="@color/black_200"
+                                style="@style/TextViewStyle"
+
                                 android:textSize="@dimen/_12sdp"
                                 android:layout_marginStart="@dimen/_15sdp"
                                 app:layout_constraintBottom_toBottomOf="@+id/fax"
@@ -449,8 +451,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@{contactCenter.contactCenterReach.websiteTitle}"
-                                android:textColor="@color/black_200"
                                 android:textSize="@dimen/_12sdp"
+                                style="@style/TextViewStyle"
                                 android:layout_marginStart="@dimen/_15sdp"
                                 app:layout_constraintBottom_toBottomOf="@+id/website"
                                 app:layout_constraintStart_toEndOf="@+id/website"
@@ -537,7 +539,7 @@
                         android:layout_marginStart="25dp"
                         android:text="@{contactCenter.contactCenterFeedback.title}"
                         android:layout_marginTop="@dimen/_18sdp"
-                        android:textColor="@color/black_200"
+                        style="@style/TextViewStyle"
                         android:textSize="@dimen/_13ssp"
                         app:layout_constraintStart_toEndOf="@+id/iv_share"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -581,8 +583,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
+                    style="@style/TextViewStyle"
                     android:text="@{contactCenter.contactCenterSuggestionComplains.subTitle}"
-                    android:textColor="@color/black_200"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_contact_desc"
                     app:layout_constraintTop_toBottomOf="@+id/ll_share_feed_back" />
@@ -677,7 +679,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:text="Stay Updated"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_contact_desc"
                     app:layout_constraintTop_toBottomOf="@+id/hScroll" />

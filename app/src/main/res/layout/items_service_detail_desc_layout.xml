@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:text="@string/supplementary"
         android:textSize="@dimen/_12ssp"
-        android:textColor="@color/black_200"
+        style="@style/TextViewStyle"
         app:layout_constraintStart_toStartOf="@+id/classification"
         app:layout_constraintTop_toBottomOf="@+id/classification" />
 
@@ -99,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/procedure"
-        android:textColor="@color/black_200"
+        style="@style/TextViewStyle"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="@+id/type"
         app:layout_constraintTop_toBottomOf="@+id/type" />
@@ -138,7 +138,7 @@
         app:layout_constraintWidth_percent="0.29"
         android:textSize="@dimen/_12ssp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:textColor="@color/black_200"
+        style="@style/TextViewStyle"
         app:layout_constraintStart_toStartOf="@+id/service"
         app:layout_constraintTop_toBottomOf="@+id/service" />
 
@@ -146,6 +146,7 @@
     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
         android:id="@+id/pin"
         android:layout_width="0dp"
+        style="@style/TextViewStyle"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/pin_icon"
         android:drawablePadding="@dimen/_8sdp"
@@ -153,7 +154,6 @@
         app:layout_constraintWidth_percent="0.29"
         android:textSize="@dimen/_12ssp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:textColor="@color/black_200"
         app:layout_constraintStart_toEndOf="@+id/mobile"
         app:layout_constraintTop_toBottomOf="@+id/service" />
 
@@ -168,7 +168,7 @@
         android:textSize="@dimen/_12ssp"
         app:layout_constraintWidth_percent="0.29"
         android:layout_marginTop="@dimen/_10sdp"
-        android:textColor="@color/black_200"
+        style="@style/TextViewStyle"
         app:layout_constraintStart_toEndOf="@+id/pin"
         app:layout_constraintTop_toBottomOf="@+id/service" />
 
@@ -188,7 +188,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_category"
         android:layout_marginTop="@dimen/_15sdp"
         android:text="@string/description"
-        android:textColor="@color/black_200"
+        style="@style/TextViewStyle"
         android:textSize="@dimen/_18ssp"
         app:layout_constraintTop_toBottomOf="@+id/common_btn" />
 

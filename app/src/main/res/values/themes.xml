@@ -9,6 +9,8 @@
     </style>
     <style name="MyRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton">
         <item name="android:button">@drawable/radio_btn_selector</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+
     </style>
     <style name="WindowAnimationTransition">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
@@ -41,6 +43,18 @@
         <item name="color_light_white_dark_gray">@color/white_900</item>
         <item name="color_edit_text_bg">@color/edit_text_white_shade_bg</item>
         <item name="color_card_views_shadow">@color/gray_600</item>
+
+        <!--curve bg in news and event detail-->
+        <item name="color_curve_view_bg">@color/curve_color</item>
+
+
+        <item name="color_curve_login_bg">@color/white_900</item>
+
+
+        <item name="color_login_edit_text_bg">@color/color_login_edit_text</item>
+
+
+
     </style>
 
     <style name="Base.Theme.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -106,5 +120,9 @@
     </style>
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_dialog</item>
+    </style>
+
+    <style name="TextViewStyle">
+        <item name="android:textColor">?attr/colorSecondary</item>
     </style>
 </resources>

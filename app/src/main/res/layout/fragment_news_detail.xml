@@ -67,7 +67,7 @@
                     android:text="14 Nov, 2020"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/_10ssp"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:drawablePadding="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="@dimen/_15sdp"
@@ -197,7 +197,7 @@
                     app:layout_constraintEnd_toEndOf="@id/divider"
                     android:textSize="@dimen/_18ssp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:text="Motivation"
                     />
 
@@ -228,7 +228,7 @@
                     android:id="@+id/llMoreNews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#E8E8E8"
+                    android:background="?attr/color_curve_view_bg"
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/img_curve">
 
@@ -238,7 +238,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:text="@string/more_news"
-                        android:textColor="@color/black_200"
+                        style="@style/TextViewStyle"
                         android:textSize="@dimen/_18ssp"
                         app:layout_constraintStart_toStartOf="parent" />
 

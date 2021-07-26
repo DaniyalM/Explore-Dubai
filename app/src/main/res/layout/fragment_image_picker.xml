@@ -9,7 +9,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Change Profile Photo"
-            android:textColor="@color/black_200"
+            style="@style/TextViewStyle"
             android:layout_margin="@dimen/_15sdp"
             android:textSize="17sp"/>
         <androidx.constraintlayout.widget.ConstraintLayout

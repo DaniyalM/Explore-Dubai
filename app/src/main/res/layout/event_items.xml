@@ -208,7 +208,7 @@
                     android:maxLines="2"
                     android:textAlignment="viewStart"
                     android:text="@{events.title}"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintBottom_toTopOf="@+id/tv_location"
                     app:layout_constraintEnd_toEndOf="parent"

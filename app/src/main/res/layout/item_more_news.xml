@@ -58,7 +58,7 @@
                         android:maxLines="3"
                         android:text="@{news.title}"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/black_200"
+                        style="@style/TextViewStyle"
                         android:textSize="@dimen/_9ssp" />
 
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView

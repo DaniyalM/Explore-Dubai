@@ -29,7 +29,7 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_25sdp"
         android:text="@string/book_a_ticket"
-        android:textColor="@color/black_200"
+        style="@style/TextViewStyle"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintStart_toStartOf="@+id/img_close"
         app:layout_constraintTop_toBottomOf="@+id/img_close" />
@@ -87,8 +87,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=":"
-        android:textColor="@color/black_200"
         android:textStyle="bold"
+        style="@style/TextViewStyle"
         android:textSize="@dimen/_14sdp"
         android:layout_marginStart="@dimen/_15sdp"
         app:layout_constraintBottom_toBottomOf="@+id/edit_hh"
