@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
@@ -31,6 +32,14 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+
+
+
+fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
+    val layoutManager = recyclerView.layoutManager ?: return RecyclerView.NO_POSITION
+    val snapView = findSnapView(layoutManager) ?: return RecyclerView.NO_POSITION
+    return layoutManager.getPosition(snapView)
+}
 
 fun Activity.enableLocationFromSettings() {
     startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))

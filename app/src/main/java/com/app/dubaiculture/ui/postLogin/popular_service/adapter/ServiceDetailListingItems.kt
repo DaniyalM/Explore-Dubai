@@ -3,8 +3,10 @@ package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.popular_service.local.models.Description
+import com.app.dubaiculture.data.repository.popular_service.local.models.Payment
 import com.app.dubaiculture.data.repository.popular_service.local.models.Procedure
 import com.app.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
+import com.app.dubaiculture.databinding.ItemsServiceDetailPaymentLayoutBinding
 import com.app.dubaiculture.databinding.ItemsServiceDetailProcedureLayoutBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.xwray.groupie.databinding.BindableItem
@@ -19,12 +21,18 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
             is ItemsServiceDetailDescLayoutBinding -> {
                 if (eService is Description) {
                     viewBinding.description = eService
+
                 }
             }
 
             is ItemsServiceDetailProcedureLayoutBinding -> {
                 if (eService is Procedure) {
                     viewBinding.procedure = eService
+                }
+            }
+            is ItemsServiceDetailPaymentLayoutBinding -> {
+                if (eService is Payment) {
+                    viewBinding.payment = eService
                 }
             }
         }

@@ -7,21 +7,26 @@ import android.widget.FrameLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.popular_service.local.models.Description
 import com.app.dubaiculture.data.repository.popular_service.local.models.EServicesDetail
+import com.app.dubaiculture.data.repository.popular_service.local.models.Payment
 import com.app.dubaiculture.data.repository.popular_service.local.models.Procedure
 import com.app.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
+import com.app.dubaiculture.databinding.ItemsServiceDetailPaymentLayoutBinding
 import com.app.dubaiculture.databinding.ItemsServiceDetailProcedureLayoutBinding
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailHeaderItems
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailListingItems
 import com.app.dubaiculture.ui.postLogin.popular_service.detail.TabHeaders
 import com.app.dubaiculture.utils.AppConfigUtils.SERVICE_DETAIL_HEADER_FLAG
+import com.app.dubaiculture.utils.getSnapPosition
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import java.util.*
+
 
 class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), TabsHeaderClick {
@@ -32,6 +37,8 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
     var recyclerViewRow: RecyclerView? = null
     var recyclerViewCol: RecyclerView? = null
     var blockColumnScroll = false
+    private var firstVisibleInListview = 0
+
     var looper = TabHeaders.values()
 
 
@@ -54,33 +61,24 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         }
 
         groupAdapterCol = GroupAdapter()
-        recyclerViewCol?.let {
+        recyclerViewCol?.apply {
             val linearLayoutManager = LinearLayoutManager(context)
-            it.layoutManager = linearLayoutManager
-
-
-
-            it.adapter = groupAdapterCol
-
-            it.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-
-                    onClick(linearLayoutManager.findLastVisibleItemPosition())
-
-
-                }
+            layoutManager = linearLayoutManager
+            adapter = groupAdapterCol
+            val snapHelper = LinearSnapHelper()
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     when (newState) {
-                        1 -> {
+                        RecyclerView.SCROLL_STATE_IDLE -> {
+                            blockColumnScroll = true
+                            onClick(snapHelper.getSnapPosition(recyclerView))
                             blockColumnScroll = false
                         }
-                        -1 -> {
-                            blockColumnScroll = true
-                        }
+
                     }
+
                 }
 
 
@@ -109,6 +107,12 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
             ServiceDetailListingItems<ItemsServiceDetailProcedureLayoutBinding, Procedure>(
                 eService = eServicesDetail.procedure?.get(0),
                 resLayout = R.layout.items_service_detail_procedure_layout
+            )
+        )
+        groupAdapterCol?.add(
+            ServiceDetailListingItems<ItemsServiceDetailPaymentLayoutBinding, Payment>(
+                eService = eServicesDetail.payments?.get(0),
+                resLayout = R.layout.items_service_detail_payment_layout
             )
         )
 
@@ -153,10 +157,7 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         SERVICE_DETAIL_HEADER_FLAG = position
         _headerPosition.value = position
         recyclerViewRow?.smoothScrollToPosition(position)
-        if (!blockColumnScroll) {
-            recyclerViewCol?.smoothScrollToPosition(position)
-        }
-        blockColumnScroll = false
+
 
     }
 
@@ -164,6 +165,11 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         previousPosition = SERVICE_DETAIL_HEADER_FLAG
         positionUpdate(position)
         itemIndexUpdate()
+        if (!blockColumnScroll) {
+            recyclerViewCol?.smoothScrollToPosition(position)
+        }
+
+
     }
 
     fun destroySelector() {

@@ -37,9 +37,9 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.swipeRefreshLayout.isRefreshing = false
-        }
+//        binding.swipeRefreshLayout.setOnRefreshListener {
+//            binding.swipeRefreshLayout.isRefreshing = false
+//        }
         subscribeToObservables()
     }
 

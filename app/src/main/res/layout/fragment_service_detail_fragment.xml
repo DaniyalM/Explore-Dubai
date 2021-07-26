@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:id="@+id/swipeRefreshLayout"
-        android:layout_height="wrap_content">
+<!--    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:id="@+id/swipeRefreshLayout"-->
+<!--        android:layout_height="wrap_content">-->
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/appCoordinatorAttractionDetail"
             android:layout_width="match_parent"
@@ -37,5 +37,5 @@
 
             </LinearLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
+<!--    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>-->
 </layout>

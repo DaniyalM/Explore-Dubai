@@ -16,7 +16,6 @@ data class User(
     var token: String,
     var expireIn: Int?,
     var refreshToken: String,
-    var password:String?=null,
     @ColumnInfo(name = "created_at") val createdAt: Long=System.currentTimeMillis(),
 )
 
