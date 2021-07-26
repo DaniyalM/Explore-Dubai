@@ -9,20 +9,18 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceStatus
 import com.app.dubaiculture.databinding.FragmentMyServicesBinding
-import com.app.dubaiculture.databinding.ItemServiceCompletedLayoutBinding
+import com.app.dubaiculture.databinding.ItemServiceCompletedPendingLayoutBinding
 import com.app.dubaiculture.databinding.ItemsBookATicketLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.app.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
-import com.app.dubaiculture.ui.postLogin.popular_service.service.PopularServiceBus
-import com.squareup.otto.Subscribe
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
 class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
     private lateinit var linearLayoutManger: LinearLayoutManager
     private var groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
-    var serviceStatusAdapter: GroupAdapter<GroupieViewHolder>? = GroupAdapter()
+    private var serviceStatusAdapter: GroupAdapter<GroupieViewHolder>? = GroupAdapter()
 
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) = FragmentMyServicesBinding.inflate(inflater, container, false)
@@ -32,9 +30,9 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
         binding.headerVisited.back.setOnClickListener {
             back()
         }
-         binding.horizontalSelector.initialize(initializeHeaders(), bus)
+         binding.horizontalSelector.initialize(initializeHeaders())
         initServiceRvListing()
-
+        subscribeToObservables()
     }
 
     private fun initServiceRvListing() {
@@ -49,21 +47,20 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
             adapter = serviceStatusAdapter
         }
     }
-    @Subscribe
-    fun handleHeaderClick(popularServiceBus: PopularServiceBus) {
-        when (popularServiceBus) {
-            is PopularServiceBus.HeaderItemClick -> {
-                when (popularServiceBus.position) {
-                    0 -> {
-                        addMyServices()
-                    }
-                    else -> {
-                        addServiceStatus()
-                    }
+
+    private fun subscribeToObservables() {
+        binding.horizontalSelector.headerPosition.observe(viewLifecycleOwner) {
+            when (it) {
+                0 -> {
+                    addMyServices()
+                }
+                else -> {
+                    addServiceStatus()
                 }
             }
         }
     }
+
     private fun addMyServices() {
         binding.rvAttractionListing.visibility = View.GONE
         binding.rvServiceStatusListing.visibility=View.VISIBLE
@@ -90,9 +87,9 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
                 if(index == 1){
                     it.completed = false
                 }
-                add(PopularServiceListItem<ItemServiceCompletedLayoutBinding>(
-                        resLayout = R.layout.item_service_completed_layout,
-                        myServiceStatus = it
+                add(PopularServiceListItem<ItemServiceCompletedPendingLayoutBinding>(
+                        resLayout = R.layout.item_service_completed_pending_layout,
+                        myServiceStatus = it,
                 ))
             }
         }
@@ -109,7 +106,7 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
 
     private fun testServiceStatus(): MutableList<ServiceStatus> {
         val placesVisited = ArrayList<ServiceStatus>()
-        repeat(10) {
+        repeat(3) {
             placesVisited.add(ServiceStatus())
         }
         return placesVisited

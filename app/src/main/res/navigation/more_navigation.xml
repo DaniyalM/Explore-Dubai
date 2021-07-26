@@ -78,6 +78,9 @@
         <action
             android:id="@+id/action_moreFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_popularServiceFragment2"
+            app:destination="@id/popularServiceFragment2" />
     </fragment>
 
     <dialog
@@ -143,4 +146,9 @@
         tools:layout="@layout/fragment_shared_feeback"
         android:name="com.app.dubaiculture.ui.postLogin.more.contact.feedback.SharedFeebackFragment"
         android:label="SharedFeeback" />
+    <fragment
+        android:id="@+id/popularServiceFragment2"
+        tools:layout="@layout/fragment_popular_service"
+        android:name="com.app.dubaiculture.ui.postLogin.popular_service.PopularServiceFragment"
+        android:label="PopularServiceFragment" />
 </navigation>

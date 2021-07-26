@@ -13,6 +13,7 @@ import com.app.dubaiculture.data.repository.more.local.FaqItem
 import com.app.dubaiculture.databinding.FragmentFAQsBinding
 import com.app.dubaiculture.databinding.ItemFaqsLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.components.CustomTextWatcher.MyCustomTextWatcher
 import com.app.dubaiculture.ui.postLogin.more.faqs.viewmodel.FAQsViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -67,15 +68,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
     }
 
     private fun search() {
-        binding.editSearchFaqs.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
+        binding.editSearchFaqs.addTextChangedListener(object : MyCustomTextWatcher(){
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val myKey = binding.editSearchFaqs.text.toString().trim()
                 faqsListAdapter.clear()

@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.news.local.LatestNews
+import com.app.dubaiculture.data.repository.popular_service.local.models.EService
 import com.app.dubaiculture.databinding.FragmentMoreBinding
 import com.app.dubaiculture.databinding.ItemsMoreLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -67,6 +68,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             navigateSettings = false
             latestNewsListingFlag = false
             latestNews=null
+
+
             navigateBack()
         }
         if (navigateSettings) {
@@ -161,6 +164,11 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 MoreItems<ItemsMoreLayoutBinding>(
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
+                            when(position){
+                                0->{
+                                    navigate(R.id.action_moreFragment_to_popularServiceFragment2)
+                                }
+                            }
 
                         }
 

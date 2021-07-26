@@ -269,6 +269,18 @@
     <string name="booking_tickets"><![CDATA[Booking & Tickets]]></string>
     <string name="request_received">Request Received</string>
     <string name="in_progress">In Progress</string>
+    <string name="view_details">View Details</string>
+    <string name="start_service">Start Service</string>
+    <string name="classification">Classification</string>
+    <string name="supplementary">Supplementary</string>
+    <string name="procedure">Procedure</string>
+    <string name="service_channels">Service Channels</string>
+    <string name="mobile">Mobile</string>
+    <string name="website">Website</string>
+    <string name="amount">Amount</string>
+    <string name="federal_fees">Federal Fees</string>
+    <string name="was_this_information_helpful">Was this information helpful?</string>
+    <string name="search_by_keyword">Search by keyword</string>
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>

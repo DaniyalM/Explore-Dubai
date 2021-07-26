@@ -8,7 +8,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.ui.postLogin.more.profile.favourite.services.FavouriteServices
 import com.app.dubaiculture.ui.postLogin.more.profile.favourite.adapters.FavouriteHeaderItems
 import com.app.dubaiculture.ui.postLogin.more.profile.favourite.models.FavouriteHeader
@@ -18,7 +18,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
 class FavouriteHeaderItemSelector(context: Context, attrs: AttributeSet) :
-        FrameLayout(context, attrs), AttractionHeaderClick {
+        FrameLayout(context, attrs), TabsHeaderClick {
     val groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var list: List<FavouriteHeader>? = null
     var recyclerView: RecyclerView? = null

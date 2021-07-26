@@ -153,7 +153,7 @@ dependencies {
     implementation config.retrofitDependency.retrofit2
     implementation config.retrofitDependency.loggingInterceptor
     implementation config.retrofitDependency.retrofitGsonConvertor
-    implementation config.retrofitDependency.retrofit2AdatperRxJava
+//    implementation config.retrofitDependency.retrofit2AdatperRxJava
 
     implementation config.commonDependency.gson
     // rx java
@@ -295,8 +295,7 @@ dependencies {
     // indicator
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.tbuonomo:dotsindicator:4.2'
-    implementation 'com.tbuonomo:dotsindicator:4.2'
-
+    implementation 'com.github.vipulasri:timelineview:1.1.5'
     
 
 }
