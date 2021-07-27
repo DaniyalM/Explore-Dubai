@@ -9,13 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.popular_service.local.models.Description
-import com.app.dubaiculture.data.repository.popular_service.local.models.EServicesDetail
-import com.app.dubaiculture.data.repository.popular_service.local.models.Payment
-import com.app.dubaiculture.data.repository.popular_service.local.models.Procedure
-import com.app.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
-import com.app.dubaiculture.databinding.ItemsServiceDetailPaymentLayoutBinding
-import com.app.dubaiculture.databinding.ItemsServiceDetailProcedureLayoutBinding
+import com.app.dubaiculture.data.repository.popular_service.local.models.*
+import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailHeaderItems
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailListingItems
@@ -31,16 +26,11 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs), TabsHeaderClick {
     var groupAdapterRow: GroupAdapter<GroupieViewHolder>? = null
     var groupAdapterCol: GroupAdapter<GroupieViewHolder>? = null
-
-    //    private var _headerPosition: MutableLiveData<Int> = MutableLiveData(SERVICE_DETAIL_HEADER_FLAG)
-//    var headerPosition: LiveData<Int> = _headerPosition
     var recyclerViewRow: RecyclerView? = null
     var recyclerViewCol: RecyclerView? = null
     var recyclerViewColnested: NestedScrollView? = null
     var blockColumnScroll = false
-//    var paymentItemPosition = 0
-//    var descItemPosition = 0
-//    var procedureItemPosition = 0
+
 
     var looper = TabHeaders.values()
 
@@ -103,32 +93,36 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
             groupAdapterCol?.clear()
         }
         val description = eServicesDetail.description?.get(0)
-        val descriptionItem =
-            ServiceDetailListingItems<ItemsServiceDetailDescLayoutBinding, Description>(
-                eService = description
-            )
         val procedure = eServicesDetail.procedure?.get(0)
+        val requiredDocument = eServicesDetail.requiredDocument?.get(0)
+        val payments = eServicesDetail.payments?.get(0)
+
+        val descriptionItem =
+            ServiceDetailListingItems<ItemsServiceDetailDescLayoutBinding, Description>(eService = description)
         val procedureItem =
             ServiceDetailListingItems<ItemsServiceDetailProcedureLayoutBinding, Procedure>(
                 eService = procedure,
                 resLayout = R.layout.items_service_detail_procedure_layout
             )
-        val payments = eServicesDetail.payments?.get(0)
-
+//        val requiredDocumentItem =
+//            ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, RequiredDocument>(
+//                eService = requiredDocument,
+//                resLayout = R.layout.items_service_detail_req_document_layout
+//            )
+        val requiredDocumentItem =
+            ServiceDetailListingItems<ItemsServiceDetailInnerListingLayoutBinding, RequiredDocument>(
+                eService = requiredDocument,
+                resLayout = R.layout.items_service_detail_inner_listing_layout
+            )
         val paymentsItem =
-            ServiceDetailListingItems<ItemsServiceDetailPaymentLayoutBinding, Payment>(
+            ServiceDetailListingItems<ItemsServiceDetailInnerListingLayoutBinding, Payment>(
                 eService = payments,
-                resLayout = R.layout.items_service_detail_payment_layout
+                resLayout = R.layout.items_service_detail_inner_listing_layout
             )
         groupAdapterCol?.add(descriptionItem)
         groupAdapterCol?.add(procedureItem)
+        groupAdapterCol?.add(requiredDocumentItem)
         groupAdapterCol?.add(paymentsItem)
-//        descItemPosition = groupAdapterCol?.getAdapterPosition(descriptionItem)!!
-//
-//        procedureItemPosition = groupAdapterCol?.getAdapterPosition(procedureItem)!!
-//
-//        paymentItemPosition = groupAdapterCol?.getAdapterPosition(paymentsItem)!!
-
 
     }
 
@@ -180,15 +174,14 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         positionUpdate(position)
         itemIndexUpdate()
         if (!blockColumnScroll) {
-//            recyclerViewCol?.smoothScrollToPosition(position)
             recyclerViewColnested?.post {
                 when (position) {
                     1 -> checkPosition(position)
                     2 -> checkPosition(position)
+                    3 -> checkPosition(position)
                     else -> recyclerViewColnested?.fullScroll(View.FOCUS_UP)
                 }
             }
-
         }
 
 

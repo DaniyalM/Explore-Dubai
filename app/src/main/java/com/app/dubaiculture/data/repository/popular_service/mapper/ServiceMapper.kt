@@ -39,7 +39,7 @@ fun transformServiceCategorys(serviceCategory: List<ServiceCategoryDTO>): List<S
 fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetail =
     EServicesDetail(
         category = eServiceDetailDTO.Category,
-        description = eServiceDetailDTO.DescriptionDTO?.map {
+        description = eServiceDetailDTO.Description?.map {
             Description(
                 classification = it.Classification,
                 classificationTitle = it.ClassificationTitle,
@@ -57,9 +57,9 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
             )
         },
         enquireNumber = eServiceDetailDTO.EnquireNumber,
-        fAQs = eServiceDetailDTO.FAQDTOS?.map {
+        fAQs = eServiceDetailDTO.FAQs?.map {
             FAQ(
-                fAQs = it.FAQS.map {
+                fAQs = it.FAQs.map {
                     FAQX(
                         answer = it.Answer,
                         question = it.Question
@@ -68,12 +68,12 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
                 fAQsTitle = it.FAQsTitle
             )
         },
-        payments = eServiceDetailDTO.paymentDTOS?.map {
+        payments = eServiceDetailDTO.Payments?.map {
             Payment(
                 amountTitle = it.AmountTitle,
                 descriptionTitle = it.DescriptionTitle,
                 paymentTitle = it.PaymentTitle,
-                payments = it.payments.map {
+                payments = it.Payments.map {
                     PaymentX(
                         amount = it.Amount,
                         description = it.Description,
@@ -87,9 +87,9 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
 
                 )
         },
-        procedure = eServiceDetailDTO.ProcedureDTO?.map {
+        procedure = eServiceDetailDTO.Procedure?.map {
             Procedure(
-                serviceProcedure = it.ServiceProcedureDTO.map {
+                serviceProcedure = it.ServiceProcedure.map {
                     ServiceProcedure(
                         summary = it.Summary,
                         title = it.Title
@@ -98,7 +98,7 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
                 serviceProcedureTitle = it.ServiceProcedureTitle
             )
         },
-        requiredDocument = eServiceDetailDTO.RequiredDocumentDTO?.map {
+        requiredDocument = eServiceDetailDTO.RequiredDocument?.map {
             RequiredDocument(
                 requiredDocuments = it.RequiredDocuments,
                 requiredDocumentsTitle = it.RequiredDocumentsTitle
@@ -106,7 +106,7 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
         },
         startServiceText = eServiceDetailDTO.StartServiceText,
         startServiceUrl = eServiceDetailDTO.StartServiceUrl,
-        termsAndCondition = eServiceDetailDTO.TermsAndConditionDTO?.map {
+        termsAndCondition = eServiceDetailDTO.TermsAndCondition?.map {
             TermsAndCondition(
                 termsAndConditionsSummary = it.TermsAndConditionsSummary,
                 termsAndConditionsTitle = it.TermsAndConditionsTitle

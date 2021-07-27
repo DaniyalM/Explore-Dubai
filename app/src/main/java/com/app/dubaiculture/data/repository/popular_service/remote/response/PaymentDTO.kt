@@ -4,6 +4,6 @@ data class PaymentDTO(
     val AmountTitle: String,
     val DescriptionTitle: String,
     val PaymentTitle: String,
-    val payments: List<PaymentXDTO>,
+    val Payments: List<PaymentXDTO>,
     val TypeTitle: String
 )

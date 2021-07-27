@@ -34,7 +34,7 @@ class ApplicationEntry : Application() {
         beaconImplementation()
         isInternetActive = NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
-        ThemeUtil.applyTheme("light")
+        ThemeUtil.applyTheme("dark")
     }
 
     private fun beaconImplementation(){

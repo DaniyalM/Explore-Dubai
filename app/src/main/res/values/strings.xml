@@ -285,5 +285,6 @@
     <string name="was_this_information_helpful">Was this information helpful?</string>
     <string name="search_by_keyword">Search by keyword</string>
     <string name="required_documents">Required Documents</string>
+    <string name="payments">Payments</string>
 
 </resources>
