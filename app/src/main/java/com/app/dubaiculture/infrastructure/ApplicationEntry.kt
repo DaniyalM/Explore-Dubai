@@ -24,8 +24,6 @@ class ApplicationEntry : Application() {
     var bus: Bus = Bus()
     lateinit var auth: AuthState
     var isInternetActive = false
-
-
     lateinit var beaconManager: BeaconManager
     lateinit var region: BeaconRegion
     override fun onCreate() {

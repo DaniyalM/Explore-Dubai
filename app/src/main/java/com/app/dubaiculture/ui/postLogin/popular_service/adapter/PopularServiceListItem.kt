@@ -1,6 +1,8 @@
 package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 
+import android.content.Context
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings
@@ -21,6 +23,7 @@ class PopularServiceListItem<T : ViewDataBinding>(
     val servicesBookings: ServiceBookings? = null,
     val myServiceStatus : ServiceStatus?=null,
     val eService : EService?=null,
+    val context: Context?=null,
     val resLayout: Int = R.layout.popular_service_inner_item_cell,
 ) : BindableItem<T>() {
     override fun getLayout() = resLayout
@@ -57,11 +60,19 @@ class PopularServiceListItem<T : ViewDataBinding>(
                 }
             }
             is ItemsServiceListingLayoutBinding ->{
+
                 viewBinding.apply {
-                        serviceListing = eService
+                    setAnimation(rootView,position,context!!)
+                    serviceListing = eService
                 }
             }
         }
     }
+    private fun setAnimation(viewToAnimate: View, position: Int,context: Context) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        val animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
+        viewToAnimate.startAnimation(animation)
+    }
+
 }
 
