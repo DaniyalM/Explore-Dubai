@@ -96,6 +96,11 @@ android {
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
             signingConfig signingConfigs.stagConfig
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "neom-${variant.name}-${defaultConfig.versionName}.apk"
+                }
+            }
 
 //            buildConfigField("String", "BASE_URL", "\"https://a04f708a-3b9c-41a5-bc03-1450f93ba4a1.mock.pstmn.io/\"")
 
