@@ -20,6 +20,7 @@
         android:text="@string/required_documents"
         android:textColor="?attr/colorSecondary"
         android:textSize="@dimen/_18ssp"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/_15sdp"
