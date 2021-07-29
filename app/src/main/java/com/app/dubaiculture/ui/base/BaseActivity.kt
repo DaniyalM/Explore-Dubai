@@ -110,6 +110,7 @@ abstract class BaseActivity : LocalizationActivity() {
         isBusRegistered = true
         customProgressDialog = ProgressDialog(this)
 
+        darkModeAccess()
 
     }
 
@@ -189,7 +190,12 @@ abstract class BaseActivity : LocalizationActivity() {
         return navHostFragment.navController
     }
 
-
+    fun darkModeAccess(){
+        (application as ApplicationEntry).preferenceRepository
+                .nightModeLive.observe(this) { nightMode ->
+                    nightMode?.let { delegate.localNightMode = it }
+                }
+    }
 
 
 }

@@ -2,12 +2,14 @@ package com.app.dubaiculture.infrastructure
 
 import android.app.Application
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.Constants.IBecons.IDENTIFIER
 import com.app.dubaiculture.utils.Constants.IBecons.UUID_BECON
 import com.app.dubaiculture.utils.NetworkLiveData
+import com.app.dubaiculture.utils.PreferenceRepository
 import com.app.dubaiculture.utils.PushNotificationManager
 import com.app.dubaiculture.utils.ThemeUtil
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion
@@ -25,6 +27,8 @@ class ApplicationEntry : Application() {
     lateinit var auth: AuthState
     var isInternetActive = false
     lateinit var beaconManager: BeaconManager
+    lateinit var preferenceRepository: PreferenceRepository
+
     lateinit var region: BeaconRegion
     override fun onCreate() {
         super.onCreate()
@@ -34,7 +38,10 @@ class ApplicationEntry : Application() {
         beaconImplementation()
         isInternetActive = NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
-        ThemeUtil.applyTheme("dark")
+//        ThemeUtil.applyTheme("dark")
+        preferenceRepository = PreferenceRepository(
+                getSharedPreferences(DEFAULT_PREFERENCES, MODE_PRIVATE)
+        )
     }
 
     private fun beaconImplementation(){
@@ -94,6 +101,14 @@ class ApplicationEntry : Application() {
         })
         isInternetActive = NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
-        ThemeUtil.applyTheme("dark")
+//        ThemeUtil.applyTheme("dark")
     }
+
+
+
+
+companion object {
+    const val DEFAULT_PREFERENCES = "default_preferences"
+}
+
 }
