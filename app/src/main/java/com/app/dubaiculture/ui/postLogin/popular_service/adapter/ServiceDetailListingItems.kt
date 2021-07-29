@@ -26,11 +26,13 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
 
             is ItemsServiceDetailInnerListingLayoutBinding -> {
                 viewBinding.innerRecyclerView.apply {
-                    when(eService){
-                        is Payment ->{
+                    when (eService) {
+                        is Payment -> {
                             val linearLayoutManager = LinearLayoutManager(context)
                             layoutManager = linearLayoutManager
                             val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
+                            viewBinding.detailListingHeader.text =
+                                context.getString(R.string.payments)
                             adapter = paymentInnerAdapter
                             eService.payments.forEach {
                                 val paymentsItem =
@@ -42,6 +44,8 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                             }
                         }
                         is RequiredDocument -> {
+                            viewBinding.detailListingHeader.text =
+                                context.getString(R.string.required_documents)
                             val linearLayoutManager = LinearLayoutManager(context)
                             layoutManager = linearLayoutManager
                             val requiredDocumentInnerAdapter = GroupAdapter<GroupieViewHolder>()

@@ -97,6 +97,7 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         val requiredDocument = eServicesDetail.requiredDocument?.get(0)
         val payments = eServicesDetail.payments?.get(0)
 
+
         val descriptionItem =
             ServiceDetailListingItems<ItemsServiceDetailDescLayoutBinding, Description>(eService = description)
         val procedureItem =
@@ -163,7 +164,6 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     fun positionUpdate(position: Int) {
         SERVICE_DETAIL_HEADER_FLAG = position
-//        _headerPosition.value = position
         recyclerViewRow?.smoothScrollToPosition(position)
 
 
@@ -174,14 +174,15 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         positionUpdate(position)
         itemIndexUpdate()
         if (!blockColumnScroll) {
-            recyclerViewColnested?.post {
-                when (position) {
-                    1 -> checkPosition(position)
-                    2 -> checkPosition(position)
-                    3 -> checkPosition(position)
-                    else -> recyclerViewColnested?.fullScroll(View.FOCUS_UP)
-                }
-            }
+            recyclerViewCol?.smoothScrollToPosition(position)
+//            recyclerViewColnested?.post {
+//                when (position) {
+//                    1 -> checkPosition(position)
+//                    2 -> checkPosition(position)
+//                    3 -> checkPosition(position)
+//                    else -> recyclerViewColnested?.fullScroll(View.FOCUS_UP)
+//                }
+//            }
         }
 
 
