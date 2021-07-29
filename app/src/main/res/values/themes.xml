@@ -18,7 +18,7 @@
     </style>
     <style name="Base.Theme.MyApp" parent="Base.Theme.MaterialThemeBuilder">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_600</item>
+        <item name="colorPrimary">@color/black_700</item>
         <item name="colorPrimaryVariant">@color/purple_900</item>
         <item name="colorOnPrimary">@color/white_900</item>
         <!-- Secondary brand color. Title -->
