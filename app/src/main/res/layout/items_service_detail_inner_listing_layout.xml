@@ -12,13 +12,13 @@
             android:layout_margin="@dimen/_15sdp"
             android:text="@string/payments"
             android:id="@+id/detailListingHeader"
-            android:textColor="@color/white_900"
+            android:textColor="?attr/colorSecondary"
             android:textSize="@dimen/_18ssp"
             app:textFont="bold"/>
 
         <com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters.SnappyRecyclerView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_400sdp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/innerRecyclerView"
             tools:listitem="@layout/items_service_detail_payment_inner_item_layout" />
