@@ -21,19 +21,33 @@
 
                 <include android:id="@+id/headerVisited" layout="@layout/layout_back" />
 
-                <com.app.dubaiculture.ui.postLogin.popular_service.components.ServiceDetailHeaderItemSelector
-                    android:id="@+id/horizontalSelector"
-                    style="@style/HorizontalAttractionStyle"
+<!--                <com.app.dubaiculture.ui.postLogin.popular_service.components.ServiceDetailHeaderItemSelector-->
+<!--                    android:id="@+id/horizontalSelector"-->
+<!--                    style="@style/HorizontalAttractionStyle"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/_10sdp" />-->
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    style="@style/ServiceTabStyle"
+                    app:tabGravity="center"
+                    app:tabMode="scrollable"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp" />
-                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_height="@dimen/_50sdp" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/forumPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:listitem="@layout/item_more_news"
-                    android:id="@+id/service_detail_rv"/>
+                    android:orientation="vertical"
+                    android:layout_height="match_parent" />
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:clickable="true"-->
+<!--                    android:focusable="true"-->
+<!--                    tools:listitem="@layout/item_more_news"-->
+<!--                    android:id="@+id/service_detail_rv"/>-->
 
             </LinearLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
