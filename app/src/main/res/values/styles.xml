@@ -225,4 +225,6 @@
         <item name="android:textColor">@color/purple_900</item>
         <item name="cb_type">outlined</item>
     </style>
+
+
 </resources>

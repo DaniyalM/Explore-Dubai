@@ -208,11 +208,11 @@
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_attraction_days"
                     android:layout_width="wrap_content"
+                    style="@style/TextViewStyle"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:drawableStart="@drawable/clock_purple"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:textColor="@color/black_200"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_title"
                     app:layout_constraintTop_toBottomOf="@+id/img_ar" />
@@ -250,7 +250,7 @@
                     android:drawableStart="@drawable/location_fiilter"
                     android:drawablePadding="@dimen/_10sdp"
                     android:text="@{attraction.locationTitle}"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_title"
                     app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -310,8 +310,8 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:text="@string/description"
+                    style="@style/TextViewStyle"
                     android:visibility="@{TextUtils.isEmpty(attraction.description) ? View.GONE : View.VISIBLE}"
-                    android:textColor="@color/black_200"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/card_map" />
@@ -374,7 +374,7 @@
                         android:drawableStart="@drawable/home_icon"
                         android:drawablePadding="@dimen/_10sdp"
                         android:text="@string/view_site_map"
-                        android:textColor="@color/black_200"
+                        style="@style/TextViewStyle"
                         android:textSize="@dimen/_12ssp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -433,10 +433,10 @@
                         android:id="@+id/ibeacons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/TextViewStyle"
                         android:drawableStart="@drawable/ibeacons_small_attraction_icon"
                         android:drawablePadding="@dimen/_10sdp"
                         android:text="@string/ibeacons"
-                        android:textColor="@color/black_200"
                         android:textSize="@dimen/_12ssp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -485,7 +485,7 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:text="@string/contact_for_inquiries"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider3" />
@@ -601,8 +601,8 @@
                                 android:id="@+id/tvReviews"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                style="@style/TextViewStyle"
                                 android:layout_marginStart="@dimen/_10sdp"
-                                android:textColor="@color/black_200"
                                 android:textSize="@dimen/_14sdp" />
 
                             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -644,7 +644,7 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:text="@string/stay_updated"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardview_plan_trip" />
@@ -710,8 +710,8 @@
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:ellipsize="end"
                     android:maxLines="2"
+                    style="@style/TextViewStyle"
                     android:text="@{attraction.events == null ? `` : attraction.title}"
-                    android:textColor="@color/black_200"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

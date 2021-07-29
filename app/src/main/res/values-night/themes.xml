@@ -5,7 +5,6 @@
 
 
         <!-- Primary brand color. -->
-<!--        <item name="colorPrimary">@color/green_light</item>-->
 <!--        <item name="colorPrimaryVariant">@color/green</item>-->
 <!--        <item name="colorOnPrimary">@color/black</item>-->
         <!-- Secondary brand color. -->
@@ -16,11 +15,13 @@
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
 
 
+
+
         <item name="android:statusBarColor" tools:targetApi="l">@color/black_800</item>
         <!-- Customize your theme here. -->
 
-        <item name="colorPrimary">@color/purple_600</item>
-        <item name="colorPrimaryVariant">@color/purple_900</item>
+        <item name="colorPrimary">@color/gray_200</item>
+        <item name="colorPrimaryVariant">@color/black_900</item>
 
         <!--for TextView title color-->
         <item name="colorSecondary">@color/gray_400</item>
@@ -55,6 +56,13 @@
         <item name="color_edit_text_bg">@color/black_750</item>
         <!--cardview shadow color-->
         <item name="color_card_views_shadow">@color/black_900</item>
+        <!--curve bg in news and event detail-->
+        <item name="color_curve_view_bg">@color/black_750</item>
+
+        <item name="color_curve_login_bg">@color/black_700</item>
+
+
+        <item name="color_login_edit_text_bg">@color/black_750</item>
 
 
     </style>

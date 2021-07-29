@@ -68,7 +68,7 @@
                     android:maxLines="2"
                     android:textAlignment="viewStart"
                     android:text="@{events.title}"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintEnd_toStartOf="@+id/img"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -120,8 +120,8 @@
                     android:textAlignment="center"
                     android:layout_height="wrap_content"
                     android:text="@{Double.toString(events.distance) + `Km`}"
-                    android:textColor="@color/black_200"
                     android:textSize="@dimen/_8ssp"
+                    style="@style/TextViewStyle"
                     app:layout_constraintEnd_toEndOf="@+id/img"
                     app:layout_constraintStart_toStartOf="@+id/img"
                     app:layout_constraintTop_toBottomOf="@+id/img" />

@@ -65,7 +65,7 @@
                         android:layout_marginStart="@dimen/_14sdp"
                         android:layout_marginTop="@dimen/_12sdp"
                         android:text="@string/latest_news"
-                        android:textColor="@color/black_200"
+                        style="@style/TextViewStyle"
                         android:textSize="@dimen/_25ssp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/cl" />

@@ -52,7 +52,7 @@
                     android:layout_weight="1"
                     android:lineSpacingExtra="3dp"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:text="What is Dubai Culture  Arts Authority?"
                     />
 

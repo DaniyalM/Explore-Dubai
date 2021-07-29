@@ -35,7 +35,7 @@
                     android:layout_marginStart="@dimen/_25sdp"
                     android:layout_marginTop="@dimen/_35sdp"
                     android:text="@string/register_for_event"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_16ssp"
                     android:transitionName="main_title"
                     app:layout_constraintStart_toStartOf="parent"

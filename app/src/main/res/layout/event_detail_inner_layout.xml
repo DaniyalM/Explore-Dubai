@@ -161,8 +161,8 @@
                         android:drawableStart="@drawable/calender_ticket_book"
                         android:drawablePadding="@dimen/_10sdp"
                         android:text="@string/_14_20_nov_2020_sunday_friday"
-                        android:textColor="@color/black_200"
                         android:textSize="@dimen/_11ssp"
+                        style="@style/TextViewStyle"
                         app:layout_constraintStart_toStartOf="@+id/tv_title"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
@@ -200,8 +200,8 @@
                         android:drawableStart="@drawable/location_fiilter"
                         android:drawablePadding="@dimen/_10sdp"
                         android:text="@string/palm_jumeriah_dubai"
-                        android:textColor="@color/black_200"
                         android:textSize="@dimen/_12ssp"
+                        style="@style/TextViewStyle"
                         app:layout_constraintStart_toStartOf="@+id/tv_title"
                         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -259,7 +259,7 @@
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:text="@string/description"
-                        android:textColor="@color/black_200"
+                        style="@style/TextViewStyle"
                         android:textSize="@dimen/_18ssp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/card_map" />
@@ -309,8 +309,8 @@
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:text="@string/contact_for_inquiries"
-                        android:textColor="@color/black_200"
                         android:textSize="@dimen/_18ssp"
+                        style="@style/TextViewStyle"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/btn_register_now" />
 
@@ -411,7 +411,7 @@
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:text="@string/stay_updated"
-                        android:textColor="@color/black_200"
+                        style="@style/TextViewStyle"
                         android:textSize="@dimen/_18ssp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/contactus" />
@@ -487,7 +487,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_20sdp"
                             android:text="@string/more_events"
-                            android:textColor="@color/black_200"
+                            style="@style/TextViewStyle"
                             android:textSize="@dimen/_18ssp"
                             app:layout_constraintStart_toStartOf="parent" />
 

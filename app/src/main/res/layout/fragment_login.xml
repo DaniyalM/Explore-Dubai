@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/purple_900">
+        android:background="?attr/colorPrimaryVariant">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView4"
@@ -280,7 +280,7 @@
             android:layout_marginBottom="@dimen/_20sdp"
             android:foreground="@drawable/custom_ripple_border"
             android:text="@string/continue_as_a_guest"
-            android:textColor="@color/black_200"
+            style="@style/TextViewStyle"
             android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
