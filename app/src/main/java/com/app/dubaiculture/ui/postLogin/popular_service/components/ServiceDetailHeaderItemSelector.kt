@@ -99,10 +99,15 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
         val descriptionItem =
             ServiceDetailListingItems<ItemsServiceDetailDescLayoutBinding, Description>(eService = description)
+//        val procedureItem =
+//            ServiceDetailListingItems<ItemsServiceDetailProcedureLayoutBinding, Procedure>(
+//                eService = procedure,
+//                resLayout = R.layout.items_service_detail_procedure_layout
+//            )
         val procedureItem =
-            ServiceDetailListingItems<ItemsServiceDetailProcedureLayoutBinding, Procedure>(
+            ServiceDetailListingItems<ItemsServiceDetailInnerListingLayoutBinding, Procedure>(
                 eService = procedure,
-                resLayout = R.layout.items_service_detail_procedure_layout
+                resLayout = R.layout.items_service_detail_inner_listing_layout
             )
 //        val requiredDocumentItem =
 //            ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, RequiredDocument>(

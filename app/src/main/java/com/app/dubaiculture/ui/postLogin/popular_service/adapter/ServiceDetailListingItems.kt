@@ -27,6 +27,20 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
             is ItemsServiceDetailInnerListingLayoutBinding -> {
                 viewBinding.innerRecyclerView.apply {
                     when(eService){
+                        is Procedure ->{
+                            val linearLayoutManager = LinearLayoutManager(context)
+                            layoutManager = linearLayoutManager
+                            val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
+                            adapter = paymentInnerAdapter
+                            eService.serviceProcedure.forEach {
+                                val paymentsItem =
+                                    ServiceDetailListingItems<ItemsServiceDetailProcedureLayoutBinding, ServiceProcedure>(
+                                        eService = it,
+                                        resLayout = R.layout.items_service_detail_procedure_layout
+                                    )
+                                paymentInnerAdapter.add(paymentsItem)
+                            }
+                        }
                         is Payment ->{
                             val linearLayoutManager = LinearLayoutManager(context)
                             layoutManager = linearLayoutManager
@@ -46,14 +60,18 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                             layoutManager = linearLayoutManager
                             val requiredDocumentInnerAdapter = GroupAdapter<GroupieViewHolder>()
                             adapter = requiredDocumentInnerAdapter
-                            eService.requiredDocuments.forEach {
+
+                            repeat(20){
                                 val paymentsItem =
                                     ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
-                                        eService = it,
+                                        eService = it.toString(),
                                         resLayout = R.layout.items_service_detail_req_document_layout
                                     )
                                 requiredDocumentInnerAdapter.add(paymentsItem)
                             }
+//                            eService.requiredDocuments.forEach {
+//
+//                            }
                         }
                     }
 
