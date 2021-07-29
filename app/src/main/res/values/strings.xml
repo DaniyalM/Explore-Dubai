@@ -286,5 +286,6 @@
     <string name="search_by_keyword">Search by keyword</string>
     <string name="required_documents">Required Documents</string>
     <string name="payments">Payments</string>
+    <string name="dark_mode">Dark Mode</string>
 
 </resources>

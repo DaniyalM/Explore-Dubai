@@ -76,6 +76,15 @@ internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(
         color
     )
 )
+@ColorInt
+fun Context.getColorFromAttr(
+    @AttrRes attrColor: Int,
+    typedValue: TypedValue = TypedValue(),
+    resolveRefs: Boolean = true
+): Int {
+    theme.resolveAttribute(attrColor, typedValue, resolveRefs)
+    return typedValue.data
+}
 
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
@@ -176,15 +185,7 @@ fun Fragment.setNavigationResult(key: String, data: Any?) {
 
 }
 
-@ColorInt
-fun Context.getColorFromAttr(
-    @AttrRes attrColor: Int,
-    typedValue: TypedValue = TypedValue(),
-    resolveRefs: Boolean = true
-): Int {
-    theme.resolveAttribute(attrColor, typedValue, resolveRefs)
-    return typedValue.data
-}
+
 
 fun dateFormat(inputDate: String?): String {
 //        2021-03-31T17:19:00 server date format

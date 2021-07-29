@@ -32,7 +32,6 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() , V
     private var groupAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
     private var eServices: EServices? = null
     private var eServicesList = ArrayList<EService>()
-    private val tempArrayList = ArrayList<FaqItem>()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -42,6 +41,7 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() , V
         super.onViewStateRestored(savedInstanceState)
         subscribeToObservable()
         binding.imgCancel.setOnClickListener(this)
+        binding.headerVisited.back.setOnClickListener(this)
     }
 
    private fun subscribeToObservable() {
@@ -58,9 +58,8 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() , V
             }
         }
         binding.horizontalSelector.headerPosition.observe(viewLifecycleOwner){
-
             groupAdapter.clear()
-            getCategoryID(categoryID = eServices!!.serviceCategory[it].id?:"89F321A2034E49AEACE41865CD5862DA")
+            getCategoryID(categoryID = eServices?.serviceCategory?.get(it)?.id ?:"89F321A2034E49AEACE41865CD5862DA")
         }
     }
 
@@ -106,6 +105,9 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() , V
             R.id.img_cancel->{
                 hideKeyboard(activity)
                 binding.editSearchServices.text?.clear()
+            }
+            R.id.back ->{
+                back()
             }
         }
     }

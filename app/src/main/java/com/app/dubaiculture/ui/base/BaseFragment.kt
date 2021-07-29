@@ -101,6 +101,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         isBusRegistered = true
         customProgressDialog = ProgressDialog(activity)
 //        groupAdapter = GroupAdapter()
+
+        (activity as BaseActivity).darkModeAccess()
     }
 
     override fun onPause() {
@@ -115,7 +117,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //ViewModel is set as Binding Variable
         dataBinding.apply { lifecycleOwner = viewLifecycleOwner }
-
 
     }
 

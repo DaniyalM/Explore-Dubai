@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="@{user.userName}"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/profileImage"

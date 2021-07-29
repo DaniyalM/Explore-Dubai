@@ -32,7 +32,7 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="@string/notifications"
-            android:textColor="@color/black_200"
+            style="@style/TextViewStyle"
             android:textSize="@dimen/_25ssp"
             app:layout_constraintStart_toStartOf="@+id/img_close"
             app:layout_constraintTop_toBottomOf="@+id/img_close" />
@@ -59,7 +59,7 @@
                 android:drawableStart="@drawable/push_noti"
                 android:drawablePadding="@dimen/_10sdp"
                 android:text="@string/push_notifications"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 android:textSize="@dimen/_12ssp" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -101,7 +101,7 @@
                 android:drawableStart="@drawable/location_based"
                 android:drawablePadding="@dimen/_10sdp"
                 android:text="@string/location_based_notifications"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 android:textSize="@dimen/_12ssp" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -147,7 +147,7 @@
                 android:drawableStart="@drawable/email_notification"
                 android:drawablePadding="@dimen/_10sdp"
                 android:text="@string/email"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 android:textSize="@dimen/_12ssp" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -193,7 +193,7 @@
                 android:drawableStart="@drawable/sms_notification_setting"
                 android:drawablePadding="@dimen/_10sdp"
                 android:text="@string/sms"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 android:textSize="@dimen/_12ssp" />
 
             <androidx.appcompat.widget.SwitchCompat

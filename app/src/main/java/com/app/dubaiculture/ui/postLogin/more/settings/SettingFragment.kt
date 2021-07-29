@@ -1,10 +1,8 @@
 package com.app.dubaiculture.ui.postLogin.more.settings
 
 import android.Manifest
-import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +11,13 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.settings.local.UserSettings
 import com.app.dubaiculture.databinding.FragmentSettingBinding
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.enableLocationFromSettings
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
-import com.estimote.coresdk.cloud.model.User
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,8 +36,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
 
 
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+            inflater: LayoutInflater,
+            container: ViewGroup?
     ) = FragmentSettingBinding.inflate(inflater, container, false)
 
 
@@ -57,16 +55,17 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
         initiateRequest()
         subscribeToObservable()
         markPushNotificationSwitch()
+        darkModeEnable()
 
     }
 
     private fun initiateRequest() {
         binding.swipeRefresh.apply {
             setColorSchemeResources(
-                R.color.colorPrimary,
-                android.R.color.holo_green_dark,
-                android.R.color.holo_orange_dark,
-                android.R.color.holo_blue_dark
+                    R.color.colorPrimary,
+                    android.R.color.holo_green_dark,
+                    android.R.color.holo_orange_dark,
+                    android.R.color.holo_blue_dark
             )
             setOnRefreshListener {
                 binding.swipeRefresh.isRefreshing = false
@@ -100,13 +99,13 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
         when (v?.id) {
             R.id.noti -> {
                 navigate(
-                    R.id.action_settingFragment_to_notificationSettingFragment,
-                    Bundle().apply {
-                        this.putParcelable(
-                            Constants.NavBundles.SETTINGS_BUNDLE,
-                            userSettings as Parcelable
-                        )
-                    })
+                        R.id.action_settingFragment_to_notificationSettingFragment,
+                        Bundle().apply {
+                            this.putParcelable(
+                                    Constants.NavBundles.SETTINGS_BUNDLE,
+                                    userSettings as Parcelable
+                            )
+                        })
             }
             R.id.reset -> {
                 userSettings.apply {
@@ -122,6 +121,15 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
 
     }
 
+    fun darkModeEnable() {
+        val preferenceRepository = (requireActivity().application as ApplicationEntry).preferenceRepository
+        preferenceRepository.isDarkThemeLive.observe(viewLifecycleOwner) { isDarkTheme ->
+            isDarkTheme?.let { binding.switchDarkMode.isChecked = it }
+        }
+        binding.switchDarkMode.setOnCheckedChangeListener { _, checked ->
+            preferenceRepository.isDarkTheme = checked
+        }
+    }
 
     fun markPushNotificationSwitch() {
         binding.switchLoc.apply {
@@ -149,9 +157,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
 
     override fun onResume() {
         super.onResume()
-        binding.switchLoc.isChecked=locationHelper.isLocationEnabled()
-        if (this::userSettings.isInitialized){
-            userSettings.turnOnLocation=  binding.switchLoc.isChecked
+        binding.switchLoc.isChecked = locationHelper.isLocationEnabled()
+        if (this::userSettings.isInitialized) {
+            userSettings.turnOnLocation = binding.switchLoc.isChecked
             profileViewModel.updateSettings(userSettings)
         }
 
@@ -159,12 +167,12 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
 
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
-            handleRationale = false
+                handleRationale = false
         )
         activity.runWithPermissions(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            options = quickPermissionsOption
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                options = quickPermissionsOption
         ) {
             activity.enableLocationFromSettings()
 

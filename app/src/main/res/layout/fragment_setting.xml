@@ -44,7 +44,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:text="@string/settings"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_25ssp"
                     app:layout_constraintStart_toStartOf="@+id/img_close"
                     app:layout_constraintTop_toBottomOf="@+id/img_close" />
@@ -70,7 +70,7 @@
                     android:drawableStart="@drawable/bell_noti"
                     android:drawablePadding="@dimen/_10sdp"
                     android:text="@string/notifications"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_12ssp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -120,7 +120,11 @@
                     app:track="@drawable/switch_track_circle_shape"
                     />
 
+
+
             </LinearLayout>
+
+
 
             <View
                 android:id="@+id/dividerLineLoc"
@@ -130,6 +134,49 @@
                 app:layout_constraintEnd_toEndOf="@+id/location"
                 app:layout_constraintStart_toStartOf="@+id/location"
                 app:layout_constraintTop_toBottomOf="@+id/location" />
+
+
+            <LinearLayout
+                android:id="@+id/darkmode"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_19sdp"
+                android:background="@drawable/custom_ripple_black"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/dividerLine"
+                app:layout_constraintTop_toBottomOf="@+id/dividerLineLoc">
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewStart"
+                    android:drawableStart="@drawable/location_pin"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:text="@string/dark_mode"
+                    android:textColor="@color/black_200"
+                    android:textSize="@dimen/_12ssp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_dark_mode"
+                    style="@style/SwitchStyle"
+                    app:track="@drawable/switch_track_circle_shape"
+                    />
+
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/dividerLinedark"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/gray_600"
+                app:layout_constraintEnd_toEndOf="@+id/location"
+                app:layout_constraintStart_toStartOf="@+id/location"
+                app:layout_constraintTop_toBottomOf="@+id/darkmode" />
 
 
             <LinearLayout
@@ -143,7 +190,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/dividerLineLoc"
-                app:layout_constraintTop_toBottomOf="@+id/dividerLineLoc">
+                app:layout_constraintTop_toBottomOf="@+id/dividerLinedark">
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:layout_width="wrap_content"

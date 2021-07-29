@@ -24,7 +24,7 @@
         android:id="@+id/heading_museums_near"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black_200"
+        style="@style/TextViewStyle"
         android:textSize="@dimen/_16ssp"
         android:layout_marginTop="@dimen/_22sdp"
         android:layout_marginStart="@dimen/_20sdp"
