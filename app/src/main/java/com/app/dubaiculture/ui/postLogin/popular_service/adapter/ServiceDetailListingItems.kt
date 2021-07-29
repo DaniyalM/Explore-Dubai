@@ -3,10 +3,7 @@ package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.popular_service.local.models.Description
-import com.app.dubaiculture.data.repository.popular_service.local.models.Payment
-import com.app.dubaiculture.data.repository.popular_service.local.models.PaymentX
-import com.app.dubaiculture.data.repository.popular_service.local.models.Procedure
+import com.app.dubaiculture.data.repository.popular_service.local.models.*
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.xwray.groupie.GroupAdapter
@@ -42,6 +39,20 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                                         resLayout = R.layout.items_service_detail_payment_inner_item_layout
                                     )
                                 paymentInnerAdapter.add(paymentsItem)
+                            }
+                        }
+                        is RequiredDocument -> {
+                            val linearLayoutManager = LinearLayoutManager(context)
+                            layoutManager = linearLayoutManager
+                            val requiredDocumentInnerAdapter = GroupAdapter<GroupieViewHolder>()
+                            adapter = requiredDocumentInnerAdapter
+                            eService.requiredDocuments.forEach {
+                                val paymentsItem =
+                                    ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
+                                        eService = it,
+                                        resLayout = R.layout.items_service_detail_req_document_layout
+                                    )
+                                requiredDocumentInnerAdapter.add(paymentsItem)
                             }
                         }
                     }
