@@ -60,6 +60,7 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
             layoutManager = linearLayoutManager
             adapter = groupAdapterCol
             val snapHelper = LinearSnapHelper()
+            snapHelper.attachToRecyclerView(this)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -97,18 +98,14 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         val requiredDocument = eServicesDetail.requiredDocument?.get(0)
         val payments = eServicesDetail.payments?.get(0)
 
+
         val descriptionItem =
             ServiceDetailListingItems<ItemsServiceDetailDescLayoutBinding, Description>(eService = description)
         val procedureItem =
-            ServiceDetailListingItems<ItemsServiceDetailProcedureLayoutBinding, Procedure>(
+            ServiceDetailListingItems<ItemsServiceDetailInnerListingLayoutBinding, Procedure>(
                 eService = procedure,
-                resLayout = R.layout.items_service_detail_procedure_layout
+                resLayout = R.layout.items_service_detail_inner_listing_layout
             )
-//        val requiredDocumentItem =
-//            ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, RequiredDocument>(
-//                eService = requiredDocument,
-//                resLayout = R.layout.items_service_detail_req_document_layout
-//            )
         val requiredDocumentItem =
             ServiceDetailListingItems<ItemsServiceDetailInnerListingLayoutBinding, RequiredDocument>(
                 eService = requiredDocument,
@@ -163,7 +160,6 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
 
     fun positionUpdate(position: Int) {
         SERVICE_DETAIL_HEADER_FLAG = position
-//        _headerPosition.value = position
         recyclerViewRow?.smoothScrollToPosition(position)
 
 
@@ -173,7 +169,11 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         previousPosition = SERVICE_DETAIL_HEADER_FLAG
         positionUpdate(position)
         itemIndexUpdate()
+
+
+
         if (!blockColumnScroll) {
+
             recyclerViewColnested?.post {
                 when (position) {
                     1 -> checkPosition(position)
@@ -190,7 +190,9 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
     private fun checkPosition(position: Int) {
         if (SERVICE_DETAIL_HEADER_FLAG > position) {
             recyclerViewColnested?.fullScroll(View.FOCUS_UP)
+            recyclerViewCol?.smoothScrollToPosition(position)
         } else {
+            recyclerViewCol?.smoothScrollToPosition(position)
             recyclerViewColnested?.fullScroll(View.FOCUS_DOWN)
         }
     }

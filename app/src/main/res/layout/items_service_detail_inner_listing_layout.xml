@@ -4,20 +4,21 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_15sdp"
             android:text="@string/payments"
-            android:textColor="@color/white_900"
+            android:id="@+id/detailListingHeader"
+            android:textColor="?attr/colorSecondary"
             android:textSize="@dimen/_18ssp"
             app:textFont="bold"/>
 
-        <com.app.dubaiculture.ui.postLogin.explore.mustsee.adapters.SnappyRecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_400sdp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/innerRecyclerView"
             tools:listitem="@layout/items_service_detail_payment_inner_item_layout" />

@@ -3,10 +3,7 @@ package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.popular_service.local.models.Description
-import com.app.dubaiculture.data.repository.popular_service.local.models.Payment
-import com.app.dubaiculture.data.repository.popular_service.local.models.PaymentX
-import com.app.dubaiculture.data.repository.popular_service.local.models.Procedure
+import com.app.dubaiculture.data.repository.popular_service.local.models.*
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.xwray.groupie.GroupAdapter
@@ -30,10 +27,30 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
             is ItemsServiceDetailInnerListingLayoutBinding -> {
                 viewBinding.innerRecyclerView.apply {
                     when(eService){
-                        is Payment ->{
+                        is Procedure ->{
+                            viewBinding.detailListingHeader.text =
+                                context.getString(R.string.procedure)
                             val linearLayoutManager = LinearLayoutManager(context)
                             layoutManager = linearLayoutManager
                             val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
+                            adapter = paymentInnerAdapter
+                            eService.serviceProcedure.forEach {
+                                val paymentsItem =
+                                    ServiceDetailListingItems<ItemsServiceDetailProcedureLayoutBinding, ServiceProcedure>(
+                                        eService = it,
+                                        resLayout = R.layout.items_service_detail_procedure_layout
+                                    )
+                                paymentInnerAdapter.add(paymentsItem)
+                            }
+                        }
+
+                        is Payment -> {
+
+                            val linearLayoutManager = LinearLayoutManager(context)
+                            layoutManager = linearLayoutManager
+                            val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
+                            viewBinding.detailListingHeader.text =
+                                context.getString(R.string.payments)
                             adapter = paymentInnerAdapter
                             eService.payments.forEach {
                                 val paymentsItem =
@@ -43,6 +60,26 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                                     )
                                 paymentInnerAdapter.add(paymentsItem)
                             }
+                        }
+                        is RequiredDocument -> {
+                            viewBinding.detailListingHeader.text =
+                                context.getString(R.string.required_documents)
+                            val linearLayoutManager = LinearLayoutManager(context)
+                            layoutManager = linearLayoutManager
+                            val requiredDocumentInnerAdapter = GroupAdapter<GroupieViewHolder>()
+                            adapter = requiredDocumentInnerAdapter
+
+                            repeat(20){
+                                val paymentsItem =
+                                    ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
+                                        eService = it.toString(),
+                                        resLayout = R.layout.items_service_detail_req_document_layout
+                                    )
+                                requiredDocumentInnerAdapter.add(paymentsItem)
+                            }
+//                            eService.requiredDocuments.forEach {
+//
+//                            }
                         }
                     }
 
