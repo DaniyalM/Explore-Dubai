@@ -69,7 +69,7 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                             val requiredDocumentInnerAdapter = GroupAdapter<GroupieViewHolder>()
                             adapter = requiredDocumentInnerAdapter
 
-                            repeat(20){
+                            repeat(5){
                                 val paymentsItem =
                                     ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
                                         eService = it.toString(),
@@ -96,6 +96,7 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                     viewBinding.payment = eService
                 }
             }
+
         }
 
 

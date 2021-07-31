@@ -54,6 +54,8 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
             it.adapter = groupAdapterRow
         }
 
+
+        //  scrolling on vertical in view
         groupAdapterCol = GroupAdapter()
         recyclerViewCol?.apply {
             val linearLayoutManager = LinearLayoutManager(context)
@@ -97,7 +99,6 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
         val procedure = eServicesDetail.procedure?.get(0)
         val requiredDocument = eServicesDetail.requiredDocument?.get(0)
         val payments = eServicesDetail.payments?.get(0)
-
 
         val descriptionItem =
             ServiceDetailListingItems<ItemsServiceDetailDescLayoutBinding, Description>(eService = description)
@@ -146,7 +147,7 @@ class ServiceDetailHeaderItemSelector(context: Context, attrs: AttributeSet) :
     }
 
     fun itemIndexUpdate() {
-        looper.get(previousPosition).let {
+        looper[previousPosition].let {
             groupAdapterRow?.notifyItemChanged(
                 previousPosition,
                 ServiceDetailHeaderItems(
