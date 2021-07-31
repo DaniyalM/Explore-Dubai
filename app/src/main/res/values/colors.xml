@@ -77,4 +77,8 @@
         <item>#00BBAE</item>
     </string-array>
 
+    <color name="events_tab_indicator_unselected">#33A3AEC2</color>
+    <color name="events_tab_text">#003865</color>
+    <color name="events_tab_indicator">#EBC03F</color>
+
 </resources>
