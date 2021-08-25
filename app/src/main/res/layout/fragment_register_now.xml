@@ -99,7 +99,6 @@
                     style="@style/EditTextStyle"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/bg_edit_resiger"
-                    android:drawableEnd="@drawable/down_arrow_register_now"
                     android:hint="@string/what_do_you_do"
                     android:imeOptions="actionNext"
                     android:inputType="text"
