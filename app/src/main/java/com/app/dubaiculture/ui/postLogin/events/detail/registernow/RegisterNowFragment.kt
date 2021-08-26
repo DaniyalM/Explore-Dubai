@@ -19,7 +19,6 @@ class RegisterNowFragment : BaseDialogFragment<FragmentRegisterNowBinding>() , V
         binding.btnSubmit.setOnClickListener(this)
         binding.header.back.setOnClickListener(this)
         backArrowRTL(binding.header.back)
-
     }
 
     override fun getTheme() = R.style.FullScreenDialog;
