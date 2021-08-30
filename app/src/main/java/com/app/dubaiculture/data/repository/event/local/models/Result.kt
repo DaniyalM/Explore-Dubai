@@ -44,6 +44,4 @@ data class Result(
     @SerializedName("message")
     @Expose
     var message: String,
-
-
-    )
+)

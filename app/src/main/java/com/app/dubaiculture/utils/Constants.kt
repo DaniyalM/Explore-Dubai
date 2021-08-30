@@ -15,6 +15,16 @@ object Constants {
 
     }
 
+    object PHOTO {
+        const val FILE_PROVIDER: String = "com.app.dubaiculture.fileprovider"
+        const val REQUEST_IMAGE_CAPTURE = 1
+        const val FORMAT_JPG = "jpg"
+        const val FORMAT_JPEG = "jpeg"
+        const val FORMAT_PNG = "png"
+        const val FORMAT_GIF = "gif"
+
+    }
+
     object ResendEmail {
         const val RESEND_TIMER: Long = 30000
         const val INTERVAL: Long = 1000
@@ -45,8 +55,10 @@ object Constants {
         const val ATTRACTION_GALLERY_LIST: String = "attractionGalleryList"
         const val THREESIXTY_GALLERY_LIST: String = "THREE60_GALLERY_LIST"
         const val EXPLORE_MAP_LIST: String = "explore_map_list"
+        const val SCHEDULE_ITEM_SLOT: String = "schedule_time_slot"
         const val EVENT_MAP_LIST: String = "event_map_list"
         const val ATTRACTION_ID: String = "attraction_id"
+        const val EVENT_ID: String = "event_id"
         const val CATEGORY: String = "category"
         const val BECON_LIST: String = "becon_list"
         const val BECON_OBJECT: String = "becon_object"

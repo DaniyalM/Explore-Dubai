@@ -43,6 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/share_your_feedback_and_help_us_improve_nyour_experience"
@@ -53,6 +54,32 @@
         app:layout_constraintStart_toStartOf="@+id/fill_out_survey"
         app:layout_constraintTop_toBottomOf="@+id/fill_out_survey" />
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSurvey"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_submit"
+
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/btn_submit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/btn_border_login"
+        android:foreground="@drawable/custom_ripple_border"
+        android:gravity="center"
+        android:text="@string/submit_survey"
+        android:textColor="@color/white_900"
+        android:textSize="@dimen/_12ssp"
+        android:transitionName="action_btn"
+        android:layout_marginStart="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@ import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
 import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
 import com.app.dubaiculture.data.repository.event.remote.response.ScheduleResponse
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
@@ -21,7 +22,7 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
 
     suspend fun fetchHomeEvents(homeEventRequest: EventRequest): Result<EventHomeListing> {
         return when (val resultRds =
-            eventRDS.getEvent(transformHomeEventListingRequest(homeEventRequest))) {
+                eventRDS.getEvent(transformHomeEventListingRequest(homeEventRequest))) {
             is Result.Success -> {
                 val listLds = resultRds
                 if (listLds.value.statusCode != 200) {
@@ -30,8 +31,8 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
 //                    val listRDS=transformOtherEvents(listLds.value)
 //                    val listRds = transformHomeEventListing(listLds.value)
                     Result.Success(EventHomeListing(
-                        featureEvents = transformFeaturedEvents(listLds.value),
-                        events = transformOtherEvents(listLds.value)
+                            featureEvents = transformFeaturedEvents(listLds.value),
+                            events = transformOtherEvents(listLds.value)
                     ))
                 }
             }
@@ -44,7 +45,7 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
 
     suspend fun fetchEventsbyFilters(eventRequest: EventRequest): Result<List<Events>> {
         return when (val resultRds =
-            eventRDS.getEventsByFilter(transformEventFiltersRequest(eventRequest))) {
+                eventRDS.getEventsByFilter(transformEventFiltersRequest(eventRequest))) {
             is Result.Success -> {
                 val eventLDS = resultRds
                 if (eventLDS.value.statusCode != 200) {
@@ -61,7 +62,7 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
 
     suspend fun fetchDetailEvent(eventRequest: EventRequest): Result<Events> {
         return when (val resultRds =
-            eventRDS.getEventDetail(transformEventDetailRequest(eventRequest))) {
+                eventRDS.getEventDetail(transformEventDetailRequest(eventRequest))) {
             is Result.Success -> {
                 val eventLDS = resultRds
                 if (eventLDS.value.statusCode != 200) {
@@ -97,7 +98,7 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
 
     suspend fun fetchDataFilterBtmSheet(eventRequest: EventRequest): Result<EventFilterData> {
         return when (val resultRds =
-            eventRDS.getDataFilterBottomSheet(transformHomeEventListingRequest(eventRequest))) {
+                eventRDS.getDataFilterBottomSheet(transformHomeEventListingRequest(eventRequest))) {
             is Result.Success -> {
                 val eventLDS = resultRds
                 if (eventLDS.value.statusCode != 200) {
@@ -105,9 +106,9 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
                 } else {
                     Result.Success(EventFilterData(
 
-                        radioGroupList = transformationRadioList(eventLDS.value),
-                        categoryList = transformationCategoryList(eventLDS.value),
-                        locationList = transformationlocationList(eventLDS.value)
+                            radioGroupList = transformationRadioList(eventLDS.value),
+                            categoryList = transformationCategoryList(eventLDS.value),
+                            locationList = transformationlocationList(eventLDS.value)
                     ))
                 }
             }
@@ -122,4 +123,32 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
         }
     }
 
+
+    suspend fun submitRegister(
+            eventId: String,
+            slotId: String,
+            occupation: String,
+            file: MultipartBody.Part? = null
+    ): Result<EventResponse> {
+        val response = eventRDS.getEventRegister(
+                eventId.trim(),
+                slotId.trim(),
+                occupation.trim(),
+                file
+        )
+        return if (response is Result.Success){
+            if (response.value.succeeded) {
+                Result.Success(response.value)
+            } else {
+                if (response.value.errorMessage == "") {
+                    Result.Failure(false, null, null, "asd" + " Please try again")
+                } else {
+                    Result.Failure(false, null, null, response.value.errorMessage)
+                }
+            }
+        } else {
+           Result.Failure(true, null, null, "Error")
+        }
+
+    }
 }

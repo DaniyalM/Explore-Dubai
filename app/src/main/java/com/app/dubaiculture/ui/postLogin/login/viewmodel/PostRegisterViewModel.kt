@@ -24,7 +24,6 @@ class PostRegisterViewModel @ViewModelInject constructor(
     private val registrationRepository: RegistrationRepository,
 ) : BaseViewModel(application) {
 
-
     // Validation
     var btnEnabled: ObservableBoolean = ObservableBoolean(false)
 

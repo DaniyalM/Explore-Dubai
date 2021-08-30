@@ -93,7 +93,6 @@ object EventUtilFunctions {
             snackbar.setAction("Retry") {
                 it.elevation =1000F
             }
-
         }
 
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {

@@ -222,6 +222,7 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
         emailContact = eventDTO.emailContact,
         numberContact = eventDTO.numberContact,
         isFavourite = eventDTO.isFavourite,
+        isRegistered = eventDTO.isRegistered,
         socialLink = eventDTO.socialLinks?.let {
             it.map {
                 SocialLink(
@@ -249,7 +250,8 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                                     EventScheduleItemsSlots(
                                             summary = it.summary,
                                             timeFrom = it.timeFrom,
-                                            timeTo = it.timeTo
+                                            timeTo = it.timeTo,
+                                            slotId = it.slotId
                                     )
                                 }
                         )

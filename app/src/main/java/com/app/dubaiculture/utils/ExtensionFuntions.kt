@@ -281,6 +281,18 @@ fun Date.toString(format: String): String {
     val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
     return dateFormatter.format(this)
 }
+fun View.show() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.show(show: Boolean) {
+    this.visibility = if (show) View.VISIBLE else View.GONE
+}
+
+fun View.hide() {
+    this.visibility = View.GONE
+}
+
 
 
 fun gettime(): String? {

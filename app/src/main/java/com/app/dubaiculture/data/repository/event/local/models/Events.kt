@@ -26,6 +26,7 @@ data class Events(
     var longitude: String? = "",
     var latitude: String? = "",
     var isFavourite: Boolean = false,
+    var isRegistered: Boolean = false,
     var color: String? = null,
     var dateTo: String = "",
     var dateFrom: String = "",

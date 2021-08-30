@@ -367,7 +367,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         )
         startActivity(browserIntent)
     }
-
     fun openWebWithoutBaseUrl(url: String) {
         val browserIntent = Intent(
             Intent.ACTION_VIEW,
@@ -375,12 +374,10 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         )
         startActivity(browserIntent)
     }
-
     fun openDiallerBox(number: String? = null) {
         val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null))
         requireActivity().startActivity(intent)
     }
-
     fun favouriteClick(
         checkbox: CheckBox,
         isFav: Boolean,
@@ -414,10 +411,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                     )
                 }
             }
-
         }
     }
-
     fun getColorWithAlpha(color: Int, ratio: Float): Int {
         var newColor = 0
         val alpha = Math.round(Color.alpha(color) * ratio).toInt()
@@ -427,7 +422,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         newColor = Color.argb(alpha, r, g, b)
         return newColor
     }
-
     fun navigateToGoogleMap(
         currentLat: String,
         currentLng: String,
@@ -444,13 +438,4 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             showToast("Please install a Google map application", requireContext())
         }
     }
-
-//    protected fun openFragment(fragment: Fragment, tag: String?) {
-//        requireActivity().supportFragmentManager.beginTransaction()
-//                .add(fragment, tag)
-//                .addToBackStack(null)
-//                .commit()
-//    }
-
-
 }

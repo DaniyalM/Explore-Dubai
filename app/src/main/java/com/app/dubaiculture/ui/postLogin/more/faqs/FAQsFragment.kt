@@ -88,7 +88,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
                             )
                         )
                     }
-                }else{
+                }else {
                     binding.imgCancel.visibility= View.VISIBLE
                     list.map {
                         faqsListAdapter.add(
@@ -103,10 +103,8 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
                 }
                 faqsListAdapter.notifyDataSetChanged()
             }
-
         })
     }
-
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.img_close ->{

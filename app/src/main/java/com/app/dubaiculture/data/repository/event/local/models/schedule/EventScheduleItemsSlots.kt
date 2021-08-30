@@ -7,5 +7,10 @@ import kotlinx.parcelize.Parcelize
 data class EventScheduleItemsSlots(
     val     timeFrom : String ? =null,
     val timeTo : String ?= null,
-    val summary : String ? =null
-):Parcelable
+    val summary : String ? =null,
+    val slotId : String ? =null
+):Parcelable{
+    override fun toString(): String {
+        return timeFrom.toString()+ " "+ timeTo
+    }
+}

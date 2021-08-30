@@ -109,6 +109,11 @@ data class EventsDTO(
     var numberContact: String = "",
 
 
+    @SerializedName("IsRegistered")
+    @Expose
+    var isRegistered: Boolean= false,
+
+
     @SerializedName("EventSchedule")
     @Expose
     val eventSchedule: List<EventScheduleDTO> = emptyList(),

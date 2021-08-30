@@ -9,6 +9,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.speech.tts.TextToSpeech
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
@@ -33,6 +35,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.GoogleMap.DESTINATION
 import com.app.dubaiculture.utils.Constants.GoogleMap.LINK_URI
 import com.app.dubaiculture.utils.Constants.GoogleMap.PACKAGE_NAME_GOOGLE_MAP
@@ -72,11 +75,15 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     private lateinit var verticalLayoutManager: RecyclerView.LayoutManager
     private lateinit var myAdapter: RecyclerView.Adapter<*>
     val parentItemList = ArrayList<EventScheduleItems>()
+    val getTimeSlotList = ArrayList<EventScheduleItemsSlots>()
+    var slotTime = ArrayList<EventScheduleItemsSlots>()
     val moreEvents = ArrayList<Events>()
     val childItemHolder: ArrayList<ArrayList<EventScheduleItemsSlots>> = ArrayList()
     var isDetailFavouriteFlag = false
     var emailContact: String? = null
     var numberContact: String? = null
+
+    var isRegisterd = false
 
     lateinit var eventDetailInnerLayout: EventDetailInnerLayoutBinding
     lateinit var eventDetailScheduleLayoutBinding: EventDetailScheduleLayoutBinding
@@ -152,6 +159,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         uiActions()
         rvSetUp()
         subscribeToGpsListener()
+
+
         enableRegistration(eventObj.registrationDate)
         if (eventObj.isFavourite) {
             binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
@@ -423,9 +432,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 }
             }
             R.id.btn_reg -> {
-//                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
+                val bundle = Bundle()
+                bundle.putParcelableArrayList(
+                        Constants.NavBundles.SCHEDULE_ITEM_SLOT,  slotTime as ArrayList<out Parcelable>)
+                bundle.putString(Constants.NavBundles.EVENT_ID, eventObj.id)
+//                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
+                findNavController().navigate(R.id.action_eventDetailFragment2_to_registerNowFragment, bundle)
             }
-//            R.id.favourite -> {
+//            R.id.favourite -> {00000000
 //
 //                navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
 //            }
@@ -499,7 +513,17 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 is Result.Success -> {
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
+                    isRegisterd = it.value.isRegistered
+                    if(isRegisterd){
+                        binding.toolbarLayoutEventDetail.btnReg.isClickable = false
+                        binding.toolbarLayoutEventDetail.btnReg.alpha =0.4f
+                    }else{
+                        binding.toolbarLayoutEventDetail.btnReg.isClickable = true
+                        binding.toolbarLayoutEventDetail.btnReg.alpha =1f
+                    }
                     enableRegistration(it.value.registrationDate)
+                    slotTime.clear()
+                    parentItemList.clear()
                     if (numberContact.isNullOrEmpty()) {
                         binding.eventDetailInnerLayout.llCallus.alpha = 0.2f
                         binding.eventDetailInnerLayout.llCallus.isClickable = false
@@ -523,7 +547,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         parentItemList.forEach {
                             childItemHolder.add(it.eventScheduleItemsSlots as ArrayList<EventScheduleItemsSlots>)
                         }
+
                     }
+                    slotTime =  getScheduleTimeSlot()
+
                     if (eventListAdapter.itemCount > 0) {
                         eventListAdapter.clear()
                     }
@@ -640,6 +667,15 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             binding.imageView4.visibility = View.GONE
             binding.swipeRefreshLayout.isEnabled = true
         }
+    }
+
+    private fun getScheduleTimeSlot():ArrayList<EventScheduleItemsSlots>{
+        parentItemList.map{
+            it.eventScheduleItemsSlots?.forEach {
+                getTimeSlotList.add(EventScheduleItemsSlots(timeFrom = it.timeFrom,timeTo = it.timeTo,slotId = it.slotId,summary = it.summary))
+            }
+        }
+        return getTimeSlotList
     }
 }
 
