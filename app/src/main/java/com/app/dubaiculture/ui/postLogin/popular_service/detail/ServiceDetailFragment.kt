@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.popular_service.local.models.EServicesDetail
@@ -14,15 +12,18 @@ import com.app.dubaiculture.databinding.FragmentServiceDetailFragmentBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.popular_service.detail.adapters.ServiceHeaderPagerAdapter
 import com.app.dubaiculture.ui.postLogin.popular_service.detail.viewmodels.ServiceDetailViewModel
+import com.app.dubaiculture.utils.OnSwipeTouchListener
 import com.app.dubaiculture.utils.handleApiError
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>() {
     //    private lateinit var serviceObject: PopularServices
     private val serviceDetailViewModel: ServiceDetailViewModel by viewModels()
+
     private var serviceId: String = "89F321A2034E49AEACE41865CD5862DA"
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -45,6 +46,7 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(serviceDetailViewModel)
+
 //        binding.swipeRefreshLayout.setOnRefreshListener {
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
@@ -82,6 +84,20 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
 
         }.attach()
 
+
+        binding.forumPager.getChildAt(0)
+            .setOnTouchListener(object : OnSwipeTouchListener(activity) {
+                override fun onSwipeTop() {
+                    if (binding.forumPager.currentItem <= TabHeaders.values().size)
+                        binding.forumPager.currentItem += 1
+                }
+
+                override fun onSwipeBottom() {
+                    super.onSwipeBottom()
+                    if (binding.forumPager.currentItem <= TabHeaders.values().size)
+                        binding.forumPager.currentItem -= 1
+                }
+            })
 //        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 //
 //            override fun onTabSelected(tab: TabLayout.Tab?) {
