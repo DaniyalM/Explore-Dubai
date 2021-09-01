@@ -145,6 +145,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         eventDetailInnerLayout = binding.eventDetailInnerLayout
+        toolbarLayoutEventDetailBinding=binding.toolbarLayoutEventDetail
         locationPermission()
         subscribeUiEvents(eventViewModel)
         callingObservables()
