@@ -61,17 +61,26 @@ data class EventListItem<T : ViewDataBinding>(
                     }
 
 
-                    if (hasSurvey) {
+                    if (!event.isSurveySubmitted) {
                         binding.btnSurvery.visibility = View.VISIBLE
-                        if (!event.isSurveySubmitted) {
-                            binding.btnSurvery.background = ContextCompat.getDrawable(
-                                context,
-                                R.drawable.my_event_btn_enable
+                        binding.btnSurvery.background = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.my_event_btn_enable
                             //if you want to disable then use R.drawable.bg_btn_filled_disabled.
                             // change text color too white to purple.
-                            )
-                            binding.btnSurvery.text = "Survey Submitted"
-                        }
+                        )
+                        binding.btnSurvery.text = context.resources.getString(R.string.submit_survey)
+
+                    }else{
+                        binding.btnSurvery.visibility = View.VISIBLE
+                        binding.btnSurvery.background = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.bg_btn_filled_disabled
+                            //if you want to disable then use R.drawable.bg_btn_filled_disabled.
+                            // change text color too white to purple.
+                        )
+                        binding.btnSurvery.text = context.resources.getString(R.string.submit_survey)
+                        binding.btnSurvery.setTextColor(context.resources.getColor(R.color.white_900))
                     }
 
                     binding.favourite.setOnClickListener {

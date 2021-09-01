@@ -203,6 +203,8 @@
                     android:hint="@string/select_your_time_period"
                     android:imeOptions="actionNext"
                     android:inputType="text"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.906"
                     app:layout_constraintStart_toStartOf="parent"

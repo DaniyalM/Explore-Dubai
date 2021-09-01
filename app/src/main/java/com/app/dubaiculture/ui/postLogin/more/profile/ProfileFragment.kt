@@ -82,8 +82,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 //                }
                 myEventsView.setOnClickListener {
 
-                    navigate(R.id.action_profileFragment_to_serviceDetailFragment)
-//                    navigate(R.id.action_profileFragment_to_myEventsFragment)
+//                    navigate(R.id.action_profileFragment_to_serviceDetailFragment)
+                    navigate(R.id.action_profileFragment_to_myEventsFragment)
                 }
 //                editProfile.setOnClickListener {
 ////                    navigate(R.id.action_profileFragment_to_editProfileFragment)

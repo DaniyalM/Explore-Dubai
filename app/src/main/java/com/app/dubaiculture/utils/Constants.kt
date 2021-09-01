@@ -18,6 +18,7 @@ object Constants {
     object PHOTO {
         const val FILE_PROVIDER: String = "com.app.dubaiculture.fileprovider"
         const val REQUEST_IMAGE_CAPTURE = 1
+        const val REQUEST_PDF_PICKER = 2
         const val FORMAT_JPG = "jpg"
         const val FORMAT_JPEG = "jpeg"
         const val FORMAT_PNG = "png"

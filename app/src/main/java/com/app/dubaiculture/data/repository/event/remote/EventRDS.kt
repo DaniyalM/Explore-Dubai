@@ -46,6 +46,14 @@ class EventRDS @Inject constructor(private val eventService: EventService) : Bas
 
         }
 
+
+    suspend fun getMyEvent(locale : String) =
+        safeApiCall {
+            eventService.getMyEvent(locale)
+
+        }
+
+
     suspend fun getEventRegister(
             eventId: String,
             slotId: String,

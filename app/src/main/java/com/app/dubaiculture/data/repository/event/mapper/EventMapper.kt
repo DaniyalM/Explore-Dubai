@@ -111,6 +111,7 @@ fun transformEventList(events: List<EventsDTO>): List<Events> =
                     toDay = it.toDay,
                     type = it.type,
                     registrationDate = it.registrationDate,
+                    isSurveySubmitted = it.isSurveyed,
 //            color=it.color,
                     dateTo = it.dateTo,
                     dateFrom = it.dateFrom,
@@ -119,7 +120,9 @@ fun transformEventList(events: List<EventsDTO>): List<Events> =
                     longitude = it.longitude,
                     latitude = it.latitude,
                     isFavourite = it.isFavourite,
-            )
+                    isRegistered = it.isRegistered,
+
+                    )
         }
 
 fun transformOtherEventList(events: ArrayList<EventsDTO>): ArrayList<Events> =

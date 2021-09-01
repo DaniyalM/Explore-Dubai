@@ -112,6 +112,9 @@ data class EventsDTO(
     @SerializedName("IsRegistered")
     @Expose
     var isRegistered: Boolean= false,
+    @SerializedName("IsSurveyed")
+    @Expose
+    var isSurveyed: Boolean= false,
 
 
     @SerializedName("EventSchedule")

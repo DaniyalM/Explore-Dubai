@@ -513,14 +513,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 is Result.Success -> {
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
-                    isRegisterd = it.value.isRegistered
-                    if(isRegisterd){
-                        binding.toolbarLayoutEventDetail.btnReg.isClickable = false
-                        binding.toolbarLayoutEventDetail.btnReg.alpha =0.4f
-                    }else{
-                        binding.toolbarLayoutEventDetail.btnReg.isClickable = true
-                        binding.toolbarLayoutEventDetail.btnReg.alpha =1f
-                    }
+//                    isRegisterd = it.value.isRegistered
+//                    if(isRegisterd){
+//                        binding.toolbarLayoutEventDetail.btnReg.isClickable = false
+//                        binding.toolbarLayoutEventDetail.btnReg.alpha =0.4f
+//                    }else{
+//                        binding.toolbarLayoutEventDetail.btnReg.isClickable = true
+//                        binding.toolbarLayoutEventDetail.btnReg.alpha =1f
+//                    }
                     enableRegistration(it.value.registrationDate)
                     slotTime.clear()
                     parentItemList.clear()

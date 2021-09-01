@@ -1,7 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.events.detail.registernow
 
 import android.Manifest
-import android.R.attr.path
+import android.R.attr
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
@@ -21,9 +21,14 @@ import com.app.dubaiculture.data.repository.event.local.models.schedule.EventSch
 import com.app.dubaiculture.databinding.FragmentRegisterNowBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.detail.helper.MultipartFormHelper
+import com.app.dubaiculture.ui.postLogin.events.detail.registernow.attachmentOptions.AttachmentOptionFragment
 import com.app.dubaiculture.ui.postLogin.events.detail.registernow.viewmodel.RegisterNowViewModel
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.PHOTO.REQUEST_PDF_PICKER
 import com.app.dubaiculture.utils.FileUtils
+import com.jaiselrahman.filepicker.activity.FilePickerActivity
+import com.jaiselrahman.filepicker.config.Configurations
+import com.jaiselrahman.filepicker.model.MediaFile
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -69,8 +74,8 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.On
 
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
     )= FragmentRegisterNowBinding.inflate(inflater, container, false)
 
 
@@ -80,10 +85,34 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.On
 
         binding.tvUpload.setOnClickListener {
             activity.runWithPermissions(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
             ) {
-                pickPicturesFromGallery()
+                val attachmentOption = AttachmentOptionFragment(object :
+                    AttachmentOptionFragment.AttachmentOptionClickListener {
+                    override fun onOptionSelection(position: Int) {
+                        if (position == 1) {
+                            pickPicturesFromGallery()
+                        } else {
+                            val intent = Intent(activity, FilePickerActivity::class.java)
+                            intent.putExtra(
+                                FilePickerActivity.CONFIGS, Configurations.Builder()
+                                    .setCheckPermission(true)
+                                    .setShowFiles(true)
+                                    .setShowImages(false)
+                                    .setShowAudios(false)
+                                    .setShowVideos(false)
+                                    .setMaxSelection(1)
+                                    .setSuffixes("pdf")
+                                    .setSkipZeroSizeFiles(true)
+                                    .build()
+                            )
+                            startActivityForResult(intent, REQUEST_PDF_PICKER)
+                        }
+                    }
+                })
+                showBottomSheet(attachmentOption)
+//
             }
         }
 
@@ -91,18 +120,21 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.On
             it.getContentIfNotHandled()?.let {
                 if(it == true){
                     val bundle = bundleOf(
-                                                "key" to "RegisterNow"
+                        "key" to "RegisterNow"
+                    )
+                                            navigate(
+                                                R.id.action_registerNowFragment_to_registrationSuccessFragment3,
+                                                bundle
                                             )
-                                            navigate(R.id.action_registerNowFragment_to_registrationSuccessFragment3, bundle)
                 }
             }
         }
     }
     private fun setTypeList(list: List<EventScheduleItemsSlots>) {
         val adapter = ArrayAdapter(
-                activity,
-                android.R.layout.simple_dropdown_item_1line,
-                list
+            activity,
+            android.R.layout.simple_dropdown_item_1line,
+            list
         )
         binding.editTime.setAdapter(adapter)
     }
@@ -115,10 +147,10 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.On
             R.id.btn_submit -> {
                 if (isValidation())
                     registerNowViewModel.registerEvent(
-                            eventId.toString(),
-                            selectedId.toString(),
-                            binding.occupation.text.toString(),
-                            MultipartFormHelper.getMultiPartData(imagesURI!!)
+                        eventId.toString(),
+                        selectedId.toString(),
+                        binding.occupation.text.toString(),
+                        MultipartFormHelper.getMultiPartData(imagesURI!!)
                     )
 
                 //
@@ -164,16 +196,16 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.On
                 photoFile?.also {
                     val photoURI: Uri? = activity?.applicationContext?.let { it1 ->
                         FileProvider.getUriForFile(
-                                it1,
-                                Constants.PHOTO.FILE_PROVIDER,
-                                it
+                            it1,
+                            Constants.PHOTO.FILE_PROVIDER,
+                            it
                         )
                     }
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     val frag: Fragment = this
                     frag.startActivityForResult(
-                            takePictureIntent,
-                            Constants.PHOTO.REQUEST_IMAGE_CAPTURE
+                        takePictureIntent,
+                        Constants.PHOTO.REQUEST_IMAGE_CAPTURE
                     )
                 }
             }
@@ -202,11 +234,13 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.On
                                             val spLength = splitPath.size - 1
                                             if(fileUtil.checkForImagesFormats(splitPath[spLength]))
                                             {
-                                                val filename: String = it.mediaPath.substring(it.mediaPath.lastIndexOf("/") + 1)
-                                                binding.tvUpload.text = filename
+                                                val filename: String = it.mediaPath.substring(
+                                                    it.mediaPath.lastIndexOf(
+                                                        "/"
+                                                    ) + 1
+                                                )
                                                 imagesURI = it.mediaPath
-                                                Timber.d("Image Size: " + fileUtil.calculateFileSize(
-                                                        Uri.fromFile(File(it.mediaPath)).toFile()))
+                                                registerNowViewModel.getImage(filename,imagesURI!!,fileUtil,binding.tvUpload)
                                             }
                                             else{
                                                 isExcludedFormatExist = true
@@ -227,13 +261,17 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.On
         }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == REQUEST_PDF_PICKER && resultCode == Activity.RESULT_OK){
+            val files: ArrayList<MediaFile> = data?.getParcelableArrayListExtra<MediaFile>(FilePickerActivity.MEDIA_FILES)!!
+            registerNowViewModel.getFile(files,fileUtil,binding.tvUpload)
+        }else
         if (requestCode == Constants.PHOTO.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             currentPhotoPath
-
-
             Timber.d(
-                    "Image Size: " + fileUtil.calculateFileSize(
-                            Uri.fromFile(File(currentPhotoPath)).toFile()))
+                "Image Size: " + fileUtil.calculateFileSize(
+                    Uri.fromFile(File(currentPhotoPath)).toFile()
+                )
+            )
 
         }
         super.onActivityResult(requestCode, resultCode, data)

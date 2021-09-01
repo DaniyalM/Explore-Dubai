@@ -34,4 +34,10 @@ interface EventService : BaseService {
         @Part("occupation") occupation: RequestBody,
         @Part Photo: MultipartBody.Part? = null
     ): EventResponse
+
+
+    @GET("/api/Content/GetMyEvents")
+    suspend fun getMyEvent(
+            @Query("culture") culture: String,
+            ): EventResponse
 }

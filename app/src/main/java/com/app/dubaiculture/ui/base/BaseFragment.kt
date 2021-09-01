@@ -37,6 +37,7 @@ import com.app.dubaiculture.utils.event.EventUtilFunctions.showLoader
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showSnackbar
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showToast
 import com.app.dubaiculture.utils.event.UiEvent
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -437,5 +438,13 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         } catch (ex: ActivityNotFoundException) {
             showToast("Please install a Google map application", requireContext())
         }
+    }
+    fun showBottomSheet(
+        bottomSheetFragment: BottomSheetDialogFragment,
+        tag: String? = null
+    ) {
+        bottomSheetFragment.show(
+            requireActivity().supportFragmentManager, tag
+        )
     }
 }

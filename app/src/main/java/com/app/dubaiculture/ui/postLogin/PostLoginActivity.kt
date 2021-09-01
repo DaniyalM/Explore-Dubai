@@ -16,19 +16,13 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class PostLoginActivity : BaseAuthenticationActivity(), NavController.OnDestinationChangedListener {
-
-
     private val navHolding: Int = R.id.nav_host_fragment
-
-
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
         applicationEntry.auth.locale = getCurrentLanguage().language
         hideStatusBar(window)
         getNavControllerFun(navHolding).addOnDestinationChangedListener(this)
-
         recieveLogout()
-
 
     }
 

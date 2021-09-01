@@ -76,6 +76,25 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
         }
     }
 
+    suspend fun fetchMyEvent(locale : String):Result<List<Events>>{
+        return when(val resultRds = eventRDS.getMyEvent(locale)){
+            is Result.Success ->{
+                val eventLDS = resultRds
+                if(eventLDS.value.statusCode!=200){
+                    Result.Failure(true, eventLDS.value.statusCode, null)
+                }else{
+                    Result.Success(transformEventList(resultRds.value.Result.otherEvents))
+                }
+            }
+            is Result.Failure->{
+                resultRds
+            }
+            is Result.Error ->{
+                resultRds
+            }
+        }
+    }
+
 //    suspend fun addToFavourite(addToFavouriteRequest: AddToFavouriteRequest): Result<AddToFavouriteResponse> {
 //        return when (val resultRds =
 //            eventRDS.addItemtoFavorites(transformAddToFavouriteRequest(addToFavouriteRequest))) {
