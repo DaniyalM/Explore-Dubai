@@ -64,12 +64,13 @@ ext {
 //    hilt = "2.35.1"
 //    hiltCompiler = "2.35.1"
    //    hilt = "2.28-alpha"
-    hilt = "2.33-beta"
-    hiltLifeCycleVM = "1.0.0-alpha02"
+//    hilt = "2.33-beta"
+    hilt = "2.35.1"
+//    hiltLifeCycleVM = "1.0.0-alpha02"
 //    hiltCompiler = "1.0.0-alpha02"
-    hiltCompiler = "1.0.0-alpha02"
+//    hiltCompiler = "1.0.0-alpha02"
 //    hiltDagger = "2.28-alpha"
-    hiltDagger = "2.33-beta"
+//    hiltDagger = "2.33-beta"
 
     timber = "4.7.1"
     dataStorePref = "1.0.0-alpha02"
@@ -85,7 +86,7 @@ ext {
     quickpermissionsVersion = '0.4.0'
     localizationVersion = '1.2.5'
     textSize = "1.0.6"
-    paging3 = "3.0.0-alpha09"
+    paging3 = "3.0.0"
     work_version = "2.4.0"
     circle_image_version = "3.1.0"
     google_location_version = "17.1.0"
@@ -151,9 +152,7 @@ ext {
     ]
     di = [
             hilt           : "com.google.dagger:hilt-android:${hilt}",
-            hiltLifeCycleVM: "androidx.hilt:hilt-lifecycle-viewmodel:${hiltLifeCycleVM}",
-            hiltCompiler   : "androidx.hilt:hilt-compiler:${hiltCompiler}",
-            hiltDagger     : "com.google.dagger:hilt-android-compiler:${hiltDagger}"
+            hiltDagger     : "com.google.dagger:hilt-compiler:${hilt}"
     ]
     image_processing = [
             glide        : "com.github.bumptech.glide:glide:${glide}",

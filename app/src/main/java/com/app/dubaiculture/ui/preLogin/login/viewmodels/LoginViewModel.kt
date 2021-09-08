@@ -3,7 +3,6 @@ package com.app.dubaiculture.ui.preLogin.login.viewmodels
 import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -18,11 +17,14 @@ import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
+import dagger.hilt.android.lifecycle.HiltViewModel
 import com.app.dubaiculture.utils.firebase.subscribeToTopic
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class LoginViewModel @ViewModelInject constructor(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val loginRepository: LoginRepository,
     private val userRepository: UserRepository,
     application: Application,
@@ -172,7 +174,6 @@ class LoginViewModel @ViewModelInject constructor(
                             if (!result.value.isConfirmed) {
                                 showErrorDialog(message = result.value.errorMessage)
                                 resendEmailVerification()
-
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
                                 setUser(
@@ -186,15 +187,6 @@ class LoginViewModel @ViewModelInject constructor(
                                     userDTO = result.value.loginResponseDTO.userDTO,
                                     loginResponseDTO = result.value.loginResponseDTO
                                 )
-//                                subscribeToTopic("AndroidBroadcast")
-                                subscribeToTopic("AndroidBroadcast", successCallback = {
-                                    viewModelScope.launch {
-                                        showLoader(false)
-                                    }
-                                }, failureCallback = {
-                                    showLoader(false)
-
-                                })
                             }
                         } else {
                             showLoader(false)

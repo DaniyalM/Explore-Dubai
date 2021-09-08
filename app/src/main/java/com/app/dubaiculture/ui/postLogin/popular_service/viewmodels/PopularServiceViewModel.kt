@@ -5,13 +5,11 @@ import android.content.Context
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.popular_service.ServiceRepository
 import com.app.dubaiculture.data.repository.popular_service.local.models.EService
 import com.app.dubaiculture.data.repository.popular_service.local.models.EServices
@@ -22,9 +20,12 @@ import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PopularServiceViewModel @ViewModelInject constructor(
+@HiltViewModel
+class PopularServiceViewModel @Inject constructor(
     application: Application,
     private val serviceRepository: ServiceRepository,
 ) : BaseViewModel(application, serviceRepository) {
@@ -53,7 +54,10 @@ class PopularServiceViewModel @ViewModelInject constructor(
         }
     }
 
-    fun returnFilterList(categoryID:String?=null,list: List<EService>? = null) : MutableList<EService>{
+    fun returnFilterList(
+        categoryID: String? = null,
+        list: List<EService>? = null
+    ): MutableList<EService> {
         /*temporary for testing*/
         val getFilterData = list?.filter {
             true
@@ -65,12 +69,18 @@ class PopularServiceViewModel @ViewModelInject constructor(
         return getFilterData as MutableList<EService>
     }
 
-    fun returnSearchList(searchList : ArrayList<EService> , editTextKey : EditText , adapter : GroupAdapter<GroupieViewHolder>,imgCancelBtn :ImageView , context : Context){
-    adapter.clear()
-   val myFilterSearchList = searchList.filter {
-           it.title.contains(editTextKey.text.toString().trim(),ignoreCase = true)
+    fun returnSearchList(
+        searchList: ArrayList<EService>,
+        editTextKey: EditText,
+        adapter: GroupAdapter<GroupieViewHolder>,
+        imgCancelBtn: ImageView,
+        context: Context
+    ) {
+        adapter.clear()
+        val myFilterSearchList = searchList.filter {
+            it.title.contains(editTextKey.text.toString().trim(), ignoreCase = true)
         }
-        if(editTextKey.text.toString().trim().isNullOrEmpty()) {
+        if (editTextKey.text.toString().trim().isNullOrEmpty()) {
             imgCancelBtn.visibility = View.GONE
             searchList.map {
                 adapter.add(
@@ -82,7 +92,7 @@ class PopularServiceViewModel @ViewModelInject constructor(
                     )
                 )
             }
-        }else{
+        } else {
             imgCancelBtn.visibility = View.VISIBLE
             myFilterSearchList.map {
                 adapter.add(

@@ -1,7 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.attractions.viewmodels
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -13,9 +12,12 @@ import com.app.dubaiculture.data.repository.attraction.remote.request.Attraction
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.event.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AttractionViewModel @ViewModelInject constructor(
+@HiltViewModel
+class AttractionViewModel @Inject constructor(
     application: Application,
     private val attractionRepository: AttractionRepository,
 ) : BaseViewModel(application, attractionRepository) {
@@ -32,8 +34,6 @@ class AttractionViewModel @ViewModelInject constructor(
 
     private val _attractionDetail: MutableLiveData<Result<Attractions>> = MutableLiveData()
     val attractionDetail: LiveData<Result<Attractions>> = _attractionDetail
-
-
 
 
     fun getAttractionCategoryToScreen(locale: String) {

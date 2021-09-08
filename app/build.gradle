@@ -205,8 +205,8 @@ dependencies {
     implementation config.commonDependency.fragmentKtx
     //Dagger - Hilt
     implementation config.di.hilt
-    implementation config.di.hiltLifeCycleVM
-    kapt config.di.hiltCompiler
+//    implementation config.di.hiltLifeCycleVM
+//    kapt config.di.hiltCompiler
     kapt config.di.hiltDagger
     // Timber
     implementation config.logs.timber

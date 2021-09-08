@@ -22,6 +22,7 @@ import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_NAVIGATION
+import com.app.dubaiculture.utils.Constants.NavBundles.NEW_LOCALE
 import com.app.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
 import com.app.dubaiculture.utils.Constants.NavBundles.SETTING_DESTINATION
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION
@@ -197,13 +198,22 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
                             if (position == 0) {
-                                navigate(R.id.action_moreFragment_to_latestNewsFragment)
+                                navigateByDirections(
+                                    MoreFragmentDirections.actionMoreFragmentToLatestNewsFragment(
+                                        getCurrentLanguage().language
+                                    )
+                                )
+
                             }
                             if (position == 1) {
-                                navigate(R.id.action_moreFragment_to_contactFragment)
+                                navigateByDirections(
+                                    MoreFragmentDirections.actionMoreFragmentToContactFragment()
+                                )
                             }
                             if (position == 2) {
-                                navigate(R.id.action_moreFragment_to_FAQsFragment)
+                                navigateByDirections(
+                                    MoreFragmentDirections.actionMoreFragmentToFAQsFragment()
+                                )
                             }
                             if (position == 3) {
                                 moreViewModel.playStoreOpen(activity)

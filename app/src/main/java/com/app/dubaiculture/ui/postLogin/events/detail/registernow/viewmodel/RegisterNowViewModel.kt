@@ -5,7 +5,6 @@ import android.net.Uri
 import android.widget.TextView
 import androidx.core.net.toFile
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -16,12 +15,16 @@ import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.FileUtils
 import com.app.dubaiculture.utils.event.Event
 import com.jaiselrahman.filepicker.model.MediaFile
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import timber.log.Timber
 import java.io.File
+import javax.inject.Inject
 
-class RegisterNowViewModel @ViewModelInject constructor(application: Application, private val eventRepository: EventRepository,
+@HiltViewModel
+class RegisterNowViewModel @Inject constructor(
+    application: Application, private val eventRepository: EventRepository,
 ) : BaseViewModel(application) {
 
     private var _isRegistered = MutableLiveData<Event<Boolean>>()
