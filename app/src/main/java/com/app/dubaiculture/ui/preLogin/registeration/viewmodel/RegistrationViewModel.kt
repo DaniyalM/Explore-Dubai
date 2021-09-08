@@ -188,8 +188,6 @@ class RegistrationViewModel @Inject constructor(
         isTermAccepted.value = termsAccepted.get() != false
 
 
-
-
         if (fullName.get().toString().trim().isNullOrEmpty()) {
             isfullName.value = false
             _fullnameError.value = R.string.required

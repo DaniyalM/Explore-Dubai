@@ -17,26 +17,25 @@ import javax.inject.Inject
 class MyEventViewModel @Inject constructor(
     application: Application,
     private val eventRepository: EventRepository
-) : BaseViewModel(application) {
+) : BaseViewModel(application,eventRepository) {
 
     private val _myEvents: MutableLiveData<List<Events>> = MutableLiveData()
     val myEvents: LiveData<List<Events>> = _myEvents
 
-    var subject: ObservableField<String> = ObservableField("")
-    var type: ObservableField<String> = ObservableField("")
 
-    fun getMyEvent(locale: String) {
+
+
+    fun getMyEvent(locale : String){
         viewModelScope.launch {
             showLoader(true)
             val result = eventRepository.fetchMyEvent(locale)
-            if (result is Result.Success) {
-                showLoader(false)
-                _myEvents.value = result.value
+                if(result is Result.Success){
+                    showLoader(false)
+                    _myEvents.value = result.value
 
-            } else if (result is Result.Failure) {
-                showLoader(false)
-
+                }else if(result is Result.Failure){
+                    showLoader(false)
+                }
             }
         }
     }
-}

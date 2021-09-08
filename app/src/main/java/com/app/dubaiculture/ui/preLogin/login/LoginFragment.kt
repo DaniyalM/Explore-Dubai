@@ -3,6 +3,7 @@ package com.app.dubaiculture.ui.preLogin.login
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +17,10 @@ import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
-import com.app.dubaiculture.utils.firebase.getFcmToken
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
+import com.google.firebase.iid.FirebaseInstanceId
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -46,7 +47,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
 //        SystemRequirementsChecker.Requirement.LOCATION_DISABLED
-
+        Log.e("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
 
 //        applicationExitDialog()
         lottieAnimationRTL(binding.animationView)

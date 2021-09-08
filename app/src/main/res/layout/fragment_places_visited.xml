@@ -20,6 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="8dp"
+
                 android:text="@string/places_visited"
                 style="@style/TextViewStyle"
                 android:textSize="32sp"

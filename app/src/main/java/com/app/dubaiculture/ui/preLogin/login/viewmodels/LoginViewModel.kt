@@ -18,6 +18,7 @@ import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import dagger.hilt.android.lifecycle.HiltViewModel
+import com.app.dubaiculture.utils.firebase.subscribeToTopic
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject

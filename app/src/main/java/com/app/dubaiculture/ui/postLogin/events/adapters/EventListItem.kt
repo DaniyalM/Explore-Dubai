@@ -54,13 +54,21 @@ data class EventListItem<T : ViewDataBinding>(
             is ItemEventListingBinding -> {
                 viewBinding.let { binding->
                     binding.events = event
-
                     if (event.isFavourite) {
                         binding.favourite.background =
-                            ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
+                                ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
                     }
+                    binding.favourite.setOnClickListener {
+                        event.id?.let { itemId ->
+                            favChecker!!.checkFavListener(
+                                    binding.favourite,
+                                    position,
+                                    event.isFavourite,
+                                    itemId
+                            )
 
-
+                        }
+                    }
                     if (!event.isSurveySubmitted) {
                         binding.btnSurvery.visibility = View.VISIBLE
                         binding.btnSurvery.background = ContextCompat.getDrawable(
@@ -83,17 +91,6 @@ data class EventListItem<T : ViewDataBinding>(
                         binding.btnSurvery.setTextColor(context.resources.getColor(R.color.white_900))
                     }
 
-                    binding.favourite.setOnClickListener {
-                        event.id?.let { itemId ->
-                            favChecker!!.checkFavListener(
-                                binding.favourite,
-                                position,
-                                event.isFavourite,
-                                itemId
-                            )
-
-                        }
-                    }
                     binding.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
                     }
