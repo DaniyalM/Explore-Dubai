@@ -198,11 +198,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
                             if (position == 0) {
-                                Bundle().apply {
-                                    putString(NEW_LOCALE,getCurrentLanguage().language)
-                                }
                                 navigateByDirections(
-                                    MoreFragmentDirections.actionMoreFragmentToLatestNewsFragment()
+                                    MoreFragmentDirections.actionMoreFragmentToLatestNewsFragment(
+                                        getCurrentLanguage().language
+                                    )
                                 )
 
                             }

@@ -78,7 +78,7 @@ object Constants {
         const val NEWS_NAVIGATION: String = "news_navigation"
         const val MORE_FRAGMENT: String = "more_fragment"
         const val SETTING_DESTINATION: String = "setting_fragment_destination"
-        const val NEW_LOCALE: String = "Locale_news"
+        const val NEW_LOCALE: String = "culture"
 
 
     }
@@ -167,7 +167,7 @@ object Constants {
     }
 
     object PAGING {
-        const val NEW_PAGING_SIZE: Int = 20
+        const val NEW_PAGING_SIZE: Int = 2
 
 
     }

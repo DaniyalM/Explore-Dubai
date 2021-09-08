@@ -1,6 +1,7 @@
 package com.app.dubaiculture.data.repository.news.remote
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.app.dubaiculture.data.repository.news.remote.request.LatestNewsDTO
 import com.app.dubaiculture.data.repository.news.remote.request.NewsRequestDTO
 import com.app.dubaiculture.data.repository.news.service.NewsService
@@ -17,14 +18,16 @@ class NewsPagingSource(
         return try {
             val nextPageNumber = params.key ?: 1
             val response = newsService.getLatestNews(
-                pageNumber= NEW_PAGING_SIZE,
+                pageNumber= nextPageNumber,
                 pageSize = NEW_PAGING_SIZE * nextPageNumber,
                 culture = newsRequestDTO.culture
             )
             LoadResult.Page(
                 data = response.Result.news,
                 prevKey = null,
-                nextKey = if (nextPageNumber == 3) null else nextPageNumber + 1
+                nextKey = if (response.Result.news.size < NEW_PAGING_SIZE) null else nextPageNumber.plus(
+                    1
+                )
             )
         } catch (e: Exception) {
             // Handle errors in this block and return LoadResult.Error if it is an
@@ -32,5 +35,9 @@ class NewsPagingSource(
             LoadResult.Error(e)
 
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, LatestNewsDTO>): Int? {
+        return state.anchorPosition
     }
 }

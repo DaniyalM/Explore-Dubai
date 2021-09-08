@@ -33,56 +33,58 @@ class NewsViewModel @Inject constructor(
     val newsPagination: LiveData<PagingData<LatestNews>> = _newsPagination
 
     init {
-        viewModelScope.launch {
-            savedStateHandle.get<String>(NEW_LOCALE)?.let {
-                getNews(it)
-                getLatestNews(it)
-            }
-        }
+        getNews()
+        getLatestNews()
+
     }
 
-    suspend fun refreshDiscussions() {
+     fun refreshNews() {
         _newsPagination.value = PagingData.empty()
+        _newsLatest.value = mutableListOf()
+        getNews()
+        getLatestNews()
+    }
+
+    fun getLatestNews() {
         savedStateHandle.get<String>(NEW_LOCALE)?.let {
             viewModelScope.launch {
-                getNews(savedStateHandle.get<String>(NEW_LOCALE))
-                getLatestNews(savedStateHandle.get<String>(NEW_LOCALE))
-            }
-        }
-
-    }
-
-    fun getLatestNews(culture: String? = "en") {
-        viewModelScope.launch {
-            when (val result = newsRespository.getLatestNews(
-                NewsRequest(
-                    culture = culture!!
-                )
-            )) {
-                is Result.Success -> {
-                    _newsLatest.value = result.value
-                }
-                is Result.Failure -> result
-                is Result.Error -> result
-            }
-        }
-    }
-
-    suspend fun getNews(culture: String? = "en") {
-        val result = newsRespository.getNews(NewsRequest(culture = culture!!))
-        showLoader(false)
-        when (result) {
-            is Result.Success -> {
-                result.value
-                    .cachedIn(viewModelScope)
-                    .collectLatest {
-                        _newsPagination.value = it
+                when (val result = newsRespository.getLatestNews(
+                    NewsRequest(
+                        culture = it ?: "en"
+                    )
+                )) {
+                    is Result.Success -> {
+                        _newsLatest.value = result.value
                     }
-            }
-            is Result.Failure -> {
-                showAlert(result.errorMessage.toString())
+                    is Result.Failure -> result
+                    is Result.Error -> result
+                }
             }
         }
+
+    }
+
+    fun getNews() {
+        savedStateHandle.get<String>(NEW_LOCALE)?.let {
+            viewModelScope.launch {
+
+                val result = newsRespository.getNews(NewsRequest(culture = it ?: "en"))
+                showLoader(false)
+                when (result) {
+                    is Result.Success -> {
+                        result.value
+                            .cachedIn(viewModelScope)
+                            .collectLatest {
+                                _newsPagination.value = it
+                            }
+                    }
+                    is Result.Failure -> {
+                        showAlert(result.errorMessage.toString())
+                    }
+                }
+            }
+        }
+
 
     }
 
