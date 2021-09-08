@@ -1,7 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.survey.viewmodel
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,7 +13,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SurveyViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SurveyViewModel @Inject constructor(
     application: Application,
     private val surveyRepository: SurveyRepository
 ) : BaseViewModel(application) {
@@ -36,8 +36,6 @@ class SurveyViewModel @ViewModelInject constructor(
             }
         }
     }
-
-
 
 
     fun postSurvey(form: Form) {

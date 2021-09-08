@@ -4,7 +4,6 @@ import android.app.Application
 import android.widget.CompoundButton
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -16,10 +15,13 @@ import com.app.dubaiculture.ui.postLogin.login.PostRegisterFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
 import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequest
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class PostRegisterViewModel @ViewModelInject constructor(
+@HiltViewModel
+class PostRegisterViewModel @Inject constructor(
     application: Application,
     private val registrationRepository: RegistrationRepository,
 ) : BaseViewModel(application) {
@@ -79,21 +81,31 @@ class PostRegisterViewModel @ViewModelInject constructor(
             ).let {
                 when (val result = registrationRepository.register(it)) {
                     is Result.Error -> {
-                        showErrorDialog(message = result.exception.toString(),colorBg = R.color.red_600)
+                        showErrorDialog(
+                            message = result.exception.toString(),
+                            colorBg = R.color.red_600
+                        )
                     }
                     is Result.Success -> {
                         if (result.value.succeeded) {
                             navigateByDirections(
                                 PostRegisterFragmentDirections.actionPostRegisterFragmentToPostOTPDialogFragment(
-                                result.value.registrationResponseDTO.verificationCode,
+                                    result.value.registrationResponseDTO.verificationCode,
                                     "registerFragment"
-                            ))
+                                )
+                            )
                         } else {
-                            showErrorDialog(message = result.value.errorMessage,  colorBg = R.color.red_600)
+                            showErrorDialog(
+                                message = result.value.errorMessage,
+                                colorBg = R.color.red_600
+                            )
                         }
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR,  colorBg = R.color.red_600)
+                        showErrorDialog(
+                            message = Constants.Error.INTERNET_CONNECTION_ERROR,
+                            colorBg = R.color.red_600
+                        )
                         Timber.e(result.errorCode?.toString())
                     }
                 }
@@ -101,7 +113,6 @@ class PostRegisterViewModel @ViewModelInject constructor(
             showLoader(false)
         }
     }
-
 
 
     fun onFullNameChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
@@ -125,7 +136,7 @@ class PostRegisterViewModel @ViewModelInject constructor(
 
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
-        val number   = AuthUtils.isPhoneNumberValidate(s.toString().trim())
+        val number = AuthUtils.isPhoneNumberValidate(s.toString().trim())
         isPhone.value = number!!.isValid
         errs_.value = AuthUtils.errorsPhone(s.toString().trim())
     }
@@ -138,11 +149,15 @@ class PostRegisterViewModel @ViewModelInject constructor(
 
     fun onConfirmPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         passwordConifrm.set(s.toString())
-        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(password.get().toString(),
-            passwordConifrm.get().toString().trim())
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(
+            password.get().toString(),
+            passwordConifrm.get().toString().trim()
+        )
         passwordConfirmError_.value =
-            AuthUtils.isMatchPasswordError(password.get().toString().trim(),
-                passwordConifrm.get().toString().trim())
+            AuthUtils.isMatchPasswordError(
+                password.get().toString().trim(),
+                passwordConifrm.get().toString().trim()
+            )
 
     }
 
@@ -164,10 +179,14 @@ class PostRegisterViewModel @ViewModelInject constructor(
         isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
         passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
         passwordConfirmError_.value =
-            AuthUtils.isMatchPasswordError(password.get().toString().trim(),
-                passwordConifrm.get().toString().trim())
-        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(password.get().toString(),
-            passwordConifrm.get().toString().trim())
+            AuthUtils.isMatchPasswordError(
+                password.get().toString().trim(),
+                passwordConifrm.get().toString().trim()
+            )
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(
+            password.get().toString(),
+            passwordConifrm.get().toString().trim()
+        )
         isTermAccepted.value = termsAccepted.get() != false
 
 
@@ -196,8 +215,10 @@ class PostRegisterViewModel @ViewModelInject constructor(
         if (!AuthUtils.isValidPasswordFormat(password.get().toString().trim())) {
             isValid = false
         }
-        if (!AuthUtils.isMatchPasswordBool(password.get().toString(),
-                passwordConifrm.get().toString().trim())
+        if (!AuthUtils.isMatchPasswordBool(
+                password.get().toString(),
+                passwordConifrm.get().toString().trim()
+            )
         ) {
             isValid = false
         }

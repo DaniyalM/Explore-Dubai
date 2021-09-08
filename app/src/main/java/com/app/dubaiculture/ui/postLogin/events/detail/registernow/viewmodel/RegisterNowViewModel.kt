@@ -4,7 +4,6 @@ import android.app.Application
 import android.net.Uri
 import android.widget.TextView
 import androidx.core.net.toFile
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,64 +13,68 @@ import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.FileUtils
 import com.app.dubaiculture.utils.event.Event
 import com.jaiselrahman.filepicker.model.MediaFile
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import timber.log.Timber
 import java.io.File
+import javax.inject.Inject
 
-class RegisterNowViewModel @ViewModelInject constructor(application: Application, private val eventRepository: EventRepository,
+@HiltViewModel
+class RegisterNowViewModel @Inject constructor(
+    application: Application, private val eventRepository: EventRepository,
 ) : BaseViewModel(application) {
 
     private var _isRegistered = MutableLiveData<Event<Boolean>>()
     var isRegistered: LiveData<Event<Boolean>> = _isRegistered
-     fun registerEvent(
-        eventId:String,
-        slotId:String ,
+    fun registerEvent(
+        eventId: String,
+        slotId: String,
         occupation: String,
-        file : MultipartBody.Part? = null
-    ){
+        file: MultipartBody.Part? = null
+    ) {
         viewModelScope.launch {
             showLoader(true)
-            val result =   eventRepository.submitRegister(
+            val result = eventRepository.submitRegister(
                 eventId.trim(),
                 slotId.trim(),
                 occupation.trim(),
                 file
             )
-            if(result is Result.Success){
+            if (result is Result.Success) {
                 showLoader(false)
                 _isRegistered.value = Event(true)
                 showToast(result.value.Result.message)
                 Timber.e("" + result.value.Result.message)
 
-            }else if(result is Result.Failure){
+            } else if (result is Result.Failure) {
                 showLoader(false)
                 Timber.e("" + result)
             }
         }
     }
 
-    fun getFile(fileList : ArrayList<MediaFile>, fileUtil : FileUtils , fileTextView : TextView){
-      val name =  fileList[0].name
+    fun getFile(fileList: ArrayList<MediaFile>, fileUtil: FileUtils, fileTextView: TextView) {
+        val name = fileList[0].name
         val path = fileList[0].path
-        val fileSize =  fileUtil.calculateFileSize(Uri.fromFile(File(path)).toFile())
-        Timber.e("File Size=>"+fileSize)
-        if(fileSize>2){
-            fileTextView.text =""
+        val fileSize = fileUtil.calculateFileSize(Uri.fromFile(File(path)).toFile())
+        Timber.e("File Size=>" + fileSize)
+        if (fileSize > 2) {
+            fileTextView.text = ""
             showToast("PDF format not exceeding 2MB")
-        }else{
-            fileTextView.text =name
+        } else {
+            fileTextView.text = name
         }
     }
 
-    fun getImage(imgName : String ,path : String , fileUtil : FileUtils , fileTextView : TextView){
-        val fileSize =  fileUtil.calculateFileSize(Uri.fromFile(File(path)).toFile())
-        Timber.e("File Size=>"+fileSize)
-        if(fileSize>2){
-            fileTextView.text =""
+    fun getImage(imgName: String, path: String, fileUtil: FileUtils, fileTextView: TextView) {
+        val fileSize = fileUtil.calculateFileSize(Uri.fromFile(File(path)).toFile())
+        Timber.e("File Size=>" + fileSize)
+        if (fileSize > 2) {
+            fileTextView.text = ""
             showToast("PDF format not exceeding 2MB")
-        }else{
-            fileTextView.text =imgName
+        } else {
+            fileTextView.text = imgName
         }
     }
 }

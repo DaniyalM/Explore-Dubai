@@ -38,6 +38,14 @@ fun transformNewsResponse(newsDTO: List<LatestNewsDTO>) = newsDTO.map {
 
 }
 
+fun transformNewsPaging(newsDTO: LatestNewsDTO)=  LatestNews(
+    id = newsDTO.id,
+    title = newsDTO.title,
+    postedDate = newsDTO.postedDate,
+    image = newsDTO.image,
+    date = newsDTO.date
+)
+
 fun transformNewsDetail(newsResponse: NewsResponse) = newsResponse.Result.detail.run {
 
     NewsDetail(
