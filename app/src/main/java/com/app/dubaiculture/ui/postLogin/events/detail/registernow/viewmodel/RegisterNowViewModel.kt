@@ -4,10 +4,12 @@ import android.app.Application
 import android.net.Uri
 import android.widget.TextView
 import androidx.core.net.toFile
+import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.EventRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
@@ -24,6 +26,32 @@ class RegisterNowViewModel @ViewModelInject constructor(application: Application
 
     private var _isRegistered = MutableLiveData<Event<Boolean>>()
     var isRegistered: LiveData<Event<Boolean>> = _isRegistered
+
+    // booleans for checking regex validation
+    val isSlot = MutableLiveData<Boolean?>(true)
+    val isImageURI = MutableLiveData<Boolean?>(true)
+
+    var slot: ObservableField<String> = ObservableField("")
+    var image: ObservableField<String> = ObservableField("")
+
+    private var _slotError = MutableLiveData<Int>()
+    var slotError: LiveData<Int> = _slotError
+
+    private var _imageError = MutableLiveData<Int>()
+    var imageError: LiveData<Int> = _imageError
+
+    fun onTimeSlotChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
+        slot.set(s.toString())
+        if (slot.get().toString().trim().isNullOrEmpty()) {
+            isSlot.value = false
+            _slotError.value = R.string.required
+        }
+        if (!slot.get().toString().trim().isNullOrEmpty()) {
+            isSlot.value = true
+            _slotError.value = R.string.no_error
+        }
+    }
+
      fun registerEvent(
         eventId:String,
         slotId:String ,

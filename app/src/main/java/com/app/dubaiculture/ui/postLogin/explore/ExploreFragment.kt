@@ -4,6 +4,7 @@ import android.Manifest
 import android.location.Location
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
+import com.google.firebase.iid.FirebaseInstanceId
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,6 +66,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         locationHelper.provideContext(activity)
+        Log.e("Firebase", "token explore "+ FirebaseInstanceId.getInstance().getToken());
 
         subscribeUiEvents(exploreViewModel)
         binding.swipeRefresh.apply {

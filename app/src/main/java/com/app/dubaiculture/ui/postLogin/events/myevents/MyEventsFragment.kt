@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.events.myevents
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.databinding.FragmentPlacesVisitedBinding
 import com.app.dubaiculture.databinding.ItemEventListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -17,6 +18,7 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.myevents.viewmodel.MyEventViewModel
+import com.app.dubaiculture.utils.handleApiError
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,33 +48,54 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
                 adapter = eventListAdapter
             }
             subscribeObserver()
-
+            subscribeToObservables()
         }
 
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            myEventViewModel.getMyEvent(getCurrentLanguage().language)
+        }
+    }
+    private fun subscribeToObservables() {
+        myEventViewModel.isFavourite.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    if (TextUtils.equals(it.value.Result.message, "Added")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                    }
+                    if (TextUtils.equals(it.value.Result.message, "Deleted")) {
+                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+                    }
+                }
+                is Result.Failure -> handleApiError(it, myEventViewModel)
+            }
+        }
     }
 private fun subscribeObserver() {
     myEventViewModel.myEvents.observe(viewLifecycleOwner) {
         it.map {
             eventListAdapter.add(
                 EventListItem<ItemEventListingBinding>(
-                    object :
-                        FavouriteChecker {
-                        override fun checkFavListener(
-                            checkbox: CheckBox,
-                            pos: Int,
-                            isFav: Boolean,
-                            itemId: String,
-                        ) {
-                            favouriteClick(
-                                checkbox,
-                                isFav,
-                                R.id.action_eventsFragment_to_postLoginFragment,
-                                itemId,
-                                myEventViewModel
-                            )
-                        }
+                        object : FavouriteChecker {
+                            override fun checkFavListener(
+                                    checkbox: CheckBox,
+                                    pos: Int,
+                                    isFav: Boolean,
+                                    itemId: String,
+                            ) {
+                                favouriteClick(
+                                        checkbox,
+                                        isFav,
+                                        R.id.action_eventsFragment_to_postLoginFragment,
+                                        itemId, myEventViewModel
+                                )
+                            }
 
-                    },
+                        },
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
 //                                val eventObj = allList[position]
@@ -84,9 +107,7 @@ private fun subscribeObserver() {
                         }
 
                         override fun rowClickListener(position: Int, imageView: ImageView) {
-
                         }
-
                     },
                     event = it,
                     resLayout = R.layout.item_event_listing,
@@ -94,9 +115,7 @@ private fun subscribeObserver() {
                     hasSurvey = true
                 )
             )
-
         }
-
     }
 }
 }
