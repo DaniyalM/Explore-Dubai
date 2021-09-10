@@ -54,6 +54,8 @@ class PostLoginActivity : BaseAuthenticationActivity(), NavController.OnDestinat
 
     override fun onResume() {
         super.onResume()
+        applicationEntry.auth.locale = getCurrentLanguage().language
+
         adjustFontScale(resources.configuration)
 
     }

@@ -38,7 +38,22 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out" >
+            <argument
+                android:name="culture"
+                app:argType="string"
+                app:nullable="false" />
+            <argument
+                android:name="positionId"
+                app:argType="integer"
+                app:nullable="false"
+             />
+            <argument
+                android:name="isExplore"
+                app:argType="boolean"
+                app:nullable="false"
+               />
+        </action>
         <action
             android:id="@+id/action_exploreFragment_to_more_navigation"
             app:destination="@id/more_navigation"

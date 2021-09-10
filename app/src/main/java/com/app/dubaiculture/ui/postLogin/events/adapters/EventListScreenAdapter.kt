@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -102,4 +103,6 @@ class EventListScreenAdapter(private val favChecker : FavouriteChecker?=null , p
             }
         }
     }
+
+
 }

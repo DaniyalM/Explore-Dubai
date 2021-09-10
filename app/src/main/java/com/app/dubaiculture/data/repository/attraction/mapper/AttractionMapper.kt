@@ -15,8 +15,7 @@ import com.app.dubaiculture.data.repository.sitemap.local.IbeconITemsSiteMap
 fun transformAttractionsRequest(attractionRequest: AttractionRequest) =
         AttractionRequestDTO(
                 attractionCategoryId = attractionRequest.attractionCategoryId!!,
-                pageNumber = attractionRequest.pageNumber!!,
-                pageSize = attractionRequest.pageSize!!,
+
                 culture = attractionRequest.culture
         )
 fun transformVisitedAttractionsRequest(attractionRequest: AttractionRequest) =
@@ -174,6 +173,8 @@ fun transformAttractions(attractionResponse: AttractionResponse): List<Attractio
         attractionResponse.Result.attractions.run {
             transformAttractions(this)
         }
+
+
 
 fun transformAttractions(list: List<AttractionDTO>): List<Attractions> =
         list.run {

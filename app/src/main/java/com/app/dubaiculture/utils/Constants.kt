@@ -79,6 +79,8 @@ object Constants {
         const val MORE_FRAGMENT: String = "more_fragment"
         const val SETTING_DESTINATION: String = "setting_fragment_destination"
         const val NEW_LOCALE: String = "culture"
+        const val EXPLORE_TO_ATTRACTIONS: String = "exp_to_attractions"
+        const val ATTRACTION_DETAIL: String = "attractionId"
 
 
     }
@@ -168,6 +170,7 @@ object Constants {
 
     object PAGING {
         const val NEW_PAGING_SIZE: Int = 2
+        const val ATTRACTION_PAGING_SIZE: Int = 5
 
 
     }

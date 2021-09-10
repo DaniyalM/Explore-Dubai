@@ -32,6 +32,7 @@ import com.app.dubaiculture.databinding.AttractionDetailUpComingItemsBinding
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.databinding.ToolbarLayoutDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
@@ -101,7 +102,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 //    private var mapFragment: SupportMapFragment? = null
 
 
-    private val attractionDetailViewModel: AttractionViewModel by viewModels()
+    private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
     private fun subscribeToGpsListener() = attractionDetailViewModel.gpsStatusLiveData
         .observe(viewLifecycleOwner, gpsObserver)
 
@@ -128,9 +129,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.apply {
-            attractionsObj = getParcelable(Constants.NavBundles.ATTRACTION_OBJECT)!!
-        }
+//        arguments?.apply {
+//            attractionsObj = getParcelable(Constants.NavBundles.ATTRACTION_OBJECT)!!
+//        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -149,7 +150,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         super.onViewStateRestored(savedInstanceState)
         detailInnerLayout = binding.attractionDetailInnerLayout
         toolbarLayout = binding.toolbarLayoutDetail
-        toolbarLayout.detailImageView.transitionName = attractionsObj.id
+//        toolbarLayout.detailImageView.transitionName = attractionsObj.id
         subscribeUiEvents(attractionDetailViewModel)
         backArrowRTL(toolbarLayout.back)
         bgRTL(toolbarLayout.bgBorderUpper)
@@ -157,7 +158,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         arrowRTL(detailInnerLayout.arrowIbecons)
         arrowRTL(detailInnerLayout.arrowSiteMap)
         rvSetUp()
-        detailInnerLayout.tvDescReadmore.text = attractionsObj.description
+//        detailInnerLayout.tvDescReadmore.text = attractionsObj.description
         subscribeToGpsListener()
 
         binding.swipeRefreshLayout.setOnRefreshListener {

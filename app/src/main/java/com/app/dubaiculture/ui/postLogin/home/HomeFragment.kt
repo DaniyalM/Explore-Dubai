@@ -13,6 +13,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentHomeBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.home.viewmodels.HomeViewModel
+import com.app.dubaiculture.utils.Constants.NavBundles.NEW_LOCALE
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -98,6 +99,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }
                     else -> {
                         visibility = View.VISIBLE
+                        Bundle().apply {
+                            putString(NEW_LOCALE,getCurrentLanguage().language)
+                        }
                     }
                 }
 

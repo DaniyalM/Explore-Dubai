@@ -17,9 +17,7 @@ import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewMo
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_OBJECT
 import com.app.dubaiculture.utils.handleApiError
-import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -52,9 +50,9 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
     private fun initiateRequest() {
 
         binding.swipeRefresh.apply {
-            if (!contentLoaded) {
-                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
-            }
+//            if (!contentLoaded) {
+//                attractionViewModel.getAttractionCategoryToScreen(getCurrentLanguage().language)
+//            }
 
             setColorSchemeResources(
                 R.color.colorPrimary,
@@ -104,7 +102,7 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
 
 
     private fun initiatePager() {
-        if (pagerAdapter==null) {
+        if (pagerAdapter == null) {
             pagerAdapter = AttractionPagerAdaper(this)
             binding.pager.apply {
                 isUserInputEnabled = false
@@ -113,15 +111,13 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
         }
 
 
-
-
     }
 
 
     private fun subscribeToObservables() {
         attractionViewModel.attractionCategoryList.observe(viewLifecycleOwner) {
 
-            if (binding.swipeRefresh.isRefreshing){
+            if (binding.swipeRefresh.isRefreshing) {
                 //Below expression will trigger the refresh inside listing fragment
                 bus.post(AttractionServices.TriggerRefresh())
                 binding.swipeRefresh.isRefreshing = false
@@ -136,8 +132,6 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                         pagerAdapter?.list = result.value
 
 
-
-
                     }
                 }
                 is Result.Failure -> {
@@ -145,13 +139,12 @@ class AttractionsFragment : BaseFragment<FragmentAttractionsBinding>() {
                 }
             }
         }
-        binding.horizontalSelector.headerPosition.observe(viewLifecycleOwner){
+        binding.horizontalSelector.headerPosition.observe(viewLifecycleOwner) {
             binding.pager.currentItem = it
         }
 
 
     }
-
 
 
     private fun setupToolbarWithSearchItems() {
