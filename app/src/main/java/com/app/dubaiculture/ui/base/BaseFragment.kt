@@ -18,6 +18,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.ScrollView
 import androidx.annotation.IdRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ViewDataBinding
@@ -51,6 +52,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
     //    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var networkRequest: NetworkRequest
+    private var scrollView: ScrollView? = null
 
 
     lateinit var checkBox: CheckBox
@@ -70,13 +72,29 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        dataBinding = getFragmentBinding(inflater, container)
-        return dataBinding.root
-//        if (_view == null || isPagerFragment) {
-//            dataBinding = getFragmentBinding(inflater, container)
-//            _view = dataBinding.root
-//        }
-//        return _view
+        if (_view == null || isPagerFragment) {
+            dataBinding = getFragmentBinding(inflater, container)
+            _view = dataBinding.root
+        }
+        return _view
+    }
+
+    fun setScrollView(sv: ScrollView) {
+        scrollView = sv
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        scrollView?.apply {
+            outState.putFloat(Constants.NavBundles.SCROLL_VIEW_STATE, y)
+        }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.getFloat(Constants.NavBundles.SCROLL_VIEW_STATE)?.apply {
+            scrollView?.y = this
+        }
     }
 
 

@@ -9,7 +9,6 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -24,7 +23,6 @@ import com.app.dubaiculture.ui.postLogin.attractions.listing.AttractionFragmentD
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionListingViewModel
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_DETAIL
 import com.app.dubaiculture.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -32,33 +30,25 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>() {
-    private lateinit var linearLayoutManger: LinearLayoutManager
+
     private lateinit var attractionInnerAdapter: AttractionInnerAdapter
     private val attractionViewModel: AttractionListingViewModel by viewModels()
-
-    var contentLoadMore = true
 
 
     companion object {
 
         @JvmStatic
-        fun newInstance(attractionCat: AttractionCategory): AttractionListingFragment
-        {
+        fun newInstance(attractionCat: AttractionCategory): AttractionListingFragment {
             val args = Bundle()
             args.putParcelable(
                 Constants.NavBundles.ATTRACTION_CAT_OBJECT,
                 attractionCat
             )
             val fragment = AttractionListingFragment()
-            fragment.arguments=args
+            fragment.arguments = args
 
             return fragment
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isPagerFragment = true
     }
 
 
@@ -69,14 +59,15 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
 
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(attractionViewModel)
-        initRecyclerView()
         subscribeToObservables()
+
     }
 
     private fun subscribeToObservables() {
@@ -100,69 +91,55 @@ class AttractionListingFragment : BaseFragment<FragmentAttractionListingBinding>
 
         }
     }
+
     private fun initRecyclerView() {
+        if (!this::attractionInnerAdapter.isInitialized) {
+            binding.rvAttractionListing.apply {
+                layoutManager = LinearLayoutManager(activity)
 
-        linearLayoutManger = LinearLayoutManager(activity)
-        binding.rvAttractionListing.apply {
-            layoutManager = linearLayoutManger
-            attractionInnerAdapter = AttractionInnerAdapter(
-                favChecker = object : FavouriteChecker {
-                    override fun checkFavListener(
-                        checkbox: CheckBox,
-                        pos: Int,
-                        isFav: Boolean,
-                        itemId: String
-                    ) {
-                        favouriteClick(
-                            checkbox,
-                            isFav,
-                            R.id.action_attractionsFragment_to_postLoginFragment,
-                            itemId, attractionViewModel,
-                            1
-                        )
+                attractionInnerAdapter = AttractionInnerAdapter(
+                    favChecker = object : FavouriteChecker {
+                        override fun checkFavListener(
+                            checkbox: CheckBox,
+                            pos: Int,
+                            isFav: Boolean,
+                            itemId: String
+                        ) {
+                            favouriteClick(
+                                checkbox,
+                                isFav,
+                                R.id.action_attractionsFragment_to_postLoginFragment,
+                                itemId, attractionViewModel,
+                                1
+                            )
 
-                    }
-                },
-                attractionClickListener = object : AttractionClickListener {
-                    override fun rowClickListener(attraction: Attractions) {
-                    }
-
-                    override fun rowClickListener(
-                        position: Int,
-                        imageView: ImageView,
-                        attraction: Attractions
-                    ) {
-                        imageView.transitionName = attraction.id
-//                        val extras = FragmentNavigatorExtras(
-//                            imageView to attraction.id
-//                        )
-                        Bundle().apply {
-                            putString(ATTRACTION_DETAIL,attraction.id)
+                        }
+                    },
+                    attractionClickListener = object : AttractionClickListener {
+                        override fun rowClickListener(attraction: Attractions) {
                         }
 
-                        (parentFragment as AttractionFragment).navigateByDirections(
-                            AttractionFragmentDirections.actionAttractionsFragmentToAttractionDetailFragment(
-                                attraction.id
+                        override fun rowClickListener(
+                            position: Int,
+                            imageView: ImageView,
+                            attraction: Attractions
+                        ) {
+                            imageView.transitionName = attraction.id
+                            (parentFragment as AttractionFragment).navigateByDirections(
+                                AttractionFragmentDirections.actionAttractionsFragmentToAttractionDetailFragment(
+                                    attraction
+                                )
                             )
-                        )
-//                        navigate(
-//                            R.id.action_attractionsFragment_to_attractionDetailFragment,
-//                            Bundle().apply {
-//                                putParcelable(
-//                                    Constants.NavBundles.ATTRACTION_OBJECT,
-//                                    attraction
-//                                )
-//                            },
-//                            extras = extras
-//                        )
+                        }
                     }
-                }
-            )
+                )
 
 
-            adapter = attractionInnerAdapter
+                adapter = attractionInnerAdapter
 
+            }
         }
+
 
     }
 

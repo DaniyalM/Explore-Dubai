@@ -118,45 +118,43 @@ abstract class BaseActivity : LocalizationActivity() {
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(this, {
             it.getContentIfNotHandled()
-                    ?.let { event ->
-                        when (event) {
-                            is UiEvent.ShowAlert -> {
-                                showAlert(event.message, this)
+                ?.let { event ->
+                    when (event) {
+                        is UiEvent.ShowAlert -> {
+                            showAlert(event.message, this)
 
-                            }
-                            is UiEvent.ShowToast -> {
-                                showToast(event.message, this)
-                            }
-                            is UiEvent.ShowLoader -> {
-                                showLoader(event.show, customProgressDialog)
-                            }
-                            is UiEvent.ShowSnackbar -> {
-                                showSnackbar(
-                                        findViewById(android.R.id.content),
-                                        event.message,
-                                        event.action
-                                )
-                            }
-                            is UiEvent.ShowErrorDialog -> {
-                                EventUtilFunctions.showErrorDialog(
-                                        event.message,
-                                        colorBg = event.colorBg,
-                                        context = this
-                                )
-                            }
+                        }
+                        is UiEvent.ShowToast -> {
+                            showToast(event.message, this)
+                        }
+                        is UiEvent.ShowLoader -> {
+                            showLoader(event.show, customProgressDialog)
+                        }
+                        is UiEvent.ShowSnackbar -> {
+                            showSnackbar(
+                                findViewById(android.R.id.content),
+                                event.message,
+                                event.action
+                            )
+                        }
+                        is UiEvent.ShowErrorDialog -> {
+                            EventUtilFunctions.showErrorDialog(
+                                event.message,
+                                colorBg = event.colorBg,
+                                context = this
+                            )
                         }
                     }
+                }
         })
     }
-
-
 
 
     override fun onDestroy() {
         super.onDestroy()
 
         if (customProgressDialog != null) {
-            if (customProgressDialog!!.isShowing){
+            if (customProgressDialog!!.isShowing) {
                 customProgressDialog!!.dismiss()
             }
             customProgressDialog = null
@@ -186,15 +184,20 @@ abstract class BaseActivity : LocalizationActivity() {
 
     protected fun getNavControllerFun(int: Int): NavController {
         val navHostFragment =
-                supportFragmentManager.findFragmentById(int) as NavHostFragment
-        return navHostFragment.navController
+            supportFragmentManager.findFragmentById(int) as NavHostFragment
+        navController=navHostFragment.navController
+        return navController
     }
 
-    fun darkModeAccess(){
+    fun darkModeAccess() {
         (application as ApplicationEntry).preferenceRepository
-                .nightModeLive.observe(this) { nightMode ->
-                    nightMode?.let { delegate.localNightMode = it }
-                }
+            .nightModeLive.observe(this) { nightMode ->
+                nightMode?.let { delegate.localNightMode = it }
+            }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() ?: false
     }
 
 

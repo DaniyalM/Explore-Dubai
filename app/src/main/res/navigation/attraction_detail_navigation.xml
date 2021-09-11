@@ -14,9 +14,10 @@
         android:label="AttractionDetailFragment" >
 
         <argument
-            android:name="attractionId"
-            app:argType="string"
-            app:nullable="false"
+            android:name="attraction"
+            app:argType="com.app.dubaiculture.data.repository.attraction.local.models.Attractions"
+            app:nullable="true"
+            android:defaultValue="@null"
            />
         <action
             android:id="@+id/action_attractionDetailFragment_to_threeSixtyFragment"

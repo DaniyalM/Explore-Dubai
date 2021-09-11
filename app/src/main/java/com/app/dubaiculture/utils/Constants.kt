@@ -44,13 +44,14 @@ object Constants {
     }
 
     object NavBundles {
+        val SCROLL_VIEW_STATE: String= "ScrollState"
         const val COMES_FROM_LOGIN: String = "loginFragment"
         const val COMES_FROM_POST_LOGIN: String = "postloginFragment"
         const val SELECTED_CITY: String = "selectedCity"
         const val SORTED_LIST: String = "SORTED_EVENT_LIST"
         const val EVENT_OBJECT: String = "eventObject"
         const val EVENT_FILTER: String = "eventFiler"
-        const val ATTRACTION_OBJECT: String = "attractionObject"
+        const val ATTRACTION_OBJECT: String = "attraction"
         const val SERVICE_OBJECT: String = "ServiceObject"
         const val ATTRACTION_CAT_OBJECT: String = "attractionCatObject"
         const val ATTRACTION_GALLERY_LIST: String = "attractionGalleryList"

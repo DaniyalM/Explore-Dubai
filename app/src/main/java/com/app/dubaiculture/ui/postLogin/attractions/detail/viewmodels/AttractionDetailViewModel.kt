@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.AttractionRepository
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
+import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
@@ -24,11 +26,21 @@ class AttractionDetailViewModel @Inject constructor(
 ) : BaseViewModel(application, attractionRepository) {
     private val _attractionDetail: MutableLiveData<Result<Attractions>> = MutableLiveData()
     val attractionDetail: LiveData<Result<Attractions>> = _attractionDetail
+
+    private val _attractionEvents: MutableLiveData<List<Events>> = MutableLiveData()
+    val attractionEvents: LiveData<List<Events>> = _attractionEvents
     private val context = getApplication<ApplicationEntry>()
 
     init {
-        savedStateHandle.get<String>(Constants.NavBundles.ATTRACTION_DETAIL)?.let {
-            getAttractionDetailsToScreen(it,context.auth.locale.toString())
+        savedStateHandle.get<Attractions>(Constants.NavBundles.ATTRACTION_OBJECT)?.let {
+            getAttractionDetailsToScreen(it.id,context.auth.locale.toString())
+        }
+    }
+
+    fun refreshDetail(){
+        _attractionDetail.value =null
+        savedStateHandle.get<Attractions>(Constants.NavBundles.ATTRACTION_OBJECT)?.let {
+            getAttractionDetailsToScreen(it.id,context.auth.locale.toString())
         }
     }
     fun getAttractionDetailsToScreen(
@@ -47,10 +59,11 @@ class AttractionDetailViewModel @Inject constructor(
 
                 is Result.Success -> {
                     _attractionDetail.value = result
+                    _attractionEvents.value=result.value.events
                     showLoader(false)
                 }
                 is Result.Failure -> {
-                    _attractionDetail.value = result
+//                    _attractionDetail.value = result
                     showLoader(false)
                 }
             }

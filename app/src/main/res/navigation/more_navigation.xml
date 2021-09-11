@@ -13,6 +13,11 @@
         android:label="MoreFragment"
         tools:layout="@layout/fragment_more">
 
+        <argument
+            android:name="news_id"
+            app:argType="string"
+            app:nullable="false"
+            android:defaultValue="0"/>
 
         <action
             android:id="@+id/action_moreFragment_to_latestNewsFragment"

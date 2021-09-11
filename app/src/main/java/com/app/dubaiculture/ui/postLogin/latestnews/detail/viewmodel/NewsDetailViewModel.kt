@@ -11,6 +11,7 @@ import com.app.dubaiculture.data.repository.news.remote.request.NewsRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.Constants.NavBundles.NEW_LOCALE
 import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,7 @@ class NewsDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val newsRespository: NewsRepository
 ) : BaseViewModel(application) {
+    private val context = getApplication<ApplicationEntry>()
 
 
     private val _newsDetail: MutableLiveData<Event<NewsDetail>> = MutableLiveData()
@@ -30,9 +32,7 @@ class NewsDetailViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<String>(Constants.NavBundles.NEWS_ID)?.let { id ->
-            savedStateHandle.get<String>(NEW_LOCALE)?.let {
-                newsDetail(id, it)
-            }
+            newsDetail(id, context.auth.locale.toString())
         }
     }
 

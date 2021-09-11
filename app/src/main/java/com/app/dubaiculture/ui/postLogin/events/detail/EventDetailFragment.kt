@@ -126,7 +126,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    private var eventObj = Events()
+    private var eventObj = Events(
+        location = "",
+        longitude = "67.08119661055807",
+        latitude = "24.83250180519734",
+        registrationDate ="",
+        dateFrom = "",
+        dateTo = "",
+        )
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {

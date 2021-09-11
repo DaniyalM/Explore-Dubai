@@ -96,61 +96,63 @@ fun transformlocationList(filter: ArrayList<FilterDTO>): ArrayList<Filter> =
 
 fun transformEventList(events: List<EventsDTO>): List<Events> =
         events.map {
-            Events(
-                    id = it.id,
-                    title = it.title,
-                    category = it.category,
-                    image = it.image,
-                    fromDate = it.fromDate,
-                    fromMonthYear = it.fromMonthYear,
-                    fromTime = it.fromTime,
-                    fromDay = it.fromDay,
-                    toDate = it.toDate,
-                    toMonthYear = it.toMonthYear,
-                    toTime = it.toTime,
-                    toDay = it.toDay,
-                    type = it.type,
-                    registrationDate = it.registrationDate,
-                    isSurveySubmitted = it.isSurveyed,
-//            color=it.color,
-                    dateTo = it.dateTo,
-                    dateFrom = it.dateFrom,
-                    locationTitle = it.locationTitle,
-                    location = it.location,
-                    longitude = it.longitude,
-                    latitude = it.latitude,
-                    isFavourite = it.isFavourite,
-                    isRegistered = it.isRegistered,
-
-                    )
+                transformEventDetail(it)
+//            Events(
+//                    id = it.id,
+//                    title = it.title,
+//                    category = it.category,
+//                    image = it.image,
+//                    fromDate = it.fromDate,
+//                    fromMonthYear = it.fromMonthYear,
+//                    fromTime = it.fromTime,
+//                    fromDay = it.fromDay,
+//                    toDate = it.toDate,
+//                    toMonthYear = it.toMonthYear,
+//                    toTime = it.toTime,
+//                    toDay = it.toDay,
+//                    type = it.type,
+//                    registrationDate = it.registrationDate,
+//                    isSurveySubmitted = it.isSurveyed,
+////            color=it.color,
+//                    dateTo = it.dateTo,
+//                    dateFrom = it.dateFrom,
+//                    locationTitle = it.locationTitle,
+//                    location = it.location?:"",
+//                    longitude = it.longitude?:"67.08119661055807",
+//                    latitude = it.latitude?:"24.83250180519734",
+//                    isFavourite = it.isFavourite,
+//                    isRegistered = it.isRegistered,
+//
+//                    )
         }
 
 fun transformOtherEventList(events: ArrayList<EventsDTO>): ArrayList<Events> =
         events.map {
-            Events(
-                    id = it.id,
-                    title = it.title,
-                    category = it.category,
-                    image = it.image,
-                    fromDate = it.fromDate,
-                    fromMonthYear = it.fromMonthYear,
-                    fromTime = it.fromTime,
-                    fromDay = it.fromDay,
-                    toDate = it.toDate,
-                    toMonthYear = it.toMonthYear,
-                    toTime = it.toTime,
-                    toDay = it.toDay,
-                    type = it.type,
-                    registrationDate = it.registrationDate,
-//            color=it.color,
-                    dateTo = it.dateTo,
-                    dateFrom = it.dateFrom,
-                    locationTitle = it.locationTitle,
-                    location = it.location,
-                    longitude = it.longitude,
-                    latitude = it.latitude,
-                    isFavourite = it.isFavourite,
-            )
+                transformEventDetail(it)
+//            Events(
+//                    id = it.id,
+//                    title = it.title,
+//                    category = it.category,
+//                    image = it.image,
+//                    fromDate = it.fromDate,
+//                    fromMonthYear = it.fromMonthYear,
+//                    fromTime = it.fromTime,
+//                    fromDay = it.fromDay,
+//                    toDate = it.toDate,
+//                    toMonthYear = it.toMonthYear,
+//                    toTime = it.toTime,
+//                    toDay = it.toDay,
+//                    type = it.type,
+//                    registrationDate = it.registrationDate,
+////            color=it.color,
+//                    dateTo = it.dateTo,
+//                    dateFrom = it.dateFrom,
+//                    locationTitle = it.locationTitle,
+//                    location = it.location?:"",
+//                    longitude = it.longitude,
+//                    latitude = it.latitude,
+//                    isFavourite = it.isFavourite,
+//            )
         } as ArrayList<Events>
 
 
@@ -161,31 +163,33 @@ fun transformFeaturedEvents(eventResponse: EventResponse): ArrayList<Events> =
 
 fun transformFeatureEventList(featureEvents: ArrayList<EventsDTO>): ArrayList<Events> =
         featureEvents.map {
-            Events(
-                    id = it.id,
-                    title = it.title,
-                    category = it.category,
-                    image = it.image,
-                    fromDate = it.fromDate,
-                    fromMonthYear = it.fromMonthYear,
-                    fromTime = it.fromTime,
-                    fromDay = it.fromDay,
-                    toDate = it.toDate,
-                    toMonthYear = it.toMonthYear,
-                    toTime = it.toTime,
-                    toDay = it.toDay,
-                    type = it.type,
-                    color = it.color ?: "",
-                    dateTo = it.dateTo,
-                    dateFrom = it.dateFrom,
-                    locationTitle = it.locationTitle,
-                    location = it.location,
-                    longitude = it.longitude,
-                    latitude = it.latitude,
-                    isFavourite = it.isFavourite,
-                    emailContact = it.emailContact,
-                    numberContact = it.numberContact
-            )
+                transformEventDetail(it)
+//            Events(
+//                    id = it.id,
+//                    title = it.title,
+//                    category = it.category,
+//                    image = it.image,
+//                    fromDate = it.fromDate,
+//                    fromMonthYear = it.fromMonthYear,
+//                    fromTime = it.fromTime,
+//                    fromDay = it.fromDay,
+//                    toDate = it.toDate,
+//                    toMonthYear = it.toMonthYear,
+//                    toTime = it.toTime,
+//                    toDay = it.toDay,
+//                    type = it.type,
+//                    color = it.color ?: "",
+//                    dateTo = it.dateTo,
+//                    dateFrom = it.dateFrom,
+//                    locationTitle = it.locationTitle,
+//                    location = it.location?:"",
+//                    longitude = it.longitude?:"67.08119661055807",
+//                    latitude = it.latitude?:"24.83250180519734",
+//                    isFavourite = it.isFavourite,
+//                    emailContact = it.emailContact,
+//                    numberContact = it.numberContact,
+//                    registrationDate = it.registrationDate
+//            )
         } as ArrayList<Events>
 
 
@@ -219,9 +223,9 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
         dateFrom = eventDTO.dateFrom,
         registrationDate = eventDTO.registrationDate,
         locationTitle = eventDTO.locationTitle,
-        location = eventDTO.location,
-        longitude = eventDTO.longitude,
-        latitude = eventDTO.latitude,
+        location = eventDTO.location?:"",
+        longitude = eventDTO.longitude?:"67.08119661055807",
+        latitude = eventDTO.latitude?:"24.83250180519734",
         emailContact = eventDTO.emailContact,
         numberContact = eventDTO.numberContact,
         isFavourite = eventDTO.isFavourite,
@@ -280,10 +284,11 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                     dateTo = eventDTO.dateTo,
                     dateFrom = eventDTO.dateFrom,
                     locationTitle = eventDTO.locationTitle,
-                    location = eventDTO.location,
-                    longitude = eventDTO.longitude,
-                    latitude = eventDTO.latitude,
+                    location = eventDTO.location?:"",
+                    longitude = eventDTO.longitude?:"67.08119661055807",
+                    latitude = eventDTO.latitude?:"24.83250180519734",
                     isFavourite = eventDTO.isFavourite,
+                    registrationDate = eventDTO.registrationDate
             )
         }
 

@@ -2,8 +2,6 @@ package com.app.dubaiculture.ui.postLogin.attractions.listing
 
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +32,9 @@ class AttractionFragment : BaseFragment<FragmentAttractionHeaderBinding>() {
 
     private var list: List<AttractionCategory>? = null
     private lateinit var attractionPagerAdaper: AttractionPagerAdaper
-    private val attractionNavArgs:AttractionFragmentArgs by navArgs()
+    private val attractionNavArgs: AttractionFragmentArgs by navArgs()
+
+    private var isNavigated: Boolean = false
 
     private val attractionViewModel: AttractionViewModel by viewModels()
 
@@ -43,17 +43,19 @@ class AttractionFragment : BaseFragment<FragmentAttractionHeaderBinding>() {
         container: ViewGroup?
     ) = FragmentAttractionHeaderBinding.inflate(inflater, container, false)
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupToolbarWithSearchItems()
+        initViewPager()
+        refreshRequest()
+    }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(attractionViewModel)
 
-            subscribeToObservable()
-            initViewPager()
+        subscribeToObservable()
 
-
-        refreshRequest()
 
     }
 
@@ -64,13 +66,12 @@ class AttractionFragment : BaseFragment<FragmentAttractionHeaderBinding>() {
                     it.let { result ->
                         list = result.value
                         attractionPagerAdaper.list = result.value
-                      if (attractionNavArgs.isExplore) {
-                          Handler(Looper.getMainLooper()).postDelayed({
-                              if (attractionNavArgs.positionId>0){
-                                  binding.pager.currentItem=attractionNavArgs.positionId
-                              }
-                          },2000)
-                      }
+                        if (attractionNavArgs.isExplore && !isNavigated) {
+                            isNavigated = true
+                            if (attractionNavArgs.positionId > 0) {
+                                binding.pager.currentItem = attractionNavArgs.positionId
+                            }
+                        }
 
 
                     }
@@ -82,6 +83,19 @@ class AttractionFragment : BaseFragment<FragmentAttractionHeaderBinding>() {
         }
 
     }
+    private fun setupToolbarWithSearchItems() {
+
+        binding.root.apply {
+
+            binding.toolbarSnippet.toolbarLayout.profilePic.visibility = View.GONE
+            binding.toolbarSnippet.toolbarLayout.imgDrawer.visibility = View.GONE
+            binding.toolbarSnippet.toolbarLayout.toolbarTitle.apply {
+                visibility = View.VISIBLE
+                text = activity.getString(R.string.attractions)
+            }
+        }
+    }
+
     private fun refreshRequest() {
 
         binding.swipeRefresh.apply {
@@ -92,7 +106,7 @@ class AttractionFragment : BaseFragment<FragmentAttractionHeaderBinding>() {
                 android.R.color.holo_blue_dark
             )
             setOnRefreshListener {
-                binding.swipeRefresh.isRefreshing=false
+                binding.swipeRefresh.isRefreshing = false
                 attractionViewModel.refreshList()
 
             }
@@ -102,127 +116,129 @@ class AttractionFragment : BaseFragment<FragmentAttractionHeaderBinding>() {
 
 
     private fun initViewPager() {
+        if (!this::attractionPagerAdaper.isInitialized){
+            attractionPagerAdaper = AttractionPagerAdaper(this)
+            binding.pager.adapter = attractionPagerAdaper
 
+            binding.pager.isUserInputEnabled = false
+            binding.pager.isSaveEnabled=false
+            TabLayoutMediator(
+                binding.attractionTabs, binding.pager
+            ) { tab: TabLayout.Tab, position: Int ->
+                position.run {
+                    list?.get(position)?.let {
+                        val v: LayoutTabAttractionHeaderItemBinding =
+                            LayoutTabAttractionHeaderItemBinding.inflate(layoutInflater)
+                        v.tvTitle.text = it.title
+                        val tabColor = if (it.color.isNullOrEmpty()) "#5d2c83" else it.color
+                        val tabSelected = it.selectedSvg
+                        val tabUnSelected = it.icon
 
-        attractionPagerAdaper = AttractionPagerAdaper(this)
-        binding.pager.adapter = attractionPagerAdaper
+                        when (position) {
+                            0 -> {
 
-        binding.pager.isUserInputEnabled = false
-        TabLayoutMediator(
-            binding.attractionTabs, binding.pager
-        ) { tab: TabLayout.Tab, position: Int ->
-            position.run {
-                list?.get(position)?.let {
-                    val v: LayoutTabAttractionHeaderItemBinding =
-                        LayoutTabAttractionHeaderItemBinding.inflate(layoutInflater)
-                    v.tvTitle.text = it.title
-                    val tabColor = if (it.color.isNullOrEmpty()) "#5d2c83" else it.color
-                    val tabSelected = it.selectedSvg
-                    val tabUnSelected = it.icon
-
-                    when (position) {
-                        0 -> {
-
-                            if (binding.pager.currentItem == position) {
-                                v.cardview.setCardBackgroundColor(Color.parseColor(tabColor!!))
-                                v.root.glideInstance(tabSelected, true).into(v.imgInnerIcon)
-                                v.imgInnerIcon.setColorFilter(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.white_900
+                                if (binding.pager.currentItem == position) {
+                                    v.cardview.setCardBackgroundColor(Color.parseColor(tabColor!!))
+                                    v.root.glideInstance(tabSelected, true).into(v.imgInnerIcon)
+                                    v.imgInnerIcon.setColorFilter(
+                                        ContextCompat.getColor(
+                                            activity,
+                                            R.color.white_900
+                                        )
                                     )
-                                )
 
-                                v.tvTitle.setTextColor(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.white_900
+                                    v.tvTitle.setTextColor(
+                                        ContextCompat.getColor(
+                                            activity,
+                                            R.color.white_900
+                                        )
                                     )
-                                )
-                                tab.customView = v.root
-                            } else {
-                                v.cardview.setCardBackgroundColor(activity.getColorFromAttr(R.attr.colorOnSecondary))
-                                v.root.glideInstance(tabUnSelected, true).into(v.imgInnerIcon)
-                                v.imgInnerIcon.setColorFilter(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.purple_900
+                                    tab.customView = v.root
+                                } else {
+                                    v.cardview.setCardBackgroundColor(activity.getColorFromAttr(R.attr.colorOnSecondary))
+                                    v.root.glideInstance(tabUnSelected, true).into(v.imgInnerIcon)
+                                    v.imgInnerIcon.setColorFilter(
+                                        ContextCompat.getColor(
+                                            activity,
+                                            R.color.purple_900
+                                        )
                                     )
-                                )
 
-                                v.tvTitle.setTextColor(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.gray_700
+                                    v.tvTitle.setTextColor(
+                                        ContextCompat.getColor(
+                                            activity,
+                                            R.color.gray_700
+                                        )
                                     )
-                                )
-                                tab.customView = v.root
+                                    tab.customView = v.root
+                                }
+
+
                             }
-
-
-                        }
-                        else -> {
-                            if (binding.pager.currentItem == position) {
-                                tabSelected(tab)
-                                v.cardview.setCardBackgroundColor(Color.parseColor(tabColor!!))
-                                v.root.glideInstance(tabSelected, true).into(v.imgInnerIcon)
-                                v.imgInnerIcon.setColorFilter(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.white_900
+                            else -> {
+                                if (binding.pager.currentItem == position) {
+                                    tabSelected(tab)
+                                    v.cardview.setCardBackgroundColor(Color.parseColor(tabColor!!))
+                                    v.root.glideInstance(tabSelected, true).into(v.imgInnerIcon)
+                                    v.imgInnerIcon.setColorFilter(
+                                        ContextCompat.getColor(
+                                            activity,
+                                            R.color.white_900
+                                        )
                                     )
-                                )
 
-                                v.tvTitle.setTextColor(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.white_900
+                                    v.tvTitle.setTextColor(
+                                        ContextCompat.getColor(
+                                            activity,
+                                            R.color.white_900
+                                        )
                                     )
-                                )
-                                tab.customView = v.root
-                            } else {
-                                v.cardview.setCardBackgroundColor(activity.getColorFromAttr(R.attr.colorOnSecondary))
-                                v.root.glideInstance(tabUnSelected, true).into(v.imgInnerIcon)
-                                v.imgInnerIcon.setColorFilter(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.purple_900
+                                    tab.customView = v.root
+                                } else {
+                                    v.cardview.setCardBackgroundColor(activity.getColorFromAttr(R.attr.colorOnSecondary))
+                                    v.root.glideInstance(tabUnSelected, true).into(v.imgInnerIcon)
+                                    v.imgInnerIcon.setColorFilter(
+                                        ContextCompat.getColor(
+                                            activity,
+                                            R.color.purple_900
+                                        )
                                     )
-                                )
 
-                                v.tvTitle.setTextColor(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.gray_700
+                                    v.tvTitle.setTextColor(
+                                        ContextCompat.getColor(
+                                            activity,
+                                            R.color.gray_700
+                                        )
                                     )
-                                )
-                                tab.customView = v.root
+                                    tab.customView = v.root
+                                }
                             }
                         }
                     }
                 }
-            }
 
 
-        }.attach()
-        binding.attractionTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            }.attach()
+            binding.attractionTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.let {
-                    tabSelected(it)
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    tab?.let {
+                        tabSelected(it)
+                    }
                 }
-            }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                tab?.let {
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    tab?.let {
 //                    tempTab = it
-                    tabUnSelected(tab)
+                        tabUnSelected(tab)
+                    }
                 }
-            }
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                }
+            })
+
+        }
 
 
     }

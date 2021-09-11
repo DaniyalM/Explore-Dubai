@@ -104,8 +104,7 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>() {
                     override fun rowClickListener(news: LatestNews) {
                         navigateByDirections(
                             LatestNewsFragmentDirections.actionLatestNewsFragmentToNewsDetailFragment(
-                                news.id.toString(),
-                                getCurrentLanguage().language
+                                news.id.toString()
                             )
                         )
                     }
@@ -131,8 +130,7 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>() {
                     override fun rowClickListener(news: LatestNews) {
                         navigateByDirections(
                             LatestNewsFragmentDirections.actionLatestNewsFragmentToNewsDetailFragment(
-                                news.id.toString(),
-                                getCurrentLanguage().language
+                                news.id.toString()
                             )
                         )
                     }
