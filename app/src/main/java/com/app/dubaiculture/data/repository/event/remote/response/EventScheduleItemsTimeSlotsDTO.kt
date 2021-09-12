@@ -16,6 +16,12 @@ data class EventScheduleItemsTimeSlotsDTO(
     val timeFrom: String,
     @SerializedName("TimeTo")
     @Expose
-    val timeTo: String
+    val timeTo: String,
+
+    @SerializedName("SlotID")
+    @Expose
+    val slotId: String
+
+
 
 ):Parcelable

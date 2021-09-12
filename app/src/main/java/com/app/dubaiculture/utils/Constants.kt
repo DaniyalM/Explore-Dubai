@@ -15,6 +15,17 @@ object Constants {
 
     }
 
+    object PHOTO {
+        const val FILE_PROVIDER: String = "com.app.dubaiculture.fileprovider"
+        const val REQUEST_IMAGE_CAPTURE = 1
+        const val REQUEST_PDF_PICKER = 2
+        const val FORMAT_JPG = "jpg"
+        const val FORMAT_JPEG = "jpeg"
+        const val FORMAT_PNG = "png"
+        const val FORMAT_GIF = "gif"
+
+    }
+
     object ResendEmail {
         const val RESEND_TIMER: Long = 30000
         const val INTERVAL: Long = 1000
@@ -33,20 +44,23 @@ object Constants {
     }
 
     object NavBundles {
+        val SCROLL_VIEW_STATE: String= "ScrollState"
         const val COMES_FROM_LOGIN: String = "loginFragment"
         const val COMES_FROM_POST_LOGIN: String = "postloginFragment"
         const val SELECTED_CITY: String = "selectedCity"
         const val SORTED_LIST: String = "SORTED_EVENT_LIST"
         const val EVENT_OBJECT: String = "eventObject"
         const val EVENT_FILTER: String = "eventFiler"
-        const val ATTRACTION_OBJECT: String = "attractionObject"
+        const val ATTRACTION_OBJECT: String = "attraction"
         const val SERVICE_OBJECT: String = "ServiceObject"
         const val ATTRACTION_CAT_OBJECT: String = "attractionCatObject"
         const val ATTRACTION_GALLERY_LIST: String = "attractionGalleryList"
         const val THREESIXTY_GALLERY_LIST: String = "THREE60_GALLERY_LIST"
         const val EXPLORE_MAP_LIST: String = "explore_map_list"
+        const val SCHEDULE_ITEM_SLOT: String = "schedule_time_slot"
         const val EVENT_MAP_LIST: String = "event_map_list"
         const val ATTRACTION_ID: String = "attraction_id"
+        const val EVENT_ID: String = "event_id"
         const val CATEGORY: String = "category"
         const val BECON_LIST: String = "becon_list"
         const val BECON_OBJECT: String = "becon_object"
@@ -65,6 +79,9 @@ object Constants {
         const val NEWS_NAVIGATION: String = "news_navigation"
         const val MORE_FRAGMENT: String = "more_fragment"
         const val SETTING_DESTINATION: String = "setting_fragment_destination"
+        const val NEW_LOCALE: String = "culture"
+        const val EXPLORE_TO_ATTRACTIONS: String = "exp_to_attractions"
+        const val ATTRACTION_DETAIL: String = "attractionId"
 
 
     }
@@ -150,6 +167,13 @@ object Constants {
         const val HTTP_401: Int = 401
         const val HTTP_500: Int = 500
         const val HTTP_400: Int = 400
+    }
+
+    object PAGING {
+        const val NEW_PAGING_SIZE: Int = 2
+        const val ATTRACTION_PAGING_SIZE: Int = 5
+
+
     }
 
 }

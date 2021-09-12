@@ -1,9 +1,10 @@
 package com.app.dubaiculture.ui.postLogin.attractions.detail.ar.detail
 
-import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +14,6 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.viewgallery.local.Images
 import com.app.dubaiculture.databinding.FragmentARDetailBinding
 import com.app.dubaiculture.databinding.ViewGalleryItemsBinding
-import com.app.dubaiculture.ui.base.BaseDialogFragment
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ar.adapter.ViewGalleryItems
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ar.viewModel.ARDetailViewModel
@@ -31,14 +31,14 @@ class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickLi
 
     private val arDetailViewModel: ARDetailViewModel by viewModels()
     private val imagesList = ArrayList<Images>()
-    private var id : String?=null
+    private var id: String? = null
     var arDetailListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
     @Inject
     lateinit var glide: RequestManager
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
     ) = FragmentARDetailBinding.inflate(inflater, container, false)
 
 //    override fun getTheme() = R.style.FullScreenDialog;
@@ -77,15 +77,15 @@ class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickLi
         arguments?.let {
             id = it.getString(META_DATA_ID)
             arDetailViewModel.getMetaDataAr(
-                    it.getString(META_DATA_ID)?:"",
-                    getCurrentLanguage().language
+                it.getString(META_DATA_ID) ?: "",
+                getCurrentLanguage().language
             )
         }
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
             arDetailViewModel.getMetaDataAr(
-                    id?:"",
-                    getCurrentLanguage().language
+                id ?: "",
+                getCurrentLanguage().language
             )
         }
         bgRTL(binding.s)
@@ -107,7 +107,7 @@ class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickLi
             it?.let {
 
                 rvSetUp()
-                if (arDetailListAdapter.itemCount>0){
+                if (arDetailListAdapter.itemCount > 0) {
                     arDetailListAdapter.clear()
                 }
 
@@ -117,40 +117,47 @@ class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickLi
                 circularProgressDrawable.start()
                 binding.tvTitle.text = it.title
                 binding.desc.text = it.desc
-                if(!it.images.isNullOrEmpty()){
+                if (!it.images.isNullOrEmpty()) {
                     binding.customTextView.visibility = View.VISIBLE
-                    glide.load(BuildConfig.BASE_URL + it.images[0].image).placeholder(circularProgressDrawable).into(binding.imgDetailPic)
+                    glide.load(BuildConfig.BASE_URL + it.images[0].image)
+                        .placeholder(circularProgressDrawable).into(binding.imgDetailPic)
 //                binding.imgDetailPic.glideInstance(it.images!![0].image, isSvg = false)
-                it.images?.map {
-                    imagesList.add(it)
-                    arDetailListAdapter.add(
+                    it.images?.map {
+                        imagesList.add(it)
+                        arDetailListAdapter.add(
                             ViewGalleryItems<ViewGalleryItemsBinding>(
-                                    object : RowClickListener {
-                                        override fun rowClickListener(position: Int) {
+                                object : RowClickListener {
+                                    override fun rowClickListener(position: Int) {
 
-                                            val bundle = Bundle()
-                                            bundle.putParcelableArrayList(
-                                                    IMAGES_LIST,
-                                                    imageSelectedByPosition(imagesList, position) as java.util.ArrayList<out Parcelable>
-                                            )
-                                            navigate(
-                                                    R.id.action_ARDetailFragment_to_attraction_gallery,
-                                                    bundle
-                                            )
-                                        }
+                                        val bundle = Bundle()
+                                        bundle.putParcelableArrayList(
+                                            IMAGES_LIST,
+                                            imageSelectedByPosition(
+                                                imagesList,
+                                                position
+                                            ) as java.util.ArrayList<out Parcelable>
+                                        )
+                                        navigate(
+                                            R.id.action_ARDetailFragment_to_attraction_gallery,
+                                            bundle
+                                        )
+                                    }
 
-                                        override fun rowClickListener(position: Int, imageView: ImageView) {
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
 
-                                        }
-                                    }, images = it,
-                                    resLayout = R.layout.view_gallery_items,
-                                    glide = glide
+                                    }
+                                }, images = it,
+                                resLayout = R.layout.view_gallery_items,
+                                glide = glide
                             )
-                    )
+                        )
+                    }
+                } else {
+                    binding.customTextView.visibility = View.GONE
                 }
-            }else{
-                binding.customTextView.visibility = View.GONE
-            }
             }
         }
     }
@@ -163,7 +170,10 @@ class ARDetailFragment : BaseFragment<FragmentARDetailBinding>(), View.OnClickLi
 
     }
 
-    private fun imageSelectedByPosition(imagesList: ArrayList<Images>, position: Int): ArrayList<Images> {
+    private fun imageSelectedByPosition(
+        imagesList: ArrayList<Images>,
+        position: Int
+    ): ArrayList<Images> {
         val list = ArrayList<Images>()
         list.add(imagesList[position])
         imagesList.forEachIndexed { index, elements ->

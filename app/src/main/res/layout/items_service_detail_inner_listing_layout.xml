@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/innerRecyclerView"
-            tools:listitem="@layout/items_service_detail_payment_inner_item_layout" />
+            tools:itemCount="3"
+            tools:listitem="@layout/items_service_detail_procedure_layout" />
     </LinearLayout>
 </layout>

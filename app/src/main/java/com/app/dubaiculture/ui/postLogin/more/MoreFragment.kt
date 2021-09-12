@@ -22,6 +22,7 @@ import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_NAVIGATION
+import com.app.dubaiculture.utils.Constants.NavBundles.NEW_LOCALE
 import com.app.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
 import com.app.dubaiculture.utils.Constants.NavBundles.SETTING_DESTINATION
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION
@@ -41,10 +42,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
     var navigateSettings = false
-    var latestNews: String? = null
+//    var latestNews: String? = null
     var moreListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
-    var backflagNavigation = false
-    var latestNewsListingFlag = false
+//    var backflagNavigation = false
+//    var latestNewsListingFlag = false
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -53,38 +54,38 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.let {
-            navigateSettings = it.getBoolean(SETTING_DESTINATION)
-            latestNewsListingFlag = it.getBoolean(NEWS_NAVIGATION)
-            latestNews=it.getString(NEWS_ID)
-        }
+//        arguments?.let {
+//            navigateSettings = it.getBoolean(SETTING_DESTINATION)
+//            latestNewsListingFlag = it.getBoolean(NEWS_NAVIGATION)
+//            latestNews=it.getString(NEWS_ID)
+//        }
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (backflagNavigation) {
-            backflagNavigation = false
-            navigateSettings = false
-            latestNewsListingFlag = false
-            latestNews=null
-
-
-            navigateBack()
-        }
-        if (navigateSettings) {
-            backflagNavigation = true
-            navigate(R.id.action_moreFragment_to_settingFragment)
-        }
-        if (latestNewsListingFlag) {
-            backflagNavigation = true
-            navigate(R.id.action_moreFragment_to_latestNewsFragment)
-        }
-        if (!latestNews.isNullOrEmpty()){
-            backflagNavigation = true
-            val bundle = bundleOf(NEWS_ID to latestNews)
-            navigate(R.id.action_moreFragment_to_latestNewsFragment,bundle)
-        }
+//        if (backflagNavigation) {
+//            backflagNavigation = false
+//            navigateSettings = false
+//            latestNewsListingFlag = false
+//            latestNews=null
+//
+//
+//            navigateBack()
+//        }
+//        if (navigateSettings) {
+//            backflagNavigation = true
+//            navigate(R.id.action_moreFragment_to_settingFragment)
+//        }
+//        if (latestNewsListingFlag) {
+//            backflagNavigation = true
+//            navigate(R.id.action_moreFragment_to_latestNewsFragment)
+//        }
+//        if (!latestNews.isNullOrEmpty()){
+//            backflagNavigation = true
+//            val bundle = bundleOf(NEWS_ID to latestNews)
+//            navigate(R.id.action_moreFragment_to_latestNewsFragment,bundle)
+//        }
 
 
         subscribeUiEvents(moreViewModel)
@@ -197,13 +198,22 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
                             if (position == 0) {
-                                navigate(R.id.action_moreFragment_to_latestNewsFragment)
+                                navigateByDirections(
+                                    MoreFragmentDirections.actionMoreFragmentToLatestNewsFragment(
+                                        getCurrentLanguage().language
+                                    )
+                                )
+
                             }
                             if (position == 1) {
-                                navigate(R.id.action_moreFragment_to_contactFragment)
+                                navigateByDirections(
+                                    MoreFragmentDirections.actionMoreFragmentToContactFragment()
+                                )
                             }
                             if (position == 2) {
-                                navigate(R.id.action_moreFragment_to_FAQsFragment)
+                                navigateByDirections(
+                                    MoreFragmentDirections.actionMoreFragmentToFAQsFragment()
+                                )
                             }
                             if (position == 3) {
                                 moreViewModel.playStoreOpen(activity)

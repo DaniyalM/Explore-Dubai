@@ -1,11 +1,13 @@
 package com.app.dubaiculture.ui.postLogin.home.viewmodels
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel @ViewModelInject constructor(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     application: Application
 ) : BaseViewModel(application) {
 

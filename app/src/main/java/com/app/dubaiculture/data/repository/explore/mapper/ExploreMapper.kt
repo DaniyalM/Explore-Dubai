@@ -100,10 +100,11 @@ fun transformationEvents(eventsDTOList: ArrayList<EventsDTO>): ArrayList<Events>
                     dateTo = it.dateTo,
                     dateFrom = it.dateFrom,
                     locationTitle = it.locationTitle,
-                    location = it.location,
-                    longitude = it.longitude,
-                    latitude = it.latitude,
+                location = it.location?:"",
+                longitude = it.longitude?:"67.08119661055807",
+                latitude = it.latitude?:"24.83250180519734",
                     isFavourite = it.isFavourite,
+                registrationDate = it.registrationDate
             )
         } as ArrayList<Events>
 

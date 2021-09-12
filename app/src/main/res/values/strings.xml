@@ -109,6 +109,7 @@
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="category">Category</string>
+    <string name="tags">Tags</string>
     <string name="type">Type</string>
     <string name="_free">Free</string>
     <string name="ticketed">Ticketed</string>
@@ -287,5 +288,7 @@
     <string name="required_documents">Required Documents</string>
     <string name="payments">Payments</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="attachment">Attachment</string>
+    <string name="pdf">PDF</string>
 
 </resources>

@@ -38,6 +38,7 @@
     <string name="_confirm_password"> تأكيد كلمة السر</string>
     <string name="_email_address">ادخل البريد الالكتروني</string>
     <string name="_password"> كلمة السر</string>
+    <string name="tags">Tags</string>
 
     <string name="favourites">المفضلة</string>
 
@@ -284,6 +285,10 @@
     <string name="required_documents">Required Documents</string>
     <string name="payments">Payments</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="attachment">Attachment</string>
+    <string name="pdf">PDF</string>
+
+
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>

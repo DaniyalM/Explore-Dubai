@@ -89,7 +89,7 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable false
+            debuggable true
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -190,11 +190,11 @@ dependencies {
 
     // Navigation Component
     implementation config.navigationDependency.navFragmentKtx
-    implementation config.navigationDependency.navFragment
+//    implementation config.navigationDependency.navFragment
     implementation config.navigationDependency.navUiKtx
-    implementation config.navigationDependency.navRuntime
+//    implementation config.navigationDependency.navRuntime
     implementation config.navigationDependency.navRuntimeKtx
-    implementation config.navigationDependency.navUi
+//    implementation config.navigationDependency.navUi
     // Glide // SVG Glide
     implementation config.image_processing.glide
     kapt config.image_processing.glideCompiler
@@ -205,8 +205,8 @@ dependencies {
     implementation config.commonDependency.fragmentKtx
     //Dagger - Hilt
     implementation config.di.hilt
-    implementation config.di.hiltLifeCycleVM
-    kapt config.di.hiltCompiler
+//    implementation config.di.hiltLifeCycleVM
+//    kapt config.di.hiltCompiler
     kapt config.di.hiltDagger
     // Timber
     implementation config.logs.timber
@@ -302,6 +302,7 @@ dependencies {
     implementation 'com.tbuonomo:dotsindicator:4.2'
     implementation 'com.github.vipulasri:timelineview:1.1.5'
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.32"
-
-
+    implementation 'com.github.everhad:AndroidRatingStar:v1.0.4'
+    implementation 'com.github.AnilFurkanOkcun:UWMediaPicker-Android:1.3.2'
+    implementation 'com.github.jaiselrahman:FilePicker:1.3.2'
 }

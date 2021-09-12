@@ -253,9 +253,10 @@
                 android:elevation="@dimen/_2sdp"
                 android:foreground="@drawable/custom_ripple_border"
                 android:gravity="center"
+
                 android:text="@string/submit_survey"
                 android:textAllCaps="false"
-                android:textColor="@color/white_900" />
+                android:textColor="@color/purple_900" />
 
         </LinearLayout>
 

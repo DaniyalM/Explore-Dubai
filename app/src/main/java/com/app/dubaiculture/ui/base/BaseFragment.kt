@@ -18,11 +18,13 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.ScrollView
 import androidx.annotation.IdRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
@@ -30,16 +32,12 @@ import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
-import com.app.dubaiculture.utils.event.EventUtilFunctions.showLoader
-import com.app.dubaiculture.utils.event.EventUtilFunctions.showSnackbar
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showToast
 import com.app.dubaiculture.utils.event.UiEvent
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.otto.Bus
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import java.util.*
 
 
@@ -51,8 +49,10 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected lateinit var activity: Activity
 
     protected var customProgressDialog: ProgressDialog? = null
-//    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
+
+    //    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var networkRequest: NetworkRequest
+    private var scrollView: ScrollView? = null
 
 
     lateinit var checkBox: CheckBox
@@ -77,6 +77,24 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             _view = dataBinding.root
         }
         return _view
+    }
+
+    fun setScrollView(sv: ScrollView) {
+        scrollView = sv
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        scrollView?.apply {
+            outState.putFloat(Constants.NavBundles.SCROLL_VIEW_STATE, y)
+        }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.getFloat(Constants.NavBundles.SCROLL_VIEW_STATE)?.apply {
+            scrollView?.y = this
+        }
     }
 
 
@@ -138,29 +156,30 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
-        baseViewModel.uiEvents.observe(viewLifecycleOwner, {
+        baseViewModel.uiEvents.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()
                 ?.let { event ->
                     when (event) {
                         is UiEvent.ShowAlert -> {
-                            showAlert(event.message)
-
+                            showAlert(
+                                message = event.message,
+                                title = event.title,
+                                textPositive = event.textPositive,
+                                textNegative = event.textNegative,
+                                actionPositive = event.actionPositive
+                            )
                         }
                         is UiEvent.ShowToast -> {
-                            showToast(event.message, activity)
+                            showToast(event.message)
                         }
                         is UiEvent.ShowLoader -> {
-                            showLoader(event.show, customProgressDialog)
+                            showLoader(event.show)
                         }
                         is UiEvent.ShowSnackbar -> {
-                            showSnackbar(
-                                requireView(),
+                            showSnackBar(
                                 event.message,
                                 event.action
                             )
-                        }
-                        is UiEvent.NavigateByBack -> {
-                            navigateBack()
                         }
                         is UiEvent.NavigateByDirections -> {
                             navigateByDirections(event.navDirections)
@@ -168,26 +187,52 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                         is UiEvent.NavigateByAction -> {
                             navigateByAction(event.actionId, event.bundle)
                         }
-                        is UiEvent.ShowErrorDialog -> {
-                            EventUtilFunctions.showErrorDialog(
-                                event.message,
-                                colorBg = event.colorBg,
-                                context = activity
+                        is UiEvent.ShowBottomSheet -> {
+                            event.bottomSheetFragment.show(
+                                requireActivity().supportFragmentManager, event.tag
+                            )
+                        }
+                        is UiEvent.NavigateByActionNavOption -> {
+                            navigateByActionNavOptions(
+                                event.actionId,
+                                event.bundle,
+                                event.navOptions
                             )
                         }
                     }
                 }
-        })
-
-        NetworkLiveData.observe(viewLifecycleOwner) {
-            if (!it) {
-                baseViewModel.showLoader(false)
-                baseViewModel.showToast("Network Connection Lost..")
-            }
         }
-
-
     }
+
+    fun showLoader(show: Boolean) {
+        EventUtilFunctions.showLoader(show, customProgressDialog)
+    }
+
+    fun showToast(message: String) {
+        EventUtilFunctions.showToast(message, activity)
+    }
+
+    fun navigateByActionNavOptions(actionId: Int, bundle: Bundle? = null, navOptions: NavOptions) {
+        EventUtilFunctions.navigateByActionNavOptions(this, actionId, bundle, navOptions)
+    }
+
+    fun showSnackBar(message: String, action: (() -> Unit)?) {
+        EventUtilFunctions.showSnackBar(
+            requireView(),
+            message,
+            action
+        )
+    }
+
+    fun showBottomSheet(
+        bottomSheetFragment: BottomSheetDialogFragment,
+        tag: String? = null
+    ) {
+        bottomSheetFragment.show(
+            requireActivity().supportFragmentManager, tag
+        )
+    }
+
 
     fun navigateByDirections(navDirections: NavDirections) {
         EventUtilFunctions.navigateByDirections(this, navDirections)
@@ -315,7 +360,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
 
-
     open fun hideKeyboard(activity: Activity) {
         val imm: InputMethodManager =
             activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -414,7 +458,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                     )
                 }
             }
-
         }
     }
 
@@ -444,13 +487,12 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             showToast("Please install a Google map application", requireContext())
         }
     }
-
-//    protected fun openFragment(fragment: Fragment, tag: String?) {
-//        requireActivity().supportFragmentManager.beginTransaction()
-//                .add(fragment, tag)
-//                .addToBackStack(null)
-//                .commit()
+//    fun showBottomSheet(
+//        bottomSheetFragment: BottomSheetDialogFragment,
+//        tag: String? = null
+//    ) {
+//        bottomSheetFragment.show(
+//            requireActivity().supportFragmentManager, tag
+//        )
 //    }
-
-
 }

@@ -1,12 +1,10 @@
 package com.app.dubaiculture.data.repository.event.service
 
-import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionResponse
 import com.app.dubaiculture.data.repository.base.BaseService
-import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequestDTO
 import com.app.dubaiculture.data.repository.event.remote.request.EventFiltersRequestDTO
-import com.app.dubaiculture.data.repository.event.remote.response.AddToFavouriteResponse
 import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
-import com.app.dubaiculture.data.repository.event.remote.response.ScheduleResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface EventService : BaseService {
@@ -24,15 +22,22 @@ interface EventService : BaseService {
 
     @GET("/api/Content/GetEventDetails")
     suspend fun getEventDetail(
-        @Query("id") eventId: String,
-        @Query("culture") culture: String,
+            @Query("id") eventId: String,
+            @Query("culture") culture: String,
+    ): EventResponse
+
+    @Multipart
+    @POST("/api/Content/RegisterEvent")
+    suspend fun getEventRegister(
+        @Part("eventId") eventId: RequestBody,
+        @Part("slotId") slotId: RequestBody,
+        @Part("occupation") occupation: RequestBody,
+        @Part Photo: MultipartBody.Part? = null
     ): EventResponse
 
 
-
-//    @GET("/api/Content/GetEventDetails")
-//    suspend fun getEventDetails(
-//        @Query("Id") attractionId: String,
-//        @Query("culture") culture: String,
-//    ): EventResponse
+    @GET("/api/Content/GetMyEvents")
+    suspend fun getMyEvent(
+            @Query("culture") culture: String,
+            ): EventResponse
 }

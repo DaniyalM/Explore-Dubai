@@ -2,7 +2,6 @@ package com.app.dubaiculture.ui.preLogin.password.changepassword.viewmodel
 
 import android.app.Application
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -13,9 +12,15 @@ import com.app.dubaiculture.data.repository.login.remote.request.changedpass.Cha
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.event.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ChangedPasswordViewModel @ViewModelInject constructor(application: Application,val loginRepository: LoginRepository):BaseViewModel(application){
+@HiltViewModel
+class ChangedPasswordViewModel @Inject constructor(
+    application: Application,
+    val loginRepository: LoginRepository
+) : BaseViewModel(application) {
 
     // editext get() and set()
     var password: ObservableField<String> = ObservableField("")
@@ -38,7 +43,6 @@ class ChangedPasswordViewModel @ViewModelInject constructor(application: Applica
     var passwordConfirmError: LiveData<Int> = passwordConfirmError_
 
 
-
     private var _changedPasswordStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var changedPasswordStatus: MutableLiveData<Event<Boolean>> = _changedPasswordStatus
 
@@ -56,47 +60,60 @@ class ChangedPasswordViewModel @ViewModelInject constructor(application: Applica
 
     fun onConfirmPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         passwordConifrm.set(s.toString())
-        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(passwordNew.get().toString(),
-            passwordConifrm.get().toString().trim())
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(
+            passwordNew.get().toString(),
+            passwordConifrm.get().toString().trim()
+        )
         passwordConfirmError_.value =
-            AuthUtils.isMatchPasswordError(passwordNew.get().toString().trim(),
-                passwordConifrm.get().toString().trim())
+            AuthUtils.isMatchPasswordError(
+                passwordNew.get().toString().trim(),
+                passwordConifrm.get().toString().trim()
+            )
 
     }
 
-    fun changedPassword(){
+    fun changedPassword() {
         if (!isCheckValidation())
             return
         viewModelScope.launch {
             showLoader(true)
-          ChangedPassRequest(
-                    oldPass = password.get().toString().trim(),
-                    newPass = passwordNew.get().toString().trim(),
-                    confirmPass = passwordConifrm.get().toString().trim()
+            ChangedPassRequest(
+                oldPass = password.get().toString().trim(),
+                newPass = passwordNew.get().toString().trim(),
+                confirmPass = passwordConifrm.get().toString().trim()
             ).let {
-              when(val result = loginRepository.changedPassword(it)){
-                  is Result.Success->{
-                      showLoader(false)
-                      showErrorDialog( message =    result.value.changedPasswordResponseDTO.message, colorBg = R.color.purple_900)
-                      _changedPasswordStatus.value = Event(true)
-                  }
-                  is Result.Failure ->{
-                      showErrorDialog( message =    result.errorMessage.toString())
-                      showLoader(false)
+                when (val result = loginRepository.changedPassword(it)) {
+                    is Result.Success -> {
+                        showLoader(false)
+                        showErrorDialog(
+                            message = result.value.changedPasswordResponseDTO.message,
+                            colorBg = R.color.purple_900
+                        )
+                        _changedPasswordStatus.value = Event(true)
+                    }
+                    is Result.Failure -> {
+                        showErrorDialog(message = result.errorMessage.toString())
+                        showLoader(false)
 
-                  }
-              }
+                    }
+                }
             }
         }
     }
-    private fun isCheckValidation() : Boolean{
+
+    private fun isCheckValidation(): Boolean {
         var isValid = true
         passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
         passwordNewError_.value = AuthUtils.passwordErrors(passwordNew.get().toString().trim())
-        passwordConfirmError_.value = AuthUtils.isMatchPasswordError(passwordNew.get().toString().trim(), passwordConifrm.get().toString().trim())
+        passwordConfirmError_.value = AuthUtils.isMatchPasswordError(
+            passwordNew.get().toString().trim(),
+            passwordConifrm.get().toString().trim()
+        )
 
-        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(passwordNew.get().toString(),
-            passwordConifrm.get().toString().trim())
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(
+            passwordNew.get().toString(),
+            passwordConifrm.get().toString().trim()
+        )
         isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
         isNewPassword.value = AuthUtils.isValidPasswordFormat(passwordNew.get().toString().trim())
 
@@ -108,8 +125,10 @@ class ChangedPasswordViewModel @ViewModelInject constructor(application: Applica
         if (!AuthUtils.isValidPasswordFormat(passwordNew.get().toString().trim())) {
             isValid = false
         }
-        if (!AuthUtils.isMatchPasswordBool(passwordNew.get().toString().trim(),
-                        passwordConifrm.get().toString().trim())
+        if (!AuthUtils.isMatchPasswordBool(
+                passwordNew.get().toString().trim(),
+                passwordConifrm.get().toString().trim()
+            )
         ) {
             isValid = false
         }

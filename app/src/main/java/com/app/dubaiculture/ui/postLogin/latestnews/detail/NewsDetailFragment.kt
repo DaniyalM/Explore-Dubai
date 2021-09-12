@@ -59,13 +59,13 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(newsDetailViewModel)
         backArrowRTL(binding.imgClose)
-        arguments?.let {
-            newsDetailViewModel.newsDetail(
-                id = it.getString(NEWS_ID).toString(),
-                locale = getCurrentLanguage().language
-            )
-
-        }
+//        arguments?.let {
+//            newsDetailViewModel.newsDetail(
+//                id = it.getString(NEWS_ID).toString(),
+//                locale = getCurrentLanguage().language
+//            )
+//
+//        }
         rvSetUp()
         binding.imgClose.setOnClickListener {
             back()

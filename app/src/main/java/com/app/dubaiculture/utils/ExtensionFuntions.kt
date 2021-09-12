@@ -13,6 +13,8 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +29,7 @@ import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_500
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.RequestBody
 import okio.Buffer
+import timber.log.Timber
 import java.io.IOException
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -40,7 +43,16 @@ fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
     val snapView = findSnapView(layoutManager) ?: return RecyclerView.NO_POSITION
     return layoutManager.getPosition(snapView)
 }
-
+fun Fragment.safeNavigateFromNavController(directions: NavDirections) {
+    val navController = findNavController()
+    val destination = navController.currentDestination as FragmentNavigator.Destination
+    //current visible fragment == fragment that is firing navigation
+    if (javaClass.name == destination.className) {
+        navController.navigate(directions)
+    } else {
+        Timber.e("Invalid navigation detected")
+    }
+}
 fun Activity.enableLocationFromSettings() {
     startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
 }
@@ -281,6 +293,18 @@ fun Date.toString(format: String): String {
     val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
     return dateFormatter.format(this)
 }
+fun View.show() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.show(show: Boolean) {
+    this.visibility = if (show) View.VISIBLE else View.GONE
+}
+
+fun View.hide() {
+    this.visibility = View.GONE
+}
+
 
 
 fun gettime(): String? {

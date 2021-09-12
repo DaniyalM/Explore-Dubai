@@ -1,92 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="technique"
             type="com.daimajia.androidanimations.library.Techniques" />
-<!--        <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
-        <variable name="news" type="com.app.dubaiculture.data.repository.news.local.LatestNews"/>
+        <!--        <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
+        <variable
+            name="news"
+            type="com.app.dubaiculture.data.repository.news.local.LatestNews" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/_265sdp"
+        android:layout_height="@dimen/_125sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_60sdp"
-        android:layout_width="@dimen/_265sdp"
-        android:animate="@{technique.BounceInUp}"
-        android:layout_height="@dimen/_125sdp">
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardview"
-        android:layout_width="@dimen/_245sdp"
-        android:layout_height="@dimen/_100sdp"
-        app:cardCornerRadius="@dimen/_12sdp"
-        app:cardElevation="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-     >
+        android:animate="@{technique.BounceInUp}">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.rishabhharit.roundedimageview.RoundedImageView
-                android:id="@+id/img_upcoming_bg"
-                app:cornerRadius="@dimen/_15sdp"
-                android:scaleType="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:imageUrl='@{news.image}'
-                app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight"
-                android:layout_width="@dimen/_90sdp"
-                android:layout_height="match_parent"/>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardview"
+            android:layout_width="@dimen/_245sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:cardElevation="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{news.title}"
-                    android:textSize="@dimen/_9ssp"
-                    android:maxLines="3"
-                    android:textAlignment="viewStart"
-                    android:textColor="?attr/colorSecondary"
-                    android:ellipsize="end"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    />
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:text="@{news.postedDate}"
-                    android:textSize="@dimen/_9ssp"
-                    android:maxLines="3"
-                    android:textAlignment="viewStart"
-                    android:drawablePadding="@dimen/_4sdp"
-                    android:drawableStart="@drawable/noun_date"
-                    android:textColor="@color/gray_600"
-                    android:ellipsize="end"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.rishabhharit.roundedimageview.RoundedImageView
+                    android:id="@+id/img_upcoming_bg"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:imageUrl='@{news.image}'
+                    android:scaleType="center"
+                    app:cornerRadius="@dimen/_15sdp"
+                    app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="@{news.title}"
+                        android:textAlignment="viewStart"
+                        android:textColor="?attr/colorSecondary"
+                        android:textSize="@dimen/_9ssp" />
+
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:drawableStart="@drawable/noun_date"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="@{news.postedDate}"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/gray_600"
+                        android:textSize="@dimen/_9ssp" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
 
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-
-    </com.google.android.material.card.MaterialCardView>
         <View
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardview"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_15sdp"/>
+            android:layout_height="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardview" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

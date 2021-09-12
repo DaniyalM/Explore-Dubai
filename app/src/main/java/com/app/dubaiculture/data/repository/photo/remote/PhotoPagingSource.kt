@@ -1,6 +1,7 @@
 package com.app.dubaiculture.data.repository.photo.remote
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.app.dubaiculture.data.repository.photo.remote.response.PhotoDTO
 import com.app.dubaiculture.data.repository.photo.remote.service.PhotoService
 
@@ -21,5 +22,9 @@ class PhotoPagingSource(private val photoService: PhotoService) :
             LoadResult.Error(e)
 
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, PhotoDTO>): Int? {
+        return state.anchorPosition
     }
 }
