@@ -46,10 +46,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
-//        SystemRequirementsChecker.Requirement.LOCATION_DISABLED
         Log.e("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
 
-//        applicationExitDialog()
         lottieAnimationRTL(binding.animationView)
         binding.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
