@@ -1,12 +1,6 @@
 package com.app.dubaiculture.ui.preLogin
 
-import android.bluetooth.BluetoothAdapter
-import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
-import androidx.activity.OnBackPressedCallback
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseActivity
 import com.app.dubaiculture.utils.AuthUtils.hideStatusBar
@@ -26,7 +20,6 @@ class PreLoginActivity : BaseActivity() {
         super.onResume()
         adjustFontScale(resources.configuration)
     }
-
 
 
 }
