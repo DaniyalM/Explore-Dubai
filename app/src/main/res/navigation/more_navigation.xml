@@ -7,6 +7,7 @@
     <include app:graph="@navigation/post_login_bottom_navigation" />
     <include app:graph="@navigation/profile_navigation" />
     <include app:graph="@navigation/news_navigation" />
+    <include app:graph="@navigation/settings_navigation" />
     <fragment
         android:id="@+id/moreFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.MoreFragment"
@@ -48,7 +49,7 @@
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_moreFragment_to_settingFragment"
-            app:destination="@id/settingFragment"
+            app:destination="@id/settings_navigation"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -100,18 +101,7 @@
         android:id="@+id/logoutFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.bottomsheet.LogoutFragment"
         android:label="LogoutFragment" />
-    <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.more.settings.SettingFragment"
-        android:label="SettingFragment">
-        <action
-            android:id="@+id/action_settingFragment_to_notificationSettingFragment"
-            app:destination="@id/notificationSettingFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
-    </fragment>
+
     <fragment
         android:id="@+id/notificationSettingFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.settings.NotificationSettingFragment"

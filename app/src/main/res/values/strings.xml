@@ -109,6 +109,7 @@
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="category">Category</string>
+    <string name="tags">Tags</string>
     <string name="type">Type</string>
     <string name="_free">Free</string>
     <string name="ticketed">Ticketed</string>

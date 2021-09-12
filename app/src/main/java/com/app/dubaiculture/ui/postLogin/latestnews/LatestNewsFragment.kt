@@ -19,23 +19,24 @@ import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsPagingAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.clicklisteners.NewsClickListener
 import com.app.dubaiculture.ui.postLogin.latestnews.viewmodel.NewsViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
+import com.app.dubaiculture.utils.event.UiEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>() {
+class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnClickListener {
     private val newsViewModel: NewsViewModel by viewModels()
     private lateinit var latestNewsListAdapter: LatestNewsListAdapter
     private lateinit var newsListAdapter: NewsPagingAdapter
-    var backflagNavigation = false
-    var latestNews: String? = null
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        arguments?.let {
-            latestNews = it.getString(NEWS_ID)
-        }
-
-    }
+//    var backflagNavigation = false
+//    var latestNews: String? = null
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        arguments?.let {
+//            latestNews = it.getString(NEWS_ID)
+//        }
+//
+//    }
 
     var contentLoadMore = true
     override fun getFragmentBinding(
@@ -46,16 +47,17 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (backflagNavigation) {
-            backflagNavigation = false
-            latestNews = null
-            navigateBack()
-        }
-        if (!latestNews.isNullOrEmpty()) {
-            backflagNavigation = true
-            val bundle = bundleOf(NEWS_ID to latestNews)
-            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment, bundle)
-        }
+        binding.filterNews.setOnClickListener(this)
+//        if (backflagNavigation) {
+//            backflagNavigation = false
+//            latestNews = null
+//            navigateBack()
+//        }
+//        if (!latestNews.isNullOrEmpty()) {
+//            backflagNavigation = true
+//            val bundle = bundleOf(NEWS_ID to latestNews)
+//            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment, bundle)
+//        }
 
         subscribeUiEvents(newsViewModel)
         backArrowRTL(binding.imgClose)
@@ -142,6 +144,16 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>() {
 
             adapter = newsListAdapter
 
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.filterNews -> {
+                navigateByDirections(
+                    LatestNewsFragmentDirections.actionLatestNewsFragmentToNewsFilterListingFragment()
+                )
+            }
         }
     }
 }

@@ -5,10 +5,13 @@
     android:id="@+id/explore_navigation"
     app:startDestination="@id/exploreFragment">
     <include app:graph="@navigation/post_login_bottom_navigation" />
+    <include app:graph="@navigation/attraction_detail_navigation" />
     <include app:graph="@navigation/attraction_navigation" />
     <include app:graph="@navigation/more_navigation" />
     <include app:graph="@navigation/events_navigation" />
+    <include app:graph="@navigation/settings_navigation" />
 
+    <include app:graph="@navigation/news_detail_navigation" />
 
     <fragment
         android:id="@+id/exploreFragment"
@@ -71,6 +74,40 @@
         <action
             android:id="@+id/action_exploreFragment_to_popularServiceFragment"
             app:destination="@id/popularServiceFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_news_detail_navigation"
+            app:destination="@id/news_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="news_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_exploreFragment_to_attraction_detail_navigation"
+            app:destination="@id/attraction_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="attraction"
+                app:argType="com.app.dubaiculture.data.repository.attraction.local.models.Attractions"
+                app:nullable="false"
+                />
+
+        </action>
+        <action
+            android:id="@+id/action_exploreFragment_to_settings_navigation"
+            app:destination="@id/settings_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+
     </fragment>
 
     <fragment

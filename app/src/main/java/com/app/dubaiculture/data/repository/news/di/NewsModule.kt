@@ -1,6 +1,6 @@
 package com.app.dubaiculture.data.repository.news.di
 
-import com.app.dubaiculture.data.repository.news.service.NewsService
+import com.app.dubaiculture.data.repository.news.remote.service.NewsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

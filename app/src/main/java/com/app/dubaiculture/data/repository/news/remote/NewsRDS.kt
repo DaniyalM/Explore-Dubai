@@ -6,9 +6,9 @@ import androidx.paging.PagingData
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRDS
 import com.app.dubaiculture.data.repository.news.remote.request.LatestNewsDTO
+import com.app.dubaiculture.data.repository.news.remote.request.NewsFilterRequestDTO
 import com.app.dubaiculture.data.repository.news.remote.request.NewsRequestDTO
-import com.app.dubaiculture.data.repository.news.service.NewsService
-import com.app.dubaiculture.data.repository.photo.remote.response.PhotoDTO
+import com.app.dubaiculture.data.repository.news.remote.service.NewsService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -20,6 +20,11 @@ class NewsRDS @Inject constructor(val newsService: NewsService) : BaseRDS(newsSe
                         newsRequestDTO.pageSize,
                         newsRequestDTO.culture
                 )
+            }
+
+    suspend fun getFilterNews(newsFilterRequestDTO: NewsFilterRequestDTO) =
+            safeApiCall {
+                newsService.getSearchNewsDetail(newsFilterRequestDTO)
             }
 
 

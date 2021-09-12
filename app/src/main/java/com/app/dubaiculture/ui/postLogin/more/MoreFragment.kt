@@ -42,10 +42,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
     var navigateSettings = false
-    var latestNews: String? = null
+//    var latestNews: String? = null
     var moreListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
-    var backflagNavigation = false
-    var latestNewsListingFlag = false
+//    var backflagNavigation = false
+//    var latestNewsListingFlag = false
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -54,38 +54,38 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.let {
-            navigateSettings = it.getBoolean(SETTING_DESTINATION)
-            latestNewsListingFlag = it.getBoolean(NEWS_NAVIGATION)
-            latestNews=it.getString(NEWS_ID)
-        }
+//        arguments?.let {
+//            navigateSettings = it.getBoolean(SETTING_DESTINATION)
+//            latestNewsListingFlag = it.getBoolean(NEWS_NAVIGATION)
+//            latestNews=it.getString(NEWS_ID)
+//        }
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (backflagNavigation) {
-            backflagNavigation = false
-            navigateSettings = false
-            latestNewsListingFlag = false
-            latestNews=null
-
-
-            navigateBack()
-        }
-        if (navigateSettings) {
-            backflagNavigation = true
-            navigate(R.id.action_moreFragment_to_settingFragment)
-        }
-        if (latestNewsListingFlag) {
-            backflagNavigation = true
-            navigate(R.id.action_moreFragment_to_latestNewsFragment)
-        }
-        if (!latestNews.isNullOrEmpty()){
-            backflagNavigation = true
-            val bundle = bundleOf(NEWS_ID to latestNews)
-            navigate(R.id.action_moreFragment_to_latestNewsFragment,bundle)
-        }
+//        if (backflagNavigation) {
+//            backflagNavigation = false
+//            navigateSettings = false
+//            latestNewsListingFlag = false
+//            latestNews=null
+//
+//
+//            navigateBack()
+//        }
+//        if (navigateSettings) {
+//            backflagNavigation = true
+//            navigate(R.id.action_moreFragment_to_settingFragment)
+//        }
+//        if (latestNewsListingFlag) {
+//            backflagNavigation = true
+//            navigate(R.id.action_moreFragment_to_latestNewsFragment)
+//        }
+//        if (!latestNews.isNullOrEmpty()){
+//            backflagNavigation = true
+//            val bundle = bundleOf(NEWS_ID to latestNews)
+//            navigate(R.id.action_moreFragment_to_latestNewsFragment,bundle)
+//        }
 
 
         subscribeUiEvents(moreViewModel)

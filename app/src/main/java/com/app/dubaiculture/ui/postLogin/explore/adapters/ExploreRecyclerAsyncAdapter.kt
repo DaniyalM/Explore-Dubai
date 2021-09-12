@@ -306,18 +306,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                         position: Int,
                                         imageView: ImageView
                                     ) {
-//                                        imageView.transitionName=attraction.id
-//                                        val extras = FragmentNavigatorExtras(
-//                                                imageView to attraction.id!!
-//                                        )
-                                        fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,
-                                            Bundle().apply {
-                                                putParcelable(
-                                                    ATTRACTION_OBJECT,
-                                                    transformBaseToAttraction(attraction)
-                                                )
-                                            })
-
+                                        fragment?.navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToAttractionDetailNavigation(
+                                                transformBaseToAttraction(attraction)
+                                            )
+                                        )
                                     }
                                 },
                                 resLayout = R.layout.must_see_inner_item_cell,
@@ -365,10 +358,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 resLayout = R.layout.latest_news_inner_item_cell,
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                        val bundle = bundleOf(NEWS_ID to it.id)
-                                        fragment?.navigate(
-                                            R.id.action_exploreFragment_to_more_navigation,
-                                            bundle
+                                        fragment?.navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToNewsDetailNavigation(
+                                                it.id!!
+                                            )
                                         )
                                     }
 
