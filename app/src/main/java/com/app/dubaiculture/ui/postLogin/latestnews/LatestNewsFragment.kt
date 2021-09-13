@@ -48,17 +48,6 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.filterNews.setOnClickListener(this)
-//        if (backflagNavigation) {
-//            backflagNavigation = false
-//            latestNews = null
-//            navigateBack()
-//        }
-//        if (!latestNews.isNullOrEmpty()) {
-//            backflagNavigation = true
-//            val bundle = bundleOf(NEWS_ID to latestNews)
-//            navigate(R.id.action_latestNewsFragment_to_newsDetailFragment, bundle)
-//        }
-
         subscribeUiEvents(newsViewModel)
         backArrowRTL(binding.imgClose)
         subscribeToObservables()

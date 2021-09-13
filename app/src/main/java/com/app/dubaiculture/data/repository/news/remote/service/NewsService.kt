@@ -18,6 +18,11 @@ interface NewsService : BaseService {
             @Query("culture") culture: String,
     ): NewsResponse
 
+    @GET("Content/GetNewsTags")
+    suspend fun getNewsTags(
+            @Query("culture") culture: String,
+    ): NewsResponse
+
     @GET("Content/GetNewsDetails")
     suspend fun getNewsDetail(
             @Query("Id") id: String,

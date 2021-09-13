@@ -5,10 +5,10 @@ import androidx.paging.map
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.news.local.LatestNews
+import com.app.dubaiculture.data.repository.news.local.NewsTags
 import com.app.dubaiculture.data.repository.news.mapper.*
 import com.app.dubaiculture.data.repository.news.remote.NewsRDS
-import com.app.dubaiculture.data.repository.news.remote.request.NewsFilterRequest
-import com.app.dubaiculture.data.repository.news.remote.request.NewsRequest
+import com.app.dubaiculture.data.repository.news.remote.request.*
 import com.app.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
 import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +17,17 @@ import javax.inject.Inject
 
 class NewsRepository @Inject constructor(private val newsRDS: NewsRDS) : BaseRepository(newsRDS) {
 
+
+    suspend fun getNewsTags(culture:String): Result<List<NewsTags>> {
+        return  when (val result = newsRDS.getTags(culture)) {
+            is Result.Success -> {
+                Result.Success(result.value.Result.tags.map { transformNewsTags(it) })
+            }
+            is Result.Failure -> Result.Failure(true, null, null, SOMETHING_WENT_WRONG)
+            is Result.Error -> Result.Failure(true, null, null, SOMETHING_WENT_WRONG)
+
+        }
+    }
 
     suspend fun getFilterNews(newsFilterRequest: NewsFilterRequest): Result<List<LatestNews>> {
         return  when (val result = newsRDS.getFilterNews(transformNewsFiltersRequest(newsFilterRequest))) {

@@ -98,6 +98,7 @@
     <string name="okay">حسنا</string>
     <string name="filters">تصنيف</string>
     <string name="search_events_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
+    <string name="search_news_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
     <string name="location">الموقع</string>
     <string name="date_range">نطاق التاريخ</string>
     <string name="from">من عند</string>
@@ -287,6 +288,7 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="attachment">Attachment</string>
     <string name="pdf">PDF</string>
+    <string name="no_my_posts_fav">No Data Found</string>
 
 
     <!--  End of Sprint 3  -->

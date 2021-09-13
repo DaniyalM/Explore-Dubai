@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels
 
 import android.app.Application
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -31,10 +32,14 @@ class NewsSharedViewModel @Inject constructor(
     val _dateTo:MutableLiveData<Event<String>> = MutableLiveData()
     val dateTo:LiveData<Event<String>> = _dateTo
 
+    var keywordType: ObservableField<String> = ObservableField("")
+
+
 
 
     fun onSearchTextChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
        _keyword.value= Event(s.toString())
+        keywordType.set(s.toString())
     }
 
 

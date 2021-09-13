@@ -81,4 +81,7 @@
     <color name="events_tab_text">#003865</color>
     <color name="events_tab_indicator">#EBC03F</color>
 
+    <color name="no_data_placeholder">#231F20</color>
+
+
 </resources>

@@ -61,7 +61,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/bg_edit_resiger"
             android:drawableEnd="@drawable/search_filter"
-            android:hint="@string/search_events_by_keyword"
+            android:hint="@string/search_news_by_keyword"
             android:imeOptions="actionSearch"
             android:onTextChanged="@{viewmodel::onSearchTextChanged}"
             app:layout_constraintEnd_toEndOf="parent"
