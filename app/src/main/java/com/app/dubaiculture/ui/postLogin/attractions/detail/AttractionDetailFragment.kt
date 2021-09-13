@@ -21,22 +21,31 @@ import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.AttractionDetailInnerLayoutBinding
 import com.app.dubaiculture.databinding.AttractionDetailUpComingItemsBinding
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.databinding.ToolbarLayoutDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionClickListener
+import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
+import com.app.dubaiculture.ui.postLogin.attractions.listing.AttractionFragment
+import com.app.dubaiculture.ui.postLogin.attractions.listing.AttractionFragmentDirections
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
+import com.app.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_ID
@@ -75,14 +84,18 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
+
+    private val attractionDetailFragmentArgs:AttractionDetailFragmentArgs by navArgs()
+    private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
     private var url: String? = null
     var emailContact: String? = null
     var numberContact: String? = null
     lateinit var detailInnerLayout: AttractionDetailInnerLayoutBinding
     lateinit var toolbarLayout: ToolbarLayoutDetailBinding
-    var detailListAdapter:GroupAdapter<GroupieViewHolder> = GroupAdapter()
+    private lateinit var eventListScreenAdapter: EventListScreenAdapter
 
-    //    private var readmore = false
+
+
     private val gpsObserver = Observer<GpsStatus> { status ->
         status?.let {
             updateGpsCheckUi(status)
@@ -101,14 +114,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 //    private var mapFragment: SupportMapFragment? = null
 
 
-    private val attractionDetailViewModel: AttractionViewModel by viewModels()
+
     private fun subscribeToGpsListener() = attractionDetailViewModel.gpsStatusLiveData
         .observe(viewLifecycleOwner, gpsObserver)
 
     private var lat: String? = ""
     private var long: String? = ""
     private lateinit var attractionsObj: Attractions
-    private lateinit var contentFlag: String
 
     private var isDetailFavouriteFlag = false
 
@@ -129,54 +141,50 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.apply {
-            attractionsObj = getParcelable(Constants.NavBundles.ATTRACTION_OBJECT)!!
+            attractionDetailFragmentArgs.attraction?.let {
+                attractionsObj =it
+            }
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isPagerFragment = true
-//        sharedElementEnterTransition = TransitionInflater.from(activity).inflateTransition(android.R.transition.move)
 
-    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
     ) = FragmentAttractionDetailBinding.inflate(inflater, container, false)
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
+
+    private fun setupSwipeToRefresh(){
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing = false
+            attractionDetailViewModel.refreshDetail()
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        locationPermission()
+        mapSetUp(savedInstanceState)
         detailInnerLayout = binding.attractionDetailInnerLayout
         toolbarLayout = binding.toolbarLayoutDetail
-        toolbarLayout.detailImageView.transitionName = attractionsObj.id
-        subscribeUiEvents(attractionDetailViewModel)
+        setupSwipeToRefresh()
+        rvSetUp()
+
         backArrowRTL(toolbarLayout.back)
         bgRTL(toolbarLayout.bgBorderUpper)
         backArrowRTL(binding.imgBack)
         arrowRTL(detailInnerLayout.arrowIbecons)
         arrowRTL(detailInnerLayout.arrowSiteMap)
-        rvSetUp()
-        detailInnerLayout.tvDescReadmore.text = attractionsObj.description
-        subscribeToGpsListener()
-
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.swipeRefreshLayout.isRefreshing = false
-            callingObservables()
-        }
+        uiActions()
         cardViewRTL()
-        mapSetUp(savedInstanceState)
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            runOnUiThread {
-                callingObservables()
-                locationPermission()
-                subscribeObservables()
-                uiActions()
-            }
-        }, 200)
-
-
+    }
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        subscribeUiEvents(attractionDetailViewModel)
+        subscribeToGpsListener()
+        subscribeObservables()
     }
 
 
@@ -199,7 +207,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             toolbarLayout.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
             binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
         }
-
         binding.root.apply {
             attraction.let {
                 binding.attractionDetailInnerLayout.tvReviews.text =
@@ -238,73 +245,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                 }
 
-                detailListAdapter.apply {
-                    if (this.itemCount > 0) {
-                        this.clear()
-                    }
-                    events?.let { events ->
-                        events.forEach {
-                            add(
-                                EventListItem<AttractionDetailUpComingItemsBinding>(
-                                    object : FavouriteChecker {
-                                        override fun checkFavListener(
-                                            checkbox: CheckBox,
-                                            pos: Int,
-                                            isFav: Boolean,
-                                            itemId: String,
-                                        ) {
-                                            favouriteClick(
-                                                checkbox,
-                                                isFav,
-                                                R.id.action_attractionsFragment_to_postLoginFragment,
-                                                itemId, attractionDetailViewModel,
-                                                2
-                                            )
-                                        }
-
-                                    },
-                                    object : RowClickListener {
-                                        override fun rowClickListener(position: Int) {
-                                            navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
-                                                Bundle().apply {
-                                                    putParcelable(
-                                                        Constants.NavBundles.EVENT_OBJECT,
-                                                        it
-                                                    )
-                                                })
-                                        }
-
-                                        override fun rowClickListener(
-                                            position: Int,
-                                            imageView: ImageView
-                                        ) {
-
-                                        }
-
-                                    },
-                                    event = it,
-                                    resLayout = R.layout.attraction_detail_up_coming_items,
-                                    activity
-                                )
-                            )
-                        }
-                    }
-                }
-
             }
         }
     }
 
-    private fun callingObservables() {
-        attractionsObj.let {
-            attractionDetailViewModel.getAttractionDetailsToScreen(
-                attractionId = it.id,
-                getCurrentLanguage().language
-            )
-        }
-    }
 
     private fun subscribeObservables() {
+        attractionDetailViewModel.attractionEvents.observe(viewLifecycleOwner){
+            eventListScreenAdapter.submitList(it)
+        }
         attractionDetailViewModel.isFavourite.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
@@ -340,10 +289,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         attractionDetailViewModel.attractionDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    contentFlag = "ContentLoaded"
+//                    contentFlag = "ContentLoaded"
+                    attractionsObj = it.value
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
-                    attractionsObj = it.value
+
                     if (it.value.gallery.isNullOrEmpty()) {
                         detailInnerLayout.downOneGallery.alpha = 0.4f
                         detailInnerLayout.downOneGallery.isClickable = false
@@ -489,7 +439,36 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun rvSetUp() {
         detailInnerLayout.rvUpComing.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = detailListAdapter
+
+
+            eventListScreenAdapter = EventListScreenAdapter(
+                eventClickListner = object :EventClickListner{
+                    override fun checkFavListener(
+                        checkbox: CheckBox,
+                        pos: Int,
+                        isFav: Boolean,
+                        itemId: String
+                    ) {
+                        favouriteClick(
+                            checkbox,
+                            isFav,
+                            R.id.action_attractionsFragment_to_postLoginFragment,
+                            itemId, attractionDetailViewModel,
+                            1
+                        )                    }
+
+                    override fun rowClickHandler(events: Events) {
+                        navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
+                            Bundle().apply {
+                                putParcelable(
+                                    Constants.NavBundles.EVENT_OBJECT,
+                                    events
+                                )
+                            })                    }
+                }
+
+            )
+            adapter = eventListScreenAdapter
         }
     }
 

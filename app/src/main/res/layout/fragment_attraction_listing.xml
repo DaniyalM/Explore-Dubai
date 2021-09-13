@@ -23,6 +23,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_30sdp"
             android:indeterminate="true"
             android:indeterminateTint="@color/colorPrimaryDark"

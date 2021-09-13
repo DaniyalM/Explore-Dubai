@@ -190,11 +190,11 @@ dependencies {
 
     // Navigation Component
     implementation config.navigationDependency.navFragmentKtx
-    implementation config.navigationDependency.navFragment
+//    implementation config.navigationDependency.navFragment
     implementation config.navigationDependency.navUiKtx
-    implementation config.navigationDependency.navRuntime
+//    implementation config.navigationDependency.navRuntime
     implementation config.navigationDependency.navRuntimeKtx
-    implementation config.navigationDependency.navUi
+//    implementation config.navigationDependency.navUi
     // Glide // SVG Glide
     implementation config.image_processing.glide
     kapt config.image_processing.glideCompiler

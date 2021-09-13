@@ -1,8 +1,13 @@
-package com.app.dubaiculture.data.repository.news.service
+package com.app.dubaiculture.data.repository.news.remote.service
 
 import com.app.dubaiculture.data.repository.base.BaseService
+import com.app.dubaiculture.data.repository.event.remote.request.EventFiltersRequestDTO
+import com.app.dubaiculture.data.repository.event.remote.response.EventResponse
+import com.app.dubaiculture.data.repository.news.remote.request.NewsFilterRequestDTO
 import com.app.dubaiculture.data.repository.news.remote.response.NewsResponse
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface NewsService : BaseService {
@@ -18,6 +23,11 @@ interface NewsService : BaseService {
             @Query("Id") id: String,
             @Query("culture") culture: String
     ): NewsResponse
+
+
+    @POST("Content/SearchNews")
+    suspend fun getSearchNewsDetail(@Body newsFilterRequestDTO: NewsFilterRequestDTO): NewsResponse
+
 
 
 }

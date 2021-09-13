@@ -342,7 +342,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                     val eventObj = moreList[position]
                                     val bundle = Bundle()
                                     bundle.putParcelable(
-                                        Constants.NavBundles.EVENT_OBJECT,
+                                        EVENT_OBJECT,
                                         eventObj
                                     )
                                     navigate(
@@ -381,7 +381,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                         val eventObj = nearList[position]
                                         val bundle = Bundle()
                                         bundle.putParcelable(
-                                            Constants.NavBundles.EVENT_OBJECT,
+                                            EVENT_OBJECT,
                                             eventObj
                                         )
                                         navigate(
@@ -429,7 +429,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                         val eventObj = featureList[position]
                                         val bundle = Bundle()
                                         bundle.putParcelable(
-                                            Constants.NavBundles.EVENT_OBJECT,
+                                            EVENT_OBJECT,
                                             eventObj
                                         )
                                         navigate(
@@ -471,12 +471,15 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         val myList = ArrayList<Events>()
         nearList.clear()
         val sortedList = ArrayList<Events>()
+
         list.forEach {
+            val longitude = if (it.longitude.isEmpty() || it.longitude == "null") "67.08119661055807" else it.longitude
+            val latitude = if (it.latitude.isEmpty()|| it.longitude == "null") "24.83250180519734" else it.latitude
             val distance = locationHelper.distance(
                 lat ?: 24.8623,
                 lng ?: 67.0627,
-                it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
-                it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble()
+                longitude.toDouble(),
+                latitude.toDouble()
             )
             it.distance = distance
             it.currentLat = lat ?: 24.8623

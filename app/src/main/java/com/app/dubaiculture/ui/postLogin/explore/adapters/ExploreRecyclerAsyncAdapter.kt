@@ -25,14 +25,14 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.mapper.transformBaseToEvent
 import com.app.dubaiculture.ui.postLogin.explore.ExploreFragment
+import com.app.dubaiculture.ui.postLogin.explore.ExploreFragmentDirections
 import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
-import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
-import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_FILTER
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
+import com.app.dubaiculture.utils.Constants.NavBundles.EXPLORE_TO_ATTRACTIONS
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_NAVIGATION
 import com.google.android.material.shape.CornerFamily
@@ -128,12 +128,22 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 attractionCat = transformBaseToAttractionCategory(attractionCat),
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                        clickCheckerFlag = position
-                                        fragment?.navigate(
-                                            R.id.action_exploreFragment_to_attraction_navigation,
-                                            Bundle().apply {
-                                                putInt(ATTRACTION_CAT_OBJECT, position)
-                                            })
+                                        Bundle().apply {
+                                            putBoolean(EXPLORE_TO_ATTRACTIONS, true)
+                                        }
+
+                                        (fragment as ExploreFragment).navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToAttractionNavigation(
+                                                fragment?.getCurrentLanguage()?.language!!,
+                                                position,
+                                                true
+                                            )
+                                        )
+//                                        fragment?.navigate(
+//                                            R.id.action_exploreFragment_to_attraction_navigation,
+//                                            Bundle().apply {
+//                                                putInt(ATTRACTION_CAT_OBJECT, position)
+//                                            })
                                     }
 
                                     override fun rowClickListener(
@@ -296,18 +306,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                         position: Int,
                                         imageView: ImageView
                                     ) {
-//                                        imageView.transitionName=attraction.id
-//                                        val extras = FragmentNavigatorExtras(
-//                                                imageView to attraction.id!!
-//                                        )
-                                        fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,
-                                            Bundle().apply {
-                                                putParcelable(
-                                                    ATTRACTION_OBJECT,
-                                                    transformBaseToAttraction(attraction)
-                                                )
-                                            })
-
+                                        fragment?.navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToAttractionDetailNavigation(
+                                                transformBaseToAttraction(attraction)
+                                            )
+                                        )
                                     }
                                 },
                                 resLayout = R.layout.must_see_inner_item_cell,
@@ -355,10 +358,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 resLayout = R.layout.latest_news_inner_item_cell,
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                        val bundle = bundleOf(NEWS_ID to it.id)
-                                        fragment?.navigate(
-                                            R.id.action_exploreFragment_to_more_navigation,
-                                            bundle
+                                        fragment?.navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToNewsDetailNavigation(
+                                                it.id!!
+                                            )
                                         )
                                     }
 

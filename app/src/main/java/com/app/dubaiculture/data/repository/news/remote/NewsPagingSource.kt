@@ -4,8 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.app.dubaiculture.data.repository.news.remote.request.LatestNewsDTO
 import com.app.dubaiculture.data.repository.news.remote.request.NewsRequestDTO
-import com.app.dubaiculture.data.repository.news.service.NewsService
-import com.app.dubaiculture.data.repository.photo.remote.response.PhotoDTO
+import com.app.dubaiculture.data.repository.news.remote.service.NewsService
 import com.app.dubaiculture.utils.Constants.PAGING.NEW_PAGING_SIZE
 
 class NewsPagingSource(

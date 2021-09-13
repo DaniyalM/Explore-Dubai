@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
@@ -18,9 +19,11 @@ import com.app.dubaiculture.data.repository.event.remote.response.AddToFavourite
 import com.app.dubaiculture.data.repository.user.local.User
 import com.app.dubaiculture.data.repository.user.local.guest.Guest
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.GpsStatusListener
 import com.app.dubaiculture.utils.event.Event
 import com.app.dubaiculture.utils.event.UiEvent
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel(
@@ -75,29 +78,14 @@ abstract class BaseViewModel(
         )
     }
 
-    fun showToast(message: String) {
-        _uiEventsLiveData.value = Event(UiEvent.ShowToast(message))
-//        _uiEventsLiveData.postValue(Event(UiEvent.ShowToast(message)))
-
-    }
 
 
-    fun showSnackbar(message: String, action: (() -> Unit)? = null) {
-        _uiEventsLiveData.value = Event(UiEvent.ShowSnackbar(message, action))
 
-    }
-
-    fun navigateByDirections(navDirections: NavDirections) {
-        _uiEventsLiveData.value = Event(UiEvent.NavigateByDirections(navDirections))
-    }
 
     fun navigateByBack() {
         _uiEventsLiveData.value = Event(UiEvent.NavigateByBack())
     }
 
-    fun navigateByAction(actionId: Int, bundle: Bundle? = null) {
-        _uiEventsLiveData.value = Event(UiEvent.NavigateByAction(actionId, bundle))
-    }
 
     fun setUser(user: User) {
         _userLiveData.value = user
@@ -131,6 +119,59 @@ abstract class BaseViewModel(
         }
 
     }
+
+
+
+    fun showAlert(
+        message: String,
+        title: String = Constants.Alert.DEFAULT_TITLE,
+        textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
+        textNegative: String? = null,
+        actionPositive: (() -> Unit)? = null
+    ) {
+        _uiEventsLiveData.value = Event(
+            UiEvent.ShowAlert(
+                title = title,
+                message = message,
+                textPositive = textPositive,
+                textNegative = textNegative,
+                actionPositive = actionPositive
+            )
+        )
+    }
+
+    fun showToast(message: String) {
+        _uiEventsLiveData.value = Event(UiEvent.ShowToast(message))
+    }
+
+    fun showSnackbar(message: String, action: (() -> Unit)? = null) {
+        _uiEventsLiveData.value = Event(UiEvent.ShowSnackbar(message, action))
+    }
+
+    fun navigateByDirections(navDirections: NavDirections) {
+        _uiEventsLiveData.value = Event(UiEvent.NavigateByDirections(navDirections))
+    }
+
+    //TODO Ammar: use nav options by nav graph
+    fun navigateByActionNavOption(actionId: Int, bundle: Bundle? = null, navOptions: NavOptions) {
+        _uiEventsLiveData.value =
+            Event(UiEvent.NavigateByActionNavOption(actionId, bundle, navOptions))
+    }
+
+    fun navigateByAction(actionId: Int, bundle: Bundle? = null) {
+        _uiEventsLiveData.value = Event(UiEvent.NavigateByAction(actionId, bundle))
+    }
+
+    fun showBottomSheet(
+        bottomSheetFragment: BottomSheetDialogFragment,
+        tag: String? = null
+    ) {
+        _uiEventsLiveData.value = Event(UiEvent.ShowBottomSheet(bottomSheetFragment, tag))
+
+    }
+
+
+
 
 
 }

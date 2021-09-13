@@ -1,14 +1,20 @@
 package com.app.dubaiculture.data.repository.news.mapper
 
 import com.app.dubaiculture.data.repository.news.local.*
-import com.app.dubaiculture.data.repository.news.remote.request.LatestNewsDTO
-import com.app.dubaiculture.data.repository.news.remote.request.NewsRequest
-import com.app.dubaiculture.data.repository.news.remote.request.NewsRequestDTO
+import com.app.dubaiculture.data.repository.news.remote.request.*
 import com.app.dubaiculture.data.repository.news.remote.response.NewsResponse
 
+fun transformNewsFiltersRequest(newsFilterRequest: NewsFilterRequest) =
+    NewsFilterRequestDTO(
+        Culture = newsFilterRequest.culture ?: "en",
+        Tag = newsFilterRequest.tags,
+        Keyword = newsFilterRequest.keyword,
+        DateFrom = newsFilterRequest.dateFrom,
+        DateTo = newsFilterRequest.dateTo,
+    )
 
 fun transformNewsRequest(newsRequest: NewsRequest) = NewsRequestDTO(
-    id=newsRequest.id,
+    id = newsRequest.id,
     pageNo = newsRequest.pageNumber,
     pageSize = newsRequest.pageSize,
     culture = newsRequest.culture
@@ -38,7 +44,7 @@ fun transformNewsResponse(newsDTO: List<LatestNewsDTO>) = newsDTO.map {
 
 }
 
-fun transformNewsPaging(newsDTO: LatestNewsDTO)=  LatestNews(
+fun transformNewsPaging(newsDTO: LatestNewsDTO) = LatestNews(
     id = newsDTO.id,
     title = newsDTO.title,
     postedDate = newsDTO.postedDate,

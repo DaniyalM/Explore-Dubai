@@ -35,6 +35,7 @@ class ApplicationEntry : Application() {
         auth = AuthState()
         NetworkLiveData.initNetwork(this)
         PushNotificationManager.createNotificationChannel(this)
+        beaconManager = BeaconManager(applicationContext)
         beaconImplementation()
         isInternetActive = NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
@@ -45,28 +46,18 @@ class ApplicationEntry : Application() {
     }
 
     private fun beaconImplementation(){
-        beaconManager = BeaconManager(applicationContext)
-
         beaconManager.connect(object : BeaconManager.ServiceReadyCallback {
             override fun onServiceReady() {
-//                showNotification("Beacon Monitoring", "Service ready Start Monitoring...")
-                Toast.makeText(
-                    applicationContext,
-                    "Service ready Start Monitoring...",
-                    Toast.LENGTH_SHORT
-                ).show()
-
                 region = BeaconRegion(IDENTIFIER, UUID.fromString(UUID_BECON), null, null)
                 beaconManager.startMonitoring(region)
                 beaconManager.startRanging(region)
                 beaconManager.setScanStatusListener(object : BeaconManager.ScanStatusListener {
                     override fun onScanStart() {
-//                        PushNotificationManager.showNotification(
-//                            applicationContext,
-//                            "Beacon Scanning has begin.",
-//                            "Dubai Culture Scanning has been started", null
-//                        )
-                      Toast.makeText(applicationContext,"Scanning has been started",Toast.LENGTH_SHORT).show()
+                        PushNotificationManager.showNotification(
+                            applicationContext,
+                            "Beacon Scanning",
+                            "Dubai Culture Scanning has been started", null
+                        )
                     }
 
                     override fun onScanStop() {
@@ -78,11 +69,7 @@ class ApplicationEntry : Application() {
                         beaconRegion: BeaconRegion?,
                         beacons: MutableList<Beacon>?
                     ) {
-                        Toast.makeText(
-                            applicationContext,
-                            "Monitoring has been started",
-                            Toast.LENGTH_SHORT
-                        ).show()
+
                         val intent  = Intent(applicationContext,PreLoginActivity::class.java)
                         val resultPendingIntent =PendingIntent.getActivity(applicationContext,1,intent,PendingIntent.FLAG_UPDATE_CURRENT)
                         PushNotificationManager.showNotification(

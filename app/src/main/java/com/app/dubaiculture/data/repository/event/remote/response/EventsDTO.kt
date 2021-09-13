@@ -76,11 +76,11 @@ data class EventsDTO(
 
     @SerializedName("Latitude")
     @Expose
-    var latitude: String? = "",
+    var latitude: String = "24.83250180519734",
 
     @SerializedName("Longitude")
     @Expose
-    var longitude: String? = "",
+    var longitude: String = "67.08119661055807",
 
     @SerializedName("IsFavourite")
     @Expose
