@@ -16,10 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
+import androidx.paging.LoadState
+import androidx.paging.LoadStateAdapter
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.*
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
@@ -36,7 +36,56 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+fun <T : Any, V : RecyclerView.ViewHolder> PagingDataAdapter<T, V>.withLoadStateAdapters(
+    header: LoadStateAdapter<*>,
+    footer: LoadStateAdapter<*>,
+    callback: (showPlaceHolder: Boolean) -> Unit
+): ConcatAdapter {
+    addLoadStateListener { loadStates ->
+        header.loadState = loadStates.refresh
+        footer.loadState = loadStates.append
+        if (loadStates.source.refresh is LoadState.NotLoading &&
+            loadStates.append.endOfPaginationReached &&
+            itemCount < 1
+        ) {
+            callback(true)
+        } else if (loadStates.source.refresh is LoadState.Error &&
+            itemCount < 1
+        ) {
+            callback(true)
+        } else {
+            callback(false)
+        }
+    }
 
+    return ConcatAdapter(header, this, footer)
+}
+
+
+//fun <T : Any, V : RecyclerView.ViewHolder> ListAdapter<T, V>.withLoadStateAdapters(
+//    header: LoadStateAdapter<*>,
+//    footer: LoadStateAdapter<*>,
+//    callback: (showPlaceHolder: Boolean) -> Unit
+//): ConcatAdapter {
+//    addLoadStateListener { loadStates ->
+//        header.loadState = loadStates.refresh
+//        footer.loadState = loadStates.append
+//        if (loadStates.source.refresh is LoadState.NotLoading &&
+//            loadStates.append.endOfPaginationReached &&
+//            itemCount < 1
+//        ) {
+//            callback(true)
+//        } else if (loadStates.source.refresh is LoadState.Error &&
+//            itemCount < 1
+//        ) {
+//            callback(true)
+//        } else {
+//            callback(false)
+//        }
+//    }
+//
+//    return ConcatAdapter(header, this, footer)
+//}
 
 fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
     val layoutManager = recyclerView.layoutManager ?: return RecyclerView.NO_POSITION

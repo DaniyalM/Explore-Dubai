@@ -5,6 +5,7 @@ import com.app.dubaiculture.data.repository.attraction.remote.response.Attractio
 import com.app.dubaiculture.data.repository.news.local.NewsDetail
 import com.app.dubaiculture.data.repository.news.remote.request.LatestNewsDTO
 import com.app.dubaiculture.data.repository.news.remote.request.NewsDetailDTO
+import com.app.dubaiculture.data.repository.news.remote.request.NewsTagsDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -19,5 +20,9 @@ data class Result(
 
         @SerializedName("NewsDetail")
         @Expose
-        var detail: NewsDetailDTO
+        var detail: NewsDetailDTO,
+
+        @SerializedName("Tags")
+        @Expose
+        var tags: List<NewsTagsDTO>
 )

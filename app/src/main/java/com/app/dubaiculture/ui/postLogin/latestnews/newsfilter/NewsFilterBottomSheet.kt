@@ -5,83 +5,134 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.news.local.NewsTags
 import com.app.dubaiculture.databinding.FragmentBottomSheetNewsFilterBinding
-import com.app.dubaiculture.databinding.FragmentFilterBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
+import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.adapters.NewsTagsListAdapter
+import com.app.dubaiculture.ui.postLogin.latestnews.adapter.clicklisteners.NewsTagsClickListener
+import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsFilterSheetViewModel
 import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsSharedViewModel
+import com.app.dubaiculture.utils.Constants.NavBundles.SHEET_STATE
 import com.app.dubaiculture.utils.DatePickerHelper
 import com.app.dubaiculture.utils.toString
-import timber.log.Timber
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFilterBinding>(), View.OnClickListener {
-    private val newsFilterViewModel:NewsSharedViewModel by activityViewModels()
-    private var startDateObj : Date?= null
+@AndroidEntryPoint
+class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFilterBinding>(),
+    View.OnClickListener {
+    private val newsFilterViewModel: NewsSharedViewModel by activityViewModels()
+    private val newsFilterSheetViewModel: NewsFilterSheetViewModel by viewModels()
+    private var startDateObj: Date? = null
+    private lateinit var newsTagsListAdapter: NewsTagsListAdapter
 
-    private var filter:Filter = Filter()
+    private var filter: Filter = Filter()
+
+    private fun recyclerViewSetUp() {
+        binding.rvCategories.apply {
+            val layoutManager = FlexboxLayoutManager(context)
+            layoutManager.flexDirection = FlexDirection.ROW
+            layoutManager.alignItems = AlignItems.STRETCH
+            setLayoutManager(layoutManager)
+            newsTagsListAdapter = NewsTagsListAdapter(object : NewsTagsClickListener {
+                override fun onTagSelectListner(newsTags: NewsTags) {
+                    if (!filter.tags.contains(newsTags.tag_title) && newsTags.isSelected) {
+                        filter.tags.add(newsTags.tag_title)
+                    }else{
+                        filter.tags.remove(newsTags.tag_title)
+                    }
+
+                }
+            })
+            adapter = newsTagsListAdapter
+        }
+    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentBottomSheetNewsFilterBinding.inflate(inflater, container, false)
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeUiEvents(newsFilterViewModel)
-        binding.viewmodel=newsFilterViewModel
 
-        binding.tvStartDate.text=filter.dateFrom
-        binding.tvEndDate.text=filter.dateTo
-        binding.editSearch.hint=filter.keyword
+        savedInstanceState?.let {
+            filter = it.getParcelable(SHEET_STATE)!!
+        }
+
+        subscribeUiEvents(newsFilterViewModel)
+        recyclerViewSetUp()
+        binding.viewmodel = newsFilterViewModel
+
+        binding.tvStartDate.text = filter.dateFrom
+        binding.tvEndDate.text = filter.dateTo
+        binding.editSearch.hint = filter.keyword
 
 
         binding.btnFilter.setOnClickListener(this)
         binding.tvStartDate.setOnClickListener(this)
         binding.tvEndDate.setOnClickListener(this)
         binding.tvReset.setOnClickListener(this)
-        subscribeToObservables()
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(SHEET_STATE, filter)
     }
 
 
+    private fun subscribeToObservables() {
 
-
-    private fun subscribeToObservables(){
-        newsFilterViewModel.updateFilter(filter)
-
-        newsFilterViewModel.keyword.observe(viewLifecycleOwner){
+//        newsFilterViewModel.updateFilter(filter)
+        newsFilterViewModel.keyword.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                newsFilterViewModel.updateFilter(filter.copy(keyword = it))
+
+                filter.keyword = it
             }
         }
-        newsFilterViewModel.dateFrom.observe(viewLifecycleOwner){
+        newsFilterViewModel.dateFrom.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                binding.tvStartDate.text=it
-                newsFilterViewModel.updateFilter(filter.copy(dateFrom = it))
+                filter.dateFrom = it
+                binding.tvStartDate.text = it
             }
         }
-        newsFilterViewModel.dateTo.observe(viewLifecycleOwner){
+        newsFilterViewModel.dateTo.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                binding.tvEndDate.text=it
-                newsFilterViewModel.updateFilter(filter.copy(dateTo = it))
-
-
+                filter.dateTo = it
+                binding.tvEndDate.text = it
             }
         }
+        newsFilterSheetViewModel.newsTags.observe(viewLifecycleOwner) {
+            newsTagsListAdapter.submitList(it)
+
+        }
+
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(newsFilterViewModel)
+        subscribeToObservables()
     }
+
     override fun onClick(v: View?) {
         v?.apply {
-            when(id){
+            when (id) {
                 R.id.btn_filter -> {
-//                    newsFilterViewModel.displayFilters()
+                    newsFilterViewModel.updateFilter(filter)
+                    dismiss()
+
                 }
                 R.id.tv_start_date -> {
-                    DatePickerHelper(binding.tvStartDate.text.toString(),
+                    DatePickerHelper(
+                        binding.tvStartDate.text.toString(),
                         requireContext(),
                         object : DatePickerHelper.DatePickerInterface {
                             override fun onDateSelected(calendar: Calendar) {
@@ -92,10 +143,12 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
                                 binding.tvStartDate.text = str
 
                             }
-                        },fromDate = false).showPicker()
+                        }, fromDate = false
+                    ).showPicker()
                 }
                 R.id.tv_end_date -> {
-                    DatePickerHelper(binding.tvEndDate.text.toString(),
+                    DatePickerHelper(
+                        binding.tvEndDate.text.toString(),
                         requireContext(),
                         object : DatePickerHelper.DatePickerInterface {
                             override fun onDateSelected(calendar: Calendar) {
@@ -106,11 +159,15 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
                                 binding.tvEndDate.text = str
 
                             }
-                        },minDate = startDateObj?.time).showPicker()
+                        }, minDate = startDateObj?.time
+                    ).showPicker()
 
                 }
                 R.id.tvReset -> {
-
+                    filter = Filter()
+                    binding.editSearch.setText("")
+                    newsFilterViewModel.updateFilter(filter)
+                    dismiss()
                 }
             }
         }

@@ -22,6 +22,13 @@ class NewsRDS @Inject constructor(val newsService: NewsService) : BaseRDS(newsSe
                 )
             }
 
+    suspend fun getTags(culture: String) =
+            safeApiCall {
+                newsService.getNewsTags(
+                    culture
+                )
+            }
+
     suspend fun getFilterNews(newsFilterRequestDTO: NewsFilterRequestDTO) =
             safeApiCall {
                 newsService.getSearchNewsDetail(newsFilterRequestDTO)
