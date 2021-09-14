@@ -104,6 +104,7 @@
     <string name="okay">Okay</string>
     <string name="filters">Filters</string>
     <string name="search_events_by_keyword">Search events by keyword</string>
+    <string name="search_news_by_keyword">Search news by keyword</string>
     <string name="location">Location</string>
     <string name="date_range">Date Range</string>
     <string name="from">From</string>
@@ -290,5 +291,6 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="attachment">Attachment</string>
     <string name="pdf">PDF</string>
+    <string name="no_my_posts_fav">No Data Found</string>
 
 </resources>

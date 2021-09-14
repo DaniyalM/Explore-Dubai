@@ -4,6 +4,11 @@ import com.app.dubaiculture.data.repository.news.local.*
 import com.app.dubaiculture.data.repository.news.remote.request.*
 import com.app.dubaiculture.data.repository.news.remote.response.NewsResponse
 
+
+fun transformNewsTags(newsTagsDTO: NewsTagsDTO)=NewsTags(
+    tag_id = newsTagsDTO.TagID?:"",
+    tag_title = newsTagsDTO.TagTitle?:""
+)
 fun transformNewsFiltersRequest(newsFilterRequest: NewsFilterRequest) =
     NewsFilterRequestDTO(
         Culture = newsFilterRequest.culture ?: "en",

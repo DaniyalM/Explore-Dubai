@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsSharedViewModel" />
+
+    </data>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_35sdp">
+       >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/back"
@@ -49,6 +56,7 @@
                     android:hint="@string/search_event_by_keyword"
                     android:imeOptions="actionSearch"
                     android:maxLines="1"
+                    android:onTextChanged="@{viewmodel::onSearchTextChanged}"
                     android:singleLine="true"
                     android:paddingStart="@dimen/_15ssp"
                     android:textColorHint="@color/gray_600"

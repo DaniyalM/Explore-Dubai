@@ -35,6 +35,7 @@ class NewFilterListingViewModel @Inject constructor(
     fun getFilterNews(
         filter:Filter
     ) {
+//        showLoader(true)
             viewModelScope.launch {
                 when (val result = newsRepository.getFilterNews(
                     NewsFilterRequest(
@@ -46,6 +47,7 @@ class NewFilterListingViewModel @Inject constructor(
                     )
                 )) {
                     is Result.Success -> {
+//                        showLoader(false)
                         _news.value = result.value
                     }
                     is Result.Failure ->showAlert(result.errorMessage.toString())

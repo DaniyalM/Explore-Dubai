@@ -9,7 +9,7 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHo
     
     private val diffCallback = object : DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {

@@ -46,6 +46,7 @@ class NewsViewModel @Inject constructor(
     }
 
     fun getLatestNews() {
+        showLoader(true)
         savedStateHandle.get<String>(NEW_LOCALE)?.let {
             viewModelScope.launch {
                 when (val result = newsRespository.getLatestNews(
@@ -54,6 +55,7 @@ class NewsViewModel @Inject constructor(
                     )
                 )) {
                     is Result.Success -> {
+                        showLoader(false)
                         _newsLatest.value = result.value
                     }
                     is Result.Failure -> result
@@ -65,13 +67,16 @@ class NewsViewModel @Inject constructor(
     }
 
     fun getNews() {
+        showLoader(false)
+
         savedStateHandle.get<String>(NEW_LOCALE)?.let {
             viewModelScope.launch {
 
                 val result = newsRespository.getNews(NewsRequest(culture = it ?: "en"))
-                showLoader(false)
                 when (result) {
                     is Result.Success -> {
+                        showLoader(false)
+
                         result.value
                             .cachedIn(viewModelScope)
                             .collectLatest {
