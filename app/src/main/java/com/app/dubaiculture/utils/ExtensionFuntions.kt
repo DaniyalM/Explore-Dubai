@@ -29,12 +29,32 @@ import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_500
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.RequestBody
 import okio.Buffer
+import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-
+fun Exception.triggerException() {
+    when (this) {
+        is HttpException -> {
+            when (code()) {
+                200 -> {
+                }
+                300 -> {
+                }
+                400 -> {
+                }
+            }
+        }
+        is IllegalArgumentException -> {
+            Timber.e(message)
+        }
+        else -> {
+            Timber.e(message)
+        }
+    }
+}
 
 fun <T : Any, V : RecyclerView.ViewHolder> PagingDataAdapter<T, V>.withLoadStateAdapters(
     header: LoadStateAdapter<*>,

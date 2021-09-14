@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Filter(
-    var tags: MutableList<String> = mutableListOf(),
+    var tags: List<String> = emptyList(),
     var keyword: String = "",
     var dateFrom: String = "",
     var dateTo: String = "",

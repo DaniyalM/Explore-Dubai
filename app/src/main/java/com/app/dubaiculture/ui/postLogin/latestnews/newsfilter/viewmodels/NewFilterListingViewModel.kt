@@ -50,7 +50,7 @@ class NewFilterListingViewModel @Inject constructor(
 //                        showLoader(false)
                         _news.value = result.value
                     }
-                    is Result.Failure ->showAlert(result.errorMessage.toString())
+                    is Result.Failure ->showToast(result.errorMessage.toString())
                     is Result.Error ->showAlert(result.exception.message.toString())
 
                 }
