@@ -29,5 +29,12 @@ interface MoreService : BaseService {
     suspend fun getFeedBackType(@Query("culture") culture: String): MoreResponse
 
     @POST("Home/ShareFeedback")
-    suspend fun postFeedBack(@Body shareFeedBackRequestDTO : ShareFeedBackRequestDTO): MoreResponse
+    suspend fun postFeedBack(@Body shareFeedBackRequestDTO: ShareFeedBackRequestDTO): MoreResponse
+
+    @GET("Content/GetMyNotifications")
+    suspend fun getMyNotification(
+//        @Query("culture") culture: String ,
+        @Query("pageNo") pageNo: Int,
+        @Query("pageSize") pageSize: Int
+    ): MoreResponse
 }

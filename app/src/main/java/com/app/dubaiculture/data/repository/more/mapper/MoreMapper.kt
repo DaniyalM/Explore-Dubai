@@ -7,6 +7,14 @@ import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRe
 import com.app.dubaiculture.data.repository.more.remote.request.ShareFeedBackRequestDTO
 import com.app.dubaiculture.data.repository.more.remote.request.ShareFeedbackRequest
 import com.app.dubaiculture.data.repository.more.remote.response.*
+import com.app.dubaiculture.data.repository.more.remote.response.notification.NotificationDTO
+import com.app.dubaiculture.data.repository.more.remote.response.notification.NotificationRequest
+import com.app.dubaiculture.data.repository.more.remote.response.notification.NotificationRequestDTO
+import com.app.dubaiculture.data.repository.more.remote.response.notification.Notifications
+import com.app.dubaiculture.data.repository.news.local.LatestNews
+import com.app.dubaiculture.data.repository.news.remote.request.LatestNewsDTO
+import com.app.dubaiculture.data.repository.news.remote.request.NewsRequest
+import com.app.dubaiculture.data.repository.news.remote.request.NewsRequestDTO
 
 fun transformPrivacyAndTermsRequest(privacyAndTermRequest: PrivacyAndTermRequest) =
         PrivacyAndTermRequestDTO(
@@ -149,3 +157,14 @@ fun transformPostFeedBack(shareFeedBackRequest: ShareFeedbackRequest) =
                 Type = shareFeedBackRequest.type
         )
 
+fun transformNotification(notificationRequest: NotificationRequest) = NotificationRequestDTO(
+        pageNo = notificationRequest.pageNumber,
+        pageSize = notificationRequest.pageSize,
+//        culture = notificationRequest.culture
+)
+fun transformNotificationPaging(notificationDTO: NotificationDTO) = Notifications(
+        id = notificationDTO.ID,
+        title = notificationDTO.Title,
+        body = notificationDTO.Body,
+        dateTime = notificationDTO.DateTime,
+)

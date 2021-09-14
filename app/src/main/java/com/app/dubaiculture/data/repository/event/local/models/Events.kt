@@ -1,3 +1,4 @@
+
 package com.app.dubaiculture.data.repository.event.local.models
 
 import android.os.Parcelable
