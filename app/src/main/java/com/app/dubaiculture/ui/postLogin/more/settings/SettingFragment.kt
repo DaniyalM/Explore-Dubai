@@ -121,17 +121,18 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
 
     }
 
-    fun darkModeEnable() {
+private  fun darkModeEnable() {
         val preferenceRepository = (requireActivity().application as ApplicationEntry).preferenceRepository
         preferenceRepository.isDarkThemeLive.observe(viewLifecycleOwner) { isDarkTheme ->
             isDarkTheme?.let { binding.switchDarkMode.isChecked = it }
         }
         binding.switchDarkMode.setOnCheckedChangeListener { _, checked ->
+
             preferenceRepository.isDarkTheme = checked
         }
     }
 
-    fun markPushNotificationSwitch() {
+  private  fun markPushNotificationSwitch() {
         binding.switchLoc.apply {
             setOnCheckedChangeListener(null)
             isChecked = locationHelper.isLocationEnabled()

@@ -3,6 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <data>
+        <variable name="notification" type="com.app.dubaiculture.data.repository.more.remote.response.notification.Notifications"/>
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
+    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -49,7 +57,7 @@
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                    android:id="@+id/tv_noti_desc"
-                    android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution."
+                    android:text="@{notification.body}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextViewStyle"
@@ -62,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/clock_notification"
                    android:drawablePadding="@dimen/_8sdp"
-                    android:text="1 hr ago"
+                    android:text="@{notification.dateTime}"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/_10sdp"
                     android:textColor="@color/gray_500"

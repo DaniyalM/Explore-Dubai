@@ -32,6 +32,8 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+        subscribeUiEvents(surveyViewModel)
+        surveyViewModel.getSurveyForm("",getCurrentLanguage().language)
         rvSetUp()
         subscribeObserver()
     }

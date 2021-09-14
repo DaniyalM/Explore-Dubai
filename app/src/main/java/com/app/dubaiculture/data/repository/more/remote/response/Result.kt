@@ -3,6 +3,7 @@ package com.app.dubaiculture.data.repository.more.remote.response
 import com.app.dubaiculture.data.repository.attraction.remote.response.SocialLinkDTO
 import com.app.dubaiculture.data.repository.more.local.FeedbacksType
 import com.app.dubaiculture.data.repository.more.remote.request.*
+import com.app.dubaiculture.data.repository.more.remote.response.notification.NotificationDTO
 
 data class Result(
     var PrivacyPolicy: List<PrivacyPolicyDTO>,
@@ -22,4 +23,5 @@ data class Result(
     var FaqTitle: String,
     val FaqItems: List<FaqItemDTO>,
     val FeedbacksType: List<FeedbacksTypeDTO>,
+    val Notifications : List<NotificationDTO> = emptyList()
     )
