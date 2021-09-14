@@ -26,7 +26,8 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
     View.OnClickListener {
 
     private lateinit var observer: RecyclerView.AdapterDataObserver
-    private lateinit var observerSelected: RecyclerView.AdapterDataObserver
+
+    //    private lateinit var observerSelected: RecyclerView.AdapterDataObserver
     private val newsFilterViewModel: NewsSharedViewModel by activityViewModels()
     private val newsFilterListingViewModel: NewFilterListingViewModel by viewModels()
     private lateinit var newsListAdapter: NewFilterListAdapter

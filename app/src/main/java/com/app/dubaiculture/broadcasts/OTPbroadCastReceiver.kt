@@ -3,22 +3,21 @@ package com.app.dubaiculture.broadcasts
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.telephony.SmsMessage
-import com.app.dubaiculture.utils.triggerException
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
 
 class OTPbroadCastReceiver : BroadcastReceiver() {
-    var smsBroadCastReceiverListener:SmsBroadCastReceiverListener ?= null
+    var smsBroadCastReceiverListener: SmsBroadCastReceiverListener? = null
     override fun onReceive(context: Context?, intent: Intent?) {
-        if(SmsRetriever.SMS_RETRIEVED_ACTION==intent?.action){
-            val extras= intent.extras
-            val smsRetrieverStatus=extras?.get(SmsRetriever.EXTRA_STATUS) as Status
+        if (SmsRetriever.SMS_RETRIEVED_ACTION == intent?.action) {
+            val extras = intent.extras
+            val smsRetrieverStatus = extras?.get(SmsRetriever.EXTRA_STATUS) as Status
 
-            when(smsRetrieverStatus.statusCode){
+            when (smsRetrieverStatus.statusCode) {
                 CommonStatusCodes.SUCCESS -> {
-                    val messageIntent= extras.getParcelable<Intent>(SmsRetriever.EXTRA_CONSENT_INTENT)!!
+                    val messageIntent =
+                        extras.getParcelable<Intent>(SmsRetriever.EXTRA_CONSENT_INTENT)!!
                     smsBroadCastReceiverListener?.onSuccess(messageIntent)
 
 
@@ -31,7 +30,7 @@ class OTPbroadCastReceiver : BroadcastReceiver() {
     }
 
 
-    interface SmsBroadCastReceiverListener{
+    interface SmsBroadCastReceiverListener {
         fun onSuccess(intent: Intent)
         fun onFailure()
     }
