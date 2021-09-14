@@ -22,6 +22,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFilterBinding>(),
@@ -35,6 +36,7 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
 
     private fun recyclerViewSetUp() {
         binding.rvCategories.apply {
+            val list:MutableList<String> = mutableListOf()
             val layoutManager = FlexboxLayoutManager(context)
             layoutManager.flexDirection = FlexDirection.ROW
             layoutManager.alignItems = AlignItems.STRETCH
@@ -42,9 +44,11 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
             newsTagsListAdapter = NewsTagsListAdapter(object : NewsTagsClickListener {
                 override fun onTagSelectListner(newsTags: NewsTags) {
                     if (!filter.tags.contains(newsTags.tag_title) && newsTags.isSelected) {
-                        filter.tags.add(newsTags.tag_title)
+                        list.add(newsTags.tag_title)
+                        filter.tags=list
                     }else{
-                        filter.tags.remove(newsTags.tag_title)
+                        list.remove(newsTags.tag_title)
+                        filter.tags=list
                     }
 
                 }
@@ -66,7 +70,7 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
             filter = it.getParcelable(SHEET_STATE)!!
         }
 
-        subscribeUiEvents(newsFilterViewModel)
+        subscribeUiEvents(newsFilterSheetViewModel)
         recyclerViewSetUp()
         binding.viewmodel = newsFilterViewModel
 

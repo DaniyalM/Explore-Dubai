@@ -1,8 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.latestnews.newsfilter
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +15,10 @@ import com.app.dubaiculture.databinding.FragmentNewsFilterListingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.clicklisteners.NewsClickListener
 import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.adapters.NewFilterListAdapter
+import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.adapters.SelectedFiltersListAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewFilterListingViewModel
 import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsSharedViewModel
+import com.app.dubaiculture.utils.hide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,18 +26,20 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
     View.OnClickListener {
 
     private lateinit var observer: RecyclerView.AdapterDataObserver
+
+    //    private lateinit var observerSelected: RecyclerView.AdapterDataObserver
     private val newsFilterViewModel: NewsSharedViewModel by activityViewModels()
     private val newsFilterListingViewModel: NewFilterListingViewModel by viewModels()
     private lateinit var newsListAdapter: NewFilterListAdapter
 
 
-
-    //    private lateinit var searchFilterSelectedAdapter: SearchFilterSelectedAdapter
+    private lateinit var searchFilterSelectedAdapter: SelectedFiltersListAdapter
     lateinit var eventSearchToolbarBinding: EventSearchToolbarBinding
 
-//    private var selectedItems:MutableList<String> = mutableListOf()
-//    private var selectedFilters:MutableList<Filter> = mutableListOf()
+    private var selectedItems: MutableList<SelectedFilter> = mutableListOf()
+    private var selectedFilters: MutableList<Filter> = mutableListOf()
 
+    //    private lateinit var filter: Filter
     lateinit var filterBottomSheet: NewsFilterBottomSheet
 
     override fun getFragmentBinding(
@@ -49,13 +51,14 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(newsFilterListingViewModel)
-
+        filterBottomSheet = NewsFilterBottomSheet()
+        binding.selectedViews.hide()
         eventSearchToolbarBinding = binding.eventSearchToolbar
         eventSearchToolbarBinding.viewmodel = newsFilterViewModel
         eventSearchToolbarBinding.imgFilter.setOnClickListener(this)
         eventSearchToolbarBinding.imgSearch.setOnClickListener(this)
-        filterBottomSheet = NewsFilterBottomSheet()
-        showBottomSheet(filterBottomSheet)
+
+//        showBottomSheet(filterBottomSheet)
         rvSetup()
         binding.eventSearchToolbar.back.setOnClickListener {
             back()
@@ -67,11 +70,66 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
         subscribeToObservables()
     }
 
+    private fun initiateSelectedItems() {
+
+        selectedFilters.forEach {
+            if (it.keyword.isNotEmpty()) {
+                selectedItems.add(
+                    SelectedFilter(
+                        title = it.keyword,
+                        isKeyword = true
+                    )
+                )
+            }
+            if (it.dateFrom.isNotEmpty()) {
+                selectedItems.add(
+                    SelectedFilter(
+                        title = it.dateFrom,
+                        isDateFrom = true
+                    )
+                )
+
+            }
+            if (it.dateTo.isNotEmpty()) {
+                selectedItems.add(
+                    SelectedFilter(
+                        title = it.dateTo,
+                        isDateFrom = true
+                    )
+                )
+
+            }
+            if (it.tags.isNotEmpty()) {
+                it.tags.forEach {
+                    selectedItems.add(
+                        SelectedFilter(
+                            title = it,
+                            isTag = true
+                        )
+                    )
+
+                }
+            }
+
+        }
+
+        searchFilterSelectedAdapter.submitList(selectedItems)
+
+    }
+
     private fun subscribeToObservables() {
 
 
         newsFilterViewModel.filter.observe(viewLifecycleOwner) {
+
             it?.getContentIfNotHandled()?.let {
+//                filter = it
+//                selectedItems = mutableListOf()
+//                selectedFilters = mutableListOf()
+
+//                selectedFilters.add(it)
+//                initiateSelectedItems()
+
                 newsFilterListingViewModel.getFilterNews(it)
 
             }
@@ -81,7 +139,6 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
 
         newsFilterListingViewModel.news.observe(viewLifecycleOwner) {
 
-
             newsListAdapter.submitList(it)
         }
     }
@@ -90,12 +147,79 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
 //        binding.rvSelections.apply {
 //            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 //            searchFilterSelectedAdapter =
-//                SearchFilterSelectedAdapter(object : SearchFilterSelectedAdapter.RemoveHeaderItem{
-//                    override fun onItemRemove(pos: Int, list: List<String>) {
+//                SelectedFiltersListAdapter(object : SelectedFiltersListAdapter.RemoveHeaderItem {
+//
+//                    override fun onItemRemove(pos: Int, item: SelectedFilter) {
+//
+//
+//                        if (item.isKeyword) {
+//                            newsFilterViewModel.updateFilter(
+//                                filter.copy(
+//                                    keyword = ""
+//                                )
+//                            )
+//
+//                        }
+//                        if (item.isDateFrom) {
+//                            newsFilterViewModel.updateFilter(
+//                                filter.copy(
+//                                    dateFrom = ""
+//                                )
+//                            )
+//
+//                        }
+//                        if (item.isDateTo) {
+//                            newsFilterViewModel.updateFilter(
+//                                filter.copy(
+//                                    tags = filter.tags
+//                                )
+//                            )
+//
+//                        }
+//                        if (item.isTag) {
+//                            selectedFilters.map { filter ->
+//                                filter.tags.filter {
+//                                    item.title != it
+//                                }.let {
+//                                    newsFilterViewModel.updateFilter(
+//                                        filter.copy(
+//                                            tags = it
+//                                        )
+//                                    )
+//
+//                                }
+//
+//                            }
+//
+//                        }
+//
 //                    }
 //                })
 //
-//            adapter=searchFilterSelectedAdapter
+//            adapter = searchFilterSelectedAdapter
+////            observerSelected = object :
+////                RecyclerView.AdapterDataObserver() {
+////                override fun onChanged() {
+////                    super.onChanged()
+////                    checkEmpty()
+////                }
+////
+////                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+////                    super.onItemRangeInserted(positionStart, itemCount)
+////                    checkEmpty()
+////                }
+////
+////                override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+////                    super.onItemRangeRemoved(positionStart, itemCount)
+////                    checkEmpty()
+////                }
+////
+////                fun checkEmpty() {
+////                    binding.selectedViews.visibility =
+////                        (if (searchFilterSelectedAdapter.itemCount == 1) View.VISIBLE else View.GONE)
+////                }
+////            }
+////            searchFilterSelectedAdapter.registerAdapterDataObserver(observerSelected)
 //        }
         binding.rvNews.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -146,7 +270,11 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_filter -> showBottomSheet(filterBottomSheet)
-            R.id.img_search ->  newsFilterViewModel.updateFilter(Filter(keyword = eventSearchToolbarBinding.editSearchEvents.text.toString().trim()))
+            R.id.img_search -> newsFilterViewModel.updateFilter(
+                Filter(
+                    keyword = eventSearchToolbarBinding.editSearchEvents.text.toString().trim()
+                )
+            )
             R.id.materialCardView -> showBottomSheet(filterBottomSheet)
             R.id.editSearchEvents -> showBottomSheet(filterBottomSheet)
             R.id.back -> back()
@@ -156,30 +284,11 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
     override fun onDestroyView() {
         super.onDestroyView()
         newsListAdapter.unregisterAdapterDataObserver(observer)
+//        searchFilterSelectedAdapter.registerAdapterDataObserver(observerSelected)
+
     }
 
 
 }
 
-//                selectedFilters.add(it)
-//                selectedFilters.forEach {
-//                    if (it.dateFrom.isNotEmpty()){
-//                        if(!selectedItems.contains(it.dateFrom)){
-//                            selectedItems.add(it.dateFrom)
-//                        }
-//                    }
-//                    if (it.dateTo.isNotEmpty()){
-//                        if(!selectedItems.contains(it.dateTo)){
-//                            selectedItems.add(it.dateTo)
-//                        }
-//                    }
-//                    if (it.tags.isNotEmpty()){
-//                        it.tags.forEach {
-//                            if(!selectedItems.contains(it)){
-//                                selectedItems.add(it)
-//                            }
-//                        }
-//                    }
-//
-//                }
-//                searchFilterSelectedAdapter.selectedItems=selectedItems
+

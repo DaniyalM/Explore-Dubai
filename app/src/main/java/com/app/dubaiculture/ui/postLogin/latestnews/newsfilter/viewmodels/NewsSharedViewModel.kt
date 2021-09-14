@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class NewsSharedViewModel @Inject constructor(
@@ -23,6 +24,9 @@ class NewsSharedViewModel @Inject constructor(
     val _filter: MutableLiveData<Event<Filter>> = MutableLiveData()
     val filter: LiveData<Event<Filter>> = _filter
 
+    val _filterList: MutableLiveData<Event<ArrayList<Filter>>> = MutableLiveData()
+    val filterList: LiveData<Event<ArrayList<Filter>>> = _filterList
+
     val _keyword:MutableLiveData<Event<String>> = MutableLiveData()
     val keyword:LiveData<Event<String>> = _keyword
 
@@ -32,14 +36,12 @@ class NewsSharedViewModel @Inject constructor(
     val _dateTo:MutableLiveData<Event<String>> = MutableLiveData()
     val dateTo:LiveData<Event<String>> = _dateTo
 
-    var keywordType: ObservableField<String> = ObservableField("")
 
 
 
 
     fun onSearchTextChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
        _keyword.value= Event(s.toString())
-        keywordType.set(s.toString())
     }
 
 
