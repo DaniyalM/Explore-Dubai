@@ -2,6 +2,7 @@ package com.app.dubaiculture.ui.preLogin.login
 
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,9 +18,11 @@ import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.app.dubaiculture.utils.SMSReceiver
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
+import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.firebase.iid.FirebaseInstanceId
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -30,7 +33,8 @@ import timber.log.Timber
 class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener {
 
     private val loginViewModel: LoginViewModel by viewModels()
-
+    private var intentFilter: IntentFilter? = null
+    private var smsReceiver: SMSReceiver? = null
     override fun getFragmentBinding(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -40,8 +44,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
+        initSmsListener()
+        initBroadCast()
         applicationExitDialog()
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
@@ -147,7 +154,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     override fun onResume() {
         super.onResume()
         binding.animationView.playAnimation()
+       activity.registerReceiver(smsReceiver, intentFilter)
     }
+
+
+
 
     override fun onPause() {
         super.onPause()
@@ -156,6 +167,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         loginViewModel.isPhoneEdit.value = true
         loginViewModel.isEmailEdit.value = true
         loginViewModel.isEmail.value = true
+        activity.unregisterReceiver(smsReceiver)
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        smsReceiver = null
     }
 
     private fun applicationExitDialog() {
@@ -175,6 +191,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                     }
                 }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+    }
+    private fun initBroadCast() {
+        intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+        smsReceiver = SMSReceiver()
+        smsReceiver?.setOTPListener(object : SMSReceiver.OTPReceiveListener {
+            override fun onOTPReceived(otp: String?) {
+               loginViewModel.showToast("OTP Received: $otp")
+            }
+        })
+    }
+    private fun initSmsListener() {
+        val client = SmsRetriever.getClient(activity)
+        client.startSmsRetriever()
     }
 
 }
