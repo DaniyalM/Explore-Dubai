@@ -1,9 +1,19 @@
 package com.app.dubaiculture.data.repository.more.remote
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRDS
 import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequestDTO
 import com.app.dubaiculture.data.repository.more.remote.request.ShareFeedBackRequestDTO
+import com.app.dubaiculture.data.repository.more.remote.response.notification.NotificationDTO
+import com.app.dubaiculture.data.repository.more.remote.response.notification.NotificationRequestDTO
 import com.app.dubaiculture.data.repository.more.service.MoreService
+import com.app.dubaiculture.data.repository.news.remote.NewsPagingSource
+import com.app.dubaiculture.data.repository.news.remote.request.LatestNewsDTO
+import com.app.dubaiculture.data.repository.news.remote.request.NewsRequestDTO
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MoreRDS @Inject constructor(private val moreService: MoreService) : BaseRDS(moreService) {
@@ -40,4 +50,15 @@ class MoreRDS @Inject constructor(private val moreService: MoreService) : BaseRD
         safeApiCall {
             moreService.postFeedBack(shareFeedBackRequestDTO)
         }
+
+    suspend fun getPaginatedNotification(notificationRequestDTO: NotificationRequestDTO): Result<Flow<PagingData<NotificationDTO>>> {
+        return safeApiCall {
+            Pager(
+                config = PagingConfig(pageSize = 10),
+                pagingSourceFactory = { NotificationPagingSource(moreService,notificationRequestDTO) }
+            ).flow
+        }
+
+    }
+
 }
