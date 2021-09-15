@@ -150,6 +150,7 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>() , View.On
                         eventId.toString(),
                         selectedId.toString(),
                         binding.occupation.text.toString(),
+                            getCurrentLanguage().language,
                         MultipartFormHelper.getMultiPartData(imagesURI!!)
                     )
 

@@ -7,15 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentNotificationBinding
-import com.app.dubaiculture.databinding.ItemsNotitifcationsLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsPagingAdapter
 import com.app.dubaiculture.ui.postLogin.more.notification.adapter.NotificationItems
 import com.app.dubaiculture.ui.postLogin.more.notification.viewmodel.NotificationViewModel
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

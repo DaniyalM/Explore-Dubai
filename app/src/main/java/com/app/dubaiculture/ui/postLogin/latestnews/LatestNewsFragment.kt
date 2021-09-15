@@ -28,17 +28,6 @@ class LatestNewsFragment : BaseFragment<FragmentLatestNewsBinding>(), View.OnCli
     private val newsViewModel: NewsViewModel by viewModels()
     private lateinit var latestNewsListAdapter: LatestNewsListAdapter
     private lateinit var newsListAdapter: NewsPagingAdapter
-//    var backflagNavigation = false
-//    var latestNews: String? = null
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        arguments?.let {
-//            latestNews = it.getString(NEWS_ID)
-//        }
-//
-//    }
-
-    var contentLoadMore = true
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?

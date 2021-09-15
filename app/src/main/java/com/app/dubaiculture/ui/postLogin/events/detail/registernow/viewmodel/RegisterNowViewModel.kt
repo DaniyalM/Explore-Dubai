@@ -59,6 +59,7 @@ class RegisterNowViewModel @Inject constructor(
         eventId:String,
         slotId:String ,
         occupation: String,
+        culture: String,
         file : MultipartBody.Part? = null
     ){
         viewModelScope.launch {
@@ -67,6 +68,7 @@ class RegisterNowViewModel @Inject constructor(
                 eventId.trim(),
                 slotId.trim(),
                 occupation.trim(),
+                    culture.trim(),
                 file
             )
             if(result is Result.Success){

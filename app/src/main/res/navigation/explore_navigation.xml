@@ -12,6 +12,7 @@
     <include app:graph="@navigation/settings_navigation" />
 
     <include app:graph="@navigation/news_detail_navigation" />
+    <include app:graph="@navigation/news_navigation" />
 
     <fragment
         android:id="@+id/exploreFragment"
@@ -107,6 +108,14 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_exploreFragment_to_news_navigation"
+            app:destination="@id/news_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+
 
     </fragment>
 

@@ -32,6 +32,7 @@ interface EventService : BaseService {
         @Part("eventId") eventId: RequestBody,
         @Part("slotId") slotId: RequestBody,
         @Part("occupation") occupation: RequestBody,
+        @Part("culture") culture: RequestBody,
         @Part Photo: MultipartBody.Part? = null
     ): EventResponse
 

@@ -54,13 +54,12 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
         filterBottomSheet = NewsFilterBottomSheet()
         binding.selectedViews.hide()
         eventSearchToolbarBinding = binding.eventSearchToolbar
+        backArrowRTL(eventSearchToolbarBinding.back)
         eventSearchToolbarBinding.viewmodel = newsFilterViewModel
         eventSearchToolbarBinding.imgFilter.setOnClickListener(this)
         eventSearchToolbarBinding.imgSearch.setOnClickListener(this)
-
-//        showBottomSheet(filterBottomSheet)
         rvSetup()
-        binding.eventSearchToolbar.back.setOnClickListener {
+        eventSearchToolbarBinding.back.setOnClickListener {
             back()
         }
     }
