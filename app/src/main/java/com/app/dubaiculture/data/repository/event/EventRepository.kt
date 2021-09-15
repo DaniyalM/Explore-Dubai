@@ -147,12 +147,14 @@ class EventRepository @Inject constructor(private val eventRDS: EventRDS) :
             eventId: String,
             slotId: String,
             occupation: String,
+            culture : String,
             file: MultipartBody.Part? = null
     ): Result<EventResponse> {
         val response = eventRDS.getEventRegister(
                 eventId.trim(),
                 slotId.trim(),
                 occupation.trim(),
+                culture.trim(),
                 file
         )
         return if (response is Result.Success){

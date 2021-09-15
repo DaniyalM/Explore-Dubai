@@ -58,6 +58,7 @@ class EventRDS @Inject constructor(private val eventService: EventService) : Bas
             eventId: String,
             slotId: String,
             occupation: String,
+            culture: String,
             file: MultipartBody.Part? =null,
     ): Result<EventResponse> {
         return safeApiCall {
@@ -65,6 +66,7 @@ class EventRDS @Inject constructor(private val eventService: EventService) : Bas
                     eventId.toRequestBody("text/plain".toMediaType()),
                     slotId.toRequestBody("text/plain".toMediaType()),
                     occupation.toRequestBody("text/plain".toMediaType()),
+                    culture .toRequestBody("text/plain".toMediaType()),
                     file
             )
         }
