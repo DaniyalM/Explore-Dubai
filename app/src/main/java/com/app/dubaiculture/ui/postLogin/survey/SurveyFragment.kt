@@ -24,6 +24,7 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
 
     private val surveyViewModel  : SurveyViewModel by viewModels()
     var surveyAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+    private var eventId : String?=null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,7 +34,10 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(surveyViewModel)
-        surveyViewModel.getSurveyForm("",getCurrentLanguage().language)
+        arguments?.let {
+            eventId =   it.getString("event_id")
+        }
+        surveyViewModel.getSurveyForm(eventId?:"0E49F5666F904C92B1BC41A13FD50B53",getCurrentLanguage().language)
         rvSetUp()
         subscribeObserver()
     }
@@ -55,10 +59,12 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
     }
     private fun rvSetUp(){
         binding.rvSurvey.apply {
+            this.isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = surveyAdapter
         }
     }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?

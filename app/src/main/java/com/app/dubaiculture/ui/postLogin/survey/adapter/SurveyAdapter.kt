@@ -22,23 +22,19 @@ class SurveyAdapter <T : ViewDataBinding>(
             is RowFillOutSurveyLayoutBinding -> {
                 viewBinding.let {
                     setAnimation(it.rootView,position,context)
+                    it.tvQuestions.text = "Q${position+1} ${":"} ${itemForm.question}"
                     when(itemForm.input){
+
                         "YesNo"->{
                             it.radioGroupYesNo.show()
-                            it.commentsCardView.hide()
-                            it.ratingStar.hide()
 
                         }
                         "Textbox"->{
                             it.commentsCardView.show()
-                            it.ratingStar.hide()
-                            it.radioGroupYesNo.hide()
 
                         }
                         "Rating" ->{
                             it.ratingStar.show()
-                            it.commentsCardView.hide()
-                            it.radioGroupYesNo.hide()
                         }
                     }
 

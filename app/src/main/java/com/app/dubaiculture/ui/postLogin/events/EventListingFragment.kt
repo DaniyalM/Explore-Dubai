@@ -171,6 +171,10 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
 
                                                 }
 
+                                            },object : EventListItem.SurveySubmitListener{
+                                                override fun submitBtnClickListener(position: Int) {
+                                                }
+
                                             },
                                             event = it,
                                             resLayout = R.layout.item_event_listing,
@@ -216,6 +220,10 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                                     imageView: ImageView
                                                 ) {
 
+                                                }
+
+                                            },object : EventListItem.SurveySubmitListener{
+                                                override fun submitBtnClickListener(position: Int) {
                                                 }
 
                                             },

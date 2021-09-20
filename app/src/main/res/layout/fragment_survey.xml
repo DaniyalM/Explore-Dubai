@@ -2,11 +2,24 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_900"
     tools:context=".ui.postLogin.survey.SurveyFragment">
+    <HorizontalScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView11"
@@ -60,7 +73,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_submit"
-
         app:layout_constraintTop_toBottomOf="@+id/header" />
     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
         android:id="@+id/btn_submit"
@@ -83,4 +95,9 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

@@ -66,6 +66,32 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+<!--                <data-->
+<!--                    android:host="com.tra.tra-int"-->
+<!--                    android:scheme="tra" />-->
+                <data
+                    android:host="com.dc.dc-success"
+                    android:scheme="dc" />
+                <data
+                    android:host="com.dc.dc-failure"
+                    android:scheme="dc" />
+                <data
+                    android:host="com.dc.dc-int"
+                    android:scheme="dc" />
+
+<!--                <data-->
+<!--                    android:host="${host_failure}"-->
+<!--                    android:scheme="${scheme}" />-->
+
+            </intent-filter>
         </activity>
         <!--        <activity-->
         <!--            android:name=".ui.postLogin.PostLoginActivity"-->

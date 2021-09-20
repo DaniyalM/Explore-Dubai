@@ -45,9 +45,8 @@ class AttractionRDS @Inject constructor(private val attractionService: Attractio
 //                culture = attractionRequestDTO.culture)
 //        }
 
-    suspend fun getVisitedPlaces()= safeApiCall {
-        attractionService.getVisitedPlaces(
-//                attractionRequestDTO.culture
+    suspend fun getVisitedPlaces(attractionRequestDTO: AttractionRequestDTO)= safeApiCall {
+        attractionService.getVisitedPlaces(attractionRequestDTO.culture
         )
     }
 

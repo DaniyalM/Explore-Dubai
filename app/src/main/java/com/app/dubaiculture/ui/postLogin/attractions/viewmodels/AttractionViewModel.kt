@@ -61,16 +61,13 @@ class AttractionViewModel @Inject constructor(
             }
         }
     }
-
-
-
     fun getVisitedAttractions(
         locale: String,
     ) {
         showLoader(true)
         viewModelScope.launch {
             when (val result = attractionRepository.getVisitedPlaces(
-//                AttractionRequest(culture = locale)
+                AttractionRequest(culture = locale)
             )) {
                 is Result.Success -> {
                     showLoader(false)
@@ -81,8 +78,4 @@ class AttractionViewModel @Inject constructor(
             }
         }
     }
-
-
-
-
 }

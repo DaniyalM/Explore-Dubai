@@ -7,7 +7,6 @@ import com.app.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFrag
 import com.app.dubaiculture.ui.postLogin.events.EventFilterFragment
 import com.app.dubaiculture.ui.postLogin.events.EventsFragment
 import com.app.dubaiculture.ui.postLogin.explore.ExploreFragment
-import com.app.dubaiculture.ui.postLogin.more.MoreFragment
 
 class HomePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount() = 4

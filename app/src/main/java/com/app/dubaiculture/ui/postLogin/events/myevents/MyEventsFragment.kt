@@ -109,6 +109,14 @@ private fun subscribeObserver() {
                         override fun rowClickListener(position: Int, imageView: ImageView) {
                         }
                     },
+                    object  : EventListItem.SurveySubmitListener {
+                        override fun submitBtnClickListener(position: Int) {
+                            val bundle = Bundle()
+                            bundle.putString("event_id",it.id?:"0E49F5666F904C92B1BC41A13FD50B53")
+                            navigate(R.id.action_myEventsFragment_to_surveyFragment,bundle)
+                        }
+
+                    },
                     event = it,
                     resLayout = R.layout.item_event_listing,
                     activity,

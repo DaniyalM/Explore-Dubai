@@ -355,7 +355,14 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
                                 }
 
-                            }, event = it, resLayout = R.layout.event_items, activity))
+                            },object : EventListItem.SurveySubmitListener{
+                                override fun submitBtnClickListener(position: Int) {
+                                }
+
+                            },
+
+
+                                event = it, resLayout = R.layout.event_items, activity))
                         }
 //                        sortNearEvent(it.value.events!!)
 
@@ -395,6 +402,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                         imageView: ImageView
                                     ) {
 
+                                    }
+
+                                },object : EventListItem.SurveySubmitListener{
+                                    override fun submitBtnClickListener(position: Int) {
                                     }
 
                                 }, event = it, resLayout = R.layout.event_items, activity
@@ -443,6 +454,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                         imageView: ImageView
                                     ) {
 
+                                    }
+
+                                },object : EventListItem.SurveySubmitListener{
+                                    override fun submitBtnClickListener(position: Int) {
                                     }
 
                                 }, event = it, resLayout = R.layout.event_items, activity))

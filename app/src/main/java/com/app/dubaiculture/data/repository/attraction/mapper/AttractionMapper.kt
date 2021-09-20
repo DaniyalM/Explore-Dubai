@@ -202,3 +202,5 @@ fun transformAttractions(list: List<AttractionDTO>): List<Attractions> =
             )
         }
     }
+
+
