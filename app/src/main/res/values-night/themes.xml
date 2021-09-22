@@ -24,9 +24,9 @@
         <item name="colorPrimaryVariant">@color/black_900</item>
 
         <!--for TextView title color-->
-        <item name="colorSecondary">@color/gray_200</item>
+        <item name="colorSecondary">@color/gray_400</item>
         <item name="color_light_white_dark_gray">@color/gray_400</item>
-        <item name="colorSecondaryVariant">@color/gray_200</item>
+        <item name="colorSecondaryVariant">@color/gray_800</item>
 
 
         <!--Cardview colors-->
@@ -64,7 +64,6 @@
 
         <item name="color_login_edit_text_bg">@color/black_750</item>
 
-        <item name="color_light_theme_purple_dark_theme_gray">@color/gray_400</item>
 
     </style>
     <style name="WindowAnimationTransition">

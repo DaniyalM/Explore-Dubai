@@ -185,6 +185,7 @@
                         app:cardElevation="@dimen/_12sdp"
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
+                        android:outlineSpotShadowColor="?attr/color_card_views_shadow"
                         app:cardCornerRadius="@dimen/_8sdp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"

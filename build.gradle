@@ -104,8 +104,8 @@ ext {
     firebaseMessaging = "22.1.0"
     firebaseBom = "26.6.0"
     legacySupport = "1.0.0"
-    fragmentKtx = "1.3.4"
-//    fragmentKtx = "1.4.0-alpha01"
+//    fragmentKtx = "1.3.4"
+    fragmentKtx = "1.4.0-alpha01"
 
 
     commonDependency = [

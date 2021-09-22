@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pre_login_navigation"
-    app:defaultNavHost="true"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/splashFragment">
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.app.dubaiculture.ui.preLogin.splash.SplashFragment"
@@ -28,13 +27,6 @@
         android:name="com.app.dubaiculture.ui.preLogin.login.LoginFragment"
         tools:layout="@layout/fragment_login"
         android:label="fragment_login" >
-<!--        <deepLink-->
-<!--            app:uri="com.dc.dc-success" />-->
-<!--        <deepLink-->
-<!--            app:uri="com.dc.dc-failure" />-->
-        <deepLink app:uri="uaePassDemo://success" />
-        <deepLink app:uri="uaePassDemo://failure" />
-
         <action
             android:id="@+id/action_loginFragment_to_registerFragment2"
             app:destination="@id/registerFragment2"
@@ -70,7 +62,6 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
-
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
