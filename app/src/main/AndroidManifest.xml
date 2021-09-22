@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.dubaiculture">
 
@@ -58,11 +59,13 @@
 
         <activity
             android:name=".ui.preLogin.PreLoginActivity"
-            android:launchMode="singleTop"
-            android:noHistory="true"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
+            <nav-graph android:value="@navigation/pre_login_navigation" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -70,22 +73,16 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-<!--                <data-->
-<!--                    android:host="com.tra.tra-int"-->
-<!--                    android:scheme="tra" />-->
                 <data
-                    android:host="com.dc.dc-success"
-                    android:scheme="dc" />
+                    android:host="${host_success}"
+                    android:scheme="${scheme}" />
                 <data
-                    android:host="com.dc.dc-failure"
-                    android:scheme="dc" />
-                <data
-                    android:host="com.dc.dc-int"
-                    android:scheme="dc" />
+                    android:host="${host_failure}"
+                    android:scheme="${scheme}" />
+
 
 <!--                <data-->
 <!--                    android:host="${host_failure}"-->
