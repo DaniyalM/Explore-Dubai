@@ -177,5 +177,21 @@ object Constants {
 
 
     }
+    object PLAY_STORE {
+        const val PACKAGE_NAME: String = "com.dubaiculture"
+        const val DUBAI_CULTURE: String = "Dubai Culture"
+        const val NOTIFICATION_PAGE_SIZE: Int = 10
+    }
+
+    object UAE_PASS{
+        // Field from default config.
+            const val URI_HOST_FAILURE = "dc://com.dc.dc-failure"
+
+        // Field from default config.
+        const val URI_HOST_SUCCESS = "dc://com.dc.dc-success"
+
+        // Field from default config.
+        const val URI_SCHEME = "dc://com.dc.dc-int"
+    }
 
 }

@@ -21,7 +21,7 @@ fun transformSurvey(surveyFormResponse: SurveyFormResponse) : Form =
                 Items(
                     id = it.ID,
                     question = it.Question,
-                    input = it.Question
+                    input = it.Input
                 )
             }
         )

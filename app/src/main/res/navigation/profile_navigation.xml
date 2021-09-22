@@ -90,7 +90,11 @@
     <fragment
         android:id="@+id/myEventsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.myevents.MyEventsFragment"
-        android:label="MyEventsFragment" />
+        android:label="MyEventsFragment" >
+        <action
+            android:id="@+id/action_myEventsFragment_to_surveyFragment"
+            app:destination="@id/surveyFragment" />
+    </fragment>
     <dialog
         android:id="@+id/avatarPickerFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.profile.avatarPicker.AvatarPickerFragment"
@@ -145,4 +149,8 @@
         android:id="@+id/serviceDetailFragment"
         android:name="com.app.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"
         android:label="ServiceDetailFragment" />
+    <fragment
+        android:id="@+id/surveyFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.survey.SurveyFragment"
+        android:label="SurveyFragment" />
 </navigation>

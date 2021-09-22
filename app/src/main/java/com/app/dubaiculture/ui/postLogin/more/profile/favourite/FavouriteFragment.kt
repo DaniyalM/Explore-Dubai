@@ -293,6 +293,10 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
 
                             }
 
+                        },object : EventListItem.SurveySubmitListener{
+                            override fun submitBtnClickListener(position: Int) {
+                            }
+
                         },
                         event = it,
                         resLayout = R.layout.item_event_listing,

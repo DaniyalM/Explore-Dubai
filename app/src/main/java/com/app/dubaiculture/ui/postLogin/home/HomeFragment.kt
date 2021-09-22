@@ -82,6 +82,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.ibeconFragment -> {
                         visibility = View.GONE
                     }
+
+                    R.id.surveyFragment -> {
+                        visibility = View.GONE
+                    }
+
                     R.id.attractionGalleryFragment -> {
                         visibility = View.GONE
                     }
