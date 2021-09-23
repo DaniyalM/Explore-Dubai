@@ -249,7 +249,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_15sdp"
             android:text="@string/don_t_have_an_account"
-            android:textColor="@color/gray_800"
+            android:textColor="?attr/colorSecondaryVariant"
             android:textSize="@dimen/_11ssp"
             android:transitionName="my_dummy"
             app:layout_constraintBottom_toTopOf="@+id/tv_as_guest"

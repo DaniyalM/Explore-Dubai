@@ -22,6 +22,10 @@ android {
     }
 
 
+
+
+
+
     defaultConfig {
         applicationId "com.app.dubaiculture"
         minSdkVersion 22
@@ -33,6 +37,18 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [appAuthRedirectScheme: 'com.redirectScheme.comm']
 
+
+        //UAE PASS START -- Adding Custom Scheme Variables
+        buildConfigField "String", "URI_SCHEME", "\"uaePassDemo\"" // Change to your app name or any custom scheme. Donot use uaepasssample
+        buildConfigField "String", "URI_HOST_SUCCESS", "\"success\""
+        buildConfigField "String", "URI_HOST_FAILURE", "\"failure\""
+
+        manifestPlaceholders = [
+                host_success: "success",
+                host_failure: "failure",
+                scheme      : "uaePassDemo" // Change to your app name or any custom scheme. Donot use uaepasssample
+        ]
+        //UAE PASS END -- Adding Custom Scheme Variables
 
 
     }
@@ -61,6 +77,9 @@ android {
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_DEBUG\"")
 
+
+
+
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
@@ -79,6 +98,8 @@ android {
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_DEBUG\"")
 
+
+
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
@@ -95,6 +116,11 @@ android {
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
+
+
+
+
+
             signingConfig signingConfigs.stagConfig
             applicationVariants.all { variant ->
                 variant.outputs.all {
@@ -120,6 +146,9 @@ android {
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_PROD\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_PROD\"")
+
+
+
             signingConfig signingConfigs.prodConfig
 
 //            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")

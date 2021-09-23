@@ -43,6 +43,9 @@
         <item name="color_light_white_dark_gray">@color/white_900</item>
         <item name="color_edit_text_bg">@color/edit_text_white_shade_bg</item>
         <item name="color_card_views_shadow">@color/gray_600</item>
+        <item name="color_light_theme_purple_dark_theme_gray">@color/purple_900</item>
+
+
 
         <!--curve bg in news and event detail-->
         <item name="color_curve_view_bg">@color/curve_color</item>
@@ -114,8 +117,8 @@
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <!--        <item name="android:windowFullscreen">true</item>-->
-        <item name="android:windowIsFloating">true</item>
+                <item name="android:windowFullscreen">true</item>
+<!--        <item name="android:windowIsFloating">true</item>-->
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
