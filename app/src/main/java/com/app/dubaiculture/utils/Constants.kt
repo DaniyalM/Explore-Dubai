@@ -185,11 +185,16 @@ object Constants {
     }
 
     object UAE_PASS{
+        var isHit = true
         // Field from default config.
-            const val URI_HOST_FAILURE = "dc://com.dc.dc-failure"
+            const val URI_HOST_FAILURE = "uaePasssigningScopeFail://uaepassdemoapp"
+
+        //uaePassSuccess://uaepassdemoapp
+
+        //://uaePassFail
 
         // Field from default config.
-        const val URI_HOST_SUCCESS = "dc://com.dc.dc-success"
+        const val URI_HOST_SUCCESS = "uaePassSuccess://uaepassdemoapp"
 
         // Field from default config.
         const val URI_SCHEME = "dc://com.dc.dc-int"

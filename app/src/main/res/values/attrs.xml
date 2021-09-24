@@ -7,8 +7,10 @@
     <attr name="color_card_views_shadow" format="color"/>
     <attr name="color_curve_view_bg" format="color"/>
     <attr name="color_curve_login_bg" format="color"/>
-
     <attr name="color_login_edit_text_bg" format="color"/>
+
+    <attr name="color_light_theme_purple_dark_theme_gray" format="color"/>
+
 
     <declare-styleable name="CustomTextView">
         <attr name="textFont" format="enum">
