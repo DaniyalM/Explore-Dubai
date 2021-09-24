@@ -298,10 +298,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_app -> {
-
+              moreViewModel.shareAppLink(activity)
             }
             R.id.ll_rate_us -> {
-
+               moreViewModel.rateUs(activity)
             }
             R.id.ll_notification -> {
                 navigate(R.id.action_moreFragment_to_notificationFragment)

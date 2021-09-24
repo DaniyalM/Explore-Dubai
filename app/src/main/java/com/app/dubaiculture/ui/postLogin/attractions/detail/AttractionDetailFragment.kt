@@ -251,6 +251,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
     private fun subscribeObservables() {
+//        attractionDetailViewModel.beaconList.observe(viewLifecycleOwner){
+//            it?.getContentIfNotHandled()?.let {
+//
+//            }
+//        }
         attractionDetailViewModel.attractionEvents.observe(viewLifecycleOwner){
             eventListScreenAdapter.submitList(it)
         }

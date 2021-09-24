@@ -33,6 +33,6 @@ interface AttractionService : BaseService {
 
     @GET("Content/GetVisitedPlace")
     suspend fun getVisitedPlaces(
-//            @Query("culture") culture: String
+            @Query("culture") culture: String
     ): AttractionResponse
 }

@@ -110,10 +110,9 @@ class AttractionRepository @Inject constructor(
     }
 
     suspend fun getVisitedPlaces(
-//            attractionRequest: AttractionRequest
+            attractionRequest: AttractionRequest
     ) =
-            when (val resultRDS = attractionRDS.getVisitedPlaces(
-//                    transformVisitedAttractionsRequest(attractionRequest)
+            when (val resultRDS = attractionRDS.getVisitedPlaces(transformAttractionsRequest(attractionRequest)
             )) {
                 is Result.Success -> {
                     if (resultRDS.value.succeeded) {
@@ -121,7 +120,6 @@ class AttractionRepository @Inject constructor(
                     } else {
                         Result.Failure(false, null, null, resultRDS.value.errorMessage)
                     }
-
                 }
                 is Result.Error -> resultRDS
                 is Result.Failure -> resultRDS

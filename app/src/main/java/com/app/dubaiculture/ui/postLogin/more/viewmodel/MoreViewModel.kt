@@ -8,6 +8,7 @@ import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -21,6 +22,8 @@ import com.app.dubaiculture.data.repository.more.local.PrivacyPolicy
 import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.Constants.PLAY_STORE.DUBAI_CULTURE
+import com.app.dubaiculture.utils.Constants.PLAY_STORE.PACKAGE_NAME
 import com.app.dubaiculture.utils.Constants.playStoreAppLink.OPEN_PLAYSTORE_APP
 import com.app.dubaiculture.utils.Constants.playStoreAppLink.OPEN_PLAYSTORE_WEB
 import com.app.dubaiculture.utils.event.Event
@@ -31,12 +34,14 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
+
 
 @HiltViewModel
 class MoreViewModel @Inject constructor(
-    application: Application,
-    val moreRepository: MoreRepository
+        application: Application,
+        val moreRepository: MoreRepository
 ) :
     BaseViewModel(application) {
 
@@ -57,9 +62,9 @@ class MoreViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result =
                 moreRepository.getCultureConnoisseur(
-                    privacyAndTermRequest = PrivacyAndTermRequest(
-                        culture = locale
-                    )
+                        privacyAndTermRequest = PrivacyAndTermRequest(
+                                culture = locale
+                        )
                 )) {
                 is Result.Success -> {
                     showLoader(false)
@@ -126,10 +131,10 @@ class MoreViewModel @Inject constructor(
     }
 
     fun setupToolbarWithSearchItems(
-        logoImg: ImageView,
-        pin: ImageView,
-        tvTitle: TextView,
-        heading: String
+            logoImg: ImageView,
+            pin: ImageView,
+            tvTitle: TextView,
+            heading: String
     ) {
         logoImg.visibility = View.GONE
         pin.visibility = View.GONE
@@ -143,23 +148,23 @@ class MoreViewModel @Inject constructor(
 
             if (!contactCenterLocation.mapLatitude.isNullOrEmpty() && !contactCenterLocation.mapLongitude.isNullOrEmpty()) {
                 val attractionLatLng = LatLng(
-                    contactCenterLocation.mapLatitude?.toDouble(),
-                    contactCenterLocation.mapLongitude?.toDouble()
+                        contactCenterLocation.mapLatitude?.toDouble(),
+                        contactCenterLocation.mapLongitude?.toDouble()
                 )
 
 
                 map?.addMarker(
-                    MarkerOptions()
-                        .position(attractionLatLng)
-                        .title(
-                            contactCenterLocation.subtitle
-                        )
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                        MarkerOptions()
+                                .position(attractionLatLng)
+                                .title(
+                                        contactCenterLocation.subtitle
+                                )
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
                 )
                 map?.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        attractionLatLng, 14.0f
-                    )
+                        CameraUpdateFactory.newLatLngZoom(
+                                attractionLatLng, 14.0f
+                        )
                 )
                 map?.cameraPosition?.target
 
@@ -174,6 +179,33 @@ class MoreViewModel @Inject constructor(
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(OPEN_PLAYSTORE_APP)))
         } catch (e: ActivityNotFoundException) {
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(OPEN_PLAYSTORE_WEB)))
+        }
+    }
+
+    fun rateUs(context: Context){
+        val uri: Uri = Uri.parse("market://details?id=$PACKAGE_NAME")
+        val goToMarket = Intent(Intent.ACTION_VIEW, uri)
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
+                Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        try {
+            context.startActivity(goToMarket)
+        } catch (e: ActivityNotFoundException) {
+            context.startActivity(Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=$PACKAGE_NAME")))
+        }
+    }
+    fun shareAppLink(context: Context){
+        try {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "text/plain"
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, DUBAI_CULTURE)
+            var shareMessage = "\nLet me recommend you this application\n\n"
+            shareMessage = """ ${shareMessage}https://play.google.com/store/apps/details?id=${PACKAGE_NAME}""".trimIndent()
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+            context.startActivity(Intent.createChooser(shareIntent, "choose one"))
+        } catch (e: Exception) {
+            Timber.e(e.stackTraceToString())
         }
     }
 }

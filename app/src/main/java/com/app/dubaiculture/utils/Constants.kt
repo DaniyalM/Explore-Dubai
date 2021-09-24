@@ -83,6 +83,7 @@ object Constants {
         const val NEW_LOCALE: String = "culture"
         const val EXPLORE_TO_ATTRACTIONS: String = "exp_to_attractions"
         const val ATTRACTION_DETAIL: String = "attractionId"
+        const val ATTRACTION_DETAIL_BEACON: String = "attraction_id"
 
 
     }
@@ -176,6 +177,22 @@ object Constants {
         const val NOTIFICATION_PAGE_SIZE: Int = 10
 
 
+    }
+    object PLAY_STORE {
+        const val PACKAGE_NAME: String = "com.dubaiculture"
+        const val DUBAI_CULTURE: String = "Dubai Culture"
+        const val NOTIFICATION_PAGE_SIZE: Int = 10
+    }
+
+    object UAE_PASS{
+        // Field from default config.
+            const val URI_HOST_FAILURE = "dc://com.dc.dc-failure"
+
+        // Field from default config.
+        const val URI_HOST_SUCCESS = "dc://com.dc.dc-success"
+
+        // Field from default config.
+        const val URI_SCHEME = "dc://com.dc.dc-int"
     }
 
 }

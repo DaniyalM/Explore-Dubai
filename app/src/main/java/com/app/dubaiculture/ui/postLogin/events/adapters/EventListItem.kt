@@ -19,6 +19,7 @@ import com.xwray.groupie.databinding.BindableItem
 data class EventListItem<T : ViewDataBinding>(
     private val favChecker: FavouriteChecker? = null,
     private val rowClickListener: RowClickListener? = null,
+    private val submitSurveyRowClickListener: SurveySubmitListener?=null,
     val event: Events,
     val resLayout: Int = R.layout.item_event_listing,
     val context: Context,
@@ -78,6 +79,9 @@ data class EventListItem<T : ViewDataBinding>(
                             // change text color too white to purple.
                         )
                         binding.btnSurvery.text = context.resources.getString(R.string.submit_survey)
+                        binding.btnSurvery.setOnClickListener {
+                            submitSurveyRowClickListener?.submitBtnClickListener(position)
+                        }
 
                     }else{
                         binding.btnSurvery.visibility = View.VISIBLE
@@ -148,6 +152,11 @@ data class EventListItem<T : ViewDataBinding>(
             }
         }
 
+
+    }
+
+    interface SurveySubmitListener{
+        fun submitBtnClickListener(position: Int)
 
     }
 }
