@@ -161,7 +161,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //                login()
 //                getCode()
 //                navigate(R.id.action_loginFragment_to_bottomSheet)
-                getProfile()
+                getCode()
             }
         }
     }
