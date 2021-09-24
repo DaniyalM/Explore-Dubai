@@ -9,5 +9,5 @@ data class IbeconDTO(
     var img: String?=null,
     @SerializedName("IBeaconsItems")
     @Expose
-    var iBeaconsItems: List<IBeaconsItemsDTO>?= emptyList()
+    var iBeaconsItems: List<IBeaconsItemsDTO> = emptyList()
 )

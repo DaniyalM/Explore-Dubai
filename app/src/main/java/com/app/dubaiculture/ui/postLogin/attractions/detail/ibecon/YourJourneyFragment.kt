@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.sitemap.local.IbeconITemsSiteMap
+import com.app.dubaiculture.data.repository.sitemap.local.BeaconItems
 import com.app.dubaiculture.databinding.FragmentYourJourneyBinding
 import com.app.dubaiculture.databinding.ItemsYourJourneyBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
@@ -30,8 +30,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>() {
     private val siteMapViewModel: SiteMapViewModel by viewModels()
-    private var beconList = ArrayList<IbeconITemsSiteMap>()
-    private var sortedBeconList = ArrayList<IbeconITemsSiteMap>()
+    private var beconList = ArrayList<BeaconItems>()
+    private var sortedBeconList = ArrayList<BeaconItems>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         beaconMonitoring()
@@ -64,7 +65,7 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
 
                 val nearestBeacon: Beacon = beacons[0]
                 siteMapViewModel.showToast("IBeacon is Detected...")
-                nearestBeacon.uniqueKey
+//                nearestBeacon.uniqueKey
                 rvBecons(nearestBeacon.proximityUUID.toString())
                 beconFilterForNotification(beconList,UUID_BECON)
 
@@ -105,7 +106,7 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                     val beconObj = beconList[position]
                     val bundle = Bundle()
                     bundle.putParcelable(Constants.NavBundles.BECON_OBJECT, beconObj)
-                    navigate(R.id.action_yourJourneyFragment_to_ibeconDescFragment, bundle)
+//                    navigate(R.id.action_yourJourneyFragment_to_ibeconDescFragment, bundle)
                 }
 
                 override fun rowClickListener(position: Int, imageView: ImageView) {
@@ -113,7 +114,7 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                 }
 
             },
-                    ibeconITemsSiteMap = it,
+                    beaconItems = it,
                     resLayout = R.layout.items_your_journey
             ))
         }
@@ -133,20 +134,20 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
                     val beconObj = beconList[position]
                     val bundle = Bundle()
                     bundle.putParcelable(Constants.NavBundles.BECON_OBJECT, beconObj)
-                    navigate(R.id.action_yourJourneyFragment_to_ibeconDescFragment, bundle)
+//                    navigate(R.id.action_yourJourneyFragment_to_ibeconDescFragment, bundle)
                 }
 
                 override fun rowClickListener(position: Int, imageView: ImageView) {
 
                 }
             },
-                    ibeconITemsSiteMap = it,
+                    beaconItems = it,
                     resLayout = R.layout.items_your_journey
             ))
         }
     }
 
-    private fun beconFilter(beconList: ArrayList<IbeconITemsSiteMap>, uuid: String): ArrayList<IbeconITemsSiteMap> {
+    private fun beconFilter(beconList: ArrayList<BeaconItems>, uuid: String): ArrayList<BeaconItems> {
 
         beconList.forEach {
             if (it.deviceID == uuid) {
@@ -164,7 +165,7 @@ class YourJourneyFragment : BaseBottomSheetFragment<FragmentYourJourneyBinding>(
 
     }
 
-    private fun beconFilterForNotification(beconList: ArrayList<IbeconITemsSiteMap>, uuid: String){
+    private fun beconFilterForNotification(beconList: ArrayList<BeaconItems>, uuid: String){
 
         beconList.forEach {
             val intent  = Intent(requireContext(), PreLoginActivity::class.java)

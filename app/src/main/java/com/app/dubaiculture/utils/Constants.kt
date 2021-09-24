@@ -83,6 +83,7 @@ object Constants {
         const val NEW_LOCALE: String = "culture"
         const val EXPLORE_TO_ATTRACTIONS: String = "exp_to_attractions"
         const val ATTRACTION_DETAIL: String = "attractionId"
+        const val ATTRACTION_DETAIL_BEACON: String = "attraction_id"
 
 
     }
