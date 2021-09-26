@@ -9,10 +9,10 @@
         android:id="@+id/latestNewsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.latestnews.LatestNewsFragment"
         android:label="LatestNewsFragment" >
-        <argument
-            android:name="culture"
-            app:argType="string"
-            app:nullable="false" />
+<!--        <argument-->
+<!--            android:name="culture"-->
+<!--            app:argType="string"-->
+<!--            app:nullable="false" />-->
         <action
             android:id="@+id/action_latestNewsFragment_to_newsDetailFragment"
             app:destination="@id/news_detail_navigation"

@@ -9,7 +9,7 @@ import com.app.dubaiculture.data.repository.attraction.remote.response.Attractio
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionResponse
 import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.data.repository.sitemap.local.IbeconITemsSiteMap
+import com.app.dubaiculture.data.repository.sitemap.local.BeaconItems
 
 
 fun transformAttractionsRequest(attractionRequest: AttractionRequest) =
@@ -156,13 +156,15 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
         Ibecons(
             image = it.image,
             ibeconItems = it.iBeaconsItems?.map {
-                IbeconITemsSiteMap(
+                BeaconItems(
                     step = it.step,
                     title = it.title,
                     image = it.img,
                     thumbnail = it.thumbnail,
                     summary = it.summary,
                     deviceID = it.deviceID,
+                    visitedOn = it.visitedOn?:"",
+                    visited = it.visited?:false
                 )
             }
         )

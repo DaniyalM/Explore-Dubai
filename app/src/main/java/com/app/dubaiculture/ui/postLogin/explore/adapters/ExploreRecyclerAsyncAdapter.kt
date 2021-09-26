@@ -382,11 +382,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
                     it.viewAll.setOnClickListener {
-                        fragment?.navigate(
-                            R.id.action_exploreFragment_to_more_navigation,
-                            Bundle().apply {
-                                putBoolean(NEWS_NAVIGATION, true)
-                            })
+                        fragment?.navigateByDirections(
+                            ExploreFragmentDirections.actionExploreFragmentToNewsNavigation()
+                        )
                     }
                 }
 

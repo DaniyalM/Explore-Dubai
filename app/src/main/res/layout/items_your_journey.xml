@@ -64,14 +64,14 @@
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextViewStyle"
+                android:layout_width="236dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:lines="2"
                 android:layout_marginEnd="@dimen/_22sdp"
+                android:lines="2"
                 android:text="Main Entrance of Majlis Ghorfat Umm Al Sheif"
-               style="@style/TextViewStyle"
                 android:textSize="@dimen/_14sdp"
 
                 />

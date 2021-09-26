@@ -39,7 +39,7 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
     private var passwordlogin: String? = null
     private var from: String? = null
 
-    private val REQ_USER_CONSENT = 200
+//    private val REQ_USER_CONSENT = 200
     var smsBroadCastReceiver: OTPbroadCastReceiver? = null
 
 

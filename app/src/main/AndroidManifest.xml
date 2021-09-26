@@ -54,7 +54,26 @@
         <activity
             android:name=".ui.postLogin.PostLoginActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="${host_success}"
+                    android:scheme="${scheme}" />
+                <data
+                    android:host="${host_failure}"
+                    android:scheme="${scheme}" />
+
+
+                <!--                <data-->
+                <!--                    android:host="${host_failure}"-->
+                <!--                    android:scheme="${scheme}" />-->
+
+            </intent-filter>
+        </activity>
 
 
         <activity
@@ -74,21 +93,21 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+            <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:host="${host_success}"
-                    android:scheme="${scheme}" />
-                <data
-                    android:host="${host_failure}"
-                    android:scheme="${scheme}" />
+            <data
+                android:host="${host_success}"
+                android:scheme="${scheme}" />
+            <data
+                android:host="${host_failure}"
+                android:scheme="${scheme}" />
 
 
-<!--                <data-->
-<!--                    android:host="${host_failure}"-->
-<!--                    android:scheme="${scheme}" />-->
+            <!--                <data-->
+            <!--                    android:host="${host_failure}"-->
+            <!--                    android:scheme="${scheme}" />-->
 
-            </intent-filter>
+        </intent-filter>
         </activity>
         <!--        <activity-->
         <!--            android:name=".ui.postLogin.PostLoginActivity"-->

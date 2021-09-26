@@ -16,16 +16,19 @@ import java.util.*
 class UAEPassRequestModels {
 
 
-
     //UAE PASS START -- ADD BELOW FIELDS
     private val UAE_PASS_CLIENT_ID = "dcaa_app_stage"
     private val UAE_PASS_CLIENT_SECRET = "QyFfkEGfpwvSbSqc"
-//    private val REDIRECT_URL: String = "https://qa-id.uaepass.ae/idshub/authorize?redirect_uri=dc://com.dc.dc-int&client_id=${UAE_PASS_CLIENT_ID}&response_type=code&state=ShNP22hyl1jUU2RGjTRkpg==&scope=urn:uae:digitalid:profile:general&acr_values=urn:safelayer:tws:policies:authentication:level:low&ui_locales=en"
-    private val UAE_PASS_ENVIRONMENT: Environment =  Environment.STAGING
+
+    //    private val REDIRECT_URL: String = "https://qa-id.uaepass.ae/idshub/authorize?redirect_uri=dc://com.dc.dc-int&client_id=${UAE_PASS_CLIENT_ID}&response_type=code&state=ShNP22hyl1jUU2RGjTRkpg==&scope=urn:uae:digitalid:profile:general&acr_values=urn:safelayer:tws:policies:authentication:level:low&ui_locales=en"
+    private val UAE_PASS_ENVIRONMENT: Environment = Environment.STAGING
+
     //UAE PASS END -- ADD BELOW FIELDS
-    private val REDIRECT_3 : String =
-            "https://qa-id.uaepass.ae/idshub/authorize?response_type=code&client_id=dcaa_app_stage&scope=urn:uae:digitalid:profile:general&state=HnlHOJTkTb66Y5H&redirect_uri=dc://com.dc.dc-int&acr_values=urn:digitalid:authentication:flow:mobileondevice"
-    private val REDIRECT_URL_2 : String ="https://qa-id.uaepass.ae/idshub/authorize?response_type=code&client_id=dcaa_app_stage&scope=urn:uae:digitalid:profile:general&state=HnlHOJTkTb66Y5H&redirect_uri=dc://com.dc.dc-int&acr_values=urn:safelayer:tws:policies:authentication:flow:mobileondevice"
+    private val REDIRECT_3: String =
+        "https://qa-id.uaepass.ae/idshub/authorize?response_type=code&client_id=dcaa_app_stage&scope=urn:uae:digitalid:profile:general&state=HnlHOJTkTb66Y5H&redirect_uri=dc://com.dc.dc-int&acr_values=urn:digitalid:authentication:flow:mobileondevice"
+    private val REDIRECT_URL_2: String =
+        "https://qa-id.uaepass.ae/idshub/authorize?response_type=code&client_id=dcaa_app_stage&scope=urn:uae:digitalid:profile:general&state=HnlHOJTkTb66Y5H&redirect_uri=dc://com.dc.dc-int&acr_values=urn:safelayer:tws:policies:authentication:flow:mobileondevice"
+
     //UAE PASS END -- ADD BELOW FIELDS
     private val REDIRECT_URL: String = "dc://com.dc.dc-int"
 
@@ -37,12 +40,12 @@ class UAEPassRequestModels {
     private val UAE_PASS_PACKAGE_ID = "ae.uaepass.mainapp"
     private val UAE_PASS_QA_PACKAGE_ID = "ae.uaepass.mainapp.qa"
 
-    private val SCHEME: String =    BuildConfig.URI_SCHEME
+    private val SCHEME: String = BuildConfig.URI_SCHEME
     private val FAILURE_HOST: String = BuildConfig.URI_HOST_FAILURE
     private val SUCCESS_HOST: String = BuildConfig.URI_HOST_SUCCESS
     private val STATE = generateRandomString(24)
 
-    var MY_SCOPE  = "urn:uae:digitalid:profile:general"
+    var MY_SCOPE = "urn:uae:digitalid:profile:general"
     var MY_STATE = "HnlHOJTkTb66Y5H"
 //    var MY_acr_values = "urn:digitalid:authentication:flow:mobileondevice"
 
@@ -62,7 +65,8 @@ class UAEPassRequestModels {
         }
         return found
     }
-   public fun getAuthenticationRequestModel(context: Context): UAEPassAccessTokenRequestModel? {
+
+    public fun getAuthenticationRequestModel(context: Context): UAEPassAccessTokenRequestModel? {
         var ACR_VALUE = ""
         ACR_VALUE = if (isPackageInstalled(context.packageManager)) {
             ACR_VALUES_MOBILE

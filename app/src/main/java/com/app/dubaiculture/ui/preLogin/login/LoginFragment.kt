@@ -271,13 +271,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     }
 
 
-    fun handleIntent(intent: Intent?) {
-        if (intent != null && intent.data != null) {
-            if (BuildConfig.URI_SCHEME.equals(intent.data!!.scheme)) {
-                UAEPassController.resume(intent.dataString)
-            }
-        }
-    }
+
 
     private fun getProfile() {
         val uaePassRequestModels = UAEPassRequestModels()
