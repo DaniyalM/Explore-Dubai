@@ -30,7 +30,8 @@ class PostCreatePassFragment : BaseFragment<FragmentPostCreatePassBinding>(), Vi
         lottieAnimationRTL(binding!!.animationView)
         subscribeUiEvents(postCreatePassViewModel)
         backArrowRTL(binding!!.imgClose)
-        arguments?.let {             verificationCode = it.getString("verificationCode")
+        arguments?.let {
+            verificationCode = it.getString("verificationCode")
             from = it.getString("post")}
         binding!!.btnSetPassword.setOnClickListener {
             postCreatePassViewModel.setPassword(verificationCode)

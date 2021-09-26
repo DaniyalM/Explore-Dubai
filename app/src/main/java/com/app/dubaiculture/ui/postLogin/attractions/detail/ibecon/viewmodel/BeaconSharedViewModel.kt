@@ -24,7 +24,7 @@ class BeaconSharedViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) :
     BaseViewModel(application) {
-    private val context = getApplication<ApplicationEntry>()
+//    private val context = getApplication<ApplicationEntry>()
 
     val _isVisited: MutableLiveData<Event<Boolean>> = MutableLiveData()
     val isVisited: LiveData<Event<Boolean>> = _isVisited
@@ -50,6 +50,7 @@ class BeaconSharedViewModel @Inject constructor(
                     }
                 }
                 is Result.Failure -> {
+                    _isVisited.value = Event(false)
                 }
 
             }

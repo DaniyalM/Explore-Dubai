@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.base
 
+import ae.sdg.libraryuaepass.UAEPassController
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -485,6 +486,13 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             startActivity(intent)
         } catch (ex: ActivityNotFoundException) {
             showToast("Please install a Google map application", requireContext())
+        }
+    }
+    fun handleIntent(intent: Intent?) {
+        if (intent != null && intent.data != null) {
+            if (BuildConfig.URI_SCHEME.equals(intent.data!!.scheme)) {
+                UAEPassController.resume(intent.dataString)
+            }
         }
     }
 //    fun showBottomSheet(

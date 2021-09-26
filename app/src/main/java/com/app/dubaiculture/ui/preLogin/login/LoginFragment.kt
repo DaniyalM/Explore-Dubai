@@ -161,7 +161,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //                login()
 //                getCode()
 //                navigate(R.id.action_loginFragment_to_bottomSheet)
-                getCode()
+//                getCode()
+                getProfile()
             }
         }
     }
@@ -270,13 +271,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     }
 
 
-    fun handleIntent(intent: Intent?) {
-        if (intent != null && intent.data != null) {
-            if (BuildConfig.URI_SCHEME.equals(intent.data!!.scheme)) {
-                UAEPassController.resume(intent.dataString)
-            }
-        }
-    }
+
 
     private fun getProfile() {
         val uaePassRequestModels = UAEPassRequestModels()
@@ -286,7 +281,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 if (error != null) {
                     Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT).show()
                 } else {
-                    val name = profileModel!!.firstnameEN + " " + profileModel.lastnameEN
+                    val name = profileModel!!.firstnameEN +profileModel!!.homeAddressEmirateCode+ " " + profileModel.lastnameEN
                     Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
                 }
             }
