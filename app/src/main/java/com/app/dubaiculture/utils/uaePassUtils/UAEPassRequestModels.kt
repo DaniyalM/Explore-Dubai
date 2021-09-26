@@ -9,8 +9,6 @@ import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestModel
 import ae.sdg.libraryuaepass.utils.Utils.generateRandomString
 import android.content.Context
 import android.content.pm.PackageManager
-import com.app.dubaiculture.BuildConfig
-import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.UAE_PASS.URI_HOST_FAILURE
 import com.app.dubaiculture.utils.Constants.UAE_PASS.URI_HOST_SUCCESS
 import com.app.dubaiculture.utils.Constants.UAE_PASS.URI_SCHEME
@@ -19,14 +17,12 @@ import java.util.*
 
 class UAEPassRequestModels {
 
-
-
     //UAE PASS START -- ADD BELOW FIELDS
     private val UAE_PASS_CLIENT_ID = "dcaa_app_stage"
     private val UAE_PASS_CLIENT_SECRET = "QyFfkEGfpwvSbSqc"
     private val REDIRECT_URL: String = "https://qa-id.uaepass.ae/idshub/authorize?redirect_uri=dc://com.dc.dc-int&client_id=${UAE_PASS_CLIENT_ID}&response_type=code&state=ShNP22hyl1jUU2RGjTRkpg==&scope=urn:uae:digitalid:profile:general&ac\n" +
             "r_values=urn:safelayer:tws:policies:authentication:level:low&ui_locales=en"
-    private val UAE_PASS_ENVIRONMENT: Environment =  Environment.STAGING
+    private val UAE_PASS_ENVIRONMENT: Environment =  Environment.STAGING   // after successfully implemented then change into Production
     //UAE PASS END -- ADD BELOW FIELDS
 
     private val REDIRECT_URL_2 : String ="https://qa-id.uaepass.ae/idshub/authorize?response_type=code&client_id=dcaa_app_stage&scope=urn:uae:digitalid:profile:general&state=HnlHOJTkTb66Y5H&redirect_uri=dc://com.dc.dc-int&acr_values=urn:safelayer:tws:policies:authentication:flow:mobileondevice"
