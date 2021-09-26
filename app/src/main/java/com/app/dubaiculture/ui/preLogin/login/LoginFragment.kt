@@ -161,7 +161,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //                login()
 //                getCode()
 //                navigate(R.id.action_loginFragment_to_bottomSheet)
-                getCode()
+//                getCode()
+                getProfile()
             }
         }
     }
@@ -286,7 +287,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 if (error != null) {
                     Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT).show()
                 } else {
-                    val name = profileModel!!.firstnameEN + " " + profileModel.lastnameEN
+                    val name = profileModel!!.firstnameEN +profileModel!!.homeAddressEmirateCode+ " " + profileModel.lastnameEN
                     Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
                 }
             }
