@@ -2,7 +2,6 @@
 
 
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_70sdp"
     android:outlineSpotShadowColor="?attr/color_card_views_shadow"
