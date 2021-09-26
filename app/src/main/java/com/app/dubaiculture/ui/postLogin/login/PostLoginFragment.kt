@@ -1,9 +1,11 @@
 package com.app.dubaiculture.ui.postLogin.login
 
+import ae.sdg.libraryuaepass.UAEPassAccessTokenCallback
 import ae.sdg.libraryuaepass.UAEPassController
 import ae.sdg.libraryuaepass.UAEPassProfileCallback
+import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenRequestModel
 import ae.sdg.libraryuaepass.business.profile.model.ProfileModel
-import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestModel
+import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestByAccessTokenModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
-        View.OnClickListener {
+    View.OnClickListener {
     private val postLoginViewModel: PostLoginViewModel by viewModels()
     private val splashViewModel: SplashViewModel by viewModels()
     private var postCreatePassFragment: PostCreatePassFragment? = null
@@ -39,8 +41,8 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     }
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
     ) = FragmentPostLoginBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,7 +74,9 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                 dismiss()
             }
             R.id.img_uae_pass -> {
-                getProfile()
+
+                login()
+//                getProfile()
 //                navigate(R.id.action_postLoginFragment_to_postCreatePassFragment)
             }
             R.id.tv_register_now -> {
@@ -127,20 +131,51 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
 
     }
 
-    private fun getProfile() {
+    private fun login() {
         val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassProfileRequestModel = uaePassRequestModels.getProfileRequestModel(activity)!!
-        UAEPassController.getUserProfile(activity, requestModel, object : UAEPassProfileCallback {
-            override fun getProfile(profileModel: ProfileModel?, state: String, error: String?) {
-                if (error != null) {
-                    Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    val name =
-                        profileModel!!.firstnameEN + profileModel!!.homeAddressEmirateCode + " " + profileModel.lastnameEN
-                    Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
+        val requestModel: UAEPassAccessTokenRequestModel? =
+            uaePassRequestModels.getAuthenticationRequestModel(
+                activity
+            )
+        UAEPassController.getAccessToken(
+            activity,
+            requestModel!!,
+            object : UAEPassAccessTokenCallback {
+                override fun getToken(accessToken: String?, state: String, error: String?) {
+                    if (error != null) {
+                        showAlert(error)
+//                        showToast("Error while getting access token")
+                    } else {
+                        accessToken?.let {
+                            showToast("Access Token Received")
+                            getProfileAccessToken(it)
+                        }
+
+                    }
                 }
-            }
-        })
+            })
     }
+
+    private fun getProfileAccessToken(at: String) {
+        val uaePassRequestModels = UAEPassRequestModels()
+        val rm: UAEPassProfileRequestByAccessTokenModel =
+            uaePassRequestModels.getUAEPassHavingAccessToken(at)
+        UAEPassController.getUserProfileByAccessToken(
+            rm, object : UAEPassProfileCallback {
+                override fun getProfile(
+                    profileModel: ProfileModel?,
+                    state: String,
+                    error: String?
+                ) {
+                    if (error != null) {
+                        showAlert(error)
+                    } else {
+                        val name =
+                            profileModel!!.firstnameEN + profileModel.homeAddressEmirateCode + " " + profileModel.lastnameEN
+                        Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+    }
+
 }

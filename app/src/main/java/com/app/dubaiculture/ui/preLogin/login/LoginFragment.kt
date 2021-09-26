@@ -2,14 +2,13 @@ package com.app.dubaiculture.ui.preLogin.login
 
 import ae.sdg.libraryuaepass.UAEPassAccessCodeCallback
 import ae.sdg.libraryuaepass.UAEPassAccessTokenCallback
-import ae.sdg.libraryuaepass.UAEPassController
 import ae.sdg.libraryuaepass.UAEPassController.getAccessCode
 import ae.sdg.libraryuaepass.UAEPassController.getAccessToken
-import ae.sdg.libraryuaepass.UAEPassController.getUserProfile
+import ae.sdg.libraryuaepass.UAEPassController.getUserProfileByAccessToken
 import ae.sdg.libraryuaepass.UAEPassProfileCallback
 import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenRequestModel
 import ae.sdg.libraryuaepass.business.profile.model.ProfileModel
-import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestModel
+import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestByAccessTokenModel
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.content.IntentFilter
@@ -24,7 +23,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -48,8 +46,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     private var intentFilter: IntentFilter? = null
     private var smsReceiver: SMSReceiver? = null
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
     ): FragmentLoginBinding {
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
@@ -70,24 +68,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         lottieAnimationRTL(binding.animationView)
         binding.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
-                    binding.password to "my_password",
-                    binding.editPassword to "my_edit_password",
-                    binding.mobileNumber to "my_phone",
-                    binding.editMobNo to "my_edit_phone",
-                    binding.tvLoginAccount to "main_title",
-                    binding.btnLogin to "action_btn"
+                binding.password to "my_password",
+                binding.editPassword to "my_edit_password",
+                binding.mobileNumber to "my_phone",
+                binding.editMobNo to "my_edit_phone",
+                binding.tvLoginAccount to "main_title",
+                binding.btnLogin to "action_btn"
             )
             findNavController().navigate(
-                    R.id.action_loginFragment_to_registerFragment2,
-                    null,
-                    null,
-                    extras
+                R.id.action_loginFragment_to_registerFragment2,
+                null,
+                null,
+                extras
             )
         }
         binding.tvAsGuest.setOnClickListener {
             if (SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(
-                            requireContext()
-                    )
+                    requireContext()
+                )
             ) {
 
                 application.auth.apply {
@@ -143,26 +141,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         when (v?.id) {
             R.id.forgot_pass -> {
                 val extras = FragmentNavigatorExtras(
-                        binding.password to "my_password",
-                        binding.editPassword to "my_edit_password",
-                        binding.mobileNumber to "my_phone",
-                        binding.editMobNo to "my_edit_phone",
-                        binding.tvLoginAccount to "main_title",
-                        binding.btnLogin to "action_btn"
+                    binding.password to "my_password",
+                    binding.editPassword to "my_edit_password",
+                    binding.mobileNumber to "my_phone",
+                    binding.editMobNo to "my_edit_phone",
+                    binding.tvLoginAccount to "main_title",
+                    binding.btnLogin to "action_btn"
                 )
                 findNavController().navigate(
-                        R.id.action_loginFragment_to_forgotFragment,
-                        null,
-                        null,
-                        extras
+                    R.id.action_loginFragment_to_forgotFragment,
+                    null,
+                    null,
+                    extras
                 )
             }
             R.id.img_uae_pass -> {
-//                login()
+                login()
 //                getCode()
 //                navigate(R.id.action_loginFragment_to_bottomSheet)
 //                getCode()
-                getProfile()
+//                getProfile()
             }
         }
     }
@@ -191,20 +189,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     private fun applicationExitDialog() {
         val callback: OnBackPressedCallback =
-                object : OnBackPressedCallback(true /* enabled by default */) {
-                    override fun handleOnBackPressed() {
-                        showAlert(
-                                message = getString(R.string.error_msg),
-                                textPositive = getString(R.string.okay),
-                                textNegative = getString(R.string.cancel),
-                                actionNegative = {
-                                },
-                                actionPositive = {
-                                    activity.finish()
-                                }
-                        )
-                    }
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    showAlert(
+                        message = getString(R.string.error_msg),
+                        textPositive = getString(R.string.okay),
+                        textNegative = getString(R.string.cancel),
+                        actionNegative = {
+                        },
+                        actionPositive = {
+                            activity.finish()
+                        }
+                    )
                 }
+            }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
@@ -228,21 +226,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
      */
     private fun getCode() {
         val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassAccessTokenRequestModel? = uaePassRequestModels.getAuthenticationRequestModel(
+        val requestModel: UAEPassAccessTokenRequestModel? =
+            uaePassRequestModels.getAuthenticationRequestModel(
                 activity
-        )
+            )
         requestModel?.let {
             getAccessCode(activity, it, object : UAEPassAccessCodeCallback {
                 override fun getAccessCode(code: String?, error: String?) {
                     if (error != null) {
-                        Toast.makeText(
-                                activity,
-                                "Error while getting access token",
-                                Toast.LENGTH_SHORT
-                        ).show()
+                        showAlert(error)
                     } else {
-                        Toast.makeText(activity, "Access Code Received", Toast.LENGTH_SHORT)
-                                .show()
+                        showToast("Access Token Received")
+                        code?.let {
+                            getProfileAccessToken(it)
+
+                        }
                     }
                 }
             })
@@ -251,40 +249,71 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     private fun login() {
         val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassAccessTokenRequestModel? = uaePassRequestModels.getAuthenticationRequestModel(
+        val requestModel: UAEPassAccessTokenRequestModel? =
+            uaePassRequestModels.getAuthenticationRequestModel(
                 activity
-        )
+            )
         getAccessToken(activity, requestModel!!, object : UAEPassAccessTokenCallback {
             override fun getToken(accessToken: String?, state: String, error: String?) {
                 if (error != null) {
-                    Toast.makeText(
+                    showAlert(error)
+//                    showToast("Error while getting access token")
+                } else {
+                    accessToken?.let {
+                        showToast("Access Token Received")
+                        getProfileAccessToken(it)
+                    }
+
+                }
+            }
+        })
+    }
+
+
+//    private fun getProfile() {
+//        val uaePassRequestModels = UAEPassRequestModels()
+//        val requestModel: UAEPassProfileRequestModel =
+//            uaePassRequestModels.getProfileRequestModel(activity)!!
+//        getUserProfile(activity, requestModel, object : UAEPassProfileCallback {
+//            override fun getProfile(profileModel: ProfileModel?, state: String, error: String?) {
+//                if (error != null) {
+//                    Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT)
+//                        .show()
+//                } else {
+//                    val name =
+//                        profileModel!!.firstnameEN + profileModel!!.homeAddressEmirateCode + " " + profileModel.lastnameEN
+//                    Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        })
+//    }
+
+    private fun getProfileAccessToken(at: String) {
+        val uaePassRequestModels = UAEPassRequestModels()
+        val rm: UAEPassProfileRequestByAccessTokenModel =
+            uaePassRequestModels.getUAEPassHavingAccessToken(at)
+        getUserProfileByAccessToken(
+            rm, object : UAEPassProfileCallback {
+                override fun getProfile(
+                    profileModel: ProfileModel?,
+                    state: String,
+                    error: String?
+                ) {
+                    if (error != null) {
+                        Toast.makeText(
                             activity,
                             "Error while getting access token",
                             Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Toast.makeText(activity, "Access Token Received", Toast.LENGTH_SHORT)
+                        )
                             .show()
+                    } else {
+                        val name =
+                            profileModel!!.firstnameEN + profileModel.homeAddressEmirateCode + " " + profileModel.lastnameEN
+                        Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-        })
+            })
     }
 
 
-
-
-    private fun getProfile() {
-        val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassProfileRequestModel = uaePassRequestModels.getProfileRequestModel(activity)!!
-        getUserProfile(activity, requestModel, object : UAEPassProfileCallback {
-            override fun getProfile(profileModel: ProfileModel?, state: String, error: String?) {
-                if (error != null) {
-                    Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT).show()
-                } else {
-                    val name = profileModel!!.firstnameEN +profileModel!!.homeAddressEmirateCode+ " " + profileModel.lastnameEN
-                    Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
-    }
 }

@@ -165,6 +165,10 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         EventUtilFunctions.showAlert(message, activity)
     }
 
+    fun showToast(message: String) {
+        EventUtilFunctions.showToast(message, activity)
+    }
+
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
     fun showErrorDialog(message: String) {
         EventUtilFunctions.showErrorDialog(message, context = activity)

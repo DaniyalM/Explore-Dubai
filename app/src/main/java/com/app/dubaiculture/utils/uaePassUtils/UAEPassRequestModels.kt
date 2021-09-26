@@ -5,6 +5,7 @@ import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenReq
 import ae.sdg.libraryuaepass.business.documentsigning.model.DocumentSigningRequestParams
 import ae.sdg.libraryuaepass.business.documentsigning.model.UAEPassDocumentDownloadRequestModel
 import ae.sdg.libraryuaepass.business.documentsigning.model.UAEPassDocumentSigningRequestModel
+import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestByAccessTokenModel
 import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestModel
 import ae.sdg.libraryuaepass.utils.Utils.generateRandomString
 import android.content.Context
@@ -64,6 +65,15 @@ class UAEPassRequestModels {
             found = false
         }
         return found
+    }
+
+    public fun getUAEPassHavingAccessToken(accessToken: String): UAEPassProfileRequestByAccessTokenModel {
+        return UAEPassProfileRequestByAccessTokenModel(
+            UAE_PASS_ENVIRONMENT,  // done
+            UAE_PASS_CLIENT_ID,
+            accessToken = accessToken,
+            MY_STATE
+        )
     }
 
     public fun getAuthenticationRequestModel(context: Context): UAEPassAccessTokenRequestModel? {
