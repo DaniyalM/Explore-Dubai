@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Ibecons(
         var image : String?=null,
-        var ibeconItems : List<BeaconItems> = emptyList()
+        var ibeconItems : List<BeaconItems> ? = mutableListOf()
 ): Parcelable

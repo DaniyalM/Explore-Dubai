@@ -29,6 +29,7 @@
                 layout="@layout/toolbar_layout_detail"
                 app:attraction="@{attraction}" />
         </com.google.android.material.appbar.AppBarLayout>
+<!--        android:background="?attr/colorPrimary"-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/defaultCloseToolbar"
