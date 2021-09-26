@@ -23,9 +23,6 @@ android {
 
 
 
-
-
-
     defaultConfig {
         applicationId "com.app.dubaiculture"
         minSdkVersion 22

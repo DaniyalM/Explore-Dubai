@@ -1,8 +1,10 @@
 package com.app.dubaiculture.ui.base
 
+import ae.sdg.libraryuaepass.UAEPassController
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
@@ -173,6 +176,14 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
             }
             else -> {
                 img.rotation = 90f
+            }
+        }
+    }
+
+    fun handleIntent(intent: Intent?) {
+        if (intent != null && intent.data != null) {
+            if (BuildConfig.URI_SCHEME.equals(intent.data!!.scheme)) {
+                UAEPassController.resume(intent.dataString)
             }
         }
     }
