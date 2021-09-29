@@ -1,18 +1,20 @@
 package com.app.dubaiculture.ui.postLogin.login
 
+import ae.sdg.libraryuaepass.UAEPassAccessCodeCallback
 import ae.sdg.libraryuaepass.UAEPassAccessTokenCallback
 import ae.sdg.libraryuaepass.UAEPassController
 import ae.sdg.libraryuaepass.UAEPassProfileCallback
 import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenRequestModel
 import ae.sdg.libraryuaepass.business.profile.model.ProfileModel
 import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestByAccessTokenModel
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
 import com.app.dubaiculture.databinding.FragmentPostLoginBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
@@ -20,7 +22,7 @@ import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel
 import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import com.app.dubaiculture.utils.uaePassUtils.UAEPassRequestModels
+import com.app.dubaiculture.utils.UAEPassRequestModels
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -74,7 +76,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                 dismiss()
             }
             R.id.img_uae_pass -> {
-
+//                getCode()
                 login()
 //                getProfile()
 //                navigate(R.id.action_postLoginFragment_to_postCreatePassFragment)
@@ -131,15 +133,41 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
 
     }
 
-    private fun login() {
-        val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassAccessTokenRequestModel? =
-            uaePassRequestModels.getAuthenticationRequestModel(
+    /**
+     * Login with UAE Pass and get the access Code.
+     */
+    private fun getCode() {
+
+        val requestModel: UAEPassAccessTokenRequestModel =
+            UAEPassRequestModels.getAuthenticationRequestModel(
                 activity
-            )
+            )!!
+        requestModel.let {
+            UAEPassController.getAccessCode(activity, it, object : UAEPassAccessCodeCallback {
+                override fun getAccessCode(code: String?, error: String?) {
+                    if (error != null) {
+                        showAlert(error)
+                    } else {
+    //                        showToast("Access Token Received")
+                        code?.let {
+                            getProfileAccessToken(it)
+
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    private fun login() {
+
+        val requestModel: UAEPassAccessTokenRequestModel =
+            UAEPassRequestModels.getAuthenticationRequestModel(
+                context
+            )!!
         UAEPassController.getAccessToken(
-            activity,
-            requestModel!!,
+            context!!,
+            requestModel,
             object : UAEPassAccessTokenCallback {
                 override fun getToken(accessToken: String?, state: String, error: String?) {
                     if (error != null) {
@@ -147,7 +175,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
 //                        showToast("Error while getting access token")
                     } else {
                         accessToken?.let {
-                            showToast("Access Token Received")
+//                            showToast("Access Token Received")
                             getProfileAccessToken(it)
                         }
 
@@ -157,9 +185,8 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     }
 
     private fun getProfileAccessToken(at: String) {
-        val uaePassRequestModels = UAEPassRequestModels()
         val rm: UAEPassProfileRequestByAccessTokenModel =
-            uaePassRequestModels.getUAEPassHavingAccessToken(at)
+            UAEPassRequestModels.getUAEPassHavingAccessToken(at)
         UAEPassController.getUserProfileByAccessToken(
             rm, object : UAEPassProfileCallback {
                 override fun getProfile(
@@ -170,9 +197,37 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                     if (error != null) {
                         showAlert(error)
                     } else {
-                        val name =
-                            profileModel!!.firstnameEN + profileModel.homeAddressEmirateCode + " " + profileModel.lastnameEN
-                        Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
+//                        UAEPassController.resume("uaePassDemo")
+                        profileModel?.let {
+
+                            if (it.idn != null && it.idn!!.isNotEmpty()) {
+                                postLoginViewModel.loginWithUae(
+                                    UaeLoginRequest(
+                                        idn = it.idn!!,
+                                        idType = it.idType ?: "",
+                                        email = it.email ?: "",
+                                        mobile = it.mobile ?: "",
+                                        firstNameEn = it.firstnameEN ?: "",
+                                        firstNameAr = it.firstnameAR ?: "",
+                                        lastNameAr = it.lastnameAR ?: "",
+                                        lastNameEn = it.lastnameEN ?: "",
+                                        fullNameAr = it.fullnameAR ?: "",
+                                        fullNameEn = it.fullnameEN ?: "",
+                                        acr = it.acr ?: "",
+                                        nationalityAr = it.nationalityAR ?: "",
+                                        nationalityEn = it.nationalityEN ?: "",
+                                        gender = it.gender ?: "",
+                                        spuuid = it.spuuid ?: "",
+                                        sub = it.sub ?: "",
+                                        titleAr = it.titleAR ?: "",
+                                        titleEn = it.titleEN ?: "",
+                                        user_type = it.userType ?: ""
+                                    )
+                                )
+                            } else {
+                                showAlert("You have a basic account, please upgrade the basic account")
+                            }
+                        }
                     }
                 }
             })

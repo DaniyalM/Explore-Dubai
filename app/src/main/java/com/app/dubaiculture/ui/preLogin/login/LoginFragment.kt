@@ -4,11 +4,13 @@ import ae.sdg.libraryuaepass.UAEPassAccessCodeCallback
 import ae.sdg.libraryuaepass.UAEPassAccessTokenCallback
 import ae.sdg.libraryuaepass.UAEPassController.getAccessCode
 import ae.sdg.libraryuaepass.UAEPassController.getAccessToken
+import ae.sdg.libraryuaepass.UAEPassController.getUserProfile
 import ae.sdg.libraryuaepass.UAEPassController.getUserProfileByAccessToken
 import ae.sdg.libraryuaepass.UAEPassProfileCallback
 import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenRequestModel
 import ae.sdg.libraryuaepass.business.profile.model.ProfileModel
 import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestByAccessTokenModel
+import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestModel
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.content.IntentFilter
@@ -24,13 +26,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
 import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.SMSReceiver
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import com.app.dubaiculture.utils.uaePassUtils.UAEPassRequestModels
+import com.app.dubaiculture.utils.UAEPassRequestModels
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
@@ -221,38 +224,59 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         client.startSmsRetriever()
     }
 
+    private fun getCode() {
+//        val uaePassRequestModels = UAEPassRequestModels()
+
+        val requestModel: UAEPassAccessTokenRequestModel =
+            UAEPassRequestModels.getAuthenticationRequestModel(context)!!
+        getAccessCode(activity, requestModel, object : UAEPassAccessCodeCallback {
+            override fun getAccessCode(code: String?, error: String?) {
+                if (error != null) {
+                    showAlert(error)
+                } else {
+//                        showToast("Access Token Received")
+                    code?.let {
+                        getProfileAccessToken(it)
+
+                    }
+                }
+            }
+        })
+    }
+
     /**
      * Login with UAE Pass and get the access Code.
      */
-    private fun getCode() {
-        val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassAccessTokenRequestModel? =
-            uaePassRequestModels.getAuthenticationRequestModel(
-                activity
-            )
-        requestModel?.let {
-            getAccessCode(activity, it, object : UAEPassAccessCodeCallback {
-                override fun getAccessCode(code: String?, error: String?) {
-                    if (error != null) {
-                        showAlert(error)
-                    } else {
-                        showToast("Access Token Received")
-                        code?.let {
-                            getProfileAccessToken(it)
-
-                        }
-                    }
-                }
-            })
-        }
-    }
+//    private fun getCode() {
+//        val uaePassRequestModels = UAEPassRequestModels()
+//        val requestModel: UAEPassAccessTokenRequestModel? =
+//            uaePassRequestModels.getAuthenticationRequestModel(
+//                activity
+//            )
+//        requestModel?.let {
+//            getAccessCode(activity, it, object : UAEPassAccessCodeCallback {
+//                override fun getAccessCode(code: String?, error: String?) {
+//                    if (error != null) {
+//                        showAlert(error)
+//                    } else {
+////                        showToast("Access Token Received")
+//                        code?.let {
+//                            getProfileAccessToken(it)
+//
+//                        }
+//                    }
+//                }
+//            })
+//        }
+//    }
 
     private fun login() {
-        val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassAccessTokenRequestModel? =
-            uaePassRequestModels.getAuthenticationRequestModel(
+//        val uaePassRequestModels = UAEPassRequestModels()
+
+        val requestModel: UAEPassAccessTokenRequestModel =
+            UAEPassRequestModels.getAuthenticationRequestModel(
                 activity
-            )
+            )!!
         getAccessToken(activity, requestModel!!, object : UAEPassAccessTokenCallback {
             override fun getToken(accessToken: String?, state: String, error: String?) {
                 if (error != null) {
@@ -260,7 +284,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //                    showToast("Error while getting access token")
                 } else {
                     accessToken?.let {
-                        showToast("Access Token Received")
                         getProfileAccessToken(it)
                     }
 
@@ -270,28 +293,27 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     }
 
 
-//    private fun getProfile() {
-//        val uaePassRequestModels = UAEPassRequestModels()
-//        val requestModel: UAEPassProfileRequestModel =
-//            uaePassRequestModels.getProfileRequestModel(activity)!!
-//        getUserProfile(activity, requestModel, object : UAEPassProfileCallback {
-//            override fun getProfile(profileModel: ProfileModel?, state: String, error: String?) {
-//                if (error != null) {
-//                    Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT)
-//                        .show()
-//                } else {
-//                    val name =
-//                        profileModel!!.firstnameEN + profileModel!!.homeAddressEmirateCode + " " + profileModel.lastnameEN
-//                    Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        })
-//    }
+    private fun getProfile() {
+        val requestModel: UAEPassProfileRequestModel =
+            UAEPassRequestModels.getProfileRequestModel(application.applicationContext)
+        getUserProfile(application.applicationContext, requestModel, object : UAEPassProfileCallback {
+            override fun getProfile(profileModel: ProfileModel?, state: String, error: String?) {
+                if (error != null) {
+                    Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    val name =
+                        profileModel!!.firstnameEN + profileModel!!.homeAddressEmirateCode + " " + profileModel.lastnameEN
+                    Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
 
     private fun getProfileAccessToken(at: String) {
-        val uaePassRequestModels = UAEPassRequestModels()
+//        val uaePassRequestModels = UAEPassRequestModels()
         val rm: UAEPassProfileRequestByAccessTokenModel =
-            uaePassRequestModels.getUAEPassHavingAccessToken(at)
+            UAEPassRequestModels.getUAEPassHavingAccessToken(at)
         getUserProfileByAccessToken(
             rm, object : UAEPassProfileCallback {
                 override fun getProfile(
@@ -300,16 +322,38 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                     error: String?
                 ) {
                     if (error != null) {
-                        Toast.makeText(
-                            activity,
-                            "Error while getting access token",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        showAlert(error)
                     } else {
-                        val name =
-                            profileModel!!.firstnameEN + profileModel.homeAddressEmirateCode + " " + profileModel.lastnameEN
-                        Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
+                        profileModel?.let {
+//                            UAEPassController.resume("uaePassDemo")
+
+                            if (it.idn!=null&& it.idn!!.isNotEmpty()){
+                                loginViewModel.loginWithUae(UaeLoginRequest(
+                                    idn = it.idn!!,
+                                    idType = it.idType?:"",
+                                    email = it.email?:"",
+                                    mobile = it.mobile?:"",
+                                    firstNameEn = it.firstnameEN?:"",
+                                    firstNameAr = it.firstnameAR?:"",
+                                    lastNameAr = it.lastnameAR?:"",
+                                    lastNameEn = it.lastnameEN?:"",
+                                    fullNameAr = it.fullnameAR?:"",
+                                    fullNameEn = it.fullnameEN?:"",
+                                    acr = it.acr?:"",
+                                    nationalityAr = it.nationalityAR?:"",
+                                    nationalityEn = it.nationalityEN?:"",
+                                    gender = it.gender?:"",
+                                    spuuid = it.spuuid?:"",
+                                    sub = it.sub?:"",
+                                    titleAr = it.titleAR?:"",
+                                    titleEn = it.titleEN?:"",
+                                    user_type = it.userType?:""
+                                ))
+                            }
+                            else {
+                                showAlert("You have a basic account, please upgrade the basic account")
+                            }
+                        }
                     }
                 }
             })

@@ -3,7 +3,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.dubaiculture">
 
-    <uses-permission android:name="android.permission.CAMERA" />
+    <queries>
+        <package android:name="ae.uaepass.mainapp.qa" />
+        <package android:name="ae.uaepass.mainapp" />
+
+    </queries>
+     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -14,6 +19,7 @@
     <uses-feature android:name="android.hardware.location.gps" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -53,26 +59,21 @@
 
         <activity
             android:name=".ui.postLogin.PostLoginActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
 
-                <data
-                    android:host="${host_success}"
-                    android:scheme="${scheme}" />
-                <data
-                    android:host="${host_failure}"
-                    android:scheme="${scheme}" />
+<!--                <data-->
+<!--                    android:host="${host_success}"-->
+<!--                    android:scheme="${scheme}" />-->
+<!--                <data-->
+<!--                    android:host="${host_failure}"-->
+<!--                    android:scheme="${scheme}" />-->
 
-
-                <!--                <data-->
-                <!--                    android:host="${host_failure}"-->
-                <!--                    android:scheme="${scheme}" />-->
-
-            </intent-filter>
+<!--            </intent-filter>-->
         </activity>
 
 
@@ -80,7 +81,7 @@
             android:name=".ui.preLogin.PreLoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-            <nav-graph android:value="@navigation/pre_login_navigation" />
+<!--            <nav-graph android:value="@navigation/pre_login_navigation" />-->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -102,10 +103,6 @@
                 android:host="${host_failure}"
                 android:scheme="${scheme}" />
 
-
-            <!--                <data-->
-            <!--                    android:host="${host_failure}"-->
-            <!--                    android:scheme="${scheme}" />-->
 
         </intent-filter>
         </activity>

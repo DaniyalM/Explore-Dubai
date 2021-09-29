@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PostLoginActivity : BaseAuthenticationActivity() {
     private val navHolding: Int = R.id.nav_host_fragment
 
-    private val postLoginFragment = PostLoginFragment()
+
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
         applicationEntry.auth.locale = getCurrentLanguage().language
@@ -52,12 +52,9 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         // Check if the fragment is an instance of the right fragment
-        // Check if the fragment is an instance of the right fragment
-        if (postLoginFragment is PostLoginFragment) {
-            val my: PostLoginFragment = postLoginFragment as PostLoginFragment
-            // Pass intent or its data to the fragment's method
-            my.handleIntent(intent)
-        }
+       PostLoginFragment().apply {
+           handleIntent(intent)
+       }
     }
 
 
