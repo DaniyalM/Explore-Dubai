@@ -163,10 +163,10 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
 
         val requestModel: UAEPassAccessTokenRequestModel =
             UAEPassRequestModels.getAuthenticationRequestModel(
-                context
+                application.activity
             )!!
         UAEPassController.getAccessToken(
-            context!!,
+            activity,
             requestModel,
             object : UAEPassAccessTokenCallback {
                 override fun getToken(accessToken: String?, state: String, error: String?) {

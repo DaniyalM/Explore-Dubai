@@ -203,6 +203,10 @@ abstract class BaseActivity : LocalizationActivity() {
         return navController.navigateUp() ?: false
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+    }
+
 
 
 

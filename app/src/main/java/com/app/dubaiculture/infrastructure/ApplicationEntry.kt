@@ -1,5 +1,6 @@
 package com.app.dubaiculture.infrastructure
 
+import android.app.Activity
 import android.app.Application
 import com.app.dubaiculture.utils.BeaconUtils
 import com.app.dubaiculture.utils.NetworkLiveData
@@ -22,6 +23,7 @@ class ApplicationEntry : Application() {
     lateinit var preferenceRepository: PreferenceRepository
     lateinit var region: BeaconRegion
 
+    var activity: Activity? = null
 
 
     @Inject
