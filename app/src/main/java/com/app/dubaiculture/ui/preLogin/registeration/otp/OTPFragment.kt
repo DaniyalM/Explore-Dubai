@@ -21,6 +21,7 @@ import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.ui.preLogin.registeration.otp.viewmodel.OTPViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.COMES_FROM_LOGIN
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
+import com.app.dubaiculture.utils.killSessionAndStartNewActivityUAE
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -54,8 +55,7 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
 
     private fun smartUserConsent() {
         val client = SmsRetriever.getClient(activity)
-        client.startSmsUserConsent("+923042484961")
-
+        client.startSmsUserConsent(null)
     }
 
     private fun receiveBroadCastReceiver() {
@@ -194,7 +194,7 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
 
                 application.auth.isLoggedIn = true
                 application.auth.isGuest = false
-                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+                activity.killSessionAndStartNewActivityUAE(PostLoginActivity::class.java)
 
             }
         }

@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
+import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.data.repository.user.local.User
@@ -17,6 +18,7 @@ import com.app.dubaiculture.data.repository.user.mapper.transform
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
+import com.app.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.app.dubaiculture.utils.firebase.subscribeToTopic
 import kotlinx.coroutines.launch
@@ -68,7 +70,7 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             userRepository.getLastUser()?.let {
-                setUser(it)
+                setUser(it,true)
             }
         }
     }
@@ -101,6 +103,48 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun loginWithUae(uaeLoginRequest: UaeLoginRequest){
+        viewModelScope.launch {
+            showLoader(true)
+            when(val result=loginRepository.loginWithUae(uaeLoginRequest)){
+                is Result.Success ->{
+                    showLoader(false)
+//                    Timber.e(result.value.loginResponseDTO.userDTO.Email)
+
+                    //UAE Response Has been Saved
+                    userRepository.saveUaeInfo(uaeLoginRequest)
+
+                    //setting user for Session
+                    setUser(
+                        transform(
+                            result.value.loginResponseDTO.userDTO,
+                            result.value.loginResponseDTO
+                        )
+                    ,true
+                    )
+                    //Saving User Session
+                    userRepository.saveUser(
+                        userDTO = result.value.loginResponseDTO.userDTO,
+                        loginResponseDTO = result.value.loginResponseDTO
+                    )
+//                    if (!result.value.isConfirmed) {
+//                        showErrorDialog(message = result.value.errorMessage)
+//                        phone.set(uaeLoginRequest.mobile)
+//                        resendPhoneVerification()
+//                    } else {
+//
+//
+//                    }
+
+                }
+                is Result.Failure -> {
+                    showLoader(false)
+                    showAlert(result.errorMessage?:SOMETHING_WENT_WRONG)
+                }
+            }
+        }
+    }
+
 
     fun loginWithPhone(ph: String? = null, pass: String? = null) {
         viewModelScope.launch {
@@ -123,7 +167,8 @@ class LoginViewModel @Inject constructor(
                                     transform(
                                         result.value.loginResponseDTO.userDTO,
                                         result.value.loginResponseDTO
-                                    )
+                                    ),
+                                    true
                                 )
 
                                 userRepository.saveUser(
@@ -154,8 +199,6 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
-
-
     fun loginWithEmail(eml: String? = null, pass: String? = null) {
         if (!isCheckValid())
             return
@@ -180,7 +223,8 @@ class LoginViewModel @Inject constructor(
                                     transform(
                                         result.value.loginResponseDTO.userDTO,
                                         result.value.loginResponseDTO
-                                    )
+                                    ),
+                                    true
                                 )
 
                                 userRepository.saveUser(

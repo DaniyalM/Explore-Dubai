@@ -3,6 +3,8 @@ package com.app.dubaiculture.data.repository.user
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.login.LoginRepository
+import com.app.dubaiculture.data.repository.login.local.UaeLDS
+import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
 import com.app.dubaiculture.data.repository.login.remote.LoginRDS
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.login.remote.response.LoginResponseDTO
@@ -24,8 +26,12 @@ class UserRepository @Inject constructor(
     private val userRDS: UserRDS,
     private val userLDS: UserLDS,
     private val guestLDS: GuestLDS,
+    private val uaeLDS: UaeLDS
 ) : BaseRepository() {
 
+    suspend fun saveUaeInfo(uaeLoginRequest: UaeLoginRequest){
+        uaeLDS.insert(uaeLoginRequest)
+    }
 
     suspend fun saveUser(userDTO: UserDTO, loginResponseDTO: LoginResponseDTO) {
         val user = transform(userDTO, loginResponseDTO)

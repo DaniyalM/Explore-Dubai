@@ -5,6 +5,7 @@ import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenReq
 import ae.sdg.libraryuaepass.business.documentsigning.model.DocumentSigningRequestParams
 import ae.sdg.libraryuaepass.business.documentsigning.model.UAEPassDocumentDownloadRequestModel
 import ae.sdg.libraryuaepass.business.documentsigning.model.UAEPassDocumentSigningRequestModel
+import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestByAccessTokenModel
 import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestModel
 import ae.sdg.libraryuaepass.utils.Utils.generateRandomString
 import android.content.Context
@@ -66,7 +67,17 @@ class UAEPassRequestModels {
         return found
     }
 
-    public fun getAuthenticationRequestModel(context: Context): UAEPassAccessTokenRequestModel? {
+    fun getUAEPassHavingAccessToken(accessToken: String): UAEPassProfileRequestByAccessTokenModel {
+        return UAEPassProfileRequestByAccessTokenModel(
+            UAE_PASS_ENVIRONMENT,  // done
+            UAE_PASS_CLIENT_ID,
+            accessToken = accessToken,
+            MY_STATE
+        )
+    }
+
+
+    fun getAuthenticationRequestModel(context: Context): UAEPassAccessTokenRequestModel? {
         var ACR_VALUE = ""
         ACR_VALUE = if (isPackageInstalled(context.packageManager)) {
             ACR_VALUES_MOBILE
@@ -74,9 +85,9 @@ class UAEPassRequestModels {
             ACR_VALUES_WEB
         }
         return UAEPassAccessTokenRequestModel(
-            UAE_PASS_ENVIRONMENT,  // done
-            UAE_PASS_CLIENT_ID,   // done
-            UAE_PASS_CLIENT_SECRET, // done
+            UAE_PASS_ENVIRONMENT,
+            UAE_PASS_CLIENT_ID,
+            UAE_PASS_CLIENT_SECRET,
             SCHEME,
             FAILURE_HOST,
             SUCCESS_HOST,
@@ -135,10 +146,10 @@ class UAEPassRequestModels {
             FAILURE_HOST,
             SUCCESS_HOST,
             REDIRECT_URL,
-            SCOPE,
+            MY_SCOPE,
             RESPONSE_TYPE,
             ACR_VALUE,
-            STATE
+            MY_STATE
         )
     }
 

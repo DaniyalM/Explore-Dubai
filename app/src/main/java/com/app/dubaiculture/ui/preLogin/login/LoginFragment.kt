@@ -2,13 +2,14 @@ package com.app.dubaiculture.ui.preLogin.login
 
 import ae.sdg.libraryuaepass.UAEPassAccessCodeCallback
 import ae.sdg.libraryuaepass.UAEPassAccessTokenCallback
-import ae.sdg.libraryuaepass.UAEPassController
 import ae.sdg.libraryuaepass.UAEPassController.getAccessCode
 import ae.sdg.libraryuaepass.UAEPassController.getAccessToken
 import ae.sdg.libraryuaepass.UAEPassController.getUserProfile
+import ae.sdg.libraryuaepass.UAEPassController.getUserProfileByAccessToken
 import ae.sdg.libraryuaepass.UAEPassProfileCallback
 import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenRequestModel
 import ae.sdg.libraryuaepass.business.profile.model.ProfileModel
+import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestByAccessTokenModel
 import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestModel
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
@@ -18,25 +19,29 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.CookieManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
 import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
+import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.SMSReceiver
+import com.app.dubaiculture.utils.UAEPassRequestModels
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import com.app.dubaiculture.utils.uaePassUtils.UAEPassRequestModels
+import com.app.dubaiculture.utils.killSessionAndStartNewActivityUAE
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.firebase.iid.FirebaseInstanceId
+import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -47,9 +52,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     private val loginViewModel: LoginViewModel by viewModels()
     private var intentFilter: IntentFilter? = null
     private var smsReceiver: SMSReceiver? = null
+    private var isUaeFlag:Boolean=false
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
     ): FragmentLoginBinding {
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
@@ -70,24 +76,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         lottieAnimationRTL(binding.animationView)
         binding.tvRegisterNow.setOnClickListener {
             val extras = FragmentNavigatorExtras(
-                    binding.password to "my_password",
-                    binding.editPassword to "my_edit_password",
-                    binding.mobileNumber to "my_phone",
-                    binding.editMobNo to "my_edit_phone",
-                    binding.tvLoginAccount to "main_title",
-                    binding.btnLogin to "action_btn"
+                binding.password to "my_password",
+                binding.editPassword to "my_edit_password",
+                binding.mobileNumber to "my_phone",
+                binding.editMobNo to "my_edit_phone",
+                binding.tvLoginAccount to "main_title",
+                binding.btnLogin to "action_btn"
             )
             findNavController().navigate(
-                    R.id.action_loginFragment_to_registerFragment2,
-                    null,
-                    null,
-                    extras
+                R.id.action_loginFragment_to_registerFragment2,
+                null,
+                null,
+                extras
             )
         }
         binding.tvAsGuest.setOnClickListener {
             if (SystemRequirementsHelper.isLocationServiceForBluetoothLeEnabled(requireContext()) && SystemRequirementsHelper.isBluetoothEnabled(
-                            requireContext()
-                    )
+                    requireContext()
+                )
             ) {
 
                 application.auth.apply {
@@ -126,6 +132,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 application.auth.isGuest = false
                 application.auth.isLoggedIn = true
                 loginViewModel.getGuestUserIfExists()
+                if (it.isTyped){
+                    isUaeFlag=true
+                }
 
             }
         }
@@ -134,7 +143,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             if (it != null) {
                 loginViewModel.removeGuestUser(it)
             }
-            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+//            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+
+            if (isUaeFlag){
+                activity.killSessionAndStartNewActivityUAE(PostLoginActivity::class.java)
+            }else {
+                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+            }
 
         }
     }
@@ -143,26 +158,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         when (v?.id) {
             R.id.forgot_pass -> {
                 val extras = FragmentNavigatorExtras(
-                        binding.password to "my_password",
-                        binding.editPassword to "my_edit_password",
-                        binding.mobileNumber to "my_phone",
-                        binding.editMobNo to "my_edit_phone",
-                        binding.tvLoginAccount to "main_title",
-                        binding.btnLogin to "action_btn"
+                    binding.password to "my_password",
+                    binding.editPassword to "my_edit_password",
+                    binding.mobileNumber to "my_phone",
+                    binding.editMobNo to "my_edit_phone",
+                    binding.tvLoginAccount to "main_title",
+                    binding.btnLogin to "action_btn"
                 )
                 findNavController().navigate(
-                        R.id.action_loginFragment_to_forgotFragment,
-                        null,
-                        null,
-                        extras
+                    R.id.action_loginFragment_to_forgotFragment,
+                    null,
+                    null,
+                    extras
                 )
             }
             R.id.img_uae_pass -> {
-//                login()
+                login()
 //                getCode()
 //                navigate(R.id.action_loginFragment_to_bottomSheet)
 //                getCode()
-                getProfile()
+//                getProfile()
             }
         }
     }
@@ -191,20 +206,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     private fun applicationExitDialog() {
         val callback: OnBackPressedCallback =
-                object : OnBackPressedCallback(true /* enabled by default */) {
-                    override fun handleOnBackPressed() {
-                        showAlert(
-                                message = getString(R.string.error_msg),
-                                textPositive = getString(R.string.okay),
-                                textNegative = getString(R.string.cancel),
-                                actionNegative = {
-                                },
-                                actionPositive = {
-                                    activity.finish()
-                                }
-                        )
-                    }
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    showAlert(
+                        message = getString(R.string.error_msg),
+                        textPositive = getString(R.string.okay),
+                        textNegative = getString(R.string.cancel),
+                        actionNegative = {
+                        },
+                        actionPositive = {
+                            activity.finish()
+                        }
+                    )
                 }
+            }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
@@ -223,68 +238,160 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         client.startSmsRetriever()
     }
 
+    private fun getCode() {
+//        val uaePassRequestModels = UAEPassRequestModels()
+
+        val requestModel: UAEPassAccessTokenRequestModel =
+            UAEPassRequestModels.getAuthenticationRequestModel(context)!!
+        getAccessCode(activity, requestModel, object : UAEPassAccessCodeCallback {
+            override fun getAccessCode(code: String?, error: String?) {
+                if (error != null) {
+                    showAlert(error)
+                } else {
+//                        showToast("Access Token Received")
+                    code?.let {
+                        getProfileAccessToken(it)
+
+                    }
+                }
+            }
+        })
+    }
+
     /**
      * Login with UAE Pass and get the access Code.
      */
-    private fun getCode() {
-        val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassAccessTokenRequestModel? = uaePassRequestModels.getAuthenticationRequestModel(
-                activity
-        )
-        requestModel?.let {
-            getAccessCode(activity, it, object : UAEPassAccessCodeCallback {
-                override fun getAccessCode(code: String?, error: String?) {
-                    if (error != null) {
-                        Toast.makeText(
-                                activity,
-                                "Error while getting access token",
-                                Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        Toast.makeText(activity, "Access Code Received", Toast.LENGTH_SHORT)
-                                .show()
-                    }
-                }
-            })
-        }
-    }
+//    private fun getCode() {
+//        val uaePassRequestModels = UAEPassRequestModels()
+//        val requestModel: UAEPassAccessTokenRequestModel? =
+//            uaePassRequestModels.getAuthenticationRequestModel(
+//                activity
+//            )
+//        requestModel?.let {
+//            getAccessCode(activity, it, object : UAEPassAccessCodeCallback {
+//                override fun getAccessCode(code: String?, error: String?) {
+//                    if (error != null) {
+//                        showAlert(error)
+//                    } else {
+////                        showToast("Access Token Received")
+//                        code?.let {
+//                            getProfileAccessToken(it)
+//
+//                        }
+//                    }
+//                }
+//            })
+//        }
+//    }
 
     private fun login() {
-        val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassAccessTokenRequestModel? = uaePassRequestModels.getAuthenticationRequestModel(
+//        val uaePassRequestModels = UAEPassRequestModels()
+        showLoader(true)
+        val requestModel: UAEPassAccessTokenRequestModel =
+            UAEPassRequestModels.getAuthenticationRequestModel(
                 activity
-        )
+            )!!
         getAccessToken(activity, requestModel!!, object : UAEPassAccessTokenCallback {
             override fun getToken(accessToken: String?, state: String, error: String?) {
                 if (error != null) {
-                    Toast.makeText(
-                            activity,
-                            "Error while getting access token",
-                            Toast.LENGTH_SHORT
-                    ).show()
+                    showAlert(error)
+                    showLoader(false)
+//                    showToast("Error while getting access token")
                 } else {
-                    Toast.makeText(activity, "Access Token Received", Toast.LENGTH_SHORT)
-                            .show()
+                    accessToken?.let {
+                        getProfileAccessToken(it)
+                    }
+
                 }
             }
         })
     }
 
 
-
-
     private fun getProfile() {
-        val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassProfileRequestModel = uaePassRequestModels.getProfileRequestModel(activity)!!
-        getUserProfile(activity, requestModel, object : UAEPassProfileCallback {
+        val requestModel: UAEPassProfileRequestModel =
+            UAEPassRequestModels.getProfileRequestModel(application.applicationContext)
+        getUserProfile(application.applicationContext, requestModel, object : UAEPassProfileCallback {
             override fun getProfile(profileModel: ProfileModel?, state: String, error: String?) {
                 if (error != null) {
-                    Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT)
+                        .show()
                 } else {
-                    val name = profileModel!!.firstnameEN +profileModel!!.homeAddressEmirateCode+ " " + profileModel.lastnameEN
+                    val name =
+                        profileModel!!.firstnameEN + profileModel!!.homeAddressEmirateCode + " " + profileModel.lastnameEN
                     Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
                 }
             }
         })
     }
+    private fun clearData() {
+        CookieManager.getInstance().removeAllCookies { }
+        CookieManager.getInstance().flush()
+    }
+
+    private fun getProfileAccessToken(at: String) {
+//        val uaePassRequestModels = UAEPassRequestModels()
+        val rm: UAEPassProfileRequestByAccessTokenModel =
+            UAEPassRequestModels.getUAEPassHavingAccessToken(at)
+        getUserProfileByAccessToken(
+            rm, object : UAEPassProfileCallback {
+                override fun getProfile(
+                    profileModel: ProfileModel?,
+                    state: String,
+                    error: String?
+                ) {
+                    if (error != null) {
+                        showLoader(false)
+
+                        showAlert(error)
+                    } else {
+                        showLoader(false)
+                        profileModel?.let {
+//                            UAEPassController.resume("uaePassDemo")
+
+                            if (it.idn!=null&& it.idn!!.isNotEmpty()){
+                                loginViewModel.loginWithUae(UaeLoginRequest(
+                                    idn = it.idn!!,
+                                    idType = it.idType?:"",
+                                    email = it.email?:"",
+                                    mobile = it.mobile?:"",
+                                    firstNameEn = it.firstnameEN?:"",
+                                    firstNameAr = it.firstnameAR?:"",
+                                    lastNameAr = it.lastnameAR?:"",
+                                    lastNameEn = it.lastnameEN?:"",
+                                    fullNameAr = it.fullnameAR?:"",
+                                    fullNameEn = it.fullnameEN?:"",
+                                    acr = it.acr?:"",
+                                    nationalityAr = it.nationalityAR?:"",
+                                    nationalityEn = it.nationalityEN?:"",
+                                    gender = it.gender?:"",
+                                    spuuid = it.spuuid?:"",
+                                    sub = it.sub?:"",
+                                    titleAr = it.titleAR?:"",
+                                    titleEn = it.titleEN?:"",
+                                    user_type = it.userType?:""
+                                ))
+                                clearData()
+                            }
+                            else {
+                                showAlert("You have a basic account, please upgrade the basic account")
+                            }
+                        }
+                    }
+                }
+            })
+    }
+
+    @Subscribe
+    fun initiateAccessToken(uaePassService: UAEPassService){
+        when(uaePassService){
+            is UAEPassService.UaeClick -> {
+                login()
+            }
+        }
+
+    }
+
+
+
 }

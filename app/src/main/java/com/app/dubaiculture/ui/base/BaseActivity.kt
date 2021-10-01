@@ -14,6 +14,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.app.dubaiculture.ui.postLogin.login.PostLoginFragment
+import com.app.dubaiculture.ui.preLogin.login.LoginFragment
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
@@ -31,6 +33,7 @@ abstract class BaseActivity : LocalizationActivity() {
     protected var isBusRegistered: Boolean = false
     private var customProgressDialog: ProgressDialog? = null
     protected lateinit var navController: NavController
+
 
     lateinit var checkBox: CheckBox
 
@@ -199,6 +202,12 @@ abstract class BaseActivity : LocalizationActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() ?: false
     }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+    }
+
+
 
 
 }

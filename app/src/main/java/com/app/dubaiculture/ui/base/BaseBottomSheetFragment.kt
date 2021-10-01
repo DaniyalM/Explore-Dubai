@@ -106,7 +106,8 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
                                 EventUtilFunctions.showToast(event.message, activity)
                             }
                             is UiEvent.ShowLoader -> {
-                                EventUtilFunctions.showLoader(event.show, customProgressDialog)
+                                showLoader(event.show)
+//                                EventUtilFunctions.showLoader(event.show, customProgressDialog)
                             }
                             is UiEvent.ShowSnackbar -> {
                                 EventUtilFunctions.showSnackbar(
@@ -163,6 +164,13 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
 
     fun showAlert(message: String) {
         EventUtilFunctions.showAlert(message, activity)
+    }
+
+    fun showToast(message: String) {
+        EventUtilFunctions.showToast(message, activity)
+    }
+    fun showLoader(show: Boolean) {
+        EventUtilFunctions.showLoader(show, customProgressDialog)
     }
 
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH

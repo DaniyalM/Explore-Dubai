@@ -11,6 +11,7 @@ import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteR
 import com.app.dubaiculture.databinding.ActivityGenericBinding
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
+import com.app.dubaiculture.utils.killSessionAndStartNewActivityUAE
 
 
 abstract class BaseAuthenticationActivity : BaseActivity() {
@@ -92,7 +93,7 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
             override fun onReceive(context: Context?, intent: Intent?) {
 //                Log.d("onReceive", "Logout in progress")
                 //At this point you should start the login activity and finish this one
-                killSessionAndStartNewActivity(PreLoginActivity::class.java)
+                killSessionAndStartNewActivityUAE(PreLoginActivity::class.java)
             }
         }, intentFilter)
     }

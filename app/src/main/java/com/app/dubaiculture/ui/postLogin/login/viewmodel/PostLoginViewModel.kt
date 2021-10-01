@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
+import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.data.repository.user.mapper.transform
@@ -60,7 +61,39 @@ class PostLoginViewModel @Inject constructor(
 
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
+    fun loginWithUae(uaeLoginRequest: UaeLoginRequest){
+        viewModelScope.launch {
+            showLoader(true)
+            when(val result=loginRepository.loginWithUae(uaeLoginRequest)){
+                is Result.Success ->{
+                    showLoader(false)
+//                    Timber.e(result.value.loginResponseDTO.userDTO.Email)
 
+                    //UAE Response Has been Saved
+                    userRepository.saveUaeInfo(uaeLoginRequest)
+
+                    //setting user for Session
+                    setUser(
+                        transform(
+                            result.value.loginResponseDTO.userDTO,
+                            result.value.loginResponseDTO
+                        )
+                    )
+                    //Saving User Session
+                    userRepository.saveUser(
+                        userDTO = result.value.loginResponseDTO.userDTO,
+                        loginResponseDTO = result.value.loginResponseDTO
+                    )
+                    _loginStatus.value = Event(true)
+
+                }
+                is Result.Failure -> {
+                    showLoader(false)
+                    showAlert(result.errorMessage?:"Server Error")
+                }
+            }
+        }
+    }
 
     fun loginWithPhone(ph: String? = null, pass: String? = null) {
         viewModelScope.launch {
