@@ -19,6 +19,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.CookieManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -33,8 +34,8 @@ import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.SMSReceiver
-import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import com.app.dubaiculture.utils.UAEPassRequestModels
+import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import com.app.dubaiculture.utils.killSessionAndStartNewActivityUAE
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
@@ -131,6 +132,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 application.auth.isGuest = false
                 application.auth.isLoggedIn = true
                 loginViewModel.getGuestUserIfExists()
+                if (it.isTyped){
+                    isUaeFlag=true
+                }
 
             }
         }
@@ -139,13 +143,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             if (it != null) {
                 loginViewModel.removeGuestUser(it)
             }
-            activity.killSessionAndStartNewActivityUAE(PostLoginActivity::class.java)
+//            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
 
-//            if (isUaeFlag){
-//                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-//            }else {
-//                activity.killSessionAndStartNewActivityUAE(PostLoginActivity::class.java)
-//            }
+            if (isUaeFlag){
+                activity.killSessionAndStartNewActivityUAE(PostLoginActivity::class.java)
+            }else {
+                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+            }
 
         }
     }
@@ -282,7 +286,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     private fun login() {
 //        val uaePassRequestModels = UAEPassRequestModels()
-
+        showLoader(true)
         val requestModel: UAEPassAccessTokenRequestModel =
             UAEPassRequestModels.getAuthenticationRequestModel(
                 activity
@@ -291,6 +295,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             override fun getToken(accessToken: String?, state: String, error: String?) {
                 if (error != null) {
                     showAlert(error)
+                    showLoader(false)
 //                    showToast("Error while getting access token")
                 } else {
                     accessToken?.let {
@@ -319,6 +324,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             }
         })
     }
+    private fun clearData() {
+        CookieManager.getInstance().removeAllCookies { }
+        CookieManager.getInstance().flush()
+    }
 
     private fun getProfileAccessToken(at: String) {
 //        val uaePassRequestModels = UAEPassRequestModels()
@@ -332,8 +341,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                     error: String?
                 ) {
                     if (error != null) {
+                        showLoader(false)
+
                         showAlert(error)
                     } else {
+                        showLoader(false)
                         profileModel?.let {
 //                            UAEPassController.resume("uaePassDemo")
 
@@ -359,6 +371,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                                     titleEn = it.titleEN?:"",
                                     user_type = it.userType?:""
                                 ))
+                                clearData()
                             }
                             else {
                                 showAlert("You have a basic account, please upgrade the basic account")
@@ -373,7 +386,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     fun initiateAccessToken(uaePassService: UAEPassService){
         when(uaePassService){
             is UAEPassService.UaeClick -> {
-                isUaeFlag=uaePassService.trigger
                 login()
             }
         }

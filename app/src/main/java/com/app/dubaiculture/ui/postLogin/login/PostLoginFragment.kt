@@ -158,7 +158,13 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        showLoader(false)
+    }
+
     private fun login() {
+        showLoader(true)
         bus.post(UAEPassService.UaeClick(true))
         dismiss()
 //        val requestModel: UAEPassAccessTokenRequestModel =

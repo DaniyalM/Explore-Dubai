@@ -70,7 +70,7 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             userRepository.getLastUser()?.let {
-                setUser(it)
+                setUser(it,true)
             }
         }
     }
@@ -120,6 +120,7 @@ class LoginViewModel @Inject constructor(
                             result.value.loginResponseDTO.userDTO,
                             result.value.loginResponseDTO
                         )
+                    ,true
                     )
                     //Saving User Session
                     userRepository.saveUser(
@@ -166,7 +167,8 @@ class LoginViewModel @Inject constructor(
                                     transform(
                                         result.value.loginResponseDTO.userDTO,
                                         result.value.loginResponseDTO
-                                    )
+                                    ),
+                                    true
                                 )
 
                                 userRepository.saveUser(
@@ -197,8 +199,6 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
-
-
     fun loginWithEmail(eml: String? = null, pass: String? = null) {
         if (!isCheckValid())
             return
@@ -223,7 +223,8 @@ class LoginViewModel @Inject constructor(
                                     transform(
                                         result.value.loginResponseDTO.userDTO,
                                         result.value.loginResponseDTO
-                                    )
+                                    ),
+                                    true
                                 )
 
                                 userRepository.saveUser(
