@@ -30,14 +30,17 @@ import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
 import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
+import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.SMSReceiver
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import com.app.dubaiculture.utils.UAEPassRequestModels
+import com.app.dubaiculture.utils.killSessionAndStartNewActivityUAE
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.firebase.iid.FirebaseInstanceId
+import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -48,6 +51,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     private val loginViewModel: LoginViewModel by viewModels()
     private var intentFilter: IntentFilter? = null
     private var smsReceiver: SMSReceiver? = null
+    private var isUaeFlag:Boolean=false
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -135,7 +139,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             if (it != null) {
                 loginViewModel.removeGuestUser(it)
             }
-            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+            activity.killSessionAndStartNewActivityUAE(PostLoginActivity::class.java)
+
+//            if (isUaeFlag){
+//                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+//            }else {
+//                activity.killSessionAndStartNewActivityUAE(PostLoginActivity::class.java)
+//            }
 
         }
     }
@@ -358,6 +368,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 }
             })
     }
+
+    @Subscribe
+    fun initiateAccessToken(uaePassService: UAEPassService){
+        when(uaePassService){
+            is UAEPassService.UaeClick -> {
+                isUaeFlag=uaePassService.trigger
+                login()
+            }
+        }
+
+    }
+
 
 
 }

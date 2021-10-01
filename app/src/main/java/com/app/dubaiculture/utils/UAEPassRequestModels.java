@@ -81,10 +81,10 @@ public class UAEPassRequestModels {
                 FAILURE_HOST,
                 SUCCESS_HOST,
                 REDIRECT_URL,
-                SCOPE,
+                MY_SCOPE,
                 RESPONSE_TYPE,
                 ACR_VALUE,
-                STATE
+                MY_STATE
         );
     }
 
@@ -130,10 +130,10 @@ public class UAEPassRequestModels {
                 FAILURE_HOST,
                 SUCCESS_HOST,
                 REDIRECT_URL,
-                SCOPE,
+                MY_SCOPE,
                 RESPONSE_TYPE,
                 ACR_VALUE,
-                STATE);
+                MY_STATE);
     }
 
     public static UAEPassProfileRequestByAccessTokenModel getUAEPassHavingAccessToken(String accessToken) {
@@ -141,7 +141,7 @@ public class UAEPassRequestModels {
                 UAE_PASS_ENVIRONMENT,  // done
                 UAE_PASS_CLIENT_ID,
                 accessToken,
-                STATE
+                MY_STATE
         );
     }
 }

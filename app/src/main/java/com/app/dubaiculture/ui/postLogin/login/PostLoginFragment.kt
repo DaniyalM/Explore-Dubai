@@ -1,13 +1,11 @@
 package com.app.dubaiculture.ui.postLogin.login
 
 import ae.sdg.libraryuaepass.UAEPassAccessCodeCallback
-import ae.sdg.libraryuaepass.UAEPassAccessTokenCallback
 import ae.sdg.libraryuaepass.UAEPassController
 import ae.sdg.libraryuaepass.UAEPassProfileCallback
 import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenRequestModel
 import ae.sdg.libraryuaepass.business.profile.model.ProfileModel
 import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestByAccessTokenModel
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,10 +17,11 @@ import com.app.dubaiculture.databinding.FragmentPostLoginBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel
+import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
-import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import com.app.dubaiculture.utils.UAEPassRequestModels
+import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -148,7 +147,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                     if (error != null) {
                         showAlert(error)
                     } else {
-    //                        showToast("Access Token Received")
+                        //                        showToast("Access Token Received")
                         code?.let {
                             getProfileAccessToken(it)
 
@@ -160,28 +159,29 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     }
 
     private fun login() {
-
-        val requestModel: UAEPassAccessTokenRequestModel =
-            UAEPassRequestModels.getAuthenticationRequestModel(
-                application.activity
-            )!!
-        UAEPassController.getAccessToken(
-            activity,
-            requestModel,
-            object : UAEPassAccessTokenCallback {
-                override fun getToken(accessToken: String?, state: String, error: String?) {
-                    if (error != null) {
-                        showAlert(error)
-//                        showToast("Error while getting access token")
-                    } else {
-                        accessToken?.let {
-//                            showToast("Access Token Received")
-                            getProfileAccessToken(it)
-                        }
-
-                    }
-                }
-            })
+        bus.post(UAEPassService.UaeClick(true))
+        dismiss()
+//        val requestModel: UAEPassAccessTokenRequestModel =
+//            UAEPassRequestModels.getAuthenticationRequestModel(
+//                application.activity
+//            )!!
+//        UAEPassController.getAccessToken(
+//            activity,
+//            requestModel,
+//            object : UAEPassAccessTokenCallback {
+//                override fun getToken(accessToken: String?, state: String, error: String?) {
+//                    if (error != null) {
+//                        showAlert(error)
+////                        showToast("Error while getting access token")
+//                    } else {
+//                        accessToken?.let {
+////                            showToast("Access Token Received")
+//                            getProfileAccessToken(it)
+//                        }
+//
+//                    }
+//                }
+//            })
     }
 
     private fun getProfileAccessToken(at: String) {
