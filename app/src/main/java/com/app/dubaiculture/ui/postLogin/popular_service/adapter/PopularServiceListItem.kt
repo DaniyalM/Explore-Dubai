@@ -15,10 +15,12 @@ import com.app.dubaiculture.databinding.ItemsBookATicketLayoutBinding
 import com.app.dubaiculture.databinding.ItemsServiceListingLayoutBinding
 import com.app.dubaiculture.databinding.PopularServiceInnerItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.ui.postLogin.popular_service.adapter.clicklistener.ServiceClickListner
 import com.xwray.groupie.databinding.BindableItem
 
 class PopularServiceListItem<T : ViewDataBinding>(
-    private val rowClickListener: RowClickListener? = null,
+    val rowClickListener: RowClickListener? = null,
+    val serviceClickListner: ServiceClickListner? = null,
     val services: PopularServices? = null,
     val servicesBookings: ServiceBookings? = null,
     val myServiceStatus : ServiceStatus?=null,
@@ -60,10 +62,12 @@ class PopularServiceListItem<T : ViewDataBinding>(
                 }
             }
             is ItemsServiceListingLayoutBinding ->{
-
                 viewBinding.apply {
                     setAnimation(rootView,position,context!!)
                     serviceListing = eService
+                    detailNavigation.setOnClickListener {
+                        serviceClickListner?.onServiceClick(eService)
+                    }
                 }
             }
         }

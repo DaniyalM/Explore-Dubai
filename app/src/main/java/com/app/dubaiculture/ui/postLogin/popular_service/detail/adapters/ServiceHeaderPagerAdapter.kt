@@ -17,7 +17,7 @@ class ServiceHeaderPagerAdapter(fragment: Fragment, val eServicesDetail: EServic
             1 -> ProcedurePageFragment(eServicesDetail.procedure)
             2 -> RequirementPageFragment(eServicesDetail.requiredDocument)
             3 -> PaymentPageFragment(eServicesDetail.payments)
-            else -> DescriptionPageFragment(eServicesDetail.description!!)
+            else -> DescriptionPageFragment(eServicesDetail.description!!,eServicesDetail.category)
         }
     }
 }

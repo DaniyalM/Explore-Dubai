@@ -8,6 +8,7 @@ import com.app.dubaiculture.data.repository.popular_service.mapper.transformServ
 import com.app.dubaiculture.data.repository.popular_service.mapper.transformServiceDetail
 import com.app.dubaiculture.data.repository.popular_service.remote.ServiceRDS
 import com.app.dubaiculture.data.repository.popular_service.remote.request.EServiceRequest
+import com.app.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
 import javax.inject.Inject
 
 class ServiceRepository @Inject constructor(
@@ -40,6 +41,19 @@ class ServiceRepository @Inject constructor(
             is Result.Error -> resultRds
         }
     }
+
+    suspend fun getDoc(url:String)=
+        when(val result=serviceRDS.getDocument(url)){
+            is Result.Success ->{
+                if (result.value.isSuccessful) {
+                    Result.Success(result.value.body())
+                } else {
+                    Result.Failure(false, null, null, SOMETHING_WENT_WRONG)
+                }
+            }
+            else -> Result.Failure(false, null, null, SOMETHING_WENT_WRONG)
+
+        }
 
 
 }

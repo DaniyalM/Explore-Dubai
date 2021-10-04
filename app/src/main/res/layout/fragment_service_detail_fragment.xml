@@ -40,16 +40,11 @@
                     android:id="@+id/forumPager"
                     android:layout_width="match_parent"
                     android:orientation="vertical"
+                    android:clipToPadding="false"
+                    android:paddingBottom="30dp"
+                    android:paddingTop="30dp"
                     android:layout_height="match_parent" />
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:clickable="true"-->
-<!--                    android:focusable="true"-->
-<!--                    tools:listitem="@layout/item_more_news"-->
-<!--                    android:id="@+id/service_detail_rv"/>-->
 
             </LinearLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-<!--    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>-->
 </layout>

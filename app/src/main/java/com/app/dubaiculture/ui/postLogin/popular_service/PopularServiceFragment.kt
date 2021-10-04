@@ -19,6 +19,7 @@ import com.app.dubaiculture.databinding.ItemsServiceListingLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.CustomTextWatcher.MyCustomTextWatcher
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
+import com.app.dubaiculture.ui.postLogin.popular_service.adapter.clicklistener.ServiceClickListner
 import com.app.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
 import com.app.dubaiculture.ui.postLogin.popular_service.viewmodels.PopularServiceViewModel
 import com.app.dubaiculture.utils.handleApiError
@@ -39,6 +40,7 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() , V
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+        subscribeUiEvents(popularServiceViewModel)
         subscribeToObservable()
         binding.imgCancel.setOnClickListener(this)
         binding.headerVisited.back.setOnClickListener(this)
@@ -68,7 +70,20 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() , V
             groupAdapter.add(PopularServiceListItem<ItemsServiceListingLayoutBinding>(
                 eService = it,
                 resLayout = R.layout.items_service_listing_layout,
-                context = requireContext()
+                context = requireContext(),
+                serviceClickListner = object :ServiceClickListner{
+                    override fun onServiceClick(service: EService?) {
+                        service?.let {
+                            showToast(service.title)
+                            navigateByDirections(
+                                PopularServiceFragmentDirections.actionPopularServiceFragmentToServiceDetailNavigation(
+                                    service.id
+                                )
+                            )
+                        }
+                    }
+
+                }
             ))
         }
         binding.rvServiceListing.apply {
@@ -91,7 +106,9 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() , V
             serviceListingHeader.add(
                 ServiceHeader(
                     title = it.title,
-                    selectedIcon = null, unselectedIcon = null
+                    selectedIcon = null, unselectedIcon = null,
+                    selectedIconString = it.hoverIcon,
+                    unSelectedIconString = it.normalIcon
                 )
             )
         }

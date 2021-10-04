@@ -87,8 +87,11 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
             }
 
             is ItemsServiceDetailProcedureLayoutBinding -> {
-                if (eService is Procedure) {
+                if (eService is ServiceProcedure) {
                     viewBinding.procedure = eService
+                    viewBinding.timeline.initLine(viewType)
+//                    viewBinding.timeline.
+
                 }
             }
             is ItemsServiceDetailPaymentInnerItemLayoutBinding -> {
@@ -101,6 +104,7 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
 
 
     }
+
 
     override fun getLayout() = resLayout
 
