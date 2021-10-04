@@ -293,4 +293,20 @@
     <string name="pdf">PDF</string>
     <string name="no_my_posts_fav">No Data Found</string>
 
+    //PlanYourTrip
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consec iscing elit, sed do eiusmod tempor cons tetur ad iscing elit sed do</string>
+
+    <string name="step1">Step 01</string>
+    <string name="step2">Step 02</string>
+    <string name="step3">Step 03</string>
+    <string name="step4">Step 04</string>
+    <string name="ima">I\'m a</string>
+    <string name="resident">Resident</string>
+    <string name="next">Next</string>
+    <string name="interestedIn">Interested In</string>
+    <string name="selectMultiple">(You can select multiple)</string>
+
+
+
 </resources>

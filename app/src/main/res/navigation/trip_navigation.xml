@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/trip_navigation"
+    app:startDestination="@id/tripFragment">
+    <include app:graph="@navigation/trip_detail_navigation" />
+    <include app:graph="@navigation/plan_trip_parent_navigation" />
+
+    <fragment
+        android:id="@+id/tripFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragment"
+        android:label="PlanTripFragment">
+        <action
+            android:id="@+id/action_tripFragment_to_tripDetailParentFragment"
+            app:destination="@id/plan_trip_parent_navigation"
+            app:popUpTo="@+id/plan_trip_parent_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

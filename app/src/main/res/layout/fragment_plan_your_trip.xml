@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="view"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimaryVariant"
+        tools:context=".ui.postLogin.plantrip.PlanYourTripFragment">
+
+        <FrameLayout
+            android:id="@+id/imageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivStep4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/detailImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:transitionName="imageView" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/image_gradient" />
+
+        </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView4"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_200sdp"
+            android:onClick="@{()->view.onBottomSheetClicked()}"
+            android:background="@drawable/bottom_bg_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_trip"
+            style="@style/ChipTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:text="@string/my_trips"
+            android:textColor="@color/white_900"
+            app:chipBackgroundColor="@color/purple_trip_chip"
+            app:chipEndPadding="@dimen/_10sdp"
+            app:chipIcon="@drawable/ic_chip_trip"
+            app:chipIconSize="@dimen/_12sdp"
+            app:chipStartPadding="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:src="@drawable/close_btn"
+            android:onClick="@{()->view.onBackPressed()}"
+            app:layout_constraintBottom_toBottomOf="@id/chip_trip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/chip_trip" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_plan_trip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neosansarabicmedium"
+            android:text="@string/plan_your_trip"
+            android:textColor="@color/white_900"
+            android:textSize="@dimen/_20ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/chip_trip"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_plan_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:paddingEnd="@dimen/_20sdp"
+            android:text="@string/lorem_ipsum"
+            android:textColor="@color/white_900"
+            app:layout_constraintEnd_toStartOf="@id/iv_close"
+            app:layout_constraintStart_toStartOf="@id/tv_plan_trip"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_trip" />
+
+        <ImageView
+            android:id="@+id/ivStep1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_36sdp"
+            android:src="@drawable/ic_trip_user"
+            app:layout_constraintEnd_toEndOf="@id/tvStep1"
+            app:layout_constraintStart_toStartOf="@id/tvStep1"
+            app:layout_constraintTop_toTopOf="@id/imageView4" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvStep1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="@string/step1"
+            android:textColor="@color/purple_text_tint"
+            app:layout_constraintStart_toStartOf="@id/chip_trip"
+            app:layout_constraintTop_toBottomOf="@id/ivStep1" />
+
+        <ImageView
+            android:id="@+id/ivStep2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_trip_fav"
+            app:layout_constraintBottom_toBottomOf="@id/ivStep1"
+            app:layout_constraintEnd_toEndOf="@id/tvStep2"
+            app:layout_constraintStart_toStartOf="@id/tvStep2"
+            app:layout_constraintTop_toTopOf="@id/ivStep1" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvStep2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/step2"
+            app:layout_constraintBottom_toBottomOf="@+id/tvStep1"
+            app:layout_constraintEnd_toStartOf="@id/tvStep3"
+            app:layout_constraintStart_toEndOf="@id/tvStep1"
+            app:layout_constraintTop_toTopOf="@id/tvStep1" />
+
+        <ImageView
+            android:id="@+id/ivStep3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_trip_loc"
+            app:layout_constraintBottom_toBottomOf="@id/ivStep1"
+            app:layout_constraintEnd_toEndOf="@id/tvStep3"
+            app:layout_constraintStart_toStartOf="@id/tvStep3"
+            app:layout_constraintTop_toTopOf="@id/ivStep1" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvStep3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/step3"
+            app:layout_constraintBottom_toBottomOf="@+id/tvStep1"
+            app:layout_constraintEnd_toStartOf="@id/tvStep4"
+            app:layout_constraintStart_toEndOf="@id/tvStep2"
+            app:layout_constraintTop_toTopOf="@+id/tvStep1" />
+
+        <ImageView
+            android:id="@+id/ivStep4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_trip_clock"
+            app:layout_constraintBottom_toBottomOf="@id/ivStep1"
+            app:layout_constraintEnd_toEndOf="@id/tvStep4"
+            app:layout_constraintStart_toStartOf="@id/tvStep4"
+            app:layout_constraintTop_toTopOf="@id/ivStep1" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvStep4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/step4"
+            app:layout_constraintBottom_toBottomOf="@+id/tvStep1"
+            app:layout_constraintEnd_toEndOf="@id/iv_close"
+            app:layout_constraintTop_toTopOf="@+id/tvStep1" />
+
+
+        <View
+            android:id="@+id/ivProgress"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:background="@color/progress_color"
+            app:layout_constraintEnd_toEndOf="@id/tvStep1"
+            app:layout_constraintStart_toStartOf="@id/tvStep1"
+            app:layout_constraintTop_toBottomOf="@id/tvStep1" />
+
+        <View
+            android:id="@+id/viewLine"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_2sdp"
+            android:background="@drawable/line_light_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivProgress" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ima"
+            android:textColor="@color/black_900"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toTopOf="@id/cvUser"
+            app:layout_constraintStart_toStartOf="@+id/tvStep1"
+            app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvUser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintEnd_toEndOf="@id/iv_close"
+            app:layout_constraintStart_toStartOf="@id/chip_trip">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_user"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:src="@drawable/ic_baseline_account_circle_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text="@string/resident"
+                    android:textColor="@color/black_900"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_user"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

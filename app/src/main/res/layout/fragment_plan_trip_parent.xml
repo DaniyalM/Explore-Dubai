@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="view"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.steps.PlanTripParentFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.postLogin.plantrip.steps.PlanTripParentFragment">
+        <ImageView
+            android:id="@+id/iv_dropdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:onClick="@{()->view.onBackPressed()}"
+            android:src="@drawable/ic_twotone_keyboard_arrow_down_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:src="@drawable/ic_close_black"
+            android:onClick="@{()->view.onBackPressed()}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_dropdown" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_trip_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintTop_toBottomOf="@id/bttm_nav"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:navGraph="@navigation/trip_detail_navigation"/>
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bttm_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_dropdown"
+            android:elevation="@dimen/_4sdp"
+            app:labelVisibilityMode="labeled"
+            app:itemIconTint="@color/bottom_nav_color"
+            app:itemTextColor="@color/bottom_nav_color"
+            app:menu="@menu/plan_trip_navigation_items"
+            />
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:progress="0"
+            android:id="@+id/trip_progressbar"
+            app:indicatorColor="@color/progress_color"
+            app:layout_constraintTop_toBottomOf="@id/bttm_nav"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

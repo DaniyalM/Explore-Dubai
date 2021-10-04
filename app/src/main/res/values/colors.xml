@@ -83,5 +83,9 @@
 
     <color name="no_data_placeholder">#231F20</color>
 
+    <color name="purple_trip_chip">#572C82</color>
+    <color name="purple_text_tint">#5A2784</color>
+    <color name="progress_color">#00BBB0</color>
+
 
 </resources>

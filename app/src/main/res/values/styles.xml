@@ -242,5 +242,9 @@
         <item name="cb_type">outlined</item>
     </style>
 
+    <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="fontFamily">@font/neo_sans_arabic_regular</item>
+        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
+    </style>
 
 </resources>

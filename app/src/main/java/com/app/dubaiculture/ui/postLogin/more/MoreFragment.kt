@@ -42,7 +42,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
     var navigateSettings = false
-//    var latestNews: String? = null
+
+    //    var latestNews: String? = null
     var moreListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 //    var backflagNavigation = false
 //    var latestNewsListingFlag = false
@@ -94,6 +95,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
         binding.llCultureConnoisseur.setOnClickListener(this)
+        binding.planATripLayout.cardivewRTL.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
             binding.toolbarSnippet.toolbarLayout.profilePic,
             binding.toolbarSnippet.toolbarLayout.imgDrawer,
@@ -165,8 +167,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 MoreItems<ItemsMoreLayoutBinding>(
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
-                            when(position){
-                                0->{
+                            when (position) {
+                                0 -> {
                                     navigate(R.id.action_moreFragment_to_popularServiceFragment2)
                                 }
                             }
@@ -298,17 +300,19 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_app -> {
-              moreViewModel.shareAppLink(activity)
+                moreViewModel.shareAppLink(activity)
             }
             R.id.ll_rate_us -> {
-               moreViewModel.rateUs(activity)
+                moreViewModel.rateUs(activity)
             }
             R.id.ll_notification -> {
                 navigate(R.id.action_moreFragment_to_notificationFragment)
             }
             R.id.llCultureConnoisseur -> {
                 navigate(R.id.action_moreFragment_to_aboutFragment)
-
+            }
+            R.id.cardivewRTL -> {
+                navigate(R.id.action_moreFragment_to_tripFragment)
             }
 
         }

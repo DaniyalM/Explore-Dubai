@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/trip_detail_navigation"
+    app:startDestination="@id/tripStep1">
+
+    <fragment
+        android:id="@+id/tripStep1"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.TripStep1Fragment"
+        android:label="PlanTripStep1Fragment"></fragment>
+    <fragment
+        android:id="@+id/tripStep2"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.TripStep2Fragment"
+        android:label="PlanTripStep2Fragment"></fragment>
+    <fragment
+        android:id="@+id/tripStep3"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.step3.TripStep3Fragment"
+        android:label="PlanTripStep3Fragment"></fragment>
+    <fragment
+        android:id="@+id/tripStep4"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.TripStep4Fragment"
+        android:label="PlanTripStep4Fragment"></fragment>
+</navigation>
