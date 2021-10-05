@@ -9,6 +9,9 @@
 
 
     // home tabs
+    <string name="service_procedure">Service Procedure</string>
+    <string name="faqs">Faqs</string>
+
     <string name="explore">اكتشف</string>
     <string name="events">الفعاليات</string>
     <string name="attractions">الوجهات الثقافية</string>

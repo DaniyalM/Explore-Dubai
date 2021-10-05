@@ -74,7 +74,6 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>() , V
                 serviceClickListner = object :ServiceClickListner{
                     override fun onServiceClick(service: EService?) {
                         service?.let {
-                            showToast(service.title)
                             navigateByDirections(
                                 PopularServiceFragmentDirections.actionPopularServiceFragmentToServiceDetailNavigation(
                                     service.id

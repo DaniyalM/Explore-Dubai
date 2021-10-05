@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.popular_service.local.models.EServicesDetail
 import com.app.dubaiculture.databinding.CustomTabLayoutBinding
@@ -34,7 +35,11 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(serviceDetailViewModel)
+        backArrowRTL(binding.headerVisited.back)
 
+        binding.headerVisited.back.setOnClickListener {
+            back()
+        }
 //        binding.swipeRefreshLayout.setOnRefreshListener {
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
@@ -69,25 +74,28 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
             val v: CustomTabLayoutBinding = CustomTabLayoutBinding.inflate(layoutInflater)
             when (tabTitle) {
                 TabHeaders.DESCRIPTION.name -> {
-                    tabTitle = "Description"
+                    tabTitle = activity.resources.getString(R.string.description)
                 }
                 TabHeaders.PROCEDURE.name -> {
-                    tabTitle = "Procedure"
+                    tabTitle = activity.resources.getString(R.string.procedure)
+
                 }
                 TabHeaders.REQUIREDDOCUMENTS.name -> {
-                    tabTitle = "Required Documents"
+                    tabTitle = activity.resources.getString(R.string.required_documents)
+
                 }
                 TabHeaders.PAYMENTS.name -> {
-                    tabTitle = "Payments"
+                    tabTitle = activity.resources.getString(R.string.payments)
                 }
                 TabHeaders.FAQS.name -> {
-                    tabTitle = "Faqs"
+                    tabTitle = activity.resources.getString(R.string.faqs)
+
                 }
                 TabHeaders.TERMSANDCONDITIONS.name -> {
-                    tabTitle = "Terms And Conditions"
+                    tabTitle = activity.resources.getString(R.string.terms_and_conditions)
                 }
                 else -> {
-                    tabTitle = "Start Service"
+                    tabTitle = activity.resources.getString(R.string.start_service)
                 }
             }
             v.tabTitle.text = tabTitle

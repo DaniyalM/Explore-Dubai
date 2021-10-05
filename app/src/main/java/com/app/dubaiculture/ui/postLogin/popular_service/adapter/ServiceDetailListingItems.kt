@@ -1,5 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -26,8 +27,8 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
 
             is ItemsServiceDetailInnerListingLayoutBinding -> {
                 viewBinding.innerRecyclerView.apply {
-                    when(eService){
-                        is Procedure ->{
+                    when (eService) {
+                        is Procedure -> {
                             viewBinding.detailListingHeader.text =
                                 context.getString(R.string.procedure)
                             val linearLayoutManager = LinearLayoutManager(context)
@@ -51,6 +52,8 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                             val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
                             viewBinding.detailListingHeader.text =
                                 context.getString(R.string.payments)
+                            viewBinding.detailListingHeader.visibility = View.GONE
+
                             adapter = paymentInnerAdapter
                             eService.payments.forEach {
                                 val paymentsItem =
@@ -64,12 +67,22 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                         is RequiredDocument -> {
                             viewBinding.detailListingHeader.text =
                                 context.getString(R.string.required_documents)
+                            viewBinding.detailListingHeader.visibility = View.GONE
                             val linearLayoutManager = LinearLayoutManager(context)
                             layoutManager = linearLayoutManager
                             val requiredDocumentInnerAdapter = GroupAdapter<GroupieViewHolder>()
                             adapter = requiredDocumentInnerAdapter
 
-                            repeat(5){
+//                            eService.requiredDocuments.forEach {
+//                                val paymentsItem =
+//                                    ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
+//                                        eService = it.toString(),
+//                                        resLayout = R.layout.items_service_detail_req_document_layout
+//                                    )
+//                                requiredDocumentInnerAdapter.add(paymentsItem)
+//                            }
+
+                            repeat(5) {
                                 val paymentsItem =
                                     ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
                                         eService = it.toString(),
@@ -77,9 +90,23 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                                     )
                                 requiredDocumentInnerAdapter.add(paymentsItem)
                             }
-//                            eService.requiredDocuments.forEach {
 //
-//                            }
+                        }
+                        is FAQ -> {
+                            viewBinding.detailListingHeader.visibility = View.GONE
+                            val linearLayoutManager = LinearLayoutManager(context)
+                            layoutManager = linearLayoutManager
+                            val faqsAdapter = GroupAdapter<GroupieViewHolder>()
+                            adapter = faqsAdapter
+                            eService.fAQs.forEach {
+                                val faqItem =
+                                    ServiceDetailListingItems<ItemFaqsLayoutBinding, FAQX>(
+                                        eService = it,
+                                        resLayout = R.layout.item_faqs_layout
+                                    )
+
+                                faqsAdapter.add(faqItem)
+                            }
                         }
                     }
 
@@ -89,15 +116,18 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
             is ItemsServiceDetailProcedureLayoutBinding -> {
                 if (eService is ServiceProcedure) {
                     viewBinding.procedure = eService
-                    viewBinding.timeline.initLine(viewType)
-//                    viewBinding.timeline.
-
                 }
             }
             is ItemsServiceDetailPaymentInnerItemLayoutBinding -> {
-                if (eService is Payment) {
+                if (eService is PaymentX) {
                     viewBinding.payment = eService
                 }
+            }
+            is ItemFaqsLayoutBinding -> {
+                if (eService is FAQX) {
+                    viewBinding.faq = eService
+                }
+
             }
 
         }

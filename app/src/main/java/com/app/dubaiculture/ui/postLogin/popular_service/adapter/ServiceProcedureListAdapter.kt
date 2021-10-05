@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -19,7 +20,7 @@ class ServiceProcedureListAdapter :
         override fun areItemsTheSame(
             oldItem: ServiceProcedure,
             newItem: ServiceProcedure
-        ) = oldItem.title == newItem.title
+        ) = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
             oldItem: ServiceProcedure,
@@ -64,7 +65,7 @@ class ServiceProcedureListAdapter :
     override fun onBindViewHolder(holder: ServiceProcedureViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it)
-            setMarker(holder, R.drawable.circle_sitemap, R.color.gray_400)
+//            setMarker(holder, R.drawable.circle_sitemap, R.color.gray_400)
         }
     }
 

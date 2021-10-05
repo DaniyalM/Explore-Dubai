@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.popular_service.local.models.Procedure
 import com.app.dubaiculture.databinding.ItemsServiceDetailInnerListingLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -21,7 +22,9 @@ class ProcedurePageFragment(val procedure: List<Procedure>?) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!this::serviceProcedureListAdapter.isInitialized){
+        binding.detailListingHeader.text = activity.resources.getString(R.string.service_procedure)
+
+        if (!this::serviceProcedureListAdapter.isInitialized) {
             initRecycling()
         }
 
@@ -40,19 +43,8 @@ class ProcedurePageFragment(val procedure: List<Procedure>?) :
         binding.innerRecyclerView.apply {
             val linearLayoutManager = LinearLayoutManager(context)
             layoutManager = linearLayoutManager
-//            val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
             serviceProcedureListAdapter = ServiceProcedureListAdapter()
             adapter = serviceProcedureListAdapter
-//            procedure?.get(0)?.serviceProcedure?.forEachIndexed { index, serviceProcedure ->
-//                run {
-//                    val paymentsItem =
-//                        ServiceDetailListingItems<ItemsServiceDetailProcedureLayoutBinding, ServiceProcedure>(
-//                            eService = serviceProcedure.copy(id = index),
-//                            resLayout = R.layout.items_service_detail_procedure_layout
-//                        )
-//                    paymentInnerAdapter.add(paymentsItem)
-//                }
-//            }
 
         }
 
