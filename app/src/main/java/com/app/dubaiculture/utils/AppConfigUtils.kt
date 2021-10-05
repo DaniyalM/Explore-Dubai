@@ -1,5 +1,10 @@
 package com.app.dubaiculture.utils
 
+import android.content.Context
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
+
 object AppConfigUtils {
     var BASE_URL = "https://jsonplaceholder.typicode.com/"
     var clickCheckerFlag: Int = 0
@@ -21,5 +26,13 @@ object AppConfigUtils {
     const val TAG_OUTPUT = "OUTPUT"
     const val KEY_IMAGE_URI = "KEY_IMAGE_URI"
 
+    fun getDrawable(context: Context, drawableResId: Int, colorFilter: Int): Drawable {
+        val drawable = getDrawable(context, drawableResId)
+        drawable?.setColorFilter(colorFilter, PorterDuff.Mode.SRC_IN)
+        return drawable!!
+    }
+    fun getDrawable(context: Context, drawableResId: Int): Drawable? {
+        return VectorDrawableCompat.create(context.resources, drawableResId, context.theme)
+    }
 
 }
