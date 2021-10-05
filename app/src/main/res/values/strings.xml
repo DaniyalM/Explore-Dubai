@@ -306,6 +306,13 @@
     <string name="next">Next</string>
     <string name="interestedIn">Interested In</string>
     <string name="selectMultiple">(You can select multiple)</string>
+    <string name="previous">Previous</string>
+    <string name="nearestLocation">Nearest Location</string>
+    <string name="select_duration">Select Duration</string>
+    <string name="select_dates">Select Dates</string>
+    <string name="select_dates_desc">If you are not sure about the dates, select the number of days of your trip</string>
+    <string name="no_of_days">No. Of Days</string>
+    <string name="show_my_plan">Show My Plan</string>
 
 
 

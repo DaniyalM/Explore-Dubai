@@ -34,7 +34,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>() {
     }
 
     fun onBackPressed() {
-        navigateBack()
+            navigateBack()
     }
 
     private fun setUpNavigation() {
