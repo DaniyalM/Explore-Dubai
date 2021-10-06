@@ -4,11 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentTripStep1Binding
 import com.app.dubaiculture.databinding.FragmentTripStep2Binding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
 
 class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
+
+    companion object{
+        lateinit var customNavigation: CustomNavigation
+    }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -20,7 +27,11 @@ class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
     }
 
     fun onPreviousClicked(){
-        back()
+        customNavigation.navigateStep(false, R.id.tripStep2)
+    }
+
+    fun onNextClicked(){
+        customNavigation.navigateStep(true, R.id.tripStep2)
     }
 
 }

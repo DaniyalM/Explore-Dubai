@@ -11,6 +11,8 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentTripStep2Binding
 import com.app.dubaiculture.databinding.FragmentTripStep3Binding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.TripStep2Fragment
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -28,6 +30,10 @@ import timber.log.Timber
 import javax.inject.Inject
 @AndroidEntryPoint
 class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCallback {
+
+    companion object{
+        lateinit var customNavigation: CustomNavigation
+    }
 
     private var mapView: MapView? = null
     @Inject
@@ -57,7 +63,11 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
     }
 
     fun onPreviousClicked() {
-        back()
+        customNavigation.navigateStep(false, R.id.tripStep3)
+    }
+
+    fun onNextClicked(){
+        customNavigation.navigateStep(true, R.id.tripStep3)
     }
 
     private fun mapSetUp(savedInstanceState: Bundle?) {

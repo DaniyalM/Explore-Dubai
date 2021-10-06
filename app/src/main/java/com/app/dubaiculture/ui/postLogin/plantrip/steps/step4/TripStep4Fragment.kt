@@ -9,10 +9,16 @@ import android.widget.Toast
 import com.app.dubaiculture.databinding.FragmentTripStep3Binding
 import com.app.dubaiculture.databinding.FragmentTripStep4Binding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.util.*
 
 class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
+
+    companion object{
+        lateinit var customNavigation: CustomNavigation
+    }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?

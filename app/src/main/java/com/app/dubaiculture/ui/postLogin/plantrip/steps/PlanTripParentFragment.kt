@@ -11,11 +11,15 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPlanTripParentBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.TripStep1Fragment
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.TripStep2Fragment
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step3.TripStep3Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>() {
+class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), CustomNavigation {
 
-    private var bottomNavigationView: BottomNavigationView? = null
+    var bottomNavigationView: BottomNavigationView? = null
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -34,7 +38,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>() {
     }
 
     fun onBackPressed() {
-            navigateBack()
+        navigateBack()
     }
 
     private fun setUpNavigation() {
@@ -42,7 +46,9 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>() {
             childFragmentManager.findFragmentById(R.id.nav_host_trip_fragment) as NavHostFragment
         setupWithNavController(binding.bttmNav, navHostFragment.navController)
 
-        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
+        registerCallback()
+
+        navHostFragment.navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.tripStep1 -> {
                     binding.tripProgressbar.progress = 25
@@ -58,8 +64,45 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>() {
 
                     binding.tripProgressbar.progress = 100
                 }
-                else ->{
+                else -> {
                     binding.tripProgressbar.progress = 0
+                }
+            }
+        }
+
+    }
+
+    private fun registerCallback() {
+
+        TripStep1Fragment.customNavigation = this
+        TripStep2Fragment.customNavigation = this
+        TripStep3Fragment.customNavigation = this
+
+
+    }
+
+    override fun navigateStep(isNext: Boolean, stepId: Int) {
+
+        when (stepId) {
+            R.id.tripStep1 -> {
+                if (isNext) {
+                    bottomNavigationView!!.selectedItemId = R.id.tripStep2
+                }
+            }
+            R.id.tripStep2 -> {
+                if (isNext) {
+                    bottomNavigationView!!.selectedItemId = R.id.tripStep3
+                }else{
+                    bottomNavigationView!!.selectedItemId = R.id.tripStep1
+
+                }
+            }
+            R.id.tripStep3 -> {
+                if (isNext) {
+                    bottomNavigationView!!.selectedItemId = R.id.tripStep4
+                }else{
+                    bottomNavigationView!!.selectedItemId = R.id.tripStep2
+
                 }
             }
         }
