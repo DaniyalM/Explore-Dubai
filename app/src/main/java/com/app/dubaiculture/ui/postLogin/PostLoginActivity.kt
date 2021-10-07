@@ -7,6 +7,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
 import com.app.dubaiculture.ui.postLogin.login.PostLoginFragment
 import com.app.dubaiculture.ui.postLogin.more.services.MoreService
+import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.utils.AuthUtils.hideStatusBar
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
@@ -61,7 +62,8 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     fun initiateAccessToken(uaePassService: UAEPassService) {
         when (uaePassService) {
             is UAEPassService.UaeClick -> {
-                finish()
+                applicationEntry.auth.isLoggedIn=false
+                startActivity(Intent(this,PreLoginActivity::class.java))
             }
         }
 

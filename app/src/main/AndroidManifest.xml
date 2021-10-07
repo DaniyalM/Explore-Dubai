@@ -21,7 +21,7 @@
     <uses-feature android:name="android.hardware.location.gps" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+<!--    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />-->
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-feature
@@ -92,7 +92,7 @@
         </activity>
         <activity
             android:name=".ui.postLogin.PostLoginActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.VIEW" />-->

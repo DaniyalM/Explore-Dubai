@@ -78,8 +78,8 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
             R.id.img_uae_pass -> {
 //                getCode()
 
-//                bus.post(UAEPassService.UaeClick(true))
-//                dismiss()
+                bus.post(UAEPassService.UaeClick(true))
+                dismiss()
 
 
 //                getProfile()
