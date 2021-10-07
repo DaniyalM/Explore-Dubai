@@ -7,7 +7,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
 import com.app.dubaiculture.ui.postLogin.login.PostLoginFragment
 import com.app.dubaiculture.ui.postLogin.more.services.MoreService
-import com.app.dubaiculture.ui.preLogin.login.LoginFragment
+import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.utils.AuthUtils.hideStatusBar
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.squareup.otto.Subscribe
@@ -52,9 +52,19 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         // Check if the fragment is an instance of the right fragment
-       PostLoginFragment().apply {
-           handleIntent(intent)
-       }
+        PostLoginFragment().apply {
+            handleIntent(intent)
+        }
+    }
+
+    @Subscribe
+    fun initiateAccessToken(uaePassService: UAEPassService) {
+        when (uaePassService) {
+            is UAEPassService.UaeClick -> {
+                finish()
+            }
+        }
+
     }
 
 

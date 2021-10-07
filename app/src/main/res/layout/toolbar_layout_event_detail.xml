@@ -12,7 +12,9 @@
             name="technique"
             type="com.daimajia.androidanimations.library.Techniques" />
     </data>
+
     <merge>
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarEventDetail"
             android:layout_width="match_parent"
@@ -46,6 +48,7 @@
                         android:scaleType="centerCrop"
 
                         />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -53,6 +56,7 @@
 
 
                 </FrameLayout>
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bg_border_event"
                     android:layout_width="match_parent"
@@ -209,6 +213,20 @@
                         app:layout_constraintEnd_toStartOf="@+id/favourite_event"
                         app:layout_constraintStart_toEndOf="@+id/back_event"
                         app:layout_constraintTop_toTopOf="@+id/back_event" />
+
+                    <CheckBox
+                        android:id="@+id/favourite_event1"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+
+                        android:background="@drawable/heart_icon_home_black"
+                        android:button="@null"
+                        android:foreground="@drawable/custom_ripple_border"
+                        app:layout_constraintBottom_toBottomOf="@+id/bookingCalender_event"
+                        app:layout_constraintEnd_toStartOf="@+id/img_share_event"
+                        app:layout_constraintStart_toEndOf="@+id/bookingCalender_event"
+                        app:layout_constraintTop_toTopOf="@+id/bookingCalender_event"
+                        app:layout_constraintVertical_bias="1.0" />
 
                     <CheckBox
                         android:id="@+id/favourite_event"

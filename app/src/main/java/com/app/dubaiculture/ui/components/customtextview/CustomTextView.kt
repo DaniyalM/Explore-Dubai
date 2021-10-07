@@ -25,6 +25,7 @@ class CustomTextView(context: Context, attrs: AttributeSet?) : AppCompatTextView
         typedArray.recycle()
         setupFont(selectedFontStyle)
 
+
     }
 
     private fun setupFont(selectedFontStyle: FontStyle) {

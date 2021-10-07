@@ -10,22 +10,38 @@ import com.app.dubaiculture.databinding.ItemServiceDetailTermsAndConditionLayout
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.customreadmore.ReadMoreClickListener
 
-class TermsAndConditionFragment(val termsAndCondition: List<TermsAndCondition>) : BaseFragment<ItemServiceDetailTermsAndConditionLayoutBinding>() {
+class TermsAndConditionFragment(
+    val termsAndCondition: List<TermsAndCondition>?
+) : BaseFragment<ItemServiceDetailTermsAndConditionLayoutBinding>() {
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    )=ItemServiceDetailTermsAndConditionLayoutBinding.inflate(inflater,container,false)
+    ) = ItemServiceDetailTermsAndConditionLayoutBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.detailListingHeader.text = activity.resources.getString(R.string.terms_and_conditions)
+        binding.detailListingHeader.text =
+            activity.resources.getString(R.string.terms_and_conditions)
 
-        termsAndCondition.get(0).termsAndConditionsSummary?.let {
-            binding.termsTitle.initialize(it,object :ReadMoreClickListener{
-                override fun onClick(readMore: Boolean) {
+        termsAndCondition?.get(0)?.apply {
+            termsAndConditionsSummary.let {
+                binding.termsTitle.initialize(it, object : ReadMoreClickListener {
+                    override fun onClick(readMore: Boolean) {
 
+                    }
+                })
+            }
+            binding.contactuslayout.emailCallsBtn.llEmailUs.setOnClickListener {
+                if (!email.toString().isNullOrEmpty()) {
+                    openEmailbox(email.toString())
                 }
-            })
+            }
+
+            binding.contactuslayout.emailCallsBtn.llCallus.setOnClickListener {
+                if (!enquireNumber.isNullOrEmpty()) {
+                    openDiallerBox(enquireNumber)
+                }
+            }
         }
     }
 }

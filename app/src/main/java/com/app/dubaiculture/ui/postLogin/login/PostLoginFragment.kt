@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.CookieManager
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
@@ -20,7 +21,7 @@ import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel
 import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
-import com.app.dubaiculture.utils.UAEPassRequestModels
+import com.app.dubaiculture.utils.UAEPassRequestModelsUtils
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -76,7 +77,11 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
             }
             R.id.img_uae_pass -> {
 //                getCode()
-                login()
+
+//                bus.post(UAEPassService.UaeClick(true))
+//                dismiss()
+
+
 //                getProfile()
 //                navigate(R.id.action_postLoginFragment_to_postCreatePassFragment)
             }
@@ -132,111 +137,13 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
 
     }
 
-    /**
-     * Login with UAE Pass and get the access Code.
-     */
-    private fun getCode() {
-
-        val requestModel: UAEPassAccessTokenRequestModel =
-            UAEPassRequestModels.getAuthenticationRequestModel(
-                activity
-            )!!
-        requestModel.let {
-            UAEPassController.getAccessCode(activity, it, object : UAEPassAccessCodeCallback {
-                override fun getAccessCode(code: String?, error: String?) {
-                    if (error != null) {
-                        showAlert(error)
-                    } else {
-                        //                        showToast("Access Token Received")
-                        code?.let {
-                            getProfileAccessToken(it)
-
-                        }
-                    }
-                }
-            })
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
         showLoader(false)
     }
 
-    private fun login() {
-        showLoader(true)
-        bus.post(UAEPassService.UaeClick(true))
-        dismiss()
-//        val requestModel: UAEPassAccessTokenRequestModel =
-//            UAEPassRequestModels.getAuthenticationRequestModel(
-//                application.activity
-//            )!!
-//        UAEPassController.getAccessToken(
-//            activity,
-//            requestModel,
-//            object : UAEPassAccessTokenCallback {
-//                override fun getToken(accessToken: String?, state: String, error: String?) {
-//                    if (error != null) {
-//                        showAlert(error)
-////                        showToast("Error while getting access token")
-//                    } else {
-//                        accessToken?.let {
-////                            showToast("Access Token Received")
-//                            getProfileAccessToken(it)
-//                        }
-//
-//                    }
-//                }
-//            })
-    }
 
-    private fun getProfileAccessToken(at: String) {
-        val rm: UAEPassProfileRequestByAccessTokenModel =
-            UAEPassRequestModels.getUAEPassHavingAccessToken(at)
-        UAEPassController.getUserProfileByAccessToken(
-            rm, object : UAEPassProfileCallback {
-                override fun getProfile(
-                    profileModel: ProfileModel?,
-                    state: String,
-                    error: String?
-                ) {
-                    if (error != null) {
-                        showAlert(error)
-                    } else {
-//                        UAEPassController.resume("uaePassDemo")
-                        profileModel?.let {
 
-                            if (it.idn != null && it.idn!!.isNotEmpty()) {
-                                postLoginViewModel.loginWithUae(
-                                    UaeLoginRequest(
-                                        idn = it.idn!!,
-                                        idType = it.idType ?: "",
-                                        email = it.email ?: "",
-                                        mobile = it.mobile ?: "",
-                                        firstNameEn = it.firstnameEN ?: "",
-                                        firstNameAr = it.firstnameAR ?: "",
-                                        lastNameAr = it.lastnameAR ?: "",
-                                        lastNameEn = it.lastnameEN ?: "",
-                                        fullNameAr = it.fullnameAR ?: "",
-                                        fullNameEn = it.fullnameEN ?: "",
-                                        acr = it.acr ?: "",
-                                        nationalityAr = it.nationalityAR ?: "",
-                                        nationalityEn = it.nationalityEN ?: "",
-                                        gender = it.gender ?: "",
-                                        spuuid = it.spuuid ?: "",
-                                        sub = it.sub ?: "",
-                                        titleAr = it.titleAR ?: "",
-                                        titleEn = it.titleEN ?: "",
-                                        user_type = it.userType ?: ""
-                                    )
-                                )
-                            } else {
-                                showAlert("You have a basic account, please upgrade the basic account")
-                            }
-                        }
-                    }
-                }
-            })
-    }
 
 }

@@ -17,14 +17,20 @@
             android:textSize="@dimen/_18ssp"
             app:textFont="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:itemCount="3"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:id="@+id/innerRecyclerView"
-            tools:listitem="@layout/items_service_detail_procedure_layout" />
-    </LinearLayout>
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:itemCount="3"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:id="@+id/innerRecyclerView"
+                tools:listitem="@layout/items_service_detail_procedure_layout" />
+
+        </androidx.core.widget.NestedScrollView>
+
+     </LinearLayout>
 </layout>

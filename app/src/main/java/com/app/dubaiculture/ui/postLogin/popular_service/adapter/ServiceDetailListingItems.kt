@@ -73,7 +73,16 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                             val requiredDocumentInnerAdapter = GroupAdapter<GroupieViewHolder>()
                             adapter = requiredDocumentInnerAdapter
 
-//                            eService.requiredDocuments.forEach {
+                            eService.requiredDocuments.forEach {
+                                val paymentsItem =
+                                    ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
+                                        eService = it,
+                                        resLayout = R.layout.items_service_detail_req_document_layout
+                                    )
+                                requiredDocumentInnerAdapter.add(paymentsItem)
+                            }
+
+//                            repeat(5) {
 //                                val paymentsItem =
 //                                    ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
 //                                        eService = it.toString(),
@@ -82,15 +91,6 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
 //                                requiredDocumentInnerAdapter.add(paymentsItem)
 //                            }
 
-                            repeat(5) {
-                                val paymentsItem =
-                                    ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
-                                        eService = it.toString(),
-                                        resLayout = R.layout.items_service_detail_req_document_layout
-                                    )
-                                requiredDocumentInnerAdapter.add(paymentsItem)
-                            }
-//
                         }
                         is FAQ -> {
                             viewBinding.detailListingHeader.visibility = View.GONE
@@ -98,6 +98,16 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                             layoutManager = linearLayoutManager
                             val faqsAdapter = GroupAdapter<GroupieViewHolder>()
                             adapter = faqsAdapter
+
+//                            faqs().forEach {
+//                                val faqItem =
+//                                    ServiceDetailListingItems<ItemFaqsLayoutBinding, FAQX>(
+//                                        eService = it,
+//                                        resLayout = R.layout.item_faqs_layout
+//                                    )
+//
+//                                faqsAdapter.add(faqItem)
+//                            }
                             eService.fAQs.forEach {
                                 val faqItem =
                                     ServiceDetailListingItems<ItemFaqsLayoutBinding, FAQX>(
@@ -113,6 +123,11 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                 }
             }
 
+            is ItemsServiceDetailReqDocumentLayoutBinding -> {
+                if (eService is String) {
+                    viewBinding.document = eService
+                }
+            }
             is ItemsServiceDetailProcedureLayoutBinding -> {
                 if (eService is ServiceProcedure) {
                     viewBinding.procedure = eService
@@ -137,5 +152,22 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
 
 
     override fun getLayout() = resLayout
+
+
+    private fun faqs(): MutableList<FAQX> {
+        val list: ArrayList<FAQX> = ArrayList()
+
+        repeat(20) {
+            list.add(
+                FAQX(
+                    id = it,
+                    answer = "this is answer!!",
+                    question = "is this Question?"
+                )
+            )
+        }
+
+        return list
+    }
 
 }

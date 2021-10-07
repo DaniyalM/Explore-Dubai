@@ -111,7 +111,9 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
         termsAndCondition = eServiceDetailDTO.TermsAndCondition?.map {
             TermsAndCondition(
                 termsAndConditionsSummary = it.TermsAndConditionsSummary ?: "",
-                termsAndConditionsTitle = it.TermsAndConditionsTitle ?: ""
+                termsAndConditionsTitle = it.TermsAndConditionsTitle ?: "",
+                enquireNumber = eServiceDetailDTO.EnquireNumber?:"",
+                email = ""
             )
         } ?: mutableListOf()
 

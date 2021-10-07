@@ -34,7 +34,7 @@ import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.SMSReceiver
-import com.app.dubaiculture.utils.UAEPassRequestModels
+import com.app.dubaiculture.utils.UAEPassRequestModelsUtils
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import com.app.dubaiculture.utils.killSessionAndStartNewActivityUAE
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
@@ -242,7 +242,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //        val uaePassRequestModels = UAEPassRequestModels()
 
         val requestModel: UAEPassAccessTokenRequestModel =
-            UAEPassRequestModels.getAuthenticationRequestModel(context)!!
+            UAEPassRequestModelsUtils.getAuthenticationRequestModel(context)!!
         getAccessCode(activity, requestModel, object : UAEPassAccessCodeCallback {
             override fun getAccessCode(code: String?, error: String?) {
                 if (error != null) {
@@ -288,7 +288,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //        val uaePassRequestModels = UAEPassRequestModels()
         showLoader(true)
         val requestModel: UAEPassAccessTokenRequestModel =
-            UAEPassRequestModels.getAuthenticationRequestModel(
+            UAEPassRequestModelsUtils.getAuthenticationRequestModel(
                 activity
             )!!
         getAccessToken(activity, requestModel!!, object : UAEPassAccessTokenCallback {
@@ -310,7 +310,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     private fun getProfile() {
         val requestModel: UAEPassProfileRequestModel =
-            UAEPassRequestModels.getProfileRequestModel(application.applicationContext)
+            UAEPassRequestModelsUtils.getProfileRequestModel(application.applicationContext)
         getUserProfile(application.applicationContext, requestModel, object : UAEPassProfileCallback {
             override fun getProfile(profileModel: ProfileModel?, state: String, error: String?) {
                 if (error != null) {
@@ -332,7 +332,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     private fun getProfileAccessToken(at: String) {
 //        val uaePassRequestModels = UAEPassRequestModels()
         val rm: UAEPassProfileRequestByAccessTokenModel =
-            UAEPassRequestModels.getUAEPassHavingAccessToken(at)
+            UAEPassRequestModelsUtils.getUAEPassHavingAccessToken(at)
         getUserProfileByAccessToken(
             rm, object : UAEPassProfileCallback {
                 override fun getProfile(
@@ -374,7 +374,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                                 clearData()
                             }
                             else {
-                                showAlert("You have a basic account, please upgrade the basic account")
+                                showAlert(activity.resources.getString(R.string.sop1))
                             }
                         }
                     }

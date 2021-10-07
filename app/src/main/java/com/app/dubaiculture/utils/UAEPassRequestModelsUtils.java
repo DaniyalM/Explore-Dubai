@@ -20,7 +20,7 @@ import ae.sdg.libraryuaepass.utils.Utils;
 import static ae.sdg.libraryuaepass.business.Environment.PRODUCTION;
 import static ae.sdg.libraryuaepass.business.Environment.STAGING;
 
-public class UAEPassRequestModels {
+public class UAEPassRequestModelsUtils {
 
     //UAE PASS START -- ADD BELOW FIELDS
 //    private static final String UAE_PASS_CLIENT_ID = <<"Enter Client Id Here">>;
@@ -50,9 +50,9 @@ public class UAEPassRequestModels {
     private static boolean isPackageInstalled(PackageManager packageManager) {
 
         String packageName = null;
-        if (UAEPassRequestModels.UAE_PASS_ENVIRONMENT == PRODUCTION) {
+        if (UAEPassRequestModelsUtils.UAE_PASS_ENVIRONMENT == PRODUCTION) {
             packageName = UAE_PASS_PACKAGE_ID;
-        } else if (UAEPassRequestModels.UAE_PASS_ENVIRONMENT == STAGING) {
+        } else if (UAEPassRequestModelsUtils.UAE_PASS_ENVIRONMENT == STAGING) {
             packageName = UAE_PASS_QA_PACKAGE_ID;
         }
 

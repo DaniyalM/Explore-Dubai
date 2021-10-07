@@ -22,16 +22,7 @@
                     app:layout_constraintGuide_percent="0.00" />
 
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/img_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
-                    android:background="@drawable/event_detail_icon"
-                    android:scaleType="centerCrop"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bg_border"
@@ -477,7 +468,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#E8E8E8"
+                        android:background="@color/gray_400"
                         android:orientation="vertical"
                         app:layout_constraintTop_toBottomOf="@+id/img">
 
@@ -487,7 +478,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_20sdp"
                             android:text="@string/more_events"
-                            style="@style/TextViewStyle"
+                            android:textColor="?attr/colorSecondary"
                             android:textSize="@dimen/_18ssp"
                             app:layout_constraintStart_toStartOf="parent" />
 

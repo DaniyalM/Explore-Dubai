@@ -2,6 +2,7 @@ package com.app.dubaiculture.ui.postLogin.popular_service.detail.pages
 
 import android.os.Bundle
 import android.os.Environment
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,13 +21,20 @@ import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.util.*
 
 
 @AndroidEntryPoint
 class DescriptionPageFragment(val description: List<Description>, val category: String? = null) :
     BaseFragment<ItemsServiceDetailDescLayoutBinding>() {
     private val descriptionViewModel: DescriptionViewModel by viewModels()
-
+    private val textToSpeechEngine: TextToSpeech by lazy {
+        TextToSpeech(requireContext()) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                textToSpeechEngine.language = Locale(getCurrentLanguage().language)
+            }
+        }
+    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -37,6 +45,7 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(descriptionViewModel)
 
+
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -44,6 +53,16 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
         if (description.isNotEmpty()) {
             subscribeToObservables()
             val description = description[0]
+            binding.imgSpeaker.setOnClickListener {
+                if (description.descriptions.isNotEmpty()) {
+                    textToSpeechEngine.speak(
+                        description.descriptions,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "tts1"
+                    )
+                }
+            }
             binding.description = description
             binding.category = category!!
             binding.fileViewLink.setOnClickListener {

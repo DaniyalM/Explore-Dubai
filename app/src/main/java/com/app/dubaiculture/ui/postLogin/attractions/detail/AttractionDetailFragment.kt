@@ -281,6 +281,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
+
                             toolbarLayout.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
                             isDetailFavouriteFlag = false

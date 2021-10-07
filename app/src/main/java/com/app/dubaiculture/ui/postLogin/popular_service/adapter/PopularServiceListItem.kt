@@ -33,6 +33,9 @@ class PopularServiceListItem<T : ViewDataBinding>(
         when (viewBinding) {
             is PopularServiceInnerItemCellBinding -> {
                 viewBinding.popularServices = services
+                viewBinding.cardview.setOnClickListener {
+                    rowClickListener?.rowClickListener(position)
+                }
             }
             is ItemsBookATicketLayoutBinding -> {
                 viewBinding.apply {

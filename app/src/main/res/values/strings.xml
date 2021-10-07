@@ -2,6 +2,8 @@
     <string name="app_name">Dubai Culture</string>
     <string name="arabic">Arabic</string>
     <string name="english">عربي</string>
+    <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
+
 
     <!--z-->
     <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>

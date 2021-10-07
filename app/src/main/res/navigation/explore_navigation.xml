@@ -14,6 +14,7 @@
     <include app:graph="@navigation/news_detail_navigation" />
     <include app:graph="@navigation/news_navigation" />
     <include app:graph="@navigation/service_navigation" />
+    <include app:graph="@navigation/service_detail_navigation" />
 
     <fragment
         android:id="@+id/exploreFragment"
@@ -120,6 +121,18 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_exploreFragment_to_service_detail_navigation"
+            app:destination="@id/service_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="service_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
 
 
     </fragment>

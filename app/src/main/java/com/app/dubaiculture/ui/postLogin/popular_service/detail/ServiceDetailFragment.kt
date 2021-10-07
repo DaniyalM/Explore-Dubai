@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.popular_service.detail
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.app.dubaiculture.utils.handleApiError
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -40,6 +42,7 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
         binding.headerVisited.back.setOnClickListener {
             back()
         }
+        binding
 //        binding.swipeRefreshLayout.setOnRefreshListener {
 //            binding.swipeRefreshLayout.isRefreshing = false
 //        }
