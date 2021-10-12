@@ -19,20 +19,21 @@
             android:id="@+id/collapsingToolbarEventDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/white_900"
+            app:contentScrim="?attr/colorSurface"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
+<!--            android:background="@color/app_bg"-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg">
+                android:background="?attr/colorSurface"
+                >
 
                 <FrameLayout
                     android:id="@+id/imageLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_constraintBottom_toTopOf="@+id/bg_border"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"

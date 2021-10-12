@@ -1,11 +1,8 @@
 package com.app.dubaiculture.ui.postLogin.login
 
-import ae.sdg.libraryuaepass.UAEPassAccessCodeCallback
+import ae.sdg.libraryuaepass.UAEPassAccessTokenCallback
 import ae.sdg.libraryuaepass.UAEPassController
-import ae.sdg.libraryuaepass.UAEPassProfileCallback
 import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenRequestModel
-import ae.sdg.libraryuaepass.business.profile.model.ProfileModel
-import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestByAccessTokenModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,17 +10,17 @@ import android.view.ViewGroup
 import android.webkit.CookieManager
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
+import com.app.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.app.dubaiculture.databinding.FragmentPostLoginBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel
-import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.UAEPassRequestModelsUtils
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -78,8 +75,9 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
             R.id.img_uae_pass -> {
 //                getCode()
 
-                bus.post(UAEPassService.UaeClick(true))
-                dismiss()
+//                bus.post(UAEPassService.UaeClick(true))
+                login()
+//                dismiss()
 
 
 //                getProfile()
@@ -106,6 +104,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                 application.auth.user = it
             }
             dismiss()
+            showToast("Welcome !")
             if (!from.isNullOrEmpty()) {
                 activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             }
@@ -144,6 +143,44 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     }
 
 
+    private fun login() {
+//        val uaePassRequestModels = UAEPassRequestModels()
+        showLoader(true)
+        val requestModel: UAEPassAccessTokenRequestModel =
+            UAEPassRequestModelsUtils.getAuthenticationRequestModelPostLogin(
+                activity
+            )!!
+        UAEPassController.getAccessToken(
+            activity,
+            requestModel!!,
+            object : UAEPassAccessTokenCallback {
+                override fun getToken(accessToken: String?, state: String, error: String?) {
+                    if (error != null) {
+                        showAlert(error)
+                        showLoader(false)
+//                    showToast("Error while getting access token")
+                    } else {
+                        accessToken?.let {
+                            Timber.e("Token : $it")
+                            postLoginViewModel.loginWithUae(
+                                UAELoginRequest(
+                                    token = it,
+                                    culture = getCurrentLanguage().language
+                                )
+                            )
+                            clearData()
+//                        getProfileAccessToken(it)
+                        }
+
+                    }
+                }
+            })
+    }
+
+    private fun clearData() {
+        CookieManager.getInstance().removeAllCookies { }
+        CookieManager.getInstance().flush()
+    }
 
 
 }

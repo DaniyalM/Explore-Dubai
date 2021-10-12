@@ -10,10 +10,12 @@ import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
-import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
+import com.app.dubaiculture.data.repository.login.local.UAEPass
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
+import com.app.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.data.repository.user.mapper.transform
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
@@ -21,6 +23,7 @@ import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import transformUaeResponse
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,6 +32,7 @@ class PostLoginViewModel @Inject constructor(
     private val userRepository: UserRepository,
     application: Application,
 ) : BaseViewModel(application) {
+    private val activity = getApplication<ApplicationEntry>()
 
     var phone: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
@@ -61,30 +65,42 @@ class PostLoginViewModel @Inject constructor(
 
     private var _loginStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
-    fun loginWithUae(uaeLoginRequest: UaeLoginRequest){
+
+
+    fun loginWithUae(uaeLoginRequest: UAELoginRequest){
         viewModelScope.launch {
             showLoader(true)
             when(val result=loginRepository.loginWithUae(uaeLoginRequest)){
                 is Result.Success ->{
                     showLoader(false)
-//                    Timber.e(result.value.loginResponseDTO.userDTO.Email)
+                    val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+                    uaePass.let {
+                        if (it.idn.isEmpty()) {
+                            showAlert(message = activity.resources.getString(R.string.sop1))
+                        } else {
+                            //setting UaePassInfo for Session
+                            userRepository.saveUaeInfo(
+                                it
+                            )
 
-                    //UAE Response Has been Saved
-                    userRepository.saveUaeInfo(uaeLoginRequest)
+                            //setting user for Session
+                            val user = transform(
+                                result.value.loginResponseDTO.userDTO,
+                                result.value.loginResponseDTO
+                            ).copy(
+                                idn = it.idn,
+                                userName = "${it.firstNameEn} ${it.lastNameEn}",
+                                email = it.email,
+                                phoneNumber = "+${it.mobile}"
+                            )
 
-                    //setting user for Session
-                    setUser(
-                        transform(
-                            result.value.loginResponseDTO.userDTO,
-                            result.value.loginResponseDTO
-                        )
-                    )
-                    //Saving User Session
-                    userRepository.saveUser(
-                        userDTO = result.value.loginResponseDTO.userDTO,
-                        loginResponseDTO = result.value.loginResponseDTO
-                    )
-                    _loginStatus.value = Event(true)
+                            setUser(user, true)
+                            activity.auth.isGuest = false
+                            //Saving User Session
+                            userRepository.updateUser(user)
+                            _loginStatus.value=Event(true)
+                        }
+                    }
 
                 }
                 is Result.Failure -> {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -76,13 +77,15 @@
                     android:layout_marginTop="@dimen/_6sdp"
                     android:layout_marginEnd="@dimen/_22sdp"
                     android:text="@{attraction.title}"
-                    android:textColor="@color/black_700"
                     android:textSize="@dimen/_19ssp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_category"
                     app:layout_constraintTop_toBottomOf="@+id/tv_category"
                     app:textFont="bold" />
+
+
+
 
 
                 <LinearLayout
@@ -102,7 +105,6 @@
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_weight="1"
                         android:background="@drawable/ar_bg_attraction_icon"
-
                         android:foreground="@drawable/custom_ripple_black"
                         android:orientation="horizontal">
 
@@ -110,7 +112,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center|center_vertical"
-
                             android:orientation="vertical">
 
                             <androidx.appcompat.widget.AppCompatImageView
@@ -123,7 +124,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:text="@string/augmented_reality"
-                                android:textColor="@color/purple_600"
+                                android:textColor="?attr/color_dubai_logo"
                                 android:textSize="@dimen/_9sdp" />
 
                         </LinearLayout>
@@ -158,7 +159,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:text="@string/_360_view"
-                                android:textColor="@color/purple_600"
+                                android:textColor="?attr/color_dubai_logo"
                                 android:textSize="@dimen/_9sdp" />
 
                         </LinearLayout>
@@ -195,7 +196,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:text="@string/gallery"
-                                android:textColor="@color/purple_600"
+                                android:textColor="?attr/color_dubai_logo"
                                 android:textSize="@dimen/_9sdp" />
 
                         </LinearLayout>
@@ -351,7 +352,8 @@
                     android:gravity="center"
                     android:text="@string/book_a_ticket"
                     android:textAllCaps="false"
-                    android:textColor="@color/white_900"
+                    style="@style/TextViewStyle"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_desc_readmore" />
@@ -529,7 +531,7 @@
                                     android:ellipsize="end"
                                     android:maxLines="1"
                                     android:text="@string/email_us"
-                                    android:textColor="@color/purple_900"
+                                    android:textColor="?attr/color_dubai_logo"
                                     android:textSize="@dimen/_10ssp" />
                             </LinearLayout>
 
@@ -565,7 +567,7 @@
                                 android:drawableStart="@drawable/call_icon"
                                 android:drawablePadding="@dimen/_5sdp"
                                 android:text="@string/call_us"
-                                android:textColor="@color/purple_900"
+                                android:textColor="?attr/color_dubai_logo"
                                 android:textSize="@dimen/_10ssp" />
                         </LinearLayout>
 

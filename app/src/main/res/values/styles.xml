@@ -18,6 +18,13 @@
         <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
         <item name="textAllCaps">true</item>
     </style>
+    <style name="TabTextStyleAttraction" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
+        <item name="textAllCaps">true</item>
+        <item name="background">?attr/colorOnBackground</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
 
     <style name="ServiceTabStyle" parent="TextAppearance.Design.Tab">
         <item name="tabIndicatorColor">@color/purple_900</item>
@@ -238,8 +245,17 @@
     </style>
     <style name="SubmitButtonOutLined" parent="SubmitButtonFilled">
         <item name="android:background">@drawable/bg_btn_outlined</item>
-        <item name="android:textColor">@color/purple_900</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
         <item name="cb_type">outlined</item>
+    </style>
+
+
+    <style name="CustomBottomSheetDialogTheme" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
 

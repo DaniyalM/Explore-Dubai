@@ -5,13 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import android.widget.CheckBox
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.databinding.ActivityGenericBinding
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import com.app.dubaiculture.utils.killSessionAndStartNewActivityUAE
 
 
 abstract class BaseAuthenticationActivity : BaseActivity() {
@@ -28,12 +26,7 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
     }
 
 
-
-
-
-
-
-  protected fun checkLoginStatus() {
+    protected fun checkLoginStatus() {
 
         //IF User has logged In Proceed with Activity Other Wise Navigate User to Login Screen
         //We will get the User Session From DataStore to check If its LoggedIn Or not
@@ -81,19 +74,21 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
 
         }
     }
-    fun initiateLogout(){
+
+    fun initiateLogout() {
         val broadcastIntent = Intent()
         broadcastIntent.action = "com.package.ACTION_LOGOUT"
         sendBroadcast(broadcastIntent)
     }
-    fun recieveLogout(){
+
+    fun recieveLogout() {
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.package.ACTION_LOGOUT")
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
 //                Log.d("onReceive", "Logout in progress")
                 //At this point you should start the login activity and finish this one
-                killSessionAndStartNewActivityUAE(PreLoginActivity::class.java)
+                killSessionAndStartNewActivity(PreLoginActivity::class.java)
             }
         }, intentFilter)
     }

@@ -10,10 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.BuildConfig
@@ -57,6 +57,8 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         application = activity.application as ApplicationEntry
         groupAdapter = GroupAdapter()
         customProgressDialog = ProgressDialog(activity)
+//        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
+
 
     }
 
@@ -65,7 +67,13 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         bus = application.bus
         bus.register(this)
         dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        return super.onCreateDialog(savedInstanceState)
+
+        return super.onCreateDialog(savedInstanceState).apply {
+            setOnShowListener {
+                val bottomSheet = findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
+//                bottomSheet.setBackgroundResource(android.R.color.transparent)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -190,9 +198,11 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
 
     fun handleIntent(intent: Intent?) {
         if (intent != null && intent.data != null) {
-            if (BuildConfig.URI_SCHEME.equals(intent.data!!.scheme)) {
-                UAEPassController.resume(intent.dataString)
+            if (BuildConfig.URI_SCHEME1.equals(intent.data!!.scheme)) {
+                UAEPassController.resume(intent.dataString!!)
             }
         }
     }
+
+
 }

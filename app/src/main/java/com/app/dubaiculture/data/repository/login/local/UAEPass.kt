@@ -5,11 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class UaeLoginRequest(
+data class UAEPass(
     @PrimaryKey
-    val idn: String,
-    val email: String,
     val mobile: String,
+    val email: String,
     val titleAr: String,
     val titleEn: String,
     val firstNameEn: String,
@@ -22,10 +21,11 @@ data class UaeLoginRequest(
     val nationalityAr: String,
     val user_type: String,
     val gender: String,
-    val acr: String,
+    val idn: String,
     val sub: String,
     val idType: String,
     val spuuid: String,
+    val uuid: String,
 //    val amr: List<String>,
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis(),
 )

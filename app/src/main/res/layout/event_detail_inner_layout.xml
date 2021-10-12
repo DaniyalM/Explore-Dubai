@@ -135,7 +135,6 @@
                         android:layout_marginTop="@dimen/_6sdp"
                         android:layout_marginEnd="@dimen/_22sdp"
                         android:text="@string/the_definitive_guide_to_an_uncertain_world_contribute_to_the_future"
-                        android:textColor="@color/black_700"
                         android:textSize="@dimen/_19ssp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -343,7 +342,7 @@
                                     android:ellipsize="end"
                                     android:maxLines="1"
                                     android:text="@string/email_us"
-                                    android:textColor="@color/purple_900"
+                                    android:textColor="?attr/color_dubai_logo"
                                     android:textSize="@dimen/_10ssp" />
                             </LinearLayout>
 
@@ -384,7 +383,7 @@
                                     android:drawableStart="@drawable/call_icon"
                                     android:drawablePadding="@dimen/_5sdp"
                                     android:text="@string/call_us"
-                                    android:textColor="@color/purple_900"
+                                    android:textColor="?attr/color_dubai_logo"
                                     android:textSize="@dimen/_10ssp" />
                             </LinearLayout>
 
@@ -415,14 +414,16 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal"
                         app:layout_constraintStart_toStartOf="@id/heading_stay"
                         app:layout_constraintTop_toBottomOf="@+id/heading_stay">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imgFb"
-                            android:layout_width="@dimen/_35sdp"
-                            android:layout_height="@dimen/_35sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_9sdp"
+
                             android:foreground="@drawable/custom_ripple_border"
                             android:background="@drawable/fb_icon_png" />
 

@@ -96,6 +96,15 @@
         <action
             android:id="@+id/action_moreFragment_to_popularServiceFragment2"
             app:destination="@id/service_navigation" />
+<!--        <action-->
+<!--            android:id="@+id/action_moreFragment_self"-->
+<!--            app:destination="@id/moreFragment"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out"-->
+<!--            app:popUpTo="@id/moreFragment"-->
+<!--            app:popUpToInclusive="true"/>-->
     </fragment>
 
     <dialog

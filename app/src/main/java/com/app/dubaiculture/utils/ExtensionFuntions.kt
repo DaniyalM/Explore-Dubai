@@ -222,19 +222,19 @@ fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>) {
 
     Intent(this, activity).also {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-//        finish()
-        startActivity(it)
-    }
-}
-
-fun <A : Activity> Activity.killSessionAndStartNewActivityUAE(activity: Class<A>) {
-
-    Intent(this, activity).also {
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
         startActivity(it)
     }
 }
+
+//fun <A : Activity> Activity.killSessionAndStartNewActivityUAE(activity: Class<A>) {
+//
+//    Intent(this, activity).also {
+//        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+//        finish()
+//        startActivity(it)
+//    }
+//}
 
 fun <A : Activity> Fragment.startNewActivity(activity: Class<A>) {
     Intent(getActivity(), activity).also {

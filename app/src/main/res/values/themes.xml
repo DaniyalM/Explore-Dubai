@@ -41,11 +41,13 @@
         <item name="colorOnBackground">@color/white_900</item>
         <item name="android:navigationBarColor">@color/white_900</item>
         <item name="color_dubai_logo">@color/purple_650</item>
+
         <item name="color_light_gray_svg">@color/black_200</item>
         <item name="color_light_white_dark_gray">@color/white_900</item>
         <item name="color_edit_text_bg">@color/edit_text_white_shade_bg</item>
         <item name="color_card_views_shadow">@color/gray_600</item>
         <item name="color_light_theme_purple_dark_theme_gray">@color/purple_900</item>
+        <item name="color_light_theme_purple_dark_theme">@color/white_900</item>
 
 
 
@@ -80,9 +82,10 @@
 
 
 
-    <style name="CustomDialogStyle" parent="android:Theme.Holo.Light.Dialog">
+    <style name="CustomDialogStyle" parent="Theme.MaterialComponents.Dialog">
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
     </style>
     <!--OTP-->
     <style name="OtpStyle" parent="Theme.AppCompat.Light.NoActionBar">

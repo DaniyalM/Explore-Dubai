@@ -47,6 +47,7 @@ object Constants {
         val SCROLL_VIEW_STATE: String= "ScrollState"
         val SHEET_STATE: String= "BState"
         const val COMES_FROM_LOGIN: String = "loginFragment"
+        const val IF_FORGOT_PASSWORD: String = "forgotfragment"
         const val COMES_FROM_POST_LOGIN: String = "postloginFragment"
         const val SELECTED_CITY: String = "selectedCity"
         const val SORTED_LIST: String = "SORTED_EVENT_LIST"

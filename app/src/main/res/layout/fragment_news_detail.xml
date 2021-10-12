@@ -238,7 +238,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:text="@string/more_news"
-                        style="@style/TextViewStyle"
+                        android:textColor="@color/black_750"
                         android:textSize="@dimen/_18ssp"
                         app:layout_constraintStart_toStartOf="parent" />
 

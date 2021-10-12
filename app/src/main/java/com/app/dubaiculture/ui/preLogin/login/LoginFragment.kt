@@ -15,7 +15,6 @@ import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,23 +26,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
+import com.app.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
-import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.SMSReceiver
 import com.app.dubaiculture.utils.UAEPassRequestModelsUtils
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import com.app.dubaiculture.utils.killSessionAndStartNewActivityUAE
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
-import com.google.firebase.iid.FirebaseInstanceId
-import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -52,7 +48,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     private val loginViewModel: LoginViewModel by viewModels()
     private var intentFilter: IntentFilter? = null
     private var smsReceiver: SMSReceiver? = null
-    private var isUaeFlag:Boolean=false
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,7 +66,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         binding.fragment = this
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
-        Log.e("Firebase", "token " + FirebaseInstanceId.getInstance().getToken());
+//        Timber.e("Firebase", "token " + FirebaseInstanceId.getInstance().getToken());
 
         lottieAnimationRTL(binding.animationView)
         binding.tvRegisterNow.setOnClickListener {
@@ -132,9 +127,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 application.auth.isGuest = false
                 application.auth.isLoggedIn = true
                 loginViewModel.getGuestUserIfExists()
-                if (it.isTyped){
-                    isUaeFlag=true
-                }
 
             }
         }
@@ -143,14 +135,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             if (it != null) {
                 loginViewModel.removeGuestUser(it)
             }
-//            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-
-            if (isUaeFlag){
-                activity.killSessionAndStartNewActivityUAE(PostLoginActivity::class.java)
-            }else {
-                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-            }
-
+            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
         }
     }
 
@@ -299,7 +284,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //                    showToast("Error while getting access token")
                 } else {
                     accessToken?.let {
-                        getProfileAccessToken(it)
+                        Timber.e("Token : $it")
+                        loginViewModel.loginWithUae(
+                            UAELoginRequest(
+                                token = it,
+                                culture = getCurrentLanguage().language
+                            )
+                        )
+                        clearData()
+//                        getProfileAccessToken(it)
                     }
 
                 }
@@ -311,19 +304,31 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     private fun getProfile() {
         val requestModel: UAEPassProfileRequestModel =
             UAEPassRequestModelsUtils.getProfileRequestModel(application.applicationContext)
-        getUserProfile(application.applicationContext, requestModel, object : UAEPassProfileCallback {
-            override fun getProfile(profileModel: ProfileModel?, state: String, error: String?) {
-                if (error != null) {
-                    Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    val name =
-                        profileModel!!.firstnameEN + profileModel!!.homeAddressEmirateCode + " " + profileModel.lastnameEN
-                    Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
+        getUserProfile(
+            application.applicationContext,
+            requestModel,
+            object : UAEPassProfileCallback {
+                override fun getProfile(
+                    profileModel: ProfileModel?,
+                    state: String,
+                    error: String?
+                ) {
+                    if (error != null) {
+                        Toast.makeText(
+                            activity,
+                            "Error while getting access token",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    } else {
+                        val name =
+                            profileModel!!.firstnameEN + profileModel!!.homeAddressEmirateCode + " " + profileModel.lastnameEN
+                        Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-        })
+            })
     }
+
     private fun clearData() {
         CookieManager.getInstance().removeAllCookies { }
         CookieManager.getInstance().flush()
@@ -349,31 +354,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                         profileModel?.let {
 //                            UAEPassController.resume("uaePassDemo")
 
-                            if (it.idn!=null&& it.idn!!.isNotEmpty()){
-                                loginViewModel.loginWithUae(UaeLoginRequest(
-                                    idn = it.idn!!,
-                                    idType = it.idType?:"",
-                                    email = it.email?:"",
-                                    mobile = it.mobile?:"",
-                                    firstNameEn = it.firstnameEN?:"",
-                                    firstNameAr = it.firstnameAR?:"",
-                                    lastNameAr = it.lastnameAR?:"",
-                                    lastNameEn = it.lastnameEN?:"",
-                                    fullNameAr = it.fullnameAR?:"",
-                                    fullNameEn = it.fullnameEN?:"",
-                                    acr = it.acr?:"",
-                                    nationalityAr = it.nationalityAR?:"",
-                                    nationalityEn = it.nationalityEN?:"",
-                                    gender = it.gender?:"",
-                                    spuuid = it.spuuid?:"",
-                                    sub = it.sub?:"",
-                                    titleAr = it.titleAR?:"",
-                                    titleEn = it.titleEN?:"",
-                                    user_type = it.userType?:""
-                                ))
+                            if (it.idn != null && it.idn!!.isNotEmpty()) {
+
                                 clearData()
-                            }
-                            else {
+                            } else {
                                 showAlert(activity.resources.getString(R.string.sop1))
                             }
                         }
@@ -382,16 +366,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             })
     }
 
-    @Subscribe
-    fun initiateAccessToken(uaePassService: UAEPassService){
-        when(uaePassService){
-            is UAEPassService.UaeClick -> {
-                login()
-            }
-        }
-
-    }
-
-
 
 }
+
+
+//    idn = it.idn!!,
+//    idType = it.idType?:"",
+//    email = it.email?:"",
+//    mobile = it.mobile?:"",
+//    firstNameEn = it.firstnameEN?:"",
+//    firstNameAr = it.firstnameAR?:"",
+//    lastNameAr = it.lastnameAR?:"",
+//    lastNameEn = it.lastnameEN?:"",
+//    fullNameAr = it.fullnameAR?:"",
+//    fullNameEn = it.fullnameEN?:"",
+//    acr = it.acr?:"",
+//    nationalityAr = it.nationalityAR?:"",
+//    nationalityEn = it.nationalityEN?:"",
+//    gender = it.gender?:"",
+//    spuuid = it.spuuid?:"",
+//    sub = it.sub?:"",
+//    titleAr = it.titleAR?:"",
+//    titleEn = it.titleEN?:"",
+//    user_type = it.userType?:""

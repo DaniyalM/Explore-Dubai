@@ -1,6 +1,9 @@
 package com.app.dubaiculture.ui.preLogin
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Button
 import com.app.dubaiculture.R
@@ -15,11 +18,38 @@ class PreLoginActivity : BaseActivity() {
     lateinit var btn: Button
 
     val loginFragment = LoginFragment()
+
+    val dataReciever: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            LoginFragment().apply {
+                handleIntent(intent)
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+//        unregisterReceiver(dataReciever)
+    }
+
+    override fun onStart() {
+        super.onStart()
+//        registerReceiver(dataReciever,
+//            IntentFilter().apply {
+//                addAction("android.intent.action.VIEW")
+//                addCategory("android.intent.category.DEFAULT")
+//                addCategory("android.intent.category.BROWSABLE")
+////                addDataAuthority("success", "uaePassDemo")
+////                addDataAuthority("failure", "uaePassDemo")
+//            })
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
         applicationEntry.activity = this
+
     }
 
     override fun onResume() {

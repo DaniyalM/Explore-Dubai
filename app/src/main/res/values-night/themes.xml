@@ -65,6 +65,7 @@
         <item name="color_login_edit_text_bg">@color/black_750</item>
 
         <item name="color_light_theme_purple_dark_theme_gray">@color/gray_400</item>
+        <item name="color_light_theme_purple_dark_theme">@color/purple_650</item>
 
     </style>
     <style name="WindowAnimationTransition">

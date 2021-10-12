@@ -44,6 +44,9 @@ public class UAEPassRequestModelsUtils {
     private static final String SCHEME = BuildConfig.URI_SCHEME;
     private static final String FAILURE_HOST = BuildConfig.URI_HOST_FAILURE;
     private static final String SUCCESS_HOST = BuildConfig.URI_HOST_SUCCESS;
+    private static final String SCHEME1 = BuildConfig.URI_SCHEME1;
+    private static final String FAILURE_HOST1 = BuildConfig.URI_HOST_FAILURE;
+    private static final String SUCCESS_HOST1 = BuildConfig.URI_HOST_SUCCESS;
     private static final String STATE = Utils.INSTANCE.generateRandomString(24);
     private static final String MY_SCOPE = "urn:uae:digitalid:profile:general";
     private static final String MY_STATE = "HnlHOJTkTb66Y5H";
@@ -80,6 +83,27 @@ public class UAEPassRequestModelsUtils {
                 SCHEME,
                 FAILURE_HOST,
                 SUCCESS_HOST,
+                REDIRECT_URL,
+                MY_SCOPE,
+                RESPONSE_TYPE,
+                ACR_VALUE,
+                MY_STATE
+        );
+    }
+    public static UAEPassAccessTokenRequestModel getAuthenticationRequestModelPostLogin(Context context) {
+        String ACR_VALUE = "";
+        if (isPackageInstalled(context.getPackageManager())) {
+            ACR_VALUE = ACR_VALUES_MOBILE;
+        } else {
+            ACR_VALUE = ACR_VALUES_WEB;
+        }
+        return new UAEPassAccessTokenRequestModel(
+                UAE_PASS_ENVIRONMENT,
+                UAE_PASS_CLIENT_ID,
+                UAE_PASS_CLIENT_SECRET,
+                SCHEME1,
+                FAILURE_HOST1,
+                SUCCESS_HOST1,
                 REDIRECT_URL,
                 MY_SCOPE,
                 RESPONSE_TYPE,

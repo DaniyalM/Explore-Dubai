@@ -7,9 +7,9 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
 import com.app.dubaiculture.ui.postLogin.login.PostLoginFragment
 import com.app.dubaiculture.ui.postLogin.more.services.MoreService
-import com.app.dubaiculture.ui.preLogin.PreLoginActivity
-import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.utils.AuthUtils.hideStatusBar
+import com.app.dubaiculture.utils.firebase.subscribeToTopic
+import com.app.dubaiculture.utils.firebase.unSubscribeFromTopic
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +25,16 @@ class PostLoginActivity : BaseAuthenticationActivity() {
         hideStatusBar(window)
         getNavControllerFun(navHolding)
         recieveLogout()
+
+        getCurrentLanguage().language.let {
+            subscribeToTopic(topic = "AndroidBroadcast_$it")
+            if (it.equals("en")) {
+                unSubscribeFromTopic("AndroidBroadcast_ar")
+            } else {
+                unSubscribeFromTopic("AndroidBroadcast_en")
+            }
+
+        }
 
 
     }
@@ -56,17 +66,6 @@ class PostLoginActivity : BaseAuthenticationActivity() {
         PostLoginFragment().apply {
             handleIntent(intent)
         }
-    }
-
-    @Subscribe
-    fun initiateAccessToken(uaePassService: UAEPassService) {
-        when (uaePassService) {
-            is UAEPassService.UaeClick -> {
-                applicationEntry.auth.isLoggedIn=false
-                startActivity(Intent(this,PreLoginActivity::class.java))
-            }
-        }
-
     }
 
 

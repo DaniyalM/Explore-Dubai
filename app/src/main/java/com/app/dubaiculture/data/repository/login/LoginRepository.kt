@@ -2,9 +2,10 @@ package com.app.dubaiculture.data.repository.login
 
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
-import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
+import com.app.dubaiculture.data.repository.login.local.UAEPass
 import com.app.dubaiculture.data.repository.login.remote.LoginRDS
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
+import com.app.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.app.dubaiculture.data.repository.login.remote.request.changedpass.ChangedPassRequest
 import com.app.dubaiculture.data.repository.login.remote.response.LoginResponse
 import com.app.dubaiculture.data.repository.login.remote.response.changepassword.ChangedPasswordResponse
@@ -21,7 +22,7 @@ class LoginRepository @Inject constructor(
 ) :
     BaseRepository() {
 
-    suspend fun loginWithUae(uaeLoginRequest: UaeLoginRequest):Result<LoginResponse>{
+    suspend fun loginWithUae(uaeLoginRequest: UAELoginRequest):Result<LoginResponse>{
         return when(val resultRds=loginRDS.loginWithUaePass(transformUaeRequest(uaeLoginRequest))){
             is Result.Success -> {
                 if (resultRds.value.succeeded){

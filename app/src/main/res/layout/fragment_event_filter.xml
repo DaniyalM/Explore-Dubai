@@ -22,7 +22,7 @@
                 android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/app_bg"
+                android:background="?attr/colorOnBackground"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <com.app.dubaiculture.ui.postLogin.events.components.EventHeaderItemSelector
