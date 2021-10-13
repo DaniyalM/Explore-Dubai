@@ -1,4 +1,5 @@
 package com.app.dubaiculture.ui.postLogin.login
+
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -21,7 +22,6 @@ import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.COMES_FROM_POST_LOGIN
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import com.app.dubaiculture.utils.killSessionAndStartNewActivityUAE
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -60,6 +60,7 @@ class PostOTPDialogFragment : BaseBottomSheetFragment<PostOtpFragmentDialogBindi
         }
 
     }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         receiveBroadCastReceiver()
@@ -69,6 +70,7 @@ class PostOTPDialogFragment : BaseBottomSheetFragment<PostOtpFragmentDialogBindi
         super.onDetach()
         activity.unregisterReceiver(smsBroadCastReceiver)
     }
+
     private fun receiveBroadCastReceiver() {
         smsBroadCastReceiver = OTPbroadCastReceiver()
         smsBroadCastReceiver!!.smsBroadCastReceiverListener =
@@ -136,12 +138,16 @@ class PostOTPDialogFragment : BaseBottomSheetFragment<PostOtpFragmentDialogBindi
                         )
                     }
                     Constants.NavBundles.COMES_FROM_LOGIN -> {
-                        otpViewModel.confirmLoginOTP(verificationCode.toString(),
-                            binding.otpView.text.toString())
+                        otpViewModel.confirmLoginOTP(
+                            verificationCode.toString(),
+                            binding.otpView.text.toString()
+                        )
                     }
                     COMES_FROM_POST_LOGIN -> {
-                        otpViewModel.confirmLoginOTP(verificationCode.toString(),
-                            binding.otpView.text.toString())
+                        otpViewModel.confirmLoginOTP(
+                            verificationCode.toString(),
+                            binding.otpView.text.toString()
+                        )
                     }
                     else -> verificationCode?.let {
                         otpViewModel.confirmOTP(it, binding.otpView.text.toString())
@@ -183,8 +189,8 @@ class PostOTPDialogFragment : BaseBottomSheetFragment<PostOtpFragmentDialogBindi
             if (it != null) {
 
                 application.auth.isLoggedIn = true
-                application.auth.isGuest=false
-                activity.killSessionAndStartNewActivityUAE(PostLoginActivity::class.java)
+                application.auth.isGuest = false
+                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
 
             }
         }

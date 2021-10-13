@@ -40,10 +40,18 @@ android {
         buildConfigField "String", "URI_HOST_SUCCESS", "\"success\""
         buildConfigField "String", "URI_HOST_FAILURE", "\"failure\""
 
+        //UAE PASS START -- Adding Custom Scheme Variables
+        buildConfigField "String", "URI_SCHEME1", "\"uaePassDemo1\"" // Change to your app name or any custom scheme. Donot use uaepasssample
+        buildConfigField "String", "URI_HOST_SUCCESS1", "\"success1\""
+        buildConfigField "String", "URI_HOST_FAILURE1", "\"failure1\""
+
         manifestPlaceholders = [
                 host_success: "success",
                 host_failure: "failure",
-                scheme      : "uaePassDemo" // Change to your app name or any custom scheme. Donot use uaepasssample
+                scheme      : "uaePassDemo",
+                host_success1: "success1",
+                host_failure1: "failure1",
+                scheme1      : "uaePassDemo1" // Change to your app name or any custom scheme. Donot use uaepasssample
         ]
         //UAE PASS END -- Adding Custom Scheme Variables
 
@@ -107,7 +115,7 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable true
+            debuggable false
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -121,7 +129,7 @@ android {
             signingConfig signingConfigs.stagConfig
             applicationVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "neom-${variant.name}-${defaultConfig.versionName}.apk"
+                    outputFileName = "dubaiculture-${variant.name}-${defaultConfig.versionName}.apk"
                 }
             }
 

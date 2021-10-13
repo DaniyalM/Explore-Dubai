@@ -7,15 +7,21 @@
             name="description"
             type="com.app.dubaiculture.data.repository.popular_service.local.models.Description" />
 
+        <variable
+            name="category"
+            type="String" />
+
     </data>
 
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_10sdp">
+            android:layout_height="wrap_content">
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_category"
@@ -23,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_15sdp"
-                android:text="Museum"
+                android:text="@{category}"
                 android:textAllCaps="true"
                 android:textColor="@color/purple_900"
                 android:textSize="@dimen/_12ssp"
@@ -46,9 +52,8 @@
                 android:layout_width="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_22sdp"
-                android:text="Museums Guided Tour \nBooking Request"
+                android:text="@{description.title}"
                 android:textAlignment="viewStart"
-                android:textColor="@color/black_700"
                 android:textSize="@dimen/_19ssp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +75,7 @@
                 android:id="@+id/supplymentary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/supplementary"
+                android:text="@{description.classification}"
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="@+id/classification"
@@ -108,7 +113,7 @@
                 android:id="@+id/procedure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/procedure"
+                android:text="@{description.type}"
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="@+id/type"
@@ -138,6 +143,15 @@
                 app:layout_constraintStart_toStartOf="@+id/supplymentary"
                 app:layout_constraintTop_toBottomOf="@+id/divier_hori_line" />
 
+            <!--        <androidx.recyclerview.widget.RecyclerView-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:id="@+id/mobile"-->
+            <!--            android:layout_height="@dimen/_40sdp"-->
+            <!--            android:orientation="horizontal"-->
+            <!--            tools:itemCount="3"-->
+            <!--            app:layout_constraintStart_toStartOf="@+id/service"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/service"/>-->
+            <!--        -->
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/mobile"
                 android:layout_width="0dp"
@@ -182,11 +196,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/service"
                 app:layout_constraintWidth_percent="0.29" />
 
-            <include
+            <com.app.dubaiculture.ui.components.custombutton.CustomButton
                 android:id="@+id/common_btn"
-                layout="@layout/btn_layout"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:background="@drawable/btn_register"
+                android:elevation="@dimen/_15sdp"
+                android:foreground="@drawable/custom_ripple_border"
+                android:gravity="center"
+                android:text="@string/start_service"
+                android:textAllCaps="false"
+                android:textColor="@color/white_900"
                 app:layout_constraintTop_toBottomOf="@+id/mobile" />
 
 
@@ -196,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:text="@string/description"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintStart_toStartOf="@id/tv_category"
                 app:layout_constraintTop_toBottomOf="@+id/common_btn" />
@@ -208,9 +232,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
-                android:lineSpacingExtra="3dp"
-                android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim"
-                android:textSize="@dimen/_10sdp"
+                android:lineSpacingExtra="@dimen/text_line_spacing"
+                android:text="@{description.descriptions}"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_category"
                 app:layout_constraintTop_toBottomOf="@id/heading_desc"
@@ -232,6 +256,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_desc">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fileViewLink"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -284,10 +309,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_25sdp"
-                app:layout_constraintTop_toBottomOf="@+id/fileView"/>
-
+                app:layout_constraintTop_toBottomOf="@+id/fileView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </androidx.core.widget.NestedScrollView>
 </layout>

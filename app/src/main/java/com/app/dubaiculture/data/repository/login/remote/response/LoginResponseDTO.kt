@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class LoginResponseDTO constructor(
     @SerializedName(value = "User")
     val userDTO: UserDTO,
+    @SerializedName(value = "UAEPass")
+    val userUaePass: UAEPassDTO,
     @SerializedName(value = "ExpiresIn")
     val ExpiresIn: Int,
     @SerializedName(value = "RefreshToken")

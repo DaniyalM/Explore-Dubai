@@ -1,33 +1,41 @@
-import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
+import com.app.dubaiculture.data.repository.login.local.UAEPass
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequestDTO
+import com.app.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.app.dubaiculture.data.repository.login.remote.request.UaeLoginRequestDTO
 import com.app.dubaiculture.data.repository.login.remote.request.changedpass.ChangedPassRequest
 import com.app.dubaiculture.data.repository.login.remote.request.changedpass.ChangedPassRequestDTO
+import com.app.dubaiculture.data.repository.login.remote.response.UAEPassDTO
 
 
-fun transformUaeRequest(uaeLoginRequest: UaeLoginRequest)= UaeLoginRequestDTO(
-    email = uaeLoginRequest.email,
-    mobile = uaeLoginRequest.mobile,
-    titleAR = uaeLoginRequest.titleAr,
-    titleEN = uaeLoginRequest.titleEn,
-    firstnameAR = uaeLoginRequest.firstNameAr,
-    lastnameAR = uaeLoginRequest.lastNameAr,
-    fullnameAR = uaeLoginRequest.fullNameAr,
-    fullnameEN = uaeLoginRequest.fullNameEn,
-    nationalityAR = uaeLoginRequest.nationalityAr,
-    nationalityEN = uaeLoginRequest.nationalityEn,
-    userType = uaeLoginRequest.user_type,
-    gender = uaeLoginRequest.gender,
-    idn = uaeLoginRequest.idn,
-    acr = uaeLoginRequest.acr,
-    sub = uaeLoginRequest.sub,
-    idType = uaeLoginRequest.idType,
-    spuuid = uaeLoginRequest.spuuid,
-    amr = mutableListOf(),
-    firstnameEN = uaeLoginRequest.firstNameEn,
-    lastnameEN = uaeLoginRequest.lastNameEn
+fun transformUaeRequest(uaeLoginRequest: UAELoginRequest) = UaeLoginRequestDTO(
+    AccessToken = uaeLoginRequest.token,
+    DefaultCulture = uaeLoginRequest.culture
+
+)
+
+fun transformUaeResponse(uaePassDTO: UAEPassDTO) = UAEPass(
+    titleAr = uaePassDTO.titleAR?:"",
+    titleEn = uaePassDTO.titleEN?:"",
+    firstNameAr = uaePassDTO.firstnameAR?:"",
+    lastNameEn = uaePassDTO.lastnameEN?:"",
+    fullNameAr = uaePassDTO.fullnameAR?:"",
+    fullNameEn = uaePassDTO.fullnameEN?:"",
+    nationalityAr = uaePassDTO.nationalityAR?:"",
+    nationalityEn = uaePassDTO.nationalityEN?:"",
+    user_type = uaePassDTO.userType?:"",
+    gender = uaePassDTO.gender?:"",
+    idn = uaePassDTO.idn?:"",
+    sub = uaePassDTO.sub?:"",
+    idType = uaePassDTO.idType?:"",
+    spuuid = uaePassDTO.spuuid?:"",
+    firstNameEn = uaePassDTO.firstnameEN?:"",
+    lastNameAr = uaePassDTO.lastnameAR?:"",
+    email = uaePassDTO.email?:"",
+    mobile = uaePassDTO.mobile?:"",
+    uuid = uaePassDTO.uuid?:""
+
 )
 
 //val email:String,

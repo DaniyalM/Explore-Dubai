@@ -85,7 +85,7 @@
                 android:imageViewUrl='@{attractions.portraitImage}'
                 android:scaleType="fitXY"
                />
-            <CheckBox
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/favourite"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_18sdp"

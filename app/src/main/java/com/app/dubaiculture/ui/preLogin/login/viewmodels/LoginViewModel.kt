@@ -9,20 +9,21 @@ import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
-import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
+import com.app.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.data.repository.user.local.User
 import com.app.dubaiculture.data.repository.user.local.guest.Guest
 import com.app.dubaiculture.data.repository.user.mapper.transform
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.app.dubaiculture.utils.firebase.subscribeToTopic
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import transformUaeResponse
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,6 +32,8 @@ class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository,
     application: Application,
 ) : BaseViewModel(application) {
+    private val activity = getApplication<ApplicationEntry>()
+
     var phone: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
     var btnEnabled: ObservableBoolean = ObservableBoolean(false)
@@ -70,7 +73,7 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             userRepository.getLastUser()?.let {
-                setUser(it,true)
+                setUser(it, true)
             }
         }
     }
@@ -103,43 +106,48 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun loginWithUae(uaeLoginRequest: UaeLoginRequest){
+    fun loginWithUae(uaeLoginRequest: UAELoginRequest) {
         viewModelScope.launch {
             showLoader(true)
-            when(val result=loginRepository.loginWithUae(uaeLoginRequest)){
-                is Result.Success ->{
+            when (val result = loginRepository.loginWithUae(uaeLoginRequest)) {
+                is Result.Success -> {
                     showLoader(false)
 //                    Timber.e(result.value.loginResponseDTO.userDTO.Email)
 
                     //UAE Response Has been Saved
-                    userRepository.saveUaeInfo(uaeLoginRequest)
+                    val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+                    uaePass.let {
+                        if (it.idn.isEmpty()) {
+                            showAlert(message = activity.resources.getString(R.string.sop1))
+                        } else {
+                            //setting UaePassInfo for Session
+                            userRepository.saveUaeInfo(
+                                it
+                            )
 
-                    //setting user for Session
-                    setUser(
-                        transform(
-                            result.value.loginResponseDTO.userDTO,
-                            result.value.loginResponseDTO
-                        )
-                    ,true
-                    )
-                    //Saving User Session
-                    userRepository.saveUser(
-                        userDTO = result.value.loginResponseDTO.userDTO,
-                        loginResponseDTO = result.value.loginResponseDTO
-                    )
-//                    if (!result.value.isConfirmed) {
-//                        showErrorDialog(message = result.value.errorMessage)
-//                        phone.set(uaeLoginRequest.mobile)
-//                        resendPhoneVerification()
-//                    } else {
-//
-//
-//                    }
+                            //setting user for Session
+                            val user = transform(
+                                result.value.loginResponseDTO.userDTO,
+                                result.value.loginResponseDTO
+                            ).copy(
+                                idn = it.idn,
+                                userName = "${it.firstNameEn} ${it.lastNameEn}",
+                                email = it.email,
+                                phoneNumber = "+${it.mobile}"
+                            )
+
+                            setUser(user, true)
+                            activity.auth.isGuest = false
+                            //Saving User Session
+                            userRepository.updateUser(user)
+                        }
+                    }
 
                 }
                 is Result.Failure -> {
                     showLoader(false)
-                    showAlert(result.errorMessage?:SOMETHING_WENT_WRONG)
+                    val error = result.errorMessage ?: SOMETHING_WENT_WRONG
+                    showAlert(message = error)
                 }
             }
         }
@@ -161,7 +169,7 @@ class LoginViewModel @Inject constructor(
                                 showErrorDialog(message = result.value.errorMessage)
                                 resendPhoneVerification()
                             } else {
-                                Timber.e(result.value.loginResponseDTO.userDTO.Email)
+//                                Timber.e(result.value.loginResponseDTO.userDTO.Email)
 
                                 setUser(
                                     transform(
@@ -199,6 +207,7 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
+
     fun loginWithEmail(eml: String? = null, pass: String? = null) {
         if (!isCheckValid())
             return
@@ -218,7 +227,7 @@ class LoginViewModel @Inject constructor(
                                 showErrorDialog(message = result.value.errorMessage)
                                 resendEmailVerification()
                             } else {
-                                Timber.e(result.value.loginResponseDTO.userDTO.Email)
+//                                Timber.e(result.value.loginResponseDTO.userDTO.Email)
                                 setUser(
                                     transform(
                                         result.value.loginResponseDTO.userDTO,

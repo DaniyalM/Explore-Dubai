@@ -41,6 +41,7 @@
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/attractionTabs"
                         android:layout_width="match_parent"
+                        style="@style/TabTextStyleAttraction"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         app:tabIndicatorHeight="0dp"

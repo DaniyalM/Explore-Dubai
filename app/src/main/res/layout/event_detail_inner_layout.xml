@@ -22,16 +22,7 @@
                     app:layout_constraintGuide_percent="0.00" />
 
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/img_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
-                    android:background="@drawable/event_detail_icon"
-                    android:scaleType="centerCrop"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bg_border"
@@ -144,7 +135,6 @@
                         android:layout_marginTop="@dimen/_6sdp"
                         android:layout_marginEnd="@dimen/_22sdp"
                         android:text="@string/the_definitive_guide_to_an_uncertain_world_contribute_to_the_future"
-                        android:textColor="@color/black_700"
                         android:textSize="@dimen/_19ssp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -249,7 +239,9 @@
                         <com.google.android.gms.maps.MapView
                             android:id="@+id/map"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:background="?attr/color_light_gray_svg"
+                            />
                     </androidx.cardview.widget.CardView>
 
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -350,7 +342,7 @@
                                     android:ellipsize="end"
                                     android:maxLines="1"
                                     android:text="@string/email_us"
-                                    android:textColor="@color/purple_900"
+                                    android:textColor="?attr/color_dubai_logo"
                                     android:textSize="@dimen/_10ssp" />
                             </LinearLayout>
 
@@ -391,7 +383,7 @@
                                     android:drawableStart="@drawable/call_icon"
                                     android:drawablePadding="@dimen/_5sdp"
                                     android:text="@string/call_us"
-                                    android:textColor="@color/purple_900"
+                                    android:textColor="?attr/color_dubai_logo"
                                     android:textSize="@dimen/_10ssp" />
                             </LinearLayout>
 
@@ -422,14 +414,16 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal"
                         app:layout_constraintStart_toStartOf="@id/heading_stay"
                         app:layout_constraintTop_toBottomOf="@+id/heading_stay">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imgFb"
-                            android:layout_width="@dimen/_35sdp"
-                            android:layout_height="@dimen/_35sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_9sdp"
+
                             android:foreground="@drawable/custom_ripple_border"
                             android:background="@drawable/fb_icon_png" />
 
@@ -477,7 +471,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#E8E8E8"
+                        android:background="@color/gray_400"
                         android:orientation="vertical"
                         app:layout_constraintTop_toBottomOf="@+id/img">
 
@@ -487,7 +481,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_20sdp"
                             android:text="@string/more_events"
-                            style="@style/TextViewStyle"
+                            android:textColor="#2A2D31"
                             android:textSize="@dimen/_18ssp"
                             app:layout_constraintStart_toStartOf="parent" />
 

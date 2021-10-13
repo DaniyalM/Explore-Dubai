@@ -104,6 +104,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:id="@+id/detailNavigation"
                         android:background="@drawable/shape_rounded_purple_border_attraction"
                         android:gravity="center">
 

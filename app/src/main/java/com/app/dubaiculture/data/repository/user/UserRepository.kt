@@ -2,11 +2,8 @@ package com.app.dubaiculture.data.repository.user
 
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
-import com.app.dubaiculture.data.repository.login.LoginRepository
+import com.app.dubaiculture.data.repository.login.local.UAEPass
 import com.app.dubaiculture.data.repository.login.local.UaeLDS
-import com.app.dubaiculture.data.repository.login.local.UaeLoginRequest
-import com.app.dubaiculture.data.repository.login.remote.LoginRDS
-import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.login.remote.response.LoginResponseDTO
 import com.app.dubaiculture.data.repository.login.remote.response.UserDTO
 import com.app.dubaiculture.data.repository.user.local.User
@@ -18,7 +15,6 @@ import com.app.dubaiculture.data.repository.user.remote.UserRDS
 import com.app.dubaiculture.data.repository.user.remote.request.GuestTokenRequestDTO
 import com.app.dubaiculture.data.repository.user.remote.request.RefreshTokenRequestDTO
 import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_200
-import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_401
 import javax.inject.Inject
 
 
@@ -29,8 +25,8 @@ class UserRepository @Inject constructor(
     private val uaeLDS: UaeLDS
 ) : BaseRepository() {
 
-    suspend fun saveUaeInfo(uaeLoginRequest: UaeLoginRequest){
-        uaeLDS.insert(uaeLoginRequest)
+    suspend fun saveUaeInfo(uaePass: UAEPass){
+        uaeLDS.insert(uaePass)
     }
 
     suspend fun saveUser(userDTO: UserDTO, loginResponseDTO: LoginResponseDTO) {
@@ -44,6 +40,7 @@ class UserRepository @Inject constructor(
 
     suspend fun getLastUser(): User? = userLDS.getUser()
     suspend fun getLastGuestUser(): Guest? = guestLDS.getGuestUser()
+    suspend fun getUaePassUser(): UAEPass? = uaeLDS.getUser()
 
     suspend fun refreshToken(token: String, refreshToken: String): User? {
         when (val resultRDS = userRDS.refreshToken(

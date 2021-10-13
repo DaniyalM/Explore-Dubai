@@ -21,14 +21,15 @@
             android:id="@+id/collapsingToolbarAttractionDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/white_900"
+            app:contentScrim="?attr/colorOnBackground"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
+<!--            android:background="@color/app_bg"-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg"
+                android:background="?attr/colorOnBackground"
                 android:splitMotionEvents="false">
 
                 <FrameLayout
@@ -175,7 +176,6 @@
                             android:layout_margin="5dp"
                             android:text="@string/_360_view"
                             android:textColor="@color/white_900"
-
                             android:textSize="@dimen/_9sdp"
                             app:textFont="regular" />
 

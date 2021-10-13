@@ -1,19 +1,15 @@
 package com.app.dubaiculture.ui.preLogin
 
-import ae.sdg.libraryuaepass.UAEPassAccessCodeCallback
-import ae.sdg.libraryuaepass.UAEPassController.getAccessCode
-import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenRequestModel
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseActivity
-import com.app.dubaiculture.ui.preLogin.bus.UAEPassService
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
 import com.app.dubaiculture.utils.AuthUtils.hideStatusBar
-import com.app.dubaiculture.utils.UAEPassRequestModels
-import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -22,19 +18,44 @@ class PreLoginActivity : BaseActivity() {
     lateinit var btn: Button
 
     val loginFragment = LoginFragment()
+
+    val dataReciever: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            LoginFragment().apply {
+                handleIntent(intent)
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+//        unregisterReceiver(dataReciever)
+    }
+
+    override fun onStart() {
+        super.onStart()
+//        registerReceiver(dataReciever,
+//            IntentFilter().apply {
+//                addAction("android.intent.action.VIEW")
+//                addCategory("android.intent.category.DEFAULT")
+//                addCategory("android.intent.category.BROWSABLE")
+////                addDataAuthority("success", "uaePassDemo")
+////                addDataAuthority("failure", "uaePassDemo")
+//            })
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
-        applicationEntry.activity=this
+        applicationEntry.activity = this
+
     }
 
     override fun onResume() {
         super.onResume()
         adjustFontScale(resources.configuration)
     }
-
-
 
 
     override fun onNewIntent(intent: Intent?) {
@@ -45,8 +66,6 @@ class PreLoginActivity : BaseActivity() {
         }
 
     }
-
-
 
 
 }

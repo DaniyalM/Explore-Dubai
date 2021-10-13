@@ -20,7 +20,7 @@ import ae.sdg.libraryuaepass.utils.Utils;
 import static ae.sdg.libraryuaepass.business.Environment.PRODUCTION;
 import static ae.sdg.libraryuaepass.business.Environment.STAGING;
 
-public class UAEPassRequestModels {
+public class UAEPassRequestModelsUtils {
 
     //UAE PASS START -- ADD BELOW FIELDS
 //    private static final String UAE_PASS_CLIENT_ID = <<"Enter Client Id Here">>;
@@ -44,15 +44,18 @@ public class UAEPassRequestModels {
     private static final String SCHEME = BuildConfig.URI_SCHEME;
     private static final String FAILURE_HOST = BuildConfig.URI_HOST_FAILURE;
     private static final String SUCCESS_HOST = BuildConfig.URI_HOST_SUCCESS;
+    private static final String SCHEME1 = BuildConfig.URI_SCHEME1;
+    private static final String FAILURE_HOST1 = BuildConfig.URI_HOST_FAILURE;
+    private static final String SUCCESS_HOST1 = BuildConfig.URI_HOST_SUCCESS;
     private static final String STATE = Utils.INSTANCE.generateRandomString(24);
     private static final String MY_SCOPE = "urn:uae:digitalid:profile:general";
     private static final String MY_STATE = "HnlHOJTkTb66Y5H";
     private static boolean isPackageInstalled(PackageManager packageManager) {
 
         String packageName = null;
-        if (UAEPassRequestModels.UAE_PASS_ENVIRONMENT == PRODUCTION) {
+        if (UAEPassRequestModelsUtils.UAE_PASS_ENVIRONMENT == PRODUCTION) {
             packageName = UAE_PASS_PACKAGE_ID;
-        } else if (UAEPassRequestModels.UAE_PASS_ENVIRONMENT == STAGING) {
+        } else if (UAEPassRequestModelsUtils.UAE_PASS_ENVIRONMENT == STAGING) {
             packageName = UAE_PASS_QA_PACKAGE_ID;
         }
 
@@ -80,6 +83,27 @@ public class UAEPassRequestModels {
                 SCHEME,
                 FAILURE_HOST,
                 SUCCESS_HOST,
+                REDIRECT_URL,
+                MY_SCOPE,
+                RESPONSE_TYPE,
+                ACR_VALUE,
+                MY_STATE
+        );
+    }
+    public static UAEPassAccessTokenRequestModel getAuthenticationRequestModelPostLogin(Context context) {
+        String ACR_VALUE = "";
+        if (isPackageInstalled(context.getPackageManager())) {
+            ACR_VALUE = ACR_VALUES_MOBILE;
+        } else {
+            ACR_VALUE = ACR_VALUES_WEB;
+        }
+        return new UAEPassAccessTokenRequestModel(
+                UAE_PASS_ENVIRONMENT,
+                UAE_PASS_CLIENT_ID,
+                UAE_PASS_CLIENT_SECRET,
+                SCHEME1,
+                FAILURE_HOST1,
+                SUCCESS_HOST1,
                 REDIRECT_URL,
                 MY_SCOPE,
                 RESPONSE_TYPE,

@@ -20,8 +20,8 @@ import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.app.dubaiculture.ui.preLogin.registeration.otp.viewmodel.OTPViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.COMES_FROM_LOGIN
+import com.app.dubaiculture.utils.Constants.NavBundles.IF_FORGOT_PASSWORD
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import com.app.dubaiculture.utils.killSessionAndStartNewActivityUAE
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -40,7 +40,7 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
     private var passwordlogin: String? = null
     private var from: String? = null
 
-//    private val REQ_USER_CONSENT = 200
+    //    private val REQ_USER_CONSENT = 200
     var smsBroadCastReceiver: OTPbroadCastReceiver? = null
 
 
@@ -141,7 +141,7 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
         when (v?.id) {
             R.id.btn_continue_reg -> {
                 when (from) {
-                    "forgotfragment" -> {
+                    IF_FORGOT_PASSWORD -> {
                         otpViewModel.validateOTP(
                             verificationCode!!,
                             binding.otpView.text.toString().trim()
@@ -194,7 +194,7 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
 
                 application.auth.isLoggedIn = true
                 application.auth.isGuest = false
-                activity.killSessionAndStartNewActivityUAE(PostLoginActivity::class.java)
+                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
 
             }
         }

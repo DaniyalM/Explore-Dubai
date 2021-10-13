@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
 
+        <variable
+            name="faq"
+            type="com.app.dubaiculture.data.repository.popular_service.local.models.FAQX" />
+
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -36,7 +42,7 @@
                    android:id="@+id/tv_questionNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="01"
+                    android:text="@{faq.id.toString()}"
                     android:textStyle="bold"
                     app:textFont="bold"
                     android:layout_marginStart="@dimen/_10sdp"
@@ -53,7 +59,7 @@
                     android:lineSpacingExtra="3dp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     style="@style/TextViewStyle"
-                    android:text="What is Dubai Culture  Arts Authority?"
+                    android:text="@{faq.question}"
                     />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -73,6 +79,7 @@
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
                 android:textColor="@color/gray_750"
+                android:text="@{faq.answer}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="3dp"

@@ -5,11 +5,13 @@
         <shape android:shape="rectangle">
             <solid android:color="@color/events_tab_indicator_unselected" />
         </shape>
+
+
     </item>
     <item>
         <inset android:insetBottom="@dimen/_2sdp">
             <shape android:shape="rectangle">
-                <solid android:color="@android:color/white" />
+                <solid android:color="?attr/colorSurface" />
             </shape>
         </inset>
     </item>
