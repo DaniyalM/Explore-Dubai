@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data><variable
+        name="view"
+        type="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripFragment" /></data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/map"
+            tools:context=".MapsActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+        <ImageView
+            android:id="@+id/iv_dropdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:onClick="@{()->view.onBackPressed()}"
+            android:src="@drawable/ic_twotone_keyboard_arrow_down_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:src="@drawable/ic_close_black"
+            android:onClick="@{()->view.onBackPressed()}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_dropdown" />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

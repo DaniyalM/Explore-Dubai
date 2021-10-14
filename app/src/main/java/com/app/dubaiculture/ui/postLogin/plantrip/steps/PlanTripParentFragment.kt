@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -11,15 +13,21 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPlanTripParentBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragmentDirections
 import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.TripStep1Fragment
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.TripStep2Fragment
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step3.TripStep3Fragment
+import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), CustomNavigation {
 
     var bottomNavigationView: BottomNavigationView? = null
+    private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
+
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -36,6 +44,25 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
 
 
     }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        subscribeToObservables()
+
+    }
+
+    private fun subscribeToObservables() =
+        tripSharedViewModel.showPlan.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                if (it){
+                  onBackPressed()
+                }
+            }
+
+//            if (it) {
+//                navigate(R.id.action_tripFragment_to_my_tripFragment)
+//            }
+        }
 
     fun onBackPressed() {
         navigateBack()
@@ -92,7 +119,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
             R.id.tripStep2 -> {
                 if (isNext) {
                     bottomNavigationView!!.selectedItemId = R.id.tripStep3
-                }else{
+                } else {
                     bottomNavigationView!!.selectedItemId = R.id.tripStep1
 
                 }
@@ -100,7 +127,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
             R.id.tripStep3 -> {
                 if (isNext) {
                     bottomNavigationView!!.selectedItemId = R.id.tripStep4
-                }else{
+                } else {
                     bottomNavigationView!!.selectedItemId = R.id.tripStep2
 
                 }

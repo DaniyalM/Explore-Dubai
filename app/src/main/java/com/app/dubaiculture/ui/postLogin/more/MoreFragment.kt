@@ -312,7 +312,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 navigate(R.id.action_moreFragment_to_aboutFragment)
             }
             R.id.cardivewRTL -> {
-                navigate(R.id.action_moreFragment_to_tripFragment)
+                navigateByDirections(MoreFragmentDirections.actionMoreFragmentToTripFragment())
+//                navigate(R.id.action_moreFragment_to_tripFragment)
             }
 
         }

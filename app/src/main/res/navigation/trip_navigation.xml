@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/trip_navigation"
     app:startDestination="@id/tripFragment">
-    <include app:graph="@navigation/trip_detail_navigation" />
     <include app:graph="@navigation/plan_trip_parent_navigation" />
+    <include app:graph="@navigation/my_trip_navigation" />
+
 
     <fragment
         android:id="@+id/tripFragment"
@@ -14,6 +15,11 @@
             android:id="@+id/action_tripFragment_to_tripDetailParentFragment"
             app:destination="@id/plan_trip_parent_navigation"
             app:popUpTo="@+id/plan_trip_parent_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_tripFragment_to_my_tripFragment"
+            app:destination="@id/my_trip_navigation"
+            app:popUpTo="@+id/trip_navigation"
             app:popUpToInclusive="true" />
     </fragment>
 

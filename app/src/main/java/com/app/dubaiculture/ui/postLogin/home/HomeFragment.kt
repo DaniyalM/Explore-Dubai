@@ -121,6 +121,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.planTripParentFragment -> {
                         visibility = View.GONE
                     }
+                    R.id.myTripFragment -> {
+                        visibility = View.GONE
+                    }
                     else -> {
                         visibility = View.VISIBLE
                         Bundle().apply {

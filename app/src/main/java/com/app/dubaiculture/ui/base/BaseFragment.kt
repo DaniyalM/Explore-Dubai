@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable
 import android.net.NetworkRequest
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -262,6 +263,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         } catch (ex: IllegalArgumentException) {
 
+            Log.e(Companion.TAG, ex.localizedMessage )
         }
 
     }
@@ -503,4 +505,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 //            requireActivity().supportFragmentManager, tag
 //        )
 //    }
+    companion object {
+        private const val TAG = "BaseFragment"
+    }
 }

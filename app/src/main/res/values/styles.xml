@@ -247,4 +247,19 @@
         <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
     </style>
 
+    <style name="ChipChoiceTextAppearance" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="fontFamily">@font/neo_sans_arabic_regular</item>
+        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
+    </style>
+
+    <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="colorPrimary">@color/purple_900</item>
+        <item name="colorOnPrimary">@color/white_900</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyApp.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">100%</item>
+    </style>
+
 </resources>

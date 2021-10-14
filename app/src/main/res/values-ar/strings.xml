@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">هيئة دبي للثقافة والفنون</string>
     <string name="arabic">English</string>
-<!--    <string name="arabic">العربية</string>-->
+    <!--    <string name="arabic">العربية</string>-->
     <string name="switch_language">تغيير اللغة</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا</string>
-
 
 
     // home tabs
@@ -20,7 +19,6 @@
     <string name="welcome_to_dubai_culture">مرحبا بك في هيئة دبي للثقافة والفنون</string>
     <string name="sign_up">تسجيل جديد؟</string>
     <string name="forgot_password"> نسيت كلمة السر؟</string>
-
 
 
     <string name="login_to_your_account">الدخول للحساب</string>
@@ -66,7 +64,6 @@
     <string name="err_first_name">اسم خطئ</string>
 
 
-
     <string name="err_email">بريد الكتروني خطئ</string>
     <string name="err_phone">رقم هاتف خطئ</string>
     <string name="err_password">كلمة مرور خطئ</string>
@@ -80,7 +77,7 @@
     <string name="confirm">تأكيد</string>
     <string name="already_a_member">لديك حساب؟</string>
     <string name="at_least_one_digit">يجب أن تتضمن رقم</string>
-    <string name="err_phone_two" >e.g: 971-------------</string>
+    <string name="err_phone_two">e.g: 971-------------</string>
     <string name="your_password_has_been_updated_continue_to_login">لقد تم تحديث كلمة السر الخاصة بك. أكمل الى تسجيل الدخول</string>
     <string name="mobile_number_new">رقم الهاتف خطئ</string>
     <string name="enter_mobile_number_reg">ادخل رقم الهاتف</string>
@@ -219,6 +216,7 @@
     <string name="accessiblitiy_more">سهولة الإستخدام</string>
     <string name="logout_more">تسجيل الخروج</string>
     <string name="are_you_sure_want_to_logout">تأكيد تسجيل الخروج</string>
+
     <string name="settings_">الإعدادات</string>
     <string name="turn_on_location">فعّل خدمة الموقع</string>
     <string name="reset_settings">اعادة ضبط الإعدادات</string>
@@ -309,13 +307,21 @@
     <string name="select_dates_desc">If you are not sure about the dates, select the number of days of your trip</string>
     <string name="no_of_days">No. Of Days</string>
     <string name="show_my_plan">Show My Plan</string>
-
-
-
-
-
-
-
+    <string name="add_duration">Add Duration</string>
+    <string name="checkbox_desc">Repeat this selection to all</string>
+    <string name="hour2">2 hours</string>
+    <string name="hour4">4 hours</string>
+    <string name="hour6">6 hours</string>
+    <string name="hour8">8 hours</string>
+    <string name="time_of_day">Time of Day</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
+    <string name="duration">Duration</string>
+    <string name="editDuration">Edit Duration</string>
+    <string name="save">Save</string>
+    <string name="editDates">Edit Dates</string>
+    <string name="delete">Delete</string>
+    <string name="are_you_sure_want_to_delete">Are you sure you want\nto delete days?</string>
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>

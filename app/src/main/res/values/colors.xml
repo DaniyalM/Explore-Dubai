@@ -17,6 +17,7 @@
     <color name="edit_text_white_shade_bg">#f8f8f8</color>
 
 
+    <color name="purple_100">#E6DFEC</color>
     <color name="purple_900">#5E2E82</color>
     <color name="purple_600">#6D438D</color>
     <color name="purple_650">#5D2E82</color>
@@ -87,5 +88,7 @@
     <color name="purple_text_tint">#5A2784</color>
     <color name="progress_color">#00BBB0</color>
 
+    <color name="delete_color">#F5D5D5</color>
+    <color name="delete_text_color">#DF7D7D</color>
 
 </resources>

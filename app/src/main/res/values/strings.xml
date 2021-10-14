@@ -222,6 +222,7 @@
     <string name="accessiblitiy_more">Accessibility</string>
     <string name="logout_more">Logout</string>
     <string name="are_you_sure_want_to_logout">Are you sure\nyou want to logout?</string>
+    <string name="are_you_sure_want_to_delete">Are you sure you want\nto delete days?</string>
     <string name="settings_">Settings</string>
     <string name="turn_on_location">Turn on Location</string>
     <string name="reset_settings">Reset Settings</string>
@@ -313,6 +314,21 @@
     <string name="select_dates_desc">If you are not sure about the dates, select the number of days of your trip</string>
     <string name="no_of_days">No. Of Days</string>
     <string name="show_my_plan">Show My Plan</string>
+    <string name="add_duration">Add Duration</string>
+    <string name="checkbox_desc">Repeat this selection to all</string>
+    <string name="hour2">2 hours</string>
+    <string name="hour4">4 hours</string>
+    <string name="hour6">6 hours</string>
+    <string name="hour8">8 hours</string>
+    <string name="time_of_day">Time of Day</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
+    <string name="duration">Duration</string>
+    <string name="editDuration">Edit Duration</string>
+    <string name="save">Save</string>
+    <string name="editDates">Edit Dates</string>
+    <string name="delete">Delete</string>
+
 
 
 

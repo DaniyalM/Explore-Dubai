@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/gray_line"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/gray_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvHeading"
+            style="@style/TextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:text="@string/no_of_days"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gray_line" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/groupDaysChips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_25sdp"
+            app:singleSelection="true"
+            app:layout_constraintEnd_toEndOf="@+id/btnDone"
+            app:layout_constraintStart_toStartOf="@id/tvHeading"
+            app:layout_constraintTop_toBottomOf="@id/tvHeading">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/choice1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/chip_selector"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:fontFamily="@font/neo_sans_arabic_regular"
+                android:checked="true"
+                android:text="2 days" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/choice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/chip_selector"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:fontFamily="@font/neo_sans_arabic_regular"
+                android:text="4 days" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/choice3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/chip_selector"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:fontFamily="@font/neo_sans_arabic_regular"
+                android:text="6 days" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/choice4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/chip_selector"
+                android:fontFamily="@font/neo_sans_arabic_regular"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="8 days" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/choice5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/chip_selector"
+                android:fontFamily="@font/neo_sans_arabic_regular"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="10 days" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/groupDaysChips"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="@dimen/_25sdp"-->
+        <!--            app:layout_constraintStart_toStartOf="@id/tvHeading"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/tvHeading" />-->
+
+
+        <Button
+            android:id="@+id/btnDone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_22ssp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:backgroundTint="@color/purple_650"
+            android:fontFamily="@font/neo_sans_arabic_regular"
+            android:text="@string/done"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorOnPrimary"
+            app:cornerRadius="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/groupDaysChips" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

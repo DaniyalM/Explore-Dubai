@@ -9,7 +9,9 @@ import com.app.dubaiculture.databinding.FragmentTripStep1Binding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.PlanTripParentFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
 
     companion object{
@@ -25,6 +27,14 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
+        lottieAnimationRTL(binding.animationView)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.animationView.playAnimation()
+
     }
 
     fun onNextClicked() {
