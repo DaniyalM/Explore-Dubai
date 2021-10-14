@@ -24,7 +24,7 @@ class ApplicationEntry : Application() {
     lateinit var preferenceRepository: PreferenceRepository
     lateinit var region: BeaconRegion
 
-    var activity: Activity? = null
+
 
 
     @Inject

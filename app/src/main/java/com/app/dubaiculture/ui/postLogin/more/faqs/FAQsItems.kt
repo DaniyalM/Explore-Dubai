@@ -25,7 +25,7 @@ class FAQsItems<T : ViewDataBinding>(
         when (viewBinding) {
             is ItemFaqsLayoutBinding -> {
                 viewBinding.let {
-                    setAnimation(it.rootView,position,context)
+//                    setAnimation(it.rootView,position,context)
                     if(position>=0 && position<9){
                         it.tvQuestionNum.text = "${0}"+(position).plus(1).toString()
                     }else{
@@ -34,18 +34,16 @@ class FAQsItems<T : ViewDataBinding>(
                     it.tvQuestions.text = faqs.question
                     it.imgToggle.setImageResource(R.drawable.plus)
                     it.ll.setOnClickListener {items->
+
+//                        it.tvQuestions.setTextColor(context.getColorFromAttr(R.attr.colorOnSecondary))
+//                        it.tvQuestionNum.setTextColorRes(R.color.gray_750)
                         if(isExpand==false){
                             isExpand= true
-                            it.tvQuestionNum.setTextColorRes(R.color.purple_900)
-                            it.tvQuestions.setTextColorRes(R.color.purple_900)
-
                             it.imgToggle.setImageResource(R.drawable.remove)
                             it.tvAnswer.visibility = View.VISIBLE
                                 it.tvAnswer.text = faqs.answer
                         }else{
                             isExpand= false
-                            it.tvQuestions.setTextColor(context.getColorFromAttr(R.attr.colorOnSecondary))
-                            it.tvQuestionNum.setTextColorRes(R.color.gray_750)
                             it.imgToggle.setImageResource(R.drawable.plus)
                             it.tvAnswer.visibility = View.GONE
                         }

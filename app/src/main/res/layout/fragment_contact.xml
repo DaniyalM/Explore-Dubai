@@ -700,7 +700,7 @@
                         android:layout_height="@dimen/_35sdp"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:foreground="@drawable/custom_ripple_border"
-                        android:background="@drawable/fb_icon_png" />
+                        android:background="@drawable/facebook_icon" />
 
 
                     <androidx.appcompat.widget.AppCompatImageView

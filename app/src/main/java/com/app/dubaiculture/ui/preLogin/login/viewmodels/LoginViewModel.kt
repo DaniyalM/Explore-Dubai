@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.preLogin.login.viewmodels
 
 import android.app.Application
+import android.os.Bundle
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -121,6 +122,7 @@ class LoginViewModel @Inject constructor(
                             showAlert(message = activity.resources.getString(R.string.sop1))
                         } else {
                             //setting UaePassInfo for Session
+
                             userRepository.saveUaeInfo(
                                 it
                             )
@@ -137,9 +139,10 @@ class LoginViewModel @Inject constructor(
                             )
 
                             setUser(user, true)
-                            activity.auth.isGuest = false
                             //Saving User Session
                             userRepository.updateUser(user)
+
+
                         }
                     }
 

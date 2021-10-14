@@ -64,6 +64,20 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
         <action
+            android:id="@+id/action_loginFragment_to_createPassFragment1"
+            app:destination="@id/createPassFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" >
+<!--            <argument-->
+<!--                android:name="code"-->
+<!--                app:nullable="false"-->
+<!--                android:defaultValue="@null"-->
+<!--                app:argType="string"/>-->
+
+        </action>
+        <action
             android:id="@+id/action_loginFragment_to_registrationSuccessFragment"
             app:destination="@id/registrationSuccessFragment"
             app:enterAnim="@anim/fade_in"
@@ -104,6 +118,10 @@
         tools:layout="@layout/fragment_create_pass"
         android:name="com.app.dubaiculture.ui.preLogin.password.CreatePassFragment"
         android:label="CreatePassFragment" >
+<!--        <argument-->
+<!--            android:name="code"-->
+<!--            app:nullable="false"-->
+<!--            app:argType="string"/>-->
         <action
             android:id="@+id/action_createPassFragment_to_passwordUpdatedFragment"
             app:destination="@id/passwordUpdatedFragment"

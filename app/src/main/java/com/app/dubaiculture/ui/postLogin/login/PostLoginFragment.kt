@@ -101,13 +101,31 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         }
         splashViewModel.user.observe(viewLifecycleOwner) {
             if (it != null) {
-                application.auth.user = it
+                application.auth.apply {
+                    user = it
+                    if (!it.hasPassword){
+                        isGuest = false
+                        isLoggedIn = true
+                        dismiss()
+                        showToast("Welcome !")
+                        if (!from.isNullOrEmpty()) {
+                            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+                        }
+                    }else {
+                        if(it.verificationToken.isNotEmpty()){
+                            navigateByAction(R.id.action_postLoginFragment_to_postCreatePassFragment,Bundle().apply {
+                                putString("verificationCode",it.verificationToken)
+                                putBoolean("isHome",true)
+                            })
+                        }
+
+                    }
+
+                }
+
+
             }
-            dismiss()
-            showToast("Welcome !")
-            if (!from.isNullOrEmpty()) {
-                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-            }
+
         }
     }
 
