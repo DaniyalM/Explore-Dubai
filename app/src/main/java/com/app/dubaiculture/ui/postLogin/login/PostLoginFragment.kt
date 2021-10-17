@@ -103,7 +103,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
             if (it != null) {
                 application.auth.apply {
                     user = it
-                    if (!it.hasPassword){
+                    if (it.hasPassword){
                         isGuest = false
                         isLoggedIn = true
                         dismiss()

@@ -68,7 +68,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun subscribeToObservable(){
         homeViewModel.userLiveData.observe(viewLifecycleOwner){
             it?.apply {
-                if (hasPassword){
+                if (!hasPassword){
                     navigateByAction(R.id.action_homeFragment_to_createPassFragment2,Bundle().apply {
                         putString("verificationCode",it.verificationToken)
                         putBoolean("isHome",true)
