@@ -2,9 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data><variable
-        name="view"
-        type="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripFragment" /></data>
+    <data>
+
+        <variable
+            name="view"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripFragment" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -44,6 +47,7 @@
             app:layout_constraintBottom_toBottomOf="@id/iv_dropdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_dropdown" />
+
 
 
 

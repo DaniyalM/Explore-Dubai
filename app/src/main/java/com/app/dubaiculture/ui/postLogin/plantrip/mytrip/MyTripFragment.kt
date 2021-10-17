@@ -30,6 +30,9 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        navigate(R.id.action_myTrip_to_myTripBottomSheetFragment)
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
