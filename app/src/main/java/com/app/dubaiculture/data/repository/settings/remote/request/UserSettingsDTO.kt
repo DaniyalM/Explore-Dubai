@@ -5,7 +5,9 @@ data class UserSettingsDTO(
         val PushNotification:Boolean=false,
         val LocationBasedNotifications:Boolean=false,
         val Email:Boolean=false,
-        val SMS:Boolean=false
+        val SMS:Boolean=false,
+        val DefaultLanguage:String,
+
 )
 
 //"TurnOnLocation": false,

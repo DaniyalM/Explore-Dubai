@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@drawable/filter_event_icon"
+                android:background="@drawable/dc_search_icon"
                 app:layout_constraintBottom_toBottomOf="@+id/img_close"
                 app:layout_constraintTop_toTopOf="@+id/img_close" />
 

@@ -29,8 +29,8 @@ class ServiceDetailViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<String>(SERVICE_ID)?.let {
-//            getEServicesToScreen(context.auth.locale.toString(), it)
-            getEServicesToScreen(context.auth.locale.toString(), "E28578B5-3501-4B32-868C-72C73DE7A45D")
+            getEServicesToScreen(context.auth.locale.toString(), it)
+//            getEServicesToScreen(context.auth.locale.toString(), "E28578B5-3501-4B32-868C-72C73DE7A45D")
         }
     }
 

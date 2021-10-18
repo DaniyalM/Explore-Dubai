@@ -120,7 +120,7 @@ class AttractionFragment : BaseFragment<FragmentAttractionHeaderBinding>() {
             attractionPagerAdaper = AttractionPagerAdaper(this)
             binding.pager.adapter = attractionPagerAdaper
 
-//            binding.pager.isUserInputEnabled = false
+            binding.pager.isUserInputEnabled = false
             binding.pager.isSaveEnabled=false
             TabLayoutMediator(
                 binding.attractionTabs, binding.pager

@@ -123,10 +123,25 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     private fun subscribeToObservables() {
         loginViewModel.userLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
-                application.auth.user = it
-                application.auth.isGuest = false
-                application.auth.isLoggedIn = true
-                loginViewModel.getGuestUserIfExists()
+                application.auth.apply {
+                    user = it
+                    isGuest = false
+                    isLoggedIn = true
+                    loginViewModel.getGuestUserIfExists()
+//                    if (it.hasPassword){
+//
+//                    }else {
+//                        if(it.verificationToken.isNotEmpty()){
+//                            navigateByAction(R.id.action_loginFragment_to_createPassFragment,Bundle().apply {
+//                                putString("verificationCode",it.verificationToken)
+//                            })
+//                        }
+//
+//                    }
+
+                }
+
+
 
             }
         }

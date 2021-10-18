@@ -7,19 +7,27 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.CheckBox
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
-import com.app.dubaiculture.databinding.ActivityGenericBinding
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 
 
 abstract class BaseAuthenticationActivity : BaseActivity() {
 
-    protected lateinit var binding: ActivityGenericBinding
+//    protected lateinit var binding: ActivityGenericBinding
 
+    protected val reciever = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            applicationEntry.auth.user = null
+            applicationEntry.auth.isLoggedIn = false
+            checkLoginStatus()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        applicationEntry.auth.locale = getCurrentLanguage().language
+
         checkLoginStatus()
 
         baseOnCreate(savedInstanceState)
@@ -82,14 +90,11 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
     }
 
     fun recieveLogout() {
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("com.package.ACTION_LOGOUT")
-        registerReceiver(object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-//                Log.d("onReceive", "Logout in progress")
-                //At this point you should start the login activity and finish this one
-                killSessionAndStartNewActivity(PreLoginActivity::class.java)
-            }
-        }, intentFilter)
+        IntentFilter().apply {
+            addAction("com.package.ACTION_LOGOUT")
+            registerReceiver(reciever, this)
+        }
     }
+
+
 }

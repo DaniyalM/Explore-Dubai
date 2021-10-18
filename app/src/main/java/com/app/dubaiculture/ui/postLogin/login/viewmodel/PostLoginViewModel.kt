@@ -105,7 +105,7 @@ class PostLoginViewModel @Inject constructor(
                 }
                 is Result.Failure -> {
                     showLoader(false)
-                    showAlert(result.errorMessage?:"Server Error")
+                    showAlert(message = result.errorMessage?:"Server Error")
                 }
             }
         }

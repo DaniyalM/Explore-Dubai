@@ -666,7 +666,7 @@
                         android:layout_height="@dimen/_35sdp"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:foreground="@drawable/custom_ripple_border"
-                        android:background="@drawable/fb_icon_png" />
+                        android:background="@drawable/facebook_icon" />
 
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -674,7 +674,7 @@
                         android:id="@+id/imgTwitterAttraction"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
-                        android:background="@drawable/twitter_attraction_icon"
+                        android:src="@drawable/twitter_attraction_icon"
                         android:foreground="@drawable/custom_ripple_border" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -682,7 +682,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
-                        android:background="@drawable/insta_attraction_icon"
+                        android:src="@drawable/insta_attraction_icon"
                         android:foreground="@drawable/custom_ripple_border" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -690,14 +690,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:id="@+id/imgYoutube"
-                        android:background="@drawable/utube__attraction_icon"
+                        android:src="@drawable/utube__attraction_icon"
                         android:foreground="@drawable/custom_ripple_border" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
-                        android:background="@drawable/linkedin_attraction_icon"
+                        android:src="@drawable/linkedin_attraction_icon"
                         android:id="@+id/imgLinkedinAttraction"
                         android:foreground="@drawable/custom_ripple_border" />
                 </LinearLayout>

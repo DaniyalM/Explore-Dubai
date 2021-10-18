@@ -3,15 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_20sdp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_190sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         tools:context=".ui.postLogin.more.bottomsheet.LogoutFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/gray_line"
-            android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/gray_line"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,4 +71,5 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

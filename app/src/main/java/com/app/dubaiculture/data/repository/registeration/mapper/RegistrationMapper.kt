@@ -15,6 +15,7 @@ fun transform(registrationRequest: RegistrationRequest): RegistrationRequestDTO 
         ConfirmPassword = registrationRequest.confirmPassword,
         FullName = registrationRequest.fullName,
         PhoneNumber = registrationRequest.phoneNumber,
+        DefaultCulture = registrationRequest.culture
     )
 
 

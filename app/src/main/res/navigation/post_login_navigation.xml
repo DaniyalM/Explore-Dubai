@@ -9,6 +9,14 @@
         android:id="@+id/homeFragment"
         android:name="com.app.dubaiculture.ui.postLogin.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_createPassFragment2"
+            app:destination="@id/createPassFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPassFragment2"
+        android:name="com.app.dubaiculture.ui.preLogin.password.CreatePassFragment"
+        android:label="CreatePassFragment" />
 
 </navigation>

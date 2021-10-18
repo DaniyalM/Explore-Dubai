@@ -1,9 +1,12 @@
 package com.app.dubaiculture.data.repository.user.local
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity
 data class User(
     @PrimaryKey
@@ -17,9 +20,11 @@ data class User(
     var expireIn: Int?,
     var refreshToken: String,
     var idn: String?=null,
+    var verificationToken: String,
     var isTyped: Boolean = false,
+    var hasPassword: Boolean = false,
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis(),
-)
+):Parcelable
 
 
 

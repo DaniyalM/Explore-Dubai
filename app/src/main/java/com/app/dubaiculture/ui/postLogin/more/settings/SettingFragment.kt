@@ -81,7 +81,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
             when (it) {
                 is Result.Success -> {
                     it.value.getContentIfNotHandled()?.let {
-                        userSettings = it
+                        userSettings = it.copy(culture = getCurrentLanguage().language)
                         binding.noti.setOnClickListener(this)
                         binding.reset.setOnClickListener(this)
 
@@ -114,6 +114,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
                     sms = false
                     email = false
                     locationBasedNotifications = false
+                    culture=getCurrentLanguage().language
                     profileViewModel.updateSettings(this, true)
                 }
             }

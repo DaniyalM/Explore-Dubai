@@ -48,7 +48,6 @@ class PreLoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
-        applicationEntry.activity = this
 
     }
 
