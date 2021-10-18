@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pre_login_navigation"
-    app:startDestination="@id/splashFragment">
+    app:defaultNavHost="true"
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.app.dubaiculture.ui.preLogin.splash.SplashFragment"
@@ -27,6 +28,13 @@
         android:name="com.app.dubaiculture.ui.preLogin.login.LoginFragment"
         tools:layout="@layout/fragment_login"
         android:label="fragment_login" >
+<!--        <deepLink-->
+<!--            app:uri="com.dc.dc-success" />-->
+<!--        <deepLink-->
+<!--            app:uri="com.dc.dc-failure" />-->
+        <deepLink app:uri="uaePassDemo://success" />
+        <deepLink app:uri="uaePassDemo://failure" />
+
         <action
             android:id="@+id/action_loginFragment_to_registerFragment2"
             app:destination="@id/registerFragment2"
@@ -56,12 +64,27 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
         <action
+            android:id="@+id/action_loginFragment_to_createPassFragment1"
+            app:destination="@id/createPassFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" >
+<!--            <argument-->
+<!--                android:name="code"-->
+<!--                app:nullable="false"-->
+<!--                android:defaultValue="@null"-->
+<!--                app:argType="string"/>-->
+
+        </action>
+        <action
             android:id="@+id/action_loginFragment_to_registrationSuccessFragment"
             app:destination="@id/registrationSuccessFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
@@ -95,6 +118,10 @@
         tools:layout="@layout/fragment_create_pass"
         android:name="com.app.dubaiculture.ui.preLogin.password.CreatePassFragment"
         android:label="CreatePassFragment" >
+<!--        <argument-->
+<!--            android:name="code"-->
+<!--            app:nullable="false"-->
+<!--            app:argType="string"/>-->
         <action
             android:id="@+id/action_createPassFragment_to_passwordUpdatedFragment"
             app:destination="@id/passwordUpdatedFragment"

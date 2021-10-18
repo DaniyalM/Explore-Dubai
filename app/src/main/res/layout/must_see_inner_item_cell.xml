@@ -12,20 +12,20 @@
             type="com.daimajia.androidanimations.library.Techniques" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="285dp"
+        android:layout_width="@dimen/_210sdp"
         android:animate="@{technique.BounceInUp}"
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/attraction_image"
             android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             app:cardMaxElevation="@dimen/_10sdp"
             app:cardElevation="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:layout_width="250dp"
-            android:layout_height="330dp"
+            android:layout_width="@dimen/_190sdp"
+            android:layout_height="@dimen/_240sdp"
             app:cardCornerRadius="@dimen/_24sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

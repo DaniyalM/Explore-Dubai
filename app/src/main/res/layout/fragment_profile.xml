@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="@{user.userName}"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/profileImage"
@@ -153,14 +153,13 @@
             </FrameLayout>
 
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:outlineSpotShadowColor="?attr/color_card_views_shadow"
                 app:cardElevation="@dimen/_8sdp"
-                android:outlineSpotShadowColor="@color/gray_600"
-                android:outlineAmbientShadowColor="@color/gray_600"
                 app:cardCornerRadius="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="@+id/editButtonFrame"
                 app:layout_constraintStart_toStartOf="@+id/editButtonFrame"
@@ -196,7 +195,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
                             android:text="@string/favourites"
-                            android:textColor="@color/black_700"
+                            android:textColor="?attr/colorPrimary"
                             app:layout_constraintBottom_toBottomOf="@+id/icon_favourite"
                             app:layout_constraintStart_toEndOf="@+id/icon_favourite"
                             app:layout_constraintTop_toTopOf="@+id/icon_favourite" />
@@ -264,7 +263,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
                             android:text="@string/my_events"
-                            android:textColor="@color/black_700"
+                            android:textColor="?attr/colorPrimary"
                             app:layout_constraintBottom_toBottomOf="@+id/icon_events"
                             app:layout_constraintStart_toEndOf="@+id/icon_events"
                             app:layout_constraintTop_toTopOf="@+id/icon_events" />
@@ -307,7 +306,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
                             android:text="@string/places_visited"
-                            android:textColor="@color/black_700"
+                            android:textColor="?attr/colorPrimary"
                             app:layout_constraintBottom_toBottomOf="@+id/icon_places_visited"
                             app:layout_constraintStart_toEndOf="@+id/icon_places_visited"
                             app:layout_constraintTop_toTopOf="@+id/icon_places_visited" />
@@ -350,7 +349,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
                             android:text="@string/my_services"
-                            android:textColor="@color/black_700"
+                            android:textColor="?attr/colorPrimary"
                             app:layout_constraintBottom_toBottomOf="@+id/icon_my_services"
                             app:layout_constraintStart_toEndOf="@+id/icon_my_services"
                             app:layout_constraintTop_toTopOf="@+id/icon_my_services" />
@@ -391,7 +390,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
                             android:text="@string/my_trips"
-                            android:textColor="@color/black_700"
+                            android:textColor="?attr/colorPrimary"
                             app:layout_constraintBottom_toBottomOf="@+id/icon_my_trips"
                             app:layout_constraintStart_toEndOf="@+id/icon_my_trips"
                             app:layout_constraintTop_toTopOf="@+id/icon_my_trips" />
@@ -434,7 +433,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
                             android:text="@string/change_password"
-                            android:textColor="@color/black_700"
+                            android:textColor="?attr/colorPrimary"
                             app:layout_constraintBottom_toBottomOf="@+id/icon_change_password"
                             app:layout_constraintStart_toEndOf="@+id/icon_change_password"
                             app:layout_constraintTop_toTopOf="@+id/icon_change_password" />
@@ -457,7 +456,7 @@
                 </LinearLayout>
 
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
                 <View
                     android:layout_width="match_parent"

@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_14ssp"
                 android:layout_centerInParent="true"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 app:textFont="bold"
                 android:visibility="gone"
                 android:layout_gravity="center_horizontal"

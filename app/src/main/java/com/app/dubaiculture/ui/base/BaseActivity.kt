@@ -1,5 +1,7 @@
 package com.app.dubaiculture.ui.base
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
@@ -14,6 +16,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.app.dubaiculture.ui.postLogin.login.PostLoginFragment
+import com.app.dubaiculture.ui.preLogin.login.LoginFragment
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
@@ -25,25 +29,16 @@ import com.app.dubaiculture.utils.event.UiEvent
 import com.squareup.otto.Bus
 
 
-abstract class BaseActivity : LocalizationActivity() {
+ abstract class BaseActivity : LocalizationActivity() {
     lateinit var applicationEntry: ApplicationEntry
     protected lateinit var bus: Bus
     protected var isBusRegistered: Boolean = false
     private var customProgressDialog: ProgressDialog? = null
     protected lateinit var navController: NavController
 
+
     lateinit var checkBox: CheckBox
 
-
-//    override fun onStart() {
-//        super.onStart()
-//        adjustFontScale(resources.configuration)
-//    }
-
-//    override fun onResume() {
-//        super.onResume()
-//        adjustFontScale(resources.configuration)
-//    }
 
     protected fun getDrawableFromId(resId: Int?): Drawable? {
         resId?.let {
@@ -110,6 +105,9 @@ abstract class BaseActivity : LocalizationActivity() {
         isBusRegistered = true
         customProgressDialog = ProgressDialog(this)
 
+        darkModeAccess()
+
+
 
     }
 
@@ -117,45 +115,43 @@ abstract class BaseActivity : LocalizationActivity() {
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(this, {
             it.getContentIfNotHandled()
-                    ?.let { event ->
-                        when (event) {
-                            is UiEvent.ShowAlert -> {
-                                showAlert(event.message, this)
+                ?.let { event ->
+                    when (event) {
+                        is UiEvent.ShowAlert -> {
+                            showAlert(event.message, this)
 
-                            }
-                            is UiEvent.ShowToast -> {
-                                showToast(event.message, this)
-                            }
-                            is UiEvent.ShowLoader -> {
-                                showLoader(event.show, customProgressDialog)
-                            }
-                            is UiEvent.ShowSnackbar -> {
-                                showSnackbar(
-                                        findViewById(android.R.id.content),
-                                        event.message,
-                                        event.action
-                                )
-                            }
-                            is UiEvent.ShowErrorDialog -> {
-                                EventUtilFunctions.showErrorDialog(
-                                        event.message,
-                                        colorBg = event.colorBg,
-                                        context = this
-                                )
-                            }
+                        }
+                        is UiEvent.ShowToast -> {
+                            showToast(event.message, this)
+                        }
+                        is UiEvent.ShowLoader -> {
+                            showLoader(event.show, customProgressDialog)
+                        }
+                        is UiEvent.ShowSnackbar -> {
+                            showSnackbar(
+                                findViewById(android.R.id.content),
+                                event.message,
+                                event.action
+                            )
+                        }
+                        is UiEvent.ShowErrorDialog -> {
+                            EventUtilFunctions.showErrorDialog(
+                                event.message,
+                                colorBg = event.colorBg,
+                                context = this
+                            )
                         }
                     }
+                }
         })
     }
-
-
 
 
     override fun onDestroy() {
         super.onDestroy()
 
         if (customProgressDialog != null) {
-            if (customProgressDialog!!.isShowing){
+            if (customProgressDialog!!.isShowing) {
                 customProgressDialog!!.dismiss()
             }
             customProgressDialog = null
@@ -185,8 +181,27 @@ abstract class BaseActivity : LocalizationActivity() {
 
     protected fun getNavControllerFun(int: Int): NavController {
         val navHostFragment =
-                supportFragmentManager.findFragmentById(int) as NavHostFragment
-        return navHostFragment.navController
+            supportFragmentManager.findFragmentById(int) as NavHostFragment
+        navController=navHostFragment.navController
+        return navController
+    }
+
+    fun darkModeAccess() {
+        (application as ApplicationEntry).preferenceRepository
+            .nightModeLive.observe(this) { nightMode ->
+                nightMode?.let { delegate.localNightMode = it }
+            }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() ?: false
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        LoginFragment().apply {
+            handleIntent(intent)
+        }
     }
 
 

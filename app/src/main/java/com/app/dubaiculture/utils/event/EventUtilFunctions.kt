@@ -8,10 +8,12 @@ import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ProgressDialog
+import com.app.dubaiculture.utils.safeNavigateFromNavController
 import com.app.neomads.ui.components.customDialog.CustomDialog
 import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
@@ -19,6 +21,15 @@ import com.tapadoo.alerter.Alerter
 object EventUtilFunctions {
     fun showToast(message: String, context: Context) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+    fun showSnackBar(view: View, message: String, action: (() -> Unit)? = null) {
+        val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+        action?.let {
+            snackBar.setAction("Retry") {
+                it()
+            }
+        }
+        snackBar.show()
     }
 
     fun showAlert(
@@ -59,6 +70,7 @@ object EventUtilFunctions {
             .show()
     }
 
+
     fun showLoader(show: Boolean, customProgressDialog: ProgressDialog?) {
         if (show) {
             if (customProgressDialog!=null && !customProgressDialog.isShowing){
@@ -79,11 +91,16 @@ object EventUtilFunctions {
     }
 
     fun navigateByDirections(fragment: Fragment, navDirections: NavDirections) {
-        fragment.findNavController().navigate(navDirections)
+        fragment.safeNavigateFromNavController(navDirections)
+
+//        fragment.findNavController().navigate(navDirections)
     }
 
     fun navigateByAction(fragment: Fragment, actionId: Int, bundle: Bundle?) {
         fragment.findNavController().navigate(actionId, bundle)
+    }
+    fun navigateByActionNavOptions(fragment: Fragment, actionId: Int, bundle: Bundle?,navOptions: NavOptions) {
+        fragment.findNavController().navigate(actionId, bundle,navOptions)
     }
 
     fun showSnackbar(view: View, message: String, action: (() -> Unit)? = null) {
@@ -93,7 +110,6 @@ object EventUtilFunctions {
             snackbar.setAction("Retry") {
                 it.elevation =1000F
             }
-
         }
 
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {

@@ -31,6 +31,7 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
         super.onAttach(context)
         arguments?.let {
             userSettings = it.getParcelable(SETTINGS_BUNDLE)!!
+            userSettings = userSettings.copy(culture = getCurrentLanguage().language)
         }
     }
 
@@ -49,8 +50,6 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
     }
 
 
-
-
     fun markPushNotificationSwitch() {
         binding.pushNotSwitch.apply {
             setOnCheckedChangeListener(null)
@@ -63,7 +62,7 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
                 run {
                     if (isTouched) {
                         isTouched = false
-                        userSettings.pushNotification=isChecked
+                        userSettings.pushNotification = isChecked
                         profileViewModel.updateSettings(userSettings)
                     }
                 }
@@ -84,7 +83,7 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
                 run {
                     if (isTouched) {
                         isTouched = false
-                        userSettings.locationBasedNotifications=isChecked
+                        userSettings.locationBasedNotifications = isChecked
                         profileViewModel.updateSettings(userSettings)
                     }
                 }
@@ -104,7 +103,7 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
                 run {
                     if (isTouched) {
                         isTouched = false
-                        userSettings.email=isChecked
+                        userSettings.email = isChecked
                         profileViewModel.updateSettings(userSettings)
                     }
                 }
@@ -124,7 +123,7 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
                 run {
                     if (isTouched) {
                         isTouched = false
-                        userSettings.sms=isChecked
+                        userSettings.sms = isChecked
                         profileViewModel.updateSettings(userSettings)
                     }
                 }

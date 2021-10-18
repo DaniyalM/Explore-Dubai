@@ -4,22 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/event_detail_navigation"
     app:startDestination="@id/eventDetailFragment2">
-
     <fragment
         android:id="@+id/eventDetailFragment2"
-        tools:layout="@layout/fragment_event_detail"
         android:name="com.app.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"
-        android:label="EventDetailFragment" >
-
+        android:label="EventDetailFragment"
+        tools:layout="@layout/fragment_event_detail">
         <action
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/eventDetailFragment2"
             android:id="@+id/action_eventDetailFragment2_to_eventDetailFragment2"
             app:destination="@id/eventDetailFragment2"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/eventDetailFragment2"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_eventDetailFragment2_to_registerNowFragment"
             app:destination="@id/registerNowFragment"
@@ -42,13 +40,15 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
     </fragment>
-    <include app:graph="@navigation/post_login_bottom_navigation"/>
+    <include app:graph="@navigation/post_login_bottom_navigation" />
 
-    <dialog
+    <fragment
         android:id="@+id/registerNowFragment"
-        tools:layout="@layout/fragment_register_now"
         android:name="com.app.dubaiculture.ui.postLogin.events.detail.registernow.RegisterNowFragment"
-        android:label="RegisterNowFragment" >
+        android:label="RegisterNowFragment"
+
+        tools:layout="@layout/fragment_register_now">
+
         <action
             android:id="@+id/action_registerNowFragment_to_registrationSuccessFragment2"
             app:destination="@id/registrationSuccessFragment2"
@@ -56,7 +56,16 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
-    </dialog>
+        <action
+            app:popUpTo="@id/registerNowFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_registerNowFragment_to_registrationSuccessFragment3"
+            app:destination="@id/registrationSuccessFragment3" />
+    </fragment>
+    <dialog
+        android:id="@+id/registrationSuccessFragment3"
+        android:name="com.app.dubaiculture.ui.preLogin.registeration.RegistrationSuccessFragment"
+        android:label="RegistrationSuccessFragment" />
 
 
 </navigation>

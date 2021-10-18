@@ -78,15 +78,12 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
                                                 it)
                                     })
                                 }
-
                                 override fun rowClickListener(position: Int, imageView: ImageView) {
-
                                 }
                             },
                             attraction = it,
                             context = activity,
                             isVisited = true
-
                     ))
                 }
             }
@@ -122,31 +119,18 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
                     back()
                 }
             }
-
         }
 
         attractionViewModel.getVisitedAttractions(getCurrentLanguage().language)
-
-
         binding.apply {
-
             personalRv.apply {
                 isNestedScrollingEnabled = false
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 adapter = placesVisitedListAdapter
             }
             subscribeToObservables()
-
         }
-
-
-
     }
-
-
-
-
-
 //    private fun testPlaces():MutableList<Attractions>{
 //        val placesVisited= ArrayList<Attractions>()
 //        repeat(10){

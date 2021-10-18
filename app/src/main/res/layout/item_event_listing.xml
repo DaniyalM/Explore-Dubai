@@ -12,9 +12,8 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview"
             android:animate="@{technique.BounceInUp}"
-
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_250sdp"
             app:cardCornerRadius="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
@@ -253,9 +252,10 @@
                 android:elevation="@dimen/_2sdp"
                 android:foreground="@drawable/custom_ripple_border"
                 android:gravity="center"
+
                 android:text="@string/submit_survey"
                 android:textAllCaps="false"
-                android:textColor="@color/white_900" />
+                android:textColor="@color/purple_900" />
 
         </LinearLayout>
 

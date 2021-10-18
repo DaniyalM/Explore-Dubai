@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.postLogin.feeds.FeedsFragment">
+
+    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include android:id="@+id/toolbar_snippet" layout="@layout/toolbar_snippet" />
+
+            <!--            <FrameLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@color/app_bg"-->
+            <!--                app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+
+            <!--        </FrameLayout>-->
+
+            <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_45sdp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/attractionTabs"
+                        android:layout_width="match_parent"
+                        style="@style/TabTextStyleAttraction"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabMode="scrollable"
+                        app:tabRippleColor="@null"/>
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/pager"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+
+        </LinearLayout>
+
+
+    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
+</layout>

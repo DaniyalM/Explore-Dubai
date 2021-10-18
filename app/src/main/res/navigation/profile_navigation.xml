@@ -55,7 +55,18 @@
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_profileFragment_to_myServicesFragment"
-            app:destination="@id/myServicesFragment" />
+            app:destination="@id/myServicesFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_profileFragment_to_serviceDetailFragment"
+            app:destination="@id/serviceDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
     </fragment>
     <fragment
         android:id="@+id/placesVisited"
@@ -79,7 +90,11 @@
     <fragment
         android:id="@+id/myEventsFragment"
         android:name="com.app.dubaiculture.ui.postLogin.events.myevents.MyEventsFragment"
-        android:label="MyEventsFragment" />
+        android:label="MyEventsFragment" >
+        <action
+            android:id="@+id/action_myEventsFragment_to_surveyFragment"
+            app:destination="@id/surveyFragment" />
+    </fragment>
     <dialog
         android:id="@+id/avatarPickerFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.profile.avatarPicker.AvatarPickerFragment"
@@ -130,4 +145,12 @@
         android:id="@+id/myServicesFragment"
         android:name="com.app.dubaiculture.ui.postLogin.popular_service.myservices.MyServicesFragment"
         android:label="MyServicesFragment" />
+    <fragment
+        android:id="@+id/serviceDetailFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"
+        android:label="ServiceDetailFragment" />
+    <fragment
+        android:id="@+id/surveyFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.survey.SurveyFragment"
+        android:label="SurveyFragment" />
 </navigation>

@@ -1,13 +1,7 @@
 package com.app.dubaiculture.data.repository.sitemap
 
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.base.BaseRepository
-import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.data.repository.event.mapper.transformEventFiltersRequest
-import com.app.dubaiculture.data.repository.event.mapper.transformOtherEvents
-import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
-import com.app.dubaiculture.data.repository.sitemap.local.AttractionsSiteMap
 import com.app.dubaiculture.data.repository.sitemap.local.SiteMapModel
 import com.app.dubaiculture.data.repository.sitemap.mapper.transformSiteMap
 import com.app.dubaiculture.data.repository.sitemap.mapper.trasformSiteMapRequest
@@ -25,8 +19,8 @@ class SiteMapRespository @Inject constructor(private val siteMapRDS: SiteMapRDS)
                 if (sitemapLDS.value.statusCode != 200) {
                     Result.Failure(true, sitemapLDS.value.statusCode, null)
                 } else {
-                    val siteMapResponse  = transformSiteMap(sitemapLDS.value)
-                    Result.Success( siteMapResponse)
+                    val siteMapResponse = transformSiteMap(sitemapLDS.value)
+                    Result.Success(siteMapResponse)
 
                 }
             }

@@ -2,97 +2,108 @@ package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
 import android.content.Context
 import android.graphics.Color
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
-import com.app.dubaiculture.databinding.AttractionsCategoryItemCellBinding
-import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
-import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.databinding.AttractionListItemCellBinding
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionClickListener
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.utils.AsyncCell
-import com.google.android.material.shape.CornerFamily
+import com.app.dubaiculture.utils.dateFormatVisitedPlace
 
 
 class AttractionInnerAdapter(
-    private val rowClickListener: RowClickListener? = null,
-    private val isArabic: Boolean,
-) : BaseRecyclerAdapter<AttractionCategory>() {
+    private val favChecker: FavouriteChecker? = null,
+    private val attractionClickListener: AttractionClickListener? = null,
+    private val isArabic: Boolean?=null,
+) : PagingDataAdapter<Attractions, AttractionInnerAdapter.AttractionViewHolder>(object :
+    DiffUtil.ItemCallback<Attractions>() {
+    override fun areItemsTheSame(
+        oldItem: Attractions,
+        newItem: Attractions
+    ) = oldItem.hashCode() == newItem.hashCode()
 
-    var attractions: List<AttractionCategory>
-        get() = differ.currentList
-        set(value) = differ.submitList(value)
 
-    inner class AttractionViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
+    override fun areContentsTheSame(
+        oldItem: Attractions,
+        newItem: Attractions
+    ) = oldItem.id == newItem.id
+}) {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    inner class AttractionViewHolder(
+       val binding: AttractionListItemCellBinding,
+       val favChecker: FavouriteChecker?,
+       val attractionClickListener: AttractionClickListener?
+    ) : RecyclerView.ViewHolder(binding.root){
+        fun bind(attractions: Attractions){
+            binding.attractions=attractions
+
+            binding.apply {
+                attractions.apply {
+
+                    attractionImage.setOnClickListener {
+                        attractionClickListener?.rowClickListener(this)
+                    }
+                    attractionImage.setOnClickListener {
+                        attractionClickListener?.rowClickListener(
+                            absoluteAdapterPosition,
+                            imgMustSee,
+                            this
+                        )
+                    }
+
+                    if (IsFavourite) {
+                        favourite.background =
+                            ContextCompat.getDrawable(binding.root.context, R.drawable.heart_icon_fav)
+                    }
+                    favourite.setOnClickListener {
+                        favChecker?.checkFavListener(
+                            favourite,
+                            absoluteAdapterPosition,
+                            IsFavourite,
+                            id
+                        )
+                    }
+
+                    if (!color.isNullOrEmpty()) {
+                        attractionImage.setCardBackgroundColor(Color.parseColor(getItem(position)?.color))
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                            attractionImage.outlineSpotShadowColor =
+                                Color.parseColor(color)
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+
+
+
+
+
+    override fun onBindViewHolder(holder: AttractionViewHolder, position: Int) {
+        getItem(position)?.let { holder.bind(it) }
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttractionViewHolder {
         return AttractionViewHolder(
-            AttractionInnerItemCell(parent.context).apply { inflate() }
+            AttractionListItemCellBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            ),
+            favChecker=favChecker,
+            attractionClickListener=attractionClickListener
         )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is AttractionViewHolder -> setUpAttractionViewHolder(holder, position)
-        }
-    }
 
-    override fun getItemCount() = attractions.size
-
-    private inner class AttractionInnerItemCell(context: Context) : AsyncCell(context, true) {
-        var binding: AttractionsCategoryItemCellBinding? = null
-        override val layoutId = R.layout.attractions_category_item_cell
-        override fun createDataBindingView(view: View): View? {
-            binding = AttractionsCategoryItemCellBinding.bind(view)
-            return view.rootView
-        }
-    }
-
-    private fun setUpAttractionViewHolder(
-        holder: AttractionInnerAdapter.AttractionViewHolder,
-        position: Int,
-    ) {
-        (holder.itemView as AttractionInnerAdapter.AttractionInnerItemCell).bindWhenInflated {
-            // red
-
-
-            val radius = resources.getDimension(R.dimen.my_corner_radius)
-            val zeroDp = resources.getDimension(R.dimen.my_corner_radius)
-            holder.itemView.binding?.apply {
-                attractionImage.setOnClickListener {
-                    rowClickListener!!.rowClickListener(position)
-                }
-                if (isArabic)
-                    attractionImage.shapeAppearanceModel =
-                        attractionImage.shapeAppearanceModel
-                            .toBuilder()
-                            .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                            .setBottomRightCornerSize(zeroDp)
-                            .build()
-                else
-                    attractionImage.shapeAppearanceModel =
-                        attractionImage.shapeAppearanceModel
-                            .toBuilder()
-                            .setTopRightCorner(CornerFamily.ROUNDED, radius)
-                            .setBottomLeftCornerSize(zeroDp)
-                            .build()
-
-
-            }
-
-
-            holder.itemView.binding?.let {
-                if (!attractions[position].color.isNullOrEmpty()) {
-                    it.attractionImage.setCardBackgroundColor(Color.parseColor(attractions[position].color))
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-                        it.attractionImage.outlineSpotShadowColor =
-                            Color.parseColor(attractions[position].color)
-                    }
-                }
-//                it.attractions = attractions[position]
-            }
-        }
-
-    }
 }

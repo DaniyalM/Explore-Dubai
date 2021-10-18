@@ -1,19 +1,22 @@
 package com.app.dubaiculture.ui.base
 
+import ae.sdg.libraryuaepass.UAEPassController
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
@@ -54,6 +57,8 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         application = activity.application as ApplicationEntry
         groupAdapter = GroupAdapter()
         customProgressDialog = ProgressDialog(activity)
+//        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
+
 
     }
 
@@ -62,7 +67,13 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         bus = application.bus
         bus.register(this)
         dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        return super.onCreateDialog(savedInstanceState)
+
+        return super.onCreateDialog(savedInstanceState).apply {
+            setOnShowListener {
+                val bottomSheet = findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
+                bottomSheet.setBackgroundResource(android.R.color.transparent)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -103,7 +114,8 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
                                 EventUtilFunctions.showToast(event.message, activity)
                             }
                             is UiEvent.ShowLoader -> {
-                                EventUtilFunctions.showLoader(event.show, customProgressDialog)
+                                showLoader(event.show)
+//                                EventUtilFunctions.showLoader(event.show, customProgressDialog)
                             }
                             is UiEvent.ShowSnackbar -> {
                                 EventUtilFunctions.showSnackbar(
@@ -162,6 +174,13 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         EventUtilFunctions.showAlert(message, activity)
     }
 
+    fun showToast(message: String) {
+        EventUtilFunctions.showToast(message, activity)
+    }
+    fun showLoader(show: Boolean) {
+        EventUtilFunctions.showLoader(show, customProgressDialog)
+    }
+
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
     fun showErrorDialog(message: String) {
         EventUtilFunctions.showErrorDialog(message, context = activity)
@@ -176,4 +195,14 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
             }
         }
     }
+
+    fun handleIntent(intent: Intent?) {
+        if (intent != null && intent.data != null) {
+            if (BuildConfig.URI_SCHEME1.equals(intent.data!!.scheme)) {
+                UAEPassController.resume(intent.dataString!!)
+            }
+        }
+    }
+
+
 }

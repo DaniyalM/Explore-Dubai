@@ -4,27 +4,26 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionHeaderClick
+import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 
 
 class EventHeaderItems<T>(
-        val displayValue: String,
-        val data: T,
-        var isSelected: Boolean = false,
-        private val selectedTextColor: Int? = null,
-        private val unSelectedTextColor: Int? = null,
-        private val selectedBackground: Drawable? = null,
-        private val unSelectedBackground: Drawable? = null,
-        private val progressListener: AttractionHeaderClick? = null,
+    val displayValue: String,
+    val data: T,
+    var isSelected: Boolean = false,
+    private val selectedTextColor: Int? = null,
+    private val unSelectedTextColor: Int? = null,
+    private val selectedBackground: Drawable? = null,
+    private val unSelectedBackground: Drawable? = null,
+    private val progressListener: TabsHeaderClick? = null,
 
-        ) : BaseAdapter(R.layout.event_items_header) {
+    ) : BaseAdapter(R.layout.event_items_header) {
 
 
     private lateinit var view: View

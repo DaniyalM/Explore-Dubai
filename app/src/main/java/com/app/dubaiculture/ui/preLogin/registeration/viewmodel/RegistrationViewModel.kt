@@ -4,23 +4,25 @@ import android.app.Application
 import android.widget.CompoundButton
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.registeration.RegistrationRepository
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.registeration.RegisterFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
-import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequest
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class RegistrationViewModel @ViewModelInject constructor(
+@HiltViewModel
+class RegistrationViewModel @Inject constructor(
     application: Application,
     private val registrationRepository: RegistrationRepository,
 ) : BaseViewModel(application) {
@@ -46,16 +48,16 @@ class RegistrationViewModel @ViewModelInject constructor(
     val isPasswordConfirm = MutableLiveData<Boolean?>(true)
     val isTermAccepted = MutableLiveData<Boolean?>(true)
 
-        // errors
+    // errors
 
-        private var _fullnameError = MutableLiveData<Int>()
-        var fullnameError: LiveData<Int> = _fullnameError
+    private var _fullnameError = MutableLiveData<Int>()
+    var fullnameError: LiveData<Int> = _fullnameError
 
-        private var _emailError = MutableLiveData<Int>()
-        var emailError: LiveData<Int> = _emailError
+    private var _emailError = MutableLiveData<Int>()
+    var emailError: LiveData<Int> = _emailError
 
-        private var _phoneError = MutableLiveData<Int>()
-        var phoneError: LiveData<Int> = _phoneError
+    private var _phoneError = MutableLiveData<Int>()
+    var phoneError: LiveData<Int> = _phoneError
 
     private var passwordError_ = MutableLiveData<Int>()
     var passwordError: LiveData<Int> = passwordError_
@@ -65,6 +67,7 @@ class RegistrationViewModel @ViewModelInject constructor(
 
     private val errs_ = MutableLiveData<Int>()
     val errs: LiveData<Int> = errs_
+    private val context = getApplication<ApplicationEntry>()
 
 
     fun register() {
@@ -77,7 +80,9 @@ class RegistrationViewModel @ViewModelInject constructor(
                 password = password.get().toString().trim(),
                 confirmPassword = passwordConifrm.get().toString().trim(),
                 fullName = fullName.get().toString().trim(),
-                phoneNumber = phone.get().toString().trim()
+                phoneNumber = phone.get().toString().trim(),
+                culture = context.auth.locale.toString()
+
             ).let {
                 when (val result = registrationRepository.register(it)) {
                     is Result.Error -> {
@@ -92,11 +97,17 @@ class RegistrationViewModel @ViewModelInject constructor(
                                 )
                             )
                         } else {
-                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
+                            showErrorDialog(
+                                message = result.value.errorMessage,
+                                colorBg = R.color.red_600
+                            )
                         }
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
+                        showErrorDialog(
+                            message = INTERNET_CONNECTION_ERROR,
+                            colorBg = R.color.red_600
+                        )
                         Timber.e(result.errorCode?.toString())
                     }
                 }
@@ -104,7 +115,6 @@ class RegistrationViewModel @ViewModelInject constructor(
             showLoader(false)
         }
     }
-
 
 
     fun onFullNameChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
@@ -128,7 +138,7 @@ class RegistrationViewModel @ViewModelInject constructor(
 
     fun onPhoneChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         phone.set(s.toString())
-        val number   = AuthUtils.isPhoneNumberValidate(s.toString().trim())
+        val number = AuthUtils.isPhoneNumberValidate(s.toString().trim())
         isPhone.value = number!!.isValid
         errs_.value = AuthUtils.errorsPhone(s.toString().trim())
     }
@@ -141,11 +151,15 @@ class RegistrationViewModel @ViewModelInject constructor(
 
     fun onConfirmPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         passwordConifrm.set(s.toString())
-        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(password.get().toString(),
-            passwordConifrm.get().toString().trim())
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(
+            password.get().toString(),
+            passwordConifrm.get().toString().trim()
+        )
         passwordConfirmError_.value =
-            AuthUtils.isMatchPasswordError(password.get().toString().trim(),
-                passwordConifrm.get().toString().trim())
+            AuthUtils.isMatchPasswordError(
+                password.get().toString().trim(),
+                passwordConifrm.get().toString().trim()
+            )
 
     }
 
@@ -154,7 +168,7 @@ class RegistrationViewModel @ViewModelInject constructor(
         isTermAccepted.value = isChecked
     }
 
-   private fun isCheckValid(): Boolean {
+    private fun isCheckValid(): Boolean {
         var isValid = true
         _emailError.value = AuthUtils.isEmailErrors(s = email.get().toString().trim())
         isEmail.value = AuthUtils.isEmailErrorsbool(email.get().toString().trim())
@@ -167,13 +181,15 @@ class RegistrationViewModel @ViewModelInject constructor(
         isPassword.value = AuthUtils.isValidPasswordFormat(password.get().toString().trim())
         passwordError_.value = AuthUtils.passwordErrors(password.get().toString().trim())
         passwordConfirmError_.value =
-            AuthUtils.isMatchPasswordError(password.get().toString().trim(),
-                passwordConifrm.get().toString().trim())
-        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(password.get().toString(),
-            passwordConifrm.get().toString().trim())
+            AuthUtils.isMatchPasswordError(
+                password.get().toString().trim(),
+                passwordConifrm.get().toString().trim()
+            )
+        isPasswordConfirm.value = AuthUtils.isMatchPasswordBool(
+            password.get().toString(),
+            passwordConifrm.get().toString().trim()
+        )
         isTermAccepted.value = termsAccepted.get() != false
-
-
 
 
         if (fullName.get().toString().trim().isNullOrEmpty()) {
@@ -199,8 +215,10 @@ class RegistrationViewModel @ViewModelInject constructor(
         if (!AuthUtils.isValidPasswordFormat(password.get().toString().trim())) {
             isValid = false
         }
-        if (!AuthUtils.isMatchPasswordBool(password.get().toString(),
-                passwordConifrm.get().toString().trim())
+        if (!AuthUtils.isMatchPasswordBool(
+                password.get().toString(),
+                passwordConifrm.get().toString().trim()
+            )
         ) {
             isValid = false
         }

@@ -4,28 +4,35 @@ package com.app.dubaiculture.ui.postLogin.login.viewmodel
 import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
+import com.app.dubaiculture.data.repository.login.local.UAEPass
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
+import com.app.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.data.repository.user.mapper.transform
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import transformUaeResponse
+import javax.inject.Inject
 
-class PostLoginViewModel @ViewModelInject constructor(
-        private val loginRepository: LoginRepository,
-        private val userRepository: UserRepository,
-        application: Application,
+@HiltViewModel
+class PostLoginViewModel @Inject constructor(
+    private val loginRepository: LoginRepository,
+    private val userRepository: UserRepository,
+    application: Application,
 ) : BaseViewModel(application) {
+    private val activity = getApplication<ApplicationEntry>()
 
     var phone: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
@@ -60,12 +67,56 @@ class PostLoginViewModel @ViewModelInject constructor(
     var loginStatus: MutableLiveData<Event<Boolean>> = _loginStatus
 
 
+    fun loginWithUae(uaeLoginRequest: UAELoginRequest){
+        viewModelScope.launch {
+            showLoader(true)
+            when(val result=loginRepository.loginWithUae(uaeLoginRequest)){
+                is Result.Success ->{
+                    showLoader(false)
+                    val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+                    uaePass.let {
+                        if (it.idn.isEmpty()) {
+                            showAlert(message = activity.resources.getString(R.string.sop1))
+                        } else {
+                            //setting UaePassInfo for Session
+                            userRepository.saveUaeInfo(
+                                it
+                            )
+
+                            //setting user for Session
+                            val user = transform(
+                                result.value.loginResponseDTO.userDTO,
+                                result.value.loginResponseDTO
+                            ).copy(
+                                idn = it.idn,
+                                userName = "${it.firstNameEn} ${it.lastNameEn}",
+                                email = it.email,
+                                phoneNumber = "+${it.mobile}"
+                            )
+
+                            setUser(user, true)
+                            activity.auth.isGuest = false
+                            //Saving User Session
+                            userRepository.updateUser(user)
+                            _loginStatus.value=Event(true)
+                        }
+                    }
+
+                }
+                is Result.Failure -> {
+                    showLoader(false)
+                    showAlert(message = result.errorMessage?:"Server Error")
+                }
+            }
+        }
+    }
+
     fun loginWithPhone(ph: String? = null, pass: String? = null) {
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                    phoneNumber = ph.toString().trim(),
-                    password = pass.toString().trim()
+                phoneNumber = ph.toString().trim(),
+                password = pass.toString().trim()
             ).let {
                 when (val result = loginRepository.login(it)) {
                     is Result.Success -> {
@@ -76,16 +127,24 @@ class PostLoginViewModel @ViewModelInject constructor(
                                 resendPhoneVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
-                                setUser(transform(result.value.loginResponseDTO.userDTO, result.value.loginResponseDTO))
+                                setUser(
+                                    transform(
+                                        result.value.loginResponseDTO.userDTO,
+                                        result.value.loginResponseDTO
+                                    )
+                                )
                                 userRepository.saveUser(
-                                        userDTO = result.value.loginResponseDTO.userDTO,
-                                        loginResponseDTO = result.value.loginResponseDTO)
+                                    userDTO = result.value.loginResponseDTO.userDTO,
+                                    loginResponseDTO = result.value.loginResponseDTO
+                                )
                                 _loginStatus.value = Event(true)
                             }
                         } else {
                             showLoader(false)
-                            showErrorDialog(message = result.value.errorMessage,
-                                    colorBg = R.color.red_600)
+                            showErrorDialog(
+                                message = result.value.errorMessage,
+                                colorBg = R.color.red_600
+                            )
 //                            showToast(message = result.value.errorMessage)
 
                         }
@@ -96,7 +155,10 @@ class PostLoginViewModel @ViewModelInject constructor(
                     }
                     is Result.Failure -> {
                         showLoader(false)
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
+                        showErrorDialog(
+                            message = Constants.Error.INTERNET_CONNECTION_ERROR,
+                            colorBg = R.color.red_600
+                        )
 //                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
 
 
@@ -113,8 +175,8 @@ class PostLoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                    email = eml.toString().trim(),
-                    password = pass.toString().trim()
+                email = eml.toString().trim(),
+                password = pass.toString().trim()
             ).let {
                 when (val result = loginRepository.loginWithEmail(it)) {
                     is Result.Success -> {
@@ -126,18 +188,25 @@ class PostLoginViewModel @ViewModelInject constructor(
                                 resendEmailVerification()
                             } else {
                                 Timber.e(result.value.loginResponseDTO.userDTO.Email)
-                                setUser(transform(result.value.loginResponseDTO.userDTO,
-                                        result.value.loginResponseDTO))
+                                setUser(
+                                    transform(
+                                        result.value.loginResponseDTO.userDTO,
+                                        result.value.loginResponseDTO
+                                    )
+                                )
 
                                 userRepository.saveUser(
-                                        userDTO = result.value.loginResponseDTO.userDTO,
-                                        loginResponseDTO = result.value.loginResponseDTO
+                                    userDTO = result.value.loginResponseDTO.userDTO,
+                                    loginResponseDTO = result.value.loginResponseDTO
                                 )
                                 _loginStatus.value = Event(true)
                             }
                         } else {
                             showLoader(false)
-                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
+                            showErrorDialog(
+                                message = result.value.errorMessage,
+                                colorBg = R.color.red_600
+                            )
 //                            showToast(message = result.value.errorMessage)
 
                         }
@@ -148,7 +217,10 @@ class PostLoginViewModel @ViewModelInject constructor(
 
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
+                        showErrorDialog(
+                            message = Constants.Error.INTERNET_CONNECTION_ERROR,
+                            colorBg = R.color.red_600
+                        )
 //                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
 
                         showLoader(false)
@@ -163,7 +235,7 @@ class PostLoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                    email = phone.get().toString().trim()
+                email = phone.get().toString().trim()
             ).let {
                 when (val result = loginRepository.resendVerification(it)) {
                     is Result.Success -> {
@@ -181,7 +253,10 @@ class PostLoginViewModel @ViewModelInject constructor(
                         } else {
                             showLoader(false)
                             if (result.value.errorMessage.isNullOrEmpty()) {
-                                showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
+                                showErrorDialog(
+                                    message = result.value.errorMessage,
+                                    colorBg = R.color.red_600
+                                )
 //                                showToast(message = result.value.errorMessage)
 
                             }
@@ -192,7 +267,10 @@ class PostLoginViewModel @ViewModelInject constructor(
 
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
+                        showErrorDialog(
+                            message = Constants.Error.INTERNET_CONNECTION_ERROR,
+                            colorBg = R.color.red_600
+                        )
 //                        showToast(message = Constants.Error.INTERNET_CONNECTION_ERROR)
 
                     }
@@ -206,7 +284,7 @@ class PostLoginViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             showLoader(true)
             LoginRequest(
-                    phoneNumber = phone.get().toString().trim()
+                phoneNumber = phone.get().toString().trim()
             ).let {
                 when (val result = loginRepository.resendVerification(it)) {
                     is Result.Success -> {
@@ -221,7 +299,10 @@ class PostLoginViewModel @ViewModelInject constructor(
 //                                    password = password.get().toString().trim(),
 //                                    screenName = Constants.NavBundles.COMES_FROM_LOGIN))
                         } else {
-                            showErrorDialog(message = result.value.errorMessage, colorBg = R.color.red_600)
+                            showErrorDialog(
+                                message = result.value.errorMessage,
+                                colorBg = R.color.red_600
+                            )
 //                            showToast(message = result.value.errorMessage)
 
                         }
@@ -229,7 +310,10 @@ class PostLoginViewModel @ViewModelInject constructor(
                     is Result.Error -> {
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = Constants.Error.INTERNET_CONNECTION_ERROR, colorBg = R.color.red_600)
+                        showErrorDialog(
+                            message = Constants.Error.INTERNET_CONNECTION_ERROR,
+                            colorBg = R.color.red_600
+                        )
 //                        showToast(message =Constants.Error.INTERNET_CONNECTION_ERROR)
 
                     }

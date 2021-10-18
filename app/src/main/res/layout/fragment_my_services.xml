@@ -10,7 +10,6 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:background="@color/gray_600"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -25,7 +24,7 @@
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/places_visited"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 android:textSize="32sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/header"
@@ -61,6 +60,7 @@
                             android:id="@+id/rvServiceStatusListing"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/_50sdp"
                             tools:itemCount="2"
                             tools:listitem="@layout/items_book_a_ticket_layout"
                             android:clickable="true"
@@ -70,6 +70,7 @@
                             android:id="@+id/rvAttractionListing"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/_50sdp"
                             android:visibility="gone"
                             android:clickable="true"
                             android:focusable="true" />

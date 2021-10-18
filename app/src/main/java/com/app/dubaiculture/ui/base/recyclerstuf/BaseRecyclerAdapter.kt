@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.data.repository.explore.local.models.BaseModel
 
 abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    
     private val diffCallback = object : DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {

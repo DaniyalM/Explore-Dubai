@@ -13,9 +13,11 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentHomeBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.home.viewmodels.HomeViewModel
+import com.app.dubaiculture.utils.Constants.NavBundles.NEW_LOCALE
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val homeViewModel: HomeViewModel by viewModels()
     private var bottomNavigationView: BottomNavigationView? = null
@@ -30,6 +32,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        subscribeUiEvents(homeViewModel)
+        if (bottomNavigationView==null){
+            subscribeToObservable()
+        }
         bottomNavigationView = binding.bottomNav
         applicationExitDialog()
         setupBottomNavVisibility()
@@ -59,6 +65,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         return navHostFragment.navController
     }
 
+    private fun subscribeToObservable(){
+        homeViewModel.userLiveData.observe(viewLifecycleOwner){
+            it?.apply {
+                if (!hasPassword){
+                    navigateByAction(R.id.action_homeFragment_to_createPassFragment2,Bundle().apply {
+                        putString("verificationCode",it.verificationToken)
+                        putBoolean("isHome",true)
+                    })
+                }
+            }
+        }
+    }
+
     private fun setupBottomNavVisibility() {
 
         bottomNavigationView?.apply {
@@ -81,6 +100,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.ibeconFragment -> {
                         visibility = View.GONE
                     }
+
+                    R.id.surveyFragment -> {
+                        visibility = View.GONE
+                    }
+
                     R.id.attractionGalleryFragment -> {
                         visibility = View.GONE
                     }
@@ -96,8 +120,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.favouriteFragment -> {
                         visibility = View.GONE
                     }
+                    R.id.postCreatePassFragment -> {
+                        visibility = View.GONE
+                    }
                     else -> {
                         visibility = View.VISIBLE
+                        Bundle().apply {
+                            putString(NEW_LOCALE,getCurrentLanguage().language)
+                        }
                     }
                 }
 

@@ -19,6 +19,7 @@ import com.xwray.groupie.databinding.BindableItem
 data class EventListItem<T : ViewDataBinding>(
     private val favChecker: FavouriteChecker? = null,
     private val rowClickListener: RowClickListener? = null,
+    private val submitSurveyRowClickListener: SurveySubmitListener?=null,
     val event: Events,
     val resLayout: Int = R.layout.item_event_listing,
     val context: Context,
@@ -54,37 +55,46 @@ data class EventListItem<T : ViewDataBinding>(
             is ItemEventListingBinding -> {
                 viewBinding.let { binding->
                     binding.events = event
-
                     if (event.isFavourite) {
                         binding.favourite.background =
-                            ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
+                                ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
                     }
-
-
-                    if (hasSurvey) {
-                        binding.btnSurvery.visibility = View.VISIBLE
-                        if (!event.isSurveySubmitted) {
-                            binding.btnSurvery.background = ContextCompat.getDrawable(
-                                context,
-                                R.drawable.my_event_btn_enable
-                            //if you want to disable then use R.drawable.bg_btn_filled_disabled.
-                            // change text color too white to purple.
-                            )
-                            binding.btnSurvery.text = "Survey Submitted"
-                        }
-                    }
-
                     binding.favourite.setOnClickListener {
                         event.id?.let { itemId ->
                             favChecker!!.checkFavListener(
-                                binding.favourite,
-                                position,
-                                event.isFavourite,
-                                itemId
+                                    binding.favourite,
+                                    position,
+                                    event.isFavourite,
+                                    itemId
                             )
 
                         }
                     }
+                    if (!event.isSurveySubmitted) {
+                        binding.btnSurvery.visibility = View.VISIBLE
+                        binding.btnSurvery.background = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.my_event_btn_enable
+                            //if you want to disable then use R.drawable.bg_btn_filled_disabled.
+                            // change text color too white to purple.
+                        )
+                        binding.btnSurvery.text = context.resources.getString(R.string.submit_survey)
+                        binding.btnSurvery.setOnClickListener {
+                            submitSurveyRowClickListener?.submitBtnClickListener(position)
+                        }
+
+                    }else{
+                        binding.btnSurvery.visibility = View.VISIBLE
+                        binding.btnSurvery.background = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.bg_btn_filled_disabled
+                            //if you want to disable then use R.drawable.bg_btn_filled_disabled.
+                            // change text color too white to purple.
+                        )
+                        binding.btnSurvery.text = context.resources.getString(R.string.submit_survey)
+                        binding.btnSurvery.setTextColor(context.resources.getColor(R.color.white_900))
+                    }
+
                     binding.cardview.setOnClickListener {
                         rowClickListener!!.rowClickListener(position)
                     }
@@ -142,6 +152,11 @@ data class EventListItem<T : ViewDataBinding>(
             }
         }
 
+
+    }
+
+    interface SurveySubmitListener{
+        fun submitBtnClickListener(position: Int)
 
     }
 }

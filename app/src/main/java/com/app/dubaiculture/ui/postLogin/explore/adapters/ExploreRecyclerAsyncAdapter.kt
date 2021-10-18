@@ -2,22 +2,17 @@ package com.app.dubaiculture.ui.postLogin.explore.adapters
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
-import com.app.dubaiculture.data.repository.explore.local.models.PopularServices
 import com.app.dubaiculture.data.repository.news.local.LatestNews
+import com.app.dubaiculture.data.repository.popular_service.local.models.PopularServices
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
@@ -30,22 +25,19 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.mapper.transformBaseToEvent
 import com.app.dubaiculture.ui.postLogin.explore.ExploreFragment
+import com.app.dubaiculture.ui.postLogin.explore.ExploreFragmentDirections
 import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
-import com.app.dubaiculture.utils.AppConfigUtils
-import com.app.dubaiculture.utils.AppConfigUtils.clickCheckerFlag
-import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_CAT_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_FILTER
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
+import com.app.dubaiculture.utils.Constants.NavBundles.EXPLORE_TO_ATTRACTIONS
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_NAVIGATION
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import java.util.*
 
 
 class ExploreRecyclerAsyncAdapter internal constructor(
@@ -62,10 +54,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
     private var popularServiceInnerAdapter: GroupAdapter<GroupieViewHolder>? = null
 
     //global variable
-    companion object {
-        val handler = Handler(Looper.getMainLooper())
-        var delayAnimate = 300
-    }
+//    companion object {
+//        val handler = Handler(Looper.getMainLooper())
+//        var delayAnimate = 300
+//    }
 
     init {
         attractionInnerAdapter = GroupAdapter()
@@ -104,10 +96,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         }
     }
 
-    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        setAnimation(holder.itemView)
-    }
+//    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+//        super.onViewAttachedToWindow(holder)
+//        setAnimation(holder.itemView)
+//    }
 
     //Setting Up View Holders
     private fun setUpAttractionViewHolder(
@@ -136,12 +128,28 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 attractionCat = transformBaseToAttractionCategory(attractionCat),
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                       clickCheckerFlag = position
-                                   fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,Bundle().apply {
-                                       putInt(ATTRACTION_CAT_OBJECT,position)
-                                   })
+                                        Bundle().apply {
+                                            putBoolean(EXPLORE_TO_ATTRACTIONS, true)
+                                        }
+
+                                        (fragment as ExploreFragment).navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToAttractionNavigation(
+                                                fragment?.getCurrentLanguage()?.language!!,
+                                                position,
+                                                true
+                                            )
+                                        )
+//                                        fragment?.navigate(
+//                                            R.id.action_exploreFragment_to_attraction_navigation,
+//                                            Bundle().apply {
+//                                                putInt(ATTRACTION_CAT_OBJECT, position)
+//                                            })
                                     }
-                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
                                     }
                                 },
                                 isArabic = isArabic ?: false
@@ -201,7 +209,10 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                             })
                                     }
 
-                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
 
                                     }
                                 },
@@ -218,9 +229,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
                     it.viewAll.setOnClickListener {
-                        fragment?.navigate(R.id.action_exploreFragment_to_events_navigation,Bundle().apply {
-                            putBoolean(EVENT_FILTER,true)
-                        })
+                        fragment?.navigate(
+                            R.id.action_exploreFragment_to_events_navigation,
+                            Bundle().apply {
+                                putBoolean(EVENT_FILTER, true)
+                            })
                     }
                 }
 
@@ -289,19 +302,15 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
                                     }
 
-                                    override fun rowClickListener(position: Int, imageView: ImageView) {
-//                                        imageView.transitionName=attraction.id
-//                                        val extras = FragmentNavigatorExtras(
-//                                                imageView to attraction.id!!
-//                                        )
-                                        fragment?.navigate(R.id.action_exploreFragment_to_attraction_navigation,
-                                                Bundle().apply {
-                                                    putParcelable(
-                                                            ATTRACTION_OBJECT,
-                                                            transformBaseToAttraction(attraction)
-                                                    )
-                                                })
-
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
+                                        fragment?.navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToAttractionDetailNavigation(
+                                                transformBaseToAttraction(attraction)
+                                            )
+                                        )
                                     }
                                 },
                                 resLayout = R.layout.must_see_inner_item_cell,
@@ -349,11 +358,17 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 resLayout = R.layout.latest_news_inner_item_cell,
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                        val bundle = bundleOf(NEWS_ID to it.id)
-                                        fragment?.navigate(R.id.action_exploreFragment_to_more_navigation,bundle)
+                                        fragment?.navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToNewsDetailNavigation(
+                                                it.id!!
+                                            )
+                                        )
                                     }
 
-                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
 
                                     }
                                 },
@@ -367,9 +382,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
                     it.viewAll.setOnClickListener {
-                        fragment?.navigate(R.id.action_exploreFragment_to_more_navigation,Bundle().apply {
-                            putBoolean(NEWS_NAVIGATION,true)
-                        })
+                        fragment?.navigateByDirections(
+                            ExploreFragmentDirections.actionExploreFragmentToNewsNavigation()
+                        )
                     }
                 }
 
@@ -406,6 +421,21 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                     playJson = it.playJson,
                                     icon = it.icon
                                 )
+                            ,rowClickListener = object :RowClickListener{
+                                    override fun rowClickListener(position: Int) {
+                                        fragment?.navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToServiceDetailNavigation(
+                                                it.id!!
+                                            )
+                                        )
+                                    }
+
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
+                                    }
+                                }
                             )
                         )
                     }
@@ -414,6 +444,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                 holder.itemView.binding?.let {
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
+                    it.viewAll.setOnClickListener {
+                        fragment?.navigate(R.id.action_exploreFragment_to_popularServiceFragment)
+                    }
                 }
 
             }
@@ -456,29 +489,6 @@ class ExploreRecyclerAsyncAdapter internal constructor(
         LATESTNEWS(4),
     }
 
-    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        stopAnimation()
-    }
-
-
-    private fun setAnimation(view: View?) {
-        handler.postDelayed({
-            val animation: Animation = AnimationUtils.loadAnimation(
-                context,
-                R.anim.item_fall_down_animation
-            )
-            if (view != null) {
-                view.startAnimation(animation)
-                view.visibility = View.VISIBLE
-            }
-        }, delayAnimate.toLong())
-        delayAnimate += 500
-    }
-
-    private fun stopAnimation() {
-        handler.removeCallbacksAndMessages(null)
-    }
 }
 
-//
+

@@ -2,7 +2,6 @@ package com.app.dubaiculture.ui.postLogin.more.contact.feedback.viewmodel
 
 import android.app.Application
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -18,9 +17,12 @@ import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.app.dubaiculture.utils.event.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FeedbackViewModel @ViewModelInject constructor(
+@HiltViewModel
+class FeedbackViewModel @Inject constructor(
     application: Application,
     val moreRepository: MoreRepository
 ) : BaseViewModel(application) {
@@ -158,13 +160,16 @@ class FeedbackViewModel @ViewModelInject constructor(
                     is Result.Success -> {
 
                         showLoader(false)
-                        showToast(message =  result.value.message)
+                        showToast(message = result.value.message)
                         navigateByBack()
 
 
                     }
                     is Result.Failure -> {
-                        showErrorDialog(message = result.errorMessage.toString(), colorBg = R.color.red_600)
+                        showErrorDialog(
+                            message = result.errorMessage.toString(),
+                            colorBg = R.color.red_600
+                        )
                         showLoader(false)
                     }
                 }

@@ -1,28 +1,24 @@
 package com.app.dubaiculture.ui.postLogin.more
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.databinding.FragmentMoreBinding
 import com.app.dubaiculture.databinding.ItemsMoreLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.more.adapter.MoreItems
+import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreSharedViewModel
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
-import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
-import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
-import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_NAVIGATION
 import com.app.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
-import com.app.dubaiculture.utils.Constants.NavBundles.SETTING_DESTINATION
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION
 import com.app.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY
 import com.app.dubaiculture.utils.SettingsUtils.newsList
@@ -39,49 +35,16 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     private val moreViewModel: MoreViewModel by viewModels()
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
-    var navigateSettings = false
-    var latestNews: String? = null
     var moreListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
-    var backflagNavigation = false
-    var latestNewsListingFlag = false
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentMoreBinding.inflate(inflater, container, false)
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        arguments?.let {
-            navigateSettings = it.getBoolean(SETTING_DESTINATION)
-            latestNewsListingFlag = it.getBoolean(NEWS_NAVIGATION)
-            latestNews=it.getString(NEWS_ID)
-        }
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (backflagNavigation) {
-            backflagNavigation = false
-            navigateSettings = false
-            latestNewsListingFlag = false
-            latestNews=null
-            navigateBack()
-        }
-        if (navigateSettings) {
-            backflagNavigation = true
-            navigate(R.id.action_moreFragment_to_settingFragment)
-        }
-        if (latestNewsListingFlag) {
-            backflagNavigation = true
-            navigate(R.id.action_moreFragment_to_latestNewsFragment)
-        }
-        if (!latestNews.isNullOrEmpty()){
-            backflagNavigation = true
-            val bundle = bundleOf(NEWS_ID to latestNews)
-            navigate(R.id.action_moreFragment_to_latestNewsFragment,bundle)
-        }
 
 
         subscribeUiEvents(moreViewModel)
@@ -127,14 +90,14 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             tvTrip.text = resources.getString(R.string.plan_your_trip)
             subHeading.visibility = View.VISIBLE
             if (isArabic()) {
-                cardivewRTL?.shapeAppearanceModel =
+                cardivewRTL.shapeAppearanceModel =
                     cardivewRTL.shapeAppearanceModel
                         .toBuilder()
                         .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                         .setTopRightCornerSize(radius)
                         .build()
             } else {
-                cardivewRTL?.shapeAppearanceModel =
+                cardivewRTL.shapeAppearanceModel =
                     cardivewRTL.shapeAppearanceModel
                         .toBuilder()
                         .setTopLeftCorner(CornerFamily.ROUNDED, radius)
@@ -161,6 +124,11 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 MoreItems<ItemsMoreLayoutBinding>(
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
+                            when(position){
+                                0->{
+                                    navigate(R.id.action_moreFragment_to_popularServiceFragment2)
+                                }
+                            }
 
                         }
 
@@ -189,13 +157,22 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
                             if (position == 0) {
-                                navigate(R.id.action_moreFragment_to_latestNewsFragment)
+                                navigateByDirections(
+                                    MoreFragmentDirections.actionMoreFragmentToLatestNewsFragment(
+                                        getCurrentLanguage().language
+                                    )
+                                )
+
                             }
                             if (position == 1) {
-                                navigate(R.id.action_moreFragment_to_contactFragment)
+                                navigateByDirections(
+                                    MoreFragmentDirections.actionMoreFragmentToContactFragment()
+                                )
                             }
                             if (position == 2) {
-                                navigate(R.id.action_moreFragment_to_FAQsFragment)
+                                navigateByDirections(
+                                    MoreFragmentDirections.actionMoreFragmentToFAQsFragment()
+                                )
                             }
                             if (position == 3) {
                                 moreViewModel.playStoreOpen(activity)
@@ -280,10 +257,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_app -> {
-
+              moreViewModel.shareAppLink(activity)
             }
             R.id.ll_rate_us -> {
-
+               moreViewModel.rateUs(activity)
             }
             R.id.ll_notification -> {
                 navigate(R.id.action_moreFragment_to_notificationFragment)

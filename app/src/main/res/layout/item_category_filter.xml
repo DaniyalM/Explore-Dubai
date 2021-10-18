@@ -21,7 +21,21 @@
         app:flexWrap="wrap">
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/tv_title_category"
+            android:id="@+id/tv_title_category_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:text="Management"
+            android:textColor="@color/white_900"
+            android:textSize="@dimen/_10ssp" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_title_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"

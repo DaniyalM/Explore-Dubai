@@ -15,6 +15,10 @@ data class AttractionCategory(
     var unselectedSvg: String? = "",
     var color: String? = "",
     var attractions: ArrayList<Attractions>? = null,
+
+
+
+    var locale: String? = null,
 ) : Parcelable
 
 

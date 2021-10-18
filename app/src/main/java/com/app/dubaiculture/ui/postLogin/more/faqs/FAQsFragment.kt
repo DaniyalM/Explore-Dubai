@@ -1,8 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.more.faqs
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,16 +11,20 @@ import com.app.dubaiculture.data.repository.more.local.FaqItem
 import com.app.dubaiculture.databinding.FragmentFAQsBinding
 import com.app.dubaiculture.databinding.ItemFaqsLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.components.CustomTextWatcher.MyCustomTextWatcher
+import com.app.dubaiculture.ui.postLogin.more.faqs.adapters.FaqsListAdapter
+import com.app.dubaiculture.ui.postLogin.more.faqs.adapters.clicklisteners.FaqsItemClickListner
 import com.app.dubaiculture.ui.postLogin.more.faqs.viewmodel.FAQsViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
+class FAQsFragment : BaseFragment<FragmentFAQsBinding>(), View.OnClickListener {
     private val faqsViewModel: FAQsViewModel by viewModels()
     var faqsListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
+    private lateinit var faqsListAdapter1: FaqsListAdapter
     private val tempArrayList = ArrayList<FaqItem>()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -35,15 +37,42 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
         backArrowRTL(binding.imgClose)
         binding.imgCancel.setOnClickListener(this)
         binding.imgClose.setOnClickListener(this)
+//        rvInit()
+//        subscribeToObservable()
         rvSetup()
         search()
     }
 
-    private fun rvSetup() {
-        faqsViewModel.faqs(getCurrentLanguage().language)
-        faqsViewModel.faqs.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let {
+    private fun rvInit() {
+        binding.rvFaqs.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            faqsListAdapter1 = FaqsListAdapter(object : FaqsItemClickListner {
+                override fun onClickFaqItem(faqItem: FaqItem) {
+                    faqItem.is_expanded=!faqItem.is_expanded
+                    faqsViewModel.updateFaq(faqItem)
 
+                }
+            })
+            adapter = faqsListAdapter1
+        }
+    }
+
+    private fun subscribeToObservable(){
+        faqsViewModel.faqs.observe(viewLifecycleOwner){
+            it.faqItems.let {
+                faqsListAdapter1.submitList(it)
+            }
+        }
+        faqsViewModel.faq.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let {
+                faqsViewModel.updateFaqInList(it)
+            }
+        }
+    }
+
+    private fun rvSetup() {
+        faqsViewModel.faqs.observe(viewLifecycleOwner) {
+            it?.let {
                 binding.faqsTitle.text = it.faqTitle
                 it.faqItems.map {
                     tempArrayList.add(it)
@@ -67,15 +96,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
     }
 
     private fun search() {
-        binding.editSearchFaqs.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
+        binding.editSearchFaqs.addTextChangedListener(object : MyCustomTextWatcher() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val myKey = binding.editSearchFaqs.text.toString().trim()
                 faqsListAdapter.clear()
@@ -84,7 +105,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
                 }
 
                 if (myKey.trim().isNullOrEmpty()) {
-                    binding.imgCancel.visibility= View.GONE
+                    binding.imgCancel.visibility = View.GONE
                     tempArrayList.map {
                         faqsListAdapter.add(
                             FAQsItems<ItemFaqsLayoutBinding>(
@@ -95,8 +116,8 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
                             )
                         )
                     }
-                }else{
-                    binding.imgCancel.visibility= View.VISIBLE
+                } else {
+                    binding.imgCancel.visibility = View.VISIBLE
                     list.map {
                         faqsListAdapter.add(
                             FAQsItems<ItemFaqsLayoutBinding>(
@@ -110,16 +131,15 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>() ,View.OnClickListener{
                 }
                 faqsListAdapter.notifyDataSetChanged()
             }
-
         })
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.img_close ->{
+        when (v?.id) {
+            R.id.img_close -> {
                 back()
             }
-            R.id.img_cancel ->{
+            R.id.img_cancel -> {
                 hideKeyboard(activity)
                 binding.editSearchFaqs.text?.clear()
             }

@@ -20,7 +20,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:text="Activities schedule at the workshop"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintEnd_toStartOf="@+id/speaker_schedule"
                 app:layout_constraintStart_toStartOf="parent"

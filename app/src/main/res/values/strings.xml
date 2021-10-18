@@ -2,6 +2,8 @@
     <string name="app_name">Dubai Culture</string>
     <string name="arabic">Arabic</string>
     <string name="english">عربي</string>
+    <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
+
 
     <!--z-->
     <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>
@@ -11,6 +13,8 @@
 
     // home tabs
     <string name="explore">Explore</string>
+    <string name="service_procedure">Service Procedure</string>
+
     <string name="events">Events</string>
     <string name="attractions">Attractions</string>
     <string name="favourites">Favourites</string>
@@ -39,7 +43,7 @@
     <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
     <string name="_agree_to_the_terms_and_conditions">Please select Terms &amp; Conditions</string>
 
-    <string name="register_now">Register Now</string>
+    <string name="register_now"><u>Register Now</u></string>
     <string name="confirm_password">Enter Confirm password</string>
     <string name="_confirm_password">Confirm password</string>
 
@@ -104,11 +108,13 @@
     <string name="okay">Okay</string>
     <string name="filters">Filters</string>
     <string name="search_events_by_keyword">Search events by keyword</string>
+    <string name="search_news_by_keyword">Search news by keyword</string>
     <string name="location">Location</string>
     <string name="date_range">Date Range</string>
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="category">Category</string>
+    <string name="tags">Tags</string>
     <string name="type">Type</string>
     <string name="_free">Free</string>
     <string name="ticketed">Ticketed</string>
@@ -272,5 +278,24 @@
     <string name="service_status">Service Status</string>
     <string name="request_received">Request Received</string>
     <string name="in_progress">In Progress</string>
+    <string name="view_details">View Details</string>
+    <string name="start_service">Start Service</string>
+    <string name="classification">Classification</string>
+    <string name="supplementary">Supplementary</string>
+    <string name="procedure">Procedure</string>
+    <string name="service_channels">Service Channels</string>
+    <string name="mobile">Mobile</string>
+    <string name="website">Website</string>
+    <string name="amount">Amount</string>
+    <string name="federal_fees">Federal Fees</string>
+    <string name="was_this_information_helpful">Was this information helpful?</string>
+    <string name="search_by_keyword">Search by keyword</string>
+    <string name="required_documents">Required Documents</string>
+    <string name="payments">Payments</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="attachment">Attachment</string>
+    <string name="pdf">PDF</string>
+    <string name="no_my_posts_fav">No Data Found</string>
+    <string name="faqs">FAQs</string>
 
 </resources>

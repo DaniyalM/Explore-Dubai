@@ -52,8 +52,8 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
     ) = FragmentFilterBinding.inflate(inflater, container, false)
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.btnFilter.setOnClickListener(this)
         binding.tvStartDate.setOnClickListener(this)
         binding.tvEndDate.setOnClickListener(this)

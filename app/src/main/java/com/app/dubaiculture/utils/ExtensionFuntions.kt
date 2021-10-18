@@ -11,24 +11,149 @@ import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.LoadState
+import androidx.paging.LoadStateAdapter
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.*
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
+import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_401
+import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_500
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.RequestBody
 import okio.Buffer
+import retrofit2.HttpException
+import timber.log.Timber
+import java.io.File
 import java.io.IOException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+fun Activity.openPdf(filename: String?) {
+
+    val fn = filename?.substring(filename.lastIndexOf("/") + 1)
+    val file = File(filesDir, fn!!)
+
+    if (file.exists()) {
+        Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(
+                FileProvider.getUriForFile(
+                    this@openPdf,
+                    BuildConfig.APPLICATION_ID + ".fileprovider",
+                    file
+                ), "application/pdf"
+            )
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            try {
+                startActivity(this)
+            } catch (e: Exception) {
+                Timber.e(e.message)
+            }
+        }
+    } else {
+        Timber.e("file doesn't exist")
+    }
+}
+
+fun Exception.triggerException() {
+    when (this) {
+        is HttpException -> {
+            when (code()) {
+                200 -> {
+                }
+                300 -> {
+                }
+                400 -> {
+                }
+            }
+        }
+        is IllegalArgumentException -> {
+            Timber.e(message)
+        }
+        else -> {
+            Timber.e(message)
+        }
+    }
+}
+
+fun <T : Any, V : RecyclerView.ViewHolder> PagingDataAdapter<T, V>.withLoadStateAdapters(
+    header: LoadStateAdapter<*>,
+    footer: LoadStateAdapter<*>,
+    callback: (showPlaceHolder: Boolean) -> Unit
+): ConcatAdapter {
+    addLoadStateListener { loadStates ->
+        header.loadState = loadStates.refresh
+        footer.loadState = loadStates.append
+        if (loadStates.source.refresh is LoadState.NotLoading &&
+            loadStates.append.endOfPaginationReached &&
+            itemCount < 1
+        ) {
+            callback(true)
+        } else if (loadStates.source.refresh is LoadState.Error &&
+            itemCount < 1
+        ) {
+            callback(true)
+        } else {
+            callback(false)
+        }
+    }
+
+    return ConcatAdapter(header, this, footer)
+}
+
+
+//fun <T : Any, V : RecyclerView.ViewHolder> ListAdapter<T, V>.withLoadStateAdapters(
+//    header: LoadStateAdapter<*>,
+//    footer: LoadStateAdapter<*>,
+//    callback: (showPlaceHolder: Boolean) -> Unit
+//): ConcatAdapter {
+//    addLoadStateListener { loadStates ->
+//        header.loadState = loadStates.refresh
+//        footer.loadState = loadStates.append
+//        if (loadStates.source.refresh is LoadState.NotLoading &&
+//            loadStates.append.endOfPaginationReached &&
+//            itemCount < 1
+//        ) {
+//            callback(true)
+//        } else if (loadStates.source.refresh is LoadState.Error &&
+//            itemCount < 1
+//        ) {
+//            callback(true)
+//        } else {
+//            callback(false)
+//        }
+//    }
+//
+//    return ConcatAdapter(header, this, footer)
+//}
+
+fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
+    val layoutManager = recyclerView.layoutManager ?: return RecyclerView.NO_POSITION
+    val snapView = findSnapView(layoutManager) ?: return RecyclerView.NO_POSITION
+    return layoutManager.getPosition(snapView)
+}
+
+fun Fragment.safeNavigateFromNavController(directions: NavDirections) {
+    val navController = findNavController()
+    val destination = navController.currentDestination as FragmentNavigator.Destination
+    //current visible fragment == fragment that is firing navigation
+    if (javaClass.name == destination.className) {
+        navController.navigate(directions)
+    } else {
+        Timber.e("Invalid navigation detected")
+    }
+}
 
 fun Activity.enableLocationFromSettings() {
     startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
@@ -66,6 +191,16 @@ internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(
     )
 )
 
+@ColorInt
+fun Context.getColorFromAttr(
+    @AttrRes attrColor: Int,
+    typedValue: TypedValue = TypedValue(),
+    resolveRefs: Boolean = true
+): Int {
+    theme.resolveAttribute(attrColor, typedValue, resolveRefs)
+    return typedValue.data
+}
+
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
@@ -91,6 +226,15 @@ fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>) {
         startActivity(it)
     }
 }
+
+//fun <A : Activity> Activity.killSessionAndStartNewActivityUAE(activity: Class<A>) {
+//
+//    Intent(this, activity).also {
+//        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+//        finish()
+//        startActivity(it)
+//    }
+//}
 
 fun <A : Activity> Fragment.startNewActivity(activity: Class<A>) {
     Intent(getActivity(), activity).also {
@@ -123,7 +267,7 @@ fun Fragment.handleApiError(
         failure.isNetWorkError -> baseViewModel.showToast(
             "Please Check Your Internet Connection"
         )
-        failure.errorCode == 401 -> {
+        failure.errorCode == HTTP_401 -> {
             if (this is LoginFragment) {
                 baseViewModel.showToast("You have entered incorrect email or password")
             } else {
@@ -132,16 +276,16 @@ fun Fragment.handleApiError(
             }
 
         }
-        failure.errorCode == 500 -> {
+        failure.errorCode == HTTP_500 -> {
             baseViewModel.showToast("Internal Server Error")
-
+        }
+        failure.errorCode == HTTP_500 -> {
+            baseViewModel.showToast("Internal Server Error")
         }
         else -> {
-
-            val error = failure.errorBody?.string().toString()
+//            val error = failure.errorBody?.string().toString()
+            baseViewModel.showToast("Session Timeout From Server")
             initiateLogout()
-            baseViewModel.showToast(error)
-//            startNewActivity(PreLoginActivity::class.java)
         }
     }
 
@@ -164,15 +308,7 @@ fun Fragment.setNavigationResult(key: String, data: Any?) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
 
 }
-@ColorInt
-fun Context.getColorFromAttr(
-        @AttrRes attrColor: Int,
-        typedValue: TypedValue = TypedValue(),
-        resolveRefs: Boolean = true
-): Int {
-    theme.resolveAttribute(attrColor, typedValue, resolveRefs)
-    return typedValue.data
-}
+
 
 fun dateFormat(inputDate: String?): String {
 //        2021-03-31T17:19:00 server date format
@@ -267,6 +403,18 @@ fun getDateObj(dateString: String): Date {
 fun Date.toString(format: String): String {
     val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
     return dateFormatter.format(this)
+}
+
+fun View.show() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.show(show: Boolean) {
+    this.visibility = if (show) View.VISIBLE else View.GONE
+}
+
+fun View.hide() {
+    this.visibility = View.GONE
 }
 
 

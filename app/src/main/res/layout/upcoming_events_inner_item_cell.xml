@@ -12,12 +12,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="@dimen/_255sdp"
     android:animate="@{technique.BounceInUp}"
-    android:layout_height="@dimen/_325sdp">
+    android:layout_height="@dimen/_300sdp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview"
         android:layout_width="@dimen/_230sdp"
-        android:layout_height="@dimen/_300sdp"
+        android:layout_height="@dimen/_270sdp"
         app:cardCornerRadius="@dimen/_15sdp"
         app:cardElevation="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_10sdp"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:text="@{events.fromDate}"
-                android:textColor="@color/purple_900"
+                android:textColor="?attr/color_light_theme_purple_dark_theme_gray"
                 android:textSize="@dimen/_18ssp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/lines"
@@ -137,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{events.toDate}"
-                android:textColor="@color/purple_900"
+                android:textColor="?attr/color_light_theme_purple_dark_theme_gray"
                 android:textSize="@dimen/_18ssp"
                 android:textStyle="bold"
                 android:layout_marginBottom="@dimen/_7sdp"
@@ -191,7 +191,7 @@
                 android:text="@{events.category}"
                 app:textAllCaps="true"
                 android:textAlignment="viewStart"
-                android:textColor="@color/purple_900"
+                android:textColor="?attr/color_light_theme_purple_dark_theme_gray"
                 android:textSize="@dimen/_10ssp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/lines"

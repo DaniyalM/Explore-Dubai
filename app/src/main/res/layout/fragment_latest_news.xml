@@ -30,11 +30,12 @@
 
 
             <ImageView
+                android:id="@+id/filterNews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@drawable/filter_event_icon"
+                android:background="@drawable/dc_search_icon"
                 app:layout_constraintBottom_toBottomOf="@+id/img_close"
                 app:layout_constraintTop_toTopOf="@+id/img_close" />
 
@@ -65,7 +66,7 @@
                         android:layout_marginStart="@dimen/_14sdp"
                         android:layout_marginTop="@dimen/_12sdp"
                         android:text="@string/latest_news"
-                        android:textColor="@color/black_200"
+                        style="@style/TextViewStyle"
                         android:textSize="@dimen/_25ssp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/cl" />

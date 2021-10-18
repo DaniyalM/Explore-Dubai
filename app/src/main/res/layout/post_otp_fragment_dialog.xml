@@ -15,16 +15,20 @@
             type="com.app.dubaiculture.ui.postLogin.login.viewmodel.PostOTPViewModel" />
 
     </data>
-
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_20sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+
         tools:context=".ui.preLogin.registeration.otp.OTPFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/gray_line"
-            android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/gray_line"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +40,7 @@
             android:id="@+id/enter_otp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black_200"
+            style="@style/TextViewStyle"
             android:layout_marginStart="@dimen/_20sdp"
             android:textSize="@dimen/_12ssp"
             android:layout_marginTop="@dimen/_15sdp"
@@ -54,7 +58,7 @@
             android:elevation="@dimen/_12sdp"
             android:focusableInTouchMode="true"
             android:inputType="number"
-            android:textColor="@color/black_200"
+            style="@style/TextViewStyle"
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold"
             android:theme="@style/OtpStyle"
@@ -142,4 +146,5 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -1,78 +1,73 @@
 package com.app.dubaiculture.ui.postLogin
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.ui.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.BaseAuthenticationActivity
-import com.app.dubaiculture.ui.postLogin.more.services.MoreService
+import com.app.dubaiculture.ui.postLogin.login.PostLoginFragment
+import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreSharedViewModel
 import com.app.dubaiculture.utils.AuthUtils.hideStatusBar
-import com.squareup.otto.Subscribe
+import com.app.dubaiculture.utils.firebase.subscribeToTopic
+import com.app.dubaiculture.utils.firebase.unSubscribeFromTopic
+import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
-class PostLoginActivity : BaseAuthenticationActivity(), NavController.OnDestinationChangedListener {
-
-
+class PostLoginActivity : BaseAuthenticationActivity() {
     private val navHolding: Int = R.id.nav_host_fragment
-
+    private val moreSharedViewModel: MoreSharedViewModel by viewModels()
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_post_login)
-        applicationEntry.auth.locale = getCurrentLanguage().language
         hideStatusBar(window)
-        getNavControllerFun(navHolding).addOnDestinationChangedListener(this)
-
+        getNavControllerFun(navHolding)
         recieveLogout()
+        subscribeToObservable()
+        getCurrentLanguage().language.let {
+            if (it.equals("en")) {
+                unSubscribeFromTopic("AndroidBroadcast_ar")
+            } else {
+                unSubscribeFromTopic("AndroidBroadcast_en")
+            }
+            subscribeToTopic(topic = "AndroidBroadcast_$it")
+
+        }
 
 
     }
 
-
-
-    override fun onDestroy() {
-        getNavControllerFun(navHolding).removeOnDestinationChangedListener(this)
-        super.onDestroy()
+    private fun subscribeToObservable() {
+        moreSharedViewModel.isLogged.observe(this) {
+            it?.getContentIfNotHandled()?.let {
+                if (it) {
+                    initiateLogout()
+                }
+            }
+        }
     }
 
-
-    override fun onDestinationChanged(
-            controller: NavController,
-            destination: NavDestination,
-            arguments: Bundle?
-    ) {
-//        currentFocus?.hi()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Timber.e("Start")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Timber.e("Restart")
-    }
 
     override fun onResume() {
         super.onResume()
+        SystemRequirementsChecker.checkWithDefaultDialogs(this);
         adjustFontScale(resources.configuration)
 
     }
-    @Subscribe
-    fun initiateLogout(service: MoreService) {
-        when (service) {
-            is MoreService.Logout -> {
-                applicationEntry.auth.isLoggedIn = false
-                // Subscribe broadcast from here.  when user logout click from moreFragment. then broadcast fire
-                initiateLogout()
-                checkLoginStatus()
-            }
+
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        // Check if the fragment is an instance of the right fragment
+        PostLoginFragment().apply {
+            handleIntent(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(reciever)
     }
 
 

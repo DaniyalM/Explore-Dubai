@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
         tools:context=".ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment">
 
 
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_12sdp"
-            android:textColor="@color/black_200"
+            style="@style/TextViewStyle"
             android:textSize="@dimen/_25ssp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/_12sdp"

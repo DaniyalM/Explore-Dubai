@@ -3,65 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.postLogin.home.HomeFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_home_container_view"
-            android:name="com.app.dubaiculture.utils.DubaiNavHostFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:defaultNavHost="true"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:navGraph="@navigation/explore_navigation" />
 
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNav"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_70sdp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/nav_tabbar_new_one"
-            app:itemIconTint="@color/bottom_nav_color"
-            app:itemTextColor="@color/bottom_nav_color"
-            app:labelVisibilityMode="labeled"
-            app:layout_constraintBottom_toBottomOf="@+id/nav_home_container_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/my_navigation_items">
+            android:layout_height="match_parent">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/nav_home_container_view"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navGraph="@navigation/explore_navigation" />
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNav"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/nav_tabbar_new_one"
+                app:itemIconTint="@color/bottom_nav_color"
+                app:itemTextColor="@color/bottom_nav_color"
+                app:labelVisibilityMode="labeled"
+                app:layout_constraintBottom_toBottomOf="@+id/nav_home_container_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:menu="@menu/my_navigation_items">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_add"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignBottom="@+id/bottomNav"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/happiness_meter"
+                    android:contentDescription="@string/bottom_sheet_behavior" />
+
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_add"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignBottom="@+id/bottomNav"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:background="@drawable/happiness_meter"
-                android:contentDescription="@string/bottom_sheet_behavior" />
-
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shadow_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.09" />
 
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintVertical_bias="1.09"
-            android:background="@drawable/shadow_black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+    </com.google.android.material.card.MaterialCardView>
 
 
 </layout>

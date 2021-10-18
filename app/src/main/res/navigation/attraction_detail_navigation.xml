@@ -12,6 +12,13 @@
         tools:layout="@layout/fragment_attraction_detail"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment"
         android:label="AttractionDetailFragment" >
+
+        <argument
+            android:name="attraction"
+            app:argType="com.app.dubaiculture.data.repository.attraction.local.models.Attractions"
+            app:nullable="true"
+            android:defaultValue="@null"
+           />
         <action
             android:id="@+id/action_attractionDetailFragment_to_threeSixtyFragment"
             app:destination="@id/threeSixtyFragment"
@@ -89,36 +96,79 @@
         android:id="@+id/ibeconDescFragment"
         tools:layout="@layout/fragment_ibecon_desc"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeconDescFragment"
-        android:label="IbeconDescFragment" />
+        android:label="IbeconDescFragment" >
+        <argument
+            android:name="beaconItem"
+            app:argType="com.app.dubaiculture.data.repository.sitemap.local.BeaconItems"
+            app:nullable="false" />
+
+
+    </fragment>
     <fragment
         android:id="@+id/ibeconFragment"
         tools:layout="@layout/fragment_ibecon"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeaconFragment"
         android:label="IbeconFragment" >
+<!--        <action-->
+<!--            android:id="@+id/action_ibeconFragment_to_yourJourneyFragment"-->
+<!--            app:destination="@id/yourJourneyFragment"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out" /> -->
         <action
-            android:id="@+id/action_ibeconFragment_to_yourJourneyFragment"
-            app:destination="@id/yourJourneyFragment"
+            android:id="@+id/action_ibeconFragment_to_yourJourneyBeaconFragment"
+            app:destination="@id/yourJourneyBeaconFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out" >
+            <argument
+                android:name="attraction_id"
+                app:argType="string"
+                app:nullable="false"/>
+        </action>
 
         <argument
             android:name="attraction_id"
             app:argType="string"/>
     </fragment>
+<!--    <dialog-->
+<!--        android:id="@+id/yourJourneyFragment"-->
+<!--        tools:layout="@layout/fragment_your_journey"-->
+<!--        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyFragment"-->
+<!--        android:label="YourJourneyFragment" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_yourJourneyFragment_to_ibeconDescFragment"-->
+<!--            app:destination="@id/ibeconDescFragment"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out" />-->
+<!--    </dialog> -->
+
     <dialog
-        android:id="@+id/yourJourneyFragment"
+        android:id="@+id/yourJourneyBeaconFragment"
         tools:layout="@layout/fragment_your_journey"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyFragment"
-        android:label="YourJourneyFragment" >
+        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyBeaconFragment"
+        android:label="YourJourneyBeaconFragment" >
+
+        <argument
+            android:name="attraction_id"
+            app:argType="string"
+            app:nullable="false"/>
         <action
-            android:id="@+id/action_yourJourneyFragment_to_ibeconDescFragment"
+            android:id="@+id/action_yourJourneyBeaconFragment_to_ibeconDescFragment"
             app:destination="@id/ibeconDescFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="beaconItem"
+                app:argType="com.app.dubaiculture.data.repository.sitemap.local.BeaconItems"
+                app:nullable="false" />
+        </action>
     </dialog>
     <fragment
         android:id="@+id/ARDetailFragment"

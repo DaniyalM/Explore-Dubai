@@ -11,12 +11,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_255sdp"
         android:animate="@{technique.BounceInUp}"
-        android:layout_height="@dimen/_325sdp">
+        android:layout_height="@dimen/_300sdp">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview"
             android:layout_width="@dimen/_230sdp"
-            android:layout_height="@dimen/_300sdp"
+            android:layout_height="@dimen/_270sdp"
             app:cardCornerRadius="@dimen/_15sdp"
             app:cardElevation="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_10sdp"
@@ -208,7 +208,7 @@
                     android:maxLines="2"
                     android:textAlignment="viewStart"
                     android:text="@{events.title}"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintBottom_toTopOf="@+id/tv_location"
                     app:layout_constraintEnd_toEndOf="parent"

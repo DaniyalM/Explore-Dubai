@@ -1,18 +1,20 @@
 package com.app.dubaiculture.ui.preLogin.splash.viewmodels
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.data.repository.user.local.User
 import com.app.dubaiculture.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SplashViewModel @ViewModelInject constructor(
-        private val userRepository: UserRepository,
-        application: Application,
+@HiltViewModel
+class SplashViewModel @Inject constructor(
+    private val userRepository: UserRepository,
+    application: Application,
 ) : BaseViewModel(application) {
 
     private val _user: MutableLiveData<User> = MutableLiveData()
@@ -22,7 +24,7 @@ class SplashViewModel @ViewModelInject constructor(
 
         viewModelScope.launch {
             userRepository.getLastUser()?.let {
-                _user.value=it
+                _user.value = it
 
             }
         }

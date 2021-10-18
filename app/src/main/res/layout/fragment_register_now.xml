@@ -3,6 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,7 +39,7 @@
                     android:layout_marginStart="@dimen/_25sdp"
                     android:layout_marginTop="@dimen/_35sdp"
                     android:text="@string/register_for_event"
-                    android:textColor="@color/black_200"
+                    style="@style/TextViewStyle"
                     android:textSize="@dimen/_16ssp"
                     android:transitionName="main_title"
                     app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +103,6 @@
                     style="@style/EditTextStyle"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/bg_edit_resiger"
-                    android:drawableEnd="@drawable/down_arrow_register_now"
                     android:hint="@string/what_do_you_do"
                     android:imeOptions="actionNext"
                     android:inputType="text"
@@ -136,21 +139,35 @@
                     app:layout_constraintStart_toStartOf="@+id/edit_occupation"
                     app:layout_constraintTop_toBottomOf="@+id/edit_occupation" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <View
+                    android:id="@+id/viewTime"
+                    android:visibility="gone"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_30sdp"
+                    app:layout_constraintEnd_toEndOf="@id/edit_time"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_time"
+                    app:layout_constraintStart_toStartOf="@+id/edit_time" />
+
+                <AutoCompleteTextView
                     android:id="@+id/edit_time"
-                    style="@style/EditTextStyle"
-                    android:layout_marginTop="12dp"
+                    android:editable="false"
+                    android:drawableEnd="@drawable/arrow_readmore_"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:dropDownHeight="@dimen/_150sdp"
+                    android:hint="@string/time"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:singleLine="true"
                     android:background="@drawable/bg_edit_resiger"
-                    android:drawableEnd="@drawable/clock_light_purple"
-                    android:gravity="center_vertical"
-                    android:hint="@string/select_your_time_period"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:textColorHint="@color/gray_600"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.906"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/time"
-                    tools:src="@drawable/bg_edit_resiger" />
+                    app:layout_constraintTop_toBottomOf="@+id/time" />
+
                 <!--android:text="@{viewmodel.isfullName ? @string/no_error :  @string/err_first_name }"-->
 
 
@@ -163,6 +180,7 @@
                     app:layout_constraintTop_toTopOf="@+id/time" />
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_12sdp"
@@ -189,6 +207,8 @@
                     android:hint="@string/select_your_time_period"
                     android:imeOptions="actionNext"
                     android:inputType="text"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.906"
                     app:layout_constraintStart_toStartOf="parent"

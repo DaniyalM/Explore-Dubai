@@ -15,6 +15,17 @@ object Constants {
 
     }
 
+    object PHOTO {
+        const val FILE_PROVIDER: String = "com.app.dubaiculture.fileprovider"
+        const val REQUEST_IMAGE_CAPTURE = 1
+        const val REQUEST_PDF_PICKER = 2
+        const val FORMAT_JPG = "jpg"
+        const val FORMAT_JPEG = "jpeg"
+        const val FORMAT_PNG = "png"
+        const val FORMAT_GIF = "gif"
+
+    }
+
     object ResendEmail {
         const val RESEND_TIMER: Long = 30000
         const val INTERVAL: Long = 1000
@@ -33,19 +44,25 @@ object Constants {
     }
 
     object NavBundles {
+        val SCROLL_VIEW_STATE: String= "ScrollState"
+        val SHEET_STATE: String= "BState"
         const val COMES_FROM_LOGIN: String = "loginFragment"
+        const val IF_FORGOT_PASSWORD: String = "forgotfragment"
         const val COMES_FROM_POST_LOGIN: String = "postloginFragment"
         const val SELECTED_CITY: String = "selectedCity"
         const val SORTED_LIST: String = "SORTED_EVENT_LIST"
         const val EVENT_OBJECT: String = "eventObject"
         const val EVENT_FILTER: String = "eventFiler"
-        const val ATTRACTION_OBJECT: String = "attractionObject"
+        const val ATTRACTION_OBJECT: String = "attraction"
+        const val SERVICE_OBJECT: String = "ServiceObject"
         const val ATTRACTION_CAT_OBJECT: String = "attractionCatObject"
         const val ATTRACTION_GALLERY_LIST: String = "attractionGalleryList"
         const val THREESIXTY_GALLERY_LIST: String = "THREE60_GALLERY_LIST"
         const val EXPLORE_MAP_LIST: String = "explore_map_list"
+        const val SCHEDULE_ITEM_SLOT: String = "schedule_time_slot"
         const val EVENT_MAP_LIST: String = "event_map_list"
         const val ATTRACTION_ID: String = "attraction_id"
+        const val EVENT_ID: String = "event_id"
         const val CATEGORY: String = "category"
         const val BECON_LIST: String = "becon_list"
         const val BECON_OBJECT: String = "becon_object"
@@ -64,15 +81,22 @@ object Constants {
         const val NEWS_NAVIGATION: String = "news_navigation"
         const val MORE_FRAGMENT: String = "more_fragment"
         const val SETTING_DESTINATION: String = "setting_fragment_destination"
-
+        const val NEW_LOCALE: String = "culture"
+        const val EXPLORE_TO_ATTRACTIONS: String = "exp_to_attractions"
+        const val ATTRACTION_DETAIL: String = "attractionId"
+        const val ATTRACTION_DETAIL_BEACON: String = "attraction_id"
+        const val SERVICE_ID: String = "service_id"
 
 
     }
 
     object playStoreAppLink {
-        const val OPEN_PLAYSTORE_APP : String = "market://search?q=pub:Dubai Culture and Arts Authority"
-        const val OPEN_PLAYSTORE_WEB : String = "https://play.google.com/store/apps/details?id=Dubai+Culture+and+Arts+Authority"
+        const val OPEN_PLAYSTORE_APP: String =
+            "market://search?q=pub:Dubai Culture and Arts Authority"
+        const val OPEN_PLAYSTORE_WEB: String =
+            "https://play.google.com/store/apps/details?id=Dubai+Culture+and+Arts+Authority"
     }
+
     object IBecons {
         const val IDENTIFIER: String = "com.flagship.dubaiculture"
         const val UUID_BECON: String = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
@@ -81,12 +105,13 @@ object Constants {
     object Links {
         const val TERMS_CONDITIONS: String = "https://uat.weareneomads.com/terms-of-use"
     }
-    object StaticLatLng{
-        const val LAT =  24.8623
-        const val LNG =  67.0627
+
+    object StaticLatLng {
+        const val LAT = 24.8623
+        const val LNG = 67.0627
     }
 
-    object Categories{
+    object Categories {
         const val MUSEUMS = "Museums"
         const val HERITAGE_SITES = "Heritage Sites"
         const val ART_GALLERY = "Art Galleries"
@@ -94,15 +119,18 @@ object Constants {
         const val LIBRARIES = "Libraries"
 
     }
+
     object Colors {
         const val WHITE: String = "#ffffff"
         const val SEE_MORE_BLUE: String = "#103667"
         const val LINK: String = "#267FB7"
     }
+
     object AR {
         const val CLIENT_TOKEN: String = "2e7e1551d007a8adc3346fa48f07b2c7"
         const val TARGET_ID: String = "60860b2e7c633e71c8d1e5cb"
     }
+
     object ImagePicker {
         const val TAKE_PHOTO: String = "Take photo"
         const val CHOOSE_FROM_LIBRARY: String = "Choose from gallery"
@@ -122,6 +150,7 @@ object Constants {
         const val PACKAGE_NAME_GOOGLE_MAP: String = "com.google.android.apps.maps"
         const val DESTINATION = "&daddr="
     }
+
     object DateFormats {
         const val TIME_STAMP_WITH_ZONE: String = "yyyy-MM-dd'T'HH:mm:ss"
         const val YYYY_MM_DD: String = "yyyy-MM-dd"
@@ -133,8 +162,44 @@ object Constants {
         const val HH_MM: String = "HH:mm"
     }
 
-    object DataStore{
-        const val SKIP : String = "skip"
+    object DataStore {
+        const val SKIP: String = "skip"
+    }
+
+    object HTTP_RESPONSE {
+        const val HTTP_200: Int = 200
+        const val HTTP_401: Int = 401
+        const val HTTP_500: Int = 500
+        const val HTTP_400: Int = 400
+    }
+
+    object PAGING {
+        const val NEW_PAGING_SIZE: Int = 2
+        const val ATTRACTION_PAGING_SIZE: Int = 5
+        const val NOTIFICATION_PAGE_SIZE: Int = 10
+
+
+    }
+    object PLAY_STORE {
+        const val PACKAGE_NAME: String = "com.dubaiculture"
+        const val DUBAI_CULTURE: String = "Dubai Culture"
+        const val NOTIFICATION_PAGE_SIZE: Int = 10
+    }
+
+    object UAE_PASS{
+        var isHit = true
+        // Field from default config.
+            const val URI_HOST_FAILURE = "uaePasssigningScopeFail://uaepassdemoapp"
+
+        //uaePassSuccess://uaepassdemoapp
+
+        //://uaePassFail
+
+        // Field from default config.
+        const val URI_HOST_SUCCESS = "uaePassSuccess://uaepassdemoapp"
+
+        // Field from default config.
+        const val URI_SCHEME = "dc://com.dc.dc-int"
     }
 
 }

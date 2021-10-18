@@ -2,7 +2,6 @@ package com.app.dubaiculture.ui.postLogin.more.profile.viewmodels
 
 import android.app.Application
 import androidx.databinding.ObservableField
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -15,15 +14,17 @@ import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.event.Event
-import kotlinx.coroutines.channels.actor
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel @ViewModelInject constructor(
-        application: Application,
-        private val profileRepository: ProfileRepository,
-        private val userRepository: UserRepository,
+@HiltViewModel
+class ProfileViewModel @Inject constructor(
+    application: Application,
+    private val profileRepository: ProfileRepository,
+    private val userRepository: UserRepository,
 ) :
-        BaseViewModel(application, profileRepository) {
+    BaseViewModel(application, profileRepository) {
     private val _userSetting: MutableLiveData<Result<Event<UserSettings>>> = MutableLiveData()
     val userSettings: LiveData<Result<Event<UserSettings>>> = _userSetting
 

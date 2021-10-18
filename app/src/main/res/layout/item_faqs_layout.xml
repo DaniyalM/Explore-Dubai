@@ -2,86 +2,93 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    <data>
+
+
+
+        <variable
+            name="faq"
+            type="com.app.dubaiculture.data.repository.popular_service.local.models.FAQX" />
+
+    </data>
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_8sdp"
-        app:cardElevation="@dimen/_8sdp"
         android:foreground="@drawable/custom_ripple_black"
         android:outlineSpotShadowColor="@color/gray_600"
         app:cardCornerRadius="@dimen/_12sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:cardElevation="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:id="@+id/ll"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:orientation="vertical">
+
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
+                <!--                style="@style/TextViewStyle"-->
+
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                   android:id="@+id/tv_questionNum"
+                    android:id="@+id/tv_questionNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="01"
-                    android:textStyle="bold"
-                    app:textFont="bold"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:textColor="@color/gray_750"
+                    android:text="@{faq.id.toString()}"
+                    android:textColor="?attr/colorSecondary"
                     android:textSize="@dimen/_12sdp"
-                    />
+                    android:textStyle="bold"
+                    app:textFont="bold" />
+
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_questions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_13sdp"
                     android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:lineSpacingExtra="3dp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:textColor="@color/black_200"
-                    android:text="What is Dubai Culture  Arts Authority?"
-                    />
+                    android:text="@{faq.question}"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="@dimen/_13sdp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imgToggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_gravity="center_vertical|end"
-                    />
+                    android:layout_marginEnd="@dimen/_15sdp" />
             </LinearLayout>
 
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-               android:id="@+id/tv_answer"
-                android:visibility="gone"
+                android:id="@+id/tv_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
-                android:textColor="@color/gray_750"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:lineSpacingExtra="3dp"
-                />
+                android:text="@{faq.answer}"
+                android:textColor="?attr/colorSecondary"
+                android:visibility="gone" />
 
         </LinearLayout>
 
 
     </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
