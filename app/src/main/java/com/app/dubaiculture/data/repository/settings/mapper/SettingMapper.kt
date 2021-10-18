@@ -17,5 +17,6 @@ fun transformUserSettingRequest(userSettings: UserSettings)=UserSettingsDTO(
         PushNotification = userSettings.pushNotification,
         LocationBasedNotifications = userSettings.locationBasedNotifications,
         Email = userSettings.email,
-        SMS = userSettings.sms
+        SMS = userSettings.sms,
+        DefaultLanguage = userSettings.culture
 )

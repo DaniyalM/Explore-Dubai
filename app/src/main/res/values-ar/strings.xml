@@ -5,10 +5,14 @@
     <string name="switch_language">تغيير اللغة</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا</string>
+    <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
 
 
 
     // home tabs
+    <string name="service_procedure">Service Procedure</string>
+    <string name="faqs">Faqs</string>
+
     <string name="explore">اكتشف</string>
     <string name="events">الفعاليات</string>
     <string name="attractions">الوجهات الثقافية</string>

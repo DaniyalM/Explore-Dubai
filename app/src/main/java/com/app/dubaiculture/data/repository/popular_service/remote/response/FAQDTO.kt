@@ -1,6 +1,6 @@
 package com.app.dubaiculture.data.repository.popular_service.remote.response
 
 data class FAQDTO(
-    val FAQs: List<FAQXDTO>,
-    val FAQsTitle: String
+    val FAQs: List<FAQXDTO>?= mutableListOf(),
+    val FAQsTitle: String?
 )

@@ -13,4 +13,9 @@ class ServiceRDS @Inject constructor(private val popularService: PopularService)
        suspend fun getEServicesDetail(eServiceRequest: EServiceRequest)=safeApiCall {
             popularService.getEServicesDetail(eServiceRequest.culture, eServiceRequest.id.toString())
         }
+
+    suspend fun getDocument(url:String?)
+    =safeApiCall {
+        popularService.getDocument(url?:"http://www.africau.edu/images/default/sample.pdf")
+    }
 }

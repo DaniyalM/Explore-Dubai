@@ -2,6 +2,8 @@
     <string name="app_name">Dubai Culture</string>
     <string name="arabic">Arabic</string>
     <string name="english">عربي</string>
+    <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
+
 
     <!--z-->
     <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>
@@ -11,6 +13,8 @@
 
     // home tabs
     <string name="explore">Explore</string>
+    <string name="service_procedure">Service Procedure</string>
+
     <string name="events">Events</string>
     <string name="attractions">Attractions</string>
     <string name="favourites">Favourites</string>
@@ -292,5 +296,6 @@
     <string name="attachment">Attachment</string>
     <string name="pdf">PDF</string>
     <string name="no_my_posts_fav">No Data Found</string>
+    <string name="faqs">FAQs</string>
 
 </resources>

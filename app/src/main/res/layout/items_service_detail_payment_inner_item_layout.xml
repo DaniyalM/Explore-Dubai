@@ -7,7 +7,7 @@
 
         <variable
             name="payment"
-            type="com.app.dubaiculture.data.repository.popular_service.local.models.Payment" />
+            type="com.app.dubaiculture.data.repository.popular_service.local.models.PaymentX" />
 
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,10 +20,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="222dp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/rectangle_service"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -49,8 +47,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
-            android:text="Online Workshop"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:text="@{payment.description}"
             android:textAllCaps="true"
+            android:lines="1"
             android:textColor="@color/purple_900"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
@@ -72,7 +72,7 @@
             android:id="@+id/tv_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="30 AED"
+            android:text="@{payment.amount}"
             app:layout_constraintWidth_percent="0.5"
             android:textSize="@dimen/_14ssp"
             android:textColor="?attr/colorSecondary"
@@ -93,7 +93,7 @@
             android:id="@+id/tv_federal_fees"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/federal_fees"
+            android:text="@{payment.type}"
             android:textSize="@dimen/_14ssp"
             android:textColor="?attr/colorSecondary"
             app:layout_constraintStart_toEndOf="@+id/tv_amount"
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintTop_toBottomOf="@+id/line"
-            android:text="Note: Lorem ipsum dolor sit amet, consec tetur adipiscing elit sed."
+            android:text="@{payment.summary}"
             app:layout_constraintTop_toTopOf="@+id/line"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/line"

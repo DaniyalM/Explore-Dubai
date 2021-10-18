@@ -8,6 +8,7 @@
     <include app:graph="@navigation/profile_navigation" />
     <include app:graph="@navigation/news_navigation" />
     <include app:graph="@navigation/settings_navigation" />
+    <include app:graph="@navigation/service_navigation" />
     <fragment
         android:id="@+id/moreFragment"
         android:name="com.app.dubaiculture.ui.postLogin.more.MoreFragment"
@@ -94,7 +95,16 @@
             app:destination="@id/aboutFragment" />
         <action
             android:id="@+id/action_moreFragment_to_popularServiceFragment2"
-            app:destination="@id/popularServiceFragment2" />
+            app:destination="@id/service_navigation" />
+<!--        <action-->
+<!--            android:id="@+id/action_moreFragment_self"-->
+<!--            app:destination="@id/moreFragment"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out"-->
+<!--            app:popUpTo="@id/moreFragment"-->
+<!--            app:popUpToInclusive="true"/>-->
     </fragment>
 
     <dialog
@@ -149,9 +159,4 @@
         android:name="com.app.dubaiculture.ui.postLogin.more.contact.feedback.SharedFeebackFragment"
         android:label="SharedFeeback"
         tools:layout="@layout/fragment_shared_feeback" />
-    <fragment
-        android:id="@+id/popularServiceFragment2"
-        android:name="com.app.dubaiculture.ui.postLogin.popular_service.PopularServiceFragment"
-        android:label="PopularServiceFragment"
-        tools:layout="@layout/fragment_popular_service" />
 </navigation>

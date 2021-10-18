@@ -1,30 +1,31 @@
 package com.app.dubaiculture.ui.postLogin.login
 
+import ae.sdg.libraryuaepass.UAEPassAccessTokenCallback
 import ae.sdg.libraryuaepass.UAEPassController
-import ae.sdg.libraryuaepass.UAEPassProfileCallback
-import ae.sdg.libraryuaepass.business.profile.model.ProfileModel
-import ae.sdg.libraryuaepass.business.profile.model.UAEPassProfileRequestModel
+import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenRequestModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.webkit.CookieManager
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.app.dubaiculture.databinding.FragmentPostLoginBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel
 import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
+import com.app.dubaiculture.utils.UAEPassRequestModelsUtils
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
-import com.app.dubaiculture.utils.uaePassUtils.UAEPassRequestModels
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 @AndroidEntryPoint
 class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
-        View.OnClickListener {
+    View.OnClickListener {
     private val postLoginViewModel: PostLoginViewModel by viewModels()
     private val splashViewModel: SplashViewModel by viewModels()
     private var postCreatePassFragment: PostCreatePassFragment? = null
@@ -39,8 +40,8 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     }
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
     ) = FragmentPostLoginBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,7 +73,14 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                 dismiss()
             }
             R.id.img_uae_pass -> {
-                getProfile()
+//                getCode()
+
+//                bus.post(UAEPassService.UaeClick(true))
+                login()
+//                dismiss()
+
+
+//                getProfile()
 //                navigate(R.id.action_postLoginFragment_to_postCreatePassFragment)
             }
             R.id.tv_register_now -> {
@@ -93,12 +101,31 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         }
         splashViewModel.user.observe(viewLifecycleOwner) {
             if (it != null) {
-                application.auth.user = it
+                application.auth.apply {
+                    user = it
+                    if (it.hasPassword){
+                        isGuest = false
+                        isLoggedIn = true
+                        dismiss()
+                        showToast("Welcome !")
+                        if (!from.isNullOrEmpty()) {
+                            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+                        }
+                    }else {
+                        if(it.verificationToken.isNotEmpty()){
+                            navigateByAction(R.id.action_postLoginFragment_to_postCreatePassFragment,Bundle().apply {
+                                putString("verificationCode",it.verificationToken)
+                                putBoolean("isHome",true)
+                            })
+                        }
+
+                    }
+
+                }
+
+
             }
-            dismiss()
-            if (!from.isNullOrEmpty()) {
-                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-            }
+
         }
     }
 
@@ -127,20 +154,51 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
 
     }
 
-    private fun getProfile() {
-        val uaePassRequestModels = UAEPassRequestModels()
-        val requestModel: UAEPassProfileRequestModel = uaePassRequestModels.getProfileRequestModel(activity)!!
-        UAEPassController.getUserProfile(activity, requestModel, object : UAEPassProfileCallback {
-            override fun getProfile(profileModel: ProfileModel?, state: String, error: String?) {
-                if (error != null) {
-                    Toast.makeText(activity, "Error while getting access token", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    val name =
-                        profileModel!!.firstnameEN + profileModel!!.homeAddressEmirateCode + " " + profileModel.lastnameEN
-                    Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
+
+    override fun onDestroy() {
+        super.onDestroy()
+        showLoader(false)
     }
+
+
+    private fun login() {
+//        val uaePassRequestModels = UAEPassRequestModels()
+        showLoader(true)
+        val requestModel: UAEPassAccessTokenRequestModel =
+            UAEPassRequestModelsUtils.getAuthenticationRequestModelPostLogin(
+                activity
+            )!!
+        UAEPassController.getAccessToken(
+            activity,
+            requestModel!!,
+            object : UAEPassAccessTokenCallback {
+                override fun getToken(accessToken: String?, state: String, error: String?) {
+                    if (error != null) {
+                        showAlert(error)
+                        showLoader(false)
+//                    showToast("Error while getting access token")
+                    } else {
+                        accessToken?.let {
+                            Timber.e("Token : $it")
+                            postLoginViewModel.loginWithUae(
+                                UAELoginRequest(
+                                    token = it,
+                                    culture = getCurrentLanguage().language
+                                )
+                            )
+                            clearData()
+//                        getProfileAccessToken(it)
+                        }
+
+                    }
+                }
+            })
+    }
+
+    private fun clearData() {
+        CookieManager.getInstance().removeAllCookies { }
+        CookieManager.getInstance().flush()
+    }
+
+
 }

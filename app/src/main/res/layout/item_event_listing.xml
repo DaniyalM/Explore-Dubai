@@ -12,9 +12,8 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview"
             android:animate="@{technique.BounceInUp}"
-
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_250sdp"
             app:cardCornerRadius="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"

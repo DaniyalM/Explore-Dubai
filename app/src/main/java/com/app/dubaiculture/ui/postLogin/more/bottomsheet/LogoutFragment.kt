@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentLogoutBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.postLogin.more.services.MoreService
+import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreSharedViewModel
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,11 +19,12 @@ class LogoutFragment : BaseBottomSheetFragment<FragmentLogoutBinding>(), View.On
 
 
     private val loginViewModel: LoginViewModel by viewModels()
+    private val moreSharedViewModel: MoreSharedViewModel by activityViewModels()
 
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ) = FragmentLogoutBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,8 +38,7 @@ class LogoutFragment : BaseBottomSheetFragment<FragmentLogoutBinding>(), View.On
             R.id.btn_logout -> {
                 application.auth.user?.let {
                     loginViewModel.removeUser(it)
-                    application.auth.user = null
-                    bus.post(MoreService.Logout())
+                    moreSharedViewModel._isLogged.value = Event(true)
                 }
 
             }

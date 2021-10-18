@@ -1,126 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change Profile Photo"
-            style="@style/TextViewStyle"
-            android:layout_margin="@dimen/_15sdp"
-            android:textSize="17sp"/>
+        app:cardCornerRadius="@dimen/_20sdp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:id="@+id/cameraPickerContainer"
-            android:layout_height="@dimen/_40sdp">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/icon_favourite"
-                android:layout_width="wrap_content"
+                android:id="@+id/gray_line"
+                android:layout_width="@dimen/_70sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="22dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/gray_line"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cameraicon" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/title_favourite"
+                android:id="@+id/customTextView5"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="@string/take_new_photo"
-                android:textColor="@color/black_700"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_favourite"
-                app:layout_constraintStart_toEndOf="@+id/icon_favourite"
-                app:layout_constraintTop_toTopOf="@+id/icon_favourite" />
+                android:layout_margin="@dimen/_15sdp"
+                android:layout_marginStart="16dp"
+                android:text="Change Profile Photo"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gray_line" />
 
-            <FrameLayout
-                android:id="@+id/badge_favourite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_28sdp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="26dp"
-                android:visibility="gone"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cameraPickerContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customTextView5">
 
-                android:background="@drawable/badge_background"
-                app:layout_constraintBottom_toBottomOf="@+id/arrow_favourite"
-                app:layout_constraintEnd_toStartOf="@+id/arrow_favourite"
-                app:layout_constraintTop_toTopOf="@+id/arrow_favourite"
-                app:srcCompat="@drawable/arrow_attraction">
-
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                    android:id="@+id/badge_text"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/icon_favourite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/_4sdp"
-                    android:text="5"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/cameraicon" />
 
-                    android:textColor="@color/white_900"
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/title_favourite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/take_new_photo"
+                    android:textColor="@color/black_700"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_favourite"
                     app:layout_constraintStart_toEndOf="@+id/icon_favourite"
                     app:layout_constraintTop_toTopOf="@+id/icon_favourite" />
-            </FrameLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/arrow_favourite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/arrow_attraction" />
+                <FrameLayout
+                    android:id="@+id/badge_favourite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_28sdp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="26dp"
+                    android:background="@drawable/badge_background"
 
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/arrow_favourite"
+                    app:layout_constraintEnd_toStartOf="@+id/arrow_favourite"
+                    app:layout_constraintTop_toTopOf="@+id/arrow_favourite"
+                    app:srcCompat="@drawable/arrow_attraction">
 
-        </androidx.constraintlayout.widget.ConstraintLayout><androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:id="@+id/galleryPickerContainer"
-            android:layout_height="@dimen/_40sdp">
+                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/badge_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:text="5"
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/galleryPickerIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="22dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/galleryicon" />
+                        android:textColor="@color/white_900"
+                        app:layout_constraintBottom_toBottomOf="@+id/icon_favourite"
+                        app:layout_constraintStart_toEndOf="@+id/icon_favourite"
+                        app:layout_constraintTop_toTopOf="@+id/icon_favourite" />
+                </FrameLayout>
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/galleryPickertitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="@string/select_photo_from_gallery"
-                android:textColor="@color/black_700"
-                app:layout_constraintBottom_toBottomOf="@+id/galleryPickerIcon"
-                app:layout_constraintStart_toEndOf="@+id/galleryPickerIcon"
-                app:layout_constraintTop_toTopOf="@+id/galleryPickerIcon" />
-
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/arrow_favourite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/arrow_attraction" />
 
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/galleryPickerArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/arrow_attraction" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/galleryPickerContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                app:layout_constraintEnd_toEndOf="@+id/cameraPickerContainer"
+                app:layout_constraintStart_toStartOf="@+id/cameraPickerContainer"
+                app:layout_constraintTop_toBottomOf="@+id/cameraPickerContainer">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/galleryPickerIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/galleryicon" />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/galleryPickertitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/select_photo_from_gallery"
+                    android:textColor="@color/black_700"
+                    app:layout_constraintBottom_toBottomOf="@+id/galleryPickerIcon"
+                    app:layout_constraintStart_toEndOf="@+id/galleryPickerIcon"
+                    app:layout_constraintTop_toTopOf="@+id/galleryPickerIcon" />
 
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/galleryPickerArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/arrow_attraction" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

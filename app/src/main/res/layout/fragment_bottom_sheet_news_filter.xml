@@ -11,190 +11,193 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.postLogin.events.filter.FilterFragment">
+        app:cardCornerRadius="@dimen/_20sdp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/gray_line"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/gray_line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/heading_filter"
-            style="@style/TextViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_22sdp"
-            android:text="@string/filters"
-            android:textSize="@dimen/_16ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gray_line" />
-
-
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/tvReset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:background="@drawable/custom_ripple_border"
-            android:drawableStart="@drawable/refresh_icon_otp"
-            android:drawablePadding="@dimen/_5sdp"
-            android:foreground="@drawable/custom_ripple_border"
-            android:text="@string/reset_filter"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="@+id/heading_filter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/heading_filter" />
-
-
-        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
-            android:id="@+id/edit_search"
-            style="@style/EditTextStyle"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/bg_edit_resiger"
-            android:drawableEnd="@drawable/search_filter"
-            android:hint="@string/search_news_by_keyword"
-            android:imeOptions="actionSearch"
-            android:onTextChanged="@{viewmodel::onSearchTextChanged}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/heading_filter"
-            tools:src="@drawable/bg_edit_resiger" />
-
-
-        <com.app.dubaiculture.ui.components.customspinner.CustomSearchableSpinner
-            android:id="@+id/sp_spinner"
-            style="@style/spinner_style"
-            android:imeOptions="actionDone"
-            android:visibility="gone"
-            app:hintText="@string/location"
-            app:layout_constraintEnd_toEndOf="@+id/edit_search"
-            app:layout_constraintStart_toStartOf="@+id/edit_search"
-            app:layout_constraintTop_toBottomOf="@+id/edit_search"
-            tools:src="@drawable/bg_edit_resiger" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:background="@drawable/location_fiilter"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/sp_spinner"
-            app:layout_constraintEnd_toEndOf="@+id/sp_spinner"
-            app:layout_constraintTop_toTopOf="@+id/sp_spinner" />
-
-
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/date_range"
-            style="@style/TextViewRegistrationStyle"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:text="@string/date_range"
-            app:layout_constraintStart_toStartOf="@+id/edit_search"
-            app:layout_constraintTop_toBottomOf="@+id/edit_search" />
-
-
-        <LinearLayout
-            android:id="@+id/ll_dates"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_50sdp"
-            android:orientation="horizontal"
-            android:weightSum="3"
-            app:layout_constraintEnd_toEndOf="@+id/edit_search"
-            app:layout_constraintStart_toStartOf="@+id/date_range"
-            app:layout_constraintTop_toBottomOf="@+id/date_range">
-
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/tv_start_date"
-                style="@style/TextViewStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:layout_weight="1.4"
-                android:background="@drawable/date_range_bg"
-                android:drawableEnd="@drawable/calender"
-                android:gravity="center_vertical"
-                android:hint="@string/from"
-                android:paddingStart="@dimen/_15sdp"
-                android:paddingEnd="@dimen/_15sdp"
-                android:textColorHint="@color/gray_600"
-                android:textSize="@dimen/_10sdp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2" />
-
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/tv_end_date"
-                style="@style/TextViewStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:layout_weight="1.4"
-                android:background="@drawable/date_range_bg"
-                android:drawableEnd="@drawable/calender"
-                android:gravity="center_vertical"
-                android:hint="@string/to"
-                android:paddingStart="@dimen/_15sdp"
-                android:paddingEnd="@dimen/_15sdp"
-                android:textColorHint="@color/gray_600"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </LinearLayout>
-
-
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/category"
-            style="@style/TextViewRegistrationStyle"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:text="@string/tags"
-            app:layout_constraintStart_toStartOf="@+id/ll_dates"
-            app:layout_constraintTop_toBottomOf="@+id/ll_dates" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_categories"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxHeight="@dimen/_140sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:columnCount="3"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/category"
-            tools:listitem="@layout/item_category_filter" />
+            android:layout_margin="@dimen/_10sdp"
+            tools:context=".ui.postLogin.events.filter.FilterFragment">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/gray_line"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/heading_filter"
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filters"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gray_line" />
 
 
-        <com.app.dubaiculture.ui.components.custombutton.CustomButton
-            android:id="@+id/btn_filter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_25sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
-            android:background="@drawable/btn_register"
-            android:elevation="@dimen/_15sdp"
-            android:foreground="@drawable/custom_ripple_border"
-            android:gravity="center"
-            android:text="@string/filters"
-            android:textAllCaps="false"
-            android:textColor="@color/white_900"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_categories" />
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tvReset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_ripple_border"
+                android:drawableStart="@drawable/refresh_icon_otp"
+                android:drawablePadding="@dimen/_5sdp"
+                android:foreground="@drawable/custom_ripple_border"
+                android:text="@string/reset_filter"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/heading_filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/heading_filter" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                android:id="@+id/edit_search"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/bg_edit_resiger"
+                android:drawableEnd="@drawable/search_filter"
+                android:hint="@string/search_news_by_keyword"
+                android:imeOptions="actionSearch"
+                android:onTextChanged="@{viewmodel::onSearchTextChanged}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/heading_filter"
+                tools:src="@drawable/bg_edit_resiger" />
+
+
+            <com.app.dubaiculture.ui.components.customspinner.CustomSearchableSpinner
+                android:id="@+id/sp_spinner"
+                style="@style/spinner_style"
+                android:imeOptions="actionDone"
+                android:visibility="gone"
+                app:hintText="@string/location"
+                app:layout_constraintEnd_toEndOf="@+id/edit_search"
+                app:layout_constraintStart_toStartOf="@+id/edit_search"
+                app:layout_constraintTop_toBottomOf="@+id/edit_search"
+                tools:src="@drawable/bg_edit_resiger" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="@drawable/location_fiilter"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/sp_spinner"
+                app:layout_constraintEnd_toEndOf="@+id/sp_spinner"
+                app:layout_constraintTop_toTopOf="@+id/sp_spinner" />
+
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/date_range"
+                style="@style/TextViewRegistrationStyle"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="@string/date_range"
+                app:layout_constraintStart_toStartOf="@+id/edit_search"
+                app:layout_constraintTop_toBottomOf="@+id/edit_search" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_dates"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_50sdp"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintEnd_toEndOf="@+id/edit_search"
+                app:layout_constraintStart_toStartOf="@+id/date_range"
+                app:layout_constraintTop_toBottomOf="@+id/date_range">
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_start_date"
+                    style="@style/TextViewStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_weight="1.4"
+                    android:background="@drawable/date_range_bg"
+                    android:drawableEnd="@drawable/calender"
+                    android:gravity="center_vertical"
+                    android:hint="@string/from"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:textColorHint="@color/gray_600"
+                    android:textSize="@dimen/_10sdp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2" />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_end_date"
+                    style="@style/TextViewStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_weight="1.4"
+                    android:background="@drawable/date_range_bg"
+                    android:drawableEnd="@drawable/calender"
+                    android:gravity="center_vertical"
+                    android:hint="@string/to"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:textColorHint="@color/gray_600"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </LinearLayout>
+
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/category"
+                style="@style/TextViewRegistrationStyle"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="@string/tags"
+                app:layout_constraintStart_toStartOf="@+id/ll_dates"
+                app:layout_constraintTop_toBottomOf="@+id/ll_dates" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:columnCount="3"
+                android:maxHeight="@dimen/_140sdp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/category"
+                tools:listitem="@layout/item_category_filter" />
+
+
+            <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                android:id="@+id/btn_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:background="@drawable/btn_register"
+                android:elevation="@dimen/_15sdp"
+                android:foreground="@drawable/custom_ripple_border"
+                android:gravity="center"
+                android:text="@string/filters"
+                android:textAllCaps="false"
+                android:textColor="@color/white_900"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_categories" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

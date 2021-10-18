@@ -13,6 +13,7 @@ import com.app.dubaiculture.data.repository.setpassword.remote.request.SetPasswo
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.AuthUtils
 import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -45,6 +46,8 @@ class PostCreatePassViewModel @Inject constructor(
 
     private var passwordConfirmError_ = MutableLiveData<Int>()
     var passwordConfirmError: LiveData<Int> = passwordConfirmError_
+    private var isPasswordSet_ = MutableLiveData<Event<Boolean>>()
+    var isPasswordSet: LiveData<Event<Boolean>> = isPasswordSet_
 
     fun setPassword(
         verificationCode: String? = null,
@@ -62,12 +65,9 @@ class PostCreatePassViewModel @Inject constructor(
                     is com.app.dubaiculture.data.Result.Success -> {
                         showLoader(false)
                         if (result.value.succeeded) {
+                            isPasswordSet_.value=Event(true)
                             showToast(result.value.setPasswordResponseDTO.message)
-                            val bundle = bundleOf("post" to "postFragment")
-                            navigateByAction(
-                                R.id.action_postCreatePassFragment_to_passwordUpdatedFragment2,
-                                bundle
-                            )
+
                         } else {
                             showErrorDialog(
                                 message = result.value.errorMessage,

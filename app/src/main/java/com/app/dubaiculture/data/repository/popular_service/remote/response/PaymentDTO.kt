@@ -1,9 +1,9 @@
 package com.app.dubaiculture.data.repository.popular_service.remote.response
 
 data class PaymentDTO(
-    val AmountTitle: String,
-    val DescriptionTitle: String,
-    val PaymentTitle: String,
-    val Payments: List<PaymentXDTO>,
-    val TypeTitle: String
+    val AmountTitle: String?,
+    val DescriptionTitle: String?,
+    val PaymentTitle: String?,
+    val Payments: List<PaymentXDTO>?= mutableListOf(),
+    val TypeTitle: String?
 )

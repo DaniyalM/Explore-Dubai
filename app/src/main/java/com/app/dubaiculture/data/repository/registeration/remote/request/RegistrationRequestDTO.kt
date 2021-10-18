@@ -11,5 +11,6 @@ class RegistrationRequestDTO(
 
     val FullName: String,
 
-    val PhoneNumber: String
+    val PhoneNumber: String,
+    val DefaultCulture: String
 )

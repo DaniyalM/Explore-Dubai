@@ -11,7 +11,6 @@ class AttractionItemCell(context: Context) : AsyncCell(context) {
     override val layoutId = R.layout.section_item_container_cell
     override fun createDataBindingView(view: View): View? {
         binding = SectionItemContainerCellBinding.bind(view)
-
         return view.rootView
     }
 

@@ -11,5 +11,6 @@ class RegistrationRequest(
 
     val fullName: String,
 
-    val phoneNumber: String
+    val phoneNumber: String,
+    val culture: String = "en"
 )

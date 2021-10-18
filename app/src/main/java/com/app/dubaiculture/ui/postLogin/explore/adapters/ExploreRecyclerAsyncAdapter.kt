@@ -421,6 +421,21 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                     playJson = it.playJson,
                                     icon = it.icon
                                 )
+                            ,rowClickListener = object :RowClickListener{
+                                    override fun rowClickListener(position: Int) {
+                                        fragment?.navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToServiceDetailNavigation(
+                                                it.id!!
+                                            )
+                                        )
+                                    }
+
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
+                                    }
+                                }
                             )
                         )
                     }
