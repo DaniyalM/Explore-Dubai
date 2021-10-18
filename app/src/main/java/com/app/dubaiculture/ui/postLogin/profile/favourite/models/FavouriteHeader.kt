@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.more.profile.favourite.models
+package com.app.dubaiculture.ui.postLogin.profile.favourite.models
 
 data class FavouriteHeader(
         var id: Int? = 0,

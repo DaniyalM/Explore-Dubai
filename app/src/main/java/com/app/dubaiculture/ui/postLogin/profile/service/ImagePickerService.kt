@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.more.profile.service
+package com.app.dubaiculture.ui.postLogin.profile.service
 
 sealed class ImagePickerService{
     object CameraClick: ImagePickerService()

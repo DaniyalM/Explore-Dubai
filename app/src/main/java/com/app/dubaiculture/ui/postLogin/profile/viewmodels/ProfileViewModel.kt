@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.more.profile.viewmodels
+package com.app.dubaiculture.ui.postLogin.profile.viewmodels
 
 import android.app.Application
 import androidx.databinding.ObservableField

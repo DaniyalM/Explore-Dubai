@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.more.profile.favourite
+package com.app.dubaiculture.ui.postLogin.profile.favourite
 
 import android.content.Context
 import android.os.Bundle
@@ -23,9 +23,9 @@ import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
-import com.app.dubaiculture.ui.postLogin.more.profile.favourite.models.FavouriteHeader
-import com.app.dubaiculture.ui.postLogin.more.profile.favourite.services.FavouriteServices
-import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewModel
+import com.app.dubaiculture.ui.postLogin.profile.favourite.models.FavouriteHeader
+import com.app.dubaiculture.ui.postLogin.profile.favourite.services.FavouriteServices
+import com.app.dubaiculture.ui.postLogin.profile.viewmodels.ProfileViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.FAVOURITE_BUNDLE
 import com.app.dubaiculture.utils.handleApiError

@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.more.profile.avatarPicker
+package com.app.dubaiculture.ui.postLogin.profile.avatarPicker
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.app.dubaiculture.databinding.FragmentImagePickerBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.postLogin.more.profile.service.ImagePickerService
-import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewModel
+import com.app.dubaiculture.ui.postLogin.profile.service.ImagePickerService
+import com.app.dubaiculture.ui.postLogin.profile.viewmodels.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

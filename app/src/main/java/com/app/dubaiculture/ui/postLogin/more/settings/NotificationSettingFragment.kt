@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import com.app.dubaiculture.data.repository.settings.local.UserSettings
 import com.app.dubaiculture.databinding.FragmentNotificationSettingBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewModel
+import com.app.dubaiculture.ui.postLogin.profile.viewmodels.ProfileViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.SETTINGS_BUNDLE
 import dagger.hilt.android.AndroidEntryPoint
 

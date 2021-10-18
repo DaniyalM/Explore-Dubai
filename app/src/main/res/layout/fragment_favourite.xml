@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.app.dubaiculture.ui.postLogin.more.profile.favourite.components.FavouriteHeaderItemSelector
+                    <com.app.dubaiculture.ui.postLogin.profile.favourite.components.FavouriteHeaderItemSelector
                         android:id="@+id/horizontalSelector"
                         style="@style/HorizontalAttractionStyle"
                         android:layout_width="match_parent"
