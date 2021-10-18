@@ -8,11 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.dubaiculture.R
-import com.app.dubaiculture.databinding.FragmentTripStep2Binding
 import com.app.dubaiculture.databinding.FragmentTripStep3Binding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
-import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.TripStep2Fragment
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -26,8 +24,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCallback {
 
@@ -93,14 +91,14 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
         map.addMarker(
             MarkerOptions()
-                .position(LatLng(24.8623077, 67.0605548))
+                .position(LatLng(-34.0, 151.0))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
 
         )
 
         map.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
-                LatLng(24.8623077, 67.0605548), 14.0f
+                LatLng(-34.0, 151.0), 14.0f
             )
         )
         map.cameraPosition.target
