@@ -8,6 +8,8 @@
     <include app:graph="@navigation/profile_navigation" />
     <include app:graph="@navigation/news_navigation" />
     <include app:graph="@navigation/settings_navigation" />
+    <include app:graph="@navigation/trip_navigation" />
+
     <include app:graph="@navigation/service_navigation" />
     <fragment
         android:id="@+id/moreFragment"
@@ -96,6 +98,15 @@
         <action
             android:id="@+id/action_moreFragment_to_popularServiceFragment2"
             app:destination="@id/service_navigation" />
+        <action
+            android:id="@+id/action_moreFragment_to_tripFragment"
+            app:destination="@id/trip_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+
 <!--        <action-->
 <!--            android:id="@+id/action_moreFragment_self"-->
 <!--            app:destination="@id/moreFragment"-->

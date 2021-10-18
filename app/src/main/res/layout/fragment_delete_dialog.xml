@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_190sdp"
+        tools:context="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.DeleteDialogFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/gray_line"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/gray_line"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"/>
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/are_you_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:text="@string/are_you_sure_want_to_delete"
+            style="@style/TextViewStyle"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gray_line" />
+
+        <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            android:id="@+id/btn_delete"
+            android:layout_marginBottom="@dimen/_60sdp"
+            android:background="@drawable/btn_register"
+            android:foreground="@drawable/custom_ripple_border"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/are_you_sure"
+            android:textAllCaps="false"
+            android:text="@string/delete"
+            android:textColor="@color/white_900"
+            android:transitionName="action_btn"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_25sdp"
+            android:background="@drawable/custom_ripple_border"
+            android:text="@string/cancel"
+            style="@style/TextViewStyle"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btn_delete"
+            app:layout_constraintStart_toStartOf="@+id/btn_delete"
+            app:layout_constraintTop_toBottomOf="@+id/btn_delete" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

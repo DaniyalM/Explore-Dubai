@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/plan_trip_parent_navigation"
+    app:startDestination="@id/planTripParentFragment">
+    <fragment
+        android:id="@+id/planTripParentFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.PlanTripParentFragment"
+        android:label="PlanTripParentFragment"
+        tools:layout="@layout/fragment_plan_trip_parent" />
+
+</navigation>

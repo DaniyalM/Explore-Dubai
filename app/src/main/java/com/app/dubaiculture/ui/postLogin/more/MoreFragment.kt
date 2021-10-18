@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
@@ -15,7 +14,6 @@ import com.app.dubaiculture.databinding.ItemsMoreLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.more.adapter.MoreItems
-import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreSharedViewModel
 import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
@@ -29,6 +27,8 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import androidx.fragment.app.activityViewModels
+import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreSharedViewModel
 
 @AndroidEntryPoint
 class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
@@ -53,6 +53,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
         binding.llCultureConnoisseur.setOnClickListener(this)
+        binding.planATripLayout.cardivewRTL.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
             binding.toolbarSnippet.toolbarLayout.profilePic,
             binding.toolbarSnippet.toolbarLayout.imgDrawer,
@@ -90,14 +91,14 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             tvTrip.text = resources.getString(R.string.plan_your_trip)
             subHeading.visibility = View.VISIBLE
             if (isArabic()) {
-                cardivewRTL.shapeAppearanceModel =
+                cardivewRTL?.shapeAppearanceModel =
                     cardivewRTL.shapeAppearanceModel
                         .toBuilder()
                         .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                         .setTopRightCornerSize(radius)
                         .build()
             } else {
-                cardivewRTL.shapeAppearanceModel =
+                cardivewRTL?.shapeAppearanceModel =
                     cardivewRTL.shapeAppearanceModel
                         .toBuilder()
                         .setTopLeftCorner(CornerFamily.ROUNDED, radius)
@@ -124,8 +125,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 MoreItems<ItemsMoreLayoutBinding>(
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
-                            when(position){
-                                0->{
+                            when (position) {
+                                0 -> {
                                     navigate(R.id.action_moreFragment_to_popularServiceFragment2)
                                 }
                             }
@@ -257,17 +258,20 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_app -> {
-              moreViewModel.shareAppLink(activity)
+                moreViewModel.shareAppLink(activity)
             }
             R.id.ll_rate_us -> {
-               moreViewModel.rateUs(activity)
+                moreViewModel.rateUs(activity)
             }
             R.id.ll_notification -> {
                 navigate(R.id.action_moreFragment_to_notificationFragment)
             }
             R.id.llCultureConnoisseur -> {
                 navigate(R.id.action_moreFragment_to_aboutFragment)
-
+            }
+            R.id.cardivewRTL -> {
+                navigateByDirections(MoreFragmentDirections.actionMoreFragmentToTripFragment())
+//                navigate(R.id.action_moreFragment_to_tripFragment)
             }
 
         }

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.rishabhharit.roundedimageview.RoundedImageView
+        android:id="@+id/ivTrips"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_75sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:scaleType="center"
+        android:src="@drawable/image_placeholder"
+        app:cornerRadius="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/tvSubHeading"
+        style="@style/TextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:fontFamily="@font/neosansarabicmedium"
+        android:text="Museum"
+        android:textAllCaps="true"
+        android:textColor="@color/purple_650"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintStart_toEndOf="@id/ivTrips"
+        app:layout_constraintTop_toTopOf="@+id/ivTrips" />
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/tvDesc"
+        style="@style/TextViewStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="Museum of the Poet of Al Oqaili"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toStartOf="@id/cvNavigation"
+        app:layout_constraintStart_toEndOf="@id/ivTrips"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubHeading" />
+
+    <ImageView
+        android:id="@+id/ivTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:src="@drawable/ic_clock_blue"
+        app:layout_constraintBottom_toBottomOf="@id/ivTrips"
+        app:layout_constraintStart_toStartOf="@id/tvSubHeading" />
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:includeFontPadding="false"
+        android:text="12:00-2:00 PM I Sunday"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintBottom_toBottomOf="@id/ivTime"
+        app:layout_constraintStart_toEndOf="@id/ivTime"
+        app:layout_constraintTop_toTopOf="@+id/ivTime" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_4sdp"
+        app:cardElevation="@dimen/_12sdp"
+        app:layout_constraintBottom_toTopOf="@id/tvDistance"
+        app:layout_constraintEnd_toEndOf="@id/tvDistance"
+        app:layout_constraintStart_toStartOf="@id/tvDistance">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/_4sdp"
+            android:src="@drawable/ic_navigation" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/tvDistance"
+        style="@style/TextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:includeFontPadding="false"
+        android:text="10 Km"
+        android:textSize="@dimen/_8ssp"
+        app:layout_constraintBottom_toBottomOf="@id/tvTime"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/llIcons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="@id/ivTrips"
+        app:layout_constraintEnd_toStartOf="@id/tvCar"
+        app:layout_constraintTop_toBottomOf="@id/ivTrips"
+        >
+
+        <ImageView
+            android:id="@+id/ivCar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_car_green"
+            app:layout_constraintEnd_toStartOf="@id/ivDropDown"
+            app:layout_constraintStart_toStartOf="@id/ivTrips"
+            app:layout_constraintTop_toBottomOf="@id/ivTrips" />
+
+        <ImageView
+            android:id="@+id/ivDropDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_dropdown_green"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_2sdp"
+            app:layout_constraintBottom_toBottomOf="@id/ivCar"
+            app:layout_constraintEnd_toStartOf="@id/tvCar"
+            app:layout_constraintStart_toEndOf="@id/ivCar"
+            app:layout_constraintTop_toTopOf="@id/ivCar" />
+    </LinearLayout>
+
+    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        android:id="@+id/tvCar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30 min"
+        android:textSize="@dimen/_8ssp"
+        app:layout_constraintEnd_toEndOf="@id/ivTrips"
+        app:layout_constraintStart_toEndOf="@id/llIcons"
+        app:layout_constraintTop_toTopOf="@id/llIcons"
+        />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="0.2dp"
+        android:background="?attr/color_light_gray_svg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvSubHeading"
+        app:layout_constraintTop_toTopOf="@+id/llIcons"
+        app:layout_constraintBottom_toBottomOf="@id/llIcons"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
