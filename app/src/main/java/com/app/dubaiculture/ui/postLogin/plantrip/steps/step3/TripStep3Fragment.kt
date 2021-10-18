@@ -93,14 +93,14 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
         map.addMarker(
             MarkerOptions()
-                .position(LatLng(24.8623077, 67.0605548))
+                .position(LatLng(-34.0, 151.0))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
 
         )
 
         map.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
-                LatLng(24.8623077, 67.0605548), 14.0f
+                LatLng(-34.0, 151.0), 14.0f
             )
         )
         map.cameraPosition.target
