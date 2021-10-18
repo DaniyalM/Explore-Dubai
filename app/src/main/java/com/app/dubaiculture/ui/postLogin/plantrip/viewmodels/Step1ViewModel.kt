@@ -9,9 +9,11 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.news.NewsRepository
 import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.data.repository.trip.TripRepository
+import com.app.dubaiculture.data.repository.trip.local.UserTypes
 import com.app.dubaiculture.data.repository.trip.remote.response.UserTypeResponseDTO
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
 import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,8 +27,8 @@ class Step1ViewModel @Inject constructor(
 ) : BaseViewModel(application) {
     private val context = getApplication<ApplicationEntry>()
 
-    private val _userType: MutableLiveData<Result<Event<UserTypeResponseDTO>>> = MutableLiveData()
-    val userType: LiveData<Result<Event<UserTypeResponseDTO>>> = _userType
+    private val _userType: MutableLiveData<Event<UserTypes>> = MutableLiveData()
+    val userType: LiveData<Event<UserTypes>> = _userType
 
     init {
         getUserType()
@@ -39,15 +41,18 @@ class Step1ViewModel @Inject constructor(
             when (result) {
                 is Result.Success -> {
                     showLoader(false)
-                    _userType.value = result
+                    _userType.value = result.value
                 }
                 is Result.Error -> {
                     showLoader(false)
-                    _userType.value = result
+                    showToast(SOMETHING_WENT_WRONG)
+//                     result.exception
                 }
                 is Result.Failure -> {
                     showLoader(false)
-                    _userType.value = result
+                    showToast(SOMETHING_WENT_WRONG)
+
+//                    _userType.value = result
                 }
             }
         }

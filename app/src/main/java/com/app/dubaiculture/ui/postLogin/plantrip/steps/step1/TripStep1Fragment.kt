@@ -40,8 +40,9 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
 
     private fun subscribeToObservables() {
         step1ViewModel.userType.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let {
 
-            it.
+            }
 
         }
     }
