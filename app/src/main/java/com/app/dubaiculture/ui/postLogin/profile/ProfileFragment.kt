@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.more.profile
+package com.app.dubaiculture.ui.postLogin.profile
 
 import android.app.Activity
 import android.content.Intent
@@ -17,8 +17,8 @@ import com.app.dubaiculture.data.repository.profile.local.Favourite
 import com.app.dubaiculture.data.repository.profile.utils.ImageFilePath
 import com.app.dubaiculture.databinding.FragmentProfileBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.more.profile.service.ImagePickerService
-import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewModel
+import com.app.dubaiculture.ui.postLogin.profile.service.ImagePickerService
+import com.app.dubaiculture.ui.postLogin.profile.viewmodels.ProfileViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.FAVOURITE_BUNDLE
 import com.app.dubaiculture.utils.FileUtils

@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.more.profile.favourite.adapters
+package com.app.dubaiculture.ui.postLogin.profile.favourite.adapters
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable

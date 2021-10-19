@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.more.profile.placesvisited
+package com.app.dubaiculture.ui.postLogin.profile.placesvisited
 
 import android.os.Bundle
 import android.text.TextUtils
