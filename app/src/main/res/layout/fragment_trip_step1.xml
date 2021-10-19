@@ -8,6 +8,10 @@
         <variable
             name="view"
             type="com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.TripStep1Fragment" />
+
+        <variable
+            name="viewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step1ViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,13 +35,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:text="@string/ima"
+            android:text="@{viewModel.userType.peekContent().title}"
             android:textColor="?attr/colorOnSurface"
             android:textSize="@dimen/_22ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUserType"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/btnNext"
@@ -55,10 +60,10 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:backgroundTint="@color/purple_650"
             android:fontFamily="@font/neo_sans_arabic_regular"
+            android:onClick="@{()->view.onNextClicked()}"
             android:text="@string/next"
             android:textAllCaps="false"
             android:textColor="?attr/colorOnPrimary"
-            android:onClick="@{()->view.onNextClicked()}"
             app:cornerRadius="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

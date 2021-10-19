@@ -20,7 +20,8 @@ fun transformUserType(userTypeResponse: UserTypeResponseDTO)=UserTypes(
         UsersType(
             id = index +1,
             image = usersTypeDTO.Image,
-            title = usersTypeDTO.Title
+            title = usersTypeDTO.Title,
+            checked = false
         )
     }
 )

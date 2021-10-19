@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="com.app.dubaiculture.R" />
+        <variable
+            name="userType"
+            type="com.app.dubaiculture.data.repository.trip.local.UsersType" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -14,6 +21,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_14sdp"
             android:layout_marginBottom="@dimen/_10sdp"
+            app:strokeWidth="@dimen/_1sdp"
             android:background="@drawable/custom_ripple_black"
             android:outlineSpotShadowColor="@color/gray_600"
             app:cardCornerRadius="@dimen/_10sdp"
@@ -34,6 +42,7 @@
                     android:layout_height="@dimen/_50sdp"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginVertical="@dimen/_6sdp"
+                    android:loadImage="@{userType.image}"
                     android:src="@drawable/ic_baseline_account_circle_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -45,17 +54,20 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:text="@string/resident"
+                    android:text="@{userType.title}"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="@dimen/_14ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iv_user"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <RadioButton
+                <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/purple_650"
+                    android:enabled="false"
+                    android:checked="@{userType.checked}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
