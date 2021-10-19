@@ -13,7 +13,7 @@ import com.app.dubaiculture.data.repository.settings.local.UserSettings
 import com.app.dubaiculture.databinding.FragmentSettingBinding
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewModel
+import com.app.dubaiculture.ui.postLogin.profile.viewmodels.ProfileViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.enableLocationFromSettings
 import com.app.dubaiculture.utils.handleApiError
