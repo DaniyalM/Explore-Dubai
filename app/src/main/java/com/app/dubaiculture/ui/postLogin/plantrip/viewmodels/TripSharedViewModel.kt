@@ -33,8 +33,8 @@ class TripSharedViewModel @Inject constructor(
     private val _userType: MutableLiveData<Event<UserTypes>> = MutableLiveData()
     val userType: LiveData<Event<UserTypes>> = _userType
 
-    private val _usersType: MutableLiveData<Event<UsersType>> = MutableLiveData()
-    val usersType: LiveData<Event<UsersType>> = _usersType
+    val _usersType: MutableLiveData<List<UsersType>> = MutableLiveData()
+    val usersType: LiveData<List<UsersType>> = _usersType
 
     init {
         getUserType()
@@ -48,7 +48,6 @@ class TripSharedViewModel @Inject constructor(
                 is Result.Success -> {
                     showLoader(false)
                     _userType.value = result.value
-                    _usersType.va
                 }
                 is Result.Error -> {
                     showLoader(false)
@@ -69,8 +68,16 @@ class TripSharedViewModel @Inject constructor(
 
     fun updateUserItem(userType: UsersType) {
 
-        _usersType.value
+        val data = _usersType.value ?: return
+        data.map {
+            if (userType.id == it.id
+            ) return@map userType
+            else return@map it
+        }.let {
+            _usersType.value = it
+        }
 
     }
+
 
 }

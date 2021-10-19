@@ -63,10 +63,8 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
                     }
 
                     override fun rowClickListener(userType: UsersType, position: Int) {
-                        showToast(userType.id.toString())
                         userType.checked = true
                         tripSharedViewModel.updateUserItem(userType)
-//                        userTypeAdapter.notifyDataSetChanged()
                     }
 
                 }
@@ -79,26 +77,23 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
     }
 
     private fun subscribeToObservables() {
-//        step1ViewModel.userType.observe(viewLifecycleOwner) {
-//            it.getContentIfNotHandled()?.let { it ->
-//
-//                userTypeAdapter.submitList(it.usersType)
-//
-//            }
-//
-//        }
-        tripSharedViewModel.userType.observe(viewLifecycleOwner) {
-//            it.getContentIfNotHandled()?.let { it ->
-//
-//                userTypeAdapter.submitList(it.usersType)
-//
-//            }
 
-            it.peekContent().let { it ->
-                userTypeAdapter.submitList(it.usersType)
+
+        tripSharedViewModel.userType.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { it ->
+
+                tripSharedViewModel._usersType.value = it.usersType
+
             }
 
         }
+
+        tripSharedViewModel.usersType.observe(viewLifecycleOwner) {
+
+            userTypeAdapter.submitList(it)
+
+        }
+
     }
 
 
