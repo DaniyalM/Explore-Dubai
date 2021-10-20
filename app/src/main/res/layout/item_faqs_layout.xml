@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_8sdp"
         android:foreground="@drawable/custom_ripple_black"
-        android:outlineSpotShadowColor="@color/gray_600"
         app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +30,6 @@
             android:id="@+id/ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:orientation="vertical">
 
             <LinearLayout

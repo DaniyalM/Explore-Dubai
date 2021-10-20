@@ -118,32 +118,33 @@ class LoginViewModel @Inject constructor(
                     //UAE Response Has been Saved
                     val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
                     uaePass.let {
-                        if (it.idn.isEmpty()) {
-                            showAlert(message = activity.resources.getString(R.string.sop1))
-                        } else {
-                            //setting UaePassInfo for Session
-
-                            userRepository.saveUaeInfo(
+                        userRepository.saveUaeInfo(
                                 it
-                            )
+                        )
 
-                            //setting user for Session
-                            val user = transform(
+                        //setting user for Session
+                        val user = transform(
                                 result.value.loginResponseDTO.userDTO,
                                 result.value.loginResponseDTO
-                            ).copy(
+                        ).copy(
                                 idn = it.idn,
                                 userName = "${it.firstNameEn} ${it.lastNameEn}",
                                 email = it.email,
                                 phoneNumber = "+${it.mobile}"
-                            )
+                        )
 
-                            setUser(user, true)
-                            //Saving User Session
-                            userRepository.updateUser(user)
-
-
-                        }
+                        setUser(user, true)
+                        //Saving User Session
+                        userRepository.updateUser(user)
+//                        if (it.idn.isEmpty()) {
+//                            showAlert(message = activity.resources.getString(R.string.sop1))
+//                        } else {
+//                            //setting UaePassInfo for Session
+//
+//
+//
+//
+//                        }
                     }
 
                 }
