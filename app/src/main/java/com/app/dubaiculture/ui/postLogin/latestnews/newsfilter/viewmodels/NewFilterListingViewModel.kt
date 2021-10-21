@@ -22,6 +22,8 @@ class NewFilterListingViewModel @Inject constructor(
 ) : BaseViewModel(application) {
     private val _news: MutableLiveData<List<LatestNews>> = MutableLiveData()
     val news: LiveData<List<LatestNews>> = _news
+
+
     private val context = getApplication<ApplicationEntry>()
 
 
@@ -47,6 +49,7 @@ class NewFilterListingViewModel @Inject constructor(
                 is Result.Success -> {
                     showLoader(false)
                     _news.value = result.value
+
                 }
                 is Result.Failure -> showToast(result.errorMessage.toString())
                 is Result.Error -> showAlert(result.exception.message.toString())

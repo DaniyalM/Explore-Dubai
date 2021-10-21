@@ -45,10 +45,10 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
                 override fun onTagSelectListner(newsTags: NewsTags) {
                     if (!filter.tags.contains(newsTags.tag_title) && newsTags.isSelected) {
                         list.add(newsTags.tag_title)
-                        filter.tags=list
+                        filter=filter.copy(tags = list)
                     }else{
                         list.remove(newsTags.tag_title)
-                        filter.tags=list
+                        filter=filter.copy(tags = list)
                     }
 
                 }
@@ -61,6 +61,7 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentBottomSheetNewsFilterBinding.inflate(inflater, container, false)
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,23 +94,29 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
 
 
     private fun subscribeToObservables() {
-
+        newsFilterViewModel.filter.observe(viewLifecycleOwner){
+            it?.peekContent()?.let {
+                if (it.keyword.isNotEmpty())
+                    binding.editSearch.setText(it.keyword)
+            }
+        }
 //        newsFilterViewModel.updateFilter(filter)
         newsFilterViewModel.keyword.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-
-                filter.keyword = it
+                filter=filter.copy(keyword = it)
             }
         }
         newsFilterViewModel.dateFrom.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                filter.dateFrom = it
+                filter=filter.copy(dateFrom = it)
+
                 binding.tvStartDate.text = it
             }
         }
         newsFilterViewModel.dateTo.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                filter.dateTo = it
+                filter=filter.copy(dateTo = it)
+
                 binding.tvEndDate.text = it
             }
         }
