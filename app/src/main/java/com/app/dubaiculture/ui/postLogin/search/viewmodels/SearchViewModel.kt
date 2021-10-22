@@ -3,6 +3,7 @@ package com.app.dubaiculture.ui.postLogin.search.viewmodels
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.app.dubaiculture.data.repository.search.SearchRepository
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,7 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    application: Application
+    application: Application,
+    private val searchRepository: SearchRepository
 ) : BaseViewModel(application) {
 
     private var _viewFlag: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
