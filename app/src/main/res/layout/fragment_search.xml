@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+
+        <include
+            android:id="@+id/search_toolbar"
+            layout="@layout/layout_popular_search_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchHistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_52sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            app:layout_constraintStart_toStartOf="@+id/search_toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/search_toolbar">
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/customTextView8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_22sdp"
+                android:text="Popular Search"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="@dimen/_24ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textFont="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popular_rv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_13sdp"
+                app:layout_constraintBottom_toTopOf="@+id/clearPop"
+                app:layout_constraintStart_toStartOf="@+id/customTextView8"
+                app:layout_constraintTop_toBottomOf="@+id/customTextView8" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/clearPop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_70sdp"
+                android:drawableStart="@drawable/binicon"
+                android:drawablePadding="@dimen/_5sdp"
+                android:text="Clear Search History"
+                android:textColor="?attr/color_dubai_logo"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/popular_rv" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

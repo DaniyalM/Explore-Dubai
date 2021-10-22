@@ -109,6 +109,7 @@
     <string name="filters">Filters</string>
     <string name="search_events_by_keyword">Search events by keyword</string>
     <string name="search_news_by_keyword">Search news by keyword</string>
+    <string name="search_any_item">What are you looking for?</string>
     <string name="location">Location</string>
     <string name="date_range">Date Range</string>
     <string name="from">From</string>
@@ -179,6 +180,7 @@
     <string name="next_seven_days">Next 7 Days</string>
     <string name="detail_clip_card_text">Review Majlis Ghorfat\non Trip Advisor</string>
     <string name="clear_all">Clear All</string>
+    <string name="clear">Clear</string>
     <string name="no_data_found">No Data Found</string>
 
     <string name="away"> Km Away</string>

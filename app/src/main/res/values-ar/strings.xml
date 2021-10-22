@@ -103,6 +103,8 @@
     <string name="filters">تصنيف</string>
     <string name="search_events_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
     <string name="search_news_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
+    <string name="search_any_item">What are you looking for?</string>
+
     <string name="location">الموقع</string>
     <string name="date_range">نطاق التاريخ</string>
     <string name="from">من عند</string>
@@ -171,6 +173,8 @@
     <string name="next_seven_days">ال7 أيام القادمة</string>
     <string name="detail_clip_card_text">مراجعة المكان</string>
     <string name="clear_all">مسح الكل</string>
+    <string name="clear">مسح</string>
+
     <string name="no_data_found">لم يتم ايجاد نتائج</string>
     <string name="away"> كم</string>
     <string name="error_msg">هل أنت متاكد من اغلاق التطبيق؟</string>

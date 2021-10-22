@@ -1,12 +1,9 @@
 package com.app.dubaiculture.ui.postLogin.explore
 
 import android.Manifest
-import android.app.PendingIntent
-import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,16 +16,11 @@ import com.app.dubaiculture.databinding.FragmentExploreBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.explore.adapters.ExploreRecyclerAsyncAdapter
 import com.app.dubaiculture.ui.postLogin.explore.viewmodel.ExploreViewModel
-import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LAT
 import com.app.dubaiculture.utils.Constants.NavBundles.LOCATION_LNG
-import com.app.dubaiculture.utils.PushNotificationManager
 import com.app.dubaiculture.utils.enableLocationFromSettings
 import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
-import com.estimote.coresdk.observation.region.beacon.BeaconRegion
-import com.estimote.coresdk.recognition.packets.Beacon
-import com.estimote.coresdk.service.BeaconManager
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.firebase.iid.FirebaseInstanceId
@@ -75,7 +67,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
 
         locationHelper.provideContext(activity)
-        Timber.e("token explore " + FirebaseInstanceId.getInstance().token);
+        Timber.e("token explore " + FirebaseInstanceId.getInstance().token)
 
         subscribeUiEvents(exploreViewModel)
         binding.swipeRefresh.apply {
@@ -98,6 +90,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         }
         binding.toolbarSnippet.toolbarLayout.imgDrawer.setOnClickListener {
             locationPermission()
+        }
+        binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
+            navigateByDirections(
+                ExploreFragmentDirections.actionExploreFragmentToSearchNavigation()
+            )
         }
 
 
