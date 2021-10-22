@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.app.dubaiculture.ui.postLogin.popular_service.viewmodels.PopularServiceViewModel" />
+    </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -66,11 +73,13 @@
                 android:hint="@string/search_by_keyword"
                 android:imeOptions="actionDone"
                 android:maxLines="1"
+                android:onTextChanged="@{viewmodel::onSearchTextChanged}"
                 android:singleLine="true"
                 android:paddingStart="@dimen/_10ssp"
                 android:textColorHint="@color/gray_600"
                 android:textSize="@dimen/_11ssp"
-                />
+                android:textAlignment="viewStart"
+                android:textDirection="locale" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_cancel"
