@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Filter(
-    var tags: List<String> = emptyList(),
-    var keyword: String = "",
-    var dateFrom: String = "",
-    var dateTo: String = "",
+    val tags: List<String> = emptyList(),
+    val keyword: String = "",
+    val dateFrom: String = "",
+    val dateTo: String = "",
 ):Parcelable

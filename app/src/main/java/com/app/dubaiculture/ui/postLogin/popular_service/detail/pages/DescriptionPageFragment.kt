@@ -1,14 +1,12 @@
 package com.app.dubaiculture.ui.postLogin.popular_service.detail.pages
 
 import android.os.Bundle
-import android.os.Environment
 import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.data.repository.popular_service.local.models.Description
 import com.app.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -16,11 +14,6 @@ import com.app.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels
 import com.app.dubaiculture.utils.openPdf
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
-import timber.log.Timber
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
 import java.util.*
 
 
@@ -65,11 +58,14 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             }
             binding.description = description
             binding.category = category!!
+            binding.tvPdfTitle.text = description.fileName ?: "Sample Pdf"
+            binding.fileSize.text = description.fileSize ?: "0.0kb"
             binding.fileViewLink.setOnClickListener {
-                descriptionViewModel.getDoc("http://www.africau.edu/images/default/sample.pdf")
-
-//                if (description.documentLink.isNotEmpty()){
-//                }
+                if (description.documentLink.isNotEmpty() && description.documentLink.contains(".pdf")) {
+//                    descriptionViewModel.getDoc("http://www.africau.edu/images/default/sample.pdf")
+                    descriptionViewModel.getDoc(description.documentLink)
+                } else
+                    showToast("Invalid Link")
             }
         }
     }
@@ -85,9 +81,6 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             }
         }
     }
-
-
-
 
 
 }

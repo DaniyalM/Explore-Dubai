@@ -40,7 +40,7 @@ class FilterCategoryItems <T>(private val categories : T, private var isSelected
                 }
                 if (categories is NewsTags){
                     it.findViewById<TextView>(R.id.tv_title_category).text = categories.tag_title
-                    if(categories.isSelected){
+                    if(categories.copy(isSelected = !categories.isSelected).isSelected){
                         it.findViewById<FlexboxLayout>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp_purple)
                         it.findViewById<TextView>(R.id.tv_title_category).setTextColor(Color.parseColor("#FFFFFF"))
                     }else{
@@ -48,8 +48,8 @@ class FilterCategoryItems <T>(private val categories : T, private var isSelected
                         it.findViewById<TextView>(R.id.tv_title_category).setTextColor(Color.parseColor("#2A2D31"))
                     }
                     root.findViewById<LinearLayout>(R.id.root_item_selection).setOnClickListener {
-                        categories.isSelected = !categories.isSelected
-                        if (categories.isSelected) {
+
+                        if (categories.copy(isSelected = !categories.isSelected).isSelected) {
                             root.findViewById<FlexboxLayout>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp_purple)
                             it.findViewById<TextView>(R.id.tv_title_category).setTextColor(Color.parseColor("#FFFFFF"))
                         } else

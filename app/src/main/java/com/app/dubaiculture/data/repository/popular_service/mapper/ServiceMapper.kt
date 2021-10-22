@@ -23,7 +23,8 @@ fun transformService(eServices: List<EServiceDTO>): List<EService> =
             category = it.Category,
             title = it.Title,
             summary = it.Summary,
-            id = it.ID
+            id = it.ID,
+            categoryId = it.CategoryID
         )
     }
 
@@ -112,8 +113,9 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
             TermsAndCondition(
                 termsAndConditionsSummary = it.TermsAndConditionsSummary ?: "",
                 termsAndConditionsTitle = it.TermsAndConditionsTitle ?: "",
-                enquireNumber = eServiceDetailDTO.EnquireNumber?:"",
-                email = ""
+                enquireNumber = eServiceDetailDTO.EnquireNumber ?: "",
+                email = "",
+                serviceStart = eServiceDetailDTO.StartServiceText ?: "",
             )
         } ?: mutableListOf()
 

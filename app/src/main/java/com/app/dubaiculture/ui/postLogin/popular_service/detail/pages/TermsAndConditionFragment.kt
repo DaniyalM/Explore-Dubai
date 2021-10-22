@@ -22,6 +22,7 @@ class TermsAndConditionFragment(
         super.onViewCreated(view, savedInstanceState)
         binding.detailListingHeader.text =
             activity.resources.getString(R.string.terms_and_conditions)
+        binding.commonBtn.text = termsAndCondition!![0].serviceStart
 
         termsAndCondition?.get(0)?.apply {
             termsAndConditionsSummary.let {

@@ -116,7 +116,7 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="@string/view_details"
-                            android:textColor="@color/purple_900"
+                            android:textColor="?attr/color_dubai_logo"
                             android:textSize="@dimen/_10ssp" />
                     </LinearLayout>
 

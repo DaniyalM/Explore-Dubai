@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -16,12 +17,13 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_30sdp">
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_category"
@@ -73,11 +75,14 @@
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/supplymentary"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{description.classification}"
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_12ssp"
+                android:ellipsize="end"
+                android:lines="1"
+                app:layout_constraintEnd_toStartOf="@+id/divider"
                 app:layout_constraintStart_toStartOf="@+id/classification"
                 app:layout_constraintTop_toBottomOf="@+id/classification" />
 
@@ -111,11 +116,14 @@
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/procedure"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{description.type}"
                 android:textColor="@color/black_200"
                 android:textSize="@dimen/_12ssp"
+                android:ellipsize="end"
+                android:lines="1"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/type"
                 app:layout_constraintTop_toBottomOf="@+id/type" />
 
@@ -246,9 +254,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/fileView"
                 android:layout_width="0dp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
                 app:cardElevation="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="@id/tv_desc"
@@ -272,12 +280,13 @@
 
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_pdf_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:singleLine="true"
                         android:text="Please Download Museum guideline"
-                        android:textColor="@color/purple_900"
+                        android:textColor="?attr/color_dubai_logo"
                         android:textSize="@dimen/_11ssp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.15"
@@ -297,6 +306,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="12kb"
+                        android:id="@+id/file_size"
                         android:textSize="@dimen/_9ssp"
                         app:layout_constraintStart_toStartOf="@+id/tv_pdf_title"
                         app:layout_constraintTop_toBottomOf="@+id/tv_pdf_title" />

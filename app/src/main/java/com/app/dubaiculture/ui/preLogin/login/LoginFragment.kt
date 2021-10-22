@@ -31,6 +31,7 @@ import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.app.dubaiculture.utils.Constants.Error.UAE_PASS_ERROR
 import com.app.dubaiculture.utils.SMSReceiver
 import com.app.dubaiculture.utils.UAEPassRequestModelsUtils
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
@@ -294,7 +295,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         getAccessToken(activity, requestModel!!, object : UAEPassAccessTokenCallback {
             override fun getToken(accessToken: String?, state: String, error: String?) {
                 if (error != null) {
-                    showAlert(error)
+                    showAlert(UAE_PASS_ERROR)
                     showLoader(false)
 //                    showToast("Error while getting access token")
                 } else {

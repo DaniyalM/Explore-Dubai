@@ -1,8 +1,10 @@
 package com.app.dubaiculture.ui.postLogin.more.faqs.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -28,10 +30,11 @@ class FaqsListAdapter(val faqsItemClickListner: FaqsItemClickListner) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(faq: FaqItem, position: Int) {
             binding.apply {
-                tvQuestionNum.text = (position + 1).toString()
+                setAnimation(binding.rootView,binding.root.context)
+                tvQuestionNum.text = faq.id.toString()
                 tvQuestions.text = faq.question
                 tvAnswer.text = faq.answer
-                if (!faq.is_expanded) {
+                if (faq.is_expanded) {
                     imgToggle.setImageResource(R.drawable.remove)
                     tvAnswer.visibility = View.VISIBLE
                 } else {
@@ -39,10 +42,15 @@ class FaqsListAdapter(val faqsItemClickListner: FaqsItemClickListner) :
                     tvAnswer.visibility = View.GONE
                 }
                 ll.setOnClickListener {
-                    Toast.makeText(it.context,faq.id.toString(),Toast.LENGTH_SHORT).show()
                     faqsItemClickListner.onClickFaqItem(faq)
                 }
             }
+        }
+
+        private fun setAnimation(viewToAnimate: View, context: Context) {
+            // If the bound view wasn't previously displayed on screen, it's animated
+            val animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
+            viewToAnimate.startAnimation(animation)
         }
     }
 
@@ -58,4 +66,6 @@ class FaqsListAdapter(val faqsItemClickListner: FaqsItemClickListner) :
     override fun onBindViewHolder(holder: FaqsViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it, position) }
     }
+
+
 }

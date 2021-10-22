@@ -121,11 +121,6 @@ android {
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
-
-
-
-
-
             signingConfig signingConfigs.stagConfig
             applicationVariants.all { variant ->
                 variant.outputs.all {

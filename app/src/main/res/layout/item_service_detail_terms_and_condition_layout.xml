@@ -4,17 +4,17 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/detailListingHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/detailListingHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
             android:layout_margin="@dimen/_15sdp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
