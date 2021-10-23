@@ -26,6 +26,8 @@ class SearchViewModel @Inject constructor(
 
     fun onSearchTextChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         _viewFlag.value = Event(s.isNotEmpty())
-        search(s.toString())
+        if (s.isNotEmpty()) {
+            search(s.toString())
+        }
     }
 }

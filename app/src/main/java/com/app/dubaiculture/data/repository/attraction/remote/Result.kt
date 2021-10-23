@@ -17,4 +17,11 @@ data class Result(
     @SerializedName("Attractions")
     @Expose
     var attractions: List<AttractionDTO>,
-    )
+
+    @SerializedName("Searches")
+    @Expose
+    var searches: List<String>,
+    @SerializedName("message")
+    @Expose
+    var message: String,
+)
