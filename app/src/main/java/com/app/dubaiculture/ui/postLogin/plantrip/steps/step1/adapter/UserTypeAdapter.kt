@@ -2,9 +2,11 @@ package com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.data.repository.trip.local.UserTypes
 import com.app.dubaiculture.data.repository.trip.local.UsersType
@@ -23,6 +25,17 @@ class UserTypeAdapter(val rowClickListener: UserTypeClickListener) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(userType: UsersType) {
             binding.userType = userType
+
+            when (userType.checked) {
+                true -> {
+                    binding.cvUser.strokeColor =
+                        ContextCompat.getColor(binding.root.context, R.color.purple_650)
+                }
+                false ->{
+                    binding.cvUser.strokeColor =
+                        ContextCompat.getColor(binding.root.context, R.color.transparent)
+                }
+            }
             binding.cvUser.setOnClickListener {
                 rowClickListener.rowClickListener(userType)
                 rowClickListener.rowClickListener(userType, absoluteAdapterPosition)
@@ -56,7 +69,6 @@ class UserTypeAdapter(val rowClickListener: UserTypeClickListener) :
 
     override fun onBindViewHolder(holder: UserTypeViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
-
     }
 
 }

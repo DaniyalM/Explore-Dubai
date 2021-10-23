@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step1ViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:text="@{viewModel.userType.peekContent().title}"
+            android:text="@{viewModel.userType.title}"
             android:textColor="?attr/colorOnSurface"
             android:textSize="@dimen/_22ssp"
             app:layout_constraintStart_toStartOf="parent"

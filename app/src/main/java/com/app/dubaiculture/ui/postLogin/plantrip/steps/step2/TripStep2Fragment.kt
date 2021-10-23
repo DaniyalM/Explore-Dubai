@@ -4,15 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
+import com.app.dubaiculture.data.repository.trip.local.InterestedInType
+import com.app.dubaiculture.data.repository.trip.local.UsersType
 import com.app.dubaiculture.databinding.FragmentTripStep1Binding
 import com.app.dubaiculture.databinding.FragmentTripStep2Binding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.UserTypeAdapter
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.clicklisteners.UserTypeClickListener
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.adapter.InterestedInAdapter
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.adapter.clicklisteners.InterestedInClickListener
+import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step1ViewModel
+import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step2ViewModel
+import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
+
+    private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
+    private val step2ViewModel: Step2ViewModel by viewModels()
+
+    private lateinit var interestedInAdapter: InterestedInAdapter
+
 
     companion object{
         lateinit var customNavigation: CustomNavigation
@@ -27,6 +46,7 @@ class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
         lottieAnimationRTL(binding.animationView)
+        setupRV()
 
     }
 
@@ -36,12 +56,66 @@ class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
 
     }
 
+    private fun setupRV() {
+
+        binding.rvInterested.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            interestedInAdapter = InterestedInAdapter(
+                object : InterestedInClickListener {
+                    override fun rowClickListener(interestedInType: InterestedInType) {
+//                        showToast(userType.title)
+                    }
+
+                    override fun rowClickListener(interestedInType: InterestedInType, position: Int) {
+//                        step2ViewModel.updateUserItem(userType)
+                        step2ViewModel.updateInterestedType(interestedInType.copy(checked = !interestedInType.checked!!))
+
+                    }
+
+                }
+            )
+            adapter = interestedInAdapter
+
+
+        }
+
+    }
+
     fun onPreviousClicked(){
         customNavigation.navigateStep(false, R.id.tripStep2)
     }
 
     fun onNextClicked(){
         customNavigation.navigateStep(true, R.id.tripStep2)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        subscribeToObservables()
+
+    }
+
+    private fun subscribeToObservables() {
+
+        step2ViewModel.interestedIntype.observe(viewLifecycleOwner) {
+            step2ViewModel.updateInInterestedInList(it)
+        }
+
+        step2ViewModel.interestedIn.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { it ->
+
+                step2ViewModel._interestedInList.value = it.interestedInList
+
+            }
+
+        }
+
+        step2ViewModel.interestedInList.observe(viewLifecycleOwner) {
+
+            interestedInAdapter.submitList(it)
+
+        }
+
     }
 
 }

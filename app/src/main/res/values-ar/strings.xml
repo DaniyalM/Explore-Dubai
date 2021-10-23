@@ -313,6 +313,10 @@
     <string name="hour4">4 hours</string>
     <string name="hour6">6 hours</string>
     <string name="hour8">8 hours</string>
+    <string name="hour1">1 hours</string>
+    <string name="hour3">3 hours</string>
+    <string name="hour5">5 hours</string>
+    <string name="hour7">7 hours</string>
     <string name="time_of_day">Time of Day</string>
     <string name="day">Day</string>
     <string name="night">Night</string>
@@ -332,7 +336,8 @@
     <string name="walking">Walking</string>
     <string name="train">Train</string>
     <string name="bus">Bus</string>
-
+    <string name="addLocation">Add Location</string>
+    <string name="enterLocation">Enter location</string>
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>

@@ -5,5 +5,5 @@ import com.app.dubaiculture.data.repository.trip.local.UsersType
 
 interface UserTypeClickListener {
     fun rowClickListener(userType: UsersType)
-    fun rowClickListener(userType: UsersType, position: Int,)
+    fun rowClickListener(userType: UsersType, position: Int)
 }

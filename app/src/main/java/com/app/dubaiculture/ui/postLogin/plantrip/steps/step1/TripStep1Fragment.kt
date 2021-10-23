@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.UserTypes
@@ -28,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
 
     private val step1ViewModel: Step1ViewModel by viewModels()
-    private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
+    private val tripSharedViewModel: TripSharedViewModel by navGraphViewModels(R.id.plan_trip_parent_navigation)
 
     private lateinit var userTypeAdapter: UserTypeAdapter
 
@@ -46,7 +47,7 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
-        binding.viewModel = tripSharedViewModel
+        binding.viewModel = step1ViewModel
         lottieAnimationRTL(binding.animationView)
         setupRV()
 
@@ -63,8 +64,8 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
                     }
 
                     override fun rowClickListener(userType: UsersType, position: Int) {
-                        userType.checked = true
-                        tripSharedViewModel.updateUserItem(userType)
+
+                        step1ViewModel.updateUserItem(userType.copy(checked = !userType.checked!!))
                     }
 
                 }
@@ -78,17 +79,19 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
 
     private fun subscribeToObservables() {
 
+        step1ViewModel.userType.observe(viewLifecycleOwner){
 
-        tripSharedViewModel.userType.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { it ->
-
-                tripSharedViewModel._usersType.value = it.usersType
-
-            }
+            step1ViewModel._usersType.value = it.usersType
 
         }
 
-        tripSharedViewModel.usersType.observe(viewLifecycleOwner) {
+        step1ViewModel.type.observe(viewLifecycleOwner) {
+            step1ViewModel.updateInUserTypeList(it)
+        }
+
+
+
+        step1ViewModel.usersType.observe(viewLifecycleOwner) {
 
             userTypeAdapter.submitList(it)
 

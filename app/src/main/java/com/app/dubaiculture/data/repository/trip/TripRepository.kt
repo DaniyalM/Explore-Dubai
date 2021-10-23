@@ -2,7 +2,13 @@ package com.app.dubaiculture.data.repository.trip
 
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
+import com.app.dubaiculture.data.repository.trip.local.Durations
+import com.app.dubaiculture.data.repository.trip.local.InterestedIn
+import com.app.dubaiculture.data.repository.trip.local.NearestLocation
 import com.app.dubaiculture.data.repository.trip.local.UserTypes
+import com.app.dubaiculture.data.repository.trip.mapper.transformDurations
+import com.app.dubaiculture.data.repository.trip.mapper.transformInterestedIn
+import com.app.dubaiculture.data.repository.trip.mapper.transformNearestLocation
 import com.app.dubaiculture.data.repository.trip.mapper.transformUserType
 import com.app.dubaiculture.data.repository.trip.remote.TripRDS
 import com.app.dubaiculture.utils.event.Event
@@ -15,11 +21,50 @@ class TripRepository @Inject constructor(
 ) :
     BaseRepository() {
 
-    suspend fun getUserType(): Result<Event<UserTypes>> =
+    suspend fun getUserType(): Result<UserTypes> =
         when (val resultRds = tripRDS.getUserType()) {
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
-                    Result.Success(Event(transformUserType(resultRds.value.userTypeResponseDTO)))
+                    Result.Success(transformUserType(resultRds.value.userTypeResponseDTO))
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Error -> resultRds
+            is Result.Failure -> resultRds
+        }
+
+    suspend fun getInterestedIn(): Result<Event<InterestedIn>> =
+        when (val resultRds = tripRDS.getInterestedIn()) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success(Event(transformInterestedIn(resultRds.value.interestedInResponseDTO)))
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Error -> resultRds
+            is Result.Failure -> resultRds
+        }
+
+    suspend fun getNearestLocation(): Result<NearestLocation> =
+        when (val resultRds = tripRDS.getNearestLocation()) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success(transformNearestLocation(resultRds.value.nearestLocationResponseDTO))
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Error -> resultRds
+            is Result.Failure -> resultRds
+        }
+
+    suspend fun getDurations(): Result<Durations> =
+        when (val resultRds = tripRDS.getDurations()) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success(transformDurations(resultRds.value.durationResponseDTO))
                 } else {
                     Result.Failure(false, null, null, resultRds.value.errorMessage)
                 }

@@ -16,7 +16,17 @@
     <fragment
         android:id="@+id/tripStep3"
         android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.step3.TripStep3Fragment"
-        android:label="PlanTripStep3Fragment"></fragment>
+        android:label="PlanTripStep3Fragment">
+
+        <action
+            android:id="@+id/action_step3Fragment_to_addLocFragment"
+            app:destination="@id/addLocBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+    </fragment>
     <fragment
         android:id="@+id/tripStep4"
         android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.TripStep4Fragment"
@@ -62,7 +72,7 @@
         android:id="@+id/editDurationBottomSheetFragment"
         android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.EditDurationFragment"
         android:label="EditDurationBottomSheetFragment"
-        tools:layout="@layout/fragment_edit_duration" >
+        tools:layout="@layout/fragment_edit_duration">
         <action
             android:id="@+id/action_edit_duration_to_deleteBottomSheetFragment"
             app:destination="@id/deleteDialogBottomSheetFragment"
@@ -77,5 +87,11 @@
         android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.DeleteDialogFragment"
         android:label="deleteDialogBottomSheetFragment"
         tools:layout="@layout/fragment_delete_dialog" />
+
+    <dialog
+        android:id="@+id/addLocBottomSheetFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.step3.AddLocationBottomSheetFragment"
+        android:label="addLocationBottomSheetFragment"
+        tools:layout="@layout/fragment_add_location_bottomsheet" />
 
 </navigation>

@@ -1,13 +1,14 @@
 package com.app.dubaiculture.data.repository.trip.local
 
-data class UserTypes(
+data class InterestedIn(
     val title: String,
-    val usersType: List<UsersType>
+    val interestedInList: List<InterestedInType>
 )
 
-data class UsersType(
-    val id:Int,
+data class InterestedInType(
+    val id:Int?,
     val checked:Boolean?,
     val image: String,
+    val icon: String,
     val title: String
 )
