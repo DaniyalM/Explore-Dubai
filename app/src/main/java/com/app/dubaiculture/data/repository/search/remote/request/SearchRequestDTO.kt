@@ -1,5 +1,11 @@
 package com.app.dubaiculture.data.repository.search.remote.request
 
-class SearchRequestDTO {
-    val UserID: String = ""
-}
+data class SearchRequestDTO(
+    val UserID: String = "",
+    val Culture: String = ""
+)
+
+data class SearchRequest (
+    val userId: String="",
+    val culture: String=""
+)

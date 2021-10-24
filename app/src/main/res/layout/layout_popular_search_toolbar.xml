@@ -4,6 +4,8 @@
 
     <data>
 
+        <variable name="searchFragment" type="com.app.dubaiculture.ui.postLogin.search.SearchFragment" />
+
         <variable
             name="viewmodel"
             type="com.app.dubaiculture.ui.postLogin.search.viewmodels.SearchViewModel" />

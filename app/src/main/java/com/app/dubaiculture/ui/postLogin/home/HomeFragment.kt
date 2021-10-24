@@ -123,6 +123,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.postCreatePassFragment -> {
                         visibility = View.GONE
                     }
+                    R.id.searchFragment -> {
+                        visibility = View.GONE
+                    }
                     else -> {
                         visibility = View.VISIBLE
                         Bundle().apply {

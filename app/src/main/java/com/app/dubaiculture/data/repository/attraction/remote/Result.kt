@@ -2,6 +2,8 @@ package com.app.dubaiculture.data.repository.attraction.remote
 
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionCategoryDTO
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionDTO
+import com.app.dubaiculture.data.repository.search.local.SearchResultDTO
+import com.app.dubaiculture.data.repository.search.local.SearchResultItemDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -24,4 +26,8 @@ data class Result(
     @SerializedName("message")
     @Expose
     var message: String,
+
+    @SerializedName("SearchResults")
+    @Expose
+    var searchesResultItem: SearchResultDTO,
 )

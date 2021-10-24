@@ -7,6 +7,7 @@
     <string name="hello_blank_fragment">مرحبا</string>
     <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
 
+    <string name="result">result</string>
 
 
     // home tabs
@@ -297,6 +298,7 @@
     <string name="attachment">Attachment</string>
     <string name="pdf">PDF</string>
     <string name="no_my_posts_fav">No Data Found</string>
+    <string name="loading">Loading</string>
 
 
     <!--  End of Sprint 3  -->
