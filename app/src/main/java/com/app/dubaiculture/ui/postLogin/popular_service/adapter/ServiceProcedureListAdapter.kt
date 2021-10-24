@@ -1,17 +1,17 @@
 package com.app.dubaiculture.ui.postLogin.popular_service.adapter
 
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.popular_service.local.models.ServiceProcedure
 import com.app.dubaiculture.databinding.ItemsServiceDetailProcedureLayoutBinding
 import com.app.dubaiculture.utils.AppConfigUtils.getDrawable
 import com.github.vipulasri.timelineview.TimelineView
+
 
 class ServiceProcedureListAdapter :
     ListAdapter<ServiceProcedure, ServiceProcedureListAdapter.ServiceProcedureViewHolder>
@@ -40,6 +40,10 @@ class ServiceProcedureListAdapter :
 
         fun bind(serviceProcedure: ServiceProcedure) {
             binding.procedure = serviceProcedure
+            binding.tvTitle.movementMethod = ScrollingMovementMethod()
+            binding.tvDesc.movementMethod = ScrollingMovementMethod()
+
+
         }
     }
 

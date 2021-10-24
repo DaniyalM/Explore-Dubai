@@ -10,8 +10,8 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.news.local.NewsTags
 import com.app.dubaiculture.databinding.FragmentBottomSheetNewsFilterBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.adapters.NewsTagsListAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.clicklisteners.NewsTagsClickListener
+import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.adapters.NewsTagsListAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsFilterSheetViewModel
 import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsSharedViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.SHEET_STATE
@@ -22,7 +22,6 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFilterBinding>(),
@@ -177,8 +176,11 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
                 R.id.tvReset -> {
                     filter = Filter()
                     binding.editSearch.setText("")
+                    binding.tvEndDate.text = ""
+                    binding.tvStartDate.text = ""
+                    newsFilterSheetViewModel.updateTags()
                     newsFilterViewModel.updateFilter(filter)
-                    dismiss()
+//                    dismiss()
                 }
             }
         }
