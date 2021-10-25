@@ -14,7 +14,7 @@ import com.app.dubaiculture.data.repository.search.remote.request.SearchPaginati
 import com.app.dubaiculture.data.repository.search.remote.request.SearchRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.ui.postLogin.search.SearchTab
+import com.app.dubaiculture.data.repository.search.local.SearchTab
 import com.app.dubaiculture.ui.postLogin.search.enum.SearchTabHeaders
 import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -64,15 +64,15 @@ class SearchViewModel @Inject constructor(
 
     fun updateCategoryData(category: String) {
         val searchRequest: SearchPaginationRequest = _searchFilter.value!!.peekContent()
-        updateSearch(searchRequest.copy(category = category.toLowerCase()))
+        updateSearch(searchRequest.copy(category = category))
     }
 
     fun updateSorting(aToz: Boolean) {
         val searchRequest: SearchPaginationRequest = _searchFilter.value!!.peekContent()
         if (aToz)
-            updateSearch(searchRequest.copy(sort = "aToz"))
+            updateSearch(searchRequest.copy(sort = "asc"))
         else
-            updateSearch(searchRequest.copy(sort = "zToa"))
+            updateSearch(searchRequest.copy(sort = "desc"))
     }
 
 
@@ -104,18 +104,22 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun createTabs() {
-        val list: MutableList<SearchTab> = mutableListOf()
-        SearchTabHeaders.values().forEachIndexed { index, searchTabHeaders ->
-            list.add(
-                SearchTab(
-                    id = searchTabHeaders.postion,
-                    title = searchTabHeaders.name,
-                    isSelected = index == 0
-                )
-            )
-        }
+        showLoader(true)
+        viewModelScope.launch {
+            when (val result =
+                searchRepository.getSearchHeader(
+                    culture = context.auth.locale!!
+                )) {
+                is Result.Success -> {
+                    showLoader(false)
+                    _tabs.value =  result.value
 
-        _tabs.value = list
+                }
+                is Result.Failure -> {
+                    showLoader(false)
+                }
+            }
+        }
 
     }
 

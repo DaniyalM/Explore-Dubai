@@ -20,6 +20,10 @@ interface SearchService {
         @Body searchRequestDTO: SearchRequestDTO
     ): AttractionResponse
 
+    @GET("Content/GetSearchHeaders")
+    suspend fun getSearchHeaders(@Query("culture") culture: String?,
+    ):AttractionResponse
+
     @POST("Content/Search")
     suspend fun searchResults(
         @Body searchPaginationRequestDTO: SearchPaginationRequestDTO

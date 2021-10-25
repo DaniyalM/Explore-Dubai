@@ -5,7 +5,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/itemView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,6 +35,7 @@
                 android:text="Workshop"
                 android:textColor="?attr/color_dubai_logo"
                 android:textSize="@dimen/_11ssp"
+                app:layout_constraintEnd_toEndOf="@+id/tvSearchTitle"
                 app:layout_constraintStart_toStartOf="@+id/tvSearchTitle"
                 app:layout_constraintTop_toTopOf="@+id/IvSearch" />
 
@@ -45,10 +47,10 @@
                 android:layout_marginEnd="@dimen/_45sdp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_14sdp"
                 android:text="Workshop"
                 android:textColor="?attr/colorPrimary"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_13ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/IvSearch"
                 app:layout_constraintTop_toBottomOf="@+id/tvSearchCat"
@@ -58,14 +60,15 @@
                 android:id="@+id/tvSearchDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Workshop"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:drawableStart="@drawable/calender_gray"
                 android:drawablePadding="@dimen/_5sdp"
-                android:textSize="@dimen/_12ssp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Workshop"
+                android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/IvSearch"
+                app:layout_constraintEnd_toEndOf="@+id/tvSearchTitle"
                 app:layout_constraintStart_toStartOf="@+id/tvSearchTitle"
                 app:layout_constraintTop_toBottomOf="@+id/tvSearchTitle" />
 

@@ -3,6 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/search_navigation"
     app:startDestination="@id/searchFragment">
+    <include app:graph="@navigation/news_detail_navigation" />
+    <include app:graph="@navigation/event_detail_navigation" />
+    <include app:graph="@navigation/attraction_detail_navigation" />
+    <include app:graph="@navigation/service_detail_navigation" />
 
     <fragment
         android:id="@+id/searchFragment"
@@ -11,6 +15,35 @@
         <action
             android:id="@+id/action_searchFragment_to_sortFragment"
             app:destination="@id/sortFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_news"
+            app:destination="@id/news_detail_navigation" >
+            <argument
+                android:name="news_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_searchFragment_to_events"
+            app:destination="@id/event_detail_navigation" />
+        <action
+            android:id="@+id/action_searchFragment_to_attraction"
+            app:destination="@id/attraction_detail_navigation" >
+            <argument
+                android:name="attraction"
+                app:argType="com.app.dubaiculture.data.repository.attraction.local.models.Attractions"
+                app:nullable="true"
+                android:defaultValue="@null"
+                />
+        </action>
+        <action
+            android:id="@+id/action_searchFragment_to_services"
+            app:destination="@id/service_detail_navigation" >
+            <argument
+                android:name="service_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
     </fragment>
     <dialog
         android:id="@+id/sortFragment"

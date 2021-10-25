@@ -1,4 +1,4 @@
-package com.app.dubaiculture.ui.postLogin.search
+package com.app.dubaiculture.data.repository.search.local
 
 data class SearchTab(
     val id: Int,

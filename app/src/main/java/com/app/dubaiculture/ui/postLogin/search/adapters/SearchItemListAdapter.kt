@@ -38,8 +38,12 @@ class SearchItemListAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(searchResultItem: SearchResultItem) {
-            searchItemClickListner.onSearchItemClick(searchResultItem)
+
             binding.apply {
+                itemView.setOnClickListener {
+                    searchItemClickListner.onSearchItemClick(searchResultItem)
+                }
+
                 IvSearch.loadImage(searchResultItem.image)
                 if (searchResultItem.type.isNotEmpty()){
                     tvSearchCat.text = searchResultItem.type

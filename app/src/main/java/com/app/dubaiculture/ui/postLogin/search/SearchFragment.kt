@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.search.local.SearchResultItem
+import com.app.dubaiculture.data.repository.search.local.SearchTab
 import com.app.dubaiculture.databinding.FragmentSearchBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.loadstateadapter.DefaultLoadStateAdapter
@@ -205,7 +206,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                                 isSelected = !tab.isSelected
                             )
                         )
-                        searchViewModel.updateCategoryData(tab.title)
+                        searchViewModel.updateCategoryData(tab.id.toString())
                     }
                 }
             })
@@ -227,7 +228,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             searchItemListAdapter =
                 SearchItemListAdapter(object : SearchItemListAdapter.SearchItemClickListner {
                     override fun onSearchItemClick(searchResultItem: SearchResultItem) {
-
+                        if (searchResultItem.type.contains("news"))
+                        navigateByDirections(SearchFragmentDirections.actionSearchFragmentToNews("8A95C74162ED46DE8514520F1D86B67F"))
                     }
                 })
             adapter = searchItemListAdapter.withLoadStateAdapters(

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.ExploreMapLayoutHeadersBinding
 import com.app.dubaiculture.ui.postLogin.search.SearchFragment.Companion.selectedPosition
-import com.app.dubaiculture.ui.postLogin.search.SearchTab
+import com.app.dubaiculture.data.repository.search.local.SearchTab
 import com.app.dubaiculture.utils.hide
 
 class UniSelectionAdapter<T>(val headerSelector: HeaderSelector) :

@@ -5,6 +5,8 @@ import androidx.paging.map
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.search.local.SearchResultItem
+import com.app.dubaiculture.data.repository.search.local.SearchTab
+import com.app.dubaiculture.data.repository.search.mapper.transformHeader
 import com.app.dubaiculture.data.repository.search.mapper.transformSearch
 import com.app.dubaiculture.data.repository.search.mapper.transformSearchRequest
 import com.app.dubaiculture.data.repository.search.remote.SearchRDS
@@ -19,6 +21,24 @@ import javax.inject.Inject
 class SearchRepository @Inject constructor(
     private val searchRDS: SearchRDS,
 ) : BaseRepository() {
+
+    suspend fun getSearchHeader(culture: String): Result<List<SearchTab>> {
+        return when (val res = searchRDS.getSearchHeaders(SearchRequestDTO(Culture = culture))) {
+            is Result.Success -> {
+                if (res.value.succeeded) {
+                    Result.Success(res.value.Result.headers.mapIndexed { index, searchHeaderDTO ->
+                        transformHeader(searchHeaderDTO, index)
+                    })
+                } else {
+                    Result.Failure(true, res.value.statusCode, null)
+                }
+            }
+            is Result.Failure -> {
+                Result.Failure(true, res.errorCode, null)
+            }
+            is Result.Error -> res
+        }
+    }
 
     suspend fun getSearchHistory(searchRequest: SearchRequest): Result<List<String>> {
         return when (val res = searchRDS.getSearchHistory(

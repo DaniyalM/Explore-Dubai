@@ -1,6 +1,7 @@
 package com.app.dubaiculture.data.repository.search.local
 
 data class SearchResultItem(
+    val id:String,
     val creationDate: String,
     val description: String,
     val detailPageUrl: String,

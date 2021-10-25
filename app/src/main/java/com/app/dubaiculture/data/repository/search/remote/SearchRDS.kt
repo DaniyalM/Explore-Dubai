@@ -13,6 +13,12 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SearchRDS @Inject constructor(private val searchService: SearchService) : BaseRDS() {
+
+    suspend fun getSearchHeaders(searchRequest: SearchRequestDTO)=safeApiCall{
+        searchService.getSearchHeaders(
+            culture = searchRequest.Culture)
+    }
+
     suspend fun getSearchHistory(searchRequest: SearchRequestDTO) =
         safeApiCall {
             searchService.getSearchHistory(
