@@ -8,6 +8,12 @@
         <variable
             name="view"
             type="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.AddDurationFragment" />
+        <variable
+            name="data"
+            type="com.app.dubaiculture.data.repository.trip.local.Duration" />
+        <variable
+            name="viewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_14sdp"
             android:fontFamily="@font/neosansarabicmedium"
-            android:text="17"
+            android:text="@{data.dayDate.substring(0,2)}"
             android:textColor="@color/purple_650"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintEnd_toEndOf="@id/tvDateMonth"
@@ -57,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/neosansarabicmedium"
-            android:text="NOV,20"
+            android:text="@{data.dayDate.substring(3)}"
             android:textColor="@color/orange"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintStart_toStartOf="@id/tvHeading"
@@ -73,7 +79,7 @@
             android:insetTop="0dp"
             android:insetRight="0dp"
             android:insetBottom="0dp"
-            android:onClick="@{()->view.onDaySelected()}"
+            android:onClick="@{()->view.onDaySelected(data)}"
             app:icon="@drawable/ic_day"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
@@ -93,7 +99,7 @@
             android:insetTop="0dp"
             android:insetRight="0dp"
             android:insetBottom="0dp"
-            android:onClick="@{()->view.onNightSelected()}"
+            android:onClick="@{()->view.onNightSelected(data)}"
             app:icon="@drawable/ic_night"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
@@ -113,7 +119,7 @@
             android:drawableEnd="@drawable/ic_dropdown"
             android:fontFamily="@font/neo_sans_arabic_regular"
             android:onClick="@{(v)->view.onDropDownClicked(v)}"
-            android:text="4 hours"
+            android:text="@{data.hour}"
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textColor="?attr/colorSecondary"
@@ -152,6 +158,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/neo_sans_arabic_regular"
             android:text="@string/checkbox_desc"
+            android:onCheckedChanged="@{(v, checked) -> viewModel.repeatToAll(checked,data)}"
             android:textColor="?attr/colorSecondaryVariant"
             app:layout_constraintStart_toStartOf="@id/divider"
             app:layout_constraintTop_toBottomOf="@id/divider" />
@@ -176,6 +183,7 @@
             android:backgroundTint="@color/purple_650"
             android:fontFamily="@font/neo_sans_arabic_regular"
             android:text="@string/done"
+            android:onClick="@{()->view.onDoneClicked()}"
             android:textAllCaps="false"
             android:textColor="?attr/colorOnPrimary"
             app:cornerRadius="@dimen/_16sdp"

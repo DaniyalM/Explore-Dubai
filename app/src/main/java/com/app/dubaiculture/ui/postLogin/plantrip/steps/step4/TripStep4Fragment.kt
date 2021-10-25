@@ -7,21 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.databinding.FragmentTripStep3Binding
+import com.app.dubaiculture.data.repository.trip.local.Duration
+import com.app.dubaiculture.data.repository.trip.local.Durations
 import com.app.dubaiculture.databinding.FragmentTripStep4Binding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationAdapter
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationSummaryAdapter
+import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.app.dubaiculture.utils.event.Event
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
+
+    private lateinit var durationSummaryAdapter: DurationSummaryAdapter
 
 
     override fun getFragmentBinding(
@@ -32,7 +42,23 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
+        binding.viewModel = tripSharedViewModel
         lottieAnimationRTL(binding.animationView)
+        setupRV()
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        subscribeToObservables()
+    }
+
+    private fun subscribeToObservables() {
+
+        tripSharedViewModel.duration.observe(viewLifecycleOwner) {
+
+            durationSummaryAdapter.submitList(it)
+
+        }
 
     }
 
@@ -60,23 +86,53 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
     fun onSelectDateClicked() {
 
+        val constraintBuilder: CalendarConstraints.Builder = CalendarConstraints.Builder()
+        constraintBuilder.setValidator(DateValidatorPointForward.now())
+
         val dateRangePicker =
             MaterialDatePicker.Builder.dateRangePicker()
                 .setTitleText("Select dates")
                 .setTheme(R.style.ThemeOverlay_App_DatePicker)
+                .setCalendarConstraints(constraintBuilder.build())
                 .build()
 
         dateRangePicker.show(requireFragmentManager(), tag)
 
         dateRangePicker.addOnPositiveButtonClickListener {
-            showToast(
-                "Start Date : " + DateFormat.format(
-                    "dd/MM/yyyy",
+
+
+            tripSharedViewModel.getDaysList(
+                DateFormat.format(
+                    "dd MMM,yy",
                     it.first!!
-                ) + "End Date : " + DateFormat.format("dd/MM/yyyy", it.second!!)
+                ).toString(), DateFormat.format("dd MMM,yy", it.second!!).toString()
+
             )
 
             navigate(R.id.action_step4_to_durationBottomSheetFragment)
+
+
+        }
+
+    }
+
+    private fun setupRV() {
+
+        binding.rvDurations.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            durationSummaryAdapter = DurationSummaryAdapter(
+                object : DurationClickListener {
+                    override fun rowClickListener(duration: Duration) {
+
+                    }
+
+                    override fun rowClickListener(duration: Duration, position: Int) {
+                        TODO("Not yet implemented")
+                    }
+
+                }
+            )
+            adapter = durationSummaryAdapter
 
 
         }

@@ -79,10 +79,7 @@ class AddLocationBottomSheetFragment :
                     i
                 ).toString()
             }.copy(isChecked = true))
-            EventUtilFunctions.showToast(
-                adapterView.getItemAtPosition(i).toString(),
-                requireContext()
-            )
+
 
         }
 
