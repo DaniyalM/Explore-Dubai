@@ -42,12 +42,12 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
             setLayoutManager(layoutManager)
             newsTagsListAdapter = NewsTagsListAdapter(object : NewsTagsClickListener {
                 override fun onTagSelectListner(newsTags: NewsTags) {
-                    if (!filter.tags.contains(newsTags.tag_title) && newsTags.isSelected) {
-                        list.add(newsTags.tag_title)
-                        filter=filter.copy(tags = list)
-                    }else{
-                        list.remove(newsTags.tag_title)
-                        filter=filter.copy(tags = list)
+                    if (!filter.tags.contains(newsTags.tag_id) && newsTags.isSelected) {
+                        list.add(newsTags.tag_id)
+                        filter = filter.copy(tags = list)
+                    } else {
+                        list.remove(newsTags.tag_id)
+                        filter = filter.copy(tags = list)
                     }
 
                 }
