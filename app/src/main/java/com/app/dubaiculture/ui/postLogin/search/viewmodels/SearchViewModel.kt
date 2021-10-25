@@ -46,7 +46,8 @@ class SearchViewModel @Inject constructor(
     private var _searchFilter: MutableLiveData<Event<SearchPaginationRequest>> = MutableLiveData()
     var searchFilter: LiveData<Event<SearchPaginationRequest>> = _searchFilter
 
-    private val _searchPaginationItem: MutableLiveData<PagingData<SearchResultItem>> = MutableLiveData()
+    private val _searchPaginationItem: MutableLiveData<PagingData<SearchResultItem>> =
+        MutableLiveData()
     val searchPaginationItem: LiveData<PagingData<SearchResultItem>> = _searchPaginationItem
 
     private val context = getApplication<ApplicationEntry>()
@@ -55,6 +56,25 @@ class SearchViewModel @Inject constructor(
         createTabs()
         getSearchHistory()
     }
+
+    fun updateIsOldData(isOld: Boolean) {
+        val searchRequest: SearchPaginationRequest = _searchFilter.value!!.peekContent()
+        updateSearch(searchRequest.copy(isOld = isOld))
+    }
+
+    fun updateCategoryData(category: String) {
+        val searchRequest: SearchPaginationRequest = _searchFilter.value!!.peekContent()
+        updateSearch(searchRequest.copy(category = category.toLowerCase()))
+    }
+
+    fun updateSorting(aToz: Boolean) {
+        val searchRequest: SearchPaginationRequest = _searchFilter.value!!.peekContent()
+        if (aToz)
+            updateSearch(searchRequest.copy(sort = "aToz"))
+        else
+            updateSearch(searchRequest.copy(sort = "zToa"))
+    }
+
 
     private fun updateSearch(searchRequest: SearchPaginationRequest) {
         _searchFilter.value = Event(

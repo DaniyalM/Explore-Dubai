@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginStart="@dimen/_15sdp"
-                android:text="6 results found"
+                android:text="0 result found"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -98,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/sort_icon"
+                android:id="@+id/iv_sort"
                 android:layout_marginEnd="@dimen/_15sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/count" />

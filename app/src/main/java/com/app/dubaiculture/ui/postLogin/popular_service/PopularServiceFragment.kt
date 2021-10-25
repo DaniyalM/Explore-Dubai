@@ -79,39 +79,6 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
 
 
     }
-//
-//    private fun getCategoryID(categoryID: String) {
-//        popularServiceViewModel.returnFilterList(list = eServicesList).map {
-//            groupAdapter.add(PopularServiceListItem<ItemsServiceListingLayoutBinding>(
-//                eService = it,
-//                resLayout = R.layout.items_service_listing_layout,
-//                context = requireContext(),
-//                serviceClickListner = object :ServiceClickListner{
-//                    override fun onServiceClick(service: EService?) {
-//                        service?.let {
-//                            navigateByDirections(
-//                                PopularServiceFragmentDirections.actionPopularServiceFragmentToServiceDetailNavigation(
-//                                    service.id
-//                                )
-//                            )
-//                        }
-//                    }
-//
-//                }
-//            ))
-//        }
-////        binding.rvServiceListing.apply {
-////            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-////            adapter = groupAdapter
-////
-////        }
-////        binding.editSearchServices.addTextChangedListener(object : MyCustomTextWatcher() {
-////            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-////                popularServiceViewModel.returnSearchList(eServicesList,binding.editSearchServices,groupAdapter,binding.imgCancel,requireContext())
-////            }
-////        })
-//    }
-//
 
 
     private fun initializeHeaders(headers: List<ServiceCategory>): MutableList<ServiceHeader> {
