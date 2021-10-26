@@ -26,6 +26,9 @@
         <!--for TextView title color-->
         <item name="colorSecondary">@color/gray_200</item>
         <item name="color_light_white_dark_gray">@color/gray_400</item>
+        <item name="color_light_white_dark_gray_night">@color/white_900</item>
+        <item name="color_dubai_logo_inverse">@color/purple_900</item>
+
         <item name="colorSecondaryVariant">@color/gray_200</item>
 
 

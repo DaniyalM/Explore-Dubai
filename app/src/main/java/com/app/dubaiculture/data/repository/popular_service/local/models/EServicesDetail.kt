@@ -12,5 +12,6 @@ data class EServicesDetail(
     val requiredDocument: List<RequiredDocument>,
     val startServiceText: String,
     val startServiceUrl: String,
-    val termsAndCondition: List<TermsAndCondition>
+    val termsAndCondition: List<TermsAndCondition>,
+    val is_favourite: Boolean
 )

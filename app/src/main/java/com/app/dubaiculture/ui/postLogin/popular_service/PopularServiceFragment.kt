@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.popular_service.local.models.EService
 import com.app.dubaiculture.data.repository.popular_service.local.models.ServiceCategory
@@ -22,6 +23,8 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
     private val popularServiceViewModel: PopularServiceViewModel by viewModels()
     private lateinit var popularServiceListAdapter: PopularServiceListAdapter
     private var sCat: List<ServiceCategory>? = null
+    private lateinit var observer: RecyclerView.AdapterDataObserver
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -35,6 +38,7 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
         subscribeToObservable()
         binding.imgCancel.setOnClickListener(this)
         binding.headerVisited.back.setOnClickListener(this)
+        backArrowRTL(binding.headerVisited.back)
     }
 
     private fun rvSetup() {
@@ -51,7 +55,36 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
             })
 
             adapter = popularServiceListAdapter
+            observer = object :
+                RecyclerView.AdapterDataObserver() {
+                override fun onChanged() {
+                    super.onChanged()
+                    checkEmpty()
+                }
+
+                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                    super.onItemRangeInserted(positionStart, itemCount)
+                    checkEmpty()
+                }
+
+                override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+                    super.onItemRangeRemoved(positionStart, itemCount)
+                    checkEmpty()
+                }
+
+                fun checkEmpty() {
+                    binding.noDataPlaceHolder.visibility =
+                        (if (popularServiceListAdapter.itemCount == 0) View.VISIBLE else View.GONE)
+                }
+            }
+            popularServiceListAdapter.registerAdapterDataObserver(observer)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        popularServiceListAdapter.unregisterAdapterDataObserver(observer)
+
     }
 
     private fun subscribeToObservable() {

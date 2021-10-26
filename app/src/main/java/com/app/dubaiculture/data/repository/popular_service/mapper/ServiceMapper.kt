@@ -41,6 +41,7 @@ fun transformServiceCategorys(serviceCategory: List<ServiceCategoryDTO>): List<S
 
 fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetail =
     EServicesDetail(
+        is_favourite = eServiceDetailDTO.IsFavourite ?: false,
         category = eServiceDetailDTO.Category ?: "",
         description = eServiceDetailDTO.Description?.map {
             Description(

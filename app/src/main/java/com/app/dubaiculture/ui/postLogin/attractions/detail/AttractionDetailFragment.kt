@@ -8,8 +8,6 @@ import android.content.Intent
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.os.Parcelable
 import android.speech.tts.TextToSpeech
 import android.text.TextUtils
@@ -17,34 +15,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.AttractionDetailInnerLayoutBinding
-import com.app.dubaiculture.databinding.AttractionDetailUpComingItemsBinding
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.databinding.ToolbarLayoutDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
-import com.app.dubaiculture.ui.postLogin.attractions.listing.AttractionFragment
-import com.app.dubaiculture.ui.postLogin.attractions.listing.AttractionFragmentDirections
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
-import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
-import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
-import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
@@ -55,8 +42,6 @@ import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.RequestManager
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.location.LocationCallback
@@ -73,8 +58,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.shape.CornerFamily
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -85,7 +68,7 @@ import javax.inject.Inject
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
 
-    private val attractionDetailFragmentArgs:AttractionDetailFragmentArgs by navArgs()
+    private val attractionDetailFragmentArgs: AttractionDetailFragmentArgs by navArgs()
     private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
     private var url: String? = null
     var emailContact: String? = null
@@ -93,7 +76,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     lateinit var detailInnerLayout: AttractionDetailInnerLayoutBinding
     lateinit var toolbarLayout: ToolbarLayoutDetailBinding
     private lateinit var eventListScreenAdapter: EventListScreenAdapter
-
 
 
     private val gpsObserver = Observer<GpsStatus> { status ->
@@ -112,7 +94,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private var mapView: MapView? = null
 
 //    private var mapFragment: SupportMapFragment? = null
-
 
 
     private fun subscribeToGpsListener() = attractionDetailViewModel.gpsStatusLiveData
@@ -142,11 +123,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         super.onAttach(context)
         arguments?.apply {
             attractionDetailFragmentArgs.attraction?.let {
-                attractionsObj =it
+                attractionsObj = it
             }
         }
     }
-
 
 
     override fun getFragmentBinding(
@@ -155,7 +135,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     ) = FragmentAttractionDetailBinding.inflate(inflater, container, false)
 
 
-    private fun setupSwipeToRefresh(){
+    private fun setupSwipeToRefresh() {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.swipeRefreshLayout.isRefreshing = false
@@ -180,6 +160,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         uiActions()
         cardViewRTL()
     }
+
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
@@ -256,7 +237,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 //
 //            }
 //        }
-        attractionDetailViewModel.attractionEvents.observe(viewLifecycleOwner){
+        attractionDetailViewModel.attractionEvents.observe(viewLifecycleOwner) {
             eventListScreenAdapter.submitList(it)
         }
         attractionDetailViewModel.isFavourite.observe(viewLifecycleOwner) {
@@ -448,7 +429,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
             eventListScreenAdapter = EventListScreenAdapter(
-                eventClickListner = object :EventClickListner{
+                eventClickListner = object : EventClickListner {
                     override fun checkFavListener(
                         checkbox: CheckBox,
                         pos: Int,
@@ -461,7 +442,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             R.id.action_attractionsFragment_to_postLoginFragment,
                             itemId, attractionDetailViewModel,
                             1
-                        )                    }
+                        )
+                    }
 
                     override fun rowClickHandler(events: Events) {
                         navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
@@ -470,7 +452,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                     Constants.NavBundles.EVENT_OBJECT,
                                     events
                                 )
-                            })                    }
+                            })
+                    }
                 }
 
             )

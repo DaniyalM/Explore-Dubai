@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="TAB TITLE"
             android:layout_gravity="center"
-            android:textColor="@color/black_200"
+            android:textColor="@color/gray_400"
             android:layout_marginStart="@dimen/_15sdp"
             app:textFont="bold"
             android:id="@+id/tab_title"/>

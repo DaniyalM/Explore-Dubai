@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -44,61 +44,75 @@
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_category"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
+            android:lines="1"
             android:text="@{payment.description}"
             android:textAllCaps="true"
-            android:lines="1"
             android:textColor="@color/purple_900"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_desc"
             app:layout_constraintTop_toBottomOf="@+id/tv_desc"
             app:textFont="bold" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/amount"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/amount"
-            app:layout_constraintWidth_percent="0.5"
-            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintEnd_toStartOf="@+id/line_seperator"
+            app:layout_constraintHorizontal_bias="0.11"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_category"
-            app:layout_constraintStart_toStartOf="@+id/tv_category"
-            />
+ />
+
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{payment.amount}"
-            app:layout_constraintWidth_percent="0.5"
-            android:textSize="@dimen/_14ssp"
             android:textColor="?attr/colorSecondary"
-            app:layout_constraintTop_toBottomOf="@+id/amount"
+            android:textSize="@dimen/_11ssp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            app:layout_constraintEnd_toStartOf="@+id/line_seperator"
             app:layout_constraintStart_toStartOf="@+id/amount"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/amount" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/type"
+            android:layout_marginStart="@dimen/_16sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/type"
-            app:layout_constraintStart_toEndOf="@+id/amount"
-            app:layout_constraintBottom_toBottomOf="@+id/amount"
+            app:layout_constraintStart_toEndOf="@+id/line_seperator"
             app:layout_constraintTop_toTopOf="@+id/amount" />
+
+        <View
+            android:id="@+id/line_seperator"
+            android:layout_width="2dp"
+            android:background="@color/transparent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_federal_fees"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:text="@{payment.type}"
-            android:textSize="@dimen/_14ssp"
             android:textColor="?attr/colorSecondary"
-            app:layout_constraintStart_toEndOf="@+id/tv_amount"
-            app:layout_constraintTop_toBottomOf="@+id/amount"
-            />
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/type"
+            app:layout_constraintTop_toTopOf="@+id/tv_amount" />
 
         <View
             android:id="@+id/line"
@@ -120,6 +134,8 @@
             app:layout_constraintTop_toBottomOf="@+id/line"
             android:text="@{payment.summary}"
             app:layout_constraintTop_toTopOf="@+id/line"
+            android:lines="2"
+            android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/line"
             app:layout_constraintEnd_toEndOf="@+id/line"

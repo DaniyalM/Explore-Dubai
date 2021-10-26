@@ -68,7 +68,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/tv_category"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_category"
-                    app:layout_constraintVertical_bias="0.511" />
+                     />
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_title"

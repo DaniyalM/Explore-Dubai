@@ -38,7 +38,7 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(descriptionViewModel)
 
-
+        bgRTL(binding.imgSpeaker)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
