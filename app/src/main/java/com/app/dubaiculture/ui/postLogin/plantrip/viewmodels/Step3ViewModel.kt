@@ -33,7 +33,7 @@ class Step3ViewModel @Inject constructor(
     val nearestLocation: LiveData<NearestLocation> = _nearestLocation
 
     init {
-       // getNearestLocation()
+        getNearestLocation()
     }
 
 

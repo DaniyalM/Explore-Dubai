@@ -14,6 +14,7 @@ import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.internal.format
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -28,68 +29,35 @@ class TripSharedViewModel @Inject constructor(
     val _showPlan: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
     val showPlan: LiveData<Event<Boolean>> = _showPlan
 
-    private val _durations: MutableLiveData<Durations> = MutableLiveData()
-    val durations: LiveData<Durations> = _durations
-
     val _duration: MutableLiveData<List<Duration>> = MutableLiveData()
     val duration: LiveData<List<Duration>> = _duration
+
+    val _durationSummary: MutableLiveData<List<Duration>> = MutableLiveData()
+    val durationSummary: LiveData<List<Duration>> = _durationSummary
 
     val _type: MutableLiveData<LocationNearest> = MutableLiveData()
     val type: LiveData<LocationNearest> = _type
 
-
-    val _usersType: MutableLiveData<List<LocationNearest>> = MutableLiveData()
-    val usersType: LiveData<List<LocationNearest>> = _usersType
-
-    private val _nearestLocation: MutableLiveData<NearestLocation> = MutableLiveData()
-    val nearestLocation: LiveData<NearestLocation> = _nearestLocation
-
-    init {
-        getNearestLocation()
+    val _nearestLocationType: MutableLiveData<List<LocationNearest>> = MutableLiveData()
+    val nearestLocation: LiveData<List<LocationNearest>> = _nearestLocationType
+    
+    fun updateLocationItem(nearestLocation: LocationNearest) {
+        _type.value = nearestLocation
     }
 
+    fun updateInLocationList(nearestLocation: LocationNearest) {
 
-    private fun getNearestLocation() {
-        viewModelScope.launch {
-            showLoader(true)
-            val result = tripRepository.getNearestLocation()
-            when (result) {
-                is Result.Success -> {
-                    showLoader(false)
-                    _nearestLocation.value = result.value
-                }
-                is Result.Error -> {
-                    showLoader(false)
-                    showToast(Constants.Error.SOMETHING_WENT_WRONG)
-//                     result.exception
-                }
-                is Result.Failure -> {
-                    showLoader(false)
-                    showToast(Constants.Error.SOMETHING_WENT_WRONG)
-
-//                    _userType.value = result
-                }
-            }
-        }
-    }
-
-    fun updateUserItem(userType: LocationNearest) {
-        _type.value = userType
-    }
-
-    fun updateInUserTypeList(userType: LocationNearest) {
-
-        val data = _usersType.value ?: return
+        val data = _nearestLocationType.value ?: return
         val updateData = updateToDefault(data)
         updateData.map {
-            if (userType.locationId == it.locationId
-            ) return@map userType
+            if (nearestLocation.locationId == it.locationId
+            ) return@map nearestLocation
             else {
                 return@map it
             }
         }.let {
 
-            _usersType.value = it
+            _nearestLocationType.value = it
         }
 
     }
@@ -111,29 +79,6 @@ class TripSharedViewModel @Inject constructor(
         }.let {
             _duration.value = it
         }
-
-    }
-
-    fun getDurations() {
-        viewModelScope.launch {
-            showLoader(true)
-            val result = tripRepository.getDurations()
-            when (result) {
-                is Result.Success -> {
-                    showLoader(false)
-                    _durations.value = result.value
-                }
-                is Result.Error -> {
-                    showLoader(false)
-                    showToast(Constants.Error.SOMETHING_WENT_WRONG)
-                }
-                is Result.Failure -> {
-                    showLoader(false)
-                    showToast(Constants.Error.SOMETHING_WENT_WRONG)
-                }
-            }
-        }
-
 
     }
 
@@ -167,7 +112,8 @@ class TripSharedViewModel @Inject constructor(
                 id = index + 1,
                 dayDate = day,
                 hour = "1 Hour",
-                isDay = 0
+                isDay = 0,
+                isSelected = false
             )
 
         }
@@ -180,9 +126,15 @@ class TripSharedViewModel @Inject constructor(
      fun getList(days: Int) {
 
         var daysList: MutableList<String> = mutableListOf<String>()
-
+         val sdf = SimpleDateFormat("dd MMM,yy")
+         var currentDate = sdf.format(Date())
         for (i in 1 until days + 1) {
-            daysList.add("${String.format("%02d", i)} Day")
+            val c: Calendar = Calendar.getInstance()
+            c.time = sdf.parse(currentDate)
+            c.add(Calendar.DATE, 1) // number of days to add
+
+            currentDate = sdf.format(c.time)
+            daysList.add(currentDate)
         }
 
         populateList(daysList)
@@ -201,7 +153,8 @@ class TripSharedViewModel @Inject constructor(
                     dayDate = it.dayDate,
                     hour = duration.hour,
                     isDay = duration.isDay,
-                    id = it.id
+                    id = it.id,
+                    isSelected = duration.isSelected
                 )
             }.let {
                 _duration.value = it
@@ -211,5 +164,19 @@ class TripSharedViewModel @Inject constructor(
         }
 
     }
+
+    fun selectedDelete(){
+
+        val durations: List<Duration> = _duration.value?:return
+
+        durations.filter { duration ->
+            !duration.isSelected
+        }.let {
+            _duration.value = it
+        }
+
+
+    }
+
 
 }

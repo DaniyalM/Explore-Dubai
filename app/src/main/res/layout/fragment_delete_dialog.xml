@@ -2,6 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="view"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.DeleteDialogFragment" />
+        <variable
+            name="viewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_190sdp"
@@ -40,6 +50,8 @@
             app:layout_constraintTop_toBottomOf="@+id/are_you_sure"
             android:textAllCaps="false"
             android:text="@string/delete"
+
+            android:onClick="@{()->view.onDeleteClicked()}"
             android:textColor="@color/white_900"
             android:transitionName="action_btn"
             android:layout_marginTop="@dimen/_25sdp"
@@ -57,6 +69,7 @@
             android:layout_marginBottom="@dimen/_25sdp"
             android:background="@drawable/custom_ripple_border"
             android:text="@string/cancel"
+            android:onClick="@{()->view.dismiss()}"
             style="@style/TextViewStyle"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"

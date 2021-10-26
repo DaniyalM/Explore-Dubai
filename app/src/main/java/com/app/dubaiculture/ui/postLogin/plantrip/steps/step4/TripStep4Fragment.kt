@@ -54,9 +54,17 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
     private fun subscribeToObservables() {
 
+        tripSharedViewModel.durationSummary.observe(viewLifecycleOwner) {
+            if (it != null)
+                durationSummaryAdapter.submitList(it)
+        }
+
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {
 
-            durationSummaryAdapter.submitList(it)
+            if (tripSharedViewModel._durationSummary.value == null && tripSharedViewModel._duration.value != null)
+                navigate(R.id.action_step4_to_durationBottomSheetFragment)
+
+//            durationSummaryAdapter.submitList(it)
 
         }
 
@@ -109,8 +117,6 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
             )
 
-            navigate(R.id.action_step4_to_durationBottomSheetFragment)
-
 
         }
 
@@ -136,6 +142,12 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
 
         }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
 
     }
 

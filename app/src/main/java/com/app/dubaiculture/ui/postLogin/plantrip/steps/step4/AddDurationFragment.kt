@@ -1,25 +1,20 @@
 package com.app.dubaiculture.ui.postLogin.plantrip.steps.step4
 
-import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.Duration
-import com.app.dubaiculture.data.repository.trip.local.InterestedInType
 import com.app.dubaiculture.databinding.FragmentAddDurationBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.adapter.InterestedInAdapter
-import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.adapter.clicklisteners.InterestedInClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
@@ -85,11 +80,14 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
 
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {
 
-            durationList = it
-            setData(it[0])
-            binding.rvDates.visibility = View.VISIBLE
-            durationAdapter.submitList(it.subList(1, it.size))
+            if (it != null) {
+                durationList = it
+                setData(it[0])
+                binding.rvDates.visibility = View.VISIBLE
+                durationAdapter.submitList(it.subList(1, it.size))
+            }
         }
+
 
     }
 
@@ -172,9 +170,10 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
         popup.show()
     }
 
-    fun onDoneClicked(){
+    fun onDoneClicked() {
 
-        back()
+        tripSharedViewModel._durationSummary.value = durationList
+        dismiss()
 
     }
 

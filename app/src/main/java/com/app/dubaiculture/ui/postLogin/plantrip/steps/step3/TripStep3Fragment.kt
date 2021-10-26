@@ -2,31 +2,23 @@ package com.app.dubaiculture.ui.postLogin.plantrip.steps.step3
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
-import android.graphics.Typeface
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.LocationNearest
-import com.app.dubaiculture.data.repository.trip.local.NearestLocation
-import com.app.dubaiculture.data.repository.trip.local.UsersType
 import com.app.dubaiculture.databinding.FragmentTripStep3Binding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
-import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.UserTypeAdapter
-import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.clicklisteners.UserTypeClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step3.adapter.NearestLocationAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step3.adapter.clicklisteners.NearestLocationClickListener
-import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step2ViewModel
+import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step3ViewModel
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.location.LocationCallback
@@ -37,23 +29,22 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.chip.Chip
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import com.app.dubaiculture.utils.Constants.NavBundles.NEAREST_LOCATION
-
 
 
 @AndroidEntryPoint
 class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCallback {
 
+    private var marker: Marker? = null
     private lateinit var nearestLocationList: List<LocationNearest>
     private lateinit var location: Location
     private lateinit var mMap: GoogleMap
-//    private val tripSharedViewModel: tripSharedViewModel by viewModels()
+    private val step3ViewModel: Step3ViewModel by viewModels()
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
 
     private lateinit var nearestLocAdapter: NearestLocationAdapter
@@ -99,7 +90,13 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
                     override fun rowClickListener(userType: LocationNearest, position: Int) {
 
-                        tripSharedViewModel.updateUserItem(userType.copy(isChecked = !userType.isChecked!!))
+                        tripSharedViewModel.updateLocationItem(userType.copy(isChecked = !userType.isChecked!!))
+
+//                        navigateMarker(
+//                            if (userType.latitude.isBlank()) 0.0 else userType.latitude.toDouble(),
+//                            if (userType.longitude.isBlank()) 0.0 else userType.longitude.toDouble()
+//                        )
+
                     }
 
                 }
@@ -128,26 +125,39 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
     private fun subscribeToObservables() {
 
-        tripSharedViewModel.nearestLocation.observe(viewLifecycleOwner) {
+        step3ViewModel.nearestLocation.observe(viewLifecycleOwner) {
 
-            tripSharedViewModel._usersType.value = it.nearestLocation
+//            tripSharedViewModel._nearestLocation.value = it
+            tripSharedViewModel._nearestLocationType.value = it.nearestLocation
 
         }
 
         tripSharedViewModel.type.observe(viewLifecycleOwner) {
-            tripSharedViewModel.updateInUserTypeList(it)
+            tripSharedViewModel.updateInLocationList(it)
         }
 
 
 
-        tripSharedViewModel.usersType.observe(viewLifecycleOwner) {
+        tripSharedViewModel.nearestLocation.observe(viewLifecycleOwner) {
 
             binding.rvLocationChips.visibility = View.VISIBLE
             nearestLocAdapter.submitList(it)
+            setMarker(it)
 //            nearestLocationList = it
 
         }
 
+    }
+
+    private fun setMarker(it: List<LocationNearest>) {
+        it.map { selectedLoc ->
+            if(selectedLoc.isChecked) {
+                navigateMarker(
+                    if (selectedLoc.latitude.isBlank()) 0.0 else selectedLoc.latitude.toDouble(),
+                    if (selectedLoc.longitude.isBlank()) 0.0 else selectedLoc.longitude.toDouble()
+                )
+            }
+        }
     }
 
 
@@ -158,6 +168,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
     fun onNextClicked() {
         customNavigation.navigateStep(true, R.id.tripStep3)
     }
+
     fun onAddLocation() {
 //        val bundle = bundleOf(NEAREST_LOCATION to nearestLocationList)
         navigate(R.id.action_step3Fragment_to_addLocFragment)
@@ -198,25 +209,36 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
                     @SuppressLint("SetTextI18n")
                     override fun getCurrentLocation(location: Location) {
 
-                        mMap.addMarker(
-                            MarkerOptions()
-                                .position(LatLng(location.latitude, location.longitude))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
-
-                        )
-
-                        mMap.animateCamera(
-                            CameraUpdateFactory.newLatLngZoom(
-                                LatLng(location.latitude, location.longitude), 14.0f
-                            )
-                        )
-                        mMap.cameraPosition.target
+                        navigateMarker(location.latitude, location.longitude)
 
                     }
                 },
                 locationCallback
             )
         }
+    }
+
+    fun navigateMarker(latitude: Double, longitude: Double) {
+
+        if (marker == null) {
+
+            marker = mMap.addMarker(
+                MarkerOptions()
+                    .position(LatLng(latitude, longitude))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+
+            )
+        }else{
+            marker!!.position = LatLng(latitude, longitude)
+        }
+
+
+        mMap.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                LatLng(latitude, longitude), 14.0f
+            )
+        )
+        mMap.cameraPosition.target
     }
 
     override fun onPause() {

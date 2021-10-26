@@ -26,5 +26,6 @@ data class Duration(
     val id: Int,
     val dayDate: String,
     val hour: String,
-    val isDay: Int  //0 = default,1= day,2= night
+    val isDay: Int,  //0 = default,1= day,2= night
+    val isSelected:Boolean
 )

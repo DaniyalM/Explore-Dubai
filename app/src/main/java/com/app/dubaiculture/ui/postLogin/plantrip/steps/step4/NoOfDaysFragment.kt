@@ -29,37 +29,42 @@ class NoOfDaysFragment : BaseBottomSheetFragment<FragmentNoDaysBinding>() {
 
     fun onDoneClicked() {
 
-        when(binding.groupDaysChips.checkedChipId){
+        back()
+
+        when (binding.groupDaysChips.checkedChipId) {
             binding.choice1.id -> {
                 tripSharedViewModel.getList(2)
-                navigate(R.id.action_days_to_durationBottomSheetFragment)
+
+//                navigate(R.id.action_days_to_durationBottomSheetFragment)
             }
             binding.choice2.id -> {
                 tripSharedViewModel.getList(4)
-                navigate(R.id.action_days_to_durationBottomSheetFragment)
+
+//                navigate(R.id.action_days_to_durationBottomSheetFragment)
 
             }
             binding.choice3.id -> {
                 tripSharedViewModel.getList(6)
-                navigate(R.id.action_days_to_durationBottomSheetFragment)
+
+//                navigate(R.id.action_days_to_durationBottomSheetFragment)
 
             }
             binding.choice4.id -> {
                 tripSharedViewModel.getList(8)
-                navigate(R.id.action_days_to_durationBottomSheetFragment)
+
+//                navigate(R.id.action_days_to_durationBottomSheetFragment)
 
             }
             binding.choice5.id -> {
                 tripSharedViewModel.getList(10)
-                navigate(R.id.action_days_to_durationBottomSheetFragment)
+
+//                navigate(R.id.action_days_to_durationBottomSheetFragment)
 
             }
         }
 
 
-
     }
-
 
 
 }
