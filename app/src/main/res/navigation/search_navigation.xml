@@ -25,15 +25,20 @@
         </action>
         <action
             android:id="@+id/action_searchFragment_to_events"
-            app:destination="@id/event_detail_navigation" />
+            app:destination="@id/event_detail_navigation" >
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false"
+                />
+        </action>
         <action
             android:id="@+id/action_searchFragment_to_attraction"
             app:destination="@id/attraction_detail_navigation" >
             <argument
-                android:name="attraction"
-                app:argType="com.app.dubaiculture.data.repository.attraction.local.models.Attractions"
-                app:nullable="true"
-                android:defaultValue="@null"
+                android:name="attraction_id"
+                app:argType="string"
+                app:nullable="false"
                 />
         </action>
         <action

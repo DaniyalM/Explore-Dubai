@@ -208,8 +208,10 @@ class ExploreMapViewModel @Inject constructor(
             )
             if (it.distance!! <= 6.0) {
                 val marker = map.addMarker(
-                    MarkerOptions().position(locationObj)
+                    MarkerOptions()
+                        .position(locationObj)
                         .title(it.title)
+
                 )
                 setURLIcon(it.pinInRadius.toString(), marker, getApplication<Application>())
             } else {

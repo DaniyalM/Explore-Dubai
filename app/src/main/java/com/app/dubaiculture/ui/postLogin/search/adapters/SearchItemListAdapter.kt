@@ -40,19 +40,12 @@ class SearchItemListAdapter(
         fun bind(searchResultItem: SearchResultItem) {
 
             binding.apply {
+                item=searchResultItem
+                if (searchResultItem.type.isEmpty())
+                    tvSearchCat.hide()
                 itemView.setOnClickListener {
                     searchItemClickListner.onSearchItemClick(searchResultItem)
                 }
-
-                IvSearch.loadImage(searchResultItem.image)
-                if (searchResultItem.type.isNotEmpty()){
-                    tvSearchCat.text = searchResultItem.type
-                }
-                else
-                tvSearchCat.hide()
-
-                tvSearchTitle.text = searchResultItem.title
-                tvSearchDate.text = searchResultItem.itemDate
             }
         }
     }

@@ -48,7 +48,7 @@ class SessionManager @Inject constructor(private val userRepository: Lazy<UserRe
                 //Finding Difference to Time when token created
                 val timeDifference = System.currentTimeMillis() - user.createdAt
                 //For the save side reducing some amount from expiry
-                val expireDifference = user.expireIn!! - 100
+                val expireDifference = user.expireIn!! - 500
                 //Final Expiry Time
                 val expiryTime = TimeUnit.SECONDS.toMillis(expireDifference.toLong());
                 if (timeDifference >= expiryTime) {

@@ -1,6 +1,9 @@
 package com.app.dubaiculture.ui.postLogin.search.viewmodels
 
 import android.app.Application
+import android.os.Handler
+import android.os.Looper
+import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -10,12 +13,11 @@ import androidx.paging.filter
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.search.SearchRepository
 import com.app.dubaiculture.data.repository.search.local.SearchResultItem
+import com.app.dubaiculture.data.repository.search.local.SearchTab
 import com.app.dubaiculture.data.repository.search.remote.request.SearchPaginationRequest
 import com.app.dubaiculture.data.repository.search.remote.request.SearchRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.data.repository.search.local.SearchTab
-import com.app.dubaiculture.ui.postLogin.search.enum.SearchTabHeaders
 import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -57,6 +59,7 @@ class SearchViewModel @Inject constructor(
         getSearchHistory()
     }
 
+
     fun updateIsOldData(isOld: Boolean) {
         val searchRequest: SearchPaginationRequest = _searchFilter.value!!.peekContent()
         updateSearch(searchRequest.copy(isOld = isOld))
@@ -73,6 +76,12 @@ class SearchViewModel @Inject constructor(
             updateSearch(searchRequest.copy(sort = "asc"))
         else
             updateSearch(searchRequest.copy(sort = "desc"))
+    }
+    fun updateKeyword(string: String){
+        _viewFlag.value = Event(string.isNotEmpty())
+        if (string.isNotEmpty()) {
+            updateSearch(SearchPaginationRequest(keyword = string))
+        }
     }
 
 
@@ -112,7 +121,7 @@ class SearchViewModel @Inject constructor(
                 )) {
                 is Result.Success -> {
                     showLoader(false)
-                    _tabs.value =  result.value
+                    _tabs.value = result.value
 
                 }
                 is Result.Failure -> {
@@ -127,8 +136,8 @@ class SearchViewModel @Inject constructor(
         _count.value = count
     }
 
-    private fun getSearchHistory() {
-        showLoader(true)
+    fun getSearchHistory() {
+//        showLoader(true)
         viewModelScope.launch {
             when (val result =
                 searchRepository.getSearchHistory(
@@ -138,7 +147,7 @@ class SearchViewModel @Inject constructor(
                     )
                 )) {
                 is Result.Success -> {
-                    showLoader(false)
+//                    showLoader(false)
                     _stringList.value = result.value
 
                 }
@@ -150,7 +159,6 @@ class SearchViewModel @Inject constructor(
     }
 
     fun clearHistory() {
-        showLoader(true)
         viewModelScope.launch {
             when (val result =
                 searchRepository.clearHistory(
@@ -160,9 +168,8 @@ class SearchViewModel @Inject constructor(
                     )
                 )) {
                 is Result.Success -> {
-                    showLoader(false)
                     if (result.value) {
-                        _stringList.value = mutableListOf()
+                        getSearchHistory()
                     }
 
                 }
@@ -216,10 +223,14 @@ class SearchViewModel @Inject constructor(
 
     }
 
-    fun onSearchTextChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
-        _viewFlag.value = Event(s.isNotEmpty())
-        if (s.isNotEmpty()) {
-            updateSearch(SearchPaginationRequest(keyword = s.toString()))
-        }
-    }
+
+
+//    fun onSearchTextChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
+//        _viewFlag.value = Event(s.isNotEmpty())
+//        if (s.isNotEmpty()) {
+//            updateSearch(SearchPaginationRequest(keyword = s.toString()))
+//        }
+//    }
+
+
 }

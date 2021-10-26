@@ -49,6 +49,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
         subscribeUiEvents(moreViewModel)
         bgAboutRTL(binding.imgEagle)
+        binding.toolbarSnippet.toolbarLayout.search.setOnClickListener(this)
         binding.llRateUs.setOnClickListener(this)
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
@@ -268,6 +269,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             R.id.llCultureConnoisseur -> {
                 navigate(R.id.action_moreFragment_to_aboutFragment)
 
+            }
+            R.id.search ->{
+                navigateByDirections(MoreFragmentDirections.actionMoreFragmentToSearchNavigation())
             }
 
         }

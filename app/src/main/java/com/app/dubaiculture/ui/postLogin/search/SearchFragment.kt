@@ -3,7 +3,11 @@ package com.app.dubaiculture.ui.postLogin.search
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.RecognizerIntent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
@@ -24,10 +28,7 @@ import com.app.dubaiculture.ui.postLogin.search.adapters.SearchItemListAdapter
 import com.app.dubaiculture.ui.postLogin.search.adapters.UniSelectionAdapter
 import com.app.dubaiculture.ui.postLogin.search.viewmodels.SearchSharedViewModel
 import com.app.dubaiculture.ui.postLogin.search.viewmodels.SearchViewModel
-import com.app.dubaiculture.utils.hide
-import com.app.dubaiculture.utils.pluralize
-import com.app.dubaiculture.utils.show
-import com.app.dubaiculture.utils.withLoadStateAdapters
+import com.app.dubaiculture.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
@@ -49,8 +50,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 if (resultCode == Activity.RESULT_OK) {
                     //Image Uri will not be null for RESULT_OK
                     data!!.apply {
-                        val result = getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                        binding.searchToolbar.editSearch.setText(result!![0])
+                        getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.let {
+                            binding.searchToolbar.editSearch.setText(it[0])
+                        }
+
                     }
 
                 } else {
@@ -59,13 +62,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
 
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerForActivityResult()
     }
-
-
     private fun getSpeechInput() {
         val intent = Intent(
             RecognizerIntent
@@ -81,23 +81,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         )
         binding.searchToolbar.editSearch.setText("")
         startForResult.launch(intent)
-//        if (intent.resolveActivity(activity.packageManager) != null) {
-//
-//        } else {
-//            showToast(  "Your Device Doesn't Support Speech Input")
-//        }
     }
-
     companion object {
         var selectedPosition: Int = 0
     }
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentSearchBinding.inflate(inflater, container, false)
-
-
     private fun subscribeToObservable() {
         searchShareViewModel.isOld.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
@@ -171,26 +162,27 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
         }
     }
-
-
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(searchViewModel)
         binding.searchVm = searchViewModel
         binding.searchToolbar.clear.setOnClickListener {
             binding.searchToolbar.editSearch.setText("")
+            searchViewModel.getSearchHistory()
         }
+        binding.searchToolbar.editSearch.addTextChangedListener(
+            EndTypingWatcher{
+                searchViewModel.updateKeyword(binding.searchToolbar.editSearch.text.toString())
+            }
+        )
         binding.searchToolbar.speechSearch.setOnClickListener {
             getSpeechInput()
         }
         binding.ivSort.setOnClickListener {
             navigateByDirections(SearchFragmentDirections.actionSearchFragmentToSortFragment())
         }
-//        registerForActivityResult()
         subscribeToObservable()
         rvSetup()
-
-
     }
 
     private fun rvSetup() {
@@ -228,8 +220,31 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             searchItemListAdapter =
                 SearchItemListAdapter(object : SearchItemListAdapter.SearchItemClickListner {
                     override fun onSearchItemClick(searchResultItem: SearchResultItem) {
-                        if (searchResultItem.type.contains("news"))
-                        navigateByDirections(SearchFragmentDirections.actionSearchFragmentToNews("8A95C74162ED46DE8514520F1D86B67F"))
+                        when (searchResultItem.type) {
+                            "News" -> {
+                                navigateByDirections(
+                                    SearchFragmentDirections.actionSearchFragmentToNews(
+                                        searchResultItem.id ?: "8A95C74162ED46DE8514520F1D86B67F"
+                                    )
+                                )
+                            }
+                            "Attractions" -> {
+                                navigateByDirections(SearchFragmentDirections.actionSearchFragmentToAttraction(
+                                    searchResultItem.id
+                                ))
+                            }
+                            "Events" -> {
+                                navigateByDirections(SearchFragmentDirections.actionSearchFragmentToEvents(
+                                    searchResultItem.id
+                                ))
+                            }
+                            "EServices" -> {
+                                navigateByDirections(SearchFragmentDirections.actionSearchFragmentToServices(
+                                    searchResultItem.id
+                                ))
+                            }
+                        }
+
                     }
                 })
             adapter = searchItemListAdapter.withLoadStateAdapters(

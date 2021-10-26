@@ -62,17 +62,6 @@ class UserRepository @Inject constructor(
                             return userLDS.getUser()
                         }
                     }
-
-//                    HTTP_401 -> {
-////                        val user = userLDS.getUser()?.let {
-////                            loginRDS.loginWithEmail(transform(LoginRequest(
-////                                email = it.email,
-////                                password =
-////                            ))
-////                        }
-//
-//                    }
-
                     else -> {
                         userLDS.getUser()?.let { userLDS.delete(it) }
                         Result.Failure(

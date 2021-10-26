@@ -29,6 +29,7 @@ import com.app.dubaiculture.data.repository.event.local.models.schedule.EventSch
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItemsSlots
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
@@ -71,7 +72,7 @@ import kotlin.collections.ArrayList
 @AndroidEntryPoint
 class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
-    private val eventViewModel: EventViewModel by viewModels()
+    private val eventViewModel: EventDetailViewModel by viewModels()
     private lateinit var verticalLayoutManager: RecyclerView.LayoutManager
     private lateinit var myAdapter: RecyclerView.Adapter<*>
     val parentItemList = ArrayList<EventScheduleItems>()

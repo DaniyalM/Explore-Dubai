@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/more_navigation"
     app:startDestination="@id/moreFragment">
+    <include app:graph="@navigation/search_navigation" />
+
     <include app:graph="@navigation/post_login_bottom_navigation" />
     <include app:graph="@navigation/profile_navigation" />
     <include app:graph="@navigation/news_navigation" />
@@ -92,11 +94,26 @@
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_moreFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
         <action
             android:id="@+id/action_moreFragment_to_popularServiceFragment2"
-            app:destination="@id/service_navigation" />
-<!--        <action-->
+            app:destination="@id/service_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_moreFragment_to_search_navigation"
+            app:destination="@id/search_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <!--        <action-->
 <!--            android:id="@+id/action_moreFragment_self"-->
 <!--            app:destination="@id/moreFragment"-->
 <!--            app:enterAnim="@anim/fade_in"-->

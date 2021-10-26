@@ -2,16 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable name="searchFragment" type="com.app.dubaiculture.ui.postLogin.search.SearchFragment" />
-
-        <variable
-            name="viewmodel"
-            type="com.app.dubaiculture.ui.postLogin.search.viewmodels.SearchViewModel" />
-
-    </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -55,7 +45,6 @@
                     android:imeOptions="actionSearch"
                     android:inputType="textCapSentences"
                     android:maxLines="1"
-                    android:onTextChanged="@{viewmodel::onSearchTextChanged}"
                     android:paddingStart="@dimen/_15ssp"
                     android:singleLine="true"
                     android:textColorHint="@color/gray_600"
