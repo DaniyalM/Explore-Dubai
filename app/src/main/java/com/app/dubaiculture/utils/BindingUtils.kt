@@ -14,6 +14,7 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.card.MaterialCardView
 import com.rishabhharit.roundedimageview.RoundedImageView
+import de.hdodenhof.circleimageview.CircleImageView
 
 @BindingAdapter("android:animate")
 fun View.animate(animation: Techniques) {
@@ -50,6 +51,13 @@ fun View.glideInstance(url: String?, isSvg: Boolean = false): RequestBuilder<Dra
 
 @BindingAdapter("android:imageUrl")
 fun RoundedImageView.loadImage(url: String?) {
+    url?.let {
+        glideInstance(it).into(this)
+    }
+}
+
+@BindingAdapter("android:loadImage")
+fun CircleImageView.loadImage(url: String?) {
     url?.let {
         glideInstance(it).into(this)
     }

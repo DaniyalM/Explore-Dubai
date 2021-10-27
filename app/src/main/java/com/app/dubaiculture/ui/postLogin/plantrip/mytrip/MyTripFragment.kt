@@ -5,19 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.activityViewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentMyTripBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
+import com.app.dubaiculture.utils.event.Event
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -49,6 +55,8 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     }
 
     fun onBackPressed() {
+
+        tripSharedViewModel._showPlan.value = Event(false)
         navigateBack()
 //    navigateByDirections(MyTripFragmentDirections.actionTripFragmentToTripDetailParentFragment())
     }

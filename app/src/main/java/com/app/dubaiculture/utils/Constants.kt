@@ -45,8 +45,8 @@ object Constants {
     }
 
     object NavBundles {
-        val SCROLL_VIEW_STATE: String = "ScrollState"
-        val SHEET_STATE: String = "BState"
+        val SCROLL_VIEW_STATE: String= "ScrollState"
+        val SHEET_STATE: String= "BState"
         const val COMES_FROM_LOGIN: String = "loginFragment"
         const val IF_FORGOT_PASSWORD: String = "forgotfragment"
         const val COMES_FROM_POST_LOGIN: String = "postloginFragment"
@@ -86,6 +86,7 @@ object Constants {
         const val EXPLORE_TO_ATTRACTIONS: String = "exp_to_attractions"
         const val ATTRACTION_DETAIL: String = "attractionId"
         const val ATTRACTION_DETAIL_BEACON: String = "attraction_id"
+        const val NEAREST_LOCATION: String = "nearest_location"
         const val SERVICE_ID: String = "service_id"
 
 
@@ -182,7 +183,6 @@ object Constants {
 
 
     }
-
     object PLAY_STORE {
         const val PACKAGE_NAME: String = "com.dubaiculture"
         const val DUBAI_CULTURE: String = "Dubai Culture"

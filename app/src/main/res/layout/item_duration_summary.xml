@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="data"
+            type="com.app.dubaiculture.data.repository.trip.local.Duration" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -35,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
                     android:fontFamily="@font/neosansarabicmedium"
-                    android:text="17"
+                    android:text="@{data.dayDate.substring(0,2)}"
                     android:textColor="@color/purple_650"
                     android:textSize="@dimen/_15ssp"
                     app:layout_constraintEnd_toEndOf="@id/tvDateMonth"
@@ -49,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:fontFamily="@font/neosansarabicmedium"
-                    android:text="NOV,20"
+                    android:text="@{data.dayDate.substring(3)}"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -71,8 +78,8 @@
                     android:id="@+id/tvDay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_purple_day"
-                    android:text="@string/day"
+                    android:drawableEnd="@{data.isDay() == 1 ? @drawable/ic_purple_day: data.isDay() == 2 ? @drawable/ic_purple_night : null}"
+                    android:text='@{data.isDay() == 1 ? "Day" : data.isDay() == 2 ? "Night" : "" }'
                     android:textColor="@color/purple_650"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintBottom_toBottomOf="@id/tvDateMonth"
@@ -96,12 +103,11 @@
                     android:id="@+id/tvDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:text="@string/hour8"
+                    android:text="@{data.hour}"
                     android:textSize="@dimen/_13ssp"
-                    app:layout_constraintStart_toStartOf="@id/tvDurationHeading"
-                    app:layout_constraintTop_toTopOf="@id/tvDay"
                     app:layout_constraintBottom_toBottomOf="@id/tvDay"
-                    />
+                    app:layout_constraintStart_toStartOf="@id/tvDurationHeading"
+                    app:layout_constraintTop_toTopOf="@id/tvDay" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

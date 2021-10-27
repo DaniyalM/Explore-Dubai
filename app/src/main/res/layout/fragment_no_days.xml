@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="view"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.NoOfDaysFragment" />
+    </data>
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -9,13 +15,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
-        >
+        android:layout_height="wrap_content">
+
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/gray_line"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/gray_line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +58,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:fontFamily="@font/neo_sans_arabic_regular"
                 android:checked="true"
-                android:text="2 days" />
+                android:text="@string/day2" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/choice2"
@@ -60,7 +67,7 @@
                 app:chipBackgroundColor="@color/chip_selector"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:fontFamily="@font/neo_sans_arabic_regular"
-                android:text="4 days" />
+                android:text="@string/day4" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/choice3"
@@ -69,7 +76,7 @@
                 app:chipBackgroundColor="@color/chip_selector"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:fontFamily="@font/neo_sans_arabic_regular"
-                android:text="6 days" />
+                android:text="@string/day6" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/choice4"
@@ -78,7 +85,7 @@
                 app:chipBackgroundColor="@color/chip_selector"
                 android:fontFamily="@font/neo_sans_arabic_regular"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:text="8 days" />
+                android:text="@string/day8" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/choice5"
@@ -87,7 +94,7 @@
                 app:chipBackgroundColor="@color/chip_selector"
                 android:fontFamily="@font/neo_sans_arabic_regular"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:text="10 days" />
+                android:text="@string/day10" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -109,6 +116,7 @@
             android:backgroundTint="@color/purple_650"
             android:fontFamily="@font/neo_sans_arabic_regular"
             android:text="@string/done"
+            android:onClick="@{()->view.onDoneClicked()}"
             android:textAllCaps="false"
             android:textColor="?attr/colorOnPrimary"
             app:cornerRadius="@dimen/_16sdp"
