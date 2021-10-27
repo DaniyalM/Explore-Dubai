@@ -84,7 +84,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
         binding.rvLocationChips.apply {
             layoutManager =
-                StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
+                StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
             nearestLocAdapter = NearestLocationAdapter(
                 object : NearestLocationClickListener {
                     override fun rowClickListener(userType: LocationNearest) {
@@ -154,7 +154,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
     private fun setMarker(it: List<LocationNearest>) {
         it.map { selectedLoc ->
-            if(selectedLoc.isChecked) {
+            if (selectedLoc.isChecked) {
                 navigateMarker(
                     if (selectedLoc.latitude.isBlank()) 0.0 else selectedLoc.latitude.toDouble(),
                     if (selectedLoc.longitude.isBlank()) 0.0 else selectedLoc.longitude.toDouble()
@@ -223,25 +223,26 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
     fun navigateMarker(latitude: Double, longitude: Double) {
 
-        if (marker == null) {
+            if (marker == null) {
 
-            marker = mMap.addMarker(
-                MarkerOptions()
-                    .position(LatLng(latitude, longitude))
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                marker = mMap.addMarker(
+                    MarkerOptions()
+                        .position(LatLng(latitude, longitude))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
 
+                )
+            } else {
+                marker!!.position = LatLng(latitude, longitude)
+            }
+
+
+            mMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(latitude, longitude), 14.0f
+                )
             )
-        }else{
-            marker!!.position = LatLng(latitude, longitude)
-        }
+            mMap.cameraPosition.target
 
-
-        mMap.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                LatLng(latitude, longitude), 14.0f
-            )
-        )
-        mMap.cameraPosition.target
     }
 
     override fun onPause() {

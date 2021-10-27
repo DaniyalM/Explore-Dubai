@@ -41,6 +41,19 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        subscribeToObservables()
+    }
+
+    private fun subscribeToObservables() {
+
+        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner){
+            showToast(it.location.locationTitle)
+        }
+
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 

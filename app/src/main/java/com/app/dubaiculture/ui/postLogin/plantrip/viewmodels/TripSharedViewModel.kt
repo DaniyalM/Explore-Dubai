@@ -32,6 +32,9 @@ class TripSharedViewModel @Inject constructor(
     val _durationSummary: MutableLiveData<List<Duration>> = MutableLiveData()
     val durationSummary: LiveData<List<Duration>> = _durationSummary
 
+    val _dates: MutableLiveData<List<Duration>> = MutableLiveData()
+    val dates: LiveData<List<Duration>> = _dates
+
     val _type: MutableLiveData<LocationNearest> = MutableLiveData()
     val type: LiveData<LocationNearest> = _type
 
@@ -43,6 +46,9 @@ class TripSharedViewModel @Inject constructor(
 
     val _eventAttraction: MutableLiveData<Event<EventAttractionRequest>> = MutableLiveData()
     val eventAttraction: LiveData<Event<EventAttractionRequest>> = _eventAttraction
+
+    val _eventAttractionResponse: MutableLiveData<EventAttractions> = MutableLiveData()
+    val eventAttractionResponse: LiveData<EventAttractions> = _eventAttractionResponse
 
     fun updateLocationItem(nearestLocation: LocationNearest) {
         _type.value = nearestLocation
@@ -210,6 +216,20 @@ class TripSharedViewModel @Inject constructor(
             interestedIn.checked
         }.let {
             return it.map { it.id }
+        }
+
+    }
+
+    fun setDates() {
+
+        val dateList: List<Duration> = _durationSummary.value ?: return
+
+        dateList.map {
+            return@map it.copy(
+                isSelected = false
+            )
+        }.let {
+            _dates.value = it
         }
 
     }

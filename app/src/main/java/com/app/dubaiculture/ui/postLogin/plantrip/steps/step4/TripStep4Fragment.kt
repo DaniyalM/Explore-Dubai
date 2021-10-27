@@ -66,6 +66,8 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
 
         step4ViewModel.eventAttraction.observe(viewLifecycleOwner) {
+            tripSharedViewModel._eventAttractionResponse.value = it.getContentIfNotHandled()
+            tripSharedViewModel.setDates()
             tripSharedViewModel._showPlan.value = Event(true)
         }
 
@@ -79,7 +81,9 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
         }
 
         tripSharedViewModel.eventAttraction.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { it1 -> step4ViewModel.postEventAttraction(it1) }
+            it.getContentIfNotHandled()?.let { it1 ->
+                step4ViewModel.postEventAttraction(it1)
+            }
         }
 
     }
