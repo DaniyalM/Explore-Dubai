@@ -4,10 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="view"
             type="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.TripStep4Fragment" />
+
+        <variable
+            name="viewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
+
+        <variable
+            name="step4ViewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step4ViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,6 +65,7 @@
             android:textAllCaps="false"
             android:textColor="@color/purple_650"
             android:textSize="@dimen/_8ssp"
+            android:visibility="@{(viewModel.durationSummary.size() != 0) ? View.VISIBLE : View.GONE}"
             app:cornerRadius="@dimen/_14sdp"
             app:layout_constraintBottom_toBottomOf="@id/tvHeading"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -70,6 +80,7 @@
             android:background="@drawable/custom_ripple_black"
             android:onClick="@{()->view.onSelectDateClicked()}"
             android:outlineSpotShadowColor="?attr/color_card_views_shadow"
+            android:visibility="@{(viewModel.durationSummary.size() == 0) ? View.VISIBLE : View.GONE}"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -115,6 +126,7 @@
             android:text="@string/select_dates_desc"
             android:textColor="?attr/colorSecondaryVariant"
             android:textSize="@dimen/_12ssp"
+            android:visibility="@{(viewModel.durationSummary.size() == 0) ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@id/cvDates"
             app:layout_constraintStart_toStartOf="@id/cvDates"
             app:layout_constraintTop_toBottomOf="@id/cvDates" />
@@ -129,6 +141,7 @@
             android:background="@drawable/custom_ripple_black"
             android:onClick="@{()->view.onNoDaysClicked()}"
             android:outlineSpotShadowColor="?attr/color_card_views_shadow"
+            android:visibility="@{(viewModel.durationSummary.size() == 0) ? View.VISIBLE : View.GONE}"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +184,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:visibility="gone"
+            android:visibility="@{(viewModel.durationSummary.size() != 0) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@+id/btnShowPlan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -184,15 +197,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:enabled="@{viewModel.durationSummary.size() != 0}"
             android:fontFamily="@font/neo_sans_arabic_regular"
-            android:onClick="@{()->view.onShowMyPlanClicked()}"
+            android:onClick="@{()->viewModel.postEventAttraction()}"
             android:text="@string/show_my_plan"
             android:textAllCaps="false"
             android:textColor="?attr/color_dubai_logo"
             app:cornerRadius="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/cvDates"
-            app:layout_constraintStart_toStartOf="@id/cvDates"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:strokeColor="@color/purple_650" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

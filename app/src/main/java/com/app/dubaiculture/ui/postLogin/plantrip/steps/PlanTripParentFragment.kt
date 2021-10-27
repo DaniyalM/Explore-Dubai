@@ -137,4 +137,10 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
     }
 
 
+    override fun onDestroy() {
+        super.onDestroy()
+        tripSharedViewModel._duration.value = null
+        tripSharedViewModel._durationSummary.value = null
+    }
+
 }
