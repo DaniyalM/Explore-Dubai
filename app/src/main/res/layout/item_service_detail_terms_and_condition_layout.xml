@@ -4,28 +4,28 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/detailListingHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_15sdp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/payments"
-            android:textColor="?attr/colorSecondary"
-            android:textSize="@dimen/_18ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:textFont="bold" />
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/detailListingHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_15sdp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/payments"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="@dimen/_18ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textFont="bold" />
 
-        <com.app.dubaiculture.ui.components.customreadmore.CustomReadMoreView
+            <com.app.dubaiculture.ui.components.customreadmore.CustomReadMoreView
             android:id="@+id/terms_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

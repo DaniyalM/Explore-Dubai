@@ -29,15 +29,16 @@ data class Attractions(
     var endDay: String? = "",
     var startDay: String? = "",
     var color: String? = "",
-    var emailContact : String? ="",
-    var numberContact : String?="",
+    var emailContact: String? = "",
+    var numberContact: String? = "",
     var events: List<Events>? = null,
     var gallery: List<Gallery>? = null,
     var socialLink: List<SocialLink>? = null,
     var asset360: Assets360? = null,
     var siteMap: SiteMap? = null,
-    var ibecons : Ibecons? =null,
-    var withinRadiusIcon : String ? ="",
-    var outOfRadiusIcon : String ? ="",
-    var visitedDateTime : String ? ="12 Nov, 2020"
-    ) : Parcelable
+    var ibecons: Ibecons? = null,
+    var withinRadiusIcon: String? = "",
+    var outOfRadiusIcon: String? = "",
+    var visitedDateTime: String? = "12 Nov, 2020",
+    var relatedEventsTitle: String? = ""
+) : Parcelable

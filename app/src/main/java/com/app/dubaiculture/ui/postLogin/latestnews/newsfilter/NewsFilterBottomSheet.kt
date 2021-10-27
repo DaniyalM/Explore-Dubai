@@ -10,8 +10,8 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.news.local.NewsTags
 import com.app.dubaiculture.databinding.FragmentBottomSheetNewsFilterBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.adapters.NewsTagsListAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.clicklisteners.NewsTagsClickListener
+import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.adapters.NewsTagsListAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsFilterSheetViewModel
 import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsSharedViewModel
 import com.app.dubaiculture.utils.Constants.NavBundles.SHEET_STATE
@@ -22,7 +22,6 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFilterBinding>(),
@@ -43,12 +42,12 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
             setLayoutManager(layoutManager)
             newsTagsListAdapter = NewsTagsListAdapter(object : NewsTagsClickListener {
                 override fun onTagSelectListner(newsTags: NewsTags) {
-                    if (!filter.tags.contains(newsTags.tag_title) && newsTags.isSelected) {
-                        list.add(newsTags.tag_title)
-                        filter.tags=list
-                    }else{
-                        list.remove(newsTags.tag_title)
-                        filter.tags=list
+                    if (!filter.tags.contains(newsTags.tag_id) && newsTags.isSelected) {
+                        list.add(newsTags.tag_id)
+                        filter = filter.copy(tags = list)
+                    } else {
+                        list.remove(newsTags.tag_id)
+                        filter = filter.copy(tags = list)
                     }
 
                 }
@@ -61,6 +60,7 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentBottomSheetNewsFilterBinding.inflate(inflater, container, false)
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,23 +93,29 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
 
 
     private fun subscribeToObservables() {
-
+        newsFilterViewModel.filter.observe(viewLifecycleOwner) {
+            it?.peekContent()?.let {
+                if (it.keyword.isNotEmpty())
+                    binding.editSearch.setText(it.keyword)
+            }
+        }
 //        newsFilterViewModel.updateFilter(filter)
         newsFilterViewModel.keyword.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-
-                filter.keyword = it
+                filter = filter.copy(keyword = it)
             }
         }
         newsFilterViewModel.dateFrom.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                filter.dateFrom = it
+                filter = filter.copy(dateFrom = it)
+
                 binding.tvStartDate.text = it
             }
         }
         newsFilterViewModel.dateTo.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                filter.dateTo = it
+                filter = filter.copy(dateTo = it)
+
                 binding.tvEndDate.text = it
             }
         }
@@ -170,8 +176,11 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
                 R.id.tvReset -> {
                     filter = Filter()
                     binding.editSearch.setText("")
+                    binding.tvEndDate.text = ""
+                    binding.tvStartDate.text = ""
+                    newsFilterSheetViewModel.updateTags()
                     newsFilterViewModel.updateFilter(filter)
-                    dismiss()
+//                    dismiss()
                 }
             }
         }

@@ -115,17 +115,12 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable false
+            debuggable true
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
-
-
-
-
-
             signingConfig signingConfigs.stagConfig
             applicationVariants.all { variant ->
                 variant.outputs.all {

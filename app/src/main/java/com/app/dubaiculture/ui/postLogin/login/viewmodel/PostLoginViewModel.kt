@@ -10,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.login.LoginRepository
-import com.app.dubaiculture.data.repository.login.local.UAEPass
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.app.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.app.dubaiculture.data.repository.user.UserRepository
@@ -94,7 +93,7 @@ class PostLoginViewModel @Inject constructor(
                                 phoneNumber = "+${it.mobile}"
                             )
 
-                            setUser(user, true)
+                            setUser(user)
                             activity.auth.isGuest = false
                             //Saving User Session
                             userRepository.updateUser(user)

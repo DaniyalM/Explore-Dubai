@@ -21,7 +21,6 @@ data class User(
     var refreshToken: String,
     var idn: String?=null,
     var verificationToken: String,
-    var isTyped: Boolean = false,
     var hasPassword: Boolean = false,
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis(),
 ):Parcelable

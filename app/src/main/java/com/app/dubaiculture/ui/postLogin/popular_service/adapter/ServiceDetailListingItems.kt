@@ -108,15 +108,15 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
 //
 //                                faqsAdapter.add(faqItem)
 //                            }
-                            eService.fAQs.forEach {
-                                val faqItem =
-                                    ServiceDetailListingItems<ItemFaqsLayoutBinding, FAQX>(
-                                        eService = it,
-                                        resLayout = R.layout.item_faqs_layout
-                                    )
-
-                                faqsAdapter.add(faqItem)
-                            }
+//                            eService.fAQs.forEach {
+//                                val faqItem =
+//                                    ServiceDetailListingItems<ItemFaqsLayoutBinding, FAQX>(
+//                                        eService = it,
+//                                        resLayout = R.layout.item_faqs_layout
+//                                    )
+//
+//                                faqsAdapter.add(faqItem)
+//                            }
                         }
                     }
 

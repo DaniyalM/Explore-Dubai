@@ -31,7 +31,10 @@ class PostLoginActivity : BaseAuthenticationActivity() {
             } else {
                 unSubscribeFromTopic("AndroidBroadcast_en")
             }
+            val id = it + "_" + "${applicationEntry.auth.user?.userId}"
             subscribeToTopic(topic = "AndroidBroadcast_$it")
+            subscribeToTopic(topic = "AndroidBroadcast_$id")
+
 
         }
 
@@ -51,7 +54,7 @@ class PostLoginActivity : BaseAuthenticationActivity() {
 
     override fun onResume() {
         super.onResume()
-        SystemRequirementsChecker.checkWithDefaultDialogs(this);
+        SystemRequirementsChecker.checkWithDefaultDialogs(this)
         adjustFontScale(resources.configuration)
 
     }

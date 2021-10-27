@@ -8,8 +8,6 @@ import android.content.Intent
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.os.Parcelable
 import android.speech.tts.TextToSpeech
 import android.text.TextUtils
@@ -17,34 +15,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.AttractionDetailInnerLayoutBinding
-import com.app.dubaiculture.databinding.AttractionDetailUpComingItemsBinding
 import com.app.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.app.dubaiculture.databinding.ToolbarLayoutDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
-import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionClickListener
 import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
-import com.app.dubaiculture.ui.postLogin.attractions.listing.AttractionFragment
-import com.app.dubaiculture.ui.postLogin.attractions.listing.AttractionFragmentDirections
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
-import com.app.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.app.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
-import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
-import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
@@ -55,8 +42,6 @@ import com.app.dubaiculture.utils.handleApiError
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.RequestManager
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.location.LocationCallback
@@ -73,8 +58,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.shape.CornerFamily
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -85,7 +68,7 @@ import javax.inject.Inject
 class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
 
-    private val attractionDetailFragmentArgs:AttractionDetailFragmentArgs by navArgs()
+    private val attractionDetailFragmentArgs: AttractionDetailFragmentArgs by navArgs()
     private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
     private var url: String? = null
     var emailContact: String? = null
@@ -93,7 +76,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     lateinit var detailInnerLayout: AttractionDetailInnerLayoutBinding
     lateinit var toolbarLayout: ToolbarLayoutDetailBinding
     private lateinit var eventListScreenAdapter: EventListScreenAdapter
-
 
 
     private val gpsObserver = Observer<GpsStatus> { status ->
@@ -114,13 +96,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 //    private var mapFragment: SupportMapFragment? = null
 
 
-
     private fun subscribeToGpsListener() = attractionDetailViewModel.gpsStatusLiveData
         .observe(viewLifecycleOwner, gpsObserver)
 
     private var lat: String? = ""
     private var long: String? = ""
-    private lateinit var attractionsObj: Attractions
+    private var attractionsObj: Attractions? = null
 
     private var isDetailFavouriteFlag = false
 
@@ -142,11 +123,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         super.onAttach(context)
         arguments?.apply {
             attractionDetailFragmentArgs.attraction?.let {
-                attractionsObj =it
+                attractionsObj = it
             }
         }
     }
-
 
 
     override fun getFragmentBinding(
@@ -155,7 +135,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     ) = FragmentAttractionDetailBinding.inflate(inflater, container, false)
 
 
-    private fun setupSwipeToRefresh(){
+    private fun setupSwipeToRefresh() {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.swipeRefreshLayout.isRefreshing = false
@@ -177,9 +157,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         backArrowRTL(binding.imgBack)
         arrowRTL(detailInnerLayout.arrowIbecons)
         arrowRTL(detailInnerLayout.arrowSiteMap)
-        uiActions()
+
         cardViewRTL()
     }
+
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(attractionDetailViewModel)
@@ -256,7 +237,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 //
 //            }
 //        }
-        attractionDetailViewModel.attractionEvents.observe(viewLifecycleOwner){
+        attractionDetailViewModel.attractionEvents.observe(viewLifecycleOwner) {
             eventListScreenAdapter.submitList(it)
         }
         attractionDetailViewModel.isFavourite.observe(viewLifecycleOwner) {
@@ -322,7 +303,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     }
                     detailInnerLayout.tvDescReadmore.text =
                         "${it.value.summary} ${""} ${it.value.description}"
-                    initializeDetails(attractionsObj)
+                    uiActions()
+                    initializeDetails(attractionsObj!!)
+
+
                 }
                 is Result.Failure -> {
                     handleApiError(it, attractionDetailViewModel)
@@ -357,88 +341,95 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         detailInnerLayout.constLayoutSiteMap.setOnClickListener(this)
         detailInnerLayout.constLayoutIbecon.setOnClickListener(this)
         detailInnerLayout.tvDirection.setOnClickListener(this)
-        detailInnerLayout.imgFb.setOnClickListener {
-            openUrl(
-                attractionsObj.socialLink?.get(0)!!.facebookPageLink,
-                activity,
-                isFacebook = true
-            )
-        }
-        detailInnerLayout.instagram.setOnClickListener {
-            openUrl(
-                attractionsObj.socialLink?.get(0)!!.instagramPageLink,
-                activity,
-                isInstagram = true
-            )
-        }
-        detailInnerLayout.imgTwitterAttraction.setOnClickListener {
-            openUrl(
-                attractionsObj.socialLink?.get(0)!!.twitterPageLink,
-                activity,
-                isTwitter = true
-            )
-        }
-        detailInnerLayout.imgYoutube.setOnClickListener {
-            openUrl(
-                attractionsObj.socialLink?.get(0)!!.youtubePageLink,
-                activity,
-                isYoutube = true
-            )
-        }
-        detailInnerLayout.imgLinkedinAttraction.setOnClickListener {
-            openUrl(
-                attractionsObj.socialLink?.get(0)!!.linkedInPageLink,
-                activity,
-                isLinkedIn = true
-            )
+
+        attractionsObj?.let { attraction ->
+            detailInnerLayout.imgFb.setOnClickListener {
+                openUrl(
+                    attraction.socialLink?.get(0)!!.facebookPageLink,
+                    activity,
+                    isFacebook = true
+                )
+            }
+            detailInnerLayout.instagram.setOnClickListener {
+                openUrl(
+                    attraction.socialLink?.get(0)!!.instagramPageLink,
+                    activity,
+                    isInstagram = true
+                )
+            }
+            detailInnerLayout.imgTwitterAttraction.setOnClickListener {
+                openUrl(
+                    attraction.socialLink?.get(0)!!.twitterPageLink,
+                    activity,
+                    isTwitter = true
+                )
+            }
+            detailInnerLayout.imgYoutube.setOnClickListener {
+                openUrl(
+                    attraction.socialLink?.get(0)!!.youtubePageLink,
+                    activity,
+                    isYoutube = true
+                )
+            }
+            detailInnerLayout.imgLinkedinAttraction.setOnClickListener {
+                openUrl(
+                    attraction.socialLink?.get(0)!!.linkedInPageLink,
+                    activity,
+                    isLinkedIn = true
+                )
+            }
+
         }
 
         binding.apply {
 
-
-            root.apply {
-                toolbarLayout.title.text = attractionsObj.title
-                toolbarLayout.category.text = attractionsObj.category
-                glide.load(BuildConfig.BASE_URL + attractionsObj.portraitImage)
-                    .transition(GenericTransitionOptions.with(R.anim.fade_in))
-                    .into(toolbarLayout.detailImageView)
-            }
-            favourite.setOnClickListener {
-                isDetailFavouriteFlag = true
-                attractionsObj.let { attraction ->
-                    favouriteClick(
-                        favourite,
-                        attraction.IsFavourite,
-                        R.id.action_attractionDetailFragment_to_postLoginFragment,
-                        attraction.id,
-                        attractionDetailViewModel,
-                        1
-                    )
+            attractionsObj?.let { attractionsObj1 ->
+                root.apply {
+                    toolbarLayout.title.text = attractionsObj1.title
+                    toolbarLayout.category.text = attractionsObj1.category
+                    glide.load(BuildConfig.BASE_URL + attractionsObj1.portraitImage)
+                        .transition(GenericTransitionOptions.with(R.anim.fade_in))
+                        .into(toolbarLayout.detailImageView)
                 }
+                favourite.setOnClickListener {
+                    isDetailFavouriteFlag = true
+                    attractionsObj1.let { attraction ->
+                        favouriteClick(
+                            favourite,
+                            attraction.IsFavourite,
+                            R.id.action_attractionDetailFragment_to_postLoginFragment,
+                            attraction.id,
+                            attractionDetailViewModel,
+                            1
+                        )
+                    }
 
-            }
-            share.setOnClickListener {
-            }
-            bookingCalender.setOnClickListener {
-            }
-            toolbarLayout.favourite.setOnClickListener {
-                isDetailFavouriteFlag = true
+                }
+                share.setOnClickListener {
+                }
+                bookingCalender.setOnClickListener {
+                }
+                toolbarLayout.favourite.setOnClickListener {
+                    isDetailFavouriteFlag = true
 
-                attractionsObj.let { attraction ->
-                    favouriteClick(
-                        favourite,
-                        attraction.IsFavourite,
-                        R.id.action_attractionDetailFragment_to_postLoginFragment,
-                        attraction.id,
-                        attractionDetailViewModel,
-                        1
-                    )
+                    attractionsObj1.let { attraction ->
+                        favouriteClick(
+                            favourite,
+                            attraction.IsFavourite,
+                            R.id.action_attractionDetailFragment_to_postLoginFragment,
+                            attraction.id,
+                            attractionDetailViewModel,
+                            1
+                        )
+                    }
+                }
+                toolbarLayout.share.setOnClickListener {
+                }
+                toolbarLayout.bookingCalender.setOnClickListener {
                 }
             }
-            toolbarLayout.share.setOnClickListener {
-            }
-            toolbarLayout.bookingCalender.setOnClickListener {
-            }
+
+
         }
     }
 
@@ -448,7 +439,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
             eventListScreenAdapter = EventListScreenAdapter(
-                eventClickListner = object :EventClickListner{
+                eventClickListner = object : EventClickListner {
                     override fun checkFavListener(
                         checkbox: CheckBox,
                         pos: Int,
@@ -461,7 +452,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             R.id.action_attractionsFragment_to_postLoginFragment,
                             itemId, attractionDetailViewModel,
                             1
-                        )                    }
+                        )
+                    }
 
                     override fun rowClickHandler(events: Events) {
                         navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
@@ -470,7 +462,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                     Constants.NavBundles.EVENT_OBJECT,
                                     events
                                 )
-                            })                    }
+                            })
+                    }
                 }
 
             )
@@ -481,8 +474,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         if (isArabic()) {
-            detailInnerLayout.cardviewPlanTrip?.shapeAppearanceModel =
-                detailInnerLayout.cardviewPlanTrip!!.shapeAppearanceModel
+            detailInnerLayout.cardviewPlanTrip.shapeAppearanceModel =
+                detailInnerLayout.cardviewPlanTrip.shapeAppearanceModel
                     .toBuilder()
                     .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                     .setTopRightCornerSize(radius)
@@ -524,18 +517,21 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         lat = location.latitude.toString()
                         long = location.longitude.toString()
 
-                        if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
-                                attractionsObj.latitude
-                            )
-                        ) {
-                            val distance =
-                                locationHelper.distance(
-                                    lat!!.toDouble(), long!!.toDouble(),
-                                    attractionsObj.latitude?.toDouble()!!,
-                                    attractionsObj.longitude?.toDouble()!!
+                        attractionsObj?.let {
+                            if (!TextUtils.isEmpty(it.latitude) && !TextUtils.isEmpty(
+                                    it.latitude
                                 )
-                            detailInnerLayout.tvKm.text = "$distance Km Away"
+                            ) {
+                                val distance =
+                                    locationHelper.distance(
+                                        lat!!.toDouble(), long!!.toDouble(),
+                                        it.latitude?.toDouble()!!,
+                                        it.longitude?.toDouble()!!
+                                    )
+                                detailInnerLayout.tvKm.text = "$distance Km Away"
+                            }
                         }
+
 
                     }
                 },
@@ -548,10 +544,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onMapReady(map: GoogleMap?) {
         try {
 
-            if (!attractionsObj.latitude.isNullOrEmpty() && !attractionsObj.longitude.isNullOrEmpty()) {
+            if (attractionsObj != null && !attractionsObj?.latitude.isNullOrEmpty() && !attractionsObj?.longitude.isNullOrEmpty()) {
                 val attractionLatLng = LatLng(
-                    attractionsObj.latitude?.toDouble()!!,
-                    attractionsObj.longitude?.toDouble()!!
+                    attractionsObj!!.latitude?.toDouble()!!,
+                    attractionsObj!!.longitude?.toDouble()!!
                 )
 
 
@@ -559,7 +555,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     MarkerOptions()
                         .position(attractionLatLng)
                         .title(
-                            attractionsObj.title
+                            attractionsObj!!.title
                         )
                         .icon(fromResource(R.drawable.pin_location))
                 )
@@ -579,9 +575,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_direction -> {
-                if (!attractionsObj.latitude.isNullOrEmpty()) {
+                if (attractionsObj != null && !attractionsObj?.latitude.isNullOrEmpty()) {
                     val uri =
-                        "http://maps.google.com/maps?saddr=" + lat.toString() + "," + long.toString() + "&daddr=" + attractionsObj.latitude.toString() + "," + attractionsObj.longitude
+                        "http://maps.google.com/maps?saddr=" + lat.toString() + "," + long.toString() + "&daddr=" + attractionsObj?.latitude.toString() + "," + attractionsObj?.longitude
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                     intent.setPackage("com.google.android.apps.maps")
                     try {
@@ -595,7 +591,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 val bundle = Bundle()
                 bundle.putParcelable(
                     Constants.NavBundles.SITE_MAP_OBJ,
-                    attractionsObj.siteMap
+                    attractionsObj?.siteMap
                 )
                 navigate(R.id.action_attractionDetailFragment_to_siteMapFragment, bundle)
 //                navigateByDirections(AttractionDetailFragmentDirections.actionAttractionDetailFragmentToSiteMapFragment(attractionsObj.siteMap))
@@ -605,7 +601,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         requireContext()
                     )
                 ) {
-                    val bundle = bundleOf(ATTRACTION_ID to attractionsObj.id)
+                    val bundle = bundleOf(ATTRACTION_ID to attractionsObj?.id)
                     navigate(R.id.action_attractionDetailFragment_to_ibeconFragment, bundle)
                 } else if (!SystemRequirementsHelper.isBluetoothEnabled(requireContext())) {
                     val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
@@ -642,7 +638,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.ll_img -> {
                 navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
                     Bundle().apply {
-                        attractionsObj.gallery?.let {
+                        attractionsObj?.gallery?.let {
                             putParcelableArrayList(
                                 ATTRACTION_GALLERY_LIST,
                                 it as ArrayList<out Parcelable>
@@ -676,7 +672,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.downOneGallery -> {
                 navigate(R.id.action_attractionDetailFragment_to_attractionGalleryFragment,
                     Bundle().apply {
-                        attractionsObj.gallery?.let {
+                        attractionsObj?.gallery?.let {
                             putParcelableArrayList(
                                 ATTRACTION_GALLERY_LIST,
                                 it as ArrayList<out Parcelable>
@@ -731,15 +727,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     private fun locationIsEmpty(location: Location) {
         try {
-            if (!TextUtils.isEmpty(attractionsObj.latitude) && !TextUtils.isEmpty(
-                    attractionsObj.latitude
+            if (attractionsObj != null && !TextUtils.isEmpty(attractionsObj?.latitude) && !TextUtils.isEmpty(
+                    attractionsObj?.latitude
                 )
             ) {
                 val distance =
                     locationHelper.distance(
                         location.latitude, location.longitude,
-                        attractionsObj.latitude!!.toDouble(),
-                        attractionsObj.longitude!!.toDouble()
+                        attractionsObj?.latitude!!.toDouble(),
+                        attractionsObj?.longitude!!.toDouble()
                     )
                 detailInnerLayout.tvKm.text = "$distance Km Away"
             }

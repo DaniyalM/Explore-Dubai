@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.text.TextUtils"/>
+
+        <import type="android.text.TextUtils" />
+
         <import type="android.view.View" />
+
         <variable
             name="attraction"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
@@ -67,8 +69,7 @@
                     android:background="@drawable/speakers"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_category"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_category"
-                    app:layout_constraintVertical_bias="0.511" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_category" />
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_title"
@@ -713,7 +714,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     style="@style/TextViewStyle"
-                    android:text="@{attraction.events == null ? `` : attraction.title}"
+                    android:text="@{attraction.events == null ? `` : attraction.relatedEventsTitle}"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

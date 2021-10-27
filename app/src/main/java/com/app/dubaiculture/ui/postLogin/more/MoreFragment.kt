@@ -27,8 +27,6 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import androidx.fragment.app.activityViewModels
-import com.app.dubaiculture.ui.postLogin.more.viewmodel.MoreSharedViewModel
 
 @AndroidEntryPoint
 class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
@@ -49,6 +47,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
         subscribeUiEvents(moreViewModel)
         bgAboutRTL(binding.imgEagle)
+        binding.toolbarSnippet.toolbarLayout.search.setOnClickListener(this)
         binding.llRateUs.setOnClickListener(this)
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
@@ -91,14 +90,14 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             tvTrip.text = resources.getString(R.string.plan_your_trip)
             subHeading.visibility = View.VISIBLE
             if (isArabic()) {
-                cardivewRTL?.shapeAppearanceModel =
+                cardivewRTL.shapeAppearanceModel =
                     cardivewRTL.shapeAppearanceModel
                         .toBuilder()
                         .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                         .setTopRightCornerSize(radius)
                         .build()
             } else {
-                cardivewRTL?.shapeAppearanceModel =
+                cardivewRTL.shapeAppearanceModel =
                     cardivewRTL.shapeAppearanceModel
                         .toBuilder()
                         .setTopLeftCorner(CornerFamily.ROUNDED, radius)
@@ -272,6 +271,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             R.id.cardivewRTL -> {
                 navigateByDirections(MoreFragmentDirections.actionMoreFragmentToTripFragment())
 //                navigate(R.id.action_moreFragment_to_tripFragment)
+            }
+            R.id.search -> {
+                navigateByDirections(MoreFragmentDirections.actionMoreFragmentToSearchNavigation())
             }
 
         }

@@ -10,6 +10,7 @@ object Constants {
 
     object Error {
         const val SOMETHING_WENT_WRONG: String = "Something went wrong"
+        const val UAE_PASS_ERROR: String = "Authorization canceled by User"
         const val SELECT_COUNTRY: String = "Select country first"
         const val INTERNET_CONNECTION_ERROR: String = "Internet Connection Error"
 
@@ -44,8 +45,8 @@ object Constants {
     }
 
     object NavBundles {
-        val SCROLL_VIEW_STATE: String= "ScrollState"
-        val SHEET_STATE: String= "BState"
+        val SCROLL_VIEW_STATE: String = "ScrollState"
+        val SHEET_STATE: String = "BState"
         const val COMES_FROM_LOGIN: String = "loginFragment"
         const val IF_FORGOT_PASSWORD: String = "forgotfragment"
         const val COMES_FROM_POST_LOGIN: String = "postloginFragment"
@@ -177,19 +178,22 @@ object Constants {
         const val NEW_PAGING_SIZE: Int = 2
         const val ATTRACTION_PAGING_SIZE: Int = 5
         const val NOTIFICATION_PAGE_SIZE: Int = 10
+        const val SEARCH_PAGE_SIZE: Int = 5
 
 
     }
+
     object PLAY_STORE {
         const val PACKAGE_NAME: String = "com.dubaiculture"
         const val DUBAI_CULTURE: String = "Dubai Culture"
         const val NOTIFICATION_PAGE_SIZE: Int = 10
     }
 
-    object UAE_PASS{
+    object UAE_PASS {
         var isHit = true
+
         // Field from default config.
-            const val URI_HOST_FAILURE = "uaePasssigningScopeFail://uaepassdemoapp"
+        const val URI_HOST_FAILURE = "uaePasssigningScopeFail://uaepassdemoapp"
 
         //uaePassSuccess://uaepassdemoapp
 

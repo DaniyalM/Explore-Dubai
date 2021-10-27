@@ -13,13 +13,23 @@
 
 
     </style>
+
     <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="android:textColor">?attr/colorSecondary</item>
         <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
         <item name="textAllCaps">true</item>
     </style>
+
     <style name="TabTextStyleAttraction" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
+        <item name="textAllCaps">true</item>
+        <item name="background">?attr/colorSurface</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="TabTextStyleSearch" parent="Widget.MaterialComponents.TabLayout">
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
         <item name="textAllCaps">true</item>

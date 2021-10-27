@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.user.UserRepository
+import com.app.dubaiculture.data.repository.user.local.User
 import com.app.dubaiculture.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,15 +19,20 @@ class HomeViewModel @Inject constructor(
 
 
     init {
-        getUserIfExists()
+//        getUserIfExists()
     }
 
+    fun deleteUser(user: User) {
+        viewModelScope.launch {
+            userRepository.deleteUser(user)
+        }
+    }
 
     fun getUserIfExists() {
 
         viewModelScope.launch {
             userRepository.getLastUser()?.let {
-                setUser(it, true)
+                setUser(it)
             }
         }
     }
