@@ -4,17 +4,13 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
-import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.trip.TripRepository
 import com.app.dubaiculture.data.repository.trip.local.*
+import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
-import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import okhttp3.internal.format
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -25,6 +21,7 @@ class TripSharedViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val tripRepository: TripRepository
 ) : BaseViewModel(application) {
+    private val context = getApplication<ApplicationEntry>()
 
     val _showPlan: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
     val showPlan: LiveData<Event<Boolean>> = _showPlan
@@ -40,7 +37,13 @@ class TripSharedViewModel @Inject constructor(
 
     val _nearestLocationType: MutableLiveData<List<LocationNearest>> = MutableLiveData()
     val nearestLocation: LiveData<List<LocationNearest>> = _nearestLocationType
-    
+
+    val _interestedInList: MutableLiveData<List<InterestedInType>> = MutableLiveData()
+    val interestedInList: LiveData<List<InterestedInType>> = _interestedInList
+
+    val _eventAttraction: MutableLiveData<Event<EventAttractionRequest>> = MutableLiveData()
+    val eventAttraction: LiveData<Event<EventAttractionRequest>> = _eventAttraction
+
     fun updateLocationItem(nearestLocation: LocationNearest) {
         _type.value = nearestLocation
     }
@@ -123,11 +126,11 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-     fun getList(days: Int) {
+    fun getList(days: Int) {
 
         var daysList: MutableList<String> = mutableListOf<String>()
-         val sdf = SimpleDateFormat("dd MMM,yy")
-         var currentDate = sdf.format(Date())
+        val sdf = SimpleDateFormat("dd MMM,yy")
+        var currentDate = sdf.format(Date())
         for (i in 1 until days + 1) {
             val c: Calendar = Calendar.getInstance()
             c.time = sdf.parse(currentDate)
@@ -141,11 +144,11 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun repeatToAll(repeatToAll:Boolean,duration: Duration){
+    fun repeatToAll(repeatToAll: Boolean, duration: Duration) {
 
-        if(repeatToAll){
+        if (repeatToAll) {
 
-            val daysList: List<Duration> = _duration.value?:return
+            val daysList: List<Duration> = _duration.value ?: return
 
             daysList.map {
 
@@ -165,9 +168,9 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun selectedDelete(){
+    fun selectedDelete() {
 
-        val durations: List<Duration> = _duration.value?:return
+        val durations: List<Duration> = _duration.value ?: return
 
         durations.filter { duration ->
             !duration.isSelected
@@ -175,8 +178,40 @@ class TripSharedViewModel @Inject constructor(
             _duration.value = it
         }
 
+    }
+
+    fun postEventAttraction() {
+
+        val eventAttractionRequest: EventAttractionRequest = EventAttractionRequest(
+            category = getCategories(),
+            culture = context.auth.locale.toString(),
+            date = getDates(),
+            location = _type.value?.locationId!!
+        )
+        _eventAttraction.value = Event(eventAttractionRequest)
+    }
+
+    private fun getDates(): List<String> {
+
+        val durations: List<Duration> = _durationSummary.value ?: return emptyList()
+        val input = SimpleDateFormat("dd MMM,yy")
+        val output = SimpleDateFormat("yyyy-MM-dd")
+        return durations.map {
+            output.format(input.parse(it.dayDate))
+        }
 
     }
 
+    private fun getCategories(): List<String> {
+
+        val interestedInList: List<InterestedInType> = _interestedInList.value ?: return emptyList()
+
+        interestedInList.filter { interestedIn ->
+            interestedIn.checked
+        }.let {
+            return it.map { it.id }
+        }
+
+    }
 
 }

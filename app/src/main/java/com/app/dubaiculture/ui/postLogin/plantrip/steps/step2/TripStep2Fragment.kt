@@ -45,6 +45,7 @@ class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
+        subscribeUiEvents(step2ViewModel)
         lottieAnimationRTL(binding.animationView)
         setupRV()
 
@@ -112,6 +113,7 @@ class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
 
         step2ViewModel.interestedInList.observe(viewLifecycleOwner) {
 
+            tripSharedViewModel._interestedInList.value = it
             interestedInAdapter.submitList(it)
 
         }

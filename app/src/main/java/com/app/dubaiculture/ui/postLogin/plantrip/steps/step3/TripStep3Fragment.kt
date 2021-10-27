@@ -73,6 +73,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
+        subscribeUiEvents(step3ViewModel)
         lottieAnimationRTL(binding.animationView)
         setupRV()
     }

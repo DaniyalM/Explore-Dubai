@@ -12,6 +12,11 @@
         <variable
             name="viewModel"
             type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
+
+        <variable
+            name="step4ViewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step4ViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -194,7 +199,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:enabled="@{viewModel.durationSummary.size() != 0}"
             android:fontFamily="@font/neo_sans_arabic_regular"
-            android:onClick="@{()->view.onShowMyPlanClicked()}"
+            android:onClick="@{()->viewModel.postEventAttraction()}"
             android:text="@string/show_my_plan"
             android:textAllCaps="false"
             android:textColor="?attr/color_dubai_logo"

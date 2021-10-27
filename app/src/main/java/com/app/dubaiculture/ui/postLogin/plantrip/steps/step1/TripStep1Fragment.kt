@@ -48,6 +48,7 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
         binding.viewModel = step1ViewModel
+        subscribeUiEvents(step1ViewModel)
         lottieAnimationRTL(binding.animationView)
         setupRV()
 

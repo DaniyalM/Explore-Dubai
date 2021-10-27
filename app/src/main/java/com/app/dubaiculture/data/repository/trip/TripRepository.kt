@@ -2,15 +2,10 @@ package com.app.dubaiculture.data.repository.trip
 
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
-import com.app.dubaiculture.data.repository.trip.local.Durations
-import com.app.dubaiculture.data.repository.trip.local.InterestedIn
-import com.app.dubaiculture.data.repository.trip.local.NearestLocation
-import com.app.dubaiculture.data.repository.trip.local.UserTypes
-import com.app.dubaiculture.data.repository.trip.mapper.transformDurations
-import com.app.dubaiculture.data.repository.trip.mapper.transformInterestedIn
-import com.app.dubaiculture.data.repository.trip.mapper.transformNearestLocation
-import com.app.dubaiculture.data.repository.trip.mapper.transformUserType
+import com.app.dubaiculture.data.repository.trip.local.*
+import com.app.dubaiculture.data.repository.trip.mapper.*
 import com.app.dubaiculture.data.repository.trip.remote.TripRDS
+import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
 import com.app.dubaiculture.utils.event.Event
 import com.app.dubaiculture.utils.security.rds.SecurityManagerRDS
 import javax.inject.Inject
@@ -65,6 +60,19 @@ class TripRepository @Inject constructor(
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
                     Result.Success(transformDurations(resultRds.value.durationResponseDTO))
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Error -> resultRds
+            is Result.Failure -> resultRds
+        }
+
+    suspend fun postEventAttraction(eventAttractionRequest: EventAttractionRequest): Result<EventAttractions> =
+        when (val resultRds = tripRDS.postEventAttraction(transformEventAttractionRequest(eventAttractionRequest))) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success(transformEventAttractionResponse(resultRds.value.eventAttractionResponseDTO))
                 } else {
                     Result.Failure(false, null, null, resultRds.value.errorMessage)
                 }

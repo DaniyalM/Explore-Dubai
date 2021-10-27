@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.Duration
@@ -16,6 +17,7 @@ import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationSummaryAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
+import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step4ViewModel
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.app.dubaiculture.utils.event.Event
 import com.google.android.material.datepicker.CalendarConstraints
@@ -30,6 +32,7 @@ import kotlin.math.abs
 class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
+    private val step4ViewModel: Step4ViewModel by viewModels()
 
     private lateinit var durationSummaryAdapter: DurationSummaryAdapter
 
@@ -43,7 +46,9 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
         binding.viewModel = tripSharedViewModel
+        binding.step4ViewModel = step4ViewModel
         lottieAnimationRTL(binding.animationView)
+        subscribeUiEvents(step4ViewModel)
         setupRV()
     }
 
@@ -59,6 +64,11 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
                 durationSummaryAdapter.submitList(it)
         }
 
+
+        step4ViewModel.eventAttraction.observe(viewLifecycleOwner) {
+            tripSharedViewModel._showPlan.value = Event(true)
+        }
+
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {
 
             if (tripSharedViewModel._durationSummary.value == null && tripSharedViewModel._duration.value != null)
@@ -66,6 +76,10 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
 //            durationSummaryAdapter.submitList(it)
 
+        }
+
+        tripSharedViewModel.eventAttraction.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { it1 -> step4ViewModel.postEventAttraction(it1) }
         }
 
     }
@@ -82,11 +96,10 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
     }
 
-    fun onShowMyPlanClicked() {
-
-        tripSharedViewModel._showPlan.value = Event(true)
-
-    }
+//    fun onShowMyPlanClicked() {
+//
+//
+//    }
 
     fun onEditDurationClicked() {
         navigate(R.id.action_step4_to_edit_durationBottomSheetFragment)

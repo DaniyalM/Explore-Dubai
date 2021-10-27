@@ -4,7 +4,8 @@
     <string name="english">عربي</string>
 
     <!--z-->
-    <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>
+<!--    <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>-->
+    <string name="map_key" translatable="false">AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs</string>
     <string name="switch_language">Switch Language</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
