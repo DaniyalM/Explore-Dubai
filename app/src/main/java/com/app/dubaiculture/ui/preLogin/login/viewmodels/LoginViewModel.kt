@@ -1,7 +1,6 @@
 package com.app.dubaiculture.ui.preLogin.login.viewmodels
 
 import android.app.Application
-import android.os.Bundle
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -74,7 +73,7 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             userRepository.getLastUser()?.let {
-                setUser(it, true)
+                setUser(it)
             }
         }
     }
@@ -133,7 +132,7 @@ class LoginViewModel @Inject constructor(
                                 phoneNumber = "+${it.mobile}"
                         )
 
-                        setUser(user, true)
+                        setUser(user)
                         //Saving User Session
                         userRepository.updateUser(user)
 //                        if (it.idn.isEmpty()) {
@@ -179,8 +178,7 @@ class LoginViewModel @Inject constructor(
                                     transform(
                                         result.value.loginResponseDTO.userDTO,
                                         result.value.loginResponseDTO
-                                    ),
-                                    true
+                                    )
                                 )
 
                                 userRepository.saveUser(
@@ -236,8 +234,7 @@ class LoginViewModel @Inject constructor(
                                     transform(
                                         result.value.loginResponseDTO.userDTO,
                                         result.value.loginResponseDTO
-                                    ),
-                                    true
+                                    )
                                 )
 
                                 userRepository.saveUser(

@@ -10,5 +10,6 @@ data class EServiceDetailDTO(
     val RequiredDocument: List<RequiredDocumentDTO>?= mutableListOf(),
     val StartServiceText: String?="",
     val StartServiceUrl: String?="",
+    val IsFavourite: Boolean?,
     val TermsAndCondition: List<TermsAndConditionDTO>?= mutableListOf()
 )

@@ -64,6 +64,11 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
                         isTouched = false
                         userSettings.pushNotification = isChecked
                         profileViewModel.updateSettings(userSettings)
+                        if (userSettings.pushNotification){
+
+                        }else{
+
+                        }
                     }
                 }
             }

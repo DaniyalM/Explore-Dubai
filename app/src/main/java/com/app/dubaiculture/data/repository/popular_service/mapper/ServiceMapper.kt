@@ -1,5 +1,6 @@
 package com.app.dubaiculture.data.repository.popular_service.mapper
 
+import com.app.dubaiculture.data.repository.more.local.FaqItem
 import com.app.dubaiculture.data.repository.popular_service.local.models.*
 import com.app.dubaiculture.data.repository.popular_service.remote.response.EServiceDTO
 import com.app.dubaiculture.data.repository.popular_service.remote.response.EServiceDetailDTO
@@ -41,6 +42,7 @@ fun transformServiceCategorys(serviceCategory: List<ServiceCategoryDTO>): List<S
 
 fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetail =
     EServicesDetail(
+        is_favourite = eServiceDetailDTO.IsFavourite ?: false,
         category = eServiceDetailDTO.Category ?: "",
         description = eServiceDetailDTO.Description?.map {
             Description(
@@ -63,11 +65,13 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
         fAQs = eServiceDetailDTO.FAQs?.map {
             FAQ(
                 fAQs = it.FAQs?.mapIndexed { index, faqxdto ->
-                    FAQX(
+                    FaqItem(
                         id = index,
                         answer = faqxdto.Answer ?: "",
-                        question = faqxdto.Question ?: ""
-                    )
+                        question = faqxdto.Question ?: "",
+                        is_expanded = index == 0,
+
+                        )
                 } ?: mutableListOf(),
                 fAQsTitle = it.FAQsTitle ?: ""
             )

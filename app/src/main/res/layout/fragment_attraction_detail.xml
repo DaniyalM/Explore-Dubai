@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -128,7 +128,7 @@
                         app:attraction="@{attraction}" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
 
 
             </androidx.core.widget.NestedScrollView>

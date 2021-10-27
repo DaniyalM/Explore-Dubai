@@ -20,6 +20,7 @@
     </style>
     <style name="Base.Theme.MyApp" parent="Base.Theme.MaterialThemeBuilder">
         <!-- Primary brand color. -->
+
         <item name="colorPrimary">@color/black_700</item>
         <item name="colorPrimaryVariant">@color/purple_900</item>
         <item name="colorOnPrimary">@color/white_900</item>
@@ -39,11 +40,15 @@
         <!--bg-->
         <item name="android:colorBackground">@color/white_900</item>
         <item name="colorOnBackground">@color/white_900</item>
+        <item name="colorOnBackgroundDark">@color/white_900</item>
+
         <item name="android:navigationBarColor">@color/white_900</item>
         <item name="color_dubai_logo">@color/purple_650</item>
 
         <item name="color_light_gray_svg">@color/black_200</item>
         <item name="color_light_white_dark_gray">@color/white_900</item>
+        <item name="color_dubai_logo_dark">@color/black_200</item>
+        <item name="color_light_white_dark_gray_night">@color/gray_400</item>
         <item name="color_edit_text_bg">@color/edit_text_white_shade_bg</item>
         <item name="color_card_views_shadow">@color/gray_600</item>
         <item name="color_light_theme_purple_dark_theme_gray">@color/purple_900</item>
@@ -53,6 +58,8 @@
 
         <!--curve bg in news and event detail-->
         <item name="color_curve_view_bg">@color/curve_color</item>
+
+        <item name="color_dubai_logo_inverse">@color/white_900</item>
 
 
         <item name="color_curve_login_bg">@color/white_900</item>

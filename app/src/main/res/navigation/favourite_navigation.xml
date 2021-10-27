@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/favourite_navigation"
+    app:startDestination="@id/favouriteFragment">
+    <include app:graph="@navigation/post_login_bottom_navigation"/>
+    <include app:graph="@navigation/attraction_detail_navigation"/>
+    <include app:graph="@navigation/event_detail_navigation"/>
+    <include app:graph="@navigation/service_detail_navigation"/>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.profile.favourite.FavouriteFragment"
+        android:label="FavouriteFragment">
+        <action
+            android:id="@+id/action_favouriteFragment_to_post_login_bottom_navigation"
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_event_detail_navigation"
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_attraction_detail_navigation"
+            app:destination="@id/attraction_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+</navigation>

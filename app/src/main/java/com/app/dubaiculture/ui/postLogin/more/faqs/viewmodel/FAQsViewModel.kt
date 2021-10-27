@@ -55,6 +55,10 @@ class FAQsViewModel @Inject constructor(
         }
     }
 
+    fun setFaqs(faqs: List<FaqItem>) {
+        _faqs.value = faqs
+    }
+
     fun updateFaq(faqItem: FaqItem) {
         _faq.value = Event(faqItem)
     }

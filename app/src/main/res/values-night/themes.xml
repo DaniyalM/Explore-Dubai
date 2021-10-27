@@ -26,6 +26,10 @@
         <!--for TextView title color-->
         <item name="colorSecondary">@color/gray_200</item>
         <item name="color_light_white_dark_gray">@color/gray_400</item>
+        <item name="color_light_white_dark_gray_night">@color/white_900</item>
+        <item name="color_dubai_logo_inverse">@color/purple_900</item>
+        <item name="color_dubai_logo_dark">@color/purple_900</item>
+
         <item name="colorSecondaryVariant">@color/gray_200</item>
 
 
@@ -35,6 +39,8 @@
 
         <!--for background color through out the app-->
         <item name="colorOnBackground">@color/black_750</item>
+        <item name="colorOnBackgroundDark">@color/black_850</item>
+
         <item name="android:colorBackground">@color/bg_app_black_900</item>
 
         <!--for all material card and card view-->

@@ -112,8 +112,8 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
                 dateFrom = it.dateFrom,
                 locationTitle = it.locationTitle,
                 location = it.location ?: "",
-                longitude = it.longitude ?: "67.08119661055807",
-                latitude = it.latitude ?: "24.83250180519734",
+                longitude = it.longitude,
+                latitude = it.latitude,
                 isFavourite = it.isFavourite,
                 registrationDate = it.registrationDate
             )
@@ -155,20 +155,22 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
     ibecons = attraction.ibecon?.let {
         Ibecons(
             image = it.image,
-            ibeconItems = it.iBeaconsItems?.map {
+            ibeconItems = it.iBeaconsItems?.mapIndexed { index, iBeaconsItemsDTO ->
                 BeaconItems(
-                    step = it.step,
-                    title = it.title,
-                    image = it.img,
-                    thumbnail = it.thumbnail,
-                    summary = it.summary,
-                    deviceID = it.deviceID,
-                    visitedOn = it.visitedOn?:"",
-                    visited = it.visited?:false
+                    step = iBeaconsItemsDTO.step,
+                    title = iBeaconsItemsDTO.title,
+                    image = iBeaconsItemsDTO.img,
+                    thumbnail = iBeaconsItemsDTO.thumbnail,
+                    summary = iBeaconsItemsDTO.summary,
+                    deviceID = iBeaconsItemsDTO.deviceID,
+                    visitedOn = iBeaconsItemsDTO.visitedOn ?: "",
+                    visited = iBeaconsItemsDTO.visited ?: false,
+                    id = index + 1
                 )
             }
         )
-    }
+    },
+    relatedEventsTitle = attraction.RelatedEventsTitle
 
 )
 

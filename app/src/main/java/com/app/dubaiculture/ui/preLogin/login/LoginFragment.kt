@@ -22,7 +22,6 @@ import android.webkit.CookieManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
@@ -39,7 +38,6 @@ import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
@@ -96,7 +94,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                     isLoggedIn = true
                     isGuest = true
                 }
-//            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
                 activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             } else if (!SystemRequirementsHelper.isBluetoothEnabled(requireContext())) {
                 val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
@@ -115,9 +112,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         } else {
             binding.imgUaePass.setImageResource(R.drawable.uae_pass)
         }
-        lifecycleScope.launch {
-//            Timber.e("Token: ${getFcmToken()}")
-        }
+
     }
 
 
@@ -292,7 +287,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             UAEPassRequestModelsUtils.getAuthenticationRequestModel(
                 activity
             )!!
-        getAccessToken(activity, requestModel!!, object : UAEPassAccessTokenCallback {
+        getAccessToken(activity, requestModel, object : UAEPassAccessTokenCallback {
             override fun getToken(accessToken: String?, state: String, error: String?) {
                 if (error != null) {
                     showAlert(UAE_PASS_ERROR)
@@ -338,7 +333,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                             .show()
                     } else {
                         val name =
-                            profileModel!!.firstnameEN + profileModel!!.homeAddressEmirateCode + " " + profileModel.lastnameEN
+                            profileModel!!.firstnameEN + profileModel.homeAddressEmirateCode + " " + profileModel.lastnameEN
                         Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
                     }
                 }
