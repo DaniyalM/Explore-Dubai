@@ -1,5 +1,7 @@
 package com.app.dubaiculture.ui.base
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
@@ -14,6 +16,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.app.dubaiculture.ui.postLogin.login.PostLoginFragment
+import com.app.dubaiculture.ui.preLogin.login.LoginFragment
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
@@ -25,25 +29,16 @@ import com.app.dubaiculture.utils.event.UiEvent
 import com.squareup.otto.Bus
 
 
-abstract class BaseActivity : LocalizationActivity() {
+ abstract class BaseActivity : LocalizationActivity() {
     lateinit var applicationEntry: ApplicationEntry
     protected lateinit var bus: Bus
     protected var isBusRegistered: Boolean = false
     private var customProgressDialog: ProgressDialog? = null
     protected lateinit var navController: NavController
 
+
     lateinit var checkBox: CheckBox
 
-
-//    override fun onStart() {
-//        super.onStart()
-//        adjustFontScale(resources.configuration)
-//    }
-
-//    override fun onResume() {
-//        super.onResume()
-//        adjustFontScale(resources.configuration)
-//    }
 
     protected fun getDrawableFromId(resId: Int?): Drawable? {
         resId?.let {
@@ -111,6 +106,8 @@ abstract class BaseActivity : LocalizationActivity() {
         customProgressDialog = ProgressDialog(this)
 
         darkModeAccess()
+
+
 
     }
 
@@ -199,6 +196,15 @@ abstract class BaseActivity : LocalizationActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() ?: false
     }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        LoginFragment().apply {
+            handleIntent(intent)
+        }
+    }
+
+
 
 
 }

@@ -1,55 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-<!--    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:id="@+id/swipeRefreshLayout"-->
-<!--        android:layout_height="wrap_content">-->
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/appCoordinatorAttractionDetail"
+    <!--    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:id="@+id/swipeRefreshLayout"-->
+    <!--        android:layout_height="wrap_content">-->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/appCoordinatorAttractionDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <include
+                android:id="@+id/headerVisited"
+                layout="@layout/layout_back" />
+
+            <!--                <com.app.dubaiculture.ui.postLogin.popular_service.components.ServiceDetailHeaderItemSelector-->
+            <!--                    android:id="@+id/horizontalSelector"-->
+            <!--                    style="@style/HorizontalAttractionStyle"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginTop="@dimen/_10sdp" />-->
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                style="@style/ServiceTabStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                app:tabGravity="center"
+                app:tabMode="scrollable" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/forumPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="30dp" />
 
-                <include android:id="@+id/headerVisited" layout="@layout/layout_back" />
-
-<!--                <com.app.dubaiculture.ui.postLogin.popular_service.components.ServiceDetailHeaderItemSelector-->
-<!--                    android:id="@+id/horizontalSelector"-->
-<!--                    style="@style/HorizontalAttractionStyle"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="@dimen/_10sdp" />-->
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tab_layout"
-                    style="@style/ServiceTabStyle"
-                    app:tabGravity="center"
-                    app:tabMode="scrollable"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp" />
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/forumPager"
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_height="match_parent" />
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:clickable="true"-->
-<!--                    android:focusable="true"-->
-<!--                    tools:listitem="@layout/item_more_news"-->
-<!--                    android:id="@+id/service_detail_rv"/>-->
-
-            </LinearLayout>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-<!--    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>-->
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

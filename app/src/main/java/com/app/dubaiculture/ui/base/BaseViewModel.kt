@@ -27,8 +27,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel(
-        application: Application,
-        private var baseRespository: BaseRepository? = null,
+    application: Application,
+    private var baseRespository: BaseRepository? = null,
 ) : AndroidViewModel(application) {
     val gpsStatusLiveData = GpsStatusListener(application)
     private val _uiEventsLiveData = MutableLiveData<Event<UiEvent>>()
@@ -65,21 +65,18 @@ abstract class BaseViewModel(
     }
 
     fun showErrorDialog(
-            title: String? = "Alert",
-            message: String,
-            @ColorRes colorBg: Int? = R.color.purple_900,
+        title: String? = "Alert",
+        message: String,
+        @ColorRes colorBg: Int? = R.color.purple_900,
     ) {
         _uiEventsLiveData.value = Event(
-                UiEvent.ShowErrorDialog(
-                        title = title ?: "Alert",
-                        message = message,
-                        colorBg = colorBg ?: R.color.red_600
-                )
+            UiEvent.ShowErrorDialog(
+                title = title ?: "Alert",
+                message = message,
+                colorBg = colorBg ?: R.color.red_600
+            )
         )
     }
-
-
-
 
 
     fun navigateByBack() {
@@ -119,7 +116,6 @@ abstract class BaseViewModel(
         }
 
     }
-
 
 
     fun showAlert(
@@ -169,9 +165,6 @@ abstract class BaseViewModel(
         _uiEventsLiveData.value = Event(UiEvent.ShowBottomSheet(bottomSheetFragment, tag))
 
     }
-
-
-
 
 
 }

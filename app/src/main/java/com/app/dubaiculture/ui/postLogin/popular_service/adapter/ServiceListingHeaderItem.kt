@@ -9,6 +9,7 @@ import com.app.dubaiculture.databinding.AttractionTitleListItemBinding
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.ui.postLogin.popular_service.components.ServicesHeaderItemSelector
 import com.app.dubaiculture.ui.postLogin.popular_service.components.ServicesListingHeaderItemSelector.Companion.SERVICE_CLICK_CHECKER_FLAG
+import com.app.dubaiculture.utils.glideInstance
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.databinding.BindableItem
 
@@ -50,7 +51,7 @@ class ServiceListingHeaderItem<T>(
             view.setCardBackgroundColor(Color.parseColor(colorBg))
             textView.setTextColor(ContextCompat.getColor(view.context, R.color.white_900))
             selectedInnerImg?.let { drawable ->
-//                imgInner.glideInstance(drawable, true).into(imgInner)
+                imgInner.glideInstance(drawable, true).into(imgInner)
 //                imgInner.setImageDrawable(drawable)
                 imgInner.setColorFilter(ContextCompat.getColor(view.context, R.color.white_900))
             }
@@ -64,7 +65,7 @@ class ServiceListingHeaderItem<T>(
             )
             textView.setTextColor(ContextCompat.getColor(view.context, R.color.gray_700))
             unSelectedInnerImg?.let { drawable ->
-//                imgInner.glideInstance(drawable, true).into(imgInner)
+                imgInner.glideInstance(drawable, true).into(imgInner)
 //                imgInner.setImageDrawable(drawable)
                 imgInner.setColorFilter(ContextCompat.getColor(view.context, R.color.purple_900))
             }

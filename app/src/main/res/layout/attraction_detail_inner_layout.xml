@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.text.TextUtils"/>
+
+        <import type="android.text.TextUtils" />
+
         <import type="android.view.View" />
+
         <variable
             name="attraction"
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
@@ -66,8 +69,7 @@
                     android:background="@drawable/speakers"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_category"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_category"
-                    app:layout_constraintVertical_bias="0.511" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_category" />
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_title"
@@ -76,13 +78,15 @@
                     android:layout_marginTop="@dimen/_6sdp"
                     android:layout_marginEnd="@dimen/_22sdp"
                     android:text="@{attraction.title}"
-                    android:textColor="@color/black_700"
                     android:textSize="@dimen/_19ssp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_category"
                     app:layout_constraintTop_toBottomOf="@+id/tv_category"
                     app:textFont="bold" />
+
+
+
 
 
                 <LinearLayout
@@ -102,7 +106,6 @@
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_weight="1"
                         android:background="@drawable/ar_bg_attraction_icon"
-
                         android:foreground="@drawable/custom_ripple_black"
                         android:orientation="horizontal">
 
@@ -110,7 +113,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center|center_vertical"
-
                             android:orientation="vertical">
 
                             <androidx.appcompat.widget.AppCompatImageView
@@ -123,7 +125,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:text="@string/augmented_reality"
-                                android:textColor="@color/purple_600"
+                                android:textColor="?attr/color_dubai_logo"
                                 android:textSize="@dimen/_9sdp" />
 
                         </LinearLayout>
@@ -158,7 +160,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:text="@string/_360_view"
-                                android:textColor="@color/purple_600"
+                                android:textColor="?attr/color_dubai_logo"
                                 android:textSize="@dimen/_9sdp" />
 
                         </LinearLayout>
@@ -195,7 +197,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:text="@string/gallery"
-                                android:textColor="@color/purple_600"
+                                android:textColor="?attr/color_dubai_logo"
                                 android:textSize="@dimen/_9sdp" />
 
                         </LinearLayout>
@@ -351,7 +353,8 @@
                     android:gravity="center"
                     android:text="@string/book_a_ticket"
                     android:textAllCaps="false"
-                    android:textColor="@color/white_900"
+                    style="@style/TextViewStyle"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_desc_readmore" />
@@ -529,7 +532,7 @@
                                     android:ellipsize="end"
                                     android:maxLines="1"
                                     android:text="@string/email_us"
-                                    android:textColor="@color/purple_900"
+                                    android:textColor="?attr/color_dubai_logo"
                                     android:textSize="@dimen/_10ssp" />
                             </LinearLayout>
 
@@ -565,7 +568,7 @@
                                 android:drawableStart="@drawable/call_icon"
                                 android:drawablePadding="@dimen/_5sdp"
                                 android:text="@string/call_us"
-                                android:textColor="@color/purple_900"
+                                android:textColor="?attr/color_dubai_logo"
                                 android:textSize="@dimen/_10ssp" />
                         </LinearLayout>
 
@@ -664,7 +667,7 @@
                         android:layout_height="@dimen/_35sdp"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:foreground="@drawable/custom_ripple_border"
-                        android:background="@drawable/fb_icon_png" />
+                        android:background="@drawable/facebook_icon" />
 
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -672,7 +675,7 @@
                         android:id="@+id/imgTwitterAttraction"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
-                        android:background="@drawable/twitter_attraction_icon"
+                        android:src="@drawable/twitter_attraction_icon"
                         android:foreground="@drawable/custom_ripple_border" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -680,7 +683,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
-                        android:background="@drawable/insta_attraction_icon"
+                        android:src="@drawable/insta_attraction_icon"
                         android:foreground="@drawable/custom_ripple_border" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -688,14 +691,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:id="@+id/imgYoutube"
-                        android:background="@drawable/utube__attraction_icon"
+                        android:src="@drawable/utube__attraction_icon"
                         android:foreground="@drawable/custom_ripple_border" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
-                        android:background="@drawable/linkedin_attraction_icon"
+                        android:src="@drawable/linkedin_attraction_icon"
                         android:id="@+id/imgLinkedinAttraction"
                         android:foreground="@drawable/custom_ripple_border" />
                 </LinearLayout>
@@ -711,7 +714,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     style="@style/TextViewStyle"
-                    android:text="@{attraction.events == null ? `` : attraction.title}"
+                    android:text="@{attraction.events == null ? `` : attraction.relatedEventsTitle}"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

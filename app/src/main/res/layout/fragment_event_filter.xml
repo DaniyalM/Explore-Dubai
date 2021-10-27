@@ -11,27 +11,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
             <include
                 android:id="@+id/event_search_toolbar"
-                layout="@layout/event_search_toolbar" />
+                layout="@layout/event_search_toolbar"/>
 
             <FrameLayout
                 android:id="@+id/showTabHeader"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/app_bg"
-                android:visibility="visible"
+                android:background="?attr/colorSurface"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <com.app.dubaiculture.ui.postLogin.events.components.EventHeaderItemSelector
-                    android:id="@+id/horizontalSelector"
-                    style="@style/HorizontalAttractionStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp" />
+                    android:id="@+id/horizontalSelector"
+                    style="@style/HorizontalAttractionStyle"
+                    android:layout_marginTop="@dimen/_10sdp"/>
             </FrameLayout>
 
             <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost

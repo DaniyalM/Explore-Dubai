@@ -76,9 +76,7 @@ class MoreRepository @Inject constructor(private val moreRDS: MoreRDS) : BaseRep
             is Result.Success -> {
                 if (result.value.succeeded) {
                     Result.Success(
-                        Event(
-                            transformFAQsRequest(result.value)
-                        )
+                        transformFAQsRequest(result.value)
                     )
                 } else {
                     Result.Failure(false, null, null, result.value.errorMessage)

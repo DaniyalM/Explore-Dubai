@@ -104,6 +104,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:id="@+id/detailNavigation"
                         android:background="@drawable/shape_rounded_purple_border_attraction"
                         android:gravity="center">
 
@@ -115,7 +116,7 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="@string/view_details"
-                            android:textColor="@color/purple_900"
+                            android:textColor="?attr/color_dubai_logo"
                             android:textSize="@dimen/_10ssp" />
                     </LinearLayout>
 

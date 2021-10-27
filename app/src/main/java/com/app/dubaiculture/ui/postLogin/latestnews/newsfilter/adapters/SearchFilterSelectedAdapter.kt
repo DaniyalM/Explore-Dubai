@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.SearchFilterListItemsBinding
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
-import com.app.dubaiculture.ui.postLogin.events.adapters.FilterHeaderAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.newsfilter.SelectedFilter
 import com.app.dubaiculture.utils.AsyncCell
 import com.daimajia.androidanimations.library.Techniques
@@ -70,6 +69,6 @@ class SearchFilterSelectedAdapter(val iface: RemoveHeaderItem? = null) :
     }
 
     interface RemoveHeaderItem {
-        fun onItemRemove(pos: Int, item:SelectedFilter)
+        fun onItemRemove(pos: Int, item: SelectedFilter)
     }
 }

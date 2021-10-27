@@ -12,10 +12,15 @@
             type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_190sdp"
-        tools:context="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.DeleteDialogFragment">
+        app:cardCornerRadius="@dimen/_20sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.DeleteDialogFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/gray_line"
@@ -78,5 +83,6 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_delete" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -5,9 +5,14 @@
     <string name="switch_language">تغيير اللغة</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا</string>
+    <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
 
+    <string name="result">result</string>
 
     // home tabs
+    <string name="service_procedure">Service Procedure</string>
+    <string name="faqs">Faqs</string>
+
     <string name="explore">اكتشف</string>
     <string name="events">الفعاليات</string>
     <string name="attractions">الوجهات الثقافية</string>
@@ -96,6 +101,8 @@
     <string name="filters">تصنيف</string>
     <string name="search_events_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
     <string name="search_news_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
+    <string name="search_any_item">What are you looking for?</string>
+
     <string name="location">الموقع</string>
     <string name="date_range">نطاق التاريخ</string>
     <string name="from">من عند</string>
@@ -164,6 +171,8 @@
     <string name="next_seven_days">ال7 أيام القادمة</string>
     <string name="detail_clip_card_text">مراجعة المكان</string>
     <string name="clear_all">مسح الكل</string>
+    <string name="clear">مسح</string>
+
     <string name="no_data_found">لم يتم ايجاد نتائج</string>
     <string name="away"> كم</string>
     <string name="error_msg">هل أنت متاكد من اغلاق التطبيق؟</string>
@@ -287,6 +296,7 @@
     <string name="attachment">Attachment</string>
     <string name="pdf">PDF</string>
     <string name="no_my_posts_fav">No Data Found</string>
+    <string name="loading">Loading</string>
 
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consec iscing elit, sed do eiusmod tempor cons tetur ad iscing elit sed do</string>

@@ -12,5 +12,9 @@ open class UserDTO (
     @SerializedName(value = "UserName")
     val UserName: String,
     @SerializedName(value = "UserImage")
-    val UserImage: String
+    val UserImage: String,
+    @SerializedName(value = "VerificationToken")
+    val VerificiationToken: String?,
+    @SerializedName(value = "HasPassword")
+    val HasPassword: Boolean
 )

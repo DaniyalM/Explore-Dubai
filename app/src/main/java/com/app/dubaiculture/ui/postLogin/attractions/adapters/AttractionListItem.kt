@@ -1,9 +1,8 @@
 package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
@@ -13,10 +12,7 @@ import com.app.dubaiculture.databinding.MustSeeInnerItemCellBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.dateFormatVisitedPlace
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
 import com.xwray.groupie.databinding.BindableItem
-import com.xwray.groupie.databinding.GroupieViewHolder
 
 //val attraction: Attractions,
 data class AttractionListItem<T : ViewDataBinding>(
@@ -65,16 +61,23 @@ data class AttractionListItem<T : ViewDataBinding>(
                 viewBinding.apply {
                     attractionImage.setOnClickListener {
 //                        rowClickListener?.rowClickListener(position)
-                        rowClickListener?.rowClickListener(position,viewBinding.imgMustSee)
+                        rowClickListener?.rowClickListener(position, viewBinding.imgMustSee)
                     }
+                    if (attraction.color!!.isNotEmpty())
+                        cardViewTitle.setCardBackgroundColor(Color.parseColor(attraction.color))
+
+
                     if (attraction.IsFavourite) {
-                        favourite.background = ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
+                        favourite.background =
+                            ContextCompat.getDrawable(context, R.drawable.heart_icon_fav)
                     }
                     favourite.setOnClickListener {
-                        favChecker?.checkFavListener(favourite,
-                                position,
-                                attraction.IsFavourite,
-                                attraction.id)
+                        favChecker?.checkFavListener(
+                            favourite,
+                            position,
+                            attraction.IsFavourite,
+                            attraction.id
+                        )
                     }
                 }
             }

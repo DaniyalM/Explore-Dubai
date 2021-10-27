@@ -1,6 +1,5 @@
 package com.app.dubaiculture.data.repository.trip.di
 
-import com.app.dubaiculture.data.repository.login.service.LoginService
 import com.app.dubaiculture.data.repository.trip.service.TripService
 import dagger.Module
 import dagger.Provides

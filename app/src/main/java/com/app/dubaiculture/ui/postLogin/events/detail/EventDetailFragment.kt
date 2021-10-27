@@ -29,12 +29,12 @@ import com.app.dubaiculture.data.repository.event.local.models.schedule.EventSch
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItemsSlots
 import com.app.dubaiculture.databinding.*
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
-import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.GoogleMap.DESTINATION
 import com.app.dubaiculture.utils.Constants.GoogleMap.LINK_URI
@@ -71,7 +71,7 @@ import kotlin.collections.ArrayList
 @AndroidEntryPoint
 class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
-    private val eventViewModel: EventViewModel by viewModels()
+    private val eventViewModel: EventDetailViewModel by viewModels()
     private lateinit var verticalLayoutManager: RecyclerView.LayoutManager
     private lateinit var myAdapter: RecyclerView.Adapter<*>
     val parentItemList = ArrayList<EventScheduleItems>()
@@ -391,9 +391,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     override fun onMapReady(map: GoogleMap?) {
         try {
-            if (eventObj.latitude!!.isNotEmpty()) {
+            if (eventObj.latitude.isNotEmpty()) {
                 val trafficDigitalLatLng =
-                    LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
+                    LatLng((eventObj.latitude.toDouble()), eventObj.longitude.toDouble())
 
                 map?.addMarker(
                     MarkerOptions()
@@ -493,12 +493,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     override fun getCurrentLocation(location: Location) {
                         loc = location
                         Timber.e("Current Location ${location.latitude}")
-                        if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty())
+                        if (eventObj.latitude.isNotEmpty() && eventObj.longitude.isNotEmpty())
                             binding.eventDetailInnerLayout.tvKm.text = locationHelper.distance(
                                 loc.latitude,
                                 loc.longitude,
-                                eventObj.latitude!!.toDouble(),
-                                eventObj.longitude!!.toDouble()
+                                eventObj.latitude.toDouble(),
+                                eventObj.longitude.toDouble()
                             ).toString() + " " + resources.getString(R.string.away)
                     }
                 },
@@ -631,13 +631,13 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     private fun locationIsEmpty(location: Location) {
-        if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty()) {
+        if (eventObj.latitude.isNotEmpty() && eventObj.longitude.isNotEmpty()) {
             binding.eventDetailInnerLayout.tvKm.text =
                 locationHelper.distance(
                     location.latitude,
                     location.longitude,
-                    eventObj.latitude!!.toDouble(),
-                    eventObj.longitude!!.toDouble()
+                    eventObj.latitude.toDouble(),
+                    eventObj.longitude.toDouble()
                 )
                     .toString() + resources.getString(R.string.away)
         }

@@ -1,5 +1,6 @@
 package com.app.dubaiculture.data.repository.popular_service.mapper
 
+import com.app.dubaiculture.data.repository.more.local.FaqItem
 import com.app.dubaiculture.data.repository.popular_service.local.models.*
 import com.app.dubaiculture.data.repository.popular_service.remote.response.EServiceDTO
 import com.app.dubaiculture.data.repository.popular_service.remote.response.EServiceDetailDTO
@@ -23,7 +24,8 @@ fun transformService(eServices: List<EServiceDTO>): List<EService> =
             category = it.Category,
             title = it.Title,
             summary = it.Summary,
-            id = it.ID
+            id = it.ID,
+            categoryId = it.CategoryID
         )
     }
 
@@ -31,87 +33,95 @@ fun transformServiceCategorys(serviceCategory: List<ServiceCategoryDTO>): List<S
     serviceCategory.map {
         ServiceCategory(
             title = it.Title,
-            id = it.ID
+            id = it.ID,
+            normalIcon = it.NormalIcon,
+            hoverIcon = it.HoverIcon
         )
     }
 
 
 fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetail =
     EServicesDetail(
-        category = eServiceDetailDTO.Category,
+        is_favourite = eServiceDetailDTO.IsFavourite ?: false,
+        category = eServiceDetailDTO.Category ?: "",
         description = eServiceDetailDTO.Description?.map {
             Description(
-                classification = it.Classification,
-                classificationTitle = it.ClassificationTitle,
-                descriptions = it.Descriptions,
-                documentLink = it.DocumentLink,
-                fileIcon = it.FileIcon,
-                fileName = it.FileName,
-                fileSize = it.FileSize,
-                iD = it.ID,
-                serviceChannelTitle = it.ServiceChannelTitle,
-                serviceChannelIcons = it.ServiceChannelIcons,
-                title = it.Title,
-                type = it.Type,
-                typeTitle = it.TypeTitle
+                classification = it.Classification ?: "",
+                classificationTitle = it.ClassificationTitle ?: "",
+                descriptions = it.Descriptions ?: "",
+                documentLink = it.DocumentLink ?: "",
+                fileIcon = it.FileIcon ?: "",
+                fileName = it.FileName ?: "",
+                fileSize = it.FileSize ?: "",
+                iD = it.ID ?: "",
+                serviceChannelTitle = it.ServiceChannelTitle ?: "",
+                serviceChannelIcons = it.ServiceChannelIcons ?: mutableListOf(),
+                title = it.Title ?: "",
+                type = it.Type ?: "",
+                typeTitle = it.TypeTitle ?: ""
             )
-        },
-        enquireNumber = eServiceDetailDTO.EnquireNumber,
+        } ?: mutableListOf(),
+        enquireNumber = eServiceDetailDTO.EnquireNumber ?: "",
         fAQs = eServiceDetailDTO.FAQs?.map {
             FAQ(
-                fAQs = it.FAQs.map {
-                    FAQX(
-                        answer = it.Answer,
-                        question = it.Question
-                    )
-                },
-                fAQsTitle = it.FAQsTitle
+                fAQs = it.FAQs?.mapIndexed { index, faqxdto ->
+                    FaqItem(
+                        id = index,
+                        answer = faqxdto.Answer ?: "",
+                        question = faqxdto.Question ?: "",
+                        is_expanded = index == 0,
+
+                        )
+                } ?: mutableListOf(),
+                fAQsTitle = it.FAQsTitle ?: ""
             )
-        },
+        } ?: mutableListOf(),
         payments = eServiceDetailDTO.Payments?.map {
             Payment(
-                amountTitle = it.AmountTitle,
-                descriptionTitle = it.DescriptionTitle,
-                paymentTitle = it.PaymentTitle,
-                payments = it.Payments.map {
+                amountTitle = it.AmountTitle ?: "",
+                descriptionTitle = it.DescriptionTitle ?: "",
+                paymentTitle = it.PaymentTitle ?: "",
+                payments = it.Payments?.map {
                     PaymentX(
-                        amount = it.Amount,
-                        description = it.Description,
-                        summary = it.Summary,
-                        type = it.Type
+                        amount = it.Amount ?: "",
+                        description = it.Description ?: "",
+                        summary = it.Summary ?: "",
+                        type = it.Type ?: ""
 
                     )
-                },
-                typeTitle = it.TypeTitle,
-
-
-                )
-        },
+                } ?: mutableListOf(),
+                typeTitle = it.TypeTitle ?: "",
+            )
+        } ?: mutableListOf(),
         procedure = eServiceDetailDTO.Procedure?.map {
             Procedure(
-                serviceProcedure = it.ServiceProcedure.map {
+                serviceProcedure = it.ServiceProcedure?.mapIndexed { index, serviceProcedureDTO ->
                     ServiceProcedure(
-                        summary = it.Summary,
-                        title = it.Title
+                        summary = serviceProcedureDTO.Summary ?: "",
+                        title = serviceProcedureDTO.Title ?: "",
+                        id = index + 1
                     )
-                },
-                serviceProcedureTitle = it.ServiceProcedureTitle
+                } ?: mutableListOf(),
+                serviceProcedureTitle = it.ServiceProcedureTitle ?: ""
             )
-        },
+        } ?: mutableListOf(),
         requiredDocument = eServiceDetailDTO.RequiredDocument?.map {
             RequiredDocument(
-                requiredDocuments = it.RequiredDocuments,
-                requiredDocumentsTitle = it.RequiredDocumentsTitle
+                requiredDocuments = it.RequiredDocuments ?: mutableListOf(),
+                requiredDocumentsTitle = it.RequiredDocumentsTitle ?: ""
             )
-        },
-        startServiceText = eServiceDetailDTO.StartServiceText,
-        startServiceUrl = eServiceDetailDTO.StartServiceUrl,
+        } ?: mutableListOf(),
+        startServiceText = eServiceDetailDTO.StartServiceText ?: "",
+        startServiceUrl = eServiceDetailDTO.StartServiceUrl ?: "",
         termsAndCondition = eServiceDetailDTO.TermsAndCondition?.map {
             TermsAndCondition(
-                termsAndConditionsSummary = it.TermsAndConditionsSummary,
-                termsAndConditionsTitle = it.TermsAndConditionsTitle
+                termsAndConditionsSummary = it.TermsAndConditionsSummary ?: "",
+                termsAndConditionsTitle = it.TermsAndConditionsTitle ?: "",
+                enquireNumber = eServiceDetailDTO.EnquireNumber ?: "",
+                email = "",
+                serviceStart = eServiceDetailDTO.StartServiceText ?: "",
             )
-        }
+        } ?: mutableListOf()
 
 
     )

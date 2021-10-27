@@ -3,6 +3,7 @@ package com.app.dubaiculture.data.repository.login.remote
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRDS
 import com.app.dubaiculture.data.repository.login.remote.request.LoginRequestDTO
+import com.app.dubaiculture.data.repository.login.remote.request.UaeLoginRequestDTO
 import com.app.dubaiculture.data.repository.login.remote.request.changedpass.ChangedPassRequestDTO
 import com.app.dubaiculture.data.repository.login.remote.response.LoginResponse
 import com.app.dubaiculture.data.repository.login.remote.response.changepassword.ChangedPasswordResponse
@@ -21,6 +22,12 @@ class LoginRDS @Inject constructor(private val loginService: LoginService) : Bas
     suspend fun loginWithEmail(loginRequestDTO: LoginRequestDTO): Result<LoginResponse>{
         return safeApiCall {
             loginService.loginWithEmail(loginRequestDTO)
+        }
+    }
+
+    suspend fun loginWithUaePass(uaeLoginRequestDTO: UaeLoginRequestDTO): Result<LoginResponse>{
+        return safeApiCall {
+            loginService.loginWithUae(uaeLoginRequestDTO)
         }
     }
 

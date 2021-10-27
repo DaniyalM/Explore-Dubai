@@ -1,6 +1,8 @@
 package com.app.dubaiculture.infrastructure
 
+import android.app.Activity
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.app.dubaiculture.utils.BeaconUtils
 import com.app.dubaiculture.utils.NetworkLiveData
 import com.app.dubaiculture.utils.PreferenceRepository
@@ -22,8 +24,11 @@ class ApplicationEntry : Application() {
     lateinit var preferenceRepository: PreferenceRepository
     lateinit var region: BeaconRegion
 
+
+
+
     @Inject
-     lateinit var beaconUtils: BeaconUtils
+    lateinit var beaconUtils: BeaconUtils
 
 
     override fun onCreate() {
@@ -33,17 +38,15 @@ class ApplicationEntry : Application() {
         PushNotificationManager.createNotificationChannel(this)
         beaconUtils.beaconConnect()
         beaconManager = beaconUtils.beaconManager
-        region=beaconUtils.region
+        region = beaconUtils.region
         isInternetActive = NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
         preferenceRepository = PreferenceRepository(
             getSharedPreferences(DEFAULT_PREFERENCES, MODE_PRIVATE)
         )
-
+//        preferenceRepository.isDarkTheme = true
 
     }
-
-
 
 
     companion object {

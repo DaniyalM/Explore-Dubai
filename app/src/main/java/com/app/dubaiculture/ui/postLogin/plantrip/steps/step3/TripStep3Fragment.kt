@@ -11,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.LocationNearest
 import com.app.dubaiculture.databinding.FragmentTripStep3Binding
@@ -82,7 +84,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
         binding.rvLocationChips.apply {
             layoutManager =
-                GridLayoutManager(context, 3)
+                StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
             nearestLocAdapter = NearestLocationAdapter(
                 object : NearestLocationClickListener {
                     override fun rowClickListener(userType: LocationNearest) {

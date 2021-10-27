@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatDelegate
 
 
 object ThemeUtil {
-    private const val THEME_LIGHT = "light"
-    private const val THEME_DARK = "dark"
-    private const val THEME_BATTERY = "battery"
+    const val THEME_LIGHT = "light"
+    const val THEME_DARK = "dark"
+    const val THEME_BATTERY = "battery"
     const val THEME_SYSTEM = "system"
     fun applyTheme(theme: String) {
         when (theme) {

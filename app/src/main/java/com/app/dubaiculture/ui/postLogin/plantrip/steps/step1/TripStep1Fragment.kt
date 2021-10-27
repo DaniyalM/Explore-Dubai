@@ -16,7 +16,6 @@ import com.app.dubaiculture.data.repository.trip.local.UsersType
 import com.app.dubaiculture.databinding.FragmentTripStep1Binding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsListAdapter
-import com.app.dubaiculture.ui.postLogin.more.profile.viewmodels.ProfileViewModel
 import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.PlanTripParentFragment
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.UserTypeAdapter

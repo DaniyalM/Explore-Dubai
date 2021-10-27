@@ -3,6 +3,11 @@
     <string name="arabic">Arabic</string>
     <string name="english">عربي</string>
 
+
+    <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
+    <string name="result">result</string>
+
+
     <!--z-->
 <!--    <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>-->
     <string name="map_key" translatable="false">AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs</string>
@@ -12,6 +17,8 @@
 
     // home tabs
     <string name="explore">Explore</string>
+    <string name="service_procedure">Service Procedure</string>
+
     <string name="events">Events</string>
     <string name="attractions">Attractions</string>
     <string name="favourites">Favourites</string>
@@ -106,6 +113,7 @@
     <string name="filters">Filters</string>
     <string name="search_events_by_keyword">Search events by keyword</string>
     <string name="search_news_by_keyword">Search news by keyword</string>
+    <string name="search_any_item">What are you looking for?</string>
     <string name="location">Location</string>
     <string name="date_range">Date Range</string>
     <string name="from">From</string>
@@ -176,6 +184,7 @@
     <string name="next_seven_days">Next 7 Days</string>
     <string name="detail_clip_card_text">Review Majlis Ghorfat\non Trip Advisor</string>
     <string name="clear_all">Clear All</string>
+    <string name="clear">Clear</string>
     <string name="no_data_found">No Data Found</string>
 
     <string name="away"> Km Away</string>
@@ -294,6 +303,8 @@
     <string name="attachment">Attachment</string>
     <string name="pdf">PDF</string>
     <string name="no_my_posts_fav">No Data Found</string>
+    <string name="faqs">FAQs</string>
+    <string name="loading">Loading...</string>
 
     //PlanYourTrip
 

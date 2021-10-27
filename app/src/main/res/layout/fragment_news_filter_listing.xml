@@ -11,44 +11,41 @@
         <include
 
             android:id="@+id/event_search_toolbar"
-            layout="@layout/event_search_toolbar"/>
+            layout="@layout/event_search_toolbar" />
 
         <RelativeLayout
+            android:id="@+id/selectedViews"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
-            android:id="@+id/selectedViews"
-            android:visibility="gone"
             android:orientation="horizontal">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_selections"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                android:layout_toLeftOf="@+id/tv_clear_all"
-                android:layout_weight="2"
+                android:layout_toStartOf="@+id/tv_clear_all"
                 android:orientation="horizontal"
                 tools:listitem="@layout/items_news_vertical_layout" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_clear_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/clear_all"
                 android:layout_alignParentEnd="true"
-                android:layout_gravity="center|end"
-                app:textFont="bold"
-                android:id="@+id/tv_clear_all"
                 android:layout_centerVertical="true"
-                android:textSize="@dimen/_11ssp"/>
+                android:layout_gravity="center|end"
+                android:text="@string/clear_all"
+                android:textSize="@dimen/_11ssp"
+                app:textFont="bold" />
 
         </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/noDataPlaceHolder"
             android:layout_width="match_parent"
-            android:layout_below="@+id/event_search_toolbar"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:visibility="visible">
+            android:layout_below="@+id/event_search_toolbar"
+            android:visibility="gone">
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tvPlaceHolder"
@@ -61,7 +58,7 @@
                 android:lineSpacingExtra="@dimen/text_line_spacing"
                 android:text="@string/no_my_posts_fav"
                 android:textAlignment="center"
-                android:textColor="@color/no_data_placeholder"
+                android:textColor="?attr/colorSecondary"
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

@@ -5,34 +5,37 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import android.widget.CheckBox
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
-import com.app.dubaiculture.databinding.ActivityGenericBinding
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
+import com.app.dubaiculture.utils.firebase.unSubscribeFromTopic
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 
 
 abstract class BaseAuthenticationActivity : BaseActivity() {
 
-    protected lateinit var binding: ActivityGenericBinding
+//    protected lateinit var binding: ActivityGenericBinding
 
+    protected val reciever = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            applicationEntry.auth.user = null
+            applicationEntry.auth.isLoggedIn = false
+            checkLoginStatus()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        applicationEntry.auth.locale = getCurrentLanguage().language
+
         checkLoginStatus()
 
         baseOnCreate(savedInstanceState)
     }
 
 
-
-
-
-
-
-  protected fun checkLoginStatus() {
+    protected fun checkLoginStatus() {
 
         //IF User has logged In Proceed with Activity Other Wise Navigate User to Login Screen
         //We will get the User Session From DataStore to check If its LoggedIn Or not
@@ -80,20 +83,22 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
 
         }
     }
-    fun initiateLogout(){
+
+    fun initiateLogout() {
         val broadcastIntent = Intent()
         broadcastIntent.action = "com.package.ACTION_LOGOUT"
         sendBroadcast(broadcastIntent)
     }
-    fun recieveLogout(){
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("com.package.ACTION_LOGOUT")
-        registerReceiver(object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-//                Log.d("onReceive", "Logout in progress")
-                //At this point you should start the login activity and finish this one
-                killSessionAndStartNewActivity(PreLoginActivity::class.java)
-            }
-        }, intentFilter)
+
+    fun recieveLogout() {
+        IntentFilter().apply {
+            addAction("com.package.ACTION_LOGOUT")
+            registerReceiver(reciever, this)
+        }
+        getCurrentLanguage().language.let {
+            unSubscribeFromTopic("AndroidBroadcast_$it")
+        }
     }
+
+
 }

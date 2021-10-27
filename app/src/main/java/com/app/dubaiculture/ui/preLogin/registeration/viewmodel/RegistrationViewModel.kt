@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.registeration.RegistrationRepository
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.registeration.RegisterFragmentDirections
 import com.app.dubaiculture.utils.AuthUtils
@@ -66,6 +67,7 @@ class RegistrationViewModel @Inject constructor(
 
     private val errs_ = MutableLiveData<Int>()
     val errs: LiveData<Int> = errs_
+    private val context = getApplication<ApplicationEntry>()
 
 
     fun register() {
@@ -78,7 +80,9 @@ class RegistrationViewModel @Inject constructor(
                 password = password.get().toString().trim(),
                 confirmPassword = passwordConifrm.get().toString().trim(),
                 fullName = fullName.get().toString().trim(),
-                phoneNumber = phone.get().toString().trim()
+                phoneNumber = phone.get().toString().trim(),
+                culture = context.auth.locale.toString()
+
             ).let {
                 when (val result = registrationRepository.register(it)) {
                     is Result.Error -> {

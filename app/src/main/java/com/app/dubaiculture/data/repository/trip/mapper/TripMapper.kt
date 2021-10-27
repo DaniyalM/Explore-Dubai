@@ -20,11 +20,11 @@ fun transform(userTypeResponse: UserTypeResponse): UserTypeResponseDTO {
     )
 }
 
-fun transformUserType(userTypeResponse: UserTypeResponseDTO) = UserTypes(
+fun transformUserType(userTypeResponse: UserTypeResponseDTO)=UserTypes(
     title = userTypeResponse.Title,
     usersType = userTypeResponse.UsersType.mapIndexed { index, usersTypeDTO ->
         UsersType(
-            id = index + 1,
+            id = index +1,
             image = usersTypeDTO.Image,
             title = usersTypeDTO.Title,
             checked = false

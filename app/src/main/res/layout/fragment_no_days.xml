@@ -7,7 +7,12 @@
             name="view"
             type="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.NoOfDaysFragment" />
     </data>
-    
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_20sdp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -120,4 +125,5 @@
             app:layout_constraintTop_toBottomOf="@id/groupDaysChips" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

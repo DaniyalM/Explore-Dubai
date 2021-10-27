@@ -11,7 +11,6 @@ import com.app.dubaiculture.data.repository.sitemap.local.BeaconItems
 import com.app.dubaiculture.databinding.ItemsYourJourneyBinding
 import com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.adapter.clicklisteners.BeaconClickListener
 import com.app.dubaiculture.utils.glideInstance
-import com.app.dubaiculture.utils.setTextColorRes
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 
@@ -26,7 +25,7 @@ class BeaconListAdapter(
             oldItem.hashCode() == newItem.hashCode()
 
         override fun areContentsTheSame(oldItem: BeaconItems, newItem: BeaconItems) =
-            oldItem.deviceID == newItem.deviceID
+            oldItem.id == newItem.id
 
     }
 
@@ -38,6 +37,7 @@ class BeaconListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(beaconItem: BeaconItems) {
             binding.apply {
+                tvCircle.text = beaconItem.id.toString()
                 YoYo.with(Techniques.BounceInDown)
                     .duration(2000)
                     .playOn(root)
@@ -49,12 +49,12 @@ class BeaconListAdapter(
                 } else {
                     rootlayout.alpha = 0.5f
                     tickMark.visibility = View.GONE
-                    tvCircle.setBackgroundResource(R.drawable.circle_path)
-                    tvCircle.setTextColorRes(R.color.black_200)
+                    tvCircle.setBackgroundResource(R.drawable.circle_purple)
+//                    tvCircle.setTextColorRes(R.color.black_200)
                 }
 
 
-                tvCircle.text = beaconItem.step
+//                tvCircle.text = beaconItem.step
                 title.text = beaconItem.title
 
                 imgMuseums.glideInstance(beaconItem.image, false)

@@ -28,7 +28,7 @@ class HeaderInterceptor @Inject constructor(private val context: Context,private
                 if (!url.contains("RefreshToken") && !url.contains("MobileLogin") &&
           !url.contains("ConfirmAccount") &&
             !url.contains("ValidateOTP") && !url.contains("ResendVerification") &&
-            !url.contains("ForgotPassword")&&!url.contains("GuestLogin")
+            !url.contains("ForgotPassword")&&!url.contains("GuestLogin")&&!url.contains("UAEPassLogin")
         ) {
             //All the Above End Points Will be Ignored on the this stage
             nonBlockingUrl = true

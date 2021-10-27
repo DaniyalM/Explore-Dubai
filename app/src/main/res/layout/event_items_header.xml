@@ -39,6 +39,7 @@
                 android:paddingEnd="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginBottom="@dimen/_2sdp"
+                android:textColor="?attr/colorSecondary"
                 android:text="Sub Title"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -17,24 +17,27 @@ fun transformSiteMap(siteMapResponse: SiteMapResponse): SiteMapModel =
     siteMapResponse.Result.attractions.run {
         transformSiteMapObject(this)
     }
-fun transformSiteMapObject(siteMapAttractionDTO: SiteMapAttractionDTO):SiteMapModel = SiteMapModel(
+
+fun transformSiteMapObject(siteMapAttractionDTO: SiteMapAttractionDTO): SiteMapModel = SiteMapModel(
 
     attractionID = siteMapAttractionDTO.id,
     ibeconImg = siteMapAttractionDTO.iBeacon.img,
-    ibeconItems = siteMapAttractionDTO.iBeacon.iBeaconsItems.map {
-        transformIbeconList(it)
+    ibeconItems = siteMapAttractionDTO.iBeacon.iBeaconsItems.mapIndexed { index, iBeaconsItemsDTO ->
+        transformIbeconList(iBeaconsItemsDTO, index)
     }
 )
-fun transformIbeconList(iBeaconsItemsDTO : IBeaconsItemsDTO) = BeaconItems(
+
+fun transformIbeconList(iBeaconsItemsDTO: IBeaconsItemsDTO, index: Int) = BeaconItems(
     step = iBeaconsItemsDTO.step,
     title = iBeaconsItemsDTO.title,
     image = iBeaconsItemsDTO.img,
     thumbnail = iBeaconsItemsDTO.thumbnail,
     summary = iBeaconsItemsDTO.summary,
     deviceID = iBeaconsItemsDTO.deviceID,
-    visited = iBeaconsItemsDTO.visited?:false,
-    visitedOn = iBeaconsItemsDTO.visitedOn?:""
-    )
+    visited = iBeaconsItemsDTO.visited ?: false,
+    visitedOn = iBeaconsItemsDTO.visitedOn ?: "",
+    id = index + 1
+)
 
 
 

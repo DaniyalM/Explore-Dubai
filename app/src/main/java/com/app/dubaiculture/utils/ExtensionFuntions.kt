@@ -11,6 +11,7 @@ import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
@@ -20,10 +21,12 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.*
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
+import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_400
 import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_401
 import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_500
 import com.google.android.material.snackbar.Snackbar
@@ -31,10 +34,52 @@ import okhttp3.RequestBody
 import okio.Buffer
 import retrofit2.HttpException
 import timber.log.Timber
+import java.io.File
 import java.io.IOException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
+
+fun String.pluralize(count: Int): String? {
+    return this.pluralize(count, null)
+}
+
+fun String.pluralize(count: Int, plural: String?): String? {
+    return if (count > 1) {
+        plural ?: this + 's'
+    } else {
+        this
+    }
+}
+
+fun Activity.openPdf(filename: String?) {
+
+    val fn = filename?.substring(filename.lastIndexOf("/") + 1)
+    val file = File(filesDir, fn!!)
+
+    if (file.exists()) {
+        Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(
+                FileProvider.getUriForFile(
+                    this@openPdf,
+                    BuildConfig.APPLICATION_ID + ".fileprovider",
+                    file
+                ), "application/pdf"
+            )
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            try {
+                startActivity(this)
+            } catch (e: Exception) {
+                Timber.e(e.message)
+            }
+        }
+    } else {
+        Timber.e("file doesn't exist")
+    }
+}
+
 fun Exception.triggerException() {
     when (this) {
         is HttpException -> {
@@ -112,6 +157,7 @@ fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
     val snapView = findSnapView(layoutManager) ?: return RecyclerView.NO_POSITION
     return layoutManager.getPosition(snapView)
 }
+
 fun Fragment.safeNavigateFromNavController(directions: NavDirections) {
     val navController = findNavController()
     val destination = navController.currentDestination as FragmentNavigator.Destination
@@ -122,6 +168,7 @@ fun Fragment.safeNavigateFromNavController(directions: NavDirections) {
         Timber.e("Invalid navigation detected")
     }
 }
+
 fun Activity.enableLocationFromSettings() {
     startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
 }
@@ -157,6 +204,7 @@ internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(
         color
     )
 )
+
 @ColorInt
 fun Context.getColorFromAttr(
     @AttrRes attrColor: Int,
@@ -192,6 +240,15 @@ fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>) {
         startActivity(it)
     }
 }
+
+//fun <A : Activity> Activity.killSessionAndStartNewActivityUAE(activity: Class<A>) {
+//
+//    Intent(this, activity).also {
+//        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+//        finish()
+//        startActivity(it)
+//    }
+//}
 
 fun <A : Activity> Fragment.startNewActivity(activity: Class<A>) {
     Intent(getActivity(), activity).also {
@@ -236,8 +293,9 @@ fun Fragment.handleApiError(
         failure.errorCode == HTTP_500 -> {
             baseViewModel.showToast("Internal Server Error")
         }
-        failure.errorCode == HTTP_500 -> {
-            baseViewModel.showToast("Internal Server Error")
+        failure.errorCode == HTTP_400 -> {
+            baseViewModel.showToast("Session Timeout From Server")
+            retry?.invoke()
         }
         else -> {
 //            val error = failure.errorBody?.string().toString()
@@ -265,7 +323,6 @@ fun Fragment.setNavigationResult(key: String, data: Any?) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, data)
 
 }
-
 
 
 fun dateFormat(inputDate: String?): String {
@@ -362,6 +419,7 @@ fun Date.toString(format: String): String {
     val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
     return dateFormatter.format(this)
 }
+
 fun View.show() {
     this.visibility = View.VISIBLE
 }
@@ -373,7 +431,6 @@ fun View.show(show: Boolean) {
 fun View.hide() {
     this.visibility = View.GONE
 }
-
 
 
 fun gettime(): String? {
