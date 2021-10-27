@@ -16,7 +16,7 @@ data class Result(
         @SerializedName("Attractions")
         @Expose
         var attraction: List<AttractionDTO>,
-        @SerializedName("Services")
+        @SerializedName("Events")
         @Expose
         var events: List<EventsDTO>,
         @SerializedName("Services")
