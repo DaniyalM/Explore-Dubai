@@ -26,6 +26,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
+import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_400
 import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_401
 import com.app.dubaiculture.utils.Constants.HTTP_RESPONSE.HTTP_500
 import com.google.android.material.snackbar.Snackbar
@@ -279,8 +280,9 @@ fun Fragment.handleApiError(
         failure.errorCode == HTTP_500 -> {
             baseViewModel.showToast("Internal Server Error")
         }
-        failure.errorCode == HTTP_500 -> {
-            baseViewModel.showToast("Internal Server Error")
+        failure.errorCode == HTTP_400 -> {
+            baseViewModel.showToast("Session Timeout From Server")
+            retry?.invoke()
         }
         else -> {
 //            val error = failure.errorBody?.string().toString()

@@ -2,16 +2,18 @@
 <resources>
     <attr name="color_dubai_logo" format="color" />
     <attr name="color_dubai_logo_inverse" format="color" />
-    <attr name="color_light_gray_svg" format="color"/>
-    <attr name="color_light_white_dark_gray" format="color"/>
-    <attr name="color_light_white_dark_gray_night" format="color"/>
-    <attr name="color_edit_text_bg" format="color"/>
-    <attr name="color_card_views_shadow" format="color"/>
-    <attr name="color_curve_view_bg" format="color"/>
-    <attr name="color_curve_login_bg" format="color"/>
-    <attr name="color_login_edit_text_bg" format="color"/>
+    <attr name="color_dubai_logo_dark" format="color" />
+    <attr name="colorOnBackgroundDark" format="color" />
+    <attr name="color_light_gray_svg" format="color" />
+    <attr name="color_light_white_dark_gray" format="color" />
+    <attr name="color_light_white_dark_gray_night" format="color" />
+    <attr name="color_edit_text_bg" format="color" />
+    <attr name="color_card_views_shadow" format="color" />
+    <attr name="color_curve_view_bg" format="color" />
+    <attr name="color_curve_login_bg" format="color" />
+    <attr name="color_login_edit_text_bg" format="color" />
 
-    <attr name="color_light_theme_purple_dark_theme_gray" format="color"/>
+    <attr name="color_light_theme_purple_dark_theme_gray" format="color" />
     <attr name="color_light_theme_purple_dark_theme" format="color"/>
 
 

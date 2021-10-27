@@ -6,12 +6,8 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.databinding.ViewDataBinding
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.more.local.FAQs
 import com.app.dubaiculture.data.repository.more.local.FaqItem
 import com.app.dubaiculture.databinding.ItemFaqsLayoutBinding
-import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.app.dubaiculture.utils.getColorFromAttr
-import com.app.dubaiculture.utils.setTextColorRes
 import com.xwray.groupie.databinding.BindableItem
 
 class FAQsItems<T : ViewDataBinding>(
@@ -33,17 +29,17 @@ class FAQsItems<T : ViewDataBinding>(
                     }
                     it.tvQuestions.text = faqs.question
                     it.imgToggle.setImageResource(R.drawable.plus)
-                    it.ll.setOnClickListener {items->
+                    it.rootView.setOnClickListener { items ->
 
 //                        it.tvQuestions.setTextColor(context.getColorFromAttr(R.attr.colorOnSecondary))
 //                        it.tvQuestionNum.setTextColorRes(R.color.gray_750)
-                        if(isExpand==false){
-                            isExpand= true
+                        if (isExpand == false) {
+                            isExpand = true
                             it.imgToggle.setImageResource(R.drawable.remove)
                             it.tvAnswer.visibility = View.VISIBLE
-                                it.tvAnswer.text = faqs.answer
-                        }else{
-                            isExpand= false
+                            it.tvAnswer.text = faqs.answer
+                        } else {
+                            isExpand = false
                             it.imgToggle.setImageResource(R.drawable.plus)
                             it.tvAnswer.visibility = View.GONE
                         }

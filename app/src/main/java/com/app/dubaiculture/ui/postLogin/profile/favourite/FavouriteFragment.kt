@@ -14,6 +14,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.data.repository.popular_service.local.models.EService
 import com.app.dubaiculture.data.repository.profile.local.Favourite
 import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.databinding.FragmentFavouriteBinding
@@ -23,6 +24,8 @@ import com.app.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
+import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListAdapter
+import com.app.dubaiculture.ui.postLogin.popular_service.adapter.clicklistener.ServiceClickListner
 import com.app.dubaiculture.ui.postLogin.profile.favourite.models.FavouriteHeader
 import com.app.dubaiculture.ui.postLogin.profile.favourite.services.FavouriteServices
 import com.app.dubaiculture.ui.postLogin.profile.viewmodels.ProfileViewModel
@@ -43,6 +46,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
     private  var attractions: List<Attractions> = emptyList()
     var eventsAdapter: GroupAdapter<GroupieViewHolder>? = GroupAdapter()
     var attractionsAdapter: GroupAdapter<GroupieViewHolder>? = GroupAdapter()
+    private lateinit var popularServiceListAdapter: PopularServiceListAdapter
 
     override fun onDestroy() {
         super.onDestroy()
@@ -112,6 +116,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                     it.value.getContentIfNotHandled()?.let {
                         events = it.events
                         attractions = it.attractions
+                        popularServiceListAdapter.submitList(it.services)
                         binding.horizontalSelector.initialize(initializeHeaders(), bus)
                     }
                 }
@@ -244,6 +249,27 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         binding.rveventListing.visibility = View.GONE
         binding.rvAttractionListing.visibility = View.GONE
         binding.rvServicesListing.visibility = View.VISIBLE
+
+        if (!this::popularServiceListAdapter.isInitialized) {
+            binding.rvServicesListing.apply {
+
+
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                popularServiceListAdapter = PopularServiceListAdapter(object : ServiceClickListner {
+                    override fun onServiceClick(service: EService?) {
+//                    navigateByDirections(
+//                        PopularServiceFragmentDirections.actionPopularServiceFragmentToServiceDetailNavigation(
+//                            service!!.id
+//                        )
+//                    )
+                    }
+                })
+
+                adapter = popularServiceListAdapter
+            }
+        }
+
+
     }
 
     private fun addEvents() {

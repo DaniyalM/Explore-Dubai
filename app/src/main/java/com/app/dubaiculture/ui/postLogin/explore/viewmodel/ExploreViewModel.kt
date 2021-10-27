@@ -8,6 +8,7 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.explore.ExploreRepository
 import com.app.dubaiculture.data.repository.explore.local.models.Explore
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
+import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class ExploreViewModel @Inject constructor(
     application: Application,
     private val exploreRepository: ExploreRepository,
+    private val userRepository: UserRepository
 ) : BaseViewModel(application, exploreRepository) {
     private val context = getApplication<ApplicationEntry>()
 
@@ -36,10 +38,17 @@ class ExploreViewModel @Inject constructor(
                     _exploreList.value = result
                     showLoader(false)
                 }
-                is Result.Failure -> {
-                    showLoader(false)
-                    _exploreList.value = result
-                }
+                is Result.Failure -> showLoader(false)
+//                {
+
+//                    if (result.errorCode == HTTP_400) {
+//                        userRepository.getLastUser()?.let {
+//                            userRepository.deleteUser(it)
+//                            context.auth.user = null
+//                            con
+//                        }
+//                    }
+//                }
 
             }
 //            showLoader(false)

@@ -1,47 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-       >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/detailListingHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             android:text="@string/payments"
-            android:textColor="?attr/colorSecondary"
-            android:textSize="@dimen/_18ssp"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:textFont="bold" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/innerRecyclerView"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:layout_marginEnd="21dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/detailListingHeader"
-            app:layout_constraintTop_toBottomOf="@+id/detailListingHeader" />
+            app:layout_constraintStart_toStartOf="parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/detailListingHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:text="@string/payments"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="@dimen/_18ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:textFont="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/innerRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/detailListingHeader"
+                    app:layout_constraintTop_toBottomOf="@+id/detailListingHeader" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+
 
 </layout>
