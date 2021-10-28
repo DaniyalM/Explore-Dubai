@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -33,11 +34,12 @@ import com.app.dubaiculture.databinding.ToolbarLayoutEventDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
 import com.app.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
+import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
+import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.Constants.EventOrientation.VerticalLength
 import com.app.dubaiculture.utils.Constants.GoogleMap.DESTINATION
 import com.app.dubaiculture.utils.Constants.GoogleMap.LINK_URI
 import com.app.dubaiculture.utils.Constants.GoogleMap.PACKAGE_NAME_GOOGLE_MAP
@@ -90,7 +92,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     lateinit var toolbarLayoutEventDetailBinding: ToolbarLayoutEventDetailBinding
 
 //    var eventListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
-    private lateinit var eventListScreenAdapter: EventListScreenAdapter
+//    private lateinit var eventListScreenAdapter: EventListScreenAdapter
+    private lateinit var eventListScreenAdapter: EventAdapter
 
 
     private val getObserver = Observer<GpsStatus> {
@@ -375,7 +378,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            eventListScreenAdapter= EventListScreenAdapter(eventClickListner = object : EventClickListner{
+            eventListScreenAdapter= EventAdapter(eventClickListner = object : EventClickListner{
                 override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean, itemId: String) {
                     favouriteClick(
                             checkbox,
@@ -398,7 +401,33 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             bundle
                     )
                 }
-            },orientationFlag = VerticalLength)
+            }
+            )
+//            eventListScreenAdapter=
+//                EventListScreenAdapter(eventClickListner = object : EventClickListner{
+//                override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean, itemId: String) {
+//                    favouriteClick(
+//                            checkbox,
+//                            isFav,
+//                            type = 2,
+//                            itemId = itemId,
+//                            baseViewModel = eventViewModel,
+//                            nav = R.id.action_eventDetailFragment2_to_postLoginFragment
+//                    )
+//                }
+//
+//                override fun rowClickHandler(events: Events) {
+//                    val bundle = Bundle()
+//                    bundle.putParcelable(
+//                            EVENT_OBJECT,
+//                            events
+//                    )
+//                    navigate(
+//                            R.id.action_eventDetailFragment2_to_eventDetailFragment2,
+//                            bundle
+//                    )
+//                }
+//            },orientationFlag = VerticalLength)
 
             adapter = eventListScreenAdapter
         }
@@ -568,10 +597,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         binding.eventDetailInnerLayout.llEmailUs.alpha = 0.2f
                         binding.eventDetailInnerLayout.llEmailUs.isClickable = false
                     }
-                    eventListScreenAdapter.submitList(it.value.relatedEvents!!)
-//                 .forEach {
-//                        moreEvents.add(it)
-//                    }
+
+                    it.value.relatedEvents!!.forEach {
+                        moreEvents.add(it)
+                    }
+                    eventListScreenAdapter.submitList(it.value.relatedEvents)
                     if (!it.value.desc.isNullOrEmpty()) {
                         binding.eventDetailInnerLayout.tvDescReadmoreEvent.text = it.value.desc
                     }
