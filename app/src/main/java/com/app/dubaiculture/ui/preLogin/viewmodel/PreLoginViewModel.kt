@@ -16,7 +16,7 @@ class PreLoginViewModel @Inject constructor(
     ) : BaseViewModel(application) {
 
     init {
-        getUserIfExists()
+//        getUserIfExists()
     }
 
 
@@ -24,7 +24,7 @@ class PreLoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             userRepository.getLastUser()?.let {
-                setUser(it, true)
+                setUser(it)
             }
         }
     }

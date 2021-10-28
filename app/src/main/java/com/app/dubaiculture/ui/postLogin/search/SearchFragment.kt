@@ -3,11 +3,7 @@ package com.app.dubaiculture.ui.postLogin.search
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.speech.RecognizerIntent
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
@@ -62,10 +58,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerForActivityResult()
     }
+
     private fun getSpeechInput() {
         val intent = Intent(
             RecognizerIntent
@@ -82,13 +80,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         binding.searchToolbar.editSearch.setText("")
         startForResult.launch(intent)
     }
+
     companion object {
         var selectedPosition: Int = 0
     }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentSearchBinding.inflate(inflater, container, false)
+
     private fun subscribeToObservable() {
         searchShareViewModel.isOld.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
@@ -156,22 +157,35 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                     binding.searchHistory.hide()
                     binding.resultView.show()
                 } else {
-                    binding.resultView.hide()
-                    binding.searchHistory.show()
+
+
+                    if (!application.auth.isGuest){
+                        binding.resultView.hide()
+                        binding.searchHistory.show()
+                    }
+
+
+
                 }
             }
         }
     }
+
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(searchViewModel)
-        binding.searchVm = searchViewModel
         binding.searchToolbar.clear.setOnClickListener {
             binding.searchToolbar.editSearch.setText("")
-            searchViewModel.getSearchHistory()
+            if (!application.auth.isGuest) {
+                searchViewModel.getSearchHistory()
+            }
+
+        }
+        binding.clearPop.setOnClickListener {
+            searchViewModel.clearHistory()
         }
         binding.searchToolbar.editSearch.addTextChangedListener(
-            EndTypingWatcher{
+            EndTypingWatcher {
                 searchViewModel.updateKeyword(binding.searchToolbar.editSearch.text.toString())
             }
         )
@@ -229,19 +243,25 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                                 )
                             }
                             "Attractions" -> {
-                                navigateByDirections(SearchFragmentDirections.actionSearchFragmentToAttraction(
-                                    searchResultItem.id
-                                ))
+                                navigateByDirections(
+                                    SearchFragmentDirections.actionSearchFragmentToAttraction(
+                                        searchResultItem.id
+                                    )
+                                )
                             }
                             "Events" -> {
-                                navigateByDirections(SearchFragmentDirections.actionSearchFragmentToEvents(
-                                    searchResultItem.id
-                                ))
+                                navigateByDirections(
+                                    SearchFragmentDirections.actionSearchFragmentToEvents(
+                                        searchResultItem.id
+                                    )
+                                )
                             }
                             "EServices" -> {
-                                navigateByDirections(SearchFragmentDirections.actionSearchFragmentToServices(
-                                    searchResultItem.id
-                                ))
+                                navigateByDirections(
+                                    SearchFragmentDirections.actionSearchFragmentToServices(
+                                        searchResultItem.id
+                                    )
+                                )
                             }
                         }
 

@@ -2,13 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="searchVm"
-            type="com.app.dubaiculture.ui.postLogin.search.viewmodels.SearchViewModel" />
-
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -67,7 +60,6 @@
                 android:layout_marginBottom="@dimen/_75sdp"
                 android:drawableStart="@drawable/binicon"
                 android:drawablePadding="@dimen/_5sdp"
-                android:onClick="@{()->searchVm.clearHistory()}"
                 android:text="Clear Search History"
                 android:textColor="?attr/color_dubai_logo"
                 android:textSize="@dimen/_14ssp"
