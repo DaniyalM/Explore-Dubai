@@ -9,7 +9,6 @@ import android.widget.PopupMenu
 import androidx.annotation.MenuRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.Duration

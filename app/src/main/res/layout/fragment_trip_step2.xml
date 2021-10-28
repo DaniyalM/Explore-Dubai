@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="view"
             type="com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.TripStep2Fragment" />
@@ -30,8 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:text="@string/interestedIn"
             android:includeFontPadding="false"
+            android:text="@string/interestedIn"
             android:textColor="?attr/colorOnSurface"
             android:textSize="@dimen/_22ssp"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,11 +67,11 @@
             android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:fontFamily="@font/neo_sans_arabic_regular"
+            android:onClick="@{()->view.onPreviousClicked()}"
             android:text="@string/previous"
             android:textAllCaps="false"
             android:textColor="?attr/color_dubai_logo"
             app:cornerRadius="@dimen/_16sdp"
-            android:onClick="@{()->view.onPreviousClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnNext"
             app:layout_constraintStart_toStartOf="@id/tvHeading"
@@ -84,10 +85,10 @@
             android:layout_marginEnd="@dimen/_12sdp"
             android:backgroundTint="@color/purple_650"
             android:fontFamily="@font/neo_sans_arabic_regular"
-            android:text="@string/next"
             android:onClick="@{()->view.onNextClicked()}"
-            android:textColor="?attr/colorOnPrimary"
+            android:text="@string/next"
             android:textAllCaps="false"
+            android:textColor="?attr/colorOnPrimary"
             app:cornerRadius="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="@id/btnPrevious"
             app:layout_constraintEnd_toEndOf="parent"

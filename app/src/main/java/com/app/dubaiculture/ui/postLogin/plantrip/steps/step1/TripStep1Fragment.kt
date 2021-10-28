@@ -4,20 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.trip.local.UserTypes
 import com.app.dubaiculture.data.repository.trip.local.UsersType
 import com.app.dubaiculture.databinding.FragmentTripStep1Binding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.latestnews.adapter.LatestNewsListAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
-import com.app.dubaiculture.ui.postLogin.plantrip.steps.PlanTripParentFragment
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.UserTypeAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.clicklisteners.UserTypeClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step1ViewModel
@@ -79,7 +74,7 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
 
     private fun subscribeToObservables() {
 
-        step1ViewModel.userType.observe(viewLifecycleOwner){
+        step1ViewModel.userType.observe(viewLifecycleOwner) {
 
             step1ViewModel._usersType.value = it.usersType
 

@@ -6,8 +6,8 @@ data class InterestedIn(
 )
 
 data class InterestedInType(
-    val id:String,
-    val checked:Boolean,
+    val id: String,
+    val checked: Boolean,
     val image: String,
     val icon: String,
     val title: String

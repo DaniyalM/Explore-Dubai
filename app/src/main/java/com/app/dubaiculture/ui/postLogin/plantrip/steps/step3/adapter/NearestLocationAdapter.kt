@@ -2,14 +2,11 @@ package com.app.dubaiculture.ui.postLogin.plantrip.steps.step3.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.LocationNearest
 import com.app.dubaiculture.databinding.ItemTripStep3Binding
-
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step3.adapter.clicklisteners.NearestLocationClickListener
 
 class NearestLocationAdapter(val rowClickListener: NearestLocationClickListener) :

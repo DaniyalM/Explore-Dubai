@@ -18,17 +18,18 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
     }
+
     fun onBottomSheetClicked() {
 
         navigate(R.id.action_my_trip_to_my_trip_listing)
 
     }
 
-    fun onSaveTripClicked(){
+    fun onSaveTripClicked() {
         navigate(R.id.action_myTrip_bottom_sheet_to_myTripNameDialog)
     }
 
-    fun onTravelModeClicked(){
+    fun onTravelModeClicked() {
         navigate(R.id.action_my_trip_to_travel_mode_dialog)
 
     }

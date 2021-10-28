@@ -19,7 +19,9 @@ import java.util.*
 
 @AndroidEntryPoint
 class DescriptionPageFragment(val description: List<Description>, val category: String? = null) :
-    BaseFragment<ItemsServiceDetailDescLayoutBinding>() {
+        BaseFragment<ItemsServiceDetailDescLayoutBinding>() {
+
+    var readMoreFlag = false
     private val descriptionViewModel: DescriptionViewModel by viewModels()
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireContext()) { status ->
@@ -29,9 +31,10 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
         }
     }
 
+
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+            inflater: LayoutInflater,
+            container: ViewGroup?
     ) = ItemsServiceDetailDescLayoutBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,8 +46,21 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+
         if (description.isNotEmpty()) {
             subscribeToObservables()
+//            val readMoreOption = getReadMoreOptions(
+//                    activity,
+//                    object : ReadMoreClickListener {
+//                        override fun onClick(readMore: Boolean) {
+//                            readMoreFlag=readMore
+//                        }
+//                    })
+//
+//            if (readMoreFlag)
+
+
+
             val description = description[0]
             binding.imgSpeaker.setOnClickListener {
                 if (description.descriptions.isNotEmpty()) {

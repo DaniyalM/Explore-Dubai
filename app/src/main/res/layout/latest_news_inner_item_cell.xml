@@ -78,7 +78,7 @@
                         android:maxLines="3"
                         android:text="@{news.postedDate}"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/gray_600"
+                        android:textColor="@color/gray_400"
                         android:textSize="@dimen/_9ssp" />
                 </LinearLayout>
 

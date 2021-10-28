@@ -4,6 +4,7 @@
     <attr name="color_dubai_logo_inverse" format="color" />
     <attr name="color_dubai_logo_dark" format="color" />
     <attr name="colorOnBackgroundDark" format="color" />
+    <attr name="colorSurfaceInverted" format="color" />
     <attr name="color_light_gray_svg" format="color" />
     <attr name="color_light_white_dark_gray" format="color" />
     <attr name="color_light_white_dark_gray_night" format="color" />

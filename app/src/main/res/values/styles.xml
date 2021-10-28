@@ -254,6 +254,7 @@
         <item name="cb_textFont">bold</item>
         <item name="cb_type">filled</item>
     </style>
+
     <style name="SubmitButtonOutLined" parent="SubmitButtonFilled">
         <item name="android:background">@drawable/bg_btn_outlined</item>
         <item name="android:textColor">?attr/colorSecondary</item>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="view"
             type="com.app.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragment" />
@@ -19,11 +20,11 @@
             android:id="@+id/animation_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:chainUseRtl="true"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/iv_close"
+            app:chainUseRtl="true"
             app:layout_constraintBottom_toBottomOf="@id/tv_plan_desc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_close"
             app:lottie_autoPlay="true"
             app:lottie_rawRes="@raw/new_green_line" />
 
@@ -56,8 +57,8 @@
             android:id="@+id/imageView4"
             android:layout_width="0dp"
             android:layout_height="@dimen/_200sdp"
-            android:onClick="@{()->view.onBottomSheetClicked()}"
             android:background="@drawable/bottom_bg_login"
+            android:onClick="@{()->view.onBottomSheetClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -87,9 +88,9 @@
             android:layout_height="0dp"
             android:layout_marginEnd="@dimen/_12sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{()->view.onBackPressed()}"
             android:paddingHorizontal="@dimen/_6sdp"
             android:src="@drawable/close_btn"
-            android:onClick="@{()->view.onBackPressed()}"
             app:layout_constraintBottom_toBottomOf="@id/chip_trip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/chip_trip" />

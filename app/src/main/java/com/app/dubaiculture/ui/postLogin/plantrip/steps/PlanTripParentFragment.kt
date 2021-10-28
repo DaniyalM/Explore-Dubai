@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentPlanTripParentBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragmentDirections
 import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.TripStep1Fragment
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.TripStep2Fragment
@@ -53,9 +50,9 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
 
     private fun subscribeToObservables() =
         tripSharedViewModel.showPlan.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let {
-                if (it){
-                  onBackPressed()
+            it.getContentIfNotHandled()?.let {
+                if (it) {
+                    onBackPressed()
                 }
             }
 

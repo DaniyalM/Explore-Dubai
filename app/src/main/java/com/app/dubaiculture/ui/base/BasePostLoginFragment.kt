@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.utils.Constants
@@ -35,6 +34,7 @@ abstract class BasePostLoginFragment : Fragment() {
     fun getCurrentLanguage(): Locale {
         return (activity as BaseActivity).getCurrentLanguage()
     }
+
     fun isArabic() = getCurrentLanguage() != Locale.ENGLISH
 
     // data binding
@@ -48,6 +48,7 @@ abstract class BasePostLoginFragment : Fragment() {
             }
         }
     }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = (context as Activity)

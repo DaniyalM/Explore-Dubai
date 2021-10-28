@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -15,7 +14,6 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.Duration
 import com.app.dubaiculture.databinding.FragmentEditDurationBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.EditDurationAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
@@ -49,14 +47,13 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
 
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {
 
-            if(it != null) {
+            if (it != null) {
                 durationList = it
                 setData(it[0])
                 binding.rvDates.visibility = View.VISIBLE
                 editDurationAdapter.submitList(it.subList(1, it.size))
             }
         }
-
 
 
     }
@@ -149,14 +146,14 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
 
     }
 
-    fun onItemSelected(duration: Duration){
+    fun onItemSelected(duration: Duration) {
 
         binding.checkBoxRepeat.isChecked = false
         tripSharedViewModel.updateDurationList(duration.copy(isSelected = !duration.isSelected))
 
     }
 
-    fun onDoneClicked(){
+    fun onDoneClicked() {
 
         tripSharedViewModel._durationSummary.value = durationList
         dismiss()
@@ -169,7 +166,7 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
 
     }
 
-    fun onDeleteClicked(){
+    fun onDeleteClicked() {
 
         binding.checkBoxRepeat.isChecked = false
         navigate(R.id.action_edit_duration_to_deleteBottomSheetFragment)

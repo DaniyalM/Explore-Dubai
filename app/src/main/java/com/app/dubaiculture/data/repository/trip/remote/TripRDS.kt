@@ -2,10 +2,6 @@ package com.app.dubaiculture.data.repository.trip.remote
 
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRDS
-import com.app.dubaiculture.data.repository.login.remote.request.LoginRequestDTO
-import com.app.dubaiculture.data.repository.login.remote.response.LoginResponse
-import com.app.dubaiculture.data.repository.login.service.LoginService
-import com.app.dubaiculture.data.repository.settings.remote.response.UserSettingResponse
 import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionRequestDTO
 import com.app.dubaiculture.data.repository.trip.remote.response.*
 import com.app.dubaiculture.data.repository.trip.service.TripService
@@ -29,8 +25,9 @@ class TripRDS @Inject constructor(private val tripService: TripService) : BaseRD
         tripService.getDurations()
     }
 
-    suspend fun postEventAttraction(eventAttractionRequestDTO: EventAttractionRequestDTO): Result<EventAttractionResponse> = safeApiCall {
-        tripService.postEventAttraction(eventAttractionRequestDTO)
-    }
+    suspend fun postEventAttraction(eventAttractionRequestDTO: EventAttractionRequestDTO): Result<EventAttractionResponse> =
+        safeApiCall {
+            tripService.postEventAttraction(eventAttractionRequestDTO)
+        }
 
 }
