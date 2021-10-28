@@ -161,8 +161,8 @@ fun transformNotification(notificationRequest: NotificationRequest) = Notificati
 )
 
 fun transformNotificationPaging(notificationDTO: NotificationDTO) = Notifications(
-    id = notificationDTO.ItemId?:"",
-    title = notificationDTO.Title?:"",
-    body = notificationDTO.Body?:"",
-    dateTime = notificationDTO.DateTime?:"",
+    id = notificationDTO.ItemId ?: "",
+    title = notificationDTO.Title ?: "",
+    body = notificationDTO.Body ?: "",
+    dateTime = notificationDTO.DateTime ?: "",
 )

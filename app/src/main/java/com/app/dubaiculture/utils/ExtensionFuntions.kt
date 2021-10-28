@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.AttrRes
@@ -22,9 +21,6 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.*
-import androidx.transition.Slide
-import androidx.transition.Transition
-import androidx.transition.TransitionManager
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -56,6 +52,7 @@ fun String.pluralize(count: Int, plural: String?): String? {
         this
     }
 }
+
 fun Activity.openPdf(filename: String?) {
 
     val fn = filename?.substring(filename.lastIndexOf("/") + 1)

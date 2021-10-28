@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/attraction_navigation"
     app:startDestination="@id/attractionsFragment">
-    <include app:graph="@navigation/attraction_detail_navigation"/>
-    <include app:graph="@navigation/post_login_bottom_navigation"/>
+    <include app:graph="@navigation/attraction_detail_navigation" />
+    <include app:graph="@navigation/post_login_bottom_navigation" />
     <include app:graph="@navigation/search_navigation" />
 
     <fragment
         android:id="@+id/attractionsFragment"
         tools:layout="@layout/fragment_attractions"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.listing.AttractionFragment"
-        android:label="AttractionsFragment" >
+        android:label="AttractionsFragment">
         <argument
             android:name="culture"
             app:argType="string"
             app:nullable="false"
-            android:defaultValue="en"/>
+            android:defaultValue="en" />
         <argument
             android:name="positionId"
             app:argType="integer"
             app:nullable="false"
-            android:defaultValue="0"/>
+            android:defaultValue="0" />
         <argument
             android:name="isExplore"
             app:argType="boolean"
@@ -65,7 +65,7 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"/>
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
 

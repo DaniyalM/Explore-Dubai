@@ -21,8 +21,9 @@ interface SearchService {
     ): AttractionResponse
 
     @GET("Content/GetSearchHeaders")
-    suspend fun getSearchHeaders(@Query("culture") culture: String?,
-    ):AttractionResponse
+    suspend fun getSearchHeaders(
+        @Query("culture") culture: String?,
+    ): AttractionResponse
 
     @POST("Content/Search")
     suspend fun searchResults(

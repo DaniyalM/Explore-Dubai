@@ -1,12 +1,12 @@
 package com.app.dubaiculture.data.repository.search.remote.request
 
 data class SearchPaginationRequest(
-    val keyword:String?="",
-    val filter:String?="",
-    val category:String?="",
-    val culture:String?="",
-    val sort:String?="",
-    val isOld:Boolean?=false
+    val keyword: String? = "",
+    val filter: String? = "",
+    val category: String? = "",
+    val culture: String? = "",
+    val sort: String? = "",
+    val isOld: Boolean? = false
 )
 
 

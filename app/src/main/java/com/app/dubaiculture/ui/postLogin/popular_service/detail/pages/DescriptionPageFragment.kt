@@ -10,8 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import com.app.dubaiculture.data.repository.popular_service.local.models.Description
 import com.app.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.components.customreadmore.getReadMoreOptions
-import com.app.dubaiculture.ui.components.customtextview.clicklistener.ReadMoreClickListener
 import com.app.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.DescriptionViewModel
 import com.app.dubaiculture.utils.openPdf
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,17 +65,17 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             binding.imgSpeaker.setOnClickListener {
                 if (description.descriptions.isNotEmpty()) {
                     textToSpeechEngine.speak(
-                            description.descriptions,
-                            TextToSpeech.QUEUE_FLUSH,
-                            null,
-                            "tts1"
+                        description.descriptions,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "tts1"
                     )
                 }
             }
             binding.description = description
             binding.category = category!!
-            binding.tvPdfTitle.text = description.fileName ?: "Sample Pdf"
-            binding.fileSize.text = description.fileSize ?: "0.0kb"
+            binding.tvPdfTitle.text = description.fileName
+            binding.fileSize.text = description.fileSize
             binding.fileViewLink.setOnClickListener {
                 if (description.documentLink.isNotEmpty() && description.documentLink.contains(".pdf")) {
 //                    descriptionViewModel.getDoc("http://www.africau.edu/images/default/sample.pdf")

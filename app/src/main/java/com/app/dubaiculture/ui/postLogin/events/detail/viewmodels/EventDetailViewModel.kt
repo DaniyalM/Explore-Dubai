@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.EventRepository
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.remote.request.EventRequest
@@ -31,7 +30,7 @@ class EventDetailViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<String>(Constants.NavBundles.EVENT_ID)?.let {
-            getEventDetailsToScreen(it,context.auth.locale.toString())
+            getEventDetailsToScreen(it, context.auth.locale.toString())
         }
 
     }

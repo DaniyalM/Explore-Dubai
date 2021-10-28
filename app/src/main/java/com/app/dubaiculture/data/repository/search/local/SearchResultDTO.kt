@@ -7,6 +7,6 @@ data class SearchResultDTO(
     val PageRecordTo: Int,
     val PageSize: Int,
     val TotalRecordCount: Int,
-    val Items:List<SearchResultItemDTO>
+    val Items: List<SearchResultItemDTO>
 
 )

@@ -11,29 +11,26 @@
         android:id="@+id/attractionDetailFragment"
         tools:layout="@layout/fragment_attraction_detail"
         android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment"
-        android:label="AttractionDetailFragment" >
+        android:label="AttractionDetailFragment">
 
         <argument
             android:name="attraction"
             app:argType="com.app.dubaiculture.data.repository.attraction.local.models.Attractions"
             app:nullable="true"
-            android:defaultValue="@null"
-           />
+            android:defaultValue="@null" />
 
         <argument
             android:name="attraction_id"
-            app:argType="string"
-            app:nullable="true"
             android:defaultValue="@null"
-           />
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_attractionDetailFragment_to_threeSixtyFragment"
             app:destination="@id/threeSixtyFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"
-            />
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_attractionDetailFragment_to_postLoginFragment"
             app:destination="@id/post_login_bottom_navigation"

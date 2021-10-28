@@ -118,18 +118,18 @@ class LoginViewModel @Inject constructor(
                     val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
                     uaePass.let {
                         userRepository.saveUaeInfo(
-                                it
+                            it
                         )
 
                         //setting user for Session
                         val user = transform(
-                                result.value.loginResponseDTO.userDTO,
-                                result.value.loginResponseDTO
+                            result.value.loginResponseDTO.userDTO,
+                            result.value.loginResponseDTO
                         ).copy(
-                                idn = it.idn,
-                                userName = "${it.firstNameEn} ${it.lastNameEn}",
-                                email = it.email,
-                                phoneNumber = "+${it.mobile}"
+                            idn = it.idn,
+                            userName = "${it.firstNameEn} ${it.lastNameEn}",
+                            email = it.email,
+                            phoneNumber = "+${it.mobile}"
                         )
 
                         setUser(user)

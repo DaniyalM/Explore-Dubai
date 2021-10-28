@@ -15,7 +15,7 @@
     <attr name="color_login_edit_text_bg" format="color" />
 
     <attr name="color_light_theme_purple_dark_theme_gray" format="color" />
-    <attr name="color_light_theme_purple_dark_theme" format="color"/>
+    <attr name="color_light_theme_purple_dark_theme" format="color" />
 
 
     <declare-styleable name="CustomTextView">

@@ -11,30 +11,30 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_20sdp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
             tools:context=".ui.postLogin.nearyou.NearYouFragment">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/gray_line"
-                android:background="@drawable/gray_line"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="@dimen/_80sdp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/heading_sort"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextViewStyle"
-                android:textSize="@dimen/_16ssp"
-                android:layout_marginTop="@dimen/_22sdp"
                 android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_22sdp"
                 android:text="@string/sort"
-                app:layout_constraintTop_toBottomOf="@+id/gray_line"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gray_line" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/alpha"
@@ -49,15 +49,15 @@
                 android:id="@+id/a_to_z"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/sort_box_shape"
                 android:elevation="1dp"
                 android:gravity="center"
                 android:text="@string/a_to_z"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/alpha"
-                app:layout_constraintStart_toStartOf="@+id/alpha" />
+                app:layout_constraintStart_toStartOf="@+id/alpha"
+                app:layout_constraintTop_toBottomOf="@+id/alpha" />
 
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -87,15 +87,15 @@
                 android:id="@+id/old"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/sort_box_shape"
                 android:elevation="1dp"
                 android:gravity="center"
                 android:text="@string/oldest"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/date"
-                app:layout_constraintStart_toStartOf="@+id/date" />
+                app:layout_constraintStart_toStartOf="@+id/date"
+                app:layout_constraintTop_toBottomOf="@+id/date" />
 
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -118,15 +118,15 @@
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
                 android:background="@drawable/btn_register"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:elevation="@dimen/_15sdp"
                 android:foreground="@drawable/custom_ripple_border"
                 android:gravity="center"
                 android:text="@string/sort"
                 android:textAllCaps="false"
-                android:layout_marginBottom="@dimen/_15sdp"
-                android:elevation="@dimen/_15sdp"
                 android:textColor="@color/white_900"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/old" />

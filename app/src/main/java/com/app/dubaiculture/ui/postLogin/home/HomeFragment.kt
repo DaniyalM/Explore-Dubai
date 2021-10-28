@@ -33,24 +33,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(homeViewModel)
-        if (bottomNavigationView==null){
+        if (bottomNavigationView == null) {
             subscribeToObservable()
         }
         bottomNavigationView = binding.bottomNav
         applicationExitDialog()
         setupBottomNavVisibility()
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
                     showAlert(
-                            message = getString(R.string.error_msg),
-                            textPositive = getString(R.string.okay),
-                            textNegative = getString(R.string.cancel),
-                            actionNegative = {
+                        message = getString(R.string.error_msg),
+                        textPositive = getString(R.string.okay),
+                        textNegative = getString(R.string.cancel),
+                        actionNegative = {
 
-                            },
-                            actionPositive = {
-                                activity.finish()
-                            }
+                        },
+                        actionPositive = {
+                            activity.finish()
+                        }
                     )
 
 
@@ -61,7 +62,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun getNavController(): NavController {
         val navHostFragment =
-                childFragmentManager.findFragmentById(R.id.nav_home_container_view) as NavHostFragment
+            childFragmentManager.findFragmentById(R.id.nav_home_container_view) as NavHostFragment
         return navHostFragment.navController
     }
 
@@ -80,8 +81,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun setupBottomNavVisibility() {
 
+        binding.bottomGradient.apply {
+            val navigationController = getNavController()
+            navigationController.addOnDestinationChangedListener { _, destination, _ ->
+                when (destination.id) {
+                    R.id.tripFragment -> {
+                        visibility = View.GONE
+                    }
+                }
+            }
+        }
+
         bottomNavigationView?.apply {
-            val navigationController=getNavController()
+            val navigationController = getNavController()
             setupWithNavController(navigationController)
             navigationController.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
@@ -123,13 +135,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.postCreatePassFragment -> {
                         visibility = View.GONE
                     }
+                    R.id.tripFragment -> {
+                        visibility = View.GONE
+                    }
+                    R.id.planTripParentFragment -> {
+                        visibility = View.GONE
+                    }
+                    R.id.myTripFragment -> {
+                        visibility = View.GONE
+                    }
+                    R.id.myTripListingFragment -> {
+                        visibility = View.GONE
+                    }
                     R.id.searchFragment -> {
                         visibility = View.GONE
                     }
                     else -> {
                         visibility = View.VISIBLE
                         Bundle().apply {
-                            putString(NEW_LOCALE,getCurrentLanguage().language)
+                            putString(NEW_LOCALE, getCurrentLanguage().language)
                         }
                     }
                 }
@@ -139,6 +163,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
 
     }
+
     private fun applicationExitDialog() {
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {

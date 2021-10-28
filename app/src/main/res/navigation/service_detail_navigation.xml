@@ -4,7 +4,7 @@
     android:id="@+id/service_detail_navigation"
     app:startDestination="@id/serviceDetailFragment2">
 
-    <include app:graph="@navigation/post_login_bottom_navigation"/>
+    <include app:graph="@navigation/post_login_bottom_navigation" />
 
     <fragment
         android:id="@+id/serviceDetailFragment2"

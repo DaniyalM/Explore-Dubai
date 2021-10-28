@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
-import com.app.dubaiculture.ui.postLogin.profile.favourite.services.FavouriteServices
 import com.app.dubaiculture.ui.postLogin.profile.favourite.adapters.FavouriteHeaderItems
 import com.app.dubaiculture.ui.postLogin.profile.favourite.models.FavouriteHeader
+import com.app.dubaiculture.ui.postLogin.profile.favourite.services.FavouriteServices
 import com.app.dubaiculture.utils.AppConfigUtils.favouriteClickCheckerFlag
 import com.squareup.otto.Bus
 import com.xwray.groupie.GroupAdapter

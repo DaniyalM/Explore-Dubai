@@ -10,12 +10,10 @@ import com.app.dubaiculture.data.repository.attraction.AttractionRepository
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
 import com.app.dubaiculture.data.repository.event.local.models.Events
-import com.app.dubaiculture.data.repository.sitemap.local.BeaconItems
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_ID
-import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,7 +39,7 @@ class AttractionDetailViewModel @Inject constructor(
             getAttractionDetailsToScreen(it.id, context.auth.locale.toString())
         }
         savedStateHandle.get<String>(ATTRACTION_ID)?.let {
-            getAttractionDetailsToScreen(it,context.auth.locale.toString())
+            getAttractionDetailsToScreen(it, context.auth.locale.toString())
         }
     }
 

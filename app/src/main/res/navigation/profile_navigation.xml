@@ -5,7 +5,7 @@
     app:startDestination="@id/profileFragment">
 
     <include app:graph="@navigation/post_login_bottom_navigation"/>
-    <include app:graph="@navigation/favourite_navigation"/>
+    <include app:graph="@navigation/favourite_navigation" />
 
     <fragment
         android:id="@+id/profileFragment"
@@ -115,32 +115,32 @@
         android:id="@+id/passwordChangeFragment"
         android:name="com.app.dubaiculture.ui.preLogin.password.changepassword.PasswordChangeFragment"
         android:label="PasswordChangeFragment" />
-<!--    <fragment-->
-<!--        android:id="@+id/favouriteFragment"-->
-<!--        android:name="com.app.dubaiculture.ui.postLogin.profile.favourite.FavouriteFragment"-->
-<!--        android:label="FavouriteFragment" >-->
-<!--        <action-->
-<!--            android:id="@+id/action_favouriteFragment_to_post_login_bottom_navigation"-->
-<!--            app:destination="@id/post_login_bottom_navigation"-->
-<!--            app:enterAnim="@anim/fade_in"-->
-<!--            app:exitAnim="@anim/fade_out"-->
-<!--            app:popEnterAnim="@anim/fade_in"-->
-<!--            app:popExitAnim="@anim/fade_out" />-->
-<!--        <action-->
-<!--            android:id="@+id/action_favouriteFragment_to_event_detail_navigation"-->
-<!--            app:destination="@id/event_detail_navigation"-->
-<!--            app:enterAnim="@anim/fade_in"-->
-<!--            app:exitAnim="@anim/fade_out"-->
-<!--            app:popEnterAnim="@anim/fade_in"-->
-<!--            app:popExitAnim="@anim/fade_out" />-->
-<!--        <action-->
-<!--            android:id="@+id/action_favouriteFragment_to_attraction_detail_navigation"-->
-<!--            app:destination="@id/attraction_detail_navigation"-->
-<!--            app:enterAnim="@anim/fade_in"-->
-<!--            app:exitAnim="@anim/fade_out"-->
-<!--            app:popEnterAnim="@anim/fade_in"-->
-<!--            app:popExitAnim="@anim/fade_out" />-->
-<!--    </fragment>-->
+    <!--    <fragment-->
+    <!--        android:id="@+id/favouriteFragment"-->
+    <!--        android:name="com.app.dubaiculture.ui.postLogin.profile.favourite.FavouriteFragment"-->
+    <!--        android:label="FavouriteFragment" >-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_favouriteFragment_to_post_login_bottom_navigation"-->
+    <!--            app:destination="@id/post_login_bottom_navigation"-->
+    <!--            app:enterAnim="@anim/fade_in"-->
+    <!--            app:exitAnim="@anim/fade_out"-->
+    <!--            app:popEnterAnim="@anim/fade_in"-->
+    <!--            app:popExitAnim="@anim/fade_out" />-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_favouriteFragment_to_event_detail_navigation"-->
+    <!--            app:destination="@id/event_detail_navigation"-->
+    <!--            app:enterAnim="@anim/fade_in"-->
+    <!--            app:exitAnim="@anim/fade_out"-->
+    <!--            app:popEnterAnim="@anim/fade_in"-->
+    <!--            app:popExitAnim="@anim/fade_out" />-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_favouriteFragment_to_attraction_detail_navigation"-->
+    <!--            app:destination="@id/attraction_detail_navigation"-->
+    <!--            app:enterAnim="@anim/fade_in"-->
+    <!--            app:exitAnim="@anim/fade_out"-->
+    <!--            app:popEnterAnim="@anim/fade_in"-->
+    <!--            app:popExitAnim="@anim/fade_out" />-->
+    <!--    </fragment>-->
     <fragment
         android:id="@+id/myServicesFragment"
         android:name="com.app.dubaiculture.ui.postLogin.popular_service.myservices.MyServicesFragment"

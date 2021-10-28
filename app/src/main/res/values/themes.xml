@@ -56,7 +56,6 @@
         <item name="color_light_theme_purple_dark_theme">@color/white_900</item>
 
 
-
         <!--curve bg in news and event detail-->
         <item name="color_curve_view_bg">@color/curve_color</item>
 
@@ -67,7 +66,6 @@
 
 
         <item name="color_login_edit_text_bg">@color/color_login_edit_text</item>
-
 
 
     </style>

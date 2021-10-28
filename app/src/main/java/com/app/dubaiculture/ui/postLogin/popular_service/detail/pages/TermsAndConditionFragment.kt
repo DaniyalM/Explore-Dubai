@@ -24,7 +24,7 @@ class TermsAndConditionFragment(
             activity.resources.getString(R.string.terms_and_conditions)
         binding.commonBtn.text = termsAndCondition!![0].serviceStart
 
-        termsAndCondition?.get(0)?.apply {
+        termsAndCondition.get(0).apply {
             termsAndConditionsSummary.let {
                 binding.termsTitle.initialize(it, object : ReadMoreClickListener {
                     override fun onClick(readMore: Boolean) {

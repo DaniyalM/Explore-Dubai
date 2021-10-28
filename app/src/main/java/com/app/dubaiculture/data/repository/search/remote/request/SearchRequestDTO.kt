@@ -5,7 +5,7 @@ data class SearchRequestDTO(
     val Culture: String = ""
 )
 
-data class SearchRequest (
-    val userId: String="",
-    val culture: String=""
+data class SearchRequest(
+    val userId: String = "",
+    val culture: String = ""
 )

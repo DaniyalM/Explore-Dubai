@@ -9,7 +9,8 @@
 
 
     <!--z-->
-    <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>
+    <!--    <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>-->
+    <string name="map_key" translatable="false">AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs</string>
     <string name="switch_language">Switch Language</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -231,6 +232,7 @@
     <string name="accessiblitiy_more">Accessibility</string>
     <string name="logout_more">Logout</string>
     <string name="are_you_sure_want_to_logout">Are you sure\nyou want to logout?</string>
+    <string name="are_you_sure_want_to_delete">Are you sure you want\nto delete days?</string>
     <string name="settings_">Settings</string>
     <string name="turn_on_location">Turn on Location</string>
     <string name="reset_settings">Reset Settings</string>
@@ -303,5 +305,63 @@
     <string name="no_my_posts_fav">No Data Found</string>
     <string name="faqs">FAQs</string>
     <string name="loading">Loading...</string>
+
+    //PlanYourTrip
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consec iscing elit, sed do eiusmod tempor cons tetur ad iscing elit sed do</string>
+
+    <string name="step1">Step 01</string>
+    <string name="step2">Step 02</string>
+    <string name="step3">Step 03</string>
+    <string name="step4">Step 04</string>
+    <string name="ima">I\'m a</string>
+    <string name="resident">Resident</string>
+    <string name="next">Next</string>
+    <string name="interestedIn">Interested In</string>
+    <string name="selectMultiple">(You can select multiple)</string>
+    <string name="previous">Previous</string>
+    <string name="nearestLocation">Nearest Location</string>
+    <string name="select_duration">Select Duration</string>
+    <string name="select_dates">Select Dates</string>
+    <string name="select_dates_desc">If you are not sure about the dates, select the number of days of your trip</string>
+    <string name="no_of_days">No. Of Days</string>
+    <string name="show_my_plan">Show My Plan</string>
+    <string name="add_duration">Add Duration</string>
+    <string name="checkbox_desc">Repeat this selection to all</string>
+    <string name="hour2">2 Hours</string>
+    <string name="hour1">1 Hour</string>
+    <string name="hour3">3 Hours</string>
+    <string name="hour5">5 Hours</string>
+    <string name="hour7">7 Hours</string>
+    <string name="hour4">4 Hours</string>
+    <string name="hour6">6 Hours</string>
+    <string name="hour8">8 Hours</string>
+    <string name="time_of_day">Time of Day</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
+    <string name="duration">Duration</string>
+    <string name="editDuration">Edit Duration</string>
+    <string name="save">Save</string>
+    <string name="editDates">Edit Dates</string>
+    <string name="delete">Delete</string>
+    <string name="myTrip">My Trip</string>
+    <string name="editTrip">Edit Trip</string>
+    <string name="saveTrip">Save Trip</string>
+    <string name="tripName">Trip Name</string>
+    <string name="nameYourTrip">Name your trip</string>
+    <string name="select_mode_of_travel">Select Mode of Travel</string>
+    <string name="driving">Driving</string>
+    <string name="walking">Walking</string>
+    <string name="train">Train</string>
+    <string name="bus">Bus</string>
+    <string name="addLocation">Add Location</string>
+    <string name="enterLocation">Enter location</string>
+
+    <string name="day2">2 Days</string>
+    <string name="day4">4 Days</string>
+    <string name="day6">6 Days</string>
+    <string name="day8">8 Days</string>
+    <string name="day10">10 Days</string>
+
 
 </resources>

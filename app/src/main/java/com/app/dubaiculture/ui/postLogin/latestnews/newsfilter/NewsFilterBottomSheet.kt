@@ -93,7 +93,7 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
 
 
     private fun subscribeToObservables() {
-        newsFilterViewModel.filter.observe(viewLifecycleOwner){
+        newsFilterViewModel.filter.observe(viewLifecycleOwner) {
             it?.peekContent()?.let {
                 if (it.keyword.isNotEmpty())
                     binding.editSearch.setText(it.keyword)
@@ -102,19 +102,19 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
 //        newsFilterViewModel.updateFilter(filter)
         newsFilterViewModel.keyword.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                filter=filter.copy(keyword = it)
+                filter = filter.copy(keyword = it)
             }
         }
         newsFilterViewModel.dateFrom.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                filter=filter.copy(dateFrom = it)
+                filter = filter.copy(dateFrom = it)
 
                 binding.tvStartDate.text = it
             }
         }
         newsFilterViewModel.dateTo.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                filter=filter.copy(dateTo = it)
+                filter = filter.copy(dateTo = it)
 
                 binding.tvEndDate.text = it
             }

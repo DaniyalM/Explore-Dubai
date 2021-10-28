@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="view"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.TripStep4Fragment" />
+
+        <variable
+            name="viewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
+
+        <variable
+            name="step4ViewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step4ViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chainUseRtl="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/new_green_line" />
+
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:includeFontPadding="false"
+            android:text="@string/select_duration"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="@dimen/_22ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditDur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:backgroundTint="?attr/color_edit_text_bg"
+            android:fontFamily="@font/neo_sans_arabic_regular"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:onClick="@{()->view.onEditDurationClicked()}"
+            android:text="@string/editDuration"
+            android:textAllCaps="false"
+            android:textColor="@color/purple_650"
+            android:textSize="@dimen/_8ssp"
+            android:visibility="@{(viewModel.durationSummary.size() != 0) ? View.VISIBLE : View.GONE}"
+            app:cornerRadius="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@id/tvHeading"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvDates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@drawable/custom_ripple_black"
+            android:onClick="@{()->view.onSelectDateClicked()}"
+            android:outlineSpotShadowColor="?attr/color_card_views_shadow"
+            android:visibility="@{(viewModel.durationSummary.size() == 0) ? View.VISIBLE : View.GONE}"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvHeading">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_select_dates"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text="@string/select_dates"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/calender"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:text="@string/select_dates_desc"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="@{(viewModel.durationSummary.size() == 0) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="@id/cvDates"
+            app:layout_constraintStart_toStartOf="@id/cvDates"
+            app:layout_constraintTop_toBottomOf="@id/cvDates" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@drawable/custom_ripple_black"
+            android:onClick="@{()->view.onNoDaysClicked()}"
+            android:outlineSpotShadowColor="?attr/color_card_views_shadow"
+            android:visibility="@{(viewModel.durationSummary.size() == 0) ? View.VISIBLE : View.GONE}"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDesc">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_select_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text="@string/no_of_days"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivDates"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/clock_purple"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDurations"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:visibility="@{(viewModel.durationSummary.size() != 0) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/btnShowPlan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvHeading"
+            tools:listitem="@layout/item_duration_summary" />
+
+        <Button
+            android:id="@+id/btnShowPlan"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:enabled="@{viewModel.durationSummary.size() != 0}"
+            android:fontFamily="@font/neo_sans_arabic_regular"
+            android:onClick="@{()->viewModel.postEventAttraction()}"
+            android:text="@string/show_my_plan"
+            android:textAllCaps="false"
+            android:textColor="?attr/color_dubai_logo"
+            app:cornerRadius="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/purple_650" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

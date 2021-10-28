@@ -22,10 +22,10 @@ class SearchPagingSource(
         return try {
             val nextPageNumber = params.key ?: 1
             val response = searchService.searchResults(
-               searchPaginationRequestDTO= searchPaginationRequestDTO.copy(
-                   PageNo = nextPageNumber,
-                   PageSize = Constants.PAGING.SEARCH_PAGE_SIZE * nextPageNumber
-               )
+                searchPaginationRequestDTO = searchPaginationRequestDTO.copy(
+                    PageNo = nextPageNumber,
+                    PageSize = Constants.PAGING.SEARCH_PAGE_SIZE * nextPageNumber
+                )
             )
 
             callback(response.Result.searchesResultItem.TotalRecordCount)

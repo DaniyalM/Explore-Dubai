@@ -69,8 +69,7 @@
                     android:background="@drawable/speakers"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_category"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_category"
-                     />
+                    app:layout_constraintTop_toTopOf="@+id/tv_category" />
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_title"

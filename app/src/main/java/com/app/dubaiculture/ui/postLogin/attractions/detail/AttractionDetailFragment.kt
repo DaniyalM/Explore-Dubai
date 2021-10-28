@@ -101,7 +101,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     private var lat: String? = ""
     private var long: String? = ""
-    private  var attractionsObj: Attractions?=null
+    private var attractionsObj: Attractions? = null
 
     private var isDetailFavouriteFlag = false
 
@@ -342,7 +342,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         detailInnerLayout.constLayoutIbecon.setOnClickListener(this)
         detailInnerLayout.tvDirection.setOnClickListener(this)
 
-        attractionsObj?.let { attraction->
+        attractionsObj?.let { attraction ->
             detailInnerLayout.imgFb.setOnClickListener {
                 openUrl(
                     attraction.socialLink?.get(0)!!.facebookPageLink,
@@ -383,7 +383,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
         binding.apply {
 
-            attractionsObj?.let { attractionsObj1->
+            attractionsObj?.let { attractionsObj1 ->
                 root.apply {
                     toolbarLayout.title.text = attractionsObj1.title
                     toolbarLayout.category.text = attractionsObj1.category
@@ -474,8 +474,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         if (isArabic()) {
-            detailInnerLayout.cardviewPlanTrip?.shapeAppearanceModel =
-                detailInnerLayout.cardviewPlanTrip!!.shapeAppearanceModel
+            detailInnerLayout.cardviewPlanTrip.shapeAppearanceModel =
+                detailInnerLayout.cardviewPlanTrip.shapeAppearanceModel
                     .toBuilder()
                     .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                     .setTopRightCornerSize(radius)
@@ -533,7 +533,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         }
 
 
-
                     }
                 },
 //                activity,
@@ -545,7 +544,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onMapReady(map: GoogleMap?) {
         try {
 
-            if (attractionsObj!=null && !attractionsObj?.latitude.isNullOrEmpty() && !attractionsObj?.longitude.isNullOrEmpty()) {
+            if (attractionsObj != null && !attractionsObj?.latitude.isNullOrEmpty() && !attractionsObj?.longitude.isNullOrEmpty()) {
                 val attractionLatLng = LatLng(
                     attractionsObj!!.latitude?.toDouble()!!,
                     attractionsObj!!.longitude?.toDouble()!!
@@ -576,7 +575,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_direction -> {
-                if (attractionsObj!=null&&!attractionsObj?.latitude.isNullOrEmpty()) {
+                if (attractionsObj != null && !attractionsObj?.latitude.isNullOrEmpty()) {
                     val uri =
                         "http://maps.google.com/maps?saddr=" + lat.toString() + "," + long.toString() + "&daddr=" + attractionsObj?.latitude.toString() + "," + attractionsObj?.longitude
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
@@ -728,7 +727,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     private fun locationIsEmpty(location: Location) {
         try {
-            if (attractionsObj!=null && !TextUtils.isEmpty(attractionsObj?.latitude) && !TextUtils.isEmpty(
+            if (attractionsObj != null && !TextUtils.isEmpty(attractionsObj?.latitude) && !TextUtils.isEmpty(
                     attractionsObj?.latitude
                 )
             ) {

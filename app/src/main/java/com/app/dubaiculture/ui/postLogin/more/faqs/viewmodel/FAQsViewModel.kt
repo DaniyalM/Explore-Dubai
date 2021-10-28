@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FAQsViewModel @Inject constructor(
-        application: Application,
-        val moreRepository: MoreRepository
+    application: Application,
+    val moreRepository: MoreRepository
 ) : BaseViewModel(application) {
     private val context = getApplication<ApplicationEntry>()
 

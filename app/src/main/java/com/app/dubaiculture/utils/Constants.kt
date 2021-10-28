@@ -41,7 +41,7 @@ object Constants {
     object Location {
         const val ACTION_LOCATION_PROVIDER_CHANGED: String = "android.location.PROVIDERS_CHANGED"
         const val ENABLE_LOCATION: String =
-                "Looks like location is disabled in device settings. Do you want to enable it?"
+            "Looks like location is disabled in device settings. Do you want to enable it?"
     }
 
     object NavResults {
@@ -91,6 +91,7 @@ object Constants {
         const val EXPLORE_TO_ATTRACTIONS: String = "exp_to_attractions"
         const val ATTRACTION_DETAIL: String = "attractionId"
         const val ATTRACTION_DETAIL_BEACON: String = "attraction_id"
+        const val NEAREST_LOCATION: String = "nearest_location"
         const val SERVICE_ID: String = "service_id"
 
 
@@ -98,9 +99,9 @@ object Constants {
 
     object playStoreAppLink {
         const val OPEN_PLAYSTORE_APP: String =
-                "market://search?q=pub:Dubai Culture and Arts Authority"
+            "market://search?q=pub:Dubai Culture and Arts Authority"
         const val OPEN_PLAYSTORE_WEB: String =
-                "https://play.google.com/store/apps/details?id=Dubai+Culture+and+Arts+Authority"
+            "https://play.google.com/store/apps/details?id=Dubai+Culture+and+Arts+Authority"
     }
 
     object IBecons {
@@ -187,7 +188,6 @@ object Constants {
 
 
     }
-
     object PLAY_STORE {
         const val PACKAGE_NAME: String = "com.dubaiculture"
         const val DUBAI_CULTURE: String = "Dubai Culture"

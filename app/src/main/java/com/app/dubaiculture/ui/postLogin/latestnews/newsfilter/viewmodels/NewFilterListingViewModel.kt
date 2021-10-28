@@ -40,9 +40,9 @@ class NewFilterListingViewModel @Inject constructor(
             when (val result = newsRepository.getFilterNews(
                 NewsFilterRequest(
                     culture = context.auth.locale ?: "en",
-                    dateTo = filter.dateTo ?: "",
-                    dateFrom = filter.dateFrom ?: "",
-                    keyword = filter.keyword ?: "",
+                    dateTo = filter.dateTo,
+                    dateFrom = filter.dateFrom,
+                    keyword = filter.keyword,
                     tags = filter.tags
                 )
             )) {

@@ -122,7 +122,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_service_listing"
             android:layout_marginTop="@dimen/_15sdp"

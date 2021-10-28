@@ -7,5 +7,5 @@ data class SearchResult(
     val pageRecordTo: Int,
     val pageSize: Int,
     val totalRecordCount: Int,
-    val items:List<SearchResultItem>
+    val items: List<SearchResultItem>
 )

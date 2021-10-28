@@ -12,7 +12,6 @@ import com.app.dubaiculture.utils.toString
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @HiltViewModel
 class NewsSharedViewModel @Inject constructor(
@@ -49,7 +48,7 @@ class NewsSharedViewModel @Inject constructor(
         _filter.value = Event(filter)
     }
 
-    fun updateSelectedItem(items:List<SelectedFilter>) {
+    fun updateSelectedItem(items: List<SelectedFilter>) {
         _selectedItems.value = items
     }
 

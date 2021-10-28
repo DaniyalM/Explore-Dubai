@@ -14,9 +14,10 @@ import javax.inject.Inject
 
 class SearchRDS @Inject constructor(private val searchService: SearchService) : BaseRDS() {
 
-    suspend fun getSearchHeaders(searchRequest: SearchRequestDTO)=safeApiCall{
+    suspend fun getSearchHeaders(searchRequest: SearchRequestDTO) = safeApiCall {
         searchService.getSearchHeaders(
-            culture = searchRequest.Culture)
+            culture = searchRequest.Culture
+        )
     }
 
     suspend fun getSearchHistory(searchRequest: SearchRequestDTO) =
@@ -46,7 +47,7 @@ class SearchRDS @Inject constructor(private val searchService: SearchService) : 
                     SearchPagingSource(
                         searchService,
                         searchPaginationRequestDTO,
-                        callback=callback
+                        callback = callback
                     )
                 }
             ).flow

@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.data.repository.search.local.SearchResultItem
 import com.app.dubaiculture.databinding.ItemSearchResultLayoutBinding
 import com.app.dubaiculture.utils.hide
-import com.app.dubaiculture.utils.loadImage
-import com.app.dubaiculture.utils.show
 
 class SearchItemListAdapter(
     val searchItemClickListner: SearchItemClickListner
@@ -40,7 +38,7 @@ class SearchItemListAdapter(
         fun bind(searchResultItem: SearchResultItem) {
 
             binding.apply {
-                item=searchResultItem
+                item = searchResultItem
                 if (searchResultItem.type.isEmpty())
                     tvSearchCat.hide()
                 itemView.setOnClickListener {

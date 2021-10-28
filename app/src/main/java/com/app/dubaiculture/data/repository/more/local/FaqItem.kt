@@ -5,5 +5,5 @@ data class FaqItem(
     val answer: String,
     val question: String,
     val count: Int?= 0,
-    val is_expanded :Boolean =false
+    val is_expanded: Boolean = false
 )

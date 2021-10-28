@@ -10,5 +10,5 @@ data class SearchResultItemDTO(
     val Title: String?,
     val Type: String?,
     val isPage: Boolean?,
-    val ID:String?
+    val ID: String?
 )

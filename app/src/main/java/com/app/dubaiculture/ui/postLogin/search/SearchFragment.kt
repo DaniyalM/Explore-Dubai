@@ -238,7 +238,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                             "News" -> {
                                 navigateByDirections(
                                     SearchFragmentDirections.actionSearchFragmentToNews(
-                                        searchResultItem.id ?: "8A95C74162ED46DE8514520F1D86B67F"
+                                        searchResultItem.id
                                     )
                                 )
                             }

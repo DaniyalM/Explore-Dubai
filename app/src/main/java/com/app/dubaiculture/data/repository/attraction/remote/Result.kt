@@ -4,7 +4,6 @@ import com.app.dubaiculture.data.repository.attraction.remote.response.Attractio
 import com.app.dubaiculture.data.repository.attraction.remote.response.AttractionDTO
 import com.app.dubaiculture.data.repository.search.local.SearchHeaderDTO
 import com.app.dubaiculture.data.repository.search.local.SearchResultDTO
-import com.app.dubaiculture.data.repository.search.local.SearchResultItemDTO
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

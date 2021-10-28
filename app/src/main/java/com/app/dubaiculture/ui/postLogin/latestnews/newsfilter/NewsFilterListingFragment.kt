@@ -126,7 +126,7 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             searchFilterSelectedAdapter = SelectedFiltersListAdapter(object :
                 SelectedFiltersListAdapter.RemoveHeaderItem {
-                override fun onItemRemove( item: SelectedFilter) {
+                override fun onItemRemove(item: SelectedFilter) {
                     newsFilterViewModel.removeFilter(item)
                 }
             })

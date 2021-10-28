@@ -79,8 +79,8 @@ class ExploreMapViewModel @Inject constructor(
                     title = it.title,
                     location = it.locationTitle,
                     distance = it.distance,
-                    lat = it.latitude!!,
-                    lng = it.longitude!!,
+                    lat = it.latitude,
+                    lng = it.longitude,
                 )
             )
         }
@@ -192,8 +192,8 @@ class ExploreMapViewModel @Inject constructor(
                     title = it.title,
                     location = it.locationTitle,
                     distance = it.distance,
-                    lat = it.latitude!!,
-                    lng = it.longitude!!,
+                    lat = it.latitude,
+                    lng = it.longitude,
                 )
             )
         }

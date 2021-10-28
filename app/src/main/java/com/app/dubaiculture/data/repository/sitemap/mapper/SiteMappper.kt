@@ -17,6 +17,7 @@ fun transformSiteMap(siteMapResponse: SiteMapResponse): SiteMapModel =
     siteMapResponse.Result.attractions.run {
         transformSiteMapObject(this)
     }
+
 fun transformSiteMapObject(siteMapAttractionDTO: SiteMapAttractionDTO): SiteMapModel = SiteMapModel(
 
     attractionID = siteMapAttractionDTO.id,

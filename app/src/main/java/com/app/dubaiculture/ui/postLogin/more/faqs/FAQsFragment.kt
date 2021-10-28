@@ -9,14 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.more.local.FaqItem
 import com.app.dubaiculture.databinding.FragmentFAQsBinding
-import com.app.dubaiculture.databinding.ItemFaqsLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.components.CustomTextWatcher.MyCustomTextWatcher
 import com.app.dubaiculture.ui.postLogin.more.faqs.adapters.FaqsListAdapter
 import com.app.dubaiculture.ui.postLogin.more.faqs.adapters.clicklisteners.FaqsItemClickListner
 import com.app.dubaiculture.ui.postLogin.more.faqs.viewmodel.FAQsViewModel
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,7 +29,7 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(faqsViewModel)
-        binding.viewModel=faqsViewModel
+        binding.viewModel = faqsViewModel
 
         backArrowRTL(binding.imgClose)
         binding.imgCancel.setOnClickListener(this)
@@ -58,17 +54,17 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>(), View.OnClickListener {
     }
 
 
-    private fun subscribeToObservable(){
-        faqsViewModel.faqsTitle.observe(viewLifecycleOwner){
-            binding.faqsTitle.text=it
+    private fun subscribeToObservable() {
+        faqsViewModel.faqsTitle.observe(viewLifecycleOwner) {
+            binding.faqsTitle.text = it
         }
 
-        faqsViewModel.faqs.observe(viewLifecycleOwner){
+        faqsViewModel.faqs.observe(viewLifecycleOwner) {
             it.let {
                 faqsListAdapter.submitList(it)
             }
         }
-        faqsViewModel.faq.observe(viewLifecycleOwner){
+        faqsViewModel.faq.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 faqsViewModel.updateFaqInList(it)
             }
