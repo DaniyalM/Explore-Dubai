@@ -23,10 +23,14 @@
 
         <!--for TextView title color-->
         <item name="colorSecondary">@color/gray_200</item>
-        <item name="color_light_white_dark_gray">@color/gray_400</item>
+        <item name="color_light_white_dark_gray">@color/gray_200</item>
+        <item name="color_light_white_dark_gray_icon">@color/gray_850</item>
+        <item name="color_light_theme_dark_theme_dark_gray">@color/white_900</item>
         <item name="color_light_white_dark_gray_night">@color/white_900</item>
         <item name="color_dubai_logo_inverse">@color/purple_900</item>
         <item name="color_dubai_logo_dark">@color/purple_900</item>
+        <item name="colorEventLight">@color/white_900</item>
+        <item name="color_light_theme_dark_theme_gray">@color/gray_850</item>
 
         <item name="colorSecondaryVariant">@color/gray_200</item>
 
@@ -43,6 +47,8 @@
 
         <!--for all material card and card view-->
         <item name="colorSurface">@color/black_900</item>
+        <item name="colorSurfaceInverted">@color/black_900</item>
+
         <!--back arrow svgs-->
         <item name="colorOnSurface">@color/gray_400</item>
 

@@ -24,8 +24,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    application: Application,
-    private val searchRepository: SearchRepository
+        application: Application,
+        private val searchRepository: SearchRepository
 ) : BaseViewModel(application) {
 
     private val _tabs: MutableLiveData<List<SearchTab>> = MutableLiveData()
@@ -46,14 +46,20 @@ class SearchViewModel @Inject constructor(
     var searchFilter: LiveData<Event<SearchPaginationRequest>> = _searchFilter
 
     private val _searchPaginationItem: MutableLiveData<PagingData<SearchResultItem>> =
-        MutableLiveData()
+            MutableLiveData()
     val searchPaginationItem: LiveData<PagingData<SearchResultItem>> = _searchPaginationItem
 
     private val context = getApplication<ApplicationEntry>()
 
     init {
+
         createTabs()
-        getSearchHistory()
+        if (!context.auth.isGuest) {
+            getSearchHistory()
+        } else {
+            _viewFlag.value = Event(true)
+        }
+
     }
 
 
@@ -85,14 +91,14 @@ class SearchViewModel @Inject constructor(
 
     private fun updateSearch(searchRequest: SearchPaginationRequest) {
         _searchFilter.value = Event(
-            searchRequest.copy(
-                keyword = searchRequest.keyword,
-                filter = searchRequest.filter,
-                culture = context.auth.locale,
-                category = searchRequest.category,
-                isOld = searchRequest.isOld,
-                sort = searchRequest.sort
-            )
+                searchRequest.copy(
+                        keyword = searchRequest.keyword,
+                        filter = searchRequest.filter,
+                        culture = context.auth.locale,
+                        category = searchRequest.category,
+                        isOld = searchRequest.isOld,
+                        sort = searchRequest.sort
+                )
         )
     }
 
@@ -114,9 +120,9 @@ class SearchViewModel @Inject constructor(
         showLoader(true)
         viewModelScope.launch {
             when (val result =
-                searchRepository.getSearchHeader(
-                    culture = context.auth.locale!!
-                )) {
+                    searchRepository.getSearchHeader(
+                            culture = context.auth.locale!!
+                    )) {
                 is Result.Success -> {
                     showLoader(false)
                     _tabs.value = result.value
@@ -138,15 +144,20 @@ class SearchViewModel @Inject constructor(
 //        showLoader(true)
         viewModelScope.launch {
             when (val result =
-                searchRepository.getSearchHistory(
-                    SearchRequest(
-                        userId = context.auth.user!!.userId,
-                        culture = context.auth.locale!!
-                    )
-                )) {
+                    searchRepository.getSearchHistory(
+                            SearchRequest(
+                                    userId = context.auth.user!!.userId,
+                                    culture = context.auth.locale!!
+                            )
+                    )) {
                 is Result.Success -> {
 //                    showLoader(false)
-                    _stringList.value = result.value
+                    if (result.value.isNotEmpty()){
+                        _stringList.value = result.value
+                    }else{
+                        _viewFlag.value= Event(true)
+                    }
+
 
                 }
                 is Result.Failure -> {
@@ -157,15 +168,17 @@ class SearchViewModel @Inject constructor(
     }
 
     fun clearHistory() {
+        showLoader(true)
         viewModelScope.launch {
             when (val result =
-                searchRepository.clearHistory(
-                    SearchRequest(
-                        userId = context.auth.user!!.userId,
-                        culture = context.auth.locale!!
-                    )
-                )) {
+                    searchRepository.clearHistory(
+                            SearchRequest(
+                                    userId = context.auth.user!!.userId,
+                                    culture = context.auth.locale!!
+                            )
+                    )) {
                 is Result.Success -> {
+                    showLoader(false)
                     if (result.value) {
                         getSearchHistory()
                     }
@@ -179,20 +192,20 @@ class SearchViewModel @Inject constructor(
     }
 
     fun search(
-        searchRequest: SearchPaginationRequest
+            searchRequest: SearchPaginationRequest
     ) {
         viewModelScope.launch {
             when (val result = searchRepository.fetchResults(
-                searchRequest
+                    searchRequest
             ) {
                 setCount(it)
             }) {
                 is Result.Success -> {
                     result.value
-                        .cachedIn(viewModelScope)
-                        .collectLatest {
-                            _searchPaginationItem.value = it
-                        }
+                            .cachedIn(viewModelScope)
+                            .collectLatest {
+                                _searchPaginationItem.value = it
+                            }
                 }
                 is Result.Failure -> {
                     showLoader(false)

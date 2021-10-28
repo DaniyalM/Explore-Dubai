@@ -24,7 +24,7 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 //    navigateByDirections(MyTripFragmentDirections.actionTripFragmentToTripDetailParentFragment())
     }
 
-    fun onSaveTripClicked(){
+    fun onSaveTripClicked() {
         navigate(R.id.action_myTrip_to_myTripNameDialog)
     }
 }

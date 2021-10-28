@@ -1,10 +1,8 @@
 package com.app.dubaiculture.data.repository.trip.mapper
 
-import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.trip.local.*
 import com.app.dubaiculture.data.repository.trip.local.Day
 import com.app.dubaiculture.data.repository.trip.local.DayAndNightTime
-import com.app.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.app.dubaiculture.data.repository.trip.local.Hour
 import com.app.dubaiculture.data.repository.trip.local.InterestedIn
 import com.app.dubaiculture.data.repository.trip.local.Location
@@ -20,11 +18,11 @@ fun transform(userTypeResponse: UserTypeResponse): UserTypeResponseDTO {
     )
 }
 
-fun transformUserType(userTypeResponse: UserTypeResponseDTO)=UserTypes(
+fun transformUserType(userTypeResponse: UserTypeResponseDTO) = UserTypes(
     title = userTypeResponse.Title,
     usersType = userTypeResponse.UsersType.mapIndexed { index, usersTypeDTO ->
         UsersType(
-            id = index +1,
+            id = index + 1,
             image = usersTypeDTO.Image,
             title = usersTypeDTO.Title,
             checked = false
@@ -34,7 +32,7 @@ fun transformUserType(userTypeResponse: UserTypeResponseDTO)=UserTypes(
 
 fun transformInterestedIn(interestedInResponseDTO: InterestedInResponseDTO) = InterestedIn(
     title = interestedInResponseDTO.Title,
-    interestedInList = interestedInResponseDTO.InterestedIn.map {  interestedInResponseDTO ->
+    interestedInList = interestedInResponseDTO.InterestedIn.map { interestedInResponseDTO ->
         InterestedInType(
             id = interestedInResponseDTO.Id,
             image = interestedInResponseDTO.Image,
@@ -93,49 +91,49 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
             EventsAndAttraction(
                 busyDays = eventsAndAttraction.BusyDays.map {
                     EADay(
-                        it.Number?:"",
-                        it.Title?:""
+                        it.Number,
+                        it.Title
                     )
                 },
-                category = eventsAndAttraction.Category?:"",
-                categoryDestinationIcon = eventsAndAttraction.CategoryDestinationIcon?:"",
-                categoryID = eventsAndAttraction.CategoryID?:"",
-                categoryTripIcon = eventsAndAttraction.CategoryTripIcon?:"",
-                dateFrom = eventsAndAttraction.DateFrom?:"",
-                dateTo = eventsAndAttraction.DateTo?:"",
-                day = eventsAndAttraction.Day?:"",
+                category = eventsAndAttraction.Category,
+                categoryDestinationIcon = eventsAndAttraction.CategoryDestinationIcon,
+                categoryID = eventsAndAttraction.CategoryID,
+                categoryTripIcon = eventsAndAttraction.CategoryTripIcon,
+                dateFrom = eventsAndAttraction.DateFrom,
+                dateTo = eventsAndAttraction.DateTo,
+                day = eventsAndAttraction.Day,
                 dayFrom = EADay(
-                    number = eventsAndAttraction.DayFrom.Number?:"",
-                    title = eventsAndAttraction.DayFrom.Title?:""
+                    number = eventsAndAttraction.DayFrom.Number,
+                    title = eventsAndAttraction.DayFrom.Title
                 ),
                 dayTo = EADay(
-                    number = eventsAndAttraction.DayTo.Number?:"",
-                    title = eventsAndAttraction.DayTo.Title?:""
+                    number = eventsAndAttraction.DayTo.Number,
+                    title = eventsAndAttraction.DayTo.Title
                 ),
-                detailPageUrl = eventsAndAttraction.DetailPageUrl?:"",
-                displayTimeFrom = eventsAndAttraction.DisplayTimeFrom?:"",
-                displayTimeTo = eventsAndAttraction.DisplayTimeTo?:"",
-                id = eventsAndAttraction.ID?:"",
-                image = eventsAndAttraction.Image?:"",
-                isAttraction = eventsAndAttraction.IsAttraction?:false,
-                isEvent = eventsAndAttraction.IsEvent?:false,
-                latitude = eventsAndAttraction.Latitude?:"",
-                locationTitle = eventsAndAttraction.LocationTitle?:"",
-                longitude = eventsAndAttraction.Longitude?:"",
-                mapLink = eventsAndAttraction.MapLink?:"",
-                secondaryCategory = eventsAndAttraction.SecondaryCategory?:"",
-                secondaryCategoryID = eventsAndAttraction.SecondaryCategoryID?:"",
-                summary = eventsAndAttraction.Summary?:"",
-                timeFrom = eventsAndAttraction.TimeFrom?:"",
-                timeTo = eventsAndAttraction.TimeTo?:"",
-                title = eventsAndAttraction.Title?:"",
-                icon = eventsAndAttraction.icon?:"",
+                detailPageUrl = eventsAndAttraction.DetailPageUrl,
+                displayTimeFrom = eventsAndAttraction.DisplayTimeFrom,
+                displayTimeTo = eventsAndAttraction.DisplayTimeTo,
+                id = eventsAndAttraction.ID,
+                image = eventsAndAttraction.Image,
+                isAttraction = eventsAndAttraction.IsAttraction,
+                isEvent = eventsAndAttraction.IsEvent,
+                latitude = eventsAndAttraction.Latitude,
+                locationTitle = eventsAndAttraction.LocationTitle,
+                longitude = eventsAndAttraction.Longitude,
+                mapLink = eventsAndAttraction.MapLink,
+                secondaryCategory = eventsAndAttraction.SecondaryCategory,
+                secondaryCategoryID = eventsAndAttraction.SecondaryCategoryID,
+                summary = eventsAndAttraction.Summary,
+                timeFrom = eventsAndAttraction.TimeFrom,
+                timeTo = eventsAndAttraction.TimeTo,
+                title = eventsAndAttraction.Title,
+                icon = eventsAndAttraction.icon,
             )
         },
         location = Location(
-            latitude = eventAttractionResponseDTO.Location.Latitude?:"",
-            locationId = eventAttractionResponseDTO.Location.LocationId?:"",
-            locationTitle = eventAttractionResponseDTO.Location.LocationTitle?:"",
-            longitude = eventAttractionResponseDTO.Location.Longitude?:"",
+            latitude = eventAttractionResponseDTO.Location.Latitude,
+            locationId = eventAttractionResponseDTO.Location.LocationId,
+            locationTitle = eventAttractionResponseDTO.Location.LocationTitle,
+            longitude = eventAttractionResponseDTO.Location.Longitude,
         )
     )

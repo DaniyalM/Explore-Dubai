@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.LocationNearest
@@ -84,7 +82,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
         binding.rvLocationChips.apply {
             layoutManager =
-                StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
+                StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
             nearestLocAdapter = NearestLocationAdapter(
                 object : NearestLocationClickListener {
                     override fun rowClickListener(userType: LocationNearest) {
@@ -93,7 +91,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
                     override fun rowClickListener(userType: LocationNearest, position: Int) {
 
-                        tripSharedViewModel.updateLocationItem(userType.copy(isChecked = !userType.isChecked!!))
+                        tripSharedViewModel.updateLocationItem(userType.copy(isChecked = !userType.isChecked))
 
 //                        navigateMarker(
 //                            if (userType.latitude.isBlank()) 0.0 else userType.latitude.toDouble(),
@@ -154,7 +152,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
     private fun setMarker(it: List<LocationNearest>) {
         it.map { selectedLoc ->
-            if(selectedLoc.isChecked) {
+            if (selectedLoc.isChecked) {
                 navigateMarker(
                     if (selectedLoc.latitude.isBlank()) 0.0 else selectedLoc.latitude.toDouble(),
                     if (selectedLoc.longitude.isBlank()) 0.0 else selectedLoc.longitude.toDouble()
@@ -231,7 +229,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
 
             )
-        }else{
+        } else {
             marker!!.position = LatLng(latitude, longitude)
         }
 

@@ -25,7 +25,7 @@ class UserRepository @Inject constructor(
     private val uaeLDS: UaeLDS
 ) : BaseRepository() {
 
-    suspend fun saveUaeInfo(uaePass: UAEPass){
+    suspend fun saveUaeInfo(uaePass: UAEPass) {
         uaeLDS.insert(uaePass)
     }
 
@@ -57,7 +57,7 @@ class UserRepository @Inject constructor(
                             val resp = resultRDS.value.refreshTokenResponseDTO
                             this.refreshToken = resp.refreshToken
                             this.token = resp.token
-
+                            createdAt = System.currentTimeMillis()
                             userLDS.update(this)
                             return userLDS.getUser()
                         }

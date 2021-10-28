@@ -37,6 +37,7 @@
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_26sdp"
                     android:text="@string/filters"
                     android:textSize="@dimen/_16ssp"
                     app:layout_constraintStart_toStartOf="parent"

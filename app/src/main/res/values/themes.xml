@@ -9,9 +9,9 @@
         <item name="checkboxStyle">@style/CheckboxTheme</item>
 
     </style>
-    <style name="MyRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton">
+    <style name="MyRadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:button">@drawable/radio_btn_selector</item>
-        <item name="android:textColor">?attr/colorSecondary</item>
+<!--        <item name="android:textColor">?attr/colorSecondary</item>-->
 
     </style>
     <style name="WindowAnimationTransition">
@@ -22,6 +22,8 @@
         <!-- Primary brand color. -->
 
         <item name="colorPrimary">@color/black_700</item>
+        <item name="color_light_theme_dark_theme_gray">@color/gray_400</item>
+        <item name="colorEventLight">@color/black_200</item>
         <item name="colorPrimaryVariant">@color/purple_900</item>
         <item name="colorOnPrimary">@color/white_900</item>
         <!-- Secondary brand color. Title -->
@@ -33,6 +35,7 @@
         <!-- Customize your theme here. -->
 
         <item name="colorSurface">@color/white_900</item>
+        <item name="colorSurfaceInverted">@color/gray_800</item>
         <item name="colorOnSurface">@color/black_800</item>
         <!--for error-->
         <item name="colorOnError">@color/red_200</item>
@@ -47,8 +50,10 @@
 
         <item name="color_light_gray_svg">@color/black_200</item>
         <item name="color_light_white_dark_gray">@color/white_900</item>
+        <item name="color_light_white_dark_gray_icon">@color/white_900</item>
         <item name="color_dubai_logo_dark">@color/black_200</item>
         <item name="color_light_white_dark_gray_night">@color/gray_400</item>
+        <item name="color_light_theme_dark_theme_dark_gray">@color/gray_700</item>
         <item name="color_edit_text_bg">@color/edit_text_white_shade_bg</item>
         <item name="color_card_views_shadow">@color/gray_600</item>
         <item name="color_light_theme_purple_dark_theme_gray">@color/purple_900</item>
@@ -98,11 +103,11 @@
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
     </style>
     <style name="my_dialog_theme" parent="ThemeOverlay.AppCompat.Dialog">
-        <item name="colorAccent">@color/purple_900</item>                   <!--header background-->
-        <item name="android:windowBackground">@color/white_900</item>     <!--calendar background-->
-        <item name="android:colorControlActivated">@color/purple_900</item> <!--selected day-->
+        <item name="colorAccent">?attr/color_dubai_logo</item>                   <!--header background-->
+        <item name="android:windowBackground">?attr/colorSurface</item>     <!--calendar background-->
+        <item name="android:colorControlActivated">?attr/color_dubai_logo</item> <!--selected day-->
 <!--        <item name="android:textColorPrimary">@color/colorPrimaryText</item> &lt;!&ndash;days of the month&ndash;&gt;-->
-        <item name="android:textColorSecondary">@color/purple_900</item>    <!--days of the week-->
+        <item name="android:textColorSecondary">?attr/color_dubai_logo</item>    <!--days of the week-->
     </style>
     <style name="spinner_style">
         <item name="android:layout_width">0dp</item>

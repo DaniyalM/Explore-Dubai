@@ -10,22 +10,17 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.InterestedInType
-import com.app.dubaiculture.data.repository.trip.local.UsersType
-import com.app.dubaiculture.databinding.FragmentTripStep1Binding
 import com.app.dubaiculture.databinding.FragmentTripStep2Binding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
-import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.UserTypeAdapter
-import com.app.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.clicklisteners.UserTypeClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.adapter.InterestedInAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step2.adapter.clicklisteners.InterestedInClickListener
-import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step1ViewModel
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step2ViewModel
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
+class TripStep2Fragment : BaseFragment<FragmentTripStep2Binding>() {
 
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
     private val step2ViewModel: Step2ViewModel by viewModels()
@@ -33,7 +28,7 @@ class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
     private lateinit var interestedInAdapter: InterestedInAdapter
 
 
-    companion object{
+    companion object {
         lateinit var customNavigation: CustomNavigation
     }
 
@@ -67,9 +62,12 @@ class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
 //                        showToast(userType.title)
                     }
 
-                    override fun rowClickListener(interestedInType: InterestedInType, position: Int) {
+                    override fun rowClickListener(
+                        interestedInType: InterestedInType,
+                        position: Int
+                    ) {
 //                        step2ViewModel.updateUserItem(userType)
-                        step2ViewModel.updateInterestedType(interestedInType.copy(checked = !interestedInType.checked!!))
+                        step2ViewModel.updateInterestedType(interestedInType.copy(checked = !interestedInType.checked))
 
                     }
 
@@ -82,11 +80,11 @@ class TripStep2Fragment:BaseFragment<FragmentTripStep2Binding>() {
 
     }
 
-    fun onPreviousClicked(){
+    fun onPreviousClicked() {
         customNavigation.navigateStep(false, R.id.tripStep2)
     }
 
-    fun onNextClicked(){
+    fun onNextClicked() {
         customNavigation.navigateStep(true, R.id.tripStep2)
     }
 

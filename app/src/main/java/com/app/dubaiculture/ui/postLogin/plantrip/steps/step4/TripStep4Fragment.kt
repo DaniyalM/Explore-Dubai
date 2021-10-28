@@ -5,16 +5,13 @@ import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.Duration
-import com.app.dubaiculture.data.repository.trip.local.Durations
 import com.app.dubaiculture.databinding.FragmentTripStep4Binding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationSummaryAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.Step4ViewModel
@@ -24,9 +21,6 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.math.abs
 
 @AndroidEntryPoint
 class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
@@ -155,12 +149,6 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
 
         }
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
 
     }
 

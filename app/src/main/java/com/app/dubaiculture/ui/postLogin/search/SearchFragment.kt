@@ -157,8 +157,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                     binding.searchHistory.hide()
                     binding.resultView.show()
                 } else {
-                    binding.resultView.hide()
-                    binding.searchHistory.show()
+
+
+                    if (!application.auth.isGuest){
+                        binding.resultView.hide()
+                        binding.searchHistory.show()
+                    }
+
+
+
                 }
             }
         }
@@ -167,10 +174,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(searchViewModel)
-        binding.searchVm = searchViewModel
         binding.searchToolbar.clear.setOnClickListener {
             binding.searchToolbar.editSearch.setText("")
-            searchViewModel.getSearchHistory()
+            if (!application.auth.isGuest) {
+                searchViewModel.getSearchHistory()
+            }
+
+        }
+        binding.clearPop.setOnClickListener {
+            searchViewModel.clearHistory()
         }
         binding.searchToolbar.editSearch.addTextChangedListener(
             EndTypingWatcher {

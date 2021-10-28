@@ -27,7 +27,7 @@ class DeleteDialogFragment : BaseBottomSheetFragment<FragmentDeleteDialogBinding
         binding.view = this
     }
 
-    fun onDeleteClicked(){
+    fun onDeleteClicked() {
         tripSharedViewModel.selectedDelete()
         dismiss()
     }

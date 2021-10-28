@@ -8,6 +8,11 @@ object Constants {
         const val TEXT_NEGATIVE: String = "NO"
     }
 
+    object EventOrientation {
+        const val HorizontalLength: Int = 1
+        const val VerticalLength: Int = 2
+    }
+
     object Error {
         const val SOMETHING_WENT_WRONG: String = "Something went wrong"
         const val UAE_PASS_ERROR: String = "Authorization canceled by User"
@@ -45,8 +50,8 @@ object Constants {
     }
 
     object NavBundles {
-        val SCROLL_VIEW_STATE: String= "ScrollState"
-        val SHEET_STATE: String= "BState"
+        val SCROLL_VIEW_STATE: String = "ScrollState"
+        val SHEET_STATE: String = "BState"
         const val COMES_FROM_LOGIN: String = "loginFragment"
         const val IF_FORGOT_PASSWORD: String = "forgotfragment"
         const val COMES_FROM_POST_LOGIN: String = "postloginFragment"

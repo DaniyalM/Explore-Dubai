@@ -60,15 +60,15 @@
         android:id="@+id/daysBottomSheetFragment"
         android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.NoOfDaysFragment"
         android:label="NoOfDaysBottomSheetFragment"
-        tools:layout="@layout/fragment_no_days" >
+        tools:layout="@layout/fragment_no_days">
 
-    <action
-        android:id="@+id/action_days_to_durationBottomSheetFragment"
-        app:destination="@id/durationBottomSheetFragment"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_days_to_durationBottomSheetFragment"
+            app:destination="@id/durationBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </dialog>
     <dialog
         android:id="@+id/durationBottomSheetFragment"

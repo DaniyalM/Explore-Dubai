@@ -69,7 +69,8 @@ class TripRepository @Inject constructor(
         }
 
     suspend fun postEventAttraction(eventAttractionRequest: EventAttractionRequest): Result<EventAttractions> =
-        when (val resultRds = tripRDS.postEventAttraction(transformEventAttractionRequest(eventAttractionRequest))) {
+        when (val resultRds =
+            tripRDS.postEventAttraction(transformEventAttractionRequest(eventAttractionRequest))) {
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
                     Result.Success(transformEventAttractionResponse(resultRds.value.eventAttractionResponseDTO))

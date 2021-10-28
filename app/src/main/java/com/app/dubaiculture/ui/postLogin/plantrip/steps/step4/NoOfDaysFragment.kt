@@ -5,13 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.trip.local.Duration
 import com.app.dubaiculture.databinding.FragmentNoDaysBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
-import com.app.dubaiculture.utils.event.EventUtilFunctions.showToast
-import com.google.android.material.chip.Chip
 
 class NoOfDaysFragment : BaseBottomSheetFragment<FragmentNoDaysBinding>() {
     override fun getFragmentBinding(

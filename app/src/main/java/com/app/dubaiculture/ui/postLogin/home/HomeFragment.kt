@@ -33,7 +33,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(homeViewModel)
-        if (bottomNavigationView==null){
+        if (bottomNavigationView == null) {
             subscribeToObservable()
         }
         bottomNavigationView = binding.bottomNav

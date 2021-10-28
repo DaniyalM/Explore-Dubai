@@ -22,7 +22,7 @@ data class User(
     var idn: String?=null,
     var verificationToken: String,
     var hasPassword: Boolean = false,
-    @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "created_at") var createdAt: Long = System.currentTimeMillis(),
 ):Parcelable
 
 

@@ -23,11 +23,11 @@ class SessionManager @Inject constructor(private val userRepository: Lazy<UserRe
         } else {
             if (!TextUtils.isEmpty(guest.token)) {
 
-                val timeDifference=System.currentTimeMillis()-guest.createdAt
+                val timeDifference = System.currentTimeMillis() - guest.createdAt
                 val expireDifference = guest.ExpiresIn!! - 4800
                 val expiry_time = TimeUnit.SECONDS.toMillis(expireDifference.toLong())
 
-                if (timeDifference>=expiry_time) {
+                if (timeDifference >= expiry_time) {
                     guest = userRepo.guestToken(deviceId)
                 }
 

@@ -16,7 +16,7 @@ class PreLoginViewModel @Inject constructor(
     ) : BaseViewModel(application) {
 
     init {
-        getUserIfExists()
+//        getUserIfExists()
     }
 
 

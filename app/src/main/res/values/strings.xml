@@ -9,7 +9,7 @@
 
 
     <!--z-->
-<!--    <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>-->
+    <!--    <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>-->
     <string name="map_key" translatable="false">AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs</string>
     <string name="switch_language">Switch Language</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -362,8 +362,6 @@
     <string name="day6">6 Days</string>
     <string name="day8">8 Days</string>
     <string name="day10">10 Days</string>
-
-
 
 
 </resources>

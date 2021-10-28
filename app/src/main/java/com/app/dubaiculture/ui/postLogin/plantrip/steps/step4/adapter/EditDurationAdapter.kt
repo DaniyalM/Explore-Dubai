@@ -114,7 +114,8 @@ class EditDurationAdapter(val rowClickListener: DurationClickListener) :
 //        tripSharedViewModel.updateDurationList(duration.copy(isDay = 2))
 
         }
-        fun onItemSelected(duration: Duration){
+
+        fun onItemSelected(duration: Duration) {
 
             rowClickListener.rowClickListener(duration.copy(isSelected = !duration.isSelected))
 

@@ -47,8 +47,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/speakers"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/tv_category" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_title"
@@ -246,12 +248,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
-                android:lineSpacingExtra="@dimen/text_line_spacing"
                 android:text="@{description.descriptions}"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10ssp"
+                android:lineSpacingExtra="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_category"
                 app:layout_constraintTop_toBottomOf="@id/heading_desc"
+                android:textAlignment="viewStart"
+                android:textColor="@color/gray_750"
+                android:textColorLink="@color/gray_750"
+                app:colorClickableText="@color/gray_500"
                 app:trimCollapsedText="@string/read_more"
                 app:trimExpandedText="@string/read_less"
                 app:trimLength="150"

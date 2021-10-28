@@ -17,12 +17,12 @@
             android:name="culture"
             app:argType="string"
             app:nullable="false"
-            android:defaultValue="en"/>
+            android:defaultValue="en" />
         <argument
             android:name="positionId"
             app:argType="integer"
             app:nullable="false"
-            android:defaultValue="0"/>
+            android:defaultValue="0" />
         <argument
             android:name="isExplore"
             app:argType="boolean"

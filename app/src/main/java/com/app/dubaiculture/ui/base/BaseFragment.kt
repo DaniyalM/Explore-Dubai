@@ -263,7 +263,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         } catch (ex: IllegalArgumentException) {
 
-            Log.e(Companion.TAG, ex.localizedMessage )
+            Log.e(Companion.TAG, ex.localizedMessage)
         }
 
     }
@@ -497,7 +497,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         }
     }
-//    fun showBottomSheet(
+
+    //    fun showBottomSheet(
 //        bottomSheetFragment: BottomSheetDialogFragment,
 //        tag: String? = null
 //    ) {

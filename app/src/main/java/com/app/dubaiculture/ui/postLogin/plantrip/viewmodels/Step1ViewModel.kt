@@ -6,16 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
-import com.app.dubaiculture.data.repository.news.NewsRepository
-import com.app.dubaiculture.data.repository.news.local.LatestNews
 import com.app.dubaiculture.data.repository.trip.TripRepository
 import com.app.dubaiculture.data.repository.trip.local.UserTypes
 import com.app.dubaiculture.data.repository.trip.local.UsersType
-import com.app.dubaiculture.data.repository.trip.remote.response.UserTypeResponseDTO
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
-import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

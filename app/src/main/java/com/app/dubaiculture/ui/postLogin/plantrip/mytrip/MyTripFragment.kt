@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentMyTripBinding

@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="com.app.dubaiculture.R" />
+
         <variable
             name="interestedIn"
             type="com.app.dubaiculture.data.repository.trip.local.InterestedInType" />
@@ -21,7 +23,6 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_14sdp"
             android:layout_marginBottom="@dimen/_10sdp"
-            app:strokeWidth="@dimen/_1sdp"
             android:background="@drawable/custom_ripple_black"
             android:outlineSpotShadowColor="@color/gray_600"
             app:cardCornerRadius="@dimen/_10sdp"
@@ -29,7 +30,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="@dimen/_1sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -66,8 +68,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/purple_650"
-                    android:enabled="false"
                     android:checked="@{interestedIn.checked}"
+                    android:enabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

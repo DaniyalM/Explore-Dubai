@@ -9,7 +9,6 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.trip.TripRepository
 import com.app.dubaiculture.data.repository.trip.local.Durations
 import com.app.dubaiculture.data.repository.trip.local.EventAttractions
-import com.app.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
@@ -59,8 +58,7 @@ class Step4ViewModel @Inject constructor(
     }
 
 
-
-     fun postEventAttraction(eventAttractionRequest: EventAttractionRequest) {
+    fun postEventAttraction(eventAttractionRequest: EventAttractionRequest) {
         viewModelScope.launch {
             showLoader(true)
             val result = tripRepository.postEventAttraction(eventAttractionRequest)
