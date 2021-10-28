@@ -12,7 +12,7 @@
       android:strokeWidth="1"
       android:pathData="M33,27m-17.5,0a17.5,17.5 0,1 1,35 0a17.5,17.5 0,1 1,-35 0"
       android:fillColor="#00000000"
-      android:strokeColor="#f7f4f4"/>
+      android:strokeColor="?attr/color_light_theme_purple_dark_theme" />
   <path
       android:pathData="M32.084,19.737 L27.415,22.588L24.479,22.588a0.52,0.52 0,0 0,-0.52 0.521v7.782a0.52,0.52 0,0 0,0.52 0.521L27.415,31.412l4.669,2.851a1.558,1.558 0,0 0,2.369 -1.335L34.453,21.073A1.558,1.558 0,0 0,32.084 19.737ZM24.998,23.63L27.041,23.63v6.739L24.998,30.369ZM33.414,32.93a0.519,0.519 0,0 1,-0.79 0.445L28.081,30.597L28.081,23.397l4.544,-2.774a0.519,0.519 0,0 1,0.79 0.445Z"
       android:fillColor="?attr/color_dubai_logo"/>
