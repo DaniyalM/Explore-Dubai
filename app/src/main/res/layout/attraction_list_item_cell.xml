@@ -63,17 +63,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_1sdp"
-                    android:layout_marginBottom="@dimen/_1sdp"
-                    android:visibility="@{TextUtils.isEmpty(attractions.type) ? View.GONE : View.VISIBLE}"
-                    android:textStyle="bold"
-                    app:textFont="bold"
-                    app:textAllCaps="true"
-                    android:text="@{attractions.type}"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:text="@{attractions.category}"
                     android:textColor="@color/purple_600"
+                    android:textStyle="bold"
                     android:textSize="@dimen/_8ssp"
-                     />
+                    android:visibility="@{TextUtils.isEmpty(attractions.category) ? View.GONE : View.VISIBLE}"
+                    app:textAllCaps="true"
+                    app:textFont="bold" />
+
+                <!--                -->
+
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.appcompat.widget.AppCompatImageView

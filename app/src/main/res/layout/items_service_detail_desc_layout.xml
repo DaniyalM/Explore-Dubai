@@ -251,15 +251,17 @@
                 android:text="@{description.descriptions}"
                 android:textSize="@dimen/_10ssp"
                 android:lineSpacingExtra="3dp"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_category"
                 app:layout_constraintTop_toBottomOf="@id/heading_desc"
+                android:textAlignment="viewStart"
+                android:textColor="@color/gray_750"
+                android:textColorLink="@color/gray_750"
+                app:colorClickableText="@color/gray_500"
                 app:trimCollapsedText="@string/read_more"
                 app:trimExpandedText="@string/read_less"
                 app:trimLength="150"
-                app:trimMode="trimModeLength"
-                />
+                app:trimMode="trimModeLength" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/fileView"

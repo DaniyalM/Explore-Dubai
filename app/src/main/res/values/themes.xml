@@ -22,6 +22,8 @@
         <!-- Primary brand color. -->
 
         <item name="colorPrimary">@color/black_700</item>
+        <item name="color_light_theme_dark_theme_gray">@color/gray_400</item>
+        <item name="colorEventLight">@color/black_200</item>
         <item name="colorPrimaryVariant">@color/purple_900</item>
         <item name="colorOnPrimary">@color/white_900</item>
         <!-- Secondary brand color. Title -->
@@ -48,8 +50,10 @@
 
         <item name="color_light_gray_svg">@color/black_200</item>
         <item name="color_light_white_dark_gray">@color/white_900</item>
+        <item name="color_light_white_dark_gray_icon">@color/white_900</item>
         <item name="color_dubai_logo_dark">@color/black_200</item>
         <item name="color_light_white_dark_gray_night">@color/gray_400</item>
+        <item name="color_light_theme_dark_theme_dark_gray">@color/gray_700</item>
         <item name="color_edit_text_bg">@color/edit_text_white_shade_bg</item>
         <item name="color_card_views_shadow">@color/gray_600</item>
         <item name="color_light_theme_purple_dark_theme_gray">@color/purple_900</item>

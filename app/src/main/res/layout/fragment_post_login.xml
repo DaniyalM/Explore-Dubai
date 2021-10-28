@@ -168,7 +168,7 @@
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_22sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
-                android:background="@drawable/btn_register"
+                android:background="@drawable/btn_border_login"
                 android:elevation="@dimen/_15sdp"
                 android:foreground="@drawable/custom_ripple_border"
                 android:gravity="center"
