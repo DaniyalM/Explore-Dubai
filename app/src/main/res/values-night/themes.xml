@@ -45,6 +45,8 @@
 
         <!--for all material card and card view-->
         <item name="colorSurface">@color/black_900</item>
+        <item name="colorSurfaceInverted">@color/black_900</item>
+
         <!--back arrow svgs-->
         <item name="colorOnSurface">@color/gray_400</item>
 

@@ -7,6 +7,7 @@
     android:layout_width="wrap_content"
     android:id="@+id/root_item_selection"
     android:layout_height="wrap_content"
+    android:background="?attr/colorSurface"
     android:orientation="horizontal">
 
 
@@ -31,7 +32,7 @@
             android:gravity="center_vertical"
             android:visibility="gone"
             android:text="Management"
-            android:textColor="@color/white_900"
+            android:textColor="?attr/colorSurface"
             android:textSize="@dimen/_10ssp" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -44,7 +45,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center_vertical"
             android:text="Management"
-            android:textColor="@color/gray_600"
+            android:textColor="?attr/colorSecondary"
             android:textSize="@dimen/_10ssp" />
 
 

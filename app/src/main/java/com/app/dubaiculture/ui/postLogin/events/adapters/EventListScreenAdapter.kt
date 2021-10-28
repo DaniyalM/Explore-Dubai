@@ -2,37 +2,40 @@ package com.app.dubaiculture.ui.postLogin.events.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
+import com.app.dubaiculture.databinding.EventItemsBinding
 import com.app.dubaiculture.databinding.ItemEventListingBinding
 import com.app.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
-import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
-import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.app.dubaiculture.utils.Constants.EventOrientation.HorizontalLength
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 
 class EventListScreenAdapter(
-    private val eventClickListner: EventClickListner,
+        private val eventClickListner: EventClickListner,
+        private val orientationFlag: Int = HorizontalLength
 ) : ListAdapter<Events, EventListScreenAdapter.EventsListViewHolder>(
-    EventComparator()
+        EventComparator()
 ) {
 
 
     class EventComparator : DiffUtil.ItemCallback<Events>() {
         override fun areItemsTheSame(oldItem: Events, newItem: Events) =
-            oldItem.hashCode() == newItem.hashCode()
+                oldItem.hashCode() == newItem.hashCode()
 
         override fun areContentsTheSame(oldItem: Events, newItem: Events) = oldItem.id == newItem.id
     }
 
 
     inner class EventsListViewHolder(
-        val binding: ItemEventListingBinding,
-        private val eventClickListner: EventClickListner,
-        ) :
-        RecyclerView.ViewHolder(binding.root) {
+            val binding: ItemEventListingBinding,
+            private val eventClickListner: EventClickListner,
+    ) :
+            RecyclerView.ViewHolder(binding.root) {
         fun bind(event: Events) {
             binding.apply {
                 YoYo.with(Techniques.BounceInDown)
@@ -60,16 +63,19 @@ class EventListScreenAdapter(
 
 
             }
+
+
+
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        EventsListViewHolder(
-            ItemEventListingBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            ),
-            eventClickListner
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsListViewHolder =
+            EventsListViewHolder(
+                    ItemEventListingBinding.inflate(
+                            LayoutInflater.from(parent.context), parent, false
+                    ),
+                eventClickListner
+            )
 
 
     override fun onBindViewHolder(holder: EventsListViewHolder, position: Int) {

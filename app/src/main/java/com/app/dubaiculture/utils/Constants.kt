@@ -8,6 +8,11 @@ object Constants {
         const val TEXT_NEGATIVE: String = "NO"
     }
 
+    object EventOrientation {
+        const val HorizontalLength: Int = 1
+        const val VerticalLength: Int = 2
+    }
+
     object Error {
         const val SOMETHING_WENT_WRONG: String = "Something went wrong"
         const val UAE_PASS_ERROR: String = "Authorization canceled by User"
