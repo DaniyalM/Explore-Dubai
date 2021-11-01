@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_trip_navigation"
     app:startDestination="@id/myTripFragment">
+    <include app:graph="@navigation/more_navigation" />
 
     <fragment
         android:id="@+id/myTripFragment"
@@ -25,31 +26,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/myTripListingFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
-        android:label="MyTripListingFragment"
-        tools:layout="@layout/fragment_my_trip_listing" />
-
-    <dialog
-        android:id="@+id/myTripBottomSheetFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripBottomSheetFragment"
-        android:label="MyTripBottomSheetFragment"
-        tools:layout="@layout/fragment_my_trip_bottomsheet">
         <action
             android:id="@+id/action_my_trip_to_my_trip_listing"
             app:destination="@id/myTripListingFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
-
-        <action
-            android:id="@+id/action_my_trip_to_travel_mode_dialog"
-            app:destination="@id/travelModeDialog"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -63,13 +42,60 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
 
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/myTripListingFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
+        android:label="MyTripListingFragment"
+        tools:layout="@layout/fragment_my_trip_listing" >
+
+    <action
+        android:id="@+id/action_myTrip_listing_to_myTripNameDialog"
+        app:destination="@id/myTripNameDialog"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+
+    </fragment>
+    <dialog
+        android:id="@+id/myTripBottomSheetFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripBottomSheetFragment"
+        android:label="MyTripBottomSheetFragment"
+        tools:layout="@layout/fragment_my_trip_bottomsheet">
+
+
+        <action
+            android:id="@+id/action_my_trip_to_travel_mode_dialog"
+            app:destination="@id/travelModeDialog"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+
+
     </dialog>
 
     <dialog
         android:id="@+id/myTripNameDialog"
         android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripNameDialog"
         android:label="MyTripNameDialog"
-        tools:layout="@layout/dialog_my_trip_name" />
+        tools:layout="@layout/dialog_my_trip_name" >
+
+        <action
+            android:id="@+id/action_trip_name_to_tripsuccessFragment"
+            app:destination="@id/tripSuccessFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+
+
+    </dialog>
 
     <dialog
         android:id="@+id/travelModeDialog"
@@ -77,5 +103,18 @@
         android:label="TravelModeDialog"
         tools:layout="@layout/fragment_travel_mode_bottom_sheet" />
 
+    <fragment
+        android:id="@+id/tripSuccessFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.TripSuccessFragment"
+        tools:layout="@layout/fragment_trip_success"
+        android:label="tripSuccessFragment" >
+
+        <action
+            android:id="@+id/action_mytripSuccess_to_more_fragment"
+            app:destination="@id/more_navigation"
+            app:popUpTo="@+id/more_navigation"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
 </navigation>

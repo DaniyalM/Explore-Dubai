@@ -8,10 +8,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.Duration
+import com.app.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.app.dubaiculture.databinding.FragmentMyTripBottomsheetBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.DatesAdapter
+import com.app.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.MyTripAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.DateClickListener
+import com.app.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.MyTripClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +25,7 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
 
     private lateinit var datesAdapter: DatesAdapter
+    private lateinit var myTripAdapter: MyTripAdapter
 
 
     override fun getFragmentBinding(
@@ -32,6 +36,7 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
+        isCancelable = false
         setupRV()
     }
 
@@ -47,9 +52,7 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
             datesAdapter = DatesAdapter(
                 object : DateClickListener {
                     override fun rowClickListener(duration: Duration) {
-
-//                        tripSharedViewModel.updateDurationList(duration)
-
+                        tripSharedViewModel.updateDate(duration.copy(isSelected = true))
                     }
 
                     override fun rowClickListener(duration: Duration, position: Int) {
@@ -62,16 +65,41 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
 
         }
 
-    }
-    
-    private fun subscribeToObservables() {
+        binding.rvTrips.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            myTripAdapter = MyTripAdapter(
+                object : MyTripClickListener {
+                    override fun rowClickListener(eventAttraction: EventsAndAttraction) {
+                    }
 
-        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner){
-            showToast(it.location.locationTitle)
+                    override fun rowClickListener(
+                        eventAttraction: EventsAndAttraction,
+                        position: Int
+                    ) {
+                    }
+
+                }
+            )
+            adapter = myTripAdapter
+
+
         }
 
-        tripSharedViewModel.dates.observe(viewLifecycleOwner){
+    }
 
+    private fun subscribeToObservables() {
+
+        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
+//            myTripAdapter.submitList(it)
+        }
+
+        tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
+            myTripAdapter.submitList(it)
+        }
+
+        tripSharedViewModel.dates.observe(viewLifecycleOwner) {
+            binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
+            tripSharedViewModel.filterEvents(it.single { it.isSelected })
             datesAdapter.submitList(it)
 
         }
@@ -84,11 +112,11 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
 
     }
 
-    fun onSaveTripClicked(){
+    fun onSaveTripClicked() {
         navigate(R.id.action_myTrip_bottom_sheet_to_myTripNameDialog)
     }
 
-    fun onTravelModeClicked(){
+    fun onTravelModeClicked() {
         navigate(R.id.action_my_trip_to_travel_mode_dialog)
 
     }

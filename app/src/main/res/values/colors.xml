@@ -92,5 +92,7 @@
 
     <color name="delete_color">#F5D5D5</color>
     <color name="delete_text_color">#DF7D7D</color>
+    <color name="polyline_color">#26C5BB</color>
+
 
 </resources>

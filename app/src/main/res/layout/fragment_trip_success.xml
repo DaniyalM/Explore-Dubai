@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="view"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.TripSuccessFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/purple_900"
+        tools:context=".ui.preLogin.password.CreatePassFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_close"
+            android:visibility="gone"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close_btn"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anim_registration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatCount="0"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/registration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatCount="0"
+            app:layout_constraintBottom_toTopOf="@+id/reg_successful"
+            app:layout_constraintEnd_toEndOf="@+id/reg_successful"
+            app:layout_constraintStart_toStartOf="@+id/reg_successful"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/green_tick_mark"
+            app:lottie_speed="1" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView2"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_mark"
+            app:layout_constraintBottom_toTopOf="@+id/reg_successful"
+            app:layout_constraintEnd_toEndOf="@+id/reg_successful"
+            app:layout_constraintStart_toStartOf="@+id/reg_successful" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:layout_marginBottom="@dimen/_7sdp"
+            android:visibility="gone"
+            android:background="@drawable/uncheck_white_create_pass"
+            app:layout_constraintBottom_toTopOf="@+id/reg_successful"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/reg_successful"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/trip_created_desc"
+            android:textSize="@dimen/_18sdp"
+            android:textColor="@color/white_900"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/_60sdp"
+            android:layout_marginEnd="@dimen/_60sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp ty orem ipsum dolor sit amet elitsed eiusm"
+            android:textAlignment="viewStart"
+            android:textColor="@color/gray_600"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginStart="@dimen/_65sdp"
+            android:layout_marginEnd="@dimen/_60sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reg_successful" />
+
+
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/btn_continue_reg"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_25sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_border_login"
+            android:foreground="@drawable/custom_ripple_border"
+            android:onClick="@{()->view.onOkClicked()}"
+            android:gravity="center"
+            android:text="@string/_ok"
+            android:textColor="@color/white_900"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

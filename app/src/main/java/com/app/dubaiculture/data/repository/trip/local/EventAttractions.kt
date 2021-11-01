@@ -3,7 +3,8 @@ package com.app.dubaiculture.data.repository.trip.local
 
 data class EventAttractions(
     val eventsAndAttractions: List<EventsAndAttraction>,
-    val location: Location
+    val location: Location,
+    val tripId: String
 )
 
 data class EventsAndAttraction(
@@ -15,8 +16,8 @@ data class EventsAndAttraction(
     val dateFrom: String,
     val dateTo: String,
     val day: String,
-    val dayFrom: EADay,
-    val dayTo: EADay,
+//    val dayFrom: EADay,
+//    val dayTo: EADay,
     val detailPageUrl: String,
     val displayTimeFrom: String,
     val displayTimeTo: String,

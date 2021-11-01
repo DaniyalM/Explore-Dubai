@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="durationData"
+            type="com.app.dubaiculture.data.repository.trip.local.Duration" />
+
+        <variable
             name="view"
             type="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripBottomSheetFragment" />
     </data>
@@ -19,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:onClick="@{()->view.onBottomSheetClicked()}">
@@ -73,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_18sdp"
                 android:fontFamily="@font/neosansarabicbold"
-                android:text="November,2020"
+                tools:text="November,2020"
                 android:textColor="@color/purple_650"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
@@ -177,6 +180,7 @@
                 android:id="@+id/rvTrips"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_140sdp"
+                android:focusableInTouchMode="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/viewLine"
@@ -333,7 +337,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_22ssp"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:backgroundTint="@color/purple_650"
                 android:fontFamily="@font/neo_sans_arabic_regular"
                 android:onClick="@{()->view.onSaveTripClicked()}"

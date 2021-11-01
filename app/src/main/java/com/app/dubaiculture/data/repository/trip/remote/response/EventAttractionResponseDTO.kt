@@ -4,7 +4,8 @@ data class EventAttractionResponseDTO(
     val Attractions: List<AttractionDTO>,
     val Events: List<EventDTO>,
     val EventsAndAttractions: List<EventsAndAttractionDTO>,
-    val Location: LocationDTO
+    val Location: LocationDTO,
+    val TripID: String
 )
 
 data class AttractionDTO(
