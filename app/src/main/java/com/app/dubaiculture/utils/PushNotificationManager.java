@@ -6,14 +6,17 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Build;
+
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
 import com.app.dubaiculture.R;
 
 
 public class PushNotificationManager {
-    private static String CHANNEL_NAME = "FCM_CHANNEL", CHANNEL_ID = "12345";
-    private static int NOTIF_ID = 123;
+    private static final String CHANNEL_NAME = "FCM_CHANNEL";
+    private static final String CHANNEL_ID = "12345";
+    private static final int NOTIF_ID = 123;
 
     public static void createNotificationChannel(Context context) {
         // Create the NotificationChannel, but only on API 26+ because

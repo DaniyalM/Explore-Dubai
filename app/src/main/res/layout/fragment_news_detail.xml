@@ -125,7 +125,7 @@
                     android:id="@+id/divider"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="#EDEDED"
+                    android:background="?attr/color_light_theme_dark_theme_gray"
                     app:layout_constraintEnd_toEndOf="@id/img_speaker"
                     app:layout_constraintTop_toBottomOf="@+id/rv_news_article"
                     android:layout_marginTop="@dimen/_25sdp"
@@ -237,7 +237,7 @@
                     android:id="@+id/llMoreNews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/gray_400"
+                    android:background="?attr/color_light_theme_dark_theme_gray"
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/img_curve">
 
@@ -247,7 +247,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:text="@string/more_news"
-                        android:textColor="@color/black_750"
+                        android:textColor="?attr/colorEventLight"
                         android:textSize="@dimen/_18ssp"
                         app:layout_constraintStart_toStartOf="parent" />
 

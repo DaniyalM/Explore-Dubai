@@ -89,8 +89,8 @@ class AttractionGalleryFragment : BaseFragment<AttractionGalleryFragmentBinding>
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         initRv()
         if (!gallerList.isNullOrEmpty()) {
             gallerList[0].galleryImage?.let { displayBlurryView(it) }

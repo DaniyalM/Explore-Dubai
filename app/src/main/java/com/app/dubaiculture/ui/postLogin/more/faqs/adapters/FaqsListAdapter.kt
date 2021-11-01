@@ -31,10 +31,7 @@ class FaqsListAdapter(val faqsItemClickListner: FaqsItemClickListner) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(faq: FaqItem) {
             binding.apply {
-                setAnimation(binding.rootView, binding.root.context)
-                tvQuestionNum.text = faq.id.toString()
-                tvQuestions.text = faq.question
-                tvAnswer.text = faq.answer
+                faqItem = faq
                 tvQuestions.setTextColor(binding.root.context.getColorFromAttr(R.attr.colorSecondary))
                 tvAnswer.setTextColor(binding.root.context.getColorFromAttr(R.attr.colorSecondary))
                 tvQuestionNum.setTextColor(binding.root.context.getColorFromAttr(R.attr.colorSecondary))
@@ -53,9 +50,12 @@ class FaqsListAdapter(val faqsItemClickListner: FaqsItemClickListner) :
                     imgToggle.setImageResource(R.drawable.plus)
                     tvAnswer.visibility = View.GONE
                 }
+
                 rootView.setOnClickListener {
                     faqsItemClickListner.onClickFaqItem(faq)
                 }
+                setAnimation(binding.root, binding.root.context)
+
             }
         }
 

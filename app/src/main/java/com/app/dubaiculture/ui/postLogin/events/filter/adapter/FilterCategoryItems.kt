@@ -7,6 +7,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Filter
 import com.app.dubaiculture.data.repository.news.local.NewsTags
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
+import com.app.dubaiculture.utils.getColorFromAttr
 import com.google.android.flexbox.FlexboxLayout
 import com.xwray.groupie.GroupieViewHolder
 
@@ -21,8 +22,10 @@ class FilterCategoryItems <T>(private val categories : T, private var isSelected
                         it.findViewById<FlexboxLayout>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp_purple)
                         it.findViewById<TextView>(R.id.tv_title_category).setTextColor(Color.parseColor("#FFFFFF"))
                     }else{
-                        it.findViewById<FlexboxLayout>(R.id.borderBg).setBackgroundResource(R.drawable.rounded_shape_area_exp)
-                        it.findViewById<TextView>(R.id.tv_title_category).setTextColor(Color.parseColor("#2A2D31"))
+                        it.findViewById<FlexboxLayout>(R.id.borderBg)
+                            .setBackgroundResource(R.drawable.rounded_shape_area_exp)
+                        it.findViewById<TextView>(R.id.tv_title_category)
+                            .setTextColor(it.context.getColorFromAttr(R.attr.colorSecondary))
                     }
                     root.findViewById<LinearLayout>(R.id.root_item_selection).setOnClickListener {
                         categories.isSelected = !categories.isSelected

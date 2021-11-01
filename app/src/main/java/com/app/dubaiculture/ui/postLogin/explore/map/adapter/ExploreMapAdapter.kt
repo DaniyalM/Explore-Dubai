@@ -14,7 +14,16 @@ import com.app.dubaiculture.ui.postLogin.events.`interface`.DirectionClickListen
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.utils.AsyncCell
 
-class   ExploreMapAdapter(var isArabic : Boolean, var rowClickListener: RowClickListener, var directionClickListener: DirectionClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExploreMapAdapter(
+    var isArabic: Boolean,
+    var rowClickListener: RowClickListener,
+    var directionClickListener: DirectionClickListener
+)
+
+
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+
     private val diffCallback = object : DiffUtil.ItemCallback<ExploreMap>() {
         override fun areItemsTheSame(oldItem: ExploreMap, newItem: ExploreMap): Boolean {
             return oldItem.id == newItem.id

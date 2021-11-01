@@ -53,6 +53,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="?attr/colorOnBackground"
                         android:orientation="vertical">
 
 
@@ -61,10 +62,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="@dimen/_50sdp"
-                            tools:itemCount="2"
-                            tools:listitem="@layout/items_book_a_ticket_layout"
                             android:clickable="true"
-                            android:focusable="true" />
+                            android:focusable="true"
+                            tools:itemCount="2"
+                            tools:listitem="@layout/items_book_a_ticket_layout" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvAttractionListing"

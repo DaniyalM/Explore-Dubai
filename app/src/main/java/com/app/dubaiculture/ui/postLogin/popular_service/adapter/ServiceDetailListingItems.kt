@@ -24,6 +24,18 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
 
                 }
             }
+            is ItemsServiceDetailInnerFaqsListingLayoutBinding -> {
+                if (eService is FAQ) {
+                    viewBinding.innerRecyclerView.apply {
+                        viewBinding.detailListingHeader.visibility = View.GONE
+                        val linearLayoutManager = LinearLayoutManager(context)
+                        layoutManager = linearLayoutManager
+                        val faqsAdapter = GroupAdapter<GroupieViewHolder>()
+                        adapter = faqsAdapter
+                    }
+                }
+
+            }
 
             is ItemsServiceDetailInnerListingLayoutBinding -> {
                 viewBinding.innerRecyclerView.apply {
@@ -82,42 +94,8 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                                 requiredDocumentInnerAdapter.add(paymentsItem)
                             }
 
-//                            repeat(5) {
-//                                val paymentsItem =
-//                                    ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
-//                                        eService = it.toString(),
-//                                        resLayout = R.layout.items_service_detail_req_document_layout
-//                                    )
-//                                requiredDocumentInnerAdapter.add(paymentsItem)
-//                            }
-
                         }
-                        is FAQ -> {
-                            viewBinding.detailListingHeader.visibility = View.GONE
-                            val linearLayoutManager = LinearLayoutManager(context)
-                            layoutManager = linearLayoutManager
-                            val faqsAdapter = GroupAdapter<GroupieViewHolder>()
-                            adapter = faqsAdapter
 
-//                            faqs().forEach {
-//                                val faqItem =
-//                                    ServiceDetailListingItems<ItemFaqsLayoutBinding, FAQX>(
-//                                        eService = it,
-//                                        resLayout = R.layout.item_faqs_layout
-//                                    )
-//
-//                                faqsAdapter.add(faqItem)
-//                            }
-//                            eService.fAQs.forEach {
-//                                val faqItem =
-//                                    ServiceDetailListingItems<ItemFaqsLayoutBinding, FAQX>(
-//                                        eService = it,
-//                                        resLayout = R.layout.item_faqs_layout
-//                                    )
-//
-//                                faqsAdapter.add(faqItem)
-//                            }
-                        }
                     }
 
                 }

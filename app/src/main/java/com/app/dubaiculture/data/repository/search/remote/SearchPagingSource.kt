@@ -10,7 +10,9 @@ import com.app.dubaiculture.utils.Constants
 class SearchPagingSource(
     private val searchService: SearchService,
     private val searchPaginationRequestDTO: SearchPaginationRequestDTO,
-    private val callback: (count: Int) -> Unit
+    private val callback: (count: Int) -> Unit,
+    private val error: (message: String) -> Unit
+
 
 ) :
     PagingSource<Int, SearchResultItemDTO>() {
@@ -27,18 +29,27 @@ class SearchPagingSource(
                     PageSize = Constants.PAGING.SEARCH_PAGE_SIZE * nextPageNumber
                 )
             )
+            return if (!response.succeeded) {
+                LoadResult.Error(Throwable(message = "No Records Found"))
+            } else {
+                callback(response.Result.searchesResultItem.TotalRecordCount)
 
-            callback(response.Result.searchesResultItem.TotalRecordCount)
-            LoadResult.Page(
-                data = response.Result.searchesResultItem.Items,
-                prevKey = null,
-                nextKey = if (response.Result.searchesResultItem.Items.size < Constants.PAGING.SEARCH_PAGE_SIZE) null else nextPageNumber.plus(
-                    1
+
+                LoadResult.Page(
+                    data = response.Result.searchesResultItem.Items,
+                    prevKey = null,
+                    nextKey = if (response.Result.searchesResultItem.Items.size < Constants.PAGING.SEARCH_PAGE_SIZE) null else nextPageNumber.plus(
+                        1
+                    )
                 )
-            )
+            }
+
+
         } catch (e: Exception) {
             // Handle errors in this block and return LoadResult.Error if it is an
             // expected error (such as a network failure).
+
+            error("No Records Found")
             LoadResult.Error(e)
 
         }

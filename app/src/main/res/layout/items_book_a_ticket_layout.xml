@@ -25,7 +25,6 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_155sdp"
-            app:cardBackgroundColor="#F2F2F2"
             app:cardElevation="@dimen/_12sdp"
             app:cardCornerRadius="@dimen/_1sdp"
             app:layout_constraintStart_toStartOf="parent"

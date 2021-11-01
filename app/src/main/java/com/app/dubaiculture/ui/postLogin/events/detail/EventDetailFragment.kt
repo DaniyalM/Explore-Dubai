@@ -167,6 +167,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         callingObservables()
         mapSetUp(savedInstanceState)
         uiActions()
+        arrowRTL(eventDetailInnerLayout.imgEventSpeaker)
 
         subscribeToGpsListener()
 
@@ -268,10 +269,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 adapter = myAdapter
             }
         }
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.swipeRefreshLayout.isRefreshing = false
-            callingObservables()
-        }
+//        binding.swipeRefreshLayout.setOnRefreshListener {
+//            binding.swipeRefreshLayout.isRefreshing = false
+//            callingObservables()
+//        }
 
     }
 
@@ -730,11 +731,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         if (verticalOffset == -binding.toolbarLayoutEventDetail.collapsingToolbarEventDetail.height + binding.toolbarLayoutEventDetail.toolbarEventDetail.height) {
             binding.defaultCloseToolbar.visibility = View.VISIBLE
             binding.imageView4.visibility = View.VISIBLE
-            binding.swipeRefreshLayout.isEnabled = false
+//            binding.swipeRefreshLayout.isEnabled = false
         } else {
             binding.defaultCloseToolbar.visibility = View.GONE
             binding.imageView4.visibility = View.GONE
-            binding.swipeRefreshLayout.isEnabled = true
+//            binding.swipeRefreshLayout.isEnabled = true
         }
     }
 

@@ -2,20 +2,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <!--    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout-->
+    <!--        android:id="@+id/swipeRefreshLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/appCoordinatorAttractionDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/appCoordinatorAttractionDetail"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarEventnDetail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbarEventnDetail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            android:layout_height="match_parent"
                 app:contentScrim="?attr/colorSurface"
                 android:fitsSystemWindows="true"
                 app:elevation="0dp">
@@ -141,5 +141,5 @@
             </androidx.core.widget.NestedScrollView>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
+    <!--    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>-->
 </layout>

@@ -9,20 +9,20 @@
             type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
 
-    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <!--    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout-->
+    <!--        android:id="@+id/swipeRefreshLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/appCoordinatorAttractionDetail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/appCoordinatorAttractionDetail"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarAttractionDetail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbarAttractionDetail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 app:elevation="0dp">
 
@@ -43,7 +43,7 @@
                     android:id="@+id/img_back"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_30sdp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:rotation="90"
@@ -100,7 +100,7 @@
                     android:id="@+id/share"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
                     android:rotation="0"
                     android:src="@drawable/share"
                     app:layout_constraintBottom_toBottomOf="@+id/favourite"
@@ -134,5 +134,5 @@
             </androidx.core.widget.NestedScrollView>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
+    <!--    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>-->
 </layout>

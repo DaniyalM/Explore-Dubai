@@ -38,7 +38,6 @@ import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -295,7 +294,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 //                    showToast("Error while getting access token")
                 } else {
                     accessToken?.let {
-                        Timber.e("Token : $it")
+//                        Timber.e("Token : $it")
                         loginViewModel.loginWithUae(
                             UAELoginRequest(
                                 token = it,

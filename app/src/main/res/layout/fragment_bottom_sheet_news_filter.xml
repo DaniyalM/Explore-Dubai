@@ -64,6 +64,7 @@
                 android:background="@drawable/bg_edit_resiger"
                 android:drawableEnd="@drawable/search_filter"
                 android:hint="@string/search_news_by_keyword"
+                android:textColorHint="@color/gray_500"
                 android:imeOptions="actionSearch"
                 android:onTextChanged="@{viewmodel::onSearchTextChanged}"
                 app:layout_constraintEnd_toEndOf="parent"

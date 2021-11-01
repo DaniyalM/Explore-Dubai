@@ -38,7 +38,9 @@ class SearchRDS @Inject constructor(private val searchService: SearchService) : 
 
     suspend fun getSearchListing(
         searchPaginationRequestDTO: SearchPaginationRequestDTO,
-        callback: (count: Int) -> Unit
+        callback: (count: Int) -> Unit,
+        error: (message: String) -> Unit
+
     ): Result<Flow<PagingData<SearchResultItemDTO>>> {
         return safeApiCall {
             Pager(
@@ -47,7 +49,9 @@ class SearchRDS @Inject constructor(private val searchService: SearchService) : 
                     SearchPagingSource(
                         searchService,
                         searchPaginationRequestDTO,
-                        callback = callback
+                        callback = callback,
+                        error = error
+
                     )
                 }
             ).flow

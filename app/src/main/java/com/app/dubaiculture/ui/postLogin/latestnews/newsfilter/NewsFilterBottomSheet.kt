@@ -147,6 +147,7 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
                         object : DatePickerHelper.DatePickerInterface {
                             override fun onDateSelected(calendar: Calendar) {
                                 val date: Date = calendar.time
+                                startDateObj = date
                                 newsFilterViewModel.onStartDateSelection(date)
                                 val format = "yyyy-MM-dd"
                                 val str = date.toString(format)
@@ -163,6 +164,7 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
                         object : DatePickerHelper.DatePickerInterface {
                             override fun onDateSelected(calendar: Calendar) {
                                 val date: Date = calendar.time
+
                                 newsFilterViewModel.onEndDateSelection(date)
                                 val format = "yyyy-MM-dd"
                                 val str = date.toString(format)

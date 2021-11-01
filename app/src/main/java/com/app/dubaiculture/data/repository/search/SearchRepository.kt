@@ -84,10 +84,15 @@ class SearchRepository @Inject constructor(
 
     suspend fun fetchResults(
         searchPaginationRequest: SearchPaginationRequest,
-        callback: (count: Int) -> Unit
+        callback: (count: Int) -> Unit,
+        error: (message: String) -> Unit,
     ): Result<Flow<PagingData<SearchResultItem>>> {
         val result =
-            searchRDS.getSearchListing(transformSearchRequest(searchPaginationRequest), callback)
+            searchRDS.getSearchListing(
+                transformSearchRequest(searchPaginationRequest),
+                callback,
+                error
+            )
         return if (result is Result.Success) {
             Result.Success(result.value.map {
                 it.map {

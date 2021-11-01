@@ -29,6 +29,7 @@
         <!-- Secondary brand color. Title -->
         <item name="colorSecondary">@color/black_200</item>
         <item name="colorSecondaryVariant">@color/gray_800</item>
+        <item name="colorSecondaryVariantInverted">@color/gray_200</item>
         <item name="colorOnSecondary">@color/white_900</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/white_900</item>
@@ -36,6 +37,7 @@
 
         <item name="colorSurface">@color/white_900</item>
         <item name="colorSurfaceInverted">@color/gray_800</item>
+        <item name="colorSurfaceInvertedGray">@color/gray_400</item>
         <item name="colorOnSurface">@color/black_800</item>
         <!--for error-->
         <item name="colorOnError">@color/red_200</item>
@@ -90,12 +92,11 @@
     <style name="Theme.MyApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-
-
-    <style name="CustomDialogStyle" parent="Theme.MaterialComponents.Dialog">
+    <style name="CustomDialogStyle" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
         <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:background">?attr/colorSurface</item>
     </style>
     <!--OTP-->
     <style name="OtpStyle" parent="Theme.AppCompat.Light.NoActionBar">

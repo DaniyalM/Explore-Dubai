@@ -15,7 +15,7 @@ object Constants {
 
     object Error {
         const val SOMETHING_WENT_WRONG: String = "Something went wrong"
-        const val UAE_PASS_ERROR: String = "Authorization canceled by User"
+        const val UAE_PASS_ERROR: String = "User cancelled the Login"
         const val SELECT_COUNTRY: String = "Select country first"
         const val INTERNET_CONNECTION_ERROR: String = "Internet Connection Error"
 

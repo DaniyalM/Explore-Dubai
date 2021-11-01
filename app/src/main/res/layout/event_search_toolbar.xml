@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_10sdp"
+        android:background="?attr/colorSurface"
        >
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -34,7 +35,7 @@
             android:layout_height="@dimen/_35sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            app:cardBackgroundColor="@color/disabled"
+            app:cardBackgroundColor="?attr/colorSecondaryVariantInverted"
             app:cardCornerRadius="@dimen/_15sdp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/back"
@@ -58,10 +59,10 @@
                     android:hint="@string/search_news_by_keyword"
                     android:imeOptions="actionSearch"
                     android:maxLines="1"
+                    android:textColorHint="@color/gray_600"
                     android:onTextChanged="@{viewmodel::onSearchTextChanged}"
                     android:singleLine="true"
                     android:paddingStart="@dimen/_15ssp"
-                    android:textColorHint="@color/gray_600"
                     android:textSize="@dimen/_10ssp"
                     />
 

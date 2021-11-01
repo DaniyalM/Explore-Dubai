@@ -58,12 +58,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
 
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerForActivityResult()
     }
-
     private fun getSpeechInput() {
         val intent = Intent(
             RecognizerIntent
@@ -80,7 +78,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         binding.searchToolbar.editSearch.setText("")
         startForResult.launch(intent)
     }
-
     companion object {
         var selectedPosition: Int = 0
     }
@@ -89,7 +86,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentSearchBinding.inflate(inflater, container, false)
-
     private fun subscribeToObservable() {
         searchShareViewModel.isOld.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {

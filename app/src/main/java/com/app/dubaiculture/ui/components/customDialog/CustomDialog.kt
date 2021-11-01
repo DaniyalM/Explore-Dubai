@@ -21,6 +21,8 @@ class CustomDialog(
 ) : Dialog(context, themeResId) {
 
     lateinit var binding: CustomAlertDialogBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CustomAlertDialogBinding.inflate(LayoutInflater.from(context))

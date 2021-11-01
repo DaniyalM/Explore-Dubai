@@ -16,11 +16,11 @@ import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel
 import com.app.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
+import com.app.dubaiculture.utils.Constants.Error.UAE_PASS_ERROR
 import com.app.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.app.dubaiculture.utils.UAEPassRequestModelsUtils
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -59,12 +59,12 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         binding.tvForgotPass.setOnClickListener(this)
         callingObserver()
         uaePassRTL()
-        binding.editMobile.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+        binding.editMobile.onFocusChangeListener = object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
 
             }
 
-        })
+        }
     }
 
     override fun onClick(v: View?) {
@@ -103,23 +103,27 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
             if (it != null) {
                 application.auth.apply {
                     user = it
-                    if (it.hasPassword){
-                        isGuest = false
-                        isLoggedIn = true
-                        dismiss()
-                        showToast("Welcome !")
-                        if (!from.isNullOrEmpty()) {
-                            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-                        }
-                    }else {
-                        if(it.verificationToken.isNotEmpty()){
-                            navigateByAction(R.id.action_postLoginFragment_to_postCreatePassFragment,Bundle().apply {
-                                putString("verificationCode",it.verificationToken)
-                                putBoolean("isHome",true)
-                            })
-                        }
-
+                    dismiss()
+                    if (!from.isNullOrEmpty()) {
+                        activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
                     }
+//                    if (it.hasPassword){
+//                        isGuest = false
+//                        isLoggedIn = true
+//                        dismiss()
+//                        showToast("Welcome !")
+//                        if (!from.isNullOrEmpty()) {
+//                            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+//                        }
+//                    }else {
+//                        if(it.verificationToken.isNotEmpty()){
+//                            navigateByAction(R.id.action_postLoginFragment_to_postCreatePassFragment,Bundle().apply {
+//                                putString("verificationCode",it.verificationToken)
+//                                putBoolean("isHome",true)
+//                            })
+//                        }
+//
+//                    }
 
                 }
 
@@ -170,16 +174,16 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
             )!!
         UAEPassController.getAccessToken(
             activity,
-            requestModel!!,
+            requestModel,
             object : UAEPassAccessTokenCallback {
                 override fun getToken(accessToken: String?, state: String, error: String?) {
                     if (error != null) {
-                        showAlert(error)
+                        showAlert(UAE_PASS_ERROR)
                         showLoader(false)
 //                    showToast("Error while getting access token")
                     } else {
                         accessToken?.let {
-                            Timber.e("Token : $it")
+//                            Timber.e("Token : $it")
                             postLoginViewModel.loginWithUae(
                                 UAELoginRequest(
                                     token = it,

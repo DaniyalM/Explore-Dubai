@@ -11,6 +11,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.search.local.SearchTab
 import com.app.dubaiculture.databinding.ExploreMapLayoutHeadersBinding
 import com.app.dubaiculture.ui.postLogin.search.SearchFragment.Companion.selectedPosition
+import com.app.dubaiculture.utils.getColorFromAttr
 import com.app.dubaiculture.utils.hide
 
 class UniSelectionAdapter<T>(val headerSelector: HeaderSelector) :
@@ -53,12 +54,9 @@ class UniSelectionAdapter<T>(val headerSelector: HeaderSelector) :
                             )
                         )
                     } else {
-                        cardview.setCardBackgroundColor(Color.parseColor("#ffffff"))
+                        cardview.setCardBackgroundColor(binding.root.context.getColorFromAttr(R.attr.colorSurface))
                         tvTitle.setTextColor(
-                            ContextCompat.getColor(
-                                binding.root.context,
-                                R.color.black_750
-                            )
+                            binding.root.context.getColorFromAttr(R.attr.colorSecondary)
                         )
                     }
                     cardview.setOnClickListener {

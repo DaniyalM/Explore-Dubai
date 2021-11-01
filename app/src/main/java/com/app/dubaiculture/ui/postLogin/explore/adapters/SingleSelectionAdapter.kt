@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
+import com.app.dubaiculture.utils.getColorFromAttr
 import com.app.dubaiculture.utils.glideInstance
 import com.app.dubaiculture.utils.setTextColorRes
 import com.google.android.material.card.MaterialCardView
-import java.util.*
 
 open class SingleSelectionAdapter(
     private val context: Context,
@@ -31,9 +31,9 @@ open class SingleSelectionAdapter(
     inner class SingleViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         fun bind(attractions: AttractionCategory) {
-            val imageView=itemView.findViewById<ImageView>(R.id.imgInnerIcon)
-            val tvTitle= itemView.findViewById<TextView>(R.id.tv_title)
-            val materialCardView= itemView.findViewById<MaterialCardView>(R.id.cardview)
+            val imageView = itemView.findViewById<ImageView>(R.id.imgInnerIcon)
+            val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
+            val materialCardView = itemView.findViewById<MaterialCardView>(R.id.cardview)
 
             if (absoluteAdapterPosition != 0) {
                 imageView.visibility = View.VISIBLE
@@ -55,17 +55,18 @@ open class SingleSelectionAdapter(
                 // un selected
 
                 itemView.findViewById<TextView>(R.id.tv_title).setTextColorRes(R.color.black_200)
-                itemView.findViewById<MaterialCardView>(R.id.cardview).setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+                itemView.findViewById<MaterialCardView>(R.id.cardview)
+                    .setCardBackgroundColor(Color.parseColor("#FFFFFF"))
             } else {
                 if (checkedPosition == absoluteAdapterPosition) {
                     //  selected
-                   tvTitle.setTextColorRes(R.color.white_900)
+                    tvTitle.setTextColor(context.getColorFromAttr(R.attr.colorSecondary))
                     materialCardView.setCardBackgroundColor(Color.parseColor("#5E2E82"))
 //                    imageView.visibility = View.VISIBLE
                 } else {
                     // un selected
-                    tvTitle.setTextColorRes(R.color.black_200)
-                    materialCardView.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+                    tvTitle.setTextColor(context.getColorFromAttr(R.attr.colorSecondary))
+                    materialCardView.setCardBackgroundColor(context.getColorFromAttr(R.attr.colorSurface))
 //                    imageView.visibility = View.GONE
                 }
             }
@@ -73,7 +74,8 @@ open class SingleSelectionAdapter(
             itemView.setOnClickListener(View.OnClickListener {
                 // un selected
                 iface.getRowClick(absoluteAdapterPosition)
-                tvTitle.setTextColorRes(R.color.white_900)
+                tvTitle.setTextColor(context.getColorFromAttr(R.attr.colorSecondary))
+
 
                 if (attractions.color.isNullOrEmpty()) {
                     materialCardView.setCardBackgroundColor(Color.parseColor("#5E2E82"))
@@ -84,7 +86,7 @@ open class SingleSelectionAdapter(
                     imageView.glideInstance(attractions.icon, true)
                         .into(imageView)
                 } else {
-                   imageView.setImageResource(R.drawable.calender_white)
+                    imageView.setImageResource(R.drawable.calender_white)
                 }
                 if (checkedPosition != absoluteAdapterPosition) {
 

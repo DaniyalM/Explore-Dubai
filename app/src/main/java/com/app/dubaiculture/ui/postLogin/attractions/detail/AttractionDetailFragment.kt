@@ -137,10 +137,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     private fun setupSwipeToRefresh() {
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.swipeRefreshLayout.isRefreshing = false
-            attractionDetailViewModel.refreshDetail()
-        }
+//        binding.swipeRefreshLayout.setOnRefreshListener {
+//            binding.swipeRefreshLayout.isRefreshing = false
+//            attractionDetailViewModel.refreshDetail()
+//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -149,15 +149,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         mapSetUp(savedInstanceState)
         detailInnerLayout = binding.attractionDetailInnerLayout
         toolbarLayout = binding.toolbarLayoutDetail
-        setupSwipeToRefresh()
+//        setupSwipeToRefresh()
         rvSetUp()
 
         backArrowRTL(toolbarLayout.back)
         bgRTL(toolbarLayout.bgBorderUpper)
         backArrowRTL(binding.imgBack)
-        arrowRTL(detailInnerLayout.arrowIbecons)
-        arrowRTL(detailInnerLayout.arrowSiteMap)
-
+        arrowRTL(detailInnerLayout.arrowIbecons, true)
+        arrowRTL(detailInnerLayout.arrowSiteMap, true)
+        arrowRTL(detailInnerLayout.imgAttractionSpeaker)
         cardViewRTL()
     }
 
@@ -277,7 +277,17 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             when (it) {
                 is Result.Success -> {
 //                    contentFlag = "ContentLoaded"
+
+
                     attractionsObj = it.value
+
+//                    val attractionLatLng = LatLng(
+//                        attractionsObj!!.latitude?.toDouble()!!,
+//                        attractionsObj!!.longitude?.toDouble()!!
+//                    )
+//
+//                    mapView?.invalidate()
+//                    mapView?.getMapAsync(this)
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
 
@@ -747,11 +757,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
         if (verticalOffset == -toolbarLayout.collapsingToolbarAttractionDetail.height + toolbarLayout.toolbarAttractionDetail.height) {
             binding.defaultCloseToolbar.visibility = View.VISIBLE
-            binding.swipeRefreshLayout.isEnabled = false
+//            binding.swipeRefreshLayout.isEnabled = false
 
         } else {
             binding.defaultCloseToolbar.visibility = View.GONE
-            binding.swipeRefreshLayout.isEnabled = true
+//            binding.swipeRefreshLayout.isEnabled = true
 
         }
     }

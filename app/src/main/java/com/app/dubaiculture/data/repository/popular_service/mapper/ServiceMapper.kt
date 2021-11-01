@@ -66,12 +66,11 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
             FAQ(
                 fAQs = it.FAQs?.mapIndexed { index, faqxdto ->
                     FaqItem(
-                        id = index,
-                        answer = faqxdto.Answer ?: "",
-                        question = faqxdto.Question ?: "",
                         is_expanded = index == 0,
-
-                        )
+                        id = index + 1,
+                        answer = faqxdto.Answer ?: "",
+                        question = faqxdto.Question ?: ""
+                    )
                 } ?: mutableListOf(),
                 fAQsTitle = it.FAQsTitle ?: ""
             )

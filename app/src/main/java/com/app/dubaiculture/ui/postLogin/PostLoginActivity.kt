@@ -63,6 +63,8 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         // Check if the fragment is an instance of the right fragment
+
+        navController.handleDeepLink(intent)
         PostLoginFragment().apply {
             handleIntent(intent)
         }

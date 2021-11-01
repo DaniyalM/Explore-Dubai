@@ -10,17 +10,18 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp">
+        android:layout_margin="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_4sdp"
+        app:cardElevation="@dimen/_4sdp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_service"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,7 @@
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:text="@string/description"
-                android:textColor="@color/gray_750"
+                android:textColor="@color/gray_700"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -50,10 +51,12 @@
                 android:lines="1"
                 android:text="@{payment.description}"
                 android:textAllCaps="true"
-                android:textColor="@color/purple_900"
-                android:textSize="@dimen/_12ssp"
+                android:ellipsize="end"
+                android:textColor="?attr/color_dubai_logo"
                 android:textStyle="bold"
+                android:textSize="@dimen/_11ssp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_desc"
                 app:layout_constraintTop_toBottomOf="@+id/tv_desc"
                 app:textFont="bold" />
@@ -76,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_6sdp"
                 android:text="@{payment.amount}"
-                android:textColor="?attr/colorSecondary"
+                android:textColor="@color/gray_600"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintEnd_toStartOf="@+id/line_seperator"
                 app:layout_constraintStart_toStartOf="@+id/amount"
@@ -108,8 +111,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:text="@{payment.type}"
-                android:textColor="?attr/colorSecondary"
+                android:ellipsize="end"
                 android:textSize="@dimen/_11ssp"
+                android:maxLines="1"
+                android:textColor="@color/gray_600"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/type"
@@ -132,8 +137,9 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="2"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:text="@{payment.summary}"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/line"
                 app:layout_constraintStart_toStartOf="@+id/line"
@@ -144,7 +150,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

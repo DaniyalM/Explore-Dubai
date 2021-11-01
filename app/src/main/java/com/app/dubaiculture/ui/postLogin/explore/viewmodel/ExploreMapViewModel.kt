@@ -3,10 +3,14 @@ package com.app.dubaiculture.ui.postLogin.explore.viewmodel
 import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.BuildConfig
+import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -14,15 +18,14 @@ import com.app.dubaiculture.data.repository.explore.ExploreRepository
 import com.app.dubaiculture.data.repository.explore.local.models.AttractionsEvents
 import com.app.dubaiculture.data.repository.explore.local.models.ExploreMap
 import com.app.dubaiculture.data.repository.explore.remote.request.ExploreRequest
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -36,7 +39,7 @@ class ExploreMapViewModel @Inject constructor(
     private val _exploreAttractionsEvents: MutableLiveData<Result<AttractionsEvents>> =
         MutableLiveData()
     val exploreAttractionsEvents: LiveData<Result<AttractionsEvents>> = _exploreAttractionsEvents
-
+    private val context = getApplication<ApplicationEntry>()
 
     fun getExploreMap(locale: String) {
         showLoader(true)
@@ -106,7 +109,6 @@ class ExploreMapViewModel @Inject constructor(
         }
         return myList
     }
-
 
     fun attractionFilter(
         category: String,
@@ -179,7 +181,8 @@ class ExploreMapViewModel @Inject constructor(
                     lat = it.latitude.toString().ifEmpty { "24.83250180519734" },
                     lng = it.longitude.toString().ifEmpty { "67.08119661055807" },
                     pinInRadius = it.withinRadiusIcon,
-                    pinOutRadius = it.outOfRadiusIcon
+                    pinOutRadius = it.outOfRadiusIcon,
+                    isAttraction = true
                 )
 
             )
@@ -194,16 +197,33 @@ class ExploreMapViewModel @Inject constructor(
                     distance = it.distance,
                     lat = it.latitude,
                     lng = it.longitude,
+                    isAttraction = true
                 )
             )
         }
         return exploreMapList
     }
 
+    private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+        return ContextCompat.getDrawable(context, vectorResId)?.run {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+            val bitmap =
+                Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            draw(Canvas(bitmap))
+            BitmapDescriptorFactory.fromBitmap(bitmap)
+        }
+    }
+
+
     fun pinsOnMap(exploreMapList: List<ExploreMap>, map: GoogleMap) {
         map.clear()
         exploreMapList.forEach {
-            val locationObj = LatLng(it.lat.toString().ifEmpty { "24.83250180519734" }.toDouble(),
+            val nearAttractions = bitmapDescriptorFromVector(context, R.drawable.attraction_close)
+            val farAttractions = bitmapDescriptorFromVector(context, R.drawable.attraction_away)
+            val nearEvent = bitmapDescriptorFromVector(context, R.drawable.events_map)
+            val farEvent = bitmapDescriptorFromVector(context, R.drawable.events_away)
+            val locationObj = LatLng(
+                it.lat.toString().ifEmpty { "24.83250180519734" }.toDouble(),
                 it.lng.toString().ifEmpty { "67.08119661055807" }.toDouble()
             )
             if (it.distance!! <= 6.0) {
@@ -211,16 +231,29 @@ class ExploreMapViewModel @Inject constructor(
                     MarkerOptions()
                         .position(locationObj)
                         .title(it.title)
+//                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.events_map))
+
 
                 )
-                setURLIcon(it.pinInRadius.toString(), marker, getApplication<Application>())
+                if (it.isAttraction) {
+                    marker.setIcon(nearAttractions)
+                } else {
+                    marker.setIcon(nearEvent)
+                }
+//                setURLIcon(it.pinInRadius.toString(), marker, getApplication<Application>())
             } else {
                 val marker = map.addMarker(
                     MarkerOptions().position(locationObj)
 //                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_map_away))
                         .title(it.title)
+
                 )
-                setURLIcon(it.pinOutRadius.toString(), marker, getApplication<Application>())
+                if (it.isAttraction) {
+                    marker.setIcon(farAttractions)
+                } else {
+                    marker.setIcon(farEvent)
+                }
+//                setURLIcon(it.pinOutRadius.toString(), marker, getApplication<Application>())
 
             }
         }
@@ -230,15 +263,19 @@ class ExploreMapViewModel @Inject constructor(
         Glide.with(context)
             .asBitmap()
             .load(BuildConfig.BASE_URL + url)
-            .into(object : SimpleTarget<Bitmap>() {
+            .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     bitmap: Bitmap,
-                    transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
+                    transition: Transition<in Bitmap>?
                 ) {
                     if (bitmap != null) {
                         val icon = BitmapDescriptorFactory.fromBitmap(bitmap)
                         marker.setIcon(icon)
                     }
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    TODO("Not yet implemented")
                 }
             })
     }

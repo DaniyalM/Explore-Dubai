@@ -7,7 +7,6 @@
     android:layout_width="wrap_content"
     android:id="@+id/root_item_selection"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurface"
     android:orientation="horizontal">
 
 
@@ -45,7 +44,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center_vertical"
             android:text="Management"
-            android:textColor="?attr/colorSecondary"
+            style="@style/TextViewStyle"
             android:textSize="@dimen/_10ssp" />
 
 

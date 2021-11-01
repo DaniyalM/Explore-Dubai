@@ -19,7 +19,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:gravity="center"
                 android:text="Management"
-                android:textColor="@color/gray_600"
+                android:textColor="?attr/colorSecondary"
                 android:textSize="@dimen/_10ssp" />
 
 

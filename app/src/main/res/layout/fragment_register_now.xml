@@ -10,7 +10,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white_900"
         tools:context=".ui.postLogin.events.detail.registernow.RegisterNowFragment">
 
         <include
@@ -163,7 +162,7 @@
                     android:layout_marginEnd="@dimen/_25sdp"
                     android:singleLine="true"
                     android:background="@drawable/bg_edit_resiger"
-                    android:textColorHint="@color/gray_600"
+                    android:textColorHint="?attr/color_light_theme_dark_theme_dark_gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/time" />
@@ -239,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:text="@string/jpeg_or_pdf_format_not_exceeding_2mb"
-                    android:textColor="@color/gray_600"
+                    android:textColorHint="?attr/color_light_theme_dark_theme_dark_gray"
                     android:textSize="@dimen/_9ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_upload"
                     app:layout_constraintTop_toBottomOf="@+id/tv_upload" />
@@ -264,7 +263,7 @@
                     android:background="@drawable/custom_ripple_border"
                     android:singleLine="true"
                     android:text="@string/i_agree_to_the_terms_and_conditions"
-                    android:textColor="@color/purple_600"
+                    android:textColor="?attr/color_dubai_logo"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/checkbox"
                     app:layout_constraintStart_toEndOf="@+id/checkbox"
@@ -284,7 +283,7 @@
                     android:gravity="center"
                     android:text="@string/submit"
                     android:textAllCaps="false"
-                    android:textColor="@color/white_900"
+                    style="@style/TextViewStyle"
                     android:transitionName="action_btn"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/tv_upload"

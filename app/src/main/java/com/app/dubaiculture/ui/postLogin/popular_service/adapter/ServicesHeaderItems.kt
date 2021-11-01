@@ -10,6 +10,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.ui.postLogin.popular_service.components.ServicesHeaderItemSelector.Companion.SERVICE_CLICK_CHECKER_FLAG
+import com.app.dubaiculture.utils.getColorFromAttr
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 
@@ -54,21 +55,18 @@ class ServicesHeaderItems<T>(
     ) {
         if (isSelected) {
             view.setCardBackgroundColor(Color.parseColor(colorBg))
-            textView.setTextColor(ContextCompat.getColor(view.context, R.color.white_900))
+            textView.setTextColor(view.context.getColorFromAttr(R.attr.colorSecondary))
             selectedInnerImg?.let { drawable ->
 //                imgInner.glideInstance(drawable, true).into(imgInner)
                 imgInner.setImageDrawable(drawable)
-                imgInner.setColorFilter(ContextCompat.getColor(view.context, R.color.white_900))
+                imgInner.setColorFilter(view.context.getColorFromAttr(R.attr.colorSecondary))
             }
 
         } else {
             view.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    view.context,
-                    R.color.white_900
-                )
+                view.context.getColorFromAttr(R.attr.colorSecondary)
             )
-            textView.setTextColor(ContextCompat.getColor(view.context, R.color.gray_700))
+            textView.setTextColor(view.context.getColorFromAttr(R.attr.colorSurface))
             unSelectedInnerImg?.let { drawable ->
 //                imgInner.glideInstance(drawable, true).into(imgInner)
                 imgInner.setImageDrawable(drawable)
