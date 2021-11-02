@@ -56,6 +56,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
+                android:id="@+id/bottom_gradient"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shadow_black"
                 app:layout_constraintBottom_toBottomOf="parent"

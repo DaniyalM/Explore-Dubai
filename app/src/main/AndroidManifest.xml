@@ -67,6 +67,7 @@
             android:name=".ui.postLogin.PostLoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
+            <nav-graph android:value="@navigation/post_login_navigation" />
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

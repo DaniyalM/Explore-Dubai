@@ -1,92 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/rootlayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootlayout"
+        android:layout_width="match_parent"
 
-    >
-
-
-
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-        android:id="@+id/tv_circle"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_18sdp"
-        android:background="@drawable/circle_purple"
-        android:gravity="center"
-        android:text="01"
-        android:textColor="@color/white_900"
-        android:textSize="@dimen/_11ssp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cardView" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="0dp"
+        >
 
-        android:layout_height="@dimen/_70sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
-        android:layout_marginBottom="16dp"
-        android:elevation="@dimen/_9sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_circle"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:orientation="horizontal">
-
-            <com.rishabhharit.roundedimageview.RoundedImageView
-                android:id="@+id/img_museums"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:elevation="@dimen/_5sdp"
-                android:scaleType="center"
-                android:src="@drawable/must_see_icon_home"
-                app:cornerRadius="@dimen/_10sdp"
-                app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight" />
-
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/title"
-                style="@style/TextViewStyle"
-                android:layout_width="236dp"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_22sdp"
-                android:lines="2"
-                android:text="Main Entrance of Majlis Ghorfat Umm Al Sheif"
-                android:textSize="@dimen/_14sdp"
-
-                />
-
-
-        </LinearLayout>
+        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_circle"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_18sdp"
+            android:background="@drawable/circle_purple"
+            android:gravity="center"
+            android:textColor="@color/white_900"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cardView" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/tick_mark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
+            android:id="@+id/lines_schedule"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/linetesting"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_circle"
+            app:layout_constraintStart_toStartOf="@+id/tv_circle"
+            app:layout_constraintTop_toBottomOf="@+id/tv_circle" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@drawable/checked" />
-    </androidx.cardview.widget.CardView>
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:elevation="@dimen/_9sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_circle"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp">
+
+                <com.rishabhharit.roundedimageview.RoundedImageView
+                    android:id="@+id/img_museums"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_53sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:elevation="@dimen/_5sdp"
+                    android:scaleType="center"
+                    android:src="@drawable/must_see_icon_home"
+                    app:cornerRadius="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight" />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/title"
+                    style="@style/TextViewStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:lines="2"
+                    android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_museums"
+                    app:layout_constraintEnd_toStartOf="@+id/tick_mark"
+                    app:layout_constraintStart_toEndOf="@+id/img_museums"
+                    app:layout_constraintTop_toTopOf="@+id/img_museums" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/tick_mark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/checked"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_museums"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/img_museums" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--        <LinearLayout-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="match_parent"-->
+
+            <!--            android:orientation="horizontal">-->
+
+            <!--            <com.rishabhharit.roundedimageview.RoundedImageView-->
+            <!--                android:id="@+id/img_museums"-->
+            <!--                android:layout_width="@dimen/_50sdp"-->
+            <!--                android:layout_height="@dimen/_50sdp"-->
+            <!--                android:layout_marginStart="@dimen/_15sdp"-->
+            <!--                android:elevation="@dimen/_5sdp"-->
+            <!--                android:scaleType="center"-->
+            <!--                android:src="@drawable/must_see_icon_home"-->
+            <!--                app:cornerRadius="@dimen/_10sdp"-->
+            <!--                app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight" />-->
+
+            <!--            <com.app.dubaiculture.ui.components.customtextview.CustomTextView-->
+            <!--                android:id="@+id/title"-->
+            <!--                style="@style/TextViewStyle"-->
+            <!--                android:layout_width="236dp"-->
+            <!--                android:layout_height="36dp"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                android:layout_marginStart="@dimen/_10sdp"-->
+            <!--                android:layout_marginEnd="@dimen/_22sdp"-->
+            <!--                android:lines="2"-->
+            <!--                android:text="Main Entrance of Majlis Ghorfat Umm Al Sheif"-->
+            <!--                android:textSize="@dimen/_14sdp"-->
+
+            <!--                />-->
+
+
+            <!--        </LinearLayout>-->
+
+
+        </com.google.android.material.card.MaterialCardView>
 
 
 

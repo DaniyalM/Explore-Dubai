@@ -22,7 +22,6 @@ import android.webkit.CookieManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.R
@@ -31,6 +30,7 @@ import com.app.dubaiculture.databinding.FragmentLoginBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.PostLoginActivity
 import com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.app.dubaiculture.utils.Constants.Error.UAE_PASS_ERROR
 import com.app.dubaiculture.utils.SMSReceiver
 import com.app.dubaiculture.utils.UAEPassRequestModelsUtils
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
@@ -38,8 +38,6 @@ import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -95,7 +93,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                     isLoggedIn = true
                     isGuest = true
                 }
-//            activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
                 activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
             } else if (!SystemRequirementsHelper.isBluetoothEnabled(requireContext())) {
                 val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
@@ -114,9 +111,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         } else {
             binding.imgUaePass.setImageResource(R.drawable.uae_pass)
         }
-        lifecycleScope.launch {
-//            Timber.e("Token: ${getFcmToken()}")
-        }
+
     }
 
 
@@ -291,15 +286,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
             UAEPassRequestModelsUtils.getAuthenticationRequestModel(
                 activity
             )!!
-        getAccessToken(activity, requestModel!!, object : UAEPassAccessTokenCallback {
+        getAccessToken(activity, requestModel, object : UAEPassAccessTokenCallback {
             override fun getToken(accessToken: String?, state: String, error: String?) {
                 if (error != null) {
-                    showAlert(error)
+                    showAlert(UAE_PASS_ERROR)
                     showLoader(false)
 //                    showToast("Error while getting access token")
                 } else {
                     accessToken?.let {
-                        Timber.e("Token : $it")
+//                        Timber.e("Token : $it")
                         loginViewModel.loginWithUae(
                             UAELoginRequest(
                                 token = it,
@@ -337,7 +332,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                             .show()
                     } else {
                         val name =
-                            profileModel!!.firstnameEN + profileModel!!.homeAddressEmirateCode + " " + profileModel.lastnameEN
+                            profileModel!!.firstnameEN + profileModel.homeAddressEmirateCode + " " + profileModel.lastnameEN
                         Toast.makeText(activity, "Welcome $name", Toast.LENGTH_SHORT).show()
                     }
                 }

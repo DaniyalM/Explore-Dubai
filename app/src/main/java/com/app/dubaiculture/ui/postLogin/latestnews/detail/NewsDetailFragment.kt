@@ -2,12 +2,10 @@ package com.app.dubaiculture.ui.postLogin.latestnews.detail
 
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.speech.tts.Voice
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -24,8 +22,6 @@ import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsArticleAdapter
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsSliderItems
 import com.app.dubaiculture.ui.postLogin.latestnews.detail.viewmodel.NewsDetailViewModel
-import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,6 +55,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(newsDetailViewModel)
         backArrowRTL(binding.imgClose)
+        arrowRTL(binding.imgSpeaker)
 //        arguments?.let {
 //            newsDetailViewModel.newsDetail(
 //                id = it.getString(NEWS_ID).toString(),

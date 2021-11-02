@@ -1,99 +1,64 @@
 package com.app.dubaiculture.ui.postLogin.events.adapters
 
-import android.content.Context
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.EventItemsBinding
-import com.app.dubaiculture.databinding.ItemEventListingBinding
-import com.app.dubaiculture.ui.base.recyclerstuf.BaseRecyclerAdapter
+import com.app.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.app.dubaiculture.utils.AsyncCell
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 
-class EventAdapter (private val favChecker : FavouriteChecker?=null, private val rowClickListener: RowClickListener?=null) : BaseRecyclerAdapter<Events>() {
+class EventAdapter(private val favChecker: FavouriteChecker? = null,
+                   private val rowClickListener: RowClickListener? = null,
+                   private val eventClickListner: EventClickListner? = null)
 
 
-    var events: List<Events>
-        get() = differ.currentList
-        set(value) = differ.submitList(value)
+    : ListAdapter<Events, EventAdapter.EventsListViewHolder>(EventListScreenAdapter.EventComparator()) {
 
-    inner class EventsListViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return EventsListViewHolder(EventsListItemCell(parent.context).apply { inflate() })
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsListViewHolder {
+        return EventsListViewHolder(
+                EventItemsBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                ),
+                eventClickListner
+        )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        setUpEventsListViewHolder(holder as EventAdapter.EventsListViewHolder,
-            position)
+    override fun onBindViewHolder(holder: EventsListViewHolder, position: Int) {
+        getItem(position)?.let { holder.bind(it) }
     }
 
-    override fun getItemCount() = events.size
 
-    //Data Binding
-    private inner class EventsListItemCell(context: Context) : AsyncCell(context,true) {
-        var binding: EventItemsBinding? = null
-        override val layoutId = R.layout.event_items
-        override fun createDataBindingView(view: View): View? {
-            binding = EventItemsBinding.bind(view)
+    inner class EventsListViewHolder(val binding: EventItemsBinding, val eventClickListner: EventClickListner?) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(events: Events) {
             YoYo.with(Techniques.BounceInDown)
-                .duration(700)
-                .playOn(binding?.root)
-            return view.rootView
-        }
-    }
+                    .duration(700)
+                    .playOn(binding.root)
+            binding.apply {
 
-    private fun setUpEventsListViewHolder(
-        holder: EventAdapter.EventsListViewHolder,
-        position: Int,
-    ) {
-        (holder.itemView as EventsListItemCell).bindWhenInflated {
-            holder.itemView.binding?.let {binding->
-                try {
+                this.events = events
 
-                    binding.events = events[position]
-
-                    binding.favourite.setOnClickListener {
-                        events[position].let {event->
-                            event.id?.let { itemId->
-                                favChecker!!.checkFavListener(binding.favourite,position,event.isFavourite,itemId)
-                            }
+                favourite.setOnClickListener {
+                    events.let { event ->
+                        event.id?.let { itemId ->
+                            eventClickListner!!.checkFavListener(favourite, absoluteAdapterPosition, event.isFavourite, itemId)
+//                            favChecker?.checkFavListener(binding.favourite, position, event.isFavourite, itemId)
                         }
                     }
-                    binding.cardview.setOnClickListener {
-                        rowClickListener!!.rowClickListener(position)
-                    }
-
-//                    it.favourite.setOnCheckedChangeListener { p0, p1 ->
-//                        if(events[position].isFavourite){
-//
-//                        }else{
-//
-//                        }
-//                        if (p1){
-//                            it.favourite.isChecked = p1
-//                            it.favourite.isSelected = p1
-//                        }
-//                        else {
-//                            it.favourite.isChecked = p1
-//                            it.favourite.isSelected = p1
-//                            Toast.makeText(context,
-//                           "check",
-//                            Toast.LENGTH_SHORT).show()
-//                        }
-////
-//
-//                    }
-
-                } catch (ex: IndexOutOfBoundsException) {
-                    print(ex.stackTrace)
+                }
+                cardview.setOnClickListener {
+//                    rowClickListener?.rowClickListener(position)
+                    eventClickListner!!.rowClickHandler(events)
                 }
             }
         }
     }
+
+
 }

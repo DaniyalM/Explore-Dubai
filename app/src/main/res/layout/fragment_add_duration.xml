@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="view"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.steps.step4.AddDurationFragment" />
+
+        <variable
+            name="data"
+            type="com.app.dubaiculture.data.repository.trip.local.Duration" />
+
+        <variable
+            name="viewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_20sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/gray_line"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/gray_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tvHeading"
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:text="@string/add_duration"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gray_line" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tvDate"
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:fontFamily="@font/neosansarabicmedium"
+                android:text="@{data.dayDate.substring(0,2)}"
+                android:textColor="@color/purple_650"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintEnd_toEndOf="@id/tvDateMonth"
+                app:layout_constraintStart_toStartOf="@id/tvDateMonth"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tvDateMonth"
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/neosansarabicmedium"
+                android:text="@{data.dayDate.substring(3)}"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="@id/tvHeading"
+                app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDay"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:backgroundTint="?attr/colorOnPrimary"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:onClick="@{()->view.onDaySelected(data)}"
+                app:icon="@drawable/ic_day"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="?attr/colorSecondaryVariant"
+                app:layout_constraintBottom_toBottomOf="@id/tvDateMonth"
+                app:layout_constraintEnd_toStartOf="@id/btnNight"
+                app:layout_constraintTop_toTopOf="@id/tvDate"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNight"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:backgroundTint="?attr/colorOnPrimary"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:onClick="@{()->view.onNightSelected(data)}"
+                app:icon="@drawable/ic_night"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="?attr/colorSecondaryVariant"
+                app:layout_constraintBottom_toBottomOf="@id/tvDateMonth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvDate"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
+
+            <Button
+                android:id="@+id/btnSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:backgroundTint="?attr/color_edit_text_bg"
+                android:drawableEnd="@drawable/ic_dropdown"
+                android:fontFamily="@font/neo_sans_arabic_regular"
+                android:onClick="@{(v)->view.onDropDownClicked(v)}"
+                android:text="@{data.hour}"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorSecondary"
+                app:cornerRadius="@dimen/_14sdp"
+                app:layout_constraintBottom_toBottomOf="@id/verticalDivider"
+                app:layout_constraintEnd_toStartOf="@id/verticalDivider"
+                app:layout_constraintStart_toEndOf="@id/tvDateMonth"
+                app:layout_constraintTop_toTopOf="@id/verticalDivider" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="0.2dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:background="@color/gray_750"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvDateMonth"
+                app:layout_constraintTop_toBottomOf="@+id/tvDateMonth" />
+
+            <View
+                android:id="@+id/verticalDivider"
+                android:layout_width="0.2dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/gray_750"
+                app:layout_constraintBottom_toBottomOf="@id/btnDay"
+                app:layout_constraintEnd_toStartOf="@id/btnDay"
+                app:layout_constraintTop_toTopOf="@+id/btnDay" />
+
+
+            <CheckBox
+                android:id="@+id/checkBoxRepeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/neo_sans_arabic_regular"
+                android:onCheckedChanged="@{(v, checked) -> viewModel.repeatToAll(checked,data)}"
+                android:text="@string/checkbox_desc"
+                android:textColor="?attr/colorSecondaryVariant"
+                app:layout_constraintStart_toStartOf="@id/divider"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDates"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_240sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxRepeat"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_duration" />
+
+            <Button
+                android:id="@+id/btnDone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_22ssp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/purple_650"
+                android:fontFamily="@font/neo_sans_arabic_regular"
+                android:onClick="@{()->view.onDoneClicked()}"
+                android:text="@string/done"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:cornerRadius="@dimen/_16sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvDates" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

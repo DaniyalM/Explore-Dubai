@@ -27,19 +27,14 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
 
     private lateinit var observer: RecyclerView.AdapterDataObserver
 
-    //    private lateinit var observerSelected: RecyclerView.AdapterDataObserver
+//    private lateinit var observerSelected: RecyclerView.AdapterDataObserver
     private val newsFilterViewModel: NewsSharedViewModel by activityViewModels()
     private val newsFilterListingViewModel: NewFilterListingViewModel by viewModels()
     private lateinit var newsListAdapter: NewFilterListAdapter
-
-
     private lateinit var searchFilterSelectedAdapter: SelectedFiltersListAdapter
     lateinit var eventSearchToolbarBinding: EventSearchToolbarBinding
 
-    private var selectedItems: MutableList<SelectedFilter> = mutableListOf()
-    private var selectedFilters: MutableList<Filter> = mutableListOf()
-
-    //    private lateinit var filter: Filter
+    private var filter: Filter = Filter()
     lateinit var filterBottomSheet: NewsFilterBottomSheet
 
     override fun getFragmentBinding(
@@ -62,6 +57,9 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
         eventSearchToolbarBinding.back.setOnClickListener {
             back()
         }
+        binding.tvClearAll.setOnClickListener {
+            newsFilterViewModel.clearFilters()
+        }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -69,67 +67,49 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
         subscribeToObservables()
     }
 
-    private fun initiateSelectedItems() {
-
-        selectedFilters.forEach {
-            if (it.keyword.isNotEmpty()) {
-                selectedItems.add(
-                    SelectedFilter(
-                        title = it.keyword,
-                        isKeyword = true
-                    )
-                )
-            }
-            if (it.dateFrom.isNotEmpty()) {
-                selectedItems.add(
-                    SelectedFilter(
-                        title = it.dateFrom,
-                        isDateFrom = true
-                    )
-                )
-
-            }
-            if (it.dateTo.isNotEmpty()) {
-                selectedItems.add(
-                    SelectedFilter(
-                        title = it.dateTo,
-                        isDateFrom = true
-                    )
-                )
-
-            }
-            if (it.tags.isNotEmpty()) {
-                it.tags.forEach {
-                    selectedItems.add(
-                        SelectedFilter(
-                            title = it,
-                            isTag = true
-                        )
-                    )
-
-                }
-            }
-
-        }
-
-        searchFilterSelectedAdapter.submitList(selectedItems)
-
-    }
 
     private fun subscribeToObservables() {
+
+        newsFilterViewModel.selectedItems.observe(viewLifecycleOwner) {
+            binding.eventSearchToolbar.tvBadge.text = it.size.toString()
+            searchFilterSelectedAdapter.submitList(it)
+
+            val tags = mutableListOf<String>()
+            it.forEach { filterSelected ->
+                if (filterSelected.isKeyword) {
+                    filter = filter.copy(keyword = filterSelected.title)
+                } else filter = filter.copy(keyword = "")
+                if (filterSelected.isDateTo) {
+                    filter = filter.copy(dateTo = filterSelected.title)
+                } else filter = filter.copy(dateTo = "")
+                if (filterSelected.isDateFrom) {
+                    filter = filter.copy(dateFrom = filterSelected.title)
+                } else filter = filter.copy(dateFrom = "")
+                if (filterSelected.isTag) {
+                    tags.add(filterSelected.title)
+                } else filter = filter.copy(tags = mutableListOf())
+            }
+            if (tags.isNotEmpty()) {
+                filter = filter.copy(tags = tags)
+            }
+            if (it.isEmpty())
+                filter = Filter()
+
+            newsFilterListingViewModel.getFilterNews(filter)
+
+        }
 
 
         newsFilterViewModel.filter.observe(viewLifecycleOwner) {
 
             it?.getContentIfNotHandled()?.let {
-//                filter = it
-//                selectedItems = mutableListOf()
-//                selectedFilters = mutableListOf()
-
-//                selectedFilters.add(it)
-//                initiateSelectedItems()
-
-                newsFilterListingViewModel.getFilterNews(it)
+                filter = filter.copy(
+                    tags = it.tags,
+                    keyword = it.keyword,
+                    dateFrom = it.dateFrom,
+                    dateTo = it.dateTo
+                )
+                initiateSelectedItems()
 
             }
         }
@@ -137,89 +117,44 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
 
 
         newsFilterListingViewModel.news.observe(viewLifecycleOwner) {
-
             newsListAdapter.submitList(it)
         }
     }
 
     private fun rvSetup() {
-//        binding.rvSelections.apply {
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//            searchFilterSelectedAdapter =
-//                SelectedFiltersListAdapter(object : SelectedFiltersListAdapter.RemoveHeaderItem {
+        binding.rvSelections.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            searchFilterSelectedAdapter = SelectedFiltersListAdapter(object :
+                SelectedFiltersListAdapter.RemoveHeaderItem {
+                override fun onItemRemove(item: SelectedFilter) {
+                    newsFilterViewModel.removeFilter(item)
+                }
+            })
+            adapter = searchFilterSelectedAdapter
+//            observerSelected = object : RecyclerView.AdapterDataObserver() {
+//                override fun onChanged() {
+//                    super.onChanged()
+//                    checkEmpty()
+//                }
 //
-//                    override fun onItemRemove(pos: Int, item: SelectedFilter) {
+//                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+//                    super.onItemRangeInserted(positionStart, itemCount)
+//                    checkEmpty()
+//                }
 //
+//                override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+//                    super.onItemRangeRemoved(positionStart, itemCount)
+//                    checkEmpty()
+//                }
 //
-//                        if (item.isKeyword) {
-//                            newsFilterViewModel.updateFilter(
-//                                filter.copy(
-//                                    keyword = ""
-//                                )
-//                            )
-//
-//                        }
-//                        if (item.isDateFrom) {
-//                            newsFilterViewModel.updateFilter(
-//                                filter.copy(
-//                                    dateFrom = ""
-//                                )
-//                            )
-//
-//                        }
-//                        if (item.isDateTo) {
-//                            newsFilterViewModel.updateFilter(
-//                                filter.copy(
-//                                    tags = filter.tags
-//                                )
-//                            )
-//
-//                        }
-//                        if (item.isTag) {
-//                            selectedFilters.map { filter ->
-//                                filter.tags.filter {
-//                                    item.title != it
-//                                }.let {
-//                                    newsFilterViewModel.updateFilter(
-//                                        filter.copy(
-//                                            tags = it
-//                                        )
-//                                    )
-//
-//                                }
-//
-//                            }
-//
-//                        }
-//
-//                    }
-//                })
-//
-//            adapter = searchFilterSelectedAdapter
-////            observerSelected = object :
-////                RecyclerView.AdapterDataObserver() {
-////                override fun onChanged() {
-////                    super.onChanged()
-////                    checkEmpty()
-////                }
-////
-////                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-////                    super.onItemRangeInserted(positionStart, itemCount)
-////                    checkEmpty()
-////                }
-////
-////                override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
-////                    super.onItemRangeRemoved(positionStart, itemCount)
-////                    checkEmpty()
-////                }
-////
-////                fun checkEmpty() {
-////                    binding.selectedViews.visibility =
-////                        (if (searchFilterSelectedAdapter.itemCount == 1) View.VISIBLE else View.GONE)
-////                }
-////            }
-////            searchFilterSelectedAdapter.registerAdapterDataObserver(observerSelected)
-//        }
+//                fun checkEmpty() {
+//                    binding.selectedViews.visibility =
+//                        (if (searchFilterSelectedAdapter.itemCount > 0) View.VISIBLE else View.GONE)
+//                }
+//            }
+//            searchFilterSelectedAdapter.registerAdapterDataObserver(observerSelected)
+
+        }
         binding.rvNews.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             newsListAdapter = NewFilterListAdapter(object : NewsClickListener {
@@ -283,10 +218,57 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
     override fun onDestroyView() {
         super.onDestroyView()
         newsListAdapter.unregisterAdapterDataObserver(observer)
-//        searchFilterSelectedAdapter.registerAdapterDataObserver(observerSelected)
+//        searchFilterSelectedAdapter.unregisterAdapterDataObserver(observerSelected)
 
     }
 
+    private fun initiateSelectedItems() {
+        val _selectedItemsTemp: MutableList<SelectedFilter> = mutableListOf()
+
+        filter.apply {
+            if (keyword.isNotEmpty()) {
+                binding.eventSearchToolbar.editSearchEvents.setText(keyword)
+                _selectedItemsTemp.add(
+                    SelectedFilter(
+                        title = keyword,
+                        isKeyword = true
+                    )
+                )
+            }
+            if (dateFrom.isNotEmpty()) {
+                _selectedItemsTemp.add(
+                    SelectedFilter(
+                        title = dateFrom,
+                        isDateFrom = true
+                    )
+                )
+
+            }
+            if (dateTo.isNotEmpty()) {
+                _selectedItemsTemp.add(
+                    SelectedFilter(
+                        title = dateTo,
+                        isDateFrom = true
+                    )
+                )
+
+            }
+            if (tags.isNotEmpty()) {
+                tags.forEach {
+                    _selectedItemsTemp.add(
+                        SelectedFilter(
+                            title = it,
+                            isTag = true
+                        )
+                    )
+
+                }
+            }
+            newsFilterViewModel.updateSelectedItem(_selectedItemsTemp)
+        }
+
+
+    }
 
 }
 

@@ -84,11 +84,8 @@ abstract class BaseViewModel(
     }
 
 
-    fun setUser(user: User, istyped: Boolean = false) {
-        _userLiveData.value = user.copy(
-            isTyped = istyped
-        )
-
+    fun setUser(user: User) {
+        _userLiveData.value = user
     }
 
     fun setGuestUser(user: Guest) {

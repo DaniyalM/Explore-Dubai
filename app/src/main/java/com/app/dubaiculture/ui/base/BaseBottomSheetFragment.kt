@@ -3,8 +3,10 @@ package com.app.dubaiculture.ui.base
 import ae.sdg.libraryuaepass.UAEPassController
 import android.app.Activity
 import android.app.Dialog
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +20,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.infrastructure.ApplicationEntry
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ProgressDialog
 import com.app.dubaiculture.utils.event.EventUtilFunctions
 import com.app.dubaiculture.utils.event.UiEvent
@@ -50,7 +53,25 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         activity = (context as Activity)
     }
 
-
+    fun navigateToGoogleMap(
+        currentLat: String,
+        currentLng: String,
+        destinationLat: String,
+        destinationLng: String
+    ) {
+        val uri =
+            Constants.GoogleMap.LINK_URI + currentLat + "," + currentLng + Constants.GoogleMap.DESTINATION + destinationLat + "," + destinationLng
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        intent.setPackage(Constants.GoogleMap.PACKAGE_NAME_GOOGLE_MAP)
+        try {
+            startActivity(intent)
+        } catch (ex: ActivityNotFoundException) {
+            EventUtilFunctions.showToast(
+                "Please install a Google map application",
+                requireContext()
+            )
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

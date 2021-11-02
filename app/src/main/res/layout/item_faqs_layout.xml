@@ -4,89 +4,99 @@
 
     <data>
 
-
+        <import type="android.text.TextUtils" />
 
         <variable
             name="faq"
             type="com.app.dubaiculture.data.repository.popular_service.local.models.FAQX" />
 
-    </data>
 
+        <variable
+            name="faqItem"
+            type="com.app.dubaiculture.data.repository.more.local.FaqItem" />
+
+    </data>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:foreground="@drawable/custom_ripple_black"
-        android:outlineSpotShadowColor="@color/gray_600"
-        app:cardCornerRadius="@dimen/_12sdp"
-        app:cardElevation="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardCornerRadius="@dimen/_12sdp">
 
-        <LinearLayout
-            android:id="@+id/ll"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_questionNum"
+                style="@style/TextViewStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginBottom="@dimen/_15sdp"
-                android:orientation="horizontal">
-                <!--                style="@style/TextViewStyle"-->
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@{TextUtils.isEmpty(faq.id.toString())?faqItem.id.toString():faq.id.toString()}"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textFont="bold" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                    android:id="@+id/tv_questionNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:text="@{faq.id.toString()}"
-                    android:textColor="?attr/colorSecondary"
-                    android:textSize="@dimen/_12sdp"
-                    android:textStyle="bold"
-                    app:textFont="bold" />
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_questions"
+                style="@style/TextViewStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="@{TextUtils.isEmpty(faq.question)?faqItem.question:faq.question}"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toStartOf="@+id/imgToggle"
+                app:layout_constraintStart_toEndOf="@+id/tv_questionNum"
+                app:layout_constraintTop_toTopOf="@+id/tv_questionNum" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                    android:id="@+id/tv_questions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_weight="1"
-                    android:lineSpacingExtra="3dp"
-                    android:text="@{faq.question}"
-                    android:textColor="?attr/colorSecondary"
-                    android:textSize="@dimen/_13sdp" />
+            <View
+                android:id="@+id/line_seperator"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgToggle"
+                app:layout_constraintStart_toEndOf="@+id/tv_questionNum"
+                app:layout_constraintTop_toBottomOf="@+id/tv_questions" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imgToggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="@dimen/_15sdp" />
-            </LinearLayout>
-
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="@dimen/_16sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_questionNum"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_questionNum" />
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_answer"
-                android:layout_width="wrap_content"
+                style="@style/TextViewStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:layout_marginBottom="@dimen/_15sdp"
-                android:lineSpacingExtra="3dp"
-                android:text="@{faq.answer}"
-                android:textColor="?attr/colorSecondary"
-                android:visibility="gone" />
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_12ssp"
+                android:lineSpacingExtra="@dimen/_2sdp"
+                android:text="@{TextUtils.isEmpty(faq.answer)?faqItem.answer:faq.answer}"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgToggle"
+                app:layout_constraintStart_toEndOf="@+id/tv_questionNum"
+                app:layout_constraintTop_toBottomOf="@+id/tv_questions" />
 
-        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </com.google.android.material.card.MaterialCardView>

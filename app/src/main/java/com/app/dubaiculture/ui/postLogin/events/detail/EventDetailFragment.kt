@@ -16,7 +16,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -27,14 +26,16 @@ import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItems
 import com.app.dubaiculture.data.repository.event.local.models.schedule.EventScheduleItemsSlots
-import com.app.dubaiculture.databinding.*
+import com.app.dubaiculture.databinding.EventDetailInnerLayoutBinding
+import com.app.dubaiculture.databinding.EventDetailScheduleLayoutBinding
+import com.app.dubaiculture.databinding.FragmentEventDetailBinding
+import com.app.dubaiculture.databinding.ToolbarLayoutEventDetailBinding
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
 import com.app.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
-import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
-import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
+import com.app.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
+import com.app.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.app.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
-import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.GoogleMap.DESTINATION
 import com.app.dubaiculture.utils.Constants.GoogleMap.LINK_URI
@@ -59,8 +60,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -71,7 +70,7 @@ import kotlin.collections.ArrayList
 @AndroidEntryPoint
 class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     OnMapReadyCallback, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
-    private val eventViewModel: EventViewModel by viewModels()
+    private val eventViewModel: EventDetailViewModel by viewModels()
     private lateinit var verticalLayoutManager: RecyclerView.LayoutManager
     private lateinit var myAdapter: RecyclerView.Adapter<*>
     val parentItemList = ArrayList<EventScheduleItems>()
@@ -89,7 +88,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     lateinit var eventDetailScheduleLayoutBinding: EventDetailScheduleLayoutBinding
     lateinit var toolbarLayoutEventDetailBinding: ToolbarLayoutEventDetailBinding
 
-    var eventListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+//    var eventListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+//    private lateinit var eventListScreenAdapter: EventListScreenAdapter
+    private lateinit var eventListScreenAdapter: EventAdapter
 
 
     private val getObserver = Observer<GpsStatus> {
@@ -160,12 +161,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         super.onViewStateRestored(savedInstanceState)
         eventDetailInnerLayout = binding.eventDetailInnerLayout
         toolbarLayoutEventDetailBinding=binding.toolbarLayoutEventDetail
+        rvSetUp()
         locationPermission()
         subscribeUiEvents(eventViewModel)
         callingObservables()
         mapSetUp(savedInstanceState)
         uiActions()
-        rvSetUp()
+        arrowRTL(eventDetailInnerLayout.imgEventSpeaker)
+
         subscribeToGpsListener()
 
 
@@ -266,10 +269,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 adapter = myAdapter
             }
         }
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.swipeRefreshLayout.isRefreshing = false
-            callingObservables()
-        }
+//        binding.swipeRefreshLayout.setOnRefreshListener {
+//            binding.swipeRefreshLayout.isRefreshing = false
+//            callingObservables()
+//        }
 
     }
 
@@ -372,7 +375,59 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         eventDetailInnerLayout.rvEventUpComing.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = eventListAdapter
+
+            eventListScreenAdapter= EventAdapter(eventClickListner = object : EventClickListner{
+                override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean, itemId: String) {
+                    favouriteClick(
+                            checkbox,
+                            isFav,
+                            type = 2,
+                            itemId = itemId,
+                            baseViewModel = eventViewModel,
+                            nav = R.id.action_eventDetailFragment2_to_postLoginFragment
+                    )
+                }
+
+                override fun rowClickHandler(events: Events) {
+                    val bundle = Bundle()
+                    bundle.putParcelable(
+                            EVENT_OBJECT,
+                            events
+                    )
+                    navigate(
+                            R.id.action_eventDetailFragment2_to_eventDetailFragment2,
+                            bundle
+                    )
+                }
+            }
+            )
+//            eventListScreenAdapter=
+//                EventListScreenAdapter(eventClickListner = object : EventClickListner{
+//                override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean, itemId: String) {
+//                    favouriteClick(
+//                            checkbox,
+//                            isFav,
+//                            type = 2,
+//                            itemId = itemId,
+//                            baseViewModel = eventViewModel,
+//                            nav = R.id.action_eventDetailFragment2_to_postLoginFragment
+//                    )
+//                }
+//
+//                override fun rowClickHandler(events: Events) {
+//                    val bundle = Bundle()
+//                    bundle.putParcelable(
+//                            EVENT_OBJECT,
+//                            events
+//                    )
+//                    navigate(
+//                            R.id.action_eventDetailFragment2_to_eventDetailFragment2,
+//                            bundle
+//                    )
+//                }
+//            },orientationFlag = VerticalLength)
+
+            adapter = eventListScreenAdapter
         }
         initiateExpander()
 
@@ -391,9 +446,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     override fun onMapReady(map: GoogleMap?) {
         try {
-            if (eventObj.latitude!!.isNotEmpty()) {
+            if (eventObj.latitude.isNotEmpty()) {
                 val trafficDigitalLatLng =
-                    LatLng((eventObj.latitude!!.toDouble()), eventObj.longitude!!.toDouble())
+                    LatLng((eventObj.latitude.toDouble()), eventObj.longitude.toDouble())
 
                 map?.addMarker(
                     MarkerOptions()
@@ -493,12 +548,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     override fun getCurrentLocation(location: Location) {
                         loc = location
                         Timber.e("Current Location ${location.latitude}")
-                        if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty())
+                        if (eventObj.latitude.isNotEmpty() && eventObj.longitude.isNotEmpty())
                             binding.eventDetailInnerLayout.tvKm.text = locationHelper.distance(
                                 loc.latitude,
                                 loc.longitude,
-                                eventObj.latitude!!.toDouble(),
-                                eventObj.longitude!!.toDouble()
+                                eventObj.latitude.toDouble(),
+                                eventObj.longitude.toDouble()
                             ).toString() + " " + resources.getString(R.string.away)
                     }
                 },
@@ -540,9 +595,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         binding.eventDetailInnerLayout.llEmailUs.alpha = 0.2f
                         binding.eventDetailInnerLayout.llEmailUs.isClickable = false
                     }
+
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)
                     }
+                    eventListScreenAdapter.submitList(it.value.relatedEvents)
                     if (!it.value.desc.isNullOrEmpty()) {
                         binding.eventDetailInnerLayout.tvDescReadmoreEvent.text = it.value.desc
                     }
@@ -559,55 +616,56 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     }
                     slotTime =  getScheduleTimeSlot()
 
-                    if (eventListAdapter.itemCount > 0) {
-                        eventListAdapter.clear()
-                    }
-                    moreEvents.map {
-                        eventListAdapter.add(EventListItem<EventItemsBinding>(object :
-                            FavouriteChecker {
-                            override fun checkFavListener(
-                                checkbox: CheckBox,
-                                pos: Int,
-                                isFav: Boolean,
-                                itemId: String,
-                            ) {
-                                favouriteClick(
-                                    checkbox,
-                                    isFav,
-                                    type = 2,
-                                    itemId = itemId,
-                                    baseViewModel = eventViewModel,
-                                    nav = R.id.action_eventDetailFragment2_to_postLoginFragment
-                                )
-                            }
-                        }, object : RowClickListener {
-                            override fun rowClickListener(position: Int) {
-                                val eventObj = moreEvents[position]
-                                val bundle = Bundle()
-                                bundle.putParcelable(
-                                    EVENT_OBJECT,
-                                    eventObj
-                                )
-                                navigate(
-                                    R.id.action_eventDetailFragment2_to_eventDetailFragment2,
-                                    bundle
-                                )
-                            }
 
-                            override fun rowClickListener(
-                                position: Int,
-                                imageView: ImageView
-                            ) {
-
-                            }
-                        },object : EventListItem.SurveySubmitListener{
-                            override fun submitBtnClickListener(position: Int) {
-                            }
-
-                        }, event = it, resLayout = R.layout.event_items, activity
-                        )
-                        )
-                    }
+//                    if (eventListAdapter.itemCount > 0) {
+//                        eventListAdapter.clear()
+//                    }
+//                    moreEvents.map {
+//                        eventListAdapter.add(EventListItem<EventItemsBinding>(object :
+//                            FavouriteChecker {
+//                            override fun checkFavListener(
+//                                checkbox: CheckBox,
+//                                pos: Int,
+//                                isFav: Boolean,
+//                                itemId: String,
+//                            ) {
+//                                favouriteClick(
+//                                    checkbox,
+//                                    isFav,
+//                                    type = 2,
+//                                    itemId = itemId,
+//                                    baseViewModel = eventViewModel,
+//                                    nav = R.id.action_eventDetailFragment2_to_postLoginFragment
+//                                )
+//                            }
+//                        }, object : RowClickListener {
+//                            override fun rowClickListener(position: Int) {
+//                                val eventObj = moreEvents[position]
+//                                val bundle = Bundle()
+//                                bundle.putParcelable(
+//                                    EVENT_OBJECT,
+//                                    eventObj
+//                                )
+//                                navigate(
+//                                    R.id.action_eventDetailFragment2_to_eventDetailFragment2,
+//                                    bundle
+//                                )
+//                            }
+//
+//                            override fun rowClickListener(
+//                                position: Int,
+//                                imageView: ImageView
+//                            ) {
+//
+//                            }
+//                        },object : EventListItem.SurveySubmitListener{
+//                            override fun submitBtnClickListener(position: Int) {
+//                            }
+//
+//                        }, event = it, resLayout = R.layout.event_items, activity
+//                        )
+//                        )
+//                    }
                 }
                 is Result.Failure -> {
 //                    eventViewModel.showErrorDialog(message = INTERNET_CONNECTION_ERROR)
@@ -631,13 +689,13 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     private fun locationIsEmpty(location: Location) {
-        if (eventObj.latitude!!.isNotEmpty() && eventObj.longitude!!.isNotEmpty()) {
+        if (eventObj.latitude.isNotEmpty() && eventObj.longitude.isNotEmpty()) {
             binding.eventDetailInnerLayout.tvKm.text =
                 locationHelper.distance(
                     location.latitude,
                     location.longitude,
-                    eventObj.latitude!!.toDouble(),
-                    eventObj.longitude!!.toDouble()
+                    eventObj.latitude.toDouble(),
+                    eventObj.longitude.toDouble()
                 )
                     .toString() + resources.getString(R.string.away)
         }
@@ -673,11 +731,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         if (verticalOffset == -binding.toolbarLayoutEventDetail.collapsingToolbarEventDetail.height + binding.toolbarLayoutEventDetail.toolbarEventDetail.height) {
             binding.defaultCloseToolbar.visibility = View.VISIBLE
             binding.imageView4.visibility = View.VISIBLE
-            binding.swipeRefreshLayout.isEnabled = false
+//            binding.swipeRefreshLayout.isEnabled = false
         } else {
             binding.defaultCloseToolbar.visibility = View.GONE
             binding.imageView4.visibility = View.GONE
-            binding.swipeRefreshLayout.isEnabled = true
+//            binding.swipeRefreshLayout.isEnabled = true
         }
     }
 

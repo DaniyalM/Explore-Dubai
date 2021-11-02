@@ -7,9 +7,9 @@ import com.app.dubaiculture.utils.Constants
 private const val CHAR_LENGTH = 90
 
 fun getReadMoreOptions(
-    context: Context,
-    readMoreClickListener: ReadMoreClickListener,
-    color: String = Constants.Colors.SEE_MORE_BLUE
+        context: Context,
+        readMoreClickListener: ReadMoreClickListener,
+        color: String = Constants.Colors.SEE_MORE_BLUE
 ): ReadMoreOption =
     ReadMoreOption.Builder(context)
         .textLength(CHAR_LENGTH, ReadMoreOption.TYPE_CHARACTER)

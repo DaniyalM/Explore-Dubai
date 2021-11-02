@@ -123,7 +123,7 @@
                     android:layout_width="0dp"
                     android:layout_marginTop="17dp"
                     android:layout_height="1dp"
-                    android:background="#E8E8E8"
+                    android:background="?attr/color_light_theme_dark_theme_gray"
                     app:layout_constraintEnd_toEndOf="@+id/tv_contact_desc"
                     app:layout_constraintStart_toStartOf="@+id/tv_days"
                     app:layout_constraintTop_toBottomOf="@+id/tv_time" />
@@ -154,7 +154,8 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="21dp"
-                    android:background="#E8E8E8"
+                    android:background="?attr/color_light_theme_dark_theme_gray"
+
                     app:layout_constraintEnd_toEndOf="@+id/tv_contact_desc"
                     app:layout_constraintStart_toStartOf="@+id/tv_days"
                     app:layout_constraintTop_toBottomOf="@+id/tv_number" />
@@ -293,7 +294,7 @@
                         android:id="@+id/dividerLine"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="#F0F0F0"
+                        android:background="?attr/color_light_theme_dark_theme_gray"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         app:layout_constraintStart_toStartOf="@+id/img"
@@ -565,12 +566,12 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
                 <View
                     android:id="@+id/divider_line9"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="#F0F0F0"
+                    android:background="?attr/color_light_theme_dark_theme_gray"
+
                     android:layout_marginStart="@dimen/_3sdp"
                     android:layout_marginEnd="@dimen/_17sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -732,7 +733,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_9sdp"
                         android:elevation="@dimen/_8sdp"
-                        android:outlineAmbientShadowColor="@color/gray_600"
+                        android:outlineAmbientShadowColor="?attr/color_light_theme_dark_theme_gray"
                         android:background="@drawable/linkedin_attraction_icon"
                         android:id="@+id/imgLinkedinAttraction"
                         android:foreground="@drawable/custom_ripple_border" />

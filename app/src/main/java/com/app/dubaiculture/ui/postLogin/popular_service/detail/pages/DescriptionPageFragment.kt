@@ -1,14 +1,12 @@
 package com.app.dubaiculture.ui.postLogin.popular_service.detail.pages
 
 import android.os.Bundle
-import android.os.Environment
 import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.data.repository.popular_service.local.models.Description
 import com.app.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
@@ -16,17 +14,14 @@ import com.app.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels
 import com.app.dubaiculture.utils.openPdf
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
-import timber.log.Timber
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
 import java.util.*
 
 
 @AndroidEntryPoint
 class DescriptionPageFragment(val description: List<Description>, val category: String? = null) :
-    BaseFragment<ItemsServiceDetailDescLayoutBinding>() {
+        BaseFragment<ItemsServiceDetailDescLayoutBinding>() {
+
+    var readMoreFlag = false
     private val descriptionViewModel: DescriptionViewModel by viewModels()
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireContext()) { status ->
@@ -36,22 +31,36 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
         }
     }
 
+
     override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+            inflater: LayoutInflater,
+            container: ViewGroup?
     ) = ItemsServiceDetailDescLayoutBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(descriptionViewModel)
 
-
+        bgRTL(binding.imgSpeaker)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+
         if (description.isNotEmpty()) {
             subscribeToObservables()
+//            val readMoreOption = getReadMoreOptions(
+//                    activity,
+//                    object : ReadMoreClickListener {
+//                        override fun onClick(readMore: Boolean) {
+//                            readMoreFlag=readMore
+//                        }
+//                    })
+//
+//            if (readMoreFlag)
+
+
+
             val description = description[0]
             binding.imgSpeaker.setOnClickListener {
                 if (description.descriptions.isNotEmpty()) {
@@ -65,11 +74,14 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             }
             binding.description = description
             binding.category = category!!
+            binding.tvPdfTitle.text = description.fileName
+            binding.fileSize.text = description.fileSize
             binding.fileViewLink.setOnClickListener {
-                descriptionViewModel.getDoc("http://www.africau.edu/images/default/sample.pdf")
-
-//                if (description.documentLink.isNotEmpty()){
-//                }
+                if (description.documentLink.isNotEmpty() && description.documentLink.contains(".pdf")) {
+//                    descriptionViewModel.getDoc("http://www.africau.edu/images/default/sample.pdf")
+                    descriptionViewModel.getDoc(description.documentLink)
+                } else
+                    showToast("Invalid Link")
             }
         }
     }
@@ -85,9 +97,6 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             }
         }
     }
-
-
-
 
 
 }

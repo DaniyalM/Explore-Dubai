@@ -30,6 +30,8 @@
                 android:layout_margin="@dimen/_15sdp"
                 android:layout_marginStart="16dp"
                 android:text="Change Profile Photo"
+                android:textColor="?attr/colorSecondary"
+
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gray_line" />
@@ -61,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:text="@string/take_new_photo"
-                    android:textColor="@color/black_700"
+                    android:textColor="?attr/colorSecondary"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_favourite"
                     app:layout_constraintStart_toEndOf="@+id/icon_favourite"
                     app:layout_constraintTop_toTopOf="@+id/icon_favourite" />
@@ -134,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:text="@string/select_photo_from_gallery"
-                    android:textColor="@color/black_700"
+                    android:textColor="?attr/colorSecondary"
                     app:layout_constraintBottom_toBottomOf="@+id/galleryPickerIcon"
                     app:layout_constraintStart_toEndOf="@+id/galleryPickerIcon"
                     app:layout_constraintTop_toTopOf="@+id/galleryPickerIcon" />

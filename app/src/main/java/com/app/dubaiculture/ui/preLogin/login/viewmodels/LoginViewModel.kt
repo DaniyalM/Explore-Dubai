@@ -1,7 +1,6 @@
 package com.app.dubaiculture.ui.preLogin.login.viewmodels
 
 import android.app.Application
-import android.os.Bundle
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -74,7 +73,7 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             userRepository.getLastUser()?.let {
-                setUser(it, true)
+                setUser(it)
             }
         }
     }
@@ -118,32 +117,33 @@ class LoginViewModel @Inject constructor(
                     //UAE Response Has been Saved
                     val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
                     uaePass.let {
-                        if (it.idn.isEmpty()) {
-                            showAlert(message = activity.resources.getString(R.string.sop1))
-                        } else {
-                            //setting UaePassInfo for Session
+                        userRepository.saveUaeInfo(
+                            it
+                        )
 
-                            userRepository.saveUaeInfo(
-                                it
-                            )
+                        //setting user for Session
+                        val user = transform(
+                            result.value.loginResponseDTO.userDTO,
+                            result.value.loginResponseDTO
+                        ).copy(
+                            idn = it.idn,
+                            userName = "${it.firstNameEn} ${it.lastNameEn}",
+                            email = it.email,
+                            phoneNumber = "+${it.mobile}"
+                        )
 
-                            //setting user for Session
-                            val user = transform(
-                                result.value.loginResponseDTO.userDTO,
-                                result.value.loginResponseDTO
-                            ).copy(
-                                idn = it.idn,
-                                userName = "${it.firstNameEn} ${it.lastNameEn}",
-                                email = it.email,
-                                phoneNumber = "+${it.mobile}"
-                            )
-
-                            setUser(user, true)
-                            //Saving User Session
-                            userRepository.updateUser(user)
-
-
-                        }
+                        setUser(user)
+                        //Saving User Session
+                        userRepository.updateUser(user)
+//                        if (it.idn.isEmpty()) {
+//                            showAlert(message = activity.resources.getString(R.string.sop1))
+//                        } else {
+//                            //setting UaePassInfo for Session
+//
+//
+//
+//
+//                        }
                     }
 
                 }
@@ -178,8 +178,7 @@ class LoginViewModel @Inject constructor(
                                     transform(
                                         result.value.loginResponseDTO.userDTO,
                                         result.value.loginResponseDTO
-                                    ),
-                                    true
+                                    )
                                 )
 
                                 userRepository.saveUser(
@@ -235,8 +234,7 @@ class LoginViewModel @Inject constructor(
                                     transform(
                                         result.value.loginResponseDTO.userDTO,
                                         result.value.loginResponseDTO
-                                    ),
-                                    true
+                                    )
                                 )
 
                                 userRepository.saveUser(

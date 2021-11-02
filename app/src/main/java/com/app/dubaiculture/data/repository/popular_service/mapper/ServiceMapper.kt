@@ -1,5 +1,6 @@
 package com.app.dubaiculture.data.repository.popular_service.mapper
 
+import com.app.dubaiculture.data.repository.more.local.FaqItem
 import com.app.dubaiculture.data.repository.popular_service.local.models.*
 import com.app.dubaiculture.data.repository.popular_service.remote.response.EServiceDTO
 import com.app.dubaiculture.data.repository.popular_service.remote.response.EServiceDetailDTO
@@ -23,7 +24,8 @@ fun transformService(eServices: List<EServiceDTO>): List<EService> =
             category = it.Category,
             title = it.Title,
             summary = it.Summary,
-            id = it.ID
+            id = it.ID,
+            categoryId = it.CategoryID
         )
     }
 
@@ -40,6 +42,7 @@ fun transformServiceCategorys(serviceCategory: List<ServiceCategoryDTO>): List<S
 
 fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetail =
     EServicesDetail(
+        is_favourite = eServiceDetailDTO.IsFavourite ?: false,
         category = eServiceDetailDTO.Category ?: "",
         description = eServiceDetailDTO.Description?.map {
             Description(
@@ -62,8 +65,9 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
         fAQs = eServiceDetailDTO.FAQs?.map {
             FAQ(
                 fAQs = it.FAQs?.mapIndexed { index, faqxdto ->
-                    FAQX(
-                        id = index,
+                    FaqItem(
+                        is_expanded = index == 0,
+                        id = index + 1,
                         answer = faqxdto.Answer ?: "",
                         question = faqxdto.Question ?: ""
                     )
@@ -112,8 +116,9 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
             TermsAndCondition(
                 termsAndConditionsSummary = it.TermsAndConditionsSummary ?: "",
                 termsAndConditionsTitle = it.TermsAndConditionsTitle ?: "",
-                enquireNumber = eServiceDetailDTO.EnquireNumber?:"",
-                email = ""
+                enquireNumber = eServiceDetailDTO.EnquireNumber ?: "",
+                email = "",
+                serviceStart = eServiceDetailDTO.StartServiceText ?: "",
             )
         } ?: mutableListOf()
 

@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+    <path
+        android:fillColor="?attr/color_dubai_logo"
+        android:pathData="M7.729,7.179a0.557,0.557 0,0 0,-0.554 0.558v7.57a0.554,0.554 0,1 0,1.108 0v-7.57A0.558,0.558 0,0 0,7.729 7.179Z" />
+    <path
+        android:fillColor="?attr/color_dubai_logo"
+        android:pathData="M12.271,7.179a0.558,0.558 0,0 0,-0.554 0.558v7.57a0.554,0.554 0,1 0,1.108 0v-7.57A0.557,0.557 0,0 0,12.271 7.179Z" />
+    <path
+        android:fillColor="?attr/color_dubai_logo"
+        android:pathData="M12.438,0L7.562,0a1.935,1.935 0,0 0,-1.939 1.955h0v1.09L0.554,3.045a0.559,0.559 0,0 0,0 1.117L2.3,4.162l0.887,13.994A1.949,1.949 0,0 0,5.125 20h9.75a1.949,1.949 0,0 0,1.939 -1.844L17.7,4.162h1.745a0.559,0.559 0,0 0,0 -1.117L14.377,3.045v-1.09A1.935,1.935 0,0 0,12.438 0ZM6.731,1.955a0.819,0.819 0,0 1,0.831 -0.838h4.876a0.819,0.819 0,0 1,0.831 0.838v1.09L6.731,3.045ZM15.706,18.1a0.825,0.825 0,0 1,-0.831 0.782h-9.75a0.825,0.825 0,0 1,-0.831 -0.782l-0.887,-13.939L16.593,4.161Z" />
+</vector>

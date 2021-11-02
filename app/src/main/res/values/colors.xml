@@ -17,6 +17,7 @@
     <color name="edit_text_white_shade_bg">#f8f8f8</color>
 
 
+    <color name="purple_100">#E6DFEC</color>
     <color name="purple_900">#5E2E82</color>
     <color name="purple_600">#6D438D</color>
     <color name="purple_650">#5D2E82</color>
@@ -25,6 +26,8 @@
     <!--Color on secondary (light), color on background (light),-->
     <!--color on surface (light)-->
     <color name="black_900">#000000</color>
+    <color name="black_850">#0F0F0F</color>
+    <!--    <color name="black_900">#000000</color>-->
     <color name="bg_app_black_900">#0A0A0A</color>
 
     <color name="black_700">#272727</color>
@@ -47,6 +50,7 @@
     <color name="white_900">#ffffff</color>
 
     <color name="gray_800">#707379</color>
+    <color name="gray_850">#2a2a2a</color>
     <color name="gray_600">#B7B9BC</color>
     <color name="gray_700">#6F7377</color>
     <color name="gray_400">#D5D5D6</color>
@@ -82,6 +86,14 @@
     <color name="events_tab_indicator">#EBC03F</color>
 
     <color name="no_data_placeholder">#231F20</color>
+
+    <color name="purple_trip_chip">#572C82</color>
+    <color name="purple_text_tint">#5A2784</color>
+    <color name="progress_color">#00BBB0</color>
+
+    <color name="delete_color">#F5D5D5</color>
+    <color name="delete_text_color">#DF7D7D</color>
+    <color name="polyline_color">#26C5BB</color>
 
 
 </resources>

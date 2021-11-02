@@ -1,7 +1,5 @@
 package com.app.dubaiculture.ui.base
 
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
@@ -16,7 +14,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.app.dubaiculture.R
 import com.app.dubaiculture.infrastructure.ApplicationEntry
-import com.app.dubaiculture.ui.postLogin.login.PostLoginFragment
 import com.app.dubaiculture.ui.preLogin.login.LoginFragment
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.ProgressDialog
@@ -29,7 +26,7 @@ import com.app.dubaiculture.utils.event.UiEvent
 import com.squareup.otto.Bus
 
 
- abstract class BaseActivity : LocalizationActivity() {
+abstract class BaseActivity : LocalizationActivity() {
     lateinit var applicationEntry: ApplicationEntry
     protected lateinit var bus: Bus
     protected var isBusRegistered: Boolean = false
@@ -108,7 +105,6 @@ import com.squareup.otto.Bus
         darkModeAccess()
 
 
-
     }
 
 
@@ -182,7 +178,7 @@ import com.squareup.otto.Bus
     protected fun getNavControllerFun(int: Int): NavController {
         val navHostFragment =
             supportFragmentManager.findFragmentById(int) as NavHostFragment
-        navController=navHostFragment.navController
+        navController = navHostFragment.navController
         return navController
     }
 
@@ -194,7 +190,7 @@ import com.squareup.otto.Bus
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() ?: false
+        return navController.navigateUp()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -203,8 +199,6 @@ import com.squareup.otto.Bus
             handleIntent(intent)
         }
     }
-
-
 
 
 }

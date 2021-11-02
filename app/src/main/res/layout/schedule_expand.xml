@@ -22,7 +22,7 @@
             android:textSize="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:drawableStart="@drawable/clock_green"
-            android:textColor="@color/black_900"
+            style="@style/TextViewStyle"
             android:drawablePadding="@dimen/_8ssp"
             />
 

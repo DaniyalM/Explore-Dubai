@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable
 import android.net.NetworkRequest
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -262,6 +263,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         } catch (ex: IllegalArgumentException) {
 
+            Log.e(Companion.TAG, ex.localizedMessage)
         }
 
     }
@@ -352,10 +354,15 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
     }
 
-    fun arrowRTL(img: ImageView) {
+    fun arrowRTL(img: ImageView, inverted: Boolean = false) {
         when {
             isArabic() -> {
-                img.rotation = -180f
+                if (!inverted)
+                    img.rotation = -180f
+                else
+                    img.rotation = 0f
+
+
             }
         }
     }
@@ -488,6 +495,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             showToast("Please install a Google map application", requireContext())
         }
     }
+
     fun handleIntent(intent: Intent?) {
         if (intent != null && intent.data != null) {
             if (BuildConfig.URI_SCHEME.equals(intent.data!!.scheme)) {
@@ -495,7 +503,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             }
         }
     }
-//    fun showBottomSheet(
+
+    //    fun showBottomSheet(
 //        bottomSheetFragment: BottomSheetDialogFragment,
 //        tag: String? = null
 //    ) {
@@ -503,4 +512,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 //            requireActivity().supportFragmentManager, tag
 //        )
 //    }
+    companion object {
+        private const val TAG = "BaseFragment"
+    }
 }

@@ -47,4 +47,16 @@ class NewsFilterSheetViewModel @Inject constructor(
         }
     }
 
+    fun updateTags() {
+        val data = _newsTags.value ?: return
+        data.map {
+            if (it.isSelected)
+                return@map it.copy(isSelected = false)
+            else
+                return@map it
+        }.let {
+            _newsTags.value = it
+        }
+    }
+
 }

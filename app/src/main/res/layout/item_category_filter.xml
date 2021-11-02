@@ -31,7 +31,7 @@
             android:gravity="center_vertical"
             android:visibility="gone"
             android:text="Management"
-            android:textColor="@color/white_900"
+            android:textColor="?attr/colorSurface"
             android:textSize="@dimen/_10ssp" />
 
         <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -44,7 +44,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center_vertical"
             android:text="Management"
-            android:textColor="@color/gray_600"
+            style="@style/TextViewStyle"
             android:textSize="@dimen/_10ssp" />
 
 

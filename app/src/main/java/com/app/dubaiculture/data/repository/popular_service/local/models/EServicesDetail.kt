@@ -1,7 +1,5 @@
 package com.app.dubaiculture.data.repository.popular_service.local.models
 
-import com.app.dubaiculture.data.repository.popular_service.remote.response.*
-
 data class EServicesDetail(
     val category: String,
     val description: List<Description>,
@@ -12,5 +10,6 @@ data class EServicesDetail(
     val requiredDocument: List<RequiredDocument>,
     val startServiceText: String,
     val startServiceUrl: String,
-    val termsAndCondition: List<TermsAndCondition>
+    val termsAndCondition: List<TermsAndCondition>,
+    val is_favourite: Boolean
 )

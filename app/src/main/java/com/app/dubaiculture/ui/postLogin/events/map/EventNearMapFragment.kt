@@ -10,19 +10,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.app.dubaiculture.databinding.FragmentEventNearMapBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.postLogin.events.EventsFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.DirectionClickListener
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.events.adapters.EventNearMapAdapter
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.EventUtilFunctions.showToast
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
@@ -99,7 +100,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     private fun mapSetUp(savedInstanceState: Bundle?) {
         if(!this::mapView.isInitialized){
             mapView = binding.root.findViewById(R.id.google_map)
-            mapView?.let {
+            mapView.let {
                 it.getMapAsync(this)
                 it.onCreate(savedInstanceState)
             }
@@ -127,16 +128,22 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     private fun pinsOnMap(list: List<Events>, map: GoogleMap?) {
         list.forEach {
             val locationObj =
-                LatLng(it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
-                    it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble())
-            if (it.distance!! <= 6.0)
-                map?.addMarker(MarkerOptions().position(locationObj)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_within_distance_calendar))
-                    .title(it.title))
+                LatLng(
+                    it.latitude.ifEmpty { "24.83250180519734" }.toDouble(),
+                    it.longitude.ifEmpty { "67.08119661055807" }.toDouble()
+                )
+            if (it.distance <= 6.0)
+                map?.addMarker(
+                    MarkerOptions().position(locationObj)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.events_map))
+                        .title(it.title)
+                )
             else
-                map?.addMarker(MarkerOptions().position(locationObj)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_calendar_away))
-                    .title(it.title))
+                map?.addMarker(
+                    MarkerOptions().position(locationObj)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.events_away))
+                        .title(it.title)
+                )
         }
     }
 
@@ -167,18 +174,18 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
 
     override fun onResume() {
         super.onResume()
-        mapView?.onResume()
+        mapView.onResume()
 
     }
 
     override fun onPause() {
         super.onPause()
-        mapView?.onPause()
+        mapView.onPause()
 
     }
     override fun onDestroy() {
         super.onDestroy()
-        mapView?.onPause()
+        mapView.onPause()
 
     }
 }

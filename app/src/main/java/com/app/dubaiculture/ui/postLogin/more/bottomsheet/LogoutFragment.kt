@@ -30,6 +30,7 @@ class LogoutFragment : BaseBottomSheetFragment<FragmentLogoutBinding>(), View.On
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnLogout.setOnClickListener(this)
+        binding.tvCancel.setOnClickListener(this)
 //        subscribeToObservable()
     }
 

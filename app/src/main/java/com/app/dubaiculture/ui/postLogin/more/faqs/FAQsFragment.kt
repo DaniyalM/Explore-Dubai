@@ -9,23 +9,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.more.local.FaqItem
 import com.app.dubaiculture.databinding.FragmentFAQsBinding
-import com.app.dubaiculture.databinding.ItemFaqsLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
-import com.app.dubaiculture.ui.components.CustomTextWatcher.MyCustomTextWatcher
 import com.app.dubaiculture.ui.postLogin.more.faqs.adapters.FaqsListAdapter
 import com.app.dubaiculture.ui.postLogin.more.faqs.adapters.clicklisteners.FaqsItemClickListner
 import com.app.dubaiculture.ui.postLogin.more.faqs.viewmodel.FAQsViewModel
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FAQsFragment : BaseFragment<FragmentFAQsBinding>(), View.OnClickListener {
     private val faqsViewModel: FAQsViewModel by viewModels()
-    var faqsListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+//    var faqsListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
-    private lateinit var faqsListAdapter1: FaqsListAdapter
-    private val tempArrayList = ArrayList<FaqItem>()
+    private lateinit var faqsListAdapter: FaqsListAdapter
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -34,105 +29,111 @@ class FAQsFragment : BaseFragment<FragmentFAQsBinding>(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(faqsViewModel)
+        binding.viewModel = faqsViewModel
+
         backArrowRTL(binding.imgClose)
         binding.imgCancel.setOnClickListener(this)
         binding.imgClose.setOnClickListener(this)
-//        rvInit()
-//        subscribeToObservable()
-        rvSetup()
-        search()
+        rvInit()
+        subscribeToObservable()
+//        rvSetup()
+//        search()
     }
 
     private fun rvInit() {
         binding.rvFaqs.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            faqsListAdapter1 = FaqsListAdapter(object : FaqsItemClickListner {
+            faqsListAdapter = FaqsListAdapter(object : FaqsItemClickListner {
                 override fun onClickFaqItem(faqItem: FaqItem) {
-                    faqItem.is_expanded=!faqItem.is_expanded
-                    faqsViewModel.updateFaq(faqItem)
+                    faqsViewModel.updateFaq(faqItem.copy(is_expanded = !faqItem.is_expanded))
 
                 }
             })
-            adapter = faqsListAdapter1
+            adapter = faqsListAdapter
         }
     }
 
-    private fun subscribeToObservable(){
-        faqsViewModel.faqs.observe(viewLifecycleOwner){
-            it.faqItems.let {
-                faqsListAdapter1.submitList(it)
+
+    private fun subscribeToObservable() {
+        faqsViewModel.faqsTitle.observe(viewLifecycleOwner) {
+            binding.faqsTitle.text = it
+        }
+
+        faqsViewModel.faqs.observe(viewLifecycleOwner) {
+            it.let {
+                faqsListAdapter.submitList(it)
             }
         }
-        faqsViewModel.faq.observe(viewLifecycleOwner){
+        faqsViewModel.faq.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 faqsViewModel.updateFaqInList(it)
             }
         }
     }
 
-    private fun rvSetup() {
-        faqsViewModel.faqs.observe(viewLifecycleOwner) {
-            it?.let {
-                binding.faqsTitle.text = it.faqTitle
-                it.faqItems.map {
-                    tempArrayList.add(it)
-
-                    faqsListAdapter.add(
-                        FAQsItems<ItemFaqsLayoutBinding>(
-                            faqs = it,
-                            resLayout = R.layout.item_faqs_layout,
-                            context = requireContext(),
-                            isArabic = isArabic()
-                        )
-                    )
-                }
-            }
-
-            binding.rvFaqs.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = faqsListAdapter
-            }
-        }
-    }
-
-    private fun search() {
-        binding.editSearchFaqs.addTextChangedListener(object : MyCustomTextWatcher() {
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val myKey = binding.editSearchFaqs.text.toString().trim()
-                faqsListAdapter.clear()
-                val list = tempArrayList.filter {
-                    it.question.contains(myKey, ignoreCase = true)
-                }
-
-                if (myKey.trim().isNullOrEmpty()) {
-                    binding.imgCancel.visibility = View.GONE
-                    tempArrayList.map {
-                        faqsListAdapter.add(
-                            FAQsItems<ItemFaqsLayoutBinding>(
-                                faqs = it,
-                                resLayout = R.layout.item_faqs_layout,
-                                context = requireContext(),
-                                isArabic = isArabic()
-                            )
-                        )
-                    }
-                } else {
-                    binding.imgCancel.visibility = View.VISIBLE
-                    list.map {
-                        faqsListAdapter.add(
-                            FAQsItems<ItemFaqsLayoutBinding>(
-                                faqs = it,
-                                resLayout = R.layout.item_faqs_layout,
-                                context = requireContext(),
-                                isArabic = isArabic()
-                            )
-                        )
-                    }
-                }
-                faqsListAdapter.notifyDataSetChanged()
-            }
-        })
-    }
+//    private fun rvSetup() {
+//        faqsViewModel.faqs.observe(viewLifecycleOwner) {
+//            it?.let {
+//                binding.faqsTitle.text = it.faqTitle
+//                it.faqItems.map {
+//                    tempArrayList.add(it)
+//
+//                    faqsListAdapter.add(
+//                        FAQsItems<ItemFaqsLayoutBinding>(
+//                            faqs = it,
+//                            resLayout = R.layout.item_faqs_layout,
+//                            context = requireContext(),
+//                            isArabic = isArabic()
+//                        )
+//                    )
+//                }
+//            }
+//
+//            binding.rvFaqs.apply {
+//                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//                adapter = faqsListAdapter
+//            }
+//        }
+//    }
+//
+//    private fun search() {
+//        binding.editSearchFaqs.addTextChangedListener(object : MyCustomTextWatcher() {
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                val myKey = binding.editSearchFaqs.text.toString().trim()
+//                faqsListAdapter.clear()
+//                val list = tempArrayList.filter {
+//                    it.question.contains(myKey, ignoreCase = true)
+//                }
+//
+//                if (myKey.trim().isNullOrEmpty()) {
+//                    binding.imgCancel.visibility = View.GONE
+//                    tempArrayList.map {
+//                        faqsListAdapter.add(
+//                            FAQsItems<ItemFaqsLayoutBinding>(
+//                                faqs = it,
+//                                resLayout = R.layout.item_faqs_layout,
+//                                context = requireContext(),
+//                                isArabic = isArabic()
+//                            )
+//                        )
+//                    }
+//                } else {
+//                    binding.imgCancel.visibility = View.VISIBLE
+//                    list.map {
+//                        faqsListAdapter.add(
+//                            FAQsItems<ItemFaqsLayoutBinding>(
+//                                faqs = it,
+//                                resLayout = R.layout.item_faqs_layout,
+//                                context = requireContext(),
+//                                isArabic = isArabic()
+//                            )
+//                        )
+//                    }
+//                }
+//                faqsListAdapter.notifyDataSetChanged()
+//            }
+//        })
+//    }
 
     override fun onClick(v: View?) {
         when (v?.id) {

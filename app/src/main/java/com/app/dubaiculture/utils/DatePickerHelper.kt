@@ -5,7 +5,6 @@ import android.content.Context
 import android.widget.DatePicker
 import com.app.dubaiculture.R
 import timber.log.Timber
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -83,4 +82,5 @@ class DatePickerHelper(var selectedDate : String?=null , var context:Context ,va
             0
         }
     }
+
 }

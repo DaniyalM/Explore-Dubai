@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="tripId"
+            type="String" />
+        <variable
+            name="viewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.SaveTripViewModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_20sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/gray_line"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/gray_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tvHeading"
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:text="@string/myTrip"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gray_line" />
+
+            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tvTripName"
+                style="@style/TextViewRegistrationStyle"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="@string/tripName"
+                app:layout_constraintStart_toStartOf="@+id/tvHeading"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
+
+            <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                android:id="@+id/editTripName"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="12dp"
+                android:digits="غظضذخثتشرقصجفعسنملةىكيطئءؤحزوهدباABCDEFGHIJKLMNOPQRSTUVWXYZqwertzuiopasdfghmjklyxcvbn  "
+                android:drawableEnd="@drawable/ic_trip_map"
+                android:hint="@string/nameYourTrip"
+                android:text="@={viewModel.tripName}"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTripName"
+                tools:src="@drawable/bg_edit_resiger" />
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_22ssp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/purple_650"
+                android:fontFamily="@font/neo_sans_arabic_regular"
+                android:text="@string/saveTrip"
+                android:onClick="@{()->viewModel.onSaveTripClicked(tripId)}"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:cornerRadius="@dimen/_16sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTripName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

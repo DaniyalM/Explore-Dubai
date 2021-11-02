@@ -197,23 +197,25 @@
                 <!--                app:layout_constraintTop_toBottomOf="@+id/mob_num"-->
                 <!--                tools:src="@drawable/bg_edit_resiger" />-->
 
+
                 <com.app.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/edit_mobile"
                     style="@style/EditTextStyle"
+                    android:layout_marginTop="20dp"
                     android:background="@{viewmodel.isPhone ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
                     android:digits="0123456789+"
                     android:drawableEnd="@drawable/mob_register"
                     android:hint="@string/enter_mobile_number_reg"
                     android:imeOptions="actionNext"
-                    android:inputType="phone"
 
+                    android:inputType="phone"
                     android:onTextChanged="@{viewmodel::onPhoneChanged}"
                     android:transitionName="my_edit_phone"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.492"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mob_num"
                     tools:src="@drawable/bg_edit_resiger" />
-
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
@@ -329,7 +331,7 @@
                     android:background="@drawable/custom_ripple_border"
                     android:singleLine="true"
                     android:text="@string/i_agree_to_the_terms_and_conditions"
-                    android:textColor="@color/purple_600"
+                    android:textColor="?attr/color_dubai_logo"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/checkbox"
                     app:layout_constraintStart_toEndOf="@+id/checkbox"
@@ -397,7 +399,7 @@
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:background="@drawable/custom_ripple_border"
                     android:text="@string/login_here"
-                    android:textColor="@color/purple_900"
+                    android:textColor="?attr/color_dubai_logo"
                     android:textSize="@dimen/_11ssp"
                     android:transitionName="my_register"
                     app:layout_constraintBottom_toBottomOf="parent"

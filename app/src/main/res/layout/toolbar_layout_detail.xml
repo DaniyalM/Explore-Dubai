@@ -315,7 +315,7 @@
                         android:id="@+id/back"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_30sdp"
                         android:background="@drawable/custom_ripple_border"
                         android:rotation="90"
@@ -337,6 +337,20 @@
                         app:layout_constraintStart_toEndOf="@+id/back"
                         app:layout_constraintTop_toTopOf="@+id/back" />
 
+                    <CheckBox
+                        android:id="@+id/favourite1"
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="@drawable/heart_icon_home_black"
+                        android:button="@null"
+                        android:clickable="false"
+                        android:foreground="@drawable/custom_ripple_border"
+                        app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
+                        app:layout_constraintEnd_toStartOf="@+id/share"
+                        app:layout_constraintStart_toEndOf="@+id/bookingCalender"
+                        app:layout_constraintTop_toTopOf="@+id/bookingCalender"
+                        app:layout_constraintVertical_bias="1.0" />
+
 
                     <CheckBox
                         android:id="@+id/favourite"
@@ -357,7 +371,7 @@
                         android:id="@+id/share"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginEnd="@dimen/_16sdp"
                         android:background="@drawable/custom_ripple_border"
                         android:rotation="0"
                         android:src="@drawable/share"

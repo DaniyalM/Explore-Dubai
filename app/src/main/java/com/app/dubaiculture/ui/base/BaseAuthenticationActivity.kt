@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.CheckBox
 import com.app.dubaiculture.data.repository.event.remote.request.AddToFavouriteRequest
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
+import com.app.dubaiculture.utils.firebase.unSubscribeFromTopic
 import com.app.dubaiculture.utils.killSessionAndStartNewActivity
 
 
@@ -93,6 +94,9 @@ abstract class BaseAuthenticationActivity : BaseActivity() {
         IntentFilter().apply {
             addAction("com.package.ACTION_LOGOUT")
             registerReceiver(reciever, this)
+        }
+        getCurrentLanguage().language.let {
+            unSubscribeFromTopic("AndroidBroadcast_$it")
         }
     }
 

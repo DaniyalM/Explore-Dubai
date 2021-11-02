@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <merge>
@@ -162,7 +161,8 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/_10sdp"
                         android:text="@string/_10_00_am_1_00_pm"
-                        android:textColor="@color/gray_750"
+                        style="@style/TextViewStyle"
+
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.12"
@@ -204,7 +204,7 @@
                         android:drawablePadding="@dimen/_2sdp"
                         android:foreground="@drawable/custom_ripple_border"
                         android:text="@string/get_directions"
-                        android:textColor="@color/gray_750"
+                        style="@style/TextViewStyle"
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintEnd_toStartOf="@+id/tv_km"
                         app:layout_constraintHorizontal_bias="0.17"
@@ -217,7 +217,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/_2sdp"
-                        android:textColor="@color/gray_750"
+                        style="@style/TextViewStyle"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/tvDirectionEvent"
                         app:layout_constraintEnd_toEndOf="@+id/divider"
@@ -264,7 +264,7 @@
                         android:textAlignment="viewStart"
                         android:textSize="@dimen/_10ssp"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="@color/gray_750"
+                        android:textColor="?attr/color_light_theme_dark_theme_dark_gray"
                         app:colorClickableText="@color/gray_500"
                         app:layout_constraintEnd_toEndOf="@+id/card_map"
                         app:layout_constraintStart_toStartOf="@+id/heading_desc"
@@ -470,7 +470,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/gray_400"
+                        android:background="?attr/color_light_theme_dark_theme_gray"
                         android:orientation="vertical"
                         app:layout_constraintTop_toBottomOf="@+id/img">
 
@@ -480,7 +480,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_20sdp"
                             android:text="@string/more_events"
-                            android:textColor="#2A2D31"
+                            android:textColor="?attr/colorEventLight"
                             android:textSize="@dimen/_18ssp"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -490,6 +490,8 @@
                             android:id="@+id/rv_event_up_coming"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_25sdp"
+
                             app:layout_constraintTop_toBottomOf="@+id/heading_up_coming" />
                     </LinearLayout>
 

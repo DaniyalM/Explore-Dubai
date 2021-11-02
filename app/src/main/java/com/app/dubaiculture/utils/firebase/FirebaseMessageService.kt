@@ -23,6 +23,8 @@ class FirebaseMessageService : FirebaseMessagingService() {
         }
         //notification payload
         remoteMessage.notification?.apply {
+
+
             PushNotificationManager.showNotification(
                 this@FirebaseMessageService,
                 title,

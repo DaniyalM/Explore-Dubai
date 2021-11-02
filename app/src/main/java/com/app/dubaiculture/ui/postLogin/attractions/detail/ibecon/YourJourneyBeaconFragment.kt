@@ -41,6 +41,8 @@ class YourJourneyBeaconFragment : BaseBottomSheetFragment<FragmentYourJourneyBin
     private fun subscribeToObservable() {
         ibeaconViewModel.beaconList.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
+                binding.count.text = "${it.size}"
+
                 beaconListAdapter.submitList(it)
             }
         }

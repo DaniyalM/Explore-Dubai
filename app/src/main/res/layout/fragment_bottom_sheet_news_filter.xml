@@ -64,6 +64,7 @@
                 android:background="@drawable/bg_edit_resiger"
                 android:drawableEnd="@drawable/search_filter"
                 android:hint="@string/search_news_by_keyword"
+                android:textColorHint="@color/gray_500"
                 android:imeOptions="actionSearch"
                 android:onTextChanged="@{viewmodel::onSearchTextChanged}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -165,7 +166,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_categories"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_100sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_20sdp"

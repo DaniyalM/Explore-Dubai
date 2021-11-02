@@ -4,10 +4,8 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.map
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.more.MoreRepository
-import com.app.dubaiculture.data.repository.more.local.FAQs
 import com.app.dubaiculture.data.repository.more.local.FaqItem
 import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequest
 import com.app.dubaiculture.infrastructure.ApplicationEntry
@@ -25,8 +23,13 @@ class FAQsViewModel @Inject constructor(
     private val context = getApplication<ApplicationEntry>()
 
 
-    private val _faqs: MutableLiveData<FAQs> = MutableLiveData()
-    val faqs: LiveData<FAQs> = _faqs
+    private val _faqs: MutableLiveData<List<FaqItem>> = MutableLiveData()
+
+    private val _faqsTitle: MutableLiveData<String> = MutableLiveData()
+    val faqsTitle: LiveData<String> = _faqsTitle
+
+    private val _searchfaqs: MutableLiveData<List<FaqItem>> = MutableLiveData()
+    val faqs: LiveData<List<FaqItem>> = _searchfaqs
 
     private val _faq: MutableLiveData<Event<FaqItem>> = MutableLiveData()
     val faq: LiveData<Event<FaqItem>> = _faq
@@ -41,7 +44,9 @@ class FAQsViewModel @Inject constructor(
             when (val result = moreRepository.getFaqs(PrivacyAndTermRequest(locale))) {
                 is Result.Success -> {
                     showLoader(false)
-                    _faqs.value = result.value
+                    _faqs.value = result.value.faqItems
+                    _faqsTitle.value = result.value.faqTitle
+                    _searchfaqs.value = result.value.faqItems
                 }
                 is Result.Failure -> {
                     showLoader(false)
@@ -50,19 +55,40 @@ class FAQsViewModel @Inject constructor(
         }
     }
 
-    fun updateFaq(faqItem: FaqItem){
+    fun setFaqs(faqs: List<FaqItem>) {
+        _faqs.value = faqs
+    }
+
+    fun updateFaq(faqItem: FaqItem) {
         _faq.value = Event(faqItem)
     }
+
     fun updateFaqInList(faqItem: FaqItem) {
-        val data = _faqs.value ?: return
-        data.faqItems.
-            map {
-                if (faqItem.id == it.id
-                ) return@map faqItem
-                else return@map it
+        val data = _searchfaqs.value ?: return
+        data.map {
+            if (faqItem.id == it.id
+            ) return@map faqItem
+            else return@map it
+        }.let {
+            _searchfaqs.value = it
+        }
+    }
+
+    fun searchFaq(keyword: String) {
+        if (keyword.isNotEmpty()) {
+            val data = _searchfaqs.value ?: return
+            data.filter {
+                keyword in it.question
             }.let {
-                _faqs.value?.faqItems= it
+                _searchfaqs.value = it
             }
+        } else {
+            _searchfaqs.value = _faqs.value
+        }
+    }
+
+    fun onSearchTextChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
+        searchFaq(s.toString())
     }
 
 }

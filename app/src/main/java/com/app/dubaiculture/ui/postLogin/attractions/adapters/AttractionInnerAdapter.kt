@@ -1,9 +1,6 @@
 package com.app.dubaiculture.ui.postLogin.attractions.adapters
 
-import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
@@ -14,8 +11,6 @@ import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.databinding.AttractionListItemCellBinding
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionClickListener
 import com.app.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
-import com.app.dubaiculture.utils.AsyncCell
-import com.app.dubaiculture.utils.dateFormatVisitedPlace
 
 
 class AttractionInnerAdapter(
@@ -72,13 +67,13 @@ class AttractionInnerAdapter(
                         )
                     }
 
-                    if (!color.isNullOrEmpty()) {
-                        attractionImage.setCardBackgroundColor(Color.parseColor(getItem(position)?.color))
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-                            attractionImage.outlineSpotShadowColor =
-                                Color.parseColor(color)
-                        }
-                    }
+//                    if (!color.isNullOrEmpty()) {
+//                        attractionImage.setCardBackgroundColor(Color.parseColor(getItem(position)?.color))
+//                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+//                            attractionImage.outlineSpotShadowColor =
+//                                Color.parseColor(color)
+//                        }
+//                    }
                 }
             }
 

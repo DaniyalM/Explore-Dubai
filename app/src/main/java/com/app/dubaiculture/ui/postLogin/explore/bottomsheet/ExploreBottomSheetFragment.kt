@@ -1,18 +1,15 @@
 package com.app.dubaiculture.ui.postLogin.explore.bottomsheet
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.repository.attraction.local.models.Gallery
 import com.app.dubaiculture.data.repository.explore.local.models.ExploreMap
 import com.app.dubaiculture.databinding.FragmentExploreButtomSheetBinding
 import com.app.dubaiculture.ui.base.BaseBottomSheetFragment
-import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.events.`interface`.DirectionClickListener
 import com.app.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.app.dubaiculture.ui.postLogin.explore.map.adapter.ExploreMapAdapter
@@ -27,11 +24,20 @@ class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtom
 
 
     lateinit var exploreNearAdapter: ExploreMapAdapter
+    private var lat: Double? = null
+    private var lng: Double? = null
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.apply {
+            lat = getDouble(Constants.NavBundles.LOCATION_LAT)
+            lng = getDouble(Constants.NavBundles.LOCATION_LNG)
+        }
+    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    ) = FragmentExploreButtomSheetBinding.inflate(inflater,container,false)
+    ) = FragmentExploreButtomSheetBinding.inflate(inflater, container, false)
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -55,6 +61,16 @@ class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtom
 
         },object : DirectionClickListener{
             override fun directionClickListener(position: Int) {
+                val mapView = list[position]
+                if (!mapView.lat.isNullOrEmpty() && !mapView.lng.isNullOrEmpty()) {
+                    // open google map application
+                    navigateToGoogleMap(
+                        lat.toString(),
+                        lat.toString(),
+                        mapView.lat.toString(),
+                        mapView.lng.toString()
+                    )
+                }
             }
 
         })
