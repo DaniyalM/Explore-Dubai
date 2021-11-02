@@ -56,7 +56,6 @@ class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
 
 
     fun onOkClicked(){
-        navigate(R.id.action_mytripSuccess_to_more_fragment)
     }
 
 

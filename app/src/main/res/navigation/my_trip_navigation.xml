@@ -109,11 +109,6 @@
         tools:layout="@layout/fragment_trip_success"
         android:label="tripSuccessFragment" >
 
-        <action
-            android:id="@+id/action_mytripSuccess_to_more_fragment"
-            app:destination="@id/more_navigation"
-            app:popUpTo="@+id/more_navigation"
-            app:popUpToInclusive="true" />
 
     </fragment>
 
