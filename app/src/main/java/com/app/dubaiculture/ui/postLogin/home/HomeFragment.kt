@@ -151,6 +151,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.tripSuccessFragment -> {
                         visibility = View.GONE
                     }
+                    R.id.myTripNameDialog -> {
+                        visibility = View.GONE
+                    }
                     else -> {
                         visibility = View.VISIBLE
                         Bundle().apply {

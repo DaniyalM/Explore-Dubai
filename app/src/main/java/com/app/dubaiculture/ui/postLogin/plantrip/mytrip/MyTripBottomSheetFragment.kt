@@ -89,11 +89,10 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
 
     private fun subscribeToObservables() {
 
-        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
-//            myTripAdapter.submitList(it)
-        }
+
 
         tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
+            if(it != null)
             myTripAdapter.submitList(it)
         }
 

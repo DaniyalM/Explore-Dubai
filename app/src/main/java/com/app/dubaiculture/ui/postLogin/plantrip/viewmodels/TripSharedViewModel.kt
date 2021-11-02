@@ -26,6 +26,9 @@ class TripSharedViewModel @Inject constructor(
     val _showPlan: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
     val showPlan: LiveData<Event<Boolean>> = _showPlan
 
+    val _showSave: MutableLiveData<Boolean> = MutableLiveData(true)
+    val showSave: LiveData<Boolean> = _showSave
+
     val _duration: MutableLiveData<List<Duration>> = MutableLiveData()
     val duration: LiveData<List<Duration>> = _duration
 
@@ -224,31 +227,6 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun setDates() {
-
-        val input = SimpleDateFormat("dd MMM,yy")
-        val output = SimpleDateFormat("dd MMMM,yyyy")
-
-        val dateList: List<Duration> = _durationSummary.value ?: return
-
-        dateList.map {
-            if(it.id == 1){
-                return@map it.copy(
-                    isSelected = true,
-                    dayDate = output.format(input.parse(it.dayDate))
-                )
-            }else{
-                return@map it.copy(
-                    isSelected = false,
-                    dayDate = output.format(input.parse(it.dayDate))
-                )
-            }
-
-        }.let {
-            _dates.value = it
-        }
-
-    }
 
     fun updateDate(duration: Duration) {
 
@@ -272,13 +250,78 @@ class TripSharedViewModel @Inject constructor(
         val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val output = SimpleDateFormat("dd MMMM,yyyy")
 
-        val eventList: List<EventsAndAttraction> = _eventAttractionResponse.value!!.eventsAndAttractions ?: return
+        val eventList: List<EventsAndAttraction> =
+            _eventAttractionResponse.value!!.eventsAndAttractions ?: return
 
         eventList.filter { event ->
             output.format(input.parse(event.dateFrom)) == duration.dayDate
         }.let {
             _eventAttractionList.value = it
         }
+
+    }
+
+    fun setDates() {
+
+        val input = SimpleDateFormat("dd MMM,yy")
+        val output = SimpleDateFormat("dd MMMM,yyyy")
+
+        val dateList: List<Duration> = _durationSummary.value ?: return
+
+        dateList.map {
+            if (it.id == 1) {
+                return@map it.copy(
+                    isSelected = true,
+                    dayDate = output.format(input.parse(it.dayDate))
+                )
+            } else {
+                return@map it.copy(
+                    isSelected = false,
+                    dayDate = output.format(input.parse(it.dayDate))
+                )
+            }
+
+        }.let {
+            _dates.value = it
+        }
+
+    }
+
+    fun setDatesFromAPI(eventsAndAttractions: List<EventsAndAttraction>) {
+
+        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val output = SimpleDateFormat("dd MMMM,yyyy")
+
+        var dateList: MutableList<Duration> = mutableListOf()
+
+        eventsAndAttractions.mapIndexed { index, eventsAndAttraction ->
+            if (index == 1) {
+                dateList.add(
+                    Duration(
+                        index,
+                        dayDate = output.format(input.parse(eventsAndAttraction.dateFrom)),
+                        hour = eventsAndAttraction.timeFrom,
+                        isDay = 0,
+                        isSelected = true
+                    )
+                )
+            } else {
+
+                dateList.add(
+                    Duration(
+                        index,
+                        dayDate = output.format(input.parse(eventsAndAttraction.dateFrom)),
+                        hour = eventsAndAttraction.timeFrom,
+                        isDay = 0,
+                        isSelected = false
+                    )
+                )
+
+            }
+        }.let {
+            _dates.value = dateList
+        }
+
 
     }
 

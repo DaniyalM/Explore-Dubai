@@ -8,6 +8,7 @@ import com.app.dubaiculture.data.repository.trip.local.Hour
 import com.app.dubaiculture.data.repository.trip.local.InterestedIn
 import com.app.dubaiculture.data.repository.trip.local.Location
 import com.app.dubaiculture.data.repository.trip.local.NearestLocation
+import com.app.dubaiculture.data.repository.trip.local.Trip
 import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
 import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionRequestDTO
 import com.app.dubaiculture.data.repository.trip.remote.request.SaveTripRequest
@@ -141,11 +142,21 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
             locationTitle = eventAttractionResponseDTO.Location.LocationTitle ?: "",
             longitude = eventAttractionResponseDTO.Location.Longitude ?: "",
         ),
-        tripId = eventAttractionResponseDTO.TripID?:""
+        tripId = eventAttractionResponseDTO.TripID ?: ""
     )
 
 fun transformSaveTripRequest(saveTripRequest: SaveTripRequest) =
     SaveTripRequestDTO(
         Name = saveTripRequest.name,
         TripID = saveTripRequest.tripID
+    )
+
+fun transformMyTripResponse(trip: com.app.dubaiculture.data.repository.trip.remote.response.Trip) =
+    Trip(
+        count = trip.Count,
+        endDate = trip.EndDate,
+        tripId = trip.ID,
+        images = trip.Images,
+        name = trip.Name,
+        startDate = trip.StartDate
     )

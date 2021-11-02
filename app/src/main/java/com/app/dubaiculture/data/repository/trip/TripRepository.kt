@@ -1,5 +1,12 @@
 package com.app.dubaiculture.data.repository.trip
+
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.app.dubaiculture.data.Result
+import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
+import com.app.dubaiculture.data.repository.attraction.mapper.transformAttractionDetail
+import com.app.dubaiculture.data.repository.attraction.mapper.transformAttractionsRequest
+import com.app.dubaiculture.data.repository.attraction.remote.request.AttractionRequest
 import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.trip.local.*
 import com.app.dubaiculture.data.repository.trip.mapper.*
@@ -8,8 +15,11 @@ import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionR
 import com.app.dubaiculture.data.repository.trip.remote.request.SaveTripRequest
 import com.app.dubaiculture.data.repository.trip.remote.response.DirectionResponse
 import com.app.dubaiculture.data.repository.trip.remote.response.SaveTripResponse
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.Event
 import com.app.dubaiculture.utils.security.rds.SecurityManagerRDS
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class TripRepository @Inject constructor(
@@ -84,7 +94,7 @@ class TripRepository @Inject constructor(
             is Result.Failure -> resultRds
         }
 
-    suspend fun getDirections(map:HashMap<String,String>): Result<DirectionResponse> =
+    suspend fun getDirections(map: HashMap<String, String>): Result<DirectionResponse> =
         when (val resultRds = tripRDS.getDirections(map)) {
             is Result.Success -> {
                 if (resultRds.value.status == "OK") {
@@ -102,6 +112,34 @@ class TripRepository @Inject constructor(
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
                     Result.Success((resultRds.value))
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Error -> resultRds
+            is Result.Failure -> resultRds
+        }
+
+    suspend fun getMyTrips(culture: String): Result<Flow<PagingData<Trip>>> {
+        val result = tripRDS.getMyTrips(culture)
+        return if (result is Result.Success) {
+            Result.Success(result.value.map {
+                it.map {
+                    transformMyTripResponse(it)
+                }
+            })
+
+        } else {
+            Result.Failure(true, null, null, Constants.Error.SOMETHING_WENT_WRONG)
+        }
+    }
+
+    suspend fun getTripDetails(tripId: String, culture: String): Result<EventAttractions> =
+        when (val resultRds =
+            tripRDS.getTripDetails(tripId, culture)) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success(transformEventAttractionResponse(resultRds.value.eventAttractionResponseDTO))
                 } else {
                     Result.Failure(false, null, null, resultRds.value.errorMessage)
                 }

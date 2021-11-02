@@ -24,8 +24,7 @@ class SaveTripViewModel @Inject constructor(
     private val tripRepository: TripRepository
 ) : BaseViewModel(application) {
 
-    val tripName = ObservableField<String>()
-
+    val tripName = ObservableField<String>("")
 
     private var _saveTripStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var saveTripStatus: MutableLiveData<Event<Boolean>> = _saveTripStatus

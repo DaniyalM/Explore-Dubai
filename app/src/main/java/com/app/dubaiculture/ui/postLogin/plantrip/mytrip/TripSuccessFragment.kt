@@ -5,16 +5,18 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.app.dubaiculture.R
 import com.app.dubaiculture.databinding.FragmentTripSuccessBinding
 import com.app.dubaiculture.ui.base.BaseDialogFragment
 import com.app.dubaiculture.ui.base.BaseFragment
+import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
+import com.app.dubaiculture.utils.event.Event
 
 
 class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
 
-    private var from : String? = ""
-    private var fromToPost : String? = ""
+    private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
 
     override fun getTheme() = R.style.FullScreenDialog;
 
@@ -54,10 +56,14 @@ class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
     }
 
 
+    fun onOkClicked() {
 
-    fun onOkClicked(){
+        tripSharedViewModel._showPlan.value = Event(false)
+        tripSharedViewModel._eventAttractionResponse.value = null
+        tripSharedViewModel._eventAttractionList.value = null
+        navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
+
     }
-
 
 
 }

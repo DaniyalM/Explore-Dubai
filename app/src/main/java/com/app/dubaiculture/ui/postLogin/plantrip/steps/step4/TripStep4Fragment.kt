@@ -63,6 +63,8 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
             tripSharedViewModel._eventAttractionResponse.value = it.getContentIfNotHandled()
             tripSharedViewModel.setDates()
             tripSharedViewModel._showPlan.value = Event(true)
+            tripSharedViewModel._showSave.value = true
+
         }
 
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {

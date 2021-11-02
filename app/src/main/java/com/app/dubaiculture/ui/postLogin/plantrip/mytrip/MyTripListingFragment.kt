@@ -87,10 +87,10 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
     private fun subscribeToObservables() {
 
-        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
-        }
+
 
         tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
+            if(it != null)
             myTripAdapter.submitList(it)
         }
 
@@ -99,6 +99,10 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
             tripSharedViewModel.filterEvents(it.single { it.isSelected })
             datesAdapter.submitList(it)
 
+        }
+
+        tripSharedViewModel.showSave.observe(viewLifecycleOwner){
+            if(it) binding.btnNext.visibility = View.VISIBLE else binding.btnNext.visibility = View.GONE
         }
 
     }

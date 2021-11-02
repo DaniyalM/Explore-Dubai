@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.Duration
 import com.app.dubaiculture.data.repository.trip.local.EventsAndAttraction
@@ -82,7 +83,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
         var hashMap: HashMap<String, String> = HashMap<String, String>()
 
-        if(list.isNotEmpty()) {
+        if (list.isNotEmpty()) {
             hashMap["origin"] =
                 currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
 
@@ -179,10 +180,11 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
 
         tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
-            getDirections(it)
-            addMarkers(it)
-            myTripAdapter.submitList(it)
-
+            if (it != null) {
+                getDirections(it)
+                addMarkers(it)
+                myTripAdapter.submitList(it)
+            }
         }
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
@@ -194,6 +196,12 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         myTripViewModel.directionResponse.observe(viewLifecycleOwner) {
             drawPolyline(it.routes)
         }
+
+        tripSharedViewModel.showSave.observe(viewLifecycleOwner){
+            if(it) binding.btnNext.visibility = View.VISIBLE else binding.btnNext.visibility = View.GONE
+
+        }
+
 
     }
 
@@ -246,38 +254,34 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                 mMap.animateCamera(cu)
             })
 
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         locationPermission()
-
-
     }
 
-
-
     fun onBackPressed() {
-
-        tripSharedViewModel._showPlan.value = Event(false)
         navigateBack()
     }
 
 
     fun onBottomSheetClicked() {
-
         navigate(R.id.action_my_trip_to_my_trip_listing)
-
     }
 
     fun onSaveTripClicked() {
-
         navigate(R.id.action_myTrip_bottom_sheet_to_myTripNameDialog)
-
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        tripSharedViewModel._showPlan.value = Event(false)
+        tripSharedViewModel._eventAttractionResponse.value = null
+        tripSharedViewModel._eventAttractionList.value = null
 
+
+    }
 
 
 }

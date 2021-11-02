@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.utils.hide
 import com.app.dubaiculture.utils.show
@@ -107,13 +108,13 @@ class StaggeredImagesView(context: Context, attrs: AttributeSet?) : FrameLayout(
             if (localLoad) {
                 if(Patterns.WEB_URL.matcher(list[i]).matches())
                 {
-                    glide.load(list[i]).fitCenter().into(images[i])
+                    glide.load(BuildConfig.BASE_URL +list[i]).fitCenter().into(images[i])
                 }
                 else{
-                    glide.load(File(list[i])).into(images[i])
+                    glide.load(File(BuildConfig.BASE_URL +list[i])).into(images[i])
                 }
             } else {
-                glide.load(list[i]).fitCenter().into(images[i])
+                glide.load(BuildConfig.BASE_URL +list[i]).fitCenter().into(images[i])
             }
         }
     }

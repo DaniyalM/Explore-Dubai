@@ -39,11 +39,12 @@ class MyTripNameDialog : BaseBottomSheetFragment<DialogMyTripNameBinding>() {
 
     private fun subscribeToObservables() {
 
-        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner){
-            binding.tripId = it.tripId
+        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
+            if (it != null)
+                binding.tripId = it.tripId
         }
 
-        viewModel.saveTripStatus.observe(viewLifecycleOwner){
+        viewModel.saveTripStatus.observe(viewLifecycleOwner) {
             navigate(R.id.action_trip_name_to_tripsuccessFragment)
         }
 
