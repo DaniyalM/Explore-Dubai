@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.view.MotionEventCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.more.local.FaqItem
@@ -25,31 +24,9 @@ class FaqsFragment(val fAQs: List<FAQ>, val forumPager: ViewPager2) :
     BaseFragment<ItemsServiceDetailInnerFaqsListingLayoutBinding>() {
     private lateinit var faqsListAdapter: FaqsListAdapter
     private val faqsViewModel: FaqsViewModel by viewModels()
-    private lateinit var observer: RecyclerView.AdapterDataObserver
 
     private fun rvInit() {
         binding.innerRecyclerView.apply {
-            observer = object :
-                RecyclerView.AdapterDataObserver() {
-                override fun onChanged() {
-                    super.onChanged()
-                    checkEmpty()
-                }
-
-                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                    super.onItemRangeInserted(positionStart, itemCount)
-                    checkEmpty()
-                }
-
-                override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
-                    super.onItemRangeRemoved(positionStart, itemCount)
-                    checkEmpty()
-                }
-
-                fun checkEmpty() {
-                    showLoader(faqsListAdapter.itemCount == 0)
-                }
-            }
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             faqsListAdapter = FaqsListAdapter(object : FaqsItemClickListner {
                 override fun onClickFaqItem(faqItem: FaqItem) {
@@ -58,7 +35,6 @@ class FaqsFragment(val fAQs: List<FAQ>, val forumPager: ViewPager2) :
                 }
             })
             adapter = faqsListAdapter
-            faqsListAdapter.registerAdapterDataObserver(observer)
             faqsViewModel.setFaqs(fAQs.get(0).fAQs)
         }
 
@@ -78,10 +54,6 @@ class FaqsFragment(val fAQs: List<FAQ>, val forumPager: ViewPager2) :
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        faqsListAdapter.unregisterAdapterDataObserver(observer)
-    }
 
     private fun subscribeToObservable() {
         faqsViewModel.faq.observe(viewLifecycleOwner) {
@@ -107,26 +79,7 @@ class FaqsFragment(val fAQs: List<FAQ>, val forumPager: ViewPager2) :
         subscribeToObservable()
         rvInit()
 
-//        initRecycling()
     }
 
-//    fun initRecycling() {
-//        binding.innerRecyclerView.apply {
-//            val linearLayoutManager = LinearLayoutManager(activity)
-//            layoutManager = linearLayoutManager
-//            val faqInnerAdapter = GroupAdapter<GroupieViewHolder>()
-//            adapter = faqInnerAdapter
-//            fAQs.forEach {
-//                val faqItem =
-//                    ServiceDetailListingItems<ItemsServiceDetailInnerFaqsListingLayoutBinding, FAQ>(
-//                        eService = it,
-//                        resLayout = R.layout.items_service_detail_inner_faqs_listing_layout
-//                    )
-//
-//                faqInnerAdapter.add(faqItem)
-//
-//            }
-//        }
-//
-//    }
+
 }

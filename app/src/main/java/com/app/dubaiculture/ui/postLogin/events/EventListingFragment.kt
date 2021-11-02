@@ -249,12 +249,12 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
             when (it) {
                 is Result.Success -> {
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_fav)
 //                        binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
 //                        binding.root.favourite_event.background = getDrawableFromId(R.drawable.heart_icon_fav)
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_home)
 //                        binding.favourite.background =
 //                            getDrawableFromId(R.drawable.heart_icon_home_black)
 //                        binding.root.favourite_event.background =
@@ -282,7 +282,7 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                 binding.llFilterHeader.visibility = View.VISIBLE
                 selectedItemsList = it
                 transformationOfModels(selectedItemsList)
-                adapterEvents.selectedItems = it as List<SelectedItems>
+                adapterEvents.selectedItems = it
             } else {
                 binding.llFilterHeader.visibility = View.GONE
                 transformationOfModels(selectedItemsList)

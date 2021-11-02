@@ -6,6 +6,8 @@
     app:startDestination="@id/exploreFragment">
     <include app:graph="@navigation/post_login_bottom_navigation" />
     <include app:graph="@navigation/attraction_detail_navigation" />
+    <include app:graph="@navigation/event_detail_navigation" />
+
     <include app:graph="@navigation/attraction_navigation" />
     <include app:graph="@navigation/more_navigation" />
     <include app:graph="@navigation/events_navigation" />
@@ -141,6 +143,18 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_exploreFragment_to_event_detail_navigation"
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
 
 
     </fragment>

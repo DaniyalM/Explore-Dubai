@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.app.dubaiculture.BuildConfig
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -81,6 +82,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     var isDetailFavouriteFlag = false
     var emailContact: String? = null
     var numberContact: String? = null
+    lateinit var map: GoogleMap
 
     var isRegisterd = false
 
@@ -88,7 +90,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     lateinit var eventDetailScheduleLayoutBinding: EventDetailScheduleLayoutBinding
     lateinit var toolbarLayoutEventDetailBinding: ToolbarLayoutEventDetailBinding
 
-//    var eventListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+    //    var eventListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 //    private lateinit var eventListScreenAdapter: EventListScreenAdapter
     private lateinit var eventListScreenAdapter: EventAdapter
 
@@ -127,14 +129,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    private var eventObj = Events(
+    private var eventObj: Events? = Events(
         location = "",
         longitude = "67.08119661055807",
         latitude = "24.83250180519734",
-        registrationDate ="",
+        registrationDate = "",
         dateFrom = "",
         dateTo = "",
-        )
+    )
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -153,31 +155,29 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.let {
-            eventObj = it.getParcelable(EVENT_OBJECT)!!
+            eventObj = it.getParcelable(EVENT_OBJECT)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mapSetUp(savedInstanceState)
+
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         eventDetailInnerLayout = binding.eventDetailInnerLayout
-        toolbarLayoutEventDetailBinding=binding.toolbarLayoutEventDetail
+        toolbarLayoutEventDetailBinding = binding.toolbarLayoutEventDetail
         rvSetUp()
-        locationPermission()
         subscribeUiEvents(eventViewModel)
-        callingObservables()
-        mapSetUp(savedInstanceState)
-        uiActions()
-        arrowRTL(eventDetailInnerLayout.imgEventSpeaker)
+        callingObservables(savedInstanceState)
 
+        arrowRTL(eventDetailInnerLayout.imgEventSpeaker)
         subscribeToGpsListener()
 
 
-        enableRegistration(eventObj.registrationDate)
-        if (eventObj.isFavourite) {
-            binding.favourite.background = getDrawableFromId(R.drawable.heart_icon_fav)
-            binding.toolbarLayoutEventDetail.favouriteEvent.background =
-                getDrawableFromId(R.drawable.heart_icon_fav)
-        }
+
 
         eventDetailInnerLayout.btnRegisterNow.setOnClickListener {
 //            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
@@ -191,42 +191,42 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
         eventDetailInnerLayout.imgFb.setOnClickListener {
             SocialNetworkUtils.openUrl(
-                eventObj.socialLink?.get(0)!!.facebookPageLink,
+                eventObj?.socialLink?.get(0)!!.facebookPageLink,
                 activity,
                 isFacebook = true
             )
         }
         eventDetailInnerLayout.imgTwitter.setOnClickListener {
             SocialNetworkUtils.openUrl(
-                eventObj.socialLink?.get(0)!!.twitterPageLink,
+                eventObj?.socialLink?.get(0)!!.twitterPageLink,
                 activity,
                 isTwitter = true
             )
         }
         eventDetailInnerLayout.imgInsta.setOnClickListener {
             SocialNetworkUtils.openUrl(
-                eventObj.socialLink?.get(0)!!.instagramPageLink,
+                eventObj?.socialLink?.get(0)!!.instagramPageLink,
                 activity,
                 isInstagram = true
             )
         }
         eventDetailInnerLayout.imgUtube.setOnClickListener {
             SocialNetworkUtils.openUrl(
-                eventObj.socialLink?.get(0)!!.youtubePageLink,
+                eventObj?.socialLink?.get(0)!!.youtubePageLink,
                 activity,
                 isYoutube = true
             )
         }
         eventDetailInnerLayout.imgLinkedin.setOnClickListener {
             SocialNetworkUtils.openUrl(
-                eventObj.socialLink?.get(0)!!.linkedInPageLink,
+                eventObj?.socialLink?.get(0)!!.linkedInPageLink,
                 activity,
                 isLinkedIn = true
             )
         }
         binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener {
             isDetailFavouriteFlag = true
-            eventObj.let { event ->
+            eventObj?.let { event ->
                 favouriteClick(
                     binding.toolbarLayoutEventDetail.favouriteEvent,
                     event.isFavourite,
@@ -239,7 +239,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
         binding.favourite.setOnClickListener {
             isDetailFavouriteFlag = true
-            eventObj.let { event ->
+            eventObj?.let { event ->
                 favouriteClick(
                     binding.favourite,
                     event.isFavourite,
@@ -277,12 +277,48 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
 
-    private fun callingObservables() {
-        eventViewModel.getEventDetailsToScreen(eventObj.id!!, getCurrentLanguage().language)
+    private fun callingObservables(savedInstanceState: Bundle?) {
+//        eventViewModel.getEventDetailsToScreen(eventObj?.id!!, getCurrentLanguage().language)
         eventViewModel.eventDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
                     eventObj = it.value
+                    locationPermission(it.value)
+                    it.value.apply {
+                        enableRegistration(registrationDate)
+                        if (isFavourite) {
+                            binding.favourite.background =
+                                getDrawableFromId(R.drawable.heart_icon_fav)
+                            binding.toolbarLayoutEventDetail.favouriteEvent.background =
+                                getDrawableFromId(R.drawable.heart_icon_fav)
+                        }
+
+                    }
+
+                    uiActions()
+                    try {
+                        if (it.value.latitude.isNotEmpty()) {
+                            val trafficDigitalLatLng =
+                                LatLng(
+                                    (it.value.latitude.toDouble()),
+                                    it.value.longitude.toDouble()
+                                )
+
+                            map.addMarker(
+                                MarkerOptions()
+                                    .position(trafficDigitalLatLng)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                            )!!.title = it.value.title
+                            map.animateCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    trafficDigitalLatLng, 14.0f
+                                )
+                            )
+                            map.cameraPosition.target
+                        }
+                    } catch (e: NumberFormatException) {
+                        print(e.stackTrace)
+                    }
                 }
                 is Result.Failure -> handleApiError(it, eventViewModel)
             }
@@ -298,11 +334,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 getDrawableFromId(R.drawable.heart_icon_fav)
                             isDetailFavouriteFlag = false
                         }
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_fav)
 
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_home_black)
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
@@ -341,20 +377,20 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             toolbarLayoutEventDetail.apply {
                 backArrowRTL(backEvent)
 
-                title.text = eventObj.title
-                category.text = eventObj.category
+                title.text = eventObj?.title
+                category.text = eventObj?.category
                 tvEventDate.text =
-                    "${eventObj.fromDate} - ${eventObj.toDate} ${eventObj.fromMonthYear}"
+                    "${eventObj?.fromDate} - ${eventObj?.toDate} ${eventObj?.fromMonthYear}"
             }
             eventDetailInnerLayout.apply {
-                tvTitle.text = eventObj.title
-                tvLocation.text = eventObj.locationTitle
+                tvTitle.text = eventObj?.title
+                tvLocation.text = eventObj?.locationTitle
                 tvEventDaysDate.text =
-                    "${eventObj.toDate}- ${eventObj.fromDate} ${eventObj.fromMonthYear}  |  ${eventObj.fromDay} - ${eventObj.toDay}"
-                tvTimes.text = "${eventObj.fromTime} - ${eventObj.toTime}"
-                tvCategory.text = eventObj.category
+                    "${eventObj?.toDate}- ${eventObj?.fromDate} ${eventObj?.fromMonthYear}  |  ${eventObj?.fromDay} - ${eventObj?.toDay}"
+                tvTimes.text = "${eventObj?.fromTime} - ${eventObj?.toTime}"
+                tvCategory.text = eventObj?.category
 
-                glide.load(com.app.dubaiculture.BuildConfig.BASE_URL + eventObj.image)
+                glide.load(BuildConfig.BASE_URL + eventObj?.image)
                     .into(toolbarLayoutEventDetail.imageView)
             }
         }
@@ -376,27 +412,32 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            eventListScreenAdapter= EventAdapter(eventClickListner = object : EventClickListner{
-                override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean, itemId: String) {
+            eventListScreenAdapter = EventAdapter(eventClickListner = object : EventClickListner {
+                override fun checkFavListener(
+                    checkbox: CheckBox,
+                    pos: Int,
+                    isFav: Boolean,
+                    itemId: String
+                ) {
                     favouriteClick(
-                            checkbox,
-                            isFav,
-                            type = 2,
-                            itemId = itemId,
-                            baseViewModel = eventViewModel,
-                            nav = R.id.action_eventDetailFragment2_to_postLoginFragment
+                        checkbox,
+                        isFav,
+                        type = 2,
+                        itemId = itemId,
+                        baseViewModel = eventViewModel,
+                        nav = R.id.action_eventDetailFragment2_to_postLoginFragment
                     )
                 }
 
                 override fun rowClickHandler(events: Events) {
                     val bundle = Bundle()
                     bundle.putParcelable(
-                            EVENT_OBJECT,
-                            events
+                        EVENT_OBJECT,
+                        events
                     )
                     navigate(
-                            R.id.action_eventDetailFragment2_to_eventDetailFragment2,
-                            bundle
+                        R.id.action_eventDetailFragment2_to_eventDetailFragment2,
+                        bundle
                     )
                 }
             }
@@ -445,36 +486,19 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        try {
-            if (eventObj.latitude.isNotEmpty()) {
-                val trafficDigitalLatLng =
-                    LatLng((eventObj.latitude.toDouble()), eventObj.longitude.toDouble())
-
-                map?.addMarker(
-                    MarkerOptions()
-                        .position(trafficDigitalLatLng)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
-                )!!
-                    .title = eventObj.title
-                map.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        trafficDigitalLatLng, 14.0f
-                    )
-                )
-                map.cameraPosition.target
-            }
-        } catch (e: NumberFormatException) {
-            print(e.stackTrace)
+        map?.let {
+            this.map = it
         }
+
 
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tvDirectionEvent -> {
-                if (!eventObj.latitude.isNullOrEmpty()) {
+                if (!eventObj?.latitude.isNullOrEmpty()) {
                     val uri =
-                        LINK_URI + loc.latitude.toString() + "," + loc.longitude.toString() + DESTINATION + eventObj.latitude.toString() + "," + eventObj.longitude
+                        LINK_URI + loc.latitude.toString() + "," + loc.longitude.toString() + DESTINATION + eventObj?.latitude.toString() + "," + eventObj?.longitude
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                     intent.setPackage(PACKAGE_NAME_GOOGLE_MAP)
                     try {
@@ -497,10 +521,14 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             R.id.btn_reg -> {
                 val bundle = Bundle()
                 bundle.putParcelableArrayList(
-                        Constants.NavBundles.SCHEDULE_ITEM_SLOT,  slotTime as ArrayList<out Parcelable>)
-                bundle.putString(Constants.NavBundles.EVENT_ID, eventObj.id)
+                    Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
+                )
+                bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
 //                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
-                findNavController().navigate(R.id.action_eventDetailFragment2_to_registerNowFragment, bundle)
+                findNavController().navigate(
+                    R.id.action_eventDetailFragment2_to_registerNowFragment,
+                    bundle
+                )
             }
 //            R.id.favourite -> {00000000
 //
@@ -533,7 +561,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    private fun locationPermission() {
+    private fun locationPermission(events: Events) {
         val quickPermissionsOption = QuickPermissionsOptions(
             handleRationale = false
         )
@@ -548,12 +576,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     override fun getCurrentLocation(location: Location) {
                         loc = location
                         Timber.e("Current Location ${location.latitude}")
-                        if (eventObj.latitude.isNotEmpty() && eventObj.longitude.isNotEmpty())
+                        if (events.latitude.isNotEmpty() && events.longitude.isNotEmpty())
                             binding.eventDetailInnerLayout.tvKm.text = locationHelper.distance(
                                 loc.latitude,
                                 loc.longitude,
-                                eventObj.latitude.toDouble(),
-                                eventObj.longitude.toDouble()
+                                events.latitude.toDouble(),
+                                events.longitude.toDouble()
                             ).toString() + " " + resources.getString(R.string.away)
                     }
                 },
@@ -577,12 +605,12 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
                     isRegisterd = it.value.isRegistered
-                    if(isRegisterd){
+                    if (isRegisterd) {
                         binding.toolbarLayoutEventDetail.btnReg.isClickable = false
-                        binding.toolbarLayoutEventDetail.btnReg.alpha =0.4f
-                    }else{
+                        binding.toolbarLayoutEventDetail.btnReg.alpha = 0.4f
+                    } else {
                         binding.toolbarLayoutEventDetail.btnReg.isClickable = true
-                        binding.toolbarLayoutEventDetail.btnReg.alpha =1f
+                        binding.toolbarLayoutEventDetail.btnReg.alpha = 1f
                     }
                     enableRegistration(it.value.registrationDate)
                     slotTime.clear()
@@ -614,7 +642,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         }
 
                     }
-                    slotTime =  getScheduleTimeSlot()
+                    slotTime = getScheduleTimeSlot()
 
 
 //                    if (eventListAdapter.itemCount > 0) {
@@ -640,11 +668,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 //                            }
 //                        }, object : RowClickListener {
 //                            override fun rowClickListener(position: Int) {
-//                                val eventObj = moreEvents[position]
+//                                val eventObj? = moreEvents[position]
 //                                val bundle = Bundle()
 //                                bundle.putParcelable(
 //                                    EVENT_OBJECT,
-//                                    eventObj
+//                                    eventObj?
 //                                )
 //                                navigate(
 //                                    R.id.action_eventDetailFragment2_to_eventDetailFragment2,
@@ -680,7 +708,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     private fun updateGpsCheckUi(status: GpsStatus) {
         when (status) {
             is GpsStatus.Enabled -> {
-                locationPermission()
+                eventObj?.apply {
+                    locationPermission(this)
+
+                }
             }
             is GpsStatus.Disabled -> {
                 eventViewModel.showToast(message = "Please enable location !")
@@ -689,13 +720,13 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
     private fun locationIsEmpty(location: Location) {
-        if (eventObj.latitude.isNotEmpty() && eventObj.longitude.isNotEmpty()) {
+        if (eventObj?.latitude?.isNotEmpty()!! && eventObj?.longitude?.isNotEmpty()!!) {
             binding.eventDetailInnerLayout.tvKm.text =
                 locationHelper.distance(
                     location.latitude,
                     location.longitude,
-                    eventObj.latitude.toDouble(),
-                    eventObj.longitude.toDouble()
+                    eventObj?.latitude?.toDouble()!!,
+                    eventObj?.longitude?.toDouble()!!
                 )
                     .toString() + resources.getString(R.string.away)
         }
@@ -739,10 +770,17 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    private fun getScheduleTimeSlot():ArrayList<EventScheduleItemsSlots>{
-        parentItemList.map{
+    private fun getScheduleTimeSlot(): ArrayList<EventScheduleItemsSlots> {
+        parentItemList.map {
             it.eventScheduleItemsSlots?.forEach {
-                getTimeSlotList.add(EventScheduleItemsSlots(timeFrom = it.timeFrom,timeTo = it.timeTo,slotId = it.slotId,summary = it.summary))
+                getTimeSlotList.add(
+                    EventScheduleItemsSlots(
+                        timeFrom = it.timeFrom,
+                        timeTo = it.timeTo,
+                        slotId = it.slotId,
+                        summary = it.summary
+                    )
+                )
             }
         }
         return getTimeSlotList

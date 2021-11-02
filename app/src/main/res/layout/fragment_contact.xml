@@ -198,15 +198,15 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_location_pin"
                     app:layout_constraintTop_toBottomOf="@+id/tv_location_pin" />
 
+<!--                android:outlineSpotShadowColor="@color/gray_600"-->
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_map"
                     android:layout_width="0dp"
-                    android:outlineSpotShadowColor="@color/gray_600"
                     android:layout_height="@dimen/_145sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     app:cardCornerRadius="@dimen/_12sdp"
-                    app:cardElevation="@dimen/_5sdp"
+                    app:cardElevation="@dimen/_3sdp"
                     app:layout_constraintEnd_toEndOf="@+id/imageView7"
                     app:layout_constraintStart_toStartOf="@+id/imageView9"
                     app:layout_constraintTop_toBottomOf="@+id/getDirection">
@@ -227,6 +227,7 @@
                     style="@style/TextViewStyle"
                     app:layout_constraintStart_toStartOf="@+id/tv_contact_desc"
                     app:layout_constraintTop_toBottomOf="@+id/card_map" />
+                <!--                android:outlineSpotShadowColor="@color/gray_600"-->
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/rv_reach_us"
@@ -235,7 +236,6 @@
                     android:layout_marginTop="15dp"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="@dimen/_8sdp"
-                    android:outlineSpotShadowColor="@color/gray_600"
                     app:layout_constraintEnd_toEndOf="@+id/card_map"
                     app:layout_constraintStart_toStartOf="@+id/tv_reach_us"
                     app:layout_constraintTop_toBottomOf="@+id/tv_reach_us">
@@ -261,7 +261,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/call_icon"
+                        android:src="@drawable/contact_call"
                         />
 
                     <com.app.dubaiculture.ui.components.customtextview.CustomTextView
@@ -357,7 +357,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="1dp"
                                 android:layout_marginEnd="@dimen/_10sdp"
-                                android:background="#F0F0F0"
+                                android:background="?attr/color_light_theme_dark_theme_gray"
                                 android:layout_marginTop="@dimen/_15sdp"
                                 app:layout_constraintStart_toStartOf="@+id/email"
                                 app:layout_constraintEnd_toEndOf="@+id/email_desc"
@@ -417,7 +417,7 @@
                                 android:id="@+id/dividerLine11"
                                 android:layout_width="0dp"
                                 android:layout_height="1dp"
-                                android:background="#F0F0F0"
+                                android:background="?attr/color_light_theme_dark_theme_gray"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:layout_marginTop="@dimen/_15sdp"
                                 app:layout_constraintStart_toStartOf="@+id/fax"
@@ -478,7 +478,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="1dp"
                                 android:visibility="invisible"
-                                android:background="#F0F0F0"
+                                android:background="?attr/color_light_theme_dark_theme_gray"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:layout_marginTop="@dimen/_15sdp"
                                 app:layout_constraintStart_toStartOf="@+id/tv_title_website"
@@ -505,7 +505,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="20dp"
-                    android:background="#F0F0F0"
+                    android:background="?attr/color_light_theme_dark_theme_gray"
                     android:layout_marginStart="@dimen/_3sdp"
                     android:layout_marginEnd="@dimen/_17sdp"
                     app:layout_constraintEnd_toEndOf="parent"

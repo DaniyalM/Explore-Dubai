@@ -208,15 +208,15 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             animationViewEvent.visibility = View.VISIBLE
             animationView.visibility = View.GONE
             if (isArabic()) {
-                cardivewRTL?.shapeAppearanceModel =
-                    cardivewRTL!!.shapeAppearanceModel
+                cardivewRTL.shapeAppearanceModel =
+                    cardivewRTL.shapeAppearanceModel
                         .toBuilder()
                         .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
                         .setTopRightCornerSize(radius)
                         .build()
             } else {
-                cardivewRTL?.shapeAppearanceModel =
-                    cardivewRTL!!.shapeAppearanceModel
+                cardivewRTL.shapeAppearanceModel =
+                    cardivewRTL.shapeAppearanceModel
                         .toBuilder()
                         .setTopLeftCorner(CornerFamily.ROUNDED, radius)
                         .setBottomRightCornerSize(radius)
@@ -286,10 +286,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             when (it) {
                 is Result.Success -> {
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_fav)
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_home)
                     }
                 }
                 is Result.Failure -> handleApiError(it, eventViewModel)

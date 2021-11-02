@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_13sdp"
                 android:layout_marginTop="@dimen/_3sdp"
-                android:layout_marginEnd="@dimen/_45sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -78,6 +78,19 @@
                 app:layout_constraintBottom_toBottomOf="@+id/IvSearch"
                 app:layout_constraintEnd_toEndOf="@+id/tvSearchTitle"
                 app:layout_constraintStart_toStartOf="@+id/tvSearchTitle" />
+
+            <View
+                android:id="@+id/divier_hori_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="?attr/color_light_theme_dark_theme_dark_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvSearchDate"
+                app:layout_constraintStart_toStartOf="@+id/IvSearch"
+                app:layout_constraintTop_toBottomOf="@+id/tvSearchDate" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

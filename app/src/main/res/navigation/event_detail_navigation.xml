@@ -9,6 +9,11 @@
         android:name="com.app.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"
         android:label="EventDetailFragment"
         tools:layout="@layout/fragment_event_detail">
+        <argument
+            android:name="event_id"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
         <!--        <deepLink-->
         <!--            app:action="android.intent.action.MY_ACTION"-->
         <!--            app:mimeType="type/subtype"-->

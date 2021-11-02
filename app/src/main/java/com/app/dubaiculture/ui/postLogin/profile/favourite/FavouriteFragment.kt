@@ -8,7 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
@@ -28,7 +29,7 @@ import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceL
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.clicklistener.ServiceClickListner
 import com.app.dubaiculture.ui.postLogin.profile.favourite.models.FavouriteHeader
 import com.app.dubaiculture.ui.postLogin.profile.favourite.services.FavouriteServices
-import com.app.dubaiculture.ui.postLogin.profile.viewmodels.ProfileViewModel
+import com.app.dubaiculture.ui.postLogin.profile.viewmodels.ProfileSharedViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.FAVOURITE_BUNDLE
 import com.app.dubaiculture.utils.handleApiError
@@ -36,17 +37,23 @@ import com.squareup.otto.Subscribe
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 
 @AndroidEntryPoint
 class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
     private lateinit var linearLayoutManger: LinearLayoutManager
-    private val profileViewModel: ProfileViewModel by viewModels()
-    private  var events: List<Events> =  emptyList()
-    private  var attractions: List<Attractions> = emptyList()
+
+    //    private val profileViewModel: ProfileViewModel by viewModels()
+    private var events: List<Events> = emptyList()
+    private var attractions: List<Attractions> = emptyList()
+    private var services: List<EService> = emptyList()
     var eventsAdapter: GroupAdapter<GroupieViewHolder>? = GroupAdapter()
     var attractionsAdapter: GroupAdapter<GroupieViewHolder>? = GroupAdapter()
     private lateinit var popularServiceListAdapter: PopularServiceListAdapter
+
+    private val profileSharedViewModel: ProfileSharedViewModel by activityViewModels()
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -60,16 +67,17 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
             getParcelable<Favourite>(FAVOURITE_BUNDLE)?.let {
                 events = it.events
                 attractions = it.attractions
+                services = it.services
             }
         }
     }
 
     private fun initiateRequest() {
 
-           binding.swipeRefresh.post {
-                binding.swipeRefresh.isRefreshing = true
-                profileViewModel.getFavourites()
-            }
+        binding.swipeRefresh.post {
+            binding.swipeRefresh.isRefreshing = true
+            profileSharedViewModel.getFavourites()
+        }
 
 
 
@@ -82,7 +90,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
             )
             setOnRefreshListener {
                 binding.swipeRefresh.isRefreshing = false
-                profileViewModel.getFavourites()
+                profileSharedViewModel.getFavourites()
             }
         }
     }
@@ -93,50 +101,56 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeUiEvents(profileViewModel)
+        subscribeUiEvents(profileSharedViewModel)
         backArrowRTL(binding.headerVisited.back)
         binding.customTextView3.text = activity.resources.getString(R.string.favourites)
 
         binding.headerVisited.back.setOnClickListener {
             back()
         }
+        profileSharedViewModel.getFavourites()
 
 //        setupToolbarWithSearchItems()
-        initiateRequest()
+//        initiateRequest()
         subscribeToObservables()
         initEventRvListing()
         initAttractionRvlisting()
+        initServiceRvListing()
     }
 
     private fun subscribeToObservables() {
-        profileViewModel.favourite.observe(viewLifecycleOwner) {
-            binding.swipeRefresh.isRefreshing = false
-            when (it) {
-                is Result.Success -> {
-                    it.value.getContentIfNotHandled()?.let {
-                        events = it.events
-                        attractions = it.attractions
-                        popularServiceListAdapter.submitList(it.services)
-                        binding.horizontalSelector.initialize(initializeHeaders(), bus)
-                    }
-                }
-                is Result.Failure -> handleApiError(it, profileViewModel)
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileSharedViewModel.favourite.collect {
+                events = it.events
+                attractions = it.attractions
+                services = it.services
+                binding.horizontalSelector.initialize(initializeHeaders(), bus)
             }
         }
-
-        profileViewModel.isFavourite.observe(viewLifecycleOwner) {
+//        profileViewModel.favourite.observe(viewLifecycleOwner) {
+//            binding.swipeRefresh.isRefreshing = false
+//            when (it) {
+//                is Result.Success -> {
+//                    it.value.getContentIfNotHandled()?.let {
+//
+//                    }
+//                }
+//                is Result.Failure -> handleApiError(it, profileViewModel)
+//            }
+//        }
+        profileSharedViewModel.isFavourite.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    initiateRequest()
+
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_fav)
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
-                        profileViewModel.getFavourites()
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_home)
                     }
+                    profileSharedViewModel.getFavourites()
                 }
-                is Result.Failure -> handleApiError(it, profileViewModel)
+                is Result.Failure -> handleApiError(it, profileSharedViewModel)
             }
         }
     }
@@ -156,6 +170,29 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
             layoutManager = linearLayoutManger
             adapter = attractionsAdapter
         }
+    }
+
+    private fun initServiceRvListing() {
+        linearLayoutManger = LinearLayoutManager(activity)
+        if (!this::popularServiceListAdapter.isInitialized) {
+            binding.rvServicesListing.apply {
+
+
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                popularServiceListAdapter = PopularServiceListAdapter(object : ServiceClickListner {
+                    override fun onServiceClick(service: EService?) {
+                        navigateByDirections(
+                            FavouriteFragmentDirections.actionFavouriteFragmentToServiceDetailNavigation(
+                                service!!.id
+                            )
+                        )
+                    }
+                })
+
+                adapter = popularServiceListAdapter
+            }
+        }
+
     }
 
 //    private fun initRvListing() {
@@ -234,40 +271,13 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         }
     }
 
-    private fun setupToolbarWithSearchItems() {
-//        binding.headerVisited.apply {
-////            profilePic.visibility = View.GONE
-////            img_drawer.visibility = View.GONE
-//            toolbar_title.apply {
-//                visibility = View.VISIBLE
-//                text = activity.getString(R.string.favourites)
-//            }
-//        }
-    }
 
     private fun addServices() {
         binding.rveventListing.visibility = View.GONE
         binding.rvAttractionListing.visibility = View.GONE
         binding.rvServicesListing.visibility = View.VISIBLE
 
-        if (!this::popularServiceListAdapter.isInitialized) {
-            binding.rvServicesListing.apply {
-
-
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                popularServiceListAdapter = PopularServiceListAdapter(object : ServiceClickListner {
-                    override fun onServiceClick(service: EService?) {
-//                    navigateByDirections(
-//                        PopularServiceFragmentDirections.actionPopularServiceFragmentToServiceDetailNavigation(
-//                            service!!.id
-//                        )
-//                    )
-                    }
-                })
-
-                adapter = popularServiceListAdapter
-            }
-        }
+        popularServiceListAdapter.submitList(services)
 
 
     }
@@ -298,7 +308,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                                     isFav,
                                     type = 2,
                                     itemId = itemId,
-                                    baseViewModel = profileViewModel,
+                                    baseViewModel = profileSharedViewModel,
                                     nav = R.id.action_favouriteFragment_to_post_login_bottom_navigation
                                 )
                             }
@@ -319,7 +329,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
 
                             }
 
-                        },object : EventListItem.SurveySubmitListener{
+                        }, object : EventListItem.SurveySubmitListener {
                             override fun submitBtnClickListener(position: Int) {
                             }
 
@@ -338,9 +348,9 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
 
     private fun addAttractions() {
         binding.rvAttractionListing.visibility = View.VISIBLE
-        binding. rveventListing.visibility = View.GONE
+        binding.rveventListing.visibility = View.GONE
         binding.rvServicesListing.visibility = View.GONE
-    
+
         attractionsAdapter?.apply {
             if (this.itemCount > 0) {
                 this.clear()
@@ -359,7 +369,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                                     checkbox,
                                     isFav,
                                     R.id.action_favouriteFragment_to_post_login_bottom_navigation,
-                                    itemId, profileViewModel,
+                                    itemId, profileSharedViewModel,
                                     1
                                 )
                             }

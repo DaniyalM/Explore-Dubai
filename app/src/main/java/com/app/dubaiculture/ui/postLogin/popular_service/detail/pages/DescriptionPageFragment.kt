@@ -77,11 +77,7 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             binding.tvPdfTitle.text = description.fileName
             binding.fileSize.text = description.fileSize
             binding.fileViewLink.setOnClickListener {
-                if (description.documentLink.isNotEmpty() && description.documentLink.contains(".pdf")) {
-//                    descriptionViewModel.getDoc("http://www.africau.edu/images/default/sample.pdf")
-                    descriptionViewModel.getDoc(description.documentLink)
-                } else
-                    showToast("Invalid Link")
+                descriptionViewModel.getDoc(description.documentLink)
             }
         }
     }

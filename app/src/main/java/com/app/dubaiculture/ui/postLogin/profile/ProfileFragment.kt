@@ -10,29 +10,31 @@ import android.widget.ImageView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.app.dubaiculture.R
-import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.profile.local.Favourite
 import com.app.dubaiculture.data.repository.profile.utils.ImageFilePath
 import com.app.dubaiculture.databinding.FragmentProfileBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.profile.service.ImagePickerService
+import com.app.dubaiculture.ui.postLogin.profile.viewmodels.ProfileSharedViewModel
 import com.app.dubaiculture.ui.postLogin.profile.viewmodels.ProfileViewModel
 import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.Constants.NavBundles.FAVOURITE_BUNDLE
 import com.app.dubaiculture.utils.FileUtils
-import com.app.dubaiculture.utils.handleApiError
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.RESULT_ERROR
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.getError
 import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import java.io.File
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private val profileViewModel: ProfileViewModel by viewModels()
+    private val profileSharedViewModel: ProfileSharedViewModel by activityViewModels()
 
     private lateinit var startForResult: ActivityResultLauncher<Intent>
     private lateinit var favourite: Favourite
@@ -42,17 +44,24 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         FragmentProfileBinding.inflate(inflater, container, false)
 
     private fun subscribeToObservables() {
-        profileViewModel.favourite.observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Success -> {
-                    it.value.getContentIfNotHandled()?.let {
-                        favourite = it
-                        binding.badgeText.text = "${it.events.size + it.attractions.size}"
-                    }
-                }
-                is Result.Failure -> handleApiError(it, profileViewModel)
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileSharedViewModel.favourite.collectLatest {
+                favourite = it
+                binding.badgeText.text =
+                    "${it.events.size + it.attractions.size + it.services.size}"
             }
         }
+
+//        profileViewModel.favourite.observe(viewLifecycleOwner) {
+//            when (it) {
+//                is Result.Success -> {
+//                    it.value.getContentIfNotHandled()?.let {
+//
+//                    }
+//                }
+//                is Result.Failure -> handleApiError(it, profileViewModel)
+//            }
+//        }
     }
 
 
@@ -61,7 +70,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initiateRTL()
-        profileViewModel.getFavourites()
+
+        if (!this::favourite.isInitialized)
+            profileSharedViewModel.getFavourites()
+
         if (!this::startForResult.isInitialized) {
 
             binding.user = application.auth.user
@@ -92,13 +104,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     navigate(R.id.action_profileFragment_to_passwordChangeFragment)
                 }
                 favouriteContainer.setOnClickListener {
-                    if (this@ProfileFragment::favourite.isInitialized) {
-                        navigate(R.id.action_profileFragment_to_favouriteFragment, Bundle().apply {
-                            putParcelable(FAVOURITE_BUNDLE, favourite)
-                        })
-                    } else {
-                        navigate(R.id.action_profileFragment_to_favouriteFragment)
-                    }
+                    navigate(R.id.action_profileFragment_to_favouriteFragment)
+//                    if (this@ProfileFragment::favourite.isInitialized) {
+//                        navigate(R.id.action_profileFragment_to_favouriteFragment, Bundle().apply {
+//                            putParcelable(FAVOURITE_BUNDLE, favourite)
+//                        })
+//                    } else {
+//
+//                    }
 
                 }
 

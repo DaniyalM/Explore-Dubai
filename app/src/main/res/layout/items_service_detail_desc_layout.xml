@@ -15,9 +15,9 @@
     </data>
 
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/_300sdp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -199,16 +199,15 @@
 
             <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/website"
+                style="@style/TextViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/mob_icon"
                 android:drawablePadding="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
                 android:text="@string/website"
-                style="@style/TextViewStyle"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/pin"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/divier_hori_line"
                 app:layout_constraintTop_toTopOf="@+id/pin"
                 app:layout_constraintWidth_percent="0.29" />
 
@@ -296,12 +295,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_2sdp"
                         android:ellipsize="end"
+                        android:layout_marginEnd="@dimen/_5sdp"
                         android:singleLine="true"
                         android:text="Please Download Museum guideline"
                         android:textColor="?attr/color_dubai_logo"
                         android:textSize="@dimen/_11ssp"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView12"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/pdf"
                         app:layout_constraintTop_toTopOf="@+id/pdf" />
 
@@ -336,5 +337,5 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </layout>
