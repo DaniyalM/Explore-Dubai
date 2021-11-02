@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.LocationNearest
@@ -91,7 +93,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
                     override fun rowClickListener(userType: LocationNearest, position: Int) {
 
-                        tripSharedViewModel.updateLocationItem(userType.copy(isChecked = !userType.isChecked))
+                        tripSharedViewModel.updateLocationItem(userType.copy(isChecked = !userType.isChecked!!))
 
 //                        navigateMarker(
 //                            if (userType.latitude.isBlank()) 0.0 else userType.latitude.toDouble(),
@@ -221,25 +223,26 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
     fun navigateMarker(latitude: Double, longitude: Double) {
 
-        if (marker == null) {
+            if (marker == null) {
 
-            marker = mMap.addMarker(
-                MarkerOptions()
-                    .position(LatLng(latitude, longitude))
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                marker = mMap.addMarker(
+                    MarkerOptions()
+                        .position(LatLng(latitude, longitude))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
 
+                )
+            } else {
+                marker!!.position = LatLng(latitude, longitude)
+            }
+
+
+            mMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(latitude, longitude), 14.0f
+                )
             )
-        } else {
-            marker!!.position = LatLng(latitude, longitude)
-        }
+            mMap.cameraPosition.target
 
-
-        mMap.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                LatLng(latitude, longitude), 14.0f
-            )
-        )
-        mMap.cameraPosition.target
     }
 
     override fun onPause() {

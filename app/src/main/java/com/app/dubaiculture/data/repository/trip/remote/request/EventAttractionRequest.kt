@@ -4,5 +4,7 @@ class EventAttractionRequest(
     val category: List<String>,
     val culture: String,
     val date: List<String>,
-    val location: String
+    val location: String,
+    val save:Boolean
+
 )

@@ -362,6 +362,9 @@
     <string name="day6">6 Days</string>
     <string name="day8">8 Days</string>
     <string name="day10">10 Days</string>
+    <string name="trip_created_desc">You have Successfully Created Your Trip</string>
+    <string name="_ok">Ok</string>
+
 
 
 </resources>

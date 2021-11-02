@@ -1,11 +1,13 @@
 package com.app.dubaiculture.data.repository.trip
-
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.base.BaseRepository
 import com.app.dubaiculture.data.repository.trip.local.*
 import com.app.dubaiculture.data.repository.trip.mapper.*
 import com.app.dubaiculture.data.repository.trip.remote.TripRDS
 import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
+import com.app.dubaiculture.data.repository.trip.remote.request.SaveTripRequest
+import com.app.dubaiculture.data.repository.trip.remote.response.DirectionResponse
+import com.app.dubaiculture.data.repository.trip.remote.response.SaveTripResponse
 import com.app.dubaiculture.utils.event.Event
 import com.app.dubaiculture.utils.security.rds.SecurityManagerRDS
 import javax.inject.Inject
@@ -74,6 +76,32 @@ class TripRepository @Inject constructor(
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
                     Result.Success(transformEventAttractionResponse(resultRds.value.eventAttractionResponseDTO))
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Error -> resultRds
+            is Result.Failure -> resultRds
+        }
+
+    suspend fun getDirections(map:HashMap<String,String>): Result<DirectionResponse> =
+        when (val resultRds = tripRDS.getDirections(map)) {
+            is Result.Success -> {
+                if (resultRds.value.status == "OK") {
+                    Result.Success(resultRds.value)
+                } else {
+                    Result.Failure(false, null, null, "Error")
+                }
+            }
+            is Result.Error -> resultRds
+            is Result.Failure -> resultRds
+        }
+
+    suspend fun saveTrip(saveTripRequest: SaveTripRequest): Result<SaveTripResponse> =
+        when (val resultRds = tripRDS.saveTrip(transformSaveTripRequest(saveTripRequest))) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success((resultRds.value))
                 } else {
                     Result.Failure(false, null, null, resultRds.value.errorMessage)
                 }

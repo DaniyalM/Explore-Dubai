@@ -32,6 +32,9 @@ class TripSharedViewModel @Inject constructor(
     val _durationSummary: MutableLiveData<List<Duration>> = MutableLiveData()
     val durationSummary: LiveData<List<Duration>> = _durationSummary
 
+    val _dates: MutableLiveData<List<Duration>> = MutableLiveData()
+    val dates: LiveData<List<Duration>> = _dates
+
     val _type: MutableLiveData<LocationNearest> = MutableLiveData()
     val type: LiveData<LocationNearest> = _type
 
@@ -43,6 +46,12 @@ class TripSharedViewModel @Inject constructor(
 
     val _eventAttraction: MutableLiveData<Event<EventAttractionRequest>> = MutableLiveData()
     val eventAttraction: LiveData<Event<EventAttractionRequest>> = _eventAttraction
+
+    val _eventAttractionResponse: MutableLiveData<EventAttractions> = MutableLiveData()
+    val eventAttractionResponse: LiveData<EventAttractions> = _eventAttractionResponse
+
+    val _eventAttractionList: MutableLiveData<List<EventsAndAttraction>> = MutableLiveData()
+    val eventAttractionList: LiveData<List<EventsAndAttraction>> = _eventAttractionList
 
     fun updateLocationItem(nearestLocation: LocationNearest) {
         _type.value = nearestLocation
@@ -185,17 +194,18 @@ class TripSharedViewModel @Inject constructor(
         val eventAttractionRequest: EventAttractionRequest = EventAttractionRequest(
             category = getCategories(),
             culture = context.auth.locale.toString(),
-            date = getDates(),
-            location = _type.value?.locationId!!
+            date = getDatesFormat("dd MMM,yy", "yyyy-MM-dd"),
+            location = _type.value?.locationId!!,
+            save = true
         )
         _eventAttraction.value = Event(eventAttractionRequest)
     }
 
-    private fun getDates(): List<String> {
+    private fun getDatesFormat(inputFormat: String, outputFormat: String): List<String> {
 
         val durations: List<Duration> = _durationSummary.value ?: return emptyList()
-        val input = SimpleDateFormat("dd MMM,yy")
-        val output = SimpleDateFormat("yyyy-MM-dd")
+        val input = SimpleDateFormat(inputFormat)
+        val output = SimpleDateFormat(outputFormat)
         return durations.map {
             output.format(input.parse(it.dayDate))
         }
@@ -213,5 +223,64 @@ class TripSharedViewModel @Inject constructor(
         }
 
     }
+
+    fun setDates() {
+
+        val input = SimpleDateFormat("dd MMM,yy")
+        val output = SimpleDateFormat("dd MMMM,yyyy")
+
+        val dateList: List<Duration> = _durationSummary.value ?: return
+
+        dateList.map {
+            if(it.id == 1){
+                return@map it.copy(
+                    isSelected = true,
+                    dayDate = output.format(input.parse(it.dayDate))
+                )
+            }else{
+                return@map it.copy(
+                    isSelected = false,
+                    dayDate = output.format(input.parse(it.dayDate))
+                )
+            }
+
+        }.let {
+            _dates.value = it
+        }
+
+    }
+
+    fun updateDate(duration: Duration) {
+
+        val data = _dates.value ?: return
+        val updateData = data.map { it.copy(isSelected = false) }
+        updateData.map {
+            if (duration.id == it.id
+            ) return@map duration
+            else {
+                return@map it
+            }
+        }.let {
+            _dates.value = it
+        }
+
+
+    }
+
+    fun filterEvents(duration: Duration) {
+
+        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val output = SimpleDateFormat("dd MMMM,yyyy")
+
+        val eventList: List<EventsAndAttraction> = _eventAttractionResponse.value!!.eventsAndAttractions ?: return
+
+        eventList.filter { event ->
+            output.format(input.parse(event.dateFrom)) == duration.dayDate
+        }.let {
+            _eventAttractionList.value = it
+        }
+
+    }
+
 
 }

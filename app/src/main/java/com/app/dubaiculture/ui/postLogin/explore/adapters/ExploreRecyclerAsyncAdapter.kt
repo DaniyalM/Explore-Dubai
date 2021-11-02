@@ -266,6 +266,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
 
                 holder.itemView.binding?.cardviewPlanTrip?.visibility = View.VISIBLE
                 holder.itemView.binding?.tripSeperator?.visibility = View.VISIBLE
+
+                holder.itemView.binding?.cardviewPlanTrip?.setOnClickListener {
+                    fragment?.navigate(R.id.action_exploreFragment_to_plantrip_navigation)
+                }
+
                 holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
                 holder.itemView.binding?.innerSectionRv?.let {
                     it.layoutManager =

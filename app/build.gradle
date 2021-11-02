@@ -77,6 +77,7 @@ android {
             minifyEnabled false
             debuggable false
             buildConfigField("String", "BASE_URL", "\"https://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -89,7 +90,8 @@ android {
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
 
 
         }
@@ -98,6 +100,7 @@ android {
             minifyEnabled false
             debuggable true
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -109,7 +112,8 @@ android {
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
         }
         stag {
             applicationIdSuffix ".stag"
@@ -117,6 +121,7 @@ android {
             shrinkResources false
             debuggable false
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
@@ -134,7 +139,8 @@ android {
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
         }
         prod {
             applicationIdSuffix ".prod"
@@ -142,6 +148,7 @@ android {
             debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_PROD\"")
@@ -340,5 +347,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.1'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
-
+    implementation 'com.google.maps.android:android-maps-utils:2.2.3'
 }
