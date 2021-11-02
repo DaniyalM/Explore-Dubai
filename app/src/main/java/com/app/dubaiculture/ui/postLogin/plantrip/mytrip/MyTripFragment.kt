@@ -74,8 +74,6 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             .findFragmentById(R.id.mapFrag) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-
-
         setupRV()
 
     }

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_trip_navigation"
     app:startDestination="@id/myTripFragment">
-    <include app:graph="@navigation/more_navigation" />
 
     <fragment
         android:id="@+id/myTripFragment"
