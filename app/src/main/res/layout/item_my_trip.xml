@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="data"
+            type="com.app.dubaiculture.data.repository.trip.local.EventsAndAttraction" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -12,8 +19,8 @@
             android:layout_height="@dimen/_75sdp"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:imageUrl="@{data.image}"
             android:scaleType="center"
-            android:src="@drawable/image_placeholder"
             app:cornerRadius="@dimen/_15sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="@font/neosansarabicmedium"
-            android:text="Museum"
+            android:text="@{data.category}"
             android:textAllCaps="true"
             android:textColor="@color/purple_650"
             android:textSize="@dimen/_10ssp"
@@ -39,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_4sdp"
-            android:text="Museum of the Poet of Al Oqaili"
+            android:text="@{data.title}"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toStartOf="@id/cvNavigation"
             app:layout_constraintStart_toEndOf="@id/ivTrips"
@@ -60,7 +67,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_8sdp"
             android:includeFontPadding="false"
-            android:text="12:00-2:00 PM I Sunday"
+            android:text="@{data.timeFrom.substring(0,5) + `-` +data.timeTo.substring(0,5) + `|` + data.day}"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@id/ivTime"
             app:layout_constraintStart_toEndOf="@id/ivTime"
@@ -71,7 +78,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_4sdp"
-            app:cardElevation="@dimen/_12sdp"
+            app:cardElevation="@dimen/_8sdp"
             app:layout_constraintBottom_toTopOf="@id/tvDistance"
             app:layout_constraintEnd_toEndOf="@id/tvDistance"
             app:layout_constraintStart_toStartOf="@id/tvDistance">
@@ -95,7 +102,7 @@
             android:includeFontPadding="false"
             android:text="10 Km"
             android:textSize="@dimen/_8ssp"
-            app:layout_constraintBottom_toBottomOf="@id/tvTime"
+            app:layout_constraintBottom_toBottomOf="@id/ivTime"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <LinearLayout

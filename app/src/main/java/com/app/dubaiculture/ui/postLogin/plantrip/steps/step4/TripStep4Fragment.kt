@@ -60,6 +60,8 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
 
         step4ViewModel.eventAttraction.observe(viewLifecycleOwner) {
+            tripSharedViewModel._eventAttractionResponse.value = it.getContentIfNotHandled()
+            tripSharedViewModel.setDates()
             tripSharedViewModel._showPlan.value = Event(true)
         }
 
@@ -73,7 +75,9 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
         }
 
         tripSharedViewModel.eventAttraction.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { it1 -> step4ViewModel.postEventAttraction(it1) }
+            it.getContentIfNotHandled()?.let { it1 ->
+                step4ViewModel.postEventAttraction(it1)
+            }
         }
 
     }
@@ -101,14 +105,14 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
     fun onSelectDateClicked() {
 
-        val constraintBuilder: CalendarConstraints.Builder = CalendarConstraints.Builder()
-        constraintBuilder.setValidator(DateValidatorPointForward.now())
+//        val constraintBuilder: CalendarConstraints.Builder = CalendarConstraints.Builder()
+//        constraintBuilder.setValidator(DateValidatorPointForward.now())
 
         val dateRangePicker =
             MaterialDatePicker.Builder.dateRangePicker()
                 .setTitleText("Select dates")
                 .setTheme(R.style.ThemeOverlay_App_DatePicker)
-                .setCalendarConstraints(constraintBuilder.build())
+//                .setCalendarConstraints(constraintBuilder.build())
                 .build()
 
         dateRangePicker.show(requireFragmentManager(), tag)

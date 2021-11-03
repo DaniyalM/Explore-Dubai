@@ -148,6 +148,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.searchFragment -> {
                         visibility = View.GONE
                     }
+                    R.id.tripSuccessFragment -> {
+                        visibility = View.GONE
+                    }
                     else -> {
                         visibility = View.VISIBLE
                         Bundle().apply {

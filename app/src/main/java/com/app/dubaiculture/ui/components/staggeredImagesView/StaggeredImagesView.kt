@@ -1,4 +1,4 @@
-package com.app.neomads.ui.components.staggeredImagesView
+package com.app.dubaiculture.ui.components.staggeredImagesView
 
 import android.content.Context
 import android.util.AttributeSet
