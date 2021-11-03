@@ -138,6 +138,11 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
                                 object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
 
+                                        navigateByDirections(
+                                            NewsDetailFragmentDirections.actionNewsDetailFragmentSelf(
+                                                it.id!!
+                                            )
+                                        )
 
                                     }
 

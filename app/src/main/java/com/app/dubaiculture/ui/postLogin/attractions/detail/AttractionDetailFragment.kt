@@ -253,11 +253,11 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             isDetailFavouriteFlag = false
 
                         }
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_fav)
 
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_home_black)
 
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
@@ -280,13 +280,14 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
                     attractionsObj = it.value
+                    mapView?.invalidate()
 
 //                    val attractionLatLng = LatLng(
 //                        attractionsObj!!.latitude?.toDouble()!!,
 //                        attractionsObj!!.longitude?.toDouble()!!
 //                    )
 //
-//                    mapView?.invalidate()
+
 //                    mapView?.getMapAsync(this)
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact

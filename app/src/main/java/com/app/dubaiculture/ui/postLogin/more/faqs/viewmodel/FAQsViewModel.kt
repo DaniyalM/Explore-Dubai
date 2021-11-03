@@ -47,6 +47,7 @@ class FAQsViewModel @Inject constructor(
                     _faqs.value = result.value.faqItems
                     _faqsTitle.value = result.value.faqTitle
                     _searchfaqs.value = result.value.faqItems
+
                 }
                 is Result.Failure -> {
                     showLoader(false)

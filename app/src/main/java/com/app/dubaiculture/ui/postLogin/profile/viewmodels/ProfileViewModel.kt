@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.profile.ProfileRepository
-import com.app.dubaiculture.data.repository.profile.local.Favourite
 import com.app.dubaiculture.data.repository.settings.local.UserSettings
 import com.app.dubaiculture.data.repository.user.UserRepository
 import com.app.dubaiculture.infrastructure.ApplicationEntry
@@ -27,9 +26,9 @@ class ProfileViewModel @Inject constructor(
     BaseViewModel(application, profileRepository) {
     private val _userSetting: MutableLiveData<Result<Event<UserSettings>>> = MutableLiveData()
     val userSettings: LiveData<Result<Event<UserSettings>>> = _userSetting
-
-    private val _favourite: MutableLiveData<Result<Event<Favourite>>> = MutableLiveData()
-    val favourite: LiveData<Result<Event<Favourite>>> = _favourite
+//
+//    private val _favourite: MutableLiveData<Result<Event<Favourite>>> = MutableLiveData()
+//    val favourite: LiveData<Result<Event<Favourite>>> = _favourite
 
 
     // booleans for checking regex validation
@@ -116,25 +115,25 @@ class ProfileViewModel @Inject constructor(
 
     }
 
-
-    fun getFavourites() {
-        viewModelScope.launch {
-            showLoader(true)
-            val result = profileRepository.getFavourites()
-            when (result) {
-                is Result.Success -> {
-                    showLoader(false)
-                    _favourite.value = result
-                }
-                is Result.Error -> {
-                    _favourite.value = result
-                }
-                is Result.Failure -> {
-                    _favourite.value = result
-                }
-            }
-        }
-    }
+//
+//    fun getFavourites() {
+//        viewModelScope.launch {
+//            showLoader(true)
+//            val result = profileRepository.getFavourites()
+//            when (result) {
+//                is Result.Success -> {
+//                    showLoader(false)
+//                    _favourite.value = result
+//                }
+//                is Result.Error -> {
+//                    _favourite.value = result
+//                }
+//                is Result.Failure -> {
+//                    _favourite.value = result
+//                }
+//            }
+//        }
+//    }
 
     fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         email.set(s.toString())

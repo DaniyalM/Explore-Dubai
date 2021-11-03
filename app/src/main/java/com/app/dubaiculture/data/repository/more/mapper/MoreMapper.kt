@@ -138,7 +138,7 @@ fun transformFAQsRequest(moreresponse: MoreResponse) =
                 FaqItem(
                     answer = faqItemDTO.Answer,
                     question = faqItemDTO.Question,
-                    id = index + 1
+                    id = String.format("%01d", index + 1).toInt()
 
                 )
             }

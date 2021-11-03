@@ -57,7 +57,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     private var scrollView: ScrollView? = null
 
 
-    lateinit var checkBox: CheckBox
+    var checkBox: CheckBox? = null
 
 
     // data binding

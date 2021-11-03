@@ -37,10 +37,10 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
             when (it) {
                 is Result.Success -> {
                     if (TextUtils.equals(it.value.Result.message, "Added")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_fav)
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_home)
                     }
                 }
                 is Result.Failure -> handleApiError(it, attractionViewModel)

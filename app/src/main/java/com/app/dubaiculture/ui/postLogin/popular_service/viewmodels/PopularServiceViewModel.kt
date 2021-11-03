@@ -80,8 +80,7 @@ class PopularServiceViewModel @Inject constructor(
             data.filter {
                 keyword in it.title && it.categoryId == id
             }.let {
-                if (it.isNotEmpty())
-                    _serviceListTemp.value = it
+                _serviceListTemp.value = it
             }
         } else {
             updateServiceList(id)

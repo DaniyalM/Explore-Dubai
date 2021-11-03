@@ -82,13 +82,13 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
                         binding.headerVisited.favourite.background =
                             getDrawableFromId(R.drawable.heart_icon_fav)
 
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_fav)
 
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
                         binding.headerVisited.favourite.background =
                             getDrawableFromId(R.drawable.heart_icon_home_black)
-                        checkBox.background = getDrawableFromId(R.drawable.heart_icon_home_black)
+                        checkBox?.background = getDrawableFromId(R.drawable.heart_icon_home_black)
 
                     }
                 }

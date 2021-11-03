@@ -126,6 +126,7 @@
 
                 <com.app.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvPlaceHolder"
+                    style="@style/TextViewStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_50sdp"
@@ -135,7 +136,6 @@
                     android:lineSpacingExtra="@dimen/text_line_spacing"
                     android:text="@string/no_my_posts_fav"
                     android:textAlignment="center"
-                    android:textColor="@color/no_data_placeholder"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
-import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
@@ -29,12 +28,8 @@ import com.app.dubaiculture.ui.postLogin.explore.ExploreFragmentDirections
 import com.app.dubaiculture.ui.postLogin.explore.adapters.itemcells.*
 import com.app.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
-import com.app.dubaiculture.utils.Constants.NavBundles.ATTRACTION_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_FILTER
-import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
 import com.app.dubaiculture.utils.Constants.NavBundles.EXPLORE_TO_ATTRACTIONS
-import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_ID
-import com.app.dubaiculture.utils.Constants.NavBundles.NEWS_NAVIGATION
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -200,13 +195,18 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
 //                                        fragment?.navigate(R.id.action_exploreFragment_to_eventDetailFragment2,
-                                        fragment?.navigate(R.id.action_exploreFragment_to_events_navigation,
-                                            Bundle().apply {
-                                                putParcelable(
-                                                    EVENT_OBJECT,
-                                                    transformBaseToEvent(it)
-                                                )
-                                            })
+                                        (fragment as ExploreFragment).navigateByDirections(
+                                            ExploreFragmentDirections.actionExploreFragmentToEventDetailNavigation(
+                                                it.id!!
+                                            )
+                                        )
+//                                        fragment?.navigate(R.id.action_exploreFragment_to_events_navigation,
+//                                            Bundle().apply {
+//                                                putParcelable(
+//                                                    EVENT_OBJECT,
+//                                                    transformBaseToEvent(it)
+//                                                )
+//                                            })
                                     }
 
                                     override fun rowClickListener(

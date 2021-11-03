@@ -42,6 +42,10 @@ class NewsFilterListingFragment : BaseFragment<FragmentNewsFilterListingBinding>
         container: ViewGroup?
     ) = FragmentNewsFilterListingBinding.inflate(inflater, container, false)
 
+    override fun onDetach() {
+        super.onDetach()
+        newsFilterViewModel.clearFilters()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

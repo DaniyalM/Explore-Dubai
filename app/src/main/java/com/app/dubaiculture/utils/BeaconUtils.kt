@@ -3,7 +3,6 @@ package com.app.dubaiculture.utils
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import com.app.dubaiculture.data.repository.visited.VisitedRepository
 import com.app.dubaiculture.ui.preLogin.PreLoginActivity
 import com.app.dubaiculture.utils.Constants.IBecons.IDENTIFIER
@@ -29,12 +28,12 @@ class BeaconUtils @Inject constructor(
             beaconManager.startRanging(region)
             beaconManager.setScanStatusListener(object : BeaconManager.ScanStatusListener {
                 override fun onScanStart() {
-                    Toast.makeText(context,"Dubai Culture Scanning has been started",Toast.LENGTH_SHORT).show()
-//                    PushNotificationManager.showNotification(
-//                        context,
-//                        "Beacon Scanning",
-//                        "Dubai Culture Scanning has been started", null
-//                    )
+//                    Toast.makeText(context,"Dubai Culture Scanning has been started",Toast.LENGTH_SHORT).show()
+                    PushNotificationManager.showNotification(
+                        context,
+                        "Beacon Scanning",
+                        "Dubai Culture Scanning has been started", null
+                    )
                 }
 
                 override fun onScanStop() {
@@ -59,7 +58,8 @@ class BeaconUtils @Inject constructor(
                     "Your gate closes in 47 minutes.",
                     "Current security wait time is 15 minutes, "
                             + "and it's a 5 minute walk from security to the gate. "
-                            + "Looks like you've got plenty of time!", resultPendingIntent
+                            + "Looks like you've got plenty of time!",
+                    resultPendingIntent
                 )
 
 //                applicationScope.launch {

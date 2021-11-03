@@ -6,6 +6,7 @@
 
         <import type="android.text.TextUtils" />
 
+
         <variable
             name="faq"
             type="com.app.dubaiculture.data.repository.popular_service.local.models.FAQX" />
@@ -41,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="@{TextUtils.isEmpty(faq.id.toString())?faqItem.id.toString():faq.id.toString()}"
+                android:text="@{TextUtils.isEmpty(faq.id.toString())?String.format(`%02d`,faqItem.id):String.format(`%04d`,faq.id)}"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

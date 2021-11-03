@@ -74,12 +74,10 @@ class ProfileRepository @Inject constructor(
         is Result.Success -> {
             if (resultRDS.value.succeeded) {
                 Result.Success(
-                    Event(
-                        Favourite(
-                            attractions = transformAttractions(resultRDS.value.result.attraction),
-                            events = transformEventList(resultRDS.value.result.events),
-                            services = transformService(resultRDS.value.result.services)
-                        )
+                    Favourite(
+                        attractions = transformAttractions(resultRDS.value.result.attraction),
+                        events = transformEventList(resultRDS.value.result.events),
+                        services = transformService(resultRDS.value.result.services)
                     )
                 )
             } else {

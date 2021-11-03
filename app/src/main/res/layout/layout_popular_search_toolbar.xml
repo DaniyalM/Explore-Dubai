@@ -14,7 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            app:cardBackgroundColor="@color/gray_400"
+            app:cardBackgroundColor="?attr/colorSecondaryVariantInverted"
             app:cardCornerRadius="@dimen/_25sdp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toStartOf="@+id/clear"
@@ -47,7 +47,7 @@
                     android:maxLines="1"
                     android:paddingStart="@dimen/_15ssp"
                     android:singleLine="true"
-                    android:textColorHint="@color/gray_600"
+                    android:textColorHint="@color/gray_700"
                     android:textSize="@dimen/_10ssp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
