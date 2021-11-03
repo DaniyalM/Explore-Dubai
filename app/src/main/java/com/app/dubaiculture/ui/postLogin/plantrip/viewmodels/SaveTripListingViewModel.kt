@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
@@ -42,7 +43,7 @@ class SaveTripListingViewModel @Inject constructor(
         getTrips()
     }
 
-    private fun getTrips(){
+    private fun getTrips() {
         viewModelScope.launch {
             when (val result = tripRepository.getMyTrips(
                 context.auth.locale.toString()
@@ -60,6 +61,12 @@ class SaveTripListingViewModel @Inject constructor(
             }
         }
     }
+
+    fun filterTrips(tripId: String) {
+        val data = _tripPagination.value ?: return
+        data.filter { it.tripId != tripId }.let { _tripPagination.value = it }
+    }
+
 
     fun getTripDetails(tripId: String, culture: String) {
         viewModelScope.launch {

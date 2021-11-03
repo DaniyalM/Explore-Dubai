@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_trip_navigaion_cd"
+    app:startDestination="@id/myTripFragment">
+
+    <fragment
+        android:id="@+id/myTripFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripFragment"
+        android:label="MyPlanTripFragment">
+
+        <action
+            android:id="@+id/action_my_trip_to_my_trip_listing"
+            app:destination="@id/myTripListingFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/myTripListingFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
+        android:label="MyTripListingFragment"
+        tools:layout="@layout/fragment_my_trip_listing">
+
+        <action
+            android:id="@+id/action_tripFragmentListing_to_delete"
+            app:popUpTo="@+id/my_trip_navigaion_cd"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/travelModeDialog"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.TravelModeBottomSheetFragment"
+        android:label="TravelModeDialog"
+        tools:layout="@layout/fragment_travel_mode_bottom_sheet" />
+
+</navigation>

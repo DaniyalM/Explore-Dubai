@@ -356,6 +356,8 @@
     <string name="day10">10 Days</string>
     <string name="trip_created_desc">You have Successfully Created Your Trip</string>
     <string name="_ok">Ok</string>
+    <string name="deleteTrip">Delete Trip</string>
+
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->

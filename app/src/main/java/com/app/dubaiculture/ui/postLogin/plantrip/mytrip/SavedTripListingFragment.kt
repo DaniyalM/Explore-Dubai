@@ -27,12 +27,14 @@ import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class SavedTripListingFragment : BaseFragment<FragmentSavedTripListingBinding>() {
 
     private val saveTripListingViewModel: SaveTripListingViewModel by viewModels()
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
     private lateinit var saveTripAdapter: SaveTripAdapter
+
     @Inject
     lateinit var glide: RequestManager
     override fun getFragmentBinding(
@@ -55,7 +57,10 @@ class SavedTripListingFragment : BaseFragment<FragmentSavedTripListingBinding>()
                 glide,
                 object : SaveTripClickListener {
                     override fun rowClickListener(trip: Trip) {
-                        saveTripListingViewModel.getTripDetails(trip.tripId, application.auth.locale.toString())
+                        saveTripListingViewModel.getTripDetails(
+                            trip.tripId,
+                            application.auth.locale.toString()
+                        )
                     }
 
                     override fun rowClickListener(
@@ -80,21 +85,27 @@ class SavedTripListingFragment : BaseFragment<FragmentSavedTripListingBinding>()
 
     private fun subscribeToObservables() {
 
-        saveTripListingViewModel.tripPagination.observe(viewLifecycleOwner){
+        saveTripListingViewModel.tripPagination.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
                 saveTripAdapter.submitData(it)
             }
         }
-        saveTripListingViewModel.eventAttraction.observe(viewLifecycleOwner){
+        saveTripListingViewModel.eventAttraction.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 tripSharedViewModel._showSave.value = false
                 tripSharedViewModel._eventAttractionResponse.value = it
                 tripSharedViewModel.setDatesFromAPI(it.eventsAndAttractions)
 
-//                navigate(R.id.action_tripSavingListingFragment_to_my_tripFragment)
+                navigate(R.id.action_tripSavingListingFragment_to_my_tripFragment)
 
             }
         }
+        tripSharedViewModel.trip.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                saveTripListingViewModel.filterTrips(it)
+            }
+        }
+
     }
 
 }

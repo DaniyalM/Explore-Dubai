@@ -35,4 +35,7 @@ interface TripService : BaseService {
     @GET("/api/Trip/MyTripsDetail")
     suspend fun getTripDetails(@Query("TripId") tripId:String,@Query("culture") culture: String): EventAttractionResponse
 
+    @GET("/api/Trip/DeleteTrip")
+    suspend fun deleteTrip(@Query("TripId") tripId:String): SaveTripResponse
+
 }

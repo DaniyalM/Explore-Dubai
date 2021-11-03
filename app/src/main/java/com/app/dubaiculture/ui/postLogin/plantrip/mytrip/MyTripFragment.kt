@@ -70,6 +70,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
+        binding.viewModel = myTripViewModel
         subscribeUiEvents(myTripViewModel)
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.mapFrag) as SupportMapFragment
@@ -179,11 +180,17 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     private fun subscribeToObservables() {
 
 
+        tripSharedViewModel.tripList.observe(viewLifecycleOwner) {
+            if (it != null) {
+                myTripAdapter.submitList(it)
+            }
+        }
+
         tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
             if (it != null) {
                 getDirections(it)
+                getDistance(it)
                 addMarkers(it)
-                myTripAdapter.submitList(it)
             }
         }
 
@@ -193,15 +200,62 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             datesAdapter.submitList(it)
 
         }
+
+        myTripViewModel.distanceResponse.observe(viewLifecycleOwner) {
+            tripSharedViewModel.mapDistanceInList(it)
+        }
+
         myTripViewModel.directionResponse.observe(viewLifecycleOwner) {
             drawPolyline(it.routes)
         }
 
-        tripSharedViewModel.showSave.observe(viewLifecycleOwner){
-            if(it) binding.btnNext.visibility = View.VISIBLE else binding.btnNext.visibility = View.GONE
+        tripSharedViewModel.showSave.observe(viewLifecycleOwner) {
+            if (it) binding.btnNext.visibility = View.VISIBLE else binding.btnNext.visibility =
+                View.GONE
+            if (it) binding.btnDeleteDur.visibility =
+                View.GONE else binding.btnDeleteDur.visibility = View.VISIBLE
 
         }
 
+        myTripViewModel.deleteTripStatus.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                if (it) {
+                    tripSharedViewModel.updateTripItem(binding.tripId!!)
+                    back()
+                }
+            }
+        }
+
+        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
+            binding.tripId = it.tripId
+        }
+
+    }
+
+    private fun getDistance(list: List<EventsAndAttraction>) {
+
+        var hashMap: HashMap<String, String> = HashMap<String, String>()
+        var destination: String = ""
+        if (list.isNotEmpty()) {
+            hashMap["origins"] =
+                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
+
+//            hashMap["destination"] =
+//                list[0].latitude + "," + list[0].longitude
+
+            list.map {
+                destination += it.latitude + "," + it.longitude + "|"
+            }
+
+            hashMap["destinations"] = destination
+
+
+            hashMap["key"] = getString(R.string.map_key)
+
+            myTripViewModel.getDistance(
+                map = hashMap
+            )
+        }
 
     }
 

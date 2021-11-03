@@ -47,6 +47,12 @@ class TripRDS @Inject constructor(
             mapService.getDirections(map)
         }
 
+    suspend fun getDistance(map: HashMap<String, String>): Result<DistanceMatrixResponse> =
+        safeApiCall {
+            mapService.getDistance(map)
+        }
+
+
     suspend fun saveTrip(saveTripRequestDTO: SaveTripRequestDTO): Result<SaveTripResponse> =
         safeApiCall {
             tripService.saveTrip(saveTripRequestDTO)
@@ -62,6 +68,11 @@ class TripRDS @Inject constructor(
     suspend fun getTripDetails(tripId: String, culture: String): Result<EventAttractionResponse> =
         safeApiCall {
             tripService.getTripDetails(tripId, culture)
+        }
+
+    suspend fun deleteTrip(tripId:String): Result<SaveTripResponse> =
+        safeApiCall {
+            tripService.deleteTrip(tripId)
         }
 
 }

@@ -134,6 +134,8 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
                 timeTo = eventsAndAttraction.TimeTo ?: "00:00:00",
                 title = eventsAndAttraction.Title ?: "",
                 icon = eventsAndAttraction.icon ?: "",
+                duration = "",
+                distance = "",
             )
         },
         location = Location(

@@ -100,7 +100,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             android:includeFontPadding="false"
-            android:text="10 Km"
+            android:text="@{data.distance}"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/ivTime"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -141,7 +141,7 @@
             android:id="@+id/tvCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30 min"
+            android:text="@{data.duration}"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintEnd_toEndOf="@id/ivTrips"
             app:layout_constraintStart_toEndOf="@id/llIcons"

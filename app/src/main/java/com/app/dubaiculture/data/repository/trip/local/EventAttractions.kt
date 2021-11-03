@@ -35,7 +35,9 @@ data class EventsAndAttraction(
     val timeFrom: String,
     val timeTo: String,
     val title: String,
-    val icon: String
+    val icon: String,
+    val duration: String,
+    val distance: String,
 )
 
 data class Location(

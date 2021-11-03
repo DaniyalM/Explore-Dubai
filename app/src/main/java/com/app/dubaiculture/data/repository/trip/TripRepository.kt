@@ -14,6 +14,7 @@ import com.app.dubaiculture.data.repository.trip.remote.TripRDS
 import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
 import com.app.dubaiculture.data.repository.trip.remote.request.SaveTripRequest
 import com.app.dubaiculture.data.repository.trip.remote.response.DirectionResponse
+import com.app.dubaiculture.data.repository.trip.remote.response.DistanceMatrixResponse
 import com.app.dubaiculture.data.repository.trip.remote.response.SaveTripResponse
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.Event
@@ -107,6 +108,19 @@ class TripRepository @Inject constructor(
             is Result.Failure -> resultRds
         }
 
+    suspend fun getDistance(map: HashMap<String, String>): Result<DistanceMatrixResponse> =
+        when (val resultRds = tripRDS.getDistance(map)) {
+            is Result.Success -> {
+                if (resultRds.value.status == "OK") {
+                    Result.Success(resultRds.value)
+                } else {
+                    Result.Failure(false, null, null, "Error")
+                }
+            }
+            is Result.Error -> resultRds
+            is Result.Failure -> resultRds
+        }
+
     suspend fun saveTrip(saveTripRequest: SaveTripRequest): Result<SaveTripResponse> =
         when (val resultRds = tripRDS.saveTrip(transformSaveTripRequest(saveTripRequest))) {
             is Result.Success -> {
@@ -147,5 +161,19 @@ class TripRepository @Inject constructor(
             is Result.Error -> resultRds
             is Result.Failure -> resultRds
         }
+
+    suspend fun deleteTrip(tripId:String): Result<SaveTripResponse> =
+        when (val resultRds = tripRDS.deleteTrip(tripId)) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success((resultRds.value))
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Error -> resultRds
+            is Result.Failure -> resultRds
+        }
+
 
 }

@@ -4,9 +4,11 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.paging.filter
 import com.app.dubaiculture.data.repository.trip.TripRepository
 import com.app.dubaiculture.data.repository.trip.local.*
 import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
+import com.app.dubaiculture.data.repository.trip.remote.response.DistanceMatrixResponse
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.event.Event
@@ -55,6 +57,16 @@ class TripSharedViewModel @Inject constructor(
 
     val _eventAttractionList: MutableLiveData<List<EventsAndAttraction>> = MutableLiveData()
     val eventAttractionList: LiveData<List<EventsAndAttraction>> = _eventAttractionList
+
+    val _tripList: MutableLiveData<List<EventsAndAttraction>> = MutableLiveData()
+    val tripList: LiveData<List<EventsAndAttraction>> = _tripList
+
+    val _trip: MutableLiveData<Event<String>> = MutableLiveData()
+    val trip: LiveData<Event<String>> = _trip
+
+    fun updateTripItem(trip: String) {
+        _trip.value = Event(trip)
+    }
 
     fun updateLocationItem(nearestLocation: LocationNearest) {
         _type.value = nearestLocation
@@ -295,7 +307,7 @@ class TripSharedViewModel @Inject constructor(
         var dateList: MutableList<Duration> = mutableListOf()
 
         eventsAndAttractions.mapIndexed { index, eventsAndAttraction ->
-            if (index == 1) {
+            if (index == 0) {
                 dateList.add(
                     Duration(
                         index,
@@ -318,10 +330,20 @@ class TripSharedViewModel @Inject constructor(
                 )
 
             }
-        }.let {
-            _dates.value = dateList
         }
+        _dates.value = dateList
 
+    }
+
+    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse) {
+        val data = _eventAttractionList.value ?: return
+        data.mapIndexed { index, eventsAndAttraction ->
+            return@mapIndexed eventsAndAttraction.copy(duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
+                distance = distanceMatrixResponse.rows[0].elements[index].distance.text
+                )
+        }.let {
+            _tripList.value = it
+        }
 
     }
 
