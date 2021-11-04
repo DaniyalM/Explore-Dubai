@@ -63,7 +63,7 @@
         android:id="@+id/eventListingFragment"
         tools:layout="@layout/fragment_event_listing"
         android:name="com.app.dubaiculture.ui.postLogin.events.EventListingFragment"
-        android:label="EventListingFragment" >
+        android:label="EventListingFragment">
         <action
             android:id="@+id/action_eventListingFragment_to_postLoginFragment"
             app:destination="@id/post_login_bottom_navigation"
@@ -71,6 +71,14 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_eventListingFragment_to_event_detail_navigation"
+            app:destination="@id/event_detail_navigation">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
     </fragment>
     <dialog
         android:id="@+id/filterFragment"
@@ -122,7 +130,12 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out">
+            <!--            <argument-->
+            <!--                android:name="event_id"-->
+            <!--                app:argType="string"-->
+            <!--                app:nullable="false" />-->
+        </action>
         <action
             android:id="@+id/action_eventFilterFragment_to_filterFragment2"
             app:destination="@id/filterFragment"

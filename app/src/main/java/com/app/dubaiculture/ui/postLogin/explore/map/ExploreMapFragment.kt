@@ -58,6 +58,12 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     val farEvent = R.drawable.events_away
     val nearAttractions = R.drawable.attraction_close
     val farAttractions = R.drawable.attraction_away
+    val nearHeritage = R.drawable.heritage_inrange
+    val farHeritage = R.drawable.heritage_outrange
+    val nearFestival = R.drawable.festival_inrange
+    val farFestival = R.drawable.festival_outrange
+    val nearLibrary = R.drawable.library_inrange
+    val farLibrary = R.drawable.library_outrange
     lateinit var exploreNearAdapter: ExploreMapAdapter
 
     @Inject
@@ -301,8 +307,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             exploreMapList,
                             attractions, lat, lng
                         ), this,
-                        inRangeIcon = nearAttractions,
-                        outRangeIcon = farAttractions
+                        inRangeIcon = nearHeritage,
+                        outRangeIcon = farHeritage
                     )
                     rvSetUp(
                         exploreMapViewModel.attractionFilter(
@@ -351,8 +357,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             exploreMapList,
                             attractions, lat, lng
                         ), this,
-                        inRangeIcon = nearAttractions,
-                        outRangeIcon = farAttractions
+                        inRangeIcon = nearFestival,
+                        outRangeIcon = farFestival
                     )
                     rvSetUp(
                         exploreMapViewModel.attractionFilter(
@@ -375,8 +381,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             exploreMapList,
                             attractions, lat, lng
                         ), this,
-                        inRangeIcon = nearAttractions,
-                        outRangeIcon = farAttractions
+                        inRangeIcon = nearLibrary,
+                        outRangeIcon = farLibrary
                     )
                     rvSetUp(
                         exploreMapViewModel.attractionFilter(

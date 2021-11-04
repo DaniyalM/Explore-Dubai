@@ -65,6 +65,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 //        }
         rvSetUp()
         binding.search.setOnClickListener {
+            back()
 //            navigateByDirections(NewsDetailFragmentDirections.actionNewsDetailFragmentToSearchNavigation())
         }
         binding.imgClose.setOnClickListener {

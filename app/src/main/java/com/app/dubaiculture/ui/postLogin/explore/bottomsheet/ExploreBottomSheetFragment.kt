@@ -1,6 +1,7 @@
 package com.app.dubaiculture.ui.postLogin.explore.bottomsheet
 
 import android.content.Context
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -16,11 +17,18 @@ import com.app.dubaiculture.ui.postLogin.explore.map.adapter.ExploreMapAdapter
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.NavBundles.CATEGORY
 import com.app.dubaiculture.utils.Constants.NavBundles.EXPLORE_MAP_LIST
+import com.app.dubaiculture.utils.location.LocationHelper
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtomSheetBinding>() {
     private lateinit var exploreMapList: ArrayList<ExploreMap>
+
+    @Inject
+    lateinit var locationHelper: LocationHelper
 
 
     lateinit var exploreNearAdapter: ExploreMapAdapter
@@ -44,14 +52,16 @@ class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtom
         super.onActivityCreated(savedInstanceState)
         arguments?.apply {
             exploreMapList = getParcelableArrayList(EXPLORE_MAP_LIST)!!
-            binding.headingMuseumsNear.text = "${getString(CATEGORY) + " ${resources.getString(R.string.near_you)}" }"
+            binding.headingMuseumsNear.text =
+                "${getString(CATEGORY) + " ${resources.getString(R.string.near_you)}"}"
             rvSetUp(exploreMapList)
         }
 
 
     }
+
     private fun rvSetUp(list: List<ExploreMap>) {
-        exploreNearAdapter = ExploreMapAdapter(isArabic(), object : RowClickListener{
+        exploreNearAdapter = ExploreMapAdapter(isArabic(), object : RowClickListener {
             override fun rowClickListener(position: Int) {
             }
 
@@ -59,17 +69,26 @@ class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtom
 
             }
 
-        },object : DirectionClickListener{
+        }, object : DirectionClickListener {
             override fun directionClickListener(position: Int) {
                 val mapView = list[position]
                 if (!mapView.lat.isNullOrEmpty() && !mapView.lng.isNullOrEmpty()) {
                     // open google map application
-                    navigateToGoogleMap(
-                        lat.toString(),
-                        lat.toString(),
-                        mapView.lat.toString(),
-                        mapView.lng.toString()
-                    )
+                    locationHelper.locationSetUp(object : LocationHelper.LocationLatLng {
+                        override fun getCurrentLocation(location: Location) {
+                            navigateToGoogleMap(
+                                location.latitude.toString(),
+                                location.longitude.toString(),
+                                mapView.lat.toString(),
+                                mapView.lng.toString()
+                            )
+                        }
+                    }, object : LocationCallback() {
+                        override fun onLocationResult(locationResult: LocationResult) {
+//                        Timber.e("LocationCallback ${locationResult.lastLocation.latitude}")
+                        }
+                    })
+
                 }
             }
 

@@ -91,13 +91,14 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         binding.toolbarSnippet.toolbarLayout.imgDrawer.setOnClickListener {
             locationPermission()
         }
-        if (!application.auth.isGuest) {
-            binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
-                navigateByDirections(
-                    ExploreFragmentDirections.actionExploreFragmentToSearchNavigation()
-                )
-            }
+        binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
+            navigateByDirections(
+                ExploreFragmentDirections.actionExploreFragmentToSearchNavigation()
+            )
         }
+//        if (!application.auth.isGuest) {
+//
+//        }
 
 
     }

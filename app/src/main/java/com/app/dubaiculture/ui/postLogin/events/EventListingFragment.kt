@@ -24,7 +24,7 @@ import com.app.dubaiculture.ui.postLogin.events.adapters.EventListItem
 import com.app.dubaiculture.ui.postLogin.events.adapters.FilterHeaderAdapter
 import com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel
 import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
+import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_ID
 import com.app.dubaiculture.utils.dateFormatEn
 import com.app.dubaiculture.utils.handleApiError
 import com.xwray.groupie.GroupAdapter
@@ -156,12 +156,16 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                             object : RowClickListener {
                                                 override fun rowClickListener(position: Int) {
                                                     val eventObj = allList[position]
+//                                                    navigateByDirections(EventListingFragmentDirections.actionEventListingFragmentToEventDetailNavigation(
+//                                                        it.id!!
+//                                                    ))
                                                     val bundle = Bundle()
-                                                    bundle.putParcelable(EVENT_OBJECT, eventObj)
+                                                    bundle.putString(EVENT_ID, eventObj.id)
                                                     navigate(
                                                         R.id.action_eventFilterFragment_to_eventDetailFragment2,
                                                         bundle
                                                     )
+
                                                 }
 
                                                 override fun rowClickListener(
@@ -207,8 +211,11 @@ class EventListingFragment : BaseFragment<FragmentEventListingBinding>(), View.O
                                             object : RowClickListener {
                                                 override fun rowClickListener(position: Int) {
                                                     val eventObj = allList[position]
+//                                                    navigateByDirections(EventListingFragmentDirections.actionEventListingFragmentToEventDetailNavigation(
+//                                                        it.id!!
+//                                                    ))
                                                     val bundle = Bundle()
-                                                    bundle.putParcelable(EVENT_OBJECT, eventObj)
+                                                    bundle.putString(EVENT_ID, eventObj.id)
                                                     navigate(
                                                         R.id.action_eventFilterFragment_to_eventDetailFragment2,
                                                         bundle

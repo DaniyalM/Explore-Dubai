@@ -42,7 +42,8 @@ class SearchViewModel @Inject constructor(
     val count: LiveData<Int> = _count
 
 
-    private var _searchFilter: MutableLiveData<Event<SearchPaginationRequest>> = MutableLiveData()
+    private var _searchFilter: MutableLiveData<Event<SearchPaginationRequest>> =
+        MutableLiveData(Event(SearchPaginationRequest()))
     var searchFilter: LiveData<Event<SearchPaginationRequest>> = _searchFilter
 
     private val _searchPaginationItem: MutableLiveData<PagingData<SearchResultItem>> =
@@ -94,7 +95,7 @@ class SearchViewModel @Inject constructor(
             searchRequest.copy(
                 keyword = searchRequest.keyword,
                 filter = searchRequest.filter,
-                culture = context.auth.locale,
+                culture = context.auth.locale ?: "en",
                 category = searchRequest.category,
                 isOld = searchRequest.isOld,
                 sort = searchRequest.sort

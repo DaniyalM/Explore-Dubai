@@ -2,7 +2,6 @@ package com.app.dubaiculture.data.repository.event.remote.response
 
 import android.os.Parcelable
 import com.app.dubaiculture.data.repository.attraction.remote.response.SocialLinkDTO
-import com.app.dubaiculture.data.repository.event.local.models.Events
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
@@ -111,24 +110,24 @@ data class EventsDTO(
 
     @SerializedName("IsRegistered")
     @Expose
-    var isRegistered: Boolean= false,
+    var isRegistered: Boolean = false,
     @SerializedName("IsSurveyed")
     @Expose
-    var isSurveyed: Boolean= false,
+    var isSurveyed: Boolean = false,
 
 
     @SerializedName("EventSchedule")
     @Expose
-    val eventSchedule: List<EventScheduleDTO> = emptyList(),
+    val eventSchedule: List<EventScheduleDTO> = mutableListOf(),
 
     @SerializedName("RelatedEvents")
     @Expose
-    var relatedEvents: List<EventsDTO> = emptyList(),
+    var relatedEvents: List<EventsDTO> = mutableListOf(),
     @SerializedName("SocialLinks")
     @Expose
-    var socialLinks: List<SocialLinkDTO>  ?= emptyList()
+    var socialLinks: List<SocialLinkDTO>? = mutableListOf()
 
-    ) : Parcelable
+) : Parcelable
 
 //"ID":"E333F68461E840928FE54225F93ECE3C",
 //"Title":"The Definitive Guide \n to an Uncertain World 2",

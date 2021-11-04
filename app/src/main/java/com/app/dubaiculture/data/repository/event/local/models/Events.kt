@@ -39,9 +39,9 @@ data class Events(
     var currentLng: Double = 0.0,
     var emailContact: String? = null,
     var numberContact: String? = null,
-    var socialLink: List<SocialLink>? = mutableListOf(),
-    var eventSchedule: List<EventSchedule>? = mutableListOf(),
-    var relatedEvents: List<Events>? = mutableListOf(),
+    var socialLink: List<SocialLink> = mutableListOf(),
+    var eventSchedule: List<EventSchedule> = mutableListOf(),
+    var relatedEvents: List<Events> = mutableListOf(),
 ) : Parcelable
 
 
