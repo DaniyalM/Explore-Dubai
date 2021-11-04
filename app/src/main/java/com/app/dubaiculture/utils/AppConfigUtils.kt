@@ -1,15 +1,25 @@
 package com.app.dubaiculture.utils
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
+import com.app.dubaiculture.R
+
 
 object AppConfigUtils {
     var BASE_URL = "https://jsonplaceholder.typicode.com/"
     var clickCheckerFlag: Int = 0
     var favouriteClickCheckerFlag: Int = 0
-//    var serviceClickCheckerFlag: Int = 0
+
+    //    var serviceClickCheckerFlag: Int = 0
     var SERVICE_DETAIL_HEADER_FLAG: Int = 0
 
 
@@ -31,8 +41,39 @@ object AppConfigUtils {
         drawable?.setColorFilter(colorFilter, PorterDuff.Mode.SRC_IN)
         return drawable!!
     }
+
     fun getDrawable(context: Context, drawableResId: Int): Drawable? {
         return VectorDrawableCompat.create(context.resources, drawableResId, context.theme)
     }
+
+    fun getMarkerBitmapFromView(@DrawableRes resId: Int, context: Context): Bitmap? {
+        val customMarkerView: View =
+            (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?)!!.inflate(
+                R.layout.view_custom_marker,
+                null
+            )
+        val markerImageView: ImageView =
+            customMarkerView.findViewById(R.id.profile_image) as ImageView
+        markerImageView.setImageResource(resId)
+        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        customMarkerView.layout(
+            0,
+            0,
+            customMarkerView.measuredWidth,
+            customMarkerView.measuredHeight
+        )
+        customMarkerView.buildDrawingCache()
+        val returnedBitmap = Bitmap.createBitmap(
+            customMarkerView.measuredWidth, customMarkerView.measuredHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(returnedBitmap)
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        val drawable: Drawable = customMarkerView.background
+        if (drawable != null) drawable.draw(canvas)
+        customMarkerView.draw(canvas)
+        return returnedBitmap
+    }
+
 
 }

@@ -65,10 +65,10 @@ android {
             keyPassword "dc123dc"
         }
         prodConfig {
-            storeFile file("../certificates/productionKS.jks")
-            storePassword "dj123456789"
-            keyAlias "production"
-            keyPassword "dj123456789"
+            storeFile file("../certificates/dcprodks.jks")
+            storePassword "dcprodks12"
+            keyAlias "dcprod"
+            keyPassword "dcprodks12"
         }
     }
     buildTypes {
@@ -119,7 +119,7 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable false
+            debuggable true
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
@@ -144,10 +144,10 @@ android {
         }
         prod {
             applicationIdSuffix ".prod"
-            minifyEnabled true
-            debuggable true
+            minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -157,6 +157,20 @@ android {
 
 
             signingConfig signingConfigs.prodConfig
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "dubaiculture-${variant.name}-${defaultConfig.versionName}.apk"
+                }
+            }
+
+//            buildConfigField("String", "BASE_URL", "\"https://a04f708a-3b9c-41a5-bc03-1450f93ba4a1.mock.pstmn.io/\"")
+
+            Properties properties = new Properties()
+            if (rootProject.file("local.properties").exists()) {
+                properties.load(rootProject.file("local.properties").newDataInputStream())
+            }
+//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
 
 //            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
 

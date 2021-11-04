@@ -74,11 +74,10 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
 
     private fun initiateRequest() {
 
-        binding.swipeRefresh.post {
-            binding.swipeRefresh.isRefreshing = true
-            profileSharedViewModel.getFavourites()
-        }
-
+//        binding.swipeRefresh.post {
+//            binding.swipeRefresh.isRefreshing = true
+//            profileSharedViewModel.getFavourites()
+//        }
 
 
         binding.swipeRefresh.apply {
@@ -111,7 +110,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
         profileSharedViewModel.getFavourites()
 
 //        setupToolbarWithSearchItems()
-//        initiateRequest()
+        initiateRequest()
         subscribeToObservables()
         initEventRvListing()
         initAttractionRvlisting()
@@ -376,17 +375,23 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                         },
                         rowClickListener = object : RowClickListener {
                             override fun rowClickListener(position: Int) {
-                                navigate(R.id.action_favouriteFragment_to_attraction_detail_navigation,
-                                    Bundle().apply {
-                                        putParcelable(
-                                            Constants.NavBundles.ATTRACTION_OBJECT,
-                                            it
-                                        )
-                                    })
+
+
+//                                navigate(R.id.action_favouriteFragment_to_attraction_detail_navigation,
+//                                    Bundle().apply {
+//                                        putParcelable(
+//                                            Constants.NavBundles.ATTRACTION_OBJECT,
+//                                            it
+//                                        )
+//                                    })
                             }
 
                             override fun rowClickListener(position: Int, imageView: ImageView) {
-
+                                navigateByDirections(
+                                    FavouriteFragmentDirections.actionFavouriteFragmentToAttractionDetailNavigation(
+                                        it
+                                    )
+                                )
                             }
                         },
                         attraction = it,

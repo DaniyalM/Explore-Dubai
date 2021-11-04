@@ -467,13 +467,20 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     }
 
                     override fun rowClickHandler(events: Events) {
-                        navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
-                            Bundle().apply {
-                                putParcelable(
-                                    Constants.NavBundles.EVENT_OBJECT,
-                                    events
-                                )
-                            })
+
+                        navigateByDirections(
+                            AttractionDetailFragmentDirections.actionAttractionDetailFragmentToEventDetailFragment2(
+                                events.id!!
+                            )
+                        )
+//
+//                        navigate(R.id.action_attractionDetailFragment_to_eventDetailFragment2,
+//                            Bundle().apply {
+//                                putParcelable(
+//                                    Constants.NavBundles.EVENT_OBJECT,
+//                                    events
+//                                )
+//                            })
                     }
                 }
 

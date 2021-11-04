@@ -4,6 +4,12 @@ data class EServiceDetailDTO(
     val Category: String? = "",
     val Description: List<DescriptionDTO>? = mutableListOf(),
     val EnquireNumber: String? = "",
+
+    val PhoneHeading: String? = "",
+    val PhoneNumber: String? = "",
+    val EmailHeading: String? = "",
+    val EmailAddress: String? = "",
+
     val FAQs: List<FAQDTO>? = mutableListOf(),
     val Payments: List<PaymentDTO>? = mutableListOf(),
     val Procedure: List<ProcedureDTO>? = mutableListOf(),

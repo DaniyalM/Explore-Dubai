@@ -40,5 +40,6 @@ data class Attractions(
     var withinRadiusIcon: String? = "",
     var outOfRadiusIcon: String? = "",
     var visitedDateTime: String? = "12 Nov, 2020",
-    var relatedEventsTitle: String? = ""
+    var relatedEventsTitle: String? = "",
+    var catIndexId: Int? = null
 ) : Parcelable

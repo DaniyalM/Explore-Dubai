@@ -157,6 +157,7 @@
                                 android:drawableStart="@drawable/circle_purple"
                                 android:drawablePadding="@dimen/_5sdp"
                                 android:text="05 new"
+                                android:id="@+id/notiCount"
                                 android:textColor="@color/gray_500"
                                 android:textSize="@dimen/_10ssp" />
 

@@ -41,12 +41,16 @@
         <action
             android:id="@+id/action_attractionDetailFragment_to_eventDetailFragment2"
             app:destination="@id/event_detail_navigation"
-            app:popUpTo="@+id/attractionDetailFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"
-            />
+            app:popUpTo="@+id/attractionDetailFragment">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
         <action
             android:id="@+id/action_attractionDetailFragment_to_attractionGalleryFragment"
             app:destination="@id/attractionGalleryFragment"

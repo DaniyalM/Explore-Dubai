@@ -5,5 +5,9 @@ data class TermsAndCondition(
     val termsAndConditionsTitle: String,
     val enquireNumber: String? = "",
     val email: String? = "",
-    val serviceStart: String? = ""
+    val serviceStart: String? = "",
+    val phoneHeading: String? = "",
+    val phoneNumber: String? = "",
+    val emailHeading: String? = "",
+    val emailAddress: String? = "",
 )

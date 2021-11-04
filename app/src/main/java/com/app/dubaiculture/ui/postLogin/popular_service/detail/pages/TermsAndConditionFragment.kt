@@ -9,6 +9,8 @@ import com.app.dubaiculture.data.repository.popular_service.local.models.TermsAn
 import com.app.dubaiculture.databinding.ItemServiceDetailTermsAndConditionLayoutBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.components.customreadmore.ReadMoreClickListener
+import com.app.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment
+import com.app.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragmentDirections
 
 class TermsAndConditionFragment(
     val termsAndCondition: List<TermsAndCondition>?
@@ -23,6 +25,11 @@ class TermsAndConditionFragment(
         binding.detailListingHeader.text =
             activity.resources.getString(R.string.terms_and_conditions)
         binding.commonBtn.text = termsAndCondition!![0].serviceStart
+        binding.contactuslayout.thumbDown.setOnClickListener {
+            (parentFragment as ServiceDetailFragment).navigateByDirections(
+                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToServiceDownVoteFeedBackFragment()
+            )
+        }
 
         termsAndCondition.get(0).apply {
             termsAndConditionsSummary.let {
@@ -33,14 +40,14 @@ class TermsAndConditionFragment(
                 })
             }
             binding.contactuslayout.emailCallsBtn.llEmailUs.setOnClickListener {
-                if (!email.toString().isNullOrEmpty()) {
-                    openEmailbox(email.toString())
+                if (!emailAddress.toString().isNullOrEmpty()) {
+                    openEmailbox(emailAddress.toString())
                 }
             }
 
             binding.contactuslayout.emailCallsBtn.llCallus.setOnClickListener {
-                if (!enquireNumber.isNullOrEmpty()) {
-                    openDiallerBox(enquireNumber)
+                if (!phoneNumber.isNullOrEmpty()) {
+                    openDiallerBox(phoneNumber)
                 }
             }
         }

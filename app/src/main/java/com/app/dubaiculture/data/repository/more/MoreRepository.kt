@@ -11,10 +11,6 @@ import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRe
 import com.app.dubaiculture.data.repository.more.remote.request.ShareFeedbackRequest
 import com.app.dubaiculture.data.repository.more.remote.response.notification.NotificationRequest
 import com.app.dubaiculture.data.repository.more.remote.response.notification.Notifications
-import com.app.dubaiculture.data.repository.news.local.LatestNews
-import com.app.dubaiculture.data.repository.news.mapper.transformNewsPaging
-import com.app.dubaiculture.data.repository.news.mapper.transformNewsRequest
-import com.app.dubaiculture.data.repository.news.remote.request.NewsRequest
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.Event
 import kotlinx.coroutines.flow.Flow
@@ -151,6 +147,15 @@ class MoreRepository @Inject constructor(private val moreRDS: MoreRDS) : BaseRep
                 }
             })
 
+        } else {
+            Result.Failure(true, null, null, Constants.Error.SOMETHING_WENT_WRONG)
+        }
+    }
+
+    suspend fun getNotificationCount(culture: String): Result<String> {
+        val result = moreRDS.getNotificationCount(culture)
+        return if (result is Result.Success) {
+            Result.Success(result.value.Result.Count ?: "0")
         } else {
             Result.Failure(true, null, null, Constants.Error.SOMETHING_WENT_WRONG)
         }

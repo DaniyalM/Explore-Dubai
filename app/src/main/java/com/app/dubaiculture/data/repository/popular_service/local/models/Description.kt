@@ -13,5 +13,6 @@ data class Description(
     val serviceChannelTitle: String,
     val title: String,
     val type: String,
-    val typeTitle: String
+    val typeTitle: String,
+    val startServiceText: String
 )

@@ -50,13 +50,13 @@ class ServiceListingHeaderItem<T>(
         if (isSelected) {
             view.setCardBackgroundColor(Color.parseColor(colorBg))
             textView.setTextColor(
-                view.context.getColorFromAttr(R.attr.colorSurface)
+                ContextCompat.getColor(view.context, R.color.white_900)
             )
             selectedInnerImg?.let { drawable ->
                 imgInner.glideInstance(drawable, true).into(imgInner)
 //                imgInner.setImageDrawable(drawable)
                 imgInner.setColorFilter(
-                    view.context.getColorFromAttr(R.attr.colorSurface)
+                    ContextCompat.getColor(view.context, R.color.white_900)
                 )
             }
 

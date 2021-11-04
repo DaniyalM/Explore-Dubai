@@ -10,9 +10,6 @@ import com.app.dubaiculture.data.repository.more.remote.request.ShareFeedBackReq
 import com.app.dubaiculture.data.repository.more.remote.response.notification.NotificationDTO
 import com.app.dubaiculture.data.repository.more.remote.response.notification.NotificationRequestDTO
 import com.app.dubaiculture.data.repository.more.service.MoreService
-import com.app.dubaiculture.data.repository.news.remote.NewsPagingSource
-import com.app.dubaiculture.data.repository.news.remote.request.LatestNewsDTO
-import com.app.dubaiculture.data.repository.news.remote.request.NewsRequestDTO
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -37,25 +34,35 @@ class MoreRDS @Inject constructor(private val moreService: MoreService) : BaseRD
             moreService.getFAQs(privacyAndTermRequestDTO.culture)
         }
 
-    suspend fun getCultureConnoisseur(privacyAndTermRequestDTO: PrivacyAndTermRequestDTO)
-    = safeApiCall {
-        moreService.getCultureConnoisseur(privacyAndTermRequestDTO.culture)
-    }
+    suspend fun getCultureConnoisseur(privacyAndTermRequestDTO: PrivacyAndTermRequestDTO) =
+        safeApiCall {
+            moreService.getCultureConnoisseur(privacyAndTermRequestDTO.culture)
+        }
 
-    suspend fun getFeedBackType(privacyAndTermRequestDTO: PrivacyAndTermRequestDTO)
-            = safeApiCall {
+    suspend fun getFeedBackType(privacyAndTermRequestDTO: PrivacyAndTermRequestDTO) = safeApiCall {
         moreService.getFeedBackType(privacyAndTermRequestDTO.culture)
     }
+
     suspend fun postFeedBack(shareFeedBackRequestDTO: ShareFeedBackRequestDTO) =
         safeApiCall {
             moreService.postFeedBack(shareFeedBackRequestDTO)
+        }
+
+    suspend fun getNotificationCount(culture: String) =
+        safeApiCall {
+            moreService.getMyNotificationCount(culture)
         }
 
     suspend fun getPaginatedNotification(notificationRequestDTO: NotificationRequestDTO): Result<Flow<PagingData<NotificationDTO>>> {
         return safeApiCall {
             Pager(
                 config = PagingConfig(pageSize = 10),
-                pagingSourceFactory = { NotificationPagingSource(moreService,notificationRequestDTO) }
+                pagingSourceFactory = {
+                    NotificationPagingSource(
+                        moreService,
+                        notificationRequestDTO
+                    )
+                }
             ).flow
         }
 

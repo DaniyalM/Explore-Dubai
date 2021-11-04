@@ -37,4 +37,9 @@ interface MoreService : BaseService {
         @Query("pageNo") pageNo: Int,
         @Query("pageSize") pageSize: Int
     ): MoreResponse
+
+    @GET("Content/GetNotificationsCount")
+    suspend fun getMyNotificationCount(
+        @Query("culture") culture: String
+    ): MoreResponse
 }

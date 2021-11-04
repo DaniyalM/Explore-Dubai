@@ -14,6 +14,7 @@ import com.app.dubaiculture.databinding.FragmentPopularServiceBinding
 import com.app.dubaiculture.ui.base.BaseFragment
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListAdapter
 import com.app.dubaiculture.ui.postLogin.popular_service.adapter.clicklistener.ServiceClickListner
+import com.app.dubaiculture.ui.postLogin.popular_service.components.ServicesListingHeaderItemSelector.Companion.SERVICE_CLICK_CHECKER_FLAG
 import com.app.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
 import com.app.dubaiculture.ui.postLogin.popular_service.viewmodels.PopularServiceViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -141,6 +142,11 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
                 back()
             }
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        SERVICE_CLICK_CHECKER_FLAG = 0
     }
 
 

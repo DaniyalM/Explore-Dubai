@@ -40,12 +40,25 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         container: ViewGroup?
     ) = FragmentMoreBinding.inflate(inflater, container, false)
 
+    private fun subscribeToObservable() {
+        moreViewModel.notificationCount.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                val count = String.format("%02d", it.toInt())
+                if (it.toInt() > 0)
+                    binding.notiCount.text = "${count} new "
+                else
+                    binding.notiCount.text = "${0} new"
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
         subscribeUiEvents(moreViewModel)
+        moreViewModel.notificationCount(getCurrentLanguage().language)
+        subscribeToObservable()
         bgAboutRTL(binding.imgEagle)
         binding.toolbarSnippet.toolbarLayout.search.setOnClickListener(this)
         binding.llRateUs.setOnClickListener(this)

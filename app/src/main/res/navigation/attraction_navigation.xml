@@ -38,12 +38,14 @@
             app:destination="@id/attraction_detail_navigation"
             app:popUpTo="@+id/attraction_detail_navigation"
             app:popUpToInclusive="true"
-            >
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
             <argument
                 android:name="attraction"
                 app:argType="com.app.dubaiculture.data.repository.attraction.local.models.Attractions"
-                app:nullable="false"
-                />
+                app:nullable="false" />
         </action>
         <action
             android:id="@+id/action_attractionsFragment_to_attractionsFragment"

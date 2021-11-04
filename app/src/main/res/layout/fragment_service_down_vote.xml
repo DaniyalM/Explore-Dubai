@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.app.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.ServiceDownVoteFeedBackViewModel" />
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_20sdp"
+        app:cardElevation="@dimen/_5sdp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/customTextView10"
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_36sdp"
+                    android:text="Service Feed Back"
+                    android:textSize="@dimen/_17sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/full_name"
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/full_name"
+                    app:layout_constraintStart_toStartOf="@+id/customTextView10"
+                    app:layout_constraintTop_toBottomOf="@+id/customTextView10" />
+
+                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                    android:id="@+id/full_name_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:background="@drawable/bg_edit_resiger"
+
+                    android:onTextChanged="@{viewmodel::onFullNameChanged}"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="@={viewmodel.fullName}"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/full_name"
+                    app:layout_constraintTop_toBottomOf="@+id/full_name" />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/email"
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="@string/email"
+
+                    app:layout_constraintStart_toStartOf="@+id/full_name"
+                    app:layout_constraintTop_toBottomOf="@+id/full_name_edit" />
+
+                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                    android:id="@+id/email_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/bg_edit_resiger"
+                    android:onTextChanged="@{viewmodel::onEmailChanged}"
+
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="@={viewmodel.email}"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="@+id/full_name_edit"
+                    app:layout_constraintStart_toStartOf="@+id/email"
+                    app:layout_constraintTop_toBottomOf="@+id/email" />
+
+                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/comment"
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:text="Comment"
+
+                    app:layout_constraintStart_toStartOf="@+id/email"
+                    app:layout_constraintTop_toBottomOf="@+id/email_edit" />
+
+
+                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                    android:id="@+id/comment_text_input"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/bg_edit_resiger"
+
+                    android:onTextChanged="@{viewmodel::onCommentChanged}"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="@={viewmodel.comment}"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="@+id/email_edit"
+                    app:layout_constraintStart_toStartOf="@+id/comment"
+                    app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+
+                <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                    android:id="@+id/btn_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:background="@drawable/btn_register"
+                    android:elevation="@dimen/_15sdp"
+                    android:enabled="@{viewmodel.btnSubmitObserver}"
+                    android:foreground="@drawable/custom_ripple_border"
+                    android:gravity="center"
+                    android:onClick="@{()->viewmodel.postComment()}"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white_900"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/comment_text_input"
+                    app:layout_constraintStart_toStartOf="@+id/comment_text_input"
+                    app:layout_constraintTop_toBottomOf="@+id/comment_text_input" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>

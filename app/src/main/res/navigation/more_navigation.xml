@@ -159,10 +159,18 @@
         tools:layout="@layout/fragment_contact">
         <action
             android:id="@+id/action_contactFragment_to_sharedFeeback"
-            app:destination="@id/sharedFeeback" />
+            app:destination="@id/sharedFeeback"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_contactFragment_to_post_login_bottom_navigation"
-            app:destination="@id/post_login_bottom_navigation" />
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/FAQsFragment"

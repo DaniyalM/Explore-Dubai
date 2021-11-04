@@ -98,6 +98,11 @@ private fun subscribeObserver() {
                         },
                     object : RowClickListener {
                         override fun rowClickListener(position: Int) {
+                            navigateByDirections(
+                                MyEventsFragmentDirections.actionMyEventsFragment2ToEventDetailNavigation(
+                                    it.id!!
+                                )
+                            )
 //                                val eventObj = allList[position]
 //                                val bundle = Bundle()
 //                                bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT, eventObj)

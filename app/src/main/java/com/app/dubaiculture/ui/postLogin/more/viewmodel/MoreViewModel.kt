@@ -8,7 +8,6 @@ import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -20,6 +19,7 @@ import com.app.dubaiculture.data.repository.more.local.ContactCenterLocation
 import com.app.dubaiculture.data.repository.more.local.CultureConnoisseur
 import com.app.dubaiculture.data.repository.more.local.PrivacyPolicy
 import com.app.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequest
+import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.Constants.PLAY_STORE.DUBAI_CULTURE
@@ -40,8 +40,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoreViewModel @Inject constructor(
-        application: Application,
-        val moreRepository: MoreRepository
+    application: Application,
+    val moreRepository: MoreRepository
 ) :
     BaseViewModel(application) {
 
@@ -57,14 +57,20 @@ class MoreViewModel @Inject constructor(
     private val _contactUs: MutableLiveData<Event<ContactCenter>> = MutableLiveData()
     val contactUs: LiveData<Event<ContactCenter>> = _contactUs
 
+    private val _notificationCount: MutableLiveData<Event<String>> = MutableLiveData()
+    val notificationCount: LiveData<Event<String>> = _notificationCount
+
+    val context = getApplication<ApplicationEntry>()
+
+
     fun getCultureConnoisseur(locale: String) {
         showLoader(true)
         viewModelScope.launch {
             when (val result =
                 moreRepository.getCultureConnoisseur(
-                        privacyAndTermRequest = PrivacyAndTermRequest(
-                                culture = locale
-                        )
+                    privacyAndTermRequest = PrivacyAndTermRequest(
+                        culture = locale
+                    )
                 )) {
                 is Result.Success -> {
                     showLoader(false)
@@ -130,11 +136,27 @@ class MoreViewModel @Inject constructor(
         }
     }
 
+    fun notificationCount(locale: String) {
+        showLoader(true)
+        viewModelScope.launch {
+            when (val result = moreRepository.getNotificationCount(locale)) {
+                is Result.Success -> {
+                    showLoader(false)
+                    _notificationCount.value = Event(result.value)
+                }
+                is Result.Failure -> {
+                    showLoader(false)
+
+                }
+            }
+        }
+    }
+
     fun setupToolbarWithSearchItems(
-            logoImg: ImageView,
-            pin: ImageView,
-            tvTitle: TextView,
-            heading: String
+        logoImg: ImageView,
+        pin: ImageView,
+        tvTitle: TextView,
+        heading: String
     ) {
         logoImg.visibility = View.GONE
         pin.visibility = View.GONE
@@ -148,25 +170,25 @@ class MoreViewModel @Inject constructor(
 
             if (!contactCenterLocation.mapLatitude.isNullOrEmpty() && !contactCenterLocation.mapLongitude.isNullOrEmpty()) {
                 val attractionLatLng = LatLng(
-                        contactCenterLocation.mapLatitude?.toDouble(),
-                        contactCenterLocation.mapLongitude?.toDouble()
+                    contactCenterLocation.mapLatitude.toDouble(),
+                    contactCenterLocation.mapLongitude.toDouble()
                 )
 
 
-                map?.addMarker(
-                        MarkerOptions()
-                                .position(attractionLatLng)
-                                .title(
-                                        contactCenterLocation.subtitle
-                                )
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
-                )
-                map?.animateCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                                attractionLatLng, 14.0f
+                map.addMarker(
+                    MarkerOptions()
+                        .position(attractionLatLng)
+                        .title(
+                            contactCenterLocation.subtitle
                         )
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
                 )
-                map?.cameraPosition?.target
+                map.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        attractionLatLng, 14.0f
+                    )
+                )
+                map.cameraPosition.target
 
             }
         } catch (e: NumberFormatException) {
@@ -182,30 +204,40 @@ class MoreViewModel @Inject constructor(
         }
     }
 
-    fun rateUs(context: Context){
+    fun rateUs(context: Context) {
         val uri: Uri = Uri.parse("market://details?id=$PACKAGE_NAME")
         val goToMarket = Intent(Intent.ACTION_VIEW, uri)
-        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
-                Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
-                Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        goToMarket.addFlags(
+            Intent.FLAG_ACTIVITY_NO_HISTORY or
+                    Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
+                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+        )
         try {
             context.startActivity(goToMarket)
         } catch (e: ActivityNotFoundException) {
-            context.startActivity(Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/details?id=$PACKAGE_NAME")))
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=$PACKAGE_NAME")
+                )
+            )
         }
     }
-    fun shareAppLink(context: Context){
+
+    fun shareAppLink(context: Context) {
         try {
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "text/plain"
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, DUBAI_CULTURE)
             var shareMessage = "\nLet me recommend you this application\n\n"
-            shareMessage = """ ${shareMessage}https://play.google.com/store/apps/details?id=${PACKAGE_NAME}""".trimIndent()
+            shareMessage =
+                """ ${shareMessage}https://play.google.com/store/apps/details?id=${PACKAGE_NAME}""".trimIndent()
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
             context.startActivity(Intent.createChooser(shareIntent, "choose one"))
         } catch (e: Exception) {
             Timber.e(e.stackTraceToString())
         }
     }
+
+
 }

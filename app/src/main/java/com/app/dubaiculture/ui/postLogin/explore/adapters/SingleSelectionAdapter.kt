@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory
@@ -60,7 +61,12 @@ open class SingleSelectionAdapter(
             } else {
                 if (checkedPosition == absoluteAdapterPosition) {
                     //  selected
-                    tvTitle.setTextColor(context.getColorFromAttr(R.attr.colorSecondary))
+                    tvTitle.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.white_900
+                        )
+                    )
                     materialCardView.setCardBackgroundColor(Color.parseColor("#5E2E82"))
 //                    imageView.visibility = View.VISIBLE
                 } else {
@@ -74,7 +80,7 @@ open class SingleSelectionAdapter(
             itemView.setOnClickListener(View.OnClickListener {
                 // un selected
                 iface.getRowClick(absoluteAdapterPosition)
-                tvTitle.setTextColor(context.getColorFromAttr(R.attr.colorSecondary))
+                tvTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.white_900))
 
 
                 if (attractions.color.isNullOrEmpty()) {

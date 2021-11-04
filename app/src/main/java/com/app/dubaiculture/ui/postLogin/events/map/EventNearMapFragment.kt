@@ -3,6 +3,8 @@ package com.app.dubaiculture.ui.postLogin.events.map
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -24,10 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -132,19 +132,38 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
                     it.latitude.ifEmpty { "24.83250180519734" }.toDouble(),
                     it.longitude.ifEmpty { "67.08119661055807" }.toDouble()
                 )
-            if (it.distance <= 6.0)
-                map?.addMarker(
-                    MarkerOptions().position(locationObj)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.events_map))
-                        .title(it.title)
-                )
-            else
-                map?.addMarker(
-                    MarkerOptions().position(locationObj)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.events_away))
-                        .title(it.title)
-                )
+            if (it.distance <= 6.0) {
+                bitmapDescriptorFromVector(activity, R.drawable.events_map)?.let { bt ->
+                    map?.addMarker(
+                        MarkerOptions().position(locationObj)
+                            .icon(bt)
+                            .title(it.title)
+                    )
+                }
+            } else {
+                bitmapDescriptorFromVector(activity, R.drawable.events_away)?.let { bt ->
+                    map?.addMarker(
+                        MarkerOptions().position(locationObj)
+                            .icon(bt)
+                            .title(it.title)
+                    )
+                }
+            }
+
         }
+    }
+
+    private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+        return if (vectorResId != 0) {
+            ContextCompat.getDrawable(context, vectorResId)?.run {
+                setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+                val bitmap =
+                    Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+                draw(Canvas(bitmap))
+                BitmapDescriptorFactory.fromBitmap(bitmap)
+            }
+        } else null
+
     }
 
     private fun setupMap(googleMap: GoogleMap?) {

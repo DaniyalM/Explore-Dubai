@@ -19,7 +19,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class DescriptionPageFragment(val description: List<Description>, val category: String? = null) :
-        BaseFragment<ItemsServiceDetailDescLayoutBinding>() {
+    BaseFragment<ItemsServiceDetailDescLayoutBinding>() {
 
     var readMoreFlag = false
     private val descriptionViewModel: DescriptionViewModel by viewModels()
@@ -33,14 +33,14 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
 
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ) = ItemsServiceDetailDescLayoutBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(descriptionViewModel)
-
+        binding.commonBtn.text = description[0].startServiceText
         bgRTL(binding.imgSpeaker)
     }
 
@@ -58,7 +58,6 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
 //                    })
 //
 //            if (readMoreFlag)
-
 
 
             val description = description[0]

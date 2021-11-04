@@ -44,7 +44,12 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
         <action
             android:id="@+id/action_eventsFragment_to_eventListingFragment"
             app:destination="@id/eventListingFragment"

@@ -15,7 +15,7 @@ data class AttractionCategory(
     var unselectedSvg: String? = "",
     var color: String? = "",
     var attractions: ArrayList<Attractions>? = null,
-
+    var indexId: Int? = null,
 
 
     var locale: String? = null,

@@ -55,7 +55,7 @@ class BeaconUtils @Inject constructor(
                     PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
                 PushNotificationManager.showNotification(
                     context,
-                    "Your gate closes in 47 minutes.",
+                    "You are close to Attraction.",
                     "Current security wait time is 15 minutes, "
                             + "and it's a 5 minute walk from security to the gate. "
                             + "Looks like you've got plenty of time!",

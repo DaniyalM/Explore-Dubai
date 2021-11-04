@@ -13,7 +13,11 @@
         tools:layout="@layout/fragment_popular_service" >
         <action
             android:id="@+id/action_popularServiceFragment_to_service_detail_navigation"
-            app:destination="@id/service_detail_navigation" >
+            app:destination="@id/service_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
             <argument
                 android:name="service_id"
                 app:argType="string"

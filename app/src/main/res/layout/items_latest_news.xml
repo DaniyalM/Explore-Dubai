@@ -17,7 +17,6 @@
         android:layout_margin="@dimen/_10sdp"
         android:animate="@{technique.BounceInUp}"
 
-        android:outlineSpotShadowColor="@color/gray_500"
         app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="@dimen/_6sdp">
 

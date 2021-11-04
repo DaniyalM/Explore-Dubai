@@ -82,7 +82,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     var isDetailFavouriteFlag = false
     var emailContact: String? = null
     var numberContact: String? = null
-    lateinit var map: GoogleMap
+    var map: GoogleMap? = null
 
     var isRegisterd = false
 
@@ -171,7 +171,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         toolbarLayoutEventDetailBinding = binding.toolbarLayoutEventDetail
         rvSetUp()
         subscribeUiEvents(eventViewModel)
-        callingObservables(savedInstanceState)
+        callingObservables()
 
         arrowRTL(eventDetailInnerLayout.imgEventSpeaker)
         subscribeToGpsListener()
@@ -277,7 +277,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     }
 
 
-    private fun callingObservables(savedInstanceState: Bundle?) {
+    private fun callingObservables() {
 //        eventViewModel.getEventDetailsToScreen(eventObj?.id!!, getCurrentLanguage().language)
         eventViewModel.eventDetail.observe(viewLifecycleOwner) {
             when (it) {
@@ -304,17 +304,17 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                     it.value.longitude.toDouble()
                                 )
 
-                            map.addMarker(
+                            map?.addMarker(
                                 MarkerOptions()
                                     .position(trafficDigitalLatLng)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
                             )!!.title = it.value.title
-                            map.animateCamera(
+                            map?.animateCamera(
                                 CameraUpdateFactory.newLatLngZoom(
                                     trafficDigitalLatLng, 14.0f
                                 )
                             )
-                            map.cameraPosition.target
+                            map?.cameraPosition?.target
                         }
                     } catch (e: NumberFormatException) {
                         print(e.stackTrace)
@@ -430,15 +430,21 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 }
 
                 override fun rowClickHandler(events: Events) {
-                    val bundle = Bundle()
-                    bundle.putParcelable(
-                        EVENT_OBJECT,
-                        events
+
+                    navigateByDirections(
+                        EventDetailFragmentDirections.actionEventDetailFragment2ToEventDetailFragment2(
+                            events.id!!
+                        )
                     )
-                    navigate(
-                        R.id.action_eventDetailFragment2_to_eventDetailFragment2,
-                        bundle
-                    )
+//                    val bundle = Bundle()
+//                    bundle.putParcelable(
+//                        EVENT_OBJECT,
+//                        events
+//                    )
+//                    navigate(
+//                        R.id.action_eventDetailFragment2_to_eventDetailFragment2,
+//                        bundle
+//                    )
                 }
             }
             )

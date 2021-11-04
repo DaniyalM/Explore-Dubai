@@ -64,16 +64,19 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 //
 //        }
         rvSetUp()
+        binding.search.setOnClickListener {
+//            navigateByDirections(NewsDetailFragmentDirections.actionNewsDetailFragmentToSearchNavigation())
+        }
         binding.imgClose.setOnClickListener {
             back()
         }
         binding.imgSpeaker.setOnClickListener {
-            if(!newsDetails.title.isNullOrEmpty())
-            textToSpeechEngine.speak(
-                newsDetails.title,
-                TextToSpeech.QUEUE_FLUSH,
-                null,
-                "tts1"
+            if (!newsDetails.title.isNullOrEmpty())
+                textToSpeechEngine.speak(
+                    newsDetails.title,
+                    TextToSpeech.QUEUE_FLUSH,
+                    null,
+                    "tts1"
             )
         }
     }

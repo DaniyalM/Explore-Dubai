@@ -1,7 +1,13 @@
 package com.app.dubaiculture.utils.firebase
 
 import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
+import androidx.core.os.bundleOf
+import androidx.navigation.NavDeepLinkBuilder
+import com.app.dubaiculture.R
+import com.app.dubaiculture.ui.preLogin.PreLoginActivity
+import com.app.dubaiculture.utils.Constants.NavBundles.EVENT_ID
 import com.app.dubaiculture.utils.PushNotificationManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -23,8 +29,15 @@ class FirebaseMessageService : FirebaseMessagingService() {
         }
         //notification payload
         remoteMessage.notification?.apply {
-
-
+            val intent = Intent(applicationContext, PreLoginActivity::class.java)
+            val bundle = bundleOf(EVENT_ID to "E0FB335B7B464F1F912A1C7C62B507FE")
+//             pendingIntent =
+//                PendingIntent.getActivity(applicationContext,1,intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            pendingIntent = NavDeepLinkBuilder(applicationContext)
+                .setGraph(R.navigation.post_login_navigation)
+                .setDestination(R.id.event_detail_navigation)
+                .setArguments(bundle)
+                .createPendingIntent()
             PushNotificationManager.showNotification(
                 this@FirebaseMessageService,
                 title,

@@ -17,5 +17,13 @@
         <action
             android:id="@+id/action_serviceDetailFragment2_to_post_login_bottom_navigation"
             app:destination="@id/post_login_bottom_navigation" />
+        <action
+            android:id="@+id/action_serviceDetailFragment2_to_serviceDownVoteFeedBackFragment"
+            app:destination="@id/serviceDownVoteFeedBackFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/serviceDownVoteFeedBackFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs.ServiceDownVoteFeedBackFragment"
+        android:label="ServiceDownVoteFeedBackFragment" />
+
 </navigation>

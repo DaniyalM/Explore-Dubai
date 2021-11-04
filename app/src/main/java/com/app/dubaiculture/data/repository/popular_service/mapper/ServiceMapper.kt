@@ -2,11 +2,19 @@ package com.app.dubaiculture.data.repository.popular_service.mapper
 
 import com.app.dubaiculture.data.repository.more.local.FaqItem
 import com.app.dubaiculture.data.repository.popular_service.local.models.*
+import com.app.dubaiculture.data.repository.popular_service.remote.request.EServiceRequest
+import com.app.dubaiculture.data.repository.popular_service.remote.request.EServiceRequestDTO
 import com.app.dubaiculture.data.repository.popular_service.remote.response.EServiceDTO
 import com.app.dubaiculture.data.repository.popular_service.remote.response.EServiceDetailDTO
 import com.app.dubaiculture.data.repository.popular_service.remote.response.ServiceCategoryDTO
 import com.app.dubaiculture.data.repository.popular_service.remote.response.ServiceResponse
 
+
+fun transformServiceRequest(serviceRequest: EServiceRequest) = EServiceRequestDTO(
+    FullName = serviceRequest.fullName,
+    Email = serviceRequest.email,
+    Comment = serviceRequest.comment,
+)
 
 fun transformService(serviceResponse: ServiceResponse): EServices =
     serviceResponse.Result.run {
@@ -58,7 +66,8 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
                 serviceChannelIcons = it.ServiceChannelIcons ?: mutableListOf(),
                 title = it.Title ?: "",
                 type = it.Type ?: "",
-                typeTitle = it.TypeTitle ?: ""
+                typeTitle = it.TypeTitle ?: "",
+                startServiceText = eServiceDetailDTO.StartServiceText ?: ""
             )
         } ?: mutableListOf(),
         enquireNumber = eServiceDetailDTO.EnquireNumber ?: "",
@@ -119,6 +128,10 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
                 enquireNumber = eServiceDetailDTO.EnquireNumber ?: "",
                 email = "",
                 serviceStart = eServiceDetailDTO.StartServiceText ?: "",
+                phoneHeading = eServiceDetailDTO.PhoneHeading ?: "",
+                phoneNumber = eServiceDetailDTO.PhoneNumber ?: "",
+                emailHeading = eServiceDetailDTO.EmailHeading ?: "",
+                emailAddress = eServiceDetailDTO.EmailAddress ?: "",
             )
         } ?: mutableListOf()
 

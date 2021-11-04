@@ -6,6 +6,7 @@
 
     <include app:graph="@navigation/post_login_bottom_navigation"/>
     <include app:graph="@navigation/favourite_navigation" />
+    <include app:graph="@navigation/my_event_navigation" />
 
     <fragment
         android:id="@+id/profileFragment"
@@ -20,7 +21,7 @@
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_profileFragment_to_myEventsFragment"
-            app:destination="@id/myEventsFragment"
+            app:destination="@id/my_event_navigation"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -87,14 +88,14 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
     </fragment>
-    <fragment
-        android:id="@+id/myEventsFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.events.myevents.MyEventsFragment"
-        android:label="MyEventsFragment" >
-        <action
-            android:id="@+id/action_myEventsFragment_to_surveyFragment"
-            app:destination="@id/surveyFragment" />
-    </fragment>
+    <!--    <fragment-->
+    <!--        android:id="@+id/myEventsFragment"-->
+    <!--        android:name="com.app.dubaiculture.ui.postLogin.events.myevents.MyEventsFragment"-->
+    <!--        android:label="MyEventsFragment" >-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_myEventsFragment_to_surveyFragment"-->
+    <!--            app:destination="@id/surveyFragment" />-->
+    <!--    </fragment>-->
     <dialog
         android:id="@+id/avatarPickerFragment"
         android:name="com.app.dubaiculture.ui.postLogin.profile.avatarPicker.AvatarPickerFragment"
@@ -102,7 +103,7 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.app.dubaiculture.ui.postLogin.profile.editProfile.EditProfileFragment"
-        android:label="EditProfileFragment" >
+        android:label="EditProfileFragment">
         <action
             android:id="@+id/action_editProfileFragment_to_avatarPickerFragment"
             app:destination="@id/avatarPickerFragment"
@@ -149,8 +150,5 @@
         android:id="@+id/serviceDetailFragment"
         android:name="com.app.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"
         android:label="ServiceDetailFragment" />
-    <fragment
-        android:id="@+id/surveyFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.survey.SurveyFragment"
-        android:label="SurveyFragment" />
+
 </navigation>

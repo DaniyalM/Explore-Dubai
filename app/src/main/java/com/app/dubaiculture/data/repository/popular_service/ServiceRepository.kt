@@ -14,6 +14,20 @@ import javax.inject.Inject
 class ServiceRepository @Inject constructor(
     private val serviceRDS: ServiceRDS
 ) : BaseRepository(serviceRDS) {
+    suspend fun postServiceComment(eServiceRequest: EServiceRequest): Result<Boolean> {
+        return when (val resultRDS = serviceRDS.postServiceComment(eServiceRequest)) {
+            is Result.Success -> {
+                if (resultRDS.value.succeeded) {
+                    Result.Success(true)
+                } else {
+                    Result.Failure(false, null, null, resultRDS.value.errorMessage)
+                }
+            }
+            is Result.Failure -> resultRDS
+            is Result.Error -> resultRDS
+        }
+    }
+
     suspend fun getEServices(eServiceRequest: EServiceRequest): Result<EServices> {
         return when (val resultRDS = serviceRDS.getEServices(eServiceRequest)) {
             is Result.Success -> {

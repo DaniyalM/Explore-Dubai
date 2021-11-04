@@ -31,7 +31,12 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="attraction"
+                app:argType="com.app.dubaiculture.data.repository.attraction.local.models.Attractions"
+                app:nullable="false" />
+        </action>
         <action
             android:id="@+id/action_favouriteFragment_to_service_detail_navigation"
             app:destination="@id/service_detail_navigation"

@@ -340,15 +340,20 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                             }, object : RowClickListener {
                                 override fun rowClickListener(position: Int) {
                                     val eventObj = moreList[position]
-                                    val bundle = Bundle()
-                                    bundle.putParcelable(
-                                        EVENT_OBJECT,
-                                        eventObj
+                                    navigateByDirections(
+                                        EventsFragmentDirections.actionEventsFragmentToEventDetailFragment2(
+                                            eventObj.id!!
+                                        )
                                     )
-                                    navigate(
-                                        R.id.action_eventsFragment_to_eventDetailFragment2,
-                                        bundle
-                                    )
+//                                    val bundle = Bundle()
+//                                    bundle.putParcelable(
+//                                        EVENT_OBJECT,
+//                                        eventObj
+//                                    )
+//                                    navigate(
+//                                        R.id.action_eventsFragment_to_eventDetailFragment2,
+//                                        bundle
+//                                    )
                                 }
 
                                 override fun rowClickListener(position: Int, imageView: ImageView) {
@@ -386,15 +391,20 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                 }, object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         val eventObj = nearList[position]
-                                        val bundle = Bundle()
-                                        bundle.putParcelable(
-                                            EVENT_OBJECT,
-                                            eventObj
+                                        navigateByDirections(
+                                            EventsFragmentDirections.actionEventsFragmentToEventDetailFragment2(
+                                                eventObj.id!!
+                                            )
                                         )
-                                        navigate(
-                                            R.id.action_eventsFragment_to_eventDetailFragment2,
-                                            bundle
-                                        )
+//                                        val bundle = Bundle()
+//                                        bundle.putParcelable(
+//                                            EVENT_OBJECT,
+//                                            eventObj
+//                                        )
+//                                        navigate(
+//                                            R.id.action_eventsFragment_to_eventDetailFragment2,
+//                                            bundle
+//                                        )
                                     }
 
                                     override fun rowClickListener(
@@ -438,15 +448,20 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                                 }, object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         val eventObj = featureList[position]
-                                        val bundle = Bundle()
-                                        bundle.putParcelable(
-                                            EVENT_OBJECT,
-                                            eventObj
+                                        navigateByDirections(
+                                            EventsFragmentDirections.actionEventsFragmentToEventDetailFragment2(
+                                                eventObj.id!!
+                                            )
                                         )
-                                        navigate(
-                                            R.id.action_eventsFragment_to_eventDetailFragment2,
-                                            bundle
-                                        )
+//                                        val bundle = Bundle()
+//                                        bundle.putParcelable(
+//                                            EVENT_OBJECT,
+//                                            eventObj
+//                                        )
+//                                        navigate(
+//                                            R.id.action_eventsFragment_to_eventDetailFragment2,
+//                                            bundle
+//                                        )
                                     }
 
                                     override fun rowClickListener(

@@ -205,57 +205,57 @@ fun transformEventDetail(eventResponse: EventResponse): Events {
 
 fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
         id = eventDTO.id,
-        title = eventDTO.title,
-        category = eventDTO.category,
-        image = eventDTO.image,
-        desc = eventDTO.desc,
-        fromDate = eventDTO.fromDate,
-        fromMonthYear = eventDTO.fromMonthYear,
-        fromTime = eventDTO.fromTime,
-        fromDay = eventDTO.fromDay,
-        toDate = eventDTO.toDate,
-        toMonthYear = eventDTO.toMonthYear,
-        toTime = eventDTO.toTime,
-        toDay = eventDTO.toDay,
-        type = eventDTO.type,
+        title = eventDTO.title ?: "",
+        category = eventDTO.category ?: "",
+        image = eventDTO.image ?: "",
+        desc = eventDTO.desc ?: "",
+        fromDate = eventDTO.fromDate ?: "",
+        fromMonthYear = eventDTO.fromMonthYear ?: "",
+        fromTime = eventDTO.fromTime ?: "",
+        fromDay = eventDTO.fromDay ?: "",
+        toDate = eventDTO.toDate ?: "",
+        toMonthYear = eventDTO.toMonthYear ?: "",
+        toTime = eventDTO.toTime ?: "",
+        toDay = eventDTO.toDay ?: "",
+        type = eventDTO.type ?: "",
         color = eventDTO.color ?: "",
         dateTo = eventDTO.dateTo,
         dateFrom = eventDTO.dateFrom,
         registrationDate = eventDTO.registrationDate,
-        locationTitle = eventDTO.locationTitle,
-        location = eventDTO.location?:"",
-        longitude = eventDTO.longitude?:"67.08119661055807",
-        latitude = eventDTO.latitude?:"24.83250180519734",
+        locationTitle = eventDTO.locationTitle ?: "",
+        location = eventDTO.location ?: "",
+        longitude = eventDTO.longitude,
+        latitude = eventDTO.latitude,
         emailContact = eventDTO.emailContact,
         numberContact = eventDTO.numberContact,
         isFavourite = eventDTO.isFavourite,
         isRegistered = eventDTO.isRegistered,
         socialLink = eventDTO.socialLinks?.let {
-            it.map {
-                SocialLink(
-                        facebookPageLink = it.facebookPageLink.toString(),
-                        facebookIcon = it.facebookIcon.toString(),
-                        instagramIcon = it.instagramIcon,
-                        instagramPageLink = it.instagramPageLink.toString(),
-                        twitterIcon = it.twitterIcon,
-                        twitterPageLink = it.twitterPageLink,
-                        youtubeIcon = it.youtubeIcon,
-                        youtubePageLink = it.youtubePageLink,
-                        linkedInIcon = it.linkedInIcon,
-                        linkedInPageLink = it.linkedInPageLink
-                )
-            }
-        },
+                it.map {
+                        SocialLink(
+                                facebookPageLink = it.facebookPageLink.toString(),
+                                facebookIcon = it.facebookIcon.toString(),
+                                instagramIcon = it.instagramIcon,
+                                instagramPageLink = it.instagramPageLink.toString(),
+                                twitterIcon = it.twitterIcon,
+                                twitterPageLink = it.twitterPageLink,
+                                youtubeIcon = it.youtubeIcon,
+                                youtubePageLink = it.youtubePageLink,
+                                linkedInIcon = it.linkedInIcon,
+                                linkedInPageLink = it.linkedInPageLink
+                        )
+                }
+        } ?: mutableListOf(),
         eventSchedule = eventDTO.eventSchedule.map {
-            EventSchedule(
-                    id = it.id,
-                    description = it.description,
-                    eventScheduleItems = it.eventScheduleItems.map {
-                        EventScheduleItems(
-                                date = it.date,
-                                eventScheduleItemsSlots = it.eventScheduleItemsTimeSlots.map {
-                                    EventScheduleItemsSlots(
-                                            summary = it.summary,
+                EventSchedule(
+                        id = it.id,
+                        description = it.description,
+                        eventScheduleItems = it.eventScheduleItems.map {
+                                EventScheduleItems(
+                                        date = it.date,
+                                        eventScheduleItemsSlots = it.eventScheduleItemsTimeSlots.map {
+                                                EventScheduleItemsSlots(
+                                                        summary = it.summary,
                                             timeFrom = it.timeFrom,
                                             timeTo = it.timeTo,
                                             slotId = it.slotId
@@ -268,25 +268,25 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
         relatedEvents = eventDTO.relatedEvents.map {
             Events(
                     id = it.id,
-                    title = it.title,
-                    category = it.category,
-                    image = it.image,
-                    fromDate = it.fromDate,
-                    fromMonthYear = it.fromMonthYear,
-                    fromTime = it.fromTime,
-                    fromDay = it.fromDay,
-                    toDate = it.toDate,
-                    toMonthYear = it.toMonthYear,
-                    toTime = it.toTime,
-                    toDay = it.toDay,
-                    type = it.type,
+                    title = it.title ?: "",
+                    category = it.category ?: "",
+                    image = it.image ?: "",
+                    fromDate = it.fromDate ?: "",
+                    fromMonthYear = it.fromMonthYear ?: "",
+                    fromTime = it.fromTime ?: "",
+                    fromDay = it.fromDay ?: "",
+                    toDate = it.toDate ?: "",
+                    toMonthYear = it.toMonthYear ?: "",
+                    toTime = it.toTime ?: "",
+                    toDay = it.toDay ?: "",
+                    type = it.type ?: "",
                     color = it.color ?: "",
                     dateTo = it.dateTo,
                     dateFrom = it.dateFrom,
-                    locationTitle = it.locationTitle,
-                    location = it.location?:"",
-                    longitude = it.longitude?:"67.08119661055807",
-                    latitude = it.latitude?:"24.83250180519734",
+                    locationTitle = it.locationTitle ?: "",
+                    location = it.location ?: "",
+                    longitude = it.longitude,
+                    latitude = it.latitude,
                     isFavourite = it.isFavourite,
                     registrationDate = it.registrationDate
             )

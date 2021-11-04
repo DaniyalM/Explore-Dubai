@@ -10,6 +10,7 @@ import com.app.dubaiculture.R
 import com.app.dubaiculture.ui.base.recyclerstuf.BaseAdapter
 import com.app.dubaiculture.ui.postLogin.attractions.clicklisteners.TabsHeaderClick
 import com.app.dubaiculture.utils.AppConfigUtils.favouriteClickCheckerFlag
+import com.app.dubaiculture.utils.getColorFromAttr
 import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupieViewHolder
 
@@ -58,12 +59,9 @@ class FavouriteHeaderItems<T>(
 
         } else {
             view.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    view.context,
-                    R.color.white_900
-                )
+                view.context.getColorFromAttr(R.attr.colorSurface)
             )
-            textView.setTextColor(ContextCompat.getColor(view.context, R.color.gray_700))
+            textView.setTextColor(view.context.getColorFromAttr(R.attr.colorSecondary))
             unSelectedInnerImg?.let { drawable ->
 //                imgInner.glideInstance(drawable, true).into(imgInner)
                 imgInner.setImageDrawable(drawable)

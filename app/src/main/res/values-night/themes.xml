@@ -33,7 +33,7 @@
         <item name="color_light_theme_dark_theme_gray">@color/gray_850</item>
 
         <item name="colorSecondaryVariant">@color/gray_200</item>
-        <item name="colorSecondaryVariantInverted">@color/gray_850</item>
+        <item name="colorSecondaryVariantInverted">@color/gray_700</item>
 
 
         <!--Cardview colors-->

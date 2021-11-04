@@ -10,7 +10,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.dubaiculture.BuildConfig
-import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.app.dubaiculture.data.repository.event.local.models.Events
@@ -30,6 +29,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @HiltViewModel
 class ExploreMapViewModel @Inject constructor(
     application: Application,
@@ -40,6 +40,11 @@ class ExploreMapViewModel @Inject constructor(
         MutableLiveData()
     val exploreAttractionsEvents: LiveData<Result<AttractionsEvents>> = _exploreAttractionsEvents
     private val context = getApplication<ApplicationEntry>()
+
+    init {
+        getExploreMap(context.auth.locale.toString())
+
+    }
 
     fun getExploreMap(locale: String) {
         showLoader(true)
@@ -84,6 +89,7 @@ class ExploreMapViewModel @Inject constructor(
                     distance = it.distance,
                     lat = it.latitude,
                     lng = it.longitude,
+                    isAttraction = false
                 )
             )
         }
@@ -99,7 +105,8 @@ class ExploreMapViewModel @Inject constructor(
     ): List<Events> {
         val myList = ArrayList<Events>()
         list.forEach {
-            val distance = locationHelper.distance(lat ?: 24.8623, lng ?: 67.0627,
+            val distance = locationHelper.distance(
+                lat ?: 24.8623, lng ?: 67.0627,
                 it.latitude.toString().ifEmpty { "24.83250180519734" }.toDouble(),
                 it.longitude.toString().ifEmpty { "67.08119661055807" }.toDouble()
             )
@@ -133,7 +140,8 @@ class ExploreMapViewModel @Inject constructor(
                     lat = it.latitude!!,
                     lng = it.longitude!!,
                     pinOutRadius = it.outOfRadiusIcon,
-                    pinInRadius = it.withinRadiusIcon
+                    pinInRadius = it.withinRadiusIcon,
+                    isAttraction = true
                 )
             )
         }
@@ -149,7 +157,8 @@ class ExploreMapViewModel @Inject constructor(
     ): List<Attractions> {
         val myList = ArrayList<Attractions>()
         list.forEach {
-            val distance = locationHelper.distance(lat ?: 24.8623, lng ?: 67.0627,
+            val distance = locationHelper.distance(
+                lat ?: 24.8623, lng ?: 67.0627,
                 ((it.latitude.toString().ifEmpty { "24.83250180519734" }).toDouble()),
                 (it.longitude.toString().ifEmpty { "67.08119661055807" }).toDouble()
             )
@@ -170,6 +179,21 @@ class ExploreMapViewModel @Inject constructor(
         lng: Double? = null
     ): List<ExploreMap> {
         exploreMapList.clear()
+
+        sortNearEvent(eventList, locationHelper, lat, lng).forEach {
+            exploreMapList.add(
+                ExploreMap(
+                    id = it.id,
+                    image = it.image,
+                    title = it.title,
+                    location = it.locationTitle,
+                    distance = it.distance,
+                    lat = it.latitude,
+                    lng = it.longitude,
+                    isAttraction = false
+                )
+            )
+        }
         sortNearAttraction(attractions, locationHelper, lat, lng).forEach {
             exploreMapList.add(
                 ExploreMap(
@@ -187,41 +211,34 @@ class ExploreMapViewModel @Inject constructor(
 
             )
         }
-        sortNearEvent(eventList, locationHelper, lat, lng).forEach {
-            exploreMapList.add(
-                ExploreMap(
-                    id = it.id,
-                    image = it.image,
-                    title = it.title,
-                    location = it.locationTitle,
-                    distance = it.distance,
-                    lat = it.latitude,
-                    lng = it.longitude,
-                    isAttraction = true
-                )
-            )
-        }
         return exploreMapList
     }
 
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
-        return ContextCompat.getDrawable(context, vectorResId)?.run {
-            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
-            val bitmap =
-                Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
-            draw(Canvas(bitmap))
-            BitmapDescriptorFactory.fromBitmap(bitmap)
-        }
+        return if (vectorResId != 0) {
+            ContextCompat.getDrawable(context, vectorResId)?.run {
+                setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+                val bitmap =
+                    Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+                draw(Canvas(bitmap))
+                BitmapDescriptorFactory.fromBitmap(bitmap)
+            }
+        } else null
+
     }
 
 
-    fun pinsOnMap(exploreMapList: List<ExploreMap>, map: GoogleMap) {
+    fun pinsOnMap(
+        exploreMapList: List<ExploreMap>,
+        map: GoogleMap,
+        inRangeIcon: Int = 0,
+        outRangeIcon: Int = 0,
+        inRangeEventIcon: Int = 0,
+        outRangeEventIcon: Int = 0
+    ) {
         map.clear()
         exploreMapList.forEach {
-            val nearAttractions = bitmapDescriptorFromVector(context, R.drawable.attraction_close)
-            val farAttractions = bitmapDescriptorFromVector(context, R.drawable.attraction_away)
-            val nearEvent = bitmapDescriptorFromVector(context, R.drawable.events_map)
-            val farEvent = bitmapDescriptorFromVector(context, R.drawable.events_away)
+
             val locationObj = LatLng(
                 it.lat.toString().ifEmpty { "24.83250180519734" }.toDouble(),
                 it.lng.toString().ifEmpty { "67.08119661055807" }.toDouble()
@@ -236,9 +253,14 @@ class ExploreMapViewModel @Inject constructor(
 
                 )
                 if (it.isAttraction) {
-                    marker.setIcon(nearAttractions)
+                    bitmapDescriptorFromVector(context, inRangeIcon)?.apply {
+                        marker?.setIcon(this)
+                    }
+
                 } else {
-                    marker.setIcon(nearEvent)
+                    bitmapDescriptorFromVector(context, inRangeEventIcon)?.apply {
+                        marker?.setIcon(this)
+                    }
                 }
 //                setURLIcon(it.pinInRadius.toString(), marker, getApplication<Application>())
             } else {
@@ -249,9 +271,13 @@ class ExploreMapViewModel @Inject constructor(
 
                 )
                 if (it.isAttraction) {
-                    marker.setIcon(farAttractions)
+                    bitmapDescriptorFromVector(context, outRangeIcon)?.apply {
+                        marker?.setIcon(this)
+                    }
                 } else {
-                    marker.setIcon(farEvent)
+                    bitmapDescriptorFromVector(context, outRangeEventIcon)?.apply {
+                        marker?.setIcon(this)
+                    }
                 }
 //                setURLIcon(it.pinOutRadius.toString(), marker, getApplication<Application>())
 
@@ -260,22 +286,27 @@ class ExploreMapViewModel @Inject constructor(
     }
 
     private fun setURLIcon(url: String, marker: Marker, context: Context) {
+
+
         Glide.with(context)
             .asBitmap()
             .load(BuildConfig.BASE_URL + url)
+            .dontTransform()
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     bitmap: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
                     if (bitmap != null) {
-                        val icon = BitmapDescriptorFactory.fromBitmap(bitmap)
-                        marker.setIcon(icon)
+//                        val icon = BitmapDescriptorFactory.fromBitmap(bitmap)
+                        val scale: Float = context.resources.displayMetrics.density
+                        val pixels = (50 * scale + 0.5f).toInt()
+                        val bitmap1 = Bitmap.createScaledBitmap(bitmap, pixels, pixels, true)
+                        marker.setIcon(BitmapDescriptorFactory.fromBitmap(bitmap1))
                     }
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
-                    TODO("Not yet implemented")
                 }
             })
     }

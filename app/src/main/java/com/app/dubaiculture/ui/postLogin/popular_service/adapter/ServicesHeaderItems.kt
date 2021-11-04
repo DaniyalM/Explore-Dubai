@@ -55,18 +55,18 @@ class ServicesHeaderItems<T>(
     ) {
         if (isSelected) {
             view.setCardBackgroundColor(Color.parseColor(colorBg))
-            textView.setTextColor(view.context.getColorFromAttr(R.attr.colorSecondary))
+            textView.setTextColor(ContextCompat.getColor(view.context, R.color.white_900))
             selectedInnerImg?.let { drawable ->
 //                imgInner.glideInstance(drawable, true).into(imgInner)
                 imgInner.setImageDrawable(drawable)
-                imgInner.setColorFilter(view.context.getColorFromAttr(R.attr.colorSecondary))
+                imgInner.setColorFilter(ContextCompat.getColor(view.context, R.color.white_900))
             }
 
         } else {
             view.setCardBackgroundColor(
-                view.context.getColorFromAttr(R.attr.colorSecondary)
+                view.context.getColorFromAttr(R.attr.colorSurface)
             )
-            textView.setTextColor(view.context.getColorFromAttr(R.attr.colorSurface))
+            textView.setTextColor(view.context.getColorFromAttr(R.attr.colorSecondary))
             unSelectedInnerImg?.let { drawable ->
 //                imgInner.glideInstance(drawable, true).into(imgInner)
                 imgInner.setImageDrawable(drawable)
