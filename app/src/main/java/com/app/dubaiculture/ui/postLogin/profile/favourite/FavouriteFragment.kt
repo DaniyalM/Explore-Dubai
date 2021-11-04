@@ -316,12 +316,15 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                         object : RowClickListener {
                             override fun rowClickListener(position: Int) {
                                 val eventObj = events[position]
-                                val bundle = Bundle()
-                                bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT, eventObj)
-                                navigate(
-                                    R.id.action_favouriteFragment_to_event_detail_navigation,
-                                    bundle
-                                )
+                                navigateByDirections(FavouriteFragmentDirections.actionFavouriteFragmentToEventDetailNavigation(
+                                    it.id!!
+                                ))
+//                                val bundle = Bundle()
+//                                bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT, eventObj)
+//                                navigate(
+//                                    R.id.action_favouriteFragment_to_event_detail_navigation,
+//                                    bundle
+//                                )
                             }
 
                             override fun rowClickListener(position: Int, imageView: ImageView) {

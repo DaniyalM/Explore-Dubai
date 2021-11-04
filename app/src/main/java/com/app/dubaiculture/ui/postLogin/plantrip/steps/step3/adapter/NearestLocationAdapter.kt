@@ -23,6 +23,12 @@ class NearestLocationAdapter(val rowClickListener: NearestLocationClickListener)
         fun bind(locationNearest: LocationNearest) {
 
             binding.nearestLocation = locationNearest
+            binding.chipLocation.setTextColor(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    R.color.gray_400
+                )
+            )
             if (locationNearest.isChecked) {
                 binding.chipLocation.setTextColor(
                     ContextCompat.getColor(
@@ -30,15 +36,7 @@ class NearestLocationAdapter(val rowClickListener: NearestLocationClickListener)
                         R.color.white_900
                     )
                 )
-            } else {
-                binding.chipLocation.setTextColor(
-                    ContextCompat.getColor(
-                        binding.root.context,
-                        R.color.black_900
-                    )
-                )
-
-            }
+            } 
 
             binding.chipLocation.setOnClickListener {
                 rowClickListener.rowClickListener(locationNearest)
