@@ -22,6 +22,7 @@ import com.app.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripListingViewModel
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripViewModel
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -40,6 +41,8 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
     private val myTripListingViewModel: MyTripListingViewModel by viewModels()
     private lateinit var currentLocation: Location
+    private lateinit var  travelMode: String
+
 
     @Inject
     lateinit var locationHelper: LocationHelper
@@ -94,6 +97,10 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
             myTripAdapter = MyTripAdapter(
                 object : MyTripClickListener {
                     override fun rowClickListener(eventAttraction: EventsAndAttraction) {
+
+                        navigateByDirections(MyTripListingFragmentDirections.actionMyTripListingToTravelModeDialog())
+//                        navigate(R.id.action_my_trip_listing_to_travel_mode_dialog)
+
                     }
 
                     override fun rowClickListener(
@@ -113,6 +120,10 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
     private fun subscribeToObservables() {
 
+        tripSharedViewModel.travelMode.observe(viewLifecycleOwner) {
+            travelMode = it
+        }
+
         tripSharedViewModel.tripList.observe(viewLifecycleOwner) {
             if (it != null) {
                 myTripAdapter.submitList(it)
@@ -124,7 +135,13 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
         }
 
         myTripListingViewModel.distanceResponse.observe(viewLifecycleOwner) {
-            tripSharedViewModel.mapDistanceInList(it)
+            it.rows[0].elements.map {
+                if (it.status == "ZERO_RESULTS") {
+                    showAlert(Constants.TRAVEL_MODE.ERROR)
+                    return@observe
+                }
+            }
+            tripSharedViewModel.mapDistanceInList(it,travelMode)
         }
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
@@ -174,6 +191,7 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
             hashMap["destinations"] = destination
 
+            hashMap["mode"] = travelMode
 
             hashMap["key"] = getString(R.string.map_key)
 

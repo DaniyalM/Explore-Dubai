@@ -11,8 +11,9 @@ import com.app.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.app.dubaiculture.databinding.ItemMyTripBinding
 
 import com.app.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.MyTripClickListener
+import com.app.dubaiculture.utils.Constants
 
-class MyTripAdapter (val rowClickListener: MyTripClickListener) :
+class MyTripAdapter(val rowClickListener: MyTripClickListener) :
     ListAdapter<EventsAndAttraction, MyTripAdapter.MyTripViewHolder>(MyTripAdapter.MyTripDiffCallback()) {
 
     inner class MyTripViewHolder(
@@ -23,9 +24,32 @@ class MyTripAdapter (val rowClickListener: MyTripClickListener) :
 
             binding.data = eventAttraction
 
-            binding.cvNavigation.setOnClickListener {
+            when(eventAttraction.travelMode){
+                Constants.TRAVEL_MODE.DRIVING ->{
+                    binding.ivCar.setBackgroundResource(R.drawable.ic_car_green)
+                }
+                Constants.TRAVEL_MODE.WALKING ->{
+                    binding.ivCar.setBackgroundResource(R.drawable.ic_walking_green)
+
+                }
+                Constants.TRAVEL_MODE.TRANSIT ->{
+                    binding.ivCar.setBackgroundResource(R.drawable.ic_train_green)
+
+                }
+                Constants.TRAVEL_MODE.BICYCLING ->{
+                    binding.ivCar.setBackgroundResource(R.drawable.ic_bus_green)
+
+
+                }
+            }
+
+            binding.llIcons.setOnClickListener {
                 rowClickListener.rowClickListener(eventAttraction)
-                rowClickListener.rowClickListener(eventAttraction, absoluteAdapterPosition)
+
+            }
+            binding.cvNavigation.setOnClickListener {
+//                rowClickListener.rowClickListener(eventAttraction)
+//                rowClickListener.rowClickListener(eventAttraction, absoluteAdapterPosition)
             }
         }
     }

@@ -357,7 +357,9 @@
     <string name="trip_created_desc">You have Successfully Created Your Trip</string>
     <string name="_ok">Ok</string>
     <string name="deleteTrip">Delete Trip</string>
-
+    <string name="selectUserType">Select UserType!</string>
+    <string name="selectCategory">Select Category!</string>
+    <string name="selectLocation">Select Location!</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->

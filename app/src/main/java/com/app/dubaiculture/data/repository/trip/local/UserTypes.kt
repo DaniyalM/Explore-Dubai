@@ -7,7 +7,7 @@ data class UserTypes(
 
 data class UsersType(
     val id: Int,
-    val checked: Boolean?,
+    val checked: Boolean,
     val image: String,
     val title: String
 )

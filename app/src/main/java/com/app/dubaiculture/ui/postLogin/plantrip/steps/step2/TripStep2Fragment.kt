@@ -24,6 +24,7 @@ class TripStep2Fragment : BaseFragment<FragmentTripStep2Binding>() {
 
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
     private val step2ViewModel: Step2ViewModel by viewModels()
+    var isChecked: Boolean = false
 
     private lateinit var interestedInAdapter: InterestedInAdapter
 
@@ -66,6 +67,7 @@ class TripStep2Fragment : BaseFragment<FragmentTripStep2Binding>() {
                         interestedInType: InterestedInType,
                         position: Int
                     ) {
+
 //                        step2ViewModel.updateUserItem(userType)
                         step2ViewModel.updateInterestedType(interestedInType.copy(checked = !interestedInType.checked))
 
@@ -85,7 +87,11 @@ class TripStep2Fragment : BaseFragment<FragmentTripStep2Binding>() {
     }
 
     fun onNextClicked() {
-        customNavigation.navigateStep(true, R.id.tripStep2)
+        if (step2ViewModel.validate()) {
+            customNavigation.navigateStep(true, R.id.tripStep2)
+        } else {
+            showToast(getString(R.string.selectCategory))
+        }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -110,6 +116,7 @@ class TripStep2Fragment : BaseFragment<FragmentTripStep2Binding>() {
         }
 
         step2ViewModel.interestedInList.observe(viewLifecycleOwner) {
+
 
             tripSharedViewModel._interestedInList.value = it
             interestedInAdapter.submitList(it)

@@ -14,6 +14,7 @@ import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionR
 import com.app.dubaiculture.data.repository.trip.remote.request.SaveTripRequest
 import com.app.dubaiculture.data.repository.trip.remote.request.SaveTripRequestDTO
 import com.app.dubaiculture.data.repository.trip.remote.response.*
+import com.app.dubaiculture.utils.Constants
 
 fun transform(userTypeResponse: UserTypeResponse): UserTypeResponseDTO {
     return UserTypeResponseDTO(
@@ -123,9 +124,9 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
                 image = eventsAndAttraction.Image ?: "",
                 isAttraction = eventsAndAttraction.IsAttraction ?: false,
                 isEvent = eventsAndAttraction.IsEvent ?: false,
-                latitude = eventsAndAttraction.Latitude ?: "24.9438506",
+                latitude = eventsAndAttraction.Latitude ?: "24.83250180519734",
                 locationTitle = eventsAndAttraction.LocationTitle ?: "",
-                longitude = eventsAndAttraction.Longitude ?: "67.1381147",
+                longitude = eventsAndAttraction.Longitude ?: "67.08119661055807",
                 mapLink = eventsAndAttraction.MapLink ?: "",
                 secondaryCategory = eventsAndAttraction.SecondaryCategory ?: "",
                 secondaryCategoryID = eventsAndAttraction.SecondaryCategoryID ?: "",
@@ -136,6 +137,7 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
                 icon = eventsAndAttraction.icon ?: "",
                 duration = "",
                 distance = "",
+                travelMode = Constants.TRAVEL_MODE.DRIVING
             )
         },
         location = Location(

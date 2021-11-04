@@ -107,14 +107,14 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
     fun onSelectDateClicked() {
 
-//        val constraintBuilder: CalendarConstraints.Builder = CalendarConstraints.Builder()
-//        constraintBuilder.setValidator(DateValidatorPointForward.now())
+        val constraintBuilder: CalendarConstraints.Builder = CalendarConstraints.Builder()
+        constraintBuilder.setValidator(DateValidatorPointForward.now())
 
         val dateRangePicker =
             MaterialDatePicker.Builder.dateRangePicker()
                 .setTitleText("Select dates")
                 .setTheme(R.style.ThemeOverlay_App_DatePicker)
-//                .setCalendarConstraints(constraintBuilder.build())
+                .setCalendarConstraints(constraintBuilder.build())
                 .build()
 
         dateRangePicker.show(requireFragmentManager(), tag)

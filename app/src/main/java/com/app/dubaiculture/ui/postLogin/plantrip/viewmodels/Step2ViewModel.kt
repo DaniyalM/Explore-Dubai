@@ -81,4 +81,18 @@ class Step2ViewModel @Inject constructor(
 
     }
 
+    fun validate(): Boolean {
+
+        val data = _interestedInList.value ?: return false
+
+        for (cat in data) {
+            if (cat.checked) {
+                return true
+            }
+        }
+
+        return false
+
+    }
+
 }

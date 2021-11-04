@@ -16,14 +16,17 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/chipLocation"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_marginHorizontal="@dimen/_5sdp"
             android:checked="@{nearestLocation.checked}"
             android:fontFamily="@font/neo_sans_arabic_regular"
             android:text="@{nearestLocation.locationTitle}"
             app:chipBackgroundColor="@color/chip_selector"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

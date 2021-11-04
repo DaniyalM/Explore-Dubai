@@ -11,6 +11,7 @@ import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionR
 import com.app.dubaiculture.data.repository.trip.remote.response.DistanceMatrixResponse
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
@@ -63,6 +64,9 @@ class TripSharedViewModel @Inject constructor(
 
     val _trip: MutableLiveData<Event<String>> = MutableLiveData()
     val trip: LiveData<Event<String>> = _trip
+
+    val _travelMode: MutableLiveData<String> = MutableLiveData(Constants.TRAVEL_MODE.DRIVING)
+    val travelMode: LiveData<String> = _travelMode
 
     fun updateTripItem(trip: String) {
         _trip.value = Event(trip)
@@ -139,7 +143,7 @@ class TripSharedViewModel @Inject constructor(
                 id = index + 1,
                 dayDate = day,
                 hour = "1 Hour",
-                isDay = 0,
+                isDay = 1,
                 isSelected = false
             )
 
@@ -335,17 +339,30 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse) {
+    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse,travelMode:String) {
         val data = _eventAttractionList.value ?: return
         data.mapIndexed { index, eventsAndAttraction ->
             return@mapIndexed eventsAndAttraction.copy(duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
-                distance = distanceMatrixResponse.rows[0].elements[index].distance.text
+                distance = distanceMatrixResponse.rows[0].elements[index].distance.text,
+                travelMode = travelMode
                 )
         }.let {
             _tripList.value = it
         }
 
     }
+    fun validateStep3(): Boolean {
 
+        val data = _nearestLocationType.value ?: return false
+
+        for (cat in data) {
+            if (cat.isChecked) {
+                return true
+            }
+        }
+
+        return false
+
+    }
 
 }

@@ -18,6 +18,13 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
 
+        <action
+            android:id="@+id/action_my_trip_to_travel_mode_dialog"
+            app:destination="@id/travelModeDialog"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
 
     </fragment>
 
@@ -32,6 +39,15 @@
             android:id="@+id/action_tripFragmentListing_to_delete"
             app:popUpTo="@+id/my_trip_navigaion_cd"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_my_trip_listing_to_travel_mode_dialog"
+            app:destination="@id/travelModeDialog"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
 
     </fragment>
 
