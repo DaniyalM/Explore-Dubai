@@ -6,8 +6,14 @@
     <data>
 
         <variable
+            name="tripId"
+            type="String" />
+        <variable
             name="view"
             type="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment" />
+        <variable
+            name="viewModel"
+            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripListingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,17 +65,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_20sdp"
-            android:backgroundTint="?attr/color_edit_text_bg"
+            android:backgroundTint="@color/delete_color"
             android:fontFamily="@font/neo_sans_arabic_regular"
             android:insetLeft="0dp"
             android:insetTop="0dp"
             android:insetRight="0dp"
+            android:onClick="@{()->viewModel.deleteTrip(tripId)}"
             android:insetBottom="0dp"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            android:text="@string/editTrip"
+            android:text="@string/deleteTrip"
             android:textAllCaps="false"
-            android:textColor="@color/purple_650"
+            android:textColor="@color/delete_text_color"
             android:textSize="@dimen/_8ssp"
             app:cornerRadius="@dimen/_14sdp"
             app:layout_constraintBottom_toBottomOf="@id/tvHeading"
@@ -114,7 +121,7 @@
             android:id="@+id/rvTrips"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/btnNext"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewLine"

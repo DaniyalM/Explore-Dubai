@@ -1,60 +1,40 @@
 package com.app.dubaiculture.ui.postLogin.plantrip.viewmodels
 
 import android.app.Application
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.app.dubaiculture.R
 import com.app.dubaiculture.data.Result
 import com.app.dubaiculture.data.repository.trip.TripRepository
-import com.app.dubaiculture.data.repository.trip.remote.request.SaveTripRequest
+import com.app.dubaiculture.data.repository.trip.remote.response.DistanceMatrixResponse
 import com.app.dubaiculture.ui.base.BaseViewModel
 import com.app.dubaiculture.utils.Constants
-import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
-class SaveTripViewModel @Inject constructor(
+class TravelModeViewModel @Inject constructor(
     application: Application,
     private val savedStateHandle: SavedStateHandle,
     private val tripRepository: TripRepository
 ) : BaseViewModel(application) {
 
-    val tripName = ObservableField<String>("")
+    val _travelMode: MutableLiveData<String> = MutableLiveData(Constants.TRAVEL_MODE.DRIVING)
+    val travelMode: LiveData<String> = _travelMode
 
-    private var _saveTripStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
-    var saveTripStatus: MutableLiveData<Event<Boolean>> = _saveTripStatus
+    val _distanceResponse: MutableLiveData<DistanceMatrixResponse> = MutableLiveData()
+    val distanceResponse: LiveData<DistanceMatrixResponse> = _distanceResponse
 
-    fun onSaveTripClicked(tripId: String) {
-
-        if (tripName.get()!!.isNotEmpty()) {
-            saveTrip(
-                SaveTripRequest(
-                    name = tripName.get()!!,
-                    tripID = tripId
-                )
-            )
-        } else
-            return
-
-    }
-
-    private fun saveTrip(saveTripRequest: SaveTripRequest) {
+    fun getDistance(map:HashMap<String,String>) {
         viewModelScope.launch {
             showLoader(true)
-            val result = tripRepository.saveTrip(saveTripRequest)
+            val result = tripRepository.getDistance(map)
             when (result) {
                 is Result.Success -> {
                     showLoader(false)
-//                    showErrorDialog(
-//                        message = result.value.saveTripResponseDTO.message,
-//                        colorBg = R.color.purple_900
-//                    )
-                    _saveTripStatus.value = Event(true)
+                    _distanceResponse.value = result.value
                 }
                 is Result.Error -> {
                     showLoader(false)
@@ -69,7 +49,6 @@ class SaveTripViewModel @Inject constructor(
                 }
             }
         }
-
 
     }
 

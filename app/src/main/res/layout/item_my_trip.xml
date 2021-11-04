@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -78,7 +79,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_4sdp"
-            app:cardElevation="@dimen/_8sdp"
+            app:cardElevation="@dimen/_4sdp"
             app:layout_constraintBottom_toTopOf="@id/tvDistance"
             app:layout_constraintEnd_toEndOf="@id/tvDistance"
             app:layout_constraintStart_toStartOf="@id/tvDistance">
@@ -88,7 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginVertical="@dimen/_4sdp"
-                android:src="@drawable/ic_navigation" />
+                android:src="@drawable/ic_navigation"
+                android:contentDescription="TODO" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -100,7 +102,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             android:includeFontPadding="false"
-            android:text="10 Km"
+            android:text="@{data.distance}"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/ivTime"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -119,7 +121,7 @@
                 android:id="@+id/ivCar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_car_green"
+                tools:src="@drawable/ic_car_green"
                 app:layout_constraintEnd_toStartOf="@id/ivDropDown"
                 app:layout_constraintStart_toStartOf="@id/ivTrips"
                 app:layout_constraintTop_toBottomOf="@id/ivTrips" />
@@ -141,7 +143,7 @@
             android:id="@+id/tvCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30 min"
+            android:text="@{data.duration}"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintEnd_toEndOf="@id/ivTrips"
             app:layout_constraintStart_toEndOf="@id/llIcons"

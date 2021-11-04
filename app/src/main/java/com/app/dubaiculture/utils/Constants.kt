@@ -211,4 +211,14 @@ object Constants {
         const val URI_SCHEME = "dc://com.dc.dc-int"
     }
 
+    object TRAVEL_MODE {
+        const val WALKING: String = "walking"
+        const val DRIVING: String = "driving"
+        const val TRANSIT: String = "train"
+        const val BICYCLING: String = "bus"
+        const val ERROR: String = "Travel Mode Unavailable"
+
+    }
+
+
 }

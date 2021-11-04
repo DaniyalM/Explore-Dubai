@@ -4,11 +4,14 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.paging.filter
 import com.app.dubaiculture.data.repository.trip.TripRepository
 import com.app.dubaiculture.data.repository.trip.local.*
 import com.app.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
+import com.app.dubaiculture.data.repository.trip.remote.response.DistanceMatrixResponse
 import com.app.dubaiculture.infrastructure.ApplicationEntry
 import com.app.dubaiculture.ui.base.BaseViewModel
+import com.app.dubaiculture.utils.Constants
 import com.app.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
@@ -25,6 +28,9 @@ class TripSharedViewModel @Inject constructor(
 
     val _showPlan: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
     val showPlan: LiveData<Event<Boolean>> = _showPlan
+
+    val _showSave: MutableLiveData<Boolean> = MutableLiveData(true)
+    val showSave: LiveData<Boolean> = _showSave
 
     val _duration: MutableLiveData<List<Duration>> = MutableLiveData()
     val duration: LiveData<List<Duration>> = _duration
@@ -52,6 +58,19 @@ class TripSharedViewModel @Inject constructor(
 
     val _eventAttractionList: MutableLiveData<List<EventsAndAttraction>> = MutableLiveData()
     val eventAttractionList: LiveData<List<EventsAndAttraction>> = _eventAttractionList
+
+    val _tripList: MutableLiveData<List<EventsAndAttraction>> = MutableLiveData()
+    val tripList: LiveData<List<EventsAndAttraction>> = _tripList
+
+    val _trip: MutableLiveData<Event<String>> = MutableLiveData()
+    val trip: LiveData<Event<String>> = _trip
+
+    val _travelMode: MutableLiveData<String> = MutableLiveData(Constants.TRAVEL_MODE.DRIVING)
+    val travelMode: LiveData<String> = _travelMode
+
+    fun updateTripItem(trip: String) {
+        _trip.value = Event(trip)
+    }
 
     fun updateLocationItem(nearestLocation: LocationNearest) {
         _type.value = nearestLocation
@@ -124,7 +143,7 @@ class TripSharedViewModel @Inject constructor(
                 id = index + 1,
                 dayDate = day,
                 hour = "1 Hour",
-                isDay = 0,
+                isDay = 1,
                 isSelected = false
             )
 
@@ -224,31 +243,6 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun setDates() {
-
-        val input = SimpleDateFormat("dd MMM,yy")
-        val output = SimpleDateFormat("dd MMMM,yyyy")
-
-        val dateList: List<Duration> = _durationSummary.value ?: return
-
-        dateList.map {
-            if(it.id == 1){
-                return@map it.copy(
-                    isSelected = true,
-                    dayDate = output.format(input.parse(it.dayDate))
-                )
-            }else{
-                return@map it.copy(
-                    isSelected = false,
-                    dayDate = output.format(input.parse(it.dayDate))
-                )
-            }
-
-        }.let {
-            _dates.value = it
-        }
-
-    }
 
     fun updateDate(duration: Duration) {
 
@@ -272,7 +266,8 @@ class TripSharedViewModel @Inject constructor(
         val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val output = SimpleDateFormat("dd MMMM,yyyy")
 
-        val eventList: List<EventsAndAttraction> = _eventAttractionResponse.value!!.eventsAndAttractions ?: return
+        val eventList: List<EventsAndAttraction> =
+            _eventAttractionResponse.value!!.eventsAndAttractions ?: return
 
         eventList.filter { event ->
             output.format(input.parse(event.dateFrom)) == duration.dayDate
@@ -282,5 +277,92 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
+    fun setDates() {
+
+        val input = SimpleDateFormat("dd MMM,yy")
+        val output = SimpleDateFormat("dd MMMM,yyyy")
+
+        val dateList: List<Duration> = _durationSummary.value ?: return
+
+        dateList.map {
+            if (it.id == 1) {
+                return@map it.copy(
+                    isSelected = true,
+                    dayDate = output.format(input.parse(it.dayDate))
+                )
+            } else {
+                return@map it.copy(
+                    isSelected = false,
+                    dayDate = output.format(input.parse(it.dayDate))
+                )
+            }
+
+        }.let {
+            _dates.value = it
+        }
+
+    }
+
+    fun setDatesFromAPI(eventsAndAttractions: List<EventsAndAttraction>) {
+
+        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val output = SimpleDateFormat("dd MMMM,yyyy")
+
+        var dateList: MutableList<Duration> = mutableListOf()
+
+        eventsAndAttractions.mapIndexed { index, eventsAndAttraction ->
+            if (index == 0) {
+                dateList.add(
+                    Duration(
+                        index,
+                        dayDate = output.format(input.parse(eventsAndAttraction.dateFrom)),
+                        hour = eventsAndAttraction.timeFrom,
+                        isDay = 0,
+                        isSelected = true
+                    )
+                )
+            } else {
+
+                dateList.add(
+                    Duration(
+                        index,
+                        dayDate = output.format(input.parse(eventsAndAttraction.dateFrom)),
+                        hour = eventsAndAttraction.timeFrom,
+                        isDay = 0,
+                        isSelected = false
+                    )
+                )
+
+            }
+        }
+        _dates.value = dateList
+
+    }
+
+    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse,travelMode:String) {
+        val data = _eventAttractionList.value ?: return
+        data.mapIndexed { index, eventsAndAttraction ->
+            return@mapIndexed eventsAndAttraction.copy(duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
+                distance = distanceMatrixResponse.rows[0].elements[index].distance.text,
+                travelMode = travelMode
+                )
+        }.let {
+            _tripList.value = it
+        }
+
+    }
+    fun validateStep3(): Boolean {
+
+        val data = _nearestLocationType.value ?: return false
+
+        for (cat in data) {
+            if (cat.isChecked) {
+                return true
+            }
+        }
+
+        return false
+
+    }
 
 }

@@ -36,6 +36,7 @@ import com.xwray.groupie.GroupieViewHolder
 
 
 class ExploreRecyclerAsyncAdapter internal constructor(
+    private val isGuest: Boolean? = false,
     private val context: Context,
     private var isArabic: Boolean? = null,
     private var fragment: ExploreFragment? = null,
@@ -268,7 +269,9 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                 holder.itemView.binding?.tripSeperator?.visibility = View.VISIBLE
 
                 holder.itemView.binding?.cardviewPlanTrip?.setOnClickListener {
-                    fragment?.navigate(R.id.action_exploreFragment_to_plantrip_navigation)
+                    if (!isGuest!!) {
+                        fragment?.navigate(R.id.action_exploreFragment_to_plantrip_navigation)
+                    }
                 }
 
                 holder.itemView.binding?.let { it.innerSectionHeading.text = item.title }
@@ -425,8 +428,7 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                                     hoveredJsonFile = it.hoveredJsonFile,
                                     playJson = it.playJson,
                                     icon = it.icon
-                                )
-                            ,rowClickListener = object :RowClickListener{
+                                ), rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
                                         fragment?.navigateByDirections(
                                             ExploreFragmentDirections.actionExploreFragmentToServiceDetailNavigation(

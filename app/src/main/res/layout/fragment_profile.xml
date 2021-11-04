@@ -370,6 +370,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+                        android:id="@+id/clMyTrips"
                         android:layout_height="@dimen/_40sdp">
 
                         <androidx.appcompat.widget.AppCompatImageView

@@ -106,6 +106,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun setUpRecyclerView() {
         if (exploreAdapter == null) {
             exploreAdapter = ExploreRecyclerAsyncAdapter(
+                isGuest = application.auth.isGuest,
                 activity,
                 fragment = this,
                 baseViewModel = exploreViewModel

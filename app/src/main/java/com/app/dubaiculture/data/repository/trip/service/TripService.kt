@@ -29,4 +29,13 @@ interface TripService : BaseService {
     @POST("/api/Trip/SaveTrip")
     suspend fun saveTrip(@Body saveTripRequestDTO: SaveTripRequestDTO): SaveTripResponse
 
+    @GET("/api/Trip/MyTrips")
+    suspend fun getMyTrips(@Query("pageNo") pageNumber: Int,@Query("pageSize") pageSize: Int,@Query("culture") culture: String): MyTripsResponse
+
+    @GET("/api/Trip/MyTripsDetail")
+    suspend fun getTripDetails(@Query("TripId") tripId:String,@Query("culture") culture: String): EventAttractionResponse
+
+    @GET("/api/Trip/DeleteTrip")
+    suspend fun deleteTrip(@Query("TripId") tripId:String): SaveTripResponse
+
 }

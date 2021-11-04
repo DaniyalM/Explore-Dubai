@@ -24,7 +24,6 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
 
     private val step1ViewModel: Step1ViewModel by viewModels()
     private val tripSharedViewModel: TripSharedViewModel by navGraphViewModels(R.id.plan_trip_parent_navigation)
-
     private lateinit var userTypeAdapter: UserTypeAdapter
 
 
@@ -59,7 +58,6 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
                     }
 
                     override fun rowClickListener(userType: UsersType, position: Int) {
-
                         step1ViewModel.updateUserItem(userType.copy(checked = !userType.checked!!))
                     }
 
@@ -75,21 +73,15 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
     private fun subscribeToObservables() {
 
         step1ViewModel.userType.observe(viewLifecycleOwner) {
-
             step1ViewModel._usersType.value = it.usersType
-
         }
 
         step1ViewModel.type.observe(viewLifecycleOwner) {
             step1ViewModel.updateInUserTypeList(it)
         }
 
-
-
         step1ViewModel.usersType.observe(viewLifecycleOwner) {
-
             userTypeAdapter.submitList(it)
-
         }
 
     }
@@ -98,12 +90,15 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
     override fun onResume() {
         super.onResume()
         binding.animationView.playAnimation()
-
     }
 
     fun onNextClicked() {
 
-        customNavigation.navigateStep(true, R.id.tripStep1)
+        if (step1ViewModel.validate()) {
+            customNavigation.navigateStep(true, R.id.tripStep1)
+        } else {
+            showToast(getString(R.string.selectUserType))
+        }
 
     }
 

@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="backgroundImage"
+            type="String" />
+        <variable
+            name="image"
+            type="String" />
         <variable
             name="view"
             type="com.app.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragment" />
@@ -16,17 +21,7 @@
         android:background="?attr/colorPrimaryVariant"
         tools:context=".ui.postLogin.plantrip.PlanYourTripFragment">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_10sdp"
-            app:chainUseRtl="true"
-            app:layout_constraintBottom_toBottomOf="@id/tv_plan_desc"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_close"
-            app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/new_green_line" />
+
 
         <FrameLayout
             android:id="@+id/imageLayout"
@@ -44,6 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                android:imageViewUrl="@{backgroundImage}"
                 android:transitionName="imageView" />
 
             <View
@@ -52,6 +48,18 @@
                 android:background="@drawable/image_gradient" />
 
         </FrameLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:chainUseRtl="true"
+            app:layout_constraintBottom_toBottomOf="@id/tv_plan_desc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_close"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/new_green_line" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView4"
@@ -253,8 +261,8 @@
                     android:layout_height="@dimen/_50sdp"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginVertical="@dimen/_6sdp"
-                    android:src="@drawable/ic_baseline_account_circle_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:loadImage="@{image}"
+                    android:src="@drawable/ic_baseline_account_circle_24"                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

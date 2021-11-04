@@ -89,13 +89,12 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
 
     private fun subscribeToObservables() {
 
-        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
-//            myTripAdapter.submitList(it)
-        }
 
-        tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
-            myTripAdapter.submitList(it)
-        }
+
+//        tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
+//            if(it != null)
+//            myTripAdapter.submitList(it)
+//        }
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
             binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)

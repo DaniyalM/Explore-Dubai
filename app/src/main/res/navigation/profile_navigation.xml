@@ -7,6 +7,7 @@
     <include app:graph="@navigation/post_login_bottom_navigation"/>
     <include app:graph="@navigation/favourite_navigation" />
     <include app:graph="@navigation/my_event_navigation" />
+    <include app:graph="@navigation/my_saved_trip_navigation" />
 
     <fragment
         android:id="@+id/profileFragment"
@@ -68,6 +69,15 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"/>
+
+        <action
+            android:id="@+id/action_profileFragment_to_myTripFragment"
+            app:destination="@id/my_saved_trip_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+
     </fragment>
     <fragment
         android:id="@+id/placesVisited"

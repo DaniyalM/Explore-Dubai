@@ -26,6 +26,8 @@ class PlanYourTripFragment : BaseFragment<FragmentPlanYourTripBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
+        binding.image ="/-/media/DC/Plan-Your-Trip/step-img-1.jpg"
+        binding.backgroundImage= "/-/media/DC/DC-Attractions-New-Assets/Portrait-Images/Etihad-Museum/DX2-0266-HDR-2.jpg"
         lottieAnimationRTL(binding.animationView)
 
     }

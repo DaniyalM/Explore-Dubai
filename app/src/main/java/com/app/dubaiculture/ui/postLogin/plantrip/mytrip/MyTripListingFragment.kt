@@ -1,10 +1,14 @@
 package com.app.dubaiculture.ui.postLogin.plantrip.mytrip
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dubaiculture.R
 import com.app.dubaiculture.data.repository.trip.local.Duration
@@ -15,8 +19,17 @@ import com.app.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.DatesAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.MyTripAdapter
 import com.app.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.DateClickListener
 import com.app.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.MyTripClickListener
+import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripListingViewModel
+import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripViewModel
 import com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
+import com.app.dubaiculture.utils.Constants
+import com.app.dubaiculture.utils.location.LocationHelper
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
@@ -26,20 +39,36 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
     ) = FragmentMyTripListingBinding.inflate(inflater, container, false)
 
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
+    private val myTripListingViewModel: MyTripListingViewModel by viewModels()
+    private lateinit var currentLocation: Location
+    private lateinit var  travelMode: String
+
+
+    @Inject
+    lateinit var locationHelper: LocationHelper
 
     private lateinit var datesAdapter: DatesAdapter
     private lateinit var myTripAdapter: MyTripAdapter
 
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            //  locationIsEmpty(locationResult.lastLocation)
+        }
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
+        binding.viewModel = myTripListingViewModel
+        subscribeUiEvents(myTripListingViewModel)
         setupRV()
 
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        subscribeToObservables()
+        locationPermission()
     }
 
     private fun setupRV() {
@@ -68,6 +97,10 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
             myTripAdapter = MyTripAdapter(
                 object : MyTripClickListener {
                     override fun rowClickListener(eventAttraction: EventsAndAttraction) {
+
+                        navigateByDirections(MyTripListingFragmentDirections.actionMyTripListingToTravelModeDialog())
+//                        navigate(R.id.action_my_trip_listing_to_travel_mode_dialog)
+
                     }
 
                     override fun rowClickListener(
@@ -87,11 +120,28 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
     private fun subscribeToObservables() {
 
-        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
+        tripSharedViewModel.travelMode.observe(viewLifecycleOwner) {
+            travelMode = it
         }
 
+        tripSharedViewModel.tripList.observe(viewLifecycleOwner) {
+            if (it != null) {
+                myTripAdapter.submitList(it)
+            }
+        }
         tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
-            myTripAdapter.submitList(it)
+            if (it != null)
+                getDistance(it)
+        }
+
+        myTripListingViewModel.distanceResponse.observe(viewLifecycleOwner) {
+            it.rows[0].elements.map {
+                if (it.status == "ZERO_RESULTS") {
+                    showAlert(Constants.TRAVEL_MODE.ERROR)
+                    return@observe
+                }
+            }
+            tripSharedViewModel.mapDistanceInList(it,travelMode)
         }
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
@@ -101,6 +151,81 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
         }
 
+        tripSharedViewModel.showSave.observe(viewLifecycleOwner) {
+            if (it) binding.btnNext.visibility = View.VISIBLE else binding.btnNext.visibility =
+                View.GONE
+            if (it) binding.btnDeleteDur.visibility =
+                View.GONE else binding.btnDeleteDur.visibility = View.VISIBLE
+
+        }
+
+        myTripListingViewModel.deleteTripStatus.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                if (it) {
+                    tripSharedViewModel.updateTripItem(binding.tripId!!)
+                    navigate(R.id.action_tripFragmentListing_to_delete)
+                }
+            }
+        }
+
+        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
+            binding.tripId = it.tripId
+        }
+
+    }
+
+    private fun getDistance(list: List<EventsAndAttraction>) {
+
+        var hashMap: HashMap<String, String> = HashMap<String, String>()
+        var destination: String = ""
+        if (list.isNotEmpty()) {
+            hashMap["origins"] =
+                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
+
+//            hashMap["destination"] =
+//                list[0].latitude + "," + list[0].longitude
+
+            list.map {
+                destination += it.latitude + "," + it.longitude + "|"
+            }
+
+            hashMap["destinations"] = destination
+
+            hashMap["mode"] = travelMode
+
+            hashMap["key"] = getString(R.string.map_key)
+
+            myTripListingViewModel.getDistance(
+                map = hashMap
+            )
+        }
+
+    }
+
+    private fun locationPermission() {
+        val quickPermissionsOption = QuickPermissionsOptions(
+            handleRationale = false
+        )
+        activity.runWithPermissions(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            options = quickPermissionsOption
+        ) {
+            locationHelper.locationSetUp(
+                object : LocationHelper.LocationLatLng {
+                    @SuppressLint("SetTextI18n")
+                    override fun getCurrentLocation(location: Location) {
+
+                        currentLocation = location
+                        subscribeToObservables()
+
+
+
+                    }
+                },
+                locationCallback
+            )
+        }
     }
 
     fun onBackPressed() {

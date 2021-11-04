@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
+
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -42,10 +42,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCallback {
 
+    private lateinit var markerLocation: LatLng
     private var marker: Marker? = null
     private lateinit var nearestLocationList: List<LocationNearest>
     private lateinit var location: Location
-    private lateinit var mMap: GoogleMap
+    private var mMap: GoogleMap? = null
     private val step3ViewModel: Step3ViewModel by viewModels()
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
 
@@ -92,7 +93,6 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
                     }
 
                     override fun rowClickListener(userType: LocationNearest, position: Int) {
-
                         tripSharedViewModel.updateLocationItem(userType.copy(isChecked = !userType.isChecked!!))
 
 //                        navigateMarker(
@@ -121,6 +121,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         mapSetUp(savedInstanceState)
+
         subscribeToObservables()
 
 
@@ -142,7 +143,6 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
 
         tripSharedViewModel.nearestLocation.observe(viewLifecycleOwner) {
-
             binding.rvLocationChips.visibility = View.VISIBLE
             nearestLocAdapter.submitList(it)
             setMarker(it)
@@ -155,6 +155,10 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
     private fun setMarker(it: List<LocationNearest>) {
         it.map { selectedLoc ->
             if (selectedLoc.isChecked) {
+                markerLocation = LatLng(
+                    if (selectedLoc.latitude.isBlank()) 0.0 else selectedLoc.latitude.toDouble(),
+                    if (selectedLoc.longitude.isBlank()) 0.0 else selectedLoc.longitude.toDouble()
+                )
                 navigateMarker(
                     if (selectedLoc.latitude.isBlank()) 0.0 else selectedLoc.latitude.toDouble(),
                     if (selectedLoc.longitude.isBlank()) 0.0 else selectedLoc.longitude.toDouble()
@@ -169,7 +173,11 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
     }
 
     fun onNextClicked() {
-        customNavigation.navigateStep(true, R.id.tripStep3)
+        if (tripSharedViewModel.validateStep3()) {
+            customNavigation.navigateStep(true, R.id.tripStep3)
+        } else {
+            showToast(getString(R.string.selectLocation))
+        }
     }
 
     fun onAddLocation() {
@@ -194,7 +202,12 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
     override fun onMapReady(map: GoogleMap) {
         mMap = map
-        locationPermission()
+        if(this::markerLocation.isInitialized){
+            navigateMarker(markerLocation.latitude,markerLocation.longitude)
+        }else{
+            locationPermission()
+        }
+//
 
     }
 
@@ -222,10 +235,10 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
     }
 
     fun navigateMarker(latitude: Double, longitude: Double) {
-
+        if (mMap != null) {
             if (marker == null) {
 
-                marker = mMap.addMarker(
+                marker = mMap?.addMarker(
                     MarkerOptions()
                         .position(LatLng(latitude, longitude))
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
@@ -236,12 +249,13 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
             }
 
 
-            mMap.animateCamera(
+            mMap?.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(latitude, longitude), 14.0f
                 )
             )
-            mMap.cameraPosition.target
+            mMap?.cameraPosition?.target
+        }
 
     }
 

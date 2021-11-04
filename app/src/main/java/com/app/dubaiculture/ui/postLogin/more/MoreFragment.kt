@@ -282,7 +282,8 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 navigate(R.id.action_moreFragment_to_aboutFragment)
             }
             R.id.cardivewRTL -> {
-                navigateByDirections(MoreFragmentDirections.actionMoreFragmentToTripFragment())
+                if (!application.auth.isGuest)
+                    navigateByDirections(MoreFragmentDirections.actionMoreFragmentToTripFragment())
 //                navigate(R.id.action_moreFragment_to_tripFragment)
             }
             R.id.search -> {

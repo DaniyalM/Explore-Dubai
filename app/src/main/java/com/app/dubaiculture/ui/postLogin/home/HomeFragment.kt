@@ -86,6 +86,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.tripFragment -> {
                         visibility = View.GONE
                     }
+                    R.id.myTripFragment -> {
+                        visibility = View.GONE
+                    }
+                    R.id.myTripListingFragment -> {
+                        visibility = View.GONE
+                    }
                 }
             }
         }
@@ -149,6 +155,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         visibility = View.GONE
                     }
                     R.id.tripSuccessFragment -> {
+                        visibility = View.GONE
+                    }
+                    R.id.myTripNameDialog -> {
+                        visibility = View.GONE
+                    }
+                    R.id.travelModeDialog -> {
                         visibility = View.GONE
                     }
                     else -> {

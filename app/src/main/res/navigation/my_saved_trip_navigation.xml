@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_saved_trip_navigation"
+    app:startDestination="@id/saveTripFragment">
+    <include app:graph="@navigation/my_trip_navigaion_cd" />
+
+    <fragment
+        android:id="@+id/saveTripFragment"
+        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.SavedTripListingFragment"
+        android:label="SaveTripListingFragment"
+        tools:layout="@layout/fragment_saved_trip_listing" >
+        <action
+            android:id="@+id/action_tripSavingListingFragment_to_my_tripFragment"
+            app:destination="@id/my_trip_navigaion_cd"
+            app:popUpTo="@+id/my_trip_navigaion_cd"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

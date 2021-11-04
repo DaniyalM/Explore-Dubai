@@ -90,5 +90,16 @@ class Step1ViewModel @Inject constructor(
         }
     }
 
+    fun validate(): Boolean {
+
+        val data = _usersType.value ?: return false
+        for (cat in data) {
+            if (cat.checked) {
+                return true
+            }
+        }
+        return false
+    }
+
 
 }
