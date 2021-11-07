@@ -6,7 +6,7 @@
 
         <variable
             name="data"
-            type="com.app.dubaiculture.data.repository.trip.local.Duration" />
+            type="com.dubaiculture.data.repository.trip.local.Duration" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/_8sdp">
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDate"
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
                     app:layout_constraintStart_toStartOf="@id/tvDateMonth"
                     app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDateMonth"
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDayHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tvDate" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                     app:layout_constraintStart_toStartOf="@id/tvDayHeading"
                     app:layout_constraintTop_toBottomOf="@id/tvDayHeading" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDurationHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                     app:layout_constraintStart_toEndOf="@id/tvDate"
                     app:layout_constraintTop_toTopOf="@id/tvDate" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"

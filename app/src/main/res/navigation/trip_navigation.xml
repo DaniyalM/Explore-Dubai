@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/tripFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragment"
         android:label="PlanTripFragment">
         <action
             android:id="@+id/action_tripFragment_to_tripDetailParentFragment"

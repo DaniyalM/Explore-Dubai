@@ -22,7 +22,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/customTextView5"
                 style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/cameraicon" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/title_favourite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                     app:layout_constraintTop_toTopOf="@+id/arrow_favourite"
                     app:srcCompat="@drawable/arrow_attraction">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/badge_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/galleryicon" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/galleryPickertitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

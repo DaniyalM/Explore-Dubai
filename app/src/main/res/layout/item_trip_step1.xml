@@ -4,11 +4,11 @@
 
     <data>
 
-        <import type="com.app.dubaiculture.R" />
+        <import type="com.dubaiculture.R" />
 
         <variable
             name="userType"
-            type="com.app.dubaiculture.data.repository.trip.local.UsersType" />
+            type="com.dubaiculture.data.repository.trip.local.UsersType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +50,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

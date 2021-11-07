@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/detailListingHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:textFont="bold" />
 
-            <com.app.dubaiculture.ui.components.customreadmore.CustomReadMoreView
+            <com.dubaiculture.ui.components.customreadmore.CustomReadMoreView
                 android:id="@+id/terms_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 app:trimLength="150"
                 app:trimMode="trimModeLength" />
 
-            <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            <com.dubaiculture.ui.components.custombutton.CustomButton
                 android:id="@+id/common_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
 
         <variable
             name="explore"
-            type="com.app.dubaiculture.data.repository.explore.local.models.ExploreMap" />
+            type="com.dubaiculture.data.repository.explore.local.models.ExploreMap" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -38,7 +38,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_place"
                 style="@style/TextViewStyle"
                 android:layout_width="0dp"
@@ -55,7 +55,7 @@
                 app:layout_constraintTop_toTopOf="@+id/img_museums" />
 
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_km"
                 style="@style/TextViewStyle"
                 android:layout_width="wrap_content"

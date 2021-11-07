@@ -15,7 +15,7 @@
     <include app:graph="@navigation/service_navigation" />
     <fragment
         android:id="@+id/moreFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.more.MoreFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.MoreFragment"
         android:label="MoreFragment"
         tools:layout="@layout/fragment_more">
 
@@ -136,25 +136,25 @@
 
     <dialog
         android:id="@+id/logoutFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.more.bottomsheet.LogoutFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.bottomsheet.LogoutFragment"
         android:label="LogoutFragment" />
 
     <fragment
         android:id="@+id/notificationSettingFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.more.settings.NotificationSettingFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.settings.NotificationSettingFragment"
         android:label="NotificationSettingFragment" />
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.more.notification.NotificationFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.notification.NotificationFragment"
         android:label="NotificationFragment" />
     <dialog
         android:id="@+id/privacyTermConditionFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment"
         android:label="PrivacyTermConditionFragment"
         tools:layout="@layout/fragment_privacy_policy" />
     <fragment
         android:id="@+id/contactFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.more.contact.ContactFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.contact.ContactFragment"
         android:label="ContactFragment"
         tools:layout="@layout/fragment_contact">
         <action
@@ -174,11 +174,11 @@
     </fragment>
     <fragment
         android:id="@+id/FAQsFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.more.faqs.FAQsFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.faqs.FAQsFragment"
         android:label="FAQsFragment" />
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.more.about.AboutFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.about.AboutFragment"
         android:label="AboutFragment"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
@@ -191,7 +191,7 @@
     </fragment>
     <fragment
         android:id="@+id/sharedFeeback"
-        android:name="com.app.dubaiculture.ui.postLogin.more.contact.feedback.SharedFeebackFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.contact.feedback.SharedFeebackFragment"
         android:label="SharedFeeback"
         tools:layout="@layout/fragment_shared_feeback" />
 </navigation>

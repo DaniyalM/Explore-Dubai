@@ -5,7 +5,7 @@
     <data>
         <variable
             name="news"
-            type="com.app.dubaiculture.data.repository.news.local.LatestNews" />
+            type="com.dubaiculture.data.repository.news.local.LatestNews" />
         <variable
         name="technique"
         type="com.daimajia.androidanimations.library.Techniques" />
@@ -35,7 +35,7 @@
                 app:cornerRadius="@dimen/_12sdp"
                 app:roundedCorners="topRight|topLeft" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                 android:textColor="@color/gray_800"
                 android:textSize="@dimen/_11ssp" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

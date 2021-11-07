@@ -360,6 +360,9 @@
     <string name="selectUserType">Select UserType!</string>
     <string name="selectCategory">Select Category!</string>
     <string name="selectLocation">Select Location!</string>
+    <string name="you_are_authenticated_successfull_try_to_link_your_account">You are Authenticated Successfull Try To Link Your Account.</string>
+    <string name="link_account">Link Account</string>
+    <string name="create_account">Create Account</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->

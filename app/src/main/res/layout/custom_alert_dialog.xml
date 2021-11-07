@@ -15,7 +15,7 @@
             android:paddingEnd="@dimen/_10sdp"
             android:paddingBottom="@dimen/_30sdp">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:textFont="bold" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/description"
                 style="@style/TextViewStyle"
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toBottomOf="@id/title"
                 app:textFont="regular" />
 
-            <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            <com.dubaiculture.ui.components.custombutton.CustomButton
                 android:id="@+id/btnYes"
                 style="@style/SubmitButtonFilled"
                 android:layout_width="0dp"
@@ -54,7 +54,7 @@
                 app:layout_constraintRight_toLeftOf="@id/btnNo"
                 app:layout_constraintTop_toBottomOf="@id/description" />
 
-            <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            <com.dubaiculture.ui.components.custombutton.CustomButton
                 android:id="@+id/btnNo"
                 style="@style/SubmitButtonOutLined"
                 android:layout_width="0dp"

@@ -14,7 +14,7 @@
             android:id="@+id/tab_icon"
             app:srcCompat="@drawable/ic_lock"/>
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TAB TITLE"

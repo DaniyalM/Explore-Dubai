@@ -10,10 +10,10 @@
             type="String" />
         <variable
             name="view"
-            type="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment" />
+            type="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment" />
         <variable
             name="viewModel"
-            type="com.app.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripListingViewModel" />
+            type="com.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripListingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +48,7 @@
             app:layout_constraintTop_toTopOf="@id/iv_dropdown" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvHeading"
             style="@style/TextViewStyle"
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tvHeading"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvDate"
             style="@style/TextViewStyle"
             android:layout_width="wrap_content"

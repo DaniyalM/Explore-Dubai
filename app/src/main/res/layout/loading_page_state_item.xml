@@ -18,7 +18,7 @@
             android:indeterminate="true"
             android:indeterminateTint="@color/colorUwMediaPickerProgressBar" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"

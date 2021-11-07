@@ -31,7 +31,7 @@
                 android:layout_height="match_parent">
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvTrip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                     android:textColor="?attr/colorSecondary"
                     android:textSize="@dimen/_14sdp" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/subHeading"
                     android:layout_marginTop="-5dp"
                     android:visibility="gone"

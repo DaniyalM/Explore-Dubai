@@ -80,7 +80,7 @@
                     android:layout_marginBottom="@dimen/_100sdp"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:textFont="bold" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/title"
                     android:layout_width="@dimen/_220sdp"
                     android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                     app:layout_constraintStart_toStartOf="@+id/category"
                     app:textFont="bold" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_event_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                     app:layout_constraintStart_toStartOf="@+id/title" />
 
 
-                <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                <com.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btn_reg"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
                     app:layout_constraintStart_toStartOf="@+id/title" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_swipe_up_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!--                <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
+                <!--                <com.dubaiculture.ui.components.custombutton.CustomButton-->
                 <!--                    android:id="@+id/btn_login"-->
                 <!--                    android:layout_width="match_parent"-->
                 <!--                    android:layout_height="wrap_content"-->

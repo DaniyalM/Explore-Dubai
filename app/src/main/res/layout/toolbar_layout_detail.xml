@@ -7,7 +7,7 @@
 
         <variable
             name="attraction"
-            type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
+            type="com.dubaiculture.data.repository.attraction.local.models.Attractions" />
 
         <variable
             name="technique"
@@ -69,7 +69,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:textFont="bold" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/title"
                     android:layout_width="@dimen/_220sdp"
                     android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/ar_icon_white" />
 
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/augmentedRealityText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/_360iconwhite" />
 
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/view360text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -210,7 +210,7 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/gallery_white" />
 
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/gallerytext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -224,7 +224,7 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!--                <com.app.dubaiculture.ui.components.customtextview.CustomTextView-->
+                <!--                <com.dubaiculture.ui.components.customtextview.CustomTextView-->
                 <!--                    android:id="@+id/btn_login"-->
                 <!--                    android:layout_width="0dp"-->
                 <!--                    android:layout_height="wrap_content"-->
@@ -240,7 +240,7 @@
                 <!--                    app:layout_constraintStart_toStartOf="@+id/augmentedReality" />-->
 
 
-                <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                <com.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btn_book_a_ticket"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -259,7 +259,7 @@
                     app:layout_constraintStart_toStartOf="@+id/augmentedReality" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_swipe_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -275,7 +275,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.88" />
 
-                <!--                <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
+                <!--                <com.dubaiculture.ui.components.custombutton.CustomButton-->
                 <!--                    android:id="@+id/btn_login"-->
                 <!--                    android:layout_width="match_parent"-->
                 <!--                    android:layout_height="wrap_content"-->

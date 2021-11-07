@@ -2,7 +2,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.app.dubaiculture">
+    package="com.dubaiculture">
 
     <queries>
         <package android:name="ae.uaepass.mainapp.qa" />
@@ -117,7 +117,7 @@
         <!--        <activity-->
         <!--            android:name=".ui.postLogin.PostLoginActivity"-->
         <!--            android:screenOrientation="portrait"></activity>-->
-        <!-- <activity android:name="com.app.dubaiculture.ui.widgets.DcWidget"> -->
+        <!-- <activity android:name="com.dubaiculture.ui.widgets.DcWidget"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /> -->
         <!-- </intent-filter> -->
@@ -135,7 +135,7 @@
         </receiver>
 
         <service
-            android:name="com.app.dubaiculture.utils.firebase.FirebaseMessageService"
+            android:name="com.dubaiculture.utils.firebase.FirebaseMessageService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

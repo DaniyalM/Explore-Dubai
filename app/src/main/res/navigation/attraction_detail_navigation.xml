@@ -10,12 +10,12 @@
     <fragment
         android:id="@+id/attractionDetailFragment"
         tools:layout="@layout/fragment_attraction_detail"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment"
         android:label="AttractionDetailFragment">
 
         <argument
             android:name="attraction"
-            app:argType="com.app.dubaiculture.data.repository.attraction.local.models.Attractions"
+            app:argType="com.dubaiculture.data.repository.attraction.local.models.Attractions"
             app:nullable="true"
             android:defaultValue="@null" />
 
@@ -92,22 +92,22 @@
     <fragment
         android:id="@+id/siteMapFragment"
         tools:layout="@layout/fragment_site_map"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapFragment"
         android:label="SiteMapFragment" >
         <argument
             android:name="siteMap_obj"
             android:defaultValue="@null"
-            app:argType="com.app.dubaiculture.data.repository.attraction.local.models.SiteMap"
+            app:argType="com.dubaiculture.data.repository.attraction.local.models.SiteMap"
             app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/ibeconDescFragment"
         tools:layout="@layout/fragment_ibecon_desc"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeconDescFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeconDescFragment"
         android:label="IbeconDescFragment" >
         <argument
             android:name="beaconItem"
-            app:argType="com.app.dubaiculture.data.repository.sitemap.local.BeaconItems"
+            app:argType="com.dubaiculture.data.repository.sitemap.local.BeaconItems"
             app:nullable="false" />
 
 
@@ -115,7 +115,7 @@
     <fragment
         android:id="@+id/ibeconFragment"
         tools:layout="@layout/fragment_ibecon"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeaconFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeaconFragment"
         android:label="IbeconFragment" >
 <!--        <action-->
 <!--            android:id="@+id/action_ibeconFragment_to_yourJourneyFragment"-->
@@ -144,7 +144,7 @@
 <!--    <dialog-->
 <!--        android:id="@+id/yourJourneyFragment"-->
 <!--        tools:layout="@layout/fragment_your_journey"-->
-<!--        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyFragment"-->
+<!--        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyFragment"-->
 <!--        android:label="YourJourneyFragment" >-->
 <!--        <action-->
 <!--            android:id="@+id/action_yourJourneyFragment_to_ibeconDescFragment"-->
@@ -158,7 +158,7 @@
     <dialog
         android:id="@+id/yourJourneyBeaconFragment"
         tools:layout="@layout/fragment_your_journey"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyBeaconFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyBeaconFragment"
         android:label="YourJourneyBeaconFragment" >
 
         <argument
@@ -174,14 +174,14 @@
             app:popExitAnim="@anim/fade_out">
             <argument
                 android:name="beaconItem"
-                app:argType="com.app.dubaiculture.data.repository.sitemap.local.BeaconItems"
+                app:argType="com.dubaiculture.data.repository.sitemap.local.BeaconItems"
                 app:nullable="false" />
         </action>
     </dialog>
     <fragment
         android:id="@+id/ARDetailFragment"
         tools:layout="@layout/fragment_a_r_detail"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ar.detail.ARDetailFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ar.detail.ARDetailFragment"
         android:label="ARDetailFragment" >
 
         <action
@@ -196,7 +196,7 @@
     <fragment
         android:id="@+id/ARFragment"
         tools:layout="@layout/fragment_a_r"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.ar.ARFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ar.ARFragment"
         android:label="ARFragment" >
         <action
             android:id="@+id/action_ARFragment_to_ARDetailFragment"
@@ -210,11 +210,11 @@
     <fragment
         android:id="@+id/threeSixtyFragment"
         tools:layout="@layout/fragment_three_sixty"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment"
         android:label="ThreeSixtyFragment" />
     <fragment
         android:id="@+id/attractionGalleryFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.attractions.detail.gallery.AttractionGalleryFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.gallery.AttractionGalleryFragment"
         android:label="AttractionGalleryFragment" />
 
 

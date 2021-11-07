@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/myTripFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripFragment"
         android:label="MyPlanTripFragment">
 
         <action
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/myTripListingFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
         android:label="MyTripListingFragment"
         tools:layout="@layout/fragment_my_trip_listing">
 
@@ -53,7 +53,7 @@
 
     <dialog
         android:id="@+id/travelModeDialog"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.TravelModeBottomSheetFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.TravelModeBottomSheetFragment"
         android:label="TravelModeDialog"
         tools:layout="@layout/fragment_travel_mode_bottom_sheet" />
 
