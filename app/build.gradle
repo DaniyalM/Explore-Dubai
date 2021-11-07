@@ -24,7 +24,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.app.dubaiculture"
+        applicationId "com.dubaiculture"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 2
