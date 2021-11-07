@@ -1,5 +1,5 @@
 # Add project specific ProGuard rules here.
--keepnames class com.app.dubaiculture.data.repository.event.local.models.Events
+-keepnames class com.dubaiculture.data.repository.event.local.models.Events
 # Retrofit2
 -keepclasseswithmembers class * {
     @retrofit2.http.* <methods>;

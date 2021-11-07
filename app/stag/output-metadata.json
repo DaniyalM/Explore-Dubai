@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.app.dubaiculture.stag",
+  "applicationId": "com.dubaiculture.stag",
   "variantName": "stag",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "versionCode": 2,
-      "versionName": "1.5",
-      "outputFile": "dubaiculture-stag-1.5.apk"
+      "versionName": "1.6",
+      "outputFile": "dubaiculture-stag-1.6.apk"
     }
   ]
 }
