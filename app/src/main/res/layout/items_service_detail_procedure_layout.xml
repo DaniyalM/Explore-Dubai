@@ -6,7 +6,7 @@
 
         <variable
             name="procedure"
-            type="com.app.dubaiculture.data.repository.popular_service.local.models.ServiceProcedure" />
+            type="com.dubaiculture.data.repository.popular_service.local.models.ServiceProcedure" />
 
     </data>
 
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
             app:layout_constraintStart_toEndOf="@+id/tv_date_schedule"
             app:layout_constraintTop_toTopOf="@+id/tv_date_schedule">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_title"
                 style="@style/TextViewStyle"
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                 android:textSize="@dimen/_14ssp" />
 
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_desc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

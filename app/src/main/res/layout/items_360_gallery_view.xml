@@ -5,7 +5,7 @@
 
         <variable
             name="threesixty"
-            type="com.app.dubaiculture.data.repository.attraction.local.models.ThreeSixtyImageItem" />
+            type="com.dubaiculture.data.repository.attraction.local.models.ThreeSixtyImageItem" />
     </data>
 
 

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="user"
-            type="com.app.dubaiculture.data.repository.user.local.User" />
+            type="com.dubaiculture.data.repository.user.local.User" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootView"
@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                                 android:background="@drawable/profile_icon_bg"
                                 />
 
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/my_profile"
@@ -96,7 +96,7 @@
                                 android:textColor="?attr/colorSecondary"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 />
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawableEnd="@drawable/forward_arrow"
@@ -143,7 +143,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/notification_with_bell" />
 
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
@@ -151,7 +151,7 @@
                                 android:textColor="?attr/colorSecondary"
                                 android:textSize="@dimen/_13ssp" />
 
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/circle_purple"
@@ -167,7 +167,7 @@
                     </com.google.android.material.card.MaterialCardView>
 
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/services"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
                     </com.google.android.material.card.MaterialCardView>
 
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/your_voice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
                                 android:background="@drawable/logout_more"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/_12sdp"
@@ -280,7 +280,7 @@
                                 android:background="@drawable/rate_us_more"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_4sdp"
@@ -292,7 +292,7 @@
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/information"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -328,7 +328,7 @@
                             android:gravity="center_vertical"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/about_ndubai_culture"
@@ -369,7 +369,7 @@
 
 
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/settings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -397,7 +397,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/settings"
                         />
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_version_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -411,7 +411,7 @@
                         />
 
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_updated_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

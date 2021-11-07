@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/exploreFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.explore.ExploreFragment"
+        android:name="com.dubaiculture.ui.postLogin.explore.ExploreFragment"
         android:label="ExploreFragment"
         android:menuCategory="secondary"
         tools:layout="@layout/fragment_explore">
@@ -114,7 +114,7 @@
             app:popExitAnim="@anim/fade_out">
             <argument
                 android:name="attraction"
-                app:argType="com.app.dubaiculture.data.repository.attraction.local.models.Attractions"
+                app:argType="com.dubaiculture.data.repository.attraction.local.models.Attractions"
                 app:nullable="false"
                 />
 
@@ -170,7 +170,7 @@
 
     <fragment
         android:id="@+id/exploreMapFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.explore.map.ExploreMapFragment"
+        android:name="com.dubaiculture.ui.postLogin.explore.map.ExploreMapFragment"
         android:label="ExploreMapFragment"
         tools:layout="@layout/fragment_explore_map">
         <action
@@ -183,7 +183,7 @@
     </fragment>
     <dialog
         android:id="@+id/exploreBottomSheetFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.explore.bottomsheet.ExploreBottomSheetFragment"
+        android:name="com.dubaiculture.ui.postLogin.explore.bottomsheet.ExploreBottomSheetFragment"
         android:label="ExploreBottomSheetFragment"
         tools:layout="@layout/fragment_explore_buttom_sheet" />
 

@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorSurface"
-        tools:context=".ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment">
+        tools:context="com.dubaiculture.ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment">
 
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/title"
             android:textAlignment="viewStart"
             android:layout_width="0dp"
@@ -53,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_desc"
                 android:layout_width="0dp"
                 android:textAlignment="viewStart"

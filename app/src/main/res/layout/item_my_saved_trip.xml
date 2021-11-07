@@ -6,7 +6,7 @@
     <data>
         <variable
             name="data"
-            type="com.app.dubaiculture.data.repository.trip.local.Trip" />
+            type="com.dubaiculture.data.repository.trip.local.Trip" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.app.dubaiculture.ui.components.staggeredImagesView.StaggeredImagesView
+                <com.dubaiculture.ui.components.staggeredImagesView.StaggeredImagesView
                     android:id="@+id/staggeredImageView"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/staggered_component_height"
@@ -43,7 +43,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvTripName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                     app:layout_constraintTop_toBottomOf="@id/staggeredImageView"
                     tools:text="Exploring Culture and Heritage" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvTripDates"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

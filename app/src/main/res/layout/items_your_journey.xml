@@ -11,7 +11,7 @@
 
         >
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_circle"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
@@ -74,7 +74,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/title"
                     style="@style/TextViewStyle"
                     android:layout_width="0dp"
@@ -119,7 +119,7 @@
             <!--                app:cornerRadius="@dimen/_10sdp"-->
             <!--                app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight" />-->
 
-            <!--            <com.app.dubaiculture.ui.components.customtextview.CustomTextView-->
+            <!--            <com.dubaiculture.ui.components.customtextview.CustomTextView-->
             <!--                android:id="@+id/title"-->
             <!--                style="@style/TextViewStyle"-->
             <!--                android:layout_width="236dp"-->

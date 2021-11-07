@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.ServiceDownVoteFeedBackViewModel" />
+            type="com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.ServiceDownVoteFeedBackViewModel" />
     </data>
 
 
@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/customTextView10"
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/full_name"
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
                     app:layout_constraintStart_toStartOf="@+id/customTextView10"
                     app:layout_constraintTop_toBottomOf="@+id/customTextView10" />
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/full_name_edit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                     app:layout_constraintStart_toStartOf="@+id/full_name"
                     app:layout_constraintTop_toBottomOf="@+id/full_name" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/email"
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
                     app:layout_constraintStart_toStartOf="@+id/full_name"
                     app:layout_constraintTop_toBottomOf="@+id/full_name_edit" />
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/email_edit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                     app:layout_constraintStart_toStartOf="@+id/email"
                     app:layout_constraintTop_toBottomOf="@+id/email" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/comment"
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/email_edit" />
 
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/comment_text_input"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_70sdp"
@@ -121,7 +121,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/comment" />
 
 
-                <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                <com.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btn_filter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

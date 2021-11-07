@@ -20,7 +20,7 @@
         app:alignItems="stretch"
         app:flexWrap="wrap">
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_title_category_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:textColor="?attr/colorSurface"
             android:textSize="@dimen/_10ssp" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_title_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

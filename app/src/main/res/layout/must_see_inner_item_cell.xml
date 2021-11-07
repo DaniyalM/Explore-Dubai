@@ -3,10 +3,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <!--        <variable name="mustsee" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
+        <!--        <variable name="mustsee" type="com.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
         <variable
             name="attractions"
-            type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
+            type="com.dubaiculture.data.repository.attraction.local.models.Attractions" />
         <variable
             name="technique"
             type="com.daimajia.androidanimations.library.Techniques" />
@@ -73,7 +73,7 @@
                     app:cardCornerRadius="@dimen/_15sdp"
                     app:cardElevation="@dimen/_5sdp">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                         android:textSize="@dimen/_10ssp" />
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_heritage_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                     android:textColor="?attr/color_light_white_dark_gray"
                     android:textSize="@dimen/_14ssp" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

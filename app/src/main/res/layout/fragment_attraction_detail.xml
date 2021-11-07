@@ -6,10 +6,10 @@
 
         <variable
             name="attraction"
-            type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
+            type="com.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
 
-    <!--    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout-->
+    <!--    <com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout-->
     <!--        android:id="@+id/swipeRefreshLayout"-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="wrap_content">-->
@@ -134,5 +134,5 @@
             </androidx.core.widget.NestedScrollView>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <!--    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>-->
+    <!--    </com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>-->
 </layout>

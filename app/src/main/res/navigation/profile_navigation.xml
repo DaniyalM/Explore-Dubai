@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.profile.ProfileFragment"
+        android:name="com.dubaiculture.ui.postLogin.profile.ProfileFragment"
         android:label="ProfileFragment" >
         <action
             android:id="@+id/action_profileFragment_to_placesVisited"
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/placesVisited"
-        android:name="com.app.dubaiculture.ui.postLogin.profile.placesvisited.PlacesVisitedFragment"
+        android:name="com.dubaiculture.ui.postLogin.profile.placesvisited.PlacesVisitedFragment"
         android:label="PlacesVisited" >
         <action
             android:id="@+id/action_placesVisited_to_attraction_detail_navigation"
@@ -100,7 +100,7 @@
     </fragment>
     <!--    <fragment-->
     <!--        android:id="@+id/myEventsFragment"-->
-    <!--        android:name="com.app.dubaiculture.ui.postLogin.events.myevents.MyEventsFragment"-->
+    <!--        android:name="com.dubaiculture.ui.postLogin.events.myevents.MyEventsFragment"-->
     <!--        android:label="MyEventsFragment" >-->
     <!--        <action-->
     <!--            android:id="@+id/action_myEventsFragment_to_surveyFragment"-->
@@ -108,11 +108,11 @@
     <!--    </fragment>-->
     <dialog
         android:id="@+id/avatarPickerFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.profile.avatarPicker.AvatarPickerFragment"
+        android:name="com.dubaiculture.ui.postLogin.profile.avatarPicker.AvatarPickerFragment"
         android:label="AvatarPickerFragment" />
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.profile.editProfile.EditProfileFragment"
+        android:name="com.dubaiculture.ui.postLogin.profile.editProfile.EditProfileFragment"
         android:label="EditProfileFragment">
         <action
             android:id="@+id/action_editProfileFragment_to_avatarPickerFragment"
@@ -124,11 +124,11 @@
     </fragment>
     <fragment
         android:id="@+id/passwordChangeFragment"
-        android:name="com.app.dubaiculture.ui.preLogin.password.changepassword.PasswordChangeFragment"
+        android:name="com.dubaiculture.ui.preLogin.password.changepassword.PasswordChangeFragment"
         android:label="PasswordChangeFragment" />
     <!--    <fragment-->
     <!--        android:id="@+id/favouriteFragment"-->
-    <!--        android:name="com.app.dubaiculture.ui.postLogin.profile.favourite.FavouriteFragment"-->
+    <!--        android:name="com.dubaiculture.ui.postLogin.profile.favourite.FavouriteFragment"-->
     <!--        android:label="FavouriteFragment" >-->
     <!--        <action-->
     <!--            android:id="@+id/action_favouriteFragment_to_post_login_bottom_navigation"-->
@@ -154,11 +154,11 @@
     <!--    </fragment>-->
     <fragment
         android:id="@+id/myServicesFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.popular_service.myservices.MyServicesFragment"
+        android:name="com.dubaiculture.ui.postLogin.popular_service.myservices.MyServicesFragment"
         android:label="MyServicesFragment" />
     <fragment
         android:id="@+id/serviceDetailFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"
+        android:name="com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"
         android:label="ServiceDetailFragment" />
 
 </navigation>

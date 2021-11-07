@@ -15,7 +15,7 @@
             android:layout_marginBottom="@dimen/_50sdp">
 
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/detailListingHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

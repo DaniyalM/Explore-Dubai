@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_title"
                 />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
