@@ -18,8 +18,11 @@ interface  LoginService :BaseService{
     @POST("Auth/UAEPassLogin")
     suspend fun loginWithUae(@Body uaeLoginRequestDTO: UaeLoginRequestDTO): LoginResponse
 
-    @POST("Auth/UAEPassLogin")
+    @POST("Auth/UAEPassLinkAccount")
     suspend fun loginWithUaeLinked(@Body uaeLoginRequestDTO: UaeLoginRequestDTO): LoginResponse
+
+    @POST("Auth/UAEPassCreateAccount")
+    suspend fun loginWithUaeCreateAccount(@Body uaeLoginRequestDTO: UaeLoginRequestDTO): LoginResponse
 
     // should have only one service for login with the help of email or phone. but here is two different service dont know why.
     @POST("Auth/Login")

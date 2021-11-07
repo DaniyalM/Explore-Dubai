@@ -233,6 +233,11 @@
     <dialog
         android:id="@+id/UAEBottomSheetFragment"
         android:name="com.dubaiculture.ui.preLogin.login.uae.UAEBottomSheetFragment"
-        android:label="UAEBottomSheetFragment" />
+        android:label="UAEBottomSheetFragment" >
+        <argument
+            android:name="token"
+            app:argType="string"
+            app:nullable="false" />
+    </dialog>
 
 </navigation>

@@ -122,7 +122,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     private fun subscribeToObservables() {
         uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner){
             it?.getContentIfNotHandled()?.let {
-                loginViewModel.loginWithUae(it,true)
+                loginViewModel.loginWithUae(it.copy(
+                    token=token,
+                    culture = getCurrentLanguage().language
+                ),true)
             }
         }
         loginViewModel.isSheetOpen.observe(viewLifecycleOwner) {
@@ -139,21 +142,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         loginViewModel.userLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 application.auth.apply {
+                    loginViewModel.updateSheet(false)
                     user = it
                     isGuest = false
                     isLoggedIn = true
                     loginViewModel.getGuestUserIfExists()
-//                    if (it.hasPassword){
-//
-//                    }else {
-//                        if(it.verificationToken.isNotEmpty()){
-//                            navigateByAction(R.id.action_loginFragment_to_createPassFragment,Bundle().apply {
-//                                putString("verificationCode",it.verificationToken)
-//                            })
-//                        }
-//
-//                    }
-
                 }
 
 
