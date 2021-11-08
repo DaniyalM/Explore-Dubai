@@ -188,6 +188,7 @@ object Constants {
 
 
     }
+
     object PLAY_STORE {
         const val PACKAGE_NAME: String = "com.dubaiculture"
         const val DUBAI_CULTURE: String = "Dubai Culture"
@@ -220,5 +221,8 @@ object Constants {
 
     }
 
+    enum class TYPE {
+        TRANSACTION, WITH_MICROAPP, WITHOUT_MICROAPP
+    }
 
 }
