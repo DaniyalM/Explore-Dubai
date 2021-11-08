@@ -123,14 +123,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_400sdp"
+            android:paddingBottom="10dip"
+            android:paddingLeft="1dip"
+            android:paddingRight="1dip"
+            android:id="@+id/flWebview"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/my_trip_bottomsheet"
+            >
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:visibility="gone"
-            android:background="@drawable/my_trip_bottomsheet"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="@dimen/_360sdp"
+            android:layout_gravity="bottom"
+            />
+        </FrameLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,10 +1,11 @@
 package com.dubaiculture.ui.postLogin.plantrip.mytrip
 
-import android.graphics.Color
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.dubaiculture.R
@@ -13,18 +14,15 @@ import com.dubaiculture.happiness.*
 import com.dubaiculture.ui.base.BaseDialogFragment
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.Constants
+import com.dubaiculture.utils.HappinessMeter
 import com.dubaiculture.utils.event.Event
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-
+@AndroidEntryPoint
 class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
 
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
-
-    private val SECRET = "F0A7F2DDF3092D8D"
-    private val SERVICE_PROVIDER = "Dubaiculture"
-    private val CLIENT_ID = "dculbeatuser"
-    private var currentType: Constants.TYPE = Constants.TYPE.WITH_MICROAPP
 
     override fun getTheme() = R.style.FullScreenDialog;
 
@@ -38,6 +36,20 @@ class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
         binding.view = this
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.FullScreenDialog)
         lottieAnimationRTL(binding!!.animRegistration)
+
+        binding.webView.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+            }
+
+            override fun onPageFinished(view: WebView, url: String) {
+
+                if (url.contains("happiness://done")) {
+                    navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
+                }
+
+            }
+        }
 
     }
 
@@ -69,62 +81,13 @@ class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
         tripSharedViewModel._showPlan.value = Event(false)
         tripSharedViewModel._eventAttractionResponse.value = null
         tripSharedViewModel._eventAttractionList.value = null
-        binding.webView.visibility = View.VISIBLE
-        load(currentType)
+        binding.flWebview.visibility = View.VISIBLE
+    //    load(currentType)
+        HappinessMeter.load(Constants.TYPE.WITH_MICROAPP,binding.webView)
 
 //        navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
 
     }
 
-    private fun load(type: Constants.TYPE) {
-        currentType = type
-       // val webView = findViewById(R.id.webView) as WebView
-        val secret: String = SECRET
-        val serviceProvider: String = SERVICE_PROVIDER
-        val clientID: String = CLIENT_ID
-        val request = VotingRequest()
-        val user = User()
-        if (type == Constants.TYPE.TRANSACTION) {
-            val transaction = Transaction()
-            transaction.setGessEnabled("true")
-            transaction.setNotes("MobileSDK Vote")
-            transaction.setServiceDescription("Demo Transaction")
-            transaction.setChannel("SMARTAPP")
-            transaction.setServiceCode("2952")
-            transaction.setTransactionID("Happiness Vote " + Date().time)
-            request.setTransaction(transaction)
-        } else {
-            val application =
-                Application("DubaiNow", "http://mpay.qa.adeel.dubai.ae", "SMARTAPP", "ANDROID")
-            application.setNotes("MobileSDK Vote")
-            request.setApplication(application)
-        }
-        val timeStamp: String = Utils.getUTCDate()
-        val header = Header()
-        header.setTimeStamp(timeStamp)
-        header.setServiceProvider(serviceProvider)
-        header.setThemeColor("#5D2E82")
-        // Set MicroApp details
-        if (type == Constants.TYPE.WITH_MICROAPP) {
-            header.setMicroApp("RTA")
-            header.setMicroAppDisplay("Micro App")
-        }
-        request.setHeader(header)
-        request.setUser(user)
-        /**
-         * This is QA URL. Replace it with production once it is ready for production.
-         */
-        VotingManager.setHappinessUrl("https://happinessmeterqa.dubai.gov.ae/HappinessMeter2/MobilePostDataService")
-        //For arabic pass lang "ar"
-//        val lang: String
-//        lang = if (checkbox.isChecked()) {
-//            "ar"
-//        } else {
-//            "en"
-//        }
-        binding.webView.setBackgroundColor(Color.TRANSPARENT);
-
-        VotingManager.loadHappiness(binding.webView, request, secret, serviceProvider, clientID, "en")
-    }
 
 }
