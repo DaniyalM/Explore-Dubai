@@ -171,7 +171,7 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
 
     fun onDoneClicked() {
 
-        tripSharedViewModel._durationSummary.value = durationList
+        tripSharedViewModel._durationSummary.value = durationList as ArrayList<Duration>
         dismiss()
 
     }

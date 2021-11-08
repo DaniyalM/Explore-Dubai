@@ -69,7 +69,7 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {
 
-            if (tripSharedViewModel._durationSummary.value == null && tripSharedViewModel._duration.value != null)
+            if (tripSharedViewModel._durationSummary.value!!.isEmpty() && tripSharedViewModel._duration.value != null)
                 navigate(R.id.action_step4_to_durationBottomSheetFragment)
 
 //            durationSummaryAdapter.submitList(it)
