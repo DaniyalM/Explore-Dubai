@@ -372,5 +372,8 @@
     <string name="link_account">Link Account</string>
     <string name="create_account">Create Account</string>
 
+    <string name="are_you_sure_want_to_delete_all">Are you sure you want\nto delete all days?</string>
+
+
 
 </resources>

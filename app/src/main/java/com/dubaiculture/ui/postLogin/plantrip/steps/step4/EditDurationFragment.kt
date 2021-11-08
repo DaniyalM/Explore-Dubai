@@ -45,20 +45,25 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
 
     private fun subscribeToObservables() {
 
-        tripSharedViewModel.durationSummary.observe(viewLifecycleOwner){
+        tripSharedViewModel.durationSummary.observe(viewLifecycleOwner) {
             tripSharedViewModel._duration.value = it
         }
 
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {
-
+            durationList = it
             if (it != null && it.isNotEmpty()) {
-                durationList = it
+
                 setData(it[0])
+                binding.clParent.visibility = View.VISIBLE
                 binding.rvDates.visibility = View.VISIBLE
                 editDurationAdapter.submitList(it.subList(1, it.size))
-            }else{
+            } else {
+                binding.clParent.visibility = View.GONE
+                binding.rvDates.visibility = View.GONE
+                binding.areYouSure.visibility = View.VISIBLE
 
             }
+
         }
 
 
