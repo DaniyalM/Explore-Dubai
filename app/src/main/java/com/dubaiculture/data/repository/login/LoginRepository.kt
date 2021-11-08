@@ -39,7 +39,7 @@ class LoginRepository @Inject constructor(
     }
 
     suspend fun linkWithUae(uaeLoginRequest: UAELoginRequest):Result<LoginResponse>{
-        return when(val resultRds=loginRDS.loginWithUaePass(transformUaeRequest(uaeLoginRequest))){
+        return when(val resultRds=loginRDS.linkUaePass(transformUaeRequest(uaeLoginRequest))){
             is Result.Success -> {
                 if (resultRds.value.succeeded){
                     Result.Success(resultRds.value)
@@ -53,7 +53,7 @@ class LoginRepository @Inject constructor(
         }
     }
     suspend fun linkWithUaeCreateAccount(uaeLoginRequest: UAELoginRequest):Result<LoginResponse>{
-        return when(val resultRds=loginRDS.loginWithUaePass(transformUaeRequest(uaeLoginRequest))){
+        return when(val resultRds=loginRDS.uaePassCreateAccount(transformUaeRequest(uaeLoginRequest))){
             is Result.Success -> {
                 if (resultRds.value.succeeded){
                     Result.Success(resultRds.value)

@@ -34,9 +34,10 @@ class UAEBottomSheetFragment : BaseBottomSheetFragment<FragmentUaePassLinkingBin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewmodel = uaePassViewModel
-        binding.fragment = this
         subscribeUiEvents(uaePassViewModel)
+        binding.viewmodel = uaePassViewModel
+        binding.fragment=this
+        dialog?.setCancelable(false)
         dialog?.setCanceledOnTouchOutside(false)
         subscribeToObservable()
 
@@ -47,12 +48,15 @@ class UAEBottomSheetFragment : BaseBottomSheetFragment<FragmentUaePassLinkingBin
     private fun subscribeToObservable() {
         uaePassViewModel.updateLinkingRequest.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                uaePassSharedViewModel.registerWithUaePass(
-                    it.copy(
-                        token = uaeBottomSheetFragmentArgs.token,
-                        culture = getCurrentLanguage().language
+
+                    uaePassSharedViewModel.registerWithUaePass(
+                        it.copy(
+                            token = uaeBottomSheetFragmentArgs.token,
+                            culture = getCurrentLanguage().language
+                        )
                     )
-                )
+
+
             }
         }
 

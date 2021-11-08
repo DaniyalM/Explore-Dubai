@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.CookieManager
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.login.remote.request.UAELoginRequest
@@ -15,6 +16,8 @@ import com.dubaiculture.databinding.FragmentPostLoginBinding
 import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.postLogin.PostLoginActivity
 import com.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel
+import com.dubaiculture.ui.preLogin.login.LoginFragmentDirections
+import com.dubaiculture.ui.preLogin.login.uae.viewmodels.UaePassSharedViewModel
 import com.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
 import com.dubaiculture.utils.Constants.Error.UAE_PASS_ERROR
 import com.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
@@ -27,11 +30,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     View.OnClickListener {
     private val postLoginViewModel: PostLoginViewModel by viewModels()
+    private val uaePassSharedViewModel: UaePassSharedViewModel by activityViewModels()
+
     private val splashViewModel: SplashViewModel by viewModels()
     private var postCreatePassFragment: PostCreatePassFragment? = null
     private var postRegisterFragment: PostRegisterFragment? = null
     private var postForgotFragment: PostForgotFragment? = null
     private var from: String? = null
+    private var token: String? = null
 
     init {
         postCreatePassFragment = PostCreatePassFragment()
@@ -94,6 +100,37 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     }
 
     private fun callingObserver() {
+        uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                if (!it.isAccountCreate!!) {
+                    postLoginViewModel.loginWithUae(
+                        it.copy(
+                            token = token,
+                            culture = getCurrentLanguage().language
+                        ), true
+                    )
+                } else {
+                    postLoginViewModel.loginWithUaeCreate(
+                        it.copy(
+                            token = token,
+                            culture = getCurrentLanguage().language
+                        )
+                    )
+                }
+
+            }
+        }
+        postLoginViewModel.isSheetOpen.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                if (it)
+                    navigateByDirections(
+                        PostLoginFragmentDirections.actionPostLoginFragmentToUAEBottomSheetFragment(
+                            token!!
+                        )
+                    )
+            }
+        }
+
         postLoginViewModel.loginStatus.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 splashViewModel.getUserIfExists()
@@ -102,6 +139,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         splashViewModel.user.observe(viewLifecycleOwner) {
             if (it != null) {
                 application.auth.apply {
+                    postLoginViewModel.updateSheet(false)
                     user = it
                     dismiss()
                     if (!from.isNullOrEmpty()) {
@@ -183,6 +221,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
 //                    showToast("Error while getting access token")
                     } else {
                         accessToken?.let {
+                            token=it
 //                            Timber.e("Token : $it")
                             postLoginViewModel.loginWithUae(
                                 UAELoginRequest(

@@ -15,6 +15,7 @@ import androidx.core.content.FileProvider
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -160,13 +161,27 @@ fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
 
 fun Fragment.safeNavigateFromNavController(directions: NavDirections) {
     val navController = findNavController()
-    val destination = navController.currentDestination as FragmentNavigator.Destination
-    //current visible fragment == fragment that is firing navigation
-    if (javaClass.name == destination.className) {
-        navController.navigate(directions)
-    } else {
-        Timber.e("Invalid navigation detected")
+    when (navController.currentDestination){
+        is FragmentNavigator.Destination -> {
+            val destination = navController.currentDestination as FragmentNavigator.Destination
+            //current visible fragment == fragment that is firing navigation
+            if (javaClass.name == destination.className) {
+                navController.navigate(directions)
+            } else {
+                Timber.e("Invalid navigation detected")
+            }
+        }
+        is DialogFragmentNavigator.Destination ->{
+            val destination = navController.currentDestination as DialogFragmentNavigator.Destination
+            //current visible fragment == fragment that is firing navigation
+            if (javaClass.name == destination.className) {
+                navController.navigate(directions)
+            } else {
+                Timber.e("Invalid navigation detected")
+            }
+        }
     }
+
 }
 
 fun Activity.enableLocationFromSettings() {

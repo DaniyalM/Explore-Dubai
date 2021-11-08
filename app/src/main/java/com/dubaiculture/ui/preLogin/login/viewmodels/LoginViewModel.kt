@@ -161,7 +161,7 @@ class LoginViewModel @Inject constructor(
                         showLoader(false)
                         //UAE Response Has been Saved
 
-                        if (result.value.loginResponseDTO.IsLinked) {
+                        if (!result.value.loginResponseDTO.IsLinked) {
                             updateSheet(true)
                         } else {
                             val uaePass =

@@ -59,9 +59,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.viewmodel = loginViewModel
         subscribeUiEvents(loginViewModel)
+        subscribeToObservables()
         initSmsListener()
         initBroadCast()
         applicationExitDialog()
@@ -108,7 +108,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
 
-        subscribeToObservables()
+
 
         if (isArabic()) {
             binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
@@ -120,12 +120,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
     private fun subscribeToObservables() {
-        uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner){
+        uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                loginViewModel.loginWithUae(it.copy(
-                    token=token,
-                    culture = getCurrentLanguage().language
-                ),true)
+                if (!it.isAccountCreate!!) {
+                    loginViewModel.loginWithUae(
+                        it.copy(
+                            token = token,
+                            culture = getCurrentLanguage().language
+                        ), true
+                    )
+                } else {
+                    loginViewModel.loginWithUaeCreate(
+                        it.copy(
+                            token = token,
+                            culture = getCurrentLanguage().language
+                        )
+                    )
+                }
+
             }
         }
         loginViewModel.isSheetOpen.observe(viewLifecycleOwner) {

@@ -54,6 +54,18 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_postLoginFragment_to_UAEBottomSheetFragment"
+            app:destination="@id/UAEBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" >
+            <argument
+                android:name="token"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
     </dialog>
     <fragment
         android:id="@+id/registerFragment"
@@ -186,6 +198,14 @@
             app:popExitAnim="@anim/fade_out"
             />
     </dialog>
-
+    <dialog
+        android:id="@+id/UAEBottomSheetFragment"
+        android:name="com.dubaiculture.ui.preLogin.login.uae.UAEBottomSheetFragment"
+        android:label="UAEBottomSheetFragment" >
+        <argument
+            android:name="token"
+            app:argType="string"
+            app:nullable="false" />
+    </dialog>
 
 </navigation>

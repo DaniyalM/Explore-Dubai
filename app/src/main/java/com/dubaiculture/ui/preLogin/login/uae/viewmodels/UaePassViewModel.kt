@@ -31,15 +31,13 @@ class UaePassViewModel @Inject constructor(
 
     fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         btnSubmitObserver.set(
-            isEmailValid(s.toString().trim()) && password.get().toString().trim()
-                .isNotEmpty()
+            isEmailValid(s.toString().trim()) && password.get().toString().trim().isNotEmpty()
         )
     }
 
     fun onPasswordChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
         btnSubmitObserver.set(
-            isEmailValid(email.get().toString().trim()) && s.toString().trim()
-                .isNotEmpty()
+            isEmailValid(email.get().toString().trim()) && s.toString().trim().isNotEmpty()
         )
     }
 
@@ -57,7 +55,8 @@ class UaePassViewModel @Inject constructor(
         _updateLinkingRequest.value= Event(
             UAELoginRequest(
                 email = null,
-                password = null
+                password = null,
+                isAccountCreate = true
             )
         )
 
