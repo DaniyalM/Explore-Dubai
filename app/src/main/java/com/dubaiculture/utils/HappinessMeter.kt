@@ -11,7 +11,7 @@ object HappinessMeter {
     private val CLIENT_ID = "dculbeatuser"
 
 
-    fun load(type: Constants.TYPE, webView: WebView) {
+    fun load(type: Constants.TYPE, webView: WebView, culture: String) {
         // val webView = findViewById(R.id.webView) as WebView
         val secret: String = SECRET
         val serviceProvider: String = SERVICE_PROVIDER
@@ -42,7 +42,7 @@ object HappinessMeter {
         val header = Header()
         header.setTimeStamp(timeStamp)
         header.setServiceProvider(serviceProvider)
-        header.setThemeColor("#5D2E82")
+        header.setThemeColor("#5E2E82")
         // Set MicroApp details
         if (type == Constants.TYPE.WITH_MICROAPP) {
             header.setMicroApp("General")
@@ -69,7 +69,7 @@ object HappinessMeter {
             secret,
             serviceProvider,
             clientID,
-            "en"
+            culture
         )
     }
 

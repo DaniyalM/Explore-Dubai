@@ -10,19 +10,18 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentTripSuccessBinding
-import com.dubaiculture.happiness.*
 import com.dubaiculture.ui.base.BaseDialogFragment
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.HappinessMeter
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
 
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
+
 
     override fun getTheme() = R.style.FullScreenDialog;
 
@@ -82,8 +81,12 @@ class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
         tripSharedViewModel._eventAttractionResponse.value = null
         tripSharedViewModel._eventAttractionList.value = null
         binding.flWebview.visibility = View.VISIBLE
-    //    load(currentType)
-        HappinessMeter.load(Constants.TYPE.WITH_MICROAPP,binding.webView)
+        //    load(currentType)
+        HappinessMeter.load(
+            Constants.TYPE.WITH_MICROAPP,
+            binding.webView,
+            application.auth.locale.toString()
+        )
 
 //        navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
 
