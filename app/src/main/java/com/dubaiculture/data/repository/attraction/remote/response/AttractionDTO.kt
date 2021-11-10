@@ -107,6 +107,7 @@ class AttractionDTO {
     @SerializedName("EmailContact")
     @Expose
     var emailContact: String = ""
+
     @SerializedName("NumberContact")
     @Expose
     var numberContact: String = ""
@@ -127,4 +128,8 @@ class AttractionDTO {
     @SerializedName("RelatedEventsTitle")
     @Expose
     var RelatedEventsTitle: String? = ""
+
+    @SerializedName("URL")
+    @Expose
+    var URL: String? = ""
 }

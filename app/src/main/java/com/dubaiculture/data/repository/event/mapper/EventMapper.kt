@@ -290,7 +290,8 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                     isFavourite = it.isFavourite,
                     registrationDate = it.registrationDate
             )
-        }
+        },
+        url = eventDTO.URL
 
 
 )

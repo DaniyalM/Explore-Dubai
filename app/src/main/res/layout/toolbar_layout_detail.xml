@@ -371,7 +371,7 @@
                         android:id="@+id/share"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_26sdp"
                         android:background="@drawable/custom_ripple_border"
                         android:rotation="0"
                         android:src="@drawable/share"

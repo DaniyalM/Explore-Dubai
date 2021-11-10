@@ -12,7 +12,9 @@ class ServiceHeaderPagerAdapter(
     val forumPager: ViewPager2
 ) :
     FragmentStateAdapter(fragment) {
-    override fun getItemCount() = 6
+        override fun getItemCount() = 6
+
+
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {

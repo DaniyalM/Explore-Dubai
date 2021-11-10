@@ -170,7 +170,8 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
             }
         )
     },
-    relatedEventsTitle = attraction.RelatedEventsTitle
+    relatedEventsTitle = attraction.RelatedEventsTitle,
+    url = attraction.URL
 
 )
 

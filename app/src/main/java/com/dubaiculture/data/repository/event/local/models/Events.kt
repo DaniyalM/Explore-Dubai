@@ -42,6 +42,7 @@ data class Events(
     var socialLink: List<SocialLink> = mutableListOf(),
     var eventSchedule: List<EventSchedule> = mutableListOf(),
     var relatedEvents: List<Events> = mutableListOf(),
+    var url: String?=null,
 ) : Parcelable
 
 

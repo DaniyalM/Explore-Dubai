@@ -20,6 +20,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.GenericTransitionOptions
+import com.bumptech.glide.RequestManager
 import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.data.Result
@@ -33,15 +35,15 @@ import com.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDet
 import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
 import com.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
+import com.dubaiculture.utils.AppConfigUtils.shareLink
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
 import com.dubaiculture.utils.Constants.NavBundles.ATTRACTION_ID
 import com.dubaiculture.utils.Constants.NavBundles.THREESIXTY_GALLERY_LIST
 import com.dubaiculture.utils.GpsStatus
 import com.dubaiculture.utils.handleApiError
+import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.location.LocationHelper
-import com.bumptech.glide.GenericTransitionOptions
-import com.bumptech.glide.RequestManager
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.location.LocationCallback
@@ -71,6 +73,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private val attractionDetailFragmentArgs: AttractionDetailFragmentArgs by navArgs()
     private val attractionDetailViewModel: AttractionDetailViewModel by viewModels()
     private var url: String? = null
+    private var urlshare: String? = null
     var emailContact: String? = null
     var numberContact: String? = null
     lateinit var detailInnerLayout: AttractionDetailInnerLayoutBinding
@@ -280,6 +283,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
                     attractionsObj = it.value
+                    urlshare=it.value.url
                     mapView?.invalidate()
 
 //                    val attractionLatLng = LatLng(
@@ -314,6 +318,19 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     }
                     detailInnerLayout.tvDescReadmore.text =
                         "${it.value.summary} ${""} ${it.value.description}"
+
+                    if (urlshare != null && !urlshare!!.isEmpty()) {
+                        toolbarLayout.share.setOnClickListener { view ->
+                            shareLink(urlshare ?: "", activity)
+                        }
+                        binding.share.setOnClickListener { view ->
+                            shareLink(urlshare ?: "", activity)
+                        }
+                    } else {
+                        toolbarLayout.share.hide()
+                        binding.share.hide()
+                    }
+
                     uiActions()
                     initializeDetails(attractionsObj!!)
 
@@ -416,8 +433,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     }
 
                 }
-                share.setOnClickListener {
-                }
+//                share.setOnClickListener {
+//
+//
+//                }
                 bookingCalender.setOnClickListener {
                 }
                 toolbarLayout.favourite.setOnClickListener {
@@ -434,8 +453,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         )
                     }
                 }
-                toolbarLayout.share.setOnClickListener {
-                }
+//                toolbarLayout.share.setOnClickListener {
+//                }
                 toolbarLayout.bookingCalender.setOnClickListener {
                 }
             }

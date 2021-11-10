@@ -22,6 +22,8 @@ import com.dubaiculture.ui.postLogin.latestnews.adapter.NewsItems
 import com.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsArticleAdapter
 import com.dubaiculture.ui.postLogin.latestnews.detail.adapter.NewsSliderItems
 import com.dubaiculture.ui.postLogin.latestnews.detail.viewmodel.NewsDetailViewModel
+import com.dubaiculture.utils.AppConfigUtils.shareLink
+import com.dubaiculture.utils.hide
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +38,9 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
     private lateinit var newsArticleAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var moreNewsAdapter: GroupAdapter<GroupieViewHolder>
     private lateinit var articleAdapter: RecyclerView.Adapter<*>
-    private lateinit var newsDetails : NewsDetail
+    private lateinit var newsDetails: NewsDetail
+    var urlshare: String? = null
+
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -48,6 +52,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
             }
         }
     }
+
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentNewsDetailBinding.inflate(inflater, container, false)
 
@@ -64,10 +69,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 //
 //        }
         rvSetUp()
-        binding.search.setOnClickListener {
-            back()
-//            navigateByDirections(NewsDetailFragmentDirections.actionNewsDetailFragmentToSearchNavigation())
-        }
+
         binding.imgClose.setOnClickListener {
             back()
         }
@@ -78,9 +80,10 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
                     TextToSpeech.QUEUE_FLUSH,
                     null,
                     "tts1"
-            )
+                )
         }
     }
+
 
     private fun rvSetUp() {
 
@@ -98,7 +101,16 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 
         newsDetailViewModel.newsDetail.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
-                newsDetails =it
+                newsDetails = it
+                urlshare=it.url
+
+                if (urlshare != null && !urlshare!!.isEmpty()) {
+                    binding.search.setOnClickListener {
+                        shareLink(urlshare!!, activity)
+                    }
+                } else {
+                    binding.search.hide()
+                }
                 binding.tvTitle.text = it.title
                 binding.tvDate.text = it.postedDate
                 binding.tvDesc.text = it.description
@@ -109,7 +121,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
                     binding.llDescBg.visibility = View.GONE
                 }
                 if (!it.moreDetail.isNullOrEmpty()) {
-                    binding.tvMoreDetail.text = it.moreDetail[0].summary
+                    binding.tvMoreDetail.text =
+                        it.moreDetail[0].summary + " " + it.moreDetail[0].description
                     binding.tvMoreTitleDetail.text = it.moreDetail[0].title
                 } else {
                     binding.tvMoreDetail.visibility = View.GONE
@@ -150,7 +163,10 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
 
                                     }
 
-                                    override fun rowClickListener(position: Int, imageView: ImageView) {
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
 
                                     }
 
@@ -188,10 +204,12 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
         }
 
     }
+
     override fun onDestroy() {
         textToSpeechEngine.shutdown()
         super.onDestroy()
     }
+
     override fun onPause() {
         textToSpeechEngine.stop()
         super.onPause()

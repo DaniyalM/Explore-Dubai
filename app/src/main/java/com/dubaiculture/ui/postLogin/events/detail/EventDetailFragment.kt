@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
@@ -37,14 +38,12 @@ import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
 import com.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
 import com.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
-import com.dubaiculture.utils.Constants
+import com.dubaiculture.utils.*
+import com.dubaiculture.utils.AppConfigUtils.shareLink
 import com.dubaiculture.utils.Constants.GoogleMap.DESTINATION
 import com.dubaiculture.utils.Constants.GoogleMap.LINK_URI
 import com.dubaiculture.utils.Constants.GoogleMap.PACKAGE_NAME_GOOGLE_MAP
 import com.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
-import com.dubaiculture.utils.GpsStatus
-import com.dubaiculture.utils.getTimeSpan
-import com.dubaiculture.utils.handleApiError
 import com.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -81,6 +80,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     var isDetailFavouriteFlag = false
     var emailContact: String? = null
     var numberContact: String? = null
+    var urlshare: String? = null
     var map: GoogleMap? = null
 
     var isRegisterd = false
@@ -223,32 +223,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 isLinkedIn = true
             )
         }
-        binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener {
-            isDetailFavouriteFlag = true
-            eventObj?.let { event ->
-                favouriteClick(
-                    binding.toolbarLayoutEventDetail.favouriteEvent,
-                    event.isFavourite,
-                    R.id.action_eventDetailFragment2_to_postLoginFragment,
-                    event.id!!,
-                    eventViewModel,
-                    2
-                )
-            }
-        }
-        binding.favourite.setOnClickListener {
-            isDetailFavouriteFlag = true
-            eventObj?.let { event ->
-                favouriteClick(
-                    binding.favourite,
-                    event.isFavourite,
-                    R.id.action_eventDetailFragment2_to_postLoginFragment,
-                    event.id!!,
-                    eventViewModel,
-                    2
-                )
-            }
-        }
+
         eventDetailInnerLayout.rbEventInfo.setOnClickListener {
             eventDetailInnerLayout.llEvenInfo.visibility = View.VISIBLE
             eventDetailInnerLayout.llSchedule.visibility = View.GONE
@@ -282,6 +257,48 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             when (it) {
                 is Result.Success -> {
                     eventObj = it.value
+                    urlshare=it.value.url
+
+                    binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener {
+                        isDetailFavouriteFlag = true
+                        eventObj?.let { event ->
+                            favouriteClick(
+                                binding.toolbarLayoutEventDetail.favouriteEvent,
+                                event.isFavourite,
+                                R.id.action_eventDetailFragment2_to_postLoginFragment,
+                                event.id!!,
+                                eventViewModel,
+                                2
+                            )
+                        }
+                    }
+                    binding.favourite.setOnClickListener {
+                        isDetailFavouriteFlag = true
+                        eventObj?.let { event ->
+                            favouriteClick(
+                                binding.favourite,
+                                event.isFavourite,
+                                R.id.action_eventDetailFragment2_to_postLoginFragment,
+                                event.id!!,
+                                eventViewModel,
+                                2
+                            )
+                        }
+                    }
+                    if (urlshare!=null && !urlshare!!.isEmpty()){
+                        toolbarLayoutEventDetailBinding.imgShareEvent.setOnClickListener {
+                            shareLink(urlshare?:"https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",activity)
+                        }
+                        binding.share.setOnClickListener {
+                            shareLink(urlshare?:"https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",activity)
+
+                        }
+                    }else {
+                        toolbarLayoutEventDetailBinding.imgShareEvent.hide()
+                        binding.share.hide()
+                    }
+
+
                     locationPermission(it.value)
                     it.value.apply {
                         enableRegistration(registrationDate)
@@ -368,7 +385,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.toolbarLayoutEventDetail.backEvent.setOnClickListener(this)
         binding.toolbarLayoutEventDetail.imgShareEvent.setOnClickListener(this)
         binding.toolbarLayoutEventDetail.bookingCalenderEvent.setOnClickListener(this)
-        binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener(this)
+//        binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener(this)
 
         binding.eventDetailInnerLayout.imgEventSpeaker.setOnClickListener(this)
         binding.eventDetailInnerLayout.eventDetailScheduleLayout.speakerSchedule.setOnClickListener(
@@ -402,7 +419,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
         binding.back.setOnClickListener(this)
 
-        binding.favourite.setOnClickListener(this)
+//        binding.favourite.setOnClickListener(this)
 
 
 //        binding.apply {
@@ -489,7 +506,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     private fun mapSetUp(savedInstanceState: Bundle?) {
 
         if (mapView==null){
-            mapView = binding.root.findViewById(R.id.map)
+            mapView = eventDetailInnerLayout.map
             mapView?.let {
                 it.getMapAsync(this)
                 it.onCreate(savedInstanceState)
@@ -542,7 +559,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 )
                 bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
 //                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
-                navigate(
+                findNavController().navigate(
                     R.id.action_eventDetailFragment2_to_registerNowFragment,
                     bundle
                 )
@@ -563,9 +580,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             R.id.bookingCalender_event -> {
 //                eventViewModel.showToast("Calender")
             }
-            R.id.favourite_event -> {
-                navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
-            }
+//            R.id.favourite_event -> {
+//                navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
+//            }
             R.id.speaker_schedule -> {
                 if (binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text.isNotEmpty())
                     textToSpeechEngine.speak(
@@ -611,7 +628,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onDestroy() {
         textToSpeechEngine.shutdown()
         super.onDestroy()
-        mapView?.onDestroy()
+//        mapView?.onDestroy()
     }
 
 

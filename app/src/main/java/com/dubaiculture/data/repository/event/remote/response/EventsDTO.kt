@@ -125,7 +125,10 @@ data class EventsDTO(
     var relatedEvents: List<EventsDTO> = mutableListOf(),
     @SerializedName("SocialLinks")
     @Expose
-    var socialLinks: List<SocialLinkDTO>? = mutableListOf()
+    var socialLinks: List<SocialLinkDTO>? = mutableListOf(),
+    @SerializedName("URL")
+    @Expose
+    var URL: String =""
 
 ) : Parcelable
 

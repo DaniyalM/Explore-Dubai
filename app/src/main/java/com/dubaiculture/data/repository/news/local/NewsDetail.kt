@@ -10,5 +10,6 @@ data class NewsDetail(
     val relatedData: List<LatestNews>?= emptyList(),
     val tags: List<String> ?=  emptyList(),
     val title: String,
-    val twoColumnImageModule: List<TwoColumnImageModule> ?=  emptyList()
+    val twoColumnImageModule: List<TwoColumnImageModule> ?=  emptyList(),
+    var url:String
 )

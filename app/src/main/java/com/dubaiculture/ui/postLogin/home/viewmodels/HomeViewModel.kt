@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor(
 
 
     init {
-//        getUserIfExists()
+        getUserIfExists()
     }
 
     fun deleteUser(user: User) {

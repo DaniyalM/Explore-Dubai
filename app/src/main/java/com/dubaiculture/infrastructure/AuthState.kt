@@ -10,4 +10,5 @@ data class AuthState(
     var isGuest: Boolean = false,
     var user: User? = null,
     var locale: String? = "en",
+    var isMapSearch: Boolean = false,
 )

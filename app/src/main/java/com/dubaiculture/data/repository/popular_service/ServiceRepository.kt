@@ -16,7 +16,7 @@ class ServiceRepository @Inject constructor(
 ) : BaseRepository(serviceRDS) {
 
     suspend fun postUpvote(eServiceRequest: EServiceRequest): Result<Boolean> {
-        return when (val resultRDS = serviceRDS.postServiceComment(eServiceRequest)) {
+        return when (val resultRDS = serviceRDS.postUpvote(eServiceRequest)) {
             is Result.Success -> {
                 if (resultRDS.value.succeeded) {
                     Result.Success(true)

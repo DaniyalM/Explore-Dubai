@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.sitemap.local.BeaconItems
 import com.dubaiculture.databinding.ItemsYourJourneyBinding
 import com.dubaiculture.ui.postLogin.attractions.detail.ibecon.adapter.clicklisteners.BeaconClickListener
 import com.dubaiculture.utils.glideInstance
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
+import com.dubaiculture.utils.hide
 
 class BeaconListAdapter(
     private val beaconClickListener: BeaconClickListener
@@ -38,6 +39,9 @@ class BeaconListAdapter(
         fun bind(beaconItem: BeaconItems) {
             binding.apply {
                 tvCircle.text = beaconItem.id.toString()
+                if (beaconItem.id == 1) {
+                    binding.linesScheduleUP.hide()
+                }
                 YoYo.with(Techniques.BounceInDown)
                     .duration(2000)
                     .playOn(root)

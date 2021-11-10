@@ -5,12 +5,14 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.popular_service.ServiceRepository
 import com.dubaiculture.data.repository.popular_service.remote.request.EServiceRequest
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.AuthUtils.isEmailValid
+import com.dubaiculture.utils.Constants.NavBundles.SERVICE_ID
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ServiceDownVoteFeedBackViewModel @Inject constructor(
     application: Application,
-    val serviceRepository: ServiceRepository
+    val serviceRepository: ServiceRepository,
+    val savedStateHandle: SavedStateHandle
 ) :
     BaseViewModel(application) {
 
@@ -84,7 +87,8 @@ class ServiceDownVoteFeedBackViewModel @Inject constructor(
                 EServiceRequest(
                     fullName = fullName.get().toString(),
                     email = email.get().toString(),
-                    comment = comment.get().toString()
+                    comment = comment.get().toString(),
+                    id = savedStateHandle.get(SERVICE_ID)
                 )
             )) {
                 is Result.Success -> {
