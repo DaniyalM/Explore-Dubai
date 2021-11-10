@@ -157,6 +157,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
     }
 
+
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()

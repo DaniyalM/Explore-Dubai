@@ -26,6 +26,9 @@ class ServiceDownVoteFeedBackViewModel @Inject constructor(
     private val _downVote: MutableLiveData<Event<Boolean>> = MutableLiveData()
     val downVote: LiveData<Event<Boolean>> = _downVote
 
+    private val _upVote: MutableLiveData<Event<Boolean>> = MutableLiveData()
+    val upVote: LiveData<Event<Boolean>> = _upVote
+
     val btnSubmitObserver: ObservableBoolean = ObservableBoolean(false)
     var email: ObservableField<String> = ObservableField("")
     var fullName: ObservableField<String> = ObservableField("")
@@ -50,6 +53,28 @@ class ServiceDownVoteFeedBackViewModel @Inject constructor(
             isEmailValid(email.get().toString().trim()) && fullName.get().toString().trim()
                 .isNotEmpty() && s.toString().trim().isNotEmpty()
         )
+    }
+
+    fun upvoteService(itemId: String) {
+        viewModelScope.launch {
+            showLoader(true)
+            when (val result = serviceRepository.postUpvote(
+                EServiceRequest(
+                    id = itemId
+                )
+            )) {
+                is Result.Success -> {
+                    showLoader(false)
+                    if (result.value)
+                        showToast("Service has been upvoted !")
+
+                }
+                is Result.Failure -> {
+                    showLoader(false)
+                }
+
+            }
+        }
     }
 
     fun postComment() {

@@ -15,11 +15,10 @@ data class LoginResponseDTO constructor(
     val Token: String,
     @SerializedName(value = "IsLinked")
     val IsLinked: Boolean,
+    @SerializedName(value = "UpdateMessage")
+    val UpdateMessage: String,
 
-) {
-
-}
-
+)
 
 
 

@@ -19,6 +19,9 @@ interface PopularService : BaseService {
     @POST("Content/AddEServicesComment")
     suspend fun postCommentService(@Body eServiceRequestDTO: EServiceRequestDTO): ServiceResponse
 
+    @POST("Content/AddEServicesHit")
+    suspend fun upvoteService(@Body eServiceRequestDTO: EServiceRequestDTO): ServiceResponse
+
     @GET("Content/GetEServicesDetail")
     suspend fun getEServicesDetail(
         @Query("culture") culture: String,

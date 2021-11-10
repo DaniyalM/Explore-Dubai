@@ -18,9 +18,9 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.RequestManager
 import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.data.Result
@@ -46,7 +46,6 @@ import com.dubaiculture.utils.GpsStatus
 import com.dubaiculture.utils.getTimeSpan
 import com.dubaiculture.utils.handleApiError
 import com.dubaiculture.utils.location.LocationHelper
-import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -304,17 +303,24 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                     it.value.longitude.toDouble()
                                 )
 
-                            map?.addMarker(
-                                MarkerOptions()
-                                    .position(trafficDigitalLatLng)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
-                            )!!.title = it.value.title
-                            map?.animateCamera(
-                                CameraUpdateFactory.newLatLngZoom(
-                                    trafficDigitalLatLng, 14.0f
-                                )
-                            )
-                            map?.cameraPosition?.target
+                            if (map!=null){
+                                map?.apply {
+                                    addMarker(
+                                        MarkerOptions()
+                                            .position(trafficDigitalLatLng)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                                    )!!.title = it.value.title
+                                    animateCamera(
+                                        CameraUpdateFactory.newLatLngZoom(
+                                            trafficDigitalLatLng, 14.0f
+                                        )
+                                    )
+                                    cameraPosition.target
+                                }
+                            }
+
+
+
                         }
                     } catch (e: NumberFormatException) {
                         print(e.stackTrace)
@@ -482,19 +488,24 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun mapSetUp(savedInstanceState: Bundle?) {
 
+        if (mapView==null){
+            mapView = binding.root.findViewById(R.id.map)
+            mapView?.let {
+                it.getMapAsync(this)
+                it.onCreate(savedInstanceState)
 
-        mapView = binding.root.findViewById(R.id.map)
-        mapView?.let {
-            it.getMapAsync(this)
-            it.onCreate(savedInstanceState)
-
+            }
         }
+
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        map?.let {
-            this.map = it
-        }
+
+            map?.let {
+                this.map = it
+            }
+
+
 
 
     }
@@ -531,7 +542,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 )
                 bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
 //                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
-                findNavController().navigate(
+                navigate(
                     R.id.action_eventDetailFragment2_to_registerNowFragment,
                     bundle
                 )

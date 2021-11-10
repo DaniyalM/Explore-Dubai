@@ -57,15 +57,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        subscribeToObservables()
+
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = loginViewModel
+        binding.fragment = this
         subscribeUiEvents(loginViewModel)
-        subscribeToObservables()
         initSmsListener()
         initBroadCast()
         applicationExitDialog()
-        binding.fragment = this
+
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
 //        Timber.e("Firebase", "token " + FirebaseInstanceId.getInstance().getToken());

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:986867290924:android:8b00930f9ca45cbe505289",
         "android_client_info": {
-          "package_name": "com.dubaiculture"
+          "package_name": "com.app.dubaiculture"
         }
       },
       "oauth_client": [
@@ -29,6 +29,13 @@
             {
               "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "986867290924-3g4fumhjelbopd1sg4dkhgrk0159mfg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dg.DubaiCultureUI"
+              }
             }
           ]
         }
@@ -38,7 +45,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:986867290924:android:efdac408e2559c86505289",
         "android_client_info": {
-          "package_name": "com.dubaiculture.debug"
+          "package_name": "com.app.dubaiculture.debug"
         }
       },
       "oauth_client": [
@@ -58,6 +65,13 @@
             {
               "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "986867290924-3g4fumhjelbopd1sg4dkhgrk0159mfg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dg.DubaiCultureUI"
+              }
             }
           ]
         }
@@ -67,7 +81,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:986867290924:android:70dbc94c1bd87947505289",
         "android_client_info": {
-          "package_name": "com.dubaiculture.prod"
+          "package_name": "com.app.dubaiculture.prod"
         }
       },
       "oauth_client": [
@@ -87,6 +101,13 @@
             {
               "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "986867290924-3g4fumhjelbopd1sg4dkhgrk0159mfg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dg.DubaiCultureUI"
+              }
             }
           ]
         }
@@ -96,7 +117,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:986867290924:android:2544d0fdb0e5f999505289",
         "android_client_info": {
-          "package_name": "com.dubaiculture.release"
+          "package_name": "com.app.dubaiculture.release"
         }
       },
       "oauth_client": [
@@ -116,6 +137,13 @@
             {
               "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "986867290924-3g4fumhjelbopd1sg4dkhgrk0159mfg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dg.DubaiCultureUI"
+              }
             }
           ]
         }
@@ -125,7 +153,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:986867290924:android:0b1fb3df476cce23505289",
         "android_client_info": {
-          "package_name": "com.dubaiculture.stag"
+          "package_name": "com.app.dubaiculture.stag"
         }
       },
       "oauth_client": [
@@ -145,6 +173,189 @@
             {
               "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "986867290924-3g4fumhjelbopd1sg4dkhgrk0159mfg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dg.DubaiCultureUI"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986867290924:android:95430f97c7b27779505289",
+        "android_client_info": {
+          "package_name": "com.dubaiculture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986867290924-ppqv8bqhcqjcb005dptia0c7eg33heo9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dubaiculture",
+            "certificate_hash": "6a4cf81249bbb7cb803b86c2ed773121b992314c"
+          }
+        },
+        {
+          "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW1j3E9qwkAdi9za-GJewoGTYX5oEg3ZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "986867290924-3g4fumhjelbopd1sg4dkhgrk0159mfg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dg.DubaiCultureUI"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986867290924:android:581939f3e651d719505289",
+        "android_client_info": {
+          "package_name": "com.dubaiculture.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986867290924-etv5i49fogf21k04hlhv0ui726jbcsbt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dubaiculture.debug",
+            "certificate_hash": "6a4cf81249bbb7cb803b86c2ed773121b992314c"
+          }
+        },
+        {
+          "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW1j3E9qwkAdi9za-GJewoGTYX5oEg3ZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "986867290924-3g4fumhjelbopd1sg4dkhgrk0159mfg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dg.DubaiCultureUI"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986867290924:android:2e05130709aaa8d6505289",
+        "android_client_info": {
+          "package_name": "com.dubaiculture.prod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986867290924-tsou65p1odk7hvitqdej95ahqn4ped58.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dubaiculture.prod",
+            "certificate_hash": "6a4cf81249bbb7cb803b86c2ed773121b992314c"
+          }
+        },
+        {
+          "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW1j3E9qwkAdi9za-GJewoGTYX5oEg3ZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "986867290924-3g4fumhjelbopd1sg4dkhgrk0159mfg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dg.DubaiCultureUI"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986867290924:android:1ba47d011a7447ae505289",
+        "android_client_info": {
+          "package_name": "com.dubaiculture.stag"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986867290924-asj0v4ksbvup2ukl84nkf764amdfs5nr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dubaiculture.stag",
+            "certificate_hash": "6a4cf81249bbb7cb803b86c2ed773121b992314c"
+          }
+        },
+        {
+          "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW1j3E9qwkAdi9za-GJewoGTYX5oEg3ZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986867290924-tfl37dfump3miidn4th5td4v3v59325n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "986867290924-3g4fumhjelbopd1sg4dkhgrk0159mfg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dg.DubaiCultureUI"
+              }
             }
           ]
         }

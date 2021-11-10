@@ -54,7 +54,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.notiCount.text = "${0} new"
 
         subscribeUiEvents(moreViewModel)
         moreViewModel.notificationCount(getCurrentLanguage().language)

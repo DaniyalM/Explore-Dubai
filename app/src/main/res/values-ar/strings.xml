@@ -169,6 +169,8 @@
     <string name="this_week">هذا الأسبوع</string>
     <string name="this_weekend">عطلة نهاية هذا الأسبوع</string>
     <string name="next_seven_days">ال7 أيام القادمة</string>
+    <string name="next_thirty_days">ال30 أيام القادمة</string>
+
     <string name="detail_clip_card_text">مراجعة المكان</string>
     <string name="clear_all">مسح الكل</string>
     <string name="clear">مسح</string>

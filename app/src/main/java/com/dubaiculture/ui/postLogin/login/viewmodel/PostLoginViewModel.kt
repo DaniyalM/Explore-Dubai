@@ -2,6 +2,8 @@ package com.dubaiculture.ui.postLogin.login.viewmodel
 
 //import com.dubaiculture.ui.postLogin.login.PostLoginFragmentDirections
 import android.app.Application
+import android.os.Handler
+import android.os.Looper
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -192,7 +194,7 @@ class PostLoginViewModel @Inject constructor(
                             activity.auth.isGuest = false
                             //Saving User Session
                             userRepository.updateUser(user)
-                            _loginStatus.value=Event(true)
+                            _loginStatus.value = Event(true)
                         }
                     }
 
@@ -207,7 +209,7 @@ class PostLoginViewModel @Inject constructor(
         }
     }
 
-    fun loginWithUae(uaeLoginRequest: UAELoginRequest, linkAccount: Boolean = false){
+    fun loginWithUae(uaeLoginRequest: UAELoginRequest, linkAccount: Boolean = false) {
         viewModelScope.launch {
             showLoader(true)
             if (linkAccount) {
@@ -216,7 +218,8 @@ class PostLoginViewModel @Inject constructor(
                         showLoader(false)
                         //UAE Response Has been Saved
 
-                        val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+                        val uaePass =
+                            transformUaeResponse(result.value.loginResponseDTO.userUaePass)
                         uaePass.let {
                             if (it.idn.isEmpty()) {
                                 showAlert(message = activity.resources.getString(R.string.sop1))
@@ -241,7 +244,7 @@ class PostLoginViewModel @Inject constructor(
                                 activity.auth.isGuest = false
                                 //Saving User Session
                                 userRepository.updateUser(user)
-                                _loginStatus.value=Event(true)
+                                _loginStatus.value = Event(true)
                             }
                         }
 
@@ -253,50 +256,64 @@ class PostLoginViewModel @Inject constructor(
                         showAlert(message = error)
                     }
                 }
-            }else{
-              when(val result=loginRepository.loginWithUae(uaeLoginRequest)){
-                is Result.Success ->{
-                    showLoader(false)
-                    if (!result.value.loginResponseDTO.IsLinked) {
+            } else {
+                when (val result = loginRepository.loginWithUae(uaeLoginRequest)) {
+                    is Result.Success -> {
+                        showLoader(false)
+                        if (!result.value.loginResponseDTO.IsLinked) {
                             updateSheet(true)
                         } else {
-                        val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
-                        uaePass.let {
-                            if (it.idn.isEmpty()) {
-                                showAlert(message = activity.resources.getString(R.string.sop1))
-                            } else {
-                                //setting UaePassInfo for Session
-                                userRepository.saveUaeInfo(
-                                    it
-                                )
+                            val message = result.value.loginResponseDTO.UpdateMessage
+                            if (message.isNotEmpty()) {
+                                showSnackbar(message = message)
+                            }
+                            val uaePass =
+                                transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+                            uaePass.let {
+                                if (it.idn.isEmpty()) {
+                                    showAlert(message = activity.resources.getString(R.string.sop1))
+                                } else {
+                                    //setting UaePassInfo for Session
+                                    userRepository.saveUaeInfo(
+                                        it
+                                    )
 
-                                //setting user for Session
-                                val user = transform(
-                                    result.value.loginResponseDTO.userDTO,
-                                    result.value.loginResponseDTO
-                                ).copy(
-                                    idn = it.idn,
-                                    userName = "${it.firstNameEn} ${it.lastNameEn}",
-                                    email = it.email,
-                                    phoneNumber = "+${it.mobile}"
-                                )
+                                    //setting user for Session
+                                    val user = transform(
+                                        result.value.loginResponseDTO.userDTO,
+                                        result.value.loginResponseDTO
+                                    ).copy(
+                                        idn = it.idn,
+                                        userName = "${it.firstNameEn} ${it.lastNameEn}",
+                                        email = it.email,
+                                        phoneNumber = "+${it.mobile}"
+                                    )
+                                    val message = result.value.loginResponseDTO.UpdateMessage ?: ""
+                                    if (!message.isEmpty()) {
+                                        showSnackbar(message = message)
+                                        Handler(Looper.getMainLooper()).postDelayed({
+                                            setUser(user)
+                                        }, 1500)
 
-                                setUser(user)
-                                activity.auth.isGuest = false
-                                //Saving User Session
-                                userRepository.updateUser(user)
-                                _loginStatus.value=Event(true)
+                                    } else {
+                                        setUser(user)
+                                    }
+
+                                    activity.auth.isGuest = false
+                                    //Saving User Session
+                                    userRepository.updateUser(user)
+                                    _loginStatus.value = Event(true)
+                                }
                             }
                         }
-                        }
 
 
+                    }
+                    is Result.Failure -> {
+                        showLoader(false)
+                        showAlert(message = result.errorMessage ?: "Server Error")
+                    }
                 }
-                is Result.Failure -> {
-                    showLoader(false)
-                    showAlert(message = result.errorMessage?:"Server Error")
-                }
-            }
             }
 
         }

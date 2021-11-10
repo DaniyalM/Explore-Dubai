@@ -1,6 +1,8 @@
 package com.dubaiculture.ui.preLogin.login.viewmodels
 
 import android.app.Application
+import android.os.Handler
+import android.os.Looper
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -25,6 +27,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import transformUaeResponse
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -164,6 +167,7 @@ class LoginViewModel @Inject constructor(
                         if (!result.value.loginResponseDTO.IsLinked) {
                             updateSheet(true)
                         } else {
+
                             val uaePass =
                                 transformUaeResponse(result.value.loginResponseDTO.userUaePass)
                             uaePass.let {
@@ -182,10 +186,22 @@ class LoginViewModel @Inject constructor(
                                     phoneNumber = "+${it.mobile}"
                                 )
 
-                                setUser(user)
+                                val message = result.value.loginResponseDTO.UpdateMessage?:""
+                                if (!message.isEmpty()) {
+                                    showSnackbar(message = message)
+                                    Handler(Looper.getMainLooper()).postDelayed({
+                                        setUser(user)
+                                    }, 1500)
+
+
+                                }else {
+                                    setUser(user)
+                                }
                                 //Saving User Session
                                 userRepository.updateUser(user)
                             }
+
+
                         }
 
 
@@ -277,10 +293,11 @@ class LoginViewModel @Inject constructor(
 
                         } else {
                             showLoader(false)
-                            showErrorDialog(
-                                message = result.value.errorMessage,
-                                colorBg = R.color.red_600
-                            )
+                            showAlert(message = result.value.errorMessage)
+//                            showErrorDialog(
+//                                message = result.value.errorMessage,
+//                                colorBg = R.color.red_600
+//                            )
                         }
                     }
                     is Result.Error -> {
@@ -331,10 +348,12 @@ class LoginViewModel @Inject constructor(
                             }
                         } else {
                             showLoader(false)
-                            showErrorDialog(
-                                message = result.value.errorMessage,
-                                colorBg = R.color.red_600
-                            )
+                            showAlert(message = result.value.errorMessage)
+
+//                            showErrorDialog(
+//                                message = result.value.errorMessage,
+//                                colorBg = R.color.red_600
+//                            )
 
 
                         }

@@ -154,9 +154,9 @@
                             <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableStart="@drawable/circle_purple"
+                                android:drawableStart="@drawable/orange_circle_more"
                                 android:drawablePadding="@dimen/_5sdp"
-                                android:text="05 new"
+                                android:text="00 new"
                                 android:id="@+id/notiCount"
                                 android:textColor="@color/gray_500"
                                 android:textSize="@dimen/_10ssp" />

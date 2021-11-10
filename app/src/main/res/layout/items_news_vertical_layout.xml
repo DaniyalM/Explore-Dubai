@@ -41,7 +41,7 @@
                     android:elevation="@dimen/_5sdp"
                     android:layout_width="@dimen/_85sdp"
                     android:layout_height="@dimen/_85sdp"
-                    app:cornerRadius="@dimen/_10sdp"
+                    app:cornerRadius="@dimen/_5sdp"
                     android:imageUrl="@{news.image}"
                     android:scaleType="fitXY"
                     android:background="@drawable/must_see_icon_home"

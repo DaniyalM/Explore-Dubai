@@ -10,4 +10,5 @@ data class TermsAndCondition(
     val phoneNumber: String? = "",
     val emailHeading: String? = "",
     val emailAddress: String? = "",
+    val id: String? = "",
 )

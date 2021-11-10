@@ -178,6 +178,15 @@ class EventViewModel @Inject constructor(
                     )
                 )
             }
+            4 -> {
+                getFilterEventList(
+                    EventRequest(
+                        culture = context.auth.locale.toString(),
+                        dateFrom = dateFormatEn(getThirtyDays().first()),
+                        dateTo = dateFormatEn(getThirtyDays().last())
+                    )
+                )
+            }
         }
     }
 
@@ -217,6 +226,21 @@ class EventViewModel @Inject constructor(
             Timber.e("${next7Days[i]}")
         }
         return next7Days
+    }
+
+    private fun getThirtyDays(): Array<String?> {
+        val format: DateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val calendar = Calendar.getInstance(Locale.ENGLISH)
+//        val date = getDateObj("2021-03-28T17:19:00")
+//        calendar.time = date
+        val next30Days = arrayOfNulls<String>(30)
+        for (i in 0..29) {
+            next30Days[i] = format.format(calendar.time)
+            calendar.add(Calendar.DATE, 1)
+
+            Timber.e("${next30Days[i]}")
+        }
+        return next30Days
     }
 
 

@@ -349,7 +349,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_weight="0.4"
+                            android:layout_weight="0.2"
                             android:orientation="horizontal"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"

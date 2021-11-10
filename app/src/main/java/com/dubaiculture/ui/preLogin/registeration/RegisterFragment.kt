@@ -38,9 +38,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
         return FragmentRegisterBinding.inflate(inflater, container, false)
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        subscribeUiEvents(registrationViewModel)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeUiEvents(registrationViewModel)
+
 
         binding.btnRegister.setOnClickListener(this)
         binding.tvLoginNow.setOnClickListener(this)

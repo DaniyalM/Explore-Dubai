@@ -7,6 +7,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequest
 import com.dubaiculture.R
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.registeration.RegistrationRepository
@@ -15,7 +16,6 @@ import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.ui.preLogin.registeration.RegisterFragmentDirections
 import com.dubaiculture.utils.AuthUtils
 import com.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
-import com.app.neomads.data.repository.registration.remote.request.register.RegistrationRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber

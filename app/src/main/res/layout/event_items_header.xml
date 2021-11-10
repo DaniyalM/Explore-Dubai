@@ -9,6 +9,8 @@
         android:layout_margin="@dimen/_7sdp"
         app:cardCornerRadius="@dimen/_22sdp"
         app:cardElevation="@dimen/_5sdp"
+        app:strokeColor="?attr/colorSecondaryVariantInverted"
+        app:strokeWidth="@dimen/_1sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

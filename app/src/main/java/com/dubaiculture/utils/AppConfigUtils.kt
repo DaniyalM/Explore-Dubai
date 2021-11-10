@@ -12,6 +12,8 @@ import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.dubaiculture.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 object AppConfigUtils {
@@ -74,6 +76,17 @@ object AppConfigUtils {
         customMarkerView.draw(canvas)
         return returnedBitmap
     }
+
+
+    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
+    }
+
 
 
 }
