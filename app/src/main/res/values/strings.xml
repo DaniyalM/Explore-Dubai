@@ -376,5 +376,8 @@
     <string name="note_this_is_only_one_time_setup">Note : This is only one time setup.</string>
     <string name="if_you_don_t_have_an_account_then_please_click_on_the_following_button">If you don’t have an account then please Click on the following button</string>
 
+    <string name="are_you_sure_want_to_delete_all">Are you sure you want\nto delete all days?</string>
+
+
 
 </resources>
