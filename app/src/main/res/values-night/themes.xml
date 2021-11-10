@@ -27,7 +27,7 @@
         <item name="color_light_white_dark_gray_icon">@color/gray_850</item>
         <item name="color_light_theme_dark_theme_dark_gray">@color/white_900</item>
         <item name="color_light_white_dark_gray_night">@color/white_900</item>
-        <item name="color_dubai_logo_inverse">@color/purple_900</item>
+        <item name="color_dubai_logo_inverse">@color/purple_icon</item>
         <item name="color_dubai_logo_dark">@color/purple_900</item>
         <item name="colorEventLight">@color/white_900</item>
         <item name="color_light_theme_dark_theme_gray">@color/gray_850</item>

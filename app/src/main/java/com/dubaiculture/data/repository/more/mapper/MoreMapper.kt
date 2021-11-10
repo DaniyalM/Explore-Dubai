@@ -165,5 +165,7 @@ fun transformNotificationPaging(notificationDTO: NotificationDTO) = Notification
     title = notificationDTO.Title ?: "",
     body = notificationDTO.Body ?: "",
     dateTime = notificationDTO.DateTime ?: "",
-    icon = notificationDTO.Icon ?: ""
+    icon = notificationDTO.Icon ?: "",
+    timeAgo = notificationDTO.TimeAgo ?: "",
+    bodyMarkup = notificationDTO.BodyMarkup ?: "",
 )

@@ -4,7 +4,7 @@
 
 
     <data>
-
+        <import type="android.text.Html"></import>
         <variable
             name="notification"
             type="com.dubaiculture.data.repository.more.remote.response.notification.Notifications" />
@@ -62,7 +62,7 @@
                         style="@style/TextViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{notification.body}"
+                        android:text="@{Html.fromHtml(notification.bodyMarkup)}"
                         android:textSize="@dimen/_11sdp" />
 
                     <com.dubaiculture.ui.components.customtextview.CustomTextView
@@ -72,10 +72,9 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:drawableStart="@drawable/clock_notification"
                         android:drawablePadding="@dimen/_8sdp"
-                        android:text="@{notification.dateTime}"
+                        android:text="@{notification.timeAgo + ` ago`}"
                         android:textColor="@color/gray_500"
                         android:textSize="@dimen/_10sdp"
-
                         />
 
                 </LinearLayout>
