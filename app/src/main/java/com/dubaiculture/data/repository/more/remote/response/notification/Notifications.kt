@@ -5,5 +5,7 @@ data class Notifications(
     val dateTime: String,
     val id: String,
     val icon: String?,
-    val title: String
+    val title: String,
+    val timeAgo: String,
+    val bodyMarkup: String
 )
