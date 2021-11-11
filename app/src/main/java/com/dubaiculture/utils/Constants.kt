@@ -1,6 +1,9 @@
 package com.dubaiculture.utils
 
 object Constants {
+
+
+
     object Alert {
         const val DEFAULT_TITLE: String = "Alert"
         const val DEFAULT_TEXT_POSITIVE: String = "OK"
@@ -12,6 +15,7 @@ object Constants {
         const val HorizontalLength: Int = 1
         const val VerticalLength: Int = 2
     }
+
 
     object Error {
         const val SOMETHING_WENT_WRONG: String = "Something went wrong"
@@ -50,6 +54,8 @@ object Constants {
     }
 
     object NavBundles {
+        const val GRAPH_ID: String = "graphId"
+
         val SCROLL_VIEW_STATE: String = "ScrollState"
         val SHEET_STATE: String = "BState"
         const val COMES_FROM_LOGIN: String = "loginFragment"
@@ -93,6 +99,7 @@ object Constants {
         const val ATTRACTION_DETAIL_BEACON: String = "attraction_id"
         const val NEAREST_LOCATION: String = "nearest_location"
         const val SERVICE_ID: String = "service_id"
+        const val HANDLE_PUSH: String = "HANDLE_PUSH"
 
 
     }
@@ -218,6 +225,28 @@ object Constants {
         const val BICYCLING: String = "bus"
         const val ERROR: String = "Travel Mode Unavailable"
 
+    }
+
+    object FCM {
+        object Key {
+
+            const val EVENT_ID = "event_id"
+            const val ATTRACTION_ID = "attraction_id"
+            const val NEWS_ID = "news_id"
+            const val TRIP_ID = "trip_id"
+            const val GENERAL_ID = "general_id"
+            const val NA = "na"
+            const val NOTIF_TITLE = "gcm.notification.title"
+            const val NOTIF_BODY = "gcm.notification.body"
+            const val NOTIFICATION_TYPE = "TYPE"
+            const val NOTIFICATION_ITEM = "ITEM"
+
+
+        }
+
+        object Topic {
+            const val PUSH_NOTIFICATIONS = "push_android"
+        }
     }
 
 

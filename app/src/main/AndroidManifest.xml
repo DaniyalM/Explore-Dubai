@@ -62,7 +62,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
+        <activity android:name="om.dubaiculture.ui.navGraphActivity.NavGraphActivity"/>
         <activity
             android:name=".ui.postLogin.PostLoginActivity"
             android:launchMode="singleTask"

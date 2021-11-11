@@ -6,6 +6,7 @@ import android.content.Intent
 import android.provider.Settings
 import android.util.TypedValue
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -54,6 +55,11 @@ fun String.pluralize(count: Int, plural: String?): String? {
         this
     }
 }
+fun View.hideKeyboard() {
+    val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
+}
+
 
 fun Activity.openPdf(filename: String?) {
 

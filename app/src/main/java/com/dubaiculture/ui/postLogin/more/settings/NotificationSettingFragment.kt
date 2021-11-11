@@ -11,6 +11,8 @@ import com.dubaiculture.databinding.FragmentNotificationSettingBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.profile.viewmodels.ProfileViewModel
 import com.dubaiculture.utils.Constants.NavBundles.SETTINGS_BUNDLE
+import com.dubaiculture.utils.firebase.subscribeToTopic
+import com.dubaiculture.utils.firebase.unSubscribeFromTopic
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -67,6 +69,15 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
                         if (userSettings.pushNotification) {
 
                         } else {
+                            getCurrentLanguage().language.let {
+                                if (it.equals("en")) {
+                                    unSubscribeFromTopic("AndroidBroadcast_ar")
+                                } else {
+                                    unSubscribeFromTopic("AndroidBroadcast_en")
+                                }
+                                val id = it + "_" + "${application.auth.user?.userId}"
+                                unSubscribeFromTopic(topic = "AndroidBroadcast_$id")
+                            }
 
                         }
                     }

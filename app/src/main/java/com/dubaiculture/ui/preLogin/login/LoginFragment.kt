@@ -32,6 +32,7 @@ import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.PostLoginActivity
 import com.dubaiculture.ui.preLogin.login.uae.viewmodels.UaePassSharedViewModel
 import com.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.Error.UAE_PASS_ERROR
 import com.dubaiculture.utils.SMSReceiver
 import com.dubaiculture.utils.UAEPassRequestModelsUtils
@@ -40,6 +41,8 @@ import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
+import om.dubaiculture.ui.navGraphActivity.NavGraphActivity
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -57,6 +60,28 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
 
+    private fun navigate(){
+
+        arguments?.let {
+            val handle = it.getBoolean(Constants.NavBundles.HANDLE_PUSH, false)
+            Timber.e(""+handle)
+
+
+            if (handle){
+                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+            }
+            if (handle) {
+
+                val intent = Intent(
+                    requireActivity(),
+                    NavGraphActivity::class.java
+                )
+                intent.putExtras(it)
+                startActivity(intent)
+            }
+        }
+    }
+
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeToObservables()
@@ -64,6 +89,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navigate()
         binding.viewmodel = loginViewModel
         binding.fragment = this
         subscribeUiEvents(loginViewModel)

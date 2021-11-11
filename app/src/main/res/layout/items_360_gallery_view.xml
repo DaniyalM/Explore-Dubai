@@ -18,7 +18,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
-            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             app:cardCornerRadius="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"

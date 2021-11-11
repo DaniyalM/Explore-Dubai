@@ -122,7 +122,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
                 }
                 if (!it.moreDetail.isNullOrEmpty()) {
                     binding.tvMoreDetail.text =
-                        it.moreDetail[0].summary + " " + it.moreDetail[0].description
+                        it.moreDetail[0].summary + "\n " + it.moreDetail[0].description
                     binding.tvMoreTitleDetail.text = it.moreDetail[0].title
                 } else {
                     binding.tvMoreDetail.visibility = View.GONE

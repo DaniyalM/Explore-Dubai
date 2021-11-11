@@ -506,7 +506,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     private fun mapSetUp(savedInstanceState: Bundle?) {
 
         if (mapView==null){
-            mapView = eventDetailInnerLayout.map
+            mapView = binding.root.findViewById(R.id.map)
             mapView?.let {
                 it.getMapAsync(this)
                 it.onCreate(savedInstanceState)
