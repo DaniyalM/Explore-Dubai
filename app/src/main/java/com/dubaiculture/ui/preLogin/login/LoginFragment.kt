@@ -60,27 +60,27 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
 
-    private fun navigate(){
-
-        arguments?.let {
-            val handle = it.getBoolean(Constants.NavBundles.HANDLE_PUSH, false)
-            Timber.e(""+handle)
-
-
-            if (handle){
-                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-            }
-            if (handle) {
-
-                val intent = Intent(
-                    requireActivity(),
-                    NavGraphActivity::class.java
-                )
-                intent.putExtras(it)
-                startActivity(intent)
-            }
-        }
-    }
+//    private fun navigate(){
+//
+//        arguments?.let {
+//            val handle = it.getBoolean(Constants.NavBundles.HANDLE_PUSH, false)
+//            Timber.e(""+handle)
+//
+//
+//            if (handle){
+//                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
+//            }
+//            if (handle) {
+//
+//                val intent = Intent(
+//                    requireActivity(),
+//                    NavGraphActivity::class.java
+//                )
+//                intent.putExtras(it)
+//                startActivity(intent)
+//            }
+//        }
+//    }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
@@ -89,7 +89,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigate()
         binding.viewmodel = loginViewModel
         binding.fragment = this
         subscribeUiEvents(loginViewModel)
@@ -344,7 +343,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         getAccessToken(activity, requestModel, object : UAEPassAccessTokenCallback {
             override fun getToken(accessToken: String?, state: String, error: String?) {
                 if (error != null) {
-                    showAlert(UAE_PASS_ERROR)
+                    showAlert(activity.resources.getString(R.string.user_canceled_the_login))
                     showLoader(false)
 //                    showToast("Error while getting access token")
                 } else {

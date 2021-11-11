@@ -10,6 +10,7 @@ import com.dubaiculture.data.repository.more.remote.request.ShareFeedBackRequest
 import com.dubaiculture.data.repository.more.remote.response.notification.NotificationDTO
 import com.dubaiculture.data.repository.more.remote.response.notification.NotificationRequestDTO
 import com.dubaiculture.data.repository.more.service.MoreService
+import com.dubaiculture.data.repository.popular_service.remote.request.EServiceRequest
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -66,6 +67,10 @@ class MoreRDS @Inject constructor(private val moreService: MoreService) : BaseRD
             ).flow
         }
 
+    }
+
+    suspend fun getEServices(eServiceRequest: EServiceRequest) = safeApiCall {
+        moreService.getEServices(eServiceRequest.culture!!)
     }
 
 }

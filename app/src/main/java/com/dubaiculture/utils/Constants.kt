@@ -100,6 +100,7 @@ object Constants {
         const val NEAREST_LOCATION: String = "nearest_location"
         const val SERVICE_ID: String = "service_id"
         const val HANDLE_PUSH: String = "HANDLE_PUSH"
+        const val SERVICE_POS: String = "service_pos"
 
 
     }

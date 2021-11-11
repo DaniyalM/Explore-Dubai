@@ -19,6 +19,8 @@ import com.dubaiculture.data.repository.more.local.ContactCenterLocation
 import com.dubaiculture.data.repository.more.local.CultureConnoisseur
 import com.dubaiculture.data.repository.more.local.PrivacyPolicy
 import com.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequest
+import com.dubaiculture.data.repository.popular_service.local.models.ServiceCategory
+import com.dubaiculture.data.repository.popular_service.remote.request.EServiceRequest
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants
@@ -62,7 +64,13 @@ class MoreViewModel @Inject constructor(
 
     val context = getApplication<ApplicationEntry>()
 
+    private val _serviceListCategory: MutableLiveData<Event<List<ServiceCategory>>> =
+        MutableLiveData()
+    val serviceListCategory: LiveData<Event<List<ServiceCategory>>> = _serviceListCategory
 
+//    init {
+//        getEServicesToScreen(context.auth.locale.toString())
+//    }
     fun getCultureConnoisseur(locale: String) {
         showLoader(true)
         viewModelScope.launch {
@@ -239,5 +247,24 @@ class MoreViewModel @Inject constructor(
         }
     }
 
+    fun getEServicesToScreen(locale: String) {
+        showLoader(true)
+        viewModelScope.launch {
+            when (val result = moreRepository.getEServices(EServiceRequest(culture = locale))) {
+                is Result.Success -> {
+                    showLoader(false)
+//                    _eServices.value = result
+                    _serviceListCategory.value = Event(result.value.serviceCategory)
+
+
+                }
+                is Result.Failure -> {
+                    showLoader(false)
+//                    _eServices.value = result
+                }
+
+            }
+        }
+    }
 
 }

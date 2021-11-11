@@ -216,13 +216,11 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
             object : UAEPassAccessTokenCallback {
                 override fun getToken(accessToken: String?, state: String, error: String?) {
                     if (error != null) {
-                        showAlert(UAE_PASS_ERROR)
+                        showAlert(activity.resources.getString(R.string.user_canceled_the_login))
                         showLoader(false)
-//                    showToast("Error while getting access token")
                     } else {
                         accessToken?.let {
                             token=it
-//                            Timber.e("Token : $it")
                             postLoginViewModel.loginWithUae(
                                 UAELoginRequest(
                                     token = it,

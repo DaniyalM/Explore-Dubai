@@ -6,6 +6,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا</string>
     <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
+    <string name="user_canceled_the_login">ألغى المستخدم تسجيل الدخول</string>
 
     <string name="result">result</string>
 
