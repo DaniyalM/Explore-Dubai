@@ -11,6 +11,9 @@ import com.dubaiculture.data.repository.more.remote.request.PrivacyAndTermReques
 import com.dubaiculture.data.repository.more.remote.request.ShareFeedbackRequest
 import com.dubaiculture.data.repository.more.remote.response.notification.NotificationRequest
 import com.dubaiculture.data.repository.more.remote.response.notification.Notifications
+import com.dubaiculture.data.repository.popular_service.local.models.EServices
+import com.dubaiculture.data.repository.popular_service.mapper.transformService
+import com.dubaiculture.data.repository.popular_service.remote.request.EServiceRequest
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
 import kotlinx.coroutines.flow.Flow
@@ -158,6 +161,20 @@ class MoreRepository @Inject constructor(private val moreRDS: MoreRDS) : BaseRep
             Result.Success(result.value.Result.Count ?: "0")
         } else {
             Result.Failure(true, null, null, Constants.Error.SOMETHING_WENT_WRONG)
+        }
+    }
+
+    suspend fun getEServices(eServiceRequest: EServiceRequest): Result<EServices> {
+        return when (val resultRDS = moreRDS.getEServices(eServiceRequest)) {
+            is Result.Success -> {
+                if (resultRDS.value.succeeded) {
+                    Result.Success(transformService(resultRDS.value))
+                } else {
+                    Result.Failure(false, null, null, resultRDS.value.errorMessage)
+                }
+            }
+            is Result.Failure -> resultRDS
+            is Result.Error -> resultRDS
         }
     }
 

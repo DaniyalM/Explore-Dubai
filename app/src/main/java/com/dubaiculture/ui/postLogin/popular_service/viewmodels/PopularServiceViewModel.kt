@@ -22,6 +22,7 @@ class PopularServiceViewModel @Inject constructor(
     private val serviceRepository: ServiceRepository,
 ) : BaseViewModel(application, serviceRepository) {
 
+    var serviceId: String = ""
     var id: String = ""
 
 //    private val _eServices: MutableLiveData<Result<EServices>> = MutableLiveData()
@@ -53,7 +54,7 @@ class PopularServiceViewModel @Inject constructor(
                     _serviceListCategory.value = Event(result.value.serviceCategory)
                     _serviceList.value = result.value.eServices
                     _serviceListTemp.value = _serviceList.value
-                    updateServiceList(result.value.serviceCategory[0].id)
+                    updateServiceList(serviceId)
 
                 }
                 is Result.Failure -> {

@@ -21,9 +21,9 @@
 
         <argument
             android:name="news_id"
+            android:defaultValue="0"
             app:argType="string"
-            app:nullable="false"
-            android:defaultValue="0"/>
+            app:nullable="false" />
 
         <action
             android:id="@+id/action_moreFragment_to_latestNewsFragment"
@@ -107,7 +107,16 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="serviceId"
+                app:argType="string"
+                app:nullable="false" />
+            <argument
+                android:name="pos"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
         <action
             android:id="@+id/action_moreFragment_to_tripFragment"
             app:destination="@id/trip_navigation"

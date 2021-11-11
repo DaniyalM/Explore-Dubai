@@ -11,10 +11,10 @@ import com.dubaiculture.data.repository.popular_service.remote.response.ServiceR
 
 
 fun transformServiceRequest(serviceRequest: EServiceRequest) = EServiceRequestDTO(
-    FullName = serviceRequest.fullName?:"",
-    Email = serviceRequest.email?:"",
-    Comment = serviceRequest.comment?:"",
-    ItemID = serviceRequest.id?:""
+    FullName = serviceRequest.fullName ?: "",
+    Email = serviceRequest.email ?: "",
+    Comment = serviceRequest.comment ?: "",
+    ItemID = serviceRequest.id ?: ""
 )
 
 fun transformService(serviceResponse: ServiceResponse): EServices =
@@ -133,7 +133,7 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
                 phoneNumber = eServiceDetailDTO.PhoneNumber ?: "",
                 emailHeading = eServiceDetailDTO.EmailHeading ?: "",
                 emailAddress = eServiceDetailDTO.EmailAddress ?: "",
-                id = eServiceDetailDTO.ID?:""
+                id = eServiceDetailDTO.ID ?: ""
             )
         } ?: mutableListOf()
 

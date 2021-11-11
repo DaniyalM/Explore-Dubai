@@ -93,6 +93,7 @@ object Constants {
         const val ATTRACTION_DETAIL_BEACON: String = "attraction_id"
         const val NEAREST_LOCATION: String = "nearest_location"
         const val SERVICE_ID: String = "service_id"
+        const val SERVICE_POS: String = "service_pos"
 
 
     }
