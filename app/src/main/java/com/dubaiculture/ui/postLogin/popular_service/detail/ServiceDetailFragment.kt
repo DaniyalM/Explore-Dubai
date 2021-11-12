@@ -105,6 +105,9 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
             binding.headerVisited.favourite.background =
                 getDrawableFromId(R.drawable.heart_icon_fav)
         }
+        val count=0
+
+
         binding.forumPager.adapter =
             ServiceHeaderPagerAdapter(this, eServicesDetail, binding.forumPager)
 //        binding.forumPager.isUserInputEnabled = false

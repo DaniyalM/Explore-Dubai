@@ -383,7 +383,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
         binding.toolbarLayoutEventDetail.btnReg.setOnClickListener(this)
         binding.toolbarLayoutEventDetail.backEvent.setOnClickListener(this)
-        binding.toolbarLayoutEventDetail.imgShareEvent.setOnClickListener(this)
+//        binding.toolbarLayoutEventDetail.imgShareEvent.setOnClickListener(this)
         binding.toolbarLayoutEventDetail.bookingCalenderEvent.setOnClickListener(this)
 //        binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener(this)
 
@@ -544,12 +544,18 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
             R.id.img_event_speaker -> {
                 if (binding.eventDetailInnerLayout.tvDescReadmoreEvent.text.isNotEmpty()) {
-                    textToSpeechEngine.speak(
-                        binding.eventDetailInnerLayout.tvDescReadmoreEvent.text,
-                        TextToSpeech.QUEUE_FLUSH,
-                        null,
-                        "tts1"
-                    )
+                    if (textToSpeechEngine.isSpeaking){
+                        textToSpeechEngine.stop()
+                    }
+                    else {
+                        textToSpeechEngine.speak(
+                            "${eventObj?.title} ${eventObj?.desc}",
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            "tts1"
+                        )
+                    }
+
                 }
             }
             R.id.btn_reg -> {
@@ -574,9 +580,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             R.id.back_event -> {
                 back()
             }
-            R.id.img_share_event -> {
-//                eventViewModel.showToast("Share")
-            }
+//            R.id.img_share_event -> {
+////                eventViewModel.showToast("Share")
+//            }
             R.id.bookingCalender_event -> {
 //                eventViewModel.showToast("Calender")
             }

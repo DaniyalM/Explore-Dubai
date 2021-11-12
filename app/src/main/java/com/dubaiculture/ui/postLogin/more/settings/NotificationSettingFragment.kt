@@ -66,20 +66,20 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
                         isTouched = false
                         userSettings.pushNotification = isChecked
                         profileViewModel.updateSettings(userSettings)
-                        if (userSettings.pushNotification) {
-
-                        } else {
-                            getCurrentLanguage().language.let {
-                                if (it.equals("en")) {
-                                    unSubscribeFromTopic("AndroidBroadcast_ar")
-                                } else {
-                                    unSubscribeFromTopic("AndroidBroadcast_en")
-                                }
+                        getCurrentLanguage().language.let {
+                            if (isChecked) {
                                 val id = it + "_" + "${application.auth.user?.userId}"
-                                unSubscribeFromTopic(topic = "AndroidBroadcast_$id")
-                            }
+                                subscribeToTopic(topic = "AndroidBroadcast_$it")
+                                subscribeToTopic(topic = "AndroidBroadcast_$id")
+                            } else {
 
+                                    val id = it + "_" + "${application.auth.user?.userId}"
+                                    unSubscribeFromTopic(topic="AndroidBroadcast_ar")
+                                    unSubscribeFromTopic(topic="AndroidBroadcast_en")
+                                    unSubscribeFromTopic(topic = "AndroidBroadcast_$id")
+                            }
                         }
+
                     }
                 }
             }

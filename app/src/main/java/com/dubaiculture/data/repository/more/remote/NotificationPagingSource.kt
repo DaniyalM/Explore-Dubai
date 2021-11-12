@@ -21,7 +21,7 @@ class NotificationPagingSource (
             val response = moreService.getMyNotification(
                 pageNo= nextPageNumber,
                 pageSize = Constants.PAGING.NOTIFICATION_PAGE_SIZE * nextPageNumber,
-//                culture = newsRequestDTO.culture
+                culture = notificationRequestDTO.culture
             )
             LoadResult.Page(
                 data = response.Result.Notifications,

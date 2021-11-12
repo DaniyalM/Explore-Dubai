@@ -24,6 +24,8 @@ class PreLoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        overridePendingTransition(R.anim.fade_out,R.anim.fade_in)
+
         hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
         logDeepLinkUri()
@@ -35,7 +37,6 @@ class PreLoginActivity : BaseActivity() {
 
         intent?.let {
             val handle = it.getBooleanExtra(Constants.NavBundles.HANDLE_PUSH, false)
-            Timber.e(""+handle)
             if (handle) {
                 killSessionAndStartNewActivity(PostLoginActivity::class.java)
                 val intent = Intent(

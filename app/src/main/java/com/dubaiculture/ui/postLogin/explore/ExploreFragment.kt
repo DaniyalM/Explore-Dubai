@@ -66,6 +66,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+        exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
         if (application.auth.isMapSearch) {
             application.auth.isMapSearch = false
             navigateByDirections(

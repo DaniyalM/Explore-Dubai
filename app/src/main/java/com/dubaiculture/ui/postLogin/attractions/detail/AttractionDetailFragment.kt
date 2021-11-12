@@ -651,12 +651,24 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
             R.id.img_attraction_speaker -> {
                 if (detailInnerLayout.tvDescReadmore.text.isNotEmpty()) {
-                    textToSpeechEngine.speak(
-                        detailInnerLayout.tvDescReadmore.text,
-                        TextToSpeech.QUEUE_FLUSH,
-                        null,
-                        "tts1"
-                    )
+                    if (textToSpeechEngine.isSpeaking){
+                        textToSpeechEngine.stop()
+                    }
+                    else {
+                        textToSpeechEngine.speak(
+                            "${attractionsObj?.title} ${attractionsObj?.description}",
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            "tts1"
+                        )
+                    }
+
+//                    textToSpeechEngine.speak(
+//                        detailInnerLayout.tvDescReadmore.text,
+//                        TextToSpeech.QUEUE_FLUSH,
+//                        null,
+//                        "tts1"
+//                    )
                 }
             }
             R.id.ll_ar -> {

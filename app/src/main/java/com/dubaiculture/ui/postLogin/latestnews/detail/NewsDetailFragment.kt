@@ -74,13 +74,20 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
             back()
         }
         binding.imgSpeaker.setOnClickListener {
-            if (!newsDetails.title.isNullOrEmpty())
-                textToSpeechEngine.speak(
-                    newsDetails.title,
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    "tts1"
-                )
+            if (!newsDetails.title.isNullOrEmpty()) {
+                if (textToSpeechEngine.isSpeaking){
+                    textToSpeechEngine.stop()
+                }
+                else {
+                    textToSpeechEngine.speak(
+                        "${newsDetails.title} ${newsDetails.description}",
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        "tts1"
+                    )
+                }
+            }
+
         }
     }
 

@@ -62,9 +62,13 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
 
             val description = description[0]
             binding.imgSpeaker.setOnClickListener {
-                if (description.descriptions.isNotEmpty()) {
+
+                if (textToSpeechEngine.isSpeaking){
+                    textToSpeechEngine.stop()
+                }
+                else {
                     textToSpeechEngine.speak(
-                        description.descriptions,
+                        "${description.title} ${description.descriptions}",
                         TextToSpeech.QUEUE_FLUSH,
                         null,
                         "tts1"

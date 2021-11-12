@@ -29,7 +29,7 @@ class HeaderInterceptor @Inject constructor(private val context: Context,private
           !url.contains("ConfirmAccount") &&
             !url.contains("ValidateOTP") && !url.contains("ResendVerification") &&
             !url.contains("ForgotPassword")&&!url.contains("GuestLogin")
-                    &&!url.contains("UAEPassLogin")&&!url.contains("Register")
+                    &&!url.contains("UAEPassLogin")
                     &&!url.contains("UAEPassLinkAccount")
                     &&!url.contains("UAEPassCreateAccount")
         ) {

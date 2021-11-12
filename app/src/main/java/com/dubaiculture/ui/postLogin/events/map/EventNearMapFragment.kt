@@ -46,7 +46,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.apply {
-            mapList =  this.getParcelableArrayList<Events>(Constants.NavBundles.EVENT_MAP_LIST)!!
+            mapList =  this.getParcelableArrayList(Constants.NavBundles.EVENT_MAP_LIST)!!
         }
     }
 

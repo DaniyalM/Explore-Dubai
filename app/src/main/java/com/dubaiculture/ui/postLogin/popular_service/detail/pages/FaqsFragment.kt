@@ -17,6 +17,7 @@ import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.more.faqs.adapters.FaqsListAdapter
 import com.dubaiculture.ui.postLogin.more.faqs.adapters.clicklisteners.FaqsItemClickListner
 import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.FaqsViewModel
+import com.dubaiculture.utils.hide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +28,10 @@ class FaqsFragment(val fAQs: List<FAQ>, val forumPager: ViewPager2) :
 
     private fun rvInit() {
         binding.innerRecyclerView.apply {
+            if (fAQs.size <1){
+                hide()
+            }
+
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             faqsListAdapter = FaqsListAdapter(object : FaqsItemClickListner {
                 override fun onClickFaqItem(faqItem: FaqItem) {
@@ -38,20 +43,20 @@ class FaqsFragment(val fAQs: List<FAQ>, val forumPager: ViewPager2) :
             faqsViewModel.setFaqs(fAQs.get(0).fAQs)
         }
 
-        binding.innerRecyclerView.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                if (v?.id == forumPager.id) {
-                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_UP) {
-                        binding.innerRecyclerView.requestDisallowInterceptTouchEvent(false)
-                    } else {
-                        binding.innerRecyclerView.requestDisallowInterceptTouchEvent(true)
-                    }
-                }
-
-                return true
-
-            }
-        })
+//        binding.innerRecyclerView.setOnTouchListener(object : View.OnTouchListener {
+//            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                if (v?.id == forumPager.id) {
+//                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_UP) {
+//                        binding.innerRecyclerView.requestDisallowInterceptTouchEvent(false)
+//                    } else {
+//                        binding.innerRecyclerView.requestDisallowInterceptTouchEvent(true)
+//                    }
+//                }
+//
+//                return true
+//
+//            }
+//        })
     }
 
 

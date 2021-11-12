@@ -12,6 +12,7 @@ import com.dubaiculture.databinding.ItemsServiceDetailInnerListingLayoutBinding
 import com.dubaiculture.databinding.ItemsServiceDetailProcedureLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailListingItems
+import com.dubaiculture.utils.hide
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -35,7 +36,10 @@ class RequirementPageFragment(val requiredDocument: List<RequiredDocument>?) : B
             layoutManager = linearLayoutManager
             val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
             adapter = paymentInnerAdapter
-            requiredDocument?.get(0)?.let {
+            if (requiredDocument?.size!!<1){
+                hide()
+            }
+            requiredDocument.get(0).let {
                 val paymentsItem =
                     ServiceDetailListingItems<ItemsServiceDetailInnerListingLayoutBinding, RequiredDocument>(
                         eService = it,
@@ -43,6 +47,7 @@ class RequirementPageFragment(val requiredDocument: List<RequiredDocument>?) : B
                     )
                 paymentInnerAdapter.add(paymentsItem)
             }
+
         }
 
     }

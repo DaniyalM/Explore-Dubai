@@ -17,6 +17,8 @@ class NavGraphActivity : BaseActivity(),
     NavController.OnDestinationChangedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        overridePendingTransition(R.anim.fade_out,R.anim.fade_in)
+
         setContentView(R.layout.activity_nav_graph)
         setupGraph()
         getNavControllerFun(R.id.navHostFragment).addOnDestinationChangedListener(this)

@@ -10,6 +10,7 @@ import com.dubaiculture.data.repository.popular_service.local.models.Procedure
 import com.dubaiculture.databinding.ItemsServiceDetailInnerListingLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.adapter.ServiceProcedureListAdapter
+import com.dubaiculture.utils.hide
 
 class ProcedurePageFragment(val procedure: List<Procedure>?) :
     BaseFragment<ItemsServiceDetailInnerListingLayoutBinding>() {
@@ -41,6 +42,9 @@ class ProcedurePageFragment(val procedure: List<Procedure>?) :
 
     fun initRecycling() {
         binding.innerRecyclerView.apply {
+            if (procedure?.size!! <1){
+                hide()
+            }
             val linearLayoutManager = LinearLayoutManager(context)
             layoutManager = linearLayoutManager
             serviceProcedureListAdapter = ServiceProcedureListAdapter()

@@ -19,7 +19,6 @@ import com.dubaiculture.ui.postLogin.more.adapter.MoreItems
 import com.dubaiculture.ui.postLogin.more.adapter.ServicesAdapter
 import com.dubaiculture.ui.postLogin.more.adapter.clicklisteners.ServicesClickListener
 import com.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
-import com.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.clicklisteners.UserTypeClickListener
 import com.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
 import com.dubaiculture.utils.Constants.NavBundles.SERVICE_ID
@@ -55,7 +54,12 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     private fun subscribeToObservable() {
         moreViewModel.notificationCount.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                val count = String.format("%02d", it.toInt())
+
+                val count = if (getCurrentLanguage().language == "en") String.format(
+                    "%02d",
+                    it.toInt()
+                ) else it.toInt()
+
                 if (it.toInt() > 0)
                     binding.notiCount.text = "${count} new "
                 else

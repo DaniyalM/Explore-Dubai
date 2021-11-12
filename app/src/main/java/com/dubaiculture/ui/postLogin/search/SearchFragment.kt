@@ -37,6 +37,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     private val searchViewModel: SearchViewModel by viewModels()
     private val searchShareViewModel: SearchSharedViewModel by activityViewModels()
     private lateinit var startForResult: ActivityResultLauncher<Intent>
+
+    var tempTab: SearchTab? = null
+
     private fun registerForActivityResult() {
         startForResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -58,10 +61,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerForActivityResult()
     }
+
     private fun getSpeechInput() {
         val intent = Intent(
             RecognizerIntent
@@ -78,6 +83,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         binding.searchToolbar.editSearch.setText("")
         startForResult.launch(intent)
     }
+
     companion object {
         var selectedPosition: Int = 0
     }
@@ -86,6 +92,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentSearchBinding.inflate(inflater, container, false)
+
+
     private fun subscribeToObservable() {
         searchShareViewModel.isOld.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
@@ -155,11 +163,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 } else {
 
 
-                    if (!application.auth.isGuest){
+                    if (!application.auth.isGuest) {
                         binding.resultView.hide()
                         binding.searchHistory.show()
                     }
-
 
 
                 }
@@ -170,6 +177,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(searchViewModel)
+
+        if (tempTab!=null){
+            searchViewModel.updateTab(
+                tempTab!!.copy(
+                    id = tempTab!!.id,
+                    title = tempTab!!.title,
+                    isSelected = !tempTab!!.isSelected
+                )
+            )
+            searchViewModel.updateCategoryData(tempTab!!.id.toString())
+        }
+
         binding.searchToolbar.clear.setOnClickListener {
             binding.searchToolbar.editSearch.setText("")
             if (!application.auth.isGuest) {
@@ -192,7 +211,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             navigateByDirections(SearchFragmentDirections.actionSearchFragmentToSortFragment())
         }
         subscribeToObservable()
-        rvSetup()
+        if (!this::uniSelectorAdapter.isInitialized) {
+            rvSetup()
+        }
+
     }
 
     private fun rvSetup() {
@@ -200,7 +222,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             uniSelectorAdapter = UniSelectionAdapter(object : UniSelectionAdapter.HeaderSelector {
                 override fun onHeaderSelection(tab: SearchTab) {
+
                     if (selectedPosition != tab.id) {
+                        tempTab = tab
                         searchViewModel.updateTab(
                             tab.copy(
                                 id = tab.id,

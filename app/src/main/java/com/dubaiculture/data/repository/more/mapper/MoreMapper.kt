@@ -157,7 +157,7 @@ fun transformPostFeedBack(shareFeedBackRequest: ShareFeedbackRequest) =
 fun transformNotification(notificationRequest: NotificationRequest) = NotificationRequestDTO(
     pageNo = notificationRequest.pageNumber,
     pageSize = notificationRequest.pageSize,
-//        culture = notificationRequest.culture
+        culture = notificationRequest.culture
 )
 
 fun transformNotificationPaging(notificationDTO: NotificationDTO) = Notifications(

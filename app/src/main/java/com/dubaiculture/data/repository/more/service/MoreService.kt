@@ -37,7 +37,7 @@ interface MoreService : BaseService {
 
     @GET("Content/GetMyNotifications")
     suspend fun getMyNotification(
-//        @Query("culture") culture: String ,
+        @Query("culture") culture: String ,
         @Query("pageNo") pageNo: Int,
         @Query("pageSize") pageSize: Int
     ): MoreResponse
