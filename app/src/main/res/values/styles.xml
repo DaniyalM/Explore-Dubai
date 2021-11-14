@@ -49,6 +49,12 @@
     </style>
 
 
+    <style name="TextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColorHint">?attr/colorSecondary</item>
+        <item name="android:textSize">@dimen/_15ssp</item>
+        <item name="colorControlNormal">@color/purple_900</item>
+        <item name="colorControlActivated">@color/white_900</item>
+    </style>
 
     <style name="FullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:backgroundDimEnabled">false</item>

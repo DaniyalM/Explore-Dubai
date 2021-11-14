@@ -25,6 +25,9 @@
                 app:argType="string"
                 app:nullable="false" />
         </action>
+        <action
+            android:id="@+id/action_serviceDetailFragment2_to_EServiceFragment"
+            app:destination="@id/EServiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/serviceDownVoteFeedBackFragment"
@@ -35,5 +38,9 @@
             app:argType="string"
             app:nullable="false" />
     </fragment>
+    <fragment
+        android:id="@+id/EServiceFragment"
+        android:name="com.dubaiculture.ui.postLogin.eservices.EServiceFragment"
+        android:label="EServiceFragment" />
 
 </navigation>

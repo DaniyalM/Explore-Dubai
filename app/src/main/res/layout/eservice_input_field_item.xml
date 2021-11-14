@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="field1"
+            type="com.dubaiculture.ui.postLogin.eservices.adapter.viewholders.InputFieldViewHolder" />
+
+
+        <variable
+            name="field_class"
+            type="com.dubaiculture.ui.postLogin.eservices.adapter.viewholders.InputFieldViewHolder" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.dubaiculture.ui.components.customEditText.CustomEditText
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Text Field "
+            android:onTextChanged="@{field_class::onTextChange}" />
+    </FrameLayout>
+
+
+</layout>
