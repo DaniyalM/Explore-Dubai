@@ -122,9 +122,9 @@ android {
             minifyEnabled false
             shrinkResources false
             debuggable false
-            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://stgcd.dubaiculture.gov.ae/api/\"")
             buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
-            buildConfigField("String", "BASE_URL_SHARE", "\"http://dc.qa.greenlightlabs.tech\"")
+            buildConfigField("String", "BASE_URL_SHARE", "\"https://stgcd.dubaiculture.gov.ae\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")

@@ -71,25 +71,27 @@
                     android:id="@+id/favourite1"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
                     android:background="@drawable/heart_icon_home_black"
                     android:button="@null"
-                    android:visibility="gone"
+                    android:layout_marginEnd="@dimen/_15sdp"
                     android:foreground="@drawable/custom_ripple_border"
-                    app:layout_constraintTop_toTopOf="@+id/share"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/back"
                     app:layout_constraintRight_toLeftOf="@+id/share"
-                    />
+                    app:layout_constraintTop_toTopOf="@+id/back" />
+
 
                 <CheckBox
                     android:id="@+id/favourite"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
                     android:background="@drawable/heart_icon_home_black"
                     android:button="@null"
+                    android:layout_marginEnd="@dimen/_15sdp"
                     android:foreground="@drawable/custom_ripple_border"
-                    app:layout_constraintTop_toTopOf="@+id/share"
-                    app:layout_constraintRight_toLeftOf="@+id/share" />
+                    app:layout_constraintBottom_toBottomOf="@+id/back"
+                    app:layout_constraintRight_toLeftOf="@+id/share"
+                    app:layout_constraintTop_toTopOf="@+id/back" />
 
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -100,9 +102,9 @@
                     android:background="@drawable/custom_ripple_black"
                     android:rotation="0"
                     android:src="@drawable/share"
-                    app:layout_constraintBottom_toBottomOf="@+id/back"
+                    app:layout_constraintBottom_toBottomOf="@+id/favourite"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/back" />
+                    app:layout_constraintTop_toTopOf="@+id/favourite" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

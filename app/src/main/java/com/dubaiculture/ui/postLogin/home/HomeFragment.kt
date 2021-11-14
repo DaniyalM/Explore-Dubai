@@ -154,6 +154,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }
                     R.id.searchFragment -> {
                         visibility = View.GONE
+                        binding.bottomGradient.hide()
                     }
                     R.id.tripSuccessFragment -> {
                         visibility = View.GONE
