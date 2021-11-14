@@ -21,7 +21,7 @@
                 android:background="@color/app_bg"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector
+                <com.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/horizontalSelector"
@@ -29,7 +29,7 @@
                     android:layout_marginTop="@dimen/_10sdp"/>
             </FrameLayout>
 
-            <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+            <com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="5dp"
@@ -40,7 +40,7 @@
                     android:id="@+id/pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-            </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+            </com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
 
         </LinearLayout>
 

@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/notificaiton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             app:layout_constraintStart_toStartOf="@+id/notificaiton"
             app:layout_constraintTop_toBottomOf="@+id/notificaiton">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -93,7 +93,7 @@
             app:layout_constraintStart_toStartOf="@+id/dividerLineLoc"
             app:layout_constraintTop_toBottomOf="@+id/dividerLineLoc">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -139,7 +139,7 @@
             app:layout_constraintStart_toStartOf="@+id/dividerLineLoc2"
             app:layout_constraintTop_toBottomOf="@+id/dividerLineLoc2">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -185,7 +185,7 @@
             app:layout_constraintStart_toStartOf="@+id/dividerLineLoc3"
             app:layout_constraintTop_toBottomOf="@+id/dividerLineLoc3">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

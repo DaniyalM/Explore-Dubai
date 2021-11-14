@@ -34,7 +34,7 @@
                     android:padding="@dimen/_10sdp"
                     android:src="@drawable/dc_search_icon" />
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/editSearch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/clear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

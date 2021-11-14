@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <data>
-
+        <import type="android.text.Html"></import>
         <variable
             name="notification"
-            type="com.app.dubaiculture.data.repository.more.remote.response.notification.Notifications" />
+            type="com.dubaiculture.data.repository.more.remote.response.notification.Notifications" />
 
         <variable
             name="technique"
@@ -43,10 +44,11 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_notification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/notification_heritage" />
+                    android:imageViewUrl="@{notification.icon}"
+                    tools:background="@drawable/notification_heritage" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -56,25 +58,24 @@
                     android:layout_marginBottom="@dimen/_12sdp"
                     android:orientation="vertical">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_noti_desc"
                         style="@style/TextViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{notification.body}"
+                        android:text="@{Html.fromHtml(notification.bodyMarkup)}"
                         android:textSize="@dimen/_11sdp" />
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:drawableStart="@drawable/clock_notification"
                         android:drawablePadding="@dimen/_8sdp"
-                        android:text="@{notification.dateTime}"
+                        android:text="@{notification.timeAgo + ` ago`}"
                         android:textColor="@color/gray_500"
                         android:textSize="@dimen/_10sdp"
-
                         />
 
                 </LinearLayout>

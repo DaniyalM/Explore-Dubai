@@ -21,6 +21,7 @@
     <color name="purple_900">#5E2E82</color>
     <color name="purple_600">#6D438D</color>
     <color name="purple_650">#5D2E82</color>
+    <color name="purple_icon">#8C48C2</color>
 
     <color name="black_800">#121212</color> <!--Color surface (dark)-->
     <!--Color on secondary (light), color on background (light),-->

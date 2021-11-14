@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <!--    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout-->
+    <!--    <com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:id="@+id/swipeRefreshLayout"-->
     <!--        android:layout_height="wrap_content">-->
@@ -22,7 +22,7 @@
                 android:id="@+id/headerVisited"
                 layout="@layout/layout_back" />
 
-            <!--                <com.app.dubaiculture.ui.postLogin.popular_service.components.ServiceDetailHeaderItemSelector-->
+            <!--                <com.dubaiculture.ui.postLogin.popular_service.components.ServiceDetailHeaderItemSelector-->
             <!--                    android:id="@+id/horizontalSelector"-->
             <!--                    style="@style/HorizontalAttractionStyle"-->
             <!--                    android:layout_width="match_parent"-->

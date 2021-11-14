@@ -11,11 +11,11 @@
 
         <variable
             name="fragment"
-            type="com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragment" />
+            type="com.dubaiculture.ui.preLogin.registeration.otp.OTPFragment" />
 
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.preLogin.registeration.otp.viewmodel.OTPViewModel" />
+            type="com.dubaiculture.ui.preLogin.registeration.otp.viewmodel.OTPViewModel" />
 
     </data>
 
@@ -40,7 +40,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/enter_otp"
                 style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                 app:layout_constraintStart_toStartOf="@+id/enter_otp"
                 app:layout_constraintTop_toBottomOf="@+id/otp_view" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tvResend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 app:layout_constraintStart_toEndOf="@+id/refresh"
                 app:layout_constraintTop_toTopOf="@+id/refresh" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -107,7 +107,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/tv_timer"
                 app:layout_constraintTop_toBottomOf="@+id/otp_view" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
             <!--    android:text="@{viewmodel.currentTimeString}"-->
 
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/btn_continue_reg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

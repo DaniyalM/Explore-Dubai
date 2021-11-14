@@ -6,7 +6,7 @@
     app:startDestination="@id/planTripParentFragment">
     <fragment
         android:id="@+id/planTripParentFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.steps.PlanTripParentFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.steps.PlanTripParentFragment"
         android:label="PlanTripParentFragment"
         tools:layout="@layout/fragment_plan_trip_parent" />
 

@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/popularServiceFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.popular_service.PopularServiceFragment"
+        android:name="com.dubaiculture.ui.postLogin.popular_service.PopularServiceFragment"
         android:label="PopularServiceFragment"
         tools:layout="@layout/fragment_popular_service" >
         <action

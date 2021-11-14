@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
+    <com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -59,7 +59,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/img_close">
 
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/latestnews"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -110,5 +110,5 @@
             </androidx.core.widget.NestedScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
+    </com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
 </layout>

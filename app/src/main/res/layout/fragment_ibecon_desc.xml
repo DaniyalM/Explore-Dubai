@@ -58,7 +58,7 @@
             android:layout_marginTop="@dimen/_133sdp"
            />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:maxLines="2"
@@ -75,7 +75,7 @@
             android:text="Main Entrance of Majlis Ghorfat Umm Al Sheif"
             />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

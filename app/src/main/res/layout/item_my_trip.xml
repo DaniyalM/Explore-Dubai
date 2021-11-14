@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.app.dubaiculture.data.repository.trip.local.EventsAndAttraction" />
+            type="com.dubaiculture.data.repository.trip.local.EventsAndAttraction" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvSubHeading"
             style="@style/TextViewStyle"
             android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
             app:layout_constraintStart_toEndOf="@id/ivTrips"
             app:layout_constraintTop_toTopOf="@+id/ivTrips" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvDesc"
             style="@style/TextViewStyle"
             android:layout_width="0dp"
@@ -62,7 +62,7 @@
             app:layout_constraintBottom_toBottomOf="@id/ivTrips"
             app:layout_constraintStart_toStartOf="@id/tvSubHeading" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -94,7 +94,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvDistance"
             style="@style/TextViewStyle"
             android:layout_width="wrap_content"
@@ -139,7 +139,7 @@
                 app:layout_constraintTop_toTopOf="@id/ivCar" />
         </LinearLayout>
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

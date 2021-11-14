@@ -6,6 +6,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا</string>
     <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
+    <string name="user_canceled_the_login">ألغى المستخدم تسجيل الدخول</string>
+    <string name="enter_your_comments">Enter Your Comments</string>
 
     <string name="result">result</string>
 
@@ -169,6 +171,8 @@
     <string name="this_week">هذا الأسبوع</string>
     <string name="this_weekend">عطلة نهاية هذا الأسبوع</string>
     <string name="next_seven_days">ال7 أيام القادمة</string>
+    <string name="next_thirty_days">ال30 أيام القادمة</string>
+
     <string name="detail_clip_card_text">مراجعة المكان</string>
     <string name="clear_all">مسح الكل</string>
     <string name="clear">مسح</string>
@@ -258,7 +262,7 @@
     <string name="my_services">خدماتي</string>
     <string name="turn_on"> يرجى تشغيل الموقع</string>
     <string name="about_ndubai_culture">عن هيئة دبي للثقافة والفنون</string>
-    <string name="english">عربي</string>
+    <string name="english">English</string>
     <string name="discover">Discover</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get Started</string>
@@ -360,6 +364,15 @@
     <string name="selectUserType">Select UserType!</string>
     <string name="selectCategory">Select Category!</string>
     <string name="selectLocation">Select Location!</string>
+    <string name="you_are_authenticated_successfull_try_to_link_your_account">You are Authenticated Successfull Try To Link Your Account.</string>
+    <string name="link_account">Link Account</string>
+    <string name="create_account">Create Account</string>
+    <string name="please_authenticate_using_you_dcaa_credentials_to_link_your_account">Please authenticate using you DCAA credentials to link your account</string>
+    <string name="note_this_is_only_one_time_setup">Note : This is only one time setup.</string>
+    <string name="if_you_don_t_have_an_account_then_please_click_on_the_following_button">If you don’t have an account then please Click on the following button</string>
+
+    <string name="are_you_sure_want_to_delete_all">Are you sure you want\nto delete all days?</string>
+
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
