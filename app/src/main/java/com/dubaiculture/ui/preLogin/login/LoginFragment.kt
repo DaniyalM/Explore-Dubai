@@ -60,27 +60,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
 
-//    private fun navigate(){
-//
-//        arguments?.let {
-//            val handle = it.getBoolean(Constants.NavBundles.HANDLE_PUSH, false)
-//            Timber.e(""+handle)
-//
-//
-//            if (handle){
-//                activity.killSessionAndStartNewActivity(PostLoginActivity::class.java)
-//            }
-//            if (handle) {
-//
-//                val intent = Intent(
-//                    requireActivity(),
-//                    NavGraphActivity::class.java
-//                )
-//                intent.putExtras(it)
-//                startActivity(intent)
-//            }
-//        }
-//    }
+
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)

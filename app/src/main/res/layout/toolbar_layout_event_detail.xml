@@ -218,14 +218,15 @@
                         android:id="@+id/favourite_event1"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-
                         android:background="@drawable/heart_icon_home_black"
                         android:button="@null"
                         android:visibility="gone"
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:foreground="@drawable/custom_ripple_border"
-                        app:layout_constraintTop_toTopOf="@+id/img_share_event"
-                        app:layout_constraintRight_toLeftOf="@+id/img_share_event" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/img_share_event"
+                        app:layout_constraintTop_toTopOf="@+id/back_event" />
+
 
                     <CheckBox
                         android:id="@+id/favourite_event"
@@ -235,9 +236,9 @@
                         android:button="@null"
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:foreground="@drawable/custom_ripple_border"
-                        app:layout_constraintTop_toTopOf="@+id/img_share_event"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/img_share_event"
-                   />
+                        app:layout_constraintTop_toTopOf="@+id/back_event" />
 
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -250,7 +251,7 @@
                         android:src="@drawable/share"
                         app:layout_constraintBottom_toBottomOf="@+id/favourite_event"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/back_event" />
+                        app:layout_constraintTop_toTopOf="@+id/favourite_event" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
