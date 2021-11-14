@@ -1,7 +1,6 @@
-package com.dubaiculture.utils
+package com.dubaiculture.happiness
 
 import android.webkit.WebView
-import com.dubaiculture.happiness.*
 import java.util.*
 
 object HappinessMeter {
@@ -11,14 +10,14 @@ object HappinessMeter {
     private val CLIENT_ID = "dculbeatuser"
 
 
-    fun load(type: Constants.TYPE, webView: WebView, culture: String) {
+    fun load(type: Type, webView: WebView, culture: String) {
         // val webView = findViewById(R.id.webView) as WebView
         val secret: String = SECRET
         val serviceProvider: String = SERVICE_PROVIDER
         val clientID: String = CLIENT_ID
         val request = VotingRequest()
         val user = User()
-        if (type == Constants.TYPE.TRANSACTION) {
+        if (type == Type.TRANSACTION) {
             val transaction = Transaction()
             transaction.setGessEnabled("true")
             transaction.setNotes("MobileSDK Vote")
@@ -44,7 +43,7 @@ object HappinessMeter {
         header.setServiceProvider(serviceProvider)
         header.setThemeColor("#5E2E82")
         // Set MicroApp details
-        if (type == Constants.TYPE.WITH_MICROAPP) {
+        if (type == Type.WITH_MICROAPP) {
             header.setMicroApp("General")
             header.setMicroAppDisplay("Micro App")
         }

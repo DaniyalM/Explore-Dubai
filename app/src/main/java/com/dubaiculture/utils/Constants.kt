@@ -224,9 +224,7 @@ object Constants {
 
     }
 
-    enum class TYPE {
-        TRANSACTION, WITH_MICROAPP, WITHOUT_MICROAPP
-    }
+
     object FCM {
         object Key {
 
