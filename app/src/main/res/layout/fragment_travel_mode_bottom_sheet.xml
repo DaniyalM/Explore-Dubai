@@ -2,6 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="view"
+            type="com.dubaiculture.ui.postLogin.plantrip.mytrip.TravelModeBottomSheetFragment" />
+        <variable
+            name="viewModel"
+            type="com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
+
+    </data>
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +31,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tvHeading"
                 style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
@@ -38,6 +48,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:onClick="@{()->view.onDrivingClicked()}"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
                 app:layout_constraintTop_toBottomOf="@id/tvHeading">
 
@@ -52,7 +66,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,6 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:buttonTint="@color/purple_650"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -91,6 +106,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:clickable="true"
+                android:onClick="@{()->view.onWalkingClicked()}"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
                 app:layout_constraintTop_toBottomOf="@id/cvDriving">
 
@@ -105,7 +124,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_Walking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -123,6 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:buttonTint="@color/purple_650"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -144,6 +164,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:clickable="true"
+                android:onClick="@{()->view.onTrainClicked()}"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
                 app:layout_constraintTop_toBottomOf="@id/cvWalking">
 
@@ -158,7 +182,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_Train"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -176,6 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:buttonTint="@color/purple_650"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -197,6 +222,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:onClick="@{()->view.onBusClicked()}"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
                 app:layout_constraintTop_toBottomOf="@id/cvTrain">
 
@@ -211,7 +240,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_Bus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -229,6 +258,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:buttonTint="@color/purple_650"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -254,6 +284,7 @@
                 android:backgroundTint="@color/purple_650"
                 android:fontFamily="@font/neo_sans_arabic_regular"
                 android:text="@string/done"
+                android:onClick="@{()->view.onDoneClicked()}"
                 android:textAllCaps="false"
                 android:textColor="?attr/colorOnPrimary"
                 app:cornerRadius="@dimen/_16sdp"

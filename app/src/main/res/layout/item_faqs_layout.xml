@@ -6,14 +6,15 @@
 
         <import type="android.text.TextUtils" />
 
+
         <variable
             name="faq"
-            type="com.app.dubaiculture.data.repository.popular_service.local.models.FAQX" />
+            type="com.dubaiculture.data.repository.popular_service.local.models.FAQX" />
 
 
         <variable
             name="faqItem"
-            type="com.app.dubaiculture.data.repository.more.local.FaqItem" />
+            type="com.dubaiculture.data.repository.more.local.FaqItem" />
 
     </data>
 
@@ -34,20 +35,20 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_questionNum"
                 style="@style/TextViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="@{TextUtils.isEmpty(faq.id.toString())?faqItem.id.toString():faq.id.toString()}"
+                android:text="@{TextUtils.isEmpty(faq.id.toString())?String.format(`%02d`,faqItem.id):String.format(`%04d`,faq.id)}"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:textFont="bold" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_questions"
                 style="@style/TextViewStyle"
                 android:layout_width="0dp"
@@ -80,7 +81,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_questionNum" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_answer"
                 style="@style/TextViewStyle"
                 android:layout_width="0dp"

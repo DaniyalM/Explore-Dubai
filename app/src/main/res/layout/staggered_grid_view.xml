@@ -68,7 +68,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/img3" />
 
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+    <com.dubaiculture.ui.components.customtextview.CustomTextView
         android:id="@+id/count"
         android:layout_width="0dp"
         android:layout_height="0dp"

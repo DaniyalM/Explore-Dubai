@@ -10,14 +10,22 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.search.SearchFragment"
+        android:name="com.dubaiculture.ui.postLogin.search.SearchFragment"
         android:label="SearchFragment">
         <action
             android:id="@+id/action_searchFragment_to_sortFragment"
-            app:destination="@id/sortFragment" />
+            app:destination="@id/sortFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_searchFragment_to_news"
-            app:destination="@id/news_detail_navigation">
+            app:destination="@id/news_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
             <argument
                 android:name="news_id"
                 app:argType="string"
@@ -25,7 +33,11 @@
         </action>
         <action
             android:id="@+id/action_searchFragment_to_events"
-            app:destination="@id/event_detail_navigation">
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
             <argument
                 android:name="event_id"
                 app:argType="string"
@@ -33,7 +45,11 @@
         </action>
         <action
             android:id="@+id/action_searchFragment_to_attraction"
-            app:destination="@id/attraction_detail_navigation">
+            app:destination="@id/attraction_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
             <argument
                 android:name="attraction_id"
                 app:argType="string"
@@ -41,7 +57,11 @@
         </action>
         <action
             android:id="@+id/action_searchFragment_to_services"
-            app:destination="@id/service_detail_navigation">
+            app:destination="@id/service_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
             <argument
                 android:name="service_id"
                 app:argType="string"
@@ -50,6 +70,6 @@
     </fragment>
     <dialog
         android:id="@+id/sortFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.nearyou.SortFragment"
+        android:name="com.dubaiculture.ui.postLogin.nearyou.SortFragment"
         android:label="SortFragment" />
 </navigation>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.home.HomeFragment"
+        android:name="com.dubaiculture.ui.postLogin.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,7 +16,8 @@
     </fragment>
     <fragment
         android:id="@+id/createPassFragment2"
-        android:name="com.app.dubaiculture.ui.preLogin.password.CreatePassFragment"
+        android:name="com.dubaiculture.ui.preLogin.password.CreatePassFragment"
         android:label="CreatePassFragment" />
+
 
 </navigation>

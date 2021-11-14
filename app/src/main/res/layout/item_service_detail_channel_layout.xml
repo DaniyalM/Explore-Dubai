@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/channelTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

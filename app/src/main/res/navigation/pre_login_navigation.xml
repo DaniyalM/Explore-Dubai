@@ -7,9 +7,9 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.app.dubaiculture.ui.preLogin.splash.SplashFragment"
-        tools:layout="@layout/fragment_splash"
-        android:label="fragment_splash">
+        android:name="com.dubaiculture.ui.preLogin.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -25,13 +25,13 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.app.dubaiculture.ui.preLogin.login.LoginFragment"
-        tools:layout="@layout/fragment_login"
-        android:label="fragment_login" >
-<!--        <deepLink-->
-<!--            app:uri="com.dc.dc-success" />-->
-<!--        <deepLink-->
-<!--            app:uri="com.dc.dc-failure" />-->
+        android:name="com.dubaiculture.ui.preLogin.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <!--        <deepLink-->
+        <!--            app:uri="com.dc.dc-success" />-->
+        <!--        <deepLink-->
+        <!--            app:uri="com.dc.dc-failure" />-->
         <deepLink app:uri="uaePassDemo://success" />
         <deepLink app:uri="uaePassDemo://failure" />
 
@@ -69,12 +69,12 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" >
-<!--            <argument-->
-<!--                android:name="code"-->
-<!--                app:nullable="false"-->
-<!--                android:defaultValue="@null"-->
-<!--                app:argType="string"/>-->
+            app:popExitAnim="@anim/fade_out">
+            <!--            <argument-->
+            <!--                android:name="code"-->
+            <!--                app:nullable="false"-->
+            <!--                android:defaultValue="@null"-->
+            <!--                app:argType="string"/>-->
 
         </action>
         <action
@@ -84,13 +84,26 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_loginFragment_to_UAEBottomSheetFragment"
+            app:destination="@id/UAEBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="token"
+                app:argType="string"
+                app:nullable="false" />
+
+        </action>
 
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
-        tools:layout="@layout/fragment_register"
-        android:name="com.app.dubaiculture.ui.preLogin.registeration.RegisterFragment"
-        android:label="RegisterFragment" >
+        android:name="com.dubaiculture.ui.preLogin.registeration.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment2_to_bottomSheet"
             app:destination="@id/bottomSheet"
@@ -101,9 +114,9 @@
     </fragment>
     <fragment
         android:id="@+id/forgotFragment"
-        tools:layout="@layout/fragment_forgot_"
-        android:name="com.app.dubaiculture.ui.preLogin.forgot.ForgotFragment"
-        android:label="ForgotFragment" >
+        android:name="com.dubaiculture.ui.preLogin.forgot.ForgotFragment"
+        android:label="ForgotFragment"
+        tools:layout="@layout/fragment_forgot_">
 
         <action
             android:id="@+id/action_forgotFragment_to_bottomSheet"
@@ -115,13 +128,13 @@
     </fragment>
     <fragment
         android:id="@+id/createPassFragment"
-        tools:layout="@layout/fragment_create_pass"
-        android:name="com.app.dubaiculture.ui.preLogin.password.CreatePassFragment"
-        android:label="CreatePassFragment" >
-<!--        <argument-->
-<!--            android:name="code"-->
-<!--            app:nullable="false"-->
-<!--            app:argType="string"/>-->
+        android:name="com.dubaiculture.ui.preLogin.password.CreatePassFragment"
+        android:label="CreatePassFragment"
+        tools:layout="@layout/fragment_create_pass">
+        <!--        <argument-->
+        <!--            android:name="code"-->
+        <!--            app:nullable="false"-->
+        <!--            app:argType="string"/>-->
         <action
             android:id="@+id/action_createPassFragment_to_passwordUpdatedFragment"
             app:destination="@id/passwordUpdatedFragment"
@@ -132,43 +145,43 @@
     </fragment>
     <fragment
         android:id="@+id/registrationSuccessFragment"
-        tools:layout="@layout/fragment_registeration_success"
-        android:name="com.app.dubaiculture.ui.preLogin.registeration.RegistrationSuccessFragment"
-        android:label="RegistrationSuccessFragment" >
+        android:name="com.dubaiculture.ui.preLogin.registeration.RegistrationSuccessFragment"
+        android:label="RegistrationSuccessFragment"
+        tools:layout="@layout/fragment_registeration_success">
         <action
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/pre_login_nav_host_fragment"
-            app:popUpToInclusive="true"
             android:id="@+id/action_registrationSuccessFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@+id/pre_login_nav_host_fragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheet"
-        android:name="com.app.dubaiculture.ui.preLogin.registeration.otp.OTPFragment"
-        tools:layout="@layout/fragment_o_t_p" >
+        android:name="com.dubaiculture.ui.preLogin.registeration.otp.OTPFragment"
+        tools:layout="@layout/fragment_o_t_p">
         <argument
             android:name="verificationCode"
-            app:argType="string"/>
+            app:argType="string" />
 
         <argument
             android:name="screen_name"
-            app:argType="string"/>
+            app:argType="string" />
 
         <argument
             android:name="emailorphone"
-            app:nullable="true"
             android:defaultValue="@null"
-            app:argType="string"/>
+            app:argType="string"
+            app:nullable="true" />
 
         <argument
             android:name="password"
-            app:nullable="true"
             android:defaultValue="@null"
-            app:argType="string"/>
+            app:argType="string"
+            app:nullable="true" />
 
 
         <action
@@ -190,29 +203,41 @@
     </dialog>
     <dialog
         android:id="@+id/passwordUpdatedFragment"
-        android:name="com.app.dubaiculture.ui.preLogin.password.passwordupdated.PasswordUpdatedFragment"
+        android:name="com.dubaiculture.ui.preLogin.password.passwordupdated.PasswordUpdatedFragment"
         android:label="PasswordUpdatedFragment"
-        tools:layout="@layout/fragment_password_updated"
-        >
+        tools:layout="@layout/fragment_password_updated">
         <action
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/pre_login_nav_host_fragment"
-            app:popUpToInclusive="true"
             android:id="@+id/action_passwordUpdatedFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@+id/pre_login_nav_host_fragment"
+            app:popUpToInclusive="true" />
+    </dialog>
+    <fragment
+        android:id="@+id/onBoardingFragment2"
+        android:name="com.dubaiculture.ui.preLogin.onboarding.OnBoardingFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding">
+        <action
+            android:id="@+id/action_onBoardingFragment2_to_loginFragment"
             app:destination="@id/loginFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
-    </dialog>
-    <fragment
-        android:id="@+id/onBoardingFragment2"
-        tools:layout="@layout/fragment_on_boarding"
-        android:name="com.app.dubaiculture.ui.preLogin.onboarding.OnBoardingFragment"
-        android:label="OnBoardingFragment" >
-        <action
-            android:id="@+id/action_onBoardingFragment2_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/UAEBottomSheetFragment"
+        android:name="com.dubaiculture.ui.preLogin.login.uae.UAEBottomSheetFragment"
+        android:label="UAEBottomSheetFragment" >
+        <argument
+            android:name="token"
+            app:argType="string"
+            app:nullable="false" />
+    </dialog>
 
 </navigation>

@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel" />
+            type="com.dubaiculture.ui.postLogin.events.viewmodel.EventViewModel" />
 
     </data>
 
@@ -32,7 +32,7 @@
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="wrap_content"/>
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/heading_filter"
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/gray_line" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvReset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                     app:layout_constraintTop_toTopOf="@+id/heading_filter" />
 
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/edit_search"
                     style="@style/EditTextStyle"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -73,7 +73,7 @@
                     tools:src="@drawable/bg_edit_resiger" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/location"
                     style="@style/TextViewRegistrationStyle"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -96,7 +96,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/location"
                     tools:src="@drawable/bg_edit_resiger" />
 
-                <com.app.dubaiculture.ui.components.customspinner.CustomSearchableSpinner
+                <com.dubaiculture.ui.components.customspinner.CustomSearchableSpinner
                     android:id="@+id/sp_spinner"
                     style="@style/spinner_style"
                     android:imeOptions="actionDone"
@@ -118,7 +118,7 @@
                     app:layout_constraintTop_toTopOf="@+id/sp_spinner" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/date_range"
                     style="@style/TextViewRegistrationStyle"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -137,7 +137,7 @@
                     app:layout_constraintStart_toStartOf="@+id/date_range"
                     app:layout_constraintTop_toBottomOf="@+id/date_range">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_start_date"
                         style="@style/TextViewStyle"
                         android:layout_width="0dp"
@@ -158,7 +158,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2" />
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_end_date"
                         style="@style/TextViewStyle"
                         android:layout_width="0dp"
@@ -178,7 +178,7 @@
                 </LinearLayout>
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/category"
                     style="@style/TextViewRegistrationStyle"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -198,7 +198,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/category"
                     tools:listitem="@layout/item_category_filter" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/type"
                     style="@style/TextViewRegistrationStyle"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -217,34 +217,35 @@
                     app:layout_constraintStart_toStartOf="@+id/rv_categories"
                     app:layout_constraintTop_toBottomOf="@+id/type">
 
-                    <RadioButton
+                    <androidx.appcompat.widget.AppCompatRadioButton
                         android:id="@+id/rbFree"
-                        style="@style/MyRadioButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.1"
                         android:paddingStart="@dimen/_5sdp"
                         android:tag="Free"
                         android:text="@string/_free"
+                        app:buttonTint="@color/purple_900"
+
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
                         android:textSize="@dimen/_11ssp" />
 
-                    <RadioButton
+                    <androidx.appcompat.widget.AppCompatRadioButton
                         android:id="@+id/rbPaid"
-                        style="@style/MyRadioButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.1"
                         android:paddingStart="@dimen/_5sdp"
                         android:text="@string/ticketed"
+                        app:buttonTint="@color/purple_900"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
                         android:textSize="@dimen/_11ssp" />
                 </RadioGroup>
 
 
-                <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                <com.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btn_filter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

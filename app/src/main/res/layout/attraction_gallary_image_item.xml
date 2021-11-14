@@ -4,7 +4,7 @@
     <data>
         <variable
             name="attraction"
-            type="com.app.dubaiculture.data.repository.attraction.local.models.Gallery" />
+            type="com.dubaiculture.data.repository.attraction.local.models.Gallery" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

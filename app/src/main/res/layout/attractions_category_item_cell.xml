@@ -2,8 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <!--        <variable name="attractions" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
-        <variable name="attractionsCat" type="com.app.dubaiculture.data.repository.attraction.local.models.AttractionCategory"/>
+        <!--        <variable name="attractions" type="com.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
+        <variable name="attractionsCat" type="com.dubaiculture.data.repository.attraction.local.models.AttractionCategory"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_73sdp"
@@ -36,7 +36,7 @@
 
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/attraction_title_text"
             android:layout_width="@dimen/_65sdp"
             android:layout_height="wrap_content"

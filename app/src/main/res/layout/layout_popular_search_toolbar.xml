@@ -14,7 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            app:cardBackgroundColor="@color/gray_400"
+            app:cardBackgroundColor="?attr/colorSecondaryVariantInverted"
             app:cardCornerRadius="@dimen/_25sdp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toStartOf="@+id/clear"
@@ -34,7 +34,7 @@
                     android:padding="@dimen/_10sdp"
                     android:src="@drawable/dc_search_icon" />
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/editSearch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:maxLines="1"
                     android:paddingStart="@dimen/_15ssp"
                     android:singleLine="true"
-                    android:textColorHint="@color/gray_600"
+                    android:textColorHint="@color/gray_700"
                     android:textSize="@dimen/_10ssp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -63,7 +63,7 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/clear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

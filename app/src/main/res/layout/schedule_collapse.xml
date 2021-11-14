@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
 
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+    <com.dubaiculture.ui.components.customtextview.CustomTextView
         android:id="@+id/tv_date_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+    <com.dubaiculture.ui.components.customtextview.CustomTextView
         android:id="@+id/tv_month_year_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 android:layout_height="@dimen/_40sdp"
                 android:orientation="horizontal">
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_weekdays"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

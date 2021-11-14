@@ -31,7 +31,7 @@
             app:layout_constraintStart_toStartOf="@+id/search_toolbar"
             app:layout_constraintTop_toBottomOf="@+id/search_toolbar">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/customTextView8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 app:layout_constraintStart_toStartOf="@+id/customTextView8"
                 app:layout_constraintTop_toBottomOf="@+id/customTextView8" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/clearPop"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             app:layout_constraintStart_toStartOf="@+id/search_toolbar"
             app:layout_constraintTop_toBottomOf="@+id/search_toolbar">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -124,8 +124,9 @@
                 app:layout_constraintStart_toStartOf="@+id/headersRv"
                 app:layout_constraintTop_toBottomOf="@+id/headersRv">
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvPlaceHolder"
+                    style="@style/TextViewStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_50sdp"
@@ -135,7 +136,6 @@
                     android:lineSpacingExtra="@dimen/text_line_spacing"
                     android:text="@string/no_my_posts_fav"
                     android:textAlignment="center"
-                    android:textColor="@color/no_data_placeholder"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"

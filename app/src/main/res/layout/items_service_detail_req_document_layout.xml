@@ -13,7 +13,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+    <com.dubaiculture.ui.components.customtextview.CustomTextView
         android:id="@+id/tv_req_docu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:layout_marginTop="@dimen/_15sdp"
         />
 
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+    <com.dubaiculture.ui.components.customtextview.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/tick_mark_borderless"

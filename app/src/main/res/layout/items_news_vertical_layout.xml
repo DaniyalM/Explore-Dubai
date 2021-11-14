@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="news" type="com.app.dubaiculture.data.repository.news.local.LatestNews"/>
+        <variable name="news" type="com.dubaiculture.data.repository.news.local.LatestNews"/>
         <variable
             name="technique"
             type="com.daimajia.androidanimations.library.Techniques" />
@@ -41,7 +41,7 @@
                     android:elevation="@dimen/_5sdp"
                     android:layout_width="@dimen/_85sdp"
                     android:layout_height="@dimen/_85sdp"
-                    app:cornerRadius="@dimen/_10sdp"
+                    app:cornerRadius="@dimen/_5sdp"
                     android:imageUrl="@{news.image}"
                     android:scaleType="fitXY"
                     android:background="@drawable/must_see_icon_home"
@@ -50,7 +50,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                     app:layout_constraintTop_toTopOf="@+id/img_news_vertical" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

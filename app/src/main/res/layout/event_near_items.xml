@@ -5,7 +5,7 @@
 
         <variable
             name="events"
-            type="com.app.dubaiculture.data.repository.event.local.models.Events" />
+            type="com.dubaiculture.data.repository.event.local.models.Events" />
     </data>
 
         <com.google.android.material.card.MaterialCardView
@@ -43,7 +43,7 @@
                     app:layout_constraintGuide_percent="0.39"
                    />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                    android:id="@+id/workshop"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/workshop" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_date"
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:layout_width="0dp"
                     android:singleLine="true"
                     android:ellipsize="end"

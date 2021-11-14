@@ -4,11 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_trip_navigation"
     app:startDestination="@id/myTripFragment">
+    <include app:graph="@navigation/my_saved_trip_navigation" />
 
     <fragment
         android:id="@+id/myTripFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripFragment"
         android:label="MyPlanTripFragment">
+
+        <action
+            android:id="@+id/action_my_trip_to_travel_mode_dialog"
+            app:destination="@id/travelModeDialog"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
 
         <action
             android:id="@+id/action_myTrip_to_myTripBottomSheetFragment"
@@ -18,13 +27,6 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
 
-        <action
-            android:id="@+id/action_myTrip_to_myTripNameDialog"
-            app:destination="@id/myTripNameDialog"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_my_trip_to_my_trip_listing"
             app:destination="@id/myTripListingFragment"
@@ -46,22 +48,31 @@
 
     <fragment
         android:id="@+id/myTripListingFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
         android:label="MyTripListingFragment"
-        tools:layout="@layout/fragment_my_trip_listing" >
+        tools:layout="@layout/fragment_my_trip_listing">
 
-    <action
-        android:id="@+id/action_myTrip_listing_to_myTripNameDialog"
-        app:destination="@id/myTripNameDialog"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_myTrip_listing_to_myTripNameDialog"
+            app:destination="@id/myTripNameDialog"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+        <action
+            android:id="@+id/action_my_trip_listing_to_travel_mode_dialog"
+            app:destination="@id/travelModeDialog"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
 
     </fragment>
     <dialog
         android:id="@+id/myTripBottomSheetFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripBottomSheetFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripBottomSheetFragment"
         android:label="MyTripBottomSheetFragment"
         tools:layout="@layout/fragment_my_trip_bottomsheet">
 
@@ -75,14 +86,13 @@
             app:popExitAnim="@anim/fade_out" />
 
 
-
     </dialog>
 
     <dialog
         android:id="@+id/myTripNameDialog"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripNameDialog"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripNameDialog"
         android:label="MyTripNameDialog"
-        tools:layout="@layout/dialog_my_trip_name" >
+        tools:layout="@layout/dialog_my_trip_name">
 
         <action
             android:id="@+id/action_trip_name_to_tripsuccessFragment"
@@ -93,20 +103,25 @@
             app:popExitAnim="@anim/fade_out" />
 
 
-
     </dialog>
 
     <dialog
         android:id="@+id/travelModeDialog"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.TravelModeBottomSheetFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.TravelModeBottomSheetFragment"
         android:label="TravelModeDialog"
         tools:layout="@layout/fragment_travel_mode_bottom_sheet" />
 
     <fragment
         android:id="@+id/tripSuccessFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.plantrip.mytrip.TripSuccessFragment"
-        tools:layout="@layout/fragment_trip_success"
-        android:label="tripSuccessFragment" >
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.TripSuccessFragment"
+        android:label="tripSuccessFragment"
+        tools:layout="@layout/fragment_trip_success">
+
+        <action
+            android:id="@+id/action_tripSuccess_to_mySaveTripListing"
+            app:destination="@id/my_saved_trip_navigation"
+            app:popUpTo="@+id/trip_navigation"
+            app:popUpToInclusive="true" />
 
 
     </fragment>

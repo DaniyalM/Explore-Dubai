@@ -6,7 +6,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.postLogin.nearyou.NearYouFragment">
+    tools:context="com.dubaiculture.ui.postLogin.nearyou.NearYouFragment">
 
 
 
@@ -20,7 +20,7 @@
         android:layout_width="@dimen/_80sdp"
         android:layout_height="wrap_content"/>
 
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+    <com.dubaiculture.ui.components.customtextview.CustomTextView
         android:id="@+id/heading_museums_near"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -8,16 +8,16 @@
         <import type="android.view.View" />
         <variable
             name="fragment"
-            type="com.app.dubaiculture.ui.postLogin.more.contact.ContactFragment" />
+            type="com.dubaiculture.ui.postLogin.more.contact.ContactFragment" />
         <variable
             name="contactCenter"
-            type="com.app.dubaiculture.data.repository.more.local.ContactCenter" />
+            type="com.dubaiculture.data.repository.more.local.ContactCenter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.postLogin.more.contact.ContactFragment">
+        tools:context="com.dubaiculture.ui.postLogin.more.contact.ContactFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_close"
@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_contact_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_location_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_contact_desc"
                     app:layout_constraintTop_toBottomOf="@+id/tv_location_title" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_days"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_contact_desc"
                     app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_contact_desc"
                     app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_location_pin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView9"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/getDirection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -198,15 +198,15 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_location_pin"
                     app:layout_constraintTop_toBottomOf="@+id/tv_location_pin" />
 
+<!--                android:outlineSpotShadowColor="@color/gray_600"-->
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_map"
                     android:layout_width="0dp"
-                    android:outlineSpotShadowColor="@color/gray_600"
                     android:layout_height="@dimen/_145sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     app:cardCornerRadius="@dimen/_12sdp"
-                    app:cardElevation="@dimen/_5sdp"
+                    app:cardElevation="@dimen/_3sdp"
                     app:layout_constraintEnd_toEndOf="@+id/imageView7"
                     app:layout_constraintStart_toStartOf="@+id/imageView9"
                     app:layout_constraintTop_toBottomOf="@+id/getDirection">
@@ -217,7 +217,7 @@
                         android:layout_height="match_parent" />
                 </androidx.cardview.widget.CardView>
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_reach_us"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -227,6 +227,7 @@
                     style="@style/TextViewStyle"
                     app:layout_constraintStart_toStartOf="@+id/tv_contact_desc"
                     app:layout_constraintTop_toBottomOf="@+id/card_map" />
+                <!--                android:outlineSpotShadowColor="@color/gray_600"-->
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/rv_reach_us"
@@ -235,7 +236,6 @@
                     android:layout_marginTop="15dp"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="@dimen/_8sdp"
-                    android:outlineSpotShadowColor="@color/gray_600"
                     app:layout_constraintEnd_toEndOf="@+id/card_map"
                     app:layout_constraintStart_toStartOf="@+id/tv_reach_us"
                     app:layout_constraintTop_toBottomOf="@+id/tv_reach_us">
@@ -261,10 +261,10 @@
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/call_icon"
+                        android:src="@drawable/contact_call"
                         />
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_call_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -277,7 +277,7 @@
                         app:layout_constraintTop_toTopOf="@+id/img"
                         />
 
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/call_desc"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_width="wrap_content"
@@ -295,7 +295,6 @@
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:background="?attr/color_light_theme_dark_theme_gray"
-                        android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         app:layout_constraintStart_toStartOf="@+id/img"
                         app:layout_constraintEnd_toEndOf="@+id/call_desc"
@@ -325,7 +324,7 @@
                                 android:src="@drawable/email_notification"
                                 />
 
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:id="@+id/tv_title_email"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -339,7 +338,7 @@
                                 app:layout_constraintTop_toTopOf="@+id/email"
                                 />
 
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:id="@+id/email_desc"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:layout_width="wrap_content"
@@ -356,8 +355,7 @@
                                 android:id="@+id/dividerLine10"
                                 android:layout_width="0dp"
                                 android:layout_height="1dp"
-                                android:layout_marginEnd="@dimen/_10sdp"
-                                android:background="#F0F0F0"
+                                android:background="?attr/color_light_theme_dark_theme_gray"
                                 android:layout_marginTop="@dimen/_15sdp"
                                 app:layout_constraintStart_toStartOf="@+id/email"
                                 app:layout_constraintEnd_toEndOf="@+id/email_desc"
@@ -386,7 +384,7 @@
                                 android:src="@drawable/fax_icon"
                                 />
 
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:id="@+id/tv_title_fax"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -400,7 +398,7 @@
                                 app:layout_constraintTop_toTopOf="@+id/fax"
                                 />
 
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:id="@+id/fax_desc"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:layout_width="wrap_content"
@@ -417,8 +415,7 @@
                                 android:id="@+id/dividerLine11"
                                 android:layout_width="0dp"
                                 android:layout_height="1dp"
-                                android:background="#F0F0F0"
-                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:background="?attr/color_light_theme_dark_theme_gray"
                                 android:layout_marginTop="@dimen/_15sdp"
                                 app:layout_constraintStart_toStartOf="@+id/fax"
                                 app:layout_constraintEnd_toEndOf="@+id/fax_desc"
@@ -447,7 +444,7 @@
                                 android:src="@drawable/website_icon"
                                 />
 
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:id="@+id/tv_title_website"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -460,7 +457,7 @@
                                 app:layout_constraintTop_toTopOf="@+id/website"
                                 />
 
-                            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
                                 android:id="@+id/website_desc"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:layout_width="wrap_content"
@@ -478,7 +475,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="1dp"
                                 android:visibility="invisible"
-                                android:background="#F0F0F0"
+                                android:background="?attr/color_light_theme_dark_theme_gray"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:layout_marginTop="@dimen/_15sdp"
                                 app:layout_constraintStart_toStartOf="@+id/tv_title_website"
@@ -505,7 +502,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="20dp"
-                    android:background="#F0F0F0"
+                    android:background="?attr/color_light_theme_dark_theme_gray"
                     android:layout_marginStart="@dimen/_3sdp"
                     android:layout_marginEnd="@dimen/_17sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -533,7 +530,7 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_share" />
 <!--                    android:text="@{contactCenter.contactCenterFeedback.title}"-->
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_share"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -545,7 +542,7 @@
                         app:layout_constraintStart_toEndOf="@+id/iv_share"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -579,7 +576,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/ll_share_feed_back" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/textView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -674,7 +671,7 @@
 
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
