@@ -100,10 +100,10 @@ data class EventsDTO(
     var registrationDate: String = "",
 
 
-    @SerializedName("EmailContact")
+    @SerializedName("ContactEmail")
     @Expose
     var emailContact: String = "",
-    @SerializedName("NumberContact")
+    @SerializedName("ContactNumber")
     @Expose
     var numberContact: String = "",
 

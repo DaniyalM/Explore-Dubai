@@ -56,6 +56,19 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
         binding.pushNotSwitch.apply {
             setOnCheckedChangeListener(null)
             isChecked = userSettings.pushNotification
+            getCurrentLanguage().language.let {
+                if (isChecked) {
+                    val id = it + "_" + "${application.auth.user?.userId}"
+                    subscribeToTopic(topic = "AndroidBroadcast_$it")
+                    subscribeToTopic(topic = "AndroidBroadcast_$id")
+                } else {
+
+                    val id = it + "_" + "${application.auth.user?.userId}"
+                    unSubscribeFromTopic(topic="AndroidBroadcast_ar")
+                    unSubscribeFromTopic(topic="AndroidBroadcast_en")
+                    unSubscribeFromTopic(topic = "AndroidBroadcast_$id")
+                }
+            }
             setOnTouchListener { view, motionEvent ->
                 isTouched = true
                 false

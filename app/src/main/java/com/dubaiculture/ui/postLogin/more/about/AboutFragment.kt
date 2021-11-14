@@ -27,6 +27,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() , View.OnClickListene
         binding.llPrivacy.setOnClickListener(this)
         binding.llTerms.setOnClickListener(this)
         binding.cardviewService.hide()
+        binding.tvWeUsed.hide()
 
         moreViewModel.getCultureConnoisseur(getCurrentLanguage().language)
         callingObserver()

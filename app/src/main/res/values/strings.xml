@@ -42,6 +42,7 @@
     <string name="registration">Registration</string>
     <string name="full_name">Full name</string>
     <string name="enter_full_name">Enter full name</string>
+    <string name="enter_your_comments">Enter Your Comments</string>
     <string name="email_address">Enter Email address</string>
     <string name="_email_address">Email address</string>
 

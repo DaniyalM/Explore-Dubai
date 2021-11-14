@@ -42,7 +42,7 @@ class ProcedurePageFragment(val procedure: List<Procedure>?) :
 
     fun initRecycling() {
         binding.innerRecyclerView.apply {
-            if (procedure?.size!! <1){
+            if (procedure?.get(0)?.serviceProcedure!!.isEmpty()){
                 hide()
             }
             val linearLayoutManager = LinearLayoutManager(context)

@@ -28,7 +28,7 @@ class FaqsFragment(val fAQs: List<FAQ>, val forumPager: ViewPager2) :
 
     private fun rvInit() {
         binding.innerRecyclerView.apply {
-            if (fAQs.size <1){
+            if (fAQs.get(0).fAQs.isEmpty()){
                 hide()
             }
 

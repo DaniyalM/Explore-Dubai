@@ -10,12 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.dubaiculture.databinding.FragmentServiceDownVoteBinding
 import com.dubaiculture.ui.base.BaseDialogFragment
+import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.ServiceDownVoteFeedBackViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class ServiceDownVoteFeedBackFragment : BaseDialogFragment<FragmentServiceDownVoteBinding>() {
+class ServiceDownVoteFeedBackFragment : BaseFragment<FragmentServiceDownVoteBinding>() {
 
     private val serviceDownVoteFeedBackViewModel: ServiceDownVoteFeedBackViewModel by viewModels()
 
@@ -28,40 +29,19 @@ class ServiceDownVoteFeedBackFragment : BaseDialogFragment<FragmentServiceDownVo
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = serviceDownVoteFeedBackViewModel
 //        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.FullScreenDialog)
-
+        binding.header.back.apply {
+            setOnClickListener {
+                back()
+            }
+            backArrowRTL(this)
+        }
         subscribeUiEvents(serviceDownVoteFeedBackViewModel)
 
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-        dialog.window!!.setBackgroundDrawableResource(R.color.transparent)
-        dialog.window!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-        return dialog
-    }
 
-    override fun onStart() {
-        super.onStart()
-        if (dialog != null) {
-            val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.WRAP_CONTENT
-            dialog?.window!!.apply {
-                setLayout(width, height)
-                @Suppress("DEPRECATION")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    insetsController?.hide(WindowInsets.Type.statusBars())
-                } else {
-                    setFlags(
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    )
-                }
 
-            }
 
-        }
-    }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
@@ -72,8 +52,8 @@ class ServiceDownVoteFeedBackFragment : BaseDialogFragment<FragmentServiceDownVo
         serviceDownVoteFeedBackViewModel.downVote.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it) {
-                    Toast.makeText(activity, "Feedback submitted", Toast.LENGTH_SHORT).show()
-                    dismiss()
+                    showAlert(title = "Feedback",message = "Feedback Submitted Successfully")
+                    back()
                 }
             }
         }

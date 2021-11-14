@@ -35,14 +35,11 @@ import com.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDet
 import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
 import com.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
+import com.dubaiculture.utils.*
 import com.dubaiculture.utils.AppConfigUtils.shareLink
-import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.ATTRACTION_GALLERY_LIST
 import com.dubaiculture.utils.Constants.NavBundles.ATTRACTION_ID
 import com.dubaiculture.utils.Constants.NavBundles.THREESIXTY_GALLERY_LIST
-import com.dubaiculture.utils.GpsStatus
-import com.dubaiculture.utils.handleApiError
-import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.location.LocationHelper
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
@@ -255,13 +252,18 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                 getDrawableFromId(R.drawable.heart_icon_fav)
                             isDetailFavouriteFlag = false
 
+
+
                         }
                         checkBox?.background = getDrawableFromId(R.drawable.heart_icon_fav)
+                        binding.favourite1.hide()
+                        toolbarLayout.favourite1.hide()
 
                     }
                     if (TextUtils.equals(it.value.Result.message, "Deleted")) {
                         checkBox?.background = getDrawableFromId(R.drawable.heart_icon_home_black)
-
+                        binding.favourite1.show()
+                        toolbarLayout.favourite1.show()
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
@@ -269,6 +271,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             toolbarLayout.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
                             isDetailFavouriteFlag = false
+
                         }
                     }
                 }
@@ -300,12 +303,22 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         detailInnerLayout.downOneGallery.alpha = 0.4f
                         detailInnerLayout.downOneGallery.isClickable = false
                         toolbarLayout.llImg.isClickable = false
+                        toolbarLayout.gallery.isClickable = false
+                        toolbarLayout.gallery.alpha = 0.4f
+
+                    }else {
+                        detailInnerLayout.downOneGallery.setOnClickListener(this)
+                        toolbarLayout.llImg.setOnClickListener(this)
                     }
                     if (it.value.asset360?.imageItems.isNullOrEmpty()) {
                         toolbarLayout.ll360.alpha = 0.4f
                         detailInnerLayout.downOne360.alpha = 0.4f
                         toolbarLayout.ll360.isClickable = false
                         detailInnerLayout.downOne360.isClickable = false
+                    }else{
+
+                        detailInnerLayout.downOne360.setOnClickListener(this)
+                        toolbarLayout.ll360.setOnClickListener(this)
                     }
 
                     if (numberContact.isNullOrEmpty()) {
@@ -354,15 +367,15 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
     private fun uiActions() {
-        toolbarLayout.llAr.setOnClickListener(this)
-        toolbarLayout.ll360.setOnClickListener(this)
-        toolbarLayout.llImg.setOnClickListener(this)
+
+
         toolbarLayout.back.setOnClickListener(this)
         binding.imgBack.setOnClickListener(this)
         toolbarLayout.btnBookATicket.setOnClickListener(this)
+
+        toolbarLayout.llAr.setOnClickListener(this)
         detailInnerLayout.downOneAR.setOnClickListener(this)
-        detailInnerLayout.downOne360.setOnClickListener(this)
-        detailInnerLayout.downOneGallery.setOnClickListener(this)
+
         detailInnerLayout.imgAttractionSpeaker.setOnClickListener(this)
         detailInnerLayout.llEmailus.setOnClickListener(this)
         detailInnerLayout.llCallUs.setOnClickListener(this)

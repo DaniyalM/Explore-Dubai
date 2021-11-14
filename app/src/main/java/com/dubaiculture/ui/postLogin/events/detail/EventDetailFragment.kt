@@ -181,13 +181,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         eventDetailInnerLayout.btnRegisterNow.setOnClickListener {
 //            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
         }
-        eventDetailInnerLayout.llCallus.setOnClickListener {
-            openDiallerBox(numberContact)
 
-        }
-        eventDetailInnerLayout.llEmailUs.setOnClickListener {
-            openEmailbox(email = emailContact.toString())
-        }
         eventDetailInnerLayout.imgFb.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.facebookPageLink,
@@ -257,7 +251,28 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             when (it) {
                 is Result.Success -> {
                     eventObj = it.value
-                    urlshare=it.value.url
+
+                    if (it.value.numberContact.isNullOrEmpty()) {
+                        eventDetailInnerLayout.llCallus.alpha = 0.2f
+                        eventDetailInnerLayout.llCallus.isClickable = false
+                    } else {
+                        eventDetailInnerLayout.llCallus.setOnClickListener {
+                            openDiallerBox(eventObj?.numberContact)
+                        }
+                    }
+                    if (it.value.emailContact.isNullOrEmpty()) {
+                        eventDetailInnerLayout.llEmailUs.alpha = 0.2f
+                        eventDetailInnerLayout.llEmailUs.isClickable = false
+                    } else {
+                        eventDetailInnerLayout.llEmailUs.setOnClickListener {
+                            openEmailbox(email =eventObj?.emailContact.toString())
+                        }
+                    }
+
+
+
+
+                    urlshare = it.value.url
 
                     binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener {
                         isDetailFavouriteFlag = true
@@ -285,15 +300,23 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             )
                         }
                     }
-                    if (urlshare!=null && !urlshare!!.isEmpty()){
+                    if (urlshare != null && !urlshare!!.isEmpty()) {
                         toolbarLayoutEventDetailBinding.imgShareEvent.setOnClickListener {
-                            shareLink(urlshare?:"https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",activity)
+                            shareLink(
+                                urlshare
+                                    ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
+                                activity
+                            )
                         }
                         binding.share.setOnClickListener {
-                            shareLink(urlshare?:"https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",activity)
+                            shareLink(
+                                urlshare
+                                    ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
+                                activity
+                            )
 
                         }
-                    }else {
+                    } else {
                         toolbarLayoutEventDetailBinding.imgShareEvent.hide()
                         binding.share.hide()
                     }
@@ -320,7 +343,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                     it.value.longitude.toDouble()
                                 )
 
-                            if (map!=null){
+                            if (map != null) {
                                 map?.apply {
                                     addMarker(
                                         MarkerOptions()
@@ -335,7 +358,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                     cameraPosition.target
                                 }
                             }
-
 
 
                         }
@@ -353,6 +375,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_fav)
+                            binding.favourite1.hide()
+                            toolbarLayoutEventDetailBinding.favouriteEvent1.hide()
                             binding.toolbarLayoutEventDetail.favouriteEvent.background =
                                 getDrawableFromId(R.drawable.heart_icon_fav)
                             isDetailFavouriteFlag = false
@@ -365,6 +389,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
+                            binding.favourite1.show()
+                            toolbarLayoutEventDetailBinding.favouriteEvent1.show()
                             toolbarLayoutEventDetailBinding.favouriteEvent.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
                             isDetailFavouriteFlag = false
@@ -505,7 +531,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun mapSetUp(savedInstanceState: Bundle?) {
 
-        if (mapView==null){
+        if (mapView == null) {
             mapView = binding.root.findViewById(R.id.map)
             mapView?.let {
                 it.getMapAsync(this)
@@ -518,11 +544,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     override fun onMapReady(map: GoogleMap?) {
 
-            map?.let {
-                this.map = it
-            }
-
-
+        map?.let {
+            this.map = it
+        }
 
 
     }
@@ -544,10 +568,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
             R.id.img_event_speaker -> {
                 if (binding.eventDetailInnerLayout.tvDescReadmoreEvent.text.isNotEmpty()) {
-                    if (textToSpeechEngine.isSpeaking){
+                    if (textToSpeechEngine.isSpeaking) {
                         textToSpeechEngine.stop()
-                    }
-                    else {
+                    } else {
                         textToSpeechEngine.speak(
                             "${eventObj?.title} ${eventObj?.desc}",
                             TextToSpeech.QUEUE_FLUSH,
@@ -642,8 +665,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         eventViewModel.eventDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    emailContact = it.value.emailContact
-                    numberContact = it.value.numberContact
+//                    emailContact = it.value.emailContact
+//                    numberContact = it.value.numberContact
                     isRegisterd = it.value.isRegistered
                     if (isRegisterd) {
                         binding.toolbarLayoutEventDetail.btnReg.isClickable = false
@@ -655,14 +678,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     enableRegistration(it.value.registrationDate)
                     slotTime.clear()
                     parentItemList.clear()
-                    if (numberContact.isNullOrEmpty()) {
-                        binding.eventDetailInnerLayout.llCallus.alpha = 0.2f
-                        binding.eventDetailInnerLayout.llCallus.isClickable = false
-                    }
-                    if (emailContact.isNullOrEmpty()) {
-                        binding.eventDetailInnerLayout.llEmailUs.alpha = 0.2f
-                        binding.eventDetailInnerLayout.llEmailUs.isClickable = false
-                    }
 
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)

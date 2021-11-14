@@ -218,7 +218,7 @@ class SearchViewModel @Inject constructor(
                     result.value
                         .cachedIn(viewModelScope)
                         .collectLatest {
-                            getSearchHistory()
+                            callHistoryIfGuest()
                             _searchPaginationItem.value = it
                         }
                 }

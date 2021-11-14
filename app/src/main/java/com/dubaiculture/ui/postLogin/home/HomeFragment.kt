@@ -14,6 +14,7 @@ import com.dubaiculture.databinding.FragmentHomeBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.home.viewmodels.HomeViewModel
 import com.dubaiculture.utils.Constants.NavBundles.NEW_LOCALE
+import com.dubaiculture.utils.hide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -122,6 +123,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }
                     R.id.myEventsFragment -> {
                         visibility = View.GONE
+                    }
+                    R.id.serviceDownVoteFeedBackFragment -> {
+                        visibility = View.GONE
+                        binding.bottomGradient.hide()
                     }
 //                R.id.placesVisited -> {
 //                    bottomNav.visibility = View.GONE

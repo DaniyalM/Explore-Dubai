@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), View.OnClickListener {
-    private lateinit var serviceId: String
+    private  var serviceId: String="CF172A305B054255AC1DCCE12C72223C"
     private var servicePos: Int = 0
     private val popularServiceViewModel: PopularServiceViewModel by viewModels()
     private lateinit var popularServiceListAdapter: PopularServiceListAdapter
@@ -37,8 +37,11 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         arguments.let {
-            serviceId = it!!.getString(Constants.NavBundles.SERVICE_ID)!!
-            servicePos = it!!.getInt(Constants.NavBundles.SERVICE_POS)!!
+            it?.let {
+                serviceId = it.getString(Constants.NavBundles.SERVICE_ID)?:"CF172A305B054255AC1DCCE12C72223C"
+                servicePos = it.getInt(Constants.NavBundles.SERVICE_POS)
+            }
+
 //            siteMapViewModel.siteMap(it?.getString(SITE_MAP).toString(),getCurrentLanguage().language)
         }
         binding.horizontalSelector.onClick(servicePos)
