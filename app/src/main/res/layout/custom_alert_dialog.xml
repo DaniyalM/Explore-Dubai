@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_8sdp">
+        android:layout_margin="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_28sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -15,58 +16,58 @@
             android:paddingEnd="@dimen/_10sdp"
             android:paddingBottom="@dimen/_30sdp">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/alert"
-                android:textColor="@color/alert_title"
+                android:textColor="?attr/colorSecondary"
                 android:textSize="@dimen/_22ssp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:textFont="bold" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/description"
+                style="@style/TextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:lineSpacingExtra="@dimen/_5sdp"
                 android:textAlignment="center"
-                android:textColor="@color/black_200"
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 app:textFont="regular" />
 
-            <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            <com.dubaiculture.ui.components.custombutton.CustomButton
                 android:id="@+id/btnYes"
                 style="@style/SubmitButtonFilled"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_30sdp"
-                android:text="@string/okay"
                 android:foreground="@drawable/custom_ripple_border"
+                android:text="@string/okay"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/btnNo"
                 app:layout_constraintTop_toBottomOf="@id/description" />
 
-            <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            <com.dubaiculture.ui.components.custombutton.CustomButton
                 android:id="@+id/btnNo"
                 style="@style/SubmitButtonOutLined"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:foreground="@drawable/custom_ripple_black"
                 android:text="OK"
                 android:visibility="gone"
-                android:foreground="@drawable/custom_ripple_black"
                 app:layout_constraintLeft_toRightOf="@id/btnYes"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnYes"
                 app:layout_constraintTop_toTopOf="@id/btnYes" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

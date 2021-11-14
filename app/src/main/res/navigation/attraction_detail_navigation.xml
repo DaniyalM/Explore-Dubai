@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/attractionDetailFragment"
+    android:id="@+id/attraction_detail_navigation">
+    <include app:graph="@navigation/post_login_bottom_navigation"/>
+    <include app:graph="@navigation/event_detail_navigation"/>
+
+    <fragment
+        android:id="@+id/attractionDetailFragment"
+        tools:layout="@layout/fragment_attraction_detail"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment"
+        android:label="AttractionDetailFragment">
+
+        <argument
+            android:name="attraction"
+            app:argType="com.dubaiculture.data.repository.attraction.local.models.Attractions"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+        <argument
+            android:name="attraction_id"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_threeSixtyFragment"
+            app:destination="@id/threeSixtyFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_postLoginFragment"
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_eventDetailFragment2"
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@+id/attractionDetailFragment">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_attractionGalleryFragment"
+            app:destination="@id/attractionGalleryFragment"
+            app:popUpTo="@+id/attractionDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            />
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_ARFragment"
+            app:destination="@id/ARFragment"
+            app:popUpTo="@+id/attractionDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            />
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_siteMapFragment"
+            app:destination="@id/siteMapFragment"
+            app:popUpTo="@+id/attractionDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            />
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_ibeconFragment"
+            app:destination="@id/ibeconFragment"
+            app:popUpTo="@+id/attractionDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/siteMapFragment"
+        tools:layout="@layout/fragment_site_map"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.sitemap.SiteMapFragment"
+        android:label="SiteMapFragment" >
+        <argument
+            android:name="siteMap_obj"
+            android:defaultValue="@null"
+            app:argType="com.dubaiculture.data.repository.attraction.local.models.SiteMap"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/ibeconDescFragment"
+        tools:layout="@layout/fragment_ibecon_desc"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeconDescFragment"
+        android:label="IbeconDescFragment" >
+        <argument
+            android:name="beaconItem"
+            app:argType="com.dubaiculture.data.repository.sitemap.local.BeaconItems"
+            app:nullable="false" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/ibeconFragment"
+        tools:layout="@layout/fragment_ibecon"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ibecon.IbeaconFragment"
+        android:label="IbeconFragment" >
+<!--        <action-->
+<!--            android:id="@+id/action_ibeconFragment_to_yourJourneyFragment"-->
+<!--            app:destination="@id/yourJourneyFragment"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out" /> -->
+        <action
+            android:id="@+id/action_ibeconFragment_to_yourJourneyBeaconFragment"
+            app:destination="@id/yourJourneyBeaconFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" >
+            <argument
+                android:name="attraction_id"
+                app:argType="string"
+                app:nullable="false"/>
+        </action>
+
+        <argument
+            android:name="attraction_id"
+            app:argType="string"/>
+    </fragment>
+<!--    <dialog-->
+<!--        android:id="@+id/yourJourneyFragment"-->
+<!--        tools:layout="@layout/fragment_your_journey"-->
+<!--        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyFragment"-->
+<!--        android:label="YourJourneyFragment" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_yourJourneyFragment_to_ibeconDescFragment"-->
+<!--            app:destination="@id/ibeconDescFragment"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out" />-->
+<!--    </dialog> -->
+
+    <dialog
+        android:id="@+id/yourJourneyBeaconFragment"
+        tools:layout="@layout/fragment_your_journey"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ibecon.YourJourneyBeaconFragment"
+        android:label="YourJourneyBeaconFragment" >
+
+        <argument
+            android:name="attraction_id"
+            app:argType="string"
+            app:nullable="false"/>
+        <action
+            android:id="@+id/action_yourJourneyBeaconFragment_to_ibeconDescFragment"
+            app:destination="@id/ibeconDescFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="beaconItem"
+                app:argType="com.dubaiculture.data.repository.sitemap.local.BeaconItems"
+                app:nullable="false" />
+        </action>
+    </dialog>
+    <fragment
+        android:id="@+id/ARDetailFragment"
+        tools:layout="@layout/fragment_a_r_detail"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ar.detail.ARDetailFragment"
+        android:label="ARDetailFragment" >
+
+        <action
+            android:id="@+id/action_ARDetailFragment_to_attraction_gallery"
+            app:destination="@+id/attractionGalleryFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/ARFragment"
+        tools:layout="@layout/fragment_a_r"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.ar.ARFragment"
+        android:label="ARFragment" >
+        <action
+            android:id="@+id/action_ARFragment_to_ARDetailFragment"
+            app:destination="@id/ARDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/threeSixtyFragment"
+        tools:layout="@layout/fragment_three_sixty"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment"
+        android:label="ThreeSixtyFragment" />
+    <fragment
+        android:id="@+id/attractionGalleryFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.detail.gallery.AttractionGalleryFragment"
+        android:label="AttractionGalleryFragment" />
+
+
+</navigation>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_navigation"
+    app:startDestination="@id/searchFragment">
+    <include app:graph="@navigation/news_detail_navigation" />
+    <include app:graph="@navigation/event_detail_navigation" />
+    <include app:graph="@navigation/attraction_detail_navigation" />
+    <include app:graph="@navigation/service_detail_navigation" />
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.dubaiculture.ui.postLogin.search.SearchFragment"
+        android:label="SearchFragment">
+        <action
+            android:id="@+id/action_searchFragment_to_sortFragment"
+            app:destination="@id/sortFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_searchFragment_to_news"
+            app:destination="@id/news_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="news_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_searchFragment_to_events"
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_searchFragment_to_attraction"
+            app:destination="@id/attraction_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="attraction_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_searchFragment_to_services"
+            app:destination="@id/service_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="service_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+    </fragment>
+    <dialog
+        android:id="@+id/sortFragment"
+        android:name="com.dubaiculture.ui.postLogin.nearyou.SortFragment"
+        android:label="SortFragment" />
+</navigation>

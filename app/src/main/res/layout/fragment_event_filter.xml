@@ -12,18 +12,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:background="?attr/colorSurface"
             android:layout_height="wrap_content">
-            <include layout="@layout/event_search_toolbar"/>
+            <include
+                android:id="@+id/event_search_toolbar"
+                layout="@layout/event_search_toolbar"/>
 
             <FrameLayout
                 android:id="@+id/showTabHeader"
                 android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/app_bg"
+                android:background="?attr/colorSurface"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <com.app.dubaiculture.ui.postLogin.events.components.EventHeaderItemSelector
+                <com.dubaiculture.ui.postLogin.events.components.EventHeaderItemSelector
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/horizontalSelector"
@@ -31,7 +34,7 @@
                     android:layout_marginTop="@dimen/_10sdp"/>
             </FrameLayout>
 
-            <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+            <com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="5dp"
@@ -42,7 +45,7 @@
                     android:id="@+id/pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-            </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+            </com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
 
         </LinearLayout>
 

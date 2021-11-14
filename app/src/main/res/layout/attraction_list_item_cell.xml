@@ -5,10 +5,21 @@
 
     <data>
         <import type="android.text.TextUtils"/>
+        <import type="android.view.View" />
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
         <variable
             name="attractions"
-            type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
+            type="com.dubaiculture.data.repository.attraction.local.models.Attractions" />
     </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animate="@{technique.BounceInUp}"
+        android:orientation="vertical">
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/custom_ripple_border"
@@ -20,55 +31,63 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="@drawable/custom_ripple_border"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_230sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            app:cardCornerRadius="@dimen/_24sdp"
-            app:cardElevation="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            app:cardCornerRadius="@dimen/_27sdp"
+            app:cardElevation="@dimen/_3sdp"
             app:cardMaxElevation="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+<!--            android:cardParsedColor="@{attractions.color}"-->
 
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_view_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_18sdp"
-                android:cardParsedColor="@{attractions.color}"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 app:cardBackgroundColor="@color/white_900"
-                app:cardCornerRadius="@dimen/_15sdp"
-                app:cardElevation="@dimen/_5sdp">
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:text="@{attractions.type}"
+                    android:textColor="@color/purple_600"
                     android:textStyle="bold"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:text="@{attractions.category}"
-                    android:textColor="@color/white_900"
-                    android:textSize="@dimen/_9ssp"
-                     />
+                    android:textSize="@dimen/_8ssp"
+                    android:visibility="@{TextUtils.isEmpty(attractions.type) ? View.GONE : View.VISIBLE}"
+                    app:textAllCaps="true"
+                    app:textFont="bold" />
+
+                <!--                -->
+
             </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_must_see"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:transitionName="imageView"
                 android:background="@drawable/must_see_icon_home"
                 android:imageViewUrl='@{attractions.portraitImage}'
                 android:scaleType="fitXY"
                />
-            <CheckBox
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/favourite"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_18sdp"
@@ -83,7 +102,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/card_view_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/card_view_title" />
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_gravity="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,10 +110,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="-5dp"
                 android:layout_gravity="bottom"
                 android:orientation="vertical">
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_heritage_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -107,7 +127,7 @@
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_16ssp" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -118,8 +138,10 @@
                     android:drawableStart="@drawable/heritiage_icon_home"
                     android:drawablePadding="@dimen/_7ssp"
                     android:maxLines="2"
+                    android:visibility="@{TextUtils.isEmpty(attractions.locationTitle) ? View.INVISIBLE : View.VISIBLE}"
                     android:ellipsize="end"
-                    android:text="@{attractions.locationTitle}"                    android:textColor="@color/white_900"
+                    android:text="@{attractions.locationTitle}"
+                    android:textColor="@color/white_900"
                     android:textSize="@dimen/_10ssp" />
 
             </LinearLayout>
@@ -128,5 +150,34 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:id="@+id/visited_date_container"
+
+            >
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/events"
+                android:id="@+id/visited_date_icon"/>
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:layout_width="match_parent"
+                android:id="@+id/visited_date_time"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:textAlignment="viewStart"
+                android:text="Visited on: 12 Nov, 2020"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </layout>

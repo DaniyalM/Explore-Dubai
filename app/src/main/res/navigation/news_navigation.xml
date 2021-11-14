@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/news_navigation"
+    app:startDestination="@id/latestNewsFragment">
+
+    <include app:graph="@navigation/news_detail_navigation" />
+    <fragment
+        android:id="@+id/latestNewsFragment"
+        android:name="com.dubaiculture.ui.postLogin.latestnews.LatestNewsFragment"
+        android:label="LatestNewsFragment" >
+<!--        <argument-->
+<!--            android:name="culture"-->
+<!--            app:argType="string"-->
+<!--            app:nullable="false" />-->
+        <action
+            android:id="@+id/action_latestNewsFragment_to_newsDetailFragment"
+            app:destination="@id/news_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" >
+            <argument
+                android:name="news_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_latestNewsFragment_to_newsFilterListingFragment"
+            app:destination="@id/newsFilterListingFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newsFilterListingFragment"
+        android:name="com.dubaiculture.ui.postLogin.latestnews.newsfilter.NewsFilterListingFragment"
+        android:label="NewsFilterListingFragment" >
+<!--        <action-->
+<!--            android:id="@+id/action_newsFilterListingFragment_to_news_detail_navigation"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out" >-->
+<!--            <argument-->
+<!--                android:name="news_id"-->
+<!--                app:argType="string"-->
+<!--                app:nullable="false" />-->
+<!--        </action>-->
+        <action
+            android:id="@+id/action_newsFilterListingFragment_to_news_detail_navigation"
+            app:destination="@id/news_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="news_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+    </fragment>
+
+
+</navigation>

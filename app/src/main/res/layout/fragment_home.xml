@@ -4,79 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.postLogin.home.HomeFragment">
 
-    <RelativeLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <LinearLayout
-            android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
-                android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/nav_home_container_view"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1">
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
-
-            <!--        <com.google.android.material.tabs.TabLayout-->
-            <!--            android:id="@+id/tab_layout"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            style="@style/HomeTabStyle"/>-->
-        </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_above="@id/bottomNav"
-            android:layout_centerHorizontal="true"
-            android:backgroundTint="@color/purple_900"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="gone"
-            app:elevation="16dp"
-            app:layout_anchor="@id/bottomNav"
-            app:layout_anchorGravity="fill_vertical|center_horizontal" />
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navGraph="@navigation/explore_navigation" />
 
 
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNav"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_70sdp"
-            android:background="@drawable/nav_tabbar_new_one"
-            android:layout_alignParentBottom="true"
-            app:itemIconTint="@color/bottom_nav_color"
-            app:itemTextColor="@color/bottom_nav_color"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/my_navigation_items">
-
-
-            <ImageView
-                android:id="@+id/iv_add"
-                android:layout_width="80dp"
-                android:layout_gravity="center"
-                android:layout_height="80dp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_alignBottom="@+id/bottomNav"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/happiness_meter"
-                android:contentDescription="@string/bottom_sheet_behavior" />
-
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNav"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/nav_tabbar_new_one"
+                app:itemIconTint="@color/bottom_nav_color"
+                app:itemTextColor="@color/bottom_nav_color"
+                app:labelVisibilityMode="labeled"
+                app:layout_constraintBottom_toBottomOf="@+id/nav_home_container_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:menu="@menu/my_navigation_items">
 
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_add"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignBottom="@+id/bottomNav"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/happiness_meter"
+                    android:contentDescription="@string/bottom_sheet_behavior" />
+
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
-    </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:id="@+id/bottom_gradient"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shadow_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.09" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 </layout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="news"
+            type="com.dubaiculture.data.repository.news.local.LatestNews" />
+        <variable
+        name="technique"
+        type="com.daimajia.androidanimations.library.Techniques" />
+    </data>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="286dp"
+        android:layout_height="@dimen/_236sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:animate="@{technique.BounceInUp}"
+
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_6sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_265sdp"
+            android:orientation="vertical">
+
+            <com.rishabhharit.roundedimageview.RoundedImageView
+                android:id="@+id/img_news"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:background="@drawable/event_detail_icon"
+                android:imageUrl="@{news.image}"
+                android:scaleType="fitXY"
+                app:cornerRadius="@dimen/_12sdp"
+                app:roundedCorners="topRight|topLeft" />
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@{news.title}"
+                android:textColor="@color/gray_800"
+                android:textSize="@dimen/_11ssp" />
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:drawableStart="@drawable/calender_gray"
+                android:drawablePadding="@dimen/_10sdp"
+                android:text="@{news.postedDate}"
+                android:textSize="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>

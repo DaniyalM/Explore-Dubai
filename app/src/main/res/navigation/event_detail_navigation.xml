@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/event_detail_navigation"
+    app:startDestination="@id/eventDetailFragment2">
+    <fragment
+        android:id="@+id/eventDetailFragment2"
+        android:name="com.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"
+        android:label="EventDetailFragment"
+        tools:layout="@layout/fragment_event_detail">
+        <deepLink
+            android:id="@+id/deepLink"
+            app:action="android.intent.action.MY_ACTION"
+            app:mimeType="type/subtype"
+            app:uri="https://www.google.com/event?event_id={event_id}" />
+        <argument
+            android:name="event_id"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_eventDetailFragment2_to_eventDetailFragment2"
+            app:destination="@id/eventDetailFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/eventDetailFragment2"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_eventDetailFragment2_to_registerNowFragment"
+            app:destination="@id/registerNowFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment"
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_eventDetailFragment2_to_postLoginFragment2"
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <include app:graph="@navigation/post_login_bottom_navigation" />
+
+    <fragment
+        android:id="@+id/registerNowFragment"
+        android:name="com.dubaiculture.ui.postLogin.events.detail.registernow.RegisterNowFragment"
+        android:label="RegisterNowFragment"
+
+        tools:layout="@layout/fragment_register_now">
+
+        <action
+            android:id="@+id/action_registerNowFragment_to_registrationSuccessFragment2"
+            app:destination="@id/registrationSuccessFragment2"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_registerNowFragment_to_registrationSuccessFragment3"
+            app:destination="@id/registrationSuccessFragment3"
+            app:popUpTo="@id/registerNowFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <dialog
+        android:id="@+id/registrationSuccessFragment3"
+        android:name="com.dubaiculture.ui.preLogin.registeration.RegistrationSuccessFragment"
+        android:label="RegistrationSuccessFragment" />
+
+
+</navigation>

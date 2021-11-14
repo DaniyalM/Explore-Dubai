@@ -1,18 +1,28 @@
 <resources>
     <string name="app_name">Dubai Culture</string>
-    <string name="english">English</string>
     <string name="arabic">Arabic</string>
+    <string name="english">عربي</string>
+
+
+    <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
+    <string name="user_canceled_the_login">User cancelled the Login</string>
+    <string name="result">result</string>
+
 
     <!--z-->
-    <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>
+    <!--    <string name="map_key" translatable="false">AIzaSyAp_vGwkNu2ef_wB8WMocxEh4sjmYhuIQk</string>-->
+    <string name="map_key" translatable="false">AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs</string>
     <string name="switch_language">Switch Language</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     // home tabs
     <string name="explore">Explore</string>
+    <string name="service_procedure">Service Procedure</string>
+
     <string name="events">Events</string>
     <string name="attractions">Attractions</string>
+    <string name="favourites">Favourites</string>
     <string name="more">More</string>
     <string name="email">Email</string>
     <string name="password">Enter Password</string>
@@ -32,13 +42,14 @@
     <string name="registration">Registration</string>
     <string name="full_name">Full name</string>
     <string name="enter_full_name">Enter full name</string>
+    <string name="enter_your_comments">Enter Your Comments</string>
     <string name="email_address">Enter Email address</string>
     <string name="_email_address">Email address</string>
 
     <string name="i_agree_to_the_terms_and_conditions">I agree to the <u>Terms &amp; Conditions</u></string>
     <string name="_agree_to_the_terms_and_conditions">Please select Terms &amp; Conditions</string>
 
-    <string name="register_now">Register Now</string>
+    <string name="register_now"><u>Register Now</u></string>
     <string name="confirm_password">Enter Confirm password</string>
     <string name="_confirm_password">Confirm password</string>
 
@@ -103,11 +114,14 @@
     <string name="okay">Okay</string>
     <string name="filters">Filters</string>
     <string name="search_events_by_keyword">Search events by keyword</string>
+    <string name="search_news_by_keyword">Search news by keyword</string>
+    <string name="search_any_item">What are you looking for?</string>
     <string name="location">Location</string>
     <string name="date_range">Date Range</string>
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="category">Category</string>
+    <string name="tags">Tags</string>
     <string name="type">Type</string>
     <string name="_free">Free</string>
     <string name="ticketed">Ticketed</string>
@@ -170,11 +184,13 @@
     <string name="this_week">This Week</string>
     <string name="this_weekend">This Weekend</string>
     <string name="next_seven_days">Next 7 Days</string>
+    <string name="next_thirty_days">Next 30 Days</string>
     <string name="detail_clip_card_text">Review Majlis Ghorfat\non Trip Advisor</string>
     <string name="clear_all">Clear All</string>
+    <string name="clear">Clear</string>
     <string name="no_data_found">No Data Found</string>
 
-    <string name="away">Km Away</string>
+    <string name="away"> Km Away</string>
     <string name="error_msg">Are you sure you want to close application?</string>
     <string name="near_you">Near You</string>
     <string name="recognize">Recognize</string>
@@ -187,5 +203,183 @@
     <string name="view_gallery">View Gallery</string>
     <string name="reviews">Reviews</string>
     <string name="on_trip">on Trip Advisor</string>
+    <string name="turn_on_your_location_to_view_nearby_events">Turn on your location to view nearby events</string>
+    <string name="account">Account</string>
+    <string name="my_events">My Events</string>
+    <string name="places_visited">Places Visited</string>
+    <string name="my_trips">My Trips</string>
+    <string name="change_password">Change Password</string>
+    <string name="my_profile">My Profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="services">Services</string>
+    <string name="museum_services">Museum Services</string>
+    <string name="your_voice">Your Voice</string>
+    <string name="information">Information</string>
+    <string name="about_dubai_culture">About\nDubai Culture</string>
+    <string name="settings">Settings</string>
+    <string name="share_this_app">Share this app</string>
+    <string name="rate_us">Rate Us</string>
+
+
+    <string name="public_libraries_services">Public Libraries Services</string>
+    <string name="renting_more">Renting Services</string>
+    <string name="general_more">General Services</string>
+    <string name="heritage_more">Heritage Sites</string>
+    <string name="news_more">News</string>
+    <string name="contact_more">Contact Us</string>
+    <string name="help_more">Help &amp; FAQs</string>
+    <string name="related_more">Related Apps</string>
+    <string name="privacy_more">Privacy Policy</string>
+    <string name="terms_more">Terms and Conditions</string>
+    <string name="setting_more">Settings</string>
+    <string name="accessiblitiy_more">Accessibility</string>
+    <string name="logout_more">Logout</string>
+    <string name="are_you_sure_want_to_logout">Are you sure\nyou want to logout?</string>
+    <string name="are_you_sure_want_to_delete">Are you sure you want\nto delete days?</string>
+    <string name="settings_">Settings</string>
+    <string name="turn_on_location">Turn on Location</string>
+    <string name="reset_settings">Reset Settings</string>
+    <string name="push_notifications">Push Notifications</string>
+    <string name="location_based_notifications">Location based Notifications</string>
+    <string name="sms">SMS</string>
+    <string name="latest_news">Latest News</string>
+    <string name="more_news">More News</string>
+    <string name="submit_survey">Submit Survey</string>
+    <string name="survey_submitted">Survey Submitted</string>
+    <string name="summary">Summary</string>
+    <string name="take_new_photo">Take new photo</string>
+    <string name="select_photo_from_gallery">Select photo from gallery</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="new_password">New Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="contact_center">Contact Center</string>
+    <string name="reach_us">Reach Us</string>
+    <string name="suggestion_amp_complaints"><![CDATA[Suggestion & Complaints]]></string>
+    <string name="visited_on">Visited on: </string>
+    <string name="libraries_we_used">LIBRARIES WE USED</string>
+    <string name="share_your_feedback">Share Your Feedback</string>
+    <string name="subject">Subject</string>
+    <string name="what_are_you_writing_about">What are you writing about?</string>
+    <string name="select_type">Select Type</string>
+    <string name="type_your_message_here">Type your message here...</string>
+    <string name="message">Message</string>
+    <string name="what_are_you_looking_for">What are you looking for?</string>
+    <string name="my_services">My Services</string>
+
+    <string name="turn_on"> Please turn on your location</string>
+    <string name="about_ndubai_culture">About \nDubai Culture</string>
+    <string name="discover">Discover</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get Started</string>
+    <string name="fill_out_the_survey">Fill out the Survey</string>
+    <string name="share_your_feedback_and_help_us_improve_nyour_experience">Share your feedback and help us improve \nyour experience</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="add_your_comment_here">Add your comment here...</string>
+    <string name="booking_date">Booking Date</string>
+    <string name="no_of_tickets">No. of tickets</string>
+    <string name="event_ticket">EVENT TICKET</string>
+    <string name="booking_time">Booking Time</string>
+    <string name="booking_tickets"><![CDATA[Booking & Tickets]]></string>
+    <string name="completed">Completed</string>
+    <string name="view_status_detail">View Status Detail</string>
+    <string name="pending">Pending</string>
+    <string name="service_status">Service Status</string>
+    <string name="request_received">Request Received</string>
+    <string name="in_progress">In Progress</string>
+    <string name="view_details">View Details</string>
+    <string name="start_service">Start Service</string>
+    <string name="classification">Classification</string>
+    <string name="supplementary">Supplementary</string>
+    <string name="procedure">Procedure</string>
+    <string name="service_channels">Service Channels</string>
+    <string name="mobile">Mobile</string>
+    <string name="website">Website</string>
+    <string name="amount">Amount</string>
+    <string name="federal_fees">Federal Fees</string>
+    <string name="was_this_information_helpful">Was this information helpful?</string>
+    <string name="search_by_keyword">Search by keyword</string>
+    <string name="required_documents">Required Documents</string>
+    <string name="payments">Payments</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="attachment">Attachment</string>
+    <string name="pdf">PDF</string>
+    <string name="no_my_posts_fav">No Data Found</string>
+    <string name="faqs">FAQs</string>
+    <string name="loading">Loading...</string>
+
+    //PlanYourTrip
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consec iscing elit, sed do eiusmod tempor cons tetur ad iscing elit sed do</string>
+
+    <string name="step1">Step 01</string>
+    <string name="step2">Step 02</string>
+    <string name="step3">Step 03</string>
+    <string name="step4">Step 04</string>
+    <string name="ima">I\'m a</string>
+    <string name="resident">Resident</string>
+    <string name="next">Next</string>
+    <string name="interestedIn">Interested In</string>
+    <string name="selectMultiple">(You can select multiple)</string>
+    <string name="previous">Previous</string>
+    <string name="nearestLocation">Nearest Location</string>
+    <string name="select_duration">Select Duration</string>
+    <string name="select_dates">Select Dates</string>
+    <string name="select_dates_desc">If you are not sure about the dates, select the number of days of your trip</string>
+    <string name="no_of_days">No. Of Days</string>
+    <string name="show_my_plan">Show My Plan</string>
+    <string name="add_duration">Add Duration</string>
+    <string name="checkbox_desc">Repeat this selection to all</string>
+    <string name="hour2">2 Hours</string>
+    <string name="hour1">1 Hour</string>
+    <string name="hour3">3 Hours</string>
+    <string name="hour5">5 Hours</string>
+    <string name="hour7">7 Hours</string>
+    <string name="hour4">4 Hours</string>
+    <string name="hour6">6 Hours</string>
+    <string name="hour8">8 Hours</string>
+    <string name="time_of_day">Time of Day</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
+    <string name="duration">Duration</string>
+    <string name="editDuration">Edit Duration</string>
+    <string name="save">Save</string>
+    <string name="editDates">Edit Dates</string>
+    <string name="delete">Delete</string>
+    <string name="myTrip">My Trip</string>
+    <string name="editTrip">Edit Trip</string>
+    <string name="saveTrip">Save Trip</string>
+    <string name="tripName">Trip Name</string>
+    <string name="nameYourTrip">Name your trip</string>
+    <string name="select_mode_of_travel">Select Mode of Travel</string>
+    <string name="driving">Driving</string>
+    <string name="walking">Walking</string>
+    <string name="train">Train</string>
+    <string name="bus">Bus</string>
+    <string name="addLocation">Add Location</string>
+    <string name="enterLocation">Enter location</string>
+
+    <string name="day2">2 Days</string>
+    <string name="day4">4 Days</string>
+    <string name="day6">6 Days</string>
+    <string name="day8">8 Days</string>
+    <string name="day10">10 Days</string>
+    <string name="trip_created_desc">You have Successfully Created Your Trip</string>
+    <string name="_ok">Ok</string>
+    <string name="deleteTrip">Delete Trip</string>
+    <string name="selectUserType">Select UserType!</string>
+    <string name="selectCategory">Select Category!</string>
+    <string name="selectLocation">Select Location!</string>
+    <string name="you_are_authenticated_successfull_try_to_link_your_account">You have successfully authenticated with UAE pass. </string>
+    <string name="link_account">Link Account</string>
+    <string name="create_account">Create Account</string>
+    <string name="please_authenticate_using_you_dcaa_credentials_to_link_your_account">Please authenticate using you DCAA credentials to link your account</string>
+    <string name="note_this_is_only_one_time_setup">Note : This is only one time setup.</string>
+    <string name="if_you_don_t_have_an_account_then_please_click_on_the_following_button">If you don’t have an account then please Click on the following button</string>
+
+    <string name="are_you_sure_want_to_delete_all">Are you sure you want\nto delete all days?</string>
+
+
 
 </resources>

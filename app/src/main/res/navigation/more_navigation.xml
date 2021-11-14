@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/more_navigation"
+    app:startDestination="@id/moreFragment">
+    <include app:graph="@navigation/search_navigation" />
+
+    <include app:graph="@navigation/post_login_bottom_navigation" />
+    <include app:graph="@navigation/profile_navigation" />
+    <include app:graph="@navigation/news_navigation" />
+    <include app:graph="@navigation/settings_navigation" />
+    <include app:graph="@navigation/trip_navigation" />
+
+    <include app:graph="@navigation/service_navigation" />
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.MoreFragment"
+        android:label="MoreFragment"
+        tools:layout="@layout/fragment_more">
+
+        <argument
+            android:name="news_id"
+            android:defaultValue="0"
+            app:argType="string"
+            app:nullable="false" />
+
+        <action
+            android:id="@+id/action_moreFragment_to_latestNewsFragment"
+            app:destination="@id/news_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+
+            <argument
+                android:name="culture"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_moreFragment_to_profileFragment"
+            app:destination="@id/profile_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_moreFragment_to_logoutFragment"
+            app:destination="@id/logoutFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_moreFragment_to_settingFragment"
+            app:destination="@id/settings_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_moreFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_moreFragment_to_post_login_bottom_navigation"
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_moreFragment_to_privacyTermConditionFragment"
+            app:destination="@id/privacyTermConditionFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_moreFragment_to_contactFragment"
+            app:destination="@id/contactFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_moreFragment_to_FAQsFragment"
+            app:destination="@id/FAQsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_moreFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_moreFragment_to_popularServiceFragment2"
+            app:destination="@id/service_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="serviceId"
+                app:argType="string"
+                app:nullable="false" />
+            <argument
+                android:name="pos"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/action_moreFragment_to_tripFragment"
+            app:destination="@id/trip_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+        <action
+            android:id="@+id/action_moreFragment_to_search_navigation"
+            app:destination="@id/search_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <!--        <action-->
+        <!--            android:id="@+id/action_moreFragment_self"-->
+        <!--            app:destination="@id/moreFragment"-->
+        <!--            app:enterAnim="@anim/fade_in"-->
+        <!--            app:exitAnim="@anim/fade_out"-->
+        <!--            app:popEnterAnim="@anim/fade_in"-->
+        <!--            app:popExitAnim="@anim/fade_out"-->
+        <!--            app:popUpTo="@id/moreFragment"-->
+        <!--            app:popUpToInclusive="true"/>-->
+    </fragment>
+
+    <dialog
+        android:id="@+id/logoutFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.bottomsheet.LogoutFragment"
+        android:label="LogoutFragment" />
+
+    <fragment
+        android:id="@+id/notificationSettingFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.settings.NotificationSettingFragment"
+        android:label="NotificationSettingFragment" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.notification.NotificationFragment"
+        android:label="NotificationFragment" />
+    <dialog
+        android:id="@+id/privacyTermConditionFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment"
+        android:label="PrivacyTermConditionFragment"
+        tools:layout="@layout/fragment_privacy_policy" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.contact.ContactFragment"
+        android:label="ContactFragment"
+        tools:layout="@layout/fragment_contact">
+        <action
+            android:id="@+id/action_contactFragment_to_sharedFeeback"
+            app:destination="@id/sharedFeeback"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_contactFragment_to_post_login_bottom_navigation"
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/FAQsFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.faqs.FAQsFragment"
+        android:label="FAQsFragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.about.AboutFragment"
+        android:label="AboutFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_aboutFragment_to_privacyTermConditionFragment"
+            app:destination="@id/privacyTermConditionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sharedFeeback"
+        android:name="com.dubaiculture.ui.postLogin.more.contact.feedback.SharedFeebackFragment"
+        android:label="SharedFeeback"
+        tools:layout="@layout/fragment_shared_feeback" />
+</navigation>

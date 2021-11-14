@@ -5,7 +5,7 @@
         <import type="android.view.View" />
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostForgotViewModel" />
+            type="com.dubaiculture.ui.postLogin.login.viewmodel.PostForgotViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_close"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
@@ -38,13 +38,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/registration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/forgot_password_"
             android:transitionName="main_title"
-            android:textColor="@color/black_200"
+            style="@style/TextViewStyle"
             android:layout_marginTop="@dimen/_45sdp"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintTop_toBottomOf="@+id/img_close"
@@ -53,7 +53,7 @@
             />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/email_address"
             android:layout_marginTop="@dimen/_30sdp"
             android:transitionName="my_phone"
@@ -65,7 +65,7 @@
 
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
             android:text="@{viewmodel.isEmail ? @string/no_error : context.getString(viewmodel.emailError) }"
             app:layout_constraintBottom_toBottomOf="@+id/email_address"
@@ -74,7 +74,7 @@
             app:layout_constraintStart_toEndOf="@+id/email_address"
             app:layout_constraintTop_toTopOf="@+id/email_address" />
 
-        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        <com.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_email"
             style="@style/EditTextStyle"
             android:imeOptions="actionDone"
@@ -88,7 +88,7 @@
             android:text="@{viewmodel.email}"
             app:layout_constraintTop_toBottomOf="@+id/email_address" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
@@ -98,11 +98,11 @@
             app:layout_constraintTop_toTopOf="@+id/edit_email" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:textColor="@color/gray_800"
             android:textSize="@dimen/_10ssp"
             android:textAlignment="viewStart"
-            android:text="@string/a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number"
+            android:text="@string/_a_one_time_password_otp_will_be_sent_to_your_registered_email_address_or_mobile_number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/_25sdp"
@@ -112,7 +112,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
-        <com.app.dubaiculture.ui.components.custombutton.CustomButton
+        <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btn_otp"
             android:layout_marginBottom="@dimen/_100sdp"
             android:background="@drawable/btn_register"
@@ -132,13 +132,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_cancel"
             android:text="@string/cancel"
             android:textSize="@dimen/_12ssp"
             android:background="@drawable/custom_ripple_border"
-            android:textColor="@color/black_200"
             android:layout_marginTop="@dimen/_20sdp"
+            style="@style/TextViewStyle"
             app:layout_constraintStart_toStartOf="@+id/btn_otp"
             app:layout_constraintEnd_toEndOf="@id/btn_otp"
             app:layout_constraintTop_toBottomOf="@+id/btn_otp"

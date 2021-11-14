@@ -4,10 +4,47 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowActivityTransitions">true</item>
+
         <!-- Customize your theme here. -->
         <!--    <item name="colorPrimary">@color/colorPrimary</item>-->
         <!--    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
         <!--    <item name="colorAccent">@color/colorAccent</item>-->
+
+
+    </style>
+
+    <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="TabTextStyleAttraction" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
+        <item name="textAllCaps">true</item>
+        <item name="background">?attr/colorSurface</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="TabTextStyleSearch" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
+        <item name="textAllCaps">true</item>
+        <item name="background">?attr/colorSurface</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="ServiceTabStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@color/purple_900</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabIndicatorHeight">@dimen/_3sdp</item>
+        <item name="tabBackground">@drawable/tab_layout_selector</item>
+        <item name="tabTextAppearance">@style/TabTextStyle</item>
+        <item name="tabTextColor">?attr/colorSecondary</item>
+        <item name="tabSelectedTextColor">@color/purple_650</item>
 
     </style>
 
@@ -20,7 +57,7 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
-        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
 
     </style>
@@ -113,7 +150,7 @@
         <item name="android:layout_marginStart">@dimen/_25sdp</item>
         <item name="android:paddingStart">@dimen/_15sdp</item>
         <item name="android:paddingEnd">@dimen/_15sdp</item>
-        <item name="android:textColor">@color/black_200</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
         <item name="android:textColorHint">@color/gray_600</item>
         <item name="android:textSize">@dimen/_11ssp</item>
         <item name="android:background">@drawable/bg_edit_resiger</item>
@@ -124,7 +161,7 @@
 
     <style name="TextViewRegistrationStyle">
         <item name="android:layout_marginTop">@dimen/_15sdp</item>
-        <item name="android:textColor">@color/black_200</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
         <item name="android:textSize">@dimen/_10ssp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -201,7 +238,7 @@
     <style name="HorizontalAttractionStyle">
         <item name="selectedBackground1">@color/purple_900</item>
         <item name="selectedTextColor1">@color/white_900</item>
-        <item name="unSelectedBackground1">@color/white_900</item>
+        <item name="unSelectedBackground1">?attr/colorOnPrimary</item>
         <item name="unSelectedTextColor1">@color/gray_700</item>
     </style>
 
@@ -217,9 +254,40 @@
         <item name="cb_textFont">bold</item>
         <item name="cb_type">filled</item>
     </style>
+
     <style name="SubmitButtonOutLined" parent="SubmitButtonFilled">
         <item name="android:background">@drawable/bg_btn_outlined</item>
-        <item name="android:textColor">@color/purple_900</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
         <item name="cb_type">outlined</item>
     </style>
+
+    <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="fontFamily">@font/neo_sans_arabic_regular</item>
+        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
+    </style>
+
+    <style name="ChipChoiceTextAppearance" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="fontFamily">@font/neo_sans_arabic_regular</item>
+        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
+    </style>
+
+    <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="colorPrimary">@color/purple_900</item>
+        <item name="colorOnPrimary">@color/white_900</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyApp.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">100%</item>
+    </style>
+
+    <style name="CustomBottomSheetDialogTheme" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+
 </resources>

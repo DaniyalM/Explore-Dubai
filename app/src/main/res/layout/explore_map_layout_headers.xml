@@ -23,7 +23,7 @@
 
 
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgInnerIcon"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_title"
                 />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,12 +43,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:textSize="@dimen/_12ssp"
                 android:ellipsize="end"
-                android:textColor="@color/black_200"
+                style="@style/TextViewStyle"
                 android:layout_marginStart="@dimen/_8sdp"
 
 

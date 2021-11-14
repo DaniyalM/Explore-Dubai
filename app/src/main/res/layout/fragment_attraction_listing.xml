@@ -5,7 +5,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/_10sdp"
         android:orientation="vertical">
 
 
@@ -14,16 +13,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
+            android:layoutAnimation="@anim/layout_animation"
             android:focusable="true" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_70sdp"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_30sdp"
             android:indeterminate="true"
             android:indeterminateTint="@color/colorPrimaryDark"
             android:indeterminateTintMode="src_atop" />

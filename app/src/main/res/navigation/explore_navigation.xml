@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/explore_navigation"
+    app:startDestination="@id/exploreFragment">
+    <include app:graph="@navigation/post_login_bottom_navigation" />
+    <include app:graph="@navigation/attraction_detail_navigation" />
+    <include app:graph="@navigation/event_detail_navigation" />
+
+    <include app:graph="@navigation/attraction_navigation" />
+    <include app:graph="@navigation/more_navigation" />
+    <include app:graph="@navigation/events_navigation" />
+    <include app:graph="@navigation/settings_navigation" />
+
+    <include app:graph="@navigation/news_detail_navigation" />
+    <include app:graph="@navigation/news_navigation" />
+    <include app:graph="@navigation/service_navigation" />
+    <include app:graph="@navigation/service_detail_navigation" />
+    <include app:graph="@navigation/search_navigation" />
+    <include app:graph="@navigation/trip_navigation" />
+
+
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.dubaiculture.ui.postLogin.explore.ExploreFragment"
+        android:label="ExploreFragment"
+        android:menuCategory="secondary"
+        tools:layout="@layout/fragment_explore">
+        <action
+            android:id="@+id/action_exploreFragment_to_postLoginFragment"
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+        <action
+            android:id="@+id/action_exploreFragment_to_exploreMapFragment"
+            app:destination="@id/exploreMapFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+        <action
+            android:id="@+id/action_exploreFragment_to_attraction_navigation"
+            app:destination="@id/attraction_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" >
+            <argument
+                android:name="culture"
+                app:argType="string"
+                app:nullable="false" />
+            <argument
+                android:name="positionId"
+                app:argType="integer"
+                app:nullable="false"
+             />
+            <argument
+                android:name="isExplore"
+                app:argType="boolean"
+                app:nullable="false"
+               />
+        </action>
+        <action
+            android:id="@+id/action_exploreFragment_to_more_navigation"
+            app:destination="@id/more_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_exploreFragment_to_events_navigation"
+            app:destination="@id/events_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_exploreFragment_to_plantrip_navigation"
+            app:destination="@id/trip_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_exploreFragment_to_popularServiceFragment"
+            app:destination="@id/service_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_exploreFragment_to_news_detail_navigation"
+            app:destination="@id/news_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="news_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_exploreFragment_to_attraction_detail_navigation"
+            app:destination="@id/attraction_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="attraction"
+                app:argType="com.dubaiculture.data.repository.attraction.local.models.Attractions"
+                app:nullable="false"
+                />
+
+        </action>
+        <action
+            android:id="@+id/action_exploreFragment_to_settings_navigation"
+            app:destination="@id/settings_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_exploreFragment_to_news_navigation"
+            app:destination="@id/news_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_exploreFragment_to_service_detail_navigation"
+            app:destination="@id/service_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="service_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_exploreFragment_to_search_navigation"
+            app:destination="@id/search_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_exploreFragment_to_event_detail_navigation"
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/exploreMapFragment"
+        android:name="com.dubaiculture.ui.postLogin.explore.map.ExploreMapFragment"
+        android:label="ExploreMapFragment"
+        tools:layout="@layout/fragment_explore_map">
+        <action
+            android:id="@+id/action_exploreMapFragment_to_exploreBottomSheetFragment"
+            app:destination="@id/exploreBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_exploreMapFragment_to_search_navigation"
+            app:destination="@id/search_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            />
+    </fragment>
+    <dialog
+        android:id="@+id/exploreBottomSheetFragment"
+        android:name="com.dubaiculture.ui.postLogin.explore.bottomsheet.ExploreBottomSheetFragment"
+        android:label="ExploreBottomSheetFragment"
+        tools:layout="@layout/fragment_explore_buttom_sheet" />
+
+
+
+</navigation>

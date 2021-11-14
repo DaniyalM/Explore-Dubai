@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsSharedViewModel" />
+
+    </data>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_35sdp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="?attr/colorSurface"
+       >
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/back"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
@@ -24,7 +35,7 @@
             android:layout_height="@dimen/_35sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            app:cardBackgroundColor="@color/disabled"
+            app:cardBackgroundColor="?attr/colorSecondaryVariantInverted"
             app:cardCornerRadius="@dimen/_15sdp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/back"
@@ -37,24 +48,25 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                    android:id="@+id/editSearchEvents"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="@string/search_event_by_keyword"
+                    android:inputType="textCapSentences"
+                    android:hint="@string/search_news_by_keyword"
                     android:imeOptions="actionSearch"
                     android:maxLines="1"
+                    android:textColorHint="@color/gray_600"
+                    android:onTextChanged="@{viewmodel::onSearchTextChanged}"
                     android:singleLine="true"
                     android:paddingStart="@dimen/_15ssp"
-                    android:textColorHint="@color/gray_600"
                     android:textSize="@dimen/_10ssp"
-
                     />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_search"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="@dimen/_10sdp"
@@ -68,7 +80,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/badge_placement"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_30sdp"
@@ -78,7 +90,7 @@
             app:layout_constraintStart_toStartOf="@+id/img_filter"
             app:layout_constraintTop_toTopOf="@+id/img_filter" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_filter"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
@@ -89,13 +101,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/materialCardView" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_badge"
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:background="@drawable/circle"
-            android:text="1"
-            android:visibility="gone"
+            android:text="0"
+            android:visibility="visible"
             android:textSize="@dimen/_9ssp"
             android:gravity="center"
             android:textColor="@color/white_900"
@@ -104,4 +116,4 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/materialCardView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</merge>
+</merge></layout>

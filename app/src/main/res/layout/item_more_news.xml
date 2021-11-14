@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
+        <variable name="news" type="com.dubaiculture.data.repository.news.local.LatestNews"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/_265sdp"
+        android:layout_height="@dimen/_125sdp"
+        android:animate="@{technique.BounceInUp}"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_60sdp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardview"
+            android:layout_width="@dimen/_245sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:cardElevation="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.rishabhharit.roundedimageview.RoundedImageView
+                    android:id="@+id/img_upcoming_bg"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:scaleType="center"
+                    android:imageUrl="@{news.image}"
+                    app:cornerRadius="@dimen/_15sdp"
+                    app:roundedCorners="topRight|topLeft|bottomLeft|bottomRight" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="@{news.title}"
+                        android:textAlignment="viewStart"
+                        style="@style/TextViewStyle"
+                        android:textSize="@dimen/_9ssp" />
+
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:drawableStart="@drawable/noun_date"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:ellipsize="end"
+                        android:text="@{news.postedDate}"
+                        android:maxLines="3"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/gray_600"
+                        android:textSize="@dimen/_9ssp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardview" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

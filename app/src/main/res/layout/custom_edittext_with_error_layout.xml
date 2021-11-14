@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+    <com.dubaiculture.ui.components.customtextview.CustomTextView
         android:id="@+id/tvTitle"
         style="@style/TextViewRegistrationStyle"
         android:layout_marginTop="@dimen/_30sdp"
@@ -15,7 +15,7 @@
 
         />
 
-    <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+    <com.dubaiculture.ui.components.customEditText.CustomEditText
         android:id="@+id/edit_text"
         style="@style/EditTextStyle"
         android:layout_marginTop="12dp"
@@ -28,7 +28,7 @@
         tools:src="@drawable/bg_edit_resiger" />
 
 
-    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+    <com.dubaiculture.ui.components.customtextview.CustomTextView
         android:id="@+id/tvErrorMsg"
         style="@style/TextViewErrorRegistration"
         app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
@@ -38,7 +38,7 @@
         app:layout_constraintStart_toEndOf="@+id/tvTitle"
         app:layout_constraintTop_toTopOf="@+id/tvTitle" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgError"
         android:background="@drawable/error"
         android:layout_width="wrap_content"

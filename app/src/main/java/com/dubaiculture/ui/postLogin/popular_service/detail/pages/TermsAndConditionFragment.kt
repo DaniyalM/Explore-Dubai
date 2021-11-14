@@ -1,0 +1,90 @@
+package com.dubaiculture.ui.postLogin.popular_service.detail.pages
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import com.dubaiculture.R
+import com.dubaiculture.data.repository.popular_service.local.models.TermsAndCondition
+import com.dubaiculture.databinding.ItemServiceDetailTermsAndConditionLayoutBinding
+import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.components.customreadmore.ReadMoreClickListener
+import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment
+import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragmentDirections
+import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.ServiceDownVoteFeedBackViewModel
+import com.dubaiculture.utils.hide
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class TermsAndConditionFragment(
+    val termsAndCondition: List<TermsAndCondition>?
+) : BaseFragment<ItemServiceDetailTermsAndConditionLayoutBinding>() {
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = ItemServiceDetailTermsAndConditionLayoutBinding.inflate(inflater, container, false)
+
+    private val serviceDownVoteFeedBackViewModel: ServiceDownVoteFeedBackViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        subscribeUiEvents(serviceDownVoteFeedBackViewModel)
+
+
+        binding.detailListingHeader.text = activity.resources.getString(R.string.terms_and_conditions)
+
+        binding.commonBtn.text = termsAndCondition!![0].serviceStart
+
+
+        binding.contactuslayout.thumbDown.setOnClickListener {
+            (parentFragment as ServiceDetailFragment).navigateByDirections(
+                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToServiceDownVoteFeedBackFragment(termsAndCondition[0].id!!)
+            )
+        }
+
+        termsAndCondition[0].apply {
+            binding.contactuslayout.thumbUp.setOnClickListener {
+                serviceDownVoteFeedBackViewModel.upvoteService(id!!)
+            }
+
+            termsAndConditionsSummary.let {
+                if (!termsAndConditionsSummary.isEmpty()){
+                    binding.termsTitle.initialize(it, object : ReadMoreClickListener {
+                        override fun onClick(readMore: Boolean) {
+
+                        }
+                    })
+                }else {
+                    binding.detailListingHeader.hide()
+                    binding.termsTitle.hide()
+                }
+
+            }
+
+
+            if (!emailAddress.toString().isNullOrEmpty()) {
+                binding.contactuslayout.emailCallsBtn.llEmailUs.setOnClickListener {
+                    openEmailbox(emailAddress.toString())
+                }
+
+            } else {
+                binding.contactuslayout.emailCallsBtn.llEmailUs.isClickable = false
+                binding.contactuslayout.emailCallsBtn.llEmailUs.alpha = 0.4f
+
+            }
+            if (!phoneNumber.isNullOrEmpty()) {
+                binding.contactuslayout.emailCallsBtn.llCallus.setOnClickListener {
+                    openDiallerBox(phoneNumber)
+                }
+            } else {
+                binding.contactuslayout.emailCallsBtn.llCallus.isClickable = false
+                binding.contactuslayout.emailCallsBtn.llCallus.alpha = 0.4f
+            }
+
+
+        }
+    }
+
+
+}

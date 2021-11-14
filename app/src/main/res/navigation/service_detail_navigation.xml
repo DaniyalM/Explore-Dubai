@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/service_detail_navigation"
+    app:startDestination="@id/serviceDetailFragment2">
+
+    <include app:graph="@navigation/post_login_bottom_navigation" />
+
+    <fragment
+        android:id="@+id/serviceDetailFragment2"
+        android:name="com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"
+        android:label="ServiceDetailFragment">
+        <argument
+            android:name="service_id"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_serviceDetailFragment2_to_post_login_bottom_navigation"
+            app:destination="@id/post_login_bottom_navigation" />
+        <action
+            android:id="@+id/action_serviceDetailFragment2_to_serviceDownVoteFeedBackFragment"
+            app:destination="@id/serviceDownVoteFeedBackFragment" >
+            <argument
+                android:name="service_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/serviceDownVoteFeedBackFragment"
+        android:name="com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs.ServiceDownVoteFeedBackFragment"
+        android:label="ServiceDownVoteFeedBackFragment" >
+        <argument
+            android:name="service_id"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+
+</navigation>

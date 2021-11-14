@@ -5,39 +5,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--    android:elevation="@dimen/toolbar_elevation"-->
+
+    <data>
+
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
+    </data>
+
     <merge>
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarEventDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/white_900"
+            app:contentScrim="?attr/colorSurface"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
+<!--            android:background="@color/app_bg"-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg">
+                android:background="?attr/colorSurface"
+                >
 
                 <FrameLayout
                     android:id="@+id/imageLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_constraintBottom_toTopOf="@+id/bg_border"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imageView"
                         android:transitionName="imgScaleUp"
+                        android:animate="@{technique.BounceIn}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
 
                         />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -45,7 +57,8 @@
 
 
                 </FrameLayout>
-                <ImageView
+
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bg_border_event"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
@@ -60,14 +73,14 @@
                     tools:ignore="UnknownIdInLayout" />
 
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_100sdp"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,7 +93,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:textFont="bold" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/title"
                     android:layout_width="@dimen/_220sdp"
                     android:layout_height="wrap_content"
@@ -88,11 +101,12 @@
                     android:text="The Definitive Guide to an Uncertain World Contribute to The Future"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_20sdp"
+                    android:textAlignment="viewStart"
                     app:layout_constraintBottom_toTopOf="@+id/tv_event_date"
                     app:layout_constraintStart_toStartOf="@+id/category"
                     app:textFont="bold" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_event_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,7 +120,7 @@
                     app:layout_constraintStart_toStartOf="@+id/title" />
 
 
-                <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                <com.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btn_reg"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -124,7 +138,7 @@
                     app:layout_constraintStart_toStartOf="@+id/title" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_swipe_up_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,7 +154,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!--                <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
+                <!--                <com.dubaiculture.ui.components.custombutton.CustomButton-->
                 <!--                    android:id="@+id/btn_login"-->
                 <!--                    android:layout_width="match_parent"-->
                 <!--                    android:layout_height="wrap_content"-->
@@ -174,9 +188,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/back_event"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
@@ -187,47 +201,56 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/bookingCalender_event"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_marginStart="200dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/custom_ripple_black"
                         android:rotation="0"
+                        android:visibility="gone"
                         android:src="@drawable/add_to_calander"
-                        app:layout_constraintBottom_toBottomOf="@+id/back_event"
-                        app:layout_constraintEnd_toStartOf="@+id/favourite_event"
-                        app:layout_constraintStart_toEndOf="@+id/back_event"
-                        app:layout_constraintTop_toTopOf="@+id/back_event" />
+                        app:layout_constraintRight_toLeftOf="@+id/favourite_event"
+                        app:layout_constraintTop_toTopOf="@+id/favourite_event"
+                        tools:layout_editor_absoluteY="52dp" />
+
+                    <CheckBox
+                        android:id="@+id/favourite_event1"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+
+                        android:background="@drawable/heart_icon_home_black"
+                        android:button="@null"
+                        android:visibility="gone"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:foreground="@drawable/custom_ripple_border"
+                        app:layout_constraintTop_toTopOf="@+id/img_share_event"
+                        app:layout_constraintRight_toLeftOf="@+id/img_share_event" />
 
                     <CheckBox
                         android:id="@+id/favourite_event"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_marginEnd="20dp"
                         android:background="@drawable/heart_icon_home_black"
                         android:button="@null"
+                        android:layout_marginEnd="@dimen/_15sdp"
                         android:foreground="@drawable/custom_ripple_border"
-                        app:layout_constraintBottom_toBottomOf="@+id/bookingCalender_event"
-                        app:layout_constraintEnd_toStartOf="@+id/img_share_event"
-                        app:layout_constraintStart_toEndOf="@+id/bookingCalender_event"
-                        app:layout_constraintTop_toTopOf="@+id/bookingCalender_event"
-                        app:layout_constraintVertical_bias="1.0" />
+                        app:layout_constraintTop_toTopOf="@+id/img_share_event"
+                        app:layout_constraintRight_toLeftOf="@+id/img_share_event"
+                   />
 
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/img_share_event"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginEnd="@dimen/_15sdp"
                         android:background="@drawable/custom_ripple_black"
                         android:rotation="0"
                         android:src="@drawable/share"
                         app:layout_constraintBottom_toBottomOf="@+id/favourite_event"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/favourite_event"
-                        app:layout_constraintTop_toTopOf="@+id/favourite_event" />
+                        app:layout_constraintTop_toTopOf="@+id/back_event" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

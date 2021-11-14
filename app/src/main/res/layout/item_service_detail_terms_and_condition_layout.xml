@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/detailListingHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_15sdp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/payments"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="@dimen/_18ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textFont="bold" />
+
+            <com.dubaiculture.ui.components.customreadmore.CustomReadMoreView
+                android:id="@+id/terms_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:autoLink="web"
+                android:lineSpacingExtra="@dimen/text_line_spacing"
+                android:linksClickable="true"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa."
+                android:textAlignment="viewStart"
+                android:textColor="@color/gray_750"
+                android:textColorLink="@color/gray_750"
+                android:textSize="@dimen/_10ssp"
+                app:colorClickableText="@color/gray_500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/detailListingHeader"
+                app:layout_constraintTop_toBottomOf="@+id/detailListingHeader"
+                app:trimCollapsedText="@string/read_more"
+                app:trimExpandedText="@string/read_less"
+                app:trimLength="150"
+                app:trimMode="trimModeLength" />
+
+            <com.dubaiculture.ui.components.custombutton.CustomButton
+                android:id="@+id/common_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/_35sdp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_register"
+                android:elevation="@dimen/_15sdp"
+                android:foreground="@drawable/custom_ripple_border"
+                android:gravity="center"
+                android:text="@string/start_service"
+                android:textAllCaps="false"
+                android:textColor="@color/white_900"
+                app:layout_constraintEnd_toEndOf="@+id/terms_title"
+                app:layout_constraintStart_toStartOf="@+id/terms_title"
+                app:layout_constraintTop_toBottomOf="@+id/terms_title" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/common_btn"
+                app:layout_constraintStart_toStartOf="@+id/common_btn"
+                app:layout_constraintTop_toBottomOf="@+id/common_btn">
+
+                <include
+                    android:id="@+id/contactuslayout"
+                    layout="@layout/items_service_contact_inqueries_layout" />
+            </FrameLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

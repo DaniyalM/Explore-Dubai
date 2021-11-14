@@ -9,6 +9,8 @@
         android:layout_margin="@dimen/_7sdp"
         app:cardCornerRadius="@dimen/_22sdp"
         app:cardElevation="@dimen/_5sdp"
+        app:strokeColor="?attr/colorSecondaryVariantInverted"
+        app:strokeWidth="@dimen/_1sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -18,7 +20,7 @@
             android:layout_height="match_parent"
             android:textAlignment="center">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_bg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +30,7 @@
                 android:layout_height="match_parent"/>
 
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,6 +41,7 @@
                 android:paddingEnd="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginBottom="@dimen/_2sdp"
+                android:textColor="?attr/colorSecondary"
                 android:text="Sub Title"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -1,9 +1,0 @@
-package com.app.dubaiculture.ui.postLogin.attractions.detail.ar.external;
-
-public class WikitudeSDKConstants {
-
-    /**
-     * note that this key is only valid for this sample app, if you need one for your own application please visit www.wikitude.com (SDK Store)
-     */
-    public static final String WIKITUDE_SDK_KEY = "qVixfqFiKi9zlVHVdDHs6Dz0AdeXaZp1B15nQyec1YactUUrkCbpNedbxIiH037NcKwIFW+VLqoPwM630Nvxjvwe+P6JJRVOXnD3BHeuER9nrbDlqLsuWFYwATynGAEaFnj47hFQZ2PmtDga/f/5gYJ5H7znopO0YR4MbmxIF0xTYWx0ZWRfX4mGJjr58N9UDYP1cmotIwML6yx4AySme4KmLU06MqINd+srKhe6YamVmcIqkwESxeTpXRceianMEfY28yLxydtpZlMiaZXOifNjrWxWRE7rGD67nBb2m/iEbIN8bmtSRucXNF9XMsThCgSjtt7XoVAVXHnnuF8tfO3/920R/eMFcZyRCyNelMnCrTUNCyT33hDACiuRy4pxxIKzHpGmC6Wmu5iuA4nx+GefXq5lwbsrXC1Wx5A2x5BzvPoZkHDRld2VnNBG9mEWvz7pyLm4B4vwnRGzoZ6mTNV56MzjxP6rqthzCFEoOQQcpyLsRfGQ4UgboX0Ea/TAetLveaDSazkq7BgZgQhTNFDh4Fn3K6w3x72SrcmUyIbZMCTG+DAU/78cGiurErrwDWg8pWKR40bNluGfREQ9UmLcJBYnVqifnM3uw3B9AlVJxx5yTGoXI1gmL7EnsFcFBjIQAWH5Z9cB8RS8vVODFAunXIjJKMCbUg776PSlSe9rtFqhWxyBAPsYf3/kNfPRLu20QLoh5flF0lxFsaHQJlv92dhE/f3iBPTe/95UatDXcUh+RHDv8UmBAFoBQoTH/y4thThr2/ZupOmo0yW9/Yg+O45rox4o2ueD6+mIlpnwvxji2CnioZXqqbtNkIJC8n+CuMxWVjQ18k0jMt5W73ZKJlfJDO1RaP0N4aKz3sg=";
-}

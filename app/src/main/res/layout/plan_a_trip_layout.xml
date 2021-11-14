@@ -8,6 +8,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardivewRTL"
         android:layout_marginStart="@dimen/_15sdp"
+        android:outlineSpotShadowColor="?attr/color_card_views_shadow"
         android:foreground="@drawable/custom_ripple_black"
         android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_10sdp"
@@ -30,20 +31,24 @@
                 android:layout_height="match_parent">
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tvTrip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:text="Turn on your location to view nearby events"
-                    android:textColor="@color/black_200"
+                    android:text="@string/turn_on_your_location_to_view_nearby_events"
+                    android:textColor="?attr/colorSecondary"
                     android:textSize="@dimen/_14sdp" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-                    android:layout_width="wrap_content"
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/subHeading"
+                    android:layout_marginTop="-5dp"
                     android:visibility="gone"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_9ssp"
+                    android:textColor="@color/gray_600"
                     android:text="@string/create_your_customised_trip"
                     />
             </LinearLayout>
@@ -54,10 +59,21 @@
                 android:layout_gravity="center"
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="match_parent"
+                app:lottie_rawRes="@raw/pinlooped"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_weight="0.2"
+                android:visibility="gone"
+                android:id="@+id/animationViewEvent"
+                android:layout_gravity="center"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="match_parent"
                 app:lottie_rawRes="@raw/pin_nearby_events"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"/>
-            <!--                <ImageView-->
+            <!--                <androidx.appcompat.widget.AppCompatImageView-->
             <!--                    android:background="@drawable/dc_location_icon"-->
             <!--                    android:layout_gravity="center_vertical"-->
             <!--                    android:layout_margin="@dimen/_10sdp"-->

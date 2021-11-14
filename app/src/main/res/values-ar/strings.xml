@@ -1,14 +1,20 @@
 <resources>
     <string name="app_name">هيئة دبي للثقافة والفنون</string>
-    <string name="english">English</string>
-    <string name="arabic">العربية</string>
+    <string name="arabic">English</string>
+    <!--    <string name="arabic">العربية</string>-->
     <string name="switch_language">تغيير اللغة</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا</string>
+    <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
+    <string name="user_canceled_the_login">ألغى المستخدم تسجيل الدخول</string>
+    <string name="enter_your_comments">Enter Your Comments</string>
 
-
+    <string name="result">result</string>
 
     // home tabs
+    <string name="service_procedure">Service Procedure</string>
+    <string name="faqs">Faqs</string>
+
     <string name="explore">اكتشف</string>
     <string name="events">الفعاليات</string>
     <string name="attractions">الوجهات الثقافية</string>
@@ -20,7 +26,6 @@
     <string name="welcome_to_dubai_culture">مرحبا بك في هيئة دبي للثقافة والفنون</string>
     <string name="sign_up">تسجيل جديد؟</string>
     <string name="forgot_password"> نسيت كلمة السر؟</string>
-
 
 
     <string name="login_to_your_account">الدخول للحساب</string>
@@ -38,8 +43,9 @@
     <string name="_confirm_password"> تأكيد كلمة السر</string>
     <string name="_email_address">ادخل البريد الالكتروني</string>
     <string name="_password"> كلمة السر</string>
+    <string name="tags">Tags</string>
 
-
+    <string name="favourites">المفضلة</string>
 
     <string name="forgot_password_">نسيت كلمة السر</string>
     <string name="cancel">الغاء</string>
@@ -65,7 +71,6 @@
     <string name="err_first_name">اسم خطئ</string>
 
 
-
     <string name="err_email">بريد الكتروني خطئ</string>
     <string name="err_phone">رقم هاتف خطئ</string>
     <string name="err_password">كلمة مرور خطئ</string>
@@ -79,7 +84,7 @@
     <string name="confirm">تأكيد</string>
     <string name="already_a_member">لديك حساب؟</string>
     <string name="at_least_one_digit">يجب أن تتضمن رقم</string>
-    <string name="err_phone_two" >e.g: 971-------------</string>
+    <string name="err_phone_two">e.g: 971-------------</string>
     <string name="your_password_has_been_updated_continue_to_login">لقد تم تحديث كلمة السر الخاصة بك. أكمل الى تسجيل الدخول</string>
     <string name="mobile_number_new">رقم الهاتف خطئ</string>
     <string name="enter_mobile_number_reg">ادخل رقم الهاتف</string>
@@ -97,6 +102,9 @@
     <string name="okay">حسنا</string>
     <string name="filters">تصنيف</string>
     <string name="search_events_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
+    <string name="search_news_by_keyword">البحث باستخدام مفاتيح الكلمات</string>
+    <string name="search_any_item">What are you looking for?</string>
+
     <string name="location">الموقع</string>
     <string name="date_range">نطاق التاريخ</string>
     <string name="from">من عند</string>
@@ -163,10 +171,14 @@
     <string name="this_week">هذا الأسبوع</string>
     <string name="this_weekend">عطلة نهاية هذا الأسبوع</string>
     <string name="next_seven_days">ال7 أيام القادمة</string>
+    <string name="next_thirty_days">ال30 أيام القادمة</string>
+
     <string name="detail_clip_card_text">مراجعة المكان</string>
     <string name="clear_all">مسح الكل</string>
+    <string name="clear">مسح</string>
+
     <string name="no_data_found">لم يتم ايجاد نتائج</string>
-    <string name="away">كم</string>
+    <string name="away"> كم</string>
     <string name="error_msg">هل أنت متاكد من اغلاق التطبيق؟</string>
     <string name="near_you">حولك</string>
     <string name="recognize">اكتشف</string>
@@ -185,4 +197,183 @@
     <string name="reviews">المراجعات</string>
     <string name="on_trip">على TripAdvisor</string>
 
+    <!--Sprint 3 Content need for translation.-->
+    <!--Please translate from English to Arabic from here  "These are sprint 3 Content."-->
+    <string name="turn_on_your_location_to_view_nearby_events">فعّل الموقع الحالي لعرض الفعاليات القريبة منك</string>
+    <string name="account">الحساب</string>
+    <string name="my_events">أنشطة مختاره</string>
+    <string name="places_visited">المواقع التي زرتها</string>
+    <string name="my_trips">رحلاتي</string>
+    <string name="change_password">تغيير كلمة المرور</string>
+    <string name="my_profile">حسابي</string>
+    <string name="notifications">الاشعارات</string>
+    <string name="services">الخدمات</string>
+    <string name="museum_services">خدمات المتاحف</string>
+    <string name="your_voice">صوتك</string>
+    <string name="information">معلومات</string>
+    <string name="about_dubai_culture">عن هيئة دبي للثقافة والفنون</string>
+    <string name="settings">الإعدادات</string>
+    <string name="share_this_app">شارك التطبيق</string>
+    <string name="rate_us">تقييم التطبيق</string>
+    <string name="public_libraries_services">خدمات المكتبات العامة</string>
+    <string name="renting_more">خدمات التأجير</string>
+    <string name="general_more">الخدمات العامة</string>
+    <string name="heritage_more">المواقع التراثية</string>
+    <string name="news_more">الأخبار</string>
+    <string name="contact_more">تواصل معنا</string>
+    <string name="help_more">الأسئلة الشائعة</string>
+    <string name="related_more">تطبيقات ذات صلة</string>
+    <string name="privacy_more">خصوصية الاستخدام</string>
+    <string name="terms_more">الأحكام والشروط</string>
+    <string name="setting_more">الإعدادات</string>
+    <string name="accessiblitiy_more">سهولة الإستخدام</string>
+    <string name="logout_more">تسجيل الخروج</string>
+    <string name="are_you_sure_want_to_logout">تأكيد تسجيل الخروج</string>
+
+    <string name="settings_">الإعدادات</string>
+    <string name="turn_on_location">فعّل خدمة الموقع</string>
+    <string name="reset_settings">اعادة ضبط الإعدادات</string>
+    <string name="push_notifications">الإشعارات</string>
+    <string name="location_based_notifications">إشعارات المواقع</string>
+    <string name="sms">SMS</string>
+    <string name="latest_news">آخر الأخبار</string>
+    <string name="more_news">المزيد</string>
+    <string name="submit_survey">أرسل الاستفتاء</string>
+    <string name="survey_submitted">الاستقتاء أُرسل</string>
+    <string name="summary">نبذة</string>
+    <string name="take_new_photo">التقط صورة جديدة</string>
+    <string name="select_photo_from_gallery">اختر من المعرض</string>
+    <string name="save_changes">حفظ التغييرات</string>
+    <string name="edit_profile">تعديل الحساب</string>
+    <string name="new_password">كلمة مرور جديدة</string>
+    <string name="current_password">كلمة المرور الحالية</string>
+    <string name="contact_center">مركز التواصل</string>
+    <string name="reach_us">قيّم التطبيق</string>
+    <string name="suggestion_amp_complaints"><![CDATA[Suggestion & Complaints]]></string>
+    <string name="visited_on">تاريخ الزيارة: </string>
+    <string name="libraries_we_used">الحزم المستخدمة</string>
+    <string name="share_your_feedback">شارك رأيك</string>
+    <string name="subject">العنوان</string>
+    <string name="what_are_you_writing_about">عن ماذا تكتب؟</string>
+    <string name="select_type">اختر الفئة</string>
+    <string name="type_your_message_here">اكتب رسالتك هنا...</string>
+    <string name="message">الرسالة</string>
+    <string name="what_are_you_looking_for">عن ماذا تبحث؟</string>
+    <string name="my_services">خدماتي</string>
+    <string name="turn_on"> يرجى تشغيل الموقع</string>
+    <string name="about_ndubai_culture">عن هيئة دبي للثقافة والفنون</string>
+    <string name="english">English</string>
+    <string name="discover">Discover</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get Started</string>
+    <string name="fill_out_the_survey">Fill out the Survey</string>
+    <string name="share_your_feedback_and_help_us_improve_nyour_experience">Share your feedback and help us improve \nyour experience</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="add_your_comment_here">Add your comment here...</string>
+    <string name="completed">Completed</string>
+    <string name="view_status_detail">View Status Detail</string>
+    <string name="pending">Pending</string>
+    <string name="booking_date">Booking Date</string>
+    <string name="no_of_tickets">No. of tickets</string>
+    <string name="event_ticket">EVENT TICKET</string>
+    <string name="booking_time">Booking Time</string>
+    <string name="service_status">Service Status</string>
+    <string name="booking_tickets"><![CDATA[Booking & Tickets]]></string>
+    <string name="request_received">Request Received</string>
+    <string name="in_progress">In Progress</string>
+    <string name="view_details">View Details</string>
+    <string name="start_service">Start Service</string>
+    <string name="classification">Classification</string>
+    <string name="supplementary">Supplementary</string>
+    <string name="procedure">Procedure</string>
+    <string name="service_channels">Service Channels</string>
+    <string name="mobile">Mobile</string>
+    <string name="website">Website</string>
+    <string name="amount">Amount</string>
+    <string name="federal_fees">Federal Fees</string>
+    <string name="was_this_information_helpful">Was this information helpful?</string>
+    <string name="search_by_keyword">Search by keyword</string>
+    <string name="required_documents">Required Documents</string>
+    <string name="payments">Payments</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="attachment">Attachment</string>
+    <string name="pdf">PDF</string>
+    <string name="no_my_posts_fav">No Data Found</string>
+    <string name="loading">Loading</string>
+
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consec iscing elit, sed do eiusmod tempor cons tetur ad iscing elit sed do</string>
+
+    <string name="step1">Step 01</string>
+    <string name="step2">Step 02</string>
+    <string name="step3">Step 03</string>
+    <string name="step4">Step 04</string>
+    <string name="ima">I\'m a</string>
+    <string name="resident">Resident</string>
+    <string name="next">Next</string>
+    <string name="interestedIn">Interested In</string>
+    <string name="selectMultiple">(You can select multiple)</string>
+    <string name="previous">Previous</string>
+    <string name="nearestLocation">Nearest Location</string>
+    <string name="select_duration">Select Duration</string>
+    <string name="select_dates">Select Dates</string>
+    <string name="select_dates_desc">If you are not sure about the dates, select the number of days of your trip</string>
+    <string name="no_of_days">No. Of Days</string>
+    <string name="show_my_plan">Show My Plan</string>
+    <string name="add_duration">Add Duration</string>
+    <string name="checkbox_desc">Repeat this selection to all</string>
+    <string name="hour2">2 Hours</string>
+    <string name="hour4">4 Hours</string>
+    <string name="hour6">6 Hours</string>
+    <string name="hour8">8 Hours</string>
+    <string name="hour1">1 Hour</string>
+    <string name="hour3">3 Hours</string>
+    <string name="hour5">5 Hours</string>
+    <string name="hour7">7 Hours</string>
+    <string name="time_of_day">Time of Day</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
+    <string name="duration">Duration</string>
+    <string name="editDuration">Edit Duration</string>
+    <string name="save">Save</string>
+    <string name="editDates">Edit Dates</string>
+    <string name="delete">Delete</string>
+    <string name="are_you_sure_want_to_delete">Are you sure you want\nto delete days?</string>
+    <string name="myTrip">My Trip</string>
+    <string name="editTrip">Edit Trip</string>
+    <string name="saveTrip">Save Trip</string>
+    <string name="tripName">Trip Name</string>
+    <string name="nameYourTrip">Name your trip</string>
+    <string name="select_mode_of_travel">Select Mode of Travel</string>
+    <string name="driving">Driving</string>
+    <string name="walking">Walking</string>
+    <string name="train">Train</string>
+    <string name="bus">Bus</string>
+    <string name="addLocation">Add Location</string>
+    <string name="enterLocation">Enter location</string>
+
+    <string name="day2">2 Days</string>
+    <string name="day4">4 Days</string>
+    <string name="day6">6 Days</string>
+    <string name="day8">8 Days</string>
+    <string name="day10">10 Days</string>
+    <string name="trip_created_desc">You have Successfully Created Your Trip</string>
+    <string name="_ok">Ok</string>
+    <string name="deleteTrip">Delete Trip</string>
+    <string name="selectUserType">Select UserType!</string>
+    <string name="selectCategory">Select Category!</string>
+    <string name="selectLocation">Select Location!</string>
+    <string name="you_are_authenticated_successfull_try_to_link_your_account">You are Authenticated Successfull Try To Link Your Account.</string>
+    <string name="link_account">Link Account</string>
+    <string name="create_account">Create Account</string>
+    <string name="please_authenticate_using_you_dcaa_credentials_to_link_your_account">Please authenticate using you DCAA credentials to link your account</string>
+    <string name="note_this_is_only_one_time_setup">Note : This is only one time setup.</string>
+    <string name="if_you_don_t_have_an_account_then_please_click_on_the_following_button">If you don’t have an account then please Click on the following button</string>
+
+    <string name="are_you_sure_want_to_delete_all">Are you sure you want\nto delete all days?</string>
+
+
+    <!--  End of Sprint 3  -->
+    <!--  End of Sprint 3  -->
 </resources>

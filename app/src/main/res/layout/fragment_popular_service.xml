@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.dubaiculture.ui.postLogin.popular_service.viewmodels.PopularServiceViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/headerVisited"
+            layout="@layout/layout_back" />
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/customTextView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/services"
+            style="@style/TextViewStyle"
+            android:textSize="32sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:textFont="regular" />
+
+        <com.dubaiculture.ui.postLogin.popular_service.components.ServicesListingHeaderItemSelector
+            android:id="@+id/horizontalSelector"
+            style="@style/HorizontalAttractionStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:background="@drawable/bg_edit_resiger"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalSelector" >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_search"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/search_icon_faqs" />
+
+            <com.dubaiculture.ui.components.customEditText.CustomEditText
+                android:id="@+id/editSearchServices"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:inputType="textCapSentences"
+                android:hint="@string/search_by_keyword"
+                android:imeOptions="actionDone"
+                android:maxLines="1"
+                android:onTextChanged="@{viewmodel::onSearchTextChanged}"
+                android:singleLine="true"
+                android:paddingStart="@dimen/_10ssp"
+                android:textColorHint="@color/gray_600"
+                android:textSize="@dimen/_11ssp"
+                android:textAlignment="viewStart"
+                android:textDirection="locale" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_cancel"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/_15sdp"
+                android:src="@drawable/cross_icon_360_view"
+                app:layout_constraintBottom_toBottomOf="@+id/img_back"
+                app:layout_constraintEnd_toEndOf="@+id/img_back"
+                app:layout_constraintStart_toStartOf="@+id/img_back"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/noDataPlaceHolder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tvPlaceHolder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/home_tab_layout_height"
+                android:lineSpacingExtra="@dimen/text_line_spacing"
+                android:text="@string/no_my_posts_fav"
+                android:textAlignment="center"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_service_listing"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_50sdp"
+
+            />
+
+    </LinearLayout>
+</layout>

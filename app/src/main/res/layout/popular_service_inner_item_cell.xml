@@ -2,13 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-<!--        <variable name="popular_services" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
-        <variable name="popular_services" type="com.app.dubaiculture.data.repository.explore.local.models.PopularServices"/>
+<!--        <variable name="popular_services" type="com.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
+        <variable name="popular_services" type="com.dubaiculture.data.repository.popular_service.local.models.PopularServices"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginBottom="@dimen/_15sdp"
         android:layout_width="@dimen/_175sdp"
+        android:animate="@{technique.BounceInUp}"
         android:layout_height="@dimen/_105sdp">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview"
@@ -31,19 +35,20 @@
         android:layout_width="match_parent"
         android:layout_margin="5dp"
         android:layout_height="match_parent">
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:imageViewUrl='@{popular_services.icon}'
             />
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{popular_services.title}"
             android:textSize="@dimen/_12ssp"
             android:maxLines="2"
+            android:textColor="?attr/colorSecondary"
             android:textAlignment="viewStart"
             android:ellipsize="end"
             android:layout_marginStart="@dimen/_10sdp"

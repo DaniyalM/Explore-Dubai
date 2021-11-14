@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="user"
+            type="com.dubaiculture.data.repository.user.local.User" />
+    </data>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/header"
+                layout="@layout/layout_back" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/noti_sp3_anim_purple_lines"
+                app:lottie_repeatCount="0" />
+
+            <ScrollView
+                android:fillViewport="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_main_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/header"
+                android:layout_marginBottom="@dimen/_15sdp"
+                >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="@dimen/_102sdp"
+                android:layout_height="@dimen/_102sdp"
+                android:layout_marginTop="8dp"
+                android:imageViewUrl="@{user.userImage}"
+                android:background="@drawable/profile_icon_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <FrameLayout
+                android:id="@+id/frameLayoutImagePicker"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:foreground="@drawable/custom_ripple_black"
+                android:background="@drawable/ellipse"
+                app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+                app:layout_constraintEnd_toEndOf="@+id/profileImage"
+                app:layout_constraintTop_toTopOf="@+id/profileImage"
+                app:layout_constraintVertical_bias="0.882">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/pickAvatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/pick_avatar_icon" />
+            </FrameLayout>
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@{user.userName}"
+                style="@style/TextViewStyle"
+                android:textSize="@dimen/_16ssp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/profileImage"
+                app:layout_constraintStart_toStartOf="@+id/profileImage"
+                app:layout_constraintTop_toBottomOf="@+id/profileImage"
+                app:textFont="bold" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/line_light_gray"
+                app:layout_constraintEnd_toEndOf="@+id/name"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/email_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@{user.email}"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/gray_500"
+                app:layout_constraintEnd_toEndOf="@+id/view3"
+                app:layout_constraintStart_toStartOf="@+id/view3"
+                app:layout_constraintTop_toBottomOf="@+id/view3"
+                app:textFont="regular" />
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/mob_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.phoneNumber}"
+                android:textSize="@dimen/_9ssp"
+                android:textColor="@color/gray_500"
+                app:layout_constraintEnd_toEndOf="@+id/email_address"
+                app:layout_constraintStart_toStartOf="@+id/email_address"
+                app:layout_constraintTop_toBottomOf="@+id/email_address"
+                />
+
+            <FrameLayout
+                android:id="@+id/editButtonFrame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_profile"
+                android:padding="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="@+id/mob_num"
+                app:layout_constraintStart_toStartOf="@+id/mob_num"
+                app:layout_constraintTop_toBottomOf="@+id/mob_num">
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/editProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_ripple_black"
+                    android:text="@string/edit_profile"
+                    android:textColor="@color/purple_600"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/mob_num"
+                    app:layout_constraintStart_toStartOf="@+id/mob_num"
+                    app:layout_constraintTop_toBottomOf="@+id/mob_num" />
+
+            </FrameLayout>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:outlineSpotShadowColor="?attr/color_card_views_shadow"
+                app:cardElevation="@dimen/_8sdp"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="@+id/editButtonFrame"
+                app:layout_constraintStart_toStartOf="@+id/editButtonFrame"
+                app:layout_constraintTop_toBottomOf="@+id/editButtonFrame">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/favouriteContainer"
+                        android:background="@drawable/custom_ripple_black"
+                        android:layout_height="@dimen/_40sdp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/icon_favourite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginBottom="22dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/heart_favourite" />
+
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/title_favourite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:text="@string/favourites"
+                            android:textColor="?attr/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="@+id/icon_favourite"
+                            app:layout_constraintStart_toEndOf="@+id/icon_favourite"
+                            app:layout_constraintTop_toTopOf="@+id/icon_favourite" />
+
+                        <FrameLayout
+                            android:id="@+id/badge_favourite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_28sdp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="26dp"
+                            android:background="@drawable/badge_background"
+                            app:layout_constraintBottom_toBottomOf="@+id/arrow_favourite"
+                            app:layout_constraintEnd_toStartOf="@+id/arrow_favourite"
+                            app:layout_constraintTop_toTopOf="@+id/arrow_favourite"
+                            app:srcCompat="@drawable/arrow_attraction">
+
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                                android:id="@+id/badge_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="@dimen/_4sdp"
+                                android:text="5"
+                                android:textColor="@color/white_900"
+                                app:layout_constraintBottom_toBottomOf="@+id/icon_favourite"
+                                app:layout_constraintStart_toEndOf="@+id/icon_favourite"
+                                app:layout_constraintTop_toTopOf="@+id/icon_favourite" />
+                        </FrameLayout>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/arrow_favourite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/arrow_attraction" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/myEventsView"
+                        android:background="@drawable/custom_ripple_black"
+                        android:layout_height="@dimen/_40sdp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/icon_events"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginBottom="22dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/calender_ticket_book" />
+
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/title_events"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:text="@string/my_events"
+                            android:textColor="?attr/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="@+id/icon_events"
+                            app:layout_constraintStart_toEndOf="@+id/icon_events"
+                            app:layout_constraintTop_toTopOf="@+id/icon_events" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/arrow_events"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/arrow_attraction" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/placesVisitedView"
+                        android:background="@drawable/custom_ripple_black"
+                        android:layout_height="@dimen/_40sdp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/icon_places_visited"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginBottom="22dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icon_visited" />
+
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/title_places_visited"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:text="@string/places_visited"
+                            android:textColor="?attr/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="@+id/icon_places_visited"
+                            app:layout_constraintStart_toEndOf="@+id/icon_places_visited"
+                            app:layout_constraintTop_toTopOf="@+id/icon_places_visited" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/arrow_places_visited"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/arrow_attraction" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/myServicesView"
+
+                        android:layout_height="@dimen/_40sdp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/icon_my_services"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginBottom="22dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/recycled" />
+
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/title_my_services"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:text="@string/my_services"
+                            android:textColor="?attr/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="@+id/icon_my_services"
+                            app:layout_constraintStart_toEndOf="@+id/icon_my_services"
+                            app:layout_constraintTop_toTopOf="@+id/icon_my_services" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/arrow_my_services"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/arrow_attraction" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/clMyTrips"
+                        android:layout_height="@dimen/_40sdp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/icon_my_trips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginBottom="22dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icon_trips" />
+
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/title_my_trips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:text="@string/my_trips"
+                            android:textColor="?attr/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="@+id/icon_my_trips"
+                            app:layout_constraintStart_toEndOf="@+id/icon_my_trips"
+                            app:layout_constraintTop_toTopOf="@+id/icon_my_trips" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/arrow_my_trips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/arrow_attraction" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/changePasswordView"
+                        android:background="@drawable/custom_ripple_black"
+                        android:layout_height="@dimen/_40sdp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/icon_change_password"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginBottom="22dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/password" />
+
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
+                            android:id="@+id/title_change_password"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:text="@string/change_password"
+                            android:textColor="?attr/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="@+id/icon_change_password"
+                            app:layout_constraintStart_toEndOf="@+id/icon_change_password"
+                            app:layout_constraintTop_toTopOf="@+id/icon_change_password" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/arrow_change_password"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/arrow_attraction" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/cardview"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

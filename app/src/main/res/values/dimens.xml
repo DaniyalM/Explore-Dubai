@@ -4,6 +4,11 @@
     <dimen name="my_corner_radius">24dp</dimen>
     <dimen name="my_corner_radius_plan">35dp</dimen>
     <dimen name="my_corner_radius_corner">0dp</dimen>
+    <dimen name="_5sdp">5.00dp</dimen>
+    <dimen name="home_tab_layout_height">@dimen/_45sdp</dimen>
+    <dimen name="text_line_spacing">@dimen/_5sdp</dimen>
+    <dimen name="staggered_component_height">@dimen/_230sdp</dimen>
+
 
 
 </resources>

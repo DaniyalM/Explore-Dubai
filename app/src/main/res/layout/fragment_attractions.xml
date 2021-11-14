@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.postLogin.feeds.FeedsFragment">
 
-    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
+    <com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/toolbar_snippet" />
+            <include android:id="@+id/toolbar_snippet" layout="@layout/toolbar_snippet" />
 
             <!--            <FrameLayout-->
             <!--                android:layout_width="match_parent"-->
@@ -24,10 +24,10 @@
 
             <!--        </FrameLayout>-->
 
-            <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+            <com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_45sdp"
                 android:layout_weight="1">
 
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.app.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector
+                    <com.dubaiculture.ui.postLogin.attractions.components.AttractionHeaderItemSelector
                         android:id="@+id/horizontalSelector"
                         style="@style/HorizontalAttractionStyle"
                         android:layout_width="match_parent"
@@ -49,10 +49,10 @@
                         android:layout_height="match_parent" />
                 </LinearLayout>
 
-            </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+            </com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
 
         </LinearLayout>
 
 
-    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
+    </com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
 </layout>

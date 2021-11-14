@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
+    <com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -10,7 +10,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/toolbar_snippet"/>
+            <include
+                android:id="@+id/toolbar_snippet"
+                layout="@layout/toolbar_snippet"/>
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -20,7 +22,6 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -28,17 +29,17 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_event_title"
                         android:textAlignment="viewStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/feature_events"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="@dimen/_18ssp"
                         android:layout_marginStart="@dimen/_15sdp"
                         />
-                    <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+                    <com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <androidx.recyclerview.widget.RecyclerView
@@ -47,7 +48,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:overScrollMode="never" />
-                    </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+                    </com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
 
 
                     <LinearLayout
@@ -55,18 +56,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_nearEvent_title"
                         android:layout_weight="1"
                         android:textAlignment="viewStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/events_near_you"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="@dimen/_18ssp"
                         android:layout_marginStart="@dimen/_15sdp"
                         />
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                            android:id="@+id/tv_view_map"
                             android:visibility="gone"
                             android:layout_width="wrap_content"
@@ -81,7 +82,7 @@
 
                     </LinearLayout>
 
-                    <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+                    <com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <androidx.recyclerview.widget.RecyclerView
@@ -90,8 +91,9 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:overScrollMode="never" /></com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+                        android:overScrollMode="never" /></com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
                     <include
+                        android:id="@+id/plan_a_trip_layout"
                         layout="@layout/plan_a_trip_layout"/>
 
 
@@ -103,29 +105,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/tv_moreEvent_title"
                             android:layout_weight="1"
                             android:textAlignment="viewStart"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/more_events"
-                            android:textColor="@color/black_200"
+                            android:textColor="?attr/colorSecondary"
                             android:textSize="@dimen/_18ssp"
                             android:layout_marginStart="@dimen/_15sdp"
                             />
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/view_all"
                             android:textSize="@dimen/_12ssp"
                             android:foreground="@drawable/custom_ripple_border"
                             android:gravity="end"
+                            android:textColor="?attr/colorSecondary"
                             android:id="@+id/view_all_events"
                             android:layout_marginEnd="@dimen/_15sdp"
                             />
                     </LinearLayout>
-                    <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+                    <com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <androidx.recyclerview.widget.RecyclerView
@@ -135,7 +138,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/_60sdp"
                         android:overScrollMode="never" />
-                    </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+                    </com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
 
                 </LinearLayout>
 
@@ -145,5 +148,5 @@
 
 
         </LinearLayout>
-    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
+    </com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
 </layout>

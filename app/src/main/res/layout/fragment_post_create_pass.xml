@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.postLogin.attractions.detail.login.viewmodel.PostCreatePassViewModel" />
+            type="com.dubaiculture.ui.postLogin.login.viewmodel.PostCreatePassViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
             />
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_close"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
@@ -43,12 +43,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/create_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_password"
-            android:textColor="@color/black_200"
+            style="@style/TextViewStyle"
             android:layout_marginTop="@dimen/_45sdp"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintTop_toBottomOf="@+id/img_close"
@@ -57,7 +57,7 @@
             />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/your_pass"
             android:text="@string/your_password_must_contain"
             style="@style/TextViewCreatePasswordStyle"
@@ -66,7 +66,7 @@
             app:layout_constraintTop_toBottomOf="@+id/create_pass"
             />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/eight_character"
             android:text="@string/_8_characters_long"
             style="@style/TextViewCreatePasswordStyle"
@@ -79,7 +79,7 @@
             />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/upper_case"
             android:text="@string/uppercase_character"
             style="@style/TextViewCreatePasswordStyle"
@@ -91,7 +91,7 @@
             app:layout_constraintTop_toBottomOf="@+id/eight_character"
             />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/lower_case"
             android:text="@string/lowercase_character"
             android:textColor="@{viewmodel.lowerCaseLetter ? @color/black_200 : @color/gray_600 }"
@@ -102,7 +102,7 @@
             app:layout_constraintStart_toStartOf="@+id/upper_case"
             app:layout_constraintTop_toBottomOf="@+id/upper_case"
             />
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/special_character"
             android:text="@string/special_character"
             style="@style/TextViewCreatePasswordStyle"
@@ -115,7 +115,7 @@
             />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/one_digit"
             android:text="@string/at_least_one_digit"
             style="@style/TextViewCreatePasswordStyle"
@@ -127,7 +127,7 @@
             app:layout_constraintTop_toBottomOf="@+id/special_character"
             />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/password"
             android:layout_marginTop="@dimen/_30sdp"
             style="@style/TextViewRegistrationStyle"
@@ -136,7 +136,7 @@
             app:layout_constraintStart_toStartOf="@+id/special_character"
             />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
             android:text="@{viewmodel.isPassword ? @string/no_error : context.getString(viewmodel.passwordError) }"
             app:layout_constraintBottom_toBottomOf="@+id/password"
@@ -145,7 +145,7 @@
             app:layout_constraintStart_toEndOf="@+id/password"
             app:layout_constraintTop_toTopOf="@+id/password" />
 
-        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        <com.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_password"
             style="@style/EditTextStyle"
             android:imeOptions="actionNext"
@@ -160,7 +160,7 @@
             android:text="@={viewmodel.password}"
             />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
@@ -169,14 +169,14 @@
             app:layout_constraintEnd_toEndOf="@+id/edit_password"
             app:layout_constraintTop_toTopOf="@+id/edit_password" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/conf_password"
             style="@style/TextViewRegistrationStyle"
             android:text="@string/confirm_password"
             app:layout_constraintTop_toBottomOf="@+id/edit_password"
             app:layout_constraintStart_toStartOf="@+id/edit_password"
             />
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
             android:text="@{viewmodel.isPasswordConfirm ? @string/no_error :  context.getString(viewmodel.passwordConfirmError) }"
             app:layout_constraintBottom_toBottomOf="@+id/conf_password"
@@ -185,7 +185,7 @@
             app:layout_constraintStart_toEndOf="@+id/conf_password"
             app:layout_constraintTop_toTopOf="@+id/conf_password" />
 
-        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        <com.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_confirm_pass"
             style="@style/EditTextStyle"
             android:inputType="textPassword"
@@ -197,7 +197,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/conf_password" />
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
@@ -207,7 +207,7 @@
             app:layout_constraintTop_toTopOf="@+id/edit_confirm_pass" />
 
 
-        <com.app.dubaiculture.ui.components.custombutton.CustomButton
+        <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btn_setPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

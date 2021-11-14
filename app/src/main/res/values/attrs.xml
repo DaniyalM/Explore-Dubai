@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="color_dubai_logo" format="color" />
+    <attr name="color_dubai_logo_inverse" format="color" />
+    <attr name="color_dubai_logo_dark" format="color" />
+    <attr name="colorOnBackgroundDark" format="color" />
+    <attr name="colorSurfaceInverted" format="color" />
+    <attr name="color_light_gray_svg" format="color" />
+    <attr name="color_light_white_dark_gray" format="color" />
+    <attr name="color_light_white_dark_gray_icon" format="color" />
+    <attr name="color_light_white_dark_gray_night" format="color" />
+    <attr name="color_edit_text_bg" format="color" />
+    <attr name="color_card_views_shadow" format="color" />
+    <attr name="color_curve_view_bg" format="color" />
+    <attr name="color_curve_login_bg" format="color" />
+    <attr name="color_login_edit_text_bg" format="color" />
+
+    <attr name="color_light_theme_purple_dark_theme_gray" format="color" />
+    <attr name="color_light_theme_dark_theme_gray" format="color" />
+    <attr name="color_light_theme_dark_theme_dark_gray" format="color" />
+    <attr name="color_light_theme_purple_dark_theme" format="color" />
+    <attr name="colorEventLight" format="color" />
+    <attr name="colorSurfaceInvertedGray" format="color" />
+    <attr name="colorSecondaryVariantInverted" format="color" />
+
+
     <declare-styleable name="CustomTextView">
         <attr name="textFont" format="enum">
             <enum name="light" value="0" />
@@ -72,5 +96,12 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="CustomTextInputLayout">
+        <attr name="textTypeFace" format="enum">
+            <enum name="light" value="0" />
+            <enum name="regular" value="1" />
+            <enum name="bold" value="2" />
+        </attr>
+    </declare-styleable>
 
 </resources>

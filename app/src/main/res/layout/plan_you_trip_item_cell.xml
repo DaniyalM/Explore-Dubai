@@ -25,14 +25,14 @@
                     android:layout_height="match_parent">
 
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_13sdp"
-                        android:textColor="@color/black_200"
+                        style="@style/TextViewStyle"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="Plan Your Trip" />
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
@@ -41,7 +41,7 @@
                     />
                 </LinearLayout>
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:background="@drawable/dc_location_icon"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="@dimen/_10sdp"

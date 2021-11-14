@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.dubaiculture.ui.postLogin.more.contact.feedback.viewmodel.FeedbackViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.postLogin.more.contact.feedback.SharedFeebackFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_close"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:rotation="90"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_22sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@string/share_your_feedback"
+            style="@style/TextViewStyle"
+            android:textSize="@dimen/_20ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_close" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/full_name"
+                    style="@style/TextViewRegistrationStyle"
+                    android:layout_marginStart="@dimen/_22sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:text="@string/full_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
+                    android:id="@+id/edit_fullName"
+                    style="@style/EditTextStyle"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="12dp"
+                    android:background="@{viewmodel.isfullName ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
+                    android:digits="غظضذخثتشرقصجفعسنملةىكيطئءؤحزوهدباABCDEFGHIJKLMNOPQRSTUVWXYZqwertzuiopasdfghmjklyxcvbn  "
+                    android:drawableEnd="@drawable/username_register"
+                    android:hint="@string/enter_full_name"
+                    android:onTextChanged="@{viewmodel::onFullNameChanged}"
+                    android:text="@{viewmodel.fullName}"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.906"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/full_name"
+                    tools:src="@drawable/bg_edit_resiger" />
+                <!--android:text="@{viewmodel.isfullName ? @string/no_error :  @string/err_first_name }"-->
+
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/customTextView2"
+                    style="@style/TextViewErrorRegistration"
+                    android:text="@{viewmodel.isfullName ?@string/no_error : context.getString(viewmodel.fullnameError)    }"
+                    app:layout_constraintBottom_toBottomOf="@+id/full_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="@+id/edit_fullName"
+                    app:layout_constraintTop_toTopOf="@+id/full_name" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="@{viewmodel.isfullName ? null : @drawable/error }"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_fullName"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_fullName"
+                    app:layout_constraintTop_toTopOf="@+id/edit_fullName" />
+
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/email_address"
+                    style="@style/TextViewRegistrationStyle"
+                    android:text="@string/_email_address"
+                    app:layout_constraintStart_toStartOf="@+id/full_name"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_fullName" />
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    style="@style/TextViewErrorRegistration"
+                    app:layout_constraintBottom_toBottomOf="@+id/email_address"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@{viewmodel.isEmail ? @string/no_error : context.getString(viewmodel.emailError) }"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="@+id/edit_email_address"
+                    app:layout_constraintTop_toTopOf="@+id/email_address" />
+
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
+                    android:id="@+id/edit_email_address"
+                    style="@style/EditTextStyle"
+                    android:drawableEnd="@drawable/message_register"
+                    android:hint="@string/email_address"
+                    android:background="@{viewmodel.isEmail ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
+                    android:onTextChanged="@{viewmodel::onEmailChanged}"
+                    android:text="@{viewmodel.email}"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/email_address"
+                    tools:src="@drawable/bg_edit_resiger" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@{viewmodel.isEmail ? null : @drawable/error }"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_email_address"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_email_address"
+                    app:layout_constraintTop_toTopOf="@+id/edit_email_address" />
+
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/subject"
+                    style="@style/TextViewRegistrationStyle"
+                    android:text="@string/subject"
+                    app:layout_constraintStart_toStartOf="@+id/full_name"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_email_address" />
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    style="@style/TextViewErrorRegistration"
+                    android:text="@{viewmodel.isSubject ?@string/no_error : context.getString(viewmodel.subjectError)    }"
+                    app:layout_constraintBottom_toBottomOf="@+id/subject"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="@+id/edit_subject"
+                    app:layout_constraintTop_toTopOf="@+id/subject" />
+
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
+                    android:id="@+id/edit_subject"
+                    style="@style/EditTextStyle"
+                    android:drawableEnd="@drawable/subject_share_feed_back_icon"
+                    android:hint="@string/what_are_you_writing_about"
+                    android:imeOptions="actionNext"
+                    android:background="@{viewmodel.isSubject ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
+                    android:inputType="textEmailAddress"
+                    android:onTextChanged="@{viewmodel::onSubjectChanged}"
+                    android:text="@{viewmodel.subject}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/subject"
+                    tools:src="@drawable/bg_edit_resiger" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="@{viewmodel.isSubject ? null : @drawable/error }"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_subject"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_subject"
+                    app:layout_constraintTop_toTopOf="@+id/edit_subject" />
+
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/type"
+                    style="@style/TextViewRegistrationStyle"
+                    android:text="@string/type"
+                    app:layout_constraintStart_toStartOf="@+id/full_name"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_subject" />
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/customTextView6"
+                    style="@style/TextViewErrorRegistration"
+                    android:text="@{viewmodel.isType ?@string/no_error : context.getString(viewmodel.typeError)    }"
+                    app:layout_constraintBottom_toBottomOf="@+id/type"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="@+id/edit_subject"
+                    app:layout_constraintTop_toTopOf="@+id/type" />
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/sp_type"
+                    android:editable="false"
+                    android:drawableEnd="@drawable/arrow_readmore_"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:dropDownHeight="@dimen/_150sdp"
+                    android:hint="@string/select_type"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:singleLine="true"
+                    android:onTextChanged="@{viewmodel::onTypeChanged}"
+                    android:text="@={viewmodel.type}"
+                    tools:background="@drawable/bg_edit_resiger"
+                    android:background="@{viewmodel.isType ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
+                    android:textColorHint="@color/gray_600"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/type" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@{viewmodel.isType ? null : @drawable/error }"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sp_type"
+                    app:layout_constraintEnd_toEndOf="@+id/sp_type"
+                    app:layout_constraintTop_toTopOf="@+id/sp_type" />
+
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/message"
+                    style="@style/TextViewRegistrationStyle"
+                    android:text="@string/message"
+                    app:layout_constraintStart_toStartOf="@+id/full_name"
+                    app:layout_constraintTop_toBottomOf="@+id/sp_type" />
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    style="@style/TextViewErrorRegistration"
+                    app:layout_constraintBottom_toBottomOf="@+id/message"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintStart_toStartOf="@+id/edit_subject"
+                    app:layout_constraintTop_toTopOf="@+id/message" />
+
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
+                    android:id="@+id/edit_message"
+                    style="@style/EditTextStyle"
+                    android:layout_height="@dimen/_120sdp"
+                    android:gravity="top"
+                    android:hint="@string/type_your_message_here"
+                    android:imeOptions="actionDone"
+                    android:onTextChanged="@{viewmodel::onMessageChanged}"
+                    android:text="@{viewmodel.message}"
+                    android:inputType="textEmailAddress"
+                    android:paddingTop="@dimen/_15sdp"
+                    android:background="@{viewmodel.isMessage ? @drawable/message_bg_share_feed_back_icon : @drawable/message_bg_share_feed_error}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/message"
+                   />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@{viewmodel.isMessage ? null : @drawable/error }"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_message"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_message"
+                    app:layout_constraintTop_toTopOf="@+id/edit_message" />
+                <com.dubaiculture.ui.components.custombutton.CustomButton
+                    android:id="@+id/btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:layout_marginBottom="@dimen/_65sdp"
+                    android:background="@drawable/btn_register"
+                    android:foreground="@drawable/custom_ripple_border"
+                    android:gravity="center"
+                    android:onClick="@{()-> viewmodel.sharedFeedbackPost()}"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white_900"
+                    android:transitionName="action_btn"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_message"
+                    app:layout_constraintStart_toStartOf="@+id/edit_message"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_message" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

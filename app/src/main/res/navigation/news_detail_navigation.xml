@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/news_detail_navigation"
+    app:startDestination="@id/newsDetailFragment">
+    <!--    <include app:graph="@navigation/search_navigation" />-->
+
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.dubaiculture.ui.postLogin.latestnews.detail.NewsDetailFragment"
+        android:label="NewsDetailFragment">
+        <argument
+            android:name="news_id"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_newsDetailFragment_self"
+            app:destination="@id/newsDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/newsDetailFragment"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="news_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <!--        <action-->
+        <!--            android:id="@+id/action_newsDetailFragment_to_search_navigation"-->
+        <!--            app:destination="@id/search_navigation"-->
+        <!--            app:enterAnim="@anim/fade_in"-->
+        <!--            app:exitAnim="@anim/fade_out"-->
+        <!--            app:popEnterAnim="@anim/fade_in"-->
+        <!--            app:popExitAnim="@anim/fade_out" />-->
+
+    </fragment>
+</navigation>

@@ -5,11 +5,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="match_parent"
-        android:background="#fff"
         android:layout_height="wrap_content"
+        android:paddingBottom= "@dimen/_10sdp"
         >
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@id/innerSectionHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,12 +17,12 @@
             android:layout_marginTop="8dp"
             android:text="@string/attractions"
             android:elevation="@dimen/_10sdp"
-            android:textColor="@color/black_900"
+            android:textColor="?attr/colorSecondary"
             android:textSize="@dimen/_20sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/view_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,14 +82,14 @@
                     android:layout_height="match_parent">
 
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_16sdp"
-                        android:textColor="@color/black_200"
+                        android:textColor="?attr/colorSecondary"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/plan_your_trip" />
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -105,10 +105,10 @@
                     android:layout_width="@dimen/_70sdp"
 
                     android:layout_height="match_parent"
-                    app:lottie_rawRes="@raw/pin_nearby_events"
+                    app:lottie_rawRes="@raw/pinlooped"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"/>
-<!--                <ImageView-->
+<!--                <androidx.appcompat.widget.AppCompatImageView-->
 <!--                    android:background="@drawable/dc_location_icon"-->
 <!--                    android:layout_gravity="center_vertical"-->
 <!--                    android:layout_margin="@dimen/_10sdp"-->

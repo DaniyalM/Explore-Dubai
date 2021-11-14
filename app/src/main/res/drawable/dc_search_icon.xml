@@ -9,8 +9,8 @@
         android:translateX="0.25"
         android:translateY="0.25">
         <path
-            android:fillColor="#2a2d31"
-            android:strokeColor="#2a2d31"
+            android:fillColor="?attr/color_light_gray_svg"
+            android:strokeColor="?attr/color_light_gray_svg"
             android:strokeWidth="0.5"
             android:pathData="M8.945,17.5a8.749,8.749,0,1,1,8.749-8.749A8.759,8.759,0,0,1,8.945,17.5Zm0-15.839a7.09,7.09,0,1,0,7.09,7.09,7.1,7.1,0,0,0-7.09-7.09ZM21.183,21a0.829 0.829 ,0,0,0,0-1.173l-3.711-3.711A0.829 0.829 ,0,0,0,16.3,17.292L20.01,21a0.829 0.829 ,0,0,0,1.173,0Z" />
     </group>

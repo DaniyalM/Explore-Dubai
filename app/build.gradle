@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.gms.google-services'
-//apply plugin: 'com.google.gms.google-services'
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
 def config = rootProject.extensions.getByName("ext")
 
 
@@ -21,16 +22,38 @@ android {
     }
 
 
+
     defaultConfig {
-        applicationId "com.app.dubaiculture"
+        applicationId "com.dubaiculture"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.7"
         multiDexEnabled true //add this line in the defaultConfig
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [appAuthRedirectScheme: 'com.redirectScheme.comm']
+
+
+        //UAE PASS START -- Adding Custom Scheme Variables
+        buildConfigField "String", "URI_SCHEME", "\"uaePassDemo\"" // Change to your app name or any custom scheme. Donot use uaepasssample
+        buildConfigField "String", "URI_HOST_SUCCESS", "\"success\""
+        buildConfigField "String", "URI_HOST_FAILURE", "\"failure\""
+
+        //UAE PASS START -- Adding Custom Scheme Variables
+        buildConfigField "String", "URI_SCHEME1", "\"uaePassDemo1\"" // Change to your app name or any custom scheme. Donot use uaepasssample
+        buildConfigField "String", "URI_HOST_SUCCESS1", "\"success1\""
+        buildConfigField "String", "URI_HOST_FAILURE1", "\"failure1\""
+
+        manifestPlaceholders = [
+                host_success: "success",
+                host_failure: "failure",
+                scheme      : "uaePassDemo",
+                host_success1: "success1",
+                host_failure1: "failure1",
+                scheme1      : "uaePassDemo1" // Change to your app name or any custom scheme. Donot use uaepasssample
+        ]
+        //UAE PASS END -- Adding Custom Scheme Variables
 
 
     }
@@ -42,10 +65,10 @@ android {
             keyPassword "dc123dc"
         }
         prodConfig {
-            storeFile file("../certificates/productionKS.jks")
-            storePassword "dj123456789"
-            keyAlias "production"
-            keyPassword "dj123456789"
+            storeFile file("../certificates/dcprodks.jks")
+            storePassword "dcprodks12"
+            keyAlias "dcprod"
+            keyPassword "dcprodks12"
         }
     }
     buildTypes {
@@ -53,17 +76,22 @@ android {
             applicationIdSuffix ".release"
             minifyEnabled false
             debuggable false
-            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_DEBUG\"")
 
+
+
+
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
 
 
         }
@@ -71,31 +99,42 @@ android {
             applicationIdSuffix ".debug"
             minifyEnabled false
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
+            buildConfigField("String", "BASE_URL_SHARE", "\"http://dc.qa.greenlightlabs.tech\"")
+
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_DEBUG\"")
 
+
+
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-
-
+//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
         }
         stag {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable true
-            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            debuggable false
+            buildConfigField("String", "BASE_URL", "\"https://stgcd.dubaiculture.gov.ae/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
+            buildConfigField("String", "BASE_URL_SHARE", "\"https://stgcd.dubaiculture.gov.ae\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_STAG\"")
             signingConfig signingConfigs.stagConfig
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "dubaiculture-${variant.name}-${defaultConfig.versionName}.apk"
+                }
+            }
 
 //            buildConfigField("String", "BASE_URL", "\"https://a04f708a-3b9c-41a5-bc03-1450f93ba4a1.mock.pstmn.io/\"")
 
@@ -103,20 +142,40 @@ android {
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-
+//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
         }
         prod {
             applicationIdSuffix ".prod"
-            minifyEnabled true
+            minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
+            buildConfigField("String", "BASE_URL_SHARE", "\"http://dc.qa.greenlightlabs.tech\"")
+
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_PROD\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_PROD\"")
+
+
+
             signingConfig signingConfigs.prodConfig
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "dubaiculture-${variant.name}-${defaultConfig.versionName}.apk"
+                }
+            }
+
+//            buildConfigField("String", "BASE_URL", "\"https://a04f708a-3b9c-41a5-bc03-1450f93ba4a1.mock.pstmn.io/\"")
+
+            Properties properties = new Properties()
+            if (rootProject.file("local.properties").exists()) {
+                properties.load(rootProject.file("local.properties").newDataInputStream())
+            }
+//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
+            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
 
 //            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
 
@@ -128,54 +187,49 @@ android {
     }
     // For Kotlin projects
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     buildFeatures {
         dataBinding true
+//        viewBinding = true
+
 
     }
 
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+//    implementation fileTree(dir: "libs", include: ["*.jar",'*.aar'])
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation config.commonDependency.ktx_core
     implementation config.commonDependency.multidex
     implementation config.commonDependency.appcompat
+    implementation config.commonDependency.legacySupport
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.google.firebase:firebase-messaging:21.1.0'
     //Databinding Compiler
     kapt config.commonDependency.dataBinding
     //RetroFit Networking
     implementation config.retrofitDependency.retrofit2
     implementation config.retrofitDependency.loggingInterceptor
     implementation config.retrofitDependency.retrofitGsonConvertor
-    implementation config.retrofitDependency.retrofit2AdatperRxJava
+//    implementation config.retrofitDependency.retrofit2AdatperRxJava
 
     implementation config.commonDependency.gson
     // rx java
-    implementation config.reactive_extension.rxJava2
+//    implementation config.reactive_extension.rxJava2
     // testing
     implementation config.testing.junit
     implementation config.testing.junitExtension
     implementation config.testing.espresso
+    testImplementation config.testing.truth
     implementation config.testing.mockito
     testImplementation config.testing.mockitoTestImplementation
     androidTestImplementation config.testing.mockitoAndroidTestImplementation
-    // material design
-    implementation config.ui_design.materialDesign
-    //Complex RecyclerViews
-    implementation config.ui_design.complexRv
-    //Complex RecyclerViews
-    implementation config.ui_design.complexRvBinding
-    //viewPager_2
-    implementation config.ui_design.viewPager2
-    //ConstraintLayout
-    implementation config.ui_design.constraintLayout
+
+
     // room
     implementation config.database.room
     kapt config.database.roomAnnotation
@@ -186,22 +240,30 @@ dependencies {
     implementation config.androidArchitectureComponents.lifeCycleRuntime
     implementation config.androidArchitectureComponents.lifeCycleRuntimeKtx
     implementation config.androidArchitectureComponents.lifecyleViewModel
-    // Coroutines
+    // Coroutines //Work Manager
     implementation config.backgroundAndAsynThreading.coroutines
-    //Work Manager
     implementation config.backgroundAndAsynThreading.workManager
+    implementation config.backgroundAndAsynThreading.coroutinesPlayServices
+
     // Navigation Component
-    implementation config.navigationDependency.navFragment
-    implementation config.navigationDependency.navKtx
-    // Glide
+    implementation config.navigationDependency.navFragmentKtx
+//    implementation config.navigationDependency.navFragment
+    implementation config.navigationDependency.navUiKtx
+//    implementation config.navigationDependency.navRuntime
+    implementation config.navigationDependency.navRuntimeKtx
+//    implementation config.navigationDependency.navUi
+    // Glide // SVG Glide
     implementation config.image_processing.glide
     kapt config.image_processing.glideCompiler
+    implementation config.image_processing.glideToSvg
+
     // Activity KTX for viewModels()
     implementation config.commonDependency.activityKtx
+    implementation config.commonDependency.fragmentKtx
     //Dagger - Hilt
     implementation config.di.hilt
-    implementation config.di.hiltLifeCycleVM
-    kapt config.di.hiltCompiler
+//    implementation config.di.hiltLifeCycleVM
+//    kapt config.di.hiltCompiler
     kapt config.di.hiltDagger
     // Timber
     implementation config.logs.timber
@@ -209,6 +271,16 @@ dependencies {
     implementation config.commonDependency.dataStorePref
     //For Event Management
     api config.commonDependency.otto
+    // material design
+    implementation config.ui_design.materialDesign
+
+    //Complex RecyclerViews Groupie
+    implementation config.ui_design.complexRv
+    implementation config.ui_design.complexRvBinding
+    //viewPager_2
+    implementation config.ui_design.viewPager2
+    //ConstraintLayout
+    implementation config.ui_design.constraintLayout
     //For Lottie
     implementation config.ui_design.lottieViews
     //QuickPermissions for runtime permission
@@ -221,80 +293,78 @@ dependencies {
     implementation config.ui_design.sdp
 
     implementation config.ui_design.circleimageview
+    implementation config.ui_design.roundedImageView
+    //lib phone
+    implementation config.ui_design.libphoneNumber
+    implementation config.ui_design.materialRipple
+    implementation config.ui_design.androidAnimations
+//    implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
+
+    //recycler Animation
+    implementation config.ui_design.recyclerAnimators
+    implementation config.ui_design.tapadoAlerter
+    implementation config.ui_design.flexBox
+//    implementation 'com.github.devendroid:ReadMoreOption:1.0.2'
+
+    implementation config.ui_design.badgeView
+    implementation config.ui_design.searchablespinner
+    //photo view
+//    implementation config.image_processing.photoView
+
+    //Blurry
+    implementation config.ui_design.blurry
+
+//    implementation 'com.facebook.shimmer:shimmer:0.5.0'
     //paging3
     implementation config.paging3.pagingRuntime
     implementation config.paging3.pagingRuntimeKtx
 
 
-    //location Related Work
-    implementation config.google.location_google
-
-    //Image Cropping Api
-    implementation config.media_libraries.image_crop_api
+    //Image Cropping Api and Media Libs
+//    implementation config.media_libraries.image_crop_api
+    implementation config.media_libraries.image_picker
 
 
-    // GMS
+
+    // GoogleMapServices     //location Related Work
     implementation config.google.map_google
+    implementation config.google.location_google
 
     //OTP
     implementation config.otp.otpview_library
-    implementation config.ui_design.roundedImageView
 
- //   SVG Glide
-    implementation config.image_processing.glideToSvg
-        // for edit mask
-
-    //lib phone
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.19'
-    implementation 'com.balysv:material-ripple:1.0.2'
-//    implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
-
-    //recycler Animation
-    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
-    implementation 'com.tapadoo.android:alerter:7.0.1'
-    implementation 'com.google.android:flexbox:2.0.1'
-//    implementation 'com.github.devendroid:ReadMoreOption:1.0.2'
-
-
-    //Google Map
-    implementation "com.google.android.gms:play-services-maps:17.0.0"
-
-    //location Related Work
-    implementation config.google.location_google
-    implementation 'q.rorbin:badgeview:1.1.3'
-    implementation 'com.daimajia.androidanimations:library:2.4@aar'
-
-//    implementation 'com.facebook.shimmer:shimmer:0.5.0'
-    implementation "com.xwray:groupie-databinding:2.7.0"
-
-
-    implementation 'com.google.vr:sdk-audio:1.160.0'
-    implementation 'com.google.vr:sdk-panowidget:1.180.0'
-    implementation 'com.google.vr:sdk-base:1.160.0'
+    implementation config.vr.vr_sdk
+    implementation config.vr.vr_panowidget
+    implementation config.vr.vr_base
 
     // wikitude
-    implementation 'com.wikitude:native:9.6.0'
-
-
-    //photo view
-    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
-
-    //Blurry
-    implementation 'jp.wasabeef:blurry:4.0.0'
-
+    implementation config.ar.wikitude
 
     //beacon
-
-    implementation 'com.estimote:sdk:1.0.12'
+    implementation config.beacons.estimode
 
 
     //firebase
-    implementation platform('com.google.firebase:firebase-bom:26.6.0')
-//    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-messaging-ktx'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.9'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
-//    implementation "androidx.fragment:fragment-ktx:1.3.2"
 
+    implementation platform(config.google.firebase_bom)
+//    implementation config.google.firebase_messaging_version
+    implementation config.google.firebase_crashlytics
+    implementation config.google.firebase_analytics
+    implementation config.google.firebase_messaging
+//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
+
+
+    // indicator
+    implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'com.tbuonomo:dotsindicator:4.2'
+    implementation 'com.github.vipulasri:timelineview:1.1.5'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.32"
+    implementation 'com.github.everhad:AndroidRatingStar:v1.0.4'
+    implementation 'com.github.AnilFurkanOkcun:UWMediaPicker-Android:1.3.2'
+    implementation 'com.github.jaiselrahman:FilePicker:1.3.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.1'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+    implementation 'com.google.maps.android:android-maps-utils:2.2.3'
 }

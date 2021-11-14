@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/green_animation_login"
+                app:lottie_repeatCount="0" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_close"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:rotation="90"
+                    android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="@string/settings"
+                    style="@style/TextViewStyle"
+                    android:textSize="@dimen/_25ssp"
+                    app:layout_constraintStart_toStartOf="@+id/img_close"
+                    app:layout_constraintTop_toBottomOf="@+id/img_close" />
+
+            <LinearLayout
+                android:id="@+id/noti"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginEnd="@dimen/_22sdp"
+                android:background="@drawable/custom_ripple_black"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/settings"
+                app:layout_constraintTop_toBottomOf="@+id/settings">
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewStart"
+                    android:drawableStart="@drawable/bell_noti"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:text="@string/notifications"
+                    style="@style/TextViewStyle"
+                    android:textSize="@dimen/_12ssp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_7sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:background="@drawable/forward_arrow" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/dividerLine"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/gray_600"
+                app:layout_constraintEnd_toEndOf="@+id/noti"
+                app:layout_constraintStart_toStartOf="@+id/noti"
+                app:layout_constraintTop_toBottomOf="@+id/noti" />
+
+
+            <LinearLayout
+                android:id="@+id/location"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_19sdp"
+                android:background="@drawable/custom_ripple_black"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/dividerLine"
+                app:layout_constraintTop_toBottomOf="@+id/dividerLine">
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewStart"
+                    android:drawableStart="@drawable/location_pin"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:text="@string/turn_on_location"
+                    style="@style/TextViewStyle"
+                    android:textSize="@dimen/_12ssp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_loc"
+                    style="@style/SwitchStyle"
+                    app:track="@drawable/switch_track_circle_shape"
+                    />
+
+
+
+            </LinearLayout>
+
+
+
+            <View
+                android:id="@+id/dividerLineLoc"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/gray_600"
+                app:layout_constraintEnd_toEndOf="@+id/location"
+                app:layout_constraintStart_toStartOf="@+id/location"
+                app:layout_constraintTop_toBottomOf="@+id/location" />
+
+
+            <LinearLayout
+                android:id="@+id/darkmode"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_19sdp"
+                android:background="@drawable/custom_ripple_black"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/dividerLine"
+                app:layout_constraintTop_toBottomOf="@+id/dividerLineLoc">
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewStart"
+                    android:drawableStart="@drawable/location_pin"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:text="@string/dark_mode"
+                    style="@style/TextViewStyle"
+                    android:textSize="@dimen/_12ssp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_dark_mode"
+                    style="@style/SwitchStyle"
+                    app:track="@drawable/switch_track_circle_shape"
+                    />
+
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/dividerLinedark"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/gray_600"
+                app:layout_constraintEnd_toEndOf="@+id/location"
+                app:layout_constraintStart_toStartOf="@+id/location"
+                app:layout_constraintTop_toBottomOf="@+id/darkmode" />
+
+
+            <LinearLayout
+                android:id="@+id/reset"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_22sdp"
+                android:background="@drawable/custom_ripple_black"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/dividerLineLoc"
+                app:layout_constraintTop_toBottomOf="@+id/dividerLinedark">
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewStart"
+                    android:drawableStart="@drawable/reset_icon"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:text="@string/reset_settings"
+                    style="@style/TextViewStyle"
+                    android:textSize="@dimen/_12ssp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_7sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:background="@drawable/forward_arrow" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
+</layout>

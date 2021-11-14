@@ -7,14 +7,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white_900">
+        >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         tools:context=".ui.postLogin.attractions.detail.sitemap.SiteMapFragment">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_detail_pic"
             android:layout_width="0dp"
             android:layout_height="@dimen/_200sdp"
@@ -24,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_back"
             android:background="@drawable/custom_ripple_black"
             android:layout_width="@dimen/_40sdp"
@@ -34,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             app:layout_constraintStart_toStartOf="@+id/img_back"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/s"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             android:layout_marginTop="@dimen/_133sdp"
            />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:maxLines="2"
@@ -69,13 +69,13 @@
             android:layout_marginEnd="@dimen/_20sdp"
             app:textFont="bold"
             app:layout_constraintStart_toStartOf="parent"
+            style="@style/TextViewStyle"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@color/black_200"
             app:layout_constraintTop_toBottomOf="@+id/s"
             android:text="Main Entrance of Majlis Ghorfat Umm Al Sheif"
             />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -7,7 +7,11 @@
 
         <variable
             name="attraction"
-            type="com.app.dubaiculture.data.repository.attraction.local.models.Attractions" />
+            type="com.dubaiculture.data.repository.attraction.local.models.Attractions" />
+
+        <variable
+            name="technique"
+            type="com.daimajia.androidanimations.library.Techniques" />
     </data>
 
     <merge>
@@ -17,15 +21,16 @@
             android:id="@+id/collapsingToolbarAttractionDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/white_900"
+            app:contentScrim="?attr/colorOnBackground"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
+<!--            android:background="@color/app_bg"-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:splitMotionEvents="false"
                 android:layout_height="match_parent"
-                android:background="@color/app_bg">
+                android:background="?attr/colorOnBackground"
+                android:splitMotionEvents="false">
 
                 <FrameLayout
                     android:id="@+id/imageLayout"
@@ -37,12 +42,13 @@
                     app:layout_constraintTop_toTopOf="parent">
 
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/detailImageView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:animate="@{technique.BounceIn}"
                         android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/must_see_icon_home" />
+                        android:transitionName="imageView" />
 
                     <View
                         android:layout_width="match_parent"
@@ -52,7 +58,7 @@
                 </FrameLayout>
 
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bg_border_upper"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -62,27 +68,12 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/imageView3"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="192dp"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="@+id/imageLayout"-->
-                <!--                    app:layout_constraintTop_toTopOf="@+id/imageLayout" />-->
 
-                <!--                <View-->
-                <!--                    android:id="@+id/shade_placement"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="80dp"-->
-
-                <!--                    app:layout_constraintBottom_toBottomOf="parent" />-->
-
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginBottom="8dp"
                     android:text="MUSEUM"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_12sdp"
@@ -91,11 +82,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:textFont="bold" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/title"
                     android:layout_width="@dimen/_220sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="10dp"
                     android:text="Museum of the Poet Al Oqaili"
                     android:textColor="@color/white_900"
                     android:textSize="@dimen/_20sdp"
@@ -107,10 +98,11 @@
                     android:id="@+id/augmentedReality"
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="@dimen/_55sdp"
-                    android:layout_marginBottom="32dp"
+                    android:layout_marginBottom="25dp"
                     app:cardBackgroundColor="@color/transparent"
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:cardElevation="0dp"
+                    android:animate="@{technique.Shake}"
                     app:layout_constraintBottom_toTopOf="@+id/btn_book_a_ticket"
                     app:layout_constraintStart_toStartOf="@+id/title">
 
@@ -119,6 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
+
                         android:background="@drawable/black_dark_shadow_attraction_icon"
                         android:foreground="@drawable/custom_ripple_border"
                         android:orientation="vertical">
@@ -130,7 +123,7 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/ar_icon_white" />
 
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/augmentedRealityText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -154,6 +147,7 @@
                     app:cardBackgroundColor="@color/transparent"
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:cardElevation="0dp"
+                    android:animate="@{technique.Shake}"
                     app:layout_constraintEnd_toStartOf="@+id/gallery"
                     app:layout_constraintStart_toEndOf="@+id/augmentedReality"
                     app:layout_constraintTop_toTopOf="@+id/augmentedReality">
@@ -174,7 +168,7 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/_360iconwhite" />
 
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/view360text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -182,7 +176,6 @@
                             android:layout_margin="5dp"
                             android:text="@string/_360_view"
                             android:textColor="@color/white_900"
-
                             android:textSize="@dimen/_9sdp"
                             app:textFont="regular" />
 
@@ -197,6 +190,7 @@
                     app:cardBackgroundColor="@color/transparent"
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:cardElevation="0dp"
+                    android:animate="@{technique.Shake}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/view360">
 
@@ -216,7 +210,7 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/gallery_white" />
 
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:id="@+id/gallerytext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -230,7 +224,7 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!--                <com.app.dubaiculture.ui.components.customtextview.CustomTextView-->
+                <!--                <com.dubaiculture.ui.components.customtextview.CustomTextView-->
                 <!--                    android:id="@+id/btn_login"-->
                 <!--                    android:layout_width="0dp"-->
                 <!--                    android:layout_height="wrap_content"-->
@@ -246,12 +240,13 @@
                 <!--                    app:layout_constraintStart_toStartOf="@+id/augmentedReality" />-->
 
 
-                <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                <com.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btn_book_a_ticket"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:alpha="0.4"
                     android:background="@drawable/btn_register"
                     android:elevation="@dimen/_15sdp"
                     android:foreground="@drawable/custom_ripple_border"
@@ -264,7 +259,7 @@
                     app:layout_constraintStart_toStartOf="@+id/augmentedReality" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_swipe_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -280,7 +275,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.88" />
 
-                <!--                <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
+                <!--                <com.dubaiculture.ui.components.custombutton.CustomButton-->
                 <!--                    android:id="@+id/btn_login"-->
                 <!--                    android:layout_width="match_parent"-->
                 <!--                    android:layout_height="wrap_content"-->
@@ -316,11 +311,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/back"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_30sdp"
                         android:background="@drawable/custom_ripple_border"
                         android:rotation="90"
@@ -328,24 +323,39 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/bookingCalender"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="200dp"
                         android:layout_marginEnd="20dp"
-                        android:visibility="invisible"
                         android:background="@drawable/custom_ripple_black"
                         android:src="@drawable/add_to_calander"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="@+id/back"
                         app:layout_constraintEnd_toStartOf="@+id/favourite"
                         app:layout_constraintStart_toEndOf="@+id/back"
                         app:layout_constraintTop_toTopOf="@+id/back" />
 
+                    <CheckBox
+                        android:id="@+id/favourite1"
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="@drawable/heart_icon_home_black"
+                        android:button="@null"
+                        android:clickable="false"
+                        android:visibility="gone"
+                        android:foreground="@drawable/custom_ripple_border"
+                        app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
+                        app:layout_constraintEnd_toStartOf="@+id/share"
+                        app:layout_constraintStart_toEndOf="@+id/bookingCalender"
+                        app:layout_constraintTop_toTopOf="@+id/bookingCalender"
+                        app:layout_constraintVertical_bias="1.0" />
+
 
                     <CheckBox
                         android:id="@+id/favourite"
-                        android:layout_width="@dimen/_20sdp"
+                        android:layout_width="@dimen/_22sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/heart_icon_home_black"
@@ -358,11 +368,11 @@
                         app:layout_constraintTop_toTopOf="@+id/bookingCalender"
                         app:layout_constraintVertical_bias="1.0" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/share"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginEnd="@dimen/_26sdp"
                         android:background="@drawable/custom_ripple_border"
                         android:rotation="0"
                         android:src="@drawable/share"
