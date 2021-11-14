@@ -100,10 +100,10 @@ data class EventsDTO(
     var registrationDate: String = "",
 
 
-    @SerializedName("EmailContact")
+    @SerializedName("ContactEmail")
     @Expose
     var emailContact: String = "",
-    @SerializedName("NumberContact")
+    @SerializedName("ContactNumber")
     @Expose
     var numberContact: String = "",
 
@@ -125,7 +125,10 @@ data class EventsDTO(
     var relatedEvents: List<EventsDTO> = mutableListOf(),
     @SerializedName("SocialLinks")
     @Expose
-    var socialLinks: List<SocialLinkDTO>? = mutableListOf()
+    var socialLinks: List<SocialLinkDTO>? = mutableListOf(),
+    @SerializedName("URL")
+    @Expose
+    var URL: String =""
 
 ) : Parcelable
 

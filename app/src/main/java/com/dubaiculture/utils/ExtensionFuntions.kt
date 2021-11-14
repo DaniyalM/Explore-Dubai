@@ -6,6 +6,7 @@ import android.content.Intent
 import android.provider.Settings
 import android.util.TypedValue
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -15,6 +16,7 @@ import androidx.core.content.FileProvider
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -41,6 +43,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+
 fun String.pluralize(count: Int): String? {
     return this.pluralize(count, null)
 }
@@ -52,6 +55,11 @@ fun String.pluralize(count: Int, plural: String?): String? {
         this
     }
 }
+fun View.hideKeyboard() {
+    val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
+}
+
 
 fun Activity.openPdf(filename: String?) {
 
@@ -160,13 +168,27 @@ fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
 
 fun Fragment.safeNavigateFromNavController(directions: NavDirections) {
     val navController = findNavController()
-    val destination = navController.currentDestination as FragmentNavigator.Destination
-    //current visible fragment == fragment that is firing navigation
-    if (javaClass.name == destination.className) {
-        navController.navigate(directions)
-    } else {
-        Timber.e("Invalid navigation detected")
+    when (navController.currentDestination){
+        is FragmentNavigator.Destination -> {
+            val destination = navController.currentDestination as FragmentNavigator.Destination
+            //current visible fragment == fragment that is firing navigation
+            if (javaClass.name == destination.className) {
+                navController.navigate(directions)
+            } else {
+                Timber.e("Invalid navigation detected")
+            }
+        }
+        is DialogFragmentNavigator.Destination ->{
+            val destination = navController.currentDestination as DialogFragmentNavigator.Destination
+            //current visible fragment == fragment that is firing navigation
+            if (javaClass.name == destination.className) {
+                navController.navigate(directions)
+            } else {
+                Timber.e("Invalid navigation detected")
+            }
+        }
     }
+
 }
 
 fun Activity.enableLocationFromSettings() {

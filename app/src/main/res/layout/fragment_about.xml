@@ -300,45 +300,40 @@
                         android:layout_height="wrap_content">
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/rootView"
-                        android:background="@drawable/custom_ripple_black"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
-                        >
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/rootView"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/custom_ripple_black">
 
 
-                        <com.dubaiculture.ui.components.customtextview.CustomTextView
-                            android:id="@+id/tv_title1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lorem ipsum dolor"
-                            style="@style/TextViewStyle"
-                            android:textSize="@dimen/_12sdp"
-                            android:layout_marginStart="@dimen/_20sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            />
+                            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                                android:id="@+id/tv_title1"
+                                style="@style/TextViewStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_20sdp"
+                                android:text="Lorem ipsum dolor"
+                                android:textSize="@dimen/_12sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/arrow5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/forward_arrow"
-                            app:layout_constraintBottom_toBottomOf="@+id/tv_title1"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.95"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            app:layout_constraintTop_toTopOf="@+id/tv_title1" />
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/arrow5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_15sdp"
+                                android:background="@drawable/forward_arrow"
+                                app:layout_constraintBottom_toBottomOf="@+id/tv_title1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.95"
+                                app:layout_constraintTop_toTopOf="@+id/tv_title1" />
 
 
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/rootView1"
 
                         android:background="@drawable/custom_ripple_black"

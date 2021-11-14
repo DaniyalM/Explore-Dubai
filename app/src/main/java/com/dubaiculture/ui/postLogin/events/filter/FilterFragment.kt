@@ -23,6 +23,7 @@ import com.dubaiculture.utils.DatePickerHelper
 import com.dubaiculture.utils.toString
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.dubaiculture.utils.AppConfigUtils.getCurrentDateTime
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -152,6 +153,7 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                     },fromDate = false).showPicker()
             }
             R.id.tv_end_date -> {
+                val startDate=startDateObj?:getCurrentDateTime()
                 DatePickerHelper(binding.tvEndDate.text.toString(),
                     requireContext(),
                     object : DatePickerHelper.DatePickerInterface {
@@ -164,7 +166,7 @@ class FilterFragment : BaseBottomSheetFragment<FragmentFilterBinding>(), View.On
                             Timber.e("${endDate}")
 
                         }
-                    },minDate = startDateObj?.time).showPicker()
+                    },minDate = startDate.time).showPicker()
             }
         }
     }

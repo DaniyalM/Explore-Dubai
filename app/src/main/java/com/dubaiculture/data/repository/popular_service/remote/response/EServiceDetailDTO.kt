@@ -4,6 +4,7 @@ data class EServiceDetailDTO(
     val Category: String? = "",
     val Description: List<DescriptionDTO>? = mutableListOf(),
     val EnquireNumber: String? = "",
+    val ID: String? = "",
 
     val PhoneHeading: String? = "",
     val PhoneNumber: String? = "",

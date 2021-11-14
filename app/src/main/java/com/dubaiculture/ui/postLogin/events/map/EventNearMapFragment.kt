@@ -46,7 +46,7 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.apply {
-            mapList =  this.getParcelableArrayList<Events>(Constants.NavBundles.EVENT_MAP_LIST)!!
+            mapList =  this.getParcelableArrayList(Constants.NavBundles.EVENT_MAP_LIST)!!
         }
     }
 
@@ -127,28 +127,31 @@ class EventNearMapFragment : BaseFragment<FragmentEventNearMapBinding>(), View.O
 
     private fun pinsOnMap(list: List<Events>, map: GoogleMap?) {
         list.forEach {
-            val locationObj =
-                LatLng(
-                    it.latitude.ifEmpty { "24.83250180519734" }.toDouble(),
-                    it.longitude.ifEmpty { "67.08119661055807" }.toDouble()
-                )
-            if (it.distance <= 6.0) {
-                bitmapDescriptorFromVector(activity, R.drawable.events_map)?.let { bt ->
-                    map?.addMarker(
-                        MarkerOptions().position(locationObj)
-                            .icon(bt)
-                            .title(it.title)
+            if (!it.latitude.isEmpty()&&!it.longitude.isEmpty()){
+                val locationObj =
+                    LatLng(
+                        it.latitude.toDouble(),
+                        it.longitude.toDouble()
                     )
-                }
-            } else {
-                bitmapDescriptorFromVector(activity, R.drawable.events_away)?.let { bt ->
-                    map?.addMarker(
-                        MarkerOptions().position(locationObj)
-                            .icon(bt)
-                            .title(it.title)
-                    )
+                if (it.distance <= 6.0) {
+                    bitmapDescriptorFromVector(activity, R.drawable.events_map)?.let { bt ->
+                        map?.addMarker(
+                            MarkerOptions().position(locationObj)
+                                .icon(bt)
+                                .title(it.title)
+                        )
+                    }
+                } else {
+                    bitmapDescriptorFromVector(activity, R.drawable.events_away)?.let { bt ->
+                        map?.addMarker(
+                            MarkerOptions().position(locationObj)
+                                .icon(bt)
+                                .title(it.title)
+                        )
+                    }
                 }
             }
+
 
         }
     }

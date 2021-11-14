@@ -19,11 +19,21 @@
             app:destination="@id/post_login_bottom_navigation" />
         <action
             android:id="@+id/action_serviceDetailFragment2_to_serviceDownVoteFeedBackFragment"
-            app:destination="@id/serviceDownVoteFeedBackFragment" />
+            app:destination="@id/serviceDownVoteFeedBackFragment" >
+            <argument
+                android:name="service_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
     </fragment>
-    <dialog
+    <fragment
         android:id="@+id/serviceDownVoteFeedBackFragment"
         android:name="com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs.ServiceDownVoteFeedBackFragment"
-        android:label="ServiceDownVoteFeedBackFragment" />
+        android:label="ServiceDownVoteFeedBackFragment" >
+        <argument
+            android:name="service_id"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
 
 </navigation>

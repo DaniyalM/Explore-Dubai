@@ -5,6 +5,7 @@
 
 
     <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
+    <string name="user_canceled_the_login">User cancelled the Login</string>
     <string name="result">result</string>
 
 
@@ -41,6 +42,7 @@
     <string name="registration">Registration</string>
     <string name="full_name">Full name</string>
     <string name="enter_full_name">Enter full name</string>
+    <string name="enter_your_comments">Enter Your Comments</string>
     <string name="email_address">Enter Email address</string>
     <string name="_email_address">Email address</string>
 
@@ -182,6 +184,7 @@
     <string name="this_week">This Week</string>
     <string name="this_weekend">This Weekend</string>
     <string name="next_seven_days">Next 7 Days</string>
+    <string name="next_thirty_days">Next 30 Days</string>
     <string name="detail_clip_card_text">Review Majlis Ghorfat\non Trip Advisor</string>
     <string name="clear_all">Clear All</string>
     <string name="clear">Clear</string>
@@ -371,6 +374,12 @@
     <string name="you_are_authenticated_successfull_try_to_link_your_account">You have successfully authenticated with UAE pass. </string>
     <string name="link_account">Link Account</string>
     <string name="create_account">Create Account</string>
+    <string name="please_authenticate_using_you_dcaa_credentials_to_link_your_account">Please authenticate using you DCAA credentials to link your account</string>
+    <string name="note_this_is_only_one_time_setup">Note : This is only one time setup.</string>
+    <string name="if_you_don_t_have_an_account_then_please_click_on_the_following_button">If you don’t have an account then please Click on the following button</string>
+
+    <string name="are_you_sure_want_to_delete_all">Are you sure you want\nto delete all days?</string>
+
 
 
 </resources>

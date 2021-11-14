@@ -20,8 +20,10 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     private val moreSharedViewModel: MoreSharedViewModel by viewModels()
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
-        setContentView(R.layout.activity_post_login)
+        overridePendingTransition(R.anim.fade_out,R.anim.fade_in)
         hideStatusBar(window)
+        setContentView(R.layout.activity_post_login)
+
         getNavControllerFun(navHolding)
         recieveLogout()
         subscribeToObservable()

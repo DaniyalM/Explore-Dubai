@@ -7,6 +7,7 @@ import com.dubaiculture.R
 import com.dubaiculture.data.repository.popular_service.local.models.*
 import com.dubaiculture.databinding.*
 import com.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
+import com.dubaiculture.utils.hide
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.databinding.BindableItem
@@ -64,7 +65,7 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                             val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
                             viewBinding.detailListingHeader.text =
                                 context.getString(R.string.payments)
-                            viewBinding.detailListingHeader.visibility = View.GONE
+                            viewBinding.detailListingHeader.hide()
 
                             adapter = paymentInnerAdapter
                             eService.payments.forEach {
@@ -79,7 +80,7 @@ class ServiceDetailListingItems<T : ViewDataBinding, out D>(
                         is RequiredDocument -> {
                             viewBinding.detailListingHeader.text =
                                 context.getString(R.string.required_documents)
-                            viewBinding.detailListingHeader.visibility = View.GONE
+                            viewBinding.detailListingHeader.hide()
                             val linearLayoutManager = LinearLayoutManager(context)
                             layoutManager = linearLayoutManager
                             val requiredDocumentInnerAdapter = GroupAdapter<GroupieViewHolder>()

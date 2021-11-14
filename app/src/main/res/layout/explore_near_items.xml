@@ -10,7 +10,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="@dimen/_250sdp"
+        android:layout_width="@dimen/_270sdp"
         android:layout_height="@dimen/_90sdp"
         android:layout_margin="@dimen/_12sdp"
         app:cardCornerRadius="@dimen/_10sdp"
@@ -43,8 +43,8 @@
                 style="@style/TextViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@{explore.title}"
@@ -59,7 +59,7 @@
                 android:id="@+id/tv_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginBottom="3dp"
@@ -82,8 +82,6 @@
                 android:layout_height="@dimen/_26sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/custom_ripple_black"
-                android:outlineAmbientShadowColor="@color/gray_700"
-                android:outlineSpotShadowColor="@color/gray_700"
                 android:src="@drawable/location_in_km"
                 app:cardElevation="@dimen/_1sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/view2"

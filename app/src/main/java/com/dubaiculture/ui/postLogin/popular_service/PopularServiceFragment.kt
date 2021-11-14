@@ -17,10 +17,13 @@ import com.dubaiculture.ui.postLogin.popular_service.adapter.clicklistener.Servi
 import com.dubaiculture.ui.postLogin.popular_service.components.ServicesListingHeaderItemSelector.Companion.SERVICE_CLICK_CHECKER_FLAG
 import com.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
 import com.dubaiculture.ui.postLogin.popular_service.viewmodels.PopularServiceViewModel
+import com.dubaiculture.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), View.OnClickListener {
+    private  var serviceId: String="CF172A305B054255AC1DCCE12C72223C"
+    private var servicePos: Int = 0
     private val popularServiceViewModel: PopularServiceViewModel by viewModels()
     private lateinit var popularServiceListAdapter: PopularServiceListAdapter
     private var sCat: List<ServiceCategory>? = null
@@ -33,6 +36,17 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+        arguments.let {
+            it?.let {
+                serviceId = it.getString(Constants.NavBundles.SERVICE_ID)?:"CF172A305B054255AC1DCCE12C72223C"
+                servicePos = it.getInt(Constants.NavBundles.SERVICE_POS)
+            }
+
+//            siteMapViewModel.siteMap(it?.getString(SITE_MAP).toString(),getCurrentLanguage().language)
+        }
+        binding.horizontalSelector.onClick(servicePos)
+
+        popularServiceViewModel.serviceId= serviceId
         binding.viewmodel = popularServiceViewModel
         subscribeUiEvents(popularServiceViewModel)
         rvSetup()
@@ -94,7 +108,7 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
             it?.getContentIfNotHandled()?.let {
                 sCat = it
                 binding.horizontalSelector.initialize(initializeHeaders(it))
-
+//                binding.horizontalSelector.onClick()
             }
         }
         popularServiceViewModel.serviceList.observe(viewLifecycleOwner) {
@@ -146,7 +160,7 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
 
     override fun onDetach() {
         super.onDetach()
-        SERVICE_CLICK_CHECKER_FLAG = 0
+//        SERVICE_CLICK_CHECKER_FLAG = 0
     }
 
 

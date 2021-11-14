@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--    <com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout-->
@@ -29,7 +30,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/defaultCloseToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="?attr/colorSurface">
 
 
@@ -37,12 +38,10 @@
                     android:id="@+id/imageView4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/_200sdp"
                     android:background="@drawable/attraction_bg_icon_with_border"
                     android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    tools:layout_editor_absoluteY="260dp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/back"
@@ -59,15 +58,14 @@
                     android:id="@+id/bookingCalender"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginStart="200dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/custom_ripple_black"
                     android:rotation="0"
                     android:src="@drawable/add_to_calander"
-                    app:layout_constraintBottom_toBottomOf="@+id/back"
-                    app:layout_constraintEnd_toStartOf="@+id/favourite"
-                    app:layout_constraintStart_toEndOf="@+id/back"
-                    app:layout_constraintTop_toTopOf="@+id/back" />
+                    android:visibility="gone"
+                    app:layout_constraintRight_toLeftOf="@+id/favourite"
+                    app:layout_constraintTop_toTopOf="@+id/favourite"
+                    tools:layout_editor_absoluteY="39dp" />
 
                 <CheckBox
                     android:id="@+id/favourite1"
@@ -75,39 +73,37 @@
                     android:layout_height="@dimen/_20sdp"
                     android:background="@drawable/heart_icon_home_black"
                     android:button="@null"
+                    android:layout_marginEnd="@dimen/_15sdp"
                     android:foreground="@drawable/custom_ripple_border"
-                    app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
-                    app:layout_constraintEnd_toStartOf="@+id/share"
-                    app:layout_constraintStart_toEndOf="@+id/bookingCalender"
-                    app:layout_constraintTop_toTopOf="@+id/bookingCalender"
-                    app:layout_constraintVertical_bias="1.0" />
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/back"
+                    app:layout_constraintRight_toLeftOf="@+id/share"
+                    app:layout_constraintTop_toTopOf="@+id/back" />
+
 
                 <CheckBox
                     android:id="@+id/favourite"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginEnd="20dp"
                     android:background="@drawable/heart_icon_home_black"
                     android:button="@null"
+                    android:layout_marginEnd="@dimen/_15sdp"
                     android:foreground="@drawable/custom_ripple_border"
-                    app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
-                    app:layout_constraintEnd_toStartOf="@+id/share"
-                    app:layout_constraintStart_toEndOf="@+id/bookingCalender"
-                    app:layout_constraintTop_toTopOf="@+id/bookingCalender"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintBottom_toBottomOf="@+id/back"
+                    app:layout_constraintRight_toLeftOf="@+id/share"
+                    app:layout_constraintTop_toTopOf="@+id/back" />
 
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/share"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginEnd="30dp"
+                    android:layout_marginEnd="@dimen/_15sdp"
                     android:background="@drawable/custom_ripple_black"
                     android:rotation="0"
                     android:src="@drawable/share"
                     app:layout_constraintBottom_toBottomOf="@+id/favourite"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/favourite"
                     app:layout_constraintTop_toTopOf="@+id/favourite" />
 
 

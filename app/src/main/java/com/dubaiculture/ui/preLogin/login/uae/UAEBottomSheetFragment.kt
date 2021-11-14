@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.dubaiculture.databinding.FragmentUaePassLinkingBinding
 import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.preLogin.login.uae.viewmodels.UaePassSharedViewModel
@@ -17,15 +18,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class UAEBottomSheetFragment : BaseBottomSheetFragment<FragmentUaePassLinkingBinding>() {
     private val uaePassSharedViewModel: UaePassSharedViewModel by activityViewModels()
+    private val uaeBottomSheetFragmentArgs: UAEBottomSheetFragmentArgs by navArgs()
     private val uaePassViewModel: UaePassViewModel by viewModels()
 
-    interface OnUserCheckedChangeListener {
-        fun onUserCheckChange(view: CompoundButton, isChecked: Boolean)
-    }
 
     fun onCrossClick() {
         dismiss()
     }
+
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -35,8 +35,12 @@ class UAEBottomSheetFragment : BaseBottomSheetFragment<FragmentUaePassLinkingBin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(uaePassViewModel)
+        binding.viewmodel = uaePassViewModel
+        binding.fragment=this
+        dialog?.setCancelable(false)
         dialog?.setCanceledOnTouchOutside(false)
         subscribeToObservable()
+
 
     }
 
@@ -44,7 +48,15 @@ class UAEBottomSheetFragment : BaseBottomSheetFragment<FragmentUaePassLinkingBin
     private fun subscribeToObservable() {
         uaePassViewModel.updateLinkingRequest.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                uaePassSharedViewModel.registerWithUaePass(it)
+
+                    uaePassSharedViewModel.registerWithUaePass(
+                        it.copy(
+                            token = uaeBottomSheetFragmentArgs.token,
+                            culture = getCurrentLanguage().language
+                        )
+                    )
+
+
             }
         }
 

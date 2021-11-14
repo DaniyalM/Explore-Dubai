@@ -13,6 +13,7 @@ import com.dubaiculture.data.repository.more.remote.response.notification.Notifi
 import com.dubaiculture.data.repository.more.remote.response.notification.Notifications
 import com.dubaiculture.data.repository.news.local.LatestNews
 import com.dubaiculture.data.repository.notification.NotificationModel
+import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -26,16 +27,17 @@ class NotificationViewModel @Inject constructor(application: Application , priva
 
     private val _notificationPagination: MutableLiveData<PagingData<Notifications>> = MutableLiveData()
     val notificationPagination: LiveData<PagingData<Notifications>> = _notificationPagination
+    private val context = getApplication<ApplicationEntry>()
 
     init {
 
-        getNotification()
+        getNotification(context.auth.locale.toString())
     }
 
-    private  fun getNotification(){
+    private  fun getNotification(locale:String){
             viewModelScope.launch {
                 showLoader(true)
-                val result = moreRepository.getNotification(NotificationRequest())
+                val result = moreRepository.getNotification(NotificationRequest(culture = locale))
                 if(result is Result.Success){
                     showLoader(false)
 

@@ -23,6 +23,7 @@ import com.dubaiculture.ui.postLogin.profile.viewmodels.ProfileSharedViewModel
 import com.dubaiculture.ui.postLogin.profile.viewmodels.ProfileViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.FileUtils
+import com.dubaiculture.utils.hide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.RESULT_ERROR
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.getError
@@ -70,7 +71,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initiateRTL()
-
+        binding.editButtonFrame.hide()
         if (!this::favourite.isInitialized)
             profileSharedViewModel.getFavourites()
 

@@ -35,7 +35,7 @@ class TripSharedViewModel @Inject constructor(
     val _duration: MutableLiveData<List<Duration>> = MutableLiveData()
     val duration: LiveData<List<Duration>> = _duration
 
-    val _durationSummary: MutableLiveData<List<Duration>> = MutableLiveData()
+    val _durationSummary: MutableLiveData<List<Duration>> = MutableLiveData(mutableListOf())
     val durationSummary: LiveData<List<Duration>> = _durationSummary
 
     val _dates: MutableLiveData<List<Duration>> = MutableLiveData()

@@ -11,7 +11,9 @@ import com.dubaiculture.data.repository.login.remote.response.UAEPassDTO
 
 fun transformUaeRequest(uaeLoginRequest: UAELoginRequest) = UaeLoginRequestDTO(
     AccessToken = uaeLoginRequest.token?:"",
-    DefaultCulture = uaeLoginRequest.culture?:"en"
+    DefaultCulture = uaeLoginRequest.culture?:"en",
+    Email = uaeLoginRequest.email?:"",
+    Password = uaeLoginRequest.password?:""
 
 )
 

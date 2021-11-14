@@ -10,15 +10,15 @@ class AttractionDTO {
 
     @SerializedName("ID")
     @Expose
-    var id: String = ""
+    var id: String ? = null
 
     @SerializedName("Category")
     @Expose
-    var category: String = ""
+    var category: String? = null
 
     @SerializedName("Title")
     @Expose
-    var title: String = ""
+    var title: String? = null
 
     @SerializedName("LocationTitle")
     @Expose
@@ -107,13 +107,14 @@ class AttractionDTO {
     @SerializedName("EmailContact")
     @Expose
     var emailContact: String = ""
+
     @SerializedName("NumberContact")
     @Expose
     var numberContact: String = ""
 
     @SerializedName("Type")
     @Expose
-    var type: String = ""
+    var type: String ?= null
 
 
     @SerializedName("IBeacon")
@@ -127,4 +128,8 @@ class AttractionDTO {
     @SerializedName("RelatedEventsTitle")
     @Expose
     var RelatedEventsTitle: String? = ""
+
+    @SerializedName("URL")
+    @Expose
+    var URL: String? = ""
 }

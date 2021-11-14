@@ -10,5 +10,6 @@ data class NewsDetailDTO(
     val RelatedData: List<LatestNewsDTO> ?=  emptyList(),
     val Tags: List<String> ?= emptyList(),
     val Title: String,
-    val TwoColumnImageModuleDTO: List<TwoColumnImageModuleDTO>?=  emptyList()
+    val TwoColumnImageModuleDTO: List<TwoColumnImageModuleDTO>?=  emptyList(),
+    val URL: String?=""
 )

@@ -1,6 +1,8 @@
 package com.dubaiculture.utils
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -11,7 +13,10 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 object AppConfigUtils {
@@ -73,6 +78,27 @@ object AppConfigUtils {
         if (drawable != null) drawable.draw(canvas)
         customMarkerView.draw(canvas)
         return returnedBitmap
+    }
+
+
+    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
+    }
+
+    fun shareLink(stringUrl: String, activity: Activity) {
+
+        if (stringUrl.isNotEmpty()) {
+            val i = Intent(Intent.ACTION_SEND)
+            i.type = "text/plain"
+            i.putExtra(Intent.EXTRA_SUBJECT, "Sharing News")
+            i.putExtra(Intent.EXTRA_TEXT, BuildConfig.BASE_URL_SHARE + stringUrl)
+            activity.startActivity(Intent.createChooser(i, "Share URL"))
+        }
     }
 
 

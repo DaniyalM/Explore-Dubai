@@ -503,14 +503,21 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         val sortedList = ArrayList<Events>()
 
         list.forEach {
-            val longitude = if (it.longitude.isEmpty() || it.longitude == "null") "67.08119661055807" else it.longitude
-            val latitude = if (it.latitude.isEmpty()|| it.longitude == "null") "24.83250180519734" else it.latitude
+//            val longitude = if (it.longitude.isEmpty() || it.longitude == "null") "67.08119661055807" else it.longitude
+//            val latitude = if (it.latitude.isEmpty()|| it.longitude == "null") "24.83250180519734" else it.latitude
             val distance = locationHelper.distance(
-                lat ?: 24.8623,
-                lng ?: 67.0627,
-                longitude.toDouble(),
-                latitude.toDouble()
+                lat ?: 24.8623, lng ?: 67.0627,
+                ((it.latitude.ifEmpty { "24.83250180519734" }).toDouble()),
+                (it.longitude.ifEmpty { "67.08119661055807" }).toDouble()
             )
+
+
+//            val distance = locationHelper.distance(
+//                lat ?: 24.8623,
+//                lng ?: 67.0627,
+//                longitude.toDouble(),
+//                latitude.toDouble()
+//            )
             it.distance = distance
             it.currentLat = lat ?: 24.8623
             it.currentLng = lng ?: 67.0627

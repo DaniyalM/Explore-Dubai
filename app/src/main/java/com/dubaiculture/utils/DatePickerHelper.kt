@@ -8,7 +8,14 @@ import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DatePickerHelper(var selectedDate : String?=null , var context:Context ,var iface : DatePickerInterface,var minDate: Long? = Date().time,var maxDate: Long? = null,var fromDate : Boolean?=true): DatePickerDialog.OnDateSetListener {
+class DatePickerHelper(
+    var selectedDate: String? = null,
+    var context: Context,
+    var iface: DatePickerInterface,
+    var minDate: Long? = Date().time,
+    var maxDate: Long? = null,
+    var fromDate: Boolean? = true
+) : DatePickerDialog.OnDateSetListener {
 
 
     private val selectCurrentDate = Calendar.getInstance()
@@ -21,8 +28,11 @@ class DatePickerHelper(var selectedDate : String?=null , var context:Context ,va
             selectCurrentDate.get(Calendar.MONTH),
             selectCurrentDate.get(Calendar.DAY_OF_MONTH)
         )
+        if (selectedDate!!.isNotEmpty()) {
+            datePickerDialog.updateDate(selectedDate!!.substring(0,4).toInt(), selectedDate!!.substring(5,7).toInt()-1,selectedDate!!.substring(8,10).toInt())
+        }
 
-        if(fromDate == true) {
+        if (fromDate == true) {
             maxDate?.let {
                 // prevent date picker from being selected future dates
                 datePickerDialog.datePicker.maxDate = it
@@ -70,15 +80,16 @@ class DatePickerHelper(var selectedDate : String?=null , var context:Context ,va
         selectCurrentDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
         iface.onDateSelected(selectCurrentDate)
     }
-     fun YYYY_MM_DD(dateString : String, format :String) : Int {
+
+    fun YYYY_MM_DD(dateString: String, format: String): Int {
         return try {
-            val myDateFormat = SimpleDateFormat("dd/MM/yy",Locale.getDefault())
+            val myDateFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
             val reqOutput = SimpleDateFormat(format, Locale.getDefault())
             val d = myDateFormat.parse(dateString)
             val formatteddate = reqOutput.format(d)
             Timber.d("formattedDate" + formatteddate.toString())
             formatteddate.toInt()
-        }catch (e: Exception){
+        } catch (e: Exception) {
             0
         }
     }

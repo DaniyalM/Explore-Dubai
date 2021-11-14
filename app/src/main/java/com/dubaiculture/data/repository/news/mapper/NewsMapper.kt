@@ -5,10 +5,11 @@ import com.dubaiculture.data.repository.news.remote.request.*
 import com.dubaiculture.data.repository.news.remote.response.NewsResponse
 
 
-fun transformNewsTags(newsTagsDTO: NewsTagsDTO)=NewsTags(
-    tag_id = newsTagsDTO.TagID?:"",
-    tag_title = newsTagsDTO.TagTitle?:""
+fun transformNewsTags(newsTagsDTO: NewsTagsDTO) = NewsTags(
+    tag_id = newsTagsDTO.TagID ?: "",
+    tag_title = newsTagsDTO.TagTitle ?: ""
 )
+
 fun transformNewsFiltersRequest(newsFilterRequest: NewsFilterRequest) =
     NewsFilterRequestDTO(
         Culture = newsFilterRequest.culture ?: "en",
@@ -94,7 +95,8 @@ fun transformNewsDetail(newsResponse: NewsResponse) = newsResponse.Result.detail
             )
         },
         postedDate = PostedDate,
-        title = Title
+        title = Title,
+        url = URL ?: ""
     )
 }
 

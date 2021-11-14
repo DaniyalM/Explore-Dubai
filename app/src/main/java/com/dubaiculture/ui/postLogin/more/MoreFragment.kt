@@ -8,15 +8,21 @@ import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.RequestManager
 import com.dubaiculture.R
+import com.dubaiculture.data.repository.popular_service.local.models.ServiceCategory
 import com.dubaiculture.databinding.FragmentMoreBinding
 import com.dubaiculture.databinding.ItemsMoreLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.dubaiculture.ui.postLogin.more.adapter.MoreItems
+import com.dubaiculture.ui.postLogin.more.adapter.ServicesAdapter
+import com.dubaiculture.ui.postLogin.more.adapter.clicklisteners.ServicesClickListener
 import com.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
 import com.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
+import com.dubaiculture.utils.Constants.NavBundles.SERVICE_ID
+import com.dubaiculture.utils.Constants.NavBundles.SERVICE_POS
 import com.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION
 import com.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY
 import com.dubaiculture.utils.SettingsUtils.newsList
@@ -27,6 +33,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
@@ -34,6 +41,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     lateinit var newsAdapter: GroupAdapter<GroupieViewHolder>
     lateinit var settingAdapter: GroupAdapter<GroupieViewHolder>
     var moreListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
+    private lateinit var serviceAdapter: ServicesAdapter
+
+    @Inject
+    lateinit var glide: RequestManager
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -43,18 +54,72 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
     private fun subscribeToObservable() {
         moreViewModel.notificationCount.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                val count = String.format("%02d", it.toInt())
+
+                val count = if (getCurrentLanguage().language == "en") String.format(
+                    "%02d",
+                    it.toInt()
+                ) else it.toInt()
+
                 if (it.toInt() > 0)
                     binding.notiCount.text = "${count} new "
                 else
                     binding.notiCount.text = "${0} new"
             }
         }
+
+        moreViewModel.serviceListCategory.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                serviceAdapter.submitList(it)
+            }
+        }
+
+    }
+
+    private fun setupRV() {
+
+        binding.rvServices.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            serviceAdapter = ServicesAdapter(
+                object : ServicesClickListener {
+                    override fun rowClickListener(serviceCategory: ServiceCategory) {
+//                        showToast(userType.title)
+
+
+                    }
+
+                    override fun rowClickListener(serviceCategory: ServiceCategory, position: Int) {
+
+                        val bundle = Bundle()
+                        bundle.putString(
+                            SERVICE_ID,
+                            serviceCategory.id
+                        )
+                        bundle.putInt(
+                            SERVICE_POS,
+                            position
+                        )
+                        navigate(R.id.action_moreFragment_to_popularServiceFragment2, bundle)
+
+                    }
+
+                },
+                glide
+            )
+            adapter = serviceAdapter
+
+
+        }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        moreViewModel.getEServicesToScreen(application.auth.locale.toString())
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.notiCount.text = "${0} new"
 
         subscribeUiEvents(moreViewModel)
         moreViewModel.notificationCount(getCurrentLanguage().language)
@@ -92,7 +157,9 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 navigate(R.id.action_moreFragment_to_profileFragment)
             }
         }
+
         rvSetUp()
+        setupRV()
         cardViewRTL()
 
     }
@@ -139,6 +206,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                         override fun rowClickListener(position: Int) {
                             when (position) {
                                 0 -> {
+
                                     navigate(R.id.action_moreFragment_to_popularServiceFragment2)
                                 }
                             }

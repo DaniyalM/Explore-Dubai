@@ -57,14 +57,22 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     override fun onResume() {
         super.onResume()
         try {
+
             getRecyclerView().smoothScrollToPosition(lastFirstVisiblePosition)
+
         } catch (ex: IllegalArgumentException) {
         }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-
+        exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
+        if (application.auth.isMapSearch) {
+            application.auth.isMapSearch = false
+            navigateByDirections(
+                ExploreFragmentDirections.actionExploreFragmentToSearchNavigation()
+            )
+        }
 
         locationHelper.provideContext(activity)
         Timber.e("token explore " + FirebaseInstanceId.getInstance().token)

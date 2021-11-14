@@ -51,4 +51,25 @@ public class PushNotificationManager {
         // notificationId is a unique int for each notification that you must define
         notificationManager.notify(NOTIF_ID, builder.build());
     }
+
+    public static void showNotification(Context context, String title, String message, PendingIntent intent, int id) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(message))
+                .setPriority(NotificationManager.IMPORTANCE_HIGH);
+
+        if (intent != null) {
+            builder.setContentIntent(intent);
+        }
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(id, builder.build());
+
+    }
 }
+

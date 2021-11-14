@@ -27,7 +27,7 @@ class ExploreViewModel @Inject constructor(
     val exploreList: LiveData<Result<List<Explore>>> = _exploreList
 
     init {
-        getExploreToScreen(context.auth.locale.toString())
+//        getExploreToScreen(context.auth.locale.toString())
     }
 
     fun getExploreToScreen(locale: String) {

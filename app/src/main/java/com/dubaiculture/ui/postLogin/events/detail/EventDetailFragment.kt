@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.RequestManager
 import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.data.Result
@@ -37,16 +38,13 @@ import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
 import com.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
 import com.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
-import com.dubaiculture.utils.Constants
+import com.dubaiculture.utils.*
+import com.dubaiculture.utils.AppConfigUtils.shareLink
 import com.dubaiculture.utils.Constants.GoogleMap.DESTINATION
 import com.dubaiculture.utils.Constants.GoogleMap.LINK_URI
 import com.dubaiculture.utils.Constants.GoogleMap.PACKAGE_NAME_GOOGLE_MAP
 import com.dubaiculture.utils.Constants.NavBundles.EVENT_OBJECT
-import com.dubaiculture.utils.GpsStatus
-import com.dubaiculture.utils.getTimeSpan
-import com.dubaiculture.utils.handleApiError
 import com.dubaiculture.utils.location.LocationHelper
-import com.bumptech.glide.RequestManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -82,6 +80,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     var isDetailFavouriteFlag = false
     var emailContact: String? = null
     var numberContact: String? = null
+    var urlshare: String? = null
     var map: GoogleMap? = null
 
     var isRegisterd = false
@@ -182,13 +181,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         eventDetailInnerLayout.btnRegisterNow.setOnClickListener {
 //            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
         }
-        eventDetailInnerLayout.llCallus.setOnClickListener {
-            openDiallerBox(numberContact)
 
-        }
-        eventDetailInnerLayout.llEmailUs.setOnClickListener {
-            openEmailbox(email = emailContact.toString())
-        }
         eventDetailInnerLayout.imgFb.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.facebookPageLink,
@@ -224,32 +217,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 isLinkedIn = true
             )
         }
-        binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener {
-            isDetailFavouriteFlag = true
-            eventObj?.let { event ->
-                favouriteClick(
-                    binding.toolbarLayoutEventDetail.favouriteEvent,
-                    event.isFavourite,
-                    R.id.action_eventDetailFragment2_to_postLoginFragment,
-                    event.id!!,
-                    eventViewModel,
-                    2
-                )
-            }
-        }
-        binding.favourite.setOnClickListener {
-            isDetailFavouriteFlag = true
-            eventObj?.let { event ->
-                favouriteClick(
-                    binding.favourite,
-                    event.isFavourite,
-                    R.id.action_eventDetailFragment2_to_postLoginFragment,
-                    event.id!!,
-                    eventViewModel,
-                    2
-                )
-            }
-        }
+
         eventDetailInnerLayout.rbEventInfo.setOnClickListener {
             eventDetailInnerLayout.llEvenInfo.visibility = View.VISIBLE
             eventDetailInnerLayout.llSchedule.visibility = View.GONE
@@ -283,6 +251,77 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             when (it) {
                 is Result.Success -> {
                     eventObj = it.value
+
+                    if (it.value.numberContact.isNullOrEmpty()) {
+                        eventDetailInnerLayout.llCallus.alpha = 0.2f
+                        eventDetailInnerLayout.llCallus.isClickable = false
+                    } else {
+                        eventDetailInnerLayout.llCallus.setOnClickListener {
+                            openDiallerBox(eventObj?.numberContact)
+                        }
+                    }
+                    if (it.value.emailContact.isNullOrEmpty()) {
+                        eventDetailInnerLayout.llEmailUs.alpha = 0.2f
+                        eventDetailInnerLayout.llEmailUs.isClickable = false
+                    } else {
+                        eventDetailInnerLayout.llEmailUs.setOnClickListener {
+                            openEmailbox(email =eventObj?.emailContact.toString())
+                        }
+                    }
+
+
+
+
+                    urlshare = it.value.url
+
+                    binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener {
+                        isDetailFavouriteFlag = true
+                        eventObj?.let { event ->
+                            favouriteClick(
+                                binding.toolbarLayoutEventDetail.favouriteEvent,
+                                event.isFavourite,
+                                R.id.action_eventDetailFragment2_to_postLoginFragment,
+                                event.id!!,
+                                eventViewModel,
+                                2
+                            )
+                        }
+                    }
+                    binding.favourite.setOnClickListener {
+                        isDetailFavouriteFlag = true
+                        eventObj?.let { event ->
+                            favouriteClick(
+                                binding.favourite,
+                                event.isFavourite,
+                                R.id.action_eventDetailFragment2_to_postLoginFragment,
+                                event.id!!,
+                                eventViewModel,
+                                2
+                            )
+                        }
+                    }
+                    if (urlshare != null && !urlshare!!.isEmpty()) {
+                        toolbarLayoutEventDetailBinding.imgShareEvent.setOnClickListener {
+                            shareLink(
+                                urlshare
+                                    ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
+                                activity
+                            )
+                        }
+                        binding.share.setOnClickListener {
+                            shareLink(
+                                urlshare
+                                    ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
+                                activity
+                            )
+
+                        }
+                    } else {
+                        toolbarLayoutEventDetailBinding.imgShareEvent.hide()
+                        binding.share.hide()
+                    }
+
+
                     locationPermission(it.value)
                     it.value.apply {
                         enableRegistration(registrationDate)
@@ -304,17 +343,23 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                     it.value.longitude.toDouble()
                                 )
 
-                            map?.addMarker(
-                                MarkerOptions()
-                                    .position(trafficDigitalLatLng)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
-                            )!!.title = it.value.title
-                            map?.animateCamera(
-                                CameraUpdateFactory.newLatLngZoom(
-                                    trafficDigitalLatLng, 14.0f
-                                )
-                            )
-                            map?.cameraPosition?.target
+                            if (map != null) {
+                                map?.apply {
+                                    addMarker(
+                                        MarkerOptions()
+                                            .position(trafficDigitalLatLng)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                                    )!!.title = it.value.title
+                                    animateCamera(
+                                        CameraUpdateFactory.newLatLngZoom(
+                                            trafficDigitalLatLng, 14.0f
+                                        )
+                                    )
+                                    cameraPosition.target
+                                }
+                            }
+
+
                         }
                     } catch (e: NumberFormatException) {
                         print(e.stackTrace)
@@ -330,6 +375,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_fav)
+                            binding.favourite1.hide()
+                            toolbarLayoutEventDetailBinding.favouriteEvent1.hide()
                             binding.toolbarLayoutEventDetail.favouriteEvent.background =
                                 getDrawableFromId(R.drawable.heart_icon_fav)
                             isDetailFavouriteFlag = false
@@ -342,6 +389,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         if (isDetailFavouriteFlag) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
+                            binding.favourite1.show()
+                            toolbarLayoutEventDetailBinding.favouriteEvent1.show()
                             toolbarLayoutEventDetailBinding.favouriteEvent.background =
                                 getDrawableFromId(R.drawable.heart_icon_home_black)
                             isDetailFavouriteFlag = false
@@ -360,9 +409,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
         binding.toolbarLayoutEventDetail.btnReg.setOnClickListener(this)
         binding.toolbarLayoutEventDetail.backEvent.setOnClickListener(this)
-        binding.toolbarLayoutEventDetail.imgShareEvent.setOnClickListener(this)
+//        binding.toolbarLayoutEventDetail.imgShareEvent.setOnClickListener(this)
         binding.toolbarLayoutEventDetail.bookingCalenderEvent.setOnClickListener(this)
-        binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener(this)
+//        binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener(this)
 
         binding.eventDetailInnerLayout.imgEventSpeaker.setOnClickListener(this)
         binding.eventDetailInnerLayout.eventDetailScheduleLayout.speakerSchedule.setOnClickListener(
@@ -396,7 +445,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
         binding.back.setOnClickListener(this)
 
-        binding.favourite.setOnClickListener(this)
+//        binding.favourite.setOnClickListener(this)
 
 
 //        binding.apply {
@@ -482,16 +531,19 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun mapSetUp(savedInstanceState: Bundle?) {
 
+        if (mapView == null) {
+            mapView = binding.root.findViewById(R.id.map)
+            mapView?.let {
+                it.getMapAsync(this)
+                it.onCreate(savedInstanceState)
 
-        mapView = binding.root.findViewById(R.id.map)
-        mapView?.let {
-            it.getMapAsync(this)
-            it.onCreate(savedInstanceState)
-
+            }
         }
+
     }
 
     override fun onMapReady(map: GoogleMap?) {
+
         map?.let {
             this.map = it
         }
@@ -516,12 +568,17 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             }
             R.id.img_event_speaker -> {
                 if (binding.eventDetailInnerLayout.tvDescReadmoreEvent.text.isNotEmpty()) {
-                    textToSpeechEngine.speak(
-                        binding.eventDetailInnerLayout.tvDescReadmoreEvent.text,
-                        TextToSpeech.QUEUE_FLUSH,
-                        null,
-                        "tts1"
-                    )
+                    if (textToSpeechEngine.isSpeaking) {
+                        textToSpeechEngine.stop()
+                    } else {
+                        textToSpeechEngine.speak(
+                            "${eventObj?.title} ${eventObj?.desc}",
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            "tts1"
+                        )
+                    }
+
                 }
             }
             R.id.btn_reg -> {
@@ -546,15 +603,15 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             R.id.back_event -> {
                 back()
             }
-            R.id.img_share_event -> {
-//                eventViewModel.showToast("Share")
-            }
+//            R.id.img_share_event -> {
+////                eventViewModel.showToast("Share")
+//            }
             R.id.bookingCalender_event -> {
 //                eventViewModel.showToast("Calender")
             }
-            R.id.favourite_event -> {
-                navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
-            }
+//            R.id.favourite_event -> {
+//                navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
+//            }
             R.id.speaker_schedule -> {
                 if (binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text.isNotEmpty())
                     textToSpeechEngine.speak(
@@ -600,7 +657,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     override fun onDestroy() {
         textToSpeechEngine.shutdown()
         super.onDestroy()
-        mapView?.onDestroy()
+//        mapView?.onDestroy()
     }
 
 
@@ -608,8 +665,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         eventViewModel.eventDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    emailContact = it.value.emailContact
-                    numberContact = it.value.numberContact
+//                    emailContact = it.value.emailContact
+//                    numberContact = it.value.numberContact
                     isRegisterd = it.value.isRegistered
                     if (isRegisterd) {
                         binding.toolbarLayoutEventDetail.btnReg.isClickable = false
@@ -621,14 +678,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     enableRegistration(it.value.registrationDate)
                     slotTime.clear()
                     parentItemList.clear()
-                    if (numberContact.isNullOrEmpty()) {
-                        binding.eventDetailInnerLayout.llCallus.alpha = 0.2f
-                        binding.eventDetailInnerLayout.llCallus.isClickable = false
-                    }
-                    if (emailContact.isNullOrEmpty()) {
-                        binding.eventDetailInnerLayout.llEmailUs.alpha = 0.2f
-                        binding.eventDetailInnerLayout.llEmailUs.isClickable = false
-                    }
 
                     it.value.relatedEvents!!.forEach {
                         moreEvents.add(it)

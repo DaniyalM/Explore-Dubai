@@ -32,6 +32,7 @@ import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.PostLoginActivity
 import com.dubaiculture.ui.preLogin.login.uae.viewmodels.UaePassSharedViewModel
 import com.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.Error.UAE_PASS_ERROR
 import com.dubaiculture.utils.SMSReceiver
 import com.dubaiculture.utils.UAEPassRequestModelsUtils
@@ -40,6 +41,8 @@ import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
+import om.dubaiculture.ui.navGraphActivity.NavGraphActivity
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -57,15 +60,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
 
+
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        subscribeToObservables()
+
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.viewmodel = loginViewModel
+        binding.fragment = this
         subscribeUiEvents(loginViewModel)
         initSmsListener()
         initBroadCast()
         applicationExitDialog()
-        binding.fragment = this
+
         binding.forgotPass.setOnClickListener(this)
         binding.imgUaePass.setOnClickListener(this)
 //        Timber.e("Firebase", "token " + FirebaseInstanceId.getInstance().getToken());
@@ -108,7 +118,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
 
-        subscribeToObservables()
+
 
         if (isArabic()) {
             binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
@@ -120,9 +130,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
     private fun subscribeToObservables() {
-        uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner){
+        uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                loginViewModel.loginWithUae(it,true)
+                if (!it.isAccountCreate!!) {
+                    loginViewModel.loginWithUae(
+                        it.copy(
+                            token = token,
+                            culture = getCurrentLanguage().language
+                        ), true
+                    )
+                } else {
+                    loginViewModel.loginWithUaeCreate(
+                        it.copy(
+                            token = token,
+                            culture = getCurrentLanguage().language
+                        )
+                    )
+                }
+
             }
         }
         loginViewModel.isSheetOpen.observe(viewLifecycleOwner) {
@@ -139,21 +164,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         loginViewModel.userLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 application.auth.apply {
+                    loginViewModel.updateSheet(false)
                     user = it
                     isGuest = false
                     isLoggedIn = true
                     loginViewModel.getGuestUserIfExists()
-//                    if (it.hasPassword){
-//
-//                    }else {
-//                        if(it.verificationToken.isNotEmpty()){
-//                            navigateByAction(R.id.action_loginFragment_to_createPassFragment,Bundle().apply {
-//                                putString("verificationCode",it.verificationToken)
-//                            })
-//                        }
-//
-//                    }
-
                 }
 
 
@@ -308,7 +323,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
         getAccessToken(activity, requestModel, object : UAEPassAccessTokenCallback {
             override fun getToken(accessToken: String?, state: String, error: String?) {
                 if (error != null) {
-                    showAlert(UAE_PASS_ERROR)
+                    showAlert(activity.resources.getString(R.string.user_canceled_the_login))
                     showLoader(false)
 //                    showToast("Error while getting access token")
                 } else {

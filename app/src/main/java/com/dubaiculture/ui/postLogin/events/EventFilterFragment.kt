@@ -94,7 +94,7 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
 
     private fun createItems(): List<HeaderModel> =
         mutableListOf<HeaderModel>().apply {
-            repeat((1..4).count()) {
+            repeat((0..4).count()) {
                 when (it) {
                     0 -> {
                         add(
@@ -127,6 +127,14 @@ class EventFilterFragment : BaseFragment<FragmentEventFilterBinding>(), View.OnC
                             HeaderModel(
                                 id = it,
                                 title = getString(R.string.next_seven_days),
+                            )
+                        )
+                    }
+                    4 -> {
+                        add(
+                            HeaderModel(
+                                id = it,
+                                title = getString(R.string.next_thirty_days),
                             )
                         )
                     }

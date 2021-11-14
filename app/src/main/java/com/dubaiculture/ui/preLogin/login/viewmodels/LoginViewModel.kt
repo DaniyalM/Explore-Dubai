@@ -1,6 +1,8 @@
 package com.dubaiculture.ui.preLogin.login.viewmodels
 
 import android.app.Application
+import android.os.Handler
+import android.os.Looper
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -25,6 +27,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import transformUaeResponse
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -65,13 +68,17 @@ class LoginViewModel @Inject constructor(
     private var passwordError_ = MutableLiveData<Int>()
     var passwordError: LiveData<Int> = passwordError_
 
-    private val _isSheetOpen:MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
-    val isSheetOpen:MutableLiveData<Event<Boolean>> = _isSheetOpen
+    private val _isSheetOpen: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
+    val isSheetOpen: MutableLiveData<Event<Boolean>> = _isSheetOpen
 
     init {
         getUserIfExists()
     }
 
+
+    fun updateSheet(flag: Boolean) {
+        _isSheetOpen.value = Event(flag)
+    }
 
     fun getUserIfExists() {
 
@@ -111,54 +118,17 @@ class LoginViewModel @Inject constructor(
     }
 
 
-
-    fun loginWithUae(uaeLoginRequest: UAELoginRequest,isCreateAccount:Boolean=false) {
+    fun loginWithUae(uaeLoginRequest: UAELoginRequest, linkAccount: Boolean = false) {
         viewModelScope.launch {
             showLoader(true)
-            when (val result = loginRepository.loginWithUae(uaeLoginRequest)) {
-                is Result.Success -> {
-                    showLoader(false)
-//                    Timber.e(result.value.loginResponseDTO.userDTO.Email)
+            if (linkAccount) {
+                when (val result = loginRepository.linkWithUae(uaeLoginRequest)) {
+                    is Result.Success -> {
+                        showLoader(false)
+                        //UAE Response Has been Saved
 
-                    //UAE Response Has been Saved
-                    if (!isCreateAccount){
-
-                        if (!_isSheetOpen.value?.peekContent()!!){
-                            _isSheetOpen.value=Event(true)
-                        }else {
-                            val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
-                            uaePass.let {
-                                userRepository.saveUaeInfo(
-                                    it
-                                )
-
-                                //setting user for Session
-                                val user = transform(
-                                    result.value.loginResponseDTO.userDTO,
-                                    result.value.loginResponseDTO
-                                ).copy(
-                                    idn = it.idn,
-                                    userName = "${it.firstNameEn} ${it.lastNameEn}",
-                                    email = it.email,
-                                    phoneNumber = "+${it.mobile}"
-                                )
-
-                                setUser(user)
-                                //Saving User Session
-                                userRepository.updateUser(user)
-//                        if (it.idn.isEmpty()) {
-//                            showAlert(message = activity.resources.getString(R.string.sop1))
-//                        } else {
-//                            //setting UaePassInfo for Session
-//
-//
-//
-//
-//                        }
-                            }
-                        }
-                    }else {
-                        val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+                        val uaePass =
+                            transformUaeResponse(result.value.loginResponseDTO.userUaePass)
                         uaePass.let {
                             userRepository.saveUaeInfo(
                                 it
@@ -178,18 +148,105 @@ class LoginViewModel @Inject constructor(
                             setUser(user)
                             //Saving User Session
                             userRepository.updateUser(user)
-//                        if (it.idn.isEmpty()) {
-//                            showAlert(message = activity.resources.getString(R.string.sop1))
-//                        } else {
-//                            //setting UaePassInfo for Session
-//
-//
-//
-//
-//                        }
                         }
-                    }
 
+
+                    }
+                    is Result.Failure -> {
+                        showLoader(false)
+                        val error = result.errorMessage ?: SOMETHING_WENT_WRONG
+                        showAlert(message = error)
+                    }
+                }
+            } else {
+                when (val result = loginRepository.loginWithUae(uaeLoginRequest)) {
+                    is Result.Success -> {
+                        showLoader(false)
+                        //UAE Response Has been Saved
+
+                        if (!result.value.loginResponseDTO.IsLinked) {
+                            updateSheet(true)
+                        } else {
+
+                            val uaePass =
+                                transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+                            uaePass.let {
+                                userRepository.saveUaeInfo(
+                                    it
+                                )
+
+                                //setting user for Session
+                                val user = transform(
+                                    result.value.loginResponseDTO.userDTO,
+                                    result.value.loginResponseDTO
+                                ).copy(
+                                    idn = it.idn,
+                                    userName = "${it.firstNameEn} ${it.lastNameEn}",
+                                    email = it.email,
+                                    phoneNumber = "+${it.mobile}"
+                                )
+
+                                val message = result.value.loginResponseDTO.UpdateMessage?:""
+                                if (!message.isEmpty()) {
+                                    showSnackbar(message = message)
+                                    Handler(Looper.getMainLooper()).postDelayed({
+                                        setUser(user)
+                                    }, 1500)
+
+
+                                }else {
+                                    setUser(user)
+                                }
+                                //Saving User Session
+                                userRepository.updateUser(user)
+                            }
+
+
+                        }
+
+
+                    }
+                    is Result.Failure -> {
+                        showLoader(false)
+                        val error = result.errorMessage ?: SOMETHING_WENT_WRONG
+                        showAlert(message = error)
+                    }
+                }
+
+            }
+        }
+    }
+
+    fun loginWithUaeCreate(uaeLoginRequest: UAELoginRequest) {
+        viewModelScope.launch {
+            showLoader(true)
+            when (val result = loginRepository.linkWithUaeCreateAccount(uaeLoginRequest)) {
+                is Result.Success -> {
+                    showLoader(false)
+//                    Timber.e(result.value.loginResponseDTO.userDTO.Email)
+
+                    //UAE Response Has been Saved
+                    val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+                    uaePass.let {
+                        userRepository.saveUaeInfo(
+                            it
+                        )
+
+                        //setting user for Session
+                        val user = transform(
+                            result.value.loginResponseDTO.userDTO,
+                            result.value.loginResponseDTO
+                        ).copy(
+                            idn = it.idn,
+                            userName = "${it.firstNameEn} ${it.lastNameEn}",
+                            email = it.email,
+                            phoneNumber = "+${it.mobile}"
+                        )
+
+                        setUser(user)
+                        userRepository.updateUser(user)
+
+                    }
 
 
                 }
@@ -236,10 +293,11 @@ class LoginViewModel @Inject constructor(
 
                         } else {
                             showLoader(false)
-                            showErrorDialog(
-                                message = result.value.errorMessage,
-                                colorBg = R.color.red_600
-                            )
+                            showAlert(message = result.value.errorMessage)
+//                            showErrorDialog(
+//                                message = result.value.errorMessage,
+//                                colorBg = R.color.red_600
+//                            )
                         }
                     }
                     is Result.Error -> {
@@ -290,10 +348,12 @@ class LoginViewModel @Inject constructor(
                             }
                         } else {
                             showLoader(false)
-                            showErrorDialog(
-                                message = result.value.errorMessage,
-                                colorBg = R.color.red_600
-                            )
+                            showAlert(message = result.value.errorMessage)
+
+//                            showErrorDialog(
+//                                message = result.value.errorMessage,
+//                                colorBg = R.color.red_600
+//                            )
 
 
                         }

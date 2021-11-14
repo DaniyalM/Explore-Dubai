@@ -12,6 +12,7 @@ import com.dubaiculture.databinding.FragmentAboutBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
 import com.dubaiculture.utils.Constants
+import com.dubaiculture.utils.hide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +26,8 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() , View.OnClickListene
         binding.imgClose.setOnClickListener(this)
         binding.llPrivacy.setOnClickListener(this)
         binding.llTerms.setOnClickListener(this)
+        binding.cardviewService.hide()
+        binding.tvWeUsed.hide()
 
         moreViewModel.getCultureConnoisseur(getCurrentLanguage().language)
         callingObserver()

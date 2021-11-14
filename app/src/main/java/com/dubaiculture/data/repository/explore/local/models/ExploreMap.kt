@@ -14,5 +14,6 @@ data class ExploreMap(
     val distance: Double? = null,
     val pinInRadius: String? = null,
     val pinOutRadius: String? = null,
-    var isAttraction: Boolean = false
+    var isAttraction: Boolean = false,
+    var attractionCat:Int?=null
 ): Parcelable

@@ -50,6 +50,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected lateinit var bus: Bus
     protected lateinit var activity: Activity
 
+
+
     protected var customProgressDialog: ProgressDialog? = null
 
     //    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
@@ -78,6 +80,8 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
             dataBinding = getFragmentBinding(inflater, container)
             _view = dataBinding.root
         }
+
+
         return _view
     }
 
@@ -116,10 +120,16 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
 
         application = activity.application as ApplicationEntry
+        application.auth.locale = getCurrentLanguage().language
+        application.auth.user?.let {
+            application.auth.isGuest = false
+        }
+
         bus = application.bus
         bus.register(this)
         isBusRegistered = true
         customProgressDialog = ProgressDialog(activity)
+
 //        groupAdapter = GroupAdapter()
 
         (activity as BaseActivity).darkModeAccess()
@@ -156,6 +166,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
         }
 
     }
+
 
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(viewLifecycleOwner) {

@@ -52,6 +52,7 @@ class ServiceListingHeaderItem<T>(
             textView.setTextColor(
                 ContextCompat.getColor(view.context, R.color.white_900)
             )
+
             selectedInnerImg?.let { drawable ->
                 imgInner.glideInstance(drawable, true).into(imgInner)
 //                imgInner.setImageDrawable(drawable)
@@ -65,7 +66,7 @@ class ServiceListingHeaderItem<T>(
                 view.context.getColorFromAttr(R.attr.colorSurface)
             )
             textView.setTextColor(
-                view.context.getColorFromAttr(R.attr.colorSecondary)
+                ContextCompat.getColor(view.context, R.color.purple_900)
             )
             unSelectedInnerImg?.let { drawable ->
                 imgInner.glideInstance(drawable, true).into(imgInner)

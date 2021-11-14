@@ -14,6 +14,7 @@ import com.dubaiculture.ui.postLogin.latestnews.adapter.clicklisteners.NewsTagsC
 import com.dubaiculture.ui.postLogin.latestnews.newsfilter.adapters.NewsTagsListAdapter
 import com.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsFilterSheetViewModel
 import com.dubaiculture.ui.postLogin.latestnews.newsfilter.viewmodels.NewsSharedViewModel
+import com.dubaiculture.utils.AppConfigUtils.getCurrentDateTime
 import com.dubaiculture.utils.Constants.NavBundles.SHEET_STATE
 import com.dubaiculture.utils.DatePickerHelper
 import com.dubaiculture.utils.toString
@@ -35,7 +36,7 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
 
     private fun recyclerViewSetUp() {
         binding.rvCategories.apply {
-            val list:MutableList<String> = mutableListOf()
+            val list: MutableList<String> = mutableListOf()
             val layoutManager = FlexboxLayoutManager(context)
             layoutManager.flexDirection = FlexDirection.ROW
             layoutManager.alignItems = AlignItems.STRETCH
@@ -60,7 +61,6 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentBottomSheetNewsFilterBinding.inflate(inflater, container, false)
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -158,6 +158,8 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
                     ).showPicker()
                 }
                 R.id.tv_end_date -> {
+                    val startDate = startDateObj ?: getCurrentDateTime()
+
                     DatePickerHelper(
                         binding.tvEndDate.text.toString(),
                         requireContext(),
@@ -171,7 +173,7 @@ class NewsFilterBottomSheet : BaseBottomSheetFragment<FragmentBottomSheetNewsFil
                                 binding.tvEndDate.text = str
 
                             }
-                        }, minDate = startDateObj?.time
+                        }, minDate = startDate.time
                     ).showPicker()
 
                 }

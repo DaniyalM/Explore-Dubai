@@ -40,6 +40,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/clParent"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/gray_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
             <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tvHeading"
                 style="@style/TextViewStyle"
@@ -50,7 +60,7 @@
                 android:text="@string/editDates"
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gray_line" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeleteDur"
@@ -203,6 +213,9 @@
                 app:layout_constraintStart_toStartOf="@id/divider"
                 app:layout_constraintTop_toBottomOf="@id/divider" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDates"
                 android:layout_width="0dp"
@@ -210,9 +223,27 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBoxRepeat"
+                app:layout_constraintTop_toBottomOf="@+id/clParent"
                 tools:itemCount="4"
                 tools:listitem="@layout/item_edit_duration" />
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/are_you_sure"
+                style="@style/TextViewStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:text="@string/are_you_sure_want_to_delete_all"
+                android:textAlignment="center"
+                android:textSize="@dimen/_16ssp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gray_line"
+                app:layout_constraintBottom_toTopOf="@+id/btnDone" />
+
+
 
             <Button
                 android:id="@+id/btnDone"
@@ -229,7 +260,7 @@
                 app:cornerRadius="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvDates" />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

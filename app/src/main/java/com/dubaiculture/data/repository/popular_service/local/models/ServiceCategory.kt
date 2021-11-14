@@ -4,5 +4,5 @@ data class ServiceCategory(
     val id: String,
     val title: String,
     val normalIcon: String,
-    val hoverIcon: String,
+    val hoverIcon: String
 )

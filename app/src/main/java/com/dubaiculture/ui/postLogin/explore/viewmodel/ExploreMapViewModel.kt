@@ -9,7 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.dubaiculture.BuildConfig
+import com.dubaiculture.R
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.attraction.local.models.Attractions
 import com.dubaiculture.data.repository.event.local.models.Events
@@ -20,9 +24,6 @@ import com.dubaiculture.data.repository.explore.remote.request.ExploreRequest
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.location.LocationHelper
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -141,7 +142,8 @@ class ExploreMapViewModel @Inject constructor(
                     lng = it.longitude!!,
                     pinOutRadius = it.outOfRadiusIcon,
                     pinInRadius = it.withinRadiusIcon,
-                    isAttraction = true
+                    isAttraction = true,
+                    attractionCat = it.catIndexId
                 )
             )
         }
@@ -206,7 +208,8 @@ class ExploreMapViewModel @Inject constructor(
                     lng = it.longitude.toString().ifEmpty { "67.08119661055807" },
                     pinInRadius = it.withinRadiusIcon,
                     pinOutRadius = it.outOfRadiusIcon,
-                    isAttraction = true
+                    isAttraction = true,
+                    attractionCat = it.catIndexId
                 )
 
             )
@@ -227,14 +230,24 @@ class ExploreMapViewModel @Inject constructor(
 
     }
 
+    val iconList = mutableListOf(
+        R.drawable.attraction_close,
+        R.drawable.attraction_away,
+        R.drawable.heritage_inrange,
+        R.drawable.heritage_outrange,
+        R.drawable.festival_inrange,
+        R.drawable.festival_outrange,
+        R.drawable.library_inrange,
+        R.drawable.library_outrange,
+        R.drawable.events_map,
+        R.drawable.events_away,
+
+
+    )
 
     fun pinsOnMap(
         exploreMapList: List<ExploreMap>,
-        map: GoogleMap,
-        inRangeIcon: Int = 0,
-        outRangeIcon: Int = 0,
-        inRangeEventIcon: Int = 0,
-        outRangeEventIcon: Int = 0
+        map: GoogleMap
     ) {
         map.clear()
         exploreMapList.forEach {
@@ -253,12 +266,33 @@ class ExploreMapViewModel @Inject constructor(
 
                 )
                 if (it.isAttraction) {
-                    bitmapDescriptorFromVector(context, inRangeIcon)?.apply {
-                        marker?.setIcon(this)
+                    when (it.attractionCat) {
+                        0 -> {
+                            bitmapDescriptorFromVector(context, iconList[0])?.apply {
+                                marker?.setIcon(this)
+                            }
+                        }
+                        1 -> {
+                            bitmapDescriptorFromVector(context, iconList[2])?.apply {
+                                marker?.setIcon(this)
+                            }
+                        }
+                        2 -> {
+                            bitmapDescriptorFromVector(context, iconList[4])?.apply {
+                                marker?.setIcon(this)
+                            }
+                        }
+                        3 -> {
+                            bitmapDescriptorFromVector(context, iconList[6])?.apply {
+                                marker?.setIcon(this)
+                            }
+                        }
+
                     }
 
+
                 } else {
-                    bitmapDescriptorFromVector(context, inRangeEventIcon)?.apply {
+                    bitmapDescriptorFromVector(context, iconList[8])?.apply {
                         marker?.setIcon(this)
                     }
                 }
@@ -271,11 +305,35 @@ class ExploreMapViewModel @Inject constructor(
 
                 )
                 if (it.isAttraction) {
-                    bitmapDescriptorFromVector(context, outRangeIcon)?.apply {
-                        marker?.setIcon(this)
+                    when (it.attractionCat) {
+                        0 -> {
+                            bitmapDescriptorFromVector(context, iconList[1])?.apply {
+                                marker?.setIcon(this)
+                            }
+                        }
+                        1 -> {
+                            bitmapDescriptorFromVector(context, iconList[3])?.apply {
+                                marker?.setIcon(this)
+                            }
+                        }
+                        2 -> {
+                            bitmapDescriptorFromVector(context, iconList[5])?.apply {
+                                marker?.setIcon(this)
+                            }
+                        }
+                        3 -> {
+                            bitmapDescriptorFromVector(context, iconList[7])?.apply {
+                                marker?.setIcon(this)
+                            }
+                        }
+
                     }
+//                    bitmapDescriptorFromVector(context, outRangeIcon)?.apply {
+//                        marker?.setIcon(this)
+//                    }
                 } else {
-                    bitmapDescriptorFromVector(context, outRangeEventIcon)?.apply {
+
+                    bitmapDescriptorFromVector(context, iconList[9])?.apply {
                         marker?.setIcon(this)
                     }
                 }

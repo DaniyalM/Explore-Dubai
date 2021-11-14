@@ -157,7 +157,7 @@ fun transformPostFeedBack(shareFeedBackRequest: ShareFeedbackRequest) =
 fun transformNotification(notificationRequest: NotificationRequest) = NotificationRequestDTO(
     pageNo = notificationRequest.pageNumber,
     pageSize = notificationRequest.pageSize,
-//        culture = notificationRequest.culture
+        culture = notificationRequest.culture
 )
 
 fun transformNotificationPaging(notificationDTO: NotificationDTO) = Notifications(
@@ -165,4 +165,7 @@ fun transformNotificationPaging(notificationDTO: NotificationDTO) = Notification
     title = notificationDTO.Title ?: "",
     body = notificationDTO.Body ?: "",
     dateTime = notificationDTO.DateTime ?: "",
+    icon = notificationDTO.Icon ?: "",
+    timeAgo = notificationDTO.TimeAgo ?: "",
+    bodyMarkup = notificationDTO.BodyMarkup ?: "",
 )

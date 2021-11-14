@@ -15,7 +15,6 @@ import com.dubaiculture.data.repository.sitemap.local.BeaconItems
 fun transformAttractionsRequest(attractionRequest: AttractionRequest) =
     AttractionRequestDTO(
         attractionCategoryId = attractionRequest.attractionCategoryId!!,
-
         culture = attractionRequest.culture
     )
 
@@ -61,25 +60,25 @@ fun transformAttractionDetail(attractionResponse: AttractionResponse): Attractio
     transformAttractionDetail(attractionResponse.Result.attraction)
 
 fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attractions(
-    id = attraction.id,
-    title = attraction.title,
-    category = attraction.category,
-    locationTitle = attraction.locationTitle,
-    location = attraction.location,
-    latitude = attraction.latitude,
-    longitude = attraction.longitude,
-    portraitImage = attraction.portraitImage,
-    landscapeImage = attraction.landscapeImage,
-    description = attraction.description,
-    summary = attraction.summary,
-    startTime = attraction.startTime,
-    endTime = attraction.endTime,
-    startDay = attraction.startDay,
-    endDay = attraction.endDay,
-    color = attraction.color,
-    IsFavourite = attraction.isFavourite,
-    emailContact = attraction.emailContact,
-    numberContact = attraction.numberContact,
+    id = attraction.id?:"",
+    title = attraction.title?:"",
+    category = attraction.category?:"",
+    locationTitle = attraction.locationTitle?:"",
+    location = attraction.location?:"",
+    latitude = attraction.latitude?:"",
+    longitude = attraction.longitude?:"",
+    portraitImage = attraction.portraitImage?:"",
+    landscapeImage = attraction.landscapeImage?:"",
+    description = attraction.description?:"",
+    summary = attraction.summary?:"",
+    startTime = attraction.startTime?:"",
+    endTime = attraction.endTime?:"",
+    startDay = attraction.startDay?:"",
+    endDay = attraction.endDay?:"",
+    color = attraction.color?:"",
+    IsFavourite = attraction.isFavourite?:false,
+    emailContact = attraction.emailContact?:"",
+    numberContact = attraction.numberContact?:"",
     siteMap = attraction.siteMapDTO?.let {
         SiteMap(
             image = it.image,
@@ -170,7 +169,8 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
             }
         )
     },
-    relatedEventsTitle = attraction.RelatedEventsTitle
+    relatedEventsTitle = attraction.RelatedEventsTitle?:"",
+    url = attraction.URL?:""
 
 )
 
@@ -185,24 +185,24 @@ fun transformAttractions(list: List<AttractionDTO>): List<Attractions> =
     list.run {
         this.map {
             Attractions(
-                id = it.id,
-                title = it.title,
-                category = it.category,
-                type = it.type,
+                id = it.id?:"",
+                title = it.title?:"",
+                category = it.category?:"",
+                type = it.type?:"",
                 IsFavourite = it.isFavourite,
-                locationTitle = it.locationTitle,
-                location = it.location,
-                portraitImage = it.portraitImage,
+                locationTitle = it.locationTitle?:"",
+                location = it.location?:"",
+                portraitImage = it.portraitImage?:"",
                 longitude = it.longitude?:"67.08119661055807",
                 latitude = it.latitude?:"24.83250180519734",
-                landscapeImage = it.landscapeImage,
-                description = it.description,
-                startTime = it.startTime,
-                endTime = it.endTime,
-                endDay = it.endDay,
-                startDay = it.startDay,
-                color = it.color,
-                visitedDateTime = it.visitedDateTime
+                landscapeImage = it.landscapeImage?:"",
+                description = it.description?:"",
+                startTime = it.startTime?:"",
+                endTime = it.endTime?:"",
+                endDay = it.endDay?:"",
+                startDay = it.startDay?:"",
+                color = it.color?:"",
+                visitedDateTime = it.visitedDateTime?:""
             )
         }
     }

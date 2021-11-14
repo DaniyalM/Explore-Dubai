@@ -22,8 +22,38 @@ class LoginRepository @Inject constructor(
 ) :
     BaseRepository() {
 
+
     suspend fun loginWithUae(uaeLoginRequest: UAELoginRequest):Result<LoginResponse>{
         return when(val resultRds=loginRDS.loginWithUaePass(transformUaeRequest(uaeLoginRequest))){
+            is Result.Success -> {
+                if (resultRds.value.succeeded){
+                    Result.Success(resultRds.value)
+                }
+                else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Failure -> resultRds
+            else -> resultRds
+        }
+    }
+
+    suspend fun linkWithUae(uaeLoginRequest: UAELoginRequest):Result<LoginResponse>{
+        return when(val resultRds=loginRDS.linkUaePass(transformUaeRequest(uaeLoginRequest))){
+            is Result.Success -> {
+                if (resultRds.value.succeeded){
+                    Result.Success(resultRds.value)
+                }
+                else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Failure -> resultRds
+            else -> resultRds
+        }
+    }
+    suspend fun linkWithUaeCreateAccount(uaeLoginRequest: UAELoginRequest):Result<LoginResponse>{
+        return when(val resultRds=loginRDS.uaePassCreateAccount(transformUaeRequest(uaeLoginRequest))){
             is Result.Success -> {
                 if (resultRds.value.succeeded){
                     Result.Success(resultRds.value)

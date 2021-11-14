@@ -49,9 +49,9 @@ fun transformationAttractionCategories(list: ArrayList<AttractionCategoryDTO>): 
             indexId = index,
             attractions = attractionCategoryDTO.attractions.map { attraction ->
                 Attractions(
-                    id = attraction.id,
-                    title = attraction.title,
-                    category = attraction.category,
+                    id = attraction.id?:"",
+                    title = attraction.title?:"",
+                    category = attraction.category?:"",
                     locationTitle = attraction.locationTitle,
                     location = attraction.location,
                     latitude = attraction.latitude ?: "24.83250180519734",

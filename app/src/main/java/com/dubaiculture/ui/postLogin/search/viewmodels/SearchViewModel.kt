@@ -35,6 +35,7 @@ class SearchViewModel @Inject constructor(
 
     private val _viewFlag: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
     val viewFlag: LiveData<Event<Boolean>> = _viewFlag
+
     private val _stringList: MutableLiveData<List<String>> = MutableLiveData()
     val stringList: LiveData<List<String>> = _stringList
 
@@ -44,6 +45,7 @@ class SearchViewModel @Inject constructor(
 
     private var _searchFilter: MutableLiveData<Event<SearchPaginationRequest>> =
         MutableLiveData(Event(SearchPaginationRequest()))
+
     var searchFilter: LiveData<Event<SearchPaginationRequest>> = _searchFilter
 
     private val _searchPaginationItem: MutableLiveData<PagingData<SearchResultItem>> =
@@ -55,31 +57,26 @@ class SearchViewModel @Inject constructor(
     init {
 
         createTabs()
-        if (!context.auth.isGuest) {
-            getSearchHistory()
-        } else {
-            _viewFlag.value = Event(true)
-        }
+        callHistoryIfGuest()
+
 
     }
 
 
     fun updateIsOldData(isOld: Boolean) {
-        val searchRequest: SearchPaginationRequest = _searchFilter.value!!.peekContent()
-        updateSearch(searchRequest.copy(isOld = isOld))
+        updateSearch(SearchPaginationRequest().copy(isOld = isOld))
+
     }
 
     fun updateCategoryData(category: String) {
-        val searchRequest: SearchPaginationRequest = _searchFilter.value!!.peekContent()
-        updateSearch(searchRequest.copy(category = category))
+        updateSearch(SearchPaginationRequest().copy(category = category))
     }
 
     fun updateSorting(aToz: Boolean) {
-        val searchRequest: SearchPaginationRequest = _searchFilter.value!!.peekContent()
         if (aToz)
-            updateSearch(searchRequest.copy(sort = "asc"))
+            updateSearch(SearchPaginationRequest().copy(sort = "asc"))
         else
-            updateSearch(searchRequest.copy(sort = "desc"))
+            updateSearch(SearchPaginationRequest().copy(sort = "desc"))
     }
 
     fun updateKeyword(string: String) {
@@ -160,6 +157,7 @@ class SearchViewModel @Inject constructor(
                     if (result.value.isNotEmpty()) {
                         _stringList.value = result.value
                     } else {
+                        _stringList.value = mutableListOf()
                         _viewFlag.value = Event(true)
                     }
 
@@ -185,7 +183,7 @@ class SearchViewModel @Inject constructor(
                 is Result.Success -> {
                     showLoader(false)
                     if (result.value) {
-                        getSearchHistory()
+                        callHistoryIfGuest()
                     }
 
                 }
@@ -220,6 +218,7 @@ class SearchViewModel @Inject constructor(
                     result.value
                         .cachedIn(viewModelScope)
                         .collectLatest {
+                            callHistoryIfGuest()
                             _searchPaginationItem.value = it
                         }
                 }
@@ -231,6 +230,12 @@ class SearchViewModel @Inject constructor(
             }
         }
 
+    }
+
+    private fun callHistoryIfGuest() {
+        if (!context.auth.isGuest) {
+            getSearchHistory()
+        }
     }
 
     fun updatePagingList(tab: SearchTab) {

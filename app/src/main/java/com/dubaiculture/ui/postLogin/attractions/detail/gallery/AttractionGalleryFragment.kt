@@ -95,7 +95,10 @@ class AttractionGalleryFragment : BaseFragment<AttractionGalleryFragmentBinding>
         if (!gallerList.isNullOrEmpty()) {
             gallerList[0].galleryImage?.let { displayBlurryView(it) }
         } else {
-            imagesList[0].image?.let { displayBlurryView(it) }
+            if (imagesList.isNotEmpty()){
+                imagesList[0].image?.let { displayBlurryView(it) }
+            }
+
         }
         binding.imgBack.setOnClickListener {
             back()

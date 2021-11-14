@@ -54,16 +54,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     private var category: String = ""
     private var lat: Double? = null
     private var lng: Double? = null
-    val nearEvent = R.drawable.events_map
-    val farEvent = R.drawable.events_away
-    val nearAttractions = R.drawable.attraction_close
-    val farAttractions = R.drawable.attraction_away
-    val nearHeritage = R.drawable.heritage_inrange
-    val farHeritage = R.drawable.heritage_outrange
-    val nearFestival = R.drawable.festival_inrange
-    val farFestival = R.drawable.festival_outrange
-    val nearLibrary = R.drawable.library_inrange
-    val farLibrary = R.drawable.library_outrange
+
     lateinit var exploreNearAdapter: ExploreMapAdapter
 
     @Inject
@@ -86,14 +77,20 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
             lng = getDouble(LOCATION_LNG)
         }
         backArrowRTL(binding.header.back)
-        appendInAttractionCategoryList()
-//        lifecycleScope.launch {
-//        }
+
+
         binding.header.back.setOnClickListener(this)
         binding.ImgChangeView.setOnClickListener(this)
-        mapSetUp()
+        binding.search.setOnClickListener(this)
+
         callingObserver()
-        mapView = MapView(activity)
+        mapSetUp()
+
+        if (!this::mapView.isInitialized){
+            appendInAttractionCategoryList()
+            mapView = MapView(activity)
+        }
+
     }
 
 
@@ -118,6 +115,11 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         when (v?.id) {
             R.id.back -> {
                 back()
+            }
+            R.id.search->{
+                application.auth.isMapSearch=true
+                back()
+//                navigateByDirections(ExploreMapFragmentDirections.actionExploreMapFragmentToSearchNavigation())
             }
             R.id.ImgChangeView -> {
                 val bundle = Bundle()
@@ -170,11 +172,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                                 eventList,
                                 locationHelper, lat, lng
                             ),
-                            this,
-                            inRangeIcon = nearAttractions,
-                            outRangeIcon = farAttractions,
-                            inRangeEventIcon = nearEvent,
-                            outRangeEventIcon = farEvent,
+                            this
                         )
                         currentLocation(this)
                         radiusOnMap(this)
@@ -207,9 +205,24 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
 
 
     private fun mapSetUp() {
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.google_map) as? SupportMapFragment
-        mapFragment!!.getMapAsync(this)
+        if (googleMap==null){
+            val mapFragment =
+                childFragmentManager.findFragmentById(R.id.google_map) as? SupportMapFragment
+            mapFragment!!.getMapAsync(this)
+        }
+
+    }
+    private fun mapSetUp(savedInstanceState: Bundle?) {
+
+        if (!this::mapView.isInitialized){
+            mapView = binding.root.findViewById(R.id.google_map)
+            mapView?.let {
+                it.getMapAsync(this)
+                it.onCreate(savedInstanceState)
+
+            }
+        }
+
     }
 
     // filter a/c to the design position  0 -> All , 1 -> Event 2-> museum etc pins on map loaded setup of Rv call
@@ -229,11 +242,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             eventList,
                             locationHelper, lat, lng
                         ),
-                        this,
-                        inRangeIcon = nearAttractions,
-                        outRangeIcon = farAttractions,
-                        inRangeEventIcon = nearEvent,
-                        outRangeEventIcon = farEvent,
+                        this
 
                         )
                     rvSetUp(
@@ -255,9 +264,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             exploreMapList,
                             eventList, lat, lng
                         ),
-                        this,
-                        inRangeEventIcon = nearEvent,
-                        outRangeEventIcon = farEvent,
+                        this
                     )
                     rvSetUp(
                         exploreMapViewModel.eventFilter(
@@ -282,10 +289,10 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             exploreMapList,
                             attractions, lat, lng
                         ), this,
-                        inRangeEventIcon = 0,
-                        outRangeEventIcon = 0,
-                        inRangeIcon = nearAttractions,
-                        outRangeIcon = farAttractions
+//                        inRangeEventIcon = 0,
+//                        outRangeEventIcon = 0,
+//                        inRangeIcon = iconArray[0],
+//                        outRangeIcon = iconArray[1]
                     )
                     rvSetUp(
                         exploreMapViewModel.attractionFilter(
@@ -307,8 +314,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             exploreMapList,
                             attractions, lat, lng
                         ), this,
-                        inRangeIcon = nearHeritage,
-                        outRangeIcon = farHeritage
+//                        inRangeIcon = iconArray[2],
+//                        outRangeIcon = iconArray[3]
                     )
                     rvSetUp(
                         exploreMapViewModel.attractionFilter(
@@ -331,8 +338,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             exploreMapList,
                             attractions, lat, lng
                         ), this,
-                        inRangeIcon = nearAttractions,
-                        outRangeIcon = farAttractions
+//                        inRangeIcon = iconArray[0],
+//                        outRangeIcon = iconArray[1]
                     )
                     rvSetUp(
                         exploreMapViewModel.attractionFilter(
@@ -357,8 +364,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             exploreMapList,
                             attractions, lat, lng
                         ), this,
-                        inRangeIcon = nearFestival,
-                        outRangeIcon = farFestival
+//                        inRangeIcon = iconArray[4],
+//                        outRangeIcon = iconArray[5]
                     )
                     rvSetUp(
                         exploreMapViewModel.attractionFilter(
@@ -381,8 +388,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             exploreMapList,
                             attractions, lat, lng
                         ), this,
-                        inRangeIcon = nearLibrary,
-                        outRangeIcon = farLibrary
+//                        inRangeIcon = iconArray[6],
+//                        outRangeIcon = iconArray[7]
                     )
                     rvSetUp(
                         exploreMapViewModel.attractionFilter(

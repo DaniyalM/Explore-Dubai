@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentHomeBinding
 import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.postLogin.home.viewmodels.HomeViewModel
 import com.dubaiculture.utils.Constants.NavBundles.NEW_LOCALE
+import com.dubaiculture.utils.hide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,8 +26,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
@@ -65,14 +68,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun subscribeToObservable() {
-//        homeViewModel.userLiveData.observe(viewLifecycleOwner){
+//        homeViewModel.userLiveData.observe(viewLifecycleOwner) {
 //            it?.apply {
-//                if (!hasPassword){
-//                    navigateByAction(R.id.action_homeFragment_to_createPassFragment2,Bundle().apply {
-//                        putString("verificationCode",it.verificationToken)
-//                        putBoolean("isHome",true)
-//                    })
-//                }
 //            }
 //        }
     }
@@ -127,6 +124,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.myEventsFragment -> {
                         visibility = View.GONE
                     }
+                    R.id.serviceDownVoteFeedBackFragment -> {
+                        visibility = View.GONE
+                        binding.bottomGradient.hide()
+                    }
 //                R.id.placesVisited -> {
 //                    bottomNav.visibility = View.GONE
 //                }
@@ -153,6 +154,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }
                     R.id.searchFragment -> {
                         visibility = View.GONE
+                        binding.bottomGradient.hide()
                     }
                     R.id.tripSuccessFragment -> {
                         visibility = View.GONE

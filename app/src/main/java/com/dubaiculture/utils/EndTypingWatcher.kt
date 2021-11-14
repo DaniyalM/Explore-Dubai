@@ -11,7 +11,7 @@ class EndTypingWatcher(
 
 ) : Handler(Looper.getMainLooper()), TextWatcher {
     companion object {
-        private const val DELAY: Long = 500
+        private const val DELAY: Long = 1000
     }
 
     var lastEditTime: Long = 0

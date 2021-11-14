@@ -1,5 +1,6 @@
 package com.dubaiculture.ui.postLogin.more.notification.adapter
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -19,7 +20,6 @@ class NotificationItems(val notificationCounts: NotificationCounts) :
         fun bind(notifications: Notifications) {
             binding.notification = notifications
             notificationCounts.getNotificationCount(itemCount)
-
 
         }
     }
