@@ -7,18 +7,18 @@ data class GetFieldValueResponseDTOItem(
     val English: String,
     val FieldName: String,
     val FieldType: String,
-    val FieldValue: List<FieldValue>,
+    val FieldValue: List<FieldValueDTO>,
     val FormName: String,
     val ID: Int,
     val ValueType: String
 )
 
-data class FieldValue(
+data class FieldValueDTO(
     val Arabic: String,
     val English: String,
     val FieldName: String,
     val FieldType: String,
-    val FieldValue: List<FieldValue>,
+    val OptionValues: String,
     val FormName: String,
     val ID: Int,
     val ValueType: String
