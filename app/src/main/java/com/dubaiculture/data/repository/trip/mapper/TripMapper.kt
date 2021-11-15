@@ -1,5 +1,11 @@
 package com.dubaiculture.data.repository.trip.mapper
 
+import com.dubaiculture.data.repository.eservices.local.FieldValue
+import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
+import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
+import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequestDTO
+import com.dubaiculture.data.repository.eservices.remote.response.FieldValueResponseDTO
+import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueResponseDTOItem
 import com.dubaiculture.data.repository.trip.local.*
 import com.dubaiculture.data.repository.trip.local.Day
 import com.dubaiculture.data.repository.trip.local.DayAndNightTime
@@ -164,3 +170,8 @@ fun transformMyTripResponse(trip: com.dubaiculture.data.repository.trip.remote.r
         name = trip.Name,
         startDate = trip.StartDate
     )
+
+
+
+
+
