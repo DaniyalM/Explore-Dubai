@@ -52,9 +52,7 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
             durationAdapter = DurationAdapter(
                 object : DurationClickListener {
                     override fun rowClickListener(duration: Duration) {
-
                         tripSharedViewModel.updateDurationList(duration)
-
                     }
 
                     override fun rowClickListener(duration: Duration, position: Int) {
