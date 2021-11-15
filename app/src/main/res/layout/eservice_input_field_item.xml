@@ -17,18 +17,27 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="@dimen/_10sdp">
 
-        <com.dubaiculture.ui.components.customEditText.CustomEditText
-            style="@style/EditTextStyle"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Text Field "
-            android:onTextChanged="@{field_class::onTextChange}" />
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:hint="Text Field "
+                android:onTextChanged="@{field_class::onTextChange}"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <com.dubaiculture.ui.components.customEditText.CustomEditText-->
+<!--            style="@style/EditTextStyle"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--         />-->
     </FrameLayout>
 
 

@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.dubaiculture.databinding.DropDownFieldItemCellBinding
 import com.dubaiculture.databinding.EserviceInputFieldItemBinding
 import com.dubaiculture.ui.postLogin.eservices.FieldsType
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.ui.postLogin.eservices.adapter.viewholders.BaseFieldViewHolder
+import com.dubaiculture.ui.postLogin.eservices.adapter.viewholders.DropDownFieldViewHolder
 import com.dubaiculture.ui.postLogin.eservices.adapter.viewholders.InputFieldViewHolder
 
 class NocListAdapter(val fieldListener: FieldListener) : ListAdapter<String, BaseFieldViewHolder>(
@@ -24,6 +26,14 @@ class NocListAdapter(val fieldListener: FieldListener) : ListAdapter<String, Bas
             FieldsType.INPUT_TEXT.id -> {
                 InputFieldViewHolder(
                     EserviceInputFieldItemBinding.inflate(
+                        LayoutInflater.from(parent.context)
+                    ),
+                    fieldListener
+                )
+            }
+            FieldsType.DROP_DOWN.id -> {
+                DropDownFieldViewHolder(
+                    DropDownFieldItemCellBinding.inflate(
                         LayoutInflater.from(parent.context)
                     ),
                     fieldListener

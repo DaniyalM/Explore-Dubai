@@ -17,14 +17,14 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
 
     private var list:MutableList<String> = mutableListOf(
         "TextBox",
+        "Dropdown",
+        "TextBox",
+        "Dropdown",
         "TextBox",
         "TextBox",
+        "Dropdown",
         "TextBox",
-        "TextBox",
-        "TextBox",
-        "TextBox",
-        "TextBox",
-        "TextBox",
+        "Dropdown",
         "TextBox",
         "TextBox",
         "TextBox",
@@ -45,6 +45,10 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             nocListAdapter = NocListAdapter(object : FieldListener {
                 override fun fetchInput(value: String) {
+                    Toast.makeText(activity, value, Toast.LENGTH_SHORT).show()
+                }
+
+                override fun dropDownValue(value: String) {
                     Toast.makeText(activity, value, Toast.LENGTH_SHORT).show()
                 }
             })
