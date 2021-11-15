@@ -4,7 +4,7 @@ import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.base.BaseRepository
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.data.repository.eservices.mapper.transformFieldValueRequest
-import com.dubaiculture.data.repository.eservices.mapper.transformFieldValues
+import com.dubaiculture.data.repository.eservices.mapper.transformFieldValuesResponse
 import com.dubaiculture.data.repository.eservices.remote.EServicesRDS
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
@@ -35,7 +35,7 @@ class EServicesRepository @Inject constructor(
             is Result.Success -> {
                 if (resultRds.value.success) {
                     Result.Success(resultRds.value.getFieldValueResponseDTO.map {
-                        transformFieldValues(it)
+                        transformFieldValuesResponse(it)
                     }
                     )
                 } else {
