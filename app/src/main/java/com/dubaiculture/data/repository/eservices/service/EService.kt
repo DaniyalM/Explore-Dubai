@@ -5,19 +5,19 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRe
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetTokenResponse
-import com.dubaiculture.data.repository.eservices.remote.response.GetTokenResponseDTO
-import com.dubaiculture.data.repository.trip.remote.request.EventAttractionRequestDTO
-import com.dubaiculture.data.repository.trip.remote.response.UserTypeResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.Query
 
-interface EService:BaseService {
+interface EService : BaseService {
 
     @GET("Home/GetToken")
     suspend fun getEServiceToken(@Body getTokenRequestParam: GetTokenRequestParam): GetTokenResponse
 
-    @POST("FieldValue/GetFieldValue")
-    suspend fun getFieldValue(@Body getFieldValueRequestDTO: GetFieldValueRequestDTO): GetFieldValueResponse
+//    @POST("FieldValue/GetFieldValue")
+//    suspend fun getFieldValue(@Body getFieldValueRequestDTO: GetFieldValueRequestDTO): GetFieldValueResponse
+
+    @GET("FieldValue/GetFieldValue")
+    suspend fun getFieldValue(): GetFieldValueResponse
 
 }

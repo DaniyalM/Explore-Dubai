@@ -1,21 +1,29 @@
 package com.dubaiculture.ui.postLogin.eservices.adapter.viewholders
 
+import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.EserviceInputFieldItemBinding
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
+import com.dubaiculture.utils.EndTypingWatcher
 
 class InputFieldViewHolder(
     val binding: EserviceInputFieldItemBinding,
     val fieldListener: FieldListener
 ) :
     BaseFieldViewHolder(binding.root) {
+    private lateinit var fieldValueItem: GetFieldValueItem
 
 
     fun onTextChange(s: CharSequence, start: Int, before: Int, count: Int) {
-        fieldListener.fetchInput(s.toString())
+        EndTypingWatcher {
+            fieldListener.fetchInput(fieldValueItem.copy(selectedValue = s.toString()))
+        }
+
     }
 
-    override fun bind() {
-        binding.fieldClass = this
 
+    override fun bind(fieldValue: GetFieldValueItem) {
+        fieldValueItem=fieldValue
+        binding.fieldClass = this
+        binding.data = fieldValue
     }
 }

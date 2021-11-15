@@ -22,7 +22,8 @@ class EServicesRDS @Inject constructor(
 
     suspend fun getFieldValue(getFieldValueRequestDTO: GetFieldValueRequestDTO): Result<GetFieldValueResponse> =
         safeApiCall {
-            eService.getFieldValue(getFieldValueRequestDTO)
+//            eService.getFieldValue(getFieldValueRequestDTO)
+            eService.getFieldValue()
         }
 
 }

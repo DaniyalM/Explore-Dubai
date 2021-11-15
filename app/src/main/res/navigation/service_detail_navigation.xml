@@ -27,7 +27,13 @@
         </action>
         <action
             android:id="@+id/action_serviceDetailFragment2_to_EServiceFragment"
-            app:destination="@id/EServiceFragment" />
+            app:destination="@id/EServiceFragment" >
+            <argument
+                android:name="form_name"
+                app:argType="string"
+                app:nullable="false"
+             />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/serviceDownVoteFeedBackFragment"
@@ -41,6 +47,14 @@
     <fragment
         android:id="@+id/EServiceFragment"
         android:name="com.dubaiculture.ui.postLogin.eservices.EServiceFragment"
-        android:label="EServiceFragment" />
+        android:label="EServiceFragment" >
+        <argument
+            android:name="form_name"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="NOCForm"/>
+    </fragment>
+
+
 
 </navigation>

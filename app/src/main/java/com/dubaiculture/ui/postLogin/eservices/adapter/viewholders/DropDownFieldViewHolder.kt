@@ -5,25 +5,31 @@ import android.view.View
 import android.widget.PopupMenu
 import androidx.annotation.MenuRes
 import com.dubaiculture.R
-import com.dubaiculture.databinding.DropDownFieldItemCellBinding
+import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
+import com.dubaiculture.databinding.EserviceDropDownFieldItemCellBinding
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 
 class DropDownFieldViewHolder(
-    val binding: DropDownFieldItemCellBinding,
+    val binding: EserviceDropDownFieldItemCellBinding,
     val fieldListener: FieldListener
 ) : BaseFieldViewHolder(binding.root) {
-
+    private lateinit var fieldValueItem: GetFieldValueItem
 
     fun onDropDownClicked(view: View) {
-        showMenu(view, R.menu.duration_menu)
+        showMenu(view, R.menu.eservice_menu)
     }
 
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
         val popup = PopupMenu(binding.root.context, v)
         popup.menuInflater.inflate(menuRes, popup.menu)
 
+        fieldValueItem.fieldValue.forEach {
+            popup.menu.add(it.optionValues)
+        }
+
+
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-            fieldListener.dropDownValue(menuItem.title.toString())
+            fieldListener.dropDownValue(fieldValueItem.copy(selectedValue = menuItem.title.toString()))
             binding.dropdown.text = menuItem.title.toString()
 
             true
@@ -35,7 +41,9 @@ class DropDownFieldViewHolder(
         popup.show()
     }
 
-    override fun bind() {
+
+    override fun bind(fieldValue: GetFieldValueItem) {
+        fieldValueItem = fieldValue
         binding.fieldClass = this
     }
 }

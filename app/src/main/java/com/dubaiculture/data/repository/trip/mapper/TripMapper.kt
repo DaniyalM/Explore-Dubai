@@ -1,15 +1,8 @@
 package com.dubaiculture.data.repository.trip.mapper
 
-import com.dubaiculture.data.repository.eservices.local.FieldValue
-import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
-import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
-import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequestDTO
-import com.dubaiculture.data.repository.eservices.remote.response.FieldValueResponseDTO
-import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueResponseDTOItem
 import com.dubaiculture.data.repository.trip.local.*
 import com.dubaiculture.data.repository.trip.local.Day
 import com.dubaiculture.data.repository.trip.local.DayAndNightTime
-import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.dubaiculture.data.repository.trip.local.Hour
 import com.dubaiculture.data.repository.trip.local.InterestedIn
 import com.dubaiculture.data.repository.trip.local.Location

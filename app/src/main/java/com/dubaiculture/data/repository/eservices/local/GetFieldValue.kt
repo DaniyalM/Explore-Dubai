@@ -9,7 +9,8 @@ data class GetFieldValueItem(
     val fieldValue: List<FieldValueItem>,
     val formName: String,
     val id: Int,
-    val valueType: String
+    val valueType: String,
+    val selectedValue: String? = ""
 )
 
 
