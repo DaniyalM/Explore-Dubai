@@ -68,6 +68,8 @@
             app:layout_constraintTop_toBottomOf="@id/iv_dropdown"
             app:menu="@menu/plan_trip_navigation_items" />
 
+
+
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/trip_progressbar"
             android:layout_width="0dp"
