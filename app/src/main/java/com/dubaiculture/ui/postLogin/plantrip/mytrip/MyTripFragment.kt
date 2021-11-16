@@ -180,6 +180,8 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
         if (!this::mMap.isInitialized) {
             mapSetUp(savedInstanceState)
+        }else{
+            subscribeToObservables()
         }
 
 
@@ -220,15 +222,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             }
         }
 
-        tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
-            if (it != null) {
 
-                getDirections(it)
-                getDistance(it)
-                addMarkers(it)
-
-            }
-        }
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
             binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
@@ -273,7 +267,15 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                 }
             }
         }
+        tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
+            if (it != null) {
+            //    tripSharedViewModel.filterList()
+                getDirections(it)
+                getDistance(it)
+                addMarkers(it)
 
+            }
+        }
 
 
     }

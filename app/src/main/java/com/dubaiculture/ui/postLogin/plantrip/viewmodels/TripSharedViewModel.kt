@@ -177,7 +177,22 @@ class TripSharedViewModel @Inject constructor(
             daysList.add(currentDate)
         }
 
-        populateList(daysList)
+        val durationList = mutableListOf<Duration>()
+
+        daysList.forEachIndexed { index, day ->
+            durationList += Duration(
+                id = index + 1,
+                dayDate = day,
+                hour = "24 Hour",
+                isDay = 1,
+                isSelected = false
+            )
+
+        }
+
+        _durationSummary.value = durationList
+
+//        populateList(daysList)
 
     }
 
@@ -223,7 +238,7 @@ class TripSharedViewModel @Inject constructor(
             category = getCategories(),
             culture = context.auth.locale.toString(),
             date = getDatesFormat("dd MMM,yy", "yyyy-MM-dd"),
-            location = _type.value?.locationId?:"",
+            location = _type.value?.locationId ?: "",
             save = true,
             customLatitude = if (_type.value?.locationId!!.isEmpty()) _type.value?.latitude!! else "",
             customLongitude = if (_type.value?.locationId!!.isEmpty()) _type.value?.longitude!! else ""
@@ -274,39 +289,51 @@ class TripSharedViewModel @Inject constructor(
 
     fun filterEvents(duration: Duration) {
 
-        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val output = SimpleDateFormat("dd MMMM,yyyy")
 
         val eventList: List<EventsAndAttraction> =
             _eventAttractionResponse.value!!.eventsAndAttractions ?: return
 //|| (output.format(input.parse(event.dateFrom)) == duration.dayDate)
-        eventList.filter { event ->
-            if (event.isAttraction) {
-                getTimeCheck(event.timeFrom, event.timeTo, duration)
-            } else {
-                (output.format(input.parse(event.dateFrom)) == duration.dayDate) &&
-                        getTimeCheck(event.timeFrom, event.timeTo, duration)
+
+        eventList.filter {
+            (it.latitude != "" && it.longitude != "")
+        }.let{
+            it.filter { event ->
+                checkEvents(event, duration)
+            }.let {
+                _eventAttractionList.value = it
             }
+        }
 
 
+
+    }
+
+    private fun checkEvents(event: EventsAndAttraction, duration: Duration): Boolean {
+
+        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val output = SimpleDateFormat("dd MMMM,yyyy")
+
+        return if (event.isAttraction) {
+            getTimeCheck(event.timeFrom, event.timeTo, duration)
+        } else {
+            (output.format(input.parse(event.dateFrom)) == duration.dayDate) &&
+                    getTimeCheck(event.timeFrom, event.timeTo, duration)
+        }
+
+    }
+
+    fun filterLatLong() {
+        val data = _eventAttractionList.value ?: return
+        data.filter {
+            (it.latitude != "0.0" && it.longitude != "0.0")
         }.let {
             _eventAttractionList.value = it
         }
 
     }
 
-    fun filterLatLong(){
-        val data = _eventAttractionList.value ?: return
-        data.filter {
-             (it.latitude != "0.0" && it.longitude != "0.0")
-        }.let {
-            _eventAttractionList.value=it
-        }
-
-    }
-
     fun updateLocalDistance(location: Location) {
-        filterLatLong()
+        // filterLatLong()
         val data = _eventAttractionList.value ?: return
         data.map {
 
@@ -320,7 +347,7 @@ class TripSharedViewModel @Inject constructor(
             } else return@map it
         }.let {
             it.filter {
-                (it.distanceRadius < 11.0&&it.longitude!="0.0"&&it.latitude!="0.0")
+                (it.distanceRadius < 11.0 && it.longitude != "0.0" && it.latitude != "0.0")
             }.let {
                 _eventAttractionList.value = it
             }
@@ -350,7 +377,7 @@ class TripSharedViewModel @Inject constructor(
             calendar.time = date
             calendar.add(
                 Calendar.HOUR,
-                Integer.parseInt(duration.hour.subSequence(0, 1).toString())-1
+                Integer.parseInt(duration.hour.subSequence(0, 1).toString()) - 1
             )
             val endT = calendar.time
             val startT = outputFormat.format(sdf.parse(startTime))
@@ -366,7 +393,7 @@ class TripSharedViewModel @Inject constructor(
             ))) || ((stt.after(st) && endT.before(et)))
 
         } else {
-            return true
+            return false
         }
 
     }
@@ -460,5 +487,6 @@ class TripSharedViewModel @Inject constructor(
         return false
 
     }
+
 
 }
