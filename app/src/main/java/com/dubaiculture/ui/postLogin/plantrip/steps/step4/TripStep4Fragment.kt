@@ -52,6 +52,9 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
     }
 
     private fun subscribeToObservables() {
+        step4ViewModel.durations.observe(viewLifecycleOwner){
+            tripSharedViewModel.addDurations(it)
+        }
 
         tripSharedViewModel.durationSummary.observe(viewLifecycleOwner) {
             if (it != null)
