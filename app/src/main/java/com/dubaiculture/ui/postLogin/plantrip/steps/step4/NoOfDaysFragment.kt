@@ -33,7 +33,11 @@ class NoOfDaysFragment : BaseBottomSheetFragment<FragmentNoDaysBinding>() {
 
 
     private fun addChip(title: String, index: Int) {
-        val chip = layoutInflater.inflate(R.layout.no_of_days_chip_layout,  binding.groupDaysChips, false) as Chip
+        val chip = layoutInflater.inflate(
+            R.layout.no_of_days_chip_layout,
+            binding.groupDaysChips,
+            false
+        ) as Chip
         chip.text = title
         chip.id = index
         binding.groupDaysChips.addView(chip)
@@ -47,7 +51,10 @@ class NoOfDaysFragment : BaseBottomSheetFragment<FragmentNoDaysBinding>() {
             .map { (it as Chip).text.toString() }
         selectedChips.iterator().forEach {
             back()
-            tripSharedViewModel.getList(it[0].toInt())
+//            it.split(" ")
+//            Integer.parseInt(it.split("\\s+")[0])
+            val splited = it.split("\\s+")
+            tripSharedViewModel.getList(it.substring(0, it.indexOf(" ")).toInt())
             navigateByDirections(NoOfDaysFragmentDirections.actionDaysToDurationBottomSheetFragment())
 
         }
