@@ -182,7 +182,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             mapSetUp(savedInstanceState)
         }
 
-        subscribeToObservables()
+
 //
 //        locationPermission()
 
@@ -200,7 +200,16 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     }
 
     private fun subscribeToObservables() {
+        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
+            binding.tripId = it.tripId
+            mMap.clear()
+            Location(LocationManager.GPS_PROVIDER).apply {
+                latitude=it.location.latitude.toDouble()
+                longitude = it.location.longitude.toDouble()
+                currentLocation = this
+            }
 
+        }
         tripSharedViewModel.travelMode.observe(viewLifecycleOwner) {
             travelMode = it
         }
@@ -213,6 +222,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
         tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
             if (it != null) {
+
                 getDirections(it)
                 getDistance(it)
                 addMarkers(it)
@@ -222,11 +232,13 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
             binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
-            tripSharedViewModel.filterEvents(it.single { it.isSelected })
 
             //
             tripSharedViewModel.updateLocalDistance(currentLocation)
             //
+            tripSharedViewModel.filterEvents(it.single { it.isSelected })
+
+
             datesAdapter.submitList(it)
 
         }
@@ -262,16 +274,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             }
         }
 
-        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
-            binding.tripId = it.tripId
-            mMap.clear()
-            Location(LocationManager.GPS_PROVIDER).apply {
-                latitude=it.location.latitude.toDouble()
-                longitude = it.location.longitude.toDouble()
-                currentLocation = this
-            }
 
-        }
 
     }
 
@@ -355,6 +358,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        subscribeToObservables()
     }
 
     fun onBackPressed() {

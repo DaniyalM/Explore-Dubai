@@ -223,7 +223,7 @@ class TripSharedViewModel @Inject constructor(
             category = getCategories(),
             culture = context.auth.locale.toString(),
             date = getDatesFormat("dd MMM,yy", "yyyy-MM-dd"),
-            location = _type.value?.locationId!!,
+            location = _type.value?.locationId?:"",
             save = true,
             customLatitude = if (_type.value?.locationId!!.isEmpty()) _type.value?.latitude!! else "",
             customLongitude = if (_type.value?.locationId!!.isEmpty()) _type.value?.longitude!! else ""
@@ -295,21 +295,32 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
+    fun filterLatLong(){
+        val data = _eventAttractionList.value ?: return
+        data.filter {
+             (it.latitude != "0.0" && it.longitude != "0.0")
+        }.let {
+            _eventAttractionList.value=it
+        }
+
+    }
+
     fun updateLocalDistance(location: Location) {
+        filterLatLong()
         val data = _eventAttractionList.value ?: return
         data.map {
 
             val distance = locationHelper.distance(
                 location.latitude, location.longitude,
-                it.latitude.ifEmpty { "24.83250180519734" }.toDouble(),
-                it.longitude.ifEmpty { "67.08119661055807" }.toDouble()
+                it.latitude.ifEmpty { "40.7128" }.toDouble(),
+                it.longitude.ifEmpty { "73.935242" }.toDouble()
             )
             if (it.distanceRadius == 0.0) {
                 return@map it.copy(distanceRadius = distance)
             } else return@map it
         }.let {
             it.filter {
-                (it.distanceRadius < 11.0)
+                (it.distanceRadius < 11.0&&it.longitude!="0.0"&&it.latitude!="0.0")
             }.let {
                 _eventAttractionList.value = it
             }
