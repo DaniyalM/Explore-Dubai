@@ -1,6 +1,7 @@
 package com.dubaiculture.ui.postLogin.plantrip.viewmodels
 
 import android.app.Application
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -12,6 +13,7 @@ import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
+import com.dubaiculture.utils.location.LocationHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,7 +23,8 @@ import javax.inject.Inject
 class TripSharedViewModel @Inject constructor(
     application: Application,
     private val savedStateHandle: SavedStateHandle,
-    private val tripRepository: TripRepository
+    private val tripRepository: TripRepository,
+    private val locationHelper: LocationHelper
 ) : BaseViewModel(application) {
     private val context = getApplication<ApplicationEntry>()
 
@@ -292,6 +295,27 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
+    fun updateLocalDistance(location: Location) {
+        val data = _eventAttractionList.value ?: return
+        data.map {
+
+            val distance = locationHelper.distance(
+                location.latitude, location.longitude,
+                it.latitude.ifEmpty { "24.83250180519734" }.toDouble(),
+                it.longitude.ifEmpty { "67.08119661055807" }.toDouble()
+            )
+            if (it.distanceRadius == 0.0) {
+                return@map it.copy(distanceRadius = distance)
+            } else return@map it
+        }.let {
+            it.filter {
+                (it.distanceRadius < 11.0)
+            }.let {
+                _eventAttractionList.value = it
+            }
+        }
+    }
+
     private fun getTimeCheck(time: String, endTime: String, duration: Duration): Boolean {
         if (time.isNotEmpty() && endTime.isNotEmpty()) {
             val pattern = "HH:mm a"
@@ -392,13 +416,14 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse,travelMode:String) {
+    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse, travelMode: String) {
         val data = _eventAttractionList.value ?: return
         data.mapIndexed { index, eventsAndAttraction ->
-            return@mapIndexed eventsAndAttraction.copy(duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
+            return@mapIndexed eventsAndAttraction.copy(
+                duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
                 distance = distanceMatrixResponse.rows[0].elements[index].distance.text,
                 travelMode = travelMode
-                )
+            )
         }.let {
             _tripList.value = it
         }
