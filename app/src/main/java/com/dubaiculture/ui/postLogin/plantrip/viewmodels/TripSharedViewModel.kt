@@ -34,7 +34,14 @@ class TripSharedViewModel @Inject constructor(
     val _duration: MutableLiveData<List<Duration>> = MutableLiveData()
     val duration: LiveData<List<Duration>> = _duration
 
-    val _durationSummary: MutableLiveData<List<Duration>> = MutableLiveData(null)
+    private val _addDurationList: MutableLiveData<Durations> = MutableLiveData()
+    val addDurationList: LiveData<Durations> = _addDurationList
+
+    fun addDurations(list: Durations) {
+        _addDurationList.value = list
+    }
+
+    val _durationSummary: MutableLiveData<List<Duration>> = MutableLiveData(mutableListOf())
     val durationSummary: LiveData<List<Duration>> = _durationSummary
 
     val _dates: MutableLiveData<List<Duration>> = MutableLiveData()
@@ -385,14 +392,13 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse, travelMode: String) {
+    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse,travelMode:String) {
         val data = _eventAttractionList.value ?: return
         data.mapIndexed { index, eventsAndAttraction ->
-            return@mapIndexed eventsAndAttraction.copy(
-                duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
+            return@mapIndexed eventsAndAttraction.copy(duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
                 distance = distanceMatrixResponse.rows[0].elements[index].distance.text,
                 travelMode = travelMode
-            )
+                )
         }.let {
             _tripList.value = it
         }

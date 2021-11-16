@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.Duration
+import com.dubaiculture.data.repository.trip.local.Durations
 import com.dubaiculture.databinding.FragmentAddDurationBinding
 import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationAdapter
@@ -21,12 +22,15 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>() {
+
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentAddDurationBinding.inflate(inflater, container, false)
 
     private lateinit var durationList: List<Duration>
+    private lateinit var addDurationList: Durations
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
     private lateinit var durationAdapter: DurationAdapter
 
@@ -76,6 +80,9 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
     }
 
     private fun subscribeToObservables() {
+        tripSharedViewModel.addDurationList.observe(viewLifecycleOwner) {
+            addDurationList = it
+        }
 
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {
 
@@ -153,9 +160,16 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
 
     }
 
+
+
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
         val popup = PopupMenu(context, v)
         popup.menuInflater.inflate(menuRes, popup.menu)
+
+        addDurationList.hoursList.forEach {
+            popup.menu.add(it.duration)
+        }
+
 
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             binding.checkBoxRepeat.isChecked = false
