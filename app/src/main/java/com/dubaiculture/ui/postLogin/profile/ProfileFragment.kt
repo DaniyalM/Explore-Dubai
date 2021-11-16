@@ -84,7 +84,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
             binding.apply {
                 clMyTrips.setOnClickListener {
-                    navigate(R.id.action_profileFragment_to_myTripFragment)
+                //    navigate(R.id.action_profileFragment_to_myTripFragment)
 
                 }
                 myServicesView.setOnClickListener {
