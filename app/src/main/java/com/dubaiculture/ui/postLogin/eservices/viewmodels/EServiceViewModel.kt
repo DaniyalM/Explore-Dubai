@@ -11,9 +11,9 @@ import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
+import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -28,9 +28,11 @@ class EServiceViewModel @Inject constructor(
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
+    private val _fieldValue: MutableLiveData<Event<GetFieldValueItem>> = MutableLiveData()
+    val fieldValue: LiveData<Event<GetFieldValueItem>> = _fieldValue
+
     init {
         savedStateHandle.get<String>(FORM_NAME)?.let {
-            Timber.e("value $it")
             getFieldValues(it)
         }
     }
@@ -45,10 +47,27 @@ class EServiceViewModel @Inject constructor(
                     showLoader(false)
                     _fieldValues.value = result.value
                 }
-                is Result.Failure-> {
-                   showLoader(false)
+                is Result.Failure -> {
+                    showLoader(false)
                 }
             }
+        }
+    }
+
+
+    fun updateFieldValue(field: GetFieldValueItem) {
+        _fieldValue.value = Event(field)
+    }
+
+    fun updateList(field: GetFieldValueItem) {
+        val data = _fieldValues.value ?: return
+        data.map {
+            if (field.index == it.index&& field.id==it.id)
+                return@map field
+            else
+                return@map it
+        }.let {
+            _fieldValues.value = it
         }
     }
 

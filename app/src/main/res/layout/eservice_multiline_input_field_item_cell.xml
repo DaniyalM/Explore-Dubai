@@ -11,27 +11,28 @@
 
         <variable
             name="field_class"
-            type="com.dubaiculture.ui.postLogin.eservices.adapter.viewholders.InputFieldViewHolder" />
+            type="com.dubaiculture.ui.postLogin.eservices.adapter.viewholders.MultiLineInputFieldViewHolder" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
-     >
-<!--        android:onTextChanged="@{field_class::onTextChange}"-->
+        >
 
 
-        <com.dubaiculture.ui.components.customtextview.CustomTextView
-            style="@style/EditTextStyleServices"
+        <com.dubaiculture.ui.components.customEditText.CustomEditText
             android:hint="@{data.english}"
-            android:id="@+id/text"
-            android:gravity="center"
-            android:text="@{data.selectedValue}"
-            android:inputType="textNoSuggestions"
+            android:onTextChanged="@{field_class::onTextChange}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-         />
+            android:inputType="textMultiLine"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:maxLines="6"
+            android:lines="6"
+            />
     </FrameLayout>
 
 

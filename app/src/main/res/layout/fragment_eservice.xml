@@ -37,15 +37,18 @@
             app:layout_constraintTop_toBottomOf="@+id/heading"
             tools:listitem="@layout/eservice_input_field_item" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/materialButton"
+            android:background="@drawable/btn_register"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:text="@string/submit"
+            android:gravity="center"
+            android:textColor="@color/white_900"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="20dp" />
+          />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

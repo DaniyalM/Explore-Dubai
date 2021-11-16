@@ -35,6 +35,9 @@ class TimeFieldViewHolder(
 
     override fun bind(fieldValue: GetFieldValueItem) {
         fieldValueItem = fieldValue
+
+        binding.time.text = fieldValue.selectedValue ?: fieldValue.english
+
         binding.fieldClass = this
     }
 }

@@ -1,26 +1,17 @@
 package com.dubaiculture.ui.postLogin.eservices.adapter.viewholders
 
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
-import com.dubaiculture.databinding.EserviceInputFieldItemBinding
+import com.dubaiculture.databinding.EserviceLabelFieldItemCellBinding
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 
-class InputFieldViewHolder(
-    val binding: EserviceInputFieldItemBinding,
+class LabelFieldViewHolder(
+    val binding: EserviceLabelFieldItemCellBinding,
     val fieldListener: FieldListener
 ) :
     BaseFieldViewHolder(binding.root) {
+
     override fun bind(fieldValue: GetFieldValueItem) {
-        binding.fieldClass = this
         binding.data = fieldValue
-
-        binding.text.setOnClickListener {
-            fieldListener.fetchInput(
-                fieldValue.copy(
-                    selectedValue = "Daniyal"
-                )
-            )
-        }
-
-
     }
+
 }

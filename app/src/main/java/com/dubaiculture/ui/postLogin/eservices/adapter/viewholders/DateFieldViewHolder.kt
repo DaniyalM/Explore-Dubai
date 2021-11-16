@@ -34,6 +34,8 @@ class DateFieldViewHolder(
 
     override fun bind(fieldValue: GetFieldValueItem) {
         fieldValueItem = fieldValue
+        binding.date.text =fieldValue.selectedValue ?: fieldValue.english
+
         binding.fieldClass = this
     }
 }

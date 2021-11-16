@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
-import com.dubaiculture.databinding.EserviceDateFieldItemCellBinding
-import com.dubaiculture.databinding.EserviceDropDownFieldItemCellBinding
-import com.dubaiculture.databinding.EserviceInputFieldItemBinding
-import com.dubaiculture.databinding.EserviceTimeFieldItemCellBinding
+import com.dubaiculture.databinding.*
 import com.dubaiculture.ui.postLogin.eservices.FieldsType
+import com.dubaiculture.ui.postLogin.eservices.FieldsTypeMode
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.ui.postLogin.eservices.adapter.viewholders.*
 
@@ -53,6 +51,22 @@ class NocListAdapter(val fieldListener: FieldListener) :
                     fieldListener
                 )
             }
+            FieldsType.INPUT_TEXT_MULTILINE.id -> {
+                MultiLineInputFieldViewHolder(
+                    EserviceMultilineInputFieldItemCellBinding.inflate(
+                        LayoutInflater.from(parent.context)
+                    ),
+                    fieldListener
+                )
+            }
+            FieldsType.LABEL.id -> {
+                LabelFieldViewHolder(
+                    EserviceLabelFieldItemCellBinding.inflate(
+                        LayoutInflater.from(parent.context)
+                    ),
+                    fieldListener
+                )
+            }
             else -> InputFieldViewHolder(
                 EserviceInputFieldItemBinding.inflate(
                     LayoutInflater.from(parent.context)
@@ -71,7 +85,12 @@ class NocListAdapter(val fieldListener: FieldListener) :
 
     override fun getItemViewType(position: Int): Int {
         getItem(position)?.apply {
-            return FieldsType.fromName(valueType).id
+            return if (FieldsTypeMode.fromName(fieldType).id != 0) {
+                FieldsType.fromName(valueType).id
+            } else {
+                FieldsType.LABEL.id
+            }
+
         }
         return 1
     }

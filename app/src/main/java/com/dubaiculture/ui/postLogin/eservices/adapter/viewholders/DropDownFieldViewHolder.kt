@@ -44,6 +44,7 @@ class DropDownFieldViewHolder(
 
     override fun bind(fieldValue: GetFieldValueItem) {
         fieldValueItem = fieldValue
+        binding.dropdown.text = fieldValue.selectedValue?:fieldValue.english
         binding.fieldClass = this
     }
 }

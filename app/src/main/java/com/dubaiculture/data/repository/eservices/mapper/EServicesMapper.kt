@@ -12,8 +12,9 @@ fun transformFieldValueRequest(getFieldValueRequest: GetFieldValueRequest) =
         FormName = getFieldValueRequest.formName
     )
 
-fun transformFieldValuesResponse(getFieldValueResponseDTOItem: GetFieldValueResponseDTOItem) =
+fun transformFieldValuesResponse(index:Int,getFieldValueResponseDTOItem: GetFieldValueResponseDTOItem) =
     GetFieldValueItem(
+        index=index,
         arabic = getFieldValueResponseDTOItem.Arabic?:"",
         english = getFieldValueResponseDTOItem.English?:"",
         fieldName = getFieldValueResponseDTOItem.FieldName?:"",
@@ -21,7 +22,8 @@ fun transformFieldValuesResponse(getFieldValueResponseDTOItem: GetFieldValueResp
         fieldValue = getFieldValueResponseDTOItem.FieldValue?.map { transformFieldValues(it) }?: mutableListOf(),
         formName = getFieldValueResponseDTOItem.FormName?:"",
         id = getFieldValueResponseDTOItem.ID?:0,
-        valueType = getFieldValueResponseDTOItem.ValueType?:""
+        valueType = getFieldValueResponseDTOItem.ValueType?:"",
+        selectedValue = null
 
     )
 

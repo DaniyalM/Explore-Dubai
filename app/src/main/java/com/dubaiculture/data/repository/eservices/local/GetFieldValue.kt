@@ -2,6 +2,7 @@ package com.dubaiculture.data.repository.eservices.local
 
 
 data class GetFieldValueItem(
+    val index:Int,
     val arabic: String,
     val english: String,
     val fieldName: String,
@@ -10,7 +11,7 @@ data class GetFieldValueItem(
     val formName: String,
     val id: Int,
     val valueType: String,
-    val selectedValue: String? = ""
+    val selectedValue: String?=null
 )
 
 

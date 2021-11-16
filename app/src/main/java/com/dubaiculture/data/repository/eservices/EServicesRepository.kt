@@ -34,8 +34,8 @@ class EServicesRepository @Inject constructor(
             eServiceRDS.getFieldValue(transformFieldValueRequest(getFieldValueRequest))) {
             is Result.Success -> {
                 if (resultRds.value.success) {
-                    Result.Success(resultRds.value.getFieldValueResponseDTO.map {
-                        transformFieldValuesResponse(it)
+                    Result.Success(resultRds.value.getFieldValueResponseDTO.mapIndexed { index, getFieldValueResponseDTOItem ->
+                        transformFieldValuesResponse(index,getFieldValueResponseDTOItem)
                     }
                     )
                 } else {
