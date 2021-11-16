@@ -294,10 +294,12 @@ class TripSharedViewModel @Inject constructor(
 
     private fun getTimeCheck(time: String, endTime: String, duration: Duration): Boolean {
         if (time.isNotEmpty() && endTime.isNotEmpty()) {
-            val pattern = "HH:mm a"
-            val patternTime = "HH:mma"
+
+            val pattern = "h:mm a"
+            val patternTime = "h:mmaa"
             val sdf = SimpleDateFormat(pattern)
             val sdfTime = SimpleDateFormat(patternTime)
+            val outputFormat = SimpleDateFormat("HH:mm")
             var startTime = ""
             when (duration.isDay) {
                 1 -> {
@@ -313,16 +315,20 @@ class TripSharedViewModel @Inject constructor(
             calendar.time = date
             calendar.add(
                 Calendar.HOUR,
-                Integer.parseInt(duration.hour.subSequence(0, 1).toString())
+                Integer.parseInt(duration.hour.subSequence(0, 1).toString())-1
             )
             val endT = calendar.time
-            val startT = sdf.parse(startTime)
-            val stime = sdfTime.parse(time)
-            val etime = sdfTime.parse(endTime)
+            val startT = outputFormat.format(sdf.parse(startTime))
+            val stime = outputFormat.format(sdfTime.parse(time))
+            val etime = outputFormat.format(sdfTime.parse(endTime))
 
-            return (stime.after(startT) && stime.before(endT)) || (etime.after(startT) && etime.before(
+            val stt = outputFormat.parse(startT)
+            val st = outputFormat.parse(stime)
+            val et = outputFormat.parse(etime)
+
+            return ((st.after(stt) && st.before(endT)) || (et.after(stt) && et.before(
                 endT
-            ))
+            ))) || ((stt.after(st) && endT.before(et)))
 
         } else {
             return true
@@ -392,13 +398,14 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse,travelMode:String) {
+    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse, travelMode: String) {
         val data = _eventAttractionList.value ?: return
         data.mapIndexed { index, eventsAndAttraction ->
-            return@mapIndexed eventsAndAttraction.copy(duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
+            return@mapIndexed eventsAndAttraction.copy(
+                duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
                 distance = distanceMatrixResponse.rows[0].elements[index].distance.text,
                 travelMode = travelMode
-                )
+            )
         }.let {
             _tripList.value = it
         }
