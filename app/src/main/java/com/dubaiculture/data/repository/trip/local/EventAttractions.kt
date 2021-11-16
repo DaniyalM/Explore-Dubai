@@ -46,6 +46,7 @@ data class Location(
     val locationId: String,
     val locationTitle: String,
     val longitude: String,
+    val customLocation: Boolean
 )
 
 data class EADay(

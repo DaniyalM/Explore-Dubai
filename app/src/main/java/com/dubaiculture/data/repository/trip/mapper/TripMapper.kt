@@ -89,7 +89,9 @@ fun transformEventAttractionRequest(eventAttractionRequest: EventAttractionReque
         Date = eventAttractionRequest.date,
 //        Date = arrayListOf("2021-10-27"),
         Location = eventAttractionRequest.location,
-        Save = true
+        Save = true,
+        CustomLatitude = eventAttractionRequest.customLatitude,
+        CustomLongitude = eventAttractionRequest.customLongitude
     )
 
 fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttractionResponseDTO) =
@@ -106,7 +108,7 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
                 categoryDestinationIcon = eventsAndAttraction.CategoryDestinationIcon ?: "",
                 categoryID = eventsAndAttraction.CategoryID ?: "",
                 categoryTripIcon = eventsAndAttraction.CategoryTripIcon ?: "",
-                dateFrom = eventsAndAttraction.DateFrom ?: "2021-10-27T11:17:00",
+                dateFrom = eventsAndAttraction.DateFrom ?: "",
                 dateTo = eventsAndAttraction.DateTo ?: "",
                 day = eventsAndAttraction.Day ?: "",
 //                dayFrom = EADay(
@@ -131,8 +133,8 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
                 secondaryCategory = eventsAndAttraction.SecondaryCategory ?: "",
                 secondaryCategoryID = eventsAndAttraction.SecondaryCategoryID ?: "",
                 summary = eventsAndAttraction.Summary ?: "",
-                timeFrom = eventsAndAttraction.TimeFrom ?: "00:00:00",
-                timeTo = eventsAndAttraction.TimeTo ?: "00:00:00",
+                timeFrom = eventsAndAttraction.TimeFrom ?: "",
+                timeTo = eventsAndAttraction.TimeTo ?: "",
                 title = eventsAndAttraction.Title ?: "",
                 icon = eventsAndAttraction.icon ?: "",
                 duration = "",
@@ -145,6 +147,7 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
             locationId = eventAttractionResponseDTO.Location.LocationId ?: "",
             locationTitle = eventAttractionResponseDTO.Location.LocationTitle ?: "",
             longitude = eventAttractionResponseDTO.Location.Longitude ?: "",
+            customLocation = eventAttractionResponseDTO.Location.CustomLocation ?: false
         ),
         tripId = eventAttractionResponseDTO.TripID ?: ""
     )
