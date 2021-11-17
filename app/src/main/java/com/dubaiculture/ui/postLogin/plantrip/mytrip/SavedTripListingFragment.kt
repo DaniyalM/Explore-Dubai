@@ -1,7 +1,6 @@
 package com.dubaiculture.ui.postLogin.plantrip.mytrip
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,18 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dubaiculture.R
-import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.dubaiculture.data.repository.trip.local.Trip
 import com.dubaiculture.databinding.FragmentSavedTripListingBinding
 import com.dubaiculture.ui.base.BaseFragment
-import com.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
-import com.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionListingViewModel
-import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.MyTripAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.SaveTripAdapter
-import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.MyTripClickListener
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.SaveTripClickListener
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.SaveTripListingViewModel
-import com.dubaiculture.ui.postLogin.plantrip.viewmodels.SaveTripViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -94,7 +87,7 @@ class SavedTripListingFragment : BaseFragment<FragmentSavedTripListingBinding>()
             it.getContentIfNotHandled()?.let {
                 tripSharedViewModel._showSave.value = false
                 tripSharedViewModel._eventAttractionResponse.value = it
-                tripSharedViewModel.setDatesFromAPI(it.eventsAndAttractions)
+                tripSharedViewModel.setDatesFromAPI(it.dateTimeFilter)
 
                 navigate(R.id.action_tripSavingListingFragment_to_my_tripFragment)
 

@@ -296,14 +296,13 @@ class TripSharedViewModel @Inject constructor(
 
         eventList.filter {
             (it.latitude != "" && it.longitude != "")
-        }.let{
+        }.let {
             it.filter { event ->
                 checkEvents(event, duration)
             }.let {
                 _eventAttractionList.value = it
             }
         }
-
 
 
     }
@@ -377,7 +376,7 @@ class TripSharedViewModel @Inject constructor(
             calendar.time = date
             calendar.add(
                 Calendar.HOUR,
-                Integer.parseInt(duration.hour.subSequence(0, 1).toString()) - 1
+                Integer.parseInt(duration.hour.substring(0, duration.hour.indexOf(" "))) - 1
             )
             val endT = calendar.time
             val startT = outputFormat.format(sdf.parse(startTime))
@@ -424,9 +423,9 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun setDatesFromAPI(eventsAndAttractions: List<EventsAndAttraction>) {
+    fun setDatesFromAPI(eventsAndAttractions: List<DTFilter>) {
 
-        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val input = SimpleDateFormat("yyyy-MM-dd")
         val output = SimpleDateFormat("dd MMMM,yyyy")
 
         var dateList: MutableList<Duration> = mutableListOf()
@@ -436,9 +435,9 @@ class TripSharedViewModel @Inject constructor(
                 dateList.add(
                     Duration(
                         index,
-                        dayDate = output.format(input.parse(eventsAndAttraction.dateFrom)),
-                        hour = eventsAndAttraction.timeFrom,
-                        isDay = 0,
+                        dayDate = output.format(input.parse(eventsAndAttraction.date)),
+                        hour = eventsAndAttraction.hours + " hours",
+                        isDay = if (eventsAndAttraction.type == "Day") 1 else 2,
                         isSelected = true
                     )
                 )
@@ -447,9 +446,9 @@ class TripSharedViewModel @Inject constructor(
                 dateList.add(
                     Duration(
                         index,
-                        dayDate = output.format(input.parse(eventsAndAttraction.dateFrom)),
-                        hour = eventsAndAttraction.timeFrom,
-                        isDay = 0,
+                        dayDate = output.format(input.parse(eventsAndAttraction.date)),
+                        hour = eventsAndAttraction.hours + " hours",
+                        isDay = if (eventsAndAttraction.type == "Day") 1 else 2,
                         isSelected = false
                     )
                 )
