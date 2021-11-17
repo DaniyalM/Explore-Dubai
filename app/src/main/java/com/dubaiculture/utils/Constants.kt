@@ -1,9 +1,6 @@
 package com.dubaiculture.utils
 
 object Constants {
-
-
-
     object Alert {
         const val DEFAULT_TITLE: String = "Alert"
         const val DEFAULT_TEXT_POSITIVE: String = "OK"
@@ -15,7 +12,6 @@ object Constants {
         const val HorizontalLength: Int = 1
         const val VerticalLength: Int = 2
     }
-
 
     object Error {
         const val SOMETHING_WENT_WRONG: String = "Something went wrong"
@@ -227,6 +223,7 @@ object Constants {
         const val ERROR: String = "Travel Mode Unavailable"
 
     }
+
 
     object FCM {
         object Key {
