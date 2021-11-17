@@ -7,12 +7,6 @@
         <variable
             name="data"
             type="com.dubaiculture.data.repository.eservices.local.GetFieldValueItem" />
-
-
-<!--        <variable-->
-<!--            name="field_class"-->
-<!--            type="com.dubaiculture.ui.postLogin.eservices.adapter.viewholders.LabelFieldViewHolder" />-->
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,9 +20,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_24sdp"
             android:text="@{data.fieldName}"
-            app:textFont="bold"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

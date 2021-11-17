@@ -17,6 +17,8 @@
 
         <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/time"
+            style="@style/EditTextStyleServices"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_24sdp"
@@ -24,21 +26,18 @@
             android:layout_marginEnd="@dimen/_24sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             android:onClick="@{(v)->field_class.onDropDownClicked(v)}"
-            android:drawableEnd="@drawable/ic_dropdown"
+            android:drawableEnd="@drawable/clock_purple"
             app:layout_constraintBottom_toBottomOf="parent"
             android:paddingEnd="@dimen/_20sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/btn_register"
             android:elevation="@dimen/_15sdp"
             android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
             android:text="Select Value"
             android:textAllCaps="false"
-            android:textColor="@color/white_900"
-            />
-
+            android:textColor="@color/gray_700"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

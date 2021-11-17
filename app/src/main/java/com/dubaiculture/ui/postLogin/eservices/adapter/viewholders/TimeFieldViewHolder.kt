@@ -24,7 +24,7 @@ class TimeFieldViewHolder(
             override fun onTimeSelected(calendar: Calendar) {
                 val timeParse =
                     SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy").parse(calendar.time.toString())
-                val time = SimpleDateFormat("hh:mm aa").format(timeParse)
+                val time = SimpleDateFormat("h:mm aa").format(timeParse)
                 binding.time.text = time.toString()
                 fieldListener.timeValue(fieldValueItem.copy(selectedValue = time.toString()))
 

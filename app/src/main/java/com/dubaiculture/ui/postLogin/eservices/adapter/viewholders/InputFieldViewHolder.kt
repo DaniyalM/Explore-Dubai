@@ -15,9 +15,7 @@ class InputFieldViewHolder(
 
         binding.text.setOnClickListener {
             fieldListener.fetchInput(
-                fieldValue.copy(
-                    selectedValue = "Daniyal"
-                )
+                fieldValue
             )
         }
 
