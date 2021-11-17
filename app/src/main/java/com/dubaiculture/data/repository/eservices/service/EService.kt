@@ -39,7 +39,7 @@ interface EService : BaseService {
 
     @Multipart
     @POST("Supplier/SupplierRegistration")
-    suspend fun createNoc(
+    suspend fun registerSupplier(
         @Part("RegistrationType") RegistrationType: RequestBody,
         @Part("EntryDate") EntryDate: RequestBody,
         @Part("LicenseNumber") LicenseNumber: RequestBody,
@@ -68,6 +68,40 @@ interface EService : BaseService {
         @Part contractpartnership: MultipartBody.Part,
         @Part membershipcertificate: MultipartBody.Part,
         @Part certificatepowerattorney: MultipartBody.Part,
+    ): FormResponse
+
+    @Multipart
+    @POST("Booking/CreateBooking")
+    suspend fun createBooking(
+        @Part("Location") Location: RequestBody,
+        @Part("Date") Date: RequestBody,
+        @Part("DateTime") DateTime: RequestBody,
+        @Part("FullName") FullName: RequestBody,
+        @Part("Email") Email: RequestBody,
+        @Part("PhoneNumber") PhoneNumber: RequestBody,
+        @Part("Duration") Duration: RequestBody,
+        @Part("Additionalservicesrequest") Additionalservicesrequest: RequestBody,
+        @Part("BookingType") BookingType: RequestBody,
+        @Part("Company") Company: RequestBody,
+        @Part("Entity") Entity: RequestBody,
+        @Part("countryCode") countryCode: RequestBody
+    ): FormResponse
+
+
+    @POST("CreateRentRequest")
+    suspend fun createRentRequest(
+        @Part("FullName") RegistrationType: RequestBody,
+        @Part("PriorDate") EntryDate: RequestBody,
+        @Part("Nationality") LicenseNumber: RequestBody,
+        @Part("EmiratesId") CompanyName: RequestBody,
+        @Part("PassportNo") LicenseActivities: RequestBody,
+        @Part("Address") TradeLicenseIssueDate: RequestBody,
+        @Part("ContactPhoneNumber") TradeLicenseExpiryDate: RequestBody,
+        @Part("UserEmailID") TradeLicenseIssuePlace: RequestBody,
+        @Part("RealEstateType") ManagerName: RequestBody,
+        @Part("TotalRequiredSpace") OwnerName: RequestBody,
+        @Part("Measurement") TradeName: RequestBody,
+        @Part("countryCode") Country: RequestBody
     ): FormResponse
 
 }

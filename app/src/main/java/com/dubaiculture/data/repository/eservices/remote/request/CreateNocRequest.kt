@@ -14,7 +14,7 @@ data class CreateNocRequest(
     val locationAddress: String,
     val userEmailID: String,
     val countryCode: String,
-    val file: MultipartBody.Part? = null
+    val file: MultipartBody.Part
 )
 
 

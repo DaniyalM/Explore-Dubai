@@ -1,4 +1,6 @@
 package com.dubaiculture.data.repository.eservices.remote.response
 
-data class FormResponse(val data: InnerResponse)
-data class InnerResponse(val SerialNo: String)
+import com.dubaiculture.data.repository.base.EServiceBaseResponse
+
+data class FormResponse(val data: FormInnerResponse): EServiceBaseResponse()
+data class FormInnerResponse(val SerialNo: String)
