@@ -10,6 +10,8 @@ import com.dubaiculture.ui.postLogin.eservices.FieldsType
 import com.dubaiculture.ui.postLogin.eservices.FieldsTypeMode
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.ui.postLogin.eservices.adapter.viewholders.*
+import com.dubaiculture.utils.AppConfigUtils
+import com.dubaiculture.utils.AppConfigUtils.setAnimation
 
 class NocListAdapter(val fieldListener: FieldListener) :
     ListAdapter<GetFieldValueItem, BaseFieldViewHolder>(
@@ -79,6 +81,7 @@ class NocListAdapter(val fieldListener: FieldListener) :
 
     override fun onBindViewHolder(holder: BaseFieldViewHolder, position: Int) {
         getItem(position)?.let {
+          setAnimation(holder.itemView.rootView, holder.itemView.rootView.context)
             holder.bind(it)
         }
     }

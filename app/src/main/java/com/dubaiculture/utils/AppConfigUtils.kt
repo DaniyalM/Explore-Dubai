@@ -10,6 +10,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
@@ -99,6 +100,12 @@ object AppConfigUtils {
             i.putExtra(Intent.EXTRA_TEXT, BuildConfig.BASE_URL_SHARE + stringUrl)
             activity.startActivity(Intent.createChooser(i, "Share URL"))
         }
+    }
+
+     fun setAnimation(viewToAnimate: View, context: Context) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        val animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
+        viewToAnimate.startAnimation(animation)
     }
 
 
