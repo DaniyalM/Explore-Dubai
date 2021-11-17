@@ -5,5 +5,7 @@ data class EventAttractionRequestDTO(
     val Culture: String,
     val Date: List<String>,
     val Location: String,
+    val CustomLatitude: String,
+    val CustomLongitude: String,
     val Save:Boolean
 )

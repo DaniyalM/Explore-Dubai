@@ -107,7 +107,8 @@ data class LocationDTO(
     val Location: String?,
     val LocationId: String?,
     val LocationTitle: String?,
-    val Longitude: String?
+    val Longitude: String?,
+    val CustomLocation: Boolean?
 )
 
 data class BusyDay(

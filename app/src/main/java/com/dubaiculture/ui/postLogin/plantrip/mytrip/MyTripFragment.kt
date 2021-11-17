@@ -3,6 +3,7 @@ package com.dubaiculture.ui.postLogin.plantrip.mytrip
 import android.Manifest
 import android.annotation.SuppressLint
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.Duration
 import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.dubaiculture.data.repository.trip.remote.response.Route
@@ -30,7 +32,6 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback
 import com.google.android.gms.maps.model.*
-import com.dubaiculture.R
 import com.google.maps.android.PolyUtil
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
@@ -162,7 +163,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                     @SuppressLint("SetTextI18n")
                     override fun getCurrentLocation(location: Location) {
 
-                        currentLocation = location
+//                        currentLocation = location
                         mMap.clear()
                         subscribeToObservables()
 
@@ -179,9 +180,13 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
         if (!this::mMap.isInitialized) {
             mapSetUp(savedInstanceState)
+        }else{
+            subscribeToObservables()
         }
 
-        locationPermission()
+
+//
+//        locationPermission()
 
 //        locationPermission()
     }
@@ -197,7 +202,16 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     }
 
     private fun subscribeToObservables() {
+        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
+            binding.tripId = it.tripId
+            mMap.clear()
+            Location(LocationManager.GPS_PROVIDER).apply {
+                latitude=it.location.latitude.toDouble()
+                longitude = it.location.longitude.toDouble()
+                currentLocation = this
+            }
 
+        }
         tripSharedViewModel.travelMode.observe(viewLifecycleOwner) {
             travelMode = it
         }
@@ -208,17 +222,17 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             }
         }
 
-        tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
-            if (it != null) {
-                getDirections(it)
-                getDistance(it)
-                addMarkers(it)
-            }
-        }
+
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
             binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
+
+            //
+            tripSharedViewModel.updateLocalDistance(currentLocation)
+            //
             tripSharedViewModel.filterEvents(it.single { it.isSelected })
+
+
             datesAdapter.submitList(it)
 
         }
@@ -253,10 +267,16 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                 }
             }
         }
+        tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
+            if (it != null) {
+            //    tripSharedViewModel.filterList()
+                getDirections(it)
+                getDistance(it)
+                addMarkers(it)
 
-        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
-            binding.tripId = it.tripId
+            }
         }
+
 
     }
 
@@ -340,6 +360,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        subscribeToObservables()
     }
 
     fun onBackPressed() {
