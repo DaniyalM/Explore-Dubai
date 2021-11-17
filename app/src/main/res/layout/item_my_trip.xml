@@ -62,13 +62,24 @@
             app:layout_constraintBottom_toBottomOf="@id/ivTrips"
             app:layout_constraintStart_toStartOf="@id/tvSubHeading" />
 
+<!--        <com.dubaiculture.ui.components.customtextview.CustomTextView-->
+<!--            android:id="@+id/tvTime"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginStart="@dimen/_8sdp"-->
+<!--            android:includeFontPadding="false"-->
+<!--            android:text="@{data.timeFrom.substring(0,5) + `-` +data.timeTo.substring(0,5) + `|` + data.day}"-->
+<!--            android:textSize="@dimen/_10ssp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/ivTime"-->
+<!--            app:layout_constraintStart_toEndOf="@id/ivTime"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/ivTime" />-->
+
         <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_8sdp"
             android:includeFontPadding="false"
-            android:text="@{data.timeFrom.substring(0,5) + `-` +data.timeTo.substring(0,5) + `|` + data.day}"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@id/ivTime"
             app:layout_constraintStart_toEndOf="@id/ivTime"

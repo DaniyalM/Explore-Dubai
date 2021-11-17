@@ -1,10 +1,10 @@
 package com.dubaiculture.ui.postLogin.plantrip.viewmodels
 
 import android.app.Application
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.paging.filter
 import com.dubaiculture.data.repository.trip.TripRepository
 import com.dubaiculture.data.repository.trip.local.*
 import com.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
@@ -13,6 +13,7 @@ import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
+import com.dubaiculture.utils.location.LocationHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,7 +23,8 @@ import javax.inject.Inject
 class TripSharedViewModel @Inject constructor(
     application: Application,
     private val savedStateHandle: SavedStateHandle,
-    private val tripRepository: TripRepository
+    private val tripRepository: TripRepository,
+    private val locationHelper: LocationHelper
 ) : BaseViewModel(application) {
     private val context = getApplication<ApplicationEntry>()
 
@@ -35,7 +37,14 @@ class TripSharedViewModel @Inject constructor(
     val _duration: MutableLiveData<List<Duration>> = MutableLiveData()
     val duration: LiveData<List<Duration>> = _duration
 
-    val _durationSummary: MutableLiveData<List<Duration>> = MutableLiveData(mutableListOf())
+    private val _addDurationList: MutableLiveData<Durations> = MutableLiveData()
+    val addDurationList: LiveData<Durations> = _addDurationList
+
+    fun addDurations(list: Durations) {
+        _addDurationList.value = list
+    }
+
+    val _durationSummary: MutableLiveData<List<Duration>> = MutableLiveData()
     val durationSummary: LiveData<List<Duration>> = _durationSummary
 
     val _dates: MutableLiveData<List<Duration>> = MutableLiveData()
@@ -168,7 +177,22 @@ class TripSharedViewModel @Inject constructor(
             daysList.add(currentDate)
         }
 
-        populateList(daysList)
+        val durationList = mutableListOf<Duration>()
+
+        daysList.forEachIndexed { index, day ->
+            durationList += Duration(
+                id = index + 1,
+                dayDate = day,
+                hour = "24 Hour",
+                isDay = 1,
+                isSelected = false
+            )
+
+        }
+
+        _durationSummary.value = durationList
+
+//        populateList(daysList)
 
     }
 
@@ -214,8 +238,10 @@ class TripSharedViewModel @Inject constructor(
             category = getCategories(),
             culture = context.auth.locale.toString(),
             date = getDatesFormat("dd MMM,yy", "yyyy-MM-dd"),
-            location = _type.value?.locationId!!,
-            save = true
+            location = _type.value?.locationId ?: "",
+            save = true,
+            customLatitude = if (_type.value?.locationId!!.isEmpty()) _type.value?.latitude!! else "",
+            customLongitude = if (_type.value?.locationId!!.isEmpty()) _type.value?.longitude!! else ""
         )
         _eventAttraction.value = Event(eventAttractionRequest)
     }
@@ -263,16 +289,111 @@ class TripSharedViewModel @Inject constructor(
 
     fun filterEvents(duration: Duration) {
 
-        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val output = SimpleDateFormat("dd MMMM,yyyy")
 
         val eventList: List<EventsAndAttraction> =
             _eventAttractionResponse.value!!.eventsAndAttractions ?: return
+//|| (output.format(input.parse(event.dateFrom)) == duration.dayDate)
 
-        eventList.filter { event ->
-            output.format(input.parse(event.dateFrom)) == duration.dayDate
+        eventList.filter {
+            (it.latitude != "" && it.longitude != "")
+        }.let{
+            it.filter { event ->
+                checkEvents(event, duration)
+            }.let {
+                _eventAttractionList.value = it
+            }
+        }
+
+
+
+    }
+
+    private fun checkEvents(event: EventsAndAttraction, duration: Duration): Boolean {
+
+        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val output = SimpleDateFormat("dd MMMM,yyyy")
+
+        return if (event.isAttraction) {
+            getTimeCheck(event.timeFrom, event.timeTo, duration)
+        } else {
+            (output.format(input.parse(event.dateFrom)) == duration.dayDate) &&
+                    getTimeCheck(event.timeFrom, event.timeTo, duration)
+        }
+
+    }
+
+    fun filterLatLong() {
+        val data = _eventAttractionList.value ?: return
+        data.filter {
+            (it.latitude != "0.0" && it.longitude != "0.0")
         }.let {
             _eventAttractionList.value = it
+        }
+
+    }
+
+    fun updateLocalDistance(location: Location) {
+        // filterLatLong()
+        val data = _eventAttractionList.value ?: return
+        data.map {
+
+            val distance = locationHelper.distance(
+                location.latitude, location.longitude,
+                it.latitude.ifEmpty { "40.7128" }.toDouble(),
+                it.longitude.ifEmpty { "73.935242" }.toDouble()
+            )
+            if (it.distanceRadius == 0.0) {
+                return@map it.copy(distanceRadius = distance)
+            } else return@map it
+        }.let {
+            it.filter {
+                (it.distanceRadius < 11.0 && it.longitude != "0.0" && it.latitude != "0.0")
+            }.let {
+                _eventAttractionList.value = it
+            }
+        }
+    }
+
+    private fun getTimeCheck(time: String, endTime: String, duration: Duration): Boolean {
+        if (time.isNotEmpty() && endTime.isNotEmpty()) {
+
+            val pattern = "h:mm a"
+            val patternTime = "h:mmaa"
+            val sdf = SimpleDateFormat(pattern)
+            val sdfTime = SimpleDateFormat(patternTime)
+            val outputFormat = SimpleDateFormat("HH:mm")
+            var startTime = ""
+            when (duration.isDay) {
+                1 -> {
+                    startTime = "6:00 AM"
+                }
+                2 -> {
+                    startTime = "6:00 PM"
+                }
+            }
+
+            val date = sdf.parse(startTime)
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            calendar.add(
+                Calendar.HOUR,
+                Integer.parseInt(duration.hour.subSequence(0, 1).toString()) - 1
+            )
+            val endT = calendar.time
+            val startT = outputFormat.format(sdf.parse(startTime))
+            val stime = outputFormat.format(sdfTime.parse(time))
+            val etime = outputFormat.format(sdfTime.parse(endTime))
+
+            val stt = outputFormat.parse(startT)
+            val st = outputFormat.parse(stime)
+            val et = outputFormat.parse(etime)
+
+            return ((st.after(stt) && st.before(endT)) || (et.after(stt) && et.before(
+                endT
+            ))) || ((stt.after(st) && endT.before(et)))
+
+        } else {
+            return false
         }
 
     }
@@ -339,18 +460,20 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse,travelMode:String) {
+    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse, travelMode: String) {
         val data = _eventAttractionList.value ?: return
         data.mapIndexed { index, eventsAndAttraction ->
-            return@mapIndexed eventsAndAttraction.copy(duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
+            return@mapIndexed eventsAndAttraction.copy(
+                duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
                 distance = distanceMatrixResponse.rows[0].elements[index].distance.text,
                 travelMode = travelMode
-                )
+            )
         }.let {
             _tripList.value = it
         }
 
     }
+
     fun validateStep3(): Boolean {
 
         val data = _nearestLocationType.value ?: return false
@@ -364,5 +487,6 @@ class TripSharedViewModel @Inject constructor(
         return false
 
     }
+
 
 }

@@ -38,6 +38,7 @@ data class EventsAndAttraction(
     val icon: String,
     val duration: String,
     val distance: String,
+    val distanceRadius: Double = 0.0,
     val travelMode: String,
 )
 
@@ -46,6 +47,7 @@ data class Location(
     val locationId: String,
     val locationTitle: String,
     val longitude: String,
+    val customLocation: Boolean
 )
 
 data class EADay(
