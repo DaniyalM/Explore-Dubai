@@ -43,13 +43,13 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(descriptionViewModel)
         binding.commonBtn.text = description[0].startServiceText
-        binding.commonBtn.setOnClickListener {
-            (parentFragment as ServiceDetailFragment).navigateByDirections(
-                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
-                    "NOCForm"
-                )
-            )
-        }
+//        binding.commonBtn.setOnClickListener {
+//            (parentFragment as ServiceDetailFragment).navigateByDirections(
+//                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
+//                    "NOCForm"
+//                )
+//            )
+//        }
         bgRTL(binding.imgSpeaker)
     }
 

@@ -95,6 +95,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
 
     private fun subscribeToObservable() {
+
         searchShareViewModel.isOld.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it)
@@ -138,7 +139,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
         searchViewModel.searchFilter.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                searchViewModel.search(it)
+
+                searchViewModel.search(it.copy(culture = getCurrentLanguage().language))
             }
         }
         searchViewModel.searchPaginationItem.observe(viewLifecycleOwner) {
@@ -177,6 +179,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(searchViewModel)
+
 
         if (tempTab!=null){
             searchViewModel.updateTab(
@@ -234,6 +237,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                         )
                         searchViewModel.updateCategoryData(tab.id.toString())
                     }
+
                 }
             })
             adapter = uniSelectorAdapter

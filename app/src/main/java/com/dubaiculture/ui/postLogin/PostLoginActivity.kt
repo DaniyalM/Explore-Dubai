@@ -9,6 +9,7 @@ import com.dubaiculture.ui.base.BaseAuthenticationActivity
 import com.dubaiculture.ui.postLogin.login.PostLoginFragment
 import com.dubaiculture.ui.postLogin.more.viewmodel.MoreSharedViewModel
 import com.dubaiculture.utils.AuthUtils.hideStatusBar
+import com.dubaiculture.utils.NetworkLiveData
 import com.dubaiculture.utils.firebase.subscribeToTopic
 import com.dubaiculture.utils.firebase.unSubscribeFromTopic
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
@@ -20,13 +21,16 @@ class PostLoginActivity : BaseAuthenticationActivity() {
     private val moreSharedViewModel: MoreSharedViewModel by viewModels()
 
     override fun baseOnCreate(savedInstanceState: Bundle?) {
-        overridePendingTransition(R.anim.fade_out,R.anim.fade_in)
+        overridePendingTransition(R.anim.fade_out, R.anim.fade_in)
         hideStatusBar(window)
         setContentView(R.layout.activity_post_login)
 
         getNavControllerFun(navHolding)
         recieveLogout()
         subscribeToObservable()
+
+
+
         getCurrentLanguage().language.let {
             if (it.equals("en")) {
                 unSubscribeFromTopic("AndroidBroadcast_ar")
@@ -43,7 +47,15 @@ class PostLoginActivity : BaseAuthenticationActivity() {
 
     }
 
+
+
+
     private fun subscribeToObservable() {
+        NetworkLiveData.observe(this) {
+            if (!it) {
+                showAlert(isInternet = true,application = applicationEntry)
+            }
+        }
         moreSharedViewModel.isLogged.observe(this) {
             it?.getContentIfNotHandled()?.let {
                 if (it) {
