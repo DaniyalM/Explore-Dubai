@@ -44,6 +44,11 @@ class MyTripNameDialog : BaseBottomSheetFragment<DialogMyTripNameBinding>() {
                 binding.tripId = it.tripId
         }
 
+        tripSharedViewModel.dates.observe(viewLifecycleOwner) {
+            if (it != null)
+                binding.duration = it
+        }
+
         viewModel.saveTripStatus.observe(viewLifecycleOwner) {
             navigate(R.id.action_trip_name_to_tripsuccessFragment)
         }

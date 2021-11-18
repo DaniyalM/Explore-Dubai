@@ -9,10 +9,7 @@ import com.dubaiculture.data.repository.trip.local.InterestedIn
 import com.dubaiculture.data.repository.trip.local.Location
 import com.dubaiculture.data.repository.trip.local.NearestLocation
 import com.dubaiculture.data.repository.trip.local.Trip
-import com.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
-import com.dubaiculture.data.repository.trip.remote.request.EventAttractionRequestDTO
-import com.dubaiculture.data.repository.trip.remote.request.SaveTripRequest
-import com.dubaiculture.data.repository.trip.remote.request.SaveTripRequestDTO
+import com.dubaiculture.data.repository.trip.remote.request.*
 import com.dubaiculture.data.repository.trip.remote.response.*
 import com.dubaiculture.utils.Constants
 
@@ -149,13 +146,31 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
             longitude = eventAttractionResponseDTO.Location.Longitude ?: "",
             customLocation = eventAttractionResponseDTO.Location.CustomLocation ?: false
         ),
-        tripId = eventAttractionResponseDTO.TripID ?: ""
+        tripId = eventAttractionResponseDTO.TripID ?: "",
+        dayAndNightTime = DANTime(
+            dayTime = eventAttractionResponseDTO.DayAndNightTime.DayTime,
+            nightTime = eventAttractionResponseDTO.DayAndNightTime.NightTime
+        ),
+        dateTimeFilter = eventAttractionResponseDTO.DateTimeFilter.map {
+            DTFilter(
+                date = it.Date,
+                hours = it.Hours,
+                type = it.Type
+            )
+        }
     )
 
 fun transformSaveTripRequest(saveTripRequest: SaveTripRequest) =
     SaveTripRequestDTO(
         Name = saveTripRequest.name,
-        TripID = saveTripRequest.tripID
+        TripID = saveTripRequest.tripID,
+        DateTimeFilter = saveTripRequest.dateTimeFilter.map {
+            DateTimeFilterDTO(
+                Date = it.date,
+                Hours = it.hours,
+                Type = it.type
+            )
+        }
     )
 
 fun transformMyTripResponse(trip: com.dubaiculture.data.repository.trip.remote.response.Trip) =
