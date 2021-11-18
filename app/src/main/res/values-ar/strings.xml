@@ -380,6 +380,7 @@
 
     <string name="are_you_sure_want_to_delete_all">Are you sure you want\nto delete all days?</string>
     <string name="try_again">Try Again</string>
+    <string name="clear_search_history">Clear Search History</string>
 
 
     <!--  End of Sprint 3  -->

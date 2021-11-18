@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dubaiculture.databinding.SearchHistoryItemLayoutBinding
+import com.dubaiculture.utils.AppConfigUtils
+import com.dubaiculture.utils.AppConfigUtils.setAnimation
 
 class SearchHistoryAdapter(val searchHistoryClick: SearchHistoryClick) :
     ListAdapter<String, SearchHistoryAdapter.SearchHistoryViewHolder>(object :
@@ -24,6 +26,8 @@ class SearchHistoryAdapter(val searchHistoryClick: SearchHistoryClick) :
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(text: String) {
+            setAnimation(binding.historyItem, binding.root.context)
+
             binding.apply {
                 query.text = text
                 historyItem.setOnClickListener {

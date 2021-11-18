@@ -48,51 +48,50 @@
             app:textFont="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
-            android:layout_marginTop="@dimen/_26sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
             android:layout_height="wrap_content"
-            android:labelFor="@id/formInput"
-            android:fontFamily="@font/neosansarabic"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_26sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_26sdp"
+            android:fontFamily="@font/neosansarabic"
+            android:labelFor="@id/formInput"
             app:layout_constraintBottom_toTopOf="@+id/submit_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/heading">
-<!--            android:onTextChanged="@{classField::onTextChange}"-->
+            <!--            android:onTextChanged="@{classField::onTextChange}"-->
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
                 android:id="@+id/formInput"
-                android:text="@={inputPlateBottomSheetViewModel.field}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/neosansarabic"
+                android:hint="@{field.english}"
                 android:onTextChanged="@{inputPlateBottomSheetViewModel::onFieldChanged}"
                 android:paddingStart="@dimen/_26sdp"
-                android:layout_height="wrap_content"
-                android:hint="@{field.english}"/>
+                android:text="@={inputPlateBottomSheetViewModel.field}" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/submit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_register"
-            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginBottom="@dimen/_26sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:text="@string/submit"
+            android:background="@drawable/btn_register"
             android:enabled="@{inputPlateBottomSheetViewModel.btnSubmitObserver}"
+            android:gravity="center"
+            android:onClick="@{()->inputPlateBottomSheetViewModel.postField()}"
+            android:text="@string/confirm"
             android:textColor="@color/white_900"
             android:textSize="@dimen/_15ssp"
-            android:onClick="@{()->inputPlateBottomSheetViewModel.postField()}"
 
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

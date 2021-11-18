@@ -45,7 +45,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/img_back"
             app:layout_constraintEnd_toEndOf="@+id/img_back"
             app:layout_constraintStart_toStartOf="@+id/img_back"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/img_back" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView3"

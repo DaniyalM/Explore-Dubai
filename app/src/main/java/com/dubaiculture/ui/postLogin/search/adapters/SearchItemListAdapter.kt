@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dubaiculture.data.repository.search.local.SearchResultItem
 import com.dubaiculture.databinding.ItemSearchResultLayoutBinding
+import com.dubaiculture.utils.AppConfigUtils.setAnimation
 import com.dubaiculture.utils.hide
 
 class SearchItemListAdapter(
@@ -36,7 +37,7 @@ class SearchItemListAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(searchResultItem: SearchResultItem) {
-
+            setAnimation(binding.itemView,binding.root.context)
             binding.apply {
                 item = searchResultItem
                 if (searchResultItem.type.isEmpty())

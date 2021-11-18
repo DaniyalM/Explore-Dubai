@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import com.dubaiculture.BuildConfig
 
 
 object SocialNetworkUtils {
@@ -13,7 +14,9 @@ object SocialNetworkUtils {
         isTwitter:Boolean=false,
         isLinkedIn:Boolean=false,
         isInstagram:Boolean=false,
-        isYoutube:Boolean=false
+        isYoutube:Boolean=false,
+        isWeb:Boolean=false,
+
     ) {
 
         Intent(Intent.ACTION_VIEW).apply {
@@ -24,6 +27,9 @@ object SocialNetworkUtils {
                 if (isInstagram){ URL="https://www.instagram.com/dubaiculture/" }
                 if (isLinkedIn){ URL="https://www.linkedin.com/company/dubai-culture-&-arts-authority/" }
                 if (isYoutube){ URL="https://www.youtube.com/user/DubaiCulture" }
+                if (isWeb){
+                    URL=url
+                }
             }
             data = Uri.parse(URL)
             context.startActivity(this)

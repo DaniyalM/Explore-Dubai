@@ -187,7 +187,7 @@
     <string name="next_thirty_days">Next 30 Days</string>
     <string name="detail_clip_card_text">Review Majlis Ghorfat\non Trip Advisor</string>
     <string name="clear_all">Clear All</string>
-    <string name="clear">Clear</string>
+    <string name="clear">Cancel</string>
     <string name="no_data_found">No Data Found</string>
 
     <string name="away"> Km Away</string>
@@ -387,6 +387,7 @@
 
     <string name="are_you_sure_want_to_delete_all">Are you sure you want\nto delete all days?</string>
     <string name="try_again">Try Again</string>
+    <string name="clear_search_history">Clear Search History</string>
 
 
 </resources>

@@ -204,13 +204,14 @@ class SearchViewModel @Inject constructor(
     fun search(
         searchRequest: SearchPaginationRequest
     ) {
-        var search: SearchPaginationRequest? = searchRequest
+        var search: SearchPaginationRequest = searchRequest?:SearchPaginationRequest()
         if (searchRequest.category.isEmpty())
             search = searchRequest.copy(category = "0")
 
+
         viewModelScope.launch {
             when (val result = searchRepository.fetchResults(
-                search!!,
+                search,
                 {
                     setCount(it)
                 }, {
