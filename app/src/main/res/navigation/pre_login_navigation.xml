@@ -202,7 +202,19 @@
             app:popUpTo="@+id/pre_login_nav_host_fragment"
             app:popUpToInclusive="true" />
     </dialog>
-
+    <fragment
+        android:id="@+id/onBoardingFragment2"
+        android:name="com.dubaiculture.ui.preLogin.onboarding.OnBoardingFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding">
+        <action
+            android:id="@+id/action_onBoardingFragment2_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <dialog
         android:id="@+id/UAEBottomSheetFragment"
         android:name="com.dubaiculture.ui.preLogin.login.uae.UAEBottomSheetFragment"

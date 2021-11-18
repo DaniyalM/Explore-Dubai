@@ -270,6 +270,13 @@
     <string name="turn_on"> Please turn on your location</string>
     <string name="about_ndubai_culture">About \nDubai Culture</string>
     <string name="discover">Discover</string>
+    <string name="planYourTrip">Plan your trip</string>
+    <string name="planYourTripDesc">Select a date and time to visit and  enjoy your trip with family and friends</string>
+    <string name="discoverdesc">Explore Dubai, unleash your inner explorer and experience the city culture and arts like no other</string>
+    <string name="getNotification">Get Notifications</string>
+    <string name="getNotificationDesc">Make sure to stay up to date with our latest news and events</string>
+    <string name="availOnlineServices">Avail Online Services</string>
+    <string name="availOnlineServicesDesc">Register and enjoy our online services</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get Started</string>
     <string name="fill_out_the_survey">Fill out the Survey</string>

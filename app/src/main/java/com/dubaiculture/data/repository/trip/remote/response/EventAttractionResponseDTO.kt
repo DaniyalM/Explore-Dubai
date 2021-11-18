@@ -1,12 +1,23 @@
 package com.dubaiculture.data.repository.trip.remote.response
 
+import com.dubaiculture.data.repository.trip.remote.request.DateTimeFilterDTO
+
 data class EventAttractionResponseDTO(
     val Attractions: List<AttractionDTO>,
     val Events: List<EventDTO>,
     val EventsAndAttractions: List<EventsAndAttractionDTO>,
     val Location: LocationDTO,
+    val DayAndNightTime: DayAndNightTimeDTO,
+    val DateTimeFilter: List<DateTimeFilterDTO>,
     val TripID: String
 )
+
+data class DayAndNightTimeDTO(
+    val DayTime: String,
+    val NightTime: String
+)
+
+
 
 data class AttractionDTO(
     val BusyDays: List<BusyDay>,

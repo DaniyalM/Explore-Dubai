@@ -4,9 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="java.util.List"/>
+
         <variable
             name="tripId"
             type="String" />
+        <variable
+            name="duration"
+            type="java.util.List&lt;com.dubaiculture.data.repository.trip.local.Duration&gt;" />
         <variable
             name="viewModel"
             type="com.dubaiculture.ui.postLogin.plantrip.viewmodels.SaveTripViewModel" />
@@ -76,7 +81,7 @@
                 android:backgroundTint="@color/purple_650"
                 android:fontFamily="@font/neo_sans_arabic_regular"
                 android:text="@string/saveTrip"
-                android:onClick="@{()->viewModel.onSaveTripClicked(tripId)}"
+                android:onClick="@{()->viewModel.onSaveTripClicked(tripId,duration)}"
                 android:textAllCaps="false"
                 android:textColor="?attr/colorOnPrimary"
                 app:cornerRadius="@dimen/_16sdp"

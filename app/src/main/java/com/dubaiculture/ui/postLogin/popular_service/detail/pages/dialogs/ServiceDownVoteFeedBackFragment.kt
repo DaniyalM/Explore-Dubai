@@ -1,15 +1,11 @@
 package com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs
 
-import android.R
-import android.app.Dialog
-import android.os.Build
 import android.os.Bundle
-import android.view.*
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.dubaiculture.databinding.FragmentServiceDownVoteBinding
-import com.dubaiculture.ui.base.BaseDialogFragment
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.ServiceDownVoteFeedBackViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,9 +36,6 @@ class ServiceDownVoteFeedBackFragment : BaseFragment<FragmentServiceDownVoteBind
     }
 
 
-
-
-
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeToObservable()
@@ -52,7 +45,7 @@ class ServiceDownVoteFeedBackFragment : BaseFragment<FragmentServiceDownVoteBind
         serviceDownVoteFeedBackViewModel.downVote.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it) {
-                    showAlert(title = "Feedback",message = "Feedback Submitted Successfully")
+                    showAlert(title = "Feedback", message = "Feedback Submitted Successfully")
                     back()
                 }
             }
