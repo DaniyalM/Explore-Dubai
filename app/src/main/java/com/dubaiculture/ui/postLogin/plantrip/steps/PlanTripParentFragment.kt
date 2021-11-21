@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.forEach
-import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
@@ -73,6 +72,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
 
         registerCallback()
 
+
         navHostFragment.navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.tripStep1 -> {
@@ -116,12 +116,15 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
         when (stepId) {
             R.id.tripStep1 -> {
                 if (isNext) {
+
                     bottomNavigationView!!.selectedItemId = R.id.tripStep2
                 }
             }
             R.id.tripStep2 -> {
                 if (isNext) {
                     bottomNavigationView!!.selectedItemId = R.id.tripStep3
+
+
                 } else {
                     bottomNavigationView!!.selectedItemId = R.id.tripStep1
 
@@ -130,6 +133,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
             R.id.tripStep3 -> {
                 if (isNext) {
                     bottomNavigationView!!.selectedItemId = R.id.tripStep4
+
                 } else {
                     bottomNavigationView!!.selectedItemId = R.id.tripStep2
 

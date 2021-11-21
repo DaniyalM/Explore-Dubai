@@ -111,7 +111,7 @@
             <Button
                 android:id="@+id/btnDone"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginHorizontal="@dimen/_22ssp"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:backgroundTint="@color/purple_650"
@@ -119,7 +119,7 @@
                 android:onClick="@{()->view.onDoneClicked()}"
                 android:text="@string/done"
                 android:textAllCaps="false"
-                android:textColor="?attr/colorOnPrimary"
+                android:textColor="@color/white_900"
                 app:cornerRadius="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
