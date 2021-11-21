@@ -85,7 +85,7 @@ class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
         binding.flWebview.show()
         //    load(currentType)
         HappinessMeter.load(
-            Type.WITH_MICROAPP,
+            Type.WITHOUT_MICROAPP,
             binding.webView,
             application.auth.locale.toString()
         )

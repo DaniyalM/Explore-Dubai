@@ -9,7 +9,7 @@ data class EventAttractions(
     val location: Location,
     val tripId: String,
     val dayAndNightTime: DANTime,
-    val dateTimeFilter: List<DTFilter>,
+    val dateTimeFilter: List<DTFilter>
 )
 
 data class DANTime(

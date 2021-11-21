@@ -69,6 +69,7 @@
             android:onClick="@{()->view.onBottomSheetClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_desc"
             app:layout_constraintStart_toStartOf="parent" />
 
 

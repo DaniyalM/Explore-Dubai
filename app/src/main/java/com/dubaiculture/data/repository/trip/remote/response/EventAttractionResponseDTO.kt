@@ -7,8 +7,8 @@ data class EventAttractionResponseDTO(
     val Events: List<EventDTO>,
     val EventsAndAttractions: List<EventsAndAttractionDTO>,
     val Location: LocationDTO,
-    val DayAndNightTime: DayAndNightTimeDTO,
-    val DateTimeFilter: List<DateTimeFilterDTO>,
+    val DayAndNightTime: DayAndNightTimeDTO?,
+    val DateTimeFilter: List<DateTimeFilterDTO>?= mutableListOf(),
     val TripID: String
 )
 

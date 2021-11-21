@@ -181,22 +181,42 @@
                 tools:itemCount="4"
                 tools:listitem="@layout/item_duration" />
 
-            <Button
+            <com.dubaiculture.ui.components.custombutton.CustomButton
                 android:id="@+id/btnDone"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginHorizontal="@dimen/_22ssp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:backgroundTint="@color/purple_650"
-                android:fontFamily="@font/neo_sans_arabic_regular"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/btn_register"
+                android:foreground="@drawable/custom_ripple_border"
+                android:gravity="center"
                 android:onClick="@{()->view.onDoneClicked()}"
-                android:text="@string/done"
+                android:text="@string/continue_"
                 android:textAllCaps="false"
                 android:textColor="@color/white_900"
-                app:cornerRadius="@dimen/_16sdp"
+                android:transitionName="action_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rvDates" />
+
+<!--            <Button-->
+<!--                android:id="@+id/btnDone"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="@dimen/_40sdp"-->
+<!--                android:layout_marginHorizontal="@dimen/_22ssp"-->
+<!--                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                android:backgroundTint="@color/purple_650"-->
+<!--                android:fontFamily="@font/neo_sans_arabic_regular"-->
+<!--                android:onClick="@{()->view.onDoneClicked()}"-->
+<!--                android:text="@string/done"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/white_900"-->
+<!--                app:cornerRadius="@dimen/_16sdp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/rvDates" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
