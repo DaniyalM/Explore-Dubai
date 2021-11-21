@@ -46,12 +46,14 @@ abstract class BaseActivity : LocalizationActivity() {
     }
 
     fun showAlert(
-        message: String,
+        message: String="",
         title: String = Constants.Alert.DEFAULT_TITLE,
         textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
         textNegative: String? = null,
         actionNegative: (() -> Unit)? = null,
         actionPositive: (() -> Unit)? = null,
+        isInternet:Boolean=false,
+        application: ApplicationEntry?=null
     ) {
         showAlert(
             message = message,
@@ -59,7 +61,10 @@ abstract class BaseActivity : LocalizationActivity() {
             title = title,
             textPositive = textPositive,
             textNegative = textNegative,
-            actionPositive = actionPositive
+            actionPositive = actionPositive,
+            isInternet=isInternet,
+            application=application
+
         )
     }
 

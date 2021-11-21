@@ -124,7 +124,26 @@ object RetrofitModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+    @Provides
+    @Singleton
+    @EServices
+    fun provideRetrofitForEServices(okHttpClient: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+//            .baseUrl(BuildConfig.BASE_URL_ESERVICES)
+            .baseUrl(BuildConfig.BASE_URL_ESERVICES_MOCK)
+            .client(okHttpClient)
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
 }
+
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class GoogleApi
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class EServices
+
+

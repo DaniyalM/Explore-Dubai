@@ -4,24 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pre_login_navigation"
     app:defaultNavHost="true"
-    app:startDestination="@id/splashFragment">
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.dubaiculture.ui.preLogin.splash.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash">
-        <action
-            android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
-        <action
-            android:id="@+id/action_splashFragment_to_onBoardingFragment2"
-            app:destination="@id/onBoardingFragment2" />
+    app:startDestination="@id/loginFragment">
 
-    </fragment>
+
 
     <fragment
         android:id="@+id/loginFragment"

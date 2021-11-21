@@ -128,6 +128,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         visibility = View.GONE
                         binding.bottomGradient.hide()
                     }
+                    R.id.EServiceFragment -> {
+                        visibility = View.GONE
+                        binding.bottomGradient.hide()
+                    }
 //                R.id.placesVisited -> {
 //                    bottomNav.visibility = View.GONE
 //                }

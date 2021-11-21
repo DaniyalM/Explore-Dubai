@@ -11,6 +11,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.dubaiculture.R
+import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.neomads.ui.components.customDialog.CustomDialog
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.ProgressDialog
@@ -39,6 +40,9 @@ object EventUtilFunctions {
         textPositive: String? = Constants.Alert.DEFAULT_TEXT_POSITIVE,
         textNegative: String? = null,
         actionPositive: (() -> Unit)? = null,
+        isInternet:Boolean=false,
+        application: ApplicationEntry?=null
+
     ) {
         val customDialog = CustomDialog(
             context,
@@ -47,7 +51,9 @@ object EventUtilFunctions {
             title = title,
             textPositive = textPositive,
             textNegative = textNegative,
-            actionPositive = actionPositive
+            actionPositive = actionPositive,
+            isInternet=isInternet,
+            application=application
         )
         customDialog.setCancelable(false)
         customDialog.show()

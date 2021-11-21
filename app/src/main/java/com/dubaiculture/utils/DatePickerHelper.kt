@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DatePickerHelper(
-    var selectedDate: String? = null,
+    var selectedDate: String = "",
     var context: Context,
     var iface: DatePickerInterface,
     var minDate: Long? = Date().time,

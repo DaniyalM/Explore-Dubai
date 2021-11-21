@@ -64,40 +64,47 @@ class SearchViewModel @Inject constructor(
 
 
     fun updateIsOldData(isOld: Boolean) {
-        updateSearch(SearchPaginationRequest().copy(isOld = isOld))
+        updateFilter(_searchFilter.value!!.peekContent().copy(isOld = isOld))
+
 
     }
 
     fun updateCategoryData(category: String) {
-        updateSearch(SearchPaginationRequest().copy(category = category))
+        updateFilter(_searchFilter.value!!.peekContent().copy(category = category))
     }
 
     fun updateSorting(aToz: Boolean) {
         if (aToz)
-            updateSearch(SearchPaginationRequest().copy(sort = "asc"))
+            updateFilter(_searchFilter.value!!.peekContent().copy(sort = "asc"))
         else
-            updateSearch(SearchPaginationRequest().copy(sort = "desc"))
+            updateFilter(_searchFilter.value!!.peekContent().copy(sort = "desc"))
+
     }
+
 
     fun updateKeyword(string: String) {
         _viewFlag.value = Event(string.isNotEmpty())
         if (string.isNotEmpty()) {
-            updateSearch(SearchPaginationRequest(keyword = string))
+            updateFilter(_searchFilter.value!!.peekContent().copy(keyword = string))
         }
     }
 
 
-    private fun updateSearch(searchRequest: SearchPaginationRequest) {
-        _searchFilter.value = Event(
-            searchRequest.copy(
-                keyword = searchRequest.keyword,
-                filter = searchRequest.filter,
-                culture = context.auth.locale ?: "en",
-                category = searchRequest.category,
-                isOld = searchRequest.isOld,
-                sort = searchRequest.sort
-            )
-        )
+//    private fun updateSearch(searchRequest: SearchPaginationRequest) {
+//        _searchFilter.value = Event(
+//            searchRequest.copy(
+//                keyword = searchRequest.keyword,
+//                filter = searchRequest.filter,
+//                culture = context.auth.locale ?: "en",
+//                category = searchRequest.category.ifEmpty { "1" },
+//                isOld = searchRequest.isOld,
+//                sort = searchRequest.sort
+//            )
+//        )
+//    }
+
+    fun updateFilter(searchRequest: SearchPaginationRequest) {
+        _searchFilter.value = Event(searchRequest)
     }
 
     fun updateTab(searchTab: SearchTab) {
@@ -197,9 +204,14 @@ class SearchViewModel @Inject constructor(
     fun search(
         searchRequest: SearchPaginationRequest
     ) {
+        var search: SearchPaginationRequest = searchRequest?:SearchPaginationRequest()
+        if (searchRequest.category.isEmpty())
+            search = searchRequest.copy(category = "0")
+
+
         viewModelScope.launch {
             when (val result = searchRepository.fetchResults(
-                searchRequest,
+                search,
                 {
                     setCount(it)
                 }, {

@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import com.dubaiculture.data.repository.popular_service.local.models.Description
 import com.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment
+import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragmentDirections
 import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.DescriptionViewModel
 import com.dubaiculture.utils.openPdf
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +43,13 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(descriptionViewModel)
         binding.commonBtn.text = description[0].startServiceText
+        binding.commonBtn.setOnClickListener {
+            (parentFragment as ServiceDetailFragment).navigateByDirections(
+                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
+                    "NOCForm"
+                )
+            )
+        }
         bgRTL(binding.imgSpeaker)
     }
 

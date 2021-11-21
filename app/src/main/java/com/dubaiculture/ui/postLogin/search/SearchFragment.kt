@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,12 +15,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.search.local.SearchResultItem
 import com.dubaiculture.data.repository.search.local.SearchTab
 import com.dubaiculture.databinding.FragmentSearchBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.components.loadstateadapter.DefaultLoadStateAdapter
+import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.dubaiculture.ui.postLogin.search.adapters.SearchHistoryAdapter
 import com.dubaiculture.ui.postLogin.search.adapters.SearchItemListAdapter
 import com.dubaiculture.ui.postLogin.search.adapters.UniSelectionAdapter
@@ -28,6 +32,7 @@ import com.dubaiculture.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
+
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
@@ -95,6 +100,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
 
     private fun subscribeToObservable() {
+
         searchShareViewModel.isOld.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it)
@@ -138,7 +144,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
         searchViewModel.searchFilter.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                searchViewModel.search(it)
+
+                searchViewModel.search(it.copy(culture = getCurrentLanguage().language))
             }
         }
         searchViewModel.searchPaginationItem.observe(viewLifecycleOwner) {
@@ -178,7 +185,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(searchViewModel)
 
-        if (tempTab!=null){
+
+        if (tempTab != null) {
             searchViewModel.updateTab(
                 tempTab!!.copy(
                     id = tempTab!!.id,
@@ -201,9 +209,20 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
         binding.searchToolbar.editSearch.addTextChangedListener(
             EndTypingWatcher {
+                hideKeyboard(activity)
                 searchViewModel.updateKeyword(binding.searchToolbar.editSearch.text.toString())
             }
         )
+        binding.searchToolbar.editSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchViewModel.updateKeyword(binding.searchToolbar.editSearch.text.toString())
+                return@OnEditorActionListener true
+            }
+            false
+        })
+        binding.searchToolbar.imgSearch.setOnClickListener {
+            searchViewModel.updateKeyword(binding.searchToolbar.editSearch.text.toString())
+        }
         binding.searchToolbar.speechSearch.setOnClickListener {
             getSpeechInput()
         }
@@ -234,6 +253,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                         )
                         searchViewModel.updateCategoryData(tab.id.toString())
                     }
+
                 }
             })
             adapter = uniSelectorAdapter
@@ -283,6 +303,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                                     )
                                 )
                             }
+                            else -> {
+                                openUrl(
+                                    url = BuildConfig.BASE_URL_SHARE + searchResultItem.detailPageUrl,
+                                    context = activity,
+                                    isWeb = true
+                                )
+                            }
                         }
 
                     }
@@ -290,7 +317,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             adapter = searchItemListAdapter.withLoadStateAdapters(
                 DefaultLoadStateAdapter(),
                 DefaultLoadStateAdapter(), callback = {
-                    binding.noDataPlaceHolder.show(it)
+                    if (binding.searchToolbar.editSearch.text.toString().isNotEmpty())
+                        binding.noDataPlaceHolder.show(it)
+                    else
+                        binding.noDataPlaceHolder.hide()
+
                 }
             )
         }

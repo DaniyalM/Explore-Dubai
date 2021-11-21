@@ -25,6 +25,15 @@
                 app:argType="string"
                 app:nullable="false" />
         </action>
+        <action
+            android:id="@+id/action_serviceDetailFragment2_to_EServiceFragment"
+            app:destination="@id/EServiceFragment" >
+            <argument
+                android:name="form_name"
+                app:argType="string"
+                app:nullable="false"
+             />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/serviceDownVoteFeedBackFragment"
@@ -35,5 +44,36 @@
             app:argType="string"
             app:nullable="false" />
     </fragment>
+    <fragment
+        android:id="@+id/EServiceFragment"
+        android:name="com.dubaiculture.ui.postLogin.eservices.EServiceFragment"
+        android:label="EServiceFragment" >
+        <argument
+            android:name="form_name"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="NOCForm"/>
+        <action
+            android:id="@+id/action_EServiceFragment_to_inputPlateBottomSheet"
+            app:destination="@id/inputPlateBottomSheet" >
+            <argument
+                android:name="field"
+                app:argType="com.dubaiculture.data.repository.eservices.local.GetFieldValueItem"
+                app:nullable="false"
+                />
+        </action>
+    </fragment>
+    <dialog
+        android:id="@+id/inputPlateBottomSheet"
+        android:name="com.dubaiculture.ui.postLogin.eservices.dialog.InputPlateBottomSheet"
+        android:label="InputPlateBottomSheet" >
+        <argument
+            android:name="field"
+            app:argType="com.dubaiculture.data.repository.eservices.local.GetFieldValueItem"
+            app:nullable="true"
+            android:defaultValue="@null"
+            />
+    </dialog>
+
 
 </navigation>

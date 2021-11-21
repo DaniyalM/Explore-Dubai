@@ -23,11 +23,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/searchHistory"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_52sdp"
             android:layout_marginEnd="@dimen/_15sdp"
+
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/search_toolbar"
             app:layout_constraintTop_toBottomOf="@+id/search_toolbar">
 
@@ -48,29 +50,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_13sdp"
-                app:layout_constraintBottom_toTopOf="@+id/clearPop"
+                android:layout_marginBottom="@dimen/_50sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/customTextView8"
                 app:layout_constraintTop_toBottomOf="@+id/customTextView8" />
 
             <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/clearPop"
                 android:layout_width="0dp"
+                android:fontFamily="@font/neosansarabic"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_75sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:drawableStart="@drawable/binicon"
                 android:drawablePadding="@dimen/_5sdp"
-                android:text="Clear Search History"
+                android:text="@string/clear_search_history"
                 android:textColor="?attr/color_dubai_logo"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/popular_rv" />
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="@+id/popular_rv"
+                app:layout_constraintTop_toBottomOf="@+id/popular_rv" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/resultView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:visibility="visible"
             android:layout_marginTop="@dimen/_52sdp"
             app:layout_constraintStart_toStartOf="@+id/search_toolbar"
             app:layout_constraintTop_toBottomOf="@+id/search_toolbar">
