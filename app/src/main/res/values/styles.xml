@@ -126,6 +126,10 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="CustomTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/purple_900</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
     <!--Widget Styles-->
     <style name="AppWidgetSection" parent="@android:style/Widget">
         <item name="android:padding">8dp</item>

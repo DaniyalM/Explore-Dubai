@@ -40,7 +40,7 @@
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:fontFamily="@font/neosansarabic"
-            android:text="@{field.fieldName}"
+            android:text="@{field.english}"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintEnd_toStartOf="@+id/img"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +56,8 @@
             android:layout_marginTop="@dimen/_26sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_26sdp"
+            android:hint="@{field.fieldName}"
+            app:hintTextColor="@color/purple_900"
             android:fontFamily="@font/neosansarabic"
             android:labelFor="@id/formInput"
             app:layout_constraintBottom_toTopOf="@+id/submit_text"
@@ -63,13 +65,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/heading">
             <!--            android:onTextChanged="@{classField::onTextChange}"-->
+<!--            android:hint="@{field.english}"-->
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/formInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/neosansarabic"
-                android:hint="@{field.english}"
                 android:onTextChanged="@{inputPlateBottomSheetViewModel::onFieldChanged}"
                 android:paddingStart="@dimen/_26sdp"
                 android:text="@={inputPlateBottomSheetViewModel.field}" />
@@ -79,7 +81,8 @@
         <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/submit_text"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_40sdp"
+            style="@style/ButtonStyle"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_26sdp"
             android:background="@drawable/btn_register"
             android:enabled="@{inputPlateBottomSheetViewModel.btnSubmitObserver}"
