@@ -149,6 +149,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         mapSetUp(savedInstanceState)
         detailInnerLayout = binding.attractionDetailInnerLayout
         toolbarLayout = binding.toolbarLayoutDetail
+        mapView?.isEnabled=false
 //        setupSwipeToRefresh()
         rvSetUp()
 

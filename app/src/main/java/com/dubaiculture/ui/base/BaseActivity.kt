@@ -45,15 +45,33 @@ abstract class BaseActivity : LocalizationActivity() {
         return null
     }
 
+    fun isDark() {
+
+        val preferenceRepository = applicationEntry.preferenceRepository
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                preferenceRepository.isDarkTheme = false
+            } // Night mode is not active, we're using the light theme
+            Configuration.UI_MODE_NIGHT_YES -> {
+                preferenceRepository.isDarkTheme = true
+            } // Night mode is active, we're using dark theme
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                preferenceRepository.isDarkTheme = true
+
+            }
+        }
+
+    }
+
     fun showAlert(
-        message: String="",
+        message: String = "",
         title: String = Constants.Alert.DEFAULT_TITLE,
         textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
         textNegative: String? = null,
         actionNegative: (() -> Unit)? = null,
         actionPositive: (() -> Unit)? = null,
-        isInternet:Boolean=false,
-        application: ApplicationEntry?=null
+        isInternet: Boolean = false,
+        application: ApplicationEntry? = null
     ) {
         showAlert(
             message = message,
@@ -62,8 +80,8 @@ abstract class BaseActivity : LocalizationActivity() {
             textPositive = textPositive,
             textNegative = textNegative,
             actionPositive = actionPositive,
-            isInternet=isInternet,
-            application=application
+            isInternet = isInternet,
+            application = application
 
         )
     }
@@ -101,6 +119,7 @@ abstract class BaseActivity : LocalizationActivity() {
 
 
         applicationEntry = application as ApplicationEntry
+        isDark()
         bus = applicationEntry.bus
         applicationEntry.auth.locale = getCurrentLanguage().language
         bus.register(this)

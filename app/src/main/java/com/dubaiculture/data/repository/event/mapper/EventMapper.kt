@@ -246,7 +246,7 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                         )
                 }
         } ?: mutableListOf(),
-        eventSchedule = eventDTO.eventSchedule.map {
+        eventSchedule = eventDTO.eventSchedule?.map {
                 EventSchedule(
                         id = it.id,
                         description = it.description,
@@ -264,8 +264,8 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                         )
                     }
             )
-        },
-        relatedEvents = eventDTO.relatedEvents.map {
+        }?: mutableListOf(),
+        relatedEvents = eventDTO.relatedEvents?.map {
             Events(
                     id = it.id,
                     title = it.title ?: "",
@@ -290,7 +290,7 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                     isFavourite = it.isFavourite,
                     registrationDate = it.registrationDate
             )
-        },
+        }?: mutableListOf(),
         url = eventDTO.URL
 
 

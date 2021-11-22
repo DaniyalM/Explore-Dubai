@@ -1,6 +1,7 @@
 package com.dubaiculture.ui.preLogin
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +14,6 @@ import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
 import om.dubaiculture.ui.navGraphActivity.NavGraphActivity
-import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -27,11 +27,14 @@ class PreLoginActivity : BaseActivity() {
         overridePendingTransition(R.anim.fade_out,R.anim.fade_in)
 
         hideStatusBar(window)
+        isDark()
         setContentView(R.layout.activity_pre_login)
         logDeepLinkUri()
         navigate()
 
     }
+
+
 
     private fun navigate(){
 

@@ -2,6 +2,7 @@ package com.dubaiculture.infrastructure
 
 import android.app.Activity
 import android.app.Application
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import com.dubaiculture.utils.BeaconUtils
 import com.dubaiculture.utils.NetworkLiveData
@@ -47,9 +48,25 @@ class ApplicationEntry : Application() {
         preferenceRepository = PreferenceRepository(
             getSharedPreferences(DEFAULT_PREFERENCES, MODE_PRIVATE)
         )
+//        isDark()
+
 //        preferenceRepository.isDarkTheme = true
 
     }
+
+//    fun isDark() {
+//        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+//            Configuration.UI_MODE_NIGHT_NO -> {
+//                preferenceRepository.isDarkTheme = false
+//            } // Night mode is not active, we're using the light theme
+//            Configuration.UI_MODE_NIGHT_YES -> {
+//                preferenceRepository.isDarkTheme = true
+//            } // Night mode is active, we're using dark theme
+//        }
+//
+//    }
+
+
 
 
     companion object {
