@@ -1,9 +1,12 @@
 package com.dubaiculture.ui.postLogin.home
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -11,16 +14,20 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentHomeBinding
+import com.dubaiculture.happiness.HappinessMeter
+import com.dubaiculture.happiness.Type
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.home.viewmodels.HomeViewModel
+import com.dubaiculture.ui.postLogin.plantrip.mytrip.TripSuccessFragmentDirections
 import com.dubaiculture.utils.Constants.NavBundles.NEW_LOCALE
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
-//    private val homeViewModel: HomeViewModel by viewModels()
+    //    private val homeViewModel: HomeViewModel by viewModels()
     private var bottomNavigationView: BottomNavigationView? = null
 //    private var currentNavController: LiveData<NavController>? = null
 
@@ -59,6 +66,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+        binding.ivAdd.setOnClickListener {
+            binding.flWebview.show()
+            //    load(currentType)
+            HappinessMeter.load(
+                Type.WITHOUT_MICROAPP,
+                binding.webView,
+                application.auth.locale.toString()
+            )
+        }
+
+        binding.webView.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+            }
+
+            override fun onPageFinished(view: WebView, url: String) {
+
+                if (url.contains("happiness://done")) {
+                    binding.flWebview.visibility = View.GONE
+//                    navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
+                }
+
+            }
+        }
+
     }
 
     private fun getNavController(): NavController {
