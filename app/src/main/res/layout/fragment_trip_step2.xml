@@ -59,41 +59,78 @@
             app:layout_constraintTop_toBottomOf="@id/tvHeading"
             tools:listitem="@layout/item_trip_step2" />
 
-        <Button
+<!--        <Button-->
+<!--            android:id="@+id/btnPrevious"-->
+<!--            style="?attr/materialButtonOutlinedStyle"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="@dimen/_40sdp"-->
+<!--            android:layout_marginEnd="@dimen/_8sdp"-->
+<!--            android:layout_marginBottom="@dimen/_10sdp"-->
+<!--            android:fontFamily="@font/neo_sans_arabic_regular"-->
+<!--            android:onClick="@{()->view.onPreviousClicked()}"-->
+<!--            android:text="@string/previous"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="?attr/color_dubai_logo"-->
+<!--            app:cornerRadius="@dimen/_16sdp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/btnNext"-->
+<!--            app:layout_constraintStart_toStartOf="@id/tvHeading"-->
+<!--            app:strokeColor="@color/purple_650" />-->
+
+        <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btnPrevious"
-            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:fontFamily="@font/neo_sans_arabic_regular"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_event_btn_enable"
+            android:foreground="@drawable/custom_ripple_border"
+            android:gravity="center"
             android:onClick="@{()->view.onPreviousClicked()}"
             android:text="@string/previous"
             android:textAllCaps="false"
-            android:textColor="?attr/color_dubai_logo"
-            app:cornerRadius="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:textColor="@color/purple_900"
+            android:transitionName="action_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnNext"
-            app:layout_constraintStart_toStartOf="@id/tvHeading"
-            app:strokeColor="@color/purple_650" />
+            app:layout_constraintStart_toStartOf="@id/tvHeading" />
 
-        <Button
+        <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btnNext"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
-            android:backgroundTint="@color/purple_650"
-            android:fontFamily="@font/neo_sans_arabic_regular"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/btn_register"
+            android:foreground="@drawable/custom_ripple_border"
+            android:gravity="center"
             android:onClick="@{()->view.onNextClicked()}"
             android:text="@string/next"
             android:textAllCaps="false"
             android:textColor="@color/white_900"
-            app:cornerRadius="@dimen/_16sdp"
+            android:transitionName="action_btn"
             app:layout_constraintBottom_toBottomOf="@id/btnPrevious"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnPrevious"
             app:layout_constraintTop_toTopOf="@id/btnPrevious" />
+
+<!--        <Button-->
+<!--            android:id="@+id/btnNext"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="@dimen/_40sdp"-->
+<!--            android:layout_marginStart="@dimen/_8sdp"-->
+<!--            android:layout_marginEnd="@dimen/_12sdp"-->
+<!--            android:backgroundTint="@color/purple_650"-->
+<!--            android:fontFamily="@font/neo_sans_arabic_regular"-->
+<!--            android:onClick="@{()->view.onNextClicked()}"-->
+<!--            android:text="@string/next"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/white_900"-->
+<!--            app:cornerRadius="@dimen/_16sdp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/btnPrevious"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/btnPrevious"-->
+<!--            app:layout_constraintTop_toTopOf="@id/btnPrevious" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

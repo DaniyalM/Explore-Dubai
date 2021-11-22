@@ -121,7 +121,7 @@ android {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable true
+            debuggable false
 //            buildConfigField("String", "BASE_URL", "\"https://stgcd.dubaiculture.gov.ae/api/\"")
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
