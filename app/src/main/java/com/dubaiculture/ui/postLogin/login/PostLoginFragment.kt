@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.CookieManager
+import androidx.datastore.preferences.preferencesKey
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.dubaiculture.databinding.FragmentPostLoginBinding
@@ -19,11 +21,15 @@ import com.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel
 import com.dubaiculture.ui.preLogin.login.LoginFragmentDirections
 import com.dubaiculture.ui.preLogin.login.uae.viewmodels.UaePassSharedViewModel
 import com.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.Error.UAE_PASS_ERROR
 import com.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.dubaiculture.utils.UAEPassRequestModelsUtils
+import com.dubaiculture.utils.dataStore.DataStoreManager
 import com.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -31,6 +37,9 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     View.OnClickListener {
     private val postLoginViewModel: PostLoginViewModel by viewModels()
     private val uaePassSharedViewModel: UaePassSharedViewModel by activityViewModels()
+
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
 
     private val splashViewModel: SplashViewModel by viewModels()
     private var postCreatePassFragment: PostCreatePassFragment? = null
@@ -71,6 +80,20 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
             }
 
         }
+
+        lifecycleScope.launch {
+            checkRememberMe()
+        }
+
+    }
+
+    private suspend fun checkRememberMe() {
+
+        binding.checkBoxRemember.isChecked =
+            !dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals("")
+        postLoginViewModel.phone.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)))
+        postLoginViewModel.password.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.PASSWORD)))
+
     }
 
     override fun onClick(v: View?) {
@@ -138,6 +161,31 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         }
         splashViewModel.user.observe(viewLifecycleOwner) {
             if (it != null) {
+                if (binding.checkBoxRemember.isChecked) {
+                    lifecycleScope.launch {
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.USERNAME),
+                            postLoginViewModel.phone.get()
+                        )
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.PASSWORD),
+                            postLoginViewModel.password.get()
+                        )
+                    }
+                } else {
+
+                    lifecycleScope.launch {
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.USERNAME),
+                            ""
+                        )
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.PASSWORD),
+                            ""
+                        )
+                    }
+
+                }
                 application.auth.apply {
                     postLoginViewModel.updateSheet(false)
                     user = it

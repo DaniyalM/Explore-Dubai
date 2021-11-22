@@ -330,6 +330,7 @@
     <string name="show_my_plan">Show My Plan</string>
     <string name="add_duration">Add Duration</string>
     <string name="checkbox_desc">Repeat this selection to all</string>
+    <string name="remember_me">Remember Me</string>
     <string name="hour2">2 Hours</string>
     <string name="hour4">4 Hours</string>
     <string name="hour6">6 Hours</string>

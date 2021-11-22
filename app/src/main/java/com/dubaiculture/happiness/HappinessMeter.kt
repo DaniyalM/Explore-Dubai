@@ -29,8 +29,8 @@ object HappinessMeter {
         } else {
             val application =
                 Application(
-                    "DubaiNow",
-                    "http://mpay.qa.adeel.dubai.ae",
+                    "Dubai Culture",
+                    "https://dubaiculture.gov.ae",
                     "SMARTAPP",
                     "ANDROID"
                 )

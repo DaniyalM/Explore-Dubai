@@ -162,6 +162,7 @@
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:onTextChanged="@{viewmodel::onPasswordChanged}"
+            android:text="@{viewmodel.password}"
             android:transitionName="my_edit_password"
             app:layout_constraintBottom_toTopOf="@+id/forgot_pass"
             app:layout_constraintEnd_toEndOf="@+id/btn_login"
@@ -175,6 +176,19 @@
             app:layout_constraintBottom_toBottomOf="@+id/edit_password"
             app:layout_constraintEnd_toEndOf="@+id/edit_password"
             app:layout_constraintTop_toTopOf="@+id/edit_password" />
+
+        <CheckBox
+            android:id="@+id/checkBoxRemember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neo_sans_arabic_regular"
+            android:text="@string/remember_me"
+            android:theme="@style/CheckboxTheme"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white_900"
+            app:layout_constraintStart_toStartOf="@id/btn_login"
+            app:layout_constraintBottom_toBottomOf="@id/forgot_pass"
+            app:layout_constraintTop_toTopOf="@id/forgot_pass" />
 
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
@@ -275,84 +289,64 @@
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_as_guest"
+            style="@style/TextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_20sdp"
             android:foreground="@drawable/custom_ripple_border"
             android:text="@string/continue_as_a_guest"
-            style="@style/TextViewStyle"
             android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
 
+        <!--        <RadioGroup-->
+        <!--            android:id="@+id/rgToggle"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="43dp"-->
+        <!--            android:layout_marginStart="@dimen/_15sdp"-->
+        <!--            android:layout_marginTop="@dimen/_30sdp"-->
+        <!--            android:layout_marginEnd="@dimen/_15sdp"-->
+        <!--            android:background="@drawable/radion_toggle_bg"-->
+        <!--            android:gravity="center"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:visibility="visible"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/img_logo"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/img_logo"-->
+        <!--            >-->
 
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/rbEventInfo"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="49dp"-->
+        <!--                android:layout_weight="0.3"-->
+        <!--                android:background="@drawable/radio_btn_selector_active"-->
+        <!--                android:button="@null"-->
+        <!--                android:checked="true"-->
+        <!--                android:foreground="@drawable/custom_ripple_border"-->
+        <!--                android:gravity="center"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:tag="@string/event_information"-->
+        <!--                android:text="@string/event_information"-->
+        <!--                android:textColor="@drawable/toggle_selector" />-->
 
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/rbSchedule"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="55dp"-->
+        <!--                android:layout_weight="0.7"-->
+        <!--                android:background="@drawable/radio_btn_selector_active"-->
+        <!--                android:button="@null"-->
+        <!--                android:foreground="@drawable/custom_ripple_border"-->
+        <!--                android:gravity="center"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:tag="@string/schedule"-->
+        <!--                android:text="@string/schedule"-->
+        <!--                android:textColor="@drawable/toggle_selector" />-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--        <RadioGroup-->
-<!--            android:id="@+id/rgToggle"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="43dp"-->
-<!--            android:layout_marginStart="@dimen/_15sdp"-->
-<!--            android:layout_marginTop="@dimen/_30sdp"-->
-<!--            android:layout_marginEnd="@dimen/_15sdp"-->
-<!--            android:background="@drawable/radion_toggle_bg"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:visibility="visible"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/img_logo"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/img_logo"-->
-<!--            >-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/rbEventInfo"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="49dp"-->
-<!--                android:layout_weight="0.3"-->
-<!--                android:background="@drawable/radio_btn_selector_active"-->
-<!--                android:button="@null"-->
-<!--                android:checked="true"-->
-<!--                android:foreground="@drawable/custom_ripple_border"-->
-<!--                android:gravity="center"-->
-<!--                android:singleLine="true"-->
-<!--                android:tag="@string/event_information"-->
-<!--                android:text="@string/event_information"-->
-<!--                android:textColor="@drawable/toggle_selector" />-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/rbSchedule"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="55dp"-->
-<!--                android:layout_weight="0.7"-->
-<!--                android:background="@drawable/radio_btn_selector_active"-->
-<!--                android:button="@null"-->
-<!--                android:foreground="@drawable/custom_ripple_border"-->
-<!--                android:gravity="center"-->
-<!--                android:singleLine="true"-->
-<!--                android:tag="@string/schedule"-->
-<!--                android:text="@string/schedule"-->
-<!--                android:textColor="@drawable/toggle_selector" />-->
-
-<!--        </RadioGroup>-->
+        <!--        </RadioGroup>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

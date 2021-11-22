@@ -155,6 +155,6 @@
 
     <style name="CheckboxTheme" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
         <!-- for example try to change background -->
-        <item name="android:background">?attr/colorSecondary</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>
