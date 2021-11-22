@@ -22,6 +22,7 @@ import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.AuthUtils
 import com.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
+import com.dubaiculture.utils.dataStore.DataStoreManager
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

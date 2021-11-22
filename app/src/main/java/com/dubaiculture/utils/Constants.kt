@@ -176,6 +176,8 @@ object Constants {
 
     object DataStore {
         const val SKIP: String = "skip"
+        const val USERNAME: String = "username"
+        const val PASSWORD: String = "password"
     }
 
     object HTTP_RESPONSE {

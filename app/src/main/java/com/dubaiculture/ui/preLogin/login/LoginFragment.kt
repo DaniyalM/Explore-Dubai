@@ -21,8 +21,10 @@ import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.datastore.preferences.preferencesKey
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.dubaiculture.R
@@ -36,18 +38,24 @@ import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.Error.UAE_PASS_ERROR
 import com.dubaiculture.utils.SMSReceiver
 import com.dubaiculture.utils.UAEPassRequestModelsUtils
+import com.dubaiculture.utils.dataStore.DataStoreManager
 import com.dubaiculture.utils.killSessionAndStartNewActivity
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import om.dubaiculture.ui.navGraphActivity.NavGraphActivity
 import timber.log.Timber
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener {
     private val uaePassSharedViewModel: UaePassSharedViewModel by activityViewModels()
+
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
 
     private val loginViewModel: LoginViewModel by viewModels()
     private var intentFilter: IntentFilter? = null
@@ -61,12 +69,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
     }
 
 
-
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+        lifecycleScope.launch {
+            checkRememberMe()
+        }
         subscribeToObservables()
 
     }
+
+    private suspend fun checkRememberMe() {
+
+        binding.checkBoxRemember.isChecked =
+            !dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals("")
+        loginViewModel.phone.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)))
+        loginViewModel.password.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.PASSWORD)))
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = loginViewModel
@@ -163,6 +183,31 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
         loginViewModel.userLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
+                if (binding.checkBoxRemember.isChecked) {
+                    lifecycleScope.launch {
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.USERNAME),
+                            loginViewModel.phone.get()
+                        )
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.PASSWORD),
+                            loginViewModel.password.get()
+                        )
+                    }
+                } else {
+
+                    lifecycleScope.launch {
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.USERNAME),
+                            ""
+                        )
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.PASSWORD),
+                            ""
+                        )
+                    }
+
+                }
                 application.auth.apply {
                     loginViewModel.updateSheet(false)
                     user = it

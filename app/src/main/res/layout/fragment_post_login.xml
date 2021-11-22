@@ -147,7 +147,20 @@
 
             <!--password field end-->
 
-            <com.dubaiculture.ui.components.customtextview.CustomTextView
+            <CheckBox
+                android:id="@+id/checkBoxRemember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/neo_sans_arabic_regular"
+                android:text="@string/remember_me"
+                android:theme="@style/CheckboxTheme"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="?attr/colorSecondary"
+                app:layout_constraintStart_toStartOf="@id/edit_password"
+                app:layout_constraintBottom_toBottomOf="@id/tv_forgot_pass"
+                app:layout_constraintTop_toTopOf="@id/tv_forgot_pass" />
+
+            a<com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_forgot_pass"
                 style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
