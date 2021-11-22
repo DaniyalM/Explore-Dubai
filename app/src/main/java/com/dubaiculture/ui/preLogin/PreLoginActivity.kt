@@ -24,10 +24,8 @@ class PreLoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        overridePendingTransition(R.anim.fade_out,R.anim.fade_in)
-
+//        overridePendingTransition(R.anim.fade_out, R.anim.fade_in)
         hideStatusBar(window)
-        isDark()
         setContentView(R.layout.activity_pre_login)
         logDeepLinkUri()
         navigate()
@@ -35,8 +33,7 @@ class PreLoginActivity : BaseActivity() {
     }
 
 
-
-    private fun navigate(){
+    private fun navigate() {
 
         intent?.let {
             val handle = it.getBooleanExtra(Constants.NavBundles.HANDLE_PUSH, false)
@@ -52,12 +49,11 @@ class PreLoginActivity : BaseActivity() {
         }
     }
 
+
     override fun onResume() {
         super.onResume()
         adjustFontScale(resources.configuration)
     }
-
-
 
 
     override fun onNewIntent(intent: Intent?) {
@@ -68,6 +64,7 @@ class PreLoginActivity : BaseActivity() {
         }
 
     }
+
     private fun logDeepLinkUri() {
         val data: Uri? = this.intent.data
         if (data != null && data.isHierarchical) {
