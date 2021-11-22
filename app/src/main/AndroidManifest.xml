@@ -88,8 +88,10 @@
         <activity
             android:name=".ui.preLogin.PreLoginActivity"
             android:launchMode="singleTask"
+            android:configChanges="uiMode"
 
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            >
             <nav-graph android:value="@navigation/pre_login_navigation" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

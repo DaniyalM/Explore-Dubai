@@ -3,6 +3,7 @@ package com.dubaiculture.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -16,6 +17,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
@@ -45,6 +47,24 @@ object AppConfigUtils {
     const val TAG_OUTPUT = "OUTPUT"
     const val KEY_IMAGE_URI = "KEY_IMAGE_URI"
 
+
+    fun isNightModeActive(context: Context): Boolean {
+        val defaultNightMode = AppCompatDelegate.getDefaultNightMode()
+        if (defaultNightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+            return true
+        }
+        if (defaultNightMode == AppCompatDelegate.MODE_NIGHT_NO) {
+            return false
+        }
+        val currentNightMode = (context.resources.configuration.uiMode
+                and Configuration.UI_MODE_NIGHT_MASK)
+        when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO -> return false
+            Configuration.UI_MODE_NIGHT_YES -> return true
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> return false
+        }
+        return false
+    }
     fun getDrawable(context: Context, drawableResId: Int, colorFilter: Int): Drawable {
         val drawable = getDrawable(context, drawableResId)
         drawable?.setColorFilter(colorFilter, PorterDuff.Mode.SRC_IN)

@@ -2,6 +2,7 @@ package com.dubaiculture.ui.postLogin
 
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -16,17 +17,18 @@ import com.dubaiculture.utils.firebase.unSubscribeFromTopic
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class PostLoginActivity : BaseAuthenticationActivity() {
     private val navHolding: Int = R.id.nav_host_fragment
     private val moreSharedViewModel: MoreSharedViewModel by viewModels()
 
 
+
     override fun baseOnCreate(savedInstanceState: Bundle?) {
-        overridePendingTransition(R.anim.fade_out, R.anim.fade_in)
+//        overridePendingTransition(R.anim.fade_out, R.anim.fade_in)
         hideStatusBar(window)
         setContentView(R.layout.activity_post_login)
-        isDark()
         getNavControllerFun(navHolding)
         recieveLogout()
         subscribeToObservable()
