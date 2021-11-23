@@ -114,14 +114,14 @@ object AppConfigUtils {
         return Calendar.getInstance().time
     }
 
-    fun shareLink(stringUrl: String, activity: Activity) {
+    fun shareLink(stringUrl: String, activity: Activity,title:String="",detail:String="") {
 
         if (stringUrl.isNotEmpty()) {
             val i = Intent(Intent.ACTION_SEND)
             i.type = "text/plain"
-            i.putExtra(Intent.EXTRA_SUBJECT, "Sharing News")
+            i.putExtra(Intent.EXTRA_SUBJECT, title?:detail)
             i.putExtra(Intent.EXTRA_TEXT, BuildConfig.BASE_URL_SHARE + stringUrl)
-            activity.startActivity(Intent.createChooser(i, "Share URL"))
+            activity.startActivity(Intent.createChooser(i, title?:detail))
         }
     }
 

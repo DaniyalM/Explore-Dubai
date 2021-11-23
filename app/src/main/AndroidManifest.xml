@@ -62,7 +62,26 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-        <activity android:name="om.dubaiculture.ui.navGraphActivity.NavGraphActivity" />
+        <activity android:name="com.dubaiculture.ui.navGraphActivity.NavGraphActivity" />
+        <activity android:name=".ui.deeplink.DeeplinkActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="dc.qa.greenlightlabs.tech"
+                    android:pathPrefix="/en"
+                    android:scheme="http" />
+                <data
+                    android:host="dc.qa.greenlightlabs.tech"
+                    android:pathPrefix="/en"
+                    android:scheme="https" />
+            </intent-filter>
+
+
+        </activity>
         <activity
             android:name=".ui.postLogin.PostLoginActivity"
             android:launchMode="singleTask"

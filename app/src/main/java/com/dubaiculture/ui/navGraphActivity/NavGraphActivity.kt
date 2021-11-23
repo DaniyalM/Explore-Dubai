@@ -1,4 +1,4 @@
-package om.dubaiculture.ui.navGraphActivity
+package com.dubaiculture.ui.navGraphActivity
 
 import android.os.Bundle
 import androidx.navigation.NavController

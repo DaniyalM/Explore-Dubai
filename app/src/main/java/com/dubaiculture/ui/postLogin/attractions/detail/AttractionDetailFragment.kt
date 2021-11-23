@@ -149,7 +149,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         mapSetUp(savedInstanceState)
         detailInnerLayout = binding.attractionDetailInnerLayout
         toolbarLayout = binding.toolbarLayoutDetail
-        mapView?.isEnabled=false
+        mapView?.isEnabled = false
 //        setupSwipeToRefresh()
         rvSetUp()
 
@@ -254,7 +254,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             isDetailFavouriteFlag = false
 
 
-
                         }
                         checkBox?.background = getDrawableFromId(R.drawable.heart_icon_fav)
                         binding.favourite1.hide()
@@ -287,7 +286,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
                     attractionsObj = it.value
-                    urlshare=it.value.url
+                    urlshare = "${it.value.url}?q=${it.value.id}"
                     mapView?.invalidate()
 
 //                    val attractionLatLng = LatLng(
@@ -307,7 +306,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         toolbarLayout.gallery.isClickable = false
                         toolbarLayout.gallery.alpha = 0.4f
 
-                    }else {
+                    } else {
                         detailInnerLayout.downOneGallery.setOnClickListener(this)
                         toolbarLayout.llImg.setOnClickListener(this)
                     }
@@ -316,7 +315,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         detailInnerLayout.downOne360.alpha = 0.4f
                         toolbarLayout.ll360.isClickable = false
                         detailInnerLayout.downOne360.isClickable = false
-                    }else{
+                    } else {
 
                         detailInnerLayout.downOne360.setOnClickListener(this)
                         toolbarLayout.ll360.setOnClickListener(this)
@@ -335,10 +334,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                     if (urlshare != null && !urlshare!!.isEmpty()) {
                         toolbarLayout.share.setOnClickListener { view ->
-                            shareLink(urlshare ?: "", activity)
+                            shareLink(urlshare ?: "", activity,title = attractionsObj!!.title)
                         }
                         binding.share.setOnClickListener { view ->
-                            shareLink(urlshare ?: "", activity)
+                            shareLink(urlshare ?: "", activity,title = attractionsObj!!.title)
                         }
                     } else {
                         toolbarLayout.share.hide()
@@ -373,9 +372,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         toolbarLayout.back.setOnClickListener(this)
         binding.imgBack.setOnClickListener(this)
         toolbarLayout.btnBookATicket.setOnClickListener(this)
+        toolbarLayout.btnBookATicket.hide()
+
 
         toolbarLayout.llAr.setOnClickListener(this)
         detailInnerLayout.downOneAR.setOnClickListener(this)
+        detailInnerLayout.btnFilter.hide()
 
         detailInnerLayout.imgAttractionSpeaker.setOnClickListener(this)
         detailInnerLayout.llEmailus.setOnClickListener(this)
@@ -665,10 +667,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
             R.id.img_attraction_speaker -> {
                 if (detailInnerLayout.tvDescReadmore.text.isNotEmpty()) {
-                    if (textToSpeechEngine.isSpeaking){
+                    if (textToSpeechEngine.isSpeaking) {
                         textToSpeechEngine.stop()
-                    }
-                    else {
+                    } else {
                         textToSpeechEngine.speak(
                             "${attractionsObj?.title} ${attractionsObj?.description}",
                             TextToSpeech.QUEUE_FLUSH,
