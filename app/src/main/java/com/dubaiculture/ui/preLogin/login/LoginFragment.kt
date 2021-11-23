@@ -35,7 +35,6 @@ import com.dubaiculture.ui.postLogin.PostLoginActivity
 import com.dubaiculture.ui.preLogin.login.uae.viewmodels.UaePassSharedViewModel
 import com.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel
 import com.dubaiculture.utils.Constants
-import com.dubaiculture.utils.Constants.Error.UAE_PASS_ERROR
 import com.dubaiculture.utils.SMSReceiver
 import com.dubaiculture.utils.UAEPassRequestModelsUtils
 import com.dubaiculture.utils.dataStore.DataStoreManager
@@ -45,8 +44,6 @@ import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import om.dubaiculture.ui.navGraphActivity.NavGraphActivity
-import timber.log.Timber
 import javax.inject.Inject
 
 

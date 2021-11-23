@@ -272,7 +272,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
 
 
-                    urlshare = it.value.url
+                    urlshare = "${it.value.url}?q=${it.value.id}"
+
 
                     binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener {
                         isDetailFavouriteFlag = true
@@ -305,14 +306,16 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             shareLink(
                                 urlshare
                                     ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
-                                activity
+                                activity,
+                                detail = eventObj!!.desc!!?:eventObj!!.title!!
                             )
                         }
                         binding.share.setOnClickListener {
                             shareLink(
                                 urlshare
                                     ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
-                                activity
+                                activity,
+                                detail = eventObj!!.desc!!?:eventObj!!.title!!
                             )
 
                         }

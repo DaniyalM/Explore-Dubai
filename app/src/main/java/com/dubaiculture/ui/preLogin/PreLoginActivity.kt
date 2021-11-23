@@ -13,7 +13,7 @@ import com.dubaiculture.utils.AuthUtils.hideStatusBar
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
-import om.dubaiculture.ui.navGraphActivity.NavGraphActivity
+import com.dubaiculture.ui.navGraphActivity.NavGraphActivity
 
 
 @AndroidEntryPoint
