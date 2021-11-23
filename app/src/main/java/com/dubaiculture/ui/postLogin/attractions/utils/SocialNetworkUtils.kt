@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import com.dubaiculture.BuildConfig
 
 
@@ -27,25 +28,40 @@ object SocialNetworkUtils {
                 if (isInstagram){ URL="https://www.instagram.com/dubaiculture/" }
                 if (isLinkedIn){ URL="https://www.linkedin.com/company/dubai-culture-&-arts-authority/" }
                 if (isYoutube){ URL="https://www.youtube.com/user/DubaiCulture" }
-                if (isWeb){
-                    URL=url
-                }
+                if (isWeb){ URL=url }
             }
+
             data = Uri.parse(URL)
             context.startActivity(this)
+
         }
 
     }
+//    fun getFacebookPage(faceBookUrl: String, context: Activity): Intent? {
+//        val packageManager: PackageManager = context.packageManager
+//        var uri: Uri = Uri.parse(faceBookUrl)
+//        try {
+//            val applicationInfo = packageManager.getApplicationInfo("com.facebook.katana", 0)
+//            if (applicationInfo.enabled) {
+//                // http://stackoverflow.com/a/24547437/1048340
+//                uri = Uri.parse("fb://facewebmodal/f?href=$faceBookUrl")
+//            }
+//        } catch (ignored: PackageManager.NameNotFoundException) {
+//        }
+//        return Intent(Intent.ACTION_VIEW, uri)
+//    }
+
 
     fun getFacebookPage(faceBookUrl: String, context: Activity) {
         val packageManager: PackageManager = context.packageManager
         try {
-            val versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode;
+            val versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode
+
             if (versionCode >= 3002850) {
                 openUrl("fb://facewebmodal/f?href=${faceBookUrl}", context)
             } else {
-                openUrl("fb://page/", context)
-            }
+                openUrl("fb://page/DubaiCulture", context)
+        }
         } catch (ex: PackageManager.NameNotFoundException) {
             openUrl("fb://facewebmodal/f?href=${faceBookUrl}", context)
         }
