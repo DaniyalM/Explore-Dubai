@@ -116,7 +116,12 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        try {
+            super.onCreate(savedInstanceState)
+        }catch (ex:Exception){
+            back()
+        }
+
 
 
         application = activity.application as ApplicationEntry

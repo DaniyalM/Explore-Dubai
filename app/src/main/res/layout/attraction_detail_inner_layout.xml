@@ -450,7 +450,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/_10sdp"
-                        android:text="Lorem ipsum dolar sit amet"
+                        android:text="@string/explore_attractions_around"
                         style="@style/TextViewStyle"
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintEnd_toEndOf="parent"

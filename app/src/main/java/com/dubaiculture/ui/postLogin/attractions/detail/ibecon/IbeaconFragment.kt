@@ -8,15 +8,15 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.RequestManager
 import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentIbeconBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.attractions.detail.ibecon.viewmodel.BeaconSharedViewModel
 import com.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
+import com.dubaiculture.utils.BeaconUtils
 import com.dubaiculture.utils.Constants
-import com.dubaiculture.utils.event.Event
-import com.bumptech.glide.RequestManager
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion
 import com.estimote.coresdk.recognition.packets.Beacon
 import com.estimote.coresdk.service.BeaconManager
@@ -31,6 +31,11 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
     private val siteMapViewModel: SiteMapViewModel by viewModels()
     private val beaconSharedViewModel: BeaconSharedViewModel by activityViewModels()
     private var attractionId: String? = null
+    lateinit var region: BeaconRegion
+    lateinit var beaconManager: BeaconManager
+
+    @Inject
+    lateinit var beaconUtils: BeaconUtils
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,33 +69,39 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
         }
     }
 
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        beaconUtils.beaconDisconnect()
+//    }
 
     private fun beaconMonitoring() {
-        application.beaconManager.apply {
-            this.startRanging(application.region)
-            this.startMonitoring(application.region)
-            setRangingListener(BeaconManager.BeaconRangingListener { _, beacons ->
-                val nearestBeacon: Beacon = beacons[0]
-                lifecycleScope.launch {
-                    attractionId?.let {
-                        beaconSharedViewModel.markAsVisited(
-                            it,
-                            nearestBeacon.uniqueKey
-                        )
+        beaconUtils.beaconConnect()
+        beaconUtils.beaconManager.apply {
+            setMonitoringListener(object : BeaconManager.BeaconMonitoringListener {
+                override fun onEnteredRegion(
+                    beaconRegion: BeaconRegion?,
+                    beacons: MutableList<Beacon>?
+                ) {
+                    Toast.makeText(activity, "Monitoring has been started", Toast.LENGTH_SHORT)
+                        .show()
+                    beacons?.let {
+                        val nearestBeacon: Beacon = it[0]
+                        lifecycleScope.launch {
+                            attractionId?.let {
+                                beaconSharedViewModel.markAsVisited(
+                                    it,
+                                    nearestBeacon.uniqueKey
+                                )
+                            }
+
+                        }
                     }
 
-                }
-
-
-            })
-            setMonitoringListener(object : BeaconManager.BeaconMonitoringListener {
-                override fun onEnteredRegion(beaconRegion: BeaconRegion?, beacons: MutableList<Beacon>?) {
-                    Toast.makeText(activity,"Monitoring has been started", Toast.LENGTH_SHORT).show()
 //                    beconFilterForNotification(beconList, Constants.IBecons.UUID_BECON)
                 }
 
                 override fun onExitedRegion(beaconRegion: BeaconRegion?) {
-                    siteMapViewModel.showToast("You are leaving the Region")
+                    siteMapViewModel.showToast(resources.getString(R.string.you_are_leaving))
                 }
 
             })
