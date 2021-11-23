@@ -250,7 +250,7 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                 EventSchedule(
                         id = it.id,
                         description = it.description,
-                        eventScheduleItems = it.eventScheduleItems.map {
+                        eventScheduleItems = it.eventScheduleItems?.map {
                                 EventScheduleItems(
                                         date = it.date,
                                         eventScheduleItemsSlots = it.eventScheduleItemsTimeSlots.map {
@@ -262,7 +262,7 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                                     )
                                 }
                         )
-                    }
+                    }?: mutableListOf()
             )
         }?: mutableListOf(),
         relatedEvents = eventDTO.relatedEvents?.map {
