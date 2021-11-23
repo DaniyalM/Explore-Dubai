@@ -98,6 +98,7 @@ object Constants {
         const val SERVICE_ID: String = "service_id"
         const val HANDLE_PUSH: String = "HANDLE_PUSH"
         const val SERVICE_POS: String = "service_pos"
+        const val WEBVIEW_URL: String = "webview_url"
 
 
     }

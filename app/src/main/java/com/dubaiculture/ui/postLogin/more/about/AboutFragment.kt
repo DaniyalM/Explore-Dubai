@@ -16,8 +16,8 @@ import com.dubaiculture.utils.hide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AboutFragment : BaseFragment<FragmentAboutBinding>() , View.OnClickListener {
-    private val moreViewModel : MoreViewModel by viewModels()
+class AboutFragment : BaseFragment<FragmentAboutBinding>(), View.OnClickListener {
+    private val moreViewModel: MoreViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(moreViewModel)
@@ -36,34 +36,40 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() , View.OnClickListene
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentAboutBinding.inflate(inflater,container,false)
+    ) = FragmentAboutBinding.inflate(inflater, container, false)
+
+    fun onURLClicked(url: String) {
+
+        navigateByDirections(AboutFragmentDirections.actionAboutFragmentToWebviewFragment(url))
+
+    }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.img_close->{
+        when (v?.id) {
+            R.id.img_close -> {
                 back()
             }
-            R.id.ll_terms->{
+            R.id.ll_terms -> {
                 val bundle =
-                        bundleOf(Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY to Constants.NavBundles.TERMS_CONDITION)
+                    bundleOf(Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY to Constants.NavBundles.TERMS_CONDITION)
                 navigate(
-                        R.id.action_aboutFragment_to_privacyTermConditionFragment,
-                        bundle
+                    R.id.action_aboutFragment_to_privacyTermConditionFragment,
+                    bundle
                 )
             }
-            R.id.ll_privacy->{
+            R.id.ll_privacy -> {
                 val bundle =
-                        bundleOf(Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY to Constants.NavBundles.PRIVACY_POLICY)
+                    bundleOf(Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY to Constants.NavBundles.PRIVACY_POLICY)
                 navigate(
-                        R.id.action_aboutFragment_to_privacyTermConditionFragment,
-                        bundle
+                    R.id.action_aboutFragment_to_privacyTermConditionFragment,
+                    bundle
                 )
             }
         }
     }
 
-  private fun callingObserver(){
-        moreViewModel.cultureCon.observe(viewLifecycleOwner){
+    private fun callingObserver() {
+        moreViewModel.cultureCon.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 binding.cultureCon = it
             }

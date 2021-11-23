@@ -383,6 +383,8 @@
     <string name="try_again">Try Again</string>
     <string name="clear_search_history">Clear Search History</string>
 
+    <string name="accessbility_desc">To enable Accessibility, you need to go to\nSetting->Accessibility then you can enable the features you needed</string>
+
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->

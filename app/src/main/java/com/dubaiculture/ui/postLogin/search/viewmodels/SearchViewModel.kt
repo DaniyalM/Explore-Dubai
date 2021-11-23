@@ -220,8 +220,8 @@ class SearchViewModel @Inject constructor(
                         if (tabTitle?.contains("All")!!) {
                             displayError(it)
                         } else {
-                            displayError("No ${tabTitle} Found")
-                        }
+                            _searchPaginationItem.value= PagingData.empty()
+                            setCount(0)                        }
                     }
 
                 }

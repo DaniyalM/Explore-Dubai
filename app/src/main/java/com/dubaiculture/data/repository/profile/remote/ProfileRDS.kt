@@ -23,7 +23,7 @@ class ProfileRDS @Inject constructor(private val profileService: ProfileService)
         profileService.updateSettings(userSettingsDTO)
     }
 
-    suspend fun getFavourites() = safeApiCall {
-        profileService.getfavourites()
+    suspend fun getFavourites(culture: String) = safeApiCall {
+        profileService.getfavourites(culture)
     }
 }

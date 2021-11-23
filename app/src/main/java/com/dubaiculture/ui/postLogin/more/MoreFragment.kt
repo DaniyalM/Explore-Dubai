@@ -28,6 +28,7 @@ import com.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLIC
 import com.dubaiculture.utils.SettingsUtils.newsList
 import com.dubaiculture.utils.SettingsUtils.servicesList
 import com.dubaiculture.utils.SettingsUtils.settingsList
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -209,6 +210,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
                                     navigate(R.id.action_moreFragment_to_popularServiceFragment2)
                                 }
+
                             }
 
                         }
@@ -304,6 +306,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                                     navigate(R.id.action_moreFragment_to_settingFragment)
                                 }
                             }
+                            if (position == 1) {
+                                showAccessibilityDialog()
+                            }
+
                             if (position == 2) {
                                 if (isArabic()) {
                                     setLanguage(Locale.ENGLISH)
@@ -333,6 +339,17 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = settingAdapter
         }
+    }
+
+    private fun showAccessibilityDialog() {
+
+        MaterialAlertDialogBuilder(context!!,R.style.MaterialDialogTheme)
+            .setMessage(resources.getString(R.string.accessbility_desc))
+            .setPositiveButton(resources.getString(R.string._ok)) { dialog, which ->
+                dialog.dismiss()
+            }
+            .show()
+
     }
 
     override fun onClick(v: View?) {

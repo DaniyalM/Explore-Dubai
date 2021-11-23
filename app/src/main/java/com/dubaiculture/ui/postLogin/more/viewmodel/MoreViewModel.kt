@@ -237,7 +237,7 @@ class MoreViewModel @Inject constructor(
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "text/plain"
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, DUBAI_CULTURE)
-            var shareMessage = "\nLet me recommend you this application\n\n"
+            var shareMessage = "\nCheckout Dubai Culture app\n\n"
             shareMessage =
                 """ ${shareMessage}https://play.google.com/store/apps/details?id=${PACKAGE_NAME}""".trimIndent()
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)

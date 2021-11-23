@@ -114,14 +114,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             navigationController.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
                     R.id.tripFragment -> {
-                        visibility = View.GONE
+                        hide()
                     }
                     R.id.myTripFragment -> {
-                        visibility = View.GONE
+                        hide()
                     }
                     R.id.myTripListingFragment -> {
-                        visibility = View.GONE
+                        hide()
                     }
+//                    R.id.webviewFragment -> {
+//                        hide()
+//                    }
                 }
             }
         }
@@ -202,6 +205,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.travelModeDialog -> {
                         visibility = View.GONE
                     }
+//                    R.id.webviewFragment -> {
+//                        visibility = View.GONE
+//                    }
                     else -> {
                         visibility = View.VISIBLE
                         Bundle().apply {
