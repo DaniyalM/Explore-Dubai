@@ -45,7 +45,7 @@ class ServiceDownVoteFeedBackFragment : BaseFragment<FragmentServiceDownVoteBind
         serviceDownVoteFeedBackViewModel.downVote.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it) {
-                    showAlert(title = "Feedback", message = "Feedback Submitted Successfully")
+//                    showAlert(title = "Feedback", message = "Feedback Submitted Successfully")
                     back()
                 }
             }
