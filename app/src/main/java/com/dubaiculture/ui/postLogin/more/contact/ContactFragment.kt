@@ -1,12 +1,17 @@
 package com.dubaiculture.ui.postLogin.more.contact
 
 import android.Manifest
+import android.R.attr.label
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.attraction.local.models.SocialLink
@@ -27,6 +32,7 @@ import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOption
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickListener,
@@ -68,6 +74,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             it.websiteLl.setOnClickListener(this)
             it.llShareFeedBack.setOnClickListener(this)
             it.getDirection.setOnClickListener(this)
+
         }
 
         binding.imgLinkedinAttraction.setOnClickListener(this)
@@ -92,6 +99,13 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 socialList.addAll(it.socialLinks)
                 contactCenterReach = it.contactCenterReach
                 moreViewModel.setPinOnMap(map, contactCenterLocation)
+                binding.tvNumber.setOnLongClickListener {
+//                    val clipboard: ClipboardManager? =
+//                        activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+//                    val clip = ClipData.newPlainText(label, text)
+//                    clipboard?.setPrimaryClip(clip)
+                    true
+                }
 
             }
         }
@@ -109,11 +123,10 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 back()
             }
             R.id.imgFb -> {
-                SocialNetworkUtils.openUrl(
-                    socialList.get(0).facebookPageLink,
-                    activity,
-                    isFacebook = true
+                SocialNetworkUtils.getFacebookPage(
+                    socialList.get(0).facebookPageLink,activity
                 )
+
             }
             R.id.imgTwitterAttraction -> {
                 SocialNetworkUtils.openUrl(
