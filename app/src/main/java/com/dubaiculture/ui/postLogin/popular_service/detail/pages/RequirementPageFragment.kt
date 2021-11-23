@@ -14,6 +14,7 @@ import com.dubaiculture.databinding.ItemsServiceDetailReqDocumentLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailListingItems
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -35,34 +36,29 @@ class RequirementPageFragment(val requiredDocument: List<RequiredDocument>?) : B
         binding.innerRecyclerView.apply {
             binding.detailListingHeader.text =
                 context.getString(R.string.required_documents)
-            val linearLayoutManager = LinearLayoutManager(context)
-            layoutManager = linearLayoutManager
-            val requiredDocumentInnerAdapter = GroupAdapter<GroupieViewHolder>()
-            adapter = requiredDocumentInnerAdapter
 
-            requiredDocument?.get(0)?.requiredDocuments!!.forEach {
-                val paymentsItem =
-                    ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
-                        eService = it,
-                        resLayout = R.layout.items_service_detail_req_document_layout
-                    )
-                requiredDocumentInnerAdapter.add(paymentsItem)
+
+            if (requiredDocument!!.get(0).requiredDocuments.isEmpty()){
+                binding.noDataPlaceHolder.show()
+                hide()
+                binding.detailListingHeader.hide()
+
+            }else{
+                binding.noDataPlaceHolder.hide()
+                val linearLayoutManager = LinearLayoutManager(context)
+                layoutManager = linearLayoutManager
+                val requiredDocumentInnerAdapter = GroupAdapter<GroupieViewHolder>()
+                adapter = requiredDocumentInnerAdapter
+                requiredDocument.get(0).requiredDocuments.forEach {
+                    val paymentsItem =
+                        ServiceDetailListingItems<ItemsServiceDetailReqDocumentLayoutBinding, String>(
+                            eService = it,
+                            resLayout = R.layout.items_service_detail_req_document_layout
+                        )
+                    requiredDocumentInnerAdapter.add(paymentsItem)
+                }
             }
-//            val linearLayoutManager = LinearLayoutManager(context)
-//            layoutManager = linearLayoutManager
-//            val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
-//            adapter = paymentInnerAdapter
-//            if (requiredDocument!!.isEmpty()){
-//                hide()
-//            }
-//            requiredDocument.get(0).let {
-//                val paymentsItem =
-//                    ServiceDetailListingItems<ItemsServiceDetailInnerListingLayoutBinding, RequiredDocument>(
-//                        eService = it,
-//                        resLayout = R.layout.items_service_detail_inner_listing_layout
-//                    )
-//                paymentInnerAdapter.add(paymentsItem)
-//            }
+
 
         }
 

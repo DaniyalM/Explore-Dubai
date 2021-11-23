@@ -221,7 +221,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             latitude!!.toDouble(),
                             longitude!!.toDouble()
                         )
-                        detailInnerLayout.tvKm.text = "$distance Km Away"
+                        detailInnerLayout.tvKm.text = "$distance  ${resources.getString(R.string.away)}"
                     } catch (e: java.lang.NumberFormatException) {
                     }
 
@@ -550,6 +550,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             it.getMapAsync(this)
             it.onCreate(savedInstanceState)
 
+
         }
 
     }
@@ -581,7 +582,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                         it.latitude?.toDouble()!!,
                                         it.longitude?.toDouble()!!
                                     )
-                                detailInnerLayout.tvKm.text = "$distance Km Away"
+                                detailInnerLayout.tvKm.text = "$distance  ${resources.getString(R.string.away)}"
                             }
                         }
 
@@ -801,7 +802,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         attractionsObj?.latitude!!.toDouble(),
                         attractionsObj?.longitude!!.toDouble()
                     )
-                detailInnerLayout.tvKm.text = "$distance Km Away"
+                detailInnerLayout.tvKm.text = "$distance ${resources.getString(R.string.away)}"
             }
         } catch (e: java.lang.NumberFormatException) {
         }

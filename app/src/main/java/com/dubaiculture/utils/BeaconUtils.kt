@@ -6,6 +6,8 @@ import android.content.Intent
 import com.dubaiculture.data.repository.visited.VisitedRepository
 import com.dubaiculture.ui.preLogin.PreLoginActivity
 import com.dubaiculture.utils.Constants.IBecons.IDENTIFIER
+import com.dubaiculture.utils.Constants.IBecons.MAJOR
+import com.dubaiculture.utils.Constants.IBecons.MINOR
 import com.dubaiculture.utils.Constants.IBecons.UUID_BECON
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion
 import com.estimote.coresdk.recognition.packets.Beacon
@@ -18,9 +20,14 @@ class BeaconUtils @Inject constructor(
     private val visitedRepository: VisitedRepository,
 ) {
     var beaconManager: BeaconManager = BeaconManager(context)
-    var region: BeaconRegion = BeaconRegion(IDENTIFIER, UUID.fromString(UUID_BECON), null, null)
+    var region: BeaconRegion = BeaconRegion(IDENTIFIER, UUID.fromString(UUID_BECON), MAJOR, MINOR)
 //    val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
+    fun beaconDisconnect(){
+        beaconManager.stopMonitoring(region.identifier)
+        beaconManager.stopRanging(region)
+        beaconManager.disconnect()
+    }
     fun beaconConnect() {
         beaconManager.connect {
 
@@ -39,11 +46,11 @@ class BeaconUtils @Inject constructor(
                 override fun onScanStop() {
                 }
             })
-            startMontioring()
+//            startMontioring()
         }
     }
 
-    private fun startMontioring() {
+     fun startMontioring() {
         beaconManager.setMonitoringListener(object :
             BeaconManager.BeaconMonitoringListener {
             override fun onEnteredRegion(

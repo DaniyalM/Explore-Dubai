@@ -69,9 +69,9 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             if (it.getParcelable<Events>(EVENT_OBJECT) != null) {
                 events = it.getParcelable(EVENT_OBJECT)
             }
-            if (it.getBoolean(EVENT_FILTER)) {
-                eventFilterFlag = true
-            }
+//            if (it.getBoolean(EVENT_FILTER)) {
+//                eventFilterFlag = true
+//            }
         }
     }
 
@@ -111,7 +111,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
         if (backflagNavigation) {
             backflagNavigation = false
             events = null
-            eventFilterFlag=false
+//            eventFilterFlag=false
             navigateBack()
         }
 
@@ -124,10 +124,10 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
                 )
             })
         }
-        if (eventFilterFlag) {
-            backflagNavigation = true
-            navigate(R.id.action_eventsFragment_to_eventFilterFragment)
-        }
+//        if (eventFilterFlag) {
+//            backflagNavigation = true
+//            navigate(R.id.action_eventsFragment_to_eventFilterFragment)
+//        }
 
         subscribeUiEvents(eventViewModel)
         locationPermission()

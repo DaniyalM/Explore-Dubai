@@ -21,9 +21,7 @@ class ApplicationEntry : Application() {
     var bus: Bus = Bus()
     lateinit var auth: AuthState
     var isInternetActive = false
-    lateinit var beaconManager: BeaconManager
     lateinit var preferenceRepository: PreferenceRepository
-    lateinit var region: BeaconRegion
 
     var appStarted: Boolean = false
 
@@ -31,8 +29,7 @@ class ApplicationEntry : Application() {
 
 
 
-    @Inject
-    lateinit var beaconUtils: BeaconUtils
+
 
 
     override fun onCreate() {
@@ -40,9 +37,8 @@ class ApplicationEntry : Application() {
         auth = AuthState()
         NetworkLiveData.initNetwork(this)
         PushNotificationManager.createNotificationChannel(this)
-        beaconUtils.beaconConnect()
-        beaconManager = beaconUtils.beaconManager
-        region = beaconUtils.region
+
+
         isInternetActive = NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
         preferenceRepository = PreferenceRepository(

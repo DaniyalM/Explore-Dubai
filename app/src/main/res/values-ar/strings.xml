@@ -8,13 +8,13 @@
     <string name="sop1">"You have a basic account, please upgrade the basic account"</string>
     <string name="user_canceled_the_login">ألغى المستخدم تسجيل الدخول</string>
     <string name="enter_your_comments">Enter Your Comments</string>
+    <string name="you_are_leaving">You are leaving the Region</string>
 
     <string name="result">result</string>
 
     // home tabs
     <string name="service_procedure">Service Procedure</string>
     <string name="faqs">Faqs</string>
-
     <string name="explore">اكتشف</string>
     <string name="events">الفعاليات</string>
     <string name="attractions">الوجهات الثقافية</string>
@@ -384,6 +384,7 @@
     <string name="clear_search_history">Clear Search History</string>
 
     <string name="accessbility_desc">To enable Accessibility, you need to go to\nSetting->Accessibility then you can enable the features you needed</string>
+    <string name="explore_attractions_around">Explore attractions around</string>
 
 
     <!--  End of Sprint 3  -->

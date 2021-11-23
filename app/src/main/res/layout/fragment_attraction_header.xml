@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_75sdp"
+
                 android:layout_weight="1">
 
                 <LinearLayout
@@ -52,7 +52,8 @@
                         android:id="@+id/pager"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:paddingBottom="@dimen/_70sdp"/>
                 </LinearLayout>
 
             </com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>

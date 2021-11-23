@@ -43,6 +43,7 @@ class BeaconSharedViewModel @Inject constructor(
 
 
         viewModelScope.launch {
+
             when (val result = visitedRepository.addVisitedPlace(addVisitedPlaceRequest)) {
                 is Result.Success -> {
                     if (result.value == "Added") {
