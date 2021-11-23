@@ -197,6 +197,22 @@
         <action
             android:id="@+id/action_aboutFragment_to_privacyTermConditionFragment"
             app:destination="@id/privacyTermConditionFragment" />
+        <action
+            android:id="@+id/action_aboutFragment_to_webviewFragment"
+            app:destination="@id/webviewFragment">
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/webviewFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.about.WebViewFragment"
+        android:label="WebviewFragment"
+        tools:layout="@layout/fragment_web_view" >
+        <argument
+            android:name="webview_url"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/sharedFeeback"

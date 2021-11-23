@@ -30,6 +30,7 @@ class SearchPagingSource(
                 )
             )
             return if (!response.succeeded) {
+                error("No Records Found")
                 LoadResult.Error(Throwable(message = "No Records Found"))
             } else {
                 callback(response.Result.searchesResultItem.TotalRecordCount)
