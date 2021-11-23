@@ -93,8 +93,15 @@ class ServiceDownVoteFeedBackViewModel @Inject constructor(
             )) {
                 is Result.Success -> {
                     showLoader(false)
+                    showAlert(
+                        title = result.value.Result.MessageHeading,
+                        message = "${result.value.Result.MessageBody} ${result.value.Result.Reference}"
+                    ){
+                        navigateByBack()
+//                        _downVote.value = Event(true)
+                    }
 
-                    _downVote.value = Event(result.value)
+
                 }
                 is Result.Failure -> {
                     showLoader(false)

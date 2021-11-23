@@ -8,6 +8,7 @@ import com.dubaiculture.data.repository.popular_service.mapper.transformService
 import com.dubaiculture.data.repository.popular_service.mapper.transformServiceDetail
 import com.dubaiculture.data.repository.popular_service.remote.ServiceRDS
 import com.dubaiculture.data.repository.popular_service.remote.request.EServiceRequest
+import com.dubaiculture.data.repository.popular_service.remote.response.ServiceResponse
 import com.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
 import javax.inject.Inject
 
@@ -28,11 +29,11 @@ class ServiceRepository @Inject constructor(
             is Result.Error -> resultRDS
         }
     }
-    suspend fun postServiceComment(eServiceRequest: EServiceRequest): Result<Boolean> {
+    suspend fun postServiceComment(eServiceRequest: EServiceRequest): Result<ServiceResponse> {
         return when (val resultRDS = serviceRDS.postServiceComment(eServiceRequest)) {
             is Result.Success -> {
                 if (resultRDS.value.succeeded) {
-                    Result.Success(true)
+                    Result.Success(resultRDS.value)
                 } else {
                     Result.Failure(false, null, null, resultRDS.value.errorMessage)
                 }
