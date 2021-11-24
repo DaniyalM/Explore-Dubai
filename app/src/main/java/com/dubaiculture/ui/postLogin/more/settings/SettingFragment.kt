@@ -18,6 +18,7 @@ import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.enableLocationFromSettings
 import com.dubaiculture.utils.handleApiError
 import com.dubaiculture.utils.location.LocationHelper
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,8 +37,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
 
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ) = FragmentSettingBinding.inflate(inflater, container, false)
 
 
@@ -62,10 +63,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
     private fun initiateRequest() {
         binding.swipeRefresh.apply {
             setColorSchemeResources(
-                    R.color.colorPrimary,
-                    android.R.color.holo_green_dark,
-                    android.R.color.holo_orange_dark,
-                    android.R.color.holo_blue_dark
+                R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark
             )
             setOnRefreshListener {
                 binding.swipeRefresh.isRefreshing = false
@@ -99,31 +100,47 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
         when (v?.id) {
             R.id.noti -> {
                 navigate(
-                        R.id.action_settingFragment_to_notificationSettingFragment,
-                        Bundle().apply {
-                            this.putParcelable(
-                                    Constants.NavBundles.SETTINGS_BUNDLE,
-                                    userSettings as Parcelable
-                            )
-                        })
+                    R.id.action_settingFragment_to_notificationSettingFragment,
+                    Bundle().apply {
+                        this.putParcelable(
+                            Constants.NavBundles.SETTINGS_BUNDLE,
+                            userSettings as Parcelable
+                        )
+                    })
             }
             R.id.reset -> {
+                showConfirmationDialog()
+
+
+            }
+        }
+
+    }
+
+    private fun showConfirmationDialog() {
+        MaterialAlertDialogBuilder(requireContext(), R.style.MaterialDialogTheme)
+            .setMessage(resources.getString(R.string.are_you_sure_want_to_reset_setting))
+            .setPositiveButton(resources.getString(R.string.reset_settings)) { dialog, which ->
                 userSettings.apply {
                     turnOnLocation = false
                     pushNotification = false
                     sms = false
                     email = false
                     locationBasedNotifications = false
-                    culture=getCurrentLanguage().language
+                    culture = getCurrentLanguage().language
                     profileViewModel.updateSettings(this, true)
                 }
+                dialog.dismiss()
             }
-        }
-
+            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
+                dialog.cancel()
+            }
+            .show()
     }
 
-private  fun darkModeEnable() {
-        val preferenceRepository = (requireActivity().application as ApplicationEntry).preferenceRepository
+    private fun darkModeEnable() {
+        val preferenceRepository =
+            (requireActivity().application as ApplicationEntry).preferenceRepository
         preferenceRepository.isDarkThemeLive.observe(viewLifecycleOwner) { isDarkTheme ->
             isDarkTheme?.let { binding.switchDarkMode.isChecked = it }
         }
@@ -133,7 +150,7 @@ private  fun darkModeEnable() {
         }
     }
 
-  private  fun markPushNotificationSwitch() {
+    private fun markPushNotificationSwitch() {
         binding.switchLoc.apply {
             setOnCheckedChangeListener(null)
             isChecked = locationHelper.isLocationEnabled()
@@ -169,12 +186,12 @@ private  fun darkModeEnable() {
 
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
-                handleRationale = false
+            handleRationale = false
         )
         activity.runWithPermissions(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                options = quickPermissionsOption
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            options = quickPermissionsOption
         ) {
             activity.enableLocationFromSettings()
 
