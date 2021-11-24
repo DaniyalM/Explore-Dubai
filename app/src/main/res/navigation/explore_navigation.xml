@@ -213,7 +213,7 @@
             <argument
                 android:name="event_id"
                 app:argType="string"
-                app:nullable="false" />
+                app:nullable="true" />
         </action>
 
     </fragment>
