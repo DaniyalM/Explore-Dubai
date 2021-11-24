@@ -210,6 +210,11 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                                 requireActivity().supportFragmentManager, event.tag
                             )
                         }
+                        is UiEvent.ShowErrorDialog -> {
+                            EventUtilFunctions.showErrorDialog(event.message,
+                                colorBg = event.colorBg,
+                                context = activity)
+                        }
                         is UiEvent.NavigateByActionNavOption -> {
                             navigateByActionNavOptions(
                                 event.actionId,

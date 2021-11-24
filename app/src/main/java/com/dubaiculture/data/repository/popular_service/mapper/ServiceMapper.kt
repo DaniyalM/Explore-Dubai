@@ -14,7 +14,8 @@ fun transformServiceRequest(serviceRequest: EServiceRequest) = EServiceRequestDT
     FullName = serviceRequest.fullName ?: "",
     Email = serviceRequest.email ?: "",
     Comment = serviceRequest.comment ?: "",
-    ItemID = serviceRequest.id ?: ""
+    ItemID = serviceRequest.id ?: "",
+    Culture = serviceRequest.culture ?: "",
 )
 
 fun transformService(serviceResponse: ServiceResponse): EServices =

@@ -1,5 +1,6 @@
 package com.dubaiculture.ui.postLogin.more
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.RequestManager
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.popular_service.local.models.ServiceCategory
 import com.dubaiculture.databinding.FragmentMoreBinding
@@ -19,6 +21,7 @@ import com.dubaiculture.ui.postLogin.more.adapter.MoreItems
 import com.dubaiculture.ui.postLogin.more.adapter.ServicesAdapter
 import com.dubaiculture.ui.postLogin.more.adapter.clicklisteners.ServicesClickListener
 import com.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
+import com.dubaiculture.utils.AppConfigUtils.getDate
 import com.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
 import com.dubaiculture.utils.Constants.NavBundles.SERVICE_ID
@@ -35,6 +38,7 @@ import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
@@ -162,7 +166,16 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         rvSetUp()
         setupRV()
         cardViewRTL()
-
+        try {
+            val versionName =
+                activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
+            binding.tvVersionNo.text = "Version:$versionName"
+//            val  buildDate:Date = Date(BuildConfig.BUILD_TIME)
+            binding.tvUpdatedDate.text =
+                "Updated On: " + getDate(BuildConfig.BUILD_TIME.time, "dd-mm-yyyy")
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
     }
 
     private fun cardViewRTL() {
@@ -343,7 +356,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
     private fun showAccessibilityDialog() {
 
-        MaterialAlertDialogBuilder(context!!,R.style.MaterialDialogTheme)
+        MaterialAlertDialogBuilder(context!!, R.style.MaterialDialogTheme)
             .setMessage(resources.getString(R.string.accessbility_desc))
             .setPositiveButton(resources.getString(R.string._ok)) { dialog, which ->
                 dialog.dismiss()

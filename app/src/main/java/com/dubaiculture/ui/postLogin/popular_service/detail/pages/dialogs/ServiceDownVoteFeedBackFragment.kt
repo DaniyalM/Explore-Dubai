@@ -23,7 +23,9 @@ class ServiceDownVoteFeedBackFragment : BaseFragment<FragmentServiceDownVoteBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        serviceDownVoteFeedBackViewModel.locale=getCurrentLanguage().language
         binding.viewmodel = serviceDownVoteFeedBackViewModel
+
 //        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.FullScreenDialog)
         binding.header.back.apply {
             setOnClickListener {

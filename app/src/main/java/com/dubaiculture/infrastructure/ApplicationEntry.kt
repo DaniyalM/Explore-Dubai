@@ -22,23 +22,13 @@ class ApplicationEntry : Application() {
     lateinit var auth: AuthState
     var isInternetActive = false
     lateinit var preferenceRepository: PreferenceRepository
-
     var appStarted: Boolean = false
-
-
-
-
-
-
-
 
     override fun onCreate() {
         super.onCreate()
         auth = AuthState()
         NetworkLiveData.initNetwork(this)
         PushNotificationManager.createNotificationChannel(this)
-
-
         isInternetActive = NetworkLiveData.isInternetAvailable()
         Timber.plant(Timber.DebugTree())
         preferenceRepository = PreferenceRepository(

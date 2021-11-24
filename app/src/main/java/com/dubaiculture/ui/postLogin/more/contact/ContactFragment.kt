@@ -2,6 +2,7 @@ package com.dubaiculture.ui.postLogin.more.contact
 
 import android.Manifest
 import android.R.attr.label
+import android.R.attr.title
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -62,6 +63,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
         subscribeUiEvents(moreViewModel)
         mapSetUp(savedInstanceState)
         callingObserver()
+        arrowRTL(binding.ivShare)
         binding.let {
             it.imgClose.setOnClickListener(this)
             it.imgFb.setOnClickListener(this)
@@ -99,15 +101,18 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 socialList.addAll(it.socialLinks)
                 contactCenterReach = it.contactCenterReach
                 moreViewModel.setPinOnMap(map, contactCenterLocation)
-                binding.tvNumber.setOnLongClickListener {
-//                    val clipboard: ClipboardManager? =
-//                        activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
-//                    val clip = ClipData.newPlainText(label, text)
-//                    clipboard?.setPrimaryClip(clip)
-                    true
-                }
+                binding.tvNumber.text= "${contactCenterLocation.houseText} ${contactCenterLocation.houseContent}"
+
 
             }
+        }
+        binding.tvNumber.setOnLongClickListener {
+                    val clipboard: ClipboardManager? =
+                        activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+                    val clip = ClipData.newPlainText("Contact", contactCenterLocation.houseContent)
+                    clipboard?.setPrimaryClip(clip)
+            showToast(message = "${contactCenterLocation.houseContent} ${resources.getString(R.string.copied)}")
+            return@setOnLongClickListener true
         }
     }
     override fun onClick(v: View?) {
@@ -160,13 +165,22 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 openDiallerBox(contactCenterReach.callContent)
             }
             R.id.email_ll -> {
-                openEmailbox(contactCenterReach.emailContent)
+                showAlert(
+                    title="${resources.getString(R.string.confirm)}",
+                    message = "${resources.getString(R.string.send_mail_text)} ${contactCenterReach.emailContent}",
+                    actionPositive = {
+                        openEmailbox(contactCenterReach.emailContent)
+                    }
+                )
+
             }
             R.id.fax_ll -> {
 
             }
             R.id.website_ll -> {
-               openWebURL(contactCenterReach.websiteContent)
+                navigateByDirections(ContactFragmentDirections.actionContactFragmentToWebviewFragment(
+                    contactCenterReach.websiteContent
+                ))
             }
             R.id.getDirection -> {
                 locationPermission()
@@ -234,5 +248,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
 
     override fun onMapReady(p0: GoogleMap) {
         map = p0
+        p0.uiSettings.setAllGesturesEnabled(false)
+
     }
 }
