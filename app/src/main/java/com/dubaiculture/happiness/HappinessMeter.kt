@@ -53,6 +53,7 @@ object HappinessMeter {
          * This is QA URL. Replace it with production once it is ready for production.
          */
         VotingManager.setHappinessUrl("https://happinessmeterqa.dubai.gov.ae/HappinessMeter2/MobilePostDataService")
+//        VotingManager.setHappinessUrl("https://happinessmeter.dubai.gov.ae/HappinessMeter2/MobilePostDataService")
         //For arabic pass lang "ar"
 //        val lang: String
 //        lang = if (checkbox.isChecked()) {

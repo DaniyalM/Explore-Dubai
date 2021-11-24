@@ -63,11 +63,24 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     @Inject
     lateinit var glide: RequestManager
     lateinit var mapView: MapView
-    var googleMap: GoogleMap? = null
+    private lateinit var googleMap: GoogleMap
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
     ) = FragmentExploreMapBinding.inflate(inflater, container, false)
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (!this::googleMap.isInitialized) {
+            mapSetUp(savedInstanceState)
+//            mapView = MapView(activity)
+        }else{
+            callingObserver()
+
+        }
+        appendInAttractionCategoryList()
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -83,13 +96,12 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         binding.ImgChangeView.setOnClickListener(this)
         binding.search.setOnClickListener(this)
 
-        callingObserver()
-        mapSetUp()
+//        mapSetUp()
 
-        if (!this::mapView.isInitialized){
-            appendInAttractionCategoryList()
-            mapView = MapView(activity)
-        }
+//        if (!this::mapView.isInitialized){
+//            appendInAttractionCategoryList()
+//            mapView = MapView(activity)
+//        }
 
     }
 
@@ -116,8 +128,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
             R.id.back -> {
                 back()
             }
-            R.id.search->{
-                application.auth.isMapSearch=true
+            R.id.search -> {
+                application.auth.isMapSearch = true
                 back()
 //                navigateByDirections(ExploreMapFragmentDirections.actionExploreMapFragmentToSearchNavigation())
             }
@@ -205,23 +217,31 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
 
 
     private fun mapSetUp() {
-        if (googleMap==null){
+        if (googleMap == null) {
             val mapFragment =
                 childFragmentManager.findFragmentById(R.id.google_map) as? SupportMapFragment
             mapFragment!!.getMapAsync(this)
         }
 
     }
+
     private fun mapSetUp(savedInstanceState: Bundle?) {
 
-        if (!this::mapView.isInitialized){
-            mapView = binding.root.findViewById(R.id.google_map)
-            mapView?.let {
-                it.getMapAsync(this)
-                it.onCreate(savedInstanceState)
+        mapView = binding.root.findViewById(R.id.mapView)
+        mapView?.let {
+            it.getMapAsync(this)
+            it.onCreate(savedInstanceState)
 
-            }
         }
+
+//        if (!this::mapView.isInitialized){
+//            mapView = binding.root.findViewById(R.id.google_map)
+//            mapView?.let {
+//                it.getMapAsync(this)
+//                it.onCreate(savedInstanceState)
+//
+//            }
+//        }
 
     }
 
@@ -244,7 +264,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                         ),
                         this
 
-                        )
+                    )
                     rvSetUp(
                         exploreMapViewModel.mergeArrayList(
                             exploreMapList,
@@ -288,7 +308,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             locationHelper,
                             exploreMapList,
                             attractions, lat, lng
-                        ), this,
+                        ),
+                        this,
 //                        inRangeEventIcon = 0,
 //                        outRangeEventIcon = 0,
 //                        inRangeIcon = iconArray[0],
@@ -313,7 +334,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             locationHelper,
                             exploreMapList,
                             attractions, lat, lng
-                        ), this,
+                        ),
+                        this,
 //                        inRangeIcon = iconArray[2],
 //                        outRangeIcon = iconArray[3]
                     )
@@ -337,7 +359,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             locationHelper,
                             exploreMapList,
                             attractions, lat, lng
-                        ), this,
+                        ),
+                        this,
 //                        inRangeIcon = iconArray[0],
 //                        outRangeIcon = iconArray[1]
                     )
@@ -363,7 +386,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             locationHelper,
                             exploreMapList,
                             attractions, lat, lng
-                        ), this,
+                        ),
+                        this,
 //                        inRangeIcon = iconArray[4],
 //                        outRangeIcon = iconArray[5]
                     )
@@ -387,7 +411,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             locationHelper,
                             exploreMapList,
                             attractions, lat, lng
-                        ), this,
+                        ),
+                        this,
 //                        inRangeIcon = iconArray[6],
 //                        outRangeIcon = iconArray[7]
                     )
@@ -406,14 +431,33 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         }
     }
 
-    override fun onMapReady(map: GoogleMap?) {
-        googleMap = map!!
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
+        callingObserver()
+
     }
 
     // rv setUp get the sorted by distance and a/c to the top header categories List e.g if press on heritage so it sorted by distance and all heritage items
     private fun rvSetUp(list: List<ExploreMap>) {
         exploreNearAdapter = ExploreMapAdapter(isArabic(), object : RowClickListener {
             override fun rowClickListener(position: Int) {
+
+                if (list[position].isAttraction) {
+
+                    navigateByDirections(
+                        ExploreMapFragmentDirections.actionExploreFragmentToAttractionDetailNavigation(
+                            list[position].id
+                        )
+                    )
+
+                } else {
+                    navigateByDirections(
+                        ExploreMapFragmentDirections.actionExploreFragmentToEventDetailNavigation(
+                            list[position].id
+                        )
+                    )
+                }
+
             }
 
             override fun rowClickListener(position: Int, imageView: ImageView) {
@@ -474,6 +518,23 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         googleMap.cameraPosition.target
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView?.onDestroy()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView?.onResume()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView?.onPause()
+
+    }
 
 }
 
