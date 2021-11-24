@@ -414,6 +414,9 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     private fun rvSetUp(list: List<ExploreMap>) {
         exploreNearAdapter = ExploreMapAdapter(isArabic(), object : RowClickListener {
             override fun rowClickListener(position: Int) {
+
+//                if(list[position].sada)
+
             }
 
             override fun rowClickListener(position: Int, imageView: ImageView) {
