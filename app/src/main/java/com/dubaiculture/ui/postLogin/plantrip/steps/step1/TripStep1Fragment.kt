@@ -38,12 +38,9 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeUiEvents(step1ViewModel)
+        binding.view = this
         binding.viewModel = step1ViewModel
-        binding.step1View = this
-
-
-
+        subscribeUiEvents(step1ViewModel)
         lottieAnimationRTL(binding.animationView)
         setupRV()
 

@@ -23,6 +23,7 @@ class WebViewFragment : BaseFragment<FragmentWebViewBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        backArrowRTL(binding.imgClose)
 
 //        showToast(args.webviewUrl)
         binding.webview.settings.apply {
