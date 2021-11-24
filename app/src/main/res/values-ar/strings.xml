@@ -316,11 +316,7 @@
 
     <string name="lorem_ipsum"></string>
 
-    <string name="are_you_sure_want_to_delete_all">Are you sure you want\nto delete all days?</string>
-    <string name="are_you_sure_want_to_reset_setting">Are you sure you want to reset settings?</string>
 
-    <string name="try_again">Try Again</string>
-    <string name="clear_search_history">Clear Search History</string>
     <string name="step1">الخطوة 1</string>
     <string name="step2">الخطوة 2</string>
     <string name="step3">الخطوة 3</string>
@@ -370,9 +366,31 @@
     <string name="addLocation">اضافة موقع</string>
     <string name="enterLocation">ادخل الموقع</string>
 
-    <string name="accessbility_desc">To enable Accessibility, you need to go to\nSetting->Accessibility then you can enable the features you needed</string>
-    <string name="explore_attractions_around">Explore attractions around</string>
+    <string name="day2">2 يومين</string>
+    <string name="day4">4 ايام</string>
+    <string name="day6">6 ايام </string>
+    <string name="day8">8 ايام </string>
+    <string name="day10">10 ايام </string>
+    <string name="trip_created_desc">لقد قمت بإنشاء رحلتك بنجاح</string>
+    <string name="_ok">موافق</string>
+    <string name="deleteTrip">حذف الرحلة</string>
+    <string name="selectUserType">اختر نوع المستخدم!</string>
+    <string name="selectCategory">اختر الفئة!</string>
+    <string name="selectLocation">اختر الموقع!</string>
+    <string name="you_are_authenticated_successfull_try_to_link_your_account">لقد تم توثيق حسابك بنجاح مع الهوية الرقمية</string>
+    <string name="link_account">ربط الحساب</string>
+    <string name="create_account">إنشاء حساب</string>
+    <string name="please_authenticate_using_you_dcaa_credentials_to_link_your_account">الرجاء التوثيق باستخدام حسابك في هيئة الثقافة لربط حسابك</string>
+    <string name="note_this_is_only_one_time_setup">ملاحظة: عملية الربط تظهر لمره واحده فقط</string>
+    <string name="if_you_don_t_have_an_account_then_please_click_on_the_following_button">اذا لم تمتلك حساب يرجى الضغط على الزر التالي</string>
 
+    <string name="are_you_sure_want_to_delete_all">هل انت متأكد من\nحذف جميع الايام</string>
+    <string name="try_again">المحاولة لاحقا</string>
+    <string name="clear_search_history">مسح سجل البحث</string>
+
+    <string name="accessbility_desc">للتمكن من تفعيل خدمات امكانية الوصول يرجى الذهاب الى\nاعدادات -> عام -> امكانيةالوصول\nثم يمكنك تفعيل الخدمة اللتي تناسبك</string>
+    <string name="explore_attractions_around">اكتشف الوجهات المجاورة</string>
+    <string name="service_feed_back">ملاحظات الخدمة</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
