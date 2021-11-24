@@ -3,7 +3,6 @@ package com.dubaiculture.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -12,7 +11,6 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -73,6 +71,16 @@ object AppConfigUtils {
         return drawable!!
     }
 
+    fun getDate(milliSeconds: Long, dateFormat: String?): String? {
+        // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat(dateFormat,Locale.getDefault())
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = milliSeconds
+        return formatter.format(calendar.time)
+    }
+
     fun getDrawable(context: Context, drawableResId: Int): Drawable? {
         return VectorDrawableCompat.create(context.resources, drawableResId, context.theme)
     }
@@ -121,10 +129,10 @@ object AppConfigUtils {
         if (stringUrl.isNotEmpty()) {
             val i = Intent(Intent.ACTION_SEND)
             i.type = "text/plain"
-            i.putExtra(Intent.EXTRA_TITLE, title?:detail)
-            i.putExtra(Intent.EXTRA_SUBJECT, detail?:detail)
+            i.putExtra(Intent.EXTRA_TITLE, title)
+            i.putExtra(Intent.EXTRA_SUBJECT, detail)
             i.putExtra(Intent.EXTRA_TEXT, BuildConfig.BASE_URL_SHARE + stringUrl)
-            activity.startActivity(Intent.createChooser(i, title?:detail))
+            activity.startActivity(Intent.createChooser(i, title))
         }
     }
 

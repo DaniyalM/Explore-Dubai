@@ -149,7 +149,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         mapSetUp(savedInstanceState)
         detailInnerLayout = binding.attractionDetailInnerLayout
         toolbarLayout = binding.toolbarLayoutDetail
-        mapView?.isEnabled = false
+
 //        setupSwipeToRefresh()
         rvSetUp()
 
@@ -171,9 +171,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
     private fun initializeDetails(attraction: Attractions) {
-
-
         binding.attraction = attraction
+        attraction.ibecons?.ibeconItems?.let {
+            detailInnerLayout.ibeaconsDesc.text= it[0].subtitle
+        }
         if (this::marker.isInitialized) {
             marker.let {
                 it.position = LatLng(
@@ -221,7 +222,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             latitude!!.toDouble(),
                             longitude!!.toDouble()
                         )
-                        detailInnerLayout.tvKm.text = "$distance  ${resources.getString(R.string.away)}"
+                        detailInnerLayout.tvKm.text =
+                            "$distance  ${resources.getString(R.string.away)}"
                     } catch (e: java.lang.NumberFormatException) {
                     }
 
@@ -287,6 +289,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                     attractionsObj = it.value
                     urlshare = "${it.value.url}?q=${it.value.id}"
+
                     mapView?.invalidate()
 
 //                    val attractionLatLng = LatLng(
@@ -334,10 +337,10 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                     if (urlshare != null && !urlshare!!.isEmpty()) {
                         toolbarLayout.share.setOnClickListener { view ->
-                            shareLink(urlshare ?: "", activity,title = attractionsObj!!.title)
+                            shareLink(urlshare ?: "", activity, title = attractionsObj!!.title,detail = attractionsObj!!.description!!)
                         }
                         binding.share.setOnClickListener { view ->
-                            shareLink(urlshare ?: "", activity,title = attractionsObj!!.title)
+                            shareLink(urlshare ?: "", activity, title = attractionsObj!!.title,detail = attractionsObj!!.description!!)
                         }
                     } else {
                         toolbarLayout.share.hide()
@@ -582,7 +585,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                         it.latitude?.toDouble()!!,
                                         it.longitude?.toDouble()!!
                                     )
-                                detailInnerLayout.tvKm.text = "$distance  ${resources.getString(R.string.away)}"
+                                detailInnerLayout.tvKm.text =
+                                    "$distance  ${resources.getString(R.string.away)}"
                             }
                         }
 
@@ -603,7 +607,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     attractionsObj!!.latitude?.toDouble()!!,
                     attractionsObj!!.longitude?.toDouble()!!
                 )
-
+                map?.uiSettings?.setAllGesturesEnabled(false)
 
                 map?.addMarker(
                     MarkerOptions()

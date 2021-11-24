@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class BeaconItems(
     val step: String? = null,
     val title: String? = null,
+    val subtitle: String? = null,
     val image: String? = null,
     val thumbnail: String? = null,
     val summary: String? = null,

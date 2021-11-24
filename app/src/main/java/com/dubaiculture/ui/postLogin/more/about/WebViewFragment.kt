@@ -1,17 +1,16 @@
 package com.dubaiculture.ui.postLogin.more.about
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import com.dubaiculture.R
-import com.dubaiculture.databinding.FragmentAboutBinding
 import com.dubaiculture.databinding.FragmentWebViewBinding
 import com.dubaiculture.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
-
+@AndroidEntryPoint
 class WebViewFragment : BaseFragment<FragmentWebViewBinding>() {
 
     val args: WebViewFragmentArgs by navArgs()
@@ -26,8 +25,18 @@ class WebViewFragment : BaseFragment<FragmentWebViewBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
 //        showToast(args.webviewUrl)
+        binding.webview.settings.apply {
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            loadWithOverviewMode = true
+            useWideViewPort = true
+            builtInZoomControls = true
+            displayZoomControls = false
+            setSupportZoom(true)
 
+        }
         binding.webview.loadUrl(args.webviewUrl)
+
 
         binding.imgClose.setOnClickListener {
             back()

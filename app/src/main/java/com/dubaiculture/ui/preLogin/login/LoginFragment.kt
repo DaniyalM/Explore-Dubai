@@ -44,6 +44,7 @@ import com.estimote.coresdk.common.requirements.SystemRequirementsHelper
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -371,7 +372,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
                 } else {
                     accessToken?.let {
                         token = it
-//                        Timber.e("Token : $it")
+                        Timber.e("Token : $it")
                         loginViewModel.loginWithUae(
                             UAELoginRequest(
                                 token = it,

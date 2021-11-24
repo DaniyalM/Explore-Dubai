@@ -368,7 +368,10 @@
     <string name="addLocation">Add Location</string>
     <string name="enterLocation">Enter location</string>
     <string name="you_are_leaving">You are leaving the Region</string>
+    <string name="copied">Copied!</string>
+    <string name="send_mail_text">Want to send email to this</string>
 
+    <string name="space">\u0020</string>
 
 
     <string name="day2">2 Days</string>
@@ -394,6 +397,7 @@
     <string name="clear_search_history">Clear Search History</string>
     <string name="accessbility_desc">To enable Accessibility, you need to go to\nSetting->Accessibility then you can enable the features you needed</string>
     <string name="explore_attractions_around">Explore attractions around</string>
+    <string name="service_feed_back">Service Feed Back</string>
 
 
 </resources>

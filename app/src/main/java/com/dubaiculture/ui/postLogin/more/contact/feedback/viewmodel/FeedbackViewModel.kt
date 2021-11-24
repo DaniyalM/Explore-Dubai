@@ -154,15 +154,20 @@ class FeedbackViewModel @Inject constructor(
                 email = email.get().toString().trim(),
                 type = selectedTypeId.toString(),
                 fullName = fullName.get().toString().trim(),
-                message = message.get().toString().trim()
+                message = message.get().toString().trim(),
+                subject = subject.get().toString().trim()
             ).let {
                 when (val result = moreRepository.postFeedBack(it)) {
                     is Result.Success -> {
 
                         showLoader(false)
-                        showToast(message = result.value.message)
-                        navigateByBack()
-
+                        showAlert(
+                            title = result.value.heading?:"",
+                            message = "${result.value.message} ${result.value.reference}"
+                        ){
+                            navigateByBack()
+//                        _downVote.value = Event(true)
+                        }
 
                     }
                     is Result.Failure -> {

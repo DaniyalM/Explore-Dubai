@@ -158,6 +158,7 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
                 BeaconItems(
                     step = iBeaconsItemsDTO.step,
                     title = iBeaconsItemsDTO.title,
+                    subtitle =  iBeaconsItemsDTO.subtitle,
                     image = iBeaconsItemsDTO.img,
                     thumbnail = iBeaconsItemsDTO.thumbnail,
                     summary = iBeaconsItemsDTO.summary,

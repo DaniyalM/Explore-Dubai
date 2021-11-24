@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="view"
+            name="step1View"
             type="com.dubaiculture.ui.postLogin.plantrip.steps.step1.TripStep1Fragment" />
 
         <variable
@@ -50,7 +49,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvima"
-            tools:listitem="@layout/item_trip_step1" />
+           />
 
         <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btnNext"
@@ -63,7 +62,7 @@
             android:background="@drawable/btn_register"
             android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
-            android:onClick="@{()->view.onNextClicked()}"
+            android:onClick="@{()->step1View.onNextClicked()}"
             android:text="@string/next"
             android:textAllCaps="false"
             android:textColor="@color/white_900"

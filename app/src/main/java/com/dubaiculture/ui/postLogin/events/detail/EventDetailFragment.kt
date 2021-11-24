@@ -307,7 +307,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 urlshare
                                     ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
                                 activity,
-                                detail = eventObj!!.desc!!?:eventObj!!.title!!
+                                title=eventObj!!.title!!+": "+eventObj!!.toDate+"-"+eventObj!!.toMonthYear,
+                                detail = eventObj!!.desc!!
                             )
                         }
                         binding.share.setOnClickListener {
@@ -315,7 +316,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 urlshare
                                     ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
                                 activity,
-                                detail = eventObj!!.desc!!?:eventObj!!.title!!
+                                title=eventObj!!.title!!+": "+eventObj!!.toDate+"-"+eventObj!!.toMonthYear,
+                                detail = eventObj!!.desc!!
                             )
 
                         }
@@ -549,6 +551,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
         map?.let {
             this.map = it
+            it.uiSettings.setAllGesturesEnabled(false)
+
         }
 
 

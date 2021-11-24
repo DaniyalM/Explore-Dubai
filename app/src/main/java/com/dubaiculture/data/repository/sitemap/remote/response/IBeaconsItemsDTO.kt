@@ -10,6 +10,9 @@ data class IBeaconsItemsDTO(
     @SerializedName("Title")
     @Expose
     var title: String?=null,
+    @SerializedName("Subtitle")
+    @Expose
+    var subtitle: String?=null,
     @SerializedName("Image")
     @Expose
     var img: String?=null,

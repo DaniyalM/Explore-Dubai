@@ -304,11 +304,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                                 )
                             }
                             else -> {
-                                openUrl(
-                                    url = BuildConfig.BASE_URL_SHARE + searchResultItem.detailPageUrl,
-                                    context = activity,
-                                    isWeb = true
-                                )
+
+                                navigateByDirections(SearchFragmentDirections.actionSearchFragmentToWebViewFragment(
+                                    BuildConfig.BASE_URL_SHARE + searchResultItem.detailPageUrl
+                                ))
+//                                openUrl(
+//                                    url = BuildConfig.BASE_URL_SHARE + searchResultItem.detailPageUrl,
+//                                    context = activity,
+//                                    isWeb = true
+//                                )
                             }
                         }
 
