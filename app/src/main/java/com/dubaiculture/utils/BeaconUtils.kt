@@ -3,6 +3,7 @@ package com.dubaiculture.utils
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import com.dubaiculture.data.repository.visited.VisitedRepository
 import com.dubaiculture.ui.preLogin.PreLoginActivity
 import com.dubaiculture.utils.Constants.IBecons.IDENTIFIER
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 class BeaconUtils @Inject constructor(
     private val context: Context,
-    private val visitedRepository: VisitedRepository,
+//    private val visitedRepository: VisitedRepository,
 ) {
     var beaconManager: BeaconManager = BeaconManager(context)
     var region: BeaconRegion = BeaconRegion(IDENTIFIER, UUID.fromString(UUID_BECON), MAJOR, MINOR)
@@ -35,12 +36,12 @@ class BeaconUtils @Inject constructor(
             beaconManager.startRanging(region)
             beaconManager.setScanStatusListener(object : BeaconManager.ScanStatusListener {
                 override fun onScanStart() {
-//                    Toast.makeText(context,"Dubai Culture Scanning has been started",Toast.LENGTH_SHORT).show()
-                    PushNotificationManager.showNotification(
-                        context,
-                        "Beacon Scanning",
-                        "Dubai Culture Scanning has been started", null
-                    )
+                    Toast.makeText(context,"Dubai Culture Scanning has been started", Toast.LENGTH_SHORT).show()
+//                    PushNotificationManager.showNotification(
+//                        context,
+//                        "Beacon Scanning",
+//                        "Dubai Culture Scanning has been started", null
+//                    )
                 }
 
                 override fun onScanStop() {

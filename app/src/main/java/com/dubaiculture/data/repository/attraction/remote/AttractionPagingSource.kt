@@ -15,14 +15,14 @@ class AttractionPagingSource(
     override fun getRefreshKey(state: PagingState<Int, AttractionDTO>): Int? {
         return state.anchorPosition
     }
-
+//    * nextPageNumber
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, AttractionDTO> {
         return try {
             val nextPageNumber = params.key ?: 1
             val response = attractionService.getAttractionsListingByCategory(
                 attractionCatId = attractionRequestDTO.attractionCategoryId!!,
                 pageNumber = nextPageNumber,
-                pageSize = Constants.PAGING.ATTRACTION_PAGING_SIZE * nextPageNumber,
+                pageSize = Constants.PAGING.ATTRACTION_PAGING_SIZE ,
                 culture = attractionRequestDTO.culture
             )
             LoadResult.Page(

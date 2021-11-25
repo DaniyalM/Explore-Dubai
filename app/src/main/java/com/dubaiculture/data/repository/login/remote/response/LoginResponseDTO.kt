@@ -15,8 +15,12 @@ data class LoginResponseDTO constructor(
     val Token: String,
     @SerializedName(value = "IsLinked")
     val IsLinked: Boolean,
+    @SerializedName(value = "IsMigrated")
+    val IsMigrated: Boolean,
+    @SerializedName(value = "IsCreated")
+    val IsCreated: Boolean,
     @SerializedName(value = "UpdateMessage")
-    val UpdateMessage: String,
+    val UpdateMessage: String?,
 
 )
 

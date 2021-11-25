@@ -13,7 +13,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.dubaiculture.R
+import com.dubaiculture.data.repository.login.local.UAEPass
 import com.dubaiculture.data.repository.login.remote.request.UAELoginRequest
+import com.dubaiculture.data.repository.user.local.User
 import com.dubaiculture.databinding.FragmentPostLoginBinding
 import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.postLogin.PostLoginActivity
@@ -37,7 +39,8 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     View.OnClickListener {
     private val postLoginViewModel: PostLoginViewModel by viewModels()
     private val uaePassSharedViewModel: UaePassSharedViewModel by activityViewModels()
-
+    private lateinit var user: User
+    private lateinit var uaePass: UAEPass
     @Inject
     lateinit var dataStoreManager: DataStoreManager
 
@@ -123,6 +126,21 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     }
 
     private fun callingObserver() {
+        postLoginViewModel.user.observe(viewLifecycleOwner){
+            it?.getContentIfNotHandled()?.let {
+                user=it
+            }
+        }
+        postLoginViewModel.userUae.observe(viewLifecycleOwner){
+            it?.getContentIfNotHandled()?.let {
+                uaePass=it
+            }
+        }
+//        uaePassSharedViewModel.dontCreate.observe(viewLifecycleOwner){
+//            it?.getContentIfNotHandled()?.let {
+//                loginViewModel.createAccount(user, uaePass)
+//            }
+//        }
         uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (!it.isAccountCreate!!) {
@@ -133,12 +151,13 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                         ), true
                     )
                 } else {
-                    postLoginViewModel.loginWithUaeCreate(
-                        it.copy(
-                            token = token,
-                            culture = getCurrentLanguage().language
-                        )
-                    )
+                    postLoginViewModel.createAccount(user, uaePass)
+//                    postLoginViewModel.loginWithUaeCreate(
+//                        it.copy(
+//                            token = token,
+//                            culture = getCurrentLanguage().language
+//                        )
+//                    )
                 }
 
             }

@@ -28,7 +28,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.dubaiculture.R
+import com.dubaiculture.data.repository.login.local.UAEPass
 import com.dubaiculture.data.repository.login.remote.request.UAELoginRequest
+import com.dubaiculture.data.repository.user.local.User
 import com.dubaiculture.databinding.FragmentLoginBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.PostLoginActivity
@@ -51,6 +53,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener {
     private val uaePassSharedViewModel: UaePassSharedViewModel by activityViewModels()
+    private  var user: User?=null
+    private  var uaePass:UAEPass?=null
 
     @Inject
     lateinit var dataStoreManager: DataStoreManager
@@ -148,6 +152,23 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
     private fun subscribeToObservables() {
+        loginViewModel.user.observe(viewLifecycleOwner){
+            it?.getContentIfNotHandled()?.let {
+                user=it
+            }
+        }
+        loginViewModel.userUae.observe(viewLifecycleOwner){
+            it?.getContentIfNotHandled()?.let {
+                uaePass=it
+            }
+        }
+        uaePassSharedViewModel.dontCreate.observe(viewLifecycleOwner){
+            it?.getContentIfNotHandled()?.let {
+                if (user!=null&&uaePass!=null)
+                loginViewModel.createAccount(user!!, uaePass!!)
+            }
+        }
+
         uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (!it.isAccountCreate!!) {

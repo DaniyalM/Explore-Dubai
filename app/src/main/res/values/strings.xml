@@ -399,6 +399,7 @@
     <string name="accessbility_desc">To enable Accessibility, you need to go to\nSetting->Accessibility then you can enable the features you needed</string>
     <string name="explore_attractions_around">Explore attractions around</string>
     <string name="service_feed_back">Service Feed Back</string>
+    <string name="no_i_don_t">No I don\'t</string>
 
 
 </resources>

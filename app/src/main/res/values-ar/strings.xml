@@ -392,6 +392,7 @@
     <string name="accessbility_desc">للتمكن من تفعيل خدمات امكانية الوصول يرجى الذهاب الى\nاعدادات -> عام -> امكانيةالوصول\nثم يمكنك تفعيل الخدمة اللتي تناسبك</string>
     <string name="explore_attractions_around">اكتشف الوجهات المجاورة</string>
     <string name="service_feed_back">ملاحظات الخدمة</string>
+    <string name="no_i_don_t">No I don\'t</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->

@@ -39,7 +39,25 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out" >
+            <argument
+                android:name="verificationCode"
+                app:argType="string" />
+
+            <argument
+                android:name="screen_name"
+                app:argType="string" />
+
+            <argument
+                android:name="emailorphone"
+                app:argType="string"
+                />
+
+            <argument
+                android:name="password"
+                app:argType="string"
+                />
+        </action>
         <action
             android:id="@+id/action_postLoginFragment_to_postForgotFragment"
             app:destination="@id/postForgotFragment"
