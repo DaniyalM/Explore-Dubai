@@ -52,19 +52,24 @@
             app:layout_constraintStart_toStartOf="@+id/detailListingHeader"
             app:layout_constraintTop_toBottomOf="@+id/detailListingHeader">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/anim_lottie"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.65"
-                app:lottie_loop="true"
-                app:lottie_autoPlay="true"
-                app:lottie_rawRes="@raw/no_data"
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tvPlaceHolder"
+                style="@style/TextViewStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/home_tab_layout_height"
+                android:lineSpacingExtra="@dimen/text_line_spacing"
+                android:text="@string/no_my_posts_fav"
+                android:textAlignment="center"
+                android:textSize="@dimen/_18sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
- </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

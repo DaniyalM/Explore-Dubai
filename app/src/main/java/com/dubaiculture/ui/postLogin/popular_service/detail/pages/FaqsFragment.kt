@@ -32,9 +32,9 @@ class FaqsFragment(val fAQs: List<FAQ>, val forumPager: ViewPager2) :
             if (fAQs.get(0).fAQs.isEmpty()){
                 hide()
                 binding.detailListingHeader.hide()
-                binding.animLottie.show()
+                binding.tvPlaceHolder.show()
             }else{
-                binding.animLottie.hide()
+                binding.tvPlaceHolder.hide()
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 faqsListAdapter = FaqsListAdapter(object : FaqsItemClickListner {
                     override fun onClickFaqItem(faqItem: FaqItem) {
