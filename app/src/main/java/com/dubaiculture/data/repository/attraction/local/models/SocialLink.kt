@@ -15,4 +15,5 @@ data class SocialLink(
     var youtubeIcon: String? = "",
     var linkedInPageLink: String = "",
     var linkedInIcon: String? = "",
+    var subTitle: String? = "",
 ): Parcelable

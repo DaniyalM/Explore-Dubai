@@ -400,6 +400,7 @@
     <string name="explore_attractions_around">Explore attractions around</string>
     <string name="service_feed_back">Service Feed Back</string>
     <string name="no_i_don_t">No I don\'t</string>
+    <string name="registration_success">Your account has been created, thank you for registering!</string>
 
 
 </resources>

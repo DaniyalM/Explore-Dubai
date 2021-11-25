@@ -48,4 +48,8 @@ class SocialLinkDTO : Parcelable {
     @Expose
     var linkedInIcon: String? = ""
 
+    @SerializedName("Subtitle")
+    @Expose
+    var subtitle: String? = ""
+
 }

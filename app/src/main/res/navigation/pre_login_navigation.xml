@@ -7,7 +7,6 @@
     app:startDestination="@id/loginFragment">
 
 
-
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.dubaiculture.ui.preLogin.login.LoginFragment"
@@ -248,7 +247,7 @@
     <dialog
         android:id="@+id/UAEBottomSheetFragment"
         android:name="com.dubaiculture.ui.preLogin.login.uae.UAEBottomSheetFragment"
-        android:label="UAEBottomSheetFragment" >
+        android:label="UAEBottomSheetFragment">
         <argument
             android:name="token"
             app:argType="string"

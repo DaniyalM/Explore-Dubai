@@ -242,7 +242,8 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                                 youtubeIcon = it.youtubeIcon,
                                 youtubePageLink = it.youtubePageLink,
                                 linkedInIcon = it.linkedInIcon,
-                                linkedInPageLink = it.linkedInPageLink
+                                linkedInPageLink = it.linkedInPageLink,
+                                subTitle = it.subtitle
                         )
                 }
         } ?: mutableListOf(),

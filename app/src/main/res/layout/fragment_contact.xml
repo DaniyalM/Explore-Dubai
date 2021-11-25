@@ -675,7 +675,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Stay Updated"
+                    android:text="@{contactCenter.socialLinks.get(0).subTitle}"
                     style="@style/TextViewStyle"
                     android:textSize="@dimen/_18ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_contact_desc"
