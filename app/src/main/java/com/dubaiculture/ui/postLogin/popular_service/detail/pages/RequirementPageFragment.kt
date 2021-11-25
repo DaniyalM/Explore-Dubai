@@ -18,7 +18,7 @@ import com.dubaiculture.utils.show
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
-class RequirementPageFragment(val requiredDocument: List<RequiredDocument>?) : BaseFragment<ItemsServiceDetailInnerListingLayoutBinding>() {
+class  RequirementPageFragment(val requiredDocument: List<RequiredDocument>?) : BaseFragment<ItemsServiceDetailInnerListingLayoutBinding>() {
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?

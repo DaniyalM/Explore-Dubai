@@ -8,10 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.dubaiculture.data.Result
+import com.dubaiculture.data.repository.more.local.GetMessage
 import com.dubaiculture.data.repository.popular_service.ServiceRepository
 import com.dubaiculture.data.repository.popular_service.remote.request.EServiceRequest
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
+import com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs.ServiceDownVoteFeedBackFragmentDirections
 import com.dubaiculture.utils.AuthUtils.isEmailValid
 import com.dubaiculture.utils.Constants.NavBundles.SERVICE_ID
 import com.dubaiculture.utils.event.Event
@@ -35,7 +37,8 @@ class ServiceDownVoteFeedBackViewModel @Inject constructor(
     val upVote: LiveData<Event<Boolean>> = _upVote
 
     val btnSubmitObserver: ObservableBoolean = ObservableBoolean(false)
-    var email: ObservableField<String> = ObservableField(getApplication<ApplicationEntry>().auth.user?.email)
+    var email: ObservableField<String> =
+        ObservableField(getApplication<ApplicationEntry>().auth.user?.email)
     var fullName: ObservableField<String> =
         ObservableField("")
     var comment: ObservableField<String> = ObservableField("")
@@ -97,10 +100,19 @@ class ServiceDownVoteFeedBackViewModel @Inject constructor(
             )) {
                 is Result.Success -> {
                     showLoader(false)
-                    showErrorDialog(
-                        title = result.value.Result.MessageHeading,
-                        message = "${result.value.Result.MessageBody} ${result.value.Result.Reference}",
+                    navigateByDirections(
+                        ServiceDownVoteFeedBackFragmentDirections.actionServiceDownVoteFeedBackFragmentToMessageDialogFragment(
+                            GetMessage(
+                                heading = result.value.Result.MessageHeading,
+                                message = result.value.Result.MessageBody,
+                                reference = result.value.Result.Reference,
+                            )
+                        )
                     )
+//                    showErrorDialog(
+//                        title = result.value.Result.MessageHeading,
+//                        message = "${result.value.Result.MessageBody} ${result.value.Result.Reference}",
+//                    )
 
 
                 }

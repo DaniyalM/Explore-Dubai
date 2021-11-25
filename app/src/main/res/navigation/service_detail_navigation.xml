@@ -43,6 +43,14 @@
             android:name="service_id"
             app:argType="string"
             app:nullable="false" />
+        <action
+            android:id="@+id/action_serviceDownVoteFeedBackFragment_to_messageDialogFragment"
+            app:destination="@id/messageDialogFragment" >
+            <argument
+                android:name="message"
+                app:argType="com.dubaiculture.data.repository.more.local.GetMessage"
+                app:nullable="false" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/EServiceFragment"
@@ -73,6 +81,15 @@
             app:nullable="true"
             android:defaultValue="@null"
             />
+    </dialog>
+    <dialog
+        android:id="@+id/messageDialogFragment"
+        android:name="com.dubaiculture.ui.postLogin.messageDialog.MessageDialogFragment"
+        android:label="MessageDialogFragment" >
+        <argument
+            android:name="message"
+            app:argType="com.dubaiculture.data.repository.more.local.GetMessage"
+            app:nullable="false" />
     </dialog>
 
 

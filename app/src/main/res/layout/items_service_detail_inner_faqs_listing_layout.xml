@@ -37,15 +37,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:textFont="bold" />
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/anim_lottie"
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tvPlaceHolder"
+                style="@style/TextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_50sdp"
                 android:layout_gravity="center"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/no_data" />
+                android:lineSpacingExtra="@dimen/text_line_spacing"
+                android:text="@string/no_my_posts_fav"
+                android:textAlignment="center"
+                android:textSize="@dimen/_18sdp"/>
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/innerRecyclerView"
