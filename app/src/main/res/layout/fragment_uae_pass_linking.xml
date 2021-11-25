@@ -282,7 +282,7 @@
                         android:foreground="@drawable/custom_ripple_border"
                         android:gravity="center"
                         android:onClick="@{()->viewmodel.createNew()}"
-                        android:text="Create New"
+                        android:text="@string/no_i_don_t"
                         android:textAllCaps="false"
                         android:textColor="?attr/color_dubai_logo"
                         android:transitionName="action_btn"

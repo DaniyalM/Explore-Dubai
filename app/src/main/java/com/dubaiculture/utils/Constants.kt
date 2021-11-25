@@ -192,7 +192,7 @@ object Constants {
 
     object PAGING {
         const val NEW_PAGING_SIZE: Int = 2
-        const val ATTRACTION_PAGING_SIZE: Int = 5
+        const val ATTRACTION_PAGING_SIZE: Int = 10
         const val NOTIFICATION_PAGE_SIZE: Int = 10
         const val SEARCH_PAGE_SIZE: Int = 5
 

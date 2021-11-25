@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.dubaiculture.R
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.login.LoginRepository
+import com.dubaiculture.data.repository.login.local.UAEPass
 import com.dubaiculture.data.repository.login.remote.request.LoginRequest
 import com.dubaiculture.data.repository.login.remote.request.UAELoginRequest
 import com.dubaiculture.data.repository.user.UserRepository
@@ -24,6 +25,7 @@ import com.dubaiculture.utils.AuthUtils
 import com.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
 import com.dubaiculture.utils.Constants.NavBundles.COMES_FROM_LOGIN
+import com.dubaiculture.utils.dataStore.DataKeys.USER_SESSION
 import com.dubaiculture.utils.dataStore.DataStoreManager
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,6 +39,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginRepository: LoginRepository,
     private val userRepository: UserRepository,
+    private val dateStoreManager: DataStoreManager,
     application: Application,
 ) : BaseViewModel(application) {
     private val activity = getApplication<ApplicationEntry>()
@@ -44,6 +47,7 @@ class LoginViewModel @Inject constructor(
     var phone: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
     var btnEnabled: ObservableBoolean = ObservableBoolean(false)
+
 
 
     val isPhone = MutableLiveData(true)
@@ -73,6 +77,11 @@ class LoginViewModel @Inject constructor(
 
     private val _isSheetOpen: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
     val isSheetOpen: MutableLiveData<Event<Boolean>> = _isSheetOpen
+     val _user: MutableLiveData<Event<User>> = MutableLiveData()
+    val user: MutableLiveData<Event<User>> = _user
+     val _userUae: MutableLiveData<Event<UAEPass>> = MutableLiveData()
+    val userUae: MutableLiveData<Event<UAEPass>> = _userUae
+
 
     init {
         getUserIfExists()
@@ -120,6 +129,32 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun createAccount(user:User,uaePass: UAEPass){
+        uaePass.let {
+            viewModelScope.launch {
+                userRepository.saveUaeInfo(
+                    it
+                )
+
+                //setting user for Session
+                val userNew = user.copy(
+                    idn = it.idn,
+                    userName = "${it.firstNameEn} ${it.lastNameEn}",
+                    email = it.email,
+                    phoneNumber = "+${it.mobile}"
+                )
+
+                setUser(userNew)
+                //Saving User Session
+                userRepository.updateUser(userNew)
+            }
+
+
+
+        }
+    }
+
+
 
     fun loginWithUae(uaeLoginRequest: UAELoginRequest, linkAccount: Boolean = false) {
         viewModelScope.launch {
@@ -166,28 +201,38 @@ class LoginViewModel @Inject constructor(
                     is Result.Success -> {
                         showLoader(false)
                         //UAE Response Has been Saved
+                        val uaePass =
+                            transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+                        val user = transform(
+                            result.value.loginResponseDTO.userDTO,
+                            result.value.loginResponseDTO
+                        ).copy(
+                            idn = uaePass.idn,
+                            userName = "${uaePass.firstNameEn} ${uaePass.lastNameEn}",
+                            email = uaePass.email,
+                            phoneNumber = "+${uaePass.mobile}"
+                        )
 
-                        if (!result.value.loginResponseDTO.IsLinked) {
-                            updateSheet(true)
+
+                        if (!result.value.loginResponseDTO.IsMigrated ) {
+                            if (dateStoreManager.getString(USER_SESSION).isNullOrEmpty()){
+                                updateSheet(true)
+                                _user.value= Event(user)
+                                _userUae.value=Event(uaePass)
+                            }else {
+                                dateStoreManager.setData(USER_SESSION,user.userId)
+                                createAccount(user,uaePass)
+                            }
                         } else {
 
-                            val uaePass =
-                                transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+
                             uaePass.let {
                                 userRepository.saveUaeInfo(
                                     it
                                 )
 
                                 //setting user for Session
-                                val user = transform(
-                                    result.value.loginResponseDTO.userDTO,
-                                    result.value.loginResponseDTO
-                                ).copy(
-                                    idn = it.idn,
-                                    userName = "${it.firstNameEn} ${it.lastNameEn}",
-                                    email = it.email,
-                                    phoneNumber = "+${it.mobile}"
-                                )
+
 
                                 val message = result.value.loginResponseDTO.UpdateMessage?:""
                                 if (!message.isEmpty()) {
@@ -333,7 +378,6 @@ class LoginViewModel @Inject constructor(
 //                                showErrorDialog(message = result.value.errorMessage)}
 
                             if (!result.value.isConfirmed) {
-//                                showLoader(false)
                                 showErrorDialog(message = result.value.errorMessage)
                                 resendEmailVerification()
                             } else {
@@ -389,12 +433,12 @@ class LoginViewModel @Inject constructor(
                             //  showErrorDialog(message = result.message, colorBg = R.color.green_error)
 //                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
-//                            navigateByDirections(
-//                                LoginFragmentDirections.actionLoginFragmentToBottomSheet(
-//                                    verificationCode = result.value.resendVerificationResponseDTO.verificationCode,
-//                                    emailorphone = phone.get().toString().trim(),
-//                                    password = password.get().toString().trim(),
-//                                    screenName = COMES_FROM_LOGIN))
+                            navigateByDirections(
+                                LoginFragmentDirections.actionLoginFragmentToBottomSheet(
+                                    result.value.resendVerificationResponseDTO.verificationCode,
+                                    COMES_FROM_LOGIN,
+                                    phone.get().toString().trim(),
+                                    password.get().toString().trim()))
 
                         } else {
                             showLoader(false)
@@ -434,12 +478,11 @@ class LoginViewModel @Inject constructor(
 //                            showErrorDialog(message = result.message, colorBg = R.color.green_error)
 //                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
-//                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
-//                                    verificationCode =
-//                                    result.value.resendVerificationResponseDTO.verificationCode,
-//                                    emailorphone = phone.get().toString().trim(),
-//                                    password = password.get().toString().trim(),
-//                                    screenName = COMES_FROM_LOGIN))
+                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
+                                result.value.resendVerificationResponseDTO.verificationCode,
+                                COMES_FROM_LOGIN,
+                                phone.get().toString().trim(),
+                                password.get().toString().trim()))
 
                         } else {
                             showErrorDialog(

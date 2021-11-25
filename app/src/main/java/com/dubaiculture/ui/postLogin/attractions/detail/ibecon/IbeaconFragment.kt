@@ -17,6 +17,7 @@ import com.dubaiculture.ui.postLogin.attractions.detail.ibecon.viewmodel.BeaconS
 import com.dubaiculture.ui.postLogin.attractions.detail.sitemap.viewmodel.SiteMapViewModel
 import com.dubaiculture.utils.BeaconUtils
 import com.dubaiculture.utils.Constants
+import com.dubaiculture.utils.PushNotificationManager
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion
 import com.estimote.coresdk.recognition.packets.Beacon
 import com.estimote.coresdk.service.BeaconManager
@@ -31,7 +32,7 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
     private val siteMapViewModel: SiteMapViewModel by viewModels()
     private val beaconSharedViewModel: BeaconSharedViewModel by activityViewModels()
     private var attractionId: String? = null
-    lateinit var region: BeaconRegion
+//    lateinit var region: BeaconRegion
     lateinit var beaconManager: BeaconManager
 
     @Inject
@@ -77,15 +78,20 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
     private fun beaconMonitoring() {
         beaconUtils.beaconConnect()
         beaconUtils.beaconManager.apply {
+
             setMonitoringListener(object : BeaconManager.BeaconMonitoringListener {
                 override fun onEnteredRegion(
                     beaconRegion: BeaconRegion?,
                     beacons: MutableList<Beacon>?
                 ) {
-                    Toast.makeText(activity, "Monitoring has been started", Toast.LENGTH_SHORT)
-                        .show()
+
                     beacons?.let {
                         val nearestBeacon: Beacon = it[0]
+                        PushNotificationManager.showNotification(
+                            context,
+                            "Beacon Scanning",
+                            "Beacon Detected : ${it[0].proximityUUID}", null
+                        )
                         lifecycleScope.launch {
                             attractionId?.let {
                                 beaconSharedViewModel.markAsVisited(

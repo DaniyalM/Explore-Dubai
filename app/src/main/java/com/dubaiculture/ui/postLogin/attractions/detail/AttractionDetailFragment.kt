@@ -172,9 +172,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
     private fun initializeDetails(attraction: Attractions) {
         binding.attraction = attraction
-        attraction.ibecons?.ibeconItems?.let {
-            detailInnerLayout.ibeaconsDesc.text= it[0].subtitle
-        }
+
+        detailInnerLayout.ibeaconsDesc.text = attraction.ibecons?.subtitle
         if (this::marker.isInitialized) {
             marker.let {
                 it.position = LatLng(
@@ -337,10 +336,20 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                     if (urlshare != null && !urlshare!!.isEmpty()) {
                         toolbarLayout.share.setOnClickListener { view ->
-                            shareLink(urlshare ?: "", activity, title = attractionsObj!!.title,detail = attractionsObj!!.description!!)
+                            shareLink(
+                                urlshare ?: "",
+                                activity,
+                                title = attractionsObj!!.title,
+                                detail = attractionsObj!!.description!!
+                            )
                         }
                         binding.share.setOnClickListener { view ->
-                            shareLink(urlshare ?: "", activity, title = attractionsObj!!.title,detail = attractionsObj!!.description!!)
+                            shareLink(
+                                urlshare ?: "",
+                                activity,
+                                title = attractionsObj!!.title,
+                                detail = attractionsObj!!.description!!
+                            )
                         }
                     } else {
                         toolbarLayout.share.hide()

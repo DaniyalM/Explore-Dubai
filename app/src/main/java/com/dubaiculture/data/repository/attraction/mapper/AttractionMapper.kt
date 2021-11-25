@@ -154,6 +154,7 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
     ibecons = attraction.ibecon?.let {
         Ibecons(
             image = it.image,
+            subtitle=it.subtitle,
             ibeconItems = it.iBeaconsItems?.mapIndexed { index, iBeaconsItemsDTO ->
                 BeaconItems(
                     step = iBeaconsItemsDTO.step,
