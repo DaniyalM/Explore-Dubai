@@ -15,6 +15,7 @@ import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,8 +79,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
     private suspend fun checkRememberMe() {
 
-        binding.checkBoxRemember.isChecked =
-            !dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals("")
+//        binding.checkBoxRemember.isChecked =
+//            !dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals("")
+        binding.checkBoxRemember.isChecked = !(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)) == null|| dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals(""))
         loginViewModel.phone.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)))
         loginViewModel.password.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.PASSWORD)))
 
