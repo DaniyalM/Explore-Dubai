@@ -89,8 +89,10 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
 
     private suspend fun checkRememberMe() {
 
-        binding.checkBoxRemember.isChecked =
-            !dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals("")
+//        binding.checkBoxRemember.isChecked =
+//            !dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals("")
+        binding.checkBoxRemember.isChecked = !(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)) == null|| dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals(""))
+
         postLoginViewModel.phone.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)))
         postLoginViewModel.password.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.PASSWORD)))
 

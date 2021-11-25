@@ -19,9 +19,11 @@ import com.dubaiculture.data.repository.user.local.guest.Guest
 import com.dubaiculture.data.repository.user.mapper.transform
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
+import com.dubaiculture.ui.preLogin.login.LoginFragmentDirections
 import com.dubaiculture.utils.AuthUtils
 import com.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
+import com.dubaiculture.utils.Constants.NavBundles.COMES_FROM_LOGIN
 import com.dubaiculture.utils.dataStore.DataStoreManager
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -331,6 +333,7 @@ class LoginViewModel @Inject constructor(
 //                                showErrorDialog(message = result.value.errorMessage)}
 
                             if (!result.value.isConfirmed) {
+//                                showLoader(false)
                                 showErrorDialog(message = result.value.errorMessage)
                                 resendEmailVerification()
                             } else {
@@ -386,9 +389,9 @@ class LoginViewModel @Inject constructor(
                             //  showErrorDialog(message = result.message, colorBg = R.color.green_error)
 //                            Timber.e(result.value.resendVerificationResponseDTO.verificationCode)
 
-//                            navigateByDirections(LoginFragmentDirections.actionLoginFragmentToBottomSheet(
-//                                    verificationCode =
-//                                    result.value.resendVerificationResponseDTO.verificationCode,
+//                            navigateByDirections(
+//                                LoginFragmentDirections.actionLoginFragmentToBottomSheet(
+//                                    verificationCode = result.value.resendVerificationResponseDTO.verificationCode,
 //                                    emailorphone = phone.get().toString().trim(),
 //                                    password = password.get().toString().trim(),
 //                                    screenName = COMES_FROM_LOGIN))

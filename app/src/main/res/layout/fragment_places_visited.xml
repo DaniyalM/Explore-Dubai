@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/home_tab_layout_height"
                 android:lineSpacingExtra="@dimen/text_line_spacing"
-                android:text="@string/no_my_posts_fav"
+                android:text="@string/no_data_found"
                 android:textSize="@dimen/_18sdp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"

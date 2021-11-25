@@ -13,6 +13,10 @@ class OnBoardingAFragment : BaseFragment<FragmentOnBoardingABinding>(), View.OnC
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        binding.animLottie.imageAssetsFolder = "images/"
+//        binding.animLottie.setAnimation("onboarding_one.json")
+//        binding.animLottie.playAnimation("onboarding_one.json")
+
     }
 
     override fun getFragmentBinding(
