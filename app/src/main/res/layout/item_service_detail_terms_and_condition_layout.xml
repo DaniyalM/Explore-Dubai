@@ -54,6 +54,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="@dimen/_35sdp"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 android:background="@drawable/btn_register"
                 android:elevation="@dimen/_15sdp"
                 android:foreground="@drawable/custom_ripple_border"

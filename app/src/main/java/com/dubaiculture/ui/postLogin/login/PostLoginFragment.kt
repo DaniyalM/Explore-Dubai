@@ -138,11 +138,12 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                 uaePass=it
             }
         }
-//        uaePassSharedViewModel.dontCreate.observe(viewLifecycleOwner){
-//            it?.getContentIfNotHandled()?.let {
-//                loginViewModel.createAccount(user, uaePass)
-//            }
-//        }
+        uaePassSharedViewModel.dontCreate.observe(viewLifecycleOwner){
+            it?.getContentIfNotHandled()?.let {
+                if (user!=null&&uaePass!=null)
+                postLoginViewModel.createAccount(user, uaePass)
+            }
+        }
         uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (!it.isAccountCreate!!) {
