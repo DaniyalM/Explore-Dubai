@@ -37,6 +37,7 @@ class MessageDialogFragment : BaseDialogFragment<FragmentMessageDialogBinding>()
         binding.messageItem = messageDialogFragmentArgs.message
         binding.done.setOnClickListener {
             dismiss()
+            back()
         }
     }
 }

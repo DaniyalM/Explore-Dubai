@@ -130,8 +130,11 @@ class LoginViewModel @Inject constructor(
     }
 
     fun createAccount(user:User,uaePass: UAEPass){
+
+
         uaePass.let {
             viewModelScope.launch {
+                dateStoreManager.setData(USER_SESSION,user.userId)
                 userRepository.saveUaeInfo(
                     it
                 )
@@ -214,13 +217,13 @@ class LoginViewModel @Inject constructor(
                         )
 
 
-                        if (!result.value.loginResponseDTO.IsMigrated ) {
+                        if (!result.value.loginResponseDTO.IsLinked) {
                             if (dateStoreManager.getString(USER_SESSION).isNullOrEmpty()){
                                 updateSheet(true)
                                 _user.value= Event(user)
                                 _userUae.value=Event(uaePass)
                             }else {
-                                dateStoreManager.setData(USER_SESSION,user.userId)
+
                                 createAccount(user,uaePass)
                             }
                         } else {

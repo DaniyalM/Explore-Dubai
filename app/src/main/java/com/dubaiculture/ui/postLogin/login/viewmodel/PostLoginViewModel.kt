@@ -304,7 +304,8 @@ class PostLoginViewModel @Inject constructor(
                         showLoader(false)
 
 
-                        if (!result.value.loginResponseDTO.IsMigrated) {
+                        if (!result.value.loginResponseDTO.IsLinked) {
+
                             if (dateStoreManager.getString(DataKeys.USER_SESSION).isNullOrEmpty()){
                                 updateSheet(true)
                                 _user.value= Event(user)
