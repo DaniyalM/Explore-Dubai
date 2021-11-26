@@ -41,6 +41,7 @@ class NotificationSettingFragment : BaseFragment<FragmentNotificationSettingBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(profileViewModel)
+
         backArrowRTL(binding.imgClose)
         markPushNotificationSwitch()
         markLocationBaseSwitch()

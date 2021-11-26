@@ -388,7 +388,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
         toolbarLayout.llAr.setOnClickListener(this)
+
+        //ar
         detailInnerLayout.downOneAR.setOnClickListener(this)
+        detailInnerLayout.downOneAR.alpha = 0.4f
+        detailInnerLayout.downOneAR.isClickable = false
+        //ar
+
         detailInnerLayout.btnFilter.hide()
 
         detailInnerLayout.imgAttractionSpeaker.setOnClickListener(this)

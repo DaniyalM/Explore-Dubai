@@ -167,12 +167,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         setupRV()
         cardViewRTL()
         try {
-            val versionName =
-                activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
-            binding.tvVersionNo.text = "Version:$versionName"
-//            val  buildDate:Date = Date(BuildConfig.BUILD_TIME)
-            binding.tvUpdatedDate.text =
-                "Updated On: " + getDate(BuildConfig.BUILD_TIME.time, "dd-mm-yyyy")
+            val versionName = activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
+            binding.tvVersionNo.text = "${resources.getString(R.string.version)}:$versionName"
+            binding.tvUpdatedDate.text ="${resources.getString(R.string.updated_on)}: ${getDate(BuildConfig.BUILD_TIME.time, "dd-mm-yyyy")}"
+
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
