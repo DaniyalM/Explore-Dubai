@@ -13,9 +13,11 @@ import com.dubaiculture.ui.postLogin.more.notification.adapter.NotificationItems
 import com.dubaiculture.ui.postLogin.more.notification.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
+import java.util.*
 
 @AndroidEntryPoint
-class NotificationFragment : BaseFragment<FragmentNotificationBinding>() ,
+class NotificationFragment : BaseFragment<FragmentNotificationBinding>(),
     NotificationItems.NotificationCounts {
 
     private val notificationViewModel: NotificationViewModel by viewModels()
@@ -57,6 +59,12 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>() ,
     }
 
     override fun getNotificationCount(count: Int) {
-        binding.notificationCount.text = count.toString()
+        if(getCurrentLanguage()!= Locale.ENGLISH) {
+            var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+            binding.notificationCount.text = nf.format(count)
+        }else{
+            var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+            binding.notificationCount.text = nf.format(count)
+        }
     }
 }

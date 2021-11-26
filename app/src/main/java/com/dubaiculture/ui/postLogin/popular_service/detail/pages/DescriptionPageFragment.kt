@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.data.repository.popular_service.local.models.Description
 import com.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
@@ -72,10 +73,9 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             val description = description[0]
             binding.imgSpeaker.setOnClickListener {
 
-                if (textToSpeechEngine.isSpeaking){
+                if (textToSpeechEngine.isSpeaking) {
                     textToSpeechEngine.stop()
-                }
-                else {
+                } else {
                     textToSpeechEngine.speak(
                         "${description.title} ${description.descriptions}",
                         TextToSpeech.QUEUE_FLUSH,
@@ -89,7 +89,13 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             binding.tvPdfTitle.text = description.fileName
             binding.fileSize.text = description.fileSize
             binding.fileViewLink.setOnClickListener {
-                descriptionViewModel.getDoc(description.documentLink)
+
+                (parentFragment as ServiceDetailFragment).navigateByDirections(
+                    ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
+                        BuildConfig.BASE_URL+description.documentLink, true
+                    )
+                )
+//                descriptionViewModel.getDoc(description.documentLink)
             }
         }
     }

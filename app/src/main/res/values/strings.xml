@@ -401,6 +401,7 @@
     <string name="service_feed_back">Service Feed Back</string>
     <string name="no_i_don_t">No I don\'t</string>
     <string name="registration_success">Your account has been created, thank you for registering!</string>
+    <string name="change_profile_photo">Change Profile Photo</string>
 
 
 </resources>

@@ -40,7 +40,6 @@ class NotificationViewModel @Inject constructor(application: Application , priva
                 val result = moreRepository.getNotification(NotificationRequest(culture = locale))
                 if(result is Result.Success){
                     showLoader(false)
-
                     result.value
                         .cachedIn(viewModelScope)
                         .collectLatest {

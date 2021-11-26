@@ -75,10 +75,10 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
             mapSetUp(savedInstanceState)
 //            mapView = MapView(activity)
         }else{
-            callingObserver()
+//            appendInAttractionCategoryList()
+//            callingObserver()
 
         }
-        appendInAttractionCategoryList()
 
     }
 
@@ -433,6 +433,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
+        appendInAttractionCategoryList()
         callingObserver()
 
     }

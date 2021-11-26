@@ -36,8 +36,11 @@ class WebViewFragment : BaseFragment<FragmentWebViewBinding>() {
             setSupportZoom(true)
 
         }
-        binding.webview.loadUrl(args.webviewUrl)
-
+        if (args.isPdf) {
+            binding.webview.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=" + args.webviewUrl)
+        } else {
+            binding.webview.loadUrl(args.webviewUrl)
+        }
 
         binding.imgClose.setOnClickListener {
             back()

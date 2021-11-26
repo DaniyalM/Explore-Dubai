@@ -179,7 +179,8 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
             R.id.website_ll -> {
                 navigateByDirections(ContactFragmentDirections.actionContactFragmentToWebviewFragment(
-                    contactCenterReach.websiteContent
+                    contactCenterReach.websiteContent,
+                    false
                 ))
             }
             R.id.getDirection -> {

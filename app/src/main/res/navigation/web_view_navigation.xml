@@ -7,9 +7,13 @@
     <fragment
         android:id="@+id/webViewFragment"
         android:name="com.dubaiculture.ui.postLogin.more.about.WebViewFragment"
-        android:label="WebViewFragment" >
+        android:label="WebViewFragment">
         <argument
             android:name="webview_url"
             app:argType="string" />
+        <argument
+            android:name="is_pdf"
+            app:argType="boolean"
+            app:nullable="false" />
     </fragment>
 </navigation>

@@ -78,6 +78,11 @@
             <argument
                 android:name="webview_url"
                 app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+
         </action>
     </fragment>
     <dialog
