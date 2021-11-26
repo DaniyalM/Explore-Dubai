@@ -23,7 +23,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_30sdp">
+            android:layout_marginBottom="@dimen/_70sdp">
 
             <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_category"

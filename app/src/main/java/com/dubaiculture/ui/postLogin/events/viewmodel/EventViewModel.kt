@@ -77,9 +77,9 @@ class EventViewModel @Inject constructor(
     val filterDataList: LiveData<ArrayList<SelectedItems>> = _filterDataList
 
 
-    init {
-        getEventHomeToScreen(context.auth.locale.toString())
-    }
+//    init {
+//
+//    }
 
     fun getEventHomeToScreen(locale: String) {
         showLoader(true)

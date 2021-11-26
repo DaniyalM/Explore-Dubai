@@ -130,6 +130,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 //        }
 
         subscribeUiEvents(eventViewModel)
+        eventViewModel.getEventHomeToScreen(getCurrentLanguage().language)
         locationPermission()
         cardViewRTL()
         setupToolbarWithSearchItems()

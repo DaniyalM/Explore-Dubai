@@ -209,6 +209,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.travelModeDialog -> {
                         visibility = View.GONE
                     }
+                    R.id.serviceDetailFragment -> {
+                        binding.bottomGradient.hide()
+                    }
 //                    R.id.webviewFragment -> {
 //                        visibility = View.GONE
 //                    }

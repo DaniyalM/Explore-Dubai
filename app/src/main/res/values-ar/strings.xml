@@ -396,6 +396,8 @@
     <string name="registration_success">تم إنشاء حسابك شكرا لك على التسجيل</string>
     <string name="change_profile_photo">تغيير صورة الملف الشخصي</string>
 
+    <string name="version">Version</string>
+    <string name="updated_on">Updated On</string>
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>
