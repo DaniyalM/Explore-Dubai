@@ -120,6 +120,7 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+
     </fragment>
     <dialog
         android:id="@+id/privacyTermConditionFragment"

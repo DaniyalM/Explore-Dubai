@@ -55,7 +55,8 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(), View.OnClickListener
 //                        showToast(userType.title)
                         navigateByDirections(
                             AboutFragmentDirections.actionAboutFragmentToWebviewFragment(
-                                library.url
+                                library.url,
+                                false
                             )
                         )
 
@@ -139,7 +140,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(), View.OnClickListener
 
     fun onURLClicked(url: String) {
 
-        navigateByDirections(AboutFragmentDirections.actionAboutFragmentToWebviewFragment(url))
+        navigateByDirections(AboutFragmentDirections.actionAboutFragmentToWebviewFragment(url,false))
 
     }
 

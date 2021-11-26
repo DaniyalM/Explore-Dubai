@@ -77,7 +77,19 @@
             app:destination="@id/registrationSuccessFragment3"
             app:popUpTo="@id/registerNowFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_eventregisterFragment_to_privacyTermConditionFragment"
+            app:destination="@id/privacyTermConditionFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
+    <dialog
+        android:id="@+id/privacyTermConditionFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment"
+        android:label="PrivacyTermConditionFragment"
+        tools:layout="@layout/fragment_privacy_policy" />
     <dialog
         android:id="@+id/registrationSuccessFragment3"
         android:name="com.dubaiculture.ui.preLogin.registeration.RegistrationSuccessFragment"

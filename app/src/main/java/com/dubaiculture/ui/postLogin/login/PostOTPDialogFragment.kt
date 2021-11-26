@@ -113,11 +113,11 @@ class PostOTPDialogFragment : BaseBottomSheetFragment<PostOtpFragmentDialogBindi
         Timber.e(verificationCode)
         binding.btnContinueReg.setOnClickListener(this)
         binding.tvResend.setOnClickListener(this)
-        disabledBackButton()
-        loginWithConfirmOTPObserver()
-        if (from == "registerFragment") {
-            isCancelable = false
-        }
+//        disabledBackButton()
+//        loginWithConfirmOTPObserver()
+//        if (from == "registerFragment") {
+//            isCancelable = false
+//        }
 
     }
 
