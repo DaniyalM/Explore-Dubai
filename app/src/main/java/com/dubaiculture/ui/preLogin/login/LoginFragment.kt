@@ -15,7 +15,6 @@ import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,8 +53,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener {
     private val uaePassSharedViewModel: UaePassSharedViewModel by activityViewModels()
-    private  var user: User?=null
-    private  var uaePass:UAEPass?=null
+    private var user: User? = null
+    private var uaePass: UAEPass? = null
 
     @Inject
     lateinit var dataStoreManager: DataStoreManager
@@ -85,7 +84,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 //        binding.checkBoxRemember.isChecked =
 //            !dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals("")
-        binding.checkBoxRemember.isChecked = !(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)) == null|| dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals(""))
+        binding.checkBoxRemember.isChecked =
+            !(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)) == null || dataStoreManager.getString(
+                preferencesKey(Constants.DataStore.USERNAME)
+            ).equals(""))
         loginViewModel.phone.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)))
         loginViewModel.password.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.PASSWORD)))
 
@@ -154,20 +156,30 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
     private fun subscribeToObservables() {
-        loginViewModel.user.observe(viewLifecycleOwner){
+        loginViewModel.user.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                user=it
+                user = it
             }
         }
-        loginViewModel.userUae.observe(viewLifecycleOwner){
+        loginViewModel.userUae.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                uaePass=it
+                uaePass = it
             }
         }
-        uaePassSharedViewModel.dontCreate.observe(viewLifecycleOwner){
+        uaePassSharedViewModel.dontCreate.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                if (user!=null&&uaePass!=null)
-                loginViewModel.createAccount(user!!, uaePass!!)
+                if (user != null && uaePass != null) {
+                    lifecycleScope.launch {
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.USERID),
+                            user?.userId
+                        )
+
+                    }
+                    loginViewModel.createAccount(user!!, uaePass!!)
+                }
+
+
             }
         }
 

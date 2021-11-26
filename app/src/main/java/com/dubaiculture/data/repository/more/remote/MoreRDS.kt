@@ -54,14 +54,18 @@ class MoreRDS @Inject constructor(private val moreService: MoreService) : BaseRD
             moreService.getMyNotificationCount(culture)
         }
 
-    suspend fun getPaginatedNotification(notificationRequestDTO: NotificationRequestDTO): Result<Flow<PagingData<NotificationDTO>>> {
+    suspend fun getPaginatedNotification(
+        notificationRequestDTO: NotificationRequestDTO,
+        callback: (count: Int) -> Unit
+    ): Result<Flow<PagingData<NotificationDTO>>> {
         return safeApiCall {
             Pager(
                 config = PagingConfig(pageSize = 10),
                 pagingSourceFactory = {
                     NotificationPagingSource(
                         moreService,
-                        notificationRequestDTO
+                        notificationRequestDTO,
+                        callback
                     )
                 }
             ).flow

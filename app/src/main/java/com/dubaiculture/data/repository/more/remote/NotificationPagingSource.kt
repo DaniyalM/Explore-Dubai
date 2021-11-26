@@ -12,8 +12,8 @@ import com.dubaiculture.utils.Constants
 class NotificationPagingSource (
     private val moreService: MoreService,
     private val notificationRequestDTO: NotificationRequestDTO,
-
-    ) :
+    private val callback: (count: Int) -> Unit
+) :
     PagingSource<Int, NotificationDTO>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NotificationDTO> {
         return try {
@@ -23,6 +23,8 @@ class NotificationPagingSource (
                 pageSize = Constants.PAGING.NOTIFICATION_PAGE_SIZE * nextPageNumber,
                 culture = notificationRequestDTO.culture
             )
+
+            callback(response.Result.Count)
             LoadResult.Page(
                 data = response.Result.Notifications,
                 prevKey = null,

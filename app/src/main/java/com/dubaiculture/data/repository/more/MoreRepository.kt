@@ -141,8 +141,11 @@ class MoreRepository @Inject constructor(private val moreRDS: MoreRDS) : BaseRep
         }
 
 
-    suspend fun getNotification(notificationRequest: NotificationRequest): Result<Flow<PagingData<Notifications>>> {
-        val result = moreRDS.getPaginatedNotification(transformNotification(notificationRequest))
+    suspend fun getNotification(
+        notificationRequest: NotificationRequest,
+        callback: (count: Int) -> Unit,
+    ): Result<Flow<PagingData<Notifications>>> {
+        val result = moreRDS.getPaginatedNotification(transformNotification(notificationRequest),callback)
         return if (result is Result.Success) {
             Result.Success(result.value.map {
                 it.map {
