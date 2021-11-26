@@ -46,6 +46,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
         super.onViewCreated(view, savedInstanceState)
 
         subscribeUiEvents(profileViewModel)
+        profileViewModel.getSettings()
         binding.apply {
             backArrowRTL(imgClose)
             switchLoc.isChecked = locationHelper.isLocationEnabled()
@@ -53,6 +54,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
                 back()
             }
         }
+        binding.noti.setOnClickListener(this)
+        binding.reset.setOnClickListener(this)
         initiateRequest()
         subscribeToObservable()
         markPushNotificationSwitch()
@@ -83,8 +86,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(), View.OnClickList
                 is Result.Success -> {
                     it.value.getContentIfNotHandled()?.let {
                         userSettings = it.copy(culture = getCurrentLanguage().language)
-                        binding.noti.setOnClickListener(this)
-                        binding.reset.setOnClickListener(this)
+
+
 
 
                     }

@@ -129,9 +129,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                 back()
             }
             R.id.search -> {
-                application.auth.isMapSearch = true
-                back()
-//                navigateByDirections(ExploreMapFragmentDirections.actionExploreMapFragmentToSearchNavigation())
+                navigateByDirections(ExploreMapFragmentDirections.actionExploreMapFragmentToSearchNavigation())
             }
             R.id.ImgChangeView -> {
                 val bundle = Bundle()

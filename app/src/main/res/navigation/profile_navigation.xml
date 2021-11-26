@@ -156,9 +156,9 @@
         android:id="@+id/myServicesFragment"
         android:name="com.dubaiculture.ui.postLogin.popular_service.myservices.MyServicesFragment"
         android:label="MyServicesFragment" />
-    <fragment
-        android:id="@+id/serviceDetailFragment"
-        android:name="com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"
-        android:label="ServiceDetailFragment" />
+<!--    <fragment-->
+<!--        android:id="@+id/serviceDetailFragment"-->
+<!--        android:name="com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"-->
+<!--        android:label="ServiceDetailFragment" />-->
 
 </navigation>
