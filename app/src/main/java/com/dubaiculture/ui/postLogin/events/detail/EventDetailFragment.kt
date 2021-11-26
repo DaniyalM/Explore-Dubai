@@ -186,35 +186,40 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.facebookPageLink,
                 activity,
-                isFacebook = true
+                isFacebook = true,
+                fragment = this
             )
         }
         eventDetailInnerLayout.imgTwitter.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.twitterPageLink,
                 activity,
-                isTwitter = true
+                isTwitter = true,
+                fragment = this
             )
         }
         eventDetailInnerLayout.imgInsta.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.instagramPageLink,
                 activity,
-                isInstagram = true
+                isInstagram = true,
+                fragment = this
             )
         }
         eventDetailInnerLayout.imgUtube.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.youtubePageLink,
                 activity,
-                isYoutube = true
+                isYoutube = true,
+                fragment = this
             )
         }
         eventDetailInnerLayout.imgLinkedin.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.linkedInPageLink,
                 activity,
-                isLinkedIn = true
+                isLinkedIn = true,
+                fragment = this
             )
         }
 

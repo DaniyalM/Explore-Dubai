@@ -36,6 +36,7 @@ import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.NumberFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -168,12 +169,43 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         cardViewRTL()
         try {
             val versionName = activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
-            binding.tvVersionNo.text = "${resources.getString(R.string.version)}:$versionName"
-            binding.tvUpdatedDate.text ="${resources.getString(R.string.updated_on)}: ${getDate(BuildConfig.BUILD_TIME.time, "dd-mm-yyyy")}"
+            getCurrentLanguage().language.let {
+                if (it=="ar"){
+                    binding.tvVersionNo.text = "${resources.getString(R.string.version)}: ${EnglishToArabic(versionName)}"
+                    binding.tvUpdatedDate.text ="${resources.getString(R.string.updated_on)}: ${getDate(BuildConfig.BUILD_TIME.time, "dd-mm-yyyy",getCurrentLanguage().language)}"
+                }else {
+                    binding.tvVersionNo.text = "${resources.getString(R.string.version)}:$versionName"
+                    binding.tvUpdatedDate.text ="${resources.getString(R.string.updated_on)}: ${getDate(BuildConfig.BUILD_TIME.time, "dd-mm-yyyy",getCurrentLanguage().language)}"
+
+                }
+
+            }
 
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
+    }
+
+    fun EnglishToArabic(str: String):String {
+        var result = ""
+        var ar = '۰'
+        for (ch in str) {
+            ar = ch
+            when (ch) {
+                '0'  -> ar = '۰'
+                '1'-> ar =  '۱'
+                '2' -> ar ='۲'
+                '3' -> ar ='۳'
+                '4'-> ar =  '۴'
+                '5'-> ar ='۵'
+                '6' -> ar = '۶'
+                '7'-> ar = '۷'
+                '8'-> ar = '۸'
+                '9' -> ar = '۹'
+            }
+            result = "${result}$ar"
+        }
+        return result
     }
 
     private fun cardViewRTL() {

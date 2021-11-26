@@ -5,6 +5,7 @@
     app:startDestination="@id/serviceDetailFragment">
 
     <include app:graph="@navigation/post_login_bottom_navigation" />
+    <include app:graph="@navigation/web_view_navigation" />
 
     <fragment
         android:id="@+id/serviceDetailFragment"
@@ -46,7 +47,24 @@
                 app:nullable="false"
              />
         </action>
+        <action
+            android:id="@+id/action_serviceDetailFragment_to_webViewFragment"
+            app:destination="@id/web_view_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+
+        </action>
     </fragment>
+
     <fragment
         android:id="@+id/serviceDownVoteFeedBackFragment"
         android:name="com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs.ServiceDownVoteFeedBackFragment"

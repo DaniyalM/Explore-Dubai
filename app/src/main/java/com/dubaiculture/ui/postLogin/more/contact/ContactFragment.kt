@@ -128,8 +128,15 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 back()
             }
             R.id.imgFb -> {
-                SocialNetworkUtils.getFacebookPage(
-                    socialList.get(0).facebookPageLink,activity
+//                SocialNetworkUtils.getFacebookPage(
+//                    socialList.get(0).facebookPageLink,activity
+//                )
+
+                SocialNetworkUtils.openUrl(
+                    socialList.get(0).twitterPageLink,
+                    activity,
+                    isTwitter = true,
+                    fragment = this
                 )
 
             }
@@ -137,28 +144,32 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 SocialNetworkUtils.openUrl(
                     socialList.get(0).twitterPageLink,
                     activity,
-                    isTwitter = true
+                    isTwitter = true,
+                    fragment = this
                 )
             }
             R.id.instagram -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0).instagramPageLink,
                     activity,
-                    isInstagram = true
+                    isInstagram = true,
+                    fragment = this
                 )
             }
             R.id.imgYoutube -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0).youtubePageLink,
                     activity,
-                    isYoutube = true
+                    isYoutube = true,
+                    fragment = this
                 )
             }
             R.id.imgLinkedinAttraction -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0)!!.linkedInPageLink,
                     activity,
-                    isLinkedIn = true
+                    isLinkedIn = true,
+                    fragment = this
                 )
             }
             R.id.call_us -> {
@@ -179,7 +190,8 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
             R.id.website_ll -> {
                 navigateByDirections(ContactFragmentDirections.actionContactFragmentToWebviewFragment(
-                    contactCenterReach.websiteContent
+                    contactCenterReach.websiteContent,
+                    false
                 ))
             }
             R.id.getDirection -> {

@@ -6,10 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.dubaiculture.R
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.more.MoreRepository
 import com.dubaiculture.data.repository.more.remote.response.notification.NotificationRequest
 import com.dubaiculture.data.repository.more.remote.response.notification.Notifications
+import com.dubaiculture.data.repository.news.local.LatestNews
+import com.dubaiculture.data.repository.notification.NotificationModel
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.event.Event

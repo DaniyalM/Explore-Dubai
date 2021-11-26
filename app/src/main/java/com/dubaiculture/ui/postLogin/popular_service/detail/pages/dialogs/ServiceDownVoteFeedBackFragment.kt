@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.dubaiculture.databinding.FragmentServiceDownVoteBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.ServiceDownVoteFeedBackViewModel
+import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -23,7 +24,7 @@ class ServiceDownVoteFeedBackFragment : BaseFragment<FragmentServiceDownVoteBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        serviceDownVoteFeedBackViewModel.locale=getCurrentLanguage().language
+        serviceDownVoteFeedBackViewModel.locale = getCurrentLanguage().language
         binding.viewmodel = serviceDownVoteFeedBackViewModel
 
 //        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.FullScreenDialog)
@@ -37,6 +38,13 @@ class ServiceDownVoteFeedBackFragment : BaseFragment<FragmentServiceDownVoteBind
 
     }
 
+    @Subscribe
+    fun doBack(clickBack: ClickBack.doBack) {
+        if (clickBack.isBack){
+            back()
+        }
+
+    }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)

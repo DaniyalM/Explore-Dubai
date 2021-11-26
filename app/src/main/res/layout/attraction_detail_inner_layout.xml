@@ -97,7 +97,8 @@
                     android:splitMotionEvents="false"
                     app:layout_constraintEnd_toEndOf="@+id/divider"
                     app:layout_constraintStart_toStartOf="@+id/tv_title"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title">
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                    android:baselineAligned="false">
 
                     <LinearLayout
                         android:id="@+id/downOneAR"

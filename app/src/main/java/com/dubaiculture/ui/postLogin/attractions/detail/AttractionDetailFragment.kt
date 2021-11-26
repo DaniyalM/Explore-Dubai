@@ -393,6 +393,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         detailInnerLayout.downOneAR.setOnClickListener(this)
         detailInnerLayout.downOneAR.alpha = 0.4f
         detailInnerLayout.downOneAR.isClickable = false
+        toolbarLayout.llAr.alpha=0.4f
+        toolbarLayout.llAr.isClickable = false
         //ar
 
         detailInnerLayout.btnFilter.hide()
@@ -409,35 +411,40 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 openUrl(
                     attraction.socialLink?.get(0)!!.facebookPageLink,
                     activity,
-                    isFacebook = true
+                    isFacebook = true,
+                    fragment = this
                 )
             }
             detailInnerLayout.instagram.setOnClickListener {
                 openUrl(
                     attraction.socialLink?.get(0)!!.instagramPageLink,
                     activity,
-                    isInstagram = true
+                    isInstagram = true,
+                    fragment = this
                 )
             }
             detailInnerLayout.imgTwitterAttraction.setOnClickListener {
                 openUrl(
                     attraction.socialLink?.get(0)!!.twitterPageLink,
                     activity,
-                    isTwitter = true
+                    isTwitter = true,
+                    fragment = this
                 )
             }
             detailInnerLayout.imgYoutube.setOnClickListener {
                 openUrl(
                     attraction.socialLink?.get(0)!!.youtubePageLink,
                     activity,
-                    isYoutube = true
+                    isYoutube = true,
+                    fragment = this
                 )
             }
             detailInnerLayout.imgLinkedinAttraction.setOnClickListener {
                 openUrl(
                     attraction.socialLink?.get(0)!!.linkedInPageLink,
                     activity,
-                    isLinkedIn = true
+                    isLinkedIn = true,
+                    fragment = this
                 )
             }
 

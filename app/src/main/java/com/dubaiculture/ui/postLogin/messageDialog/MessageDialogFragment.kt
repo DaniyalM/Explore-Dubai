@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.dubaiculture.databinding.FragmentMessageDialogBinding
 import com.dubaiculture.ui.base.BaseDialogFragment
+import com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs.ClickBack
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +38,8 @@ class MessageDialogFragment : BaseDialogFragment<FragmentMessageDialogBinding>()
         binding.messageItem = messageDialogFragmentArgs.message
         binding.done.setOnClickListener {
             dismiss()
-            back()
+            bus.post(ClickBack.doBack(true))
         }
     }
+
 }
