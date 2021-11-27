@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/attractionDetailFragment"
     android:id="@+id/attraction_detail_navigation">
+    <include app:graph="@navigation/web_view_navigation"/>
     <include app:graph="@navigation/post_login_bottom_navigation"/>
     <include app:graph="@navigation/event_detail_navigation"/>
+
 
     <fragment
         android:id="@+id/attractionDetailFragment"
@@ -87,6 +89,29 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"
             />
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_event_detail_navigation"
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_web_view_navigation"
+            app:destination="@id/web_view_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+        </action>
     </fragment>
 
     <fragment

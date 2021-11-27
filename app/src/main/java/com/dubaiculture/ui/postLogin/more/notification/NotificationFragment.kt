@@ -17,8 +17,7 @@ import java.text.NumberFormat
 import java.util.*
 
 @AndroidEntryPoint
-class NotificationFragment : BaseFragment<FragmentNotificationBinding>(),
-    NotificationItems.NotificationCounts {
+class NotificationFragment : BaseFragment<FragmentNotificationBinding>() {
 
     private val notificationViewModel: NotificationViewModel by viewModels()
     private lateinit var notificationListAdapter: NotificationItems
@@ -42,7 +41,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(),
     }
 
     private fun rvSetup() {
-        notificationListAdapter = NotificationItems(this)
+        notificationListAdapter = NotificationItems()
         binding.rvNotifications.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = notificationListAdapter
@@ -50,6 +49,18 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(),
     }
 
     private fun subscribeToObservables() {
+        notificationViewModel.count.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                if(getCurrentLanguage()!= Locale.ENGLISH) {
+                    val nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+                    binding.notificationCount.text = nf.format(it.toString())
+                }else{
+                    val nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                    binding.notificationCount.text = nf.format(it.toString())
+                }
+
+            }
+        }
         notificationViewModel.notificationPagination.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
                 notificationListAdapter.submitData(it)
@@ -58,13 +69,8 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(),
         }
     }
 
-    override fun getNotificationCount(count: Int) {
-        if(getCurrentLanguage()!= Locale.ENGLISH) {
-            var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
-            binding.notificationCount.text = nf.format(count)
-        }else{
-            var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
-            binding.notificationCount.text = nf.format(count)
-        }
-    }
+//    override fun getNotificationCount(count: Int) {
+//        binding.notificationCount.text = count.toString()
+//    }
+
 }

@@ -132,33 +132,44 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                     socialList.get(0).facebookPageLink,activity
                 )
 
+//                SocialNetworkUtils.openUrl(
+//                    socialList.get(0).facebookPageLink,
+//                    activity,
+//                    isTwitter = true,
+//                    fragment = this
+//                )
+
             }
             R.id.imgTwitterAttraction -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0).twitterPageLink,
                     activity,
-                    isTwitter = true
+                    isTwitter = true,
+                    fragment = this
                 )
             }
             R.id.instagram -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0).instagramPageLink,
                     activity,
-                    isInstagram = true
+                    isInstagram = true,
+                    fragment = this
                 )
             }
             R.id.imgYoutube -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0).youtubePageLink,
                     activity,
-                    isYoutube = true
+                    isYoutube = true,
+                    fragment = this
                 )
             }
             R.id.imgLinkedinAttraction -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0)!!.linkedInPageLink,
                     activity,
-                    isLinkedIn = true
+                    isLinkedIn = true,
+                    fragment = this
                 )
             }
             R.id.call_us -> {

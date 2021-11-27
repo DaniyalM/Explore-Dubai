@@ -22,7 +22,6 @@ import com.dubaiculture.data.repository.search.local.SearchTab
 import com.dubaiculture.databinding.FragmentSearchBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.components.loadstateadapter.DefaultLoadStateAdapter
-import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.dubaiculture.ui.postLogin.search.adapters.SearchHistoryAdapter
 import com.dubaiculture.ui.postLogin.search.adapters.SearchItemListAdapter
 import com.dubaiculture.ui.postLogin.search.adapters.UniSelectionAdapter
@@ -140,7 +139,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
         searchViewModel.count.observe(viewLifecycleOwner) {
             val label = activity.resources.getString(R.string.result).pluralize(it)
-            binding.count.text = "$it $label found"
+            binding.count.text = "$it $label ${resources.getString(R.string.found)}"
         }
         searchViewModel.searchFilter.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {

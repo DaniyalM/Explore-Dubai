@@ -5,7 +5,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import androidx.fragment.app.Fragment
 import com.dubaiculture.BuildConfig
+import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment
+import com.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragmentDirections
+import com.dubaiculture.ui.postLogin.events.detail.EventDetailFragment
+import com.dubaiculture.ui.postLogin.events.detail.EventDetailFragmentDirections
+import com.dubaiculture.ui.postLogin.more.contact.ContactFragment
+import com.dubaiculture.ui.postLogin.more.contact.ContactFragmentDirections
 
 
 object SocialNetworkUtils {
@@ -17,6 +25,7 @@ object SocialNetworkUtils {
         isInstagram:Boolean=false,
         isYoutube:Boolean=false,
         isWeb:Boolean=false,
+        fragment:Fragment ?= null
 
     ) {
 
@@ -32,6 +41,30 @@ object SocialNetworkUtils {
             }
 
             data = Uri.parse(URL)
+//            when(fragment){
+//                is AttractionDetailFragment ->{
+//                    fragment.navigateByDirections(
+//                        AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
+//                            URL,false
+//                        )
+//                    )
+//                }
+//                is ContactFragment ->{
+//                    fragment. navigateByDirections(
+//                        ContactFragmentDirections.actionContactFragmentToWebviewFragment(
+//                        URL,
+//                        false
+//                    ))
+//                }
+//                is EventDetailFragment ->{
+//                    fragment.navigateByDirections(
+//                        EventDetailFragmentDirections.actionEventDetailFragment2ToWebViewNavigation(
+//                        URL,
+//                        false
+//                    ))
+//                }
+//            }
+
             context.startActivity(this)
 
         }
@@ -76,8 +109,8 @@ object SocialNetworkUtils {
                 if (url.endsWith("/")) {
                     url = url.substring(0, url.length - 1)
                 }
-//                val username = url.substring(url.lastIndexOf("/") + 1)
-                val username = "CMuhzIRsyTb/"
+                val username = url.substring(url.lastIndexOf("/") + 1)
+//                val username = "CMuhzIRsyTb/"
                 // http://stackoverflow.com/questions/21505941/intent-to-open-instagram-user-profile-on-android
 //                intent.data = Uri.parse("http://instagram.com/_u/$username")
                 intent.data = Uri.parse("http://instagram.com/p/$username")
@@ -98,8 +131,8 @@ object SocialNetworkUtils {
                 if (url.endsWith("/")) {
                     url = url.substring(0, url.length - 1)
                 }
-//                val username = url.substring(url.lastIndexOf("/") + 1)
-                val username = "CMuhzIRsyTb/"
+                val username = url.substring(url.lastIndexOf("/") + 1)
+//                val username = "CMuhzIRsyTb/"
                 // http://stackoverflow.com/questions/21505941/intent-to-open-instagram-user-profile-on-android
 //                intent.data = Uri.parse("http://instagram.com/_u/$username")
                 intent.data = Uri.parse("http://instagram.com/p/$username")
@@ -120,8 +153,8 @@ object SocialNetworkUtils {
                 if (url.endsWith("/")) {
                     url = url.substring(0, url.length - 1)
                 }
-//                val username = url.substring(url.lastIndexOf("/") + 1)
-                val username = "CMuhzIRsyTb/"
+                val username = url.substring(url.lastIndexOf("/") + 1)
+//                val username = "CMuhzIRsyTb/"
                 // http://stackoverflow.com/questions/21505941/intent-to-open-instagram-user-profile-on-android
 //                intent.data = Uri.parse("http://instagram.com/_u/$username")
                 intent.data = Uri.parse("http://instagram.com/p/$username")
@@ -142,8 +175,8 @@ object SocialNetworkUtils {
                 if (url.endsWith("/")) {
                     url = url.substring(0, url.length - 1)
                 }
-//                val username = url.substring(url.lastIndexOf("/") + 1)
-                val username = "CMuhzIRsyTb/"
+                val username = url.substring(url.lastIndexOf("/") + 1)
+//                val username = "CMuhzIRsyTb/"
                 // http://stackoverflow.com/questions/21505941/intent-to-open-instagram-user-profile-on-android
 //                intent.data = Uri.parse("http://instagram.com/_u/$username")
                 intent.data = Uri.parse("http://instagram.com/p/$username")
@@ -164,8 +197,8 @@ object SocialNetworkUtils {
                 if (url.endsWith("/")) {
                     url = url.substring(0, url.length - 1)
                 }
-//                val username = url.substring(url.lastIndexOf("/") + 1)
-                val username = "CMuhzIRsyTb/"
+                val username = url.substring(url.lastIndexOf("/") + 1)
+//                val username = "CMuhzIRsyTb/"
                 // http://stackoverflow.com/questions/21505941/intent-to-open-instagram-user-profile-on-android
 //                intent.data = Uri.parse("http://instagram.com/_u/$username")
                 intent.data = Uri.parse("http://instagram.com/p/$username")

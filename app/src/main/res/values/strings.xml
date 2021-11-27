@@ -404,6 +404,9 @@
     <string name="change_profile_photo">Change Profile Photo</string>
     <string name="version">Version</string>
     <string name="updated_on">Updated On</string>
+    <string name="found">found</string>
+    <string name="comment">Comment</string>
+    <string name="enter_comments">Enter Comments</string>
 
 
 </resources>

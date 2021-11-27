@@ -35,6 +35,7 @@ import com.dubaiculture.databinding.ToolbarLayoutEventDetailBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
 import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
+import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.getFacebookPage
 import com.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
 import com.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
@@ -183,38 +184,47 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
 
         eventDetailInnerLayout.imgFb.setOnClickListener {
-            SocialNetworkUtils.openUrl(
+            getFacebookPage(
                 eventObj?.socialLink?.get(0)!!.facebookPageLink,
                 activity,
-                isFacebook = true
             )
+//            SocialNetworkUtils.openUrl(
+//                eventObj?.socialLink?.get(0)!!.facebookPageLink,
+//                activity,
+//                isFacebook = true,
+//                fragment = this
+//            )
         }
         eventDetailInnerLayout.imgTwitter.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.twitterPageLink,
                 activity,
-                isTwitter = true
+                isTwitter = true,
+                fragment = this
             )
         }
         eventDetailInnerLayout.imgInsta.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.instagramPageLink,
                 activity,
-                isInstagram = true
+                isInstagram = true,
+                fragment = this
             )
         }
         eventDetailInnerLayout.imgUtube.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.youtubePageLink,
                 activity,
-                isYoutube = true
+                isYoutube = true,
+                fragment = this
             )
         }
         eventDetailInnerLayout.imgLinkedin.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.linkedInPageLink,
                 activity,
-                isLinkedIn = true
+                isLinkedIn = true,
+                fragment = this
             )
         }
 

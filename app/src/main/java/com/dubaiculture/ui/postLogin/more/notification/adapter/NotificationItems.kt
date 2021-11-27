@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dubaiculture.data.repository.more.remote.response.notification.Notifications
 import com.dubaiculture.databinding.ItemsNotitifcationsLayoutBinding
 
-class NotificationItems(val notificationCounts: NotificationCounts) :
+class NotificationItems() :
     PagingDataAdapter<Notifications, NotificationItems.NotificationViewHolder>(
         NotificationDiffCallback()
     ) {
@@ -19,7 +19,7 @@ class NotificationItems(val notificationCounts: NotificationCounts) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(notifications: Notifications) {
             binding.notification = notifications
-            notificationCounts.getNotificationCount(itemCount)
+//            notificationCounts.getNotificationCount(itemCount)
 
         }
     }
@@ -51,7 +51,7 @@ class NotificationItems(val notificationCounts: NotificationCounts) :
         getItem(position)?.let { holder.bind(it) }
     }
 
-    interface NotificationCounts {
-        fun getNotificationCount(count: Int)
-    }
+//    interface NotificationCounts {
+//        fun getNotificationCount(count: Int)
+//    }
 }

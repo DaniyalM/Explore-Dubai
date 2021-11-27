@@ -180,6 +180,7 @@ object Constants {
     object DataStore {
         const val SKIP: String = "skip"
         const val USERNAME: String = "username"
+        const val USERID: String = "userID"
         const val PASSWORD: String = "password"
     }
 
