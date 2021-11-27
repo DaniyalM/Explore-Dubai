@@ -37,8 +37,9 @@ class MessageDialogFragment : BaseDialogFragment<FragmentMessageDialogBinding>()
         super.onViewStateRestored(savedInstanceState)
         binding.messageItem = messageDialogFragmentArgs.message
         binding.done.setOnClickListener {
-            dismiss()
             bus.post(ClickBack.doBack(true))
+            dismiss()
+
         }
     }
 

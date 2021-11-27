@@ -58,6 +58,7 @@
 
                 <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/full_name_edit"
+                    style="@style/EditTextLoginStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -90,6 +91,7 @@
 
                 <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/email_edit"
+                    style="@style/EditTextLoginStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -114,7 +116,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_12sdp"
                     android:inputType="text"
-                    android:text="Comment"
+                    android:text="@string/comment"
                     app:layout_constraintStart_toStartOf="@+id/email"
                     app:layout_constraintTop_toBottomOf="@+id/email_edit" />
 
@@ -122,10 +124,11 @@
                 <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/comment_text_input"
                     android:layout_width="0dp"
+                    style="@style/EditTextLoginStyle"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/bg_edit_resiger"
-                    android:hint="Enter Comments"
+                    android:hint="@string/enter_comments"
                     android:onTextChanged="@{viewmodel::onCommentChanged}"
                     android:paddingLeft="@dimen/_10sdp"
                     android:lines="6"

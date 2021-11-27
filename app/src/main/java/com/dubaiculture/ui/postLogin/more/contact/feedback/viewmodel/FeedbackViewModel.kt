@@ -33,7 +33,8 @@ class FeedbackViewModel @Inject constructor(
 
     // editext get() and set()
     var fullName: ObservableField<String> = ObservableField("")
-    var email: ObservableField<String> = ObservableField("")
+    var email: ObservableField<String> =
+        ObservableField(getApplication<ApplicationEntry>().auth.user?.email ?: "")
     var message: ObservableField<String> = ObservableField("")
     var subject: ObservableField<String> = ObservableField("")
     var type: ObservableField<String> = ObservableField("")
@@ -162,9 +163,9 @@ class FeedbackViewModel @Inject constructor(
 
                         showLoader(false)
                         showAlert(
-                            title = result.value.heading?:"",
+                            title = result.value.heading ?: "",
                             message = "${result.value.message} ${result.value.reference}"
-                        ){
+                        ) {
                             navigateByBack()
 //                        _downVote.value = Event(true)
                         }

@@ -128,16 +128,16 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 back()
             }
             R.id.imgFb -> {
-//                SocialNetworkUtils.getFacebookPage(
-//                    socialList.get(0).facebookPageLink,activity
-//                )
-
-                SocialNetworkUtils.openUrl(
-                    socialList.get(0).twitterPageLink,
-                    activity,
-                    isTwitter = true,
-                    fragment = this
+                SocialNetworkUtils.getFacebookPage(
+                    socialList.get(0).facebookPageLink,activity
                 )
+
+//                SocialNetworkUtils.openUrl(
+//                    socialList.get(0).facebookPageLink,
+//                    activity,
+//                    isTwitter = true,
+//                    fragment = this
+//                )
 
             }
             R.id.imgTwitterAttraction -> {

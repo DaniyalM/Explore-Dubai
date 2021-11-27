@@ -390,16 +390,18 @@
 
     <string name="registration_success">تم إنشاء حسابك شكرا لك على التسجيل</string>
     <string name="change_profile_photo">تغيير صورة الملف الشخصي</string>
-    <string name="no_i_don_t">لا أنا لا أفعل</string>
-    <string name="version">إصدار</string>
-    <string name="updated_on">تحديث في</string>
+    <string name="no_i_don_t">لا أريد</string>
+    <string name="version">الإصدار</string>
+    <string name="updated_on">تم التحديث في</string>
     <string name="are_you_sure_want_to_reset_setting">هل أنت متأكد أنك تريد إعادة ضبط الإعدادات؟</string>
     <string name="you_are_leaving">أنت تغادر المنطقة</string>
     <string name="space">\u0020</string>
     <string name="result">نتيجة</string>
-    <string name="copied">نسخ!</string>
-    <string name="send_mail_text">تريد إرسال بريد إلكتروني إلى هذا</string>
+    <string name="copied">تم النسخ!</string>
+    <string name="send_mail_text">هل تريد إرسال بريد إلكتروني إلى</string>
     <string name="found">وجدت</string>
+    <string name="comment">تعليق</string>
+    <string name="enter_comments">أدخل التعليقات</string>
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>

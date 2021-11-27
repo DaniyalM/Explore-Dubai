@@ -1,6 +1,8 @@
 package com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,9 +41,14 @@ class ServiceDownVoteFeedBackFragment : BaseFragment<FragmentServiceDownVoteBind
     }
 
     @Subscribe
-    fun doBack(clickBack: ClickBack.doBack) {
-        if (clickBack.isBack){
-            back()
+    fun doBack(clickBack: ClickBack) {
+        when (clickBack) {
+            is ClickBack.doBack -> {
+                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                    back()
+                }, 1000)
+
+            }
         }
 
     }

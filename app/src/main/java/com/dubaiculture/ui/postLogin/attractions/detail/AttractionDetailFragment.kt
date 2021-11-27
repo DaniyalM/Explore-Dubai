@@ -32,6 +32,7 @@ import com.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.dubaiculture.databinding.ToolbarLayoutDetailBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
+import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.getFacebookPage
 import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
 import com.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
@@ -393,7 +394,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         detailInnerLayout.downOneAR.setOnClickListener(this)
         detailInnerLayout.downOneAR.alpha = 0.4f
         detailInnerLayout.downOneAR.isClickable = false
-        toolbarLayout.llAr.alpha=0.4f
+        toolbarLayout.llAr.alpha = 0.4f
         toolbarLayout.llAr.isClickable = false
         //ar
 
@@ -408,12 +409,16 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
         attractionsObj?.let { attraction ->
             detailInnerLayout.imgFb.setOnClickListener {
-                openUrl(
+                getFacebookPage(
                     attraction.socialLink?.get(0)!!.facebookPageLink,
                     activity,
-                    isFacebook = true,
-                    fragment = this
                 )
+//                openUrl(
+//                    attraction.socialLink?.get(0)!!.facebookPageLink,
+//                    activity,
+//                    isFacebook = true,
+//                    fragment = this
+//                )
             }
             detailInnerLayout.instagram.setOnClickListener {
                 openUrl(

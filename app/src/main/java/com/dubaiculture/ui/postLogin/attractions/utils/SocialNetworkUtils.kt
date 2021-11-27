@@ -41,31 +41,31 @@ object SocialNetworkUtils {
             }
 
             data = Uri.parse(URL)
-            when(fragment){
-                is AttractionDetailFragment ->{
-                    fragment.navigateByDirections(
-                        AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
-                            URL,false
-                        )
-                    )
-                }
-                is ContactFragment ->{
-                    fragment. navigateByDirections(
-                        ContactFragmentDirections.actionContactFragmentToWebviewFragment(
-                        URL,
-                        false
-                    ))
-                }
-                is EventDetailFragment ->{
-                    fragment.navigateByDirections(
-                        EventDetailFragmentDirections.actionEventDetailFragment2ToWebViewNavigation(
-                        URL,
-                        false
-                    ))
-                }
-            }
+//            when(fragment){
+//                is AttractionDetailFragment ->{
+//                    fragment.navigateByDirections(
+//                        AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
+//                            URL,false
+//                        )
+//                    )
+//                }
+//                is ContactFragment ->{
+//                    fragment. navigateByDirections(
+//                        ContactFragmentDirections.actionContactFragmentToWebviewFragment(
+//                        URL,
+//                        false
+//                    ))
+//                }
+//                is EventDetailFragment ->{
+//                    fragment.navigateByDirections(
+//                        EventDetailFragmentDirections.actionEventDetailFragment2ToWebViewNavigation(
+//                        URL,
+//                        false
+//                    ))
+//                }
+//            }
 
-//            context.startActivity(this)
+            context.startActivity(this)
 
         }
 
