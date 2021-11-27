@@ -39,7 +39,7 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
-        binding.viewModel = step1ViewModel
+//        binding.viewModel = step1ViewModel
         subscribeUiEvents(step1ViewModel)
         lottieAnimationRTL(binding.animationView)
         setupRV()
@@ -57,7 +57,7 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
                     }
 
                     override fun rowClickListener(userType: UsersType, position: Int) {
-                        step1ViewModel.updateUserItem(userType.copy(checked = !userType.checked!!))
+                        step1ViewModel.updateUserItem(userType.copy(checked = !userType.checked))
                     }
 
                 }
@@ -72,7 +72,12 @@ class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
     private fun subscribeToObservables() {
 
         step1ViewModel.userType.observe(viewLifecycleOwner) {
-            step1ViewModel._usersType.value = it.usersType
+            it?.getContentIfNotHandled()?.let {
+                binding.tvima.text = it.title
+                step1ViewModel.fillUpUser(it.usersType)
+            }
+
+
         }
 
         step1ViewModel.type.observe(viewLifecycleOwner) {

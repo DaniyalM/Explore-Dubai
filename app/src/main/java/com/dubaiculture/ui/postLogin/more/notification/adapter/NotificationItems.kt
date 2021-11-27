@@ -1,6 +1,5 @@
 package com.dubaiculture.ui.postLogin.more.notification.adapter
 
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dubaiculture.data.repository.more.remote.response.notification.Notifications
 import com.dubaiculture.databinding.ItemsNotitifcationsLayoutBinding
 
-class NotificationItems() :
+class NotificationItems :
     PagingDataAdapter<Notifications, NotificationItems.NotificationViewHolder>(
         NotificationDiffCallback()
     ) {
@@ -35,7 +34,7 @@ class NotificationItems() :
             oldItem: Notifications,
             newItem: Notifications
         ): Boolean =
-            oldItem == newItem
+            oldItem.hashCode() == newItem.hashCode()
 
     }
 

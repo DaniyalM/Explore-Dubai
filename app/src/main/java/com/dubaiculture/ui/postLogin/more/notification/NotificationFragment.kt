@@ -37,7 +37,12 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>() {
         binding.imgClose.setOnClickListener {
             back()
         }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         subscribeToObservables()
+
     }
 
     private fun rvSetup() {
@@ -51,14 +56,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>() {
     private fun subscribeToObservables() {
         notificationViewModel.count.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                if(getCurrentLanguage()!= Locale.ENGLISH) {
-                    val nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
-                    binding.notificationCount.text = nf.format(it.toString())
-                }else{
-                    val nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
-                    binding.notificationCount.text = nf.format(it.toString())
-                }
-
+                binding.notificationCount.text = it.toString()
             }
         }
         notificationViewModel.notificationPagination.observe(viewLifecycleOwner) {
