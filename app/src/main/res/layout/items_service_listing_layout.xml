@@ -89,7 +89,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_desc">
 
                 <LinearLayout
-                    android:id="@+id/ll_email_us"
+                    android:id="@+id/viewDetail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -130,7 +130,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/ll_callus"
+                    android:id="@+id/startService"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"

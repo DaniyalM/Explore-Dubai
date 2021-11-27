@@ -48,14 +48,13 @@ class NotificationViewModel @Inject constructor(
     private fun getNotification(locale: String) {
         viewModelScope.launch {
             showLoader(true)
-            val result = moreRepository.getNotification(NotificationRequest(culture = locale)) {
+            val result = moreRepository.getNotification(NotificationRequest(culture = locale),{
                 setCount(
                     it
                 )
-            }
+            })
             if (result is Result.Success) {
                 showLoader(false)
-
                 result.value
                     .cachedIn(viewModelScope)
                     .collectLatest {
