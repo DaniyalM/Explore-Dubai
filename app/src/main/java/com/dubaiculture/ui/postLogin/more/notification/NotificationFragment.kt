@@ -56,7 +56,14 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>() {
     private fun subscribeToObservables() {
         notificationViewModel.count.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                binding.notificationCount.text = it.toString()
+                if (getCurrentLanguage() != Locale.ENGLISH) {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+                    binding.notificationCount.text = nf.format(it)
+                } else {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                    binding.notificationCount.text = nf.format(it)
+                }
+//                binding.notificationCount.text = it.toString()
             }
         }
         notificationViewModel.notificationPagination.observe(viewLifecycleOwner) {

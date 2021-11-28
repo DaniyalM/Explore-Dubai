@@ -236,5 +236,31 @@
         android:id="@+id/sharedFeeback"
         android:name="com.dubaiculture.ui.postLogin.more.contact.feedback.SharedFeebackFragment"
         android:label="SharedFeeback"
-        tools:layout="@layout/fragment_shared_feeback" />
+        tools:layout="@layout/fragment_shared_feeback" >
+
+        <action
+            android:id="@+id/action_FeedBackFragment_to_messageDialogFragment"
+            app:destination="@id/messageDialogFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="message"
+                app:argType="com.dubaiculture.data.repository.more.local.GetMessage"
+                app:nullable="false" />
+        </action>
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/messageDialogFragment"
+        android:name="com.dubaiculture.ui.postLogin.messageDialog.MessageDialogFragment"
+        android:label="MessageDialogFragment" >
+        <argument
+            android:name="message"
+            app:argType="com.dubaiculture.data.repository.more.local.GetMessage"
+            app:nullable="false" />
+    </dialog>
+
 </navigation>

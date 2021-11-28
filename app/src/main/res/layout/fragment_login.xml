@@ -110,7 +110,7 @@
 
         <com.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_mob_no"
-            style="@style/EditTextLoginStyle"
+            style="@style/EditTextLStyle"
             android:background="@{viewmodel.isPhoneEdit || viewmodel.isEmailEdit ? @drawable/bg_edit_login : @drawable/error_login  }"
             android:drawableEnd="@drawable/mob_login"
             android:hint="@string/enter_mobile_number"
@@ -155,7 +155,7 @@
 
         <com.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_password"
-            style="@style/EditTextLoginStyle"
+            style="@style/EditTextLStyle"
             android:background="@{viewmodel.isPassword ? @drawable/bg_edit_login : @drawable/error_login}"
             android:drawableEnd="@drawable/key_pass_login"
             android:hint="@string/enter_password"
