@@ -109,7 +109,7 @@
             android:name=".ui.preLogin.PreLoginActivity"
             android:launchMode="singleTask"
             android:configChanges="uiMode"
-
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             >
             <nav-graph android:value="@navigation/pre_login_navigation" />

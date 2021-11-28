@@ -18,6 +18,6 @@ interface ProfileService : BaseService {
     @GET("Content/GetFavorites")
     suspend fun getfavourites(@Query("culture") culture: String): UploadProfileResponse
 
-    @POST("/api/Profile/UpdateSettings")
+    @POST("Profile/UpdateSettings")
     suspend fun updateSettings(@Body settingsDTO: UserSettingsDTO): UploadProfileResponse
 }

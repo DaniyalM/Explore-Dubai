@@ -62,6 +62,23 @@ class ExploreBottomSheetFragment : BaseBottomSheetFragment<FragmentExploreButtom
     private fun rvSetUp(list: List<ExploreMap>) {
         exploreNearAdapter = ExploreMapAdapter(isArabic(), object : RowClickListener {
             override fun rowClickListener(position: Int) {
+
+                if (list[position].isAttraction) {
+
+                    navigateByDirections(
+                        ExploreBottomSheetFragmentDirections.actionBottomExploreFragmentToAttractionDetailNavigation(
+                            list[position].id
+                        )
+                    )
+
+                } else {
+                    navigateByDirections(
+                        ExploreBottomSheetFragmentDirections.actionBottomExploreFragmentToEventDetailNavigation(
+                            list[position].id
+                        )
+                    )
+                }
+
             }
 
             override fun rowClickListener(position: Int, imageView: ImageView) {

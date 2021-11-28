@@ -39,8 +39,8 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     View.OnClickListener {
     private val postLoginViewModel: PostLoginViewModel by viewModels()
     private val uaePassSharedViewModel: UaePassSharedViewModel by activityViewModels()
-    private lateinit var user: User
-    private lateinit var uaePass: UAEPass
+    private var user: User? = null
+    private var uaePass: UAEPass? = null
     @Inject
     lateinit var dataStoreManager: DataStoreManager
 
@@ -141,7 +141,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         uaePassSharedViewModel.dontCreate.observe(viewLifecycleOwner){
             it?.getContentIfNotHandled()?.let {
                 if (user!=null&&uaePass!=null)
-                postLoginViewModel.createAccount(user, uaePass)
+                postLoginViewModel.createAccount(user!!, uaePass!!)
             }
         }
         uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner) {
@@ -154,7 +154,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                         ), true
                     )
                 } else {
-                    postLoginViewModel.createAccount(user, uaePass)
+                    postLoginViewModel.createAccount(user!!, uaePass!!)
 //                    postLoginViewModel.loginWithUaeCreate(
 //                        it.copy(
 //                            token = token,
