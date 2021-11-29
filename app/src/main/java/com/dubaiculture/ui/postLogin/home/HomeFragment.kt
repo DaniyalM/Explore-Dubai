@@ -12,18 +12,21 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentHomeBinding
 import com.dubaiculture.happiness.HappinessMeter
 import com.dubaiculture.happiness.Type
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.home.viewmodels.HomeViewModel
+import com.dubaiculture.ui.postLogin.more.contact.ContactFragmentDirections
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.TripSuccessFragmentDirections
 import com.dubaiculture.utils.Constants.NavBundles.NEW_LOCALE
 import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.show
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -66,6 +69,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+        binding.fabLiveChat.setOnClickListener {
+
+            navigateByDirections(
+                HomeFragmentDirections.actionHomeFragmentToWebviewFragment(
+                    if(getCurrentLanguage() != Locale.ENGLISH)  BuildConfig.CHAT_BOT_URL_AR else BuildConfig.CHAT_BOT_URL_EN,
+                false
+            ))
+
+        }
 
         binding.ivAdd.setOnClickListener {
             binding.flWebview.show()

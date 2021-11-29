@@ -1,6 +1,7 @@
 package com.dubaiculture.happiness
 
 import android.webkit.WebView
+import com.dubaiculture.BuildConfig
 import java.util.*
 
 object HappinessMeter {
@@ -52,7 +53,7 @@ object HappinessMeter {
         /**
          * This is QA URL. Replace it with production once it is ready for production.
          */
-        VotingManager.setHappinessUrl("https://happinessmeterqa.dubai.gov.ae/HappinessMeter2/MobilePostDataService")
+        VotingManager.setHappinessUrl(BuildConfig.HAPPINESSMETER_URL)
 //        VotingManager.setHappinessUrl("https://happinessmeter.dubai.gov.ae/HappinessMeter2/MobilePostDataService")
         //For arabic pass lang "ar"
 //        val lang: String
