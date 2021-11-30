@@ -48,7 +48,6 @@
                     android:maxLines="1"
 
                     android:singleLine="true"
-                    android:textColorHint="@color/gray_850"
                     android:textSize="@dimen/_10ssp" />
 
                 <androidx.appcompat.widget.AppCompatImageView

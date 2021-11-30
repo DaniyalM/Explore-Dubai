@@ -5,6 +5,9 @@
     android:id="@+id/post_login_navigation"
     app:startDestination="@id/homeFragment">
 
+    <include app:graph="@navigation/web_view_navigation" />
+
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.dubaiculture.ui.postLogin.home.HomeFragment"
@@ -13,6 +16,18 @@
         <action
             android:id="@+id/action_homeFragment_to_createPassFragment2"
             app:destination="@id/createPassFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_webviewFragment"
+            app:destination="@id/web_view_navigation" >
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+
+        </action>
     </fragment>
     <fragment
         android:id="@+id/createPassFragment2"

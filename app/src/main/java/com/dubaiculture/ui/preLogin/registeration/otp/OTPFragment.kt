@@ -87,7 +87,7 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
 //    }
 
     private fun getOtpFromMessage(message: String?) {
-        val otpPattern = Pattern.compile("(|^)\\d{6}")
+        val otpPattern = Pattern.compile("(|^)\\d{4}")
         val matcher = otpPattern.matcher(message)
         if (matcher.find()) {
             binding.otpView.setText(matcher.group(0))
