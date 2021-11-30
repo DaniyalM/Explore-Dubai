@@ -141,6 +141,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
         binding.llCultureConnoisseur.setOnClickListener(this)
+        binding.planATripLayout.cardivewRTL.hide()
         binding.planATripLayout.cardivewRTL.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
             binding.toolbarSnippet.toolbarLayout.profilePic,
