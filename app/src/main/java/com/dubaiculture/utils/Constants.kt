@@ -112,9 +112,10 @@ object Constants {
 
     object IBecons {
         const val IDENTIFIER: String = "com.flagship.dubaiculture"
+//        const val IDENTIFIER: String = "cb7b136ff042"
         const val UUID_BECON: String = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-        const val MAJOR: Int = 22504
-        const val MINOR: Int = 48827
+        const val MAJOR: Int = 0
+        const val MINOR: Int = 0
     }
 
     object Links {

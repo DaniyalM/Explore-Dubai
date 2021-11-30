@@ -30,5 +30,8 @@ data class IBeaconsItemsDTO(
     var visited: Boolean?=null,
     @SerializedName("VisitedOn")
     @Expose
-    var visitedOn: String?=null
+    var visitedOn: String?=null,
+    @SerializedName("ProximityID")
+    @Expose
+    var proximityID: String?=null
 )

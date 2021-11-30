@@ -260,7 +260,7 @@
     <string name="my_services">خدماتي</string>
     <string name="turn_on"> يرجى تشغيل الموقع</string>
     <string name="about_ndubai_culture">عن هيئة دبي للثقافة والفنون</string>
-    <string name="english">English</string>
+    <string name="english">إنجليزي</string>
     <string name="discover">اكتشف</string>
     <string name="discoverdesc">استكشف دبي ، أطلق العنان للمستكشف الذي في داخلك وتعرف على الثقافة والفن كما لم تفعل من قبل</string>
     <string name="planYourTrip">خطط لرحلتك</string>
@@ -306,10 +306,6 @@
     <string name="pdf">PDF</string>
     <string name="no_my_posts_fav">لا يوجد بيانات</string>
     <string name="loading">جاري التحميل</string>
-
-
-
-
     <string name="lorem_ipsum"></string>
 
 
@@ -402,6 +398,7 @@
     <string name="found">وجدت</string>
     <string name="comment">تعليق</string>
     <string name="enter_comments">أدخل التعليقات</string>
+    <string name="activities_schedule_at_the_workshop">جدول الأنشطة خلال ورشة العمل</string>
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>

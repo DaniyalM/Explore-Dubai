@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.RequestManager
 import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
+import com.dubaiculture.data.repository.sitemap.local.BeaconItems
 import com.dubaiculture.databinding.FragmentIbeconBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.attractions.detail.ibecon.viewmodel.BeaconSharedViewModel
@@ -23,6 +23,7 @@ import com.estimote.coresdk.recognition.packets.Beacon
 import com.estimote.coresdk.service.BeaconManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -31,8 +32,12 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
     lateinit var glide: RequestManager
     private val siteMapViewModel: SiteMapViewModel by viewModels()
     private val beaconSharedViewModel: BeaconSharedViewModel by activityViewModels()
+    private lateinit var beaconItems: List<BeaconItems>
+    //    private val siteMapViewModel: SiteMapViewModel by viewModels()
+
     private var attractionId: String? = null
-//    lateinit var region: BeaconRegion
+
+    //    lateinit var region: BeaconRegion
     lateinit var beaconManager: BeaconManager
 
     @Inject
@@ -70,58 +75,110 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
         }
     }
 
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        beaconUtils.beaconDisconnect()
-//    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        beaconUtils.beaconManager.disconnect()
+    }
 
     private fun beaconMonitoring() {
-        beaconUtils.beaconConnect()
         beaconUtils.beaconManager.apply {
-
             setMonitoringListener(object : BeaconManager.BeaconMonitoringListener {
                 override fun onEnteredRegion(
                     beaconRegion: BeaconRegion?,
                     beacons: MutableList<Beacon>?
                 ) {
-
-                    beacons?.let {
-                        val nearestBeacon: Beacon = it[0]
-                        PushNotificationManager.showNotification(
-                            context,
-                            "Beacon Scanning",
-                            "Beacon Detected : ${it[0].proximityUUID}", null
+                    beaconUtils.beaconManager.startRanging(beaconRegion)
+                    PushNotificationManager.showNotification(
+                        context,
+                        "Beacon Scanning",
+                        "Beacon Detected", null
+                    )
+                    navigateByDirections(
+                        IbeaconFragmentDirections.actionIbeconFragmentToYourJourneyBeaconFragment(
+                            attractionId!!
                         )
+                    )
+
+
+                }
+
+                override fun onExitedRegion(beaconRegion: BeaconRegion?) {
+                    beaconManager.stopRanging(beaconRegion)
+                    PushNotificationManager.showNotification(
+                        context,
+                        "Beacon Scanning",
+                        resources.getString(R.string.you_are_leaving), null
+                    )
+
+                }
+
+            })
+            setRangingListener(BeaconManager.BeaconRangingListener { beaconRegion, beacons ->
+
+                beacons?.let {
+                    if (it.isNotEmpty()) {
+                        val nearestBeacon: Beacon = it[0]
                         lifecycleScope.launch {
-                            attractionId?.let {
-                                beaconSharedViewModel.markAsVisited(
-                                    it,
-                                    nearestBeacon.uniqueKey
-                                )
+                            beaconItems.map { beacons ->
+                                 if ((beacons.proximityID.equals(nearestBeacon.proximityUUID) || beacons.proximityID.toUpperCase().equals(nearestBeacon.proximityUUID)) && !beacons.visited) {
+                                    attractionId?.let {
+                                        beaconSharedViewModel.markAsVisited(
+                                            it,
+                                            nearestBeacon.uniqueKey
+                                        )
+
+                                    }
+                                    return@map beacons.copy(visited = true)
+                                } else
+                                    return@map beacons
+                            }.let {
+                                beaconItems = it
                             }
+
 
                         }
                     }
 
-//                    beconFilterForNotification(beconList, Constants.IBecons.UUID_BECON)
-                }
 
-                override fun onExitedRegion(beaconRegion: BeaconRegion?) {
-                    siteMapViewModel.showToast(resources.getString(R.string.you_are_leaving))
                 }
-
             })
         }
+
     }
 
     private fun callingObserver() {
-        siteMapViewModel.siteMapData.observe(viewLifecycleOwner) {
-            it.let {
-                glide.load(BuildConfig.BASE_URL + it.ibeconImg)
-                    .into(binding.siteMap)
-                binding.count.text = it.ibeconItems?.size.toString()
+        beaconSharedViewModel.beaconVisted.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                lifecycleScope.launch {
+                    beaconSharedViewModel.markAsVisited(attractionId!!, it.uniqueKey)
 
+                }
             }
+        }
+
+        siteMapViewModel.beacons.observe(viewLifecycleOwner) {
+            beaconItems = it
+            beaconUtils.beaconManager.connect(object : BeaconManager.ServiceReadyCallback {
+                override fun onServiceReady() {
+                    it.forEach {
+                        if (it.proximityID.isNotEmpty()) {
+                            beaconUtils.beaconManager
+                            beaconUtils.beaconManager.startRanging(
+                                BeaconRegion(
+                                    it.deviceID,
+                                    UUID.fromString(it.proximityID), 0, 0
+                                )
+                            )
+                        }
+
+                    }
+
+                }
+            })
+        }
+        siteMapViewModel.siteMapData.observe(viewLifecycleOwner) {
+            glide.load(BuildConfig.BASE_URL + it.ibeconImg)
+                .into(binding.siteMap)
         }
     }
 

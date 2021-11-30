@@ -37,6 +37,7 @@ fun transformIbeconList(iBeaconsItemsDTO: IBeaconsItemsDTO, index: Int) = Beacon
     deviceID = iBeaconsItemsDTO.deviceID,
     visited = iBeaconsItemsDTO.visited ?: false,
     visitedOn = iBeaconsItemsDTO.visitedOn ?: "",
+    proximityID = iBeaconsItemsDTO.proximityID ?: "",
     id = index + 1
 )
 

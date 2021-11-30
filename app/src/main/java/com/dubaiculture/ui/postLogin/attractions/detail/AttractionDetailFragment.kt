@@ -341,7 +341,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                 urlshare ?: "",
                                 activity,
                                 title = attractionsObj!!.title,
-                                detail = attractionsObj!!.description!!
+                                detail = ""
                             )
                         }
                         binding.share.setOnClickListener { view ->
@@ -349,7 +349,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                 urlshare ?: "",
                                 activity,
                                 title = attractionsObj!!.title,
-                                detail = attractionsObj!!.description!!
+                                detail =  ""
                             )
                         }
                     } else {
