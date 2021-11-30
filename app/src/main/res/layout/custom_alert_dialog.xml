@@ -38,7 +38,7 @@
                 android:layout_marginStart="@dimen/_30sdp"
                 android:layout_marginEnd="@dimen/_30sdp"
                 android:gravity="center"
-                android:text="Something went wrong"
+                android:text="@string/something_went_wrong"
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintBottom_toTopOf="@+id/customTextView11"
                 app:layout_constraintEnd_toEndOf="@+id/appCompatImageView2"
@@ -54,7 +54,7 @@
                 android:lines="2"
                 android:paddingStart="@dimen/_25sdp"
                 android:paddingEnd="@dimen/_25sdp"
-                android:text="Make sure wifi or mobile data is turned on and then try againt"
+                android:text="@string/make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again"
                 app:layout_constraintBottom_toTopOf="@+id/customButton"
                 app:layout_constraintEnd_toEndOf="@+id/appCompatImageView2"
                 app:layout_constraintStart_toStartOf="@+id/appCompatImageView2" />

@@ -399,6 +399,8 @@
     <string name="comment">تعليق</string>
     <string name="enter_comments">أدخل التعليقات</string>
     <string name="activities_schedule_at_the_workshop">جدول الأنشطة خلال ورشة العمل</string>
+    <string name="something_went_wrong">هناك خطأ ما</string>
+    <string name="make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again">تأكد من تشغيل واي فاي أو بيانات الهاتف المحمول ثم حاول مرة أخرى</string>
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>
