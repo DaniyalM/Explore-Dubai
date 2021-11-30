@@ -37,7 +37,7 @@ class SiteMapViewModel @Inject constructor(
                     showLoader(false)
                     _siteMapData.value = result.value
 
-                    result.value.ibeconItems.filter { it.proximityID.isNotEmpty() }.let {
+                    result.value.ibeconItems.filter { it.proximityID.isNotEmpty()&& it.minor.isNotEmpty() && it.major.isNotEmpty() }.let {
                         _beacons.value=it
                     }
 

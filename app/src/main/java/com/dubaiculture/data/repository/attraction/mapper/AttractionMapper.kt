@@ -167,7 +167,11 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
                     visitedOn = iBeaconsItemsDTO.visitedOn ?: "",
                     visited = iBeaconsItemsDTO.visited ?: false,
                     id = index + 1,
-                    proximityID = iBeaconsItemsDTO.proximityID ?: ""
+                    proximityID = iBeaconsItemsDTO.proximityID ?: "",
+                    major = iBeaconsItemsDTO.major?:"",
+                    minor = iBeaconsItemsDTO.minor?:"",
+                    serial = iBeaconsItemsDTO.serial?:"",
+                    itemId = iBeaconsItemsDTO.ItemId?:""
                 )
             }
         )

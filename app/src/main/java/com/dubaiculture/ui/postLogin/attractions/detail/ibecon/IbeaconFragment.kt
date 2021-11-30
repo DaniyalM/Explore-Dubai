@@ -87,12 +87,43 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
                     beaconRegion: BeaconRegion?,
                     beacons: MutableList<Beacon>?
                 ) {
-                    beaconUtils.beaconManager.startRanging(beaconRegion)
+
                     PushNotificationManager.showNotification(
                         context,
                         "Beacon Scanning",
                         "Beacon Detected", null
                     )
+
+
+                    beacons?.let {
+                        if (it.isNotEmpty()) {
+                            val nearestBeacon: Beacon = it[0]
+                            lifecycleScope.launch {
+                                beaconItems.map { beacons ->
+                                    if (beacons.proximityID.toLowerCase()
+                                            .equals(nearestBeacon.proximityUUID.toString().toLowerCase()) &&
+                                        !beacons.visited
+                                    ) {
+                                        attractionId?.let {
+                                            beaconSharedViewModel.markAsVisited(
+                                                it,
+                                                beacons.itemId
+                                            )
+
+                                        }
+                                        return@map beacons.copy(visited = true)
+                                    } else
+                                        return@map beacons
+                                }.let {
+                                    beaconItems = it
+                                }
+
+
+                            }
+                        }
+
+
+                    }
                     navigateByDirections(
                         IbeaconFragmentDirections.actionIbeconFragmentToYourJourneyBeaconFragment(
                             attractionId!!
@@ -103,7 +134,6 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
                 }
 
                 override fun onExitedRegion(beaconRegion: BeaconRegion?) {
-                    beaconManager.stopRanging(beaconRegion)
                     PushNotificationManager.showNotification(
                         context,
                         "Beacon Scanning",
@@ -113,35 +143,7 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
                 }
 
             })
-            setRangingListener(BeaconManager.BeaconRangingListener { beaconRegion, beacons ->
 
-                beacons?.let {
-                    if (it.isNotEmpty()) {
-                        val nearestBeacon: Beacon = it[0]
-                        lifecycleScope.launch {
-                            beaconItems.map { beacons ->
-                                 if ((beacons.proximityID.equals(nearestBeacon.proximityUUID) || beacons.proximityID.toUpperCase().equals(nearestBeacon.proximityUUID)) && !beacons.visited) {
-                                    attractionId?.let {
-                                        beaconSharedViewModel.markAsVisited(
-                                            it,
-                                            nearestBeacon.uniqueKey
-                                        )
-
-                                    }
-                                    return@map beacons.copy(visited = true)
-                                } else
-                                    return@map beacons
-                            }.let {
-                                beaconItems = it
-                            }
-
-
-                        }
-                    }
-
-
-                }
-            })
         }
 
     }
@@ -163,10 +165,12 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
                     it.forEach {
                         if (it.proximityID.isNotEmpty()) {
                             beaconUtils.beaconManager
-                            beaconUtils.beaconManager.startRanging(
+                            beaconUtils.beaconManager.startMonitoring(
                                 BeaconRegion(
                                     it.deviceID,
-                                    UUID.fromString(it.proximityID), 0, 0
+                                    UUID.fromString(it.proximityID),
+                                    it.major.toInt(),
+                                    it.minor.toInt()
                                 )
                             )
                         }

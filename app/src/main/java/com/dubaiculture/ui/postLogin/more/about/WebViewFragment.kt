@@ -27,6 +27,7 @@ class WebViewFragment : BaseFragment<FragmentWebViewBinding>() {
 
 //        showToast(args.webviewUrl)
         binding.webview.settings.apply {
+
             javaScriptEnabled = true
             domStorageEnabled = true
             loadWithOverviewMode = true
