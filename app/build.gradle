@@ -33,7 +33,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [appAuthRedirectScheme: 'com.redirectScheme.comm']
-
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
 
         //UAE PASS START -- Adding Custom Scheme Variables
         buildConfigField "String", "URI_SCHEME", "\"uaePassDemo\"" // Change to your app name or any custom scheme. Donot use uaepasssample
