@@ -131,7 +131,7 @@ object AppConfigUtils {
             i.type = "text/plain"
             i.putExtra(Intent.EXTRA_TITLE, title)
             i.putExtra(Intent.EXTRA_SUBJECT, detail)
-            i.putExtra(Intent.EXTRA_TEXT, BuildConfig.BASE_URL_SHARE + stringUrl)
+            i.putExtra(Intent.EXTRA_TEXT, "${title} "+BuildConfig.BASE_URL_SHARE + stringUrl)
             activity.startActivity(Intent.createChooser(i, title))
         }
     }

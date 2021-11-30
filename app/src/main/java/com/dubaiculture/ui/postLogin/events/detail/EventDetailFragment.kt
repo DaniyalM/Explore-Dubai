@@ -317,8 +317,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 urlshare
                                     ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
                                 activity,
-                                title=eventObj!!.title!!+": "+eventObj!!.toDate+"-"+eventObj!!.toMonthYear,
-                                detail = eventObj!!.desc!!
+                                title=eventObj!!.title!!+ " "+ eventObj!!.fromDate+"-"+eventObj!!.fromMonthYear,
+                                detail = ""
                             )
                         }
                         binding.share.setOnClickListener {
@@ -326,8 +326,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 urlshare
                                     ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
                                 activity,
-                                title=eventObj!!.title!!+": "+eventObj!!.toDate+"-"+eventObj!!.toMonthYear,
-                                detail = eventObj!!.desc!!
+                                title=eventObj!!.title!!,
+                                detail =""
                             )
 
                         }

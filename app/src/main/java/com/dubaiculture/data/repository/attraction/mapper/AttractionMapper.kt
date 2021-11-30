@@ -60,25 +60,25 @@ fun transformAttractionDetail(attractionResponse: AttractionResponse): Attractio
     transformAttractionDetail(attractionResponse.Result.attraction)
 
 fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attractions(
-    id = attraction.id?:"",
-    title = attraction.title?:"",
-    category = attraction.category?:"",
-    locationTitle = attraction.locationTitle?:"",
-    location = attraction.location?:"",
-    latitude = attraction.latitude?:"",
-    longitude = attraction.longitude?:"",
-    portraitImage = attraction.portraitImage?:"",
-    landscapeImage = attraction.landscapeImage?:"",
-    description = attraction.description?:"",
-    summary = attraction.summary?:"",
-    startTime = attraction.startTime?:"",
-    endTime = attraction.endTime?:"",
-    startDay = attraction.startDay?:"",
-    endDay = attraction.endDay?:"",
-    color = attraction.color?:"",
-    IsFavourite = attraction.isFavourite?:false,
-    emailContact = attraction.emailContact?:"",
-    numberContact = attraction.numberContact?:"",
+    id = attraction.id ?: "",
+    title = attraction.title ?: "",
+    category = attraction.category ?: "",
+    locationTitle = attraction.locationTitle ?: "",
+    location = attraction.location ?: "",
+    latitude = attraction.latitude ?: "",
+    longitude = attraction.longitude ?: "",
+    portraitImage = attraction.portraitImage ?: "",
+    landscapeImage = attraction.landscapeImage ?: "",
+    description = attraction.description ?: "",
+    summary = attraction.summary ?: "",
+    startTime = attraction.startTime ?: "",
+    endTime = attraction.endTime ?: "",
+    startDay = attraction.startDay ?: "",
+    endDay = attraction.endDay ?: "",
+    color = attraction.color ?: "",
+    IsFavourite = attraction.isFavourite ?: false,
+    emailContact = attraction.emailContact ?: "",
+    numberContact = attraction.numberContact ?: "",
     siteMap = attraction.siteMapDTO?.let {
         SiteMap(
             image = it.image,
@@ -111,8 +111,8 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
                 dateFrom = it.dateFrom,
                 locationTitle = it.locationTitle,
                 location = it.location ?: "",
-                longitude = it.longitude?:"67.08119661055807",
-                latitude = it.latitude?:"24.83250180519734",
+                longitude = it.longitude ?: "67.08119661055807",
+                latitude = it.latitude ?: "24.83250180519734",
                 isFavourite = it.isFavourite,
                 registrationDate = it.registrationDate
             )
@@ -154,25 +154,27 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
     ibecons = attraction.ibecon?.let {
         Ibecons(
             image = it.image,
-            subtitle=it.subtitle,
+            subtitle = it.subtitle,
             ibeconItems = it.iBeaconsItems?.mapIndexed { index, iBeaconsItemsDTO ->
                 BeaconItems(
                     step = iBeaconsItemsDTO.step,
                     title = iBeaconsItemsDTO.title,
-                    subtitle =  iBeaconsItemsDTO.subtitle,
+                    subtitle = iBeaconsItemsDTO.subtitle,
                     image = iBeaconsItemsDTO.img,
                     thumbnail = iBeaconsItemsDTO.thumbnail,
                     summary = iBeaconsItemsDTO.summary,
                     deviceID = iBeaconsItemsDTO.deviceID,
                     visitedOn = iBeaconsItemsDTO.visitedOn ?: "",
                     visited = iBeaconsItemsDTO.visited ?: false,
-                    id = index + 1
+                    id = index + 1,
+                    proximityID = iBeaconsItemsDTO.proximityID ?: ""
                 )
             }
         )
     },
-    relatedEventsTitle = attraction.RelatedEventsTitle?:"",
-    url = attraction.URL?:""
+    relatedEventsTitle = attraction.RelatedEventsTitle ?: "",
+    url = attraction.URL ?: "",
+    tripAdvisorLink = attraction.tripAdvisorLink ?: ""
 
 )
 
@@ -187,24 +189,24 @@ fun transformAttractions(list: List<AttractionDTO>): List<Attractions> =
     list.run {
         this.map {
             Attractions(
-                id = it.id?:"",
-                title = it.title?:"",
-                category = it.category?:"",
-                type = it.type?:"",
+                id = it.id ?: "",
+                title = it.title ?: "",
+                category = it.category ?: "",
+                type = it.type ?: "",
                 IsFavourite = it.isFavourite,
-                locationTitle = it.locationTitle?:"",
-                location = it.location?:"",
-                portraitImage = it.portraitImage?:"",
-                longitude = it.longitude?:"67.08119661055807",
-                latitude = it.latitude?:"24.83250180519734",
-                landscapeImage = it.landscapeImage?:"",
-                description = it.description?:"",
-                startTime = it.startTime?:"",
-                endTime = it.endTime?:"",
-                endDay = it.endDay?:"",
-                startDay = it.startDay?:"",
-                color = it.color?:"",
-                visitedDateTime = it.visitedDateTime?:""
+                locationTitle = it.locationTitle ?: "",
+                location = it.location ?: "",
+                portraitImage = it.portraitImage ?: "",
+                longitude = it.longitude ?: "67.08119661055807",
+                latitude = it.latitude ?: "24.83250180519734",
+                landscapeImage = it.landscapeImage ?: "",
+                description = it.description ?: "",
+                startTime = it.startTime ?: "",
+                endTime = it.endTime ?: "",
+                endDay = it.endDay ?: "",
+                startDay = it.startDay ?: "",
+                color = it.color ?: "",
+                visitedDateTime = it.visitedDateTime ?: ""
             )
         }
     }

@@ -16,5 +16,6 @@ data class BeaconItems(
     val visited: Boolean,
     val visitedOn: String,
     var isVisited: Boolean = false,
+    var proximityID: String ,
     val id: Int
 ) : Parcelable

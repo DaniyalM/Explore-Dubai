@@ -33,6 +33,7 @@ import com.dubaiculture.utils.Constants.NavBundles.LOCATION_LNG
 import com.dubaiculture.utils.handleApiError
 import com.dubaiculture.utils.location.LocationHelper
 import com.bumptech.glide.RequestManager
+import com.dubaiculture.utils.hide
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CircleOptions
@@ -94,7 +95,10 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
 
         binding.header.back.setOnClickListener(this)
         binding.ImgChangeView.setOnClickListener(this)
+
+        binding.search.hide()
         binding.search.setOnClickListener(this)
+
 
 //        mapSetUp()
 

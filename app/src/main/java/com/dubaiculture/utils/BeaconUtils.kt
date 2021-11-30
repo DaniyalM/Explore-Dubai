@@ -24,31 +24,13 @@ class BeaconUtils @Inject constructor(
     var region: BeaconRegion = BeaconRegion(IDENTIFIER, UUID.fromString(UUID_BECON), MAJOR, MINOR)
 //    val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
-    fun beaconDisconnect(){
-        beaconManager.stopMonitoring(region.identifier)
-        beaconManager.stopRanging(region)
-        beaconManager.disconnect()
-    }
+//    fun beaconDisconnect(){
+//        beaconManager.stopMonitoring(region.identifier)
+////        beaconManager.stopRanging(region)
+//        beaconManager.disconnect()
+//    }
     fun beaconConnect() {
-        beaconManager.connect {
 
-            beaconManager.startMonitoring(region)
-            beaconManager.startRanging(region)
-            beaconManager.setScanStatusListener(object : BeaconManager.ScanStatusListener {
-                override fun onScanStart() {
-                    Toast.makeText(context,"Dubai Culture Scanning has been started", Toast.LENGTH_SHORT).show()
-//                    PushNotificationManager.showNotification(
-//                        context,
-//                        "Beacon Scanning",
-//                        "Dubai Culture Scanning has been started", null
-//                    )
-                }
-
-                override fun onScanStop() {
-                }
-            })
-//            startMontioring()
-        }
     }
 
      fun startMontioring() {
