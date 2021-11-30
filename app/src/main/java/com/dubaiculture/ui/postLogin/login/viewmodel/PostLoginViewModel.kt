@@ -170,7 +170,7 @@ class PostLoginViewModel @Inject constructor(
 //            }
 //        }
 //    }
-    fun createAccount(user: User, uaePass: UAEPass) {
+    fun createAccount(user: User, uaePass: UAEPass,message:String="") {
         uaePass.let {
             viewModelScope.launch {
                 userRepository.saveUaeInfo(
@@ -178,8 +178,15 @@ class PostLoginViewModel @Inject constructor(
                 )
 
                 //setting user for Session
+                if (message.isNotEmpty()) {
+                    showSnackbar(message = message)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        setUser(user)
+                    }, 1500)
 
-                setUser(user)
+                } else {
+                    setUser(user)
+                }
 
                 activity.auth.isGuest = false
                 //Saving User Session
@@ -191,54 +198,54 @@ class PostLoginViewModel @Inject constructor(
         }
     }
 
-    fun loginWithUaeCreate(uaeLoginRequest: UAELoginRequest) {
-        viewModelScope.launch {
-            showLoader(true)
-            when (val result = loginRepository.linkWithUaeCreateAccount(uaeLoginRequest)) {
-                is Result.Success -> {
-                    showLoader(false)
-//                    Timber.e(result.value.loginResponseDTO.userDTO.Email)
-
-                    //UAE Response Has been Saved
-                    val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
-                    uaePass.let {
-                        if (it.idn.isEmpty()) {
-                            showAlert(message = activity.resources.getString(R.string.sop1))
-                        } else {
-                            //setting UaePassInfo for Session
-                            userRepository.saveUaeInfo(
-                                it
-                            )
-
-                            //setting user for Session
-                            val user = transform(
-                                result.value.loginResponseDTO.userDTO,
-                                result.value.loginResponseDTO
-                            ).copy(
-                                idn = it.idn,
-                                userName = "${it.firstNameEn} ${it.lastNameEn}",
-                                email = it.email,
-                                phoneNumber = "+${it.mobile}"
-                            )
-
-                            setUser(user)
-                            activity.auth.isGuest = false
-                            //Saving User Session
-                            userRepository.updateUser(user)
-                            _loginStatus.value = Event(true)
-                        }
-                    }
-
-
-                }
-                is Result.Failure -> {
-                    showLoader(false)
-                    val error = result.errorMessage ?: Constants.Error.SOMETHING_WENT_WRONG
-                    showAlert(message = error)
-                }
-            }
-        }
-    }
+//    fun loginWithUaeCreate(uaeLoginRequest: UAELoginRequest) {
+//        viewModelScope.launch {
+//            showLoader(true)
+//            when (val result = loginRepository.linkWithUaeCreateAccount(uaeLoginRequest)) {
+//                is Result.Success -> {
+//                    showLoader(false)
+////                    Timber.e(result.value.loginResponseDTO.userDTO.Email)
+//
+//                    //UAE Response Has been Saved
+//                    val uaePass = transformUaeResponse(result.value.loginResponseDTO.userUaePass)
+//                    uaePass.let {
+//                        if (it.idn.isEmpty()) {
+//                            showAlert(message = activity.resources.getString(R.string.sop1))
+//                        } else {
+//                            //setting UaePassInfo for Session
+//                            userRepository.saveUaeInfo(
+//                                it
+//                            )
+//
+//                            //setting user for Session
+//                            val user = transform(
+//                                result.value.loginResponseDTO.userDTO,
+//                                result.value.loginResponseDTO
+//                            ).copy(
+//                                idn = it.idn,
+//                                userName = "${it.firstNameEn} ${it.lastNameEn}",
+//                                email = it.email,
+//                                phoneNumber = "+${it.mobile}"
+//                            )
+//
+//                            setUser(user)
+//                            activity.auth.isGuest = false
+//                            //Saving User Session
+//                            userRepository.updateUser(user)
+//                            _loginStatus.value = Event(true)
+//                        }
+//                    }
+//
+//
+//                }
+//                is Result.Failure -> {
+//                    showLoader(false)
+//                    val error = result.errorMessage ?: Constants.Error.SOMETHING_WENT_WRONG
+//                    showAlert(message = error)
+//                }
+//            }
+//        }
+//    }
 
     fun loginWithUae(uaeLoginRequest: UAELoginRequest, linkAccount: Boolean = false) {
         viewModelScope.launch {
@@ -251,33 +258,45 @@ class PostLoginViewModel @Inject constructor(
 
                         val uaePass =
                             transformUaeResponse(result.value.loginResponseDTO.userUaePass)
-                        uaePass.let {
-                            if (it.idn.isEmpty()) {
-                                showAlert(message = activity.resources.getString(R.string.sop1))
-                            } else {
-                                //setting UaePassInfo for Session
-                                userRepository.saveUaeInfo(
-                                    it
-                                )
+                        //setting user for Session
+                        val user = transform(
+                            result.value.loginResponseDTO.userDTO,
+                            result.value.loginResponseDTO
+                        ).copy(
+                            idn = uaePass.idn,
+                            userName = "${uaePass.firstNameEn} ${uaePass.lastNameEn}",
+                            email = uaePass.email,
+                            phoneNumber = "+${uaePass.mobile}"
+                        )
 
-                                //setting user for Session
-                                val user = transform(
-                                    result.value.loginResponseDTO.userDTO,
-                                    result.value.loginResponseDTO
-                                ).copy(
-                                    idn = it.idn,
-                                    userName = "${it.firstNameEn} ${it.lastNameEn}",
-                                    email = it.email,
-                                    phoneNumber = "+${it.mobile}"
-                                )
-
-                                setUser(user)
-                                activity.auth.isGuest = false
-                                //Saving User Session
-                                userRepository.updateUser(user)
-                                _loginStatus.value = Event(true)
-                            }
-                        }
+                        createAccount(user,uaePass)
+//                        uaePass.let {
+//                            if (it.idn.isEmpty()) {
+//                                showAlert(message = activity.resources.getString(R.string.sop1))
+//                            } else {
+//                                //setting UaePassInfo for Session
+//                                userRepository.saveUaeInfo(
+//                                    it
+//                                )
+//
+//                                //setting user for Session
+//                                val user = transform(
+//                                    result.value.loginResponseDTO.userDTO,
+//                                    result.value.loginResponseDTO
+//                                ).copy(
+//                                    idn = it.idn,
+//                                    userName = "${it.firstNameEn} ${it.lastNameEn}",
+//                                    email = it.email,
+//                                    phoneNumber = "+${it.mobile}"
+//                                )
+//
+//                                setUser(user)
+//                                activity.auth.isGuest = false
+//                                //Saving User Session
+//                                userRepository.updateUser(user)
+//                                _loginStatus.value = Event(true)
+//                            }
+//                        }
 
 
                     }
@@ -319,35 +338,35 @@ class PostLoginViewModel @Inject constructor(
                             if (message.isNotEmpty()) {
                                 showSnackbar(message = message)
                             }
-
-                            uaePass.let {
-                                if (it.idn.isEmpty()) {
-                                    showAlert(message = activity.resources.getString(R.string.sop1))
-                                } else {
-                                    //setting UaePassInfo for Session
-                                    userRepository.saveUaeInfo(
-                                        it
-                                    )
-
-                                    //setting user for Session
-
-                                    val message = result.value.loginResponseDTO.UpdateMessage ?: ""
-                                    if (message.isNotEmpty()) {
-                                        showSnackbar(message = message)
-                                        Handler(Looper.getMainLooper()).postDelayed({
-                                            setUser(user)
-                                        }, 1500)
-
-                                    } else {
-                                        setUser(user)
-                                    }
-
-                                    activity.auth.isGuest = false
-                                    //Saving User Session
-                                    userRepository.updateUser(user)
-                                    _loginStatus.value = Event(true)
-                                }
-                            }
+                            createAccount(user,uaePass,message=result.value.loginResponseDTO.UpdateMessage ?: "")
+//                            uaePass.let {
+//                                if (it.idn.isEmpty()) {
+//                                    showAlert(message = activity.resources.getString(R.string.sop1))
+//                                } else {
+//                                    //setting UaePassInfo for Session
+//                                    userRepository.saveUaeInfo(
+//                                        it
+//                                    )
+//
+//                                    //setting user for Session
+//
+//                                    val message = result.value.loginResponseDTO.UpdateMessage ?: ""
+//                                    if (message.isNotEmpty()) {
+//                                        showSnackbar(message = message)
+//                                        Handler(Looper.getMainLooper()).postDelayed({
+//                                            setUser(user)
+//                                        }, 1500)
+//
+//                                    } else {
+//                                        setUser(user)
+//                                    }
+//
+//                                    activity.auth.isGuest = false
+//                                    //Saving User Session
+//                                    userRepository.updateUser(user)
+//                                    _loginStatus.value = Event(true)
+//                                }
+//                            }
                         }
 
 
