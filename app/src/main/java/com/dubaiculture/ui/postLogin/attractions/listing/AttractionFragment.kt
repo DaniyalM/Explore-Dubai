@@ -21,6 +21,7 @@ import com.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.dubaiculture.utils.getColorFromAttr
 import com.dubaiculture.utils.glideInstance
 import com.dubaiculture.utils.handleApiError
+import com.dubaiculture.utils.hide
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -48,9 +49,10 @@ class AttractionFragment : BaseFragment<FragmentAttractionHeaderBinding>() {
         setupToolbarWithSearchItems()
         initViewPager()
         refreshRequest()
-        binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
-            navigateByDirections(AttractionFragmentDirections.actionAttractionsFragmentToSearchNavigation())
-        }
+        binding.toolbarSnippet.toolbarLayout.search.hide()
+//        binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
+//            navigateByDirections(AttractionFragmentDirections.actionAttractionsFragmentToSearchNavigation())
+//        }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

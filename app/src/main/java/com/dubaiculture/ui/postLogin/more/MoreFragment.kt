@@ -31,6 +31,7 @@ import com.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLIC
 import com.dubaiculture.utils.SettingsUtils.newsList
 import com.dubaiculture.utils.SettingsUtils.servicesList
 import com.dubaiculture.utils.SettingsUtils.settingsList
+import com.dubaiculture.utils.hide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
@@ -131,7 +132,11 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         moreViewModel.notificationCount(getCurrentLanguage().language)
         subscribeToObservable()
         bgAboutRTL(binding.imgEagle)
+
+        binding.toolbarSnippet.toolbarLayout.search.hide()
         binding.toolbarSnippet.toolbarLayout.search.setOnClickListener(this)
+
+
         binding.llRateUs.setOnClickListener(this)
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
