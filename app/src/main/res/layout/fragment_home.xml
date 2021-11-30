@@ -95,7 +95,7 @@
                 android:clickable="true"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_chat"
+                android:src="@drawable/ic_chat_updated__1_"
                 app:layout_constraintBottom_toTopOf="@id/bottomNav"
                 app:layout_constraintEnd_toEndOf="parent" />
 

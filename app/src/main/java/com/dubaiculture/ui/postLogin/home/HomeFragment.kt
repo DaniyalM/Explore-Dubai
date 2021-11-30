@@ -81,29 +81,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
 
         binding.ivAdd.setOnClickListener {
-            binding.flWebview.show()
+//            binding.flWebview.show()
+            navigateByDirections(HomeFragmentDirections.actionHomeFragmentToHappinessFragment())
             //    load(currentType)
-            HappinessMeter.load(
-                Type.WITHOUT_MICROAPP,
-                binding.webView,
-                application.auth.locale.toString()
-            )
+//            HappinessMeter.load(
+//                Type.WITHOUT_MICROAPP,
+//                binding.webView,
+//                application.auth.locale.toString()
+//            )
         }
 
-        binding.webView.webViewClient = object : WebViewClient() {
-            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                super.onPageStarted(view, url, favicon)
-            }
-
-            override fun onPageFinished(view: WebView, url: String) {
-
-                if (url.contains("happiness://done")) {
-                    binding.flWebview.visibility = View.GONE
-//                    navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
-                }
-
-            }
-        }
+//        binding.webView.webViewClient = object : WebViewClient() {
+//            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+//                super.onPageStarted(view, url, favicon)
+//            }
+//
+//            override fun onPageFinished(view: WebView, url: String) {
+//
+//                if (url.contains("happiness://done")) {
+//
+//                    binding.flWebview.visibility = View.GONE
+////                    navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
+//                }
+//
+//            }
+//        }
 
     }
 

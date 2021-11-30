@@ -28,11 +28,22 @@
                 app:nullable="false" />
 
         </action>
+        <action
+            android:id="@+id/action_homeFragment_to_happinessFragment"
+            app:destination="@id/happinessFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/createPassFragment2"
         android:name="com.dubaiculture.ui.preLogin.password.CreatePassFragment"
         android:label="CreatePassFragment" />
+    <dialog
+        android:id="@+id/happinessFragment"
+        android:name="com.dubaiculture.ui.postLogin.home.HappinessMeterBottomSheetFragment"
+        android:label="happinessMeterFragment" />
 
 
 </navigation>

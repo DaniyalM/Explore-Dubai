@@ -73,6 +73,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private var url: String? = null
     private var urlshare: String? = null
     var emailContact: String? = null
+    var tripAdvisorLink: String? = null
     var numberContact: String? = null
     lateinit var detailInnerLayout: AttractionDetailInnerLayoutBinding
     lateinit var toolbarLayout: ToolbarLayoutDetailBinding
@@ -286,6 +287,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 is Result.Success -> {
 //                    contentFlag = "ContentLoaded"
 
+                    if (it.value.tripAdvisorLink.isNullOrEmpty()) {
+                        binding.attractionDetailInnerLayout.cardviewPlanTrip.hide()
+                    } else {
+                        tripAdvisorLink = it.value.tripAdvisorLink
+                        binding.attractionDetailInnerLayout.cardviewPlanTrip.show()
+                    }
 
                     attractionsObj = it.value
                     urlshare = "${it.value.url}?q=${it.value.id}"
@@ -349,7 +356,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                 urlshare ?: "",
                                 activity,
                                 title = attractionsObj!!.title,
-                                detail =  ""
+                                detail = ""
                             )
                         }
                     } else {
@@ -406,7 +413,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         detailInnerLayout.constLayoutSiteMap.setOnClickListener(this)
         detailInnerLayout.constLayoutIbecon.setOnClickListener(this)
         detailInnerLayout.tvDirection.setOnClickListener(this)
-
+        detailInnerLayout.cardviewPlanTrip.setOnClickListener(this)
         attractionsObj?.let { attraction ->
             detailInnerLayout.imgFb.setOnClickListener {
                 getFacebookPage(
@@ -785,6 +792,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 if (!emailContact.toString().isNullOrEmpty()) {
                     openEmailbox(emailContact.toString())
                 }
+            }
+            R.id.cardview_plan_trip -> {
+                navigateByDirections(
+                    AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
+                         tripAdvisorLink.toString(), false
+                    )
+                )
             }
         }
     }
