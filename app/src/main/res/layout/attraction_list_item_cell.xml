@@ -54,6 +54,7 @@
                 android:layout_marginTop="@dimen/_14sdp"
                 app:cardBackgroundColor="@color/white_900"
                 app:cardCornerRadius="@dimen/_12sdp"
+                android:visibility="gone"
                 app:cardElevation="@dimen/_5sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
