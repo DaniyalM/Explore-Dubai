@@ -1,6 +1,8 @@
 package com.dubaiculture.data.repository.sitemap.local
 
 import android.os.Parcelable
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 
@@ -17,5 +19,9 @@ data class BeaconItems(
     val visitedOn: String,
     var isVisited: Boolean = false,
     var proximityID: String ,
-    val id: Int
+    val id: Int,
+    var minor: String,
+    var major: String,
+    var serial: String,
+    var itemId: String
 ) : Parcelable

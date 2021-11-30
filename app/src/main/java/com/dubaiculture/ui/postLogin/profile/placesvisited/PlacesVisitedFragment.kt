@@ -18,8 +18,9 @@ import com.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
 import com.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.handleApiError
+import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,13 +52,13 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
             it.getContentIfNotHandled()?.let {
                 if (it.isEmpty()) {
 
-                    binding.personalRv.visibility = View.GONE
-                    binding.tvPlaceHolder.visibility = View.VISIBLE
+                    binding.personalRv.hide()
+                    binding.tvPlaceHolder.show()
 
                 } else {
 
-                    binding.tvPlaceHolder.visibility = View.GONE
-                    binding.personalRv.visibility = View.VISIBLE
+                    binding.tvPlaceHolder.hide()
+                    binding.personalRv.show()
 
                     it.forEach {
                         if (placesVisitedListAdapter.itemCount > 0) {
@@ -83,13 +84,18 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
                                 },
                                 rowClickListener = object : RowClickListener {
                                     override fun rowClickListener(position: Int) {
-                                        navigate(R.id.action_placesVisited_to_attraction_detail_navigation,
-                                            Bundle().apply {
-                                                putParcelable(
-                                                    Constants.NavBundles.ATTRACTION_OBJECT,
-                                                    it
-                                                )
-                                            })
+                                        navigateByDirections(
+                                            PlacesVisitedFragmentDirections.actionPlacesVisitedToAttractionDetailNavigation(
+                                                it.id
+                                            )
+                                        )
+//                                        navigate(R.id.action_placesVisited_to_attraction_detail_navigation,
+//                                            Bundle().apply {
+//                                                putParcelable(
+//                                                    Constants.NavBundles.ATTRACTION_OBJECT,
+//                                                    it
+//                                                )
+//                                            })
                                     }
 
                                     override fun rowClickListener(
