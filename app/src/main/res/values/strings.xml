@@ -408,6 +408,8 @@
     <string name="comment">Comment</string>
     <string name="enter_comments">Enter Comments</string>
     <string name="activities_schedule_at_the_workshop">Activities schedule at the workshop</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again">Make sure wifi or mobile data is turned on and then try again</string>
 
 
 </resources>
