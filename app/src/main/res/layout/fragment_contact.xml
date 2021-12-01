@@ -606,7 +606,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="20dp"
                             android:id="@+id/cv_e_complaint"
-                            android:onClick="@{()-> fragment.openWebWithoutBaseUrl(contactCenter.contactCenterSuggestionComplains.image1Url)}"
+                            android:onClick="@{()-> fragment.onURLClicked(contactCenter.contactCenterSuggestionComplains.image1Url)}"
                             android:layout_width="@dimen/_130sdp"
                             android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:cardCornerRadius="@dimen/_8sdp"
@@ -630,7 +630,7 @@
                             app:cardCornerRadius="@dimen/_8sdp"
                             android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:cardElevation="@dimen/_5sdp"
-                            android:onClick="@{()-> fragment.openWebWithoutBaseUrl(contactCenter.contactCenterSuggestionComplains.image2Url)}"
+                            android:onClick="@{()-> fragment.onURLClicked(contactCenter.contactCenterSuggestionComplains.image2Url)}"
                             android:outlineSpotShadowColor="@color/gray_600"
                             android:layout_height="100dp"
                             >
@@ -650,7 +650,7 @@
                             app:cardCornerRadius="@dimen/_8sdp"
                             android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:cardElevation="@dimen/_5sdp"
-                            android:onClick="@{()-> fragment.openWebWithoutBaseUrl(contactCenter.contactCenterSuggestionComplains.image3URL)}"
+                            android:onClick="@{()-> fragment.onURLClicked(contactCenter.contactCenterSuggestionComplains.image3URL)}"
                             android:outlineSpotShadowColor="@color/gray_600"
                             android:layout_height="100dp"
                             >
