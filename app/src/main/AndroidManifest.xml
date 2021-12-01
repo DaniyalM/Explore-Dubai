@@ -49,7 +49,7 @@
         <!--        android:value="@string/map_key"-->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="${mapsApiKey}"
+            android:value="AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs"
 
             />
         <!--        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"-->
