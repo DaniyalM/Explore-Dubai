@@ -118,11 +118,12 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_feed_back -> {
-                if(application.auth.isGuest){
-                    navigate(R.id.action_contactFragment_to_post_login_bottom_navigation)
-                }else{
-                    navigate(R.id.action_contactFragment_to_sharedFeeback)
-                }
+                navigateByDirections(ContactFragmentDirections.actionContactFragmentToSharedFeeback())
+//                if(application.auth.isGuest){
+//                    navigate(R.id.action_contactFragment_to_post_login_bottom_navigation)
+//                }else{
+//                    navigate(R.id.action_contactFragment_to_sharedFeeback)
+//                }
             }
             R.id.img_close -> {
                 back()
