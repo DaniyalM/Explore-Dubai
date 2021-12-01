@@ -88,11 +88,11 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
                     beacons: MutableList<Beacon>?
                 ) {
 
-                    PushNotificationManager.showNotification(
-                        context,
-                        "Beacon Scanning",
-                        "Beacon Detected", null
-                    )
+//                    PushNotificationManager.showNotification(
+//                        context,
+//                        "Beacon Scanning",
+//                        "Beacon Detected", null
+//                    )
 
 
                     beacons?.let {
@@ -104,6 +104,11 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
                                             .equals(nearestBeacon.proximityUUID.toString().toLowerCase()) &&
                                         !beacons.visited
                                     ) {
+                                        PushNotificationManager.showNotification(
+                                            context,
+                                            "${beacons.title}",
+                                            "${beacons.subtitle}", null
+                                        )
                                         attractionId?.let {
                                             beaconSharedViewModel.markAsVisited(
                                                 it,
