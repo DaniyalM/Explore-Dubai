@@ -25,9 +25,10 @@ class PreferenceRepository(private val sharedPreferences: SharedPreferences) {
             field = value
         }
 
-    private val _isDarkThemeLive: MutableLiveData<Boolean> = MutableLiveData()
+    val _isDarkThemeLive: MutableLiveData<Boolean> = MutableLiveData()
     val isDarkThemeLive: LiveData<Boolean>
         get() = _isDarkThemeLive
+
 
     private val preferenceChangedListener =
             SharedPreferences.OnSharedPreferenceChangeListener { _, key ->

@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="view"
             type="com.dubaiculture.ui.postLogin.plantrip.mytrip.TravelModeBottomSheetFragment" />
+
         <variable
             name="viewModel"
             type="com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
@@ -47,10 +49,10 @@
                 android:id="@+id/cvDriving"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:onClick="@{()->view.onDrivingClicked()}"
-                android:clickable="true"
                 android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:onClick="@{()->view.onDrivingClicked()}"
+                android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
                 app:layout_constraintTop_toBottomOf="@id/tvHeading">
@@ -83,8 +85,8 @@
                     android:id="@+id/radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
                     android:buttonTint="@color/purple_650"
+                    android:enabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -105,10 +107,10 @@
                 android:id="@+id/cvWalking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:onClick="@{()->view.onWalkingClicked()}"
-                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
                 app:layout_constraintTop_toBottomOf="@id/cvDriving">
@@ -141,8 +143,8 @@
                     android:id="@+id/radioButtonWalking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
                     android:buttonTint="@color/purple_650"
+                    android:enabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -163,10 +165,10 @@
                 android:id="@+id/cvTrain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:onClick="@{()->view.onTrainClicked()}"
-                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
                 app:layout_constraintTop_toBottomOf="@id/cvWalking">
@@ -199,8 +201,8 @@
                     android:id="@+id/radioButtonTrain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
                     android:buttonTint="@color/purple_650"
+                    android:enabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -221,10 +223,10 @@
                 android:id="@+id/cvBus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:onClick="@{()->view.onBusClicked()}"
-                android:clickable="true"
                 android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:onClick="@{()->view.onBusClicked()}"
+                android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
                 app:layout_constraintTop_toBottomOf="@id/cvTrain">
@@ -257,8 +259,8 @@
                     android:id="@+id/radioButtonBus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
                     android:buttonTint="@color/purple_650"
+                    android:enabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -275,22 +277,43 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
+            <com.dubaiculture.ui.components.custombutton.CustomButton
                 android:id="@+id/btnNext"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginHorizontal="@dimen/_22ssp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:backgroundTint="@color/purple_650"
-                android:fontFamily="@font/neo_sans_arabic_regular"
-                android:text="@string/done"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/btn_register"
+                android:foreground="@drawable/custom_ripple_border"
+                android:gravity="center"
                 android:onClick="@{()->view.onDoneClicked()}"
+                android:text="@string/done"
                 android:textAllCaps="false"
-                android:textColor="?attr/colorOnPrimary"
-                app:cornerRadius="@dimen/_16sdp"
+                android:textColor="@color/white_900"
+                android:transitionName="action_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cvBus" />
+
+
+<!--            <Button-->
+<!--                android:id="@+id/btnNext"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="@dimen/_40sdp"-->
+<!--                android:layout_marginHorizontal="@dimen/_22ssp"-->
+<!--                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                android:backgroundTint="@color/purple_650"-->
+<!--                android:fontFamily="@font/neo_sans_arabic_regular"-->
+<!--                android:onClick="@{()->view.onDoneClicked()}"-->
+<!--                android:text="@string/done"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/white_900"-->
+<!--                app:cornerRadius="@dimen/_16sdp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/cvBus" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

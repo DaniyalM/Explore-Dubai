@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAlignment="viewStart"
-                    android:drawableStart="@drawable/location_pin"
+                    android:drawableStart="@drawable/ic_dark_mode"
                     android:drawablePadding="@dimen/_10sdp"
                     android:text="@string/dark_mode"
                     style="@style/TextViewStyle"

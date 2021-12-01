@@ -193,25 +193,45 @@
             app:layout_constraintTop_toBottomOf="@id/tvHeading"
             tools:listitem="@layout/item_duration_summary" />
 
-        <Button
+        <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btnShowPlan"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@{viewModel._durationSummary.size() != 0 ?  @drawable/btn_register :@drawable/my_event_btn_enable}"
             android:enabled="@{viewModel.durationSummary.size() != 0}"
-            android:fontFamily="@font/neo_sans_arabic_regular"
+            android:foreground="@drawable/custom_ripple_border"
+            android:gravity="center"
             android:onClick="@{()->viewModel.postEventAttraction()}"
             android:text="@string/show_my_plan"
             android:textAllCaps="false"
             android:textColor="?attr/color_dubai_logo"
-            app:cornerRadius="@dimen/_16sdp"
+            android:transitionName="action_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:strokeColor="@color/purple_650" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btnShowPlan"-->
+        <!--            style="?attr/materialButtonOutlinedStyle"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="@dimen/_40sdp"-->
+        <!--            android:layout_marginStart="@dimen/_12sdp"-->
+        <!--            android:layout_marginEnd="@dimen/_12sdp"-->
+        <!--            android:layout_marginBottom="@dimen/_10sdp"-->
+        <!--            android:enabled="@{viewModel.durationSummary.size() != 0}"-->
+        <!--            android:fontFamily="@font/neo_sans_arabic_regular"-->
+        <!--            android:onClick="@{()->viewModel.postEventAttraction()}"-->
+        <!--            android:text="@string/show_my_plan"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:textColor="?attr/color_dubai_logo"-->
+        <!--            app:cornerRadius="@dimen/_16sdp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:strokeColor="@color/purple_650" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

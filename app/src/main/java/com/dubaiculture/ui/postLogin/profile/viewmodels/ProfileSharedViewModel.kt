@@ -6,6 +6,7 @@ import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.profile.ProfileRepository
 import com.dubaiculture.data.repository.profile.local.Favourite
 import com.dubaiculture.data.repository.user.UserRepository
+import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,6 +22,8 @@ class ProfileSharedViewModel @Inject constructor(
 ) :
     BaseViewModel(application, profileRepository) {
 
+    private val context = getApplication<ApplicationEntry>()
+
     private val _favourite = MutableSharedFlow<Favourite>()
     val favourite = _favourite.asSharedFlow()
 
@@ -31,7 +34,7 @@ class ProfileSharedViewModel @Inject constructor(
     fun getFavourites() {
         viewModelScope.launch {
             showLoader(true)
-            val result = profileRepository.getFavourites()
+            val result = profileRepository.getFavourites(context.auth.locale.toString())
             when (result) {
                 is Result.Success -> {
                     showLoader(false)

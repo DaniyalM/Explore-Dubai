@@ -11,6 +11,9 @@ data class IbeconDTO(
         @SerializedName("Image")
         @Expose
         val image: String? = null,
+        @SerializedName("Subtitle")
+        @Expose
+        val subtitle: String? = null,
         @SerializedName("IBeaconsItems")
         @Expose
         val iBeaconsItems: List<IBeaconsItemsDTO> ?= mutableListOf(),

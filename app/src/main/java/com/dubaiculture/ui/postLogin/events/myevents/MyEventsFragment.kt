@@ -60,6 +60,7 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
             myEventViewModel.getMyEvent(getCurrentLanguage().language)
         }
     }
+
     private fun subscribeToObservables() {
         myEventViewModel.isFavourite.observe(viewLifecycleOwner) {
             when (it) {
@@ -75,60 +76,74 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
             }
         }
     }
-private fun subscribeObserver() {
-    myEventViewModel.myEvents.observe(viewLifecycleOwner) {
-        it.map {
-            eventListAdapter.add(
-                EventListItem<ItemEventListingBinding>(
-                        object : FavouriteChecker {
-                            override fun checkFavListener(
+
+    private fun subscribeObserver() {
+        myEventViewModel.myEvents.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+
+                binding.personalRv.visibility = View.GONE
+                binding.tvPlaceHolder.visibility = View.VISIBLE
+
+            } else {
+
+                binding.tvPlaceHolder.visibility = View.GONE
+                binding.personalRv.visibility = View.VISIBLE
+                it.map {
+                    eventListAdapter.add(
+                        EventListItem<ItemEventListingBinding>(
+                            object : FavouriteChecker {
+                                override fun checkFavListener(
                                     checkbox: CheckBox,
                                     pos: Int,
                                     isFav: Boolean,
                                     itemId: String,
-                            ) {
-                                favouriteClick(
+                                ) {
+                                    favouriteClick(
                                         checkbox,
                                         isFav,
                                         R.id.action_eventsFragment_to_postLoginFragment,
                                         itemId, myEventViewModel
-                                )
-                            }
+                                    )
+                                }
 
-                        },
-                    object : RowClickListener {
-                        override fun rowClickListener(position: Int) {
-                            navigateByDirections(
-                                MyEventsFragmentDirections.actionMyEventsFragment2ToEventDetailNavigation(
-                                    it.id!!
-                                )
-                            )
+                            },
+                            object : RowClickListener {
+                                override fun rowClickListener(position: Int) {
+                                    navigateByDirections(
+                                        MyEventsFragmentDirections.actionMyEventsFragment2ToEventDetailNavigation(
+                                            it.id!!
+                                        )
+                                    )
 //                                val eventObj = allList[position]
 //                                val bundle = Bundle()
 //                                bundle.putParcelable(Constants.NavBundles.EVENT_OBJECT, eventObj)
 //                                navigate(
 //                                    R.id.action_eventFilterFragment_to_eventDetailFragment2,
 //                                    bundle)
-                        }
+                                }
 
-                        override fun rowClickListener(position: Int, imageView: ImageView) {
-                        }
-                    },
-                    object  : EventListItem.SurveySubmitListener {
-                        override fun submitBtnClickListener(position: Int) {
-                            val bundle = Bundle()
-                            bundle.putString("event_id",it.id?:"0E49F5666F904C92B1BC41A13FD50B53")
-                            navigate(R.id.action_myEventsFragment_to_surveyFragment,bundle)
-                        }
+                                override fun rowClickListener(position: Int, imageView: ImageView) {
+                                }
+                            },
+                            object : EventListItem.SurveySubmitListener {
+                                override fun submitBtnClickListener(position: Int) {
+                                    val bundle = Bundle()
+                                    bundle.putString(
+                                        "event_id",
+                                        it.id ?: "0E49F5666F904C92B1BC41A13FD50B53"
+                                    )
+                                    navigate(R.id.action_myEventsFragment_to_surveyFragment, bundle)
+                                }
 
-                    },
-                    event = it,
-                    resLayout = R.layout.item_event_listing,
-                    activity,
-                    hasSurvey = true
-                )
-            )
+                            },
+                            event = it,
+                            resLayout = R.layout.item_event_listing,
+                            activity,
+                            hasSurvey = true
+                        )
+                    )
+                }
+            }
         }
     }
-}
 }

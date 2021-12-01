@@ -1,10 +1,26 @@
 package com.dubaiculture.data.repository.trip.local
 
+import com.dubaiculture.data.repository.trip.remote.request.DateTimeFilterDTO
+import com.dubaiculture.data.repository.trip.remote.response.DayAndNightTimeDTO
+
 
 data class EventAttractions(
     val eventsAndAttractions: List<EventsAndAttraction>,
     val location: Location,
-    val tripId: String
+    val tripId: String,
+    val dayAndNightTime: DANTime,
+    val dateTimeFilter: List<DTFilter>
+)
+
+data class DANTime(
+    val dayTime: String,
+    val nightTime: String
+)
+
+data class DTFilter(
+    val date: String,
+    val hours: String,
+    val type: String
 )
 
 data class EventsAndAttraction(
@@ -38,6 +54,7 @@ data class EventsAndAttraction(
     val icon: String,
     val duration: String,
     val distance: String,
+    val distanceRadius: Double = 0.0,
     val travelMode: String,
 )
 
@@ -46,6 +63,7 @@ data class Location(
     val locationId: String,
     val locationTitle: String,
     val longitude: String,
+    val customLocation: Boolean
 )
 
 data class EADay(

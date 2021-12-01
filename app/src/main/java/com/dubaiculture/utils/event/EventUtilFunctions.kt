@@ -11,6 +11,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.dubaiculture.R
+import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.neomads.ui.components.customDialog.CustomDialog
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.ProgressDialog
@@ -39,6 +40,9 @@ object EventUtilFunctions {
         textPositive: String? = Constants.Alert.DEFAULT_TEXT_POSITIVE,
         textNegative: String? = null,
         actionPositive: (() -> Unit)? = null,
+        isInternet:Boolean=false,
+        application: ApplicationEntry?=null
+
     ) {
         val customDialog = CustomDialog(
             context,
@@ -47,7 +51,9 @@ object EventUtilFunctions {
             title = title,
             textPositive = textPositive,
             textNegative = textNegative,
-            actionPositive = actionPositive
+            actionPositive = actionPositive,
+            isInternet=isInternet,
+            application=application
         )
         customDialog.setCancelable(false)
         customDialog.show()
@@ -64,7 +70,7 @@ object EventUtilFunctions {
             .setText(message)
             .setIcon(R.drawable.error_dialog)
             .setBackgroundColorRes(colorBg ?: R.color.red_600)
-            .setDuration(2000)
+            .setDuration(4000)
             .setIconColorFilter(0) // Optional - Removes white tint
             //   .setIconSize(R.dimen.custom_icon_size) // Optional - default is 38dp
             .show()

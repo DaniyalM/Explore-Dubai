@@ -18,6 +18,7 @@ import com.dubaiculture.ui.postLogin.more.faqs.adapters.FaqsListAdapter
 import com.dubaiculture.ui.postLogin.more.faqs.adapters.clicklisteners.FaqsItemClickListner
 import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.FaqsViewModel
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,17 +31,21 @@ class FaqsFragment(val fAQs: List<FAQ>, val forumPager: ViewPager2) :
         binding.innerRecyclerView.apply {
             if (fAQs.get(0).fAQs.isEmpty()){
                 hide()
+                binding.detailListingHeader.hide()
+                binding.tvPlaceHolder.show()
+            }else{
+                binding.tvPlaceHolder.hide()
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                faqsListAdapter = FaqsListAdapter(object : FaqsItemClickListner {
+                    override fun onClickFaqItem(faqItem: FaqItem) {
+                        faqsViewModel.updateFaq(faqItem.copy(is_expanded = !faqItem.is_expanded))
+
+                    }
+                })
+                adapter = faqsListAdapter
+                faqsViewModel.setFaqs(fAQs.get(0).fAQs)
             }
 
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            faqsListAdapter = FaqsListAdapter(object : FaqsItemClickListner {
-                override fun onClickFaqItem(faqItem: FaqItem) {
-                    faqsViewModel.updateFaq(faqItem.copy(is_expanded = !faqItem.is_expanded))
-
-                }
-            })
-            adapter = faqsListAdapter
-            faqsViewModel.setFaqs(fAQs.get(0).fAQs)
         }
 
 //        binding.innerRecyclerView.setOnTouchListener(object : View.OnTouchListener {

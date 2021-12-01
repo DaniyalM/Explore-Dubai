@@ -33,7 +33,7 @@ data class AttractionListItem<T : ViewDataBinding>(
                 viewBinding.apply {
                     attractionImage.setOnClickListener {
 //                        rowClickListener?.rowClickListener(position)
-                        rowClickListener?.rowClickListener(position,viewBinding.imgMustSee)
+                        rowClickListener?.rowClickListener(position)
                     }
 //                    cardViewTitle.setCardBackgroundColor(Color.parseColor(attraction.color))
 //                    category.setBackgroundColor(Color.parseColor(attraction.color))

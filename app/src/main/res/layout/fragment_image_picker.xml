@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_15sdp"
                 android:layout_marginStart="16dp"
-                android:text="Change Profile Photo"
+                android:text="@string/change_profile_photo"
                 android:textColor="?attr/colorSecondary"
 
                 android:textSize="17sp"

@@ -10,6 +10,9 @@ data class IBeaconsItemsDTO(
     @SerializedName("Title")
     @Expose
     var title: String?=null,
+    @SerializedName("Subtitle")
+    @Expose
+    var subtitle: String?=null,
     @SerializedName("Image")
     @Expose
     var img: String?=null,
@@ -27,5 +30,20 @@ data class IBeaconsItemsDTO(
     var visited: Boolean?=null,
     @SerializedName("VisitedOn")
     @Expose
-    var visitedOn: String?=null
+    var visitedOn: String?=null,
+    @SerializedName("ProximityID")
+    @Expose
+    var proximityID: String?=null,
+    @SerializedName("ID")
+    @Expose
+    var ItemId: String?=null,
+    @SerializedName("Minor")
+    @Expose
+    var minor: String?=null,
+    @SerializedName("Major")
+    @Expose
+    var major: String?=null,
+    @SerializedName("Serial")
+    @Expose
+    var serial: String?=null
 )

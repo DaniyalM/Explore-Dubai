@@ -4,14 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.datastore.preferences.preferencesKey
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentOnBoardingBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.preLogin.onboarding.adapter.OnBoardingAdapter
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.ZoomOutPageTransformer
+import com.dubaiculture.utils.dataStore.DataKeys
 import com.dubaiculture.utils.dataStore.DataStoreManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -52,15 +58,22 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
 //                                        true
 //                                    )
 //                                }
-                                application.auth.isLoggedIn = true
-                                navigate(R.id.action_onBoardingFragment2_to_loginFragment)
+                                lifecycleScope.launch {
+                                    dataStoreManager.setData(preferencesKey(Constants.DataStore.SKIP),true)
+                                    navigate(R.id.action_onBoardingFragment2_to_loginFragment)
+                                }
+
                             }
                         }
                         else -> {
                             binding.btnSkip.visibility = View.VISIBLE
                             binding.getStarted.visibility = View.GONE
                             binding.btnSkip.setOnClickListener {
-                                binding.pager.currentItem = position+1
+//                                binding.pager.currentItem = position+1
+                                lifecycleScope.launch {
+                                    dataStoreManager.setData(preferencesKey(Constants.DataStore.SKIP),true)
+                                    navigate(R.id.action_onBoardingFragment2_to_loginFragment)
+                                }
 
                             }
                         }

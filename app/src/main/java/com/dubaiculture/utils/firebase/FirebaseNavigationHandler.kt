@@ -6,17 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import com.dubaiculture.R
 import com.dubaiculture.infrastructure.ApplicationEntry
-import com.dubaiculture.ui.postLogin.PostLoginActivity
+import com.dubaiculture.ui.navGraphActivity.NavGraphActivity
 import com.dubaiculture.ui.postLogin.notifications.enums.NotificationTypes
 import com.dubaiculture.ui.preLogin.PreLoginActivity
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.FCM.Key.NOTIFICATION_ITEM
-import com.dubaiculture.utils.Constants.NavBundles.ATTRACTION_ID
-import com.dubaiculture.utils.Constants.NavBundles.EVENT_ID
 import com.dubaiculture.utils.Constants.NavBundles.HANDLE_PUSH
-import com.dubaiculture.utils.Constants.NavBundles.NEWS_ID
-import com.dubaiculture.utils.Constants.NavBundles.SERVICE_ID
-import om.dubaiculture.ui.navGraphActivity.NavGraphActivity
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -29,29 +24,22 @@ class FirebaseNavigationHandler @Inject constructor(
             )
         ) {
             return getAttractionDetailIntent(extras = extras)
-        }
-        else if (extras.containsKey(NOTIFICATION_ITEM) && NotificationTypes.shouldNavigateToEventDetail(
+        } else if (extras.containsKey(NOTIFICATION_ITEM) && NotificationTypes.shouldNavigateToEventDetail(
                 extras.get(Constants.FCM.Key.NOTIFICATION_TYPE).toString().toInt()
             )
         ) {
             return getEventDetailIntent(extras = extras)
-        }
-
-        else if (extras.containsKey(NOTIFICATION_ITEM) && NotificationTypes.shouldNavigateToGeneralNotification(
+        } else if (extras.containsKey(NOTIFICATION_ITEM) && NotificationTypes.shouldNavigateToGeneralNotification(
                 extras.get(Constants.FCM.Key.NOTIFICATION_TYPE).toString().toInt()
             )
         ) {
             return getGeneralDetailIntent(extras = extras)
-        }
-
-        else if (extras.containsKey(NOTIFICATION_ITEM) && NotificationTypes.shouldNavigateToTripNotification(
+        } else if (extras.containsKey(NOTIFICATION_ITEM) && NotificationTypes.shouldNavigateToTripNotification(
                 extras.get(Constants.FCM.Key.NOTIFICATION_TYPE).toString().toInt()
             )
         ) {
             return getTripDetailIntent(extras = extras)
-        }
-
-        else if (extras.containsKey(NOTIFICATION_ITEM) && NotificationTypes.shouldNavigateToApplication(
+        } else if (extras.containsKey(NOTIFICATION_ITEM) && NotificationTypes.shouldNavigateToApplication(
                 extras.get(Constants.FCM.Key.NOTIFICATION_TYPE).toString().toInt()
             )
         ) {
@@ -70,7 +58,7 @@ class FirebaseNavigationHandler @Inject constructor(
     }
 
     private fun getGeneralDetailIntent(extras: Bundle): PendingIntent? {
-        val graphId =  R.navigation.explore_navigation
+        val graphId = R.navigation.explore_navigation
         val intent = getIntent()
         val discussionId = extras.getString(NOTIFICATION_ITEM) ?: return null
         intent.putExtra(Constants.NavBundles.GRAPH_ID, R.navigation.explore_navigation)

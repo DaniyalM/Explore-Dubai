@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/event_detail_navigation"
     app:startDestination="@id/eventDetailFragment2">
+    <include app:graph="@navigation/web_view_navigation"/>
+
     <fragment
         android:id="@+id/eventDetailFragment2"
         android:name="com.dubaiculture.ui.postLogin.events.detail.EventDetailFragment"
@@ -55,6 +57,21 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_eventDetailFragment2_to_web_view_navigation"
+            app:destination="@id/web_view_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+        </action>
     </fragment>
     <include app:graph="@navigation/post_login_bottom_navigation" />
 
@@ -77,7 +94,19 @@
             app:destination="@id/registrationSuccessFragment3"
             app:popUpTo="@id/registerNowFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_eventregisterFragment_to_privacyTermConditionFragment"
+            app:destination="@id/privacyTermConditionFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
+    <dialog
+        android:id="@+id/privacyTermConditionFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment"
+        android:label="PrivacyTermConditionFragment"
+        tools:layout="@layout/fragment_privacy_policy" />
     <dialog
         android:id="@+id/registrationSuccessFragment3"
         android:name="com.dubaiculture.ui.preLogin.registeration.RegistrationSuccessFragment"

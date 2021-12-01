@@ -8,9 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.dubaiculture.data.Result
+import com.dubaiculture.data.repository.more.local.GetMessage
 import com.dubaiculture.data.repository.popular_service.ServiceRepository
 import com.dubaiculture.data.repository.popular_service.remote.request.EServiceRequest
+import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
+import com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs.ServiceDownVoteFeedBackFragmentDirections
 import com.dubaiculture.utils.AuthUtils.isEmailValid
 import com.dubaiculture.utils.Constants.NavBundles.SERVICE_ID
 import com.dubaiculture.utils.event.Event
@@ -26,6 +29,7 @@ class ServiceDownVoteFeedBackViewModel @Inject constructor(
 ) :
     BaseViewModel(application) {
 
+    var locale: String = ""
     private val _downVote: MutableLiveData<Event<Boolean>> = MutableLiveData()
     val downVote: LiveData<Event<Boolean>> = _downVote
 
@@ -33,8 +37,10 @@ class ServiceDownVoteFeedBackViewModel @Inject constructor(
     val upVote: LiveData<Event<Boolean>> = _upVote
 
     val btnSubmitObserver: ObservableBoolean = ObservableBoolean(false)
-    var email: ObservableField<String> = ObservableField("")
-    var fullName: ObservableField<String> = ObservableField("")
+    var email: ObservableField<String> =
+        ObservableField(getApplication<ApplicationEntry>().auth.user?.email)
+    var fullName: ObservableField<String> =
+        ObservableField("")
     var comment: ObservableField<String> = ObservableField("")
 
     fun onEmailChanged(s: CharSequence, start: Int, befor: Int, count: Int) {
@@ -88,13 +94,27 @@ class ServiceDownVoteFeedBackViewModel @Inject constructor(
                     fullName = fullName.get().toString(),
                     email = email.get().toString(),
                     comment = comment.get().toString(),
-                    id = savedStateHandle.get(SERVICE_ID)
+                    id = savedStateHandle.get(SERVICE_ID),
+                    culture = getApplication<ApplicationEntry>().auth.locale
                 )
             )) {
                 is Result.Success -> {
                     showLoader(false)
+                    navigateByDirections(
+                        ServiceDownVoteFeedBackFragmentDirections.actionServiceDownVoteFeedBackFragmentToMessageDialogFragment(
+                            GetMessage(
+                                heading = result.value.Result.MessageHeading,
+                                message = result.value.Result.MessageBody,
+                                reference = result.value.Result.Reference,
+                            )
+                        )
+                    )
+//                    showErrorDialog(
+//                        title = result.value.Result.MessageHeading,
+//                        message = "${result.value.Result.MessageBody} ${result.value.Result.Reference}",
+//                    )
 
-                    _downVote.value = Event(result.value)
+
                 }
                 is Result.Failure -> {
                     showLoader(false)

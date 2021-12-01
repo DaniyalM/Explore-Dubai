@@ -173,11 +173,11 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
     }
 
     fun onNextClicked() {
-        if (tripSharedViewModel.validateStep3()) {
-            customNavigation.navigateStep(true, R.id.tripStep3)
-        } else {
-            showToast(getString(R.string.selectLocation))
-        }
+        customNavigation.navigateStep(true, R.id.tripStep3)
+//        if (tripSharedViewModel.validateStep3()) {
+//        } else {
+//            showToast(getString(R.string.selectLocation))
+//        }
     }
 
     fun onAddLocation() {
@@ -202,9 +202,9 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
     override fun onMapReady(map: GoogleMap) {
         mMap = map
-        if(this::markerLocation.isInitialized){
-            navigateMarker(markerLocation.latitude,markerLocation.longitude)
-        }else{
+        if (this::markerLocation.isInitialized) {
+            navigateMarker(markerLocation.latitude, markerLocation.longitude)
+        } else {
             locationPermission()
         }
 //
@@ -226,6 +226,13 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
                     override fun getCurrentLocation(location: Location) {
 
                         navigateMarker(location.latitude, location.longitude)
+                        tripSharedViewModel._type.value = LocationNearest(
+                            latitude = location.latitude.toString(),
+                            locationId = "",
+                            locationTitle = "Current Location",
+                            longitude = location.longitude.toString(),
+                            isChecked = true
+                        )
 
                     }
                 },

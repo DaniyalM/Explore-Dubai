@@ -7,6 +7,7 @@
     <include app:graph="@navigation/event_detail_navigation" />
     <include app:graph="@navigation/attraction_detail_navigation" />
     <include app:graph="@navigation/service_detail_navigation" />
+    <include app:graph="@navigation/web_view_navigation" />
 
     <fragment
         android:id="@+id/searchFragment"
@@ -67,9 +68,29 @@
                 app:argType="string"
                 app:nullable="false" />
         </action>
+        <action
+            android:id="@+id/action_searchFragment_to_webViewFragment"
+            app:destination="@id/web_view_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+
+        </action>
     </fragment>
     <dialog
         android:id="@+id/sortFragment"
         android:name="com.dubaiculture.ui.postLogin.nearyou.SortFragment"
         android:label="SortFragment" />
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.about.WebViewFragment"
+        android:label="WebViewFragment" />
 </navigation>

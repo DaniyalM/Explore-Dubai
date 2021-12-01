@@ -10,5 +10,8 @@ data class Result(
     val ServiceCategory: List<ServiceCategoryDTO>,
     val Title: String,
     val message: String,
+    val MessageHeading: String,
+    val MessageBody: String,
+    val Reference: String,
     val EServicesDetail: EServiceDetailDTO
 )

@@ -3,16 +3,12 @@ package com.dubaiculture.data.repository.trip.mapper
 import com.dubaiculture.data.repository.trip.local.*
 import com.dubaiculture.data.repository.trip.local.Day
 import com.dubaiculture.data.repository.trip.local.DayAndNightTime
-import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.dubaiculture.data.repository.trip.local.Hour
 import com.dubaiculture.data.repository.trip.local.InterestedIn
 import com.dubaiculture.data.repository.trip.local.Location
 import com.dubaiculture.data.repository.trip.local.NearestLocation
 import com.dubaiculture.data.repository.trip.local.Trip
-import com.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
-import com.dubaiculture.data.repository.trip.remote.request.EventAttractionRequestDTO
-import com.dubaiculture.data.repository.trip.remote.request.SaveTripRequest
-import com.dubaiculture.data.repository.trip.remote.request.SaveTripRequestDTO
+import com.dubaiculture.data.repository.trip.remote.request.*
 import com.dubaiculture.data.repository.trip.remote.response.*
 import com.dubaiculture.utils.Constants
 
@@ -89,8 +85,79 @@ fun transformEventAttractionRequest(eventAttractionRequest: EventAttractionReque
         Date = eventAttractionRequest.date,
 //        Date = arrayListOf("2021-10-27"),
         Location = eventAttractionRequest.location,
-        Save = true
+        Save = true,
+        CustomLatitude = eventAttractionRequest.customLatitude,
+        CustomLongitude = eventAttractionRequest.customLongitude
     )
+
+//fun transformPostEventAttractionResponse(eventAttractionResponseDTO: EventAttractionResponseDTO) =
+//    PostEventAttractions(
+//        eventsAndAttractions = eventAttractionResponseDTO.EventsAndAttractions.map { eventsAndAttraction ->
+//            PostEventsAndAttraction(
+//                busyDays = eventsAndAttraction.BusyDays.map {
+//                    EADay(
+//                        it.Number ?: "",
+//                        it.Title ?: ""
+//                    )
+//                },
+//                category = eventsAndAttraction.Category ?: "",
+//                categoryDestinationIcon = eventsAndAttraction.CategoryDestinationIcon ?: "",
+//                categoryID = eventsAndAttraction.CategoryID ?: "",
+//                categoryTripIcon = eventsAndAttraction.CategoryTripIcon ?: "",
+//                dateFrom = eventsAndAttraction.DateFrom ?: "",
+//                dateTo = eventsAndAttraction.DateTo ?: "",
+//                day = eventsAndAttraction.Day ?: "",
+////                dayFrom = EADay(
+////                    number = eventsAndAttraction.DayFrom.Number ?: "",
+////                    title = eventsAndAttraction.DayFrom.Title ?: ""
+////                ),
+////                dayTo = EADay(
+////                    number = eventsAndAttraction.DayTo.Number ?: "",
+////                    title = eventsAndAttraction.DayTo.Title ?: ""
+////                ),
+//                detailPageUrl = eventsAndAttraction.DetailPageUrl ?: "",
+//                displayTimeFrom = eventsAndAttraction.DisplayTimeFrom ?: "",
+//                displayTimeTo = eventsAndAttraction.DisplayTimeTo ?: "",
+//                id = eventsAndAttraction.ID ?: "",
+//                image = eventsAndAttraction.Image ?: "",
+//                isAttraction = eventsAndAttraction.IsAttraction ?: false,
+//                isEvent = eventsAndAttraction.IsEvent ?: false,
+//                latitude = eventsAndAttraction.Latitude ?: "",
+//                locationTitle = eventsAndAttraction.LocationTitle ?: "",
+//                longitude = eventsAndAttraction.Longitude ?: "",
+//                mapLink = eventsAndAttraction.MapLink ?: "",
+//                secondaryCategory = eventsAndAttraction.SecondaryCategory ?: "",
+//                secondaryCategoryID = eventsAndAttraction.SecondaryCategoryID ?: "",
+//                summary = eventsAndAttraction.Summary ?: "",
+//                timeFrom = eventsAndAttraction.TimeFrom ?: "",
+//                timeTo = eventsAndAttraction.TimeTo ?: "",
+//                title = eventsAndAttraction.Title ?: "",
+//                icon = eventsAndAttraction.icon ?: "",
+//                duration = "",
+//                distance = "",
+//                travelMode = Constants.TRAVEL_MODE.DRIVING
+//            )
+//        },
+//        location = PostLocation(
+//            latitude = eventAttractionResponseDTO.Location.Latitude ?: "",
+//            locationId = eventAttractionResponseDTO.Location.LocationId ?: "",
+//            locationTitle = eventAttractionResponseDTO.Location.LocationTitle ?: "",
+//            longitude = eventAttractionResponseDTO.Location.Longitude ?: "",
+//            customLocation = eventAttractionResponseDTO.Location.CustomLocation ?: false
+//        ),
+//        tripId = eventAttractionResponseDTO.TripID ?: "",
+//        dayAndNightTime = DANTime(
+//            dayTime = eventAttractionResponseDTO.DayAndNightTime?.DayTime?:"",
+//            nightTime = eventAttractionResponseDTO.DayAndNightTime?.NightTime?:""
+//        ),
+//        dateTimeFilter = eventAttractionResponseDTO.DateTimeFilter?.map {
+//            DTFilter(
+//                date = it.Date,
+//                hours = it.Hours,
+//                type = it.Type
+//            )
+//        }?: mutableListOf()
+//    )
 
 fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttractionResponseDTO) =
     EventAttractions(
@@ -106,7 +173,7 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
                 categoryDestinationIcon = eventsAndAttraction.CategoryDestinationIcon ?: "",
                 categoryID = eventsAndAttraction.CategoryID ?: "",
                 categoryTripIcon = eventsAndAttraction.CategoryTripIcon ?: "",
-                dateFrom = eventsAndAttraction.DateFrom ?: "2021-10-27T11:17:00",
+                dateFrom = eventsAndAttraction.DateFrom ?: "",
                 dateTo = eventsAndAttraction.DateTo ?: "",
                 day = eventsAndAttraction.Day ?: "",
 //                dayFrom = EADay(
@@ -124,15 +191,15 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
                 image = eventsAndAttraction.Image ?: "",
                 isAttraction = eventsAndAttraction.IsAttraction ?: false,
                 isEvent = eventsAndAttraction.IsEvent ?: false,
-                latitude = eventsAndAttraction.Latitude ?: "24.83250180519734",
+                latitude = eventsAndAttraction.Latitude ?: "",
                 locationTitle = eventsAndAttraction.LocationTitle ?: "",
-                longitude = eventsAndAttraction.Longitude ?: "67.08119661055807",
+                longitude = eventsAndAttraction.Longitude ?: "",
                 mapLink = eventsAndAttraction.MapLink ?: "",
                 secondaryCategory = eventsAndAttraction.SecondaryCategory ?: "",
                 secondaryCategoryID = eventsAndAttraction.SecondaryCategoryID ?: "",
                 summary = eventsAndAttraction.Summary ?: "",
-                timeFrom = eventsAndAttraction.TimeFrom ?: "00:00:00",
-                timeTo = eventsAndAttraction.TimeTo ?: "00:00:00",
+                timeFrom = eventsAndAttraction.TimeFrom ?: "",
+                timeTo = eventsAndAttraction.TimeTo ?: "",
                 title = eventsAndAttraction.Title ?: "",
                 icon = eventsAndAttraction.icon ?: "",
                 duration = "",
@@ -145,14 +212,33 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
             locationId = eventAttractionResponseDTO.Location.LocationId ?: "",
             locationTitle = eventAttractionResponseDTO.Location.LocationTitle ?: "",
             longitude = eventAttractionResponseDTO.Location.Longitude ?: "",
+            customLocation = eventAttractionResponseDTO.Location.CustomLocation ?: false
         ),
-        tripId = eventAttractionResponseDTO.TripID ?: ""
+        tripId = eventAttractionResponseDTO.TripID ?: "",
+        dayAndNightTime = DANTime(
+            dayTime = eventAttractionResponseDTO.DayAndNightTime?.DayTime?:"",
+            nightTime = eventAttractionResponseDTO.DayAndNightTime?.NightTime?:""
+        ),
+        dateTimeFilter = eventAttractionResponseDTO.DateTimeFilter?.map {
+            DTFilter(
+                date = it.Date,
+                hours = it.Hours,
+                type = it.Type
+            )
+        }?: mutableListOf()
     )
 
 fun transformSaveTripRequest(saveTripRequest: SaveTripRequest) =
     SaveTripRequestDTO(
         Name = saveTripRequest.name,
-        TripID = saveTripRequest.tripID
+        TripID = saveTripRequest.tripID,
+        DateTimeFilter = saveTripRequest.dateTimeFilter.map {
+            DateTimeFilterDTO(
+                Date = it.date,
+                Hours = it.hours,
+                Type = it.type
+            )
+        }
     )
 
 fun transformMyTripResponse(trip: com.dubaiculture.data.repository.trip.remote.response.Trip) =
@@ -164,3 +250,8 @@ fun transformMyTripResponse(trip: com.dubaiculture.data.repository.trip.remote.r
         name = trip.Name,
         startDate = trip.StartDate
     )
+
+
+
+
+

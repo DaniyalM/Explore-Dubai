@@ -52,6 +52,9 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
     }
 
     private fun subscribeToObservables() {
+        step4ViewModel.durations.observe(viewLifecycleOwner){
+            tripSharedViewModel.addDurations(it)
+        }
 
         tripSharedViewModel.durationSummary.observe(viewLifecycleOwner) {
             if (it != null)
@@ -60,6 +63,7 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
 
         step4ViewModel.eventAttraction.observe(viewLifecycleOwner) {
+
             tripSharedViewModel._eventAttractionResponse.value = it.getContentIfNotHandled()
             tripSharedViewModel.setDates()
             tripSharedViewModel._showPlan.value = Event(true)
@@ -69,7 +73,7 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {
 
-            if (tripSharedViewModel._durationSummary.value!!.isEmpty() && tripSharedViewModel._duration.value != null)
+            if (tripSharedViewModel._durationSummary.value == null && tripSharedViewModel._duration.value != null)
                 navigate(R.id.action_step4_to_durationBottomSheetFragment)
 
 //            durationSummaryAdapter.submitList(it)

@@ -17,13 +17,14 @@ import com.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PrivacyTermConditionFragment : BaseBottomSheetFragment<FragmentPrivacyTermConditionBinding>() ,View.OnClickListener{
-    private val moreViewModel : MoreViewModel by viewModels()
-    private var from : String?=null
+class PrivacyTermConditionFragment : BaseBottomSheetFragment<FragmentPrivacyTermConditionBinding>(),
+    View.OnClickListener {
+    private val moreViewModel: MoreViewModel by viewModels()
+    private var from: String? = null
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    )= FragmentPrivacyTermConditionBinding.inflate(inflater,container,false)
+    ) = FragmentPrivacyTermConditionBinding.inflate(inflater, container, false)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,25 +37,41 @@ class PrivacyTermConditionFragment : BaseBottomSheetFragment<FragmentPrivacyTerm
         binding.imgClose.setOnClickListener(this)
         callingObserver()
     }
-    private fun callingObserver(){
-        if(from == TERMS_CONDITION){
+
+    private fun callingObserver() {
+        if (from == TERMS_CONDITION) {
             moreViewModel.termsCondition(getCurrentLanguage().language)
 
-            moreViewModel.termsCondition.observe(viewLifecycleOwner){
+            moreViewModel.termsCondition.observe(viewLifecycleOwner) {
                 it.getContentIfNotHandled()?.let {
                     binding.title.text = it.title
+//                    binding?.wvDesc?.loadDataWithBaseURL(
+//                        null,
+//                        it.description,
+//                        "text/html",
+//                        "utf-8",
+//                        null
+//                    )
+
                     binding.tvDesc.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        Html.fromHtml(it.description, Html.FROM_HTML_MODE_COMPACT)
+                        Html.fromHtml(it.description, Html.TO_HTML_PARAGRAPH_LINES_INDIVIDUAL)
                     } else {
                         Html.fromHtml(it.description)
                     }
                 }
             }
-        } else{
+        } else {
             moreViewModel.privacyPolicy(getCurrentLanguage().language)
-            moreViewModel.privacyPolice.observe(viewLifecycleOwner){
+            moreViewModel.privacyPolice.observe(viewLifecycleOwner) {
                 it.getContentIfNotHandled()?.let {
                     binding.title.text = it.title
+//                    binding?.wvDesc?.loadDataWithBaseURL(
+//                        null,
+//                        it.description,
+//                        "text/html",
+//                        "utf-8",
+//                        null
+//                    )
                     binding.tvDesc.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         Html.fromHtml(it.description, Html.FROM_HTML_MODE_COMPACT)
                     } else {
@@ -66,8 +83,8 @@ class PrivacyTermConditionFragment : BaseBottomSheetFragment<FragmentPrivacyTerm
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.img_close->{
+        when (v?.id) {
+            R.id.img_close -> {
                 dismiss()
             }
         }

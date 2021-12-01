@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|end"
-                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:background="@drawable/checked"
                     app:layout_constraintBottom_toBottomOf="@+id/img_museums"
                     app:layout_constraintEnd_toEndOf="parent"

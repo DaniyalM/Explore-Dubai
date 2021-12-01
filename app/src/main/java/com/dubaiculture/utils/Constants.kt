@@ -1,9 +1,6 @@
 package com.dubaiculture.utils
 
 object Constants {
-
-
-
     object Alert {
         const val DEFAULT_TITLE: String = "Alert"
         const val DEFAULT_TEXT_POSITIVE: String = "OK"
@@ -15,7 +12,6 @@ object Constants {
         const val HorizontalLength: Int = 1
         const val VerticalLength: Int = 2
     }
-
 
     object Error {
         const val SOMETHING_WENT_WRONG: String = "Something went wrong"
@@ -55,6 +51,7 @@ object Constants {
 
     object NavBundles {
         const val GRAPH_ID: String = "graphId"
+        const val FORM_NAME: String = "form_name"
 
         val SCROLL_VIEW_STATE: String = "ScrollState"
         val SHEET_STATE: String = "BState"
@@ -101,6 +98,7 @@ object Constants {
         const val SERVICE_ID: String = "service_id"
         const val HANDLE_PUSH: String = "HANDLE_PUSH"
         const val SERVICE_POS: String = "service_pos"
+        const val WEBVIEW_URL: String = "webview_url"
 
 
     }
@@ -114,7 +112,10 @@ object Constants {
 
     object IBecons {
         const val IDENTIFIER: String = "com.flagship.dubaiculture"
+//        const val IDENTIFIER: String = "cb7b136ff042"
         const val UUID_BECON: String = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
+        const val MAJOR: Int = 0
+        const val MINOR: Int = 0
     }
 
     object Links {
@@ -179,6 +180,9 @@ object Constants {
 
     object DataStore {
         const val SKIP: String = "skip"
+        const val USERNAME: String = "username"
+        const val USERID: String = "userID"
+        const val PASSWORD: String = "password"
     }
 
     object HTTP_RESPONSE {
@@ -190,7 +194,7 @@ object Constants {
 
     object PAGING {
         const val NEW_PAGING_SIZE: Int = 2
-        const val ATTRACTION_PAGING_SIZE: Int = 5
+        const val ATTRACTION_PAGING_SIZE: Int = 10
         const val NOTIFICATION_PAGE_SIZE: Int = 10
         const val SEARCH_PAGE_SIZE: Int = 5
 
@@ -227,6 +231,7 @@ object Constants {
         const val ERROR: String = "Travel Mode Unavailable"
 
     }
+
 
     object FCM {
         object Key {

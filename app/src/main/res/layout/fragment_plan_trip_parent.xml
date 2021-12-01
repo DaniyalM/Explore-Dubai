@@ -60,13 +60,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:elevation="@dimen/_4sdp"
+            android:outlineProvider="none"
             app:itemIconTint="@color/bottom_nav_color"
             app:itemTextColor="@color/bottom_nav_color"
             app:labelVisibilityMode="labeled"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_dropdown"
             app:menu="@menu/plan_trip_navigation_items" />
+
+
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/trip_progressbar"

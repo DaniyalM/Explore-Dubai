@@ -12,17 +12,21 @@ import com.dubaiculture.utils.Constants
 class NotificationPagingSource (
     private val moreService: MoreService,
     private val notificationRequestDTO: NotificationRequestDTO,
-
-    ) :
+    private val callback: (count: Int) -> Unit
+) :
     PagingSource<Int, NotificationDTO>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NotificationDTO> {
         return try {
             val nextPageNumber = params.key ?: 1
+
             val response = moreService.getMyNotification(
                 pageNo= nextPageNumber,
                 pageSize = Constants.PAGING.NOTIFICATION_PAGE_SIZE * nextPageNumber,
                 culture = notificationRequestDTO.culture
             )
+            callback(response.Result.Count)
+
+
             LoadResult.Page(
                 data = response.Result.Notifications,
                 prevKey = null,
@@ -30,6 +34,7 @@ class NotificationPagingSource (
                     1
                 )
             )
+
         } catch (e: Exception) {
             // Handle errors in this block and return LoadResult.Error if it is an
             // expected error (such as a network failure).

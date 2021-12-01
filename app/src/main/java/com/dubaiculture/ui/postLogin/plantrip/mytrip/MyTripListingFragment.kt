@@ -3,6 +3,7 @@ package com.dubaiculture.ui.postLogin.plantrip.mytrip
 import android.Manifest
 import android.annotation.SuppressLint
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -68,7 +69,8 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        locationPermission()
+//        locationPermission()
+        subscribeToObservables()
     }
 
     private fun setupRV() {
@@ -120,6 +122,14 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
     private fun subscribeToObservables() {
 
+        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
+            binding.tripId = it.tripId
+            Location(LocationManager.GPS_PROVIDER).apply {
+                latitude=it.location.latitude.toDouble()
+                longitude = it.location.longitude.toDouble()
+                currentLocation = this
+            }
+        }
         tripSharedViewModel.travelMode.observe(viewLifecycleOwner) {
             travelMode = it
         }
@@ -146,7 +156,11 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
             binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
+            tripSharedViewModel.updateLocalDistance(currentLocation)
             tripSharedViewModel.filterEvents(it.single { it.isSelected })
+
+
+
             datesAdapter.submitList(it)
 
         }
@@ -168,9 +182,7 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
             }
         }
 
-        tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
-            binding.tripId = it.tripId
-        }
+
 
     }
 

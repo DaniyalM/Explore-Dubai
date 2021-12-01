@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/web_view_navigation"
+    app:startDestination="@id/webViewFragment">
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.about.WebViewFragment"
+        android:label="WebViewFragment">
+        <argument
+            android:name="webview_url"
+            app:argType="string" />
+        <argument
+            android:name="is_pdf"
+            app:argType="boolean"
+            app:nullable="false" />
+    </fragment>
+</navigation>

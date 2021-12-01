@@ -23,9 +23,9 @@ object ViewModule {
     @Provides
     fun provideBeaconUtils(
         @ApplicationContext context: Context,
-        visitedRepository: VisitedRepository
+//        visitedRepository: VisitedRepository
     ) =
-        BeaconUtils(context, visitedRepository)
+        BeaconUtils(context)
 
     @Singleton
     @Provides

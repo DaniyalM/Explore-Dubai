@@ -33,14 +33,21 @@ class TermsAndConditionFragment(
 
 
         binding.detailListingHeader.text = activity.resources.getString(R.string.terms_and_conditions)
-
         binding.commonBtn.text = termsAndCondition!![0].serviceStart
 
 
         binding.contactuslayout.thumbDown.setOnClickListener {
-            (parentFragment as ServiceDetailFragment).navigateByDirections(
-                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToServiceDownVoteFeedBackFragment(termsAndCondition[0].id!!)
-            )
+
+            if (application.auth.isGuest){
+                (parentFragment as ServiceDetailFragment).navigateByDirections(
+                    ServiceDetailFragmentDirections.actionServiceDetailFragment2ToPostLoginBottomNavigation()
+                )
+            }else {
+                (parentFragment as ServiceDetailFragment).navigateByDirections(
+                    ServiceDetailFragmentDirections.actionServiceDetailFragment2ToServiceDownVoteFeedBackFragment(termsAndCondition[0].id!!)
+                )
+            }
+
         }
 
         termsAndCondition[0].apply {

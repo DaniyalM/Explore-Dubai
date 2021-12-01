@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.Duration
+import com.dubaiculture.data.repository.trip.local.Durations
 import com.dubaiculture.databinding.FragmentEditDurationBinding
 import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.EditDurationAdapter
@@ -27,6 +28,7 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
     ) = FragmentEditDurationBinding.inflate(inflater, container, false)
 
     private lateinit var durationList: List<Duration>
+    private lateinit var editDurationList: Durations
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
     private lateinit var editDurationAdapter: EditDurationAdapter
 
@@ -45,19 +47,22 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
 
     private fun subscribeToObservables() {
 
+        tripSharedViewModel.addDurationList.observe(viewLifecycleOwner) {
+            editDurationList = it
+        }
         tripSharedViewModel.durationSummary.observe(viewLifecycleOwner) {
             tripSharedViewModel._duration.value = it
         }
 
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {
-            durationList = it
             if (it != null && it.isNotEmpty()) {
-
+                durationList = it
                 setData(it[0])
                 binding.clParent.visibility = View.VISIBLE
                 binding.rvDates.visibility = View.VISIBLE
                 editDurationAdapter.submitList(it.subList(1, it.size))
             } else {
+                durationList = emptyList()
                 binding.clParent.visibility = View.GONE
                 binding.rvDates.visibility = View.GONE
                 binding.areYouSure.visibility = View.VISIBLE
@@ -166,8 +171,13 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
 
     fun onDoneClicked() {
 
-        tripSharedViewModel._durationSummary.value = durationList
+        if (durationList.isEmpty()) {
+            tripSharedViewModel._durationSummary.value = null
+        } else {
+            tripSharedViewModel._durationSummary.value = durationList as ArrayList<Duration>
+        }
         dismiss()
+
 
     }
 
@@ -187,7 +197,9 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
         val popup = PopupMenu(context, v)
         popup.menuInflater.inflate(menuRes, popup.menu)
-
+        editDurationList.hoursList.forEach {
+            popup.menu.add(it.duration)
+        }
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             binding.checkBoxRepeat.isChecked = false
             tripSharedViewModel.updateDurationList(binding.data!!.copy(hour = menuItem.title.toString()))

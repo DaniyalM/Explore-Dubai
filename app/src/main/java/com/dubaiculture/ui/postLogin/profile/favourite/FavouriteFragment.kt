@@ -213,7 +213,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                 0 -> {
                     favouriteHeader.apply {
                         id = it
-                        title = "Events"
+                        title = resources.getString(R.string.events)
                         selectedColor = R.color.purple_900
                         unSelectedColor = R.color.white_900
                         selectedIcon = R.drawable.events
@@ -223,7 +223,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                 1 -> {
                     favouriteHeader.apply {
                         id = it
-                        title = "Attractions"
+                        title = resources.getString(R.string.attractions)
                         selectedColor = R.color.purple_900
                         unSelectedColor = R.color.white_900
                         selectedIcon = R.drawable.attraction
@@ -233,7 +233,7 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                 else -> {
                     favouriteHeader.apply {
                         id = it
-                        title = "Services"
+                        title = resources.getString(R.string.services)
                         selectedColor = R.color.purple_900
                         unSelectedColor = R.color.white_900
                         selectedIcon = R.drawable.servicesiconwhite

@@ -26,17 +26,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--            xmlns:tools="http://schemas.android.com/tools"-->
-<!--            android:id="@+id/mapFrag"-->
-<!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
+        <!--        <fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--            xmlns:tools="http://schemas.android.com/tools"-->
+        <!--            android:id="@+id/mapFrag"-->
+        <!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent" />-->
 
-                <com.google.android.gms.maps.MapView
-                    android:id="@+id/map"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <ImageView
             android:id="@+id/iv_dropdown"
@@ -136,9 +136,9 @@
             android:id="@+id/rvDates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:paddingVertical="@dimen/_6sdp"
             android:paddingStart="@dimen/_4sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
             app:layout_constraintBottom_toBottomOf="@id/tvDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvDate"
@@ -168,22 +168,41 @@
             app:layout_constraintTop_toBottomOf="@id/viewLine"
             tools:listitem="@layout/item_my_trip" />
 
-        <Button
+        <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btnNext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_22ssp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:backgroundTint="@color/purple_650"
-            android:fontFamily="@font/neo_sans_arabic_regular"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/btn_register"
+            android:foreground="@drawable/custom_ripple_border"
+            android:gravity="center"
             android:onClick="@{()->view.onSaveTripClicked()}"
             android:text="@string/saveTrip"
             android:textAllCaps="false"
-            android:textColor="?attr/colorOnPrimary"
-            app:cornerRadius="@dimen/_16sdp"
+            android:textColor="@color/white_900"
+            android:transitionName="action_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btnNext"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="@dimen/_40sdp"-->
+        <!--            android:layout_marginHorizontal="@dimen/_22ssp"-->
+        <!--            android:layout_marginBottom="@dimen/_8sdp"-->
+        <!--            android:backgroundTint="@color/purple_650"-->
+        <!--            android:fontFamily="@font/neo_sans_arabic_regular"-->
+        <!--            android:onClick="@{()->view.onSaveTripClicked()}"-->
+        <!--            android:text="@string/saveTrip"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:textColor="@color/white_900"-->
+        <!--            app:cornerRadius="@dimen/_16sdp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -6,16 +6,21 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_90sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/_90sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <com.dubaiculture.ui.components.customtextview.CustomTextView
@@ -32,6 +37,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:textFont="bold" />
 
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tvPlaceHolder"
+                style="@style/TextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_gravity="center"
+                android:lineSpacingExtra="@dimen/text_line_spacing"
+                android:text="@string/no_my_posts_fav"
+                android:textAlignment="center"
+                android:textSize="@dimen/_18sdp"/>
+
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/innerRecyclerView"
                 android:layout_width="match_parent"
@@ -46,6 +65,47 @@
 
 
         </LinearLayout>
+        <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--                android:id="@+id/noDataPlaceHolder"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="0dp"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--                <com.airbnb.lottie.LottieAnimationView-->
+        <!--                    android:id="@+id/anim_lottie"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="0dp"-->
+        <!--                    app:layout_constraintHeight_percent="0.65"-->
+        <!--                    app:lottie_loop="true"-->
+        <!--                    app:lottie_autoPlay="true"-->
+        <!--                    app:lottie_rawRes="@raw/no_data"-->
+        <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--                    app:layout_constraintRight_toRightOf="parent"-->
+        <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+        <!--                &lt;!&ndash;                <com.dubaiculture.ui.components.customtextview.CustomTextView&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:id="@+id/tvPlaceHolder"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    style="@style/TextViewStyle"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:layout_width="0dp"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:layout_marginStart="@dimen/_50sdp"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:layout_marginTop="@dimen/_20sdp"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:layout_marginEnd="@dimen/_50sdp"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:layout_marginBottom="@dimen/home_tab_layout_height"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:lineSpacingExtra="@dimen/text_line_spacing"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:text="@string/no_my_posts_fav"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:textAlignment="center"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    android:textSize="@dimen/_18sdp"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    app:layout_constraintLeft_toLeftOf="parent"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    app:layout_constraintRight_toRightOf="parent"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+        <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
     </androidx.core.widget.NestedScrollView>
 
 

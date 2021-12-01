@@ -19,6 +19,7 @@ import com.dubaiculture.ui.postLogin.popular_service.detail.viewmodels.ServiceDe
 import com.dubaiculture.utils.getColorFromAttr
 import com.dubaiculture.utils.handleApiError
 import com.dubaiculture.utils.show
+import com.dubaiculture.utils.viewpager.ZoomOutPageTransformer
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -110,6 +111,7 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
 
         binding.forumPager.adapter =
             ServiceHeaderPagerAdapter(this, eServicesDetail, binding.forumPager)
+        binding.forumPager.setPageTransformer(ZoomOutPageTransformer())
 //        binding.forumPager.isUserInputEnabled = false
         binding.forumPager.isSaveEnabled = false
         TabLayoutMediator(

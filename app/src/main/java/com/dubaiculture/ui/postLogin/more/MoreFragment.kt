@@ -1,5 +1,6 @@
 package com.dubaiculture.ui.postLogin.more
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.RequestManager
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.popular_service.local.models.ServiceCategory
 import com.dubaiculture.databinding.FragmentMoreBinding
@@ -19,6 +21,7 @@ import com.dubaiculture.ui.postLogin.more.adapter.MoreItems
 import com.dubaiculture.ui.postLogin.more.adapter.ServicesAdapter
 import com.dubaiculture.ui.postLogin.more.adapter.clicklisteners.ServicesClickListener
 import com.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
+import com.dubaiculture.utils.AppConfigUtils.getDate
 import com.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
 import com.dubaiculture.utils.Constants.NavBundles.SERVICE_ID
@@ -28,12 +31,16 @@ import com.dubaiculture.utils.Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLIC
 import com.dubaiculture.utils.SettingsUtils.newsList
 import com.dubaiculture.utils.SettingsUtils.servicesList
 import com.dubaiculture.utils.SettingsUtils.settingsList
+import com.dubaiculture.utils.hide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.NumberFormat
 import java.util.*
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
@@ -125,11 +132,16 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         moreViewModel.notificationCount(getCurrentLanguage().language)
         subscribeToObservable()
         bgAboutRTL(binding.imgEagle)
+
+        binding.toolbarSnippet.toolbarLayout.search.hide()
         binding.toolbarSnippet.toolbarLayout.search.setOnClickListener(this)
+
+
         binding.llRateUs.setOnClickListener(this)
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
         binding.llCultureConnoisseur.setOnClickListener(this)
+        binding.planATripLayout.cardivewRTL.hide()
         binding.planATripLayout.cardivewRTL.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
             binding.toolbarSnippet.toolbarLayout.profilePic,
@@ -161,7 +173,45 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         rvSetUp()
         setupRV()
         cardViewRTL()
+        try {
+            val versionName = activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
+            getCurrentLanguage().language.let {
+                if (it=="ar"){
+                    binding.tvVersionNo.text = "${resources.getString(R.string.version)}: ${EnglishToArabic(versionName)}"
+                    binding.tvUpdatedDate.text ="${resources.getString(R.string.updated_on)}: ${getDate(BuildConfig.BUILD_TIME.time, "dd-mm-yyyy",getCurrentLanguage().language)}"
+                }else {
+                    binding.tvVersionNo.text = "${resources.getString(R.string.version)}:$versionName"
+                    binding.tvUpdatedDate.text ="${resources.getString(R.string.updated_on)}: ${getDate(BuildConfig.BUILD_TIME.time, "dd-mm-yyyy",getCurrentLanguage().language)}"
 
+                }
+
+            }
+
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun EnglishToArabic(str: String):String {
+        var result = ""
+        var ar = '۰'
+        for (ch in str) {
+            ar = ch
+            when (ch) {
+                '0'  -> ar = '۰'
+                '1'-> ar =  '۱'
+                '2' -> ar ='۲'
+                '3' -> ar ='۳'
+                '4'-> ar =  '۴'
+                '5'-> ar ='۵'
+                '6' -> ar = '۶'
+                '7'-> ar = '۷'
+                '8'-> ar = '۸'
+                '9' -> ar = '۹'
+            }
+            result = "${result}$ar"
+        }
+        return result
     }
 
     private fun cardViewRTL() {
@@ -209,6 +259,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
 
                                     navigate(R.id.action_moreFragment_to_popularServiceFragment2)
                                 }
+
                             }
 
                         }
@@ -304,6 +355,10 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                                     navigate(R.id.action_moreFragment_to_settingFragment)
                                 }
                             }
+                            if (position == 1) {
+                                showAccessibilityDialog()
+                            }
+
                             if (position == 2) {
                                 if (isArabic()) {
                                     setLanguage(Locale.ENGLISH)
@@ -333,6 +388,17 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = settingAdapter
         }
+    }
+
+    private fun showAccessibilityDialog() {
+
+        MaterialAlertDialogBuilder(context!!, R.style.MaterialDialogTheme)
+            .setMessage(resources.getString(R.string.accessbility_desc))
+            .setPositiveButton(resources.getString(R.string._ok)) { dialog, which ->
+                dialog.dismiss()
+            }
+            .show()
+
     }
 
     override fun onClick(v: View?) {

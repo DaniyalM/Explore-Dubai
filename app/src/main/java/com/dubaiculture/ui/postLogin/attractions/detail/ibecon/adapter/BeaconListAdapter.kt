@@ -45,6 +45,10 @@ class BeaconListAdapter(
                 YoYo.with(Techniques.BounceInDown)
                     .duration(2000)
                     .playOn(root)
+                rootlayout.setOnClickListener {
+                    beaconClickListener.onClick(beaconItem)
+//                        rowClickListener!!.rowClickListener(position)
+                }
                 if (beaconItem.visited) {
                     rootlayout.setOnClickListener {
                         beaconClickListener.onClick(beaconItem)

@@ -56,6 +56,7 @@ abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         dataBinding = getFragmentBinding(inflater, container)
+
         return dataBinding.root
     }
 

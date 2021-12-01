@@ -13,6 +13,7 @@ import com.dubaiculture.R
 import com.dubaiculture.data.repository.more.local.FaqItem
 import com.dubaiculture.databinding.ItemFaqsLayoutBinding
 import com.dubaiculture.ui.postLogin.more.faqs.adapters.clicklisteners.FaqsItemClickListner
+import com.dubaiculture.utils.AppConfigUtils.setAnimation
 import com.dubaiculture.utils.getColorFromAttr
 
 class FaqsListAdapter(val faqsItemClickListner: FaqsItemClickListner) :
@@ -59,11 +60,7 @@ class FaqsListAdapter(val faqsItemClickListner: FaqsItemClickListner) :
             }
         }
 
-        private fun setAnimation(viewToAnimate: View, context: Context) {
-            // If the bound view wasn't previously displayed on screen, it's animated
-            val animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
-            viewToAnimate.startAnimation(animation)
-        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqsViewHolder {
