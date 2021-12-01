@@ -49,7 +49,7 @@
         <!--        android:value="@string/map_key"-->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs"
+            android:value="@{GMP_KEY}"
 
             />
         <!--        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"-->
@@ -136,18 +136,6 @@
             </intent-filter>
         </activity>
 
-
-
-        <!--        <activity-->
-        <!--            android:name=".ui.postLogin.PostLoginActivity"-->
-        <!--            android:screenOrientation="portrait"></activity>-->
-        <!-- <activity android:name="com.dubaiculture.ui.widgets.DcWidget"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <!-- <meta-data android:name="com.google.android.maps.v2.API_KEY" -->
-        <!-- android:value="${mapsApiKey}" /> -->
         <receiver android:name=".ui.widgets.DcWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
