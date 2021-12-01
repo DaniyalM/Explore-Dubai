@@ -81,6 +81,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
 
         binding.imgLinkedinAttraction.setOnClickListener(this)
     }
+
     private fun mapSetUp(savedInstanceState: Bundle?) {
         if (!this::mapView.isInitialized) {
 
@@ -92,6 +93,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
         }
     }
+
     private fun callingObserver() {
         moreViewModel.contactUs(getCurrentLanguage().language)
         moreViewModel.contactUs.observe(viewLifecycleOwner) {
@@ -101,20 +103,22 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 socialList.addAll(it.socialLinks)
                 contactCenterReach = it.contactCenterReach
                 moreViewModel.setPinOnMap(map, contactCenterLocation)
-                binding.tvNumber.text= "${contactCenterLocation.houseText} ${contactCenterLocation.houseContent}"
+                binding.tvNumber.text =
+                    "${contactCenterLocation.houseText} ${contactCenterLocation.houseContent}"
 
 
             }
         }
         binding.tvNumber.setOnLongClickListener {
-                    val clipboard: ClipboardManager? =
-                        activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
-                    val clip = ClipData.newPlainText("Contact", contactCenterLocation.houseContent)
-                    clipboard?.setPrimaryClip(clip)
+            val clipboard: ClipboardManager? =
+                activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+            val clip = ClipData.newPlainText("Contact", contactCenterLocation.houseContent)
+            clipboard?.setPrimaryClip(clip)
             showToast(message = "${contactCenterLocation.houseContent} ${resources.getString(R.string.copied)}")
             return@setOnLongClickListener true
         }
     }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_feed_back -> {
@@ -130,7 +134,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
             R.id.imgFb -> {
                 SocialNetworkUtils.getFacebookPage(
-                    socialList.get(0).facebookPageLink,activity
+                    socialList.get(0).facebookPageLink, activity
                 )
 
 //                SocialNetworkUtils.openUrl(
@@ -178,7 +182,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
             R.id.email_ll -> {
                 showAlert(
-                    title="${resources.getString(R.string.confirm)}",
+                    title = "${resources.getString(R.string.confirm)}",
                     message = "${resources.getString(R.string.send_mail_text)} ${contactCenterReach.emailContent}",
                     actionPositive = {
                         openEmailbox(contactCenterReach.emailContent)
@@ -190,16 +194,19 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
 
             }
             R.id.website_ll -> {
-                navigateByDirections(ContactFragmentDirections.actionContactFragmentToWebviewFragment(
-                    contactCenterReach.websiteContent,
-                    false
-                ))
+                navigateByDirections(
+                    ContactFragmentDirections.actionContactFragmentToWebviewFragment(
+                        contactCenterReach.websiteContent,
+                        false
+                    )
+                )
             }
             R.id.getDirection -> {
                 locationPermission()
             }
         }
     }
+
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
             handleRationale = false
@@ -264,4 +271,16 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
         p0.uiSettings.setAllGesturesEnabled(false)
 
     }
+
+    fun onURLClicked(url: String) {
+
+        navigateByDirections(
+            ContactFragmentDirections.actionContactFragmentToWebviewFragment(
+                url,
+                false
+            )
+        )
+
+    }
+
 }
