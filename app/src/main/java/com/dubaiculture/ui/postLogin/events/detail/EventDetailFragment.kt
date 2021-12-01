@@ -180,6 +180,20 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
 
         eventDetailInnerLayout.btnRegisterNow.setOnClickListener {
+            if (application.auth.isGuest){
+                navigateByDirections(EventDetailFragmentDirections.actionEventDetailFragment2ToPostLoginFragment())
+            }else{
+                val bundle = Bundle()
+                bundle.putParcelableArrayList(
+                    Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
+                )
+                bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
+//                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
+                findNavController().navigate(
+                    R.id.action_eventDetailFragment2_to_registerNowFragment,
+                    bundle
+                )
+            }
 //            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
         }
 
@@ -599,16 +613,22 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 }
             }
             R.id.btn_reg -> {
-                val bundle = Bundle()
-                bundle.putParcelableArrayList(
-                    Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
-                )
-                bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
+
+
+                if (application.auth.isGuest){
+                    navigateByDirections(EventDetailFragmentDirections.actionEventDetailFragment2ToPostLoginFragment())
+                }else{
+                    val bundle = Bundle()
+                    bundle.putParcelableArrayList(
+                        Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
+                    )
+                    bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
 //                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
-                findNavController().navigate(
-                    R.id.action_eventDetailFragment2_to_registerNowFragment,
-                    bundle
-                )
+                    findNavController().navigate(
+                        R.id.action_eventDetailFragment2_to_registerNowFragment,
+                        bundle
+                    )
+                }
             }
 //            R.id.favourite -> {00000000
 //
