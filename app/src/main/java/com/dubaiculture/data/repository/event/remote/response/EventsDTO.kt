@@ -118,11 +118,11 @@ data class EventsDTO(
 
     @SerializedName("EventSchedule")
     @Expose
-    val eventSchedule: List<EventScheduleDTO> = mutableListOf(),
+    val eventSchedule: List<EventScheduleDTO> ?= mutableListOf(),
 
     @SerializedName("RelatedEvents")
     @Expose
-    var relatedEvents: List<EventsDTO> = mutableListOf(),
+    var relatedEvents: List<EventsDTO> ?= mutableListOf(),
     @SerializedName("SocialLinks")
     @Expose
     var socialLinks: List<SocialLinkDTO>? = mutableListOf(),

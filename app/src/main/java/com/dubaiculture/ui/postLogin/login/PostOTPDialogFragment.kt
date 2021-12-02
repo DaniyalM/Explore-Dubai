@@ -53,7 +53,7 @@ class PostOTPDialogFragment : BaseBottomSheetFragment<PostOtpFragmentDialogBindi
     }
 
     private fun getOtpFromMessage(message: String?) {
-        val otpPattern = Pattern.compile("(|^)\\d{6}")
+        val otpPattern = Pattern.compile("(|^)\\d{4}")
         val matcher = otpPattern.matcher(message)
         if (matcher.find()) {
             binding.otpView.setText(matcher.group(0))
@@ -113,11 +113,11 @@ class PostOTPDialogFragment : BaseBottomSheetFragment<PostOtpFragmentDialogBindi
         Timber.e(verificationCode)
         binding.btnContinueReg.setOnClickListener(this)
         binding.tvResend.setOnClickListener(this)
-        disabledBackButton()
-        loginWithConfirmOTPObserver()
-        if (from == "registerFragment") {
-            isCancelable = false
-        }
+//        disabledBackButton()
+//        loginWithConfirmOTPObserver()
+//        if (from == "registerFragment") {
+//            isCancelable = false
+//        }
 
     }
 

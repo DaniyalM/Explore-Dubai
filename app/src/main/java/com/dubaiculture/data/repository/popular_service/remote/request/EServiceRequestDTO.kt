@@ -4,6 +4,7 @@ data class EServiceRequestDTO(
     val FullName: String?,
     val Email: String?,
     val Comment: String?,
+    val Culture: String?,
     val ItemID: String?
 )
 

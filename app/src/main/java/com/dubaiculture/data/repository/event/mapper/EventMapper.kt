@@ -242,15 +242,16 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                                 youtubeIcon = it.youtubeIcon,
                                 youtubePageLink = it.youtubePageLink,
                                 linkedInIcon = it.linkedInIcon,
-                                linkedInPageLink = it.linkedInPageLink
+                                linkedInPageLink = it.linkedInPageLink,
+                                subTitle = it.subtitle
                         )
                 }
         } ?: mutableListOf(),
-        eventSchedule = eventDTO.eventSchedule.map {
+        eventSchedule = eventDTO.eventSchedule?.map {
                 EventSchedule(
                         id = it.id,
                         description = it.description,
-                        eventScheduleItems = it.eventScheduleItems.map {
+                        eventScheduleItems = it.eventScheduleItems?.map {
                                 EventScheduleItems(
                                         date = it.date,
                                         eventScheduleItemsSlots = it.eventScheduleItemsTimeSlots.map {
@@ -262,10 +263,10 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                                     )
                                 }
                         )
-                    }
+                    }?: mutableListOf()
             )
-        },
-        relatedEvents = eventDTO.relatedEvents.map {
+        }?: mutableListOf(),
+        relatedEvents = eventDTO.relatedEvents?.map {
             Events(
                     id = it.id,
                     title = it.title ?: "",
@@ -290,7 +291,7 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                     isFavourite = it.isFavourite,
                     registrationDate = it.registrationDate
             )
-        },
+        }?: mutableListOf(),
         url = eventDTO.URL
 
 

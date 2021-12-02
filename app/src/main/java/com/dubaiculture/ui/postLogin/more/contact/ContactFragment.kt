@@ -1,12 +1,18 @@
 package com.dubaiculture.ui.postLogin.more.contact
 
 import android.Manifest
+import android.R.attr.label
+import android.R.attr.title
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.attraction.local.models.SocialLink
@@ -27,6 +33,7 @@ import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOption
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickListener,
@@ -56,6 +63,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
         subscribeUiEvents(moreViewModel)
         mapSetUp(savedInstanceState)
         callingObserver()
+        arrowRTL(binding.ivShare)
         binding.let {
             it.imgClose.setOnClickListener(this)
             it.imgFb.setOnClickListener(this)
@@ -68,10 +76,12 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             it.websiteLl.setOnClickListener(this)
             it.llShareFeedBack.setOnClickListener(this)
             it.getDirection.setOnClickListener(this)
+
         }
 
         binding.imgLinkedinAttraction.setOnClickListener(this)
     }
+
     private fun mapSetUp(savedInstanceState: Bundle?) {
         if (!this::mapView.isInitialized) {
 
@@ -83,6 +93,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
             }
         }
     }
+
     private fun callingObserver() {
         moreViewModel.contactUs(getCurrentLanguage().language)
         moreViewModel.contactUs.observe(viewLifecycleOwner) {
@@ -92,74 +103,110 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 socialList.addAll(it.socialLinks)
                 contactCenterReach = it.contactCenterReach
                 moreViewModel.setPinOnMap(map, contactCenterLocation)
+                binding.tvNumber.text =
+                    "${contactCenterLocation.houseText} ${contactCenterLocation.houseContent}"
+
 
             }
         }
+        binding.tvNumber.setOnLongClickListener {
+            val clipboard: ClipboardManager? =
+                activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+            val clip = ClipData.newPlainText("Contact", contactCenterLocation.houseContent)
+            clipboard?.setPrimaryClip(clip)
+            showToast(message = "${contactCenterLocation.houseContent} ${resources.getString(R.string.copied)}")
+            return@setOnLongClickListener true
+        }
     }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_share_feed_back -> {
-                if(application.auth.isGuest){
-                    navigate(R.id.action_contactFragment_to_post_login_bottom_navigation)
-                }else{
-                    navigate(R.id.action_contactFragment_to_sharedFeeback)
-                }
+                navigateByDirections(ContactFragmentDirections.actionContactFragmentToSharedFeeback())
+//                if(application.auth.isGuest){
+//                    navigate(R.id.action_contactFragment_to_post_login_bottom_navigation)
+//                }else{
+//                    navigate(R.id.action_contactFragment_to_sharedFeeback)
+//                }
             }
             R.id.img_close -> {
                 back()
             }
             R.id.imgFb -> {
-                SocialNetworkUtils.openUrl(
-                    socialList.get(0).facebookPageLink,
-                    activity,
-                    isFacebook = true
+                SocialNetworkUtils.getFacebookPage(
+                    socialList.get(0).facebookPageLink, activity
                 )
+
+//                SocialNetworkUtils.openUrl(
+//                    socialList.get(0).facebookPageLink,
+//                    activity,
+//                    isTwitter = true,
+//                    fragment = this
+//                )
+
             }
             R.id.imgTwitterAttraction -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0).twitterPageLink,
                     activity,
-                    isTwitter = true
+                    isTwitter = true,
+                    fragment = this
                 )
             }
             R.id.instagram -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0).instagramPageLink,
                     activity,
-                    isInstagram = true
+                    isInstagram = true,
+                    fragment = this
                 )
             }
             R.id.imgYoutube -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0).youtubePageLink,
                     activity,
-                    isYoutube = true
+                    isYoutube = true,
+                    fragment = this
                 )
             }
             R.id.imgLinkedinAttraction -> {
                 SocialNetworkUtils.openUrl(
                     socialList.get(0)!!.linkedInPageLink,
                     activity,
-                    isLinkedIn = true
+                    isLinkedIn = true,
+                    fragment = this
                 )
             }
             R.id.call_us -> {
                 openDiallerBox(contactCenterReach.callContent)
             }
             R.id.email_ll -> {
-                openEmailbox(contactCenterReach.emailContent)
+                showAlert(
+                    title = "${resources.getString(R.string.confirm)}",
+                    message = "${resources.getString(R.string.send_mail_text)} ${contactCenterReach.emailContent}",
+                    actionPositive = {
+                        openEmailbox(contactCenterReach.emailContent)
+                    }
+                )
+
             }
             R.id.fax_ll -> {
 
             }
             R.id.website_ll -> {
-               openWebURL(contactCenterReach.websiteContent)
+                navigateByDirections(
+                    ContactFragmentDirections.actionContactFragmentToWebviewFragment(
+                        contactCenterReach.websiteContent,
+                        false
+                    )
+                )
             }
             R.id.getDirection -> {
                 locationPermission()
             }
         }
     }
+
     private fun locationPermission() {
         val quickPermissionsOption = QuickPermissionsOptions(
             handleRationale = false
@@ -221,5 +268,19 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
 
     override fun onMapReady(p0: GoogleMap) {
         map = p0
+        p0.uiSettings.setAllGesturesEnabled(false)
+
     }
+
+    fun onURLClicked(url: String) {
+
+        navigateByDirections(
+            ContactFragmentDirections.actionContactFragmentToWebviewFragment(
+                url,
+                false
+            )
+        )
+
+    }
+
 }

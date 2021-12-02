@@ -1,6 +1,5 @@
 package com.dubaiculture.ui.postLogin.more.notification.adapter
 
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dubaiculture.data.repository.more.remote.response.notification.Notifications
 import com.dubaiculture.databinding.ItemsNotitifcationsLayoutBinding
 
-class NotificationItems(val notificationCounts: NotificationCounts) :
+class NotificationItems :
     PagingDataAdapter<Notifications, NotificationItems.NotificationViewHolder>(
         NotificationDiffCallback()
     ) {
@@ -19,7 +18,7 @@ class NotificationItems(val notificationCounts: NotificationCounts) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(notifications: Notifications) {
             binding.notification = notifications
-            notificationCounts.getNotificationCount(itemCount)
+//            notificationCounts.getNotificationCount(itemCount)
 
         }
     }
@@ -35,7 +34,7 @@ class NotificationItems(val notificationCounts: NotificationCounts) :
             oldItem: Notifications,
             newItem: Notifications
         ): Boolean =
-            oldItem == newItem
+            oldItem.hashCode() == newItem.hashCode()
 
     }
 
@@ -51,7 +50,7 @@ class NotificationItems(val notificationCounts: NotificationCounts) :
         getItem(position)?.let { holder.bind(it) }
     }
 
-    interface NotificationCounts {
-        fun getNotificationCount(count: Int)
-    }
+//    interface NotificationCounts {
+//        fun getNotificationCount(count: Int)
+//    }
 }

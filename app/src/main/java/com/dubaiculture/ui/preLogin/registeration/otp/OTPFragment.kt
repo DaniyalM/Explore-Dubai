@@ -87,7 +87,7 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
 //    }
 
     private fun getOtpFromMessage(message: String?) {
-        val otpPattern = Pattern.compile("(|^)\\d{6}")
+        val otpPattern = Pattern.compile("(|^)\\d{4}")
         val matcher = otpPattern.matcher(message)
         if (matcher.find()) {
             binding.otpView.setText(matcher.group(0))
@@ -123,11 +123,11 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
 
         binding.btnContinueReg.setOnClickListener(this)
         binding.tvResend.setOnClickListener(this)
-        disabledBackButton()
+      //  disabledBackButton()
         loginWithConfirmOTPObserver()
-        if (from == "registerFragment") {
-            isCancelable = false
-        }
+//        if (from == "registerFragment") {
+//            isCancelable = false
+//        }
 
     }
 
@@ -165,12 +165,12 @@ class OTPFragment : BaseBottomSheetFragment<FragmentOTPBinding>(), View.OnClickL
     }
 
     private fun disabledBackButton() {
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(false /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                }
-            }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+//        val callback: OnBackPressedCallback =
+//            object : OnBackPressedCallback(true /* enabled by default */) {
+//                override fun handleOnBackPressed() {
+//                }
+//            }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun loginWithConfirmOTPObserver() {

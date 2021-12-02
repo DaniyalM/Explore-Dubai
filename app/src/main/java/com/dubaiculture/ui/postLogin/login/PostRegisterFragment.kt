@@ -8,11 +8,13 @@ import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentPostRegisterBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.login.viewmodel.PostRegisterViewModel
+import com.dubaiculture.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,7 +51,13 @@ class PostRegisterFragment : BaseFragment<FragmentPostRegisterBinding>(),View.On
                 back()
             }
             R.id.tv_term_condition -> {
-                postRegisterViewModel.showToast("Terms & Conditions")
+                val bundle =
+                    bundleOf(Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY to Constants.NavBundles.TERMS_CONDITION)
+                navigate(
+                    R.id.action_postregisterFragment_to_privacyTermConditionFragment,
+                    bundle
+                )
+//                postRegisterViewModel.showToast("Terms & Conditions")
             }
         }
     }

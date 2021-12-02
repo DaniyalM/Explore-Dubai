@@ -32,6 +32,7 @@ import com.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.dubaiculture.databinding.ToolbarLayoutDetailBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
+import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.getFacebookPage
 import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
 import com.dubaiculture.ui.postLogin.events.adapters.EventListScreenAdapter
@@ -72,6 +73,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private var url: String? = null
     private var urlshare: String? = null
     var emailContact: String? = null
+    var tripAdvisorLink: String? = null
     var numberContact: String? = null
     lateinit var detailInnerLayout: AttractionDetailInnerLayoutBinding
     lateinit var toolbarLayout: ToolbarLayoutDetailBinding
@@ -149,6 +151,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         mapSetUp(savedInstanceState)
         detailInnerLayout = binding.attractionDetailInnerLayout
         toolbarLayout = binding.toolbarLayoutDetail
+
 //        setupSwipeToRefresh()
         rvSetUp()
 
@@ -170,9 +173,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
 
     private fun initializeDetails(attraction: Attractions) {
-
-
         binding.attraction = attraction
+
+        detailInnerLayout.ibeaconsDesc.text = attraction.ibecons?.subtitle
         if (this::marker.isInitialized) {
             marker.let {
                 it.position = LatLng(
@@ -220,7 +223,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             latitude!!.toDouble(),
                             longitude!!.toDouble()
                         )
-                        detailInnerLayout.tvKm.text = "$distance Km Away"
+                        detailInnerLayout.tvKm.text =
+                            "$distance  ${resources.getString(R.string.away)}"
                     } catch (e: java.lang.NumberFormatException) {
                     }
 
@@ -253,7 +257,6 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             isDetailFavouriteFlag = false
 
 
-
                         }
                         checkBox?.background = getDrawableFromId(R.drawable.heart_icon_fav)
                         binding.favourite1.hide()
@@ -284,9 +287,16 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 is Result.Success -> {
 //                    contentFlag = "ContentLoaded"
 
+                    if (it.value.tripAdvisorLink.isNullOrEmpty()) {
+                        binding.attractionDetailInnerLayout.cardviewPlanTrip.hide()
+                    } else {
+                        tripAdvisorLink = it.value.tripAdvisorLink
+                        binding.attractionDetailInnerLayout.cardviewPlanTrip.show()
+                    }
 
                     attractionsObj = it.value
-                    urlshare=it.value.url
+                    urlshare = "${it.value.url}?q=${it.value.id}"
+
                     mapView?.invalidate()
 
 //                    val attractionLatLng = LatLng(
@@ -306,7 +316,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         toolbarLayout.gallery.isClickable = false
                         toolbarLayout.gallery.alpha = 0.4f
 
-                    }else {
+                    } else {
                         detailInnerLayout.downOneGallery.setOnClickListener(this)
                         toolbarLayout.llImg.setOnClickListener(this)
                     }
@@ -315,7 +325,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         detailInnerLayout.downOne360.alpha = 0.4f
                         toolbarLayout.ll360.isClickable = false
                         detailInnerLayout.downOne360.isClickable = false
-                    }else{
+                    } else {
 
                         detailInnerLayout.downOne360.setOnClickListener(this)
                         toolbarLayout.ll360.setOnClickListener(this)
@@ -334,10 +344,20 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                     if (urlshare != null && !urlshare!!.isEmpty()) {
                         toolbarLayout.share.setOnClickListener { view ->
-                            shareLink(urlshare ?: "", activity)
+                            shareLink(
+                                urlshare ?: "",
+                                activity,
+                                title = attractionsObj!!.title,
+                                detail = ""
+                            )
                         }
                         binding.share.setOnClickListener { view ->
-                            shareLink(urlshare ?: "", activity)
+                            shareLink(
+                                urlshare ?: "",
+                                activity,
+                                title = attractionsObj!!.title,
+                                detail = ""
+                            )
                         }
                     } else {
                         toolbarLayout.share.hide()
@@ -372,9 +392,20 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         toolbarLayout.back.setOnClickListener(this)
         binding.imgBack.setOnClickListener(this)
         toolbarLayout.btnBookATicket.setOnClickListener(this)
+        toolbarLayout.btnBookATicket.hide()
+
 
         toolbarLayout.llAr.setOnClickListener(this)
+
+        //ar
         detailInnerLayout.downOneAR.setOnClickListener(this)
+        detailInnerLayout.downOneAR.alpha = 0.4f
+        detailInnerLayout.downOneAR.isClickable = false
+        toolbarLayout.llAr.alpha = 0.4f
+        toolbarLayout.llAr.isClickable = false
+        //ar
+
+        detailInnerLayout.btnFilter.hide()
 
         detailInnerLayout.imgAttractionSpeaker.setOnClickListener(this)
         detailInnerLayout.llEmailus.setOnClickListener(this)
@@ -382,41 +413,50 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         detailInnerLayout.constLayoutSiteMap.setOnClickListener(this)
         detailInnerLayout.constLayoutIbecon.setOnClickListener(this)
         detailInnerLayout.tvDirection.setOnClickListener(this)
-
+        detailInnerLayout.cardviewPlanTrip.setOnClickListener(this)
         attractionsObj?.let { attraction ->
             detailInnerLayout.imgFb.setOnClickListener {
-                openUrl(
+                getFacebookPage(
                     attraction.socialLink?.get(0)!!.facebookPageLink,
                     activity,
-                    isFacebook = true
                 )
+//                openUrl(
+//                    attraction.socialLink?.get(0)!!.facebookPageLink,
+//                    activity,
+//                    isFacebook = true,
+//                    fragment = this
+//                )
             }
             detailInnerLayout.instagram.setOnClickListener {
                 openUrl(
                     attraction.socialLink?.get(0)!!.instagramPageLink,
                     activity,
-                    isInstagram = true
+                    isInstagram = true,
+                    fragment = this
                 )
             }
             detailInnerLayout.imgTwitterAttraction.setOnClickListener {
                 openUrl(
                     attraction.socialLink?.get(0)!!.twitterPageLink,
                     activity,
-                    isTwitter = true
+                    isTwitter = true,
+                    fragment = this
                 )
             }
             detailInnerLayout.imgYoutube.setOnClickListener {
                 openUrl(
                     attraction.socialLink?.get(0)!!.youtubePageLink,
                     activity,
-                    isYoutube = true
+                    isYoutube = true,
+                    fragment = this
                 )
             }
             detailInnerLayout.imgLinkedinAttraction.setOnClickListener {
                 openUrl(
                     attraction.socialLink?.get(0)!!.linkedInPageLink,
                     activity,
-                    isLinkedIn = true
+                    isLinkedIn = true,
+                    fragment = this
                 )
             }
 
@@ -547,6 +587,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             it.getMapAsync(this)
             it.onCreate(savedInstanceState)
 
+
         }
 
     }
@@ -578,7 +619,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                         it.latitude?.toDouble()!!,
                                         it.longitude?.toDouble()!!
                                     )
-                                detailInnerLayout.tvKm.text = "$distance Km Away"
+                                detailInnerLayout.tvKm.text =
+                                    "$distance  ${resources.getString(R.string.away)}"
                             }
                         }
 
@@ -599,7 +641,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     attractionsObj!!.latitude?.toDouble()!!,
                     attractionsObj!!.longitude?.toDouble()!!
                 )
-
+                map?.uiSettings?.setAllGesturesEnabled(false)
 
                 map?.addMarker(
                     MarkerOptions()
@@ -664,10 +706,9 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             }
             R.id.img_attraction_speaker -> {
                 if (detailInnerLayout.tvDescReadmore.text.isNotEmpty()) {
-                    if (textToSpeechEngine.isSpeaking){
+                    if (textToSpeechEngine.isSpeaking) {
                         textToSpeechEngine.stop()
-                    }
-                    else {
+                    } else {
                         textToSpeechEngine.speak(
                             "${attractionsObj?.title} ${attractionsObj?.description}",
                             TextToSpeech.QUEUE_FLUSH,
@@ -752,6 +793,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     openEmailbox(emailContact.toString())
                 }
             }
+            R.id.cardview_plan_trip -> {
+                navigateByDirections(
+                    AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
+                         tripAdvisorLink.toString(), false
+                    )
+                )
+            }
         }
     }
 
@@ -799,7 +847,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         attractionsObj?.latitude!!.toDouble(),
                         attractionsObj?.longitude!!.toDouble()
                     )
-                detailInnerLayout.tvKm.text = "$distance Km Away"
+                detailInnerLayout.tvKm.text = "$distance ${resources.getString(R.string.away)}"
             }
         } catch (e: java.lang.NumberFormatException) {
         }

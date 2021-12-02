@@ -11,6 +11,7 @@
     <include app:graph="@navigation/news_navigation" />
     <include app:graph="@navigation/settings_navigation" />
     <include app:graph="@navigation/trip_navigation" />
+    <include app:graph="@navigation/web_view_navigation" />
 
     <include app:graph="@navigation/service_navigation" />
     <fragment
@@ -180,6 +181,18 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_contactFragment_to_webviewFragment"
+            app:destination="@id/web_view_navigation" >
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+
+        </action>
     </fragment>
     <fragment
         android:id="@+id/FAQsFragment"
@@ -197,10 +210,57 @@
         <action
             android:id="@+id/action_aboutFragment_to_privacyTermConditionFragment"
             app:destination="@id/privacyTermConditionFragment" />
+        <action
+            android:id="@+id/action_aboutFragment_to_webviewFragment"
+            app:destination="@id/web_view_navigation">
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+
+        </action>
     </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/webviewFragment"-->
+<!--        android:name="com.dubaiculture.ui.postLogin.more.about.WebViewFragment"-->
+<!--        android:label="WebviewFragment"-->
+<!--        tools:layout="@layout/fragment_web_view" >-->
+<!--        <argument-->
+<!--            android:name="webview_url"-->
+<!--            app:argType="string" />-->
+<!--    </fragment>-->
     <fragment
         android:id="@+id/sharedFeeback"
         android:name="com.dubaiculture.ui.postLogin.more.contact.feedback.SharedFeebackFragment"
         android:label="SharedFeeback"
-        tools:layout="@layout/fragment_shared_feeback" />
+        tools:layout="@layout/fragment_shared_feeback" >
+
+        <action
+            android:id="@+id/action_FeedBackFragment_to_messageDialogFragment"
+            app:destination="@id/messageDialogFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="message"
+                app:argType="com.dubaiculture.data.repository.more.local.GetMessage"
+                app:nullable="false" />
+        </action>
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/messageDialogFragment"
+        android:name="com.dubaiculture.ui.postLogin.messageDialog.MessageDialogFragment"
+        android:label="MessageDialogFragment" >
+        <argument
+            android:name="message"
+            app:argType="com.dubaiculture.data.repository.more.local.GetMessage"
+            app:nullable="false" />
+    </dialog>
+
 </navigation>

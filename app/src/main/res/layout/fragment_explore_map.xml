@@ -8,16 +8,16 @@
     android:layout_height="match_parent"
     tools:context="com.dubaiculture.ui.postLogin.explore.map.ExploreMapFragment">
 
-<!--    <com.google.android.gms.maps.MapView-->
-<!--        android:id="@+id/map"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="?attr/color_light_gray_svg" />-->
-    <fragment
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:id="@+id/google_map" />
+         />
+<!--    <fragment-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:name="com.google.android.gms.maps.SupportMapFragment"-->
+<!--        android:id="@+id/google_map" />-->
 
 
     <include

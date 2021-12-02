@@ -63,6 +63,15 @@ class RegisterNowFragment : BaseFragment<FragmentRegisterNowBinding>(), View.OnC
         binding.header.back.setOnClickListener(this)
         backArrowRTL(binding.header.back)
 
+        binding.tvTermCondition.setOnClickListener {
+            val bundle =
+                bundleOf(Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY to Constants.NavBundles.TERMS_CONDITION)
+            navigate(
+                R.id.action_eventregisterFragment_to_privacyTermConditionFragment,
+                bundle
+            )
+        }
+
         binding.editTime.setOnClickListener {
             hideKeyboard(activity)
             binding.editTime.showDropDown()

@@ -53,21 +53,21 @@
                 android:layout_marginBottom="@dimen/_50sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/customTextView8"
-                app:layout_constraintTop_toBottomOf="@+id/customTextView8" />
+                app:layout_constraintTop_toBottomOf="@+id/clearPop" />
 
             <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/clearPop"
                 android:layout_width="0dp"
                 android:fontFamily="@font/neosansarabic"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:drawableStart="@drawable/binicon"
                 android:drawablePadding="@dimen/_5sdp"
                 android:text="@string/clear_search_history"
                 android:textColor="?attr/color_dubai_logo"
                 android:textSize="@dimen/_12ssp"
-                app:layout_constraintStart_toStartOf="@+id/popular_rv"
-                app:layout_constraintTop_toBottomOf="@+id/popular_rv" />
+                app:layout_constraintStart_toStartOf="@id/customTextView8"
+                app:layout_constraintTop_toBottomOf="@+id/customTextView8" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -140,7 +140,7 @@
                     android:lineSpacingExtra="@dimen/text_line_spacing"
                     android:text="@string/no_my_posts_fav"
                     android:textAlignment="center"
-                    android:textSize="@dimen/_13ssp"
+                    android:textSize="@dimen/_18sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

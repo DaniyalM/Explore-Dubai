@@ -49,12 +49,13 @@ class UAEBottomSheetFragment : BaseBottomSheetFragment<FragmentUaePassLinkingBin
         uaePassViewModel.updateLinkingRequest.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
 
-                    uaePassSharedViewModel.registerWithUaePass(
-                        it.copy(
-                            token = uaeBottomSheetFragmentArgs.token,
-                            culture = getCurrentLanguage().language
-                        )
-                    )
+//                    uaePassSharedViewModel.registerWithUaePass(
+//                        it.copy(
+//                            token = uaeBottomSheetFragmentArgs.token,
+//                            culture = getCurrentLanguage().language
+//                        )
+//                    )
+                uaePassSharedViewModel.dontCreateAccount()
 
 
             }

@@ -7,7 +7,6 @@
     app:startDestination="@id/loginFragment">
 
 
-
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.dubaiculture.ui.preLogin.login.LoginFragment"
@@ -40,7 +39,25 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out" >
+            <argument
+                android:name="verificationCode"
+                app:argType="string" />
+
+            <argument
+                android:name="screen_name"
+                app:argType="string" />
+
+            <argument
+                android:name="emailorphone"
+                app:argType="string"
+               />
+
+            <argument
+                android:name="password"
+                app:argType="string"
+               />
+        </action>
         <action
             android:id="@+id/action_loginFragment_to_createPassFragment"
             app:destination="@id/createPassFragment"
@@ -96,7 +113,20 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_registerFragment_to_privacyTermConditionFragment"
+            app:destination="@id/privacyTermConditionFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
     </fragment>
+    <dialog
+        android:id="@+id/privacyTermConditionFragment"
+        android:name="com.dubaiculture.ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment"
+        android:label="PrivacyTermConditionFragment"
+        tools:layout="@layout/fragment_privacy_policy" />
     <fragment
         android:id="@+id/forgotFragment"
         android:name="com.dubaiculture.ui.preLogin.forgot.ForgotFragment"
@@ -158,15 +188,15 @@
 
         <argument
             android:name="emailorphone"
-            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null"/>
 
         <argument
             android:name="password"
-            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null"/>
 
 
         <action
@@ -218,7 +248,7 @@
     <dialog
         android:id="@+id/UAEBottomSheetFragment"
         android:name="com.dubaiculture.ui.preLogin.login.uae.UAEBottomSheetFragment"
-        android:label="UAEBottomSheetFragment" >
+        android:label="UAEBottomSheetFragment">
         <argument
             android:name="token"
             app:argType="string"

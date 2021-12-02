@@ -204,7 +204,8 @@ class SearchViewModel @Inject constructor(
     fun search(
         searchRequest: SearchPaginationRequest
     ) {
-        var search: SearchPaginationRequest = searchRequest?:SearchPaginationRequest()
+        showLoader(true)
+        var search: SearchPaginationRequest = searchRequest ?: SearchPaginationRequest()
         if (searchRequest.category.isEmpty())
             search = searchRequest.copy(category = "0")
 
@@ -220,13 +221,15 @@ class SearchViewModel @Inject constructor(
                         if (tabTitle?.contains("All")!!) {
                             displayError(it)
                         } else {
-                            displayError("No ${tabTitle} Found")
+                            _searchPaginationItem.value = PagingData.empty()
+                            setCount(0)
                         }
                     }
 
                 }
             )) {
                 is Result.Success -> {
+                    showLoader(false)
                     result.value
                         .cachedIn(viewModelScope)
                         .collectLatest {

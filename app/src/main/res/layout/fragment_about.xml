@@ -124,7 +124,7 @@
                     android:foreground="@drawable/custom_ripple_border"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="@{cultureCon.readMoreURL}"
-                    android:onClick="@{()->fragment.openWebWithoutBaseUrl(cultureCon.readMoreURL)}"
+                    android:onClick="@{()->fragment.onURLClicked(cultureCon.readMoreURL)}"
                     android:textColor="@color/purple_900"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_read_more"
@@ -294,168 +294,179 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginBottom="@dimen/_30sdp"
                     >
-                    <LinearLayout
-                        android:orientation="vertical"
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvLibraries"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvima"
+                        tools:listitem="@layout/item_libraries" />
+
+<!--                    <LinearLayout-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content">-->
 
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/rootView"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/custom_ripple_black">
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:id="@+id/rootView"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="@dimen/_40sdp"-->
+<!--                            android:background="@drawable/custom_ripple_black">-->
 
 
-                            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                                android:id="@+id/tv_title1"
-                                style="@style/TextViewStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_20sdp"
-                                android:text="Lorem ipsum dolor"
-                                android:textSize="@dimen/_12sdp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+<!--                            <com.dubaiculture.ui.components.customtextview.CustomTextView-->
+<!--                                android:id="@+id/tv_title1"-->
+<!--                                style="@style/TextViewStyle"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="@dimen/_20sdp"-->
+<!--                                android:text="Lorem ipsum dolor"-->
+<!--                                android:textSize="@dimen/_12sdp"-->
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="parent" />-->
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/arrow5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/_15sdp"
-                                android:background="@drawable/forward_arrow"
-                                app:layout_constraintBottom_toBottomOf="@+id/tv_title1"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.95"
-                                app:layout_constraintTop_toTopOf="@+id/tv_title1" />
-
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/rootView1"
-
-                        android:background="@drawable/custom_ripple_black"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
-                        >
+<!--                            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                                android:id="@+id/arrow5"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginEnd="@dimen/_15sdp"-->
+<!--                                android:background="@drawable/forward_arrow"-->
+<!--                                app:layout_constraintBottom_toBottomOf="@+id/tv_title1"-->
+<!--                                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                app:layout_constraintHorizontal_bias="0.95"-->
+<!--                                app:layout_constraintTop_toTopOf="@+id/tv_title1" />-->
 
 
-                        <com.dubaiculture.ui.components.customtextview.CustomTextView
-                            android:id="@+id/tv_title2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lorem ipsum dolor"
-                            android:textSize="@dimen/_12sdp"
-                            style="@style/TextViewStyle"
-                            android:layout_marginStart="@dimen/_20sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            />
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/arrow6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/forward_arrow"
-                            app:layout_constraintBottom_toBottomOf="@+id/tv_title2"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.95"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            app:layout_constraintTop_toTopOf="@+id/tv_title2" />
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/rootView1"-->
+
+<!--                        android:background="@drawable/custom_ripple_black"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="@dimen/_40sdp"-->
+<!--                        >-->
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                        <com.dubaiculture.ui.components.customtextview.CustomTextView-->
+<!--                            android:id="@+id/tv_title2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Lorem ipsum dolor"-->
+<!--                            android:textSize="@dimen/_12sdp"-->
+<!--                            style="@style/TextViewStyle"-->
+<!--                            android:layout_marginStart="@dimen/_20sdp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            />-->
+
+<!--                        <androidx.appcompat.widget.AppCompatImageView-->
+<!--                            android:id="@+id/arrow6"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@drawable/forward_arrow"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/tv_title2"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintHorizontal_bias="0.95"-->
+<!--                            android:layout_marginEnd="@dimen/_15sdp"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/tv_title2" />-->
 
 
-
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/rootView2"
-
-                            android:background="@drawable/custom_ripple_black"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            >
-
-
-                            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                                android:id="@+id/tv_title3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Lorem ipsum dolor"
-                                style="@style/TextViewStyle"
-                                android:textSize="@dimen/_12sdp"
-                                android:layout_marginStart="@dimen/_20sdp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/arrow7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/forward_arrow"
-                                app:layout_constraintBottom_toBottomOf="@+id/tv_title3"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.95"
-                                android:layout_marginEnd="@dimen/_15sdp"
-                                app:layout_constraintTop_toTopOf="@+id/tv_title3" />
-
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
 
 
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:id="@+id/rootView2"-->
+
+<!--                            android:background="@drawable/custom_ripple_black"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="@dimen/_40sdp"-->
+<!--                            >-->
 
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/rootView3"
-                            android:background="@drawable/custom_ripple_black"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            >
+<!--                            <com.dubaiculture.ui.components.customtextview.CustomTextView-->
+<!--                                android:id="@+id/tv_title3"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Lorem ipsum dolor"-->
+<!--                                style="@style/TextViewStyle"-->
+<!--                                android:textSize="@dimen/_12sdp"-->
+<!--                                android:layout_marginStart="@dimen/_20sdp"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="parent"-->
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                />-->
+
+<!--                            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                                android:id="@+id/arrow7"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/forward_arrow"-->
+<!--                                app:layout_constraintBottom_toBottomOf="@+id/tv_title3"-->
+<!--                                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                app:layout_constraintHorizontal_bias="0.95"-->
+<!--                                android:layout_marginEnd="@dimen/_15sdp"-->
+<!--                                app:layout_constraintTop_toTopOf="@+id/tv_title3" />-->
 
 
-                            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                                android:id="@+id/tv_title4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Lorem ipsum dolor"
-                                android:textSize="@dimen/_12sdp"
-                                style="@style/TextViewStyle"
-                                android:layout_marginStart="@dimen/_20sdp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/arrow8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/forward_arrow"
-                                app:layout_constraintBottom_toBottomOf="@+id/tv_title4"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.95"
-                                android:layout_marginEnd="@dimen/_15sdp"
-                                app:layout_constraintTop_toTopOf="@+id/tv_title4"
-
-                                />
-
-
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
 
 
 
-                    </LinearLayout>
+
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:id="@+id/rootView3"-->
+<!--                            android:background="@drawable/custom_ripple_black"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="@dimen/_40sdp"-->
+<!--                            >-->
+
+
+<!--                            <com.dubaiculture.ui.components.customtextview.CustomTextView-->
+<!--                                android:id="@+id/tv_title4"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Lorem ipsum dolor"-->
+<!--                                android:textSize="@dimen/_12sdp"-->
+<!--                                style="@style/TextViewStyle"-->
+<!--                                android:layout_marginStart="@dimen/_20sdp"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="parent"-->
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                />-->
+
+<!--                            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                                android:id="@+id/arrow8"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/forward_arrow"-->
+<!--                                app:layout_constraintBottom_toBottomOf="@+id/tv_title4"-->
+<!--                                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                app:layout_constraintHorizontal_bias="0.95"-->
+<!--                                android:layout_marginEnd="@dimen/_15sdp"-->
+<!--                                app:layout_constraintTop_toTopOf="@+id/tv_title4"-->
+
+<!--                                />-->
+
+
+
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+
+
+
+<!--                    </LinearLayout>-->
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -476,7 +487,7 @@
                     android:textSize="@dimen/_9ssp"
                     android:layout_marginTop="@dimen/_25sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/cardview_service"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardview_service"
                     />
 
@@ -490,7 +501,7 @@
                     android:textSize="@dimen/_9ssp"
                     android:layout_marginTop="@dimen/_5sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/cardview_service"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_version_no"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="@dimen/_120sdp"

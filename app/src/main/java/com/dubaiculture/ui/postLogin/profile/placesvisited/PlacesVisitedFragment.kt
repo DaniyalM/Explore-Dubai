@@ -18,8 +18,9 @@ import com.dubaiculture.ui.postLogin.attractions.adapters.AttractionListItem
 import com.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionViewModel
 import com.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
-import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.handleApiError
+import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,9 +31,10 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
     private val attractionViewModel: AttractionViewModel by viewModels()
     var placesVisitedListAdapter: GroupAdapter<GroupieViewHolder> = GroupAdapter()
 
-    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) = FragmentPlacesVisitedBinding.inflate(inflater, container, false)
+    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentPlacesVisitedBinding.inflate(inflater, container, false)
 
-    private fun subscribeToObservables(){
+    private fun subscribeToObservables() {
         attractionViewModel.isFavourite.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
@@ -46,45 +48,68 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
                 is Result.Failure -> handleApiError(it, attractionViewModel)
             }
         }
-        attractionViewModel.visitedAttractionList.observe(viewLifecycleOwner){
+        attractionViewModel.visitedAttractionList.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
-                it.forEach {
-                    if (placesVisitedListAdapter.itemCount>0){
-                        placesVisitedListAdapter.clear()
-                    }
-                    placesVisitedListAdapter.add(
+                if (it.isEmpty()) {
+
+                    binding.personalRv.hide()
+                    binding.tvPlaceHolder.show()
+
+                } else {
+
+                    binding.tvPlaceHolder.hide()
+                    binding.personalRv.show()
+
+                    it.forEach {
+                        if (placesVisitedListAdapter.itemCount > 0) {
+                            placesVisitedListAdapter.clear()
+                        }
+                        placesVisitedListAdapter.add(
                             AttractionListItem<AttractionListItemCellBinding>(
-                            favChecker = object : FavouriteChecker {
-                                override fun checkFavListener(
+                                favChecker = object : FavouriteChecker {
+                                    override fun checkFavListener(
                                         checkbox: CheckBox,
                                         pos: Int,
                                         isFav: Boolean,
                                         itemId: String,
-                                ) {
-                            favouriteClick(
-                                    checkbox,
-                                    isFav,
-                                    R.id.action_placesVisited_to_post_login_bottom_navigation,
-                                    itemId, attractionViewModel,
-                                    1
+                                    ) {
+                                        favouriteClick(
+                                            checkbox,
+                                            isFav,
+                                            R.id.action_placesVisited_to_post_login_bottom_navigation,
+                                            itemId, attractionViewModel,
+                                            1
+                                        )
+                                    }
+                                },
+                                rowClickListener = object : RowClickListener {
+                                    override fun rowClickListener(position: Int) {
+                                        navigateByDirections(
+                                            PlacesVisitedFragmentDirections.actionPlacesVisitedToAttractionDetailNavigation(
+                                                it.id
+                                            )
+                                        )
+//                                        navigate(R.id.action_placesVisited_to_attraction_detail_navigation,
+//                                            Bundle().apply {
+//                                                putParcelable(
+//                                                    Constants.NavBundles.ATTRACTION_OBJECT,
+//                                                    it
+//                                                )
+//                                            })
+                                    }
+
+                                    override fun rowClickListener(
+                                        position: Int,
+                                        imageView: ImageView
+                                    ) {
+                                    }
+                                },
+                                attraction = it,
+                                context = activity,
+                                isVisited = true
                             )
-                                }
-                            },
-                            rowClickListener = object : RowClickListener {
-                                override fun rowClickListener(position: Int) {
-                            navigate(R.id.action_placesVisited_to_attraction_detail_navigation,
-                                    Bundle().apply {
-                                        putParcelable(Constants.NavBundles.ATTRACTION_OBJECT,
-                                                it)
-                                    })
-                                }
-                                override fun rowClickListener(position: Int, imageView: ImageView) {
-                                }
-                            },
-                            attraction = it,
-                            context = activity,
-                            isVisited = true
-                    ))
+                        )
+                    }
                 }
             }
         }
@@ -93,10 +118,12 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
     private fun initiateRequest() {
         binding.swipeRefresh.apply {
             attractionViewModel.getVisitedAttractions(getCurrentLanguage().language)
-            setColorSchemeResources(R.color.colorPrimary,
-                    android.R.color.holo_green_dark,
-                    android.R.color.holo_orange_dark,
-                    android.R.color.holo_blue_dark)
+            setColorSchemeResources(
+                R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark
+            )
             setOnRefreshListener {
                 binding.swipeRefresh.isRefreshing = false
                 attractionViewModel.getVisitedAttractions(getCurrentLanguage().language)
@@ -104,8 +131,6 @@ class PlacesVisitedFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
             }
         }
     }
-
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

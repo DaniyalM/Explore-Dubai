@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.transition.ChangeBounds
 import androidx.transition.Transition
@@ -17,6 +18,7 @@ import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentRegisterBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.getColorFromAttr
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -99,7 +101,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), View.OnClickLi
                 back()
             }
             R.id.tv_term_condition -> {
-                registrationViewModel.showToast("Terms & Conditions")
+                val bundle =
+                    bundleOf(Constants.NavBundles.TERMS_CONDITION_PRIVACY_POLICY to Constants.NavBundles.TERMS_CONDITION)
+                navigate(
+                    R.id.action_registerFragment_to_privacyTermConditionFragment,
+                    bundle
+                )
+//                registrationViewModel.showToast("Terms & Conditions")
             }
 
         }

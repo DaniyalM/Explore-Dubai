@@ -188,12 +188,69 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"
             />
+
+        <action
+            android:id="@+id/action_exploreFragment_to_attraction_detail_navigation"
+            app:destination="@id/attraction_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="attraction_id"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_exploreFragment_to_event_detail_navigation"
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+
     </fragment>
     <dialog
         android:id="@+id/exploreBottomSheetFragment"
         android:name="com.dubaiculture.ui.postLogin.explore.bottomsheet.ExploreBottomSheetFragment"
         android:label="ExploreBottomSheetFragment"
-        tools:layout="@layout/fragment_explore_buttom_sheet" />
+        tools:layout="@layout/fragment_explore_buttom_sheet" >
+
+        <action
+            android:id="@+id/action_bottom_exploreFragment_to_attraction_detail_navigation"
+            app:destination="@id/attraction_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="attraction_id"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_bottom_exploreFragment_to_event_detail_navigation"
+            app:destination="@id/event_detail_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+
+    </dialog>
 
 
 

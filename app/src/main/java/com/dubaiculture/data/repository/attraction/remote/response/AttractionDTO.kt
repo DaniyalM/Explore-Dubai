@@ -132,4 +132,8 @@ class AttractionDTO {
     @SerializedName("URL")
     @Expose
     var URL: String? = ""
+
+    @SerializedName("TripAdvisorLink")
+    @Expose
+    var tripAdvisorLink: String? = ""
 }

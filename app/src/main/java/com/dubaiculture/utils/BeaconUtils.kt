@@ -3,9 +3,12 @@ package com.dubaiculture.utils
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import com.dubaiculture.data.repository.visited.VisitedRepository
 import com.dubaiculture.ui.preLogin.PreLoginActivity
 import com.dubaiculture.utils.Constants.IBecons.IDENTIFIER
+import com.dubaiculture.utils.Constants.IBecons.MAJOR
+import com.dubaiculture.utils.Constants.IBecons.MINOR
 import com.dubaiculture.utils.Constants.IBecons.UUID_BECON
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion
 import com.estimote.coresdk.recognition.packets.Beacon
@@ -15,35 +18,22 @@ import javax.inject.Inject
 
 class BeaconUtils @Inject constructor(
     private val context: Context,
-    private val visitedRepository: VisitedRepository,
+//    private val visitedRepository: VisitedRepository,
 ) {
     var beaconManager: BeaconManager = BeaconManager(context)
-    var region: BeaconRegion = BeaconRegion(IDENTIFIER, UUID.fromString(UUID_BECON), null, null)
+    var region: BeaconRegion = BeaconRegion(IDENTIFIER, UUID.fromString(UUID_BECON), MAJOR, MINOR)
 //    val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
+//    fun beaconDisconnect(){
+//        beaconManager.stopMonitoring(region.identifier)
+////        beaconManager.stopRanging(region)
+//        beaconManager.disconnect()
+//    }
     fun beaconConnect() {
-        beaconManager.connect {
 
-            beaconManager.startMonitoring(region)
-            beaconManager.startRanging(region)
-            beaconManager.setScanStatusListener(object : BeaconManager.ScanStatusListener {
-                override fun onScanStart() {
-//                    Toast.makeText(context,"Dubai Culture Scanning has been started",Toast.LENGTH_SHORT).show()
-                    PushNotificationManager.showNotification(
-                        context,
-                        "Beacon Scanning",
-                        "Dubai Culture Scanning has been started", null
-                    )
-                }
-
-                override fun onScanStop() {
-                }
-            })
-            startMontioring()
-        }
     }
 
-    private fun startMontioring() {
+     fun startMontioring() {
         beaconManager.setMonitoringListener(object :
             BeaconManager.BeaconMonitoringListener {
             override fun onEnteredRegion(

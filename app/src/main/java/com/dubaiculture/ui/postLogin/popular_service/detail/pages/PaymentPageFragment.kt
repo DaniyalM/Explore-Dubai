@@ -15,6 +15,7 @@ import com.dubaiculture.databinding.ItemsServiceDetailProcedureLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailListingItems
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -34,31 +35,28 @@ class PaymentPageFragment(val payments: List<Payment>?) : BaseFragment<ItemsServ
             layoutManager = linearLayoutManager
             val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
             adapter = paymentInnerAdapter
+            if (payments?.get(0)?.payments!!.isEmpty()){
+                binding.noDataPlaceHolder.show()
+                binding.detailListingHeader.hide()
 
-            payments?.get(0)?.payments?.forEach {
-//                val linearLayoutManager = LinearLayoutManager(context)
-//                layoutManager = linearLayoutManager
-//                val paymentInnerAdapter = GroupAdapter<GroupieViewHolder>()
-                binding.detailListingHeader.text =
-                    context.getString(R.string.payments)
+                hide()
 
-                adapter = paymentInnerAdapter
-                val paymentsItem =
-                    ServiceDetailListingItems<ItemsServiceDetailPaymentInnerItemLayoutBinding, PaymentX>(
-                        eService = it,
-                        resLayout = R.layout.items_service_detail_payment_inner_item_layout
-                    )
-                paymentInnerAdapter.add(paymentsItem)
-//                val paymentsItem =
-//                    ServiceDetailListingItems<ItemsServiceDetailInnerListingLayoutBinding, Payment>(
-//                        eService = it,
-//                        resLayout = R.layout.items_service_detail_inner_listing_layout
-//                    )
-//                paymentInnerAdapter.add(paymentsItem)
+            }else {
+                payments.get(0).payments.forEach {
+                    binding.detailListingHeader.text =
+                        context.getString(R.string.payments)
+                    adapter = paymentInnerAdapter
+                    val paymentsItem =
+                        ServiceDetailListingItems<ItemsServiceDetailPaymentInnerItemLayoutBinding, PaymentX>(
+                            eService = it,
+                            resLayout = R.layout.items_service_detail_payment_inner_item_layout
+                        )
+                    paymentInnerAdapter.add(paymentsItem)
+
+                }
             }
-//            if (payments?.get(0)?.payments!!.isEmpty()){
-//                hide()
-//            }
+
+
         }
 
     }

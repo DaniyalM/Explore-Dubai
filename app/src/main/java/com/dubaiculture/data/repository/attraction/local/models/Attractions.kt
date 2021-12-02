@@ -43,6 +43,7 @@ data class Attractions(
     var relatedEventsTitle: String? = "",
     var catIndexId: Int? = null,
     var url: String? = null,
+    var tripAdvisorLink: String? = null,
 
 
 ) : Parcelable

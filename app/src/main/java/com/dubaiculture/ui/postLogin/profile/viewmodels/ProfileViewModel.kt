@@ -48,9 +48,9 @@ class ProfileViewModel @Inject constructor(
     private val errs_ = MutableLiveData<Int>()
     val errs: LiveData<Int> = errs_
 
-    init {
-        getSettings()
-    }
+//    init {
+//
+//    }
 
     fun uploadProfile(uri: String, application: ApplicationEntry) {
         viewModelScope.launch {

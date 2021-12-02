@@ -11,6 +11,7 @@ import com.dubaiculture.databinding.ItemsServiceDetailInnerListingLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.adapter.ServiceProcedureListAdapter
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 
 class ProcedurePageFragment(val procedure: List<Procedure>?) :
     BaseFragment<ItemsServiceDetailInnerListingLayoutBinding>() {
@@ -21,8 +22,9 @@ class ProcedurePageFragment(val procedure: List<Procedure>?) :
         container: ViewGroup?
     ) = ItemsServiceDetailInnerListingLayoutBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         binding.detailListingHeader.text = activity.resources.getString(R.string.service_procedure)
 
         if (!this::serviceProcedureListAdapter.isInitialized) {
@@ -31,24 +33,24 @@ class ProcedurePageFragment(val procedure: List<Procedure>?) :
 
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        procedure?.get(0)?.serviceProcedure?.let {
-            serviceProcedureListAdapter.submitList(it)
-        }
-
-    }
-
 
     fun initRecycling() {
         binding.innerRecyclerView.apply {
-            if (procedure?.get(0)?.serviceProcedure!!.isEmpty()){
+            if (procedure?.get(0)?.serviceProcedure!!.isEmpty()) {
                 hide()
+                binding.detailListingHeader.hide()
+                binding.noDataPlaceHolder.show()
+
+            }else {
+                val linearLayoutManager = LinearLayoutManager(context)
+                layoutManager = linearLayoutManager
+                serviceProcedureListAdapter = ServiceProcedureListAdapter()
+                adapter = serviceProcedureListAdapter
+                procedure.get(0).serviceProcedure.let {
+                    serviceProcedureListAdapter.submitList(it)
+                }
             }
-            val linearLayoutManager = LinearLayoutManager(context)
-            layoutManager = linearLayoutManager
-            serviceProcedureListAdapter = ServiceProcedureListAdapter()
-            adapter = serviceProcedureListAdapter
+
 
         }
 

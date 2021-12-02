@@ -16,5 +16,5 @@ data class EventScheduleDTO (
     val description: String,
     @SerializedName("EventScheduleItems")
     @Expose
-    val eventScheduleItems: List<EventScheduleItemsDTO>
+    val eventScheduleItems: List<EventScheduleItemsDTO>?
     ):Parcelable

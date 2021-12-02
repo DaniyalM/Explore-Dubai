@@ -38,6 +38,7 @@ class SavedTripListingFragment : BaseFragment<FragmentSavedTripListingBinding>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
+        backArrowRTL(binding.imgClose)
         setupRV()
 
     }

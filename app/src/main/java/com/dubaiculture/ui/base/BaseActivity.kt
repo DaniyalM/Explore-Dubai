@@ -1,9 +1,11 @@
 package com.dubaiculture.ui.base
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.CheckBox
@@ -35,7 +37,34 @@ abstract class BaseActivity : LocalizationActivity() {
 
 
     lateinit var checkBox: CheckBox
+    protected var mPrevConfig: Configuration? = null
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        configurationChanged(newConfig)
+        mPrevConfig = Configuration(newConfig)
 
+
+
+    }
+
+    protected fun configurationChanged(newConfig: Configuration?) {
+        newConfig?.let {
+            if (isNightConfigChanged(it)) { // night mode has changed
+                applicationEntry.preferenceRepository.isDarkTheme=isOnDarkMode(it)
+                recreate()
+                // do your thing
+            }
+        }
+
+    }
+
+    protected fun isNightConfigChanged(newConfig: Configuration): Boolean {
+        return newConfig.diff(mPrevConfig) and ActivityInfo.CONFIG_UI_MODE != 0 && isOnDarkMode(newConfig) != isOnDarkMode(mPrevConfig!!)
+    }
+
+    fun isOnDarkMode(configuration: Configuration): Boolean {
+        return configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+    }
 
     protected fun getDrawableFromId(resId: Int?): Drawable? {
         resId?.let {
@@ -45,15 +74,16 @@ abstract class BaseActivity : LocalizationActivity() {
         return null
     }
 
+
     fun showAlert(
-        message: String="",
+        message: String = "",
         title: String = Constants.Alert.DEFAULT_TITLE,
         textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
         textNegative: String? = null,
         actionNegative: (() -> Unit)? = null,
         actionPositive: (() -> Unit)? = null,
-        isInternet:Boolean=false,
-        application: ApplicationEntry?=null
+        isInternet: Boolean = false,
+        application: ApplicationEntry? = null
     ) {
         showAlert(
             message = message,
@@ -62,11 +92,12 @@ abstract class BaseActivity : LocalizationActivity() {
             textPositive = textPositive,
             textNegative = textNegative,
             actionPositive = actionPositive,
-            isInternet=isInternet,
-            application=application
+            isInternet = isInternet,
+            application = application
 
         )
     }
+
 
     fun openEmailbox(email: String) {
         val intent = Intent(Intent.ACTION_SEND)
@@ -94,20 +125,43 @@ abstract class BaseActivity : LocalizationActivity() {
     }
 
 
+    fun isDark(configuration: Configuration) {
+        val preferenceRepository = applicationEntry.preferenceRepository
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val nightMode = configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)
+            when (nightMode) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    // Night mode is active, we're using dark theme
+                    preferenceRepository.isDarkTheme = true
+                }
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    // Night mode is not active, we're using the light theme
+                    preferenceRepository.isDarkTheme = false
+                }
+                else -> {
+                    preferenceRepository.isDarkTheme = false
+//                   preferenceRepository.isDarkTheme = isNightModeActive(this)
+                }
+            }
+        }
+
+
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-
         applicationEntry = application as ApplicationEntry
+        applicationEntry.preferenceRepository.isDarkTheme=isOnDarkMode(resources.configuration)
+        mPrevConfig = Configuration(resources.configuration)
+//        isDark(mPrevConfig!!)
+
+        darkModeAccess()
         bus = applicationEntry.bus
         applicationEntry.auth.locale = getCurrentLanguage().language
         bus.register(this)
         isBusRegistered = true
         customProgressDialog = ProgressDialog(this)
-
-        darkModeAccess()
 
 
     }
