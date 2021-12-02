@@ -31,6 +31,7 @@ import com.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListI
 import com.dubaiculture.utils.Constants.NavBundles.EVENT_FILTER
 import com.dubaiculture.utils.Constants.NavBundles.EXPLORE_TO_ATTRACTIONS
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -266,8 +267,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             .build()
                 }
 
-//                holder.itemView.binding?.cardviewPlanTrip?.hide()
-                holder.itemView.binding?.tripSeperator?.hide()
+                holder.itemView.binding?.cardviewPlanTrip?.show()
+                holder.itemView.binding?.tripSeperator?.show()
 
                 holder.itemView.binding?.cardviewPlanTrip?.setOnClickListener {
                     if (!isGuest!!) {
