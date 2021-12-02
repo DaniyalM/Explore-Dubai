@@ -11,7 +11,7 @@
     <fragment
         android:id="@+id/attractionsFragment"
         tools:layout="@layout/fragment_attractions"
-        android:name="com.dubaiculture.ui.postLogin.attractions.listing.AttractionFragment"
+        android:name="com.dubaiculture.ui.postLogin.attractions.AttractionFragment"
         android:label="AttractionsFragment">
         <argument
             android:name="culture"

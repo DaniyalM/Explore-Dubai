@@ -133,7 +133,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         subscribeToObservable()
         bgAboutRTL(binding.imgEagle)
 
-//        binding.toolbarSnippet.toolbarLayout.search.hide()
+        binding.toolbarSnippet.toolbarLayout.search.hide()
         binding.toolbarSnippet.toolbarLayout.search.setOnClickListener(this)
 
 
@@ -141,7 +141,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
         binding.llCultureConnoisseur.setOnClickListener(this)
-//        binding.planATripLayout.cardivewRTL.hide()
+        binding.planATripLayout.cardivewRTL.hide()
         binding.planATripLayout.cardivewRTL.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
             binding.toolbarSnippet.toolbarLayout.profilePic,
