@@ -133,7 +133,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         subscribeToObservable()
         bgAboutRTL(binding.imgEagle)
 
-        binding.toolbarSnippet.toolbarLayout.search.hide()
+//        binding.toolbarSnippet.toolbarLayout.search.hide()
         binding.toolbarSnippet.toolbarLayout.search.setOnClickListener(this)
 
 
@@ -141,7 +141,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
         binding.llCultureConnoisseur.setOnClickListener(this)
-        binding.planATripLayout.cardivewRTL.hide()
+//        binding.planATripLayout.cardivewRTL.hide()
         binding.planATripLayout.cardivewRTL.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
             binding.toolbarSnippet.toolbarLayout.profilePic,
@@ -174,14 +174,29 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         setupRV()
         cardViewRTL()
         try {
-            val versionName = activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
+            val versionName =
+                activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
             getCurrentLanguage().language.let {
-                if (it=="ar"){
-                    binding.tvVersionNo.text = "${resources.getString(R.string.version)}: ${EnglishToArabic(versionName)}"
-                    binding.tvUpdatedDate.text ="${resources.getString(R.string.updated_on)}: ${getDate(BuildConfig.BUILD_TIME.time, "dd-mm-yyyy",getCurrentLanguage().language)}"
-                }else {
-                    binding.tvVersionNo.text = "${resources.getString(R.string.version)}:$versionName"
-                    binding.tvUpdatedDate.text ="${resources.getString(R.string.updated_on)}: ${getDate(BuildConfig.BUILD_TIME.time, "dd-mm-yyyy",getCurrentLanguage().language)}"
+                if (it == "ar") {
+                    binding.tvVersionNo.text =
+                        "${resources.getString(R.string.version)}: ${EnglishToArabic(versionName)}"
+                    binding.tvUpdatedDate.text = "${resources.getString(R.string.updated_on)}: ${
+                        getDate(
+                            BuildConfig.BUILD_TIME.time,
+                            "dd-mm-yyyy",
+                            getCurrentLanguage().language
+                        )
+                    }"
+                } else {
+                    binding.tvVersionNo.text =
+                        "${resources.getString(R.string.version)}:$versionName"
+                    binding.tvUpdatedDate.text = "${resources.getString(R.string.updated_on)}: ${
+                        getDate(
+                            BuildConfig.BUILD_TIME.time,
+                            "dd-mm-yyyy",
+                            getCurrentLanguage().language
+                        )
+                    }"
 
                 }
 
@@ -192,21 +207,21 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         }
     }
 
-    fun EnglishToArabic(str: String):String {
+    fun EnglishToArabic(str: String): String {
         var result = ""
         var ar = '۰'
         for (ch in str) {
             ar = ch
             when (ch) {
-                '0'  -> ar = '۰'
-                '1'-> ar =  '۱'
-                '2' -> ar ='۲'
-                '3' -> ar ='۳'
-                '4'-> ar =  '۴'
-                '5'-> ar ='۵'
+                '0' -> ar = '۰'
+                '1' -> ar = '۱'
+                '2' -> ar = '۲'
+                '3' -> ar = '۳'
+                '4' -> ar = '۴'
+                '5' -> ar = '۵'
                 '6' -> ar = '۶'
-                '7'-> ar = '۷'
-                '8'-> ar = '۸'
+                '7' -> ar = '۷'
+                '8' -> ar = '۸'
                 '9' -> ar = '۹'
             }
             result = "${result}$ar"
