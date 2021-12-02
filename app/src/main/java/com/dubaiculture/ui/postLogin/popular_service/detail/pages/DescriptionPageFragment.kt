@@ -56,7 +56,7 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
 
             (parentFragment as ServiceDetailFragment).navigateByDirections(
                 ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
-                    BuildConfig.BASE_URL_SHARE + description[0].startServiceUrl, false
+                    description[0].startServiceUrl, false
                 )
             )
 //            (parentFragment as ServiceDetailFragment).navigateByDirections(

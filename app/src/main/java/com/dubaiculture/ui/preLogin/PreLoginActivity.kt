@@ -38,6 +38,8 @@ class PreLoginActivity : BaseActivity() {
         intent?.let {
             val handle = it.getBooleanExtra(Constants.NavBundles.HANDLE_PUSH, false)
             if (handle) {
+                applicationEntry.auth.isLoggedIn=true
+                applicationEntry.auth.isGuest=true
                 killSessionAndStartNewActivity(PostLoginActivity::class.java)
                 val intent = Intent(
                     this,

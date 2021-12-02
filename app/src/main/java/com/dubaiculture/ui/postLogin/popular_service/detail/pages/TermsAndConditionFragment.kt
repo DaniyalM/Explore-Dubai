@@ -48,7 +48,7 @@ class TermsAndConditionFragment(
         binding.commonBtn.setOnClickListener {
             (parentFragment as ServiceDetailFragment).navigateByDirections(
                 ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
-                    BuildConfig.BASE_URL_SHARE + termsAndCondition[0].startServiceUrl, false
+                    termsAndCondition[0].startServiceUrl, false
                 )
             )
         }
@@ -70,7 +70,14 @@ class TermsAndConditionFragment(
 
         termsAndCondition[0].apply {
             binding.contactuslayout.thumbUp.setOnClickListener {
-                serviceDownVoteFeedBackViewModel.upvoteService(id!!)
+                if (application.auth.isGuest){
+                    (parentFragment as ServiceDetailFragment).navigateByDirections(
+                        ServiceDetailFragmentDirections.actionServiceDetailFragment2ToPostLoginBottomNavigation()
+                    )
+                }else {
+                    serviceDownVoteFeedBackViewModel.upvoteService(id!!)
+                }
+
             }
 
             termsAndConditionsSummary.let {
