@@ -5,7 +5,7 @@ import com.dubaiculture.data.repository.settings.remote.request.UserSettingsDTO
 
 fun transformUserSettings(userSettingsDTO: UserSettingsDTO)= UserSettings(
         turnOnLocation = userSettingsDTO.TurnOnLocation,
-        pushNotification = userSettingsDTO.PushNotification,
+        pushNotification = userSettingsDTO.PushNotifications,
         email = userSettingsDTO.Email,
         locationBasedNotifications = userSettingsDTO.LocationBasedNotifications,
         sms = userSettingsDTO.SMS
@@ -14,7 +14,7 @@ fun transformUserSettings(userSettingsDTO: UserSettingsDTO)= UserSettings(
 
 fun transformUserSettingRequest(userSettings: UserSettings)=UserSettingsDTO(
         TurnOnLocation = userSettings.turnOnLocation,
-        PushNotification = userSettings.pushNotification,
+        PushNotifications = userSettings.pushNotification,
         LocationBasedNotifications = userSettings.locationBasedNotifications,
         Email = userSettings.email,
         SMS = userSettings.sms,

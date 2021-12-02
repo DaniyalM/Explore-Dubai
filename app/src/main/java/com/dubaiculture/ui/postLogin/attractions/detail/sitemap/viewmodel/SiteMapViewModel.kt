@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.sitemap.SiteMapRespository
+import com.dubaiculture.data.repository.sitemap.local.BeaconItems
 import com.dubaiculture.data.repository.sitemap.local.SiteMapModel
 import com.dubaiculture.data.repository.sitemap.remote.request.SiteMapRequest
 import com.dubaiculture.ui.base.BaseViewModel
@@ -22,6 +23,10 @@ class SiteMapViewModel @Inject constructor(
     private val _siteMapData: MutableLiveData<SiteMapModel> = MutableLiveData()
     val siteMapData: LiveData<SiteMapModel> = _siteMapData
 
+    val _beacons: MutableLiveData<List<BeaconItems>> = MutableLiveData()
+    val beacons: LiveData<List<BeaconItems>> = _beacons
+
+
 
     fun siteMap(id: String, locale: String) {
         viewModelScope.launch {
@@ -31,6 +36,11 @@ class SiteMapViewModel @Inject constructor(
                 is Result.Success -> {
                     showLoader(false)
                     _siteMapData.value = result.value
+
+                    result.value.ibeconItems.filter { it.proximityID.isNotEmpty()&& it.minor.isNotEmpty() && it.major.isNotEmpty() }.let {
+                        _beacons.value=it
+                    }
+
                 }
                 is Result.Failure -> {
                     showLoader(false)
@@ -39,6 +49,18 @@ class SiteMapViewModel @Inject constructor(
 
 
             }
+        }
+    }
+
+
+
+
+    fun updateBeacons(){
+        val data = _beacons.value ?: return
+        data.filter {
+            !it.visited
+        }.let {
+            _beacons.value
         }
     }
 

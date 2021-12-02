@@ -20,6 +20,7 @@ import com.dubaiculture.utils.Constants.NavBundles.LOCATION_LAT
 import com.dubaiculture.utils.Constants.NavBundles.LOCATION_LNG
 import com.dubaiculture.utils.enableLocationFromSettings
 import com.dubaiculture.utils.handleApiError
+import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -67,15 +68,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         exploreViewModel.getExploreToScreen(getCurrentLanguage().language)
-        if (application.auth.isMapSearch) {
-            application.auth.isMapSearch = false
-            navigateByDirections(
-                ExploreFragmentDirections.actionExploreFragmentToSearchNavigation()
-            )
-        }
+
 
         locationHelper.provideContext(activity)
-        Timber.e("token explore " + FirebaseInstanceId.getInstance().token)
+//        Timber.e("token explore " + FirebaseInstanceId.getInstance().token)
 
         subscribeUiEvents(exploreViewModel)
         binding.swipeRefresh.apply {
@@ -99,6 +95,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         binding.toolbarSnippet.toolbarLayout.imgDrawer.setOnClickListener {
             locationPermission()
         }
+        binding.toolbarSnippet.toolbarLayout.search.hide()
         binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
             navigateByDirections(
                 ExploreFragmentDirections.actionExploreFragmentToSearchNavigation()

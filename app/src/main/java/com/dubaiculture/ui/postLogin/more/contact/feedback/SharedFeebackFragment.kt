@@ -1,6 +1,8 @@
 package com.dubaiculture.ui.postLogin.more.contact.feedback
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,8 @@ import com.dubaiculture.data.repository.more.local.FeedbacksType
 import com.dubaiculture.databinding.FragmentSharedFeebackBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.more.contact.feedback.viewmodel.FeedbackViewModel
+import com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs.ClickBack
+import com.squareup.otto.Subscribe
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,6 +58,20 @@ class SharedFeebackFragment : BaseFragment<FragmentSharedFeebackBinding>(),View.
             }
         }
     }
+
+    @Subscribe
+    fun doBack(clickBack: ClickBack) {
+        when (clickBack) {
+            is ClickBack.doBack -> {
+                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                    back()
+                }, 1000)
+
+            }
+        }
+
+    }
+
     private fun setTypeList(list: List<FeedbacksType>) {
         val adapter = ArrayAdapter(
             activity,

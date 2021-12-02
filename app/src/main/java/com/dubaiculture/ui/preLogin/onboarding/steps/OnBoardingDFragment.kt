@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentOnBoardingDBinding
 import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.utils.dataStore.DataStoreManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnBoardingDFragment : BaseFragment<FragmentOnBoardingDBinding>() {
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

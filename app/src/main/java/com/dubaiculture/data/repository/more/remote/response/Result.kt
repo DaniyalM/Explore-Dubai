@@ -26,5 +26,7 @@ data class Result(
     val FaqItems: List<FaqItemDTO>,
     val FeedbacksType: List<FeedbacksTypeDTO>,
     val Notifications: List<NotificationDTO> = emptyList(),
-    val Count: String?
+    val Count: String?,
+    val MessageHeading: String?,
+    val Reference: String?
 )

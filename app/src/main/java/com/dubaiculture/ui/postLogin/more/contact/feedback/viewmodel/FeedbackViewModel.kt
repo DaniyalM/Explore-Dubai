@@ -10,10 +10,13 @@ import com.dubaiculture.data.Result
 import com.dubaiculture.data.Result.Success
 import com.dubaiculture.data.repository.more.MoreRepository
 import com.dubaiculture.data.repository.more.local.FeedbacksType
+import com.dubaiculture.data.repository.more.local.GetMessage
 import com.dubaiculture.data.repository.more.remote.request.PrivacyAndTermRequest
 import com.dubaiculture.data.repository.more.remote.request.ShareFeedbackRequest
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
+import com.dubaiculture.ui.postLogin.more.contact.feedback.SharedFeebackFragmentDirections
+import com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs.ServiceDownVoteFeedBackFragmentDirections
 import com.dubaiculture.utils.AuthUtils
 import com.dubaiculture.utils.Constants.Error.INTERNET_CONNECTION_ERROR
 import com.dubaiculture.utils.event.Event
@@ -33,7 +36,8 @@ class FeedbackViewModel @Inject constructor(
 
     // editext get() and set()
     var fullName: ObservableField<String> = ObservableField("")
-    var email: ObservableField<String> = ObservableField("")
+    var email: ObservableField<String> =
+        ObservableField(getApplication<ApplicationEntry>().auth.user?.email ?: "")
     var message: ObservableField<String> = ObservableField("")
     var subject: ObservableField<String> = ObservableField("")
     var type: ObservableField<String> = ObservableField("")
@@ -154,15 +158,29 @@ class FeedbackViewModel @Inject constructor(
                 email = email.get().toString().trim(),
                 type = selectedTypeId.toString(),
                 fullName = fullName.get().toString().trim(),
-                message = message.get().toString().trim()
+                message = message.get().toString().trim(),
+                subject = subject.get().toString().trim()
             ).let {
                 when (val result = moreRepository.postFeedBack(it)) {
                     is Result.Success -> {
 
                         showLoader(false)
-                        showToast(message = result.value.message)
-                        navigateByBack()
-
+                        navigateByDirections(
+                            SharedFeebackFragmentDirections.actionFeedBackFragmentToMessageDialogFragment(
+                                GetMessage(
+                                    heading = result.value.heading,
+                                    message = result.value.message,
+                                    reference = result.value.reference,
+                                )
+                            )
+                        )
+//                        showAlert(
+//                            title = result.value.heading ?: "",
+//                            message = "${result.value.message} ${result.value.reference}"
+//                        ) {
+//                            navigateByBack()
+////                        _downVote.value = Event(true)
+//                        }
 
                     }
                     is Result.Failure -> {

@@ -57,7 +57,9 @@ fun transformFeedbackType(moreresponse: MoreResponse) =
 fun transformPostFeedBackMessage(moreresponse: MoreResponse) =
     moreresponse.Result.run {
         GetMessage(
-            message = MessageBody
+            message = MessageBody,
+            heading = MessageHeading?:"",
+            reference = Reference?:""
         )
     }
 
@@ -92,6 +94,7 @@ fun transformContactCenterLocation(contactCenterLocationDTO: ContactCenterLocati
         day = contactCenterLocationDTO.Day,
         time = contactCenterLocationDTO.Time,
         houseContent = contactCenterLocationDTO.HouseContent,
+        houseText = contactCenterLocationDTO.HouseText?:"",
         directionContent = contactCenterLocationDTO.DirectionContent,
         pinContent = contactCenterLocationDTO.PinContent,
         mapLatitude = contactCenterLocationDTO.MapLatitude,
@@ -151,7 +154,8 @@ fun transformPostFeedBack(shareFeedBackRequest: ShareFeedbackRequest) =
         FullName = shareFeedBackRequest.fullName,
         Email = shareFeedBackRequest.email,
         Message = shareFeedBackRequest.message,
-        Type = shareFeedBackRequest.type
+        Type = shareFeedBackRequest.type,
+        Subject = shareFeedBackRequest.subject
     )
 
 fun transformNotification(notificationRequest: NotificationRequest) = NotificationRequestDTO(

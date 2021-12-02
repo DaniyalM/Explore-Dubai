@@ -56,12 +56,13 @@ abstract class BaseDialogFragment<DB : ViewDataBinding> : DialogFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         dataBinding = getFragmentBinding(inflater, container)
-        application = activity.application as ApplicationEntry
+
         return dataBinding.root
     }
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        application = activity.application as ApplicationEntry
         bus = application.bus
         bus.register(this)
         isBusRegistered = true

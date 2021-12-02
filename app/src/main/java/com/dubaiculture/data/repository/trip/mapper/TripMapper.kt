@@ -3,7 +3,6 @@ package com.dubaiculture.data.repository.trip.mapper
 import com.dubaiculture.data.repository.trip.local.*
 import com.dubaiculture.data.repository.trip.local.Day
 import com.dubaiculture.data.repository.trip.local.DayAndNightTime
-import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.dubaiculture.data.repository.trip.local.Hour
 import com.dubaiculture.data.repository.trip.local.InterestedIn
 import com.dubaiculture.data.repository.trip.local.Location
@@ -251,3 +250,8 @@ fun transformMyTripResponse(trip: com.dubaiculture.data.repository.trip.remote.r
         name = trip.Name,
         startDate = trip.StartDate
     )
+
+
+
+
+

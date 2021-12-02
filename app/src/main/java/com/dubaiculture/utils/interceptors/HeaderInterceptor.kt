@@ -32,6 +32,7 @@ class HeaderInterceptor @Inject constructor(private val context: Context,private
                     &&!url.contains("UAEPassLogin")
                     &&!url.contains("UAEPassLinkAccount")
                     &&!url.contains("UAEPassCreateAccount")
+                    &&!url.contains("Auth/Register")
         ) {
             //All the Above End Points Will be Ignored on the this stage
             nonBlockingUrl = true

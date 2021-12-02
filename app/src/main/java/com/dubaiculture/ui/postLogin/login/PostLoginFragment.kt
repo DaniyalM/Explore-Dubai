@@ -8,10 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.CookieManager
+import androidx.datastore.preferences.preferencesKey
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.dubaiculture.R
+import com.dubaiculture.data.repository.login.local.UAEPass
 import com.dubaiculture.data.repository.login.remote.request.UAELoginRequest
+import com.dubaiculture.data.repository.user.local.User
 import com.dubaiculture.databinding.FragmentPostLoginBinding
 import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.postLogin.PostLoginActivity
@@ -19,11 +23,15 @@ import com.dubaiculture.ui.postLogin.login.viewmodel.PostLoginViewModel
 import com.dubaiculture.ui.preLogin.login.LoginFragmentDirections
 import com.dubaiculture.ui.preLogin.login.uae.viewmodels.UaePassSharedViewModel
 import com.dubaiculture.ui.preLogin.splash.viewmodels.SplashViewModel
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.Error.UAE_PASS_ERROR
 import com.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.dubaiculture.utils.UAEPassRequestModelsUtils
+import com.dubaiculture.utils.dataStore.DataStoreManager
 import com.dubaiculture.utils.killSessionAndStartNewActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -31,6 +39,10 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     View.OnClickListener {
     private val postLoginViewModel: PostLoginViewModel by viewModels()
     private val uaePassSharedViewModel: UaePassSharedViewModel by activityViewModels()
+    private var user: User? = null
+    private var uaePass: UAEPass? = null
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
 
     private val splashViewModel: SplashViewModel by viewModels()
     private var postCreatePassFragment: PostCreatePassFragment? = null
@@ -71,6 +83,22 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
             }
 
         }
+
+        lifecycleScope.launch {
+            checkRememberMe()
+        }
+
+    }
+
+    private suspend fun checkRememberMe() {
+
+//        binding.checkBoxRemember.isChecked =
+//            !dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals("")
+        binding.checkBoxRemember.isChecked = !(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)) == null|| dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)).equals(""))
+
+        postLoginViewModel.phone.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.USERNAME)))
+        postLoginViewModel.password.set(dataStoreManager.getString(preferencesKey(Constants.DataStore.PASSWORD)))
+
     }
 
     override fun onClick(v: View?) {
@@ -100,6 +128,22 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
     }
 
     private fun callingObserver() {
+        postLoginViewModel.user.observe(viewLifecycleOwner){
+            it?.getContentIfNotHandled()?.let {
+                user=it
+            }
+        }
+        postLoginViewModel.userUae.observe(viewLifecycleOwner){
+            it?.getContentIfNotHandled()?.let {
+                uaePass=it
+            }
+        }
+        uaePassSharedViewModel.dontCreate.observe(viewLifecycleOwner){
+            it?.getContentIfNotHandled()?.let {
+                if (user!=null&&uaePass!=null)
+                postLoginViewModel.createAccount(user!!, uaePass!!)
+            }
+        }
         uaePassSharedViewModel.isLinkingRequest.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (!it.isAccountCreate!!) {
@@ -110,12 +154,13 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
                         ), true
                     )
                 } else {
-                    postLoginViewModel.loginWithUaeCreate(
-                        it.copy(
-                            token = token,
-                            culture = getCurrentLanguage().language
-                        )
-                    )
+                    postLoginViewModel.createAccount(user!!, uaePass!!)
+//                    postLoginViewModel.loginWithUaeCreate(
+//                        it.copy(
+//                            token = token,
+//                            culture = getCurrentLanguage().language
+//                        )
+//                    )
                 }
 
             }
@@ -138,6 +183,31 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         }
         splashViewModel.user.observe(viewLifecycleOwner) {
             if (it != null) {
+                if (binding.checkBoxRemember.isChecked) {
+                    lifecycleScope.launch {
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.USERNAME),
+                            postLoginViewModel.phone.get()
+                        )
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.PASSWORD),
+                            postLoginViewModel.password.get()
+                        )
+                    }
+                } else {
+
+                    lifecycleScope.launch {
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.USERNAME),
+                            ""
+                        )
+                        dataStoreManager.setData(
+                            preferencesKey(Constants.DataStore.PASSWORD),
+                            ""
+                        )
+                    }
+
+                }
                 application.auth.apply {
                     postLoginViewModel.updateSheet(false)
                     user = it

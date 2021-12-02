@@ -70,7 +70,7 @@ class ProfileRepository @Inject constructor(
         }
 
 
-    suspend fun getFavourites() = when (val resultRDS = profileRDS.getFavourites()) {
+    suspend fun getFavourites(culture: String) = when (val resultRDS = profileRDS.getFavourites(culture)) {
         is Result.Success -> {
             if (resultRDS.value.succeeded) {
                 Result.Success(

@@ -3,15 +3,21 @@ package com.dubaiculture.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
@@ -41,10 +47,38 @@ object AppConfigUtils {
     const val TAG_OUTPUT = "OUTPUT"
     const val KEY_IMAGE_URI = "KEY_IMAGE_URI"
 
+
+    fun isNightModeActive(context: Context): Boolean {
+        val defaultNightMode = AppCompatDelegate.getDefaultNightMode()
+        if (defaultNightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+            return true
+        }
+        if (defaultNightMode == AppCompatDelegate.MODE_NIGHT_NO) {
+            return false
+        }
+        val currentNightMode = (context.resources.configuration.uiMode
+                and Configuration.UI_MODE_NIGHT_MASK)
+        when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO -> return false
+            Configuration.UI_MODE_NIGHT_YES -> return true
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> return false
+        }
+        return false
+    }
     fun getDrawable(context: Context, drawableResId: Int, colorFilter: Int): Drawable {
         val drawable = getDrawable(context, drawableResId)
         drawable?.setColorFilter(colorFilter, PorterDuff.Mode.SRC_IN)
         return drawable!!
+    }
+
+    fun getDate(milliSeconds: Long, dateFormat: String?,locale: String="en"): String? {
+        // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat(dateFormat,Locale(locale))
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = milliSeconds
+        return formatter.format(calendar.time)
     }
 
     fun getDrawable(context: Context, drawableResId: Int): Drawable? {
@@ -90,16 +124,54 @@ object AppConfigUtils {
         return Calendar.getInstance().time
     }
 
-    fun shareLink(stringUrl: String, activity: Activity) {
+    fun shareLink(stringUrl: String, activity: Activity,title:String="",detail:String="") {
 
         if (stringUrl.isNotEmpty()) {
             val i = Intent(Intent.ACTION_SEND)
             i.type = "text/plain"
-            i.putExtra(Intent.EXTRA_SUBJECT, "Sharing News")
-            i.putExtra(Intent.EXTRA_TEXT, BuildConfig.BASE_URL_SHARE + stringUrl)
-            activity.startActivity(Intent.createChooser(i, "Share URL"))
+            i.putExtra(Intent.EXTRA_TITLE, title)
+            i.putExtra(Intent.EXTRA_SUBJECT, detail)
+            i.putExtra(Intent.EXTRA_TEXT, "${title} "+BuildConfig.BASE_URL_SHARE + stringUrl)
+            activity.startActivity(Intent.createChooser(i, title))
         }
     }
+
+     fun setAnimation(viewToAnimate: View, context: Context) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        val animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
+        viewToAnimate.startAnimation(animation)
+    }
+
+    fun isInternetAvailable(context: Context): Boolean {
+        var result = false
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val networkCapabilities = connectivityManager.activeNetwork ?: return false
+            val actNw =
+                connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+            result = when {
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                else -> false
+            }
+        } else {
+            connectivityManager.run {
+                connectivityManager.activeNetworkInfo?.run {
+                    result = when (type) {
+                        ConnectivityManager.TYPE_WIFI -> true
+                        ConnectivityManager.TYPE_MOBILE -> true
+                        ConnectivityManager.TYPE_ETHERNET -> true
+                        else -> false
+                    }
+                }
+            }
+        }
+        return result
+    }
+
+
 
 
 }

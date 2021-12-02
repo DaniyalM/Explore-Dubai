@@ -11,6 +11,8 @@ import com.dubaiculture.R
 import com.dubaiculture.data.repository.search.local.SearchTab
 import com.dubaiculture.databinding.ExploreMapLayoutHeadersBinding
 import com.dubaiculture.ui.postLogin.search.SearchFragment.Companion.selectedPosition
+import com.dubaiculture.utils.AppConfigUtils
+import com.dubaiculture.utils.AppConfigUtils.setAnimation
 import com.dubaiculture.utils.getColorFromAttr
 import com.dubaiculture.utils.hide
 
@@ -40,6 +42,8 @@ class UniSelectionAdapter<T>(val headerSelector: HeaderSelector) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(header: T) {
             if (header is SearchTab) {
+                setAnimation(binding.cardview, binding.root.context)
+
                 binding.apply {
 
                     imgInnerIcon.hide()

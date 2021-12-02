@@ -35,6 +35,7 @@ import com.dubaiculture.databinding.ToolbarLayoutEventDetailBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
 import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
+import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.getFacebookPage
 import com.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
 import com.dubaiculture.ui.postLogin.events.adapters.EventAdapter
 import com.dubaiculture.ui.postLogin.events.detail.adapter.ScheduleExpandAdapter
@@ -179,42 +180,65 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
 
         eventDetailInnerLayout.btnRegisterNow.setOnClickListener {
+            if (application.auth.isGuest){
+                navigateByDirections(EventDetailFragmentDirections.actionEventDetailFragment2ToPostLoginFragment())
+            }else{
+                val bundle = Bundle()
+                bundle.putParcelableArrayList(
+                    Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
+                )
+                bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
+//                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
+                findNavController().navigate(
+                    R.id.action_eventDetailFragment2_to_registerNowFragment,
+                    bundle
+                )
+            }
 //            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
         }
 
         eventDetailInnerLayout.imgFb.setOnClickListener {
-            SocialNetworkUtils.openUrl(
+            getFacebookPage(
                 eventObj?.socialLink?.get(0)!!.facebookPageLink,
                 activity,
-                isFacebook = true
             )
+//            SocialNetworkUtils.openUrl(
+//                eventObj?.socialLink?.get(0)!!.facebookPageLink,
+//                activity,
+//                isFacebook = true,
+//                fragment = this
+//            )
         }
         eventDetailInnerLayout.imgTwitter.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.twitterPageLink,
                 activity,
-                isTwitter = true
+                isTwitter = true,
+                fragment = this
             )
         }
         eventDetailInnerLayout.imgInsta.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.instagramPageLink,
                 activity,
-                isInstagram = true
+                isInstagram = true,
+                fragment = this
             )
         }
         eventDetailInnerLayout.imgUtube.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.youtubePageLink,
                 activity,
-                isYoutube = true
+                isYoutube = true,
+                fragment = this
             )
         }
         eventDetailInnerLayout.imgLinkedin.setOnClickListener {
             SocialNetworkUtils.openUrl(
                 eventObj?.socialLink?.get(0)!!.linkedInPageLink,
                 activity,
-                isLinkedIn = true
+                isLinkedIn = true,
+                fragment = this
             )
         }
 
@@ -272,7 +296,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
 
 
-                    urlshare = it.value.url
+                    urlshare = "${it.value.url}?q=${it.value.id}"
+
 
                     binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener {
                         isDetailFavouriteFlag = true
@@ -305,14 +330,18 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             shareLink(
                                 urlshare
                                     ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
-                                activity
+                                activity,
+                                title=eventObj!!.title!!+ " "+ eventObj!!.fromDate+"-"+eventObj!!.fromMonthYear,
+                                detail = ""
                             )
                         }
                         binding.share.setOnClickListener {
                             shareLink(
                                 urlshare
                                     ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
-                                activity
+                                activity,
+                                title=eventObj!!.title!!,
+                                detail =""
                             )
 
                         }
@@ -546,6 +575,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
         map?.let {
             this.map = it
+            it.uiSettings.setAllGesturesEnabled(false)
+
         }
 
 
@@ -582,16 +613,22 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 }
             }
             R.id.btn_reg -> {
-                val bundle = Bundle()
-                bundle.putParcelableArrayList(
-                    Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
-                )
-                bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
+
+
+                if (application.auth.isGuest){
+                    navigateByDirections(EventDetailFragmentDirections.actionEventDetailFragment2ToPostLoginFragment())
+                }else{
+                    val bundle = Bundle()
+                    bundle.putParcelableArrayList(
+                        Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
+                    )
+                    bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
 //                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
-                findNavController().navigate(
-                    R.id.action_eventDetailFragment2_to_registerNowFragment,
-                    bundle
-                )
+                    findNavController().navigate(
+                        R.id.action_eventDetailFragment2_to_registerNowFragment,
+                        bundle
+                    )
+                }
             }
 //            R.id.favourite -> {00000000
 //

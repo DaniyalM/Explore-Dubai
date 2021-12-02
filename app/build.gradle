@@ -1,12 +1,15 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-parcelize'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: "androidx.navigation.safeargs"
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.secrets_gradle_plugin' version '0.4'
+}
+
 
 def config = rootProject.extensions.getByName("ext")
 
@@ -33,7 +36,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [appAuthRedirectScheme: 'com.redirectScheme.comm']
-
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
 
         //UAE PASS START -- Adding Custom Scheme Variables
         buildConfigField "String", "URI_SCHEME", "\"uaePassDemo\"" // Change to your app name or any custom scheme. Donot use uaepasssample
@@ -90,10 +97,6 @@ android {
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
-
-
         }
         debug {
             applicationIdSuffix ".debug"
@@ -102,6 +105,7 @@ android {
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
             buildConfigField("String", "BASE_URL_SHARE", "\"http://dc.qa.greenlightlabs.tech\"")
+            buildConfigField("String", "BASE_URL_ESERVICES", "\"http://localhost:92/_vti_bin/DCAAPI/api/\"")
 
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -114,18 +118,24 @@ android {
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
-        }
+     }
+
+//        http://dc.qa.greenlightlabs.tech
         stag {
             applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
             debuggable false
-//            buildConfigField("String", "BASE_URL", "\"https://stgcd.dubaiculture.gov.ae/api/\"")
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
-            buildConfigField("String", "BASE_URL_SHARE", "\"https://stgcd.dubaiculture.gov.ae\"")
+            buildConfigField("String", "BASE_URL_SHARE", "\"http://dc.qa.greenlightlabs.tech\"")
+            buildConfigField("String", "BASE_URL_ESERVICES", "\"http://localhost:92/_vti_bin/DCAAPI/api/\"")
+            buildConfigField("String", "BASE_URL_ESERVICES_MOCK", "\"https://dbb188b8-8ab0-4ca8-ad66-5c7be2aabdb7.mock.pstmn.io/\"")
+            buildConfigField("String", "CHAT_BOT_URL_EN", "\"http://creatopia.ae/MobileChat.php\"")
+            buildConfigField("String", "CHAT_BOT_URL_AR", "\"http://creatopia.ae/MobileChatAR.php\"")
+            buildConfigField("String", "HAPPINESSMETER_URL", "\"https://happinessmeterqa.dubai.gov.ae/HappinessMeter2/MobilePostDataService\"")
+            buildConfigField("java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)")
+
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
@@ -143,17 +153,23 @@ android {
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
-        }
+      }
         prod {
             applicationIdSuffix ".prod"
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"https://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://stgcd.dubaiculture.gov.ae/api/\"")
             buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
-            buildConfigField("String", "BASE_URL_SHARE", "\"http://dc.qa.greenlightlabs.tech\"")
+            buildConfigField("String", "BASE_URL_SHARE", "\"https://stgcd.dubaiculture.gov.ae\"")
+            buildConfigField("String", "BASE_URL_ESERVICES", "\"http://localhost:92/_vti_bin/DCAAPI/api/\"")
+            buildConfigField("String", "BASE_URL_ESERVICES_MOCK", "\"https://dbb188b8-8ab0-4ca8-ad66-5c7be2aabdb7.mock.pstmn.io/\"")
+            buildConfigField("String", "CHAT_BOT_URL_EN", "\"http://creatopia.ae/MobileChat.php\"")
+            buildConfigField("String", "CHAT_BOT_URL_AR", "\"http://creatopia.ae/MobileChatAR.php\"")
+            buildConfigField("String", "HAPPINESSMETER_URL", "\"https://happinessmeter.dubai.gov.ae/HappinessMeter2/MobilePostDataService\"")
+            buildConfigField("java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)")
+
+
 
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -175,8 +191,6 @@ android {
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-//            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyDs1UgQ9w4TKdgd-0k93oAt3So0ZS19fJs") ]
 
 //            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
 
@@ -368,4 +382,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.1'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
     implementation 'com.google.maps.android:android-maps-utils:2.2.3'
+    implementation 'androidx.hilt:hilt-work:1.0.0'
 }

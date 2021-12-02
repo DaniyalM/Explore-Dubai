@@ -5,6 +5,7 @@ data class ContactCenterLocation(
     var day:String,
     var time:String,
     var houseContent:String,
+    var houseText:String,
     var pinContent:String,
     var directionContent:String,
     var mapLatitude:String,

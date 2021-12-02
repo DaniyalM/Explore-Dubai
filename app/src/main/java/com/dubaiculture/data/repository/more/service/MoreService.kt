@@ -3,6 +3,7 @@ package com.dubaiculture.data.repository.more.service
 import com.dubaiculture.data.repository.base.BaseService
 import com.dubaiculture.data.repository.more.remote.request.ShareFeedBackRequestDTO
 import com.dubaiculture.data.repository.more.remote.response.MoreResponse
+import com.dubaiculture.data.repository.more.remote.response.NotificationResponse
 import com.dubaiculture.data.repository.popular_service.remote.response.ServiceResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,7 +15,7 @@ interface MoreService : BaseService {
     @GET("Content/GetPrivacyPolicy")
     suspend fun getPrivacyPolicy(@Query("culture") culture: String): MoreResponse
 
-    @GET("Content/GetTermsAndCondition")
+    @GET("Public/GetTermsAndCondition")
     suspend fun getTermsAndCondition(@Query("culture") culture: String): MoreResponse
 
     @GET("Content/GetContactCenter")
@@ -40,7 +41,7 @@ interface MoreService : BaseService {
         @Query("culture") culture: String ,
         @Query("pageNo") pageNo: Int,
         @Query("pageSize") pageSize: Int
-    ): MoreResponse
+    ): NotificationResponse
 
     @GET("Content/GetNotificationsCount")
     suspend fun getMyNotificationCount(

@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.data.repository.popular_service.local.models.Description
 import com.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment
+import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragmentDirections
 import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.DescriptionViewModel
 import com.dubaiculture.utils.openPdf
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +44,13 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(descriptionViewModel)
         binding.commonBtn.text = description[0].startServiceText
+        binding.commonBtn.setOnClickListener {
+            (parentFragment as ServiceDetailFragment).navigateByDirections(
+                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
+                    "NOCForm"
+                )
+            )
+        }
         bgRTL(binding.imgSpeaker)
     }
 
@@ -63,10 +73,9 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             val description = description[0]
             binding.imgSpeaker.setOnClickListener {
 
-                if (textToSpeechEngine.isSpeaking){
+                if (textToSpeechEngine.isSpeaking) {
                     textToSpeechEngine.stop()
-                }
-                else {
+                } else {
                     textToSpeechEngine.speak(
                         "${description.title} ${description.descriptions}",
                         TextToSpeech.QUEUE_FLUSH,
@@ -80,7 +89,13 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             binding.tvPdfTitle.text = description.fileName
             binding.fileSize.text = description.fileSize
             binding.fileViewLink.setOnClickListener {
-                descriptionViewModel.getDoc(description.documentLink)
+
+                (parentFragment as ServiceDetailFragment).navigateByDirections(
+                    ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
+                        BuildConfig.BASE_URL+description.documentLink, true
+                    )
+                )
+//                descriptionViewModel.getDoc(description.documentLink)
             }
         }
     }

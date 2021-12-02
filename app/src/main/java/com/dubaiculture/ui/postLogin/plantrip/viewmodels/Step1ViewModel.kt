@@ -12,6 +12,7 @@ import com.dubaiculture.data.repository.trip.local.UsersType
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants.Error.SOMETHING_WENT_WRONG
+import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,11 +32,15 @@ class Step1ViewModel @Inject constructor(
     val _usersType: MutableLiveData<List<UsersType>> = MutableLiveData()
     val usersType: LiveData<List<UsersType>> = _usersType
 
-    private val _userType: MutableLiveData<UserTypes> = MutableLiveData()
-    val userType: LiveData<UserTypes> = _userType
+    private val _userType: MutableLiveData<Event<UserTypes>> = MutableLiveData()
+    val userType: LiveData<Event<UserTypes>> = _userType
 
     init {
         getUserType()
+    }
+    
+    fun fillUpUser(usersType: List<UsersType>) {
+        _usersType.value=usersType
     }
 
     private fun getUserType() {
@@ -45,7 +50,7 @@ class Step1ViewModel @Inject constructor(
             when (result) {
                 is Result.Success -> {
                     showLoader(false)
-                    _userType.value = result.value
+                    _userType.value = Event(result.value)
                 }
                 is Result.Error -> {
                     showLoader(false)

@@ -109,11 +109,11 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
         newsDetailViewModel.newsDetail.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 newsDetails = it
-                urlshare=it.url
+                urlshare="${it.url}?q=${it.id}"
 
                 if (urlshare != null && !urlshare!!.isEmpty()) {
                     binding.search.setOnClickListener {
-                        shareLink(urlshare!!, activity)
+                        shareLink(urlshare!!, activity,title = newsDetails.title)
                     }
                 } else {
                     binding.search.hide()

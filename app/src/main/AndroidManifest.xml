@@ -7,6 +7,7 @@
     <queries>
         <package android:name="ae.uaepass.mainapp.qa" />
         <package android:name="ae.uaepass.mainapp" />
+        <package android:name="com.facebook.katana" />
 
     </queries>
 
@@ -48,7 +49,7 @@
         <!--        android:value="@string/map_key"-->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="${mapsApiKey}"
+            android:value="@{GMP_KEY}"
 
             />
         <!--        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"-->
@@ -62,10 +63,30 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-        <activity android:name="om.dubaiculture.ui.navGraphActivity.NavGraphActivity"/>
+        <activity android:name="com.dubaiculture.ui.navGraphActivity.NavGraphActivity" />
+        <activity android:name=".ui.deeplink.DeeplinkActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="dc.qa.greenlightlabs.tech"
+                    android:pathPrefix="/en"
+                    android:scheme="http" />
+                <data
+                    android:host="dc.qa.greenlightlabs.tech"
+                    android:pathPrefix="/en"
+                    android:scheme="https" />
+            </intent-filter>
+
+
+        </activity>
         <activity
             android:name=".ui.postLogin.PostLoginActivity"
             android:launchMode="singleTask"
+            android:configChanges="uiMode"
             android:screenOrientation="portrait">
             <nav-graph android:value="@navigation/post_login_navigation" />
             <intent-filter>
@@ -87,7 +108,10 @@
         <activity
             android:name=".ui.preLogin.PreLoginActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:configChanges="uiMode"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            >
             <nav-graph android:value="@navigation/pre_login_navigation" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -112,18 +136,6 @@
             </intent-filter>
         </activity>
 
-
-
-        <!--        <activity-->
-        <!--            android:name=".ui.postLogin.PostLoginActivity"-->
-        <!--            android:screenOrientation="portrait"></activity>-->
-        <!-- <activity android:name="com.dubaiculture.ui.widgets.DcWidget"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <!-- <meta-data android:name="com.google.android.maps.v2.API_KEY" -->
-        <!-- android:value="${mapsApiKey}" /> -->
         <receiver android:name=".ui.widgets.DcWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

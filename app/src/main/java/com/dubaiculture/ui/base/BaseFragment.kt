@@ -116,7 +116,12 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        try {
+            super.onCreate(savedInstanceState)
+        }catch (ex:Exception){
+            back()
+        }
+
 
 
         application = activity.application as ApplicationEntry
@@ -204,6 +209,11 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                             event.bottomSheetFragment.show(
                                 requireActivity().supportFragmentManager, event.tag
                             )
+                        }
+                        is UiEvent.ShowErrorDialog -> {
+                            EventUtilFunctions.showErrorDialog(event.message,
+                                colorBg = event.colorBg,
+                                context = activity)
                         }
                         is UiEvent.NavigateByActionNavOption -> {
                             navigateByActionNavOptions(
