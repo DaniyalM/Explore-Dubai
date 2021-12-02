@@ -224,7 +224,6 @@
                 android:elevation="@dimen/_15sdp"
                 android:foreground="@drawable/custom_ripple_border"
                 android:gravity="center"
-                android:visibility="gone"
                 android:text="@string/start_service"
                 android:textAllCaps="false"
                 android:textColor="@color/white_900"

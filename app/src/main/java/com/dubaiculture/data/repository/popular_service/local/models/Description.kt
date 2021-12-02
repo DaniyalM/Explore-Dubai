@@ -14,5 +14,6 @@ data class Description(
     val title: String,
     val type: String,
     val typeTitle: String,
-    val startServiceText: String
+    val startServiceText: String,
+    val startServiceUrl: String
 )

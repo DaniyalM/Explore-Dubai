@@ -69,7 +69,8 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
                 title = it.Title ?: "",
                 type = it.Type ?: "",
                 typeTitle = it.TypeTitle ?: "",
-                startServiceText = eServiceDetailDTO.StartServiceText ?: ""
+                startServiceText = eServiceDetailDTO.StartServiceText ?: "",
+                startServiceUrl = eServiceDetailDTO.StartServiceUrl ?: ""
             )
         } ?: mutableListOf(),
         enquireNumber = eServiceDetailDTO.EnquireNumber ?: "",
@@ -134,6 +135,7 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
                 phoneNumber = eServiceDetailDTO.PhoneNumber ?: "",
                 emailHeading = eServiceDetailDTO.EmailHeading ?: "",
                 emailAddress = eServiceDetailDTO.EmailAddress ?: "",
+                startServiceUrl = eServiceDetailDTO.StartServiceUrl ?: "",
                 id = eServiceDetailDTO.ID ?: ""
             )
         } ?: mutableListOf()
