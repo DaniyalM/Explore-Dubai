@@ -96,7 +96,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         binding.header.back.setOnClickListener(this)
         binding.ImgChangeView.setOnClickListener(this)
 
-//        binding.search.hide()
+        binding.search.hide()
         binding.search.setOnClickListener(this)
 
 

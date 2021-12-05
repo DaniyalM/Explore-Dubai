@@ -1,4 +1,4 @@
-package com.dubaiculture.ui.postLogin.attractions.listing
+package com.dubaiculture.ui.postLogin.attractions
 
 import android.graphics.Color
 import android.os.Bundle
@@ -49,7 +49,7 @@ class AttractionFragment : BaseFragment<FragmentAttractionHeaderBinding>() {
         setupToolbarWithSearchItems()
         initViewPager()
         refreshRequest()
-//        binding.toolbarSnippet.toolbarLayout.search.hide()
+        binding.toolbarSnippet.toolbarLayout.search.hide()
 //        binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
 //            navigateByDirections(AttractionFragmentDirections.actionAttractionsFragmentToSearchNavigation())
 //        }

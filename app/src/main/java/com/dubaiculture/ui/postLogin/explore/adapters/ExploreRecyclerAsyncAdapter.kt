@@ -267,8 +267,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                             .build()
                 }
 
-                holder.itemView.binding?.cardviewPlanTrip?.show()
-                holder.itemView.binding?.tripSeperator?.show()
+                holder.itemView.binding?.cardviewPlanTrip?.hide()
+                holder.itemView.binding?.tripSeperator?.hide()
 
                 holder.itemView.binding?.cardviewPlanTrip?.setOnClickListener {
                     if (!isGuest!!) {
