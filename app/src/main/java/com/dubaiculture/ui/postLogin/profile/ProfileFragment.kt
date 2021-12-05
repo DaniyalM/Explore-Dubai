@@ -83,7 +83,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             registerForActivityResult()
 
             binding.apply {
-                clMyTrips.hide()
+//                clMyTrips.hide()
                 clMyTrips.setOnClickListener {
                     navigate(R.id.action_profileFragment_to_myTripFragment)
 
