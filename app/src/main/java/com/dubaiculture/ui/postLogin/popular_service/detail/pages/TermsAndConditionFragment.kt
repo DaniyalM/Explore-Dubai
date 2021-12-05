@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.popular_service.local.models.TermsAndCondition
 import com.dubaiculture.databinding.ItemServiceDetailTermsAndConditionLayoutBinding
@@ -14,6 +15,7 @@ import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragmen
 import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragmentDirections
 import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.ServiceDownVoteFeedBackViewModel
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,6 +37,22 @@ class TermsAndConditionFragment(
         binding.detailListingHeader.text = activity.resources.getString(R.string.terms_and_conditions)
         binding.commonBtn.text = termsAndCondition!![0].serviceStart
 
+        if (termsAndCondition[0].startServiceUrl.isEmpty())
+            binding.commonBtn.hide()
+        else
+            binding.commonBtn.show()
+
+
+
+
+        binding.commonBtn.setOnClickListener {
+            (parentFragment as ServiceDetailFragment).navigateByDirections(
+                ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
+                    termsAndCondition[0].startServiceUrl, false
+                )
+            )
+        }
+
 
         binding.contactuslayout.thumbDown.setOnClickListener {
 
@@ -52,7 +70,14 @@ class TermsAndConditionFragment(
 
         termsAndCondition[0].apply {
             binding.contactuslayout.thumbUp.setOnClickListener {
-                serviceDownVoteFeedBackViewModel.upvoteService(id!!)
+                if (application.auth.isGuest){
+                    (parentFragment as ServiceDetailFragment).navigateByDirections(
+                        ServiceDetailFragmentDirections.actionServiceDetailFragment2ToPostLoginBottomNavigation()
+                    )
+                }else {
+                    serviceDownVoteFeedBackViewModel.upvoteService(id!!)
+                }
+
             }
 
             termsAndConditionsSummary.let {

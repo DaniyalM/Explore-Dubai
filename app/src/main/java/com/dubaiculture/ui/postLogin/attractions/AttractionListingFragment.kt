@@ -18,8 +18,6 @@ import com.dubaiculture.databinding.FragmentAttractionListingBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.attractions.adapters.AttractionInnerAdapter
 import com.dubaiculture.ui.postLogin.attractions.clicklisteners.AttractionClickListener
-import com.dubaiculture.ui.postLogin.attractions.listing.AttractionFragment
-import com.dubaiculture.ui.postLogin.attractions.listing.AttractionFragmentDirections
 import com.dubaiculture.ui.postLogin.attractions.viewmodels.AttractionListingViewModel
 import com.dubaiculture.ui.postLogin.events.`interface`.FavouriteChecker
 import com.dubaiculture.utils.Constants

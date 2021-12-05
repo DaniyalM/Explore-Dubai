@@ -9,6 +9,7 @@ import java.io.File
 import java.io.IOException
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -55,7 +56,9 @@ class FileUtils {
         val fileLength = if (!file.exists()) 0.0 else file.length().toDouble()
         val fileSizeKB = fileLength / 1024
         val fileSizeMB = fileSizeKB / 1024
-        val df = DecimalFormat("#.##")
+        val symbols = DecimalFormatSymbols(Locale.US)
+
+        val df = DecimalFormat("#.##",symbols)
         df.roundingMode = RoundingMode.FLOOR
         return df.format(fileSizeMB).toDouble()
     }

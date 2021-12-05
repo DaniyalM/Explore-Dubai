@@ -42,7 +42,7 @@ class DcWidget : AppWidgetProvider() {
             ).apply {
 
                 setOnClickPendingIntent(R.id.setupWidget,getPendingSelfIntent(context, MyOnClick))
-                this.setTextViewText(R.id.text_widget, "Widget has ${number}")
+                this.setTextViewText(R.id.text_widget, "Widget has $number")
             }
 
 
@@ -59,7 +59,7 @@ class DcWidget : AppWidgetProvider() {
         super.onReceive(context, intent)
 
         intent?.let {
-            if (MyOnClick.equals(it.getAction())){
+            if (MyOnClick == it.action){
                 //your onClick action is here
                 Toast.makeText(context, "Widget has been updated! ", Toast.LENGTH_SHORT).show();
 
@@ -71,7 +71,7 @@ class DcWidget : AppWidgetProvider() {
 
 
 
-    protected fun getPendingSelfIntent(context: Context?, action: kotlin.String?): PendingIntent? {
+    protected fun getPendingSelfIntent(context: Context?, action: String?): PendingIntent? {
         val intent = Intent(context, javaClass)
         intent.action = action
         return PendingIntent.getBroadcast(context, 0, intent, 0)

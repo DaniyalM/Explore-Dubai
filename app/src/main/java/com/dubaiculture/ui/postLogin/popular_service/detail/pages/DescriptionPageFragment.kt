@@ -14,7 +14,9 @@ import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment
 import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragmentDirections
 import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.DescriptionViewModel
+import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.openPdf
+import com.dubaiculture.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
@@ -43,13 +45,25 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(descriptionViewModel)
+        if (description[0].startServiceUrl.isEmpty())
+            binding.commonBtn.hide()
+        else
+            binding.commonBtn.show()
+
+
         binding.commonBtn.text = description[0].startServiceText
         binding.commonBtn.setOnClickListener {
+
             (parentFragment as ServiceDetailFragment).navigateByDirections(
-                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
-                    "NOCForm"
+                ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
+                    description[0].startServiceUrl, false
                 )
             )
+//            (parentFragment as ServiceDetailFragment).navigateByDirections(
+//                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
+//                    "NOCForm"
+//                )
+//            )
         }
         bgRTL(binding.imgSpeaker)
     }
@@ -92,7 +106,7 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
 
                 (parentFragment as ServiceDetailFragment).navigateByDirections(
                     ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
-                        BuildConfig.BASE_URL+description.documentLink, true
+                        BuildConfig.BASE_URL_SHARE +description.documentLink, true
                     )
                 )
 //                descriptionViewModel.getDoc(description.documentLink)

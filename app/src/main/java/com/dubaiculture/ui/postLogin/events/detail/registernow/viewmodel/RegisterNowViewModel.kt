@@ -86,8 +86,8 @@ class RegisterNowViewModel @Inject constructor(
 
     fun getFile(fileList : ArrayList<MediaFile>, fileUtil : FileUtils , fileTextView : TextView){
       val name =  fileList[0].name
-        val path = fileList[0].path
-        val fileSize =  fileUtil.calculateFileSize(Uri.fromFile(File(path)).toFile())
+        val path = fileList[0].uri.path
+        val fileSize =  fileUtil.calculateFileSize(File(path))
         Timber.e("File Size=>"+fileSize)
         if(fileSize>2){
             fileTextView.text =""
