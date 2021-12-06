@@ -24,6 +24,13 @@ class PreLoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (!isTaskRoot
+            && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
+            && intent.action != null
+            && intent.action.equals(Intent.ACTION_MAIN)) {
+            finish()
+            return
+        }
 //        overridePendingTransition(R.anim.fade_out, R.anim.fade_in)
         hideStatusBar(window)
         setContentView(R.layout.activity_pre_login)
