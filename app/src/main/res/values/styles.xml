@@ -327,6 +327,10 @@
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
-
+    <style name="selectedButtonStyle" parent="@android:style/Widget.Button">
+        <item name="android:textColor">@drawable/button_state</item>
+        <item name="android:background">@drawable/bg_button_state</item>
+        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
+    </style>
 
 </resources>

@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="backgroundImage"
             type="String" />
+
         <variable
             name="image"
             type="String" />
+
         <variable
             name="view"
             type="com.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragment" />
@@ -18,9 +21,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimaryVariant"
         tools:context="com.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragment">
-
 
 
         <FrameLayout
@@ -38,8 +39,8 @@
                 android:id="@+id/detailImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
                 android:imageViewUrl="@{backgroundImage}"
+                android:scaleType="centerCrop"
                 android:transitionName="imageView" />
 
             <View
@@ -69,8 +70,8 @@
             android:onClick="@{()->view.onBottomSheetClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_plan_desc"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_desc" />
 
 
         <com.google.android.material.chip.Chip
@@ -263,7 +264,8 @@
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginVertical="@dimen/_6sdp"
                     android:loadImage="@{image}"
-                    android:src="@drawable/ic_baseline_account_circle_24"                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_baseline_account_circle_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

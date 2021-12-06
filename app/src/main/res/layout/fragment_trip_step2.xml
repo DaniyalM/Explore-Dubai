@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/new_green_line" />
+            app:lottie_rawRes="@raw/trip_step" />
 
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView

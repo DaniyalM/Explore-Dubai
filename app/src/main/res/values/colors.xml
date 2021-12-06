@@ -96,6 +96,9 @@
     <color name="delete_text_color">#DF7D7D</color>
     <color name="polyline_color">#26C5BB</color>
     <color name="onboarding_color">#00BAAF</color>
+    <color name="disabled_color">#707070</color>
+    <color name="disabled_text_color">#898989</color>
+
 
 
 </resources>

@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.view.View" />
+        <import type="com.dubaiculture.R" />
 
         <variable
             name="view"
@@ -33,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/new_green_line" />
+            app:lottie_rawRes="@raw/trip_step" />
 
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
@@ -193,26 +194,26 @@
             app:layout_constraintTop_toBottomOf="@id/tvHeading"
             tools:listitem="@layout/item_duration_summary" />
 
-        <com.dubaiculture.ui.components.custombutton.CustomButton
+        <Button
             android:id="@+id/btnShowPlan"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@{viewModel._durationSummary.size() != 0 ?  @drawable/btn_register :@drawable/my_event_btn_enable}"
             android:enabled="@{viewModel.durationSummary.size() != 0}"
             android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
             android:onClick="@{()->viewModel.postEventAttraction()}"
             android:text="@string/show_my_plan"
+            android:backgroundTint="@android:color/white"
             android:textAllCaps="false"
-            android:textColor="?attr/color_dubai_logo"
-            android:transitionName="action_btn"
+            style="@style/selectedButtonStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+<!--        android:background="@{viewModel._durationSummary.size() != 0 ?  @drawable/btn_register :@drawable/my_event_btn_enable}"-->
         <!--        <Button-->
         <!--            android:id="@+id/btnShowPlan"-->
         <!--            style="?attr/materialButtonOutlinedStyle"-->
