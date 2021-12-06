@@ -121,11 +121,11 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>() {
                 binding.tvTitle.text = it.title
                 binding.tvDate.text = it.postedDate
                 binding.tvDesc.text = it.description
-                if (!it.blockQuote.isNullOrEmpty()) {
+                if (!it.blockQuote.isNullOrEmpty()&& it.blockQuote[0].summary.isNotEmpty()) {
                     binding.tvDescBg.text = it.blockQuote[0].summary
                     binding.tvTitleBg.text = it.blockQuote[0].title
                 } else {
-                    binding.llDescBg.visibility = View.GONE
+                    binding.llDescBg.hide()
                 }
                 if (!it.moreDetail.isNullOrEmpty()) {
                     binding.tvMoreDetail.text =

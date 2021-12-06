@@ -257,7 +257,6 @@ fun <A : Activity> Activity.startNewActivityWithPre(activity: Class<A>) {
 fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>) {
 
     Intent(this, activity).also {
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
         startActivity(it)
     }
