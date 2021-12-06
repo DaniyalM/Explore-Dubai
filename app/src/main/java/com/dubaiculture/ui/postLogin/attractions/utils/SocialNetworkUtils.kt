@@ -29,56 +29,62 @@ object SocialNetworkUtils {
         Intent(Intent.ACTION_VIEW).apply {
 
             if (URL == "null" || URL.isEmpty()) {
-                if (isFacebook) {
-                    URL = "https://www.facebook.com/DubaiCulture/"
-                }
-                if (isTwitter) {
-                    URL = "https://twitter.com/DubaiCulture"
-                }
+
                 if (isInstagram) {
                     URL = "https://www.instagram.com/dubaiculture/"
                 }
                 if (isLinkedIn) {
                     URL = "https://www.linkedin.com/company/dubai-culture-&-arts-authority/"
                 }
-                if (isYoutube) {
-                    URL = "https://www.youtube.com/user/DubaiCulture"
-                }
                 if (isWeb) {
                     URL = url
                 }
+                if ((isFacebook||isTwitter||isYoutube) && resolveActivity(context.packageManager) != null) {
+                    if (isFacebook) {
+                        URL = "https://www.facebook.com/DubaiCulture/"
+                    }
+                    if (isTwitter) {
+                        URL = "https://twitter.com/DubaiCulture"
+                    }
+                    if (isYoutube) {
+                        URL = "https://www.youtube.com/user/DubaiCulture"
+                    }
+                    data = Uri.parse(URL)
+                    context.startActivity(this)
+                }else{
+                    when (fragment) {
+                        is AttractionDetailFragment -> {
+                            fragment.navigateByDirections(
+                                AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
+                                    URL, false
+                                )
+                            )
+                        }
+                        is ContactFragment -> {
+                            fragment.navigateByDirections(
+                                ContactFragmentDirections.actionContactFragmentToWebviewFragment(
+                                    URL,
+                                    false
+                                )
+                            )
+                        }
+                        is EventDetailFragment -> {
+                            fragment.navigateByDirections(
+                                EventDetailFragmentDirections.actionEventDetailFragment2ToWebViewNavigation(
+                                    URL,
+                                    false
+                                )
+                            )
+                        }
+                    }
+
+                }
+            }else {
+                data = Uri.parse(URL)
+                context.startActivity(this)
             }
 
-            data = Uri.parse(URL)
-            if ((isFacebook||isTwitter||isYoutube) && resolveActivity(context.packageManager) != null) {
-                context.startActivity(this)
-            }else{
-                when (fragment) {
-                    is AttractionDetailFragment -> {
-                        fragment.navigateByDirections(
-                            AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
-                                URL, false
-                            )
-                        )
-                    }
-                    is ContactFragment -> {
-                        fragment.navigateByDirections(
-                            ContactFragmentDirections.actionContactFragmentToWebviewFragment(
-                                URL,
-                                false
-                            )
-                        )
-                    }
-                    is EventDetailFragment -> {
-                        fragment.navigateByDirections(
-                            EventDetailFragmentDirections.actionEventDetailFragment2ToWebViewNavigation(
-                                URL,
-                                false
-                            )
-                        )
-                    }
-                }
-            }
+
 
 
 
