@@ -5,7 +5,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white_900"
         tools:context="com.dubaiculture.ui.postLogin.attractions.detail.threesixtygallery.ThreeSixtyFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -40,7 +39,7 @@
             android:id="@+id/img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:src="@drawable/cross_icon_360_view"
             app:layout_constraintBottom_toBottomOf="@+id/img_back"
             app:layout_constraintEnd_toEndOf="@+id/img_back"
@@ -50,7 +49,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/_100sdp"
             android:background="#66000000"
             app:layout_constraintBottom_toBottomOf="parent" />
 

@@ -324,7 +324,7 @@ dependencies {
     implementation config.ui_design.badgeView
     implementation config.ui_design.searchablespinner
     //photo view
-//    implementation config.image_processing.photoView
+    implementation config.image_processing.photoView
 
     //Blurry
     implementation config.ui_design.blurry
