@@ -1,5 +1,6 @@
 package com.dubaiculture.ui.postLogin.more.about
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.more.local.Library
 import com.dubaiculture.data.repository.trip.local.UsersType
@@ -18,6 +20,8 @@ import com.dubaiculture.ui.postLogin.more.about.adapter.clicklisteners.LibraryCl
 import com.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
 import com.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.UserTypeAdapter
 import com.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.clicklisteners.UserTypeClickListener
+import com.dubaiculture.utils.AppConfigUtils
+import com.dubaiculture.utils.AppConfigUtils.EnglishToArabic
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.hide
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,6 +47,38 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(), View.OnClickListener
         getLibrariesWeUsed()
         moreViewModel.getCultureConnoisseur(getCurrentLanguage().language)
         callingObserver()
+        try {
+            val versionName =
+                activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
+            getCurrentLanguage().language.let {
+                if (it == "ar") {
+                    binding.tvVersionNo.text =
+                        "${resources.getString(R.string.version)}: ${EnglishToArabic(versionName)}"
+                    binding.tvUpdatedDate.text = "${resources.getString(R.string.updated_on)}: ${
+                        AppConfigUtils.getDate(
+                            BuildConfig.BUILD_TIME.time,
+                            "dd-mm-yyyy",
+                            getCurrentLanguage().language
+                        )
+                    }"
+                } else {
+                    binding.tvVersionNo.text =
+                        "${resources.getString(R.string.version)}:$versionName"
+                    binding.tvUpdatedDate.text = "${resources.getString(R.string.updated_on)}: ${
+                        AppConfigUtils.getDate(
+                            BuildConfig.BUILD_TIME.time,
+                            "dd-mm-yyyy",
+                            getCurrentLanguage().language
+                        )
+                    }"
+
+                }
+
+            }
+
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
     }
 
     private fun setupRV() {

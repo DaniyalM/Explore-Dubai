@@ -172,6 +172,29 @@ object AppConfigUtils {
     }
 
 
+    fun EnglishToArabic(str: String): String {
+        var result = ""
+        var ar = '۰'
+        for (ch in str) {
+            ar = ch
+            when (ch) {
+                '0' -> ar = '۰'
+                '1' -> ar = '۱'
+                '2' -> ar = '۲'
+                '3' -> ar = '۳'
+                '4' -> ar = '۴'
+                '5' -> ar = '۵'
+                '6' -> ar = '۶'
+                '7' -> ar = '۷'
+                '8' -> ar = '۸'
+                '9' -> ar = '۹'
+            }
+            result = "${result}$ar"
+        }
+        return result
+    }
+
+
 
 
 }
