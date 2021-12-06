@@ -22,6 +22,7 @@ import com.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.UserTypeAdapte
 import com.dubaiculture.ui.postLogin.plantrip.steps.step1.adapter.clicklisteners.UserTypeClickListener
 import com.dubaiculture.utils.AppConfigUtils
 import com.dubaiculture.utils.AppConfigUtils.EnglishToArabic
+import com.dubaiculture.utils.AppConfigUtils.getDate
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.hide
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,9 +56,9 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(), View.OnClickListener
                     binding.tvVersionNo.text =
                         "${resources.getString(R.string.version)}: ${EnglishToArabic(versionName)}"
                     binding.tvUpdatedDate.text = "${resources.getString(R.string.updated_on)}: ${
-                        AppConfigUtils.getDate(
+                        getDate(
                             BuildConfig.BUILD_TIME.time,
-                            "dd-mm-yyyy",
+                            "dd-MM-yyyy",
                             getCurrentLanguage().language
                         )
                     }"
@@ -65,9 +66,9 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(), View.OnClickListener
                     binding.tvVersionNo.text =
                         "${resources.getString(R.string.version)}:$versionName"
                     binding.tvUpdatedDate.text = "${resources.getString(R.string.updated_on)}: ${
-                        AppConfigUtils.getDate(
+                        getDate(
                             BuildConfig.BUILD_TIME.time,
-                            "dd-mm-yyyy",
+                            "dd-MM-yyyy",
                             getCurrentLanguage().language
                         )
                     }"

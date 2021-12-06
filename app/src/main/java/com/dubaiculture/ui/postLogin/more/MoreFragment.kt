@@ -184,7 +184,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     binding.tvUpdatedDate.text = "${resources.getString(R.string.updated_on)}: ${
                         getDate(
                             BuildConfig.BUILD_TIME.time,
-                            "dd-mm-yyyy",
+                            "dd-MM-yyyy",
                             getCurrentLanguage().language
                         )
                     }"
@@ -194,7 +194,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     binding.tvUpdatedDate.text = "${resources.getString(R.string.updated_on)}: ${
                         getDate(
                             BuildConfig.BUILD_TIME.time,
-                            "dd-mm-yyyy",
+                            "dd-MM-yyyy",
                             getCurrentLanguage().language
                         )
                     }"

@@ -71,9 +71,9 @@ object AppConfigUtils {
         return drawable!!
     }
 
-    fun getDate(milliSeconds: Long, dateFormat: String?,locale: String="en"): String? {
+    fun getDate(milliSeconds: Long, dateFormat: String?,locale: String): String? {
         // Create a DateFormatter object for displaying date in specified format.
-        val formatter = SimpleDateFormat(dateFormat,Locale.US)
+        val formatter = SimpleDateFormat(dateFormat,Locale(locale))
 
         // Create a calendar object that will convert the date and time value in milliseconds to date.
         val calendar = Calendar.getInstance()
