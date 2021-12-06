@@ -133,7 +133,7 @@
     <string name="contact_for_inquiries">تواصل معنا للاستفسار</string>
     <string name="your_journey">رحلتك</string>
     <string name="email_us">تواصل معنا بالبريد الالكتروني</string>
-    <string name="stay_updated">ابق محدثا</string>
+    <string name="stay_updated">إبقى على إطلاع</string>
     <string name="what_s_happenings_at_majlis_ghorfat">ماذا يحدث في مجلس الغرفات</string>
     <string name="call_us">اتصل بنا</string>
     <string name="museum">المتاحف</string>
@@ -401,6 +401,9 @@
     <string name="activities_schedule_at_the_workshop">جدول الأنشطة خلال ورشة العمل</string>
     <string name="something_went_wrong">هناك خطأ ما</string>
     <string name="make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again">تأكد من تشغيل واي فاي أو بيانات الهاتف المحمول ثم حاول مرة أخرى</string>
+    <string name="attach_your_ID">تحميل الهوية</string>
+
+
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
 </resources>
