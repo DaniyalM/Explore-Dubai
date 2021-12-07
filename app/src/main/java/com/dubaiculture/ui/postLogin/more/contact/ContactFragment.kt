@@ -186,7 +186,13 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                     message = "${resources.getString(R.string.send_mail_text)} ${contactCenterReach.emailContent}",
                     actionPositive = {
                         openEmailbox(contactCenterReach.emailContent)
+                    },
+                    textNegative = getString(R.string.no),
+                    textPositive = getString(R.string.yes),
+                    actionNegative = {
+
                     }
+
                 )
 
             }

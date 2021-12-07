@@ -97,7 +97,20 @@ class TermsAndConditionFragment(
 
             if (!emailAddress.toString().isNullOrEmpty()) {
                 binding.contactuslayout.emailCallsBtn.llEmailUs.setOnClickListener {
-                    openEmailbox(emailAddress.toString())
+                    showAlert(
+                        title = "${resources.getString(R.string.confirm)}",
+                        message = "${resources.getString(R.string.send_mail_text)} ${emailAddress.toString()}",
+                        actionPositive = {
+                            openEmailbox(emailAddress.toString())
+                        },
+                        textNegative = getString(R.string.no),
+                        textPositive = getString(R.string.yes),
+                        actionNegative = {
+
+                        }
+
+                    )
+//                    openEmailbox(emailAddress.toString())
                 }
 
             } else {
