@@ -17,8 +17,7 @@ import com.squareup.otto.Bus
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import javax.inject.Inject
-import com.facebook.FacebookSdk
-import com.facebook.appevents.AppEventsLogger
+
 
 
 

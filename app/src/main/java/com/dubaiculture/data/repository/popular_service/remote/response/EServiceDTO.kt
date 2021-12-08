@@ -5,5 +5,6 @@ data class EServiceDTO(
     val ID: String,
     val Summary: String,
     val CategoryID: String,
-    val Title: String
+    val Title: String,
+    val StartServiceUrl: String?
 )

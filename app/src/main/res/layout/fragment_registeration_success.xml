@@ -89,6 +89,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/registration_success"
             android:textAlignment="center"
+            android:id="@+id/tvTitle"
             android:textColor="@color/gray_600"
             android:textSize="@dimen/_10ssp"
             android:layout_marginStart="@dimen/_65sdp"

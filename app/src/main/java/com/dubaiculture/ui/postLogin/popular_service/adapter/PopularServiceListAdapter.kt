@@ -13,6 +13,7 @@ import com.dubaiculture.data.repository.popular_service.local.models.EService
 import com.dubaiculture.databinding.ItemsServiceListingLayoutBinding
 import com.dubaiculture.ui.postLogin.popular_service.adapter.clicklistener.ServiceClickListner
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 
 class PopularServiceListAdapter(val serviceClickListner: ServiceClickListner) :
     ListAdapter<EService, PopularServiceListAdapter.PopularServiceListViewHolder>(object :
@@ -33,7 +34,16 @@ class PopularServiceListAdapter(val serviceClickListner: ServiceClickListner) :
             binding.apply {
                 setAnimation(rootView, root.context)
                 serviceListing = eService
-                startService.hide()
+                if(eService.startServiceUrl.isNullOrEmpty()){
+                    startService.hide()
+                }else{
+                    startService.show()
+                }
+
+                startService.setOnClickListener {
+                    serviceClickListner.onUrlClick(eService)
+                }
+
                 viewDetail.setOnClickListener {
                     serviceClickListner.onServiceClick(eService)
                 }

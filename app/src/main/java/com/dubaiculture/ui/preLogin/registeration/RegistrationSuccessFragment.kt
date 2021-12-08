@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment
 import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentRegisterationSuccessBinding
 import com.dubaiculture.ui.base.BaseDialogFragment
+import com.dubaiculture.utils.hide
 
 
 class RegistrationSuccessFragment : BaseDialogFragment<FragmentRegisterationSuccessBinding>(),
@@ -54,6 +55,7 @@ class RegistrationSuccessFragment : BaseDialogFragment<FragmentRegisterationSucc
 
         if (from == "RegisterNow") {
             binding.regSuccessful.text = getString(R.string.register_confirm)
+            binding.tvTitle.hide()
         }
         binding.btnContinueReg.setOnClickListener(this)
 
