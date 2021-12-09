@@ -24,7 +24,7 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
         super.onViewStateRestored(savedInstanceState)
         binding.btnFilter.setOnClickListener {
             dismiss()
-            searchViewModel.onDoneClicked()
+            searchViewModel.onDoneClicked(isaToZ,iszToA,isold,isnew)
         }
         binding.aToZ.setOnClickListener {
             searchViewModel.updateAscendSort()

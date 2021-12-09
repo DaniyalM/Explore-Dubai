@@ -214,6 +214,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.searchFragment -> {
                         visibility = View.GONE
                         binding.bottomGradient.hide()
+                        binding.fabLiveChat.hide()
                     }
                     R.id.tripSuccessFragment -> {
                         visibility = View.GONE

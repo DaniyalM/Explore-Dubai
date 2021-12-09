@@ -38,7 +38,6 @@ class SearchSharedViewModel @Inject constructor(
         if (_isZtoA.value!!.peekContent()) {
             _isZtoA.value = Event(false)
         }
-
     }
 
     fun updateDescendSort() {
@@ -64,23 +63,40 @@ class SearchSharedViewModel @Inject constructor(
     }
 
 
-    fun onDoneClicked() {
-        _isAtoZDone.value = Event(!_isAtoZ.value!!.peekContent())
-        if (_isZtoADone.value!!.peekContent()) {
-            _isZtoADone.value = Event(false)
+    fun onDoneClicked(isaToZ: Boolean, iszToA: Boolean, isold: Boolean, isnew: Boolean) {
+
+        if(isaToZ){
+            _isAtoZDone.value = Event(!_isAtoZDone.value!!.peekContent())
+            if (_isZtoADone.value!!.peekContent()) {
+                _isZtoADone.value = Event(false)
+            }
         }
-        _isZtoADone.value = Event(!_isZtoA.value!!.peekContent())
-        if (_isAtoZDone.value!!.peekContent()) {
-            _isAtoZDone.value = Event(false)
+
+        if(iszToA){
+            _isZtoADone.value = Event(!_isZtoADone.value!!.peekContent())
+            if (_isAtoZDone.value!!.peekContent()) {
+                _isAtoZDone.value = Event(false)
+            }
         }
-        _isOldDone.value = Event(!_isOld.value!!.peekContent())
-        if (_isNewDone.value!!.peekContent()) {
-            _isNewDone.value = Event(false)
+
+
+        if(isold){
+            _isOldDone.value = Event(!_isOldDone.value!!.peekContent())
+            if (_isNewDone.value!!.peekContent()) {
+                _isNewDone.value = Event(false)
+            }
         }
-        _isNewDone.value = Event(!_isNew.value!!.peekContent())
-        if (_isOldDone.value!!.peekContent()) {
-            _isOldDone.value = Event(false)
+
+        if(isnew){
+
+            _isNewDone.value = Event(!_isNewDone.value!!.peekContent())
+            if (_isOldDone.value!!.peekContent()) {
+                _isOldDone.value = Event(false)
+            }
+
         }
+
+
     }
 
 
