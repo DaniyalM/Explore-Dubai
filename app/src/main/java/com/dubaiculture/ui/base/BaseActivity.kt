@@ -30,7 +30,7 @@ import com.squareup.otto.Bus
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 
-abstract class BaseActivity : LocalizationActivity() {
+abstract class BaseActivity : ForceUpdateActivity() {
     lateinit var applicationEntry: ApplicationEntry
     protected lateinit var bus: Bus
     protected var isBusRegistered: Boolean = false
@@ -45,8 +45,6 @@ abstract class BaseActivity : LocalizationActivity() {
         configurationChanged(newConfig)
         mPrevConfig = Configuration(newConfig)
 
-
-
     }
 
     open fun logSentFriendRequestEvent() {
@@ -57,7 +55,7 @@ abstract class BaseActivity : LocalizationActivity() {
     protected fun configurationChanged(newConfig: Configuration?) {
         newConfig?.let {
             if (isNightConfigChanged(it)) { // night mode has changed
-                applicationEntry.preferenceRepository.isDarkTheme=isOnDarkMode(it)
+                applicationEntry.preferenceRepository.isDarkTheme = isOnDarkMode(it)
                 recreate()
                 // do your thing
             }
@@ -161,7 +159,7 @@ abstract class BaseActivity : LocalizationActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         applicationEntry = application as ApplicationEntry
-        applicationEntry.preferenceRepository.isDarkTheme=isOnDarkMode(resources.configuration)
+        applicationEntry.preferenceRepository.isDarkTheme = isOnDarkMode(resources.configuration)
         mPrevConfig = Configuration(resources.configuration)
 //        isDark(mPrevConfig!!)
 

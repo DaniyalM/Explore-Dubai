@@ -368,6 +368,8 @@ dependencies {
     implementation config.google.firebase_messaging
 //    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
 
+    // google play core
+    implementation config.google.play_core
 
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 

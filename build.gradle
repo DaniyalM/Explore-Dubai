@@ -109,7 +109,7 @@ ext {
     legacySupport = "1.0.0"
     fragmentKtx = "1.3.4"
 //    fragmentKtx = "1.4.0-alpha01"
-
+    google_play_core = "1.10.2"
 
     commonDependency = [
             ktx_core     : "androidx.core:core-ktx:${ktx_core}",
@@ -216,6 +216,7 @@ ext {
             //location
             location_google     : "com.google.android.gms:play-services-location:${google_location_version}",
             map_google          : "com.google.android.gms:play-services-maps:${google_maps_version}",
+            play_core          : "com.google.android.play:core:${google_play_core}",
 
             firebase_crashlytics: "com.google.firebase:firebase-crashlytics-ktx",
             firebase_analytics  : "com.google.firebase:firebase-analytics-ktx",
