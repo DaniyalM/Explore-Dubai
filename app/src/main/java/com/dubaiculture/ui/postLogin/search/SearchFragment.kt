@@ -11,6 +11,7 @@ import android.widget.TextView.OnEditorActionListener
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -197,24 +198,32 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
 
         binding.searchToolbar.clear.setOnClickListener {
-            binding.searchToolbar.editSearch.setText("")
-            if (!application.auth.isGuest) {
-                searchViewModel.getSearchHistory()
-            }
-
+            back()
+//            binding.searchToolbar.editSearch.setText("")
+//            if (!application.auth.isGuest) {
+//                searchViewModel.getSearchHistory()
+//            }
         }
         binding.clearPop.setOnClickListener {
             searchViewModel.clearHistory()
         }
-        binding.searchToolbar.editSearch.addTextChangedListener(
-            EndTypingWatcher {
-                hideKeyboard(activity)
-                searchViewModel.updateKeyword(binding.searchToolbar.editSearch.text.toString())
-            }
-        )
+//        binding.searchToolbar.editSearch.addTextChangedListener(
+//            EndTypingWatcher {
+//                val text = binding.searchToolbar.editSearch.text.toString()
+//                hideKeyboard(activity)
+//                searchViewModel.updateKeyword(text)
+//            }
+//        )
+        binding.searchToolbar.editSearch.addTextChangedListener {
+            val text = binding.searchToolbar.editSearch.text.toString()
+            binding.searchToolbar.etCross.show(!text.isEmpty())
+            binding.searchToolbar.speechSearch.show(text.isEmpty())
+//            searchViewModel.updateKeyword(text)
+        }
         binding.searchToolbar.editSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchViewModel.updateKeyword(binding.searchToolbar.editSearch.text.toString())
+                hideKeyboard(activity)
                 return@OnEditorActionListener true
             }
             false
@@ -224,6 +233,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
         binding.searchToolbar.speechSearch.setOnClickListener {
             getSpeechInput()
+        }
+        binding.searchToolbar.etCross.setOnClickListener {
+            binding.searchToolbar.editSearch.setText("")
+            searchViewModel.updateKeyword("")
         }
         binding.ivSort.setOnClickListener {
             navigateByDirections(SearchFragmentDirections.actionSearchFragmentToSortFragment())

@@ -84,11 +84,10 @@ class SearchViewModel @Inject constructor(
 
     fun updateKeyword(string: String) {
         _viewFlag.value = Event(string.isNotEmpty())
-        if (string.isNotEmpty()) {
-            updateFilter(_searchFilter.value!!.peekContent().copy(keyword = string))
-        }
+//        if (string.isNotEmpty()) {
+        updateFilter(_searchFilter.value!!.peekContent().copy(keyword = string))
+//        }
     }
-
 
 //    private fun updateSearch(searchRequest: SearchPaginationRequest) {
 //        _searchFilter.value = Event(
