@@ -292,6 +292,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 SearchHistoryAdapter(object : SearchHistoryAdapter.SearchHistoryClick {
                     override fun onClick(query: String) {
                         binding.searchToolbar.editSearch.setText(query)
+                        searchViewModel.updateKeyword(query)
                     }
                 })
             adapter = searchHistoryAdapter
