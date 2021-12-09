@@ -1,3 +1,4 @@
+
 package com.dubaiculture.ui.postLogin.search
 
 import android.app.Activity
@@ -11,6 +12,7 @@ import android.widget.TextView.OnEditorActionListener
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -28,6 +30,7 @@ import com.dubaiculture.ui.postLogin.search.adapters.UniSelectionAdapter
 import com.dubaiculture.ui.postLogin.search.viewmodels.SearchSharedViewModel
 import com.dubaiculture.ui.postLogin.search.viewmodels.SearchViewModel
 import com.dubaiculture.utils.*
+import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
@@ -71,6 +74,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         registerForActivityResult()
     }
 
+
+
     private fun getSpeechInput() {
         val intent = Intent(
             RecognizerIntent
@@ -92,6 +97,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         var selectedPosition: Int = 0
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        searchShareViewModel._isAtoZ.value = Event(false)
+        searchShareViewModel._isZtoA.value = Event(false)
+        searchShareViewModel._isOld.value = Event(false)
+        searchShareViewModel._isNew.value = Event(false)
+        searchShareViewModel._isAtoZDone.value = Event(false)
+        searchShareViewModel._isZtoADone.value = Event(false)
+        searchShareViewModel._isOldDone.value = Event(false)
+        searchShareViewModel._isNewDone.value = Event(false)
+    }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -100,27 +117,27 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private fun subscribeToObservable() {
 
-        searchShareViewModel.isOld.observe(viewLifecycleOwner) {
+        searchShareViewModel.isOldDone.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it)
                     searchViewModel.updateIsOldData(true)
             }
         }
-        searchShareViewModel.isNew.observe(viewLifecycleOwner) {
+        searchShareViewModel.isNewDone.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it)
                     searchViewModel.updateIsOldData(false)
 
             }
         }
-        searchShareViewModel.isZtoA.observe(viewLifecycleOwner) {
+        searchShareViewModel.isZtoADone.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it)
                     searchViewModel.updateSorting(false)
 
             }
         }
-        searchShareViewModel.isAtoZ.observe(viewLifecycleOwner) {
+        searchShareViewModel.isAtoZDone.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it)
                     searchViewModel.updateSorting(true)
@@ -197,24 +214,32 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
 
         binding.searchToolbar.clear.setOnClickListener {
-            binding.searchToolbar.editSearch.setText("")
-            if (!application.auth.isGuest) {
-                searchViewModel.getSearchHistory()
-            }
-
+            back()
+//            binding.searchToolbar.editSearch.setText("")
+//            if (!application.auth.isGuest) {
+//                searchViewModel.getSearchHistory()
+//            }
         }
         binding.clearPop.setOnClickListener {
             searchViewModel.clearHistory()
         }
-        binding.searchToolbar.editSearch.addTextChangedListener(
-            EndTypingWatcher {
-                hideKeyboard(activity)
-                searchViewModel.updateKeyword(binding.searchToolbar.editSearch.text.toString())
-            }
-        )
+//        binding.searchToolbar.editSearch.addTextChangedListener(
+//            EndTypingWatcher {
+//                val text = binding.searchToolbar.editSearch.text.toString()
+//                hideKeyboard(activity)
+//                searchViewModel.updateKeyword(text)
+//            }
+//        )
+        binding.searchToolbar.editSearch.addTextChangedListener {
+            val text = binding.searchToolbar.editSearch.text.toString()
+            binding.searchToolbar.etCross.show(!text.isEmpty())
+            binding.searchToolbar.speechSearch.show(text.isEmpty())
+//            searchViewModel.updateKeyword(text)
+        }
         binding.searchToolbar.editSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchViewModel.updateKeyword(binding.searchToolbar.editSearch.text.toString())
+                hideKeyboard(activity)
                 return@OnEditorActionListener true
             }
             false
@@ -224,6 +249,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
         binding.searchToolbar.speechSearch.setOnClickListener {
             getSpeechInput()
+        }
+        binding.searchToolbar.etCross.setOnClickListener {
+            binding.searchToolbar.editSearch.setText("")
+            searchViewModel.updateKeyword("")
         }
         binding.ivSort.setOnClickListener {
             navigateByDirections(SearchFragmentDirections.actionSearchFragmentToSortFragment())
@@ -263,6 +292,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 SearchHistoryAdapter(object : SearchHistoryAdapter.SearchHistoryClick {
                     override fun onClick(query: String) {
                         binding.searchToolbar.editSearch.setText(query)
+                        searchViewModel.updateKeyword(query)
                     }
                 })
             adapter = searchHistoryAdapter

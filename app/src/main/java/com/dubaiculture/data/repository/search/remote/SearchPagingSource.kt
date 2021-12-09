@@ -12,8 +12,6 @@ class SearchPagingSource(
     private val searchPaginationRequestDTO: SearchPaginationRequestDTO,
     private val callback: (count: Int) -> Unit,
     private val error: (message: String) -> Unit
-
-
 ) :
     PagingSource<Int, SearchResultItemDTO>() {
     override fun getRefreshKey(state: PagingState<Int, SearchResultItemDTO>): Int? {
@@ -26,7 +24,7 @@ class SearchPagingSource(
             val response = searchService.searchResults(
                 searchPaginationRequestDTO = searchPaginationRequestDTO.copy(
                     PageNo = nextPageNumber,
-                    PageSize = Constants.PAGING.SEARCH_PAGE_SIZE * nextPageNumber
+                    PageSize = Constants.PAGING.SEARCH_PAGE_SIZE //* nextPageNumber
                 )
             )
             return if (!response.succeeded) {
