@@ -1,3 +1,4 @@
+
 package com.dubaiculture.ui.postLogin.search
 
 import android.app.Activity
@@ -28,6 +29,7 @@ import com.dubaiculture.ui.postLogin.search.adapters.UniSelectionAdapter
 import com.dubaiculture.ui.postLogin.search.viewmodels.SearchSharedViewModel
 import com.dubaiculture.ui.postLogin.search.viewmodels.SearchViewModel
 import com.dubaiculture.utils.*
+import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
@@ -71,6 +73,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         registerForActivityResult()
     }
 
+
+
     private fun getSpeechInput() {
         val intent = Intent(
             RecognizerIntent
@@ -92,6 +96,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         var selectedPosition: Int = 0
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        searchShareViewModel._isAtoZ.value = Event(false)
+        searchShareViewModel._isZtoA.value = Event(false)
+        searchShareViewModel._isOld.value = Event(false)
+        searchShareViewModel._isNew.value = Event(false)
+        searchShareViewModel._isAtoZDone.value = Event(false)
+        searchShareViewModel._isZtoADone.value = Event(false)
+        searchShareViewModel._isOldDone.value = Event(false)
+        searchShareViewModel._isNewDone.value = Event(false)
+    }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -100,27 +116,27 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private fun subscribeToObservable() {
 
-        searchShareViewModel.isOld.observe(viewLifecycleOwner) {
+        searchShareViewModel.isOldDone.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it)
                     searchViewModel.updateIsOldData(true)
             }
         }
-        searchShareViewModel.isNew.observe(viewLifecycleOwner) {
+        searchShareViewModel.isNewDone.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it)
                     searchViewModel.updateIsOldData(false)
 
             }
         }
-        searchShareViewModel.isZtoA.observe(viewLifecycleOwner) {
+        searchShareViewModel.isZtoADone.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it)
                     searchViewModel.updateSorting(false)
 
             }
         }
-        searchShareViewModel.isAtoZ.observe(viewLifecycleOwner) {
+        searchShareViewModel.isAtoZDone.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 if (it)
                     searchViewModel.updateSorting(true)
