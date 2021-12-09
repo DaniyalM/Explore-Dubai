@@ -412,5 +412,10 @@
     <string name="make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again">Make sure wifi or mobile data is turned on and then try again</string>
     <string name="attach_your_ID">Attach your ID</string>
 
+    <!-- Facebook keys -->
+
+    <string name="facebook_app_id">1249629708783017</string>
+
+    <string name="fb_login_protocol_scheme">fb1249629708783017</string>
 
 </resources>

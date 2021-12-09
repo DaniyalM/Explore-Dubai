@@ -23,5 +23,22 @@
                 app:argType="string"
                 app:nullable="false" />
         </action>
+        <action
+            android:id="@+id/action_popularServiceFragment_to_webViewFragment"
+            app:destination="@id/web_view_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+
+        </action>
+
     </fragment>
 </navigation>

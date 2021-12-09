@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.StatsLog.logEvent
 import android.view.WindowManager
 import android.widget.CheckBox
 import androidx.annotation.IdRes
@@ -26,7 +27,8 @@ import com.dubaiculture.utils.event.EventUtilFunctions.showSnackbar
 import com.dubaiculture.utils.event.EventUtilFunctions.showToast
 import com.dubaiculture.utils.event.UiEvent
 import com.squareup.otto.Bus
-
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 
 abstract class BaseActivity : LocalizationActivity() {
     lateinit var applicationEntry: ApplicationEntry
@@ -47,6 +49,11 @@ abstract class BaseActivity : LocalizationActivity() {
 
     }
 
+    open fun logSentFriendRequestEvent() {
+        val fbLogger = AppEventsLogger.newLogger(baseContext)
+        fbLogger.logEvent("sentFriendRequest")
+    }
+
     protected fun configurationChanged(newConfig: Configuration?) {
         newConfig?.let {
             if (isNightConfigChanged(it)) { // night mode has changed
@@ -59,7 +66,9 @@ abstract class BaseActivity : LocalizationActivity() {
     }
 
     protected fun isNightConfigChanged(newConfig: Configuration): Boolean {
-        return newConfig.diff(mPrevConfig) and ActivityInfo.CONFIG_UI_MODE != 0 && isOnDarkMode(newConfig) != isOnDarkMode(mPrevConfig!!)
+        return newConfig.diff(mPrevConfig) and ActivityInfo.CONFIG_UI_MODE != 0 && isOnDarkMode(
+            newConfig
+        ) != isOnDarkMode(mPrevConfig!!)
     }
 
     fun isOnDarkMode(configuration: Configuration): Boolean {

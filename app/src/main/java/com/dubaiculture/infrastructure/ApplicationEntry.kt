@@ -10,10 +10,16 @@ import com.dubaiculture.utils.PreferenceRepository
 import com.dubaiculture.utils.PushNotificationManager
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion
 import com.estimote.coresdk.service.BeaconManager
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.squareup.otto.Bus
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import javax.inject.Inject
+
+
+
 
 
 @HiltAndroidApp
@@ -23,6 +29,9 @@ class ApplicationEntry : Application() {
     var isInternetActive = false
     lateinit var preferenceRepository: PreferenceRepository
     var appStarted: Boolean = false
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
+
 
     override fun onCreate() {
         super.onCreate()
@@ -34,6 +43,10 @@ class ApplicationEntry : Application() {
         preferenceRepository = PreferenceRepository(
             getSharedPreferences(DEFAULT_PREFERENCES, MODE_PRIVATE)
         )
+
+        firebaseAnalytics = Firebase.analytics
+
+
 //        isDark()
 
 //        preferenceRepository.isDarkTheme = true

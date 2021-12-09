@@ -9,5 +9,6 @@ data class EService(
     val categoryId: String,
     val id: String,
     val summary: String,
-    val title: String
+    val title: String,
+    val startServiceUrl: String
 ) : Parcelable
