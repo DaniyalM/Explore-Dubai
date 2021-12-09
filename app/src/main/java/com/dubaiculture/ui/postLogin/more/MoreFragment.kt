@@ -134,7 +134,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         subscribeToObservable()
         bgAboutRTL(binding.imgEagle)
 
-        binding.toolbarSnippet.toolbarLayout.search.hide()
+//        binding.toolbarSnippet.toolbarLayout.search.hide()
         binding.toolbarSnippet.toolbarLayout.search.setOnClickListener(this)
 
 
