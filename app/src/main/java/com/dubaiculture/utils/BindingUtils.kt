@@ -12,6 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.dubaiculture.R
 import com.google.android.material.card.MaterialCardView
 import com.rishabhharit.roundedimageview.RoundedImageView
 import de.hdodenhof.circleimageview.CircleImageView
@@ -23,7 +24,11 @@ fun View.animate(animation: Techniques) {
         .playOn(this)
 }
 
-fun View.glideInstance(url: String?, isSvg: Boolean = false): RequestBuilder<Drawable> {
+fun View.glideInstance(
+    url: String?,
+    isSvg: Boolean = false,
+    showPlaceHolder: Boolean = false
+): RequestBuilder<Drawable> {
     var urlConcat = BuildConfig.BASE_URL + url
 //    val urlConcat="http://dc.wewanttraffic.me/api/" + url
 
@@ -32,12 +37,15 @@ fun View.glideInstance(url: String?, isSvg: Boolean = false): RequestBuilder<Dra
         if (urlConcat.contains("Uploads")) {
             urlConcat = urlConcat.replace("/api/~", "")
         }
-
-        glide.setDefaultRequestOptions(
+        val options =
             RequestOptions()
 //                .placeholder(R.drawable.logo)
 //                .error(android.R.drawable.stat_notify_error)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        if (showPlaceHolder)
+            options.placeholder(R.drawable.ic_launcher)
+        glide.setDefaultRequestOptions(
+            options
         ).load(urlConcat)
 //                .transition(DrawableTransitionOptions.withCrossFade())
 
@@ -53,6 +61,15 @@ fun View.glideInstance(url: String?, isSvg: Boolean = false): RequestBuilder<Dra
 fun RoundedImageView.loadImage(url: String?) {
     url?.let {
         glideInstance(it).into(this)
+    }
+}
+
+@BindingAdapter("android:imageOrPlaceHolder")
+fun RoundedImageView.loadImageWithPlaceHolder(url: String?) {
+    if (url.isNullOrEmpty()) {
+        glideInstance(url, showPlaceHolder = true).into(this)
+    } else {
+        glideInstance(url).into(this)
     }
 }
 
