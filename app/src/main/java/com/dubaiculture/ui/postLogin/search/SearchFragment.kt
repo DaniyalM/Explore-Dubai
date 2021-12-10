@@ -1,4 +1,3 @@
-
 package com.dubaiculture.ui.postLogin.search
 
 import android.app.Activity
@@ -33,6 +32,7 @@ import com.dubaiculture.utils.*
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
 import java.util.*
 
 
@@ -75,7 +75,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
 
-
     private fun getSpeechInput() {
         val intent = Intent(
             RecognizerIntent
@@ -87,7 +86,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         )
         intent.putExtra(
             RecognizerIntent.EXTRA_LANGUAGE,
-            Locale.getDefault()
+            if(getCurrentLanguage()!= Locale.ENGLISH) "ar-AE" else "en"
         )
         binding.searchToolbar.editSearch.setText("")
         startForResult.launch(intent)
@@ -155,8 +154,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
         }
         searchViewModel.count.observe(viewLifecycleOwner) {
-            val label = activity.resources.getString(R.string.result).pluralize(it)
-            binding.count.text = "$it $label ${resources.getString(R.string.found)}"
+//            val label = activity.resources.getString(R.string.result).pluralize(it)
+            if (getCurrentLanguage() != Locale.ENGLISH) {
+                var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+                val label = activity.resources.getString(R.string.result)
+                binding.count.text = "${nf.format(it)} $label ${resources.getString(R.string.found)}"
+
+            }else{
+                var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                val label = activity.resources.getString(R.string.result) + "(s)"
+                binding.count.text = "${nf.format(it)} $label ${resources.getString(R.string.found)}"
+            }
         }
         searchViewModel.searchFilter.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {

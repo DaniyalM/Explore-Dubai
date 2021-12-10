@@ -145,7 +145,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun displayError(message: String) {
-        showSnackbar(message = message)
+      //  showSnackbar(message = message)
     }
 
     fun getSearchHistory() {

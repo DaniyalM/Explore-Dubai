@@ -42,7 +42,7 @@
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="@string/search_any_item"
+                    android:hint="@string/whatAreYourLooking"
                     android:imeOptions="actionSearch"
                     android:inputType="textCapSentences"
                     android:maxLines="1"
@@ -75,13 +75,13 @@
             android:id="@+id/clear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/clear"
+            android:text="@string/cancel"
             android:textColor="?attr/color_dubai_logo"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/materialCardView"
-            app:textFont="bold" />
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
