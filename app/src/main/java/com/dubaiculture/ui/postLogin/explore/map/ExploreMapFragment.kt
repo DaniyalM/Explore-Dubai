@@ -75,7 +75,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         if (!this::googleMap.isInitialized) {
             mapSetUp(savedInstanceState)
 //            mapView = MapView(activity)
-        }else{
+        } else {
 //            appendInAttractionCategoryList()
 //            callingObserver()
 
@@ -113,8 +113,8 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     private fun setupRecyclerView() {
         mAdapter = SingleSelectionAdapter(requireContext(),
             object : SingleSelectionAdapter.InvokeListener {
-                override fun getRowClick(position: Int) {
-                    filter(position)
+                override fun getRowClick(category: AttractionCategory) {
+                    filter(category)
                 }
             })
 
@@ -217,7 +217,6 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
         attractionCategoryList.add(events)
     }
 
-
     private fun mapSetUp() {
         if (googleMap == null) {
             val mapFragment =
@@ -248,12 +247,9 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
     }
 
     // filter a/c to the design position  0 -> All , 1 -> Event 2-> museum etc pins on map loaded setup of Rv call
-    private fun filter(position: Int) {
-
-
-        when (position) {
-            0 -> {
-
+    private fun filter(cat: AttractionCategory) {
+        when (cat.id) {
+            "1" -> {
                 category = resources.getString(R.string.all)
                 googleMap?.apply {
 
@@ -277,7 +273,7 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                     )
                 }
             }
-            1 -> {
+            "2" -> {
                 category = resources.getString(R.string.events)
                 googleMap?.apply {
                     exploreMapViewModel.pinsOnMap(
@@ -300,10 +296,9 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                 }
 
             }
-            2 -> {
-                category = resources.getString(R.string.museum)
+            else -> {
+                category = cat.title ?: ""
                 googleMap?.apply {
-
                     exploreMapViewModel.pinsOnMap(
                         exploreMapViewModel.attractionFilter(
                             category,
@@ -312,10 +307,6 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                             attractions, lat, lng
                         ),
                         this,
-//                        inRangeEventIcon = 0,
-//                        outRangeEventIcon = 0,
-//                        inRangeIcon = iconArray[0],
-//                        outRangeIcon = iconArray[1]
                     )
                     rvSetUp(
                         exploreMapViewModel.attractionFilter(
@@ -326,109 +317,6 @@ class ExploreMapFragment : BaseFragment<FragmentExploreMapBinding>(), View.OnCli
                         )
                     )
                 }
-            }
-            3 -> {
-                category = resources.getString(R.string.heritage)
-                googleMap?.apply {
-                    exploreMapViewModel.pinsOnMap(
-                        exploreMapViewModel.attractionFilter(
-                            HERITAGE_SITES,
-                            locationHelper,
-                            exploreMapList,
-                            attractions, lat, lng
-                        ),
-                        this,
-//                        inRangeIcon = iconArray[2],
-//                        outRangeIcon = iconArray[3]
-                    )
-                    rvSetUp(
-                        exploreMapViewModel.attractionFilter(
-                            HERITAGE_SITES,
-                            locationHelper,
-                            exploreMapList,
-                            attractions, lat, lng
-                        )
-                    )
-                }
-
-            }
-            4 -> {
-                category = resources.getString(R.string.art_gallery)
-                googleMap?.apply {
-                    exploreMapViewModel.pinsOnMap(
-                        exploreMapViewModel.attractionFilter(
-                            ART_GALLERY,
-                            locationHelper,
-                            exploreMapList,
-                            attractions, lat, lng
-                        ),
-                        this,
-//                        inRangeIcon = iconArray[0],
-//                        outRangeIcon = iconArray[1]
-                    )
-                    rvSetUp(
-                        exploreMapViewModel.attractionFilter(
-                            ART_GALLERY,
-                            locationHelper,
-                            exploreMapList,
-                            attractions, lat, lng
-                        )
-                    )
-
-                }
-
-
-            }
-            5 -> {
-                category = resources.getString(R.string.festivals)
-                googleMap?.apply {
-                    exploreMapViewModel.pinsOnMap(
-                        exploreMapViewModel.attractionFilter(
-                            FESTIVALS,
-                            locationHelper,
-                            exploreMapList,
-                            attractions, lat, lng
-                        ),
-                        this,
-//                        inRangeIcon = iconArray[4],
-//                        outRangeIcon = iconArray[5]
-                    )
-                    rvSetUp(
-                        exploreMapViewModel.attractionFilter(
-                            FESTIVALS,
-                            locationHelper,
-                            exploreMapList,
-                            attractions, lat, lng
-                        )
-                    )
-                }
-
-            }
-            6 -> {
-                category = resources.getString(R.string.libraries)
-                googleMap?.apply {
-                    exploreMapViewModel.pinsOnMap(
-                        exploreMapViewModel.attractionFilter(
-                            LIBRARIES,
-                            locationHelper,
-                            exploreMapList,
-                            attractions, lat, lng
-                        ),
-                        this,
-//                        inRangeIcon = iconArray[6],
-//                        outRangeIcon = iconArray[7]
-                    )
-                    rvSetUp(
-                        exploreMapViewModel.attractionFilter(
-                            LIBRARIES,
-                            locationHelper,
-                            exploreMapList,
-                            attractions, lat, lng
-                        )
-                    )
-                }
-
-
             }
         }
     }

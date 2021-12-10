@@ -216,9 +216,9 @@ class SearchViewModel @Inject constructor(
                     setCount(it)
                 }, {
                     if (!_tab.value?.peekContent()?.title.isNullOrEmpty()) {
-                        val tabTitle = _tab.value?.peekContent()?.title
-                        if (tabTitle?.contains("All")!!) {
-                            displayError(it)
+                        val tabId = _tab.value?.peekContent()?.id
+                        if (tabId == 0) {
+//                            displayError(it)
                         } else {
                             _searchPaginationItem.value = PagingData.empty()
                             setCount(0)
