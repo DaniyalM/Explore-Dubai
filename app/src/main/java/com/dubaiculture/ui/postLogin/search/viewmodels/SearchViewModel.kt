@@ -64,7 +64,13 @@ class SearchViewModel @Inject constructor(
 
 
     fun updateIsOldData(isOld: Boolean) {
-        updateFilter(_searchFilter.value!!.peekContent().copy(isOld = isOld))
+        if(isOld){
+            updateFilter(_searchFilter.value!!.peekContent().copy(isOld = isOld,sort = ""))
+
+        }else{
+            updateFilter(_searchFilter.value!!.peekContent().copy(isOld = isOld))
+
+        }
 
 
     }
@@ -75,9 +81,9 @@ class SearchViewModel @Inject constructor(
 
     fun updateSorting(aToz: Boolean) {
         if (aToz)
-            updateFilter(_searchFilter.value!!.peekContent().copy(sort = "asc"))
+            updateFilter(_searchFilter.value!!.peekContent().copy(sort = "asc",isOld = false))
         else
-            updateFilter(_searchFilter.value!!.peekContent().copy(sort = "desc"))
+            updateFilter(_searchFilter.value!!.peekContent().copy(sort = "desc",isOld = false))
 
     }
 
