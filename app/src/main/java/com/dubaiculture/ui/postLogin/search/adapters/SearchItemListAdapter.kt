@@ -10,6 +10,7 @@ import com.dubaiculture.data.repository.search.local.SearchResultItem
 import com.dubaiculture.databinding.ItemSearchResultLayoutBinding
 import com.dubaiculture.utils.AppConfigUtils.setAnimation
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.invisible
 import com.dubaiculture.utils.show
 
 class SearchItemListAdapter(
@@ -61,7 +62,15 @@ class SearchItemListAdapter(
                         }
                     }, 0, 0, 0
                 )
-                tvSubTitle.show(!searchResultItem.type.equals("EServices", true))
+                if (searchResultItem.type.equals(
+                        "EServices",
+                        true
+                    ) || searchResultItem.subtitle.isEmpty()
+                ) {
+                    tvSubTitle.invisible()
+                } else {
+                    tvSubTitle.show()
+                }
 
                 itemView.setOnClickListener {
                     searchItemClickListner.onSearchItemClick(searchResultItem)
