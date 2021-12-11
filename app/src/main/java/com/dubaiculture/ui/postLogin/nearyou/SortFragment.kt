@@ -30,16 +30,111 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
             searchViewModel.onDoneClicked(isaToZ, iszToA, isold, isnew)
         }
         binding.aToZ.setOnClickListener {
-            searchViewModel.updateAscendSort()
+//            searchViewModel.updateAscendSort()
+            isaToZ = true
+            iszToA = false
+            isnew = false
+            isold = false
+
+            binding.aToZ.isClickable = false
+            binding.aToZ.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_selected)
+            binding.aToZ.setTextColor(ContextCompat.getColor(activity, R.color.white_900))
+
+            binding.zToA.isClickable = true
+            binding.zToA.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.zToA.setTextColor(fetchColor())
+
+            binding.newest.isClickable = true
+            binding.newest.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.newest.setTextColor(fetchColor())
+
+            binding.old.isClickable = true
+            binding.old.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.old.setTextColor(fetchColor())
+
         }
         binding.zToA.setOnClickListener {
-            searchViewModel.updateDescendSort()
+//            searchViewModel.updateDescendSort()
+            iszToA = true
+            isaToZ = false
+            isnew = false
+            isold = false
+            binding.zToA.isClickable = false
+            binding.zToA.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_selected)
+            binding.zToA.setTextColor(ContextCompat.getColor(activity, R.color.white_900))
+
+            binding.newest.isClickable = true
+            binding.newest.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.newest.setTextColor(fetchColor())
+
+            binding.old.isClickable = true
+            binding.old.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.old.setTextColor(fetchColor())
+
+            binding.aToZ.isClickable = true
+            binding.aToZ.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.aToZ.setTextColor(fetchColor())
         }
         binding.old.setOnClickListener {
-            searchViewModel.updateOldData()
+//            searchViewModel.updateOldData()
+            isold = true
+            isnew = false
+            iszToA = false
+            isaToZ = false
+            binding.old.isClickable = false
+            binding.old.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_selected)
+            binding.old.setTextColor(ContextCompat.getColor(activity, R.color.white_900))
+
+            binding.aToZ.isClickable = true
+            binding.aToZ.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.aToZ.setTextColor(fetchColor())
+
+            binding.zToA.isClickable = true
+            binding.zToA.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.zToA.setTextColor(fetchColor())
+
+            binding.newest.isClickable = true
+            binding.newest.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.newest.setTextColor(fetchColor())
+
         }
         binding.newest.setOnClickListener {
-            searchViewModel.updateNewData()
+//            searchViewModel.updateNewData()
+            isnew = true
+            iszToA = false
+            isaToZ = false
+            isold = false
+            binding.newest.isClickable = false
+            binding.newest.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_selected)
+            binding.newest.setTextColor(ContextCompat.getColor(activity, R.color.white_900))
+
+            binding.old.isClickable = true
+            binding.old.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.old.setTextColor(fetchColor())
+
+            binding.aToZ.isClickable = true
+            binding.aToZ.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.aToZ.setTextColor(fetchColor())
+
+            binding.zToA.isClickable = true
+            binding.zToA.background =
+                ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
+            binding.zToA.setTextColor(fetchColor())
         }
         subscribeToObservable()
     }
