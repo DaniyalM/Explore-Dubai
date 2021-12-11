@@ -204,6 +204,7 @@ class SearchViewModel @Inject constructor(
         searchRequest: SearchPaginationRequest
     ) {
         showLoader(true)
+        _searchPaginationItem.value = PagingData.empty()
         var search: SearchPaginationRequest = searchRequest ?: SearchPaginationRequest()
         if (searchRequest.category.isEmpty())
             search = searchRequest.copy(category = "0")

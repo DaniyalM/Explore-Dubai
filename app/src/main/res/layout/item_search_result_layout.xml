@@ -26,7 +26,7 @@
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginBottom="@dimen/_12sdp"
                 android:imageOrPlaceHolder="@{item.image}"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/image_placeholder"
                 app:cornerRadius="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
