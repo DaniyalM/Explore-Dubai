@@ -149,7 +149,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             val navigationController = getNavController()
             navigationController.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
-                    R.id.exploreFragment -> {
+                    R.id.exploreMapFragment -> {
                         hide()
                     }
                     R.id.searchFragment -> {

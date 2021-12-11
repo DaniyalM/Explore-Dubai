@@ -38,6 +38,12 @@ class SearchSharedViewModel @Inject constructor(
         if (_isZtoA.value!!.peekContent()) {
             _isZtoA.value = Event(false)
         }
+        if (_isOld.value!!.peekContent()) {
+            _isOld.value = Event(false)
+        }
+        if (_isNew.value!!.peekContent()) {
+            _isNew.value = Event(false)
+        }
     }
 
     fun updateDescendSort() {
@@ -45,7 +51,12 @@ class SearchSharedViewModel @Inject constructor(
         if (_isAtoZ.value!!.peekContent()) {
             _isAtoZ.value = Event(false)
         }
-
+        if (_isOld.value!!.peekContent()) {
+            _isOld.value = Event(false)
+        }
+        if (_isNew.value!!.peekContent()) {
+            _isNew.value = Event(false)
+        }
     }
 
     fun updateOldData() {
@@ -53,12 +64,24 @@ class SearchSharedViewModel @Inject constructor(
         if (_isNew.value!!.peekContent()) {
             _isNew.value = Event(false)
         }
+        if (_isAtoZ.value!!.peekContent()) {
+            _isAtoZ.value = Event(false)
+        }
+        if (_isZtoA.value!!.peekContent()) {
+            _isZtoA.value = Event(false)
+        }
     }
 
     fun updateNewData() {
         _isNew.value = Event(!_isNew.value!!.peekContent())
         if (_isOld.value!!.peekContent()) {
             _isOld.value = Event(false)
+        }
+        if (_isZtoA.value!!.peekContent()) {
+            _isZtoA.value = Event(false)
+        }
+        if (_isAtoZ.value!!.peekContent()) {
+            _isAtoZ.value = Event(false)
         }
     }
 
@@ -70,6 +93,7 @@ class SearchSharedViewModel @Inject constructor(
             if (_isZtoADone.value!!.peekContent()) {
                 _isZtoADone.value = Event(false)
             }
+            updateAscendSort()
         }
 
         if(iszToA){
@@ -77,6 +101,7 @@ class SearchSharedViewModel @Inject constructor(
             if (_isAtoZDone.value!!.peekContent()) {
                 _isAtoZDone.value = Event(false)
             }
+            updateDescendSort()
         }
 
 
@@ -85,6 +110,7 @@ class SearchSharedViewModel @Inject constructor(
             if (_isNewDone.value!!.peekContent()) {
                 _isNewDone.value = Event(false)
             }
+            updateOldData()
         }
 
         if(isnew){
@@ -93,7 +119,7 @@ class SearchSharedViewModel @Inject constructor(
             if (_isOldDone.value!!.peekContent()) {
                 _isOldDone.value = Event(false)
             }
-
+            updateNewData()
         }
 
 

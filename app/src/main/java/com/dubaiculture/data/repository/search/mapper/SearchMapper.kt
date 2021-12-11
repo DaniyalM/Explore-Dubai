@@ -24,7 +24,8 @@ fun transformSearch(searchResultItemDTO: SearchResultItemDTO) = SearchResultItem
     detailPageUrl = searchResultItemDTO.DetailPageUrl ?: "",
     isPage = searchResultItemDTO.isPage ?: false,
     itemDate = searchResultItemDTO.ItemDate ?: "",
-    id = searchResultItemDTO.ID ?: ""
+    id = searchResultItemDTO.ID ?: "",
+    subtitle = searchResultItemDTO.Subtitle ?: ""
 )
 
 fun transformSearchRequest(searchPaginationRequest: SearchPaginationRequest) =

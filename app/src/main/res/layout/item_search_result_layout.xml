@@ -26,7 +26,7 @@
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginBottom="@dimen/_12sdp"
                 android:imageOrPlaceHolder="@{item.image}"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/image_placeholder"
                 app:cornerRadius="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -39,7 +39,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{item.type}"
-
                 android:textColor="?attr/color_dubai_logo"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toEndOf="@+id/tvSearchTitle"
@@ -60,20 +59,19 @@
                 android:text="@{item.title}"
                 android:textColor="?attr/colorSecondary"
                 android:textSize="@dimen/_13ssp"
-                app:layout_constraintBottom_toTopOf="@+id/tvSearchDate"
+                app:layout_constraintBottom_toTopOf="@+id/tvSubTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/IvSearch"
                 app:layout_constraintTop_toBottomOf="@+id/tvSearchCat" />
 
             <com.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/tvSearchDate"
+                android:id="@+id/tvSubTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/calender_gray"
                 android:drawablePadding="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.itemDate}"
+                android:text="@{item.subtitle}"
                 android:textSize="@dimen/_9ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/IvSearch"
                 app:layout_constraintEnd_toEndOf="@+id/tvSearchTitle"
@@ -83,14 +81,12 @@
                 android:id="@+id/divier_hori_line"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-
                 android:layout_marginTop="@dimen/_12sdp"
                 android:background="?attr/color_light_theme_dark_theme_gray"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tvSearchDate"
+                app:layout_constraintEnd_toEndOf="@+id/tvSearchTitle"
                 app:layout_constraintStart_toStartOf="@+id/IvSearch"
-                app:layout_constraintTop_toBottomOf="@+id/tvSearchDate" />
-
+                app:layout_constraintTop_toBottomOf="@+id/tvSubTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
