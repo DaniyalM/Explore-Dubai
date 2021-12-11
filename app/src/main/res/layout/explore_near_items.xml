@@ -104,7 +104,6 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="@{Double.toString(explore.distance) + ` Km`}"
                 android:textSize="@dimen/_8ssp"
                 app:layout_constraintEnd_toEndOf="@+id/loc"
                 app:layout_constraintStart_toStartOf="@+id/loc"

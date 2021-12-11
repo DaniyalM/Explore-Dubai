@@ -13,6 +13,8 @@ import com.dubaiculture.databinding.ExploreNearItemsBinding
 import com.dubaiculture.ui.postLogin.events.`interface`.DirectionClickListener
 import com.dubaiculture.ui.postLogin.events.`interface`.RowClickListener
 import com.dubaiculture.utils.AsyncCell
+import java.text.NumberFormat
+import java.util.*
 
 class ExploreMapAdapter(
     var isArabic: Boolean,
@@ -50,8 +52,10 @@ class ExploreMapAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        setUpExploreNearMapViewHolder(holder = holder as ExploreMapAdapter.ExploreNearMapViewHolder,
-            position)
+        setUpExploreNearMapViewHolder(
+            holder = holder as ExploreMapAdapter.ExploreNearMapViewHolder,
+            position
+        )
     }
 
     override fun getItemCount() = explore.size
@@ -72,7 +76,7 @@ class ExploreMapAdapter(
     ) {
         (holder.itemView as ExploreMapAdapter.ExploreItemCell).bindWhenInflated {
             holder.itemView.binding?.let {
-                arrowtRTL(isArabic,it.arrow)
+                arrowtRTL(isArabic, it.arrow)
                 try {
                     it.cl.setOnClickListener {
                         rowClickListener.rowClickListener(position)
@@ -80,7 +84,20 @@ class ExploreMapAdapter(
                     it.loc.setOnClickListener {
                         directionClickListener.directionClickListener(position)
                     }
-                    it.explore = explore[position]
+                    val item = explore[position]
+                    it.explore = item
+                    if (isArabic) {
+                        val nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+                        nf.maximumFractionDigits = 1
+                        it.tvKm.text =
+                            nf.format(item.distance) + " " + resources.getString(R.string.away)
+                    } else {
+                        val nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                        nf.maximumFractionDigits = 1
+                        it.tvKm.text =
+                            nf.format(item.distance) + " km"// + resources.getString(R.string.away)
+                    }
+
                 } catch (ex: IndexOutOfBoundsException) {
                     print(ex.stackTrace)
                 }
@@ -89,7 +106,7 @@ class ExploreMapAdapter(
     }
 
 
-    fun arrowtRTL(isArabic : Boolean,img: ImageView) {
+    fun arrowtRTL(isArabic: Boolean, img: ImageView) {
         when {
             isArabic -> {
                 img.scaleX = -1f
