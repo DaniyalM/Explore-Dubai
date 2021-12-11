@@ -89,36 +89,44 @@ class SearchSharedViewModel @Inject constructor(
     fun onDoneClicked(isaToZ: Boolean, iszToA: Boolean, isold: Boolean, isnew: Boolean) {
 
         if(isaToZ){
-            _isAtoZDone.value = Event(!_isAtoZDone.value!!.peekContent())
-            if (_isZtoADone.value!!.peekContent()) {
+            _isAtoZDone.value = Event(true)
+//            if (_isZtoADone.value!!.peekContent()) {
                 _isZtoADone.value = Event(false)
-            }
+                _isOldDone.value = Event(false)
+                _isNewDone.value = Event(false)
+//            }
             updateAscendSort()
         }
 
         if(iszToA){
-            _isZtoADone.value = Event(!_isZtoADone.value!!.peekContent())
-            if (_isAtoZDone.value!!.peekContent()) {
+            _isZtoADone.value = Event(true)
+//            if (_isAtoZDone.value!!.peekContent()) {
                 _isAtoZDone.value = Event(false)
-            }
+                _isOldDone.value = Event(false)
+                _isNewDone.value = Event(false)
+//            }
             updateDescendSort()
         }
 
 
         if(isold){
-            _isOldDone.value = Event(!_isOldDone.value!!.peekContent())
-            if (_isNewDone.value!!.peekContent()) {
+            _isOldDone.value = Event(true)
+//            if (_isNewDone.value!!.peekContent()) {
                 _isNewDone.value = Event(false)
-            }
+                _isAtoZDone.value = Event(false)
+                _isZtoADone.value = Event(false)
+//            }
             updateOldData()
         }
 
         if(isnew){
 
-            _isNewDone.value = Event(!_isNewDone.value!!.peekContent())
-            if (_isOldDone.value!!.peekContent()) {
+            _isNewDone.value = Event(true)
+//            if (_isOldDone.value!!.peekContent()) {
                 _isOldDone.value = Event(false)
-            }
+                _isAtoZDone.value = Event(false)
+                _isZtoADone.value = Event(false)
+//            }
             updateNewData()
         }
 
