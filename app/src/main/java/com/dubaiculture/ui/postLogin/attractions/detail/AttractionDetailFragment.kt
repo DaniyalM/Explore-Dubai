@@ -60,6 +60,7 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.text.NumberFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -223,8 +224,22 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                             latitude!!.toDouble(),
                             longitude!!.toDouble()
                         )
+                        var localizedDistance = ""
+                        if (getCurrentLanguage() != Locale.ENGLISH) {
+
+                            val nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+                            nf.maximumFractionDigits = 1
+                            localizedDistance = nf.format(distance)
+
+                        } else {
+                            val nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                            nf.maximumFractionDigits = 1
+                            localizedDistance = nf.format(distance)
+
+                        }
+
                         detailInnerLayout.tvKm.text =
-                            "$distance  ${resources.getString(R.string.away)}"
+                            "$localizedDistance  ${resources.getString(R.string.away)}"
                     } catch (e: java.lang.NumberFormatException) {
                     }
 
@@ -619,8 +634,21 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                                         it.latitude?.toDouble()!!,
                                         it.longitude?.toDouble()!!
                                     )
+                                var localizedDistance = ""
+                                if (getCurrentLanguage() != Locale.ENGLISH) {
+
+                                    val nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+                                    nf.maximumFractionDigits = 1
+                                    localizedDistance = nf.format(distance)
+
+                                } else {
+                                    val nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                                    nf.maximumFractionDigits = 1
+                                    localizedDistance = nf.format(distance)
+
+                                }
                                 detailInnerLayout.tvKm.text =
-                                    "$distance  ${resources.getString(R.string.away)}"
+                                    "$localizedDistance  ${resources.getString(R.string.away)}"
                             }
                         }
 
@@ -796,7 +824,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.cardview_plan_trip -> {
                 navigateByDirections(
                     AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
-                         tripAdvisorLink.toString(), false
+                        tripAdvisorLink.toString(), false
                     )
                 )
             }
@@ -847,7 +875,21 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                         attractionsObj?.latitude!!.toDouble(),
                         attractionsObj?.longitude!!.toDouble()
                     )
-                detailInnerLayout.tvKm.text = "$distance ${resources.getString(R.string.away)}"
+                var localizedDistance = ""
+                if (getCurrentLanguage() != Locale.ENGLISH) {
+
+                    val nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+                    nf.maximumFractionDigits = 1
+                    localizedDistance = nf.format(distance)
+
+                } else {
+                    val nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                    nf.maximumFractionDigits = 1
+                    localizedDistance = nf.format(distance)
+
+                }
+
+                detailInnerLayout.tvKm.text = "$localizedDistance ${resources.getString(R.string.away)}"
             }
         } catch (e: java.lang.NumberFormatException) {
         }
