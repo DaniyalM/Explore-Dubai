@@ -152,7 +152,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         )
 
         if (application.auth.isGuest) {
-            binding.btnLogin.setOnClickListener {
+            binding.materialCardView2.setOnClickListener {
                 val bundle = bundleOf(MORE_FRAGMENT to MORE_FRAGMENT)
                 navigate(R.id.action_moreFragment_to_post_login_bottom_navigation, bundle)
             }

@@ -79,7 +79,7 @@ open class SingleSelectionAdapter(
             tvTitle.text = attractions.title
             itemView.setOnClickListener(View.OnClickListener {
                 // un selected
-                iface.getRowClick(absoluteAdapterPosition)
+                iface.getRowClick(category = attractions)
                 tvTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.white_900))
 
 
@@ -112,7 +112,7 @@ open class SingleSelectionAdapter(
     override fun getItemCount() = attractions.size
 
     interface InvokeListener {
-        fun getRowClick(position: Int = 0)
+        fun getRowClick(category: AttractionCategory)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

@@ -402,6 +402,8 @@
     <string name="something_went_wrong">هناك خطأ ما</string>
     <string name="make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again">تأكد من تشغيل واي فاي أو بيانات الهاتف المحمول ثم حاول مرة أخرى</string>
     <string name="attach_your_ID">تحميل الهوية</string>
+    <string name="recentSearches">عمليات البحث الأخيرة</string>
+    <string name="whatAreYourLooking">عن ماذا تبحث؟</string>
 
 
     <!--  End of Sprint 3  -->

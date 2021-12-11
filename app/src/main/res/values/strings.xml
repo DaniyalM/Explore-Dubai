@@ -411,6 +411,10 @@
     <string name="something_went_wrong">Something went wrong</string>
     <string name="make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again">Make sure wifi or mobile data is turned on and then try again</string>
     <string name="attach_your_ID">Attach your ID</string>
+    <string name="recentSearches">Recent Searches</string>
+
+    <string name="whatAreYourLooking">What are you looking for?</string>
+
 
     <!-- Facebook keys -->
 
