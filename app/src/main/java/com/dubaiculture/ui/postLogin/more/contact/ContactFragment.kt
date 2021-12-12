@@ -63,7 +63,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
         subscribeUiEvents(moreViewModel)
         mapSetUp(savedInstanceState)
         callingObserver()
-        arrowRTL(binding.ivShare)
+//        arrowRTL(binding.ivShare)
         binding.let {
             it.imgClose.setOnClickListener(this)
             it.imgFb.setOnClickListener(this)

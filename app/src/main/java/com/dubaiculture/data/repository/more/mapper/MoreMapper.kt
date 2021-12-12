@@ -77,6 +77,7 @@ fun transformationContactCenter(moreresponse: MoreResponse) = moreresponse.Resul
         socialLinks = SocialLinks.let {
             it.map {
                 SocialLink(
+                    subTitle = it.subtitle.toString(),
                     facebookPageLink = it.facebookPageLink.toString(),
                     facebookIcon = it.facebookIcon.toString(),
                     instagramIcon = it.instagramIcon,
