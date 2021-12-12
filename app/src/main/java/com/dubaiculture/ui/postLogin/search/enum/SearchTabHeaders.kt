@@ -2,10 +2,11 @@ package com.dubaiculture.ui.postLogin.search.enum
 
 enum class SearchTabHeaders(var postion: Int) {
     ALL(0),
-    NEWS(1),
-    ATTRACTIONS(2),
-    EVENTS(3),
-    SERVICES(4);
+    ATTRACTIONS(1),
+    EVENTS(2),
+    SERVICES(3),
+    NEWS(4),
+    OTHERS(5);
 
     companion object {
         fun fromId(id: Int): SearchTabHeaders {

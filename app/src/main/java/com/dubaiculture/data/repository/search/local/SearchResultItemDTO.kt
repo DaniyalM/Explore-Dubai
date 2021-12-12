@@ -9,6 +9,7 @@ data class SearchResultItemDTO(
     val Tags_DropLink: List<String>?,
     val Title: String?,
     val Type: String?,
+    val TypeEnum: String?,
     val isPage: Boolean?,
     val ID: String?,
     val Subtitle: String?
