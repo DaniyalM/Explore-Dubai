@@ -357,7 +357,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                         }
 
                     }
-                })
+                },
+                getCurrentLanguage()
+                    )
             adapter = searchItemListAdapter.withLoadStateAdapters(
                 DefaultLoadStateAdapter(),
                 DefaultLoadStateAdapter(), callback = {
