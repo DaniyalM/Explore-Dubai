@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.search.local.SearchResultItem
 import com.dubaiculture.databinding.ItemSearchResultLayoutBinding
+import com.dubaiculture.ui.postLogin.search.enum.SearchTabHeaders
 import com.dubaiculture.utils.AppConfigUtils.setAnimation
 import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.invisible
@@ -48,13 +49,22 @@ class SearchItemListAdapter(
 
                 tvSubTitle.setCompoundDrawablesWithIntrinsicBounds(
                     when {
-                        searchResultItem.type.equals("Attractions", true) -> {
+                        searchResultItem.typeEnum.equals(
+                            SearchTabHeaders.ATTRACTIONS.postion.toString(),
+                            true
+                        ) -> {
                             R.drawable.location_icon_gray
                         }
-                        searchResultItem.type.equals("Events", true) -> {
+                        searchResultItem.typeEnum.equals(
+                            SearchTabHeaders.EVENTS.postion.toString(),
+                            true
+                        ) -> {
                             R.drawable.calender_gray
                         }
-                        searchResultItem.type.equals("News", true) -> {
+                        searchResultItem.typeEnum.equals(
+                            SearchTabHeaders.NEWS.postion.toString(),
+                            true
+                        ) -> {
                             R.drawable.clock_gray
                         }
                         else -> {
@@ -62,8 +72,8 @@ class SearchItemListAdapter(
                         }
                     }, 0, 0, 0
                 )
-                if (searchResultItem.type.equals(
-                        "EServices",
+                if (searchResultItem.typeEnum.equals(
+                        SearchTabHeaders.SERVICES.postion.toString(),
                         true
                     ) || searchResultItem.subtitle.isEmpty()
                 ) {
