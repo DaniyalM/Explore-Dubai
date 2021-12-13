@@ -49,10 +49,10 @@ class AttractionFragment : BaseFragment<FragmentAttractionHeaderBinding>() {
         setupToolbarWithSearchItems()
         initViewPager()
         refreshRequest()
-        binding.toolbarSnippet.toolbarLayout.search.hide()
-//        binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
-//            navigateByDirections(AttractionFragmentDirections.actionAttractionsFragmentToSearchNavigation())
-//        }
+//        binding.toolbarSnippet.toolbarLayout.search.hide()
+        binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
+            navigateByDirections(AttractionFragmentDirections.actionAttractionsFragmentToSearchNavigation())
+        }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

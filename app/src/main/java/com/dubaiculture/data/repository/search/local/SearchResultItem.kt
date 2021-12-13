@@ -10,5 +10,7 @@ data class SearchResultItem(
     val tags_DropLink: List<String>,
     val title: String,
     val type: String,
-    val isPage: Boolean
+    val typeEnum: String,
+    val isPage: Boolean,
+    val subtitle: String
 )

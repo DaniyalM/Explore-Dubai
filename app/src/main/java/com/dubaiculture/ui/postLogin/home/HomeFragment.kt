@@ -74,9 +74,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
             navigateByDirections(
                 HomeFragmentDirections.actionHomeFragmentToWebviewFragment(
-                    if(getCurrentLanguage() != Locale.ENGLISH)  BuildConfig.CHAT_BOT_URL_AR else BuildConfig.CHAT_BOT_URL_EN,
-                false
-            ))
+                    if (getCurrentLanguage() != Locale.ENGLISH) BuildConfig.CHAT_BOT_URL_AR else BuildConfig.CHAT_BOT_URL_EN,
+                    false
+                )
+            )
 
         }
 
@@ -140,6 +141,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 //                    R.id.webviewFragment -> {
 //                        hide()
 //                    }
+                }
+            }
+        }
+
+        binding.fabLiveChat?.apply {
+            val navigationController = getNavController()
+            navigationController.addOnDestinationChangedListener { _, destination, _ ->
+                when (destination.id) {
+                    R.id.exploreMapFragment -> {
+                        hide()
+                    }
+                    R.id.searchFragment -> {
+                        hide()
+                    }
+                    R.id.happinessFragment -> {
+                        hide()
+                    }
+                    else -> {
+                        show()
+                    }
+
                 }
             }
         }

@@ -38,12 +38,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_22sdp"
-                android:text="Popular Search"
+                android:text="@string/recentSearches"
                 android:textColor="?attr/colorSecondary"
-                android:textSize="@dimen/_24ssp"
+                android:textSize="@dimen/_22ssp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:textFont="bold" />
+                 />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popular_rv"
