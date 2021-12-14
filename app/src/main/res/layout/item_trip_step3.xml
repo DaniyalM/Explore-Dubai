@@ -21,6 +21,8 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
+            app:chipStrokeColor="?attr/colorSecondaryVariantInverted"
+            app:chipStrokeWidth="0.5dp"
             android:layout_marginHorizontal="@dimen/_5sdp"
             android:checked="@{nearestLocation.checked}"
             android:textColor="?attr/color_light_theme_dark_theme_dark_gray"

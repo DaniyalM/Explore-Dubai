@@ -103,14 +103,14 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
                 binding.btnDay.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_day)
 
                 binding.btnDay.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.transparent)
+                    ContextCompat.getColor(requireContext(), R.color.white_900)
                 )
 
                 binding.btnNight.icon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_night)
 
                 binding.btnNight.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.transparent)
+                    ContextCompat.getColor(requireContext(), R.color.white_900)
                 )
             }
             1 -> {
@@ -125,7 +125,7 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_night)
 
                 binding.btnNight.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.transparent)
+                    ContextCompat.getColor(requireContext(), R.color.white_900)
                 )
             }
             2 -> {
@@ -139,7 +139,7 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
                 binding.btnDay.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_day)
 
                 binding.btnDay.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.transparent)
+                    ContextCompat.getColor(requireContext(), R.color.white_900)
                 )
             }
         }

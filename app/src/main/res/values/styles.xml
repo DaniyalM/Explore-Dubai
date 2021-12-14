@@ -152,7 +152,6 @@
     <string name="search">Search</string>
 
 
-
     <style name="EditTextStyle">
         <item name="android:textAlignment">viewStart</item>
         <item name="android:singleLine">true</item>
@@ -168,6 +167,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="EditTextStyleServices">
         <item name="android:textAlignment">viewStart</item>
         <item name="android:layout_marginTop">@dimen/_10sdp</item>
@@ -327,10 +327,23 @@
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+
     <style name="selectedButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:textColor">@drawable/button_state</item>
         <item name="android:background">@drawable/bg_button_state</item>
         <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
+    </style>
+
+
+    <style name="Widget.App.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <!--        <item name="materialThemeOverlay">@style/ThemeOverlay.App.RadioButton</item>-->
+        <item name="buttonTint">@color/radio_button_selector</item>
+
+    </style>
+
+    <style name="ThemeOverlay.App.RadioButton" parent="">
+        <item name="colorOnSurface">@color/purple_650</item>
+        <item name="colorSecondary">@color/gray_300</item>
     </style>
 
 </resources>

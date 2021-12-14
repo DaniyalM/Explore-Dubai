@@ -56,6 +56,10 @@ class PlanYourTripFragment : BaseFragment<FragmentPlanYourTripBinding>() {
 
     }
 
+    fun onMyTripClicked(){
+        navigate(R.id.action_tripFragment_to_savedTripFragment)
+    }
+
     fun onBackPressed() {
         back()
     }

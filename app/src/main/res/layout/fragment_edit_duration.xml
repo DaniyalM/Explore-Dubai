@@ -258,6 +258,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white_900"
                 android:transitionName="action_btn"
+                app:layout_constraintTop_toBottomOf="@id/rvDates"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
