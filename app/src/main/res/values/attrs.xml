@@ -14,7 +14,8 @@
     <attr name="color_curve_view_bg" format="color" />
     <attr name="color_curve_login_bg" format="color" />
     <attr name="color_login_edit_text_bg" format="color" />
-    <attr name="color_light_purple_dark_white" format="color" />
+    <attr name="color_pyt_purple_light" format="color" />
+    <attr name="color_pyt_orange_light" format="color" />
 
     <attr name="color_light_theme_purple_dark_theme_gray" format="color" />
     <attr name="color_light_theme_dark_theme_gray" format="color" />
