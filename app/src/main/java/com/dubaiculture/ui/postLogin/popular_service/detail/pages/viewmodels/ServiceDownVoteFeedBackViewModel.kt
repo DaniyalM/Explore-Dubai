@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.dubaiculture.R
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.more.local.GetMessage
 import com.dubaiculture.data.repository.popular_service.ServiceRepository
@@ -75,8 +76,7 @@ class ServiceDownVoteFeedBackViewModel @Inject constructor(
                 is Result.Success -> {
                     showLoader(false)
                     if (result.value)
-                        showToast("Service has been upvoted !")
-
+                        showToast(R.string.success)
                 }
                 is Result.Failure -> {
                     showLoader(false)

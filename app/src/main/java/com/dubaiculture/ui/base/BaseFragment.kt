@@ -191,6 +191,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                         is UiEvent.ShowToast -> {
                             showToast(event.message)
                         }
+                        is UiEvent.ShowToastByRId -> {
+                            showToast(getString(event.resourceId))
+                        }
                         is UiEvent.ShowLoader -> {
                             showLoader(event.show)
                         }
