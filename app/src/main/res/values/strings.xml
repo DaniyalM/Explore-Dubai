@@ -31,6 +31,8 @@
     <string name="login">Login</string>
     <string name="register">Sign Up</string>
     <string name="welcome_to_dubai_culture">Welcome To Dubai Culture</string>
+    <string name="welcome_to">Welcome to</string>
+
     <string name="sign_up">Sign Up ?</string>
     <string name="forgot_password">Forgot Password?</string>
 
@@ -201,6 +203,7 @@
     <string name="festivals">Festivals</string>
     <string name="libraries">Libraries</string>
     <string name="view_gallery">View Gallery</string>
+    <string name="review">Review</string>
     <string name="reviews">Reviews</string>
     <string name="on_trip">on Trip Advisor</string>
     <string name="turn_on_your_location_to_view_nearby_events">Turn on your location to view nearby events</string>

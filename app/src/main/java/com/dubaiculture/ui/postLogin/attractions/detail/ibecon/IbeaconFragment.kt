@@ -101,13 +101,16 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
                             lifecycleScope.launch {
                                 beaconItems.map { beacons ->
                                     if (beacons.proximityID.toLowerCase()
-                                            .equals(nearestBeacon.proximityUUID.toString().toLowerCase()) &&
+                                            .equals(
+                                                nearestBeacon.proximityUUID.toString().toLowerCase()
+                                            ) &&
                                         !beacons.visited
                                     ) {
                                         PushNotificationManager.showNotification(
                                             context,
+                                            getString(R.string.welcome_to),
                                             "${beacons.title}",
-                                            "${beacons.subtitle}", null
+                                            null
                                         )
                                         attractionId?.let {
                                             beaconSharedViewModel.markAsVisited(
@@ -139,11 +142,11 @@ class IbeaconFragment : BaseFragment<FragmentIbeconBinding>(), View.OnClickListe
                 }
 
                 override fun onExitedRegion(beaconRegion: BeaconRegion?) {
-                    PushNotificationManager.showNotification(
-                        context,
-                        "Beacon Scanning",
-                        resources.getString(R.string.you_are_leaving), null
-                    )
+//                    PushNotificationManager.showNotification(
+//                        context,
+//                        "Beacon Scanning",
+//                        resources.getString(R.string.you_are_leaving), null
+//                    )
 
                 }
 

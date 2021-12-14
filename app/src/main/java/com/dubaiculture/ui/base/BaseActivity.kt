@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.StatsLog.logEvent
 import android.view.WindowManager
 import android.widget.CheckBox
 import androidx.annotation.IdRes
@@ -27,10 +26,11 @@ import com.dubaiculture.utils.event.EventUtilFunctions.showSnackbar
 import com.dubaiculture.utils.event.EventUtilFunctions.showToast
 import com.dubaiculture.utils.event.UiEvent
 import com.squareup.otto.Bus
-import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
+import com.github.javiersantos.appupdater.AppUpdater
 
-abstract class BaseActivity : ForceUpdateActivity() {
+
+abstract class BaseActivity : LocalizationActivity() {
     lateinit var applicationEntry: ApplicationEntry
     protected lateinit var bus: Bus
     protected var isBusRegistered: Boolean = false
@@ -40,6 +40,16 @@ abstract class BaseActivity : ForceUpdateActivity() {
 
     lateinit var checkBox: CheckBox
     protected var mPrevConfig: Configuration? = null
+
+    override fun onResume() {
+        super.onResume()
+        val appUpdater = AppUpdater(this)
+            .setCancelable(false)
+            .setButtonDismiss("")
+            .setButtonDoNotShowAgain("")
+        appUpdater.start()
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         configurationChanged(newConfig)
