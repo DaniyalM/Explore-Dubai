@@ -26,8 +26,8 @@ fun transformBaseToAttraction(attraction: BaseModel) =
         landscapeImage = attraction.landscapeImage,
         description = attraction.description,
         startTime = attraction.startTime,
-            latitude = attraction.latitude,
-            longitude = attraction.longitude,
+        latitude = attraction.latitude,
+        longitude = attraction.longitude,
         endTime = attraction.endTime,
         startDay = attraction.startDay,
         endDay = attraction.endDay,
@@ -49,13 +49,13 @@ fun transformBaseToAttraction(attraction: BaseModel) =
                     toTime = it.toTime,
                     toDay = it.toDay,
                     type = it.type,
-                    color=it.color,
+                    color = it.color,
                     dateTo = it.dateTo,
                     dateFrom = it.dateFrom,
                     locationTitle = it.locationTitle,
-                    location = it.location?:"",
-                    longitude = it.longitude?:"67.08119661055807",
-                    latitude = it.latitude?:"24.83250180519734",
+                    location = it.location ?: "",
+                    longitude = it.longitude ?: "67.08119661055807",
+                    latitude = it.latitude ?: "24.83250180519734",
                     registrationDate = it.registrationDate,
                     isFavourite = it.isFavourite
 
@@ -75,6 +75,7 @@ fun transformBaseToAttraction(attraction: BaseModel) =
         socialLink = attraction.socialLinks?.let {
             it.map {
                 SocialLink(
+                    subTitle = it.subtitle.toString(),
                     facebookPageLink = it.facebookPageLink.toString(),
                     facebookIcon = it.facebookIcon.toString(),
                     instagramIcon = it.instagramIcon,

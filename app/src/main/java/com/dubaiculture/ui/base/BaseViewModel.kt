@@ -140,6 +140,10 @@ abstract class BaseViewModel(
         _uiEventsLiveData.value = Event(UiEvent.ShowToast(message))
     }
 
+    fun showToast(resourceId: Int) {
+        _uiEventsLiveData.value = Event(UiEvent.ShowToastByRId(resourceId))
+    }
+
     fun showSnackbar(message: String, action: (() -> Unit)? = null) {
         _uiEventsLiveData.value = Event(UiEvent.ShowSnackbar(message, action))
     }

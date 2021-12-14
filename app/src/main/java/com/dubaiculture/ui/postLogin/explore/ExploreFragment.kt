@@ -24,7 +24,7 @@ import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.location.LocationHelper
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
-import com.google.firebase.iid.FirebaseInstanceId
+//import com.google.firebase.iid.FirebaseInstanceId
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -95,7 +95,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         binding.toolbarSnippet.toolbarLayout.imgDrawer.setOnClickListener {
             locationPermission()
         }
-        binding.toolbarSnippet.toolbarLayout.search.hide()
+//        binding.toolbarSnippet.toolbarLayout.search.hide()
         binding.toolbarSnippet.toolbarLayout.search.setOnClickListener {
             navigateByDirections(
                 ExploreFragmentDirections.actionExploreFragmentToSearchNavigation()

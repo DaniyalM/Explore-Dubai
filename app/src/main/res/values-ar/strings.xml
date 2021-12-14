@@ -21,6 +21,7 @@
     <string name="password">ادخل كلمة السر </string>
     <string name="login">تسجيل الدخول</string>
     <string name="register">التسجيل</string>
+    <string name="welcome_to">أهلا بك في</string>
     <string name="welcome_to_dubai_culture">مرحبا بك في هيئة دبي للثقافة والفنون</string>
     <string name="sign_up">تسجيل جديد؟</string>
     <string name="forgot_password"> نسيت كلمة السر؟</string>
@@ -129,11 +130,11 @@
     <string name="read_less">\n\n.اقرأ أقل</string>
     <string name="don_t_miss_out_on_any_details">لا تفوت التفاصيل</string>
     <string name="view_site_map">عرض خريطة العرض</string>
-    <string name="ibeacons">iBeacons</string>
+    <string name="ibeacons">إيبيكون</string>
     <string name="contact_for_inquiries">تواصل معنا للاستفسار</string>
     <string name="your_journey">رحلتك</string>
     <string name="email_us">تواصل معنا بالبريد الالكتروني</string>
-    <string name="stay_updated">ابق محدثا</string>
+    <string name="stay_updated">إبقى على إطلاع</string>
     <string name="what_s_happenings_at_majlis_ghorfat">ماذا يحدث في مجلس الغرفات</string>
     <string name="call_us">اتصل بنا</string>
     <string name="museum">المتاحف</string>
@@ -193,6 +194,7 @@
     <string name="add_date_of_visit">أضف تاريخ الزيارة</string>
     <string name="view_gallery">المعرض</string>
     <string name="reviews">المراجعات</string>
+    <string name="review">تقييم</string>
     <string name="on_trip">على TripAdvisor</string>
 
     <!--Sprint 3 Content need for translation.-->
@@ -403,6 +405,12 @@
     <string name="make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again">تأكد من تشغيل واي فاي أو بيانات الهاتف المحمول ثم حاول مرة أخرى</string>
 
     <string name="plan_your_trip_desc">ابدأ التخطيط واختر مجموعة من الاهتمامات المختلفة التي من شأنها أن تساعدك على الحصول على أفضل تجربة شخصية</string>
+
+
+    <string name="attach_your_ID">تحميل الهوية</string>
+    <string name="recentSearches">عمليات البحث الأخيرة</string>
+    <string name="whatAreYourLooking">عن ماذا تبحث؟</string>
+    <string name="success">النجاح</string>
 
 
     <!--  End of Sprint 3  -->

@@ -104,12 +104,12 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
             binding.fileSize.text = description.fileSize
             binding.fileViewLink.setOnClickListener {
 
-                (parentFragment as ServiceDetailFragment).navigateByDirections(
-                    ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
-                        BuildConfig.BASE_URL_SHARE +description.documentLink, true
-                    )
-                )
-//                descriptionViewModel.getDoc(description.documentLink)
+//                (parentFragment as ServiceDetailFragment).navigateByDirections(
+//                    ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
+//                        BuildConfig.BASE_URL_SHARE +description.documentLink, true
+//                    )
+//                )
+                descriptionViewModel.getDoc(description.documentLink)
             }
         }
     }

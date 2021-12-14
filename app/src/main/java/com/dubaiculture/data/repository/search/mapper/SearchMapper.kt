@@ -21,10 +21,12 @@ fun transformSearch(searchResultItemDTO: SearchResultItemDTO) = SearchResultItem
     image = searchResultItemDTO.Image ?: "",
     tags_DropLink = searchResultItemDTO.Tags_DropLink ?: mutableListOf(),
     type = searchResultItemDTO.Type ?: "",
+    typeEnum = searchResultItemDTO.TypeEnum ?: "",
     detailPageUrl = searchResultItemDTO.DetailPageUrl ?: "",
     isPage = searchResultItemDTO.isPage ?: false,
     itemDate = searchResultItemDTO.ItemDate ?: "",
-    id = searchResultItemDTO.ID ?: ""
+    id = searchResultItemDTO.ID ?: "",
+    subtitle = searchResultItemDTO.Subtitle ?: ""
 )
 
 fun transformSearchRequest(searchPaginationRequest: SearchPaginationRequest) =

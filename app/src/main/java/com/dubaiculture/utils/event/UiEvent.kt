@@ -11,6 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 sealed class UiEvent {
     class ShowLoader(val show: Boolean) : UiEvent()
     class ShowToast(val message: String) : UiEvent()
+    class ShowToastByRId(val resourceId: Int) : UiEvent()
     class ShowSnackbar(val message: String, val action: (() -> Unit)? = null) : UiEvent()
     class ShowAlert(
         val title: String = Constants.Alert.DEFAULT_TITLE,

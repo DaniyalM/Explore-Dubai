@@ -35,7 +35,8 @@ fun transformService(eServices: List<EServiceDTO>): List<EService> =
             title = it.Title,
             summary = it.Summary,
             id = it.ID,
-            categoryId = it.CategoryID
+            categoryId = it.CategoryID,
+            startServiceUrl = it.StartServiceUrl?:""
         )
     }
 

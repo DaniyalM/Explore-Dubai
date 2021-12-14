@@ -21,6 +21,7 @@ import com.dubaiculture.ui.postLogin.more.adapter.MoreItems
 import com.dubaiculture.ui.postLogin.more.adapter.ServicesAdapter
 import com.dubaiculture.ui.postLogin.more.adapter.clicklisteners.ServicesClickListener
 import com.dubaiculture.ui.postLogin.more.viewmodel.MoreViewModel
+import com.dubaiculture.utils.AppConfigUtils.EnglishToArabic
 import com.dubaiculture.utils.AppConfigUtils.getDate
 import com.dubaiculture.utils.Constants.NavBundles.MORE_FRAGMENT
 import com.dubaiculture.utils.Constants.NavBundles.PRIVACY_POLICY
@@ -184,7 +185,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     binding.tvUpdatedDate.text = "${resources.getString(R.string.updated_on)}: ${
                         getDate(
                             BuildConfig.BUILD_TIME.time,
-                            "dd-mm-yyyy",
+                            "dd-MM-yyyy",
                             getCurrentLanguage().language
                         )
                     }"
@@ -194,7 +195,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                     binding.tvUpdatedDate.text = "${resources.getString(R.string.updated_on)}: ${
                         getDate(
                             BuildConfig.BUILD_TIME.time,
-                            "dd-mm-yyyy",
+                            "dd-MM-yyyy",
                             getCurrentLanguage().language
                         )
                     }"
@@ -208,27 +209,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         }
     }
 
-    fun EnglishToArabic(str: String): String {
-        var result = ""
-        var ar = '۰'
-        for (ch in str) {
-            ar = ch
-            when (ch) {
-                '0' -> ar = '۰'
-                '1' -> ar = '۱'
-                '2' -> ar = '۲'
-                '3' -> ar = '۳'
-                '4' -> ar = '۴'
-                '5' -> ar = '۵'
-                '6' -> ar = '۶'
-                '7' -> ar = '۷'
-                '8' -> ar = '۸'
-                '9' -> ar = '۹'
-            }
-            result = "${result}$ar"
-        }
-        return result
-    }
+
 
     private fun cardViewRTL() {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)

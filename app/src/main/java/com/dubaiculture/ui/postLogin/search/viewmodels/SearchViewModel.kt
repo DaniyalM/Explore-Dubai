@@ -64,7 +64,13 @@ class SearchViewModel @Inject constructor(
 
 
     fun updateIsOldData(isOld: Boolean) {
-        updateFilter(_searchFilter.value!!.peekContent().copy(isOld = isOld))
+        if(isOld){
+            updateFilter(_searchFilter.value!!.peekContent().copy(isOld = isOld,sort = ""))
+
+        }else{
+            updateFilter(_searchFilter.value!!.peekContent().copy(isOld = isOld))
+
+        }
 
 
     }
@@ -75,20 +81,19 @@ class SearchViewModel @Inject constructor(
 
     fun updateSorting(aToz: Boolean) {
         if (aToz)
-            updateFilter(_searchFilter.value!!.peekContent().copy(sort = "asc"))
+            updateFilter(_searchFilter.value!!.peekContent().copy(sort = "asc",isOld = false))
         else
-            updateFilter(_searchFilter.value!!.peekContent().copy(sort = "desc"))
+            updateFilter(_searchFilter.value!!.peekContent().copy(sort = "desc",isOld = false))
 
     }
 
 
     fun updateKeyword(string: String) {
         _viewFlag.value = Event(string.isNotEmpty())
-        if (string.isNotEmpty()) {
-            updateFilter(_searchFilter.value!!.peekContent().copy(keyword = string))
-        }
+//        if (string.isNotEmpty()) {
+        updateFilter(_searchFilter.value!!.peekContent().copy(keyword = string))
+//        }
     }
-
 
 //    private fun updateSearch(searchRequest: SearchPaginationRequest) {
 //        _searchFilter.value = Event(
@@ -146,7 +151,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun displayError(message: String) {
-        showSnackbar(message = message)
+      //  showSnackbar(message = message)
     }
 
     fun getSearchHistory() {
@@ -205,6 +210,8 @@ class SearchViewModel @Inject constructor(
         searchRequest: SearchPaginationRequest
     ) {
         showLoader(true)
+        _searchPaginationItem.value = PagingData.empty()
+        setCount(0)
         var search: SearchPaginationRequest = searchRequest ?: SearchPaginationRequest()
         if (searchRequest.category.isEmpty())
             search = searchRequest.copy(category = "0")
@@ -217,9 +224,9 @@ class SearchViewModel @Inject constructor(
                     setCount(it)
                 }, {
                     if (!_tab.value?.peekContent()?.title.isNullOrEmpty()) {
-                        val tabTitle = _tab.value?.peekContent()?.title
-                        if (tabTitle?.contains("All")!!) {
-                            displayError(it)
+                        val tabId = _tab.value?.peekContent()?.id
+                        if (tabId == 0) {
+//                            displayError(it)
                         } else {
                             _searchPaginationItem.value = PagingData.empty()
                             setCount(0)

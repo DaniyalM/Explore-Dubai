@@ -257,7 +257,6 @@ fun <A : Activity> Activity.startNewActivityWithPre(activity: Class<A>) {
 fun <A : Activity> Activity.killSessionAndStartNewActivity(activity: Class<A>) {
 
     Intent(this, activity).also {
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
         startActivity(it)
     }
@@ -452,6 +451,10 @@ fun View.show(show: Boolean) {
 
 fun View.hide() {
     this.visibility = View.GONE
+}
+
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
 }
 
 

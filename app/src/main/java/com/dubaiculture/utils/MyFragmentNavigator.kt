@@ -16,22 +16,22 @@ class MyFragmentNavigator(
     containerId: Int,
 ) : FragmentNavigator(context, fm, containerId) {
 
-    override fun navigate(
-        destination: Destination,
-        args: Bundle?,
-        navOptions: NavOptions?,
-        navigatorExtras: Navigator.Extras?,
-    ): NavDestination? {
-        val shouldSkip = navOptions?.run {
-
-            popUpToId == destination.id && !isPopUpToInclusive()
-        } ?: false
-
-
-
-        return if (shouldSkip) null
-        else super.navigate(destination, args, navOptions, navigatorExtras)
-    }
+//    override fun navigate(
+//        destination: Destination,
+//        args: Bundle?,
+//        navOptions: NavOptions?,
+//        navigatorExtras: Navigator.Extras?,
+//    ): NavDestination? {
+//        val shouldSkip = navOptions?.run {
+//
+////            popUpToId == destination.id && !isPopUpToInclusive()
+//        } ?: false
+//
+//
+//
+////        return if (shouldSkip) null
+//        else super.navigate(destination, args, navOptions, navigatorExtras)
+//    }
 
 
 }

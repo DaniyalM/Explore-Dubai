@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), View.OnClickListener {
-    private  var serviceId: String="CF172A305B054255AC1DCCE12C72223C"
+    private var serviceId: String = "CF172A305B054255AC1DCCE12C72223C"
     private var servicePos: Int = 0
     private val popularServiceViewModel: PopularServiceViewModel by viewModels()
     private lateinit var popularServiceListAdapter: PopularServiceListAdapter
@@ -38,7 +38,8 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
         super.onViewStateRestored(savedInstanceState)
         arguments.let {
             it?.let {
-                serviceId = it.getString(Constants.NavBundles.SERVICE_ID)?:"CF172A305B054255AC1DCCE12C72223C"
+                serviceId = it.getString(Constants.NavBundles.SERVICE_ID)
+                    ?: "CF172A305B054255AC1DCCE12C72223C"
                 servicePos = it.getInt(Constants.NavBundles.SERVICE_POS)
             }
 
@@ -46,7 +47,7 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
         }
         binding.horizontalSelector.onClick(servicePos)
 
-        popularServiceViewModel.serviceId= serviceId
+        popularServiceViewModel.serviceId = serviceId
         binding.viewmodel = popularServiceViewModel
         subscribeUiEvents(popularServiceViewModel)
         rvSetup()
@@ -64,6 +65,15 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
                     navigateByDirections(
                         PopularServiceFragmentDirections.actionPopularServiceFragmentToServiceDetailNavigation(
                             service!!.id
+                        )
+                    )
+                }
+
+                override fun onUrlClick(service: EService?) {
+                    navigateByDirections(
+                        PopularServiceFragmentDirections.actionPopularServiceFragmentToWebViewFragment(
+                            service!!.startServiceUrl,
+                            false
                         )
                     )
                 }

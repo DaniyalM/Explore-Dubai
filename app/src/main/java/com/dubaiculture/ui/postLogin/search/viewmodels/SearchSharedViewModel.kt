@@ -13,21 +13,37 @@ class SearchSharedViewModel @Inject constructor(
     application: Application
 ) : BaseViewModel(application) {
 
-    private var _isAtoZ: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
+     var _isAtoZ: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
     val isAtoZ: LiveData<Event<Boolean>> = _isAtoZ
-    private var _isZtoA: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
+     var _isZtoA: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
     val isZtoA: LiveData<Event<Boolean>> = _isZtoA
-    private var _isOld: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
+     var _isOld: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
     val isOld: LiveData<Event<Boolean>> = _isOld
-    private var _isNew: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
+     var _isNew: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
     val isNew: LiveData<Event<Boolean>> = _isNew
+
+     var _isAtoZDone: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
+    val isAtoZDone: LiveData<Event<Boolean>> = _isAtoZDone
+     var _isZtoADone: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
+    val isZtoADone: LiveData<Event<Boolean>> = _isZtoADone
+     var _isOldDone: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
+    val isOldDone: LiveData<Event<Boolean>> = _isOldDone
+     var _isNewDone: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
+    val isNewDone: LiveData<Event<Boolean>> = _isNewDone
+
+
 
     fun updateAscendSort() {
         _isAtoZ.value = Event(!_isAtoZ.value!!.peekContent())
         if (_isZtoA.value!!.peekContent()) {
             _isZtoA.value = Event(false)
         }
-
+        if (_isOld.value!!.peekContent()) {
+            _isOld.value = Event(false)
+        }
+        if (_isNew.value!!.peekContent()) {
+            _isNew.value = Event(false)
+        }
     }
 
     fun updateDescendSort() {
@@ -35,13 +51,24 @@ class SearchSharedViewModel @Inject constructor(
         if (_isAtoZ.value!!.peekContent()) {
             _isAtoZ.value = Event(false)
         }
-
+        if (_isOld.value!!.peekContent()) {
+            _isOld.value = Event(false)
+        }
+        if (_isNew.value!!.peekContent()) {
+            _isNew.value = Event(false)
+        }
     }
 
     fun updateOldData() {
         _isOld.value = Event(!_isOld.value!!.peekContent())
         if (_isNew.value!!.peekContent()) {
             _isNew.value = Event(false)
+        }
+        if (_isAtoZ.value!!.peekContent()) {
+            _isAtoZ.value = Event(false)
+        }
+        if (_isZtoA.value!!.peekContent()) {
+            _isZtoA.value = Event(false)
         }
     }
 
@@ -50,6 +77,60 @@ class SearchSharedViewModel @Inject constructor(
         if (_isOld.value!!.peekContent()) {
             _isOld.value = Event(false)
         }
+        if (_isZtoA.value!!.peekContent()) {
+            _isZtoA.value = Event(false)
+        }
+        if (_isAtoZ.value!!.peekContent()) {
+            _isAtoZ.value = Event(false)
+        }
+    }
+
+
+    fun onDoneClicked(isaToZ: Boolean, iszToA: Boolean, isold: Boolean, isnew: Boolean) {
+
+        if(isaToZ){
+            _isAtoZDone.value = Event(true)
+//            if (_isZtoADone.value!!.peekContent()) {
+                _isZtoADone.value = Event(false)
+                _isOldDone.value = Event(false)
+                _isNewDone.value = Event(false)
+//            }
+            updateAscendSort()
+        }
+
+        if(iszToA){
+            _isZtoADone.value = Event(true)
+//            if (_isAtoZDone.value!!.peekContent()) {
+                _isAtoZDone.value = Event(false)
+                _isOldDone.value = Event(false)
+                _isNewDone.value = Event(false)
+//            }
+            updateDescendSort()
+        }
+
+
+        if(isold){
+            _isOldDone.value = Event(true)
+//            if (_isNewDone.value!!.peekContent()) {
+                _isNewDone.value = Event(false)
+                _isAtoZDone.value = Event(false)
+                _isZtoADone.value = Event(false)
+//            }
+            updateOldData()
+        }
+
+        if(isnew){
+
+            _isNewDone.value = Event(true)
+//            if (_isOldDone.value!!.peekContent()) {
+                _isOldDone.value = Event(false)
+                _isAtoZDone.value = Event(false)
+                _isZtoADone.value = Event(false)
+//            }
+            updateNewData()
+        }
+
+
     }
 
 

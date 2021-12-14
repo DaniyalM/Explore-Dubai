@@ -71,7 +71,7 @@ object AppConfigUtils {
         return drawable!!
     }
 
-    fun getDate(milliSeconds: Long, dateFormat: String?,locale: String="en"): String? {
+    fun getDate(milliSeconds: Long, dateFormat: String?,locale: String): String? {
         // Create a DateFormatter object for displaying date in specified format.
         val formatter = SimpleDateFormat(dateFormat,Locale(locale))
 
@@ -167,6 +167,29 @@ object AppConfigUtils {
                     }
                 }
             }
+        }
+        return result
+    }
+
+
+    fun EnglishToArabic(str: String): String {
+        var result = ""
+        var ar = '۰'
+        for (ch in str) {
+            ar = ch
+            when (ch) {
+                '0' -> ar = '۰'
+                '1' -> ar = '۱'
+                '2' -> ar = '۲'
+                '3' -> ar = '۳'
+                '4' -> ar = '۴'
+                '5' -> ar = '۵'
+                '6' -> ar = '۶'
+                '7' -> ar = '۷'
+                '8' -> ar = '۸'
+                '9' -> ar = '۹'
+            }
+            result = "${result}$ar"
         }
         return result
     }

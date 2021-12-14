@@ -26,6 +26,8 @@ import com.dubaiculture.utils.event.EventUtilFunctions.showSnackbar
 import com.dubaiculture.utils.event.EventUtilFunctions.showToast
 import com.dubaiculture.utils.event.UiEvent
 import com.squareup.otto.Bus
+import com.facebook.appevents.AppEventsLogger
+import com.github.javiersantos.appupdater.AppUpdater
 
 
 abstract class BaseActivity : LocalizationActivity() {
@@ -38,19 +40,32 @@ abstract class BaseActivity : LocalizationActivity() {
 
     lateinit var checkBox: CheckBox
     protected var mPrevConfig: Configuration? = null
+
+    override fun onResume() {
+        super.onResume()
+        val appUpdater = AppUpdater(this)
+            .setCancelable(false)
+            .setButtonDismiss("")
+            .setButtonDoNotShowAgain("")
+        appUpdater.start()
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         configurationChanged(newConfig)
         mPrevConfig = Configuration(newConfig)
 
+    }
 
-
+    open fun logSentFriendRequestEvent() {
+        val fbLogger = AppEventsLogger.newLogger(baseContext)
+        fbLogger.logEvent("sentFriendRequest")
     }
 
     protected fun configurationChanged(newConfig: Configuration?) {
         newConfig?.let {
             if (isNightConfigChanged(it)) { // night mode has changed
-                applicationEntry.preferenceRepository.isDarkTheme=isOnDarkMode(it)
+                applicationEntry.preferenceRepository.isDarkTheme = isOnDarkMode(it)
                 recreate()
                 // do your thing
             }
@@ -59,7 +74,9 @@ abstract class BaseActivity : LocalizationActivity() {
     }
 
     protected fun isNightConfigChanged(newConfig: Configuration): Boolean {
-        return newConfig.diff(mPrevConfig) and ActivityInfo.CONFIG_UI_MODE != 0 && isOnDarkMode(newConfig) != isOnDarkMode(mPrevConfig!!)
+        return newConfig.diff(mPrevConfig) and ActivityInfo.CONFIG_UI_MODE != 0 && isOnDarkMode(
+            newConfig
+        ) != isOnDarkMode(mPrevConfig!!)
     }
 
     fun isOnDarkMode(configuration: Configuration): Boolean {
@@ -152,7 +169,7 @@ abstract class BaseActivity : LocalizationActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         applicationEntry = application as ApplicationEntry
-        applicationEntry.preferenceRepository.isDarkTheme=isOnDarkMode(resources.configuration)
+        applicationEntry.preferenceRepository.isDarkTheme = isOnDarkMode(resources.configuration)
         mPrevConfig = Configuration(resources.configuration)
 //        isDark(mPrevConfig!!)
 

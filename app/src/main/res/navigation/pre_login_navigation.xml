@@ -96,7 +96,7 @@
             <argument
                 android:name="token"
                 app:argType="string"
-                app:nullable="false" />
+                app:nullable="false" /> 
 
         </action>
 

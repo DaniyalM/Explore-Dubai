@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -118,7 +119,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         try {
             super.onCreate(savedInstanceState)
-        }catch (ex:Exception){
+        }catch (ex: Exception){
             back()
         }
 
@@ -190,6 +191,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                         is UiEvent.ShowToast -> {
                             showToast(event.message)
                         }
+                        is UiEvent.ShowToastByRId -> {
+                            showToast(getString(event.resourceId))
+                        }
                         is UiEvent.ShowLoader -> {
                             showLoader(event.show)
                         }
@@ -211,9 +215,11 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                             )
                         }
                         is UiEvent.ShowErrorDialog -> {
-                            EventUtilFunctions.showErrorDialog(event.message,
+                            EventUtilFunctions.showErrorDialog(
+                                event.message,
                                 colorBg = event.colorBg,
-                                context = activity)
+                                context = activity
+                            )
                         }
                         is UiEvent.NavigateByActionNavOption -> {
                             navigateByActionNavOptions(
@@ -291,6 +297,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
 
     fun setLanguage(locale: Locale) {
         (activity as BaseActivity).setLanguage(locale)
+        val intent = (activity as BaseActivity).intent
+        (activity as BaseActivity).finish()
+        startActivity(intent)
     }
 
     fun getCurrentLanguage(): Locale {

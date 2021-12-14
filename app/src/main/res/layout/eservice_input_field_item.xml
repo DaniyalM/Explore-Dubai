@@ -21,20 +21,33 @@
 <!--        android:onTextChanged="@{field_class::onTextChange}"-->
 
 
-        <com.dubaiculture.ui.components.customtextview.CustomTextView
+
+        <com.dubaiculture.ui.components.customEditText.CustomEditText
+            android:layout_width="wrap_content"
             style="@style/EditTextStyleServices"
-            android:hint="@{data.english}"
-            android:id="@+id/text"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_20sdp"
+            android:hint="@{data.english}"
             android:layout_marginEnd="@dimen/_24sdp"
             android:layout_marginBottom="@dimen/_8sdp"
-            android:text="@{data.selectedValue}"
-            android:inputType="textNoSuggestions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-         />
+            android:id="@+id/text"
+            android:gravity="center"/>
+
+<!--        <com.dubaiculture.ui.components.customtextview.CustomTextView-->
+<!--            style="@style/EditTextStyleServices"-->
+<!--            android:hint="@{data.english}"-->
+<!--            android:id="@+id/text"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginStart="@dimen/_24sdp"-->
+<!--            android:layout_marginTop="@dimen/_20sdp"-->
+<!--            android:layout_marginEnd="@dimen/_24sdp"-->
+<!--            android:layout_marginBottom="@dimen/_8sdp"-->
+<!--            android:text="@{data.selectedValue}"-->
+<!--            android:inputType="textNoSuggestions"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--         />-->
     </FrameLayout>
 
 

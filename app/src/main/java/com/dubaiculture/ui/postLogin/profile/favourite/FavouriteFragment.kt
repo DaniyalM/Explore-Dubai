@@ -186,6 +186,10 @@ class FavouriteFragment : BaseFragment<FragmentFavouriteBinding>() {
                             )
                         )
                     }
+
+                    override fun onUrlClick(service: EService?) {
+                        TODO("Not yet implemented")
+                    }
                 })
 
                 adapter = popularServiceListAdapter

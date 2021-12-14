@@ -31,6 +31,8 @@
     <string name="login">Login</string>
     <string name="register">Sign Up</string>
     <string name="welcome_to_dubai_culture">Welcome To Dubai Culture</string>
+    <string name="welcome_to">Welcome to</string>
+
     <string name="sign_up">Sign Up ?</string>
     <string name="forgot_password">Forgot Password?</string>
 
@@ -201,6 +203,7 @@
     <string name="festivals">Festivals</string>
     <string name="libraries">Libraries</string>
     <string name="view_gallery">View Gallery</string>
+    <string name="review">Review</string>
     <string name="reviews">Reviews</string>
     <string name="on_trip">on Trip Advisor</string>
     <string name="turn_on_your_location_to_view_nearby_events">Turn on your location to view nearby events</string>
@@ -411,5 +414,17 @@
     <string name="something_went_wrong">Something went wrong</string>
     <string name="make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again">Make sure wifi or mobile data is turned on and then try again</string>
     <string name="plan_your_trip_desc">Start planning and choose a range of different interests that would help you have best-personalized experience</string>
+    <string name="attach_your_ID">Attach your ID</string>
+    <string name="recentSearches">Recent Searches</string>
+
+    <string name="whatAreYourLooking">What are you looking for?</string>
+    <string name="success">Success</string>
+
+
+    <!-- Facebook keys -->
+
+    <string name="facebook_app_id">1249629708783017</string>
+
+    <string name="fb_login_protocol_scheme">fb1249629708783017</string>
 
 </resources>

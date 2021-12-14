@@ -9,7 +9,8 @@ enum class FieldsType(val id: Int, val valueType: String) {
     DATE(5, "Date"),
     TIME(6, "Time"),
     LABEL(7, "Label"),
-    INPUT_TEXT_MULTILINE(8, "Multiline");
+    INPUT_TEXT_MULTILINE(8, "Multiline"),
+    HINT(9, "Hint");
 
 
     companion object {

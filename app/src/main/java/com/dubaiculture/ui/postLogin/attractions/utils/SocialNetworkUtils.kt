@@ -4,10 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import androidx.fragment.app.Fragment
-import com.dubaiculture.BuildConfig
-import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragment
 import com.dubaiculture.ui.postLogin.attractions.detail.AttractionDetailFragmentDirections
 import com.dubaiculture.ui.postLogin.events.detail.EventDetailFragment
@@ -19,53 +16,79 @@ import com.dubaiculture.ui.postLogin.more.contact.ContactFragmentDirections
 object SocialNetworkUtils {
     fun openUrl(
         url: String, context: Activity,
-        isFacebook:Boolean=false,
-        isTwitter:Boolean=false,
-        isLinkedIn:Boolean=false,
-        isInstagram:Boolean=false,
-        isYoutube:Boolean=false,
-        isWeb:Boolean=false,
-        fragment:Fragment ?= null
+        isFacebook: Boolean = false,
+        isTwitter: Boolean = false,
+        isLinkedIn: Boolean = false,
+        isInstagram: Boolean = false,
+        isYoutube: Boolean = false,
+        isWeb: Boolean = false,
+        fragment: Fragment? = null
 
     ) {
-
+        var URL = url
         Intent(Intent.ACTION_VIEW).apply {
-            var URL = url
+
             if (URL == "null" || URL.isEmpty()) {
-                if (isFacebook){ URL="https://www.facebook.com/DubaiCulture/" }
-                if (isTwitter){ URL="https://twitter.com/DubaiCulture" }
-                if (isInstagram){ URL="https://www.instagram.com/dubaiculture/" }
-                if (isLinkedIn){ URL="https://www.linkedin.com/company/dubai-culture-&-arts-authority/" }
-                if (isYoutube){ URL="https://www.youtube.com/user/DubaiCulture" }
-                if (isWeb){ URL=url }
+
+                if (isInstagram) {
+                    URL = "https://www.instagram.com/dubaiculture/"
+                }
+                if (isLinkedIn) {
+                    URL = "https://www.linkedin.com/company/dubai-culture-&-arts-authority/"
+                }
+                if (isWeb) {
+                    URL = url
+                }
+                if ((isFacebook||isTwitter||isYoutube) && resolveActivity(context.packageManager) != null) {
+                    if (isFacebook) {
+                        URL = "https://www.facebook.com/DubaiCulture/"
+                    }
+                    if (isTwitter) {
+                        URL = "https://twitter.com/DubaiCulture"
+                    }
+                    if (isYoutube) {
+                        URL = "https://www.youtube.com/user/DubaiCulture"
+                    }
+                    data = Uri.parse(URL)
+                    context.startActivity(this)
+                }else{
+                    when (fragment) {
+                        is AttractionDetailFragment -> {
+                            fragment.navigateByDirections(
+                                AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
+                                    URL, false
+                                )
+                            )
+                        }
+                        is ContactFragment -> {
+                            fragment.navigateByDirections(
+                                ContactFragmentDirections.actionContactFragmentToWebviewFragment(
+                                    URL,
+                                    false
+                                )
+                            )
+                        }
+                        is EventDetailFragment -> {
+                            fragment.navigateByDirections(
+                                EventDetailFragmentDirections.actionEventDetailFragment2ToWebViewNavigation(
+                                    URL,
+                                    false
+                                )
+                            )
+                        }
+                    }
+
+                }
+            }else {
+                data = Uri.parse(URL)
+                context.startActivity(this)
             }
 
-            data = Uri.parse(URL)
-//            when(fragment){
-//                is AttractionDetailFragment ->{
-//                    fragment.navigateByDirections(
-//                        AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
-//                            URL,false
-//                        )
-//                    )
-//                }
-//                is ContactFragment ->{
-//                    fragment. navigateByDirections(
-//                        ContactFragmentDirections.actionContactFragmentToWebviewFragment(
-//                        URL,
-//                        false
-//                    ))
-//                }
-//                is EventDetailFragment ->{
-//                    fragment.navigateByDirections(
-//                        EventDetailFragmentDirections.actionEventDetailFragment2ToWebViewNavigation(
-//                        URL,
-//                        false
-//                    ))
-//                }
-//            }
 
-            context.startActivity(this)
+
+
+
+
 
         }
 
@@ -94,9 +117,9 @@ object SocialNetworkUtils {
                 openUrl("fb://facewebmodal/f?href=${faceBookUrl}", context)
             } else {
                 openUrl("fb://page/DubaiCulture", context)
-        }
+            }
         } catch (ex: PackageManager.NameNotFoundException) {
-            openUrl("fb://facewebmodal/f?href=${faceBookUrl}", context)
+            openUrl("", isFacebook = true, context = context)
         }
     }
 
