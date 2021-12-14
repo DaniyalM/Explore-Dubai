@@ -77,6 +77,8 @@
 
         <item name="color_login_edit_text_bg">@color/color_login_edit_text</item>
 
+        <!-- color_theme_color1_theme_color2       -->
+        <item name="color_light_purple_dark_white">@color/purple_650</item>
 
     </style>
 
@@ -183,9 +185,9 @@
         <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
     </style>
 
-<!--    <style name="MaterialAlertDialogText" parent="@style/MaterialAlertDialog.MaterialComponents.mess.Text">-->
-<!--        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>-->
-<!--    </style>-->
+    <!--    <style name="MaterialAlertDialogText" parent="@style/MaterialAlertDialog.MaterialComponents.mess.Text">-->
+    <!--        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>-->
+    <!--    </style>-->
 
 
 </resources>
