@@ -21,6 +21,7 @@
     <string name="password">ادخل كلمة السر </string>
     <string name="login">تسجيل الدخول</string>
     <string name="register">التسجيل</string>
+    <string name="welcome_to">أهلا بك في</string>
     <string name="welcome_to_dubai_culture">مرحبا بك في هيئة دبي للثقافة والفنون</string>
     <string name="sign_up">تسجيل جديد؟</string>
     <string name="forgot_password"> نسيت كلمة السر؟</string>
