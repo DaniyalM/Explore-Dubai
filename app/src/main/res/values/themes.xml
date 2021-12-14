@@ -77,9 +77,10 @@
 
         <item name="color_login_edit_text_bg">@color/color_login_edit_text</item>
 
-        <!-- color_theme_color1_theme_color2       -->
         <item name="color_pyt_purple_light">@color/purple_650</item>
         <item name="color_pyt_orange_light">@color/orange</item>
+
+        <item name="color_ambient_shadow">@color/gray_600</item>
 
     </style>
 
