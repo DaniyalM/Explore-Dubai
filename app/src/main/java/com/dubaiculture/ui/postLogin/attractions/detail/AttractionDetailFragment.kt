@@ -195,7 +195,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         binding.root.apply {
             attraction.let {
                 binding.attractionDetailInnerLayout.tvReviews.text =
-                    "${resources.getString(R.string.reviews)} ${it.title} ${
+                    "${resources.getString(R.string.review)} ${it.title} ${
                         resources.getString(
                             R.string.on_trip
                         )
