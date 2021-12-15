@@ -30,10 +30,12 @@ android {
         applicationId "com.dubaiculture"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 2
+        versionCode 903
         versionName "9.0"
         multiDexEnabled true //add this line in the defaultConfig
-
+        ndk {
+            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [appAuthRedirectScheme: 'com.redirectScheme.comm']
         kapt {
@@ -41,6 +43,7 @@ android {
                 arg("room.schemaLocation", "$projectDir/schemas")
             }
         }
+
 
         //UAE PASS START -- Adding Custom Scheme Variables
         buildConfigField "String", "URI_SCHEME", "\"uaePassDemo\"" // Change to your app name or any custom scheme. Donot use uaepasssample
@@ -72,10 +75,10 @@ android {
             keyPassword "dc123dc"
         }
         prodConfig {
-            storeFile file("../certificates/dcprodks.jks")
-            storePassword "dcprodks12"
-            keyAlias "dcprod"
-            keyPassword "dcprodks12"
+            storeFile file("../certificates/DubaiCulture.keystore")
+            storePassword "dubaiculture"
+            keyAlias "dubaiculture"
+            keyPassword "dubaiculture"
         }
     }
     buildTypes {
