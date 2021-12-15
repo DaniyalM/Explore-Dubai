@@ -203,7 +203,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 navigateByDirections(
                     ContactFragmentDirections.actionContactFragmentToWebviewFragment(
                         contactCenterReach.websiteContent,
-                        false
+                        false,contactCenterReach.websiteTitle
                     )
                 )
             }

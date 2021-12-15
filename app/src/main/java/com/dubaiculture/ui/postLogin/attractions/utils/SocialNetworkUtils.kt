@@ -22,8 +22,8 @@ object SocialNetworkUtils {
         isInstagram: Boolean = false,
         isYoutube: Boolean = false,
         isWeb: Boolean = false,
-        fragment: Fragment? = null
-
+        fragment: Fragment? = null,
+        title: String? = ""
     ) {
         var URL = url
         Intent(Intent.ACTION_VIEW).apply {
@@ -39,7 +39,7 @@ object SocialNetworkUtils {
                 if (isWeb) {
                     URL = url
                 }
-                if ((isFacebook||isTwitter||isYoutube) && resolveActivity(context.packageManager) != null) {
+                if ((isFacebook || isTwitter || isYoutube) && resolveActivity(context.packageManager) != null) {
                     if (isFacebook) {
                         URL = "https://www.facebook.com/DubaiCulture/"
                     }
@@ -51,43 +51,36 @@ object SocialNetworkUtils {
                     }
                     data = Uri.parse(URL)
                     context.startActivity(this)
-                }else{
+                } else {
                     when (fragment) {
                         is AttractionDetailFragment -> {
                             fragment.navigateByDirections(
                                 AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
-                                    URL, false
+                                    URL, false, title
                                 )
                             )
                         }
                         is ContactFragment -> {
                             fragment.navigateByDirections(
                                 ContactFragmentDirections.actionContactFragmentToWebviewFragment(
-                                    URL,
-                                    false
+                                    URL, false, title
                                 )
                             )
                         }
                         is EventDetailFragment -> {
                             fragment.navigateByDirections(
                                 EventDetailFragmentDirections.actionEventDetailFragment2ToWebViewNavigation(
-                                    URL,
-                                    false
+                                    URL, false, title
                                 )
                             )
                         }
                     }
 
                 }
-            }else {
+            } else {
                 data = Uri.parse(URL)
                 context.startActivity(this)
             }
-
-
-
-
-
 
 
         }

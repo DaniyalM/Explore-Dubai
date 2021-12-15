@@ -191,7 +191,9 @@
                 android:name="is_pdf"
                 app:argType="boolean"
                 app:nullable="false" />
-
+            <argument
+                android:name="title"
+                app:argType="string" />
         </action>
     </fragment>
     <fragment
@@ -220,6 +222,9 @@
                 android:name="is_pdf"
                 app:argType="boolean"
                 app:nullable="false" />
+            <argument
+                android:name="title"
+                app:argType="string" />
 
         </action>
     </fragment>
