@@ -17,13 +17,12 @@
 
         <ImageView
             android:id="@+id/iv_dropdown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{()->view.onBackPressed()}"
-            android:paddingHorizontal="@dimen/_6sdp"
             android:src="@drawable/ic_twotone_keyboard_arrow_down_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
