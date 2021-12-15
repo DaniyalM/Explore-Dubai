@@ -232,6 +232,15 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
+    fun isDurationSelected(): Boolean {
+        _duration.value?.filter { duration ->
+            duration.isSelected
+        }?.let {
+            if (it.isNotEmpty()) return true
+        }
+        return false
+    }
+
     fun postEventAttraction() {
 
         val eventAttractionRequest: EventAttractionRequest = EventAttractionRequest(
