@@ -1,5 +1,7 @@
 package com.dubaiculture.ui.postLogin.plantrip.steps.step4
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -18,6 +20,7 @@ import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.EditDurationAdapter
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
+import com.dubaiculture.utils.ColorUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +34,27 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
     private lateinit var editDurationList: Durations
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
     private lateinit var editDurationAdapter: EditDurationAdapter
+
+    var states = arrayOf(
+        intArrayOf(android.R.attr.state_enabled),
+        intArrayOf(-android.R.attr.state_enabled),
+        intArrayOf(-android.R.attr.state_checked),
+        intArrayOf(android.R.attr.state_pressed)
+    )
+
+    var colors = intArrayOf(
+        Color.WHITE,
+        Color.WHITE,
+        Color.WHITE,
+        Color.WHITE
+    )
+
+    var unSelectedStates = arrayOf(
+        intArrayOf(android.R.attr.state_enabled),
+        intArrayOf(-android.R.attr.state_enabled),
+        intArrayOf(-android.R.attr.state_checked),
+        intArrayOf(android.R.attr.state_pressed)
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -102,6 +126,13 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
     private fun setData(duration: Duration) {
         binding.data = duration
 
+        var unSelectedColors = intArrayOf(
+            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
+        )
+
         when (duration.isDay) {
             0 -> {
                 binding.btnDay.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_day)
@@ -121,12 +152,17 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
                 binding.btnDay.icon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_day_selected)
 
+                binding.btnDay.iconTint = ColorStateList(states, colors)
+
                 binding.btnDay.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.purple_650)
                 )
 
                 binding.btnNight.icon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_night)
+
+                binding.btnNight.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                 binding.btnNight.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.transparent)
@@ -135,12 +171,16 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
             2 -> {
                 binding.btnNight.icon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_night_selected)
+                binding.btnNight.iconTint = ColorStateList(states, colors)
 
                 binding.btnNight.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.purple_650)
                 )
 
                 binding.btnDay.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_day)
+
+                binding.btnDay.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                 binding.btnDay.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.transparent)
