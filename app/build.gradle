@@ -17,6 +17,7 @@ def config = rootProject.extensions.getByName("ext")
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
+    ndkVersion "23.1.7779620"
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
@@ -30,12 +31,13 @@ android {
         applicationId "com.dubaiculture"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 903
+        versionCode 904
         versionName "9.0"
+        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
         multiDexEnabled true //add this line in the defaultConfig
-        ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
-        }
+//        ndk {
+//            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+//        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [appAuthRedirectScheme: 'com.redirectScheme.comm']
         kapt {
