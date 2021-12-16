@@ -60,7 +60,6 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
         binding.viewModel = tripSharedViewModel
-        setupRV()
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -73,6 +72,8 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
 
         tripSharedViewModel.addDurationList.observe(viewLifecycleOwner) {
             editDurationList = it
+            setupRV()
+
         }
         tripSharedViewModel.durationSummary.observe(viewLifecycleOwner) {
             tripSharedViewModel._duration.value = it
@@ -115,7 +116,8 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
                     }
 
                 }
-            )
+            ,
+            editDurationList)
             adapter = editDurationAdapter
 
 

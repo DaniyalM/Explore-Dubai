@@ -63,7 +63,6 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
         binding.viewModel = tripSharedViewModel
-        setupRV()
 
     }
 
@@ -88,7 +87,7 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
                     }
 
                 }
-            )
+            ,addDurationList)
             adapter = durationAdapter
 
 
@@ -99,11 +98,14 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeToObservables()
+
     }
 
     private fun subscribeToObservables() {
         tripSharedViewModel.addDurationList.observe(viewLifecycleOwner) {
             addDurationList = it
+            setupRV()
+
         }
 
         tripSharedViewModel.duration.observe(viewLifecycleOwner) {
