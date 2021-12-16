@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.view.View" />
+
         <import type="com.dubaiculture.R" />
 
         <variable
@@ -194,8 +195,9 @@
             app:layout_constraintTop_toBottomOf="@id/tvHeading"
             tools:listitem="@layout/item_duration_summary" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnShowPlan"
+            style="@style/selectedButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_12sdp"
@@ -206,14 +208,12 @@
             android:gravity="center"
             android:onClick="@{()->viewModel.postEventAttraction()}"
             android:text="@string/show_my_plan"
-            android:backgroundTint="@android:color/white"
             android:textAllCaps="false"
-            style="@style/selectedButtonStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-<!--        android:background="@{viewModel._durationSummary.size() != 0 ?  @drawable/btn_register :@drawable/my_event_btn_enable}"-->
+        <!--        android:background="@{viewModel._durationSummary.size() != 0 ?  @drawable/btn_register :@drawable/my_event_btn_enable}"-->
         <!--        <Button-->
         <!--            android:id="@+id/btnShowPlan"-->
         <!--            style="?attr/materialButtonOutlinedStyle"-->
