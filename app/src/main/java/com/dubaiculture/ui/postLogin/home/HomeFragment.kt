@@ -75,7 +75,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             navigateByDirections(
                 HomeFragmentDirections.actionHomeFragmentToWebviewFragment(
                     if (getCurrentLanguage() != Locale.ENGLISH) BuildConfig.CHAT_BOT_URL_AR else BuildConfig.CHAT_BOT_URL_EN,
-                    false
+                    false, "Chat Bot"
                 )
             )
 

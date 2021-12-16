@@ -32,6 +32,7 @@ import com.dubaiculture.databinding.FragmentAttractionDetailBinding
 import com.dubaiculture.databinding.ToolbarLayoutDetailBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.attractions.detail.viewmodels.AttractionDetailViewModel
+import com.dubaiculture.ui.postLogin.attractions.utils.SocialLink
 import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.getFacebookPage
 import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.openUrl
 import com.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
@@ -447,7 +448,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     attraction.socialLink?.get(0)!!.instagramPageLink,
                     activity,
                     isInstagram = true,
-                    fragment = this
+                    fragment = this,
+                    title = SocialLink.INSTAGRAM.title
                 )
             }
             detailInnerLayout.imgTwitterAttraction.setOnClickListener {
@@ -455,7 +457,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     attraction.socialLink?.get(0)!!.twitterPageLink,
                     activity,
                     isTwitter = true,
-                    fragment = this
+                    fragment = this,
+                    title = SocialLink.TWITTER.title
                 )
             }
             detailInnerLayout.imgYoutube.setOnClickListener {
@@ -463,7 +466,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     attraction.socialLink?.get(0)!!.youtubePageLink,
                     activity,
                     isYoutube = true,
-                    fragment = this
+                    fragment = this,
+                    title = SocialLink.YOUTUBE.title
                 )
             }
             detailInnerLayout.imgLinkedinAttraction.setOnClickListener {
@@ -471,7 +475,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                     attraction.socialLink?.get(0)!!.linkedInPageLink,
                     activity,
                     isLinkedIn = true,
-                    fragment = this
+                    fragment = this,
+                    title = SocialLink.LINKEDIN.title
                 )
             }
 
@@ -824,7 +829,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
             R.id.cardview_plan_trip -> {
                 navigateByDirections(
                     AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
-                        tripAdvisorLink.toString(), false
+                        tripAdvisorLink.toString(), false, "TripAdvisor"
                     )
                 )
             }
@@ -889,7 +894,8 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 
                 }
 
-                detailInnerLayout.tvKm.text = "$localizedDistance ${resources.getString(R.string.away)}"
+                detailInnerLayout.tvKm.text =
+                    "$localizedDistance ${resources.getString(R.string.away)}"
             }
         } catch (e: java.lang.NumberFormatException) {
         }

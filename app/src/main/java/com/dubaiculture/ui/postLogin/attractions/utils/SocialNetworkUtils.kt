@@ -23,7 +23,7 @@ object SocialNetworkUtils {
         isYoutube: Boolean = false,
         isWeb: Boolean = false,
         fragment: Fragment? = null,
-        title: String? = ""
+        title: String = ""
     ) {
         var URL = url
         Intent(Intent.ACTION_VIEW).apply {
@@ -107,9 +107,15 @@ object SocialNetworkUtils {
             val versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode
 
             if (versionCode >= 3002850) {
-                openUrl("fb://facewebmodal/f?href=${faceBookUrl}", context)
+                openUrl(
+                    "fb://facewebmodal/f?href=${faceBookUrl}", context,
+                    title = SocialLink.FACEBOOK.title
+                )
             } else {
-                openUrl("fb://page/DubaiCulture", context)
+                openUrl(
+                    "fb://page/DubaiCulture", context,
+                    title = SocialLink.FACEBOOK.title
+                )
             }
         } catch (ex: PackageManager.NameNotFoundException) {
             openUrl("", isFacebook = true, context = context)
