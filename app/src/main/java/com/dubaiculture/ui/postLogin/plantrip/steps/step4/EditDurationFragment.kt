@@ -203,7 +203,6 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
     }
 
     fun onItemSelected(duration: Duration) {
-
         binding.checkBoxRepeat.isChecked = false
         tripSharedViewModel.updateDurationList(duration.copy(isSelected = !duration.isSelected))
 
@@ -228,9 +227,11 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
     }
 
     fun onDeleteClicked() {
+        if (tripSharedViewModel.isDurationSelected()) {
+            navigate(R.id.action_edit_duration_to_deleteBottomSheetFragment)
+            binding.checkBoxRepeat.isChecked = false
+        }
 
-        binding.checkBoxRepeat.isChecked = false
-        navigate(R.id.action_edit_duration_to_deleteBottomSheetFragment)
     }
 
 

@@ -147,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_2sdp"
             android:text="@string/step1"
-            android:textColor="@color/purple_text_tint"
+            android:textColor="?attr/color_pyt_purple_light"
             app:layout_constraintStart_toStartOf="@id/chip_trip"
             app:layout_constraintTop_toBottomOf="@id/ivStep1" />
 
