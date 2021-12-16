@@ -52,13 +52,18 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
     }
 
     private fun subscribeToObservables() {
-        step4ViewModel.durations.observe(viewLifecycleOwner){
+        step4ViewModel.durations.observe(viewLifecycleOwner) {
             tripSharedViewModel.addDurations(it)
         }
 
         tripSharedViewModel.durationSummary.observe(viewLifecycleOwner) {
-            if (it != null)
-                durationSummaryAdapter.submitList(it)
+            if (it != null) {
+                if (it[0].hour == "24 Hour") {
+                    tripSharedViewModel.postEventAttraction()
+                } else {
+                    durationSummaryAdapter.submitList(it)
+                }
+            }
         }
 
 

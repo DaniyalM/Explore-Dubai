@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.Duration
+import com.dubaiculture.data.repository.trip.local.Durations
 import com.dubaiculture.databinding.ItemDurationBinding
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.dubaiculture.utils.ColorUtil
 
-class DurationAdapter(val rowClickListener: DurationClickListener) :
+class DurationAdapter(val rowClickListener: DurationClickListener,val addDurationList: Durations) :
     ListAdapter<Duration, DurationAdapter.DurationViewHolder>(
         DurationAdapter.DurationDiffCallback()
     ) {
@@ -130,6 +131,11 @@ class DurationAdapter(val rowClickListener: DurationClickListener) :
         fun showMenu(v: View, @MenuRes menuRes: Int) {
             val popup = PopupMenu(v.context, v)
             popup.menuInflater.inflate(menuRes, popup.menu)
+
+            addDurationList.hoursList.forEach {
+                popup.menu.add(it.duration)
+            }
+
 
             popup.setOnMenuItemClickListener { menuItem: MenuItem ->
                 rowClickListener.rowClickListener(binding.data!!.copy(hour = menuItem.title.toString()))

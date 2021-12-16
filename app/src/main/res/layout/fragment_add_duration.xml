@@ -52,29 +52,29 @@
 
             <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tvDate"
-                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:fontFamily="@font/neosansarabicmedium"
                 android:text="@{data.dayDate.substring(0,2)}"
                 android:textColor="?attr/color_pyt_purple_light"
                 android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/tvDateMonth"
                 app:layout_constraintStart_toStartOf="@id/tvDateMonth"
-                app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading"
+                app:textFont="bold" />
 
             <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tvDateMonth"
-                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/neosansarabicmedium"
                 android:text="@{data.dayDate.substring(3)}"
                 android:textColor="?attr/color_pyt_orange_light"
                 android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
-                app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDate"
+                app:textFont="bold" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDay"
@@ -140,7 +140,7 @@
                 android:layout_height="0.2dp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/gray_750"
+                android:background="@color/gray_400"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvDateMonth"
                 app:layout_constraintTop_toBottomOf="@+id/tvDateMonth" />
@@ -151,7 +151,7 @@
                 android:layout_height="0dp"
                 android:layout_marginVertical="@dimen/_2sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:background="@color/gray_750"
+                android:background="@color/gray_400"
                 app:layout_constraintBottom_toBottomOf="@id/btnDay"
                 app:layout_constraintEnd_toStartOf="@id/btnDay"
                 app:layout_constraintTop_toTopOf="@+id/btnDay" />

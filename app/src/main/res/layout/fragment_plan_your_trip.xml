@@ -65,8 +65,9 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView4"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_230sdp"
+            android:layout_height="0dp"
             android:background="@drawable/bottom_bg_login"
+            android:layout_marginTop="@dimen/_30sdp"
             android:onClick="@{()->view.onBottomSheetClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +84,7 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:text="@string/my_trips"
             android:onClick="@{()->view.onMyTripClicked()}"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="@color/white_900"
             app:chipBackgroundColor="@color/purple_trip_chip"
             app:chipEndPadding="@dimen/_10sdp"
             app:chipIcon="@drawable/ic_chip_trip"
@@ -139,17 +140,18 @@
             android:src="@drawable/ic_trip_user"
             app:layout_constraintEnd_toEndOf="@id/tvStep1"
             app:layout_constraintStart_toStartOf="@id/tvStep1"
-            app:layout_constraintTop_toTopOf="@id/imageView4" />
+            app:layout_constraintBottom_toTopOf="@id/tvStep1" />
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvStep1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:text="@string/step1"
             android:textColor="?attr/color_pyt_purple_light"
             app:layout_constraintStart_toStartOf="@id/chip_trip"
-            app:layout_constraintTop_toBottomOf="@id/ivStep1" />
+            app:layout_constraintBottom_toTopOf="@id/ivProgress" />
 
         <ImageView
             android:id="@+id/ivStep2"
@@ -216,19 +218,21 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_2sdp"
             android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:background="@color/progress_color"
             app:layout_constraintEnd_toEndOf="@id/tvStep1"
             app:layout_constraintStart_toStartOf="@id/tvStep1"
-            app:layout_constraintTop_toBottomOf="@id/tvStep1" />
+            app:layout_constraintBottom_toTopOf="@id/tvima" />
 
         <View
             android:id="@+id/viewLine"
             android:layout_width="0dp"
             android:layout_height="@dimen/_2sdp"
             android:background="@drawable/line_light_gray"
+            android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivProgress" />
+            app:layout_constraintBottom_toTopOf="@id/tvima" />
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvima"
@@ -236,20 +240,21 @@
             android:layout_height="wrap_content"
             android:text="@string/ima"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_22sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintBottom_toTopOf="@id/cvUser"
             app:layout_constraintStart_toStartOf="@+id/tvStep1"
-            app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+            />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvUser"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_35sdp"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="@dimen/_8sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/iv_close"
             app:layout_constraintStart_toStartOf="@id/chip_trip">
 
