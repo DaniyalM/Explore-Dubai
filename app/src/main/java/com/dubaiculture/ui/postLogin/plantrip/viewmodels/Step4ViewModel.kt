@@ -10,6 +10,7 @@ import com.dubaiculture.data.repository.trip.TripRepository
 import com.dubaiculture.data.repository.trip.local.Durations
 import com.dubaiculture.data.repository.trip.local.EventAttractions
 import com.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
+import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
@@ -23,6 +24,7 @@ class Step4ViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val tripRepository: TripRepository
 ) : BaseViewModel(application) {
+    private val context = getApplication<ApplicationEntry>()
 
     private val _durations: MutableLiveData<Durations> = MutableLiveData()
     val durations: LiveData<Durations> = _durations
@@ -37,7 +39,7 @@ class Step4ViewModel @Inject constructor(
     fun getDurations() {
         viewModelScope.launch {
             showLoader(true)
-            val result = tripRepository.getDurations()
+            val result = tripRepository.getDurations(context.auth.locale.toString())
             when (result) {
                 is Result.Success -> {
                     showLoader(false)

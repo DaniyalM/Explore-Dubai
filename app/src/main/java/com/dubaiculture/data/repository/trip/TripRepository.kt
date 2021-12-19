@@ -15,6 +15,7 @@ import com.dubaiculture.data.repository.trip.remote.request.EventAttractionReque
 import com.dubaiculture.data.repository.trip.remote.request.SaveTripRequest
 import com.dubaiculture.data.repository.trip.remote.response.DirectionResponse
 import com.dubaiculture.data.repository.trip.remote.response.DistanceMatrixResponse
+import com.dubaiculture.data.repository.trip.remote.response.MyTripCountResponse
 import com.dubaiculture.data.repository.trip.remote.response.SaveTripResponse
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
@@ -29,8 +30,8 @@ class TripRepository @Inject constructor(
 ) :
     BaseRepository() {
 
-    suspend fun getUserType(): Result<UserTypes> =
-        when (val resultRds = tripRDS.getUserType()) {
+    suspend fun getUserType(culture: String): Result<UserTypes> =
+        when (val resultRds = tripRDS.getUserType(culture)) {
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
                     Result.Success(transformUserType(resultRds.value.userTypeResponseDTO))
@@ -42,8 +43,8 @@ class TripRepository @Inject constructor(
             is Result.Failure -> resultRds
         }
 
-    suspend fun getInterestedIn(): Result<Event<InterestedIn>> =
-        when (val resultRds = tripRDS.getInterestedIn()) {
+    suspend fun getInterestedIn(culture: String): Result<Event<InterestedIn>> =
+        when (val resultRds = tripRDS.getInterestedIn(culture)) {
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
                     Result.Success(Event(transformInterestedIn(resultRds.value.interestedInResponseDTO)))
@@ -55,8 +56,8 @@ class TripRepository @Inject constructor(
             is Result.Failure -> resultRds
         }
 
-    suspend fun getNearestLocation(): Result<NearestLocation> =
-        when (val resultRds = tripRDS.getNearestLocation()) {
+    suspend fun getNearestLocation(culture: String): Result<NearestLocation> =
+        when (val resultRds = tripRDS.getNearestLocation(culture)) {
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
                     Result.Success(transformNearestLocation(resultRds.value.nearestLocationResponseDTO))
@@ -68,8 +69,8 @@ class TripRepository @Inject constructor(
             is Result.Failure -> resultRds
         }
 
-    suspend fun getDurations(): Result<Durations> =
-        when (val resultRds = tripRDS.getDurations()) {
+    suspend fun getDurations(culture: String): Result<Durations> =
+        when (val resultRds = tripRDS.getDurations(culture)) {
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
                     Result.Success(transformDurations(resultRds.value.durationResponseDTO))
@@ -175,5 +176,18 @@ class TripRepository @Inject constructor(
             is Result.Failure -> resultRds
         }
 
+
+    suspend fun getTripCount(culture: String): Result<MyTripCountResponse> =
+        when (val resultRds = tripRDS.getTripCount(culture)) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success((resultRds.value))
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Error -> resultRds
+            is Result.Failure -> resultRds
+        }
 
 }

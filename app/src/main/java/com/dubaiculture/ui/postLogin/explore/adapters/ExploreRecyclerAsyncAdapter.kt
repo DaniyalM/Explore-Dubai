@@ -273,6 +273,8 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                 holder.itemView.binding?.cardviewPlanTrip?.setOnClickListener {
                     if (!isGuest!!) {
                         fragment?.navigate(R.id.action_exploreFragment_to_plantrip_navigation)
+                    }else{
+                        fragment?.navigateByDirections(ExploreFragmentDirections.actionExploreFragmentToPostLoginFragment())
                     }
                 }
 

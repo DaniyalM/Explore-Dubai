@@ -21,20 +21,20 @@ class TripRDS @Inject constructor(
     private val mapService: MapService
 ) : BaseRDS() {
 
-    suspend fun getUserType(): Result<UserTypeResponse> = safeApiCall {
-        tripService.getUserType()
+    suspend fun getUserType(culture: String): Result<UserTypeResponse> = safeApiCall {
+        tripService.getUserType(culture)
     }
 
-    suspend fun getInterestedIn(): Result<InterestedInResponse> = safeApiCall {
-        tripService.getInterestedIn()
+    suspend fun getInterestedIn(culture: String): Result<InterestedInResponse> = safeApiCall {
+        tripService.getInterestedIn(culture)
     }
 
-    suspend fun getNearestLocation(): Result<NearestLocationResponse> = safeApiCall {
-        tripService.getNearestLocation()
+    suspend fun getNearestLocation(culture: String): Result<NearestLocationResponse> = safeApiCall {
+        tripService.getNearestLocation(culture)
     }
 
-    suspend fun getDurations(): Result<DurationResponse> = safeApiCall {
-        tripService.getDurations()
+    suspend fun getDurations(culture: String): Result<DurationResponse> = safeApiCall {
+        tripService.getDurations(culture)
     }
 
     suspend fun postEventAttraction(eventAttractionRequestDTO: EventAttractionRequestDTO): Result<EventAttractionResponse> =
@@ -70,9 +70,14 @@ class TripRDS @Inject constructor(
             tripService.getTripDetails(tripId, culture)
         }
 
-    suspend fun deleteTrip(tripId:String): Result<SaveTripResponse> =
+    suspend fun deleteTrip(tripId: String): Result<SaveTripResponse> =
         safeApiCall {
             tripService.deleteTrip(tripId)
+        }
+
+    suspend fun getTripCount(culture: String): Result<MyTripCountResponse> =
+        safeApiCall {
+            tripService.getTripCount(culture)
         }
 
 }

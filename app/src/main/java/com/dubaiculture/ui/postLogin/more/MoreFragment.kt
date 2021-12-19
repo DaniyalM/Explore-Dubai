@@ -413,8 +413,13 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 navigate(R.id.action_moreFragment_to_aboutFragment)
             }
             R.id.cardivewRTL -> {
-                if (!application.auth.isGuest)
+                if (!application.auth.isGuest) {
                     navigateByDirections(MoreFragmentDirections.actionMoreFragmentToTripFragment())
+                }
+                else{
+                    navigateByDirections(MoreFragmentDirections.actionMoreFragmentToPostLoginBottomNavigation())
+                }
+
 //                navigate(R.id.action_moreFragment_to_tripFragment)
             }
             R.id.search -> {

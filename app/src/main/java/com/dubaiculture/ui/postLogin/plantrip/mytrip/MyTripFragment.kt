@@ -88,9 +88,9 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                 currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
 
             hashMap["destination"] =
-                list[0].latitude + "," + list[0].longitude
+                list.last().latitude + "," + list.last().longitude
 
-            list.subList(1, list.size).map {
+            list.subList(0, list.size-1).map {
                 hashMap["waypoints"] = it.latitude + "," + it.longitude
             }
 

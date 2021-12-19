@@ -7,48 +7,38 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.trip.TripRepository
-import com.dubaiculture.data.repository.trip.local.LocationNearest
-import com.dubaiculture.data.repository.trip.local.NearestLocation
+import com.dubaiculture.data.repository.trip.local.MyTripCount
+import com.dubaiculture.data.repository.trip.mapper.transformMyTripCount
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants
+import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 @HiltViewModel
-class Step3ViewModel @Inject constructor(
+class PlanYourTripViewModel @Inject constructor(
     application: Application,
     private val savedStateHandle: SavedStateHandle,
     private val tripRepository: TripRepository
 ) : BaseViewModel(application) {
-
     private val context = getApplication<ApplicationEntry>()
 
-
-    val _type: MutableLiveData<LocationNearest> = MutableLiveData()
-    val type: LiveData<LocationNearest> = _type
-
-
-    val _usersType: MutableLiveData<List<LocationNearest>> = MutableLiveData()
-    val usersType: LiveData<List<LocationNearest>> = _usersType
-
-    private val _nearestLocation: MutableLiveData<NearestLocation> = MutableLiveData()
-    val nearestLocation: LiveData<NearestLocation> = _nearestLocation
+    private val _tripCount: MutableLiveData<Event<Int>> = MutableLiveData()
+    val tripCount: LiveData<Event<Int>> = _tripCount
 
     init {
-        getNearestLocation()
+        getTripCount()
     }
 
-
-    private fun getNearestLocation() {
+    private fun getTripCount() {
         viewModelScope.launch {
             showLoader(true)
-            val result = tripRepository.getNearestLocation(context.auth.locale.toString())
+            val result = tripRepository.getTripCount(context.auth.locale.toString())
             when (result) {
                 is Result.Success -> {
                     showLoader(false)
-                    _nearestLocation.value = result.value
+                    _tripCount.value = Event(result.value.count.Count)
                 }
                 is Result.Error -> {
                     showLoader(false)
@@ -64,34 +54,5 @@ class Step3ViewModel @Inject constructor(
             }
         }
     }
-
-    fun updateUserItem(userType: LocationNearest) {
-        _type.value = userType
-    }
-
-    fun updateInUserTypeList(userType: LocationNearest) {
-
-        val data = _usersType.value ?: return
-        val updateData = updateToDefault(data)
-        updateData.map {
-            if (userType.locationId == it.locationId
-            ) return@map userType
-            else {
-                return@map it
-            }
-        }.let {
-
-            _usersType.value = it
-        }
-
-    }
-
-    private fun updateToDefault(data: List<LocationNearest>): List<LocationNearest> {
-        return data.map {
-            it.copy(isChecked = false)
-        }
-    }
-
-
 
 }

@@ -216,8 +216,8 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
         ),
         tripId = eventAttractionResponseDTO.TripID ?: "",
         dayAndNightTime = DANTime(
-            dayTime = eventAttractionResponseDTO.DayAndNightTime?.DayTime?:"",
-            nightTime = eventAttractionResponseDTO.DayAndNightTime?.NightTime?:""
+            dayTime = eventAttractionResponseDTO.DayAndNightTime?.DayTime ?: "",
+            nightTime = eventAttractionResponseDTO.DayAndNightTime?.NightTime ?: ""
         ),
         dateTimeFilter = eventAttractionResponseDTO.DateTimeFilter?.map {
             DTFilter(
@@ -225,7 +225,7 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
                 hours = it.Hours,
                 type = it.Type
             )
-        }?: mutableListOf()
+        } ?: mutableListOf()
     )
 
 fun transformSaveTripRequest(saveTripRequest: SaveTripRequest) =
@@ -250,6 +250,10 @@ fun transformMyTripResponse(trip: com.dubaiculture.data.repository.trip.remote.r
         name = trip.Name,
         startDate = trip.StartDate
     )
+
+fun transformMyTripCount(myTripCount: Int) = MyTripCount(
+    count = myTripCount
+)
 
 
 

@@ -46,7 +46,7 @@ class Step1ViewModel @Inject constructor(
     private fun getUserType() {
         viewModelScope.launch {
             showLoader(true)
-            val result = tripRepository.getUserType()
+            val result = tripRepository.getUserType(context.auth.locale.toString())
             when (result) {
                 is Result.Success -> {
                     showLoader(false)

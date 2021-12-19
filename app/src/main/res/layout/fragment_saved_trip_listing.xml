@@ -14,17 +14,17 @@
         android:layout_height="match_parent"
         tools:context=".ui.postLogin.plantrip.mytrip.SavedTripListingFragment">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/anim_registration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_repeatCount="0"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/registration"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:id="@+id/anim_registration"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            app:lottie_repeatCount="0"-->
+<!--            app:lottie_loop="true"-->
+<!--            app:lottie_rawRes="@raw/registration"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            />-->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_close"
             android:layout_width="@dimen/_30sdp"
