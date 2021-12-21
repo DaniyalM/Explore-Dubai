@@ -1,14 +1,14 @@
 package com.dubaiculture.ui.postLogin.eservices
 
-enum class FieldsTypeMode(val id: Int, val fieldType: String) {
-    INPUT_TEXT(0, "Label"),
-    INPUT_NUMBER(1, "Hint");
+enum class FieldType(val id: Int, val fieldType: String) {
+    LABEL(0, "Label"),
+    HINT(1, "Hint");
 
 
     companion object {
 
 
-        fun fromName(valueType: String): FieldsTypeMode {
+        fun fromName(valueType: String): FieldType {
             for (f in values()) {
                 if (f.fieldType == valueType) return f
             }

@@ -2,43 +2,44 @@ package com.dubaiculture.ui.postLogin.eservices
 
 import android.app.ActionBar
 import android.content.Context
+import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
+import com.dubaiculture.R
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
+import com.dubaiculture.ui.components.customEditText.CustomEditText
 import com.dubaiculture.ui.components.customtextview.CustomTextView
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 
 object FieldUtils {
 
-    fun createTextView(context: Context, fieldValueItem: GetFieldValueItem): TextView {
+    fun createTextView(context: Context, fieldValueItem: GetFieldValueItem): CustomTextView {
         val layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ActionBar.LayoutParams.WRAP_CONTENT
         )
-        val textView = CustomTextView(context, null)
+        val textView = CustomTextView(context)
         textView.id = fieldValueItem.id
         textView.text = fieldValueItem.english
         textView.layoutParams = layoutParams
-
         return textView
-
     }
 
-     fun createEditText(
+    fun createEditText(
         fieldValue: GetFieldValueItem,
         context: Context,
         fieldListener: FieldListener
-    ): EditText {
+    ): CustomEditText {
         val layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        val editText = EditText(context)
+        val editText = CustomEditText(context)
+
         editText.id = fieldValue.id
         editText.layoutParams = layoutParams
+        editText.hint = fieldValue.english
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }

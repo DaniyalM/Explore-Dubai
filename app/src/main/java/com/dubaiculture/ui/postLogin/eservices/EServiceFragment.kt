@@ -10,7 +10,6 @@ import com.dubaiculture.databinding.FragmentEserviceBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createEditText
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTextView
-import com.dubaiculture.ui.postLogin.eservices.adapter.NocListAdapter
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceSharedViewModel
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
@@ -18,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
-    private lateinit var nocListAdapter: NocListAdapter
     private val eServicesSharedViewModel: EServiceSharedViewModel by activityViewModels()
     private val eserviceViewModel: EServiceViewModel by viewModels()
 
@@ -33,7 +31,6 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         binding.include.back.setOnClickListener {
             back()
         }
-        initRv()
         subscribeToObservable()
     }
 
@@ -51,46 +48,25 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         }
         eserviceViewModel.fieldValues.observe(viewLifecycleOwner) {
             initializeFields(it)
-//            nocListAdapter.submitList(it)
         }
     }
 
     private fun initializeFields(fieldValues: List<GetFieldValueItem>) {
         fieldValues.forEach {
 
-            when (FieldsTypeMode.fromName(it.fieldType).id) {
-                FieldsType.LABEL.id -> {
+            when (FieldType.fromName(it.fieldType).id) {
+                FieldType.LABEL.id -> {
                     binding.fieldContainer.addView(
                         createTextView(activity, it)
                     )
                 }
                 else -> {
-                    when (FieldsType.fromName(it.valueType).id) {
-                        FieldsType.DATE.id -> {
-                            binding.fieldContainer.addView(
-                                createTextView(activity, it)
-                            )
-                        }
-                        FieldsType.IMAGE.id -> {
-                            binding.fieldContainer.addView(
-                                createTextView(activity, it)
-                            )
-                        }
-                        FieldsType.FILE.id -> {
-                            binding.fieldContainer.addView(
-                                createTextView(activity, it)
-                            )
-                        }
-                        FieldsType.DROP_DOWN.id -> {
-                            binding.fieldContainer.addView(
-                                createTextView(activity, it)
-                            )
-                        }
-                        FieldsType.INPUT_TEXT.id -> {
+                    when (ValueType.fromName(it.valueType).id) {
+                        ValueType.INPUT_TEXT.id -> {
                             binding.fieldContainer.addView(
                                 createEditText(
                                     fieldValue = it,
-                                    context = activity,
+                                    context = requireContext(),
                                     fieldListener = object : FieldListener {
                                         override fun fetchInput(value: GetFieldValueItem) {
 
@@ -107,11 +83,11 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                     })
                             )
                         }
-                        FieldsType.INPUT_NUMBER.id -> {
+                        ValueType.INPUT_NUMBER.id -> {
                             binding.fieldContainer.addView(
                                 createEditText(
                                     fieldValue = it,
-                                    context = activity,
+                                    context = requireContext(),
                                     fieldListener = object : FieldListener {
                                         override fun fetchInput(value: GetFieldValueItem) {
 
@@ -128,11 +104,11 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                     })
                             )
                         }
-                        FieldsType.INPUT_TEXT_MULTILINE.id -> {
+                        ValueType.INPUT_TEXT_MULTILINE.id -> {
                             binding.fieldContainer.addView(
                                 createEditText(
                                     fieldValue = it,
-                                    context = activity,
+                                    context = requireContext(),
                                     fieldListener = object : FieldListener {
                                         override fun fetchInput(value: GetFieldValueItem) {
 
@@ -149,45 +125,32 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                     })
                             )
                         }
-
+                        ValueType.DATE.id -> {
+//                            binding.fieldContainer.addView(
+//                                createTextView(requireContext(), it)
+//                            )
+                        }
+                        ValueType.IMAGE.id -> {
+//                            binding.fieldContainer.addView(
+//                                createTextView(requireContext(), it)
+//                            )
+                        }
+                        ValueType.FILE.id -> {
+//                            binding.fieldContainer.addView(
+//                                createTextView(requireContext(), it)
+//                            )
+                        }
+                        ValueType.DROP_DOWN.id -> {
+//                            binding.fieldContainer.addView(
+//                                createTextView(requireContext(), it)
+//                            )
+                        }
                     }
+
                 }
             }
         }
 
     }
-
-
-    private fun initRv() {
-//        binding.fieldRv.apply {
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//            nocListAdapter = NocListAdapter(object : FieldListener {
-//                override fun fetchInput(value: GetFieldValueItem) {
-////                    navigateByDirections(EServiceFragmentDirections.actionEServiceFragmentToInputPlateBottomSheet(
-////                        value
-////                    ))
-//
-//                    eserviceViewModel.updateFieldValue(value)
-//                }
-//
-//                override fun dropDownValue(value: GetFieldValueItem) {
-//                    eserviceViewModel.updateFieldValue(value.copy(selectedValue = value.selectedValue))
-//                }
-//
-//                override fun dateValue(value: GetFieldValueItem) {
-//                    eserviceViewModel.updateFieldValue(value.copy(selectedValue = value.selectedValue))
-//                }
-//
-//                override fun timeValue(value: GetFieldValueItem) {
-//                    eserviceViewModel.updateFieldValue(value.copy(selectedValue = value.selectedValue))
-//                }
-//
-//            })
-//
-//            adapter = nocListAdapter
-//
-//        }
-    }
-
 
 }

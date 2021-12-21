@@ -54,16 +54,16 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
         binding.commonBtn.text = description[0].startServiceText
         binding.commonBtn.setOnClickListener {
 
-            (parentFragment as ServiceDetailFragment).navigateByDirections(
-                ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
-                    description[0].startServiceUrl, false
-                )
-            )
 //            (parentFragment as ServiceDetailFragment).navigateByDirections(
-//                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
-//                    "NOCForm"
+//                ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
+//                    description[0].startServiceUrl, false
 //                )
 //            )
+            (parentFragment as ServiceDetailFragment).navigateByDirections(
+                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
+                    "NOCForm"
+                )
+            )
         }
         bgRTL(binding.imgSpeaker)
     }
