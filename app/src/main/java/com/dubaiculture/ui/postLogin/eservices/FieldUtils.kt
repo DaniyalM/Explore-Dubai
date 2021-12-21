@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
@@ -17,15 +18,14 @@ import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 
 object FieldUtils {
 
-    fun createTextView(context: Context, fieldValueItem: GetFieldValueItem): CustomTextView {
+    fun createTextView(context: Context, fieldValueItem: GetFieldValueItem): TextView {
         val layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ActionBar.LayoutParams.WRAP_CONTENT
         )
-        val textView = CustomTextView(context)
+        val textView = TextView(context, null, 0, R.style.TextViewRegistrationStyle)
         textView.id = fieldValueItem.id
         textView.text = fieldValueItem.english
-        textView.layoutParams = layoutParams
         return textView
     }
 
@@ -92,4 +92,68 @@ object FieldUtils {
         )
         return dropDown
     }
+
+    fun createDateField(context: Context, fieldValueItem: GetFieldValueItem): CustomTextView {
+        val layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ActionBar.LayoutParams.WRAP_CONTENT
+        )
+        val textView = CustomTextView(context)
+        textView.id = fieldValueItem.id
+        textView.text = fieldValueItem.english
+        textView.layoutParams = layoutParams
+        textView.setOnClickListener {
+
+        }
+        textView.setCompoundDrawablesWithIntrinsicBounds(
+            null,
+            null,
+            AppCompatResources.getDrawable(context, R.drawable.calender),
+            null
+        )
+        return textView
+    }
+
+    fun createFileField(context: Context, fieldValueItem: GetFieldValueItem): CustomTextView {
+        val layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ActionBar.LayoutParams.WRAP_CONTENT
+        )
+        val textView = CustomTextView(context)
+        textView.id = fieldValueItem.id
+        textView.text = fieldValueItem.english
+        textView.layoutParams = layoutParams
+        textView.setOnClickListener {
+
+        }
+        textView.setCompoundDrawablesWithIntrinsicBounds(
+            null,
+            null,
+            AppCompatResources.getDrawable(context, R.drawable.ic_file),
+            null
+        )
+        return textView
+    }
+
+    fun createImageField(context: Context, fieldValueItem: GetFieldValueItem): CustomTextView {
+        val layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ActionBar.LayoutParams.WRAP_CONTENT
+        )
+        val textView = CustomTextView(context)
+        textView.id = fieldValueItem.id
+        textView.text = fieldValueItem.english
+        textView.layoutParams = layoutParams
+        textView.setOnClickListener {
+
+        }
+        textView.setCompoundDrawablesWithIntrinsicBounds(
+            null,
+            null,
+            AppCompatResources.getDrawable(context, R.drawable.image_placeholder),
+            null
+        )
+        return textView
+    }
+
 }

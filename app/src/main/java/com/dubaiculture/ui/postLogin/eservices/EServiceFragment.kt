@@ -8,8 +8,11 @@ import androidx.fragment.app.viewModels
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.FragmentEserviceBinding
 import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createDateField
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createDropDown
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createEditText
+import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createFileField
+import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createImageField
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTextView
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceSharedViewModel
@@ -128,17 +131,17 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         }
                         ValueType.DATE.id -> {
                             binding.fieldContainer.addView(
-                                createTextView(requireContext(), it)
+                                createDateField(requireContext(), it)
                             )
                         }
                         ValueType.IMAGE.id -> {
                             binding.fieldContainer.addView(
-                                createTextView(requireContext(), it)
+                                createImageField(requireContext(), it)
                             )
                         }
                         ValueType.FILE.id -> {
                             binding.fieldContainer.addView(
-                                createTextView(requireContext(), it)
+                                createFileField(requireContext(), it)
                             )
                         }
                         ValueType.DROP_DOWN.id -> {
