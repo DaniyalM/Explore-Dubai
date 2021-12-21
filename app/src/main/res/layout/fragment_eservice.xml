@@ -39,7 +39,9 @@
                 android:id="@+id/field_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_15sdp"
+                android:paddingEnd="@dimen/_15sdp" />
         </ScrollView>
 
         <com.dubaiculture.ui.components.custombutton.CustomButton

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.work.impl.background.systemjob.SystemJobService
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.FragmentEserviceBinding
 import com.dubaiculture.ui.base.BaseFragment
@@ -61,7 +62,11 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
             when (FieldType.fromName(it.fieldType).id) {
                 FieldType.LABEL.id -> {
                     binding.fieldContainer.addView(
-                        createTextView(activity, it)
+                        createTextView(
+                            activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
+                            binding.fieldContainer,
+                            it
+                        )
                     )
                 }
                 else -> {

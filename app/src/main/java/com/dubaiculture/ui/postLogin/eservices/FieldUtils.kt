@@ -4,6 +4,7 @@ import android.app.ActionBar
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -12,18 +13,20 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
+import com.dubaiculture.databinding.EserviceTextViewBinding
 import com.dubaiculture.ui.components.customEditText.CustomEditText
 import com.dubaiculture.ui.components.customtextview.CustomTextView
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 
 object FieldUtils {
 
-    fun createTextView(context: Context, fieldValueItem: GetFieldValueItem): TextView {
-        val layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ActionBar.LayoutParams.WRAP_CONTENT
-        )
-        val textView = TextView(context, null, 0, R.style.TextViewRegistrationStyle)
+    fun createTextView(
+        layoutInflater: LayoutInflater,
+        root: ViewGroup?,
+        fieldValueItem: GetFieldValueItem
+    ): TextView {
+        val view = EserviceTextViewBinding.inflate(layoutInflater, root, false)
+        val textView = view.textView
         textView.id = fieldValueItem.id
         textView.text = fieldValueItem.english
         return textView
