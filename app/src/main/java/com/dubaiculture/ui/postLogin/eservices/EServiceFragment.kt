@@ -76,21 +76,8 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                 createEditText(
                                     activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
                                     binding.fieldContainer,
-                                    fieldValue = it,
-                                    fieldListener = object : FieldListener {
-                                        override fun fetchInput(value: GetFieldValueItem) {
-
-                                        }
-
-                                        override fun dropDownValue(value: GetFieldValueItem) {
-                                        }
-
-                                        override fun dateValue(value: GetFieldValueItem) {
-                                        }
-
-                                        override fun timeValue(value: GetFieldValueItem) {
-                                        }
-                                    })
+                                    fieldValue = it
+                                )
                             )
                         }
                         ValueType.INPUT_NUMBER.id -> {
@@ -98,21 +85,8 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                 createEditText(
                                     activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
                                     binding.fieldContainer,
-                                    fieldValue = it,
-                                    fieldListener = object : FieldListener {
-                                        override fun fetchInput(value: GetFieldValueItem) {
-
-                                        }
-
-                                        override fun dropDownValue(value: GetFieldValueItem) {
-                                        }
-
-                                        override fun dateValue(value: GetFieldValueItem) {
-                                        }
-
-                                        override fun timeValue(value: GetFieldValueItem) {
-                                        }
-                                    })
+                                    fieldValue = it
+                                )
                             )
                         }
                         ValueType.INPUT_TEXT_MULTILINE.id -> {
@@ -120,21 +94,8 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                 createEditText(
                                     activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
                                     binding.fieldContainer,
-                                    fieldValue = it,
-                                    fieldListener = object : FieldListener {
-                                        override fun fetchInput(value: GetFieldValueItem) {
-
-                                        }
-
-                                        override fun dropDownValue(value: GetFieldValueItem) {
-                                        }
-
-                                        override fun dateValue(value: GetFieldValueItem) {
-                                        }
-
-                                        override fun timeValue(value: GetFieldValueItem) {
-                                        }
-                                    })
+                                    fieldValue = it
+                                )
                             )
                         }
                         ValueType.DATE.id -> {
@@ -154,7 +115,11 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         }
                         ValueType.DROP_DOWN.id -> {
                             binding.fieldContainer.addView(
-                                createDropDown(requireContext(), it)
+                                createDropDown(
+                                    activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
+                                    binding.fieldContainer,
+                                    it
+                                )
                             )
                         }
                     }
