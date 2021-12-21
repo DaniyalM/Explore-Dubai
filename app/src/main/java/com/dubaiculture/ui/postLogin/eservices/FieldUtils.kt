@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
+import com.dubaiculture.databinding.EserviceEditTextBinding
 import com.dubaiculture.databinding.EserviceTextViewBinding
 import com.dubaiculture.ui.components.customEditText.CustomEditText
 import com.dubaiculture.ui.components.customtextview.CustomTextView
@@ -33,18 +34,15 @@ object FieldUtils {
     }
 
     fun createEditText(
+        layoutInflater: LayoutInflater,
+        root: ViewGroup?,
         fieldValue: GetFieldValueItem,
-        context: Context,
         fieldListener: FieldListener
     ): CustomEditText {
-        val layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        val editText = CustomEditText(context)
+        val view = EserviceEditTextBinding.inflate(layoutInflater, root, false)
+        val editText = view.editText
 
         editText.id = fieldValue.id
-        editText.layoutParams = layoutParams
         editText.hint = fieldValue.english
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

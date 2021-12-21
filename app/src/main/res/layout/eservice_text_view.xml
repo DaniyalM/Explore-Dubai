@@ -6,6 +6,5 @@
         android:id="@+id/textView"
         style="@style/TextViewRegistrationStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test Text" />
+        android:layout_height="wrap_content" />
 </layout>

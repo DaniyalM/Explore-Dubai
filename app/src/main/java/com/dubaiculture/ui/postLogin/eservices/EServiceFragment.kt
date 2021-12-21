@@ -74,8 +74,9 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.INPUT_TEXT.id -> {
                             binding.fieldContainer.addView(
                                 createEditText(
+                                    activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
+                                    binding.fieldContainer,
                                     fieldValue = it,
-                                    context = requireContext(),
                                     fieldListener = object : FieldListener {
                                         override fun fetchInput(value: GetFieldValueItem) {
 
@@ -95,8 +96,9 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.INPUT_NUMBER.id -> {
                             binding.fieldContainer.addView(
                                 createEditText(
+                                    activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
+                                    binding.fieldContainer,
                                     fieldValue = it,
-                                    context = requireContext(),
                                     fieldListener = object : FieldListener {
                                         override fun fetchInput(value: GetFieldValueItem) {
 
@@ -116,8 +118,9 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.INPUT_TEXT_MULTILINE.id -> {
                             binding.fieldContainer.addView(
                                 createEditText(
+                                    activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
+                                    binding.fieldContainer,
                                     fieldValue = it,
-                                    context = requireContext(),
                                     fieldListener = object : FieldListener {
                                         override fun fetchInput(value: GetFieldValueItem) {
 
