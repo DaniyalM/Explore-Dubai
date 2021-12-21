@@ -2,10 +2,13 @@ package com.dubaiculture.ui.postLogin.eservices
 
 import android.app.ActionBar
 import android.content.Context
-import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import androidx.appcompat.content.res.AppCompatResources
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.ui.components.customEditText.CustomEditText
@@ -55,5 +58,38 @@ object FieldUtils {
             }
         })
         return editText
+    }
+
+    fun createDropDown(context: Context, fieldValueItem: GetFieldValueItem): AutoCompleteTextView {
+        val layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ActionBar.LayoutParams.WRAP_CONTENT
+        )
+        val dropDown = AutoCompleteTextView(context, null)
+
+        dropDown.id = fieldValueItem.id
+        dropDown.hint = fieldValueItem.english
+        dropDown.layoutParams = layoutParams
+
+        dropDown.setAdapter(
+            ArrayAdapter(
+                context,
+                android.R.layout.simple_dropdown_item_1line,
+                fieldValueItem.fieldValue.map {
+                    it.english
+                }
+            )
+        )
+        dropDown.focusable = View.NOT_FOCUSABLE
+        dropDown.setOnClickListener {
+            dropDown.showDropDown()
+        }
+        dropDown.setCompoundDrawablesWithIntrinsicBounds(
+            null,
+            null,
+            AppCompatResources.getDrawable(context, R.drawable.arrow_readmore_),
+            null
+        )
+        return dropDown
     }
 }

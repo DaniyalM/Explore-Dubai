@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.FragmentEserviceBinding
 import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createDropDown
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createEditText
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTextView
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
@@ -126,24 +127,24 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             )
                         }
                         ValueType.DATE.id -> {
-//                            binding.fieldContainer.addView(
-//                                createTextView(requireContext(), it)
-//                            )
+                            binding.fieldContainer.addView(
+                                createTextView(requireContext(), it)
+                            )
                         }
                         ValueType.IMAGE.id -> {
-//                            binding.fieldContainer.addView(
-//                                createTextView(requireContext(), it)
-//                            )
+                            binding.fieldContainer.addView(
+                                createTextView(requireContext(), it)
+                            )
                         }
                         ValueType.FILE.id -> {
-//                            binding.fieldContainer.addView(
-//                                createTextView(requireContext(), it)
-//                            )
+                            binding.fieldContainer.addView(
+                                createTextView(requireContext(), it)
+                            )
                         }
                         ValueType.DROP_DOWN.id -> {
-//                            binding.fieldContainer.addView(
-//                                createTextView(requireContext(), it)
-//                            )
+                            binding.fieldContainer.addView(
+                                createDropDown(requireContext(), it)
+                            )
                         }
                     }
 
