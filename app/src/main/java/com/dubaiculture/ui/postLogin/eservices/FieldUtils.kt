@@ -24,7 +24,7 @@ object FieldUtils {
 
     fun createTextView(
         layoutInflater: LayoutInflater,
-        root: ViewGroup?,
+        root: ViewGroup,
         fieldValueItem: GetFieldValueItem
     ): TextView {
         val view = EserviceTextViewBinding.inflate(layoutInflater, root, false)
@@ -36,7 +36,7 @@ object FieldUtils {
 
     fun createEditText(
         layoutInflater: LayoutInflater,
-        root: ViewGroup?,
+        root: ViewGroup,
         fieldValue: GetFieldValueItem
     ): CustomEditText {
         val view = EserviceEditTextBinding.inflate(layoutInflater, root, false)
@@ -50,7 +50,7 @@ object FieldUtils {
 
     fun createDropDown(
         layoutInflater: LayoutInflater,
-        root: ViewGroup?,
+        root: ViewGroup,
         fieldValueItem: GetFieldValueItem
     ): AutoCompleteTextView {
         val view = EserviceDropDownBinding.inflate(layoutInflater, root, false)
@@ -74,67 +74,62 @@ object FieldUtils {
         return dropDown
     }
 
-    fun createDateField(context: Context, fieldValueItem: GetFieldValueItem): CustomTextView {
-        val layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ActionBar.LayoutParams.WRAP_CONTENT
-        )
-        val textView = CustomTextView(context)
-        textView.id = fieldValueItem.id
-        textView.text = fieldValueItem.english
-        textView.layoutParams = layoutParams
-        textView.setOnClickListener {
+    fun createDateField(
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem
+    ): CustomEditText {
+
+        val editText = createEditText(layoutInflater, root, fieldValueItem)
+        editText.isFocusable = false
+        editText.setOnClickListener {
 
         }
-        textView.setCompoundDrawablesWithIntrinsicBounds(
+        editText.setCompoundDrawablesWithIntrinsicBounds(
             null,
             null,
-            AppCompatResources.getDrawable(context, R.drawable.calender),
+            AppCompatResources.getDrawable(root.context, R.drawable.calender),
             null
         )
-        return textView
+        return editText
     }
 
-    fun createFileField(context: Context, fieldValueItem: GetFieldValueItem): CustomTextView {
-        val layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ActionBar.LayoutParams.WRAP_CONTENT
-        )
-        val textView = CustomTextView(context)
-        textView.id = fieldValueItem.id
-        textView.text = fieldValueItem.english
-        textView.layoutParams = layoutParams
-        textView.setOnClickListener {
+    fun createFileField(
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem
+    ): CustomEditText {
+        val editText = createEditText(layoutInflater, root, fieldValueItem)
+        editText.isFocusable = false
+        editText.setOnClickListener {
 
         }
-        textView.setCompoundDrawablesWithIntrinsicBounds(
+        editText.setCompoundDrawablesWithIntrinsicBounds(
             null,
             null,
-            AppCompatResources.getDrawable(context, R.drawable.ic_file),
+            AppCompatResources.getDrawable(root.context, R.drawable.ic_file),
             null
         )
-        return textView
+        return editText
     }
 
-    fun createImageField(context: Context, fieldValueItem: GetFieldValueItem): CustomTextView {
-        val layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ActionBar.LayoutParams.WRAP_CONTENT
-        )
-        val textView = CustomTextView(context)
-        textView.id = fieldValueItem.id
-        textView.text = fieldValueItem.english
-        textView.layoutParams = layoutParams
-        textView.setOnClickListener {
+    fun createImageField(
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem
+    ): CustomEditText {
+        val editText = createEditText(layoutInflater, root, fieldValueItem)
+        editText.isFocusable = false
+        editText.setOnClickListener {
 
         }
-        textView.setCompoundDrawablesWithIntrinsicBounds(
+        editText.setCompoundDrawablesWithIntrinsicBounds(
             null,
             null,
-            AppCompatResources.getDrawable(context, R.drawable.image_placeholder),
+            AppCompatResources.getDrawable(root.context, R.drawable.image_placeholder),
             null
         )
-        return textView
+        return editText
     }
 
 }

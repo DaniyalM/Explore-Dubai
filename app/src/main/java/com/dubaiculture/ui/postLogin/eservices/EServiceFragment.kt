@@ -57,13 +57,15 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     }
 
     private fun initializeFields(fieldValues: List<GetFieldValueItem>) {
+        val inflater =
+            activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         fieldValues.forEach {
 
             when (FieldType.fromName(it.fieldType).id) {
                 FieldType.LABEL.id -> {
                     binding.fieldContainer.addView(
                         createTextView(
-                            activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
+                            inflater,
                             binding.fieldContainer,
                             it
                         )
@@ -74,7 +76,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.INPUT_TEXT.id -> {
                             binding.fieldContainer.addView(
                                 createEditText(
-                                    activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
+                                    inflater,
                                     binding.fieldContainer,
                                     fieldValue = it
                                 )
@@ -83,7 +85,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.INPUT_NUMBER.id -> {
                             binding.fieldContainer.addView(
                                 createEditText(
-                                    activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
+                                    inflater,
                                     binding.fieldContainer,
                                     fieldValue = it
                                 )
@@ -92,7 +94,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.INPUT_TEXT_MULTILINE.id -> {
                             binding.fieldContainer.addView(
                                 createEditText(
-                                    activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
+                                    inflater,
                                     binding.fieldContainer,
                                     fieldValue = it
                                 )
@@ -100,23 +102,35 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         }
                         ValueType.DATE.id -> {
                             binding.fieldContainer.addView(
-                                createDateField(requireContext(), it)
+                                createDateField(
+                                    inflater,
+                                    binding.fieldContainer,
+                                    it
+                                )
                             )
                         }
                         ValueType.IMAGE.id -> {
                             binding.fieldContainer.addView(
-                                createImageField(requireContext(), it)
+                                createImageField(
+                                    inflater,
+                                    binding.fieldContainer,
+                                    it
+                                )
                             )
                         }
                         ValueType.FILE.id -> {
                             binding.fieldContainer.addView(
-                                createFileField(requireContext(), it)
+                                createFileField(
+                                    inflater,
+                                    binding.fieldContainer,
+                                    it
+                                )
                             )
                         }
                         ValueType.DROP_DOWN.id -> {
                             binding.fieldContainer.addView(
                                 createDropDown(
-                                    activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
+                                    inflater,
                                     binding.fieldContainer,
                                     it
                                 )
