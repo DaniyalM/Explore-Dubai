@@ -19,6 +19,10 @@ import com.dubaiculture.databinding.EserviceTextViewBinding
 import com.dubaiculture.ui.components.customEditText.CustomEditText
 import com.dubaiculture.ui.components.customtextview.CustomTextView
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
+import com.dubaiculture.utils.DatePickerHelper
+import com.dubaiculture.utils.toString
+import timber.log.Timber
+import java.util.*
 
 object FieldUtils {
 
@@ -77,13 +81,25 @@ object FieldUtils {
     fun createDateField(
         layoutInflater: LayoutInflater,
         root: ViewGroup,
-        fieldValueItem: GetFieldValueItem
+        fieldValueItem: GetFieldValueItem,
+        callback: (date: String) -> Unit
     ): CustomEditText {
-
         val editText = createEditText(layoutInflater, root, fieldValueItem)
         editText.isFocusable = false
         editText.setOnClickListener {
-
+            DatePickerHelper(
+                editText.text.toString(),
+                root.context,
+                object : DatePickerHelper.DatePickerInterface {
+                    override fun onDateSelected(calendar: Calendar) {
+                        val date: Date = calendar.time
+                        val format = "yyyy-MM-dd"
+                        val str = date.toString(format)
+                        editText.setText(str)
+                        callback(str)
+                    }
+                }, fromDate = false
+            ).showPicker()
         }
         editText.setCompoundDrawablesWithIntrinsicBounds(
             null,

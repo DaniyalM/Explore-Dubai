@@ -18,7 +18,11 @@ import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTextView
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceSharedViewModel
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
+import com.dubaiculture.utils.DatePickerHelper
+import com.dubaiculture.utils.toString
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
+import java.util.*
 
 @AndroidEntryPoint
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
@@ -106,7 +110,9 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                     inflater,
                                     binding.fieldContainer,
                                     it
-                                )
+                                ) {
+//                                    showToast(it)
+                                }
                             )
                         }
                         ValueType.IMAGE.id -> {
