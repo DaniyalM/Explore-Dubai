@@ -82,15 +82,15 @@ class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
         tripSharedViewModel._showPlan.value = Event(false)
         tripSharedViewModel._eventAttractionResponse.value = null
         tripSharedViewModel._eventAttractionList.value = null
-        binding.flWebview.show()
-        //    load(currentType)
-        HappinessMeter.load(
-            Type.WITHOUT_MICROAPP,
-            binding.webView,
-            application.auth.locale.toString()
-        )
+//        binding.flWebview.show()
+//        //    load(currentType)
+//        HappinessMeter.load(
+//            Type.WITHOUT_MICROAPP,
+//            binding.webView,
+//            application.auth.locale.toString()
+//        )
 
-//        navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
+        navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
 
     }
 

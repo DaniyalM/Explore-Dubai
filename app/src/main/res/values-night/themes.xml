@@ -31,7 +31,7 @@
         <item name="color_dubai_logo_dark">@color/purple_900</item>
         <item name="colorEventLight">@color/white_900</item>
         <item name="color_light_theme_dark_theme_gray">@color/gray_850</item>
-
+        <item name="color_chip_text_theme">@color/white_900</item>
         <item name="colorSecondaryVariant">@color/gray_200</item>
         <item name="colorSecondaryVariantInverted">@color/gray_700</item>
 

@@ -419,6 +419,9 @@
 
     <string name="whatAreYourLooking">What are you looking for?</string>
     <string name="success">Success</string>
+    <string name="tripCloseAlert">Are you sure you want to close Plan Your Trip?</string>
+    <string name="EditTripAlert">Are you sure you want to edit trip?</string>
+    <string name="NoTripFoundAlert">No Trip Found on given Dates</string>
 
 
     <!-- Facebook keys -->

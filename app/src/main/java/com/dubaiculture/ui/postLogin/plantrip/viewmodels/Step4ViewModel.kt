@@ -26,10 +26,10 @@ class Step4ViewModel @Inject constructor(
 ) : BaseViewModel(application) {
     private val context = getApplication<ApplicationEntry>()
 
-    private val _durations: MutableLiveData<Durations> = MutableLiveData()
+     val _durations: MutableLiveData<Durations> = MutableLiveData()
     val durations: LiveData<Durations> = _durations
 
-    private val _eventAttraction: MutableLiveData<Event<EventAttractions>> = MutableLiveData()
+     val _eventAttraction: MutableLiveData<Event<EventAttractions>> = MutableLiveData()
     val eventAttraction: LiveData<Event<EventAttractions>> = _eventAttraction
 
     init {

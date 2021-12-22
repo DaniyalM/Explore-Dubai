@@ -19,6 +19,7 @@
     <include app:graph="@navigation/service_detail_navigation" />
     <include app:graph="@navigation/search_navigation" />
     <include app:graph="@navigation/trip_navigation" />
+    <include app:graph="@navigation/plan_trip_parent_navigation" />
 
 
     <fragment
@@ -81,7 +82,7 @@
             app:popExitAnim="@anim/fade_out"/>
         <action
             android:id="@+id/action_exploreFragment_to_plantrip_navigation"
-            app:destination="@id/trip_navigation"
+            app:destination="@id/plan_trip_parent_navigation"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"

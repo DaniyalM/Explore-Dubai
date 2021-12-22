@@ -25,6 +25,8 @@ class NavGraphActivity : BaseActivity(),
 
     }
 
+
+
     private fun setupGraph() {
         val controller = getNavControllerFun(R.id.navHostFragment)
         val bundle = intent.extras

@@ -22,6 +22,7 @@
     <attr name="color_light_theme_dark_theme_gray" format="color" />
     <attr name="color_light_theme_dark_theme_dark_gray" format="color" />
     <attr name="color_light_theme_purple_dark_theme" format="color" />
+    <attr name="color_chip_text_theme" format="color" />
     <attr name="colorEventLight" format="color" />
     <attr name="colorSurfaceInvertedGray" format="color" />
     <attr name="colorSecondaryVariantInverted" format="color" />

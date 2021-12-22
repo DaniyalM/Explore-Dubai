@@ -69,10 +69,19 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
         step4ViewModel.eventAttraction.observe(viewLifecycleOwner) {
 
-            tripSharedViewModel._eventAttractionResponse.value = it.getContentIfNotHandled()
-            tripSharedViewModel.setDates()
-            tripSharedViewModel._showPlan.value = Event(true)
-            tripSharedViewModel._showSave.value = true
+            it?.getContentIfNotHandled()?.let {
+                if (it.eventsAndAttractions.isNotEmpty()) {
+                    tripSharedViewModel._eventAttractionResponse.value = it
+                    tripSharedViewModel.setDates()
+                    tripSharedViewModel._showPlan.value = Event(true)
+                    tripSharedViewModel._showSave.value = true
+                } else {
+                    showToast(getString(R.string.NoTripFoundAlert))
+                }
+            }
+
+//            navigate(R.id.a)
+
 
         }
 

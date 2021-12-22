@@ -1,30 +1,41 @@
 package com.dubaiculture.ui.postLogin.plantrip.steps
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.forEach
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentPlanTripParentBinding
 import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.postLogin.plantrip.PlanYourTripFragmentDirections
 import com.dubaiculture.ui.postLogin.plantrip.callback.CustomNavigation
 import com.dubaiculture.ui.postLogin.plantrip.steps.step1.TripStep1Fragment
 import com.dubaiculture.ui.postLogin.plantrip.steps.step2.TripStep2Fragment
 import com.dubaiculture.ui.postLogin.plantrip.steps.step3.TripStep3Fragment
+import com.dubaiculture.ui.postLogin.plantrip.viewmodels.PlanYourTripViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
+import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.NumberFormat
+import java.util.*
 
 @AndroidEntryPoint
-class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), CustomNavigation {
+class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), CustomNavigation,
+    AppBarLayout.OnOffsetChangedListener {
 
     var bottomNavigationView: BottomNavigationView? = null
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
+    private val planYourTripViewModel: PlanYourTripViewModel by viewModels()
 
 
     override fun getFragmentBinding(
@@ -36,10 +47,15 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
         super.onViewCreated(view, savedInstanceState)
         bottomNavigationView = binding.bttmNav
         binding.view = this
+        binding.backgroundImage =
+            "/-/media/DC/DC-Attractions-New-Assets/Portrait-Images/Etihad-Museum/DX2-0266-HDR-2.jpg"
         setUpNavigation()
-
+        binding.appbarLayout.addOnOffsetChangedListener(this)
+        binding.collapsingToolbarLayout.setContentScrimColor(Color.WHITE)
+        lottieAnimationRTL(binding.animationView)
 
     }
+
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
@@ -47,12 +63,11 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
 
     }
 
-    private fun subscribeToObservables() =
-        tripSharedViewModel.showPlan.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let {
-                if (it) {
-                    onBackPressed()
-                }
+    private fun subscribeToObservables() {
+        tripSharedViewModel.showPlan.observe(viewLifecycleOwner)
+        {
+            if (it.peekContent()) {
+                navigateByDirections(PlanYourTripFragmentDirections.actionTripFragmentToMyTripFragment())
             }
 
 //            if (it) {
@@ -60,8 +75,30 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
 //            }
         }
 
+        planYourTripViewModel.tripCount.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                if (getCurrentLanguage() != Locale.ENGLISH) {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+                    binding.tvCount.text = nf.format(it)
+                } else {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                    binding.tvCount.text = nf.format(it)
+                }
+            }
+        }
+
+    }
+
+    fun onDropDownClicked() {
+        binding.appbarLayout.setExpanded(true)
+    }
+
+    fun onMyTripClicked() {
+        navigate(R.id.action_tripFragment_to_savedTripFragment)
+    }
+
     fun onBackPressed() {
-        navigateBack()
+        back()
     }
 
     private fun setUpNavigation() {
@@ -151,6 +188,19 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
         super.onDestroy()
         tripSharedViewModel._duration.value = null
         tripSharedViewModel._durationSummary.value = null
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+
+        if (verticalOffset == 0) {
+
+            binding.toolbar.hide()
+
+        } else {
+            binding.toolbar.show()
+
+        }
+
     }
 
 }

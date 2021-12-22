@@ -21,6 +21,8 @@ import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationAdapte
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.ColorUtil
+import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -115,6 +117,11 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
                 setData(it[0])
                 binding.rvDates.visibility = View.VISIBLE
                 durationAdapter.submitList(it.subList(1, it.size))
+                if(it.size>1){
+                    binding.checkBoxRepeat.show()
+                }else{
+                    binding.checkBoxRepeat.hide()
+                }
             }
         }
 

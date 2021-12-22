@@ -21,6 +21,8 @@ import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.EditDurationAd
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.ColorUtil
+import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -86,6 +88,11 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
                 binding.clParent.visibility = View.VISIBLE
                 binding.rvDates.visibility = View.VISIBLE
                 editDurationAdapter.submitList(it.subList(1, it.size))
+                if(it.size>1){
+                    binding.checkBoxRepeat.show()
+                }else{
+                    binding.checkBoxRepeat.hide()
+                }
             } else {
                 durationList = emptyList()
                 binding.clParent.visibility = View.GONE

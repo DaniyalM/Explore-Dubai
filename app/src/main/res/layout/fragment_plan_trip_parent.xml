@@ -6,79 +6,243 @@
     <data>
 
         <variable
+            name="backgroundImage"
+            type="String" />
+
+        <variable
             name="view"
             type="com.dubaiculture.ui.postLogin.plantrip.steps.PlanTripParentFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.postLogin.plantrip.steps.PlanTripParentFragment">
-
-        <ImageView
-            android:id="@+id/iv_dropdown"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{()->view.onBackPressed()}"
-            android:src="@drawable/ic_twotone_keyboard_arrow_down_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:fitsSystemWindows="true"
+        tools:context=".CollapsingToolbar">
 
 
-        <ImageView
-            android:id="@+id/iv_close"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{()->view.onBackPressed()}"
-            android:paddingHorizontal="@dimen/_6sdp"
-            android:src="@drawable/ic_close_black"
-            app:layout_constraintBottom_toBottomOf="@id/iv_dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_dropdown" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_host_trip_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:defaultNavHost="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bttm_nav"
-            app:navGraph="@navigation/trip_detail_navigation" />
-
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bttm_nav"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:outlineProvider="none"
-            app:itemIconTint="@color/bottom_nav_color"
-            app:itemTextColor="@color/bottom_nav_color"
-            app:labelVisibilityMode="labeled"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_dropdown"
-            app:menu="@menu/plan_trip_navigation_items" />
+            android:layout_height="@dimen/_450sdp"
+            android:id="@+id/appbarLayout"
+            >
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="top"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/expandedImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_450sdp"
+                    android:imageViewUrl="@{backgroundImage}"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.7" />
 
 
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/trip_progressbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:progress="0"
-            app:indicatorColor="@color/progress_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bttm_nav" />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_dropdown"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:onClick="@{()->view.onDropDownClicked()}"
+                            android:src="@drawable/ic_twotone_keyboard_arrow_down_24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                        <ImageView
+                            android:id="@+id/iv_close"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_12sdp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:onClick="@{()->view.onBackPressed()}"
+                            android:paddingHorizontal="@dimen/_6sdp"
+                            android:src="@drawable/ic_close_black"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_dropdown"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/iv_dropdown" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.appcompat.widget.Toolbar>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/animation_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:chainUseRtl="true"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_plan_desc"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_closetl"
+                        app:lottie_autoPlay="true"
+                        app:lottie_rawRes="@raw/new_green_line" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_trip"
+                        style="@style/ChipTextAppearance"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_30sdp"
+                        android:paddingEnd="@dimen/_50sdp"
+                        android:text="@string/my_trips"
+                        android:onClick="@{()->view.onMyTripClicked()}"
+                        android:textColor="@color/white_900"
+                        app:chipBackgroundColor="@color/purple_trip_chip"
+                        app:chipEndPadding="@dimen/_10sdp"
+                        app:chipIcon="@drawable/ic_chip_trip"
+                        app:chipIconSize="@dimen/_12sdp"
+                        app:chipStartPadding="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                    </com.google.android.material.chip.Chip>
+
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tvCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/rounded_corner"
+                        android:textColor="@color/white_900"
+                        android:text="00"
+                        android:textSize="@dimen/_8ssp"
+                        app:layout_constraintBottom_toBottomOf="@id/chip_trip"
+                        app:layout_constraintEnd_toEndOf="@id/chip_trip"
+                        app:layout_constraintTop_toTopOf="@id/chip_trip" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_closetl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:onClick="@{()->view.onBackPressed()}"
+                        android:paddingHorizontal="@dimen/_6sdp"
+                        android:src="@drawable/close_btn"
+                        app:layout_constraintBottom_toBottomOf="@id/chip_trip"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/chip_trip" />
+
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tv_plan_trip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/neosansarabicbold"
+                        android:text="@string/plan_your_trip"
+                        android:textColor="@color/white_900"
+                        android:textSize="@dimen/_20ssp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:textFont="bold"
+                        app:layout_constraintStart_toStartOf="@id/chip_trip"
+                        app:layout_constraintBottom_toTopOf="@id/tv_plan_desc" />
+
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tv_plan_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_40sdp"
+                        android:lineSpacingExtra="@dimen/_2sdp"
+                        android:paddingEnd="@dimen/_20sdp"
+                        android:text="@string/plan_your_trip_desc"
+                        android:textColor="@color/white_900"
+                        app:layout_constraintEnd_toStartOf="@id/iv_closetl"
+                        app:layout_constraintStart_toStartOf="@id/tv_plan_trip"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:background="@drawable/bottom_bg_login"
+            android:fillViewport="true"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/nav_host_trip_fragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:defaultNavHost="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bttm_nav"
+                    app:navGraph="@navigation/trip_detail_navigation" />
+
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bttm_nav"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:outlineProvider="none"
+                    app:itemIconTint="@color/bottom_nav_color"
+                    app:itemTextColor="@color/bottom_nav_color"
+                    app:labelVisibilityMode="labeled"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:menu="@menu/plan_trip_navigation_items" />
+
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/trip_progressbar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:progress="0"
+                    app:indicatorColor="@color/progress_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bttm_nav" />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

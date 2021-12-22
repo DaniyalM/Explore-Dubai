@@ -26,6 +26,19 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
 
+        <action
+            android:id="@+id/action_my_trip_to_delete_dialog"
+            app:destination="@id/deleteTripDialog"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="tripId"
+                app:argType="string" />
+        </action>
+
+
     </fragment>
 
 
@@ -47,7 +60,17 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
-
+        <action
+            android:id="@+id/action_my_trip_to_delete_dialog"
+            app:destination="@id/deleteTripDialog"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="tripId"
+                app:argType="string" />
+        </action>
 
     </fragment>
 
@@ -56,5 +79,20 @@
         android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.TravelModeBottomSheetFragment"
         android:label="TravelModeDialog"
         tools:layout="@layout/fragment_travel_mode_bottom_sheet" />
+
+    <dialog
+        android:id="@+id/deleteTripDialog"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.DeleteTripDialog"
+        android:label="DeleteTripDialog"
+        tools:layout="@layout/dialog_delete_trip">
+        <argument
+            android:name="tripId"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_delete_Saved_trip"
+            app:popUpTo="@+id/my_saved_trip_navigation" />
+
+    </dialog>
 
 </navigation>

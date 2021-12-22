@@ -2,6 +2,7 @@ package com.dubaiculture.ui.postLogin.plantrip.mytrip
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -16,6 +17,7 @@ import com.dubaiculture.data.repository.trip.local.Duration
 import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.dubaiculture.databinding.FragmentMyTripListingBinding
 import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.navGraphActivity.NavGraphActivity
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.DatesAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.MyTripAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.DateClickListener
@@ -42,7 +44,7 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
     private val myTripListingViewModel: MyTripListingViewModel by viewModels()
     private lateinit var currentLocation: Location
-    private lateinit var  travelMode: String
+    private lateinit var travelMode: String
 
 
     @Inject
@@ -125,7 +127,7 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
         tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
             binding.tripId = it.tripId
             Location(LocationManager.GPS_PROVIDER).apply {
-                latitude=it.location.latitude.toDouble()
+                latitude = it.location.latitude.toDouble()
                 longitude = it.location.longitude.toDouble()
                 currentLocation = this
             }
@@ -151,7 +153,7 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
                     return@observe
                 }
             }
-            tripSharedViewModel.mapDistanceInList(it,travelMode)
+            tripSharedViewModel.mapDistanceInList(it, travelMode)
         }
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
@@ -166,10 +168,15 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
         }
 
         tripSharedViewModel.showSave.observe(viewLifecycleOwner) {
-            if (it) binding.btnNext.visibility = View.VISIBLE else binding.btnNext.visibility =
-                View.GONE
-            if (it) binding.btnDeleteDur.visibility =
-                View.GONE else binding.btnDeleteDur.visibility = View.VISIBLE
+            if (it) {
+                binding.btnNext.visibility = View.VISIBLE
+                binding.btnEditDur.visibility = View.VISIBLE
+                binding.btnDeleteDur.visibility = View.GONE
+            } else {
+                binding.btnNext.visibility = View.GONE
+                binding.btnEditDur.visibility = View.GONE
+                binding.btnDeleteDur.visibility = View.VISIBLE
+            }
 
         }
 
@@ -181,7 +188,6 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
                 }
             }
         }
-
 
 
     }
@@ -232,7 +238,6 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
                         subscribeToObservables()
 
 
-
                     }
                 },
                 locationCallback
@@ -248,4 +253,23 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
     fun onSaveTripClicked() {
         navigate(R.id.action_myTrip_listing_to_myTripNameDialog)
     }
+
+    fun onEditTripClicked() {
+//        navigate(R.id.action_my_trip_listing_to_tripFragment)
+        val intent = Intent(
+            requireActivity(),
+            NavGraphActivity::class.java
+        )
+        intent.putExtra(Constants.NavBundles.GRAPH_ID, R.navigation.plan_trip_parent_navigation)
+        startActivity(intent)
+        back()
+        back()
+    }
+
+    fun onDeleteClicked(tripId: String) {
+
+        navigateByDirections(MyTripListingFragmentDirections.actionMyTripToDeleteDialog(tripId))
+
+    }
+
 }

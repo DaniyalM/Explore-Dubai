@@ -411,7 +411,9 @@
     <string name="recentSearches">عمليات البحث الأخيرة</string>
     <string name="whatAreYourLooking">عن ماذا تبحث؟</string>
     <string name="success">النجاح</string>
-
+    <string name="tripCloseAlert">هل أنت متأكد أنك تريد إغلاق خطط لرحلتك؟</string>
+    <string name="EditTripAlert">هل أنت متأكد أنك تريد تعديل الرحلة؟</string>
+    <string name="NoTripFoundAlert">لم يتم العثور على رحلة في التواريخ المحددة</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
