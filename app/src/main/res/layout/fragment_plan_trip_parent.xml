@@ -15,19 +15,15 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:context=".CollapsingToolbar">
 
-
-
         <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_450sdp"
             android:id="@+id/appbarLayout"
-            >
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_400sdp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar_layout"
@@ -47,8 +43,6 @@
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.7" />
-
-
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -106,6 +100,15 @@
                         app:lottie_autoPlay="true"
                         app:lottie_rawRes="@raw/new_green_line" />
 
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bottom_bg_login"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_plan_desc" />
+
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_trip"
                         style="@style/ChipTextAppearance"
@@ -113,9 +116,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:layout_marginTop="@dimen/_30sdp"
+                        android:onClick="@{()->view.onMyTripClicked()}"
                         android:paddingEnd="@dimen/_50sdp"
                         android:text="@string/my_trips"
-                        android:onClick="@{()->view.onMyTripClicked()}"
                         android:textColor="@color/white_900"
                         app:chipBackgroundColor="@color/purple_trip_chip"
                         app:chipEndPadding="@dimen/_10sdp"
@@ -125,7 +128,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-
                     </com.google.android.material.chip.Chip>
 
                     <com.dubaiculture.ui.components.customtextview.CustomTextView
@@ -134,13 +136,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:background="@drawable/rounded_corner"
-                        android:textColor="@color/white_900"
                         android:text="00"
+                        android:textColor="@color/white_900"
                         android:textSize="@dimen/_8ssp"
                         app:layout_constraintBottom_toBottomOf="@id/chip_trip"
                         app:layout_constraintEnd_toEndOf="@id/chip_trip"
                         app:layout_constraintTop_toTopOf="@id/chip_trip" />
-
 
                     <ImageView
                         android:id="@+id/iv_closetl"
@@ -159,15 +160,15 @@
                         android:id="@+id/tv_plan_trip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_10sdp"
                         android:fontFamily="@font/neosansarabicbold"
                         android:text="@string/plan_your_trip"
                         android:textColor="@color/white_900"
                         android:textSize="@dimen/_20ssp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        app:textFont="bold"
+                        app:layout_constraintBottom_toTopOf="@id/tv_plan_desc"
                         app:layout_constraintStart_toStartOf="@id/chip_trip"
-                        app:layout_constraintBottom_toTopOf="@id/tv_plan_desc" />
+                        app:textFont="bold" />
 
                     <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_plan_desc"
@@ -178,11 +179,9 @@
                         android:paddingEnd="@dimen/_20sdp"
                         android:text="@string/plan_your_trip_desc"
                         android:textColor="@color/white_900"
-                        app:layout_constraintEnd_toStartOf="@id/iv_closetl"
-                        app:layout_constraintStart_toStartOf="@id/tv_plan_trip"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        />
-
+                        app:layout_constraintEnd_toStartOf="@id/iv_closetl"
+                        app:layout_constraintStart_toStartOf="@id/tv_plan_trip" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -192,15 +191,12 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            android:background="@drawable/bottom_bg_login"
             android:fillViewport="true"
-            >
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/nav_host_trip_fragment"
@@ -237,8 +233,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/bttm_nav" />
-
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
