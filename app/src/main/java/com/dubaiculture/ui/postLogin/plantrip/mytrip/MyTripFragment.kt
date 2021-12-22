@@ -6,9 +6,11 @@ import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -74,7 +76,13 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         binding.view = this
         binding.viewModel = myTripViewModel
         subscribeUiEvents(myTripViewModel)
-
+//        val callback: OnBackPressedCallback =
+//            object : OnBackPressedCallback(true /* enabled by default */) {
+//                override fun handleOnBackPressed() {
+//
+//                }
+//            }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         setupRV()
 
@@ -416,7 +424,9 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                     R.navigation.plan_trip_parent_navigation
                 )
                 startActivity(intent)
-                back()
+                Handler().postDelayed({
+                    back()
+                }, 1000)
             }
         )
 
@@ -433,7 +443,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
     }
 
-    fun onDeleteClicked(tripId:String){
+    fun onDeleteClicked(tripId: String) {
 
         navigateByDirections(MyTripFragmentDirections.actionMyTripToDeleteDialog(tripId))
 

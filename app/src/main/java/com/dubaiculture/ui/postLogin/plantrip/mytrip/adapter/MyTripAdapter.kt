@@ -2,7 +2,6 @@ package com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +11,7 @@ import com.dubaiculture.databinding.ItemMyTripBinding
 
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.MyTripClickListener
 import com.dubaiculture.utils.Constants
+import com.dubaiculture.utils.hide
 
 class MyTripAdapter(val rowClickListener: MyTripClickListener) :
     ListAdapter<EventsAndAttraction, MyTripAdapter.MyTripViewHolder>(MyTripAdapter.MyTripDiffCallback()) {
@@ -20,7 +20,7 @@ class MyTripAdapter(val rowClickListener: MyTripClickListener) :
         val binding: ItemMyTripBinding,
         val rowClickListener: MyTripClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(eventAttraction: EventsAndAttraction) {
+        fun bind(eventAttraction: EventsAndAttraction, isLast: Boolean) {
 
             binding.data = eventAttraction
 
@@ -43,10 +43,16 @@ class MyTripAdapter(val rowClickListener: MyTripClickListener) :
                 }
             }
 
+            if(isLast){
+                binding.belowDotted.hide()
+            }
+
             binding.llIcons.setOnClickListener {
                 rowClickListener.rowClickListener(eventAttraction)
 
             }
+
+
             binding.cvNavigation.setOnClickListener {
 //                rowClickListener.rowClickListener(eventAttraction)
 //                rowClickListener.rowClickListener(eventAttraction, absoluteAdapterPosition)
@@ -79,7 +85,8 @@ class MyTripAdapter(val rowClickListener: MyTripClickListener) :
     }
 
     override fun onBindViewHolder(holder: MyTripViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+
+        getItem(position)?.let { holder.bind(it,(itemCount-1 == position)) }
     }
 
 }

@@ -19,7 +19,6 @@
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_75sdp"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:imageUrl="@{data.image}"
             android:scaleType="center"
             app:cornerRadius="@dimen/_15sdp"
@@ -122,7 +121,7 @@
             android:id="@+id/llIcons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toStartOf="@id/tvCar"
             app:layout_constraintStart_toStartOf="@id/ivTrips"
@@ -170,6 +169,27 @@
             app:layout_constraintStart_toStartOf="@+id/tvSubHeading"
             app:layout_constraintTop_toTopOf="@+id/llIcons" />
 
+        <View
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:id="@+id/topDotted"
+            android:background="@drawable/dotted_line"
+            app:layout_constraintStart_toStartOf="@id/llIcons"
+            app:layout_constraintEnd_toEndOf="@id/llIcons"
+            app:layout_constraintTop_toBottomOf="@id/ivTrips"
+            app:layout_constraintBottom_toTopOf="@id/llIcons"
+            />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="@dimen/_15sdp"
+            android:id="@+id/belowDotted"
+            android:background="@drawable/dotted_line"
+            app:layout_constraintStart_toStartOf="@id/llIcons"
+            app:layout_constraintEnd_toEndOf="@id/llIcons"
+            app:layout_constraintTop_toBottomOf="@id/llIcons"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

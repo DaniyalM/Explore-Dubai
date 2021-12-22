@@ -14,8 +14,7 @@
         <action
             android:id="@+id/action_tripSavingListingFragment_to_my_tripFragment"
             app:destination="@id/my_trip_navigaion_cd"
-            app:popUpTo="@+id/my_trip_navigaion_cd"
-            app:popUpToInclusive="true" />
+            />
     </fragment>
 
 </navigation>

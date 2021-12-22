@@ -6,6 +6,7 @@ import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -256,14 +257,29 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
     fun onEditTripClicked() {
 //        navigate(R.id.action_my_trip_listing_to_tripFragment)
-        val intent = Intent(
-            requireActivity(),
-            NavGraphActivity::class.java
+        showAlert(
+            message = getString(R.string.EditTripAlert),
+            textPositive = getString(R.string.yes),
+            textNegative = getString(R.string.no),
+            actionNegative = {
+
+            },
+            actionPositive = {
+                val intent = Intent(
+                    requireActivity(),
+                    NavGraphActivity::class.java
+                )
+                intent.putExtra(
+                    Constants.NavBundles.GRAPH_ID,
+                    R.navigation.plan_trip_parent_navigation
+                )
+                startActivity(intent)
+                Handler().postDelayed({
+                    back()
+                    back()
+                }, 1000)
+            }
         )
-        intent.putExtra(Constants.NavBundles.GRAPH_ID, R.navigation.plan_trip_parent_navigation)
-        startActivity(intent)
-        back()
-        back()
     }
 
     fun onDeleteClicked(tripId: String) {

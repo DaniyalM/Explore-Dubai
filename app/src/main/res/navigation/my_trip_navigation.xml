@@ -120,6 +120,7 @@
         <action
             android:id="@+id/action_trip_name_to_tripsuccessFragment"
             app:destination="@id/tripSuccessFragment"
+            app:popUpTo="@id/myTripNameDialog"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -157,8 +158,7 @@
 
         <action
             android:id="@+id/action_tripSuccess_to_mySaveTripListing"
-            app:destination="@id/my_saved_trip_navigation"
-            app:popUpTo="@+id/trip_navigation" />
+            app:popUpTo="@+id/my_trip_navigation" />
 
 
     </fragment>

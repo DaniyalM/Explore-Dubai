@@ -91,7 +91,8 @@
 
         <action
             android:id="@+id/action_delete_Saved_trip"
-            app:popUpTo="@+id/my_saved_trip_navigation" />
+            app:popUpTo="@+id/my_trip_navigaion_cd"
+            />
 
     </dialog>
 
