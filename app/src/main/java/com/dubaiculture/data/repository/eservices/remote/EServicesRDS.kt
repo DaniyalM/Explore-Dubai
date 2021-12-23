@@ -18,13 +18,21 @@ class EServicesRDS @Inject constructor(
 ) : BaseRDS() {
     suspend fun getEServiceToken(getTokenRequestParam: GetTokenRequestParam): Result<GetTokenResponse> =
         safeApiCall {
-            eService.getEServiceToken(getTokenRequestParam)
+            eService.getEServiceToken(
+                username = getTokenRequestParam.UserName.toRequestBody("text/plain".toMediaType()),
+                password = getTokenRequestParam.Password.toRequestBody("text/plain".toMediaType())
+            )
         }
 
-    suspend fun getFieldValue(getFieldValueRequestDTO: GetFieldValueRequestDTO): Result<GetFieldValueResponse> =
+    suspend fun getFieldValue(
+        token: String,
+        getFieldValueRequestDTO: GetFieldValueRequestDTO
+    ): Result<GetFieldValueResponse> =
         safeApiCall {
-//            eService.getFieldValue(getFieldValueRequestDTO)
-            eService.getFieldValue()
+            eService.getFieldValue(
+                token,
+                getFieldValueRequestDTO.FormName.toRequestBody("text/plain".toMediaType())
+            )
         }
 
     suspend fun createNoc(createNocRequestDTO: CreateNocRequestDTO): Result<FormResponse> =

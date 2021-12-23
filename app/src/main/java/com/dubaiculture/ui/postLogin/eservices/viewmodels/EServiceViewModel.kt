@@ -9,6 +9,7 @@ import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.eservices.EServicesRepository
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
+import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
 import com.dubaiculture.utils.event.Event
@@ -37,12 +38,19 @@ class EServiceViewModel @Inject constructor(
         }
     }
 
-
     private fun getFieldValues(formName: String) {
         showLoader(true)
         viewModelScope.launch {
+            val token = getToken()
+            if (token == null) {
+                showLoader(false)
+                return@launch
+            }
             when (val result =
-                eServicesRepository.getFieldValue(GetFieldValueRequest(formName = formName))) {
+                eServicesRepository.getFieldValue(
+                    token,
+                    GetFieldValueRequest(formName = formName)
+                )) {
                 is Result.Success -> {
                     showLoader(false)
                     _fieldValues.value = result.value
@@ -54,6 +62,19 @@ class EServiceViewModel @Inject constructor(
         }
     }
 
+    private suspend fun getToken(): String? {
+        val result = eServicesRepository.getEServiceToken(
+            GetTokenRequestParam(
+                "wEXRXHpNgzk0ml60sl4Bdg==",
+                "4a8GUGG4lUgWaA5pQ5Bg5w=="
+            )
+        )
+        return if (result is Result.Success) {
+            result.value.token
+        } else {
+            null
+        }
+    }
 
     fun updateFieldValue(field: GetFieldValueItem) {
         _fieldValue.value = Event(field)
@@ -62,7 +83,7 @@ class EServiceViewModel @Inject constructor(
     fun updateList(field: GetFieldValueItem) {
         val data = _fieldValues.value ?: return
         data.map {
-            if (field.index == it.index&& field.id==it.id)
+            if (field.index == it.index && field.id == it.id)
                 return@map field
             else
                 return@map it

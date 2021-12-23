@@ -31,9 +31,12 @@ class EServicesRepository @Inject constructor(
             is Result.Failure -> resultRds
         }
 
-    suspend fun getFieldValue(getFieldValueRequest: GetFieldValueRequest): Result<List<GetFieldValueItem>> =
+    suspend fun getFieldValue(
+        token: String,
+        getFieldValueRequest: GetFieldValueRequest
+    ): Result<List<GetFieldValueItem>> =
         when (val resultRds =
-            eServiceRDS.getFieldValue(transformFieldValueRequest(getFieldValueRequest))) {
+            eServiceRDS.getFieldValue(token, transformFieldValueRequest(getFieldValueRequest))) {
             is Result.Success -> {
                 if (resultRds.value.success) {
                     Result.Success(resultRds.value.getFieldValueResponseDTO.mapIndexed { index, getFieldValueResponseDTOItem ->

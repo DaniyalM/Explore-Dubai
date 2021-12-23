@@ -1,6 +1,7 @@
 package com.dubaiculture.data.repository.eservices.service
 
 import com.dubaiculture.data.repository.base.BaseService
+import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequestDTO
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.data.repository.eservices.remote.response.FormResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueResponse
@@ -11,15 +12,19 @@ import retrofit2.http.*
 
 interface EService : BaseService {
 
-    @GET("Home/GetToken")
-    suspend fun getEServiceToken(@Body getTokenRequestParam: GetTokenRequestParam): GetTokenResponse
+    @Multipart
+    @POST("Home/GetToken")
+    suspend fun getEServiceToken(
+        @Part("UserName") username: RequestBody,
+        @Part("Password") password: RequestBody
+    ): GetTokenResponse
 
-//    @POST("FieldValue/GetFieldValue")
-//    suspend fun getFieldValue(@Body getFieldValueRequestDTO: GetFieldValueRequestDTO): GetFieldValueResponse
-
-    @GET("FieldValue/GetFieldValue")
-    suspend fun getFieldValue(): GetFieldValueResponse
-
+    @Multipart
+    @POST("FieldValue/GetFieldValue")
+    suspend fun getFieldValue(
+        @Header("token") token: String,
+        @Part("FormName") formName: RequestBody
+    ): GetFieldValueResponse
 
     @Multipart
     @POST("NOC/CreateNOC")

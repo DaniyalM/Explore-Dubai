@@ -25,7 +25,6 @@ android {
     }
 
 
-
     defaultConfig {
         applicationId "com.dubaiculture"
         minSdkVersion 22
@@ -43,19 +42,21 @@ android {
         }
 
         //UAE PASS START -- Adding Custom Scheme Variables
-        buildConfigField "String", "URI_SCHEME", "\"uaePassDemo\"" // Change to your app name or any custom scheme. Donot use uaepasssample
+        buildConfigField "String", "URI_SCHEME", "\"uaePassDemo\""
+        // Change to your app name or any custom scheme. Donot use uaepasssample
         buildConfigField "String", "URI_HOST_SUCCESS", "\"success\""
         buildConfigField "String", "URI_HOST_FAILURE", "\"failure\""
 
         //UAE PASS START -- Adding Custom Scheme Variables
-        buildConfigField "String", "URI_SCHEME1", "\"uaePassDemo1\"" // Change to your app name or any custom scheme. Donot use uaepasssample
+        buildConfigField "String", "URI_SCHEME1", "\"uaePassDemo1\""
+        // Change to your app name or any custom scheme. Donot use uaepasssample
         buildConfigField "String", "URI_HOST_SUCCESS1", "\"success1\""
         buildConfigField "String", "URI_HOST_FAILURE1", "\"failure1\""
 
         manifestPlaceholders = [
-                host_success: "success",
-                host_failure: "failure",
-                scheme      : "uaePassDemo",
+                host_success : "success",
+                host_failure : "failure",
+                scheme       : "uaePassDemo",
                 host_success1: "success1",
                 host_failure1: "failure1",
                 scheme1      : "uaePassDemo1" // Change to your app name or any custom scheme. Donot use uaepasssample
@@ -91,8 +92,6 @@ android {
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_DEBUG\"")
 
 
-
-
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
@@ -113,23 +112,22 @@ android {
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_DEBUG\"")
 
 
-
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-     }
+        }
 
 //        http://dc.qa.greenlightlabs.tech
         stag {
 //            applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable false
+            debuggable true
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
             buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
             buildConfigField("String", "BASE_URL_SHARE", "\"http://dc.qa.greenlightlabs.tech\"")
-            buildConfigField("String", "BASE_URL_ESERVICES", "\"http://localhost:92/_vti_bin/DCAAPI/api/\"")
+            buildConfigField("String", "BASE_URL_ESERVICES", "\"https://uateservices.dubaiculture.gov.ae/_vti_bin/DCAAPI/api/\"")
             buildConfigField("String", "BASE_URL_ESERVICES_MOCK", "\"https://dbb188b8-8ab0-4ca8-ad66-5c7be2aabdb7.mock.pstmn.io/\"")
             buildConfigField("String", "CHAT_BOT_URL_EN", "\"http://creatopia.ae/MobileChat.php\"")
             buildConfigField("String", "CHAT_BOT_URL_AR", "\"http://creatopia.ae/MobileChatAR.php\"")
@@ -153,7 +151,7 @@ android {
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-      }
+        }
         prod {
 //            applicationIdSuffix ".prod"
             minifyEnabled false
@@ -170,12 +168,10 @@ android {
             buildConfigField("java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)")
 
 
-
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_PROD\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_PROD\"")
-
 
 
             signingConfig signingConfigs.prodConfig
@@ -338,7 +334,6 @@ dependencies {
     //Image Cropping Api and Media Libs
 //    implementation config.media_libraries.image_crop_api
     implementation config.media_libraries.image_picker
-
 
 
     // GoogleMapServices     //location Related Work
