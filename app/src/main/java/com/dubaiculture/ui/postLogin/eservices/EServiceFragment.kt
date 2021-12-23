@@ -15,6 +15,7 @@ import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createEditText
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createFileField
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createImageField
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTextView
+import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTimeField
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceSharedViewModel
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
@@ -107,6 +108,17 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.DATE.id -> {
                             binding.fieldContainer.addView(
                                 createDateField(
+                                    inflater,
+                                    binding.fieldContainer,
+                                    it
+                                ) {
+//                                    showToast(it)
+                                }
+                            )
+                        }
+                        ValueType.TIME.id -> {
+                            binding.fieldContainer.addView(
+                                createTimeField(
                                     inflater,
                                     binding.fieldContainer,
                                     it

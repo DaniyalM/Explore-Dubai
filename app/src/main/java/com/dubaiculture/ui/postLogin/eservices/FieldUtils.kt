@@ -19,9 +19,12 @@ import com.dubaiculture.databinding.EserviceTextViewBinding
 import com.dubaiculture.ui.components.customEditText.CustomEditText
 import com.dubaiculture.ui.components.customtextview.CustomTextView
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.DatePickerHelper
+import com.dubaiculture.utils.JustTimePicker
 import com.dubaiculture.utils.toString
 import timber.log.Timber
+import java.text.SimpleDateFormat
 import java.util.*
 
 object FieldUtils {
@@ -100,6 +103,41 @@ object FieldUtils {
                     }
                 }, fromDate = false
             ).showPicker()
+        }
+        editText.setCompoundDrawablesWithIntrinsicBounds(
+            null,
+            null,
+            AppCompatResources.getDrawable(root.context, R.drawable.calender),
+            null
+        )
+        return editText
+    }
+
+    fun createTimeField(
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem,
+        callback: (date: String) -> Unit
+    ): CustomEditText {
+        val editText = createEditText(layoutInflater, root, fieldValueItem)
+        editText.isFocusable = false
+        val cal = Calendar.getInstance()
+
+        val selectedTime = editText.text.toString()
+
+        if (selectedTime.isNotEmpty()) {
+            val sdf = SimpleDateFormat(Constants.DateFormats.HH_MM_A, Locale.ENGLISH)
+            cal.time = sdf.parse(selectedTime)
+        }
+
+        editText.setOnClickListener {
+            JustTimePicker(root.context, object : JustTimePicker.TimePickerInterface {
+                override fun onTimeSelected(calendar: Calendar) {
+                    val df = SimpleDateFormat(Constants.DateFormats.HH_MM_A)
+                    editText.setText(df.format(calendar.time))
+                }
+            }, cal).showPicker()
+
         }
         editText.setCompoundDrawablesWithIntrinsicBounds(
             null,

@@ -11,9 +11,7 @@ class JustTimePicker(
     var selectedTime: Calendar = Calendar.getInstance()
 ) : TimePickerDialog.OnTimeSetListener {
 
-
     fun showPicker() {
-
         val timePickerDialog = TimePickerDialog(
             context,
             this,
@@ -24,7 +22,6 @@ class JustTimePicker(
         timePickerDialog.show()
 
     }
-
 
     override fun onTimeSet(p0: TimePicker?, hour: Int, min: Int) {
         selectedTime.set(Calendar.HOUR_OF_DAY, hour)
