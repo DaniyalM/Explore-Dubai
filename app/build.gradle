@@ -106,6 +106,9 @@ android {
             buildConfigField("String", "BASE_URL_SHARE", "\"http://dc.qa.greenlightlabs.tech\"")
             buildConfigField("String", "BASE_URL_ESERVICES", "\"http://localhost:92/_vti_bin/DCAAPI/api/\"")
 
+            buildConfigField("String", "ESERVICES_USERNAME", "\"wEXRXHpNgzk0ml60sl4Bdg==\"")
+            buildConfigField("String", "ESERVICES_PASSWORD", "\"4a8GUGG4lUgWaA5pQ5Bg5w==\"")
+
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
@@ -133,6 +136,9 @@ android {
             buildConfigField("String", "CHAT_BOT_URL_AR", "\"http://creatopia.ae/MobileChatAR.php\"")
             buildConfigField("String", "HAPPINESSMETER_URL", "\"https://happinessmeterqa.dubai.gov.ae/HappinessMeter2/MobilePostDataService\"")
             buildConfigField("java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)")
+
+            buildConfigField("String", "ESERVICES_USERNAME", "\"wEXRXHpNgzk0ml60sl4Bdg==\"")
+            buildConfigField("String", "ESERVICES_PASSWORD", "\"4a8GUGG4lUgWaA5pQ5Bg5w==\"")
 
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
@@ -167,6 +173,8 @@ android {
             buildConfigField("String", "HAPPINESSMETER_URL", "\"https://happinessmeter.dubai.gov.ae/HappinessMeter2/MobilePostDataService\"")
             buildConfigField("java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)")
 
+            buildConfigField("String", "ESERVICES_USERNAME", "\"wEXRXHpNgzk0ml60sl4Bdg==\"")
+            buildConfigField("String", "ESERVICES_PASSWORD", "\"4a8GUGG4lUgWaA5pQ5Bg5w==\"")
 
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")

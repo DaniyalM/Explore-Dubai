@@ -2,13 +2,17 @@ package com.dubaiculture.ui.postLogin.eservices
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.work.impl.background.systemjob.SystemJobService
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.FragmentEserviceBinding
 import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.components.customEditText.CustomEditText
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createDateField
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createDropDown
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createEditText
@@ -42,20 +46,24 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
             back()
         }
         subscribeToObservable()
+        binding.submitButton.setOnClickListener {
+            submitForm()
+        }
+    }
+
+    private fun submitForm() {
+        eserviceViewModel.fieldValues.value?.forEach {
+            if (it.fieldType != FieldType.LABEL.fieldType) {
+                val id = it.id
+                val view = binding.fieldContainer.findViewById<View>(id)
+                if (ValueType.isInputField(it.valueType)) {
+                    Timber.e((view as EditText).text.toString())
+                }
+            }
+        }
     }
 
     private fun subscribeToObservable() {
-        eServicesSharedViewModel.updateField.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let {
-                eserviceViewModel.updateFieldValue(it)
-            }
-        }
-
-        eserviceViewModel.fieldValue.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let {
-                eserviceViewModel.updateList(it)
-            }
-        }
         eserviceViewModel.fieldValues.observe(viewLifecycleOwner) {
             initializeFields(it)
         }
@@ -65,7 +73,6 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         val inflater =
             activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         fieldValues.forEach {
-
             when (FieldType.fromName(it.fieldType).id) {
                 FieldType.LABEL.id -> {
                     binding.fieldContainer.addView(

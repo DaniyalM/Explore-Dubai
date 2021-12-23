@@ -1,7 +1,6 @@
 package com.dubaiculture.ui.postLogin.eservices
 
 enum class ValueType(val id: Int, val valueType: String) {
-
     INPUT_TEXT(0, "TextBox"),
     INPUT_NUMBER(1, "TextBox"),
     DROP_DOWN(2, "Dropdown"),
@@ -24,6 +23,15 @@ enum class ValueType(val id: Int, val valueType: String) {
                 if (f.valueType == valueType) return f
             }
             throw IllegalArgumentException()
+        }
+
+        fun isInputField(valueType: String): Boolean {
+            return (valueType == INPUT_TEXT.valueType
+                    || valueType == INPUT_NUMBER.valueType
+                    || valueType == INPUT_TEXT_MULTILINE.valueType
+                    || valueType == DATE.valueType
+                    || valueType == TIME.valueType
+                    || valueType == DROP_DOWN.valueType)
         }
     }
 

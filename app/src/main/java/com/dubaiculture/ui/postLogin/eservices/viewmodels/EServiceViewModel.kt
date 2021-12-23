@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.eservices.EServicesRepository
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
@@ -25,12 +26,11 @@ class EServiceViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle
 ) :
     BaseViewModel(application) {
-
+    private val map: HashMap<GetFieldValueItem, String> by lazy {
+        HashMap()
+    }
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
-
-    private val _fieldValue: MutableLiveData<Event<GetFieldValueItem>> = MutableLiveData()
-    val fieldValue: LiveData<Event<GetFieldValueItem>> = _fieldValue
 
     init {
         savedStateHandle.get<String>(FORM_NAME)?.let {
@@ -65,8 +65,8 @@ class EServiceViewModel @Inject constructor(
     private suspend fun getToken(): String? {
         val result = eServicesRepository.getEServiceToken(
             GetTokenRequestParam(
-                "wEXRXHpNgzk0ml60sl4Bdg==",
-                "4a8GUGG4lUgWaA5pQ5Bg5w=="
+                BuildConfig.ESERVICES_USERNAME,
+                BuildConfig.ESERVICES_PASSWORD
             )
         )
         return if (result is Result.Success) {
@@ -74,10 +74,6 @@ class EServiceViewModel @Inject constructor(
         } else {
             null
         }
-    }
-
-    fun updateFieldValue(field: GetFieldValueItem) {
-        _fieldValue.value = Event(field)
     }
 
     fun updateList(field: GetFieldValueItem) {
