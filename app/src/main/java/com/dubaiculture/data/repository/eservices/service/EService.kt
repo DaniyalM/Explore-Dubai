@@ -29,7 +29,6 @@ interface EService : BaseService {
     @Multipart
     @POST("NOC/CreateNOC")
     suspend fun createNoc(
-        @Part("Title") title: RequestBody,
         @Part("UserType") userType: RequestBody,
         @Part("Subject") subject: RequestBody,
         @Part("FilmingDate") filmingDate: RequestBody,
@@ -39,7 +38,10 @@ interface EService : BaseService {
         @Part("FullName") fullName: RequestBody,
         @Part("LocationAddress") locationAddress: RequestBody,
         @Part("UserEmailID") userEmailId: RequestBody,
-        @Part file: MultipartBody.Part? = null
+        @Part("CompanyDepartment") companyDepartment: RequestBody,
+        @Part("Status") status: RequestBody,
+        @Part("StatusComments") statusComments: RequestBody,
+        @Part signature: MultipartBody.Part? = null
     ): FormResponse
 
     @Multipart

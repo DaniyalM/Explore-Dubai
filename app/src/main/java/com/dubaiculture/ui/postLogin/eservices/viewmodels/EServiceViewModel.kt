@@ -24,7 +24,8 @@ abstract class EServiceViewModel constructor(
     val savedStateHandle: SavedStateHandle
 ) :
     BaseViewModel(application) {
-    private val map: HashMap<GetFieldValueItem, String> by lazy {
+    //Key -> Field Name, Value -> Pair(ValueType, Value)
+    private val map: HashMap<String, Pair<String, String>> by lazy {
         HashMap()
     }
 
@@ -79,7 +80,7 @@ abstract class EServiceViewModel constructor(
     }
 
     fun addField(fieldItem: GetFieldValueItem, value: String) {
-        map[fieldItem] = value
+        map[fieldItem.fieldName] = Pair(value, value)
     }
 
     abstract fun submitForm()

@@ -8,36 +8,25 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRe
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequestDTO
 import com.dubaiculture.data.repository.eservices.remote.response.FieldValueDTO
 import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueResponseDTOItem
-import com.estimote.coresdk.cloud.model.User
-import okhttp3.MultipartBody
-
+import com.dubaiculture.ui.postLogin.events.detail.helper.MultipartFormHelper.getMultiPartData
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 
 fun transformNocRequest(nocRequest: CreateNocRequest) = CreateNocRequestDTO(
-    Title = nocRequest.title,
-    UserType = nocRequest.userType,
-    Subject = nocRequest.subject,
-    FilmingDate = nocRequest.filmingDate,
-    FromTime = nocRequest.fromTime,
-    ToTime = nocRequest.toTime,
-    ContactPhoneNumber = nocRequest.contactPhoneNumber,
-    FullName = nocRequest.fullName,
-    LocationAddress = nocRequest.locationAddress,
-    UserEmailID = nocRequest.userEmailID,
-    countryCode = nocRequest.countryCode,
-    file = nocRequest.file
+    UserType = nocRequest.userType.toRequestBody("text/plain".toMediaType()),
+    Subject = nocRequest.subject.toRequestBody("text/plain".toMediaType()),
+    FilmingDate = nocRequest.filmingDate.toRequestBody("text/plain".toMediaType()),
+    FromTime = nocRequest.fromTime.toRequestBody("text/plain".toMediaType()),
+    ToTime = nocRequest.toTime.toRequestBody("text/plain".toMediaType()),
+    ContactPhoneNumber = nocRequest.contactPhoneNumber.toRequestBody("text/plain".toMediaType()),
+    FullName = nocRequest.fullName.toRequestBody("text/plain".toMediaType()),
+    LocationAddress = nocRequest.locationAddress.toRequestBody("text/plain".toMediaType()),
+    UserEmailID = nocRequest.userEmailID.toRequestBody("text/plain".toMediaType()),
+    CompanyDepartment = nocRequest.companyDepartment.toRequestBody("text/plain".toMediaType()),
+    Signature = getMultiPartData(nocRequest.signature),
+    Status = nocRequest.status.toRequestBody("text/plain".toMediaType()),
+    StatusComments = nocRequest.statusComments.toRequestBody("text/plain".toMediaType())
 )
-//val Title: String,
-//val UserType: String,
-//val Subject: String,
-//val FilmingDate: String,
-//val FromTime: String,
-//val ToTime: String,
-//val ContactPhoneNumber: String,
-//val FullName: String,
-//val LocationAddress: String,
-//val UserEmailID: String,
-//val countryCode: String,
-//val file: MultipartBody.Part
 
 fun transformFieldValueRequest(getFieldValueRequest: GetFieldValueRequest) =
     GetFieldValueRequestDTO(

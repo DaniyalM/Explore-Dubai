@@ -38,31 +38,20 @@ class EServicesRDS @Inject constructor(
     suspend fun createNoc(createNocRequestDTO: CreateNocRequestDTO): Result<FormResponse> =
         safeApiCall {
             eService.createNoc(
-                title = createNocRequestDTO.Title.toRequestBody("text/plain".toMediaType()),
-                userType = createNocRequestDTO.UserType.toRequestBody("text/plain".toMediaType()),
-                subject = createNocRequestDTO.Subject.toRequestBody("text/plain".toMediaType()),
-                filmingDate = createNocRequestDTO.FilmingDate.toRequestBody("text/plain".toMediaType()),
-                fromTime = createNocRequestDTO.FromTime.toRequestBody("text/plain".toMediaType()),
-                toTime = createNocRequestDTO.ToTime.toRequestBody("text/plain".toMediaType()),
-                contactPhoneNumber = createNocRequestDTO.ContactPhoneNumber.toRequestBody("text/plain".toMediaType()),
-                fullName = createNocRequestDTO.FullName.toRequestBody("text/plain".toMediaType()),
-                locationAddress = createNocRequestDTO.LocationAddress.toRequestBody("text/plain".toMediaType()),
-                userEmailId = createNocRequestDTO.UserEmailID.toRequestBody("text/plain".toMediaType()),
-                file = createNocRequestDTO.file
+                fullName = createNocRequestDTO.FullName,
+                userType = createNocRequestDTO.UserType,
+                subject = createNocRequestDTO.Subject,
+                filmingDate = createNocRequestDTO.FilmingDate,
+                fromTime = createNocRequestDTO.FromTime,
+                toTime = createNocRequestDTO.ToTime,
+                contactPhoneNumber = createNocRequestDTO.ContactPhoneNumber,
+                companyDepartment = createNocRequestDTO.CompanyDepartment,
+                signature = createNocRequestDTO.Signature,
+                userEmailId = createNocRequestDTO.UserEmailID,
+                status = createNocRequestDTO.Status,
+                statusComments = createNocRequestDTO.StatusComments,
+                locationAddress = createNocRequestDTO.LocationAddress
             )
         }
 
-
 }
-
-//@Part("Title") title: RequestBody,
-//@Part("UserType") userType: RequestBody,
-//@Part("Subject") subject: RequestBody,
-//@Part("FilmingDate") filmingDate: RequestBody,
-//@Part("FromTime") fromTime: RequestBody,
-//@Part("ToTime") toTime: RequestBody,
-//@Part("ContactPhoneNumber") contactPhoneNumber: RequestBody,
-//@Part("FullName") fullName: RequestBody,
-//@Part("LocationAddress") locationAddress: RequestBody,
-//@Part("UserEmailID") userEmailId: RequestBody,
-//@Part file: MultipartBody.Part? = null

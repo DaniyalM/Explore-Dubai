@@ -1,20 +1,22 @@
 package com.dubaiculture.data.repository.eservices.remote.request
 
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 data class CreateNocRequestDTO(
-    val Title: String,
-    val UserType: String,
-    val Subject: String,
-    val FilmingDate: String,
-    val FromTime: String,
-    val ToTime: String,
-    val ContactPhoneNumber: String,
-    val FullName: String,
-    val LocationAddress: String,
-    val UserEmailID: String,
-    val countryCode: String,
-    val file: MultipartBody.Part
+    val FullName: RequestBody,
+    val UserType: RequestBody,
+    val Subject: RequestBody,
+    val FilmingDate: RequestBody,
+    val LocationAddress: RequestBody,
+    val FromTime: RequestBody,
+    val ToTime: RequestBody,
+    val ContactPhoneNumber: RequestBody,
+    val CompanyDepartment: RequestBody,
+    val Signature: MultipartBody.Part? = null,
+    val UserEmailID: RequestBody,
+    val Status: RequestBody,
+    val StatusComments: RequestBody
 )
 
 //Title	string	Title
