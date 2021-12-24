@@ -12,7 +12,7 @@ import com.estimote.coresdk.cloud.model.User
 import okhttp3.MultipartBody
 
 
-fun transformNocRequest(nocRequest: CreateNocRequest)=CreateNocRequestDTO(
+fun transformNocRequest(nocRequest: CreateNocRequest) = CreateNocRequestDTO(
     Title = nocRequest.title,
     UserType = nocRequest.userType,
     Subject = nocRequest.subject,
@@ -44,30 +44,34 @@ fun transformFieldValueRequest(getFieldValueRequest: GetFieldValueRequest) =
         FormName = getFieldValueRequest.formName
     )
 
-fun transformFieldValuesResponse(index:Int,getFieldValueResponseDTOItem: GetFieldValueResponseDTOItem) =
+fun transformFieldValuesResponse(
+    index: Int,
+    getFieldValueResponseDTOItem: GetFieldValueResponseDTOItem
+) =
     GetFieldValueItem(
-        index=index,
-        arabic = getFieldValueResponseDTOItem.Arabic?:"",
-        english = getFieldValueResponseDTOItem.English?:"",
-        fieldName = getFieldValueResponseDTOItem.FieldName?:"",
-        fieldType = getFieldValueResponseDTOItem.FieldType?:"",
-        fieldValue = getFieldValueResponseDTOItem.FieldValue?.map { transformFieldValues(it) }?: mutableListOf(),
-        formName = getFieldValueResponseDTOItem.FormName?:"",
-        id = getFieldValueResponseDTOItem.ID?:0,
-        valueType = getFieldValueResponseDTOItem.ValueType?:"",
+        index = index,
+        arabic = getFieldValueResponseDTOItem.Arabic ?: "",
+        english = getFieldValueResponseDTOItem.English ?: "",
+        fieldName = getFieldValueResponseDTOItem.FieldName ?: "",
+        fieldType = getFieldValueResponseDTOItem.FieldType ?: "",
+        fieldValue = getFieldValueResponseDTOItem.FieldValue?.map { transformFieldValues(it) }
+            ?: mutableListOf(),
+        formName = getFieldValueResponseDTOItem.FormName ?: "",
+        id = getFieldValueResponseDTOItem.ID ?: 0,
+        valueType = getFieldValueResponseDTOItem.ValueType ?: "",
         selectedValue = null
 
     )
 
 fun transformFieldValues(fieldValueDTO: FieldValueDTO) =
     FieldValueItem(
-        arabic = fieldValueDTO.Arabic?:"",
-        english = fieldValueDTO.English?:"",
-        fieldName = fieldValueDTO.FieldName?:"",
-        fieldType = fieldValueDTO.FieldType?:"",
-        optionValues = fieldValueDTO.OptionValues?:"",
-        formName = fieldValueDTO.FormName?:"",
-        id = fieldValueDTO.ID?:0,
-        valueType = fieldValueDTO.ValueType?:""
+        arabic = fieldValueDTO.Arabic ?: "",
+        english = fieldValueDTO.English ?: "",
+        fieldName = fieldValueDTO.FieldName ?: "",
+        fieldType = fieldValueDTO.FieldType ?: "",
+        optionValues = fieldValueDTO.OptionValues ?: "",
+        formName = fieldValueDTO.FormName ?: "",
+        id = fieldValueDTO.ID ?: 0,
+        valueType = fieldValueDTO.ValueType ?: ""
 
     )

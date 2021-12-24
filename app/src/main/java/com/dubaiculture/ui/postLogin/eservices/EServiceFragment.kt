@@ -8,6 +8,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.work.impl.background.systemjob.SystemJobService
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.FragmentEserviceBinding
@@ -23,6 +24,7 @@ import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTimeField
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceSharedViewModel
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
+import com.dubaiculture.ui.postLogin.eservices.viewmodels.forms.EsNocViewModel
 import com.dubaiculture.utils.DatePickerHelper
 import com.dubaiculture.utils.toString
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,8 +33,16 @@ import java.util.*
 
 @AndroidEntryPoint
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
-    private val eServicesSharedViewModel: EServiceSharedViewModel by activityViewModels()
-    private val eserviceViewModel: EServiceViewModel by viewModels()
+    private val eServiceFragmentArgs: EServiceFragmentArgs by navArgs()
+    private val eServiceViewModel: EServiceViewModel by lazy {
+        if (eServiceFragmentArgs.formName == "NOCForm") {
+            val vModel: EsNocViewModel by viewModels()
+            vModel
+        } else {
+            val vModel: EServiceViewModel by viewModels()
+            vModel
+        }
+    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -41,7 +51,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        subscribeUiEvents(eserviceViewModel)
+        subscribeUiEvents(eServiceViewModel)
         binding.include.back.setOnClickListener {
             back()
         }
@@ -52,19 +62,22 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     }
 
     private fun submitForm() {
-        eserviceViewModel.fieldValues.value?.forEach {
+        eServiceViewModel.fieldValues.value?.forEach {
             if (it.fieldType != FieldType.LABEL.fieldType) {
                 val id = it.id
                 val view = binding.fieldContainer.findViewById<View>(id)
                 if (ValueType.isInputField(it.valueType)) {
-                    Timber.e((view as EditText).text.toString())
+                    val value = (view as EditText).text.toString()
+                    eServiceViewModel.addField(it, value)
+//                    Timber.e(value)
                 }
             }
         }
+        eServiceViewModel.submitForm()
     }
 
     private fun subscribeToObservable() {
-        eserviceViewModel.fieldValues.observe(viewLifecycleOwner) {
+        eServiceViewModel.fieldValues.observe(viewLifecycleOwner) {
             initializeFields(it)
         }
     }

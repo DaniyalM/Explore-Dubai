@@ -18,9 +18,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-@HiltViewModel
-class EServiceViewModel @Inject constructor(
+abstract class EServiceViewModel constructor(
     application: Application,
     val eServicesRepository: EServicesRepository,
     val savedStateHandle: SavedStateHandle
@@ -29,6 +27,9 @@ class EServiceViewModel @Inject constructor(
     private val map: HashMap<GetFieldValueItem, String> by lazy {
         HashMap()
     }
+
+    fun getFieldMap() = map
+
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
@@ -72,21 +73,15 @@ class EServiceViewModel @Inject constructor(
         return if (result is Result.Success) {
             result.value.token
         } else {
+            showToast("Token generation failed")
             null
         }
     }
 
-    fun updateList(field: GetFieldValueItem) {
-        val data = _fieldValues.value ?: return
-        data.map {
-            if (field.index == it.index && field.id == it.id)
-                return@map field
-            else
-                return@map it
-        }.let {
-            _fieldValues.value = it
-        }
+    fun addField(fieldItem: GetFieldValueItem, value: String) {
+        map[fieldItem] = value
     }
 
+    abstract fun submitForm()
 
 }
