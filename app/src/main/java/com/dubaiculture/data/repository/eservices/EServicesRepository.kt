@@ -52,8 +52,12 @@ class EServicesRepository @Inject constructor(
         }
 
 
-    suspend fun createNoc(createNocRequest: CreateNocRequest): Result<FormInnerResponse> {
-        return when (val resultRds = eServiceRDS.createNoc(transformNocRequest(createNocRequest))) {
+    suspend fun createNoc(
+        token: String,
+        createNocRequest: CreateNocRequest
+    ): Result<FormInnerResponse> {
+        return when (val resultRds =
+            eServiceRDS.createNoc(token, transformNocRequest(createNocRequest))) {
             is Result.Success -> {
                 if (resultRds.value.success) {
                     Result.Success(resultRds.value.data)

@@ -64,7 +64,7 @@ abstract class EServiceViewModel constructor(
         }
     }
 
-    private suspend fun getToken(): String? {
+    suspend fun getToken(): String? {
         val result = eServicesRepository.getEServiceToken(
             GetTokenRequestParam(
                 BuildConfig.ESERVICES_USERNAME,

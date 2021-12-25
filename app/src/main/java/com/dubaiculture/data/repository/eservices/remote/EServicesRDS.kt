@@ -35,9 +35,12 @@ class EServicesRDS @Inject constructor(
             )
         }
 
-    suspend fun createNoc(createNocRequestDTO: CreateNocRequestDTO): Result<FormResponse> =
+    suspend fun createNoc(
+        token: String,
+        createNocRequestDTO: CreateNocRequestDTO
+    ): Result<FormResponse> =
         safeApiCall {
-            eService.createNoc(
+            eService.createNoc(token,
                 fullName = createNocRequestDTO.FullName,
                 userType = createNocRequestDTO.UserType,
                 subject = createNocRequestDTO.Subject,

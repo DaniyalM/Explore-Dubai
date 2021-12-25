@@ -35,7 +35,7 @@ import java.util.*
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     private val eServiceFragmentArgs: EServiceFragmentArgs by navArgs()
     private val eServiceViewModel: EServiceViewModel by lazy {
-        if (eServiceFragmentArgs.formName == "NOCForm") {
+        if (eServiceFragmentArgs.formName == FormType.NOCFORM.value) {
             val vModel: EsNocViewModel by viewModels()
             vModel
         } else {
@@ -141,6 +141,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                 createTimeField(
                                     inflater,
                                     binding.fieldContainer,
+                                    childFragmentManager,
                                     it
                                 ) {
 //                                    showToast(it)

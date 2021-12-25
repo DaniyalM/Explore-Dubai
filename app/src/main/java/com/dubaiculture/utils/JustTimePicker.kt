@@ -1,32 +1,35 @@
 package com.dubaiculture.utils
 
-import android.app.TimePickerDialog
 import android.content.Context
-import android.widget.TimePicker
+import androidx.fragment.app.FragmentManager
+import com.dubaiculture.R
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.util.*
 
 class JustTimePicker(
     var context: Context,
     var iface: TimePickerInterface?,
+    var fragmentManager: FragmentManager,
     var selectedTime: Calendar = Calendar.getInstance()
-) : TimePickerDialog.OnTimeSetListener {
+) {
 
     fun showPicker() {
-        val timePickerDialog = TimePickerDialog(
-            context,
-            this,
-            selectedTime.get(Calendar.HOUR_OF_DAY),
-            selectedTime.get(Calendar.MINUTE),
-            false
-        )
-        timePickerDialog.show()
+        val picker =
+            MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(selectedTime.get(Calendar.HOUR_OF_DAY))
+                .setMinute(selectedTime.get(Calendar.MINUTE))
+                .setTitleText("Select time")
+//                .setTheme(R.style.CustomTimePickerStyle)
+                .build()
+        picker.show(fragmentManager, "TimePicker")
 
-    }
-
-    override fun onTimeSet(p0: TimePicker?, hour: Int, min: Int) {
-        selectedTime.set(Calendar.HOUR_OF_DAY, hour)
-        selectedTime.set(Calendar.MINUTE, min)
-        iface?.onTimeSelected(selectedTime)
+        picker.addOnPositiveButtonClickListener {
+            selectedTime.set(Calendar.HOUR_OF_DAY, picker.hour)
+            selectedTime.set(Calendar.MINUTE, picker.minute)
+            iface?.onTimeSelected(selectedTime)
+        }
     }
 
     interface TimePickerInterface {

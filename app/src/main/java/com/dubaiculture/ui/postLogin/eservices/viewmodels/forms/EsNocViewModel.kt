@@ -40,7 +40,12 @@ class EsNocViewModel @Inject constructor(
             entries["StatusComments"]?.second ?: "",
         )
         viewModelScope.launch {
-            val result = eServicesRepository.createNoc(request)
+            val token = getToken()
+            if (token == null) {
+                showLoader(false)
+                return@launch
+            }
+            val result = eServicesRepository.createNoc(token, request)
             if (result is Result.Success) {
                 showToast(result.message)
             } else {

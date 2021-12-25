@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.FragmentManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.EserviceDropDownBinding
@@ -116,6 +117,7 @@ object FieldUtils {
     fun createTimeField(
         layoutInflater: LayoutInflater,
         root: ViewGroup,
+        fragmentManager: FragmentManager,
         fieldValueItem: GetFieldValueItem,
         callback: (date: String) -> Unit
     ): CustomEditText {
@@ -136,7 +138,7 @@ object FieldUtils {
                     val df = SimpleDateFormat(Constants.DateFormats.HH_MM_A)
                     editText.setText(df.format(calendar.time))
                 }
-            }, cal).showPicker()
+            }, fragmentManager, cal).showPicker()
 
         }
         editText.setCompoundDrawablesWithIntrinsicBounds(

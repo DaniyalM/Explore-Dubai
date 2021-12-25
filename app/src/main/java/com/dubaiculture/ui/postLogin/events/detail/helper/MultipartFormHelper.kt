@@ -8,6 +8,7 @@ import java.io.File
 
 object MultipartFormHelper {
     fun getMultiPartData(imageURIPath: String): MultipartBody.Part? {
+        if (imageURIPath.isEmpty()) return null
         return try {
             val f = File(imageURIPath)
             // create RequestBody instance from file
@@ -20,14 +21,14 @@ object MultipartFormHelper {
     }
 
     fun getMultiPartVideoData(imageURIPath: String): MultipartBody.Part {
-        var f = File(imageURIPath)
+        val f = File(imageURIPath)
         // create RequestBody instance from file
         val requestFile = f.asRequestBody("video/mp4".toMediaTypeOrNull())
         // MultipartBody.Part is used to send also the actual file name
 
-
         return MultipartBody.Part.createFormData("file", f.name, requestFile)
     }
+
     //${f.extension}
     fun getRequestBody(data: String?): RequestBody {
         // add another part within the multipart request

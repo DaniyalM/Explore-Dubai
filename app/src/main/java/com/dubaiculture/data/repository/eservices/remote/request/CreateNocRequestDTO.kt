@@ -13,7 +13,7 @@ data class CreateNocRequestDTO(
     val ToTime: RequestBody,
     val ContactPhoneNumber: RequestBody,
     val CompanyDepartment: RequestBody,
-    val Signature: MultipartBody.Part? = null,
+    val Signature: MultipartBody.Part?,
     val UserEmailID: RequestBody,
     val Status: RequestBody,
     val StatusComments: RequestBody
