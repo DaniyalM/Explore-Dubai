@@ -1,8 +1,6 @@
 package com.dubaiculture.data.repository.eservices.service
 
 import com.dubaiculture.data.repository.base.BaseService
-import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequestDTO
-import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.data.repository.eservices.remote.response.FormResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetTokenResponse
@@ -29,7 +27,8 @@ interface EService : BaseService {
     @Multipart
     @POST("NOC/CreateNOC")
     suspend fun createNoc(
-        @Header("token") token: String,
+        @Header("Token") token: String,
+        @Header("Language") language: String = "en",
         @Part("UserType") userType: RequestBody,
         @Part("Subject") subject: RequestBody,
         @Part("FilmingDate") filmingDate: RequestBody,

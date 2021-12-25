@@ -17,7 +17,6 @@ class DatePickerHelper(
     var fromDate: Boolean? = true
 ) : DatePickerDialog.OnDateSetListener {
 
-
     private val selectCurrentDate = Calendar.getInstance()
     fun showPicker() {
         val datePickerDialog = DatePickerDialog(
@@ -29,7 +28,11 @@ class DatePickerHelper(
             selectCurrentDate.get(Calendar.DAY_OF_MONTH)
         )
         if (selectedDate!!.isNotEmpty()) {
-            datePickerDialog.updateDate(selectedDate!!.substring(0,4).toInt(), selectedDate!!.substring(5,7).toInt()-1,selectedDate!!.substring(8,10).toInt())
+            datePickerDialog.updateDate(
+                selectedDate!!.substring(0, 4).toInt(),
+                selectedDate!!.substring(5, 7).toInt() - 1,
+                selectedDate!!.substring(8, 10).toInt()
+            )
         }
 
         if (fromDate == true) {

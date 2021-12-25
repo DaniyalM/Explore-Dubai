@@ -1,11 +1,15 @@
 package com.dubaiculture.ui.postLogin.eservices
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import androidx.core.net.toFile
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -25,14 +29,21 @@ import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceSharedViewModel
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.forms.EsNocViewModel
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.DatePickerHelper
 import com.dubaiculture.utils.toString
+import com.jaiselrahman.filepicker.activity.FilePickerActivity
+import com.jaiselrahman.filepicker.config.Configurations
+import com.jaiselrahman.filepicker.model.MediaFile
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.io.File
 import java.util.*
 
 @AndroidEntryPoint
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
+    //Pair(ViewId,FieldName)
+    private var selectedView: Pair<Int, String>? = null
     private val eServiceFragmentArgs: EServiceFragmentArgs by navArgs()
     private val eServiceViewModel: EServiceViewModel by lazy {
         if (eServiceFragmentArgs.formName == FormType.NOCFORM.value) {
@@ -68,8 +79,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                 val view = binding.fieldContainer.findViewById<View>(id)
                 if (ValueType.isInputField(it.valueType)) {
                     val value = (view as EditText).text.toString()
-                    eServiceViewModel.addField(it, value)
-//                    Timber.e(value)
+                    eServiceViewModel.addField(it.fieldName, value, value)
                 }
             }
         }
@@ -162,7 +172,10 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                 createFileField(
                                     inflater,
                                     binding.fieldContainer,
-                                    it
+                                    it,
+                                    callback = {
+                                        showFilePicker(it)
+                                    }
                                 )
                             )
                         }
@@ -183,4 +196,46 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
 
     }
 
+    private fun showFilePicker(fieldInfo: Pair<Int, String>) {
+        selectedView = fieldInfo
+        val intent = Intent(activity, FilePickerActivity::class.java)
+        intent.putExtra(
+            FilePickerActivity.CONFIGS, Configurations.Builder()
+                .setCheckPermission(true)
+                .setShowFiles(true)
+                .setShowImages(true)
+                .setShowAudios(false)
+                .setShowVideos(false)
+                .setMaxSelection(1)
+                .setSkipZeroSizeFiles(true)
+                .build()
+        )
+        startActivityForResult(intent, 420)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 420 && resultCode == Activity.RESULT_OK) {
+            val files: ArrayList<MediaFile>? =
+                data?.getParcelableArrayListExtra<MediaFile>(FilePickerActivity.MEDIA_FILES)
+            files?.let {
+                val name = files[0].name
+                val path = files[0].uri.path
+                Timber.e(name)
+                Timber.e(path)
+                setFileDetails(files[0])
+            }
+        }
+        selectedView = null
+
+        super.onActivityResult(requestCode, resultCode, data)
+
+    }
+
+    private fun setFileDetails(mediaFile: MediaFile) {
+        selectedView?.let {
+            binding.fieldContainer.findViewById<EditText>(it.first).setText(mediaFile.name)
+            eServiceViewModel.addField(it.second, mediaFile.name, mediaFile.path ?: "")
+        }
+
+    }
 }

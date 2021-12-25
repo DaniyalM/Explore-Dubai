@@ -1,16 +1,15 @@
 package com.dubaiculture.ui.postLogin.eservices
 
-import android.app.ActionBar
+import android.app.Activity
 import android.content.Context
-import android.text.Editable
-import android.text.TextWatcher
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
@@ -18,13 +17,12 @@ import com.dubaiculture.databinding.EserviceDropDownBinding
 import com.dubaiculture.databinding.EserviceEditTextBinding
 import com.dubaiculture.databinding.EserviceTextViewBinding
 import com.dubaiculture.ui.components.customEditText.CustomEditText
-import com.dubaiculture.ui.components.customtextview.CustomTextView
-import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.DatePickerHelper
 import com.dubaiculture.utils.JustTimePicker
 import com.dubaiculture.utils.toString
-import timber.log.Timber
+import com.jaiselrahman.filepicker.activity.FilePickerActivity
+import com.jaiselrahman.filepicker.config.Configurations
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -97,7 +95,7 @@ object FieldUtils {
                 object : DatePickerHelper.DatePickerInterface {
                     override fun onDateSelected(calendar: Calendar) {
                         val date: Date = calendar.time
-                        val format = "yyyy-MM-dd"
+                        val format = Constants.DateFormats.MM_DD_YYYY
                         val str = date.toString(format)
                         editText.setText(str)
                         callback(str)
@@ -153,12 +151,13 @@ object FieldUtils {
     fun createFileField(
         layoutInflater: LayoutInflater,
         root: ViewGroup,
-        fieldValueItem: GetFieldValueItem
+        fieldValueItem: GetFieldValueItem,
+        callback: (pair: Pair<Int, String>) -> Unit
     ): CustomEditText {
         val editText = createEditText(layoutInflater, root, fieldValueItem)
         editText.isFocusable = false
         editText.setOnClickListener {
-
+            callback(Pair(editText.id, fieldValueItem.fieldName))
         }
         editText.setCompoundDrawablesWithIntrinsicBounds(
             null,

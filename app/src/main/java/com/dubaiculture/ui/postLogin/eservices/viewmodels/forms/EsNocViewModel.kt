@@ -21,9 +21,7 @@ class EsNocViewModel @Inject constructor(
 
     override fun submitForm() {
         val entries = getFieldMap()
-//            .forEach {
-//            Timber.e(it.key + " - " + it.value.second)
-//        }
+
         val request = CreateNocRequest(
             entries["FullName"]?.second ?: "",
             entries["UserType"]?.second ?: "",

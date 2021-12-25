@@ -173,6 +173,7 @@ object Constants {
         const val MMM_YYYY: String = "MMM YYYY"
         const val DD_MMM_YYYY: String = "dd MMM,YYYY"
         const val MMM_DD_YYYY: String = "MMM dd,YYYY"
+        const val MM_DD_YYYY: String = "MM/dd/yyyy"
         const val DD_MM_YY: String = "dd/MM/yy"
         const val HH_MM_A: String = "hh:mm aa"
         const val HH_MM: String = "HH:mm"
