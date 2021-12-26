@@ -2,22 +2,17 @@ package com.dubaiculture.ui.postLogin.eservices
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AutoCompleteTextView
 import android.widget.EditText
-import androidx.core.net.toFile
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.work.impl.background.systemjob.SystemJobService
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.FragmentEserviceBinding
 import com.dubaiculture.ui.base.BaseFragment
-import com.dubaiculture.ui.components.customEditText.CustomEditText
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createDateField
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createDropDown
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createEditText
@@ -25,37 +20,18 @@ import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createFileField
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createImageField
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTextView
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTimeField
-import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
-import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceSharedViewModel
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
-import com.dubaiculture.ui.postLogin.eservices.viewmodels.forms.BookingEServiceViewModel
-import com.dubaiculture.ui.postLogin.eservices.viewmodels.forms.EsNocViewModel
-import com.dubaiculture.utils.Constants
-import com.dubaiculture.utils.DatePickerHelper
-import com.dubaiculture.utils.toString
 import com.jaiselrahman.filepicker.activity.FilePickerActivity
 import com.jaiselrahman.filepicker.config.Configurations
 import com.jaiselrahman.filepicker.model.MediaFile
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.io.File
 import java.util.*
 
 @AndroidEntryPoint
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     private val eServiceFragmentArgs: EServiceFragmentArgs by navArgs()
-    private val eServiceViewModel: EServiceViewModel by lazy {
-        if (eServiceFragmentArgs.formName == FormType.NOCFORM.value) {
-            val vModel: EsNocViewModel by viewModels()
-            vModel
-        } else if (eServiceFragmentArgs.formName == FormType.BOOKINGESERVICE.value) {
-            val vModel: BookingEServiceViewModel by viewModels()
-            vModel
-        } else {
-            val vModel: EServiceViewModel by viewModels()
-            vModel
-        }
-    }
+    private val eServiceViewModel: EServiceViewModel by viewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

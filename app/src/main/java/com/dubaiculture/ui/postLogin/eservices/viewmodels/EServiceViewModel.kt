@@ -12,13 +12,21 @@ import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.ui.base.BaseViewModel
+import com.dubaiculture.ui.postLogin.eservices.ValueType
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 import javax.inject.Inject
 
-abstract class EServiceViewModel constructor(
+@HiltViewModel
+class EServiceViewModel @Inject constructor(
     application: Application,
     val eServicesRepository: EServicesRepository,
     val savedStateHandle: SavedStateHandle
@@ -85,6 +93,34 @@ abstract class EServiceViewModel constructor(
         map[field.fieldName] = Pair(field.valueType, value)
     }
 
-    abstract fun submitForm()
+    fun submitForm() {
+        val request = HashMap<String, RequestBody>()
+
+        val entries = getFieldMap()
+        entries.forEach {
+            if (it.value.first == ValueType.FILE.valueType) {
+                val file = File(it.value.second)
+                val fileBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+                val key = "file\"; filename=\"${it.value.second}\""
+                request[key] = fileBody
+            } else {
+                request[it.key] = it.value.second.toRequestBody("text/plain".toMediaType())
+            }
+        }
+
+        viewModelScope.launch {
+            val token = getToken()
+            if (token == null) {
+                showLoader(false)
+                return@launch
+            }
+            val result = eServicesRepository.createNoc(token, request)
+            if (result is Result.Success) {
+                showToast(result.message)
+            } else {
+                showToast("error")
+            }
+        }
+    }
 
 }
