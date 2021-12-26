@@ -37,18 +37,18 @@ class BookingEServiceViewModel @Inject constructor(
             entries["Status"]?.second ?: "",
             entries["StatusComments"]?.second ?: "",
         )
-        viewModelScope.launch {
-            val token = getToken()
-            if (token == null) {
-                showLoader(false)
-                return@launch
-            }
-            val result = eServicesRepository.createNoc(token, request)
-            if (result is Result.Success) {
-                showToast(result.message)
-            } else {
-                showToast("error")
-            }
-        }
+//        viewModelScope.launch {
+//            val token = getToken()
+//            if (token == null) {
+//                showLoader(false)
+//                return@launch
+//            }
+//            val result = eServicesRepository.createNoc(token, request)
+//            if (result is Result.Success) {
+//                showToast(result.message)
+//            } else {
+//                showToast("error")
+//            }
+//        }
     }
 }

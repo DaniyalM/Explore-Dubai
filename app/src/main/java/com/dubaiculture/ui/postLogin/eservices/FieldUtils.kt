@@ -152,12 +152,12 @@ object FieldUtils {
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem,
-        callback: (pair: Pair<Int, String>) -> Unit
+        callback: () -> Unit
     ): CustomEditText {
         val editText = createEditText(layoutInflater, root, fieldValueItem)
         editText.isFocusable = false
         editText.setOnClickListener {
-            callback(Pair(editText.id, fieldValueItem.fieldName))
+            callback()
         }
         editText.setCompoundDrawablesWithIntrinsicBounds(
             null,

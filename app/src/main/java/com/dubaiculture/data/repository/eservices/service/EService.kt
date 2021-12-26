@@ -29,19 +29,7 @@ interface EService : BaseService {
     suspend fun createNoc(
         @Header("Token") token: String,
         @Header("Language") language: String = "en",
-        @Part("UserType") userType: RequestBody,
-        @Part("Subject") subject: RequestBody,
-        @Part("FilmingDate") filmingDate: RequestBody,
-        @Part("FromTime") fromTime: RequestBody,
-        @Part("ToTime") toTime: RequestBody,
-        @Part("ContactPhoneNumber") contactPhoneNumber: RequestBody,
-        @Part("FullName") fullName: RequestBody,
-        @Part("LocationAddress") locationAddress: RequestBody,
-        @Part("UserEmailID") userEmailId: RequestBody,
-        @Part("CompanyDepartment") companyDepartment: RequestBody,
-        @Part("Status") status: RequestBody,
-        @Part("StatusComments") statusComments: RequestBody,
-        @Part signature: MultipartBody.Part? = null
+        @PartMap params: HashMap<String, RequestBody>
     ): FormResponse
 
     @Multipart

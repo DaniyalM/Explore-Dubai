@@ -12,6 +12,7 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRe
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.data.repository.eservices.remote.response.FormInnerResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetTokenResponseDTO
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class EServicesRepository @Inject constructor(
@@ -54,10 +55,10 @@ class EServicesRepository @Inject constructor(
 
     suspend fun createNoc(
         token: String,
-        createNocRequest: CreateNocRequest
+        params: HashMap<String, RequestBody>
     ): Result<FormInnerResponse> {
         return when (val resultRds =
-            eServiceRDS.createNoc(token, transformNocRequest(createNocRequest))) {
+            eServiceRDS.createNoc(token, params)) {
             is Result.Success -> {
                 if (resultRds.value.success) {
                     Result.Success(resultRds.value.data)

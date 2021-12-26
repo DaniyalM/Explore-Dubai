@@ -10,6 +10,7 @@ import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueR
 import com.dubaiculture.data.repository.eservices.remote.response.GetTokenResponse
 import com.dubaiculture.data.repository.eservices.service.EService
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
@@ -37,23 +38,12 @@ class EServicesRDS @Inject constructor(
 
     suspend fun createNoc(
         token: String,
-        createNocRequestDTO: CreateNocRequestDTO
+        params: HashMap<String, RequestBody>
     ): Result<FormResponse> =
         safeApiCall {
-            eService.createNoc(token,
-                fullName = createNocRequestDTO.FullName,
-                userType = createNocRequestDTO.UserType,
-                subject = createNocRequestDTO.Subject,
-                filmingDate = createNocRequestDTO.FilmingDate,
-                fromTime = createNocRequestDTO.FromTime,
-                toTime = createNocRequestDTO.ToTime,
-                contactPhoneNumber = createNocRequestDTO.ContactPhoneNumber,
-                companyDepartment = createNocRequestDTO.CompanyDepartment,
-                signature = createNocRequestDTO.Signature,
-                userEmailId = createNocRequestDTO.UserEmailID,
-                status = createNocRequestDTO.Status,
-                statusComments = createNocRequestDTO.StatusComments,
-                locationAddress = createNocRequestDTO.LocationAddress
+            eService.createNoc(
+                token = token,
+                params = params
             )
         }
 

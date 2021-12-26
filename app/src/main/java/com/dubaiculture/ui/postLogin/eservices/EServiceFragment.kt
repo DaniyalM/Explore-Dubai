@@ -81,7 +81,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                 val view = binding.fieldContainer.findViewById<View>(id)
                 if (ValueType.isInputField(it.valueType)) {
                     val value = (view as EditText).text.toString()
-                    eServiceViewModel.addField(it.fieldName, value, value)
+                    eServiceViewModel.addField(it, value)
                 }
             }
         }
@@ -176,7 +176,8 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                     binding.fieldContainer,
                                     it,
                                     callback = {
-                                        showFilePicker(it)
+                                        eServiceViewModel.selectedView = it
+                                        showFilePicker()
                                     }
                                 )
                             )
@@ -202,8 +203,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         binding.fieldContainer.addView(view)
     }
 
-    private fun showFilePicker(fieldInfo: Pair<Int, String>) {
-        eServiceViewModel.selectedView = fieldInfo
+    private fun showFilePicker() {
         val intent = Intent(activity, FilePickerActivity::class.java)
         intent.putExtra(
             FilePickerActivity.CONFIGS, Configurations.Builder()
@@ -239,8 +239,8 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
 
     private fun setFileDetails(mediaFile: MediaFile) {
         eServiceViewModel.selectedView?.let {
-            binding.fieldContainer.findViewById<EditText>(it.first).setText(mediaFile.name)
-            eServiceViewModel.addField(it.second, mediaFile.name, mediaFile.path ?: "")
+            binding.fieldContainer.findViewById<EditText>(it.id).setText(mediaFile.name)
+            eServiceViewModel.addField(it, mediaFile.path ?: "")
         }
 
     }
