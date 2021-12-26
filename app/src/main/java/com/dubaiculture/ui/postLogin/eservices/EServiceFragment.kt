@@ -28,6 +28,7 @@ import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTimeField
 import com.dubaiculture.ui.postLogin.eservices.adapter.listeners.FieldListener
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceSharedViewModel
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
+import com.dubaiculture.ui.postLogin.eservices.viewmodels.forms.BookingEServiceViewModel
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.forms.EsNocViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.DatePickerHelper
@@ -42,12 +43,13 @@ import java.util.*
 
 @AndroidEntryPoint
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
-    //Pair(ViewId,FieldName)
-    private var selectedView: Pair<Int, String>? = null
     private val eServiceFragmentArgs: EServiceFragmentArgs by navArgs()
     private val eServiceViewModel: EServiceViewModel by lazy {
         if (eServiceFragmentArgs.formName == FormType.NOCFORM.value) {
             val vModel: EsNocViewModel by viewModels()
+            vModel
+        } else if (eServiceFragmentArgs.formName == FormType.BOOKINGESERVICE.value) {
+            val vModel: BookingEServiceViewModel by viewModels()
             vModel
         } else {
             val vModel: EServiceViewModel by viewModels()
@@ -109,7 +111,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                 else -> {
                     when (ValueType.fromName(it.valueType).id) {
                         ValueType.INPUT_TEXT.id -> {
-                            binding.fieldContainer.addView(
+                            addViewToViewGroup(
                                 createEditText(
                                     inflater,
                                     binding.fieldContainer,
@@ -118,7 +120,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             )
                         }
                         ValueType.INPUT_NUMBER.id -> {
-                            binding.fieldContainer.addView(
+                            addViewToViewGroup(
                                 createEditText(
                                     inflater,
                                     binding.fieldContainer,
@@ -127,7 +129,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             )
                         }
                         ValueType.INPUT_TEXT_MULTILINE.id -> {
-                            binding.fieldContainer.addView(
+                            addViewToViewGroup(
                                 createEditText(
                                     inflater,
                                     binding.fieldContainer,
@@ -136,7 +138,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             )
                         }
                         ValueType.DATE.id -> {
-                            binding.fieldContainer.addView(
+                            addViewToViewGroup(
                                 createDateField(
                                     inflater,
                                     binding.fieldContainer,
@@ -147,7 +149,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             )
                         }
                         ValueType.TIME.id -> {
-                            binding.fieldContainer.addView(
+                            addViewToViewGroup(
                                 createTimeField(
                                     inflater,
                                     binding.fieldContainer,
@@ -159,7 +161,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             )
                         }
                         ValueType.IMAGE.id -> {
-                            binding.fieldContainer.addView(
+                            addViewToViewGroup(
                                 createImageField(
                                     inflater,
                                     binding.fieldContainer,
@@ -168,7 +170,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             )
                         }
                         ValueType.FILE.id -> {
-                            binding.fieldContainer.addView(
+                            addViewToViewGroup(
                                 createFileField(
                                     inflater,
                                     binding.fieldContainer,
@@ -180,7 +182,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             )
                         }
                         ValueType.DROP_DOWN.id -> {
-                            binding.fieldContainer.addView(
+                            addViewToViewGroup(
                                 createDropDown(
                                     inflater,
                                     binding.fieldContainer,
@@ -196,8 +198,12 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
 
     }
 
+    private fun addViewToViewGroup(view: View) {
+        binding.fieldContainer.addView(view)
+    }
+
     private fun showFilePicker(fieldInfo: Pair<Int, String>) {
-        selectedView = fieldInfo
+        eServiceViewModel.selectedView = fieldInfo
         val intent = Intent(activity, FilePickerActivity::class.java)
         intent.putExtra(
             FilePickerActivity.CONFIGS, Configurations.Builder()
@@ -225,14 +231,14 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                 setFileDetails(files[0])
             }
         }
-        selectedView = null
+        eServiceViewModel.selectedView = null
 
         super.onActivityResult(requestCode, resultCode, data)
 
     }
 
     private fun setFileDetails(mediaFile: MediaFile) {
-        selectedView?.let {
+        eServiceViewModel.selectedView?.let {
             binding.fieldContainer.findViewById<EditText>(it.first).setText(mediaFile.name)
             eServiceViewModel.addField(it.second, mediaFile.name, mediaFile.path ?: "")
         }

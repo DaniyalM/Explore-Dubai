@@ -24,6 +24,9 @@ abstract class EServiceViewModel constructor(
     val savedStateHandle: SavedStateHandle
 ) :
     BaseViewModel(application) {
+    //Pair(ViewId,FieldName)
+    var selectedView: Pair<Int, String>? = null
+
     //Map -> Field Name, Pair(DisplayValue,FormValue)
     private val map: HashMap<String, Pair<String, String>> by lazy {
         HashMap()

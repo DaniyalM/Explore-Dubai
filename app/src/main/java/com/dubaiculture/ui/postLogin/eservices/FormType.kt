@@ -2,10 +2,10 @@ package com.dubaiculture.ui.postLogin.eservices
 
 enum class FormType(val id:Int,val value:String) {
     NOCFORM(0,"NOCForm"),
-    BOOKINGESERVICE(1,"BookingEService"),
+    BOOKINGESERVICE(1,"Booking E-Service"),
     RENTREQUESTFORM(2,"RentRequestForm"),
     CULTURALVISAFORM(2,"CulturalVisaForm"),
-    SUPPLIERREGISTRATIONFORM(2,"SupplierRegistrationForm");
+    SUPPLIERREGISTRATIONFORM(2,"SupplierRegistrtaionForm");
 
 
     companion object {
