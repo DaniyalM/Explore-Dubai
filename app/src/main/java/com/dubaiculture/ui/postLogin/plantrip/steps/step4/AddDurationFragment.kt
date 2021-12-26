@@ -60,7 +60,6 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
     )
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
@@ -88,8 +87,8 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
                         TODO("Not yet implemented")
                     }
 
-                }
-            ,addDurationList)
+                }, addDurationList
+            )
             adapter = durationAdapter
 
 
@@ -117,9 +116,9 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
                 setData(it[0])
                 binding.rvDates.visibility = View.VISIBLE
                 durationAdapter.submitList(it.subList(1, it.size))
-                if(it.size>1){
+                if (it.size > 1) {
                     binding.checkBoxRepeat.show()
-                }else{
+                } else {
                     binding.checkBoxRepeat.hide()
                 }
             }
@@ -132,15 +131,18 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
         binding.data = duration
 
         var unSelectedColors = intArrayOf(
-            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
-            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
-            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
-            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(), R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(), R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(), R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(), R.attr.colorSecondaryVariant),
         )
 
         when (duration.isDay) {
             0 -> {
                 binding.btnDay.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_day)
+
+                binding.btnDay.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                 binding.btnDay.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.transparent)
@@ -148,6 +150,9 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
 
                 binding.btnNight.icon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_night)
+
+                binding.btnNight.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                 binding.btnNight.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.transparent)
@@ -210,7 +215,6 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
     }
 
 
-
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
         val popup = PopupMenu(context, v)
         popup.menuInflater.inflate(menuRes, popup.menu)
@@ -233,13 +237,28 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
     }
 
     fun onDoneClicked() {
-        if(durationList.isEmpty()){
+        if (durationList.isEmpty()) {
             tripSharedViewModel._durationSummary.value = null
-        }else{
-            tripSharedViewModel._durationSummary.value = durationList as ArrayList<Duration>
-        }
-        dismiss()
+        } else {
+            if (validateDuration()) {
+                tripSharedViewModel._durationSummary.value = durationList as ArrayList<Duration>
+                dismiss()
 
+            } else {
+                showErrorDialog(message = getString(R.string.add_duration_error))
+            }
+        }
+
+    }
+
+    private fun validateDuration(): Boolean {
+
+        for (duration in durationList) {
+            if (duration.isDay == 0 || duration.hour == getString(R.string.select_hour)) {
+                return false
+            }
+        }
+        return true
     }
 
 }

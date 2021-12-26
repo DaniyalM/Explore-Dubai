@@ -48,6 +48,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:translationZ="90dp"
                     app:layout_collapseMode="pin">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,7 +105,7 @@
                         android:id="@+id/imageView4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bottom_bg_login"
+                        android:background="@drawable/pyt_bottom_bg"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_plan_desc" />
@@ -132,11 +133,12 @@
 
                     <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tvCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:background="@drawable/rounded_corner"
-                        android:text="00"
+                        android:text="0"
+                        android:gravity="center"
                         android:textColor="@color/white_900"
                         android:textSize="@dimen/_8ssp"
                         app:layout_constraintBottom_toBottomOf="@id/chip_trip"

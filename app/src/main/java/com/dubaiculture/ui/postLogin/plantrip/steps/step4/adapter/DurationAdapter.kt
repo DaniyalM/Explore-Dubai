@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.MenuRes
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -62,8 +63,10 @@ class DurationAdapter(val rowClickListener: DurationClickListener,val addDuratio
             binding.view = this
             when (duration.isDay) {
                 0 -> {
-                    binding.btnDay.icon =
-                        ContextCompat.getDrawable(binding.root.context, R.drawable.ic_day)
+                    binding.btnDay.icon = ContextCompat.getDrawable(binding.root.context, R.drawable.ic_day)
+
+                    binding.btnDay.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                     binding.btnDay.setBackgroundColor(
                         ContextCompat.getColor(binding.root.context, R.color.transparent)
@@ -71,6 +74,9 @@ class DurationAdapter(val rowClickListener: DurationClickListener,val addDuratio
 
                     binding.btnNight.icon =
                         ContextCompat.getDrawable(binding.root.context, R.drawable.ic_night)
+
+                    binding.btnNight.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                     binding.btnNight.setBackgroundColor(
                         ContextCompat.getColor(binding.root.context, R.color.transparent)

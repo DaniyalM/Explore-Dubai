@@ -414,6 +414,8 @@
     <string name="tripCloseAlert">هل أنت متأكد أنك تريد إغلاق خطط لرحلتك؟</string>
     <string name="EditTripAlert">هل أنت متأكد أنك تريد تعديل الرحلة؟</string>
     <string name="NoTripFoundAlert">لم يتم العثور على رحلة في التواريخ المحددة</string>
+    <string name="select_hour">عدد أيام رحلتك</string>
+    <string name="add_duration_error">الرجاء تحديد ساعة للمتابعة</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->

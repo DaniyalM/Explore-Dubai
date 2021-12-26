@@ -123,7 +123,7 @@ class TripSharedViewModel @Inject constructor(
     }
 
 
-    fun getDaysList(startDay: String, endDay: String) {
+    fun getDaysList(startDay: String, endDay: String, hourText: String) {
 
         var daysList: MutableList<String> = mutableListOf<String>()
         var updateDate = startDay
@@ -140,10 +140,10 @@ class TripSharedViewModel @Inject constructor(
 
         }
 
-        populateList(daysList = daysList)
+        populateList(daysList = daysList,hourText)
     }
 
-    private fun populateList(daysList: List<String>) {
+    private fun populateList(daysList: List<String>, hourText: String) {
 
         val durationList = mutableListOf<Duration>()
 
@@ -151,8 +151,8 @@ class TripSharedViewModel @Inject constructor(
             durationList += Duration(
                 id = index + 1,
                 dayDate = day,
-                hour = "1 Hour",
-                isDay = 1,
+                hour = hourText,
+                isDay = 0,
                 isSelected = false
             )
 

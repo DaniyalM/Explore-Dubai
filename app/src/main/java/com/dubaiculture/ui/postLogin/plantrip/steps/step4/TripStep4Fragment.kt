@@ -144,7 +144,8 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
                 DateFormat.format(
                     "dd MMM,yy",
                     it.first!!
-                ).toString(), DateFormat.format("dd MMM,yy", it.second!!).toString()
+                ).toString(), DateFormat.format("dd MMM,yy", it.second!!).toString(),
+                getString(R.string.select_hour)
 
             )
 
