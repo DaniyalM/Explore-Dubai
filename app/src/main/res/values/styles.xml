@@ -346,4 +346,8 @@
         <item name="colorSecondary">@color/gray_300</item>
     </style>
 
+    <style name="TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">?attr/color_light_theme_purple_dark_theme_gray</item>
+    </style>
+
 </resources>
