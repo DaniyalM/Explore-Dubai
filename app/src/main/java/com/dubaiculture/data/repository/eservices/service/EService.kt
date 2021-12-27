@@ -25,78 +25,12 @@ interface EService : BaseService {
     ): GetFieldValueResponse
 
     @Multipart
-    @POST("NOC/CreateNOC")
-    suspend fun createNoc(
+    @POST("{url}")
+    suspend fun submitForm(
         @Header("Token") token: String,
         @Header("Language") language: String = "en",
-        @PartMap params: HashMap<String, RequestBody>
-    ): FormResponse
-
-    @Multipart
-    @POST("Supplier/SupplierRegistration")
-    suspend fun registerSupplier(
-        @Part("RegistrationType") RegistrationType: RequestBody,
-        @Part("EntryDate") EntryDate: RequestBody,
-        @Part("LicenseNumber") LicenseNumber: RequestBody,
-        @Part("CompanyName") CompanyName: RequestBody,
-        @Part("LicenseActivities") LicenseActivities: RequestBody,
-        @Part("TradeLicenseIssueDate") TradeLicenseIssueDate: RequestBody,
-        @Part("TradeLicenseExpiryDate") TradeLicenseExpiryDate: RequestBody,
-        @Part("TradeLicenseIssuePlace") TradeLicenseIssuePlace: RequestBody,
-        @Part("ManagerName") ManagerName: RequestBody,
-        @Part("OwnerName") OwnerName: RequestBody,
-        @Part("TradeName") TradeName: RequestBody,
-        @Part("Country") Country: RequestBody,
-        @Part("City") City: RequestBody,
-        @Part("Mobile") Mobile: RequestBody,
-        @Part("OfficeTelephoneNumber") OfficeTelephoneNumber: RequestBody,
-        @Part("Email") Email: RequestBody,
-        @Part("POBox") POBox: RequestBody,
-        @Part("RegisteredInTejari") RegisteredInTejari: RequestBody,
-        @Part("DubaiSME") DubaiSME: RequestBody,
-        @Part commerciallicense: MultipartBody.Part,
-        @Part companyprofile: MultipartBody.Part,
-        @Part passport: MultipartBody.Part,
-        @Part listofmaterials: MultipartBody.Part,
-        @Part commercelicense: MultipartBody.Part,
-        @Part previousexperience: MultipartBody.Part,
-        @Part contractpartnership: MultipartBody.Part,
-        @Part membershipcertificate: MultipartBody.Part,
-        @Part certificatepowerattorney: MultipartBody.Part,
-    ): FormResponse
-
-    @Multipart
-    @POST("Booking/CreateBooking")
-    suspend fun createBooking(
-        @Part("Location") Location: RequestBody,
-        @Part("Date") Date: RequestBody,
-        @Part("DateTime") DateTime: RequestBody,
-        @Part("FullName") FullName: RequestBody,
-        @Part("Email") Email: RequestBody,
-        @Part("PhoneNumber") PhoneNumber: RequestBody,
-        @Part("Duration") Duration: RequestBody,
-        @Part("Additionalservicesrequest") Additionalservicesrequest: RequestBody,
-        @Part("BookingType") BookingType: RequestBody,
-        @Part("Company") Company: RequestBody,
-        @Part("Entity") Entity: RequestBody,
-        @Part("countryCode") countryCode: RequestBody
-    ): FormResponse
-
-
-    @POST("CreateRentRequest")
-    suspend fun createRentRequest(
-        @Part("FullName") RegistrationType: RequestBody,
-        @Part("PriorDate") EntryDate: RequestBody,
-        @Part("Nationality") LicenseNumber: RequestBody,
-        @Part("EmiratesId") CompanyName: RequestBody,
-        @Part("PassportNo") LicenseActivities: RequestBody,
-        @Part("Address") TradeLicenseIssueDate: RequestBody,
-        @Part("ContactPhoneNumber") TradeLicenseExpiryDate: RequestBody,
-        @Part("UserEmailID") TradeLicenseIssuePlace: RequestBody,
-        @Part("RealEstateType") ManagerName: RequestBody,
-        @Part("TotalRequiredSpace") OwnerName: RequestBody,
-        @Part("Measurement") TradeName: RequestBody,
-        @Part("countryCode") Country: RequestBody
+        @PartMap params: HashMap<String, RequestBody>,
+        @Path(value = "url", encoded = true) url: String
     ): FormResponse
 
 }

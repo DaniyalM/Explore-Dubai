@@ -1,12 +1,11 @@
 package com.dubaiculture.ui.postLogin.eservices
 
-enum class FormType(val id:Int,val value:String) {
-    NOCFORM(0,"NOCForm"),
-    BOOKINGESERVICE(1,"Booking E-Service"),
-    RENTREQUESTFORM(2,"RentRequestForm"),
-    CULTURALVISAFORM(2,"CulturalVisaForm"),
-    SUPPLIERREGISTRATIONFORM(2,"SupplierRegistrtaionForm");
-
+enum class FormType(val id: Int, val value: String, val url: String) {
+    NOC_FORM(0, "NOCForm", "NOC/CreateNOC"),
+    BOOKING_ESERVICE(1, "Booking E-Service", "Booking/CreateBooking"),
+    RENT_REQUEST(2, "RentRequestForm", "CreateRentRequest"),
+    CULTURAL_VISA(3, "CulturalVisaForm", "CulturalVisa/CreateCulturalVisa"),
+    SUPPLIER_REGISTRATION(4, "SupplierRegistrationForm", "Supplier/SupplierRegistration");
 
     companion object {
         fun fromId(id: Int): FormType {

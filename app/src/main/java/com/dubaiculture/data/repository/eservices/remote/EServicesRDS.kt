@@ -36,14 +36,16 @@ class EServicesRDS @Inject constructor(
             )
         }
 
-    suspend fun createNoc(
+    suspend fun submitForm(
         token: String,
-        params: HashMap<String, RequestBody>
+        params: HashMap<String, RequestBody>,
+        url: String
     ): Result<FormResponse> =
         safeApiCall {
-            eService.createNoc(
+            eService.submitForm(
                 token = token,
-                params = params
+                params = params,
+                url = url
             )
         }
 

@@ -8,7 +8,9 @@ enum class ValueType(val id: Int, val valueType: String) {
     FILE(4, "File"),
     DATE(5, "Date"),
     TIME(6, "Time"),
-    INPUT_TEXT_MULTILINE(8, "Multiline");
+    INPUT_TEXT_MULTILINE(8, "Multiline"),
+    BUTTON(9, "Button"),
+    RADIO_BUTTON(10, "YesNo");
 
     companion object {
         fun fromId(id: Int): ValueType {

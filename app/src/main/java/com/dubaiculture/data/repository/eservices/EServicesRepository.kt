@@ -53,12 +53,13 @@ class EServicesRepository @Inject constructor(
         }
 
 
-    suspend fun createNoc(
+    suspend fun submitForm(
         token: String,
-        params: HashMap<String, RequestBody>
+        params: HashMap<String, RequestBody>,
+        url: String
     ): Result<FormInnerResponse> {
         return when (val resultRds =
-            eServiceRDS.createNoc(token, params)) {
+            eServiceRDS.submitForm(token, params, url)) {
             is Result.Success -> {
                 if (resultRds.value.success) {
                     Result.Success(resultRds.value.data)

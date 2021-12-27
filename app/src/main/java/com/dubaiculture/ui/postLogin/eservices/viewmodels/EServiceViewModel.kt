@@ -12,6 +12,7 @@ import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.ui.base.BaseViewModel
+import com.dubaiculture.ui.postLogin.eservices.FormType
 import com.dubaiculture.ui.postLogin.eservices.ValueType
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
 import com.dubaiculture.utils.event.Event
@@ -40,13 +41,13 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun getFieldMap() = map
-
+    private val form = FormType.SUPPLIER_REGISTRATION
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
     init {
         savedStateHandle.get<String>(FORM_NAME)?.let {
-            getFieldValues("NOCFORM")
+            getFieldValues(form.value)
         }
     }
 
@@ -114,7 +115,7 @@ class EServiceViewModel @Inject constructor(
                 showLoader(false)
                 return@launch
             }
-            val result = eServicesRepository.createNoc(token, request)
+            val result = eServicesRepository.submitForm(token, request, form.url)
             if (result is Result.Success) {
                 showToast(result.message)
             } else {
