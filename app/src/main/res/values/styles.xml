@@ -346,9 +346,4 @@
         <item name="colorSecondary">@color/gray_300</item>
     </style>
 
-    <style name="CustomTimePickerStyle" parent="Widget.MaterialComponents.TimePicker">
-        <item name="colorOnSurface">@color/purple_650</item>
-        <item name="colorSecondary">@color/gray_300</item>
-    </style>
-
 </resources>

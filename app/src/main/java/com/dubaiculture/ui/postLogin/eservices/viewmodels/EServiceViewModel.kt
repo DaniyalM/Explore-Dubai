@@ -46,7 +46,7 @@ class EServiceViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<String>(FORM_NAME)?.let {
-            getFieldValues(it)
+            getFieldValues("NOCFORM")
         }
     }
 

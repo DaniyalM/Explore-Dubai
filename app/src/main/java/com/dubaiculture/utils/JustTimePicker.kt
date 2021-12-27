@@ -21,7 +21,6 @@ class JustTimePicker(
                 .setHour(selectedTime.get(Calendar.HOUR_OF_DAY))
                 .setMinute(selectedTime.get(Calendar.MINUTE))
                 .setTitleText("Select time")
-//                .setTheme(R.style.CustomTimePickerStyle)
                 .build()
         picker.show(fragmentManager, "TimePicker")
 

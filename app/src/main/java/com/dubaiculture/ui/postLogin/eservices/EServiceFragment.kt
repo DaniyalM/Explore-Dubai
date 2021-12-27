@@ -32,7 +32,7 @@ import java.util.*
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     private val eServiceFragmentArgs: EServiceFragmentArgs by navArgs()
     private val eServiceViewModel: EServiceViewModel by viewModels()
-
+    private val FILE_SELECTION_CODE = 121
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -184,19 +184,20 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         intent.putExtra(
             FilePickerActivity.CONFIGS, Configurations.Builder()
                 .setCheckPermission(true)
-                .setShowFiles(true)
                 .setShowImages(true)
+                .setShowFiles(true)
                 .setShowAudios(false)
                 .setShowVideos(false)
                 .setMaxSelection(1)
+                .setSuffixes("pdf")
                 .setSkipZeroSizeFiles(true)
                 .build()
         )
-        startActivityForResult(intent, 420)
+        startActivityForResult(intent, FILE_SELECTION_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 420 && resultCode == Activity.RESULT_OK) {
+        if (requestCode == FILE_SELECTION_CODE && resultCode == Activity.RESULT_OK) {
             val files: ArrayList<MediaFile>? =
                 data?.getParcelableArrayListExtra<MediaFile>(FilePickerActivity.MEDIA_FILES)
             files?.let {

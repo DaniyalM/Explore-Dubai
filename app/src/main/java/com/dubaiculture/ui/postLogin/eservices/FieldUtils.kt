@@ -17,10 +17,7 @@ import com.dubaiculture.databinding.EserviceDropDownBinding
 import com.dubaiculture.databinding.EserviceEditTextBinding
 import com.dubaiculture.databinding.EserviceTextViewBinding
 import com.dubaiculture.ui.components.customEditText.CustomEditText
-import com.dubaiculture.utils.Constants
-import com.dubaiculture.utils.DatePickerHelper
-import com.dubaiculture.utils.JustTimePicker
-import com.dubaiculture.utils.toString
+import com.dubaiculture.utils.*
 import com.jaiselrahman.filepicker.activity.FilePickerActivity
 import com.jaiselrahman.filepicker.config.Configurations
 import java.text.SimpleDateFormat
@@ -89,10 +86,11 @@ object FieldUtils {
         val editText = createEditText(layoutInflater, root, fieldValueItem)
         editText.isFocusable = false
         editText.setOnClickListener {
-            DatePickerHelper(
-                editText.text.toString(),
+            DatePickerUtil(
+                selectedDate = editText.text.toString(),
+                selectedDateFormat = Constants.DateFormats.MM_DD_YYYY,
                 root.context,
-                object : DatePickerHelper.DatePickerInterface {
+                object : DatePickerUtil.DatePickerInterface {
                     override fun onDateSelected(calendar: Calendar) {
                         val date: Date = calendar.time
                         val format = Constants.DateFormats.MM_DD_YYYY
@@ -100,7 +98,7 @@ object FieldUtils {
                         editText.setText(str)
                         callback(str)
                     }
-                }, fromDate = false
+                }
             ).showPicker()
         }
         editText.setCompoundDrawablesWithIntrinsicBounds(
