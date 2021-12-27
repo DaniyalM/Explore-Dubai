@@ -41,7 +41,7 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun getFieldMap() = map
-    private val form = FormType.SUPPLIER_REGISTRATION
+    private val form = FormType.NOC_FORM
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 

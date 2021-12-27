@@ -31,9 +31,10 @@ import java.util.*
 
 @AndroidEntryPoint
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
-    private val eServiceFragmentArgs: EServiceFragmentArgs by navArgs()
     private val eServiceViewModel: EServiceViewModel by viewModels()
+
     private val FILE_SELECTION_CODE = 121
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -79,6 +80,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                 FieldType.LABEL.id -> {
                     binding.fieldContainer.addView(
                         createTextView(
+                            isArabic(),
                             inflater,
                             binding.fieldContainer,
                             it
@@ -90,33 +92,37 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.INPUT_TEXT.id -> {
                             addViewToViewGroup(
                                 createEditText(
+                                    isArabic(),
                                     inflater,
                                     binding.fieldContainer,
-                                    fieldValue = it
+                                    it
                                 )
                             )
                         }
                         ValueType.INPUT_NUMBER.id -> {
                             addViewToViewGroup(
                                 createEditText(
+                                    isArabic(),
                                     inflater,
                                     binding.fieldContainer,
-                                    fieldValue = it
+                                    it
                                 )
                             )
                         }
                         ValueType.INPUT_TEXT_MULTILINE.id -> {
                             addViewToViewGroup(
                                 createEditText(
+                                    isArabic(),
                                     inflater,
                                     binding.fieldContainer,
-                                    fieldValue = it
+                                    it
                                 )
                             )
                         }
                         ValueType.DATE.id -> {
                             addViewToViewGroup(
                                 createDateField(
+                                    isArabic(),
                                     inflater,
                                     binding.fieldContainer,
                                     it
@@ -128,6 +134,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.TIME.id -> {
                             addViewToViewGroup(
                                 createTimeField(
+                                    isArabic(),
                                     inflater,
                                     binding.fieldContainer,
                                     childFragmentManager,
@@ -140,6 +147,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.IMAGE.id -> {
                             addViewToViewGroup(
                                 createImageField(
+                                    isArabic(),
                                     inflater,
                                     binding.fieldContainer,
                                     it
@@ -149,6 +157,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.FILE.id -> {
                             addViewToViewGroup(
                                 createFileField(
+                                    isArabic(),
                                     inflater,
                                     binding.fieldContainer,
                                     it,
@@ -162,6 +171,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.DROP_DOWN.id -> {
                             addViewToViewGroup(
                                 createDropDown(
+                                    isArabic(),
                                     inflater,
                                     binding.fieldContainer,
                                     it
@@ -171,6 +181,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         ValueType.RADIO_BUTTON.id -> {
                             addViewToViewGroup(
                                 createRadioButton(
+                                    isArabic(),
                                     inflater,
                                     binding.fieldContainer,
                                     it

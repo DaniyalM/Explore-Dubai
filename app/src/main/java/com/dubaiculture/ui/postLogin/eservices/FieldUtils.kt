@@ -1,11 +1,9 @@
 package com.dubaiculture.ui.postLogin.eservices
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentManager
 import com.dubaiculture.R
@@ -19,10 +17,10 @@ import com.dubaiculture.utils.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 object FieldUtils {
 
     fun createTextView(
+        isArabic: Boolean,
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem
@@ -30,25 +28,27 @@ object FieldUtils {
         val view = EserviceTextViewBinding.inflate(layoutInflater, root, false)
         val textView = view.textView
         textView.id = fieldValueItem.id
-        textView.text = fieldValueItem.english
+        textView.text = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
         return textView
     }
 
     fun createEditText(
+        isArabic: Boolean,
         layoutInflater: LayoutInflater,
         root: ViewGroup,
-        fieldValue: GetFieldValueItem
+        fieldValueItem: GetFieldValueItem
     ): CustomEditText {
         val view = EserviceEditTextBinding.inflate(layoutInflater, root, false)
         val editText = view.editText
 
-        editText.id = fieldValue.id
-        editText.hint = fieldValue.english
+        editText.id = fieldValueItem.id
+        editText.hint = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
 
         return editText
     }
 
     fun createDropDown(
+        isArabic: Boolean,
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem
@@ -57,14 +57,14 @@ object FieldUtils {
 
         val dropDown = view.dropDown
         dropDown.id = fieldValueItem.id
-        dropDown.hint = fieldValueItem.english
+        dropDown.hint = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
 
         dropDown.setAdapter(
             ArrayAdapter(
                 view.root.context,
                 android.R.layout.simple_dropdown_item_1line,
                 fieldValueItem.fieldValue.map {
-                    it.english
+                    if (isArabic) it.arabic else it.english
                 }
             )
         )
@@ -75,12 +75,13 @@ object FieldUtils {
     }
 
     fun createDateField(
+        isArabic: Boolean,
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem,
         callback: (date: String) -> Unit
     ): CustomEditText {
-        val editText = createEditText(layoutInflater, root, fieldValueItem)
+        val editText = createEditText(isArabic, layoutInflater, root, fieldValueItem)
         editText.isFocusable = false
         editText.setOnClickListener {
             DatePickerUtil(
@@ -98,23 +99,23 @@ object FieldUtils {
                 }
             ).showPicker()
         }
-        editText.setCompoundDrawablesWithIntrinsicBounds(
-            null,
-            null,
+        setDrawableEnd(
+            isArabic,
             AppCompatResources.getDrawable(root.context, R.drawable.calender),
-            null
+            editText
         )
         return editText
     }
 
     fun createTimeField(
+        isArabic: Boolean,
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fragmentManager: FragmentManager,
         fieldValueItem: GetFieldValueItem,
         callback: (date: String) -> Unit
     ): CustomEditText {
-        val editText = createEditText(layoutInflater, root, fieldValueItem)
+        val editText = createEditText(isArabic, layoutInflater, root, fieldValueItem)
         editText.isFocusable = false
         val cal = Calendar.getInstance()
 
@@ -134,55 +135,55 @@ object FieldUtils {
             }, fragmentManager, cal).showPicker()
 
         }
-        editText.setCompoundDrawablesWithIntrinsicBounds(
-            null,
-            null,
+        setDrawableEnd(
+            isArabic,
             AppCompatResources.getDrawable(root.context, R.drawable.calender),
-            null
+            editText
         )
         return editText
     }
 
     fun createFileField(
+        isArabic: Boolean,
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem,
         callback: () -> Unit
     ): CustomEditText {
-        val editText = createEditText(layoutInflater, root, fieldValueItem)
+        val editText = createEditText(isArabic, layoutInflater, root, fieldValueItem)
         editText.isFocusable = false
         editText.setOnClickListener {
             callback()
         }
-        editText.setCompoundDrawablesWithIntrinsicBounds(
-            null,
-            null,
+        setDrawableEnd(
+            isArabic,
             AppCompatResources.getDrawable(root.context, R.drawable.ic_file),
-            null
+            editText
         )
         return editText
     }
 
     fun createImageField(
+        isArabic: Boolean,
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem
     ): CustomEditText {
-        val editText = createEditText(layoutInflater, root, fieldValueItem)
+        val editText = createEditText(isArabic, layoutInflater, root, fieldValueItem)
         editText.isFocusable = false
         editText.setOnClickListener {
 
         }
-        editText.setCompoundDrawablesWithIntrinsicBounds(
-            null,
-            null,
+        setDrawableEnd(
+            isArabic,
             AppCompatResources.getDrawable(root.context, R.drawable.image_placeholder),
-            null
+            editText
         )
         return editText
     }
 
     fun createRadioButton(
+        isArabic: Boolean,
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem,
@@ -191,11 +192,11 @@ object FieldUtils {
         val view = EserviceRadioGroupBinding.inflate(layoutInflater, root, false)
         fieldValueItem.fieldValue.elementAtOrNull(0)?.let {
             view.rb1.id = it.id
-            view.rb1.text = it.english
+            view.rb1.text = if (isArabic) it.arabic else it.english
         }
         fieldValueItem.fieldValue.elementAtOrNull(1)?.let {
             view.rb2.id = it.id
-            view.rb2.text = it.english
+            view.rb2.text = if (isArabic) it.arabic else it.english
         }
         val group = view.radioGroup
         group.setOnCheckedChangeListener { group, checkedId ->
@@ -210,5 +211,20 @@ object FieldUtils {
         }
 
         return group
+    }
+
+    private fun setDrawableEnd(isArabic: Boolean, drawable: Drawable?, editText: EditText) {
+        if (isArabic)
+            editText.setCompoundDrawablesWithIntrinsicBounds(
+                drawable,
+                null,
+                null,
+                null
+            ) else editText.setCompoundDrawablesWithIntrinsicBounds(
+            null,
+            null,
+            drawable,
+            null
+        )
     }
 }
