@@ -1,27 +1,24 @@
 package com.dubaiculture.ui.postLogin.eservices
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.EserviceDropDownBinding
 import com.dubaiculture.databinding.EserviceEditTextBinding
+import com.dubaiculture.databinding.EserviceRadioGroupBinding
 import com.dubaiculture.databinding.EserviceTextViewBinding
 import com.dubaiculture.ui.components.customEditText.CustomEditText
 import com.dubaiculture.utils.*
-import com.jaiselrahman.filepicker.activity.FilePickerActivity
-import com.jaiselrahman.filepicker.config.Configurations
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 object FieldUtils {
 
@@ -185,4 +182,33 @@ object FieldUtils {
         return editText
     }
 
+    fun createRadioButton(
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem,
+        callback: (value: String) -> Unit
+    ): RadioGroup {
+        val view = EserviceRadioGroupBinding.inflate(layoutInflater, root, false)
+        fieldValueItem.fieldValue.elementAtOrNull(0)?.let {
+            view.rb1.id = it.id
+            view.rb1.text = it.english
+        }
+        fieldValueItem.fieldValue.elementAtOrNull(1)?.let {
+            view.rb2.id = it.id
+            view.rb2.text = it.english
+        }
+        val group = view.radioGroup
+        group.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                view.rb1.id -> {
+                    callback(view.rb1.text.toString())
+                }
+                view.rb2.id -> {
+                    callback(view.rb2.text.toString())
+                }
+            }
+        }
+
+        return group
+    }
 }

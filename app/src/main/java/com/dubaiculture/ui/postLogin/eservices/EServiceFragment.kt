@@ -18,6 +18,7 @@ import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createDropDown
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createEditText
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createFileField
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createImageField
+import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createRadioButton
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTextView
 import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTimeField
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
@@ -165,6 +166,17 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                                     binding.fieldContainer,
                                     it
                                 )
+                            )
+                        }
+                        ValueType.RADIO_BUTTON.id -> {
+                            addViewToViewGroup(
+                                createRadioButton(
+                                    inflater,
+                                    binding.fieldContainer,
+                                    it
+                                ) { selectedValue ->
+                                    eServiceViewModel.addField(it, selectedValue)
+                                }
                             )
                         }
                     }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:orientation="horizontal"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="@+id/rv_categories"
+        app:layout_constraintStart_toStartOf="@+id/rv_categories"
+        app:layout_constraintTop_toBottomOf="@+id/type">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rb1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:paddingStart="@dimen/_5sdp"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_11ssp"
+            app:buttonTint="@color/purple_900" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rb2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:paddingStart="@dimen/_5sdp"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_11ssp"
+            app:buttonTint="@color/purple_900" />
+    </RadioGroup>
+
+</layout>
