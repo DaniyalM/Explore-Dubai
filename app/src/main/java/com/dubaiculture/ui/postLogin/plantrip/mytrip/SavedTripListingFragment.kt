@@ -17,6 +17,10 @@ import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.Save
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.SaveTripListingViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.bumptech.glide.RequestManager
+import com.dubaiculture.ui.components.loadstateadapter.DefaultLoadStateAdapter
+import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
+import com.dubaiculture.utils.withLoadStateAdapters
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -65,7 +69,20 @@ class SavedTripListingFragment : BaseFragment<FragmentSavedTripListingBinding>()
 
                 }
             )
-            adapter = saveTripAdapter
+            adapter = saveTripAdapter.withLoadStateAdapters(
+                DefaultLoadStateAdapter(),
+                DefaultLoadStateAdapter(), callback = {
+                    if (it) {
+                        binding.tvPlaceHolder.show()
+                        binding.rvTrips.hide()
+                    } else {
+                        binding.tvPlaceHolder.hide()
+                        binding.rvTrips.show()
+
+                    }
+
+                }
+            )
 
 
         }

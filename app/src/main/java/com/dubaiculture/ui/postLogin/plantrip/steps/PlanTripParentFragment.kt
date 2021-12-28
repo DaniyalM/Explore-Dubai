@@ -188,6 +188,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
         super.onDestroy()
         tripSharedViewModel._duration.value = null
         tripSharedViewModel._durationSummary.value = null
+        tripSharedViewModel._nearestLocationType.value = null
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {

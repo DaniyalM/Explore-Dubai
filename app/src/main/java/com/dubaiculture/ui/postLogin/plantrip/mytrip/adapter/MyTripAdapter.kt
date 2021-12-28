@@ -2,6 +2,7 @@ package com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,8 +13,9 @@ import com.dubaiculture.databinding.ItemMyTripBinding
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.MyTripClickListener
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.hide
+import java.util.*
 
-class MyTripAdapter(val rowClickListener: MyTripClickListener) :
+class MyTripAdapter(val rowClickListener: MyTripClickListener, val currentLanguage: Locale) :
     ListAdapter<EventsAndAttraction, MyTripAdapter.MyTripViewHolder>(MyTripAdapter.MyTripDiffCallback()) {
 
     inner class MyTripViewHolder(
@@ -23,27 +25,27 @@ class MyTripAdapter(val rowClickListener: MyTripClickListener) :
         fun bind(eventAttraction: EventsAndAttraction, isLast: Boolean) {
 
             binding.data = eventAttraction
-
-            when(eventAttraction.travelMode){
-                Constants.TRAVEL_MODE.DRIVING ->{
+            backArrowRTL(binding.ivDirectionArrow)
+            when (eventAttraction.travelMode) {
+                Constants.TRAVEL_MODE.DRIVING -> {
                     binding.ivCar.setBackgroundResource(R.drawable.ic_car_green)
                 }
-                Constants.TRAVEL_MODE.WALKING ->{
+                Constants.TRAVEL_MODE.WALKING -> {
                     binding.ivCar.setBackgroundResource(R.drawable.ic_walking_green)
 
                 }
-                Constants.TRAVEL_MODE.TRANSIT ->{
+                Constants.TRAVEL_MODE.TRANSIT -> {
                     binding.ivCar.setBackgroundResource(R.drawable.ic_train_green)
 
                 }
-                Constants.TRAVEL_MODE.BICYCLING ->{
+                Constants.TRAVEL_MODE.BICYCLING -> {
                     binding.ivCar.setBackgroundResource(R.drawable.ic_bus_green)
 
 
                 }
             }
 
-            if(isLast){
+            if (isLast) {
                 binding.belowDotted.hide()
             }
 
@@ -86,7 +88,15 @@ class MyTripAdapter(val rowClickListener: MyTripClickListener) :
 
     override fun onBindViewHolder(holder: MyTripViewHolder, position: Int) {
 
-        getItem(position)?.let { holder.bind(it,(itemCount-1 == position)) }
+        getItem(position)?.let { holder.bind(it, (itemCount - 1 == position)) }
+    }
+
+    fun backArrowRTL(img: ImageView) {
+
+        if (currentLanguage != Locale.ENGLISH) {
+            img.rotation = -180f
+        }
+
     }
 
 }

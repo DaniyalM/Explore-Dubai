@@ -80,6 +80,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         binding.view = this
         binding.viewModel = myTripViewModel
         subscribeUiEvents(myTripViewModel)
+        backArrowRTL(binding.ivClose)
 
         val params:CoordinatorLayout.LayoutParams = binding.appbarLayout.layoutParams as CoordinatorLayout.LayoutParams
 
@@ -169,7 +170,8 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                     ) {
                     }
 
-                }
+                },
+                getCurrentLanguage()
             )
             adapter = myTripAdapter
 

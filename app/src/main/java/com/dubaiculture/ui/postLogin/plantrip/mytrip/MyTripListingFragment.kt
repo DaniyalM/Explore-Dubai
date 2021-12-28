@@ -113,7 +113,8 @@ class MyTripListingFragment : BaseBottomSheetFragment<FragmentMyTripListingBindi
                     ) {
                     }
 
-                }
+                },
+                getCurrentLanguage()
             )
             adapter = myTripAdapter
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -31,6 +32,7 @@ class DeleteTripDialog : BaseBottomSheetFragment<DialogDeleteTripBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        backArrowRTLChild(binding.arrow)
         binding.tripId = args.tripId
         binding.view = this
         binding.viewModel = deleteViewModel
@@ -53,6 +55,15 @@ class DeleteTripDialog : BaseBottomSheetFragment<DialogDeleteTripBinding>() {
             }
         }
 
+    }
+
+    fun backArrowRTLChild(img: ImageView) {
+        when {
+            isArabic() -> {
+                img.rotation = -180f
+            }
+
+        }
     }
 
 

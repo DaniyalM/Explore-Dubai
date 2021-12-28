@@ -15,7 +15,6 @@ import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.DatesAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.MyTripAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.DateClickListener
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.MyTripClickListener
-import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -78,7 +77,8 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
                     ) {
                     }
 
-                }
+                },
+                getCurrentLanguage()
             )
             adapter = myTripAdapter
 
