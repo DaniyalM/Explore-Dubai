@@ -14,6 +14,7 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequest
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.ui.postLogin.eservices.FormType
 import com.dubaiculture.ui.postLogin.eservices.ValueType
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,7 +42,7 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun getFieldMap() = map
-    private val form = FormType.BOOKING_ESERVICE
+    private val form = FormType.RENT_REQUEST
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
@@ -120,8 +121,8 @@ class EServiceViewModel @Inject constructor(
             val result = eServicesRepository.submitForm(token, request, form.url)
             if (result is Result.Success) {
                 showToast(result.message)
-            } else {
-                showToast("error")
+            } else if (result is Result.Failure) {
+                showToast(result.errorMessage ?: Constants.Error.SOMETHING_WENT_WRONG)
             }
             showLoader(false)
         }
