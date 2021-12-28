@@ -44,14 +44,6 @@
                 app:expandedTitleMarginStart="48dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-
-                <!--        <fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-                <!--            xmlns:tools="http://schemas.android.com/tools"-->
-                <!--            android:id="@+id/mapFrag"-->
-                <!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
-                <!--            android:layout_width="match_parent"-->
-                <!--            android:layout_height="match_parent" />-->
-
                 <com.google.android.gms.maps.MapView
                     android:id="@+id/map"
                     android:layout_width="match_parent"
@@ -91,37 +83,25 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/iv_dropdown"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="@dimen/_12sdp"-->
-        <!--            android:layout_marginTop="@dimen/_30sdp"-->
-        <!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-        <!--            android:onClick="@{()->view.onBackPressed()}"-->
-        <!--            android:paddingHorizontal="@dimen/_6sdp"-->
-        <!--            android:src="@drawable/ic_twotone_keyboard_arrow_down_24"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
+            app:behavior_overlapTop="@dimen/_40sdp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="match_parent"
+                android:background="@drawable/my_trip_bottomsheet">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView4"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_250sdp"
+                    android:layout_height="@dimen/_30sdp"
                     android:onClick="@{()->view.onBottomSheetClicked()}"
                     android:src="@drawable/my_trip_bottomsheet"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -157,28 +137,6 @@
                     android:src="@drawable/ic_baseline_more_vert_24"
                     app:layout_constraintBottom_toBottomOf="@id/tvHeading"
                     app:layout_constraintEnd_toEndOf="parent" />
-
-                <!--        <com.google.android.material.button.MaterialButton-->
-                <!--            android:id="@+id/btnDeleteDur"-->
-                <!--            android:layout_width="wrap_content"-->
-                <!--            android:layout_height="wrap_content"-->
-                <!--            android:layout_marginEnd="@dimen/_20sdp"-->
-                <!--            android:backgroundTint="@color/delete_color"-->
-                <!--            android:fontFamily="@font/neo_sans_arabic_regular"-->
-                <!--            android:insetLeft="0dp"-->
-                <!--            android:insetTop="0dp"-->
-                <!--            android:insetRight="0dp"-->
-                <!--            android:insetBottom="0dp"-->
-                <!--            android:minWidth="0dp"-->
-                <!--            android:minHeight="0dp"-->
-                <!--            android:onClick="@{()->viewModel.deleteTrip(tripId)}"-->
-                <!--            android:text="@string/deleteTrip"-->
-                <!--            android:textAllCaps="false"-->
-                <!--            android:textColor="@color/delete_text_color"-->
-                <!--            android:textSize="@dimen/_8ssp"-->
-                <!--            app:cornerRadius="@dimen/_14sdp"-->
-                <!--            app:layout_constraintBottom_toBottomOf="@id/tvHeading"-->
-                <!--            app:layout_constraintEnd_toEndOf="parent" />-->
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEditDur"
@@ -250,8 +208,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/viewLine"
-                    tools:listitem="@layout/item_my_trip" />
+                    app:layout_constraintTop_toBottomOf="@id/viewLine" />
 
                 <com.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btnNext"
@@ -270,24 +227,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
-
-
-                <!--        <Button-->
-                <!--            android:id="@+id/btnNext"-->
-                <!--            android:layout_width="0dp"-->
-                <!--            android:layout_height="@dimen/_40sdp"-->
-                <!--            android:layout_marginHorizontal="@dimen/_22ssp"-->
-                <!--            android:layout_marginBottom="@dimen/_8sdp"-->
-                <!--            android:backgroundTint="@color/purple_650"-->
-                <!--            android:fontFamily="@font/neo_sans_arabic_regular"-->
-                <!--            android:onClick="@{()->view.onSaveTripClicked()}"-->
-                <!--            android:text="@string/saveTrip"-->
-                <!--            android:textAllCaps="false"-->
-                <!--            android:textColor="@color/white_900"-->
-                <!--            app:cornerRadius="@dimen/_16sdp"-->
-                <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--            app:layout_constraintEnd_toEndOf="parent"-->
-                <!--            app:layout_constraintStart_toStartOf="parent" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
