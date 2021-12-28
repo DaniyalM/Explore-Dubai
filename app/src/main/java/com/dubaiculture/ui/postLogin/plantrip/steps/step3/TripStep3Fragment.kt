@@ -158,9 +158,11 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
         }
 
         tripSharedViewModel.nearestLocation.observe(viewLifecycleOwner) {
-            binding.rvLocationChips.visibility = View.VISIBLE
-            nearestLocAdapter.submitList(it)
-            setMarker(it)
+            if (it != null) {
+                binding.rvLocationChips.visibility = View.VISIBLE
+                nearestLocAdapter.submitList(it)
+                setMarker(it)
+            }
 //            val selectedLoc = it.singleOrNull() { locationNearest ->
 //                locationNearest.isChecked
 //            }
