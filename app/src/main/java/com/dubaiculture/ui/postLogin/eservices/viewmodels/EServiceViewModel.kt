@@ -41,7 +41,7 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun getFieldMap() = map
-    private val form = FormType.RENT_REQUEST
+    private val form = FormType.BOOKING_ESERVICE
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 

@@ -54,13 +54,11 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
 
     private fun submitForm() {
         eServiceViewModel.fieldValues.value?.forEach {
-            if (it.fieldType != FieldType.LABEL.fieldType) {
-                val id = it.id
-                val view = binding.fieldContainer.findViewById<View>(id)
-                if (ValueType.isInputField(it.valueType)) {
-                    val value = (view as EditText).text.toString()
-                    eServiceViewModel.addField(it, value)
-                }
+            val id = it.id
+            val view = binding.fieldContainer.findViewById<View>(id)
+            if (ValueType.isInputField(it.valueType)) {
+                val value = (view as EditText).text.toString()
+                eServiceViewModel.addField(it, value)
             }
         }
         eServiceViewModel.submitForm()
@@ -76,6 +74,13 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         val inflater =
             activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         fieldValues.forEach {
+            val fieldType =
+                FieldType.fromName(it.fieldType)// might be type = message, so don't render
+            val valueType =
+                ValueType.fromName(it.valueType)// might be type = button, so don't render
+            if (fieldType == null || valueType == null)
+                return@forEach
+
             addViewToViewGroup(
                 createTextView(
                     isArabic(),
@@ -84,7 +89,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                     it
                 )
             )
-            when (ValueType.fromName(it.valueType)?.id ?: -1) {
+            when (valueType?.id ?: -1) {
                 ValueType.INPUT_TEXT.id -> {
                     addViewToViewGroup(
                         createEditText(
