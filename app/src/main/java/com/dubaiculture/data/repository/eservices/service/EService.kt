@@ -18,7 +18,7 @@ interface EService : BaseService {
     ): GetTokenResponse
 
     @Multipart
-    @POST("FieldValue/GetFieldValue")
+    @POST("Validation/GetFieldAndValidation")//FieldValue/GetFieldValue
     suspend fun getFieldValue(
         @Header("token") token: String,
         @Part("FormName") formName: RequestBody

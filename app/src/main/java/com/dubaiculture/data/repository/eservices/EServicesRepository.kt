@@ -41,7 +41,7 @@ class EServicesRepository @Inject constructor(
             is Result.Success -> {
                 if (resultRds.value.success) {
                     Result.Success(resultRds.value.getFieldValueResponseDTO.mapIndexed { index, getFieldValueResponseDTOItem ->
-                        transformFieldValuesResponse(index, getFieldValueResponseDTOItem)
+                        transformFieldValuesResponse(getFieldValueResponseDTOItem)
                     }
                     )
                 } else {

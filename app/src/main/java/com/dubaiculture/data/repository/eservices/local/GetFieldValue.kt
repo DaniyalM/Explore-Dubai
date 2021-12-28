@@ -1,12 +1,12 @@
 package com.dubaiculture.data.repository.eservices.local
 
 import android.os.Parcelable
+import com.dubaiculture.data.repository.eservices.remote.response.ValidationDTO
 import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
 data class GetFieldValueItem(
-    val index: Int,
     val arabic: String,
     val english: String,
     val fieldName: String,
@@ -15,9 +15,11 @@ data class GetFieldValueItem(
     val formName: String,
     val id: Int,
     val valueType: String,
-    val selectedValue: String? = null,
-    val notValid: Boolean = false
-):Parcelable
+    val isRequired: Boolean,
+    val hint_en: String,
+    val hint_ar: String,
+    val validations: List<Validation>
+) : Parcelable
 
 @Parcelize
 data class FieldValueItem(
@@ -29,4 +31,13 @@ data class FieldValueItem(
     val formName: String,
     val id: Int,
     val valueType: String
-):Parcelable
+) : Parcelable
+
+@Parcelize
+data class Validation(
+    val englishMsg: String,
+    val arabicMsg: String,
+    val errorCode: String,
+    val pattern: String,
+    val validationType: String
+) : Parcelable

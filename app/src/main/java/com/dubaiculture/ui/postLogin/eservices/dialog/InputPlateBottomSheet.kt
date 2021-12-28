@@ -39,7 +39,7 @@ class InputPlateBottomSheet : BaseBottomSheetFragment<FragmentInputPlateBottomSh
         subscribeToObservable()
         inputPlateBottomSheetArgs.field?.apply {
             binding.field = this
-            inputPlateBottomSheetViewModel.field.set(selectedValue ?: "")
+//            inputPlateBottomSheetViewModel.field.set(selectedValue ?: "")
             if (english.toLowerCase().contains("number")) {
                 binding.formInput.inputType = InputType.TYPE_CLASS_PHONE
             }
@@ -60,17 +60,17 @@ class InputPlateBottomSheet : BaseBottomSheetFragment<FragmentInputPlateBottomSh
 
 
     private fun subscribeToObservable() {
-        inputPlateBottomSheetViewModel.fieldValue.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let {
-                eServicesSharedViewModel.updateField(
-                    inputPlateBottomSheetArgs.field!!.copy(
-                        selectedValue =
-                        binding.formInput.text.toString().trim()
-                    )
-                )
-                dismiss()
-            }
-        }
+//        inputPlateBottomSheetViewModel.fieldValue.observe(viewLifecycleOwner) {
+//            it?.getContentIfNotHandled()?.let {
+//                eServicesSharedViewModel.updateField(
+//                    inputPlateBottomSheetArgs.field!!.copy(
+//                        selectedValue =
+//                        binding.formInput.text.toString().trim()
+//                    )
+//                )
+//                dismiss()
+//            }
+//        }
     }
 
 }
