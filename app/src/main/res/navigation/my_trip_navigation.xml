@@ -39,13 +39,13 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
 
-        <action
-            android:id="@+id/action_my_trip_to_my_trip_listing"
-            app:destination="@id/myTripListingFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+<!--        <action-->
+<!--            android:id="@+id/action_my_trip_to_my_trip_listing"-->
+<!--            app:destination="@id/myTripListingFragment"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out" />-->
 
         <action
             android:id="@+id/action_myTrip_bottom_sheet_to_myTripNameDialog"
@@ -56,43 +56,51 @@
             app:popExitAnim="@anim/fade_out" />
 
 
-    </fragment>
-
-    <fragment
-        android:id="@+id/myTripListingFragment"
-        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
-        android:label="MyTripListingFragment"
-        tools:layout="@layout/fragment_my_trip_listing">
-
         <action
-            android:id="@+id/action_myTrip_listing_to_myTripNameDialog"
-            app:destination="@id/myTripNameDialog"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
-
-        <action
-            android:id="@+id/action_my_trip_to_delete_dialog"
-            app:destination="@id/deleteTripDialog"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out">
-            <argument
-                android:name="tripId"
-                app:argType="string" />
-        </action>
-
-        <action
-            android:id="@+id/action_my_trip_listing_to_travel_mode_dialog"
-            app:destination="@id/travelModeDialog"
+            android:id="@+id/action_myTripFragment_to_trip_listFragment"
+            app:destination="@id/myTripListingFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
 
     </fragment>
+
+<!--    <fragment-->
+<!--        android:id="@+id/myTripListingFragment"-->
+<!--        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"-->
+<!--        android:label="MyTripListingFragment"-->
+<!--        tools:layout="@layout/fragment_my_trip_listing">-->
+
+<!--        <action-->
+<!--            android:id="@+id/action_myTrip_listing_to_myTripNameDialog"-->
+<!--            app:destination="@id/myTripNameDialog"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out" />-->
+
+<!--        <action-->
+<!--            android:id="@+id/action_my_trip_to_delete_dialog"-->
+<!--            app:destination="@id/deleteTripDialog"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out">-->
+<!--            <argument-->
+<!--                android:name="tripId"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+
+<!--        <action-->
+<!--            android:id="@+id/action_my_trip_listing_to_travel_mode_dialog"-->
+<!--            app:destination="@id/travelModeDialog"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out" />-->
+
+<!--    </fragment>-->
     <dialog
         android:id="@+id/myTripBottomSheetFragment"
         android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripBottomSheetFragment"
@@ -162,5 +170,40 @@
 
 
     </fragment>
+
+    <dialog
+        android:id="@+id/myTripListingFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
+        android:label="MyTripListingFragment"
+        tools:layout="@layout/fragment_my_trip_listing"
+        >
+                <action
+                    android:id="@+id/action_myTrip_listing_to_myTripNameDialog"
+                    app:destination="@id/myTripNameDialog"
+                    app:enterAnim="@anim/fade_in"
+                    app:exitAnim="@anim/fade_out"
+                    app:popEnterAnim="@anim/fade_in"
+                    app:popExitAnim="@anim/fade_out" />
+
+                <action
+                    android:id="@+id/action_my_trip_to_delete_dialog"
+                    app:destination="@id/deleteTripDialog"
+                    app:enterAnim="@anim/fade_in"
+                    app:exitAnim="@anim/fade_out"
+                    app:popEnterAnim="@anim/fade_in"
+                    app:popExitAnim="@anim/fade_out">
+                    <argument
+                        android:name="tripId"
+                        app:argType="string" />
+                </action>
+
+                <action
+                    android:id="@+id/action_my_trip_listing_to_travel_mode_dialog"
+                    app:destination="@id/travelModeDialog"
+                    app:enterAnim="@anim/fade_in"
+                    app:exitAnim="@anim/fade_out"
+                    app:popEnterAnim="@anim/fade_in"
+                    app:popExitAnim="@anim/fade_out" />
+    </dialog>
 
 </navigation>

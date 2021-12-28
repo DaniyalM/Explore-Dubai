@@ -56,6 +56,9 @@ class TripSharedViewModel @Inject constructor(
     val _nearestLocationType: MutableLiveData<List<LocationNearest>> = MutableLiveData()
     val nearestLocation: LiveData<List<LocationNearest>> = _nearestLocationType
 
+    val _nearestLocationTemp: MutableLiveData<List<LocationNearest>> = MutableLiveData()
+    val nearestLocationTemp: LiveData<List<LocationNearest>> = _nearestLocationTemp
+
     val _interestedInList: MutableLiveData<List<InterestedInType>> = MutableLiveData()
     val interestedInList: LiveData<List<InterestedInType>> = _interestedInList
 
@@ -259,7 +262,7 @@ class TripSharedViewModel @Inject constructor(
 
         val durations: List<Duration> = _durationSummary.value ?: return emptyList()
         val input = SimpleDateFormat(inputFormat)
-        val output = SimpleDateFormat(outputFormat)
+        val output = SimpleDateFormat(outputFormat,Locale.ENGLISH)
         return durations.map {
             output.format(input.parse(it.dayDate))
         }
@@ -318,8 +321,8 @@ class TripSharedViewModel @Inject constructor(
 
     private fun checkEvents(event: EventsAndAttraction, duration: Duration): Boolean {
 
-        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val output = SimpleDateFormat("dd MMMM,yyyy")
+        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+        val output = SimpleDateFormat("dd MMMM,yyyy", Locale.ENGLISH)
 
         return if (event.isAttraction) {
             getTimeCheck(event.timeFrom, event.timeTo, duration)
@@ -340,9 +343,11 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun updateLocalDistance(location: Location) {
+    fun updateLocalDistance(location: Location, duration: Duration) {
         // filterLatLong()
-        val data = _eventAttractionList.value ?: return
+        val data: List<EventsAndAttraction> =
+            _eventAttractionResponse.value?.eventsAndAttractions ?: return
+//        val data = _eventAttractionList.value ?: return
         data.map {
 
             val distance = locationHelper.distance(
@@ -357,7 +362,11 @@ class TripSharedViewModel @Inject constructor(
             it.filter {
                 (it.distanceRadius < 11.0 && it.longitude != "0.0" && it.latitude != "0.0")
             }.let {
-                _eventAttractionList.value = it
+                it.filter { event ->
+                    checkEvents(event, duration)
+                }.let {
+                    _eventAttractionList.value = it
+                }
             }
         }
     }
@@ -367,9 +376,9 @@ class TripSharedViewModel @Inject constructor(
 
             val pattern = "h:mm a"
             val patternTime = "h:mmaa"
-            val sdf = SimpleDateFormat(pattern)
-            val sdfTime = SimpleDateFormat(patternTime)
-            val outputFormat = SimpleDateFormat("HH:mm")
+            val sdf = SimpleDateFormat(pattern, Locale.ENGLISH)
+            val sdfTime = SimpleDateFormat(patternTime,Locale.ENGLISH)
+            val outputFormat = SimpleDateFormat("HH:mm",Locale.ENGLISH)
             var startTime = ""
             when (duration.isDay) {
                 1 -> {

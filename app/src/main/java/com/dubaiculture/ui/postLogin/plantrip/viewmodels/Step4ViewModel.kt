@@ -16,6 +16,7 @@ import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,6 +26,8 @@ class Step4ViewModel @Inject constructor(
     private val tripRepository: TripRepository
 ) : BaseViewModel(application) {
     private val context = getApplication<ApplicationEntry>()
+
+    var sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
 
      val _durations: MutableLiveData<Durations> = MutableLiveData()
     val durations: LiveData<Durations> = _durations

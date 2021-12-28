@@ -10,7 +10,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -36,6 +36,8 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback
 import com.google.android.gms.maps.model.*
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.maps.android.PolyUtil
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
@@ -56,9 +58,11 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     private lateinit var datesAdapter: DatesAdapter
     private lateinit var myTripAdapter: MyTripAdapter
     private var mapView: MapView? = null
-
+//    private lateinit var binding: FragmentMyTripListingBinding
     @Inject
     lateinit var locationHelper: LocationHelper
+
+    lateinit var tripId: String
 
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
@@ -76,6 +80,20 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         binding.view = this
         binding.viewModel = myTripViewModel
         subscribeUiEvents(myTripViewModel)
+
+        val params:CoordinatorLayout.LayoutParams = binding.appbarLayout.layoutParams as CoordinatorLayout.LayoutParams
+
+        val behavior = AppBarLayout.Behavior()
+        behavior.setDragCallback(object : DragCallback() {
+            override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+                return false
+            }
+        })
+        params.behavior = behavior
+
+//        backArrowRTL(binding.ivClose)
+//        navigateByDirections(MyTripFragmentDirections.actionMyTripFragmentToTripListFragment())
+
 //        val callback: OnBackPressedCallback =
 //            object : OnBackPressedCallback(true /* enabled by default */) {
 //                override fun handleOnBackPressed() {
@@ -84,9 +102,10 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 //            }
 //        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
-        setupRV()
-
+    setupRV()
     }
+
+
 
 
     private fun getDirections(list: List<EventsAndAttraction>) {
@@ -175,7 +194,6 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
 //                        currentLocation = location
                         mMap.clear()
-                        subscribeToObservables()
 
 
                     }
@@ -216,12 +234,16 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
         tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
             binding.tripId = it.tripId
+            tripId = it.tripId
             mMap.clear()
             Location(LocationManager.GPS_PROVIDER).apply {
                 latitude = it.location.latitude.toDouble()
                 longitude = it.location.longitude.toDouble()
                 currentLocation = this
             }
+
+         //   addBottomSheet()
+
 
         }
         tripSharedViewModel.travelMode.observe(viewLifecycleOwner) {
@@ -240,9 +262,9 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
 
             //
-            tripSharedViewModel.updateLocalDistance(currentLocation)
+            tripSharedViewModel.updateLocalDistance(currentLocation, it.single { it.isSelected })
             //
-            tripSharedViewModel.filterEvents(it.single { it.isSelected })
+//            tripSharedViewModel.filterEvents(it.single { it.isSelected })
 
 
             datesAdapter.submitList(it)
@@ -398,7 +420,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
 
     fun onBottomSheetClicked() {
-        navigate(R.id.action_my_trip_to_my_trip_listing)
+//        navigate(R.id.action_my_trip_to_my_trip_listing)
     }
 
     fun onSaveTripClicked() {

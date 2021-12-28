@@ -10,13 +10,13 @@
         android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripFragment"
         android:label="MyPlanTripFragment">
 
-        <action
-            android:id="@+id/action_my_trip_to_my_trip_listing"
-            app:destination="@id/myTripListingFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+<!--        <action-->
+<!--            android:id="@+id/action_my_trip_to_my_trip_listing"-->
+<!--            app:destination="@id/myTripListingFragment"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out" />-->
 
         <action
             android:id="@+id/action_my_trip_to_travel_mode_dialog"
@@ -38,41 +38,49 @@
                 app:argType="string" />
         </action>
 
-
-    </fragment>
-
-
-    <fragment
-        android:id="@+id/myTripListingFragment"
-        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
-        android:label="MyTripListingFragment"
-        tools:layout="@layout/fragment_my_trip_listing">
-
         <action
-            android:id="@+id/action_tripFragmentListing_to_delete"
-            app:popUpTo="@+id/my_trip_navigaion_cd"
-            app:popUpToInclusive="true" />
-
-        <action
-            android:id="@+id/action_my_trip_listing_to_travel_mode_dialog"
-            app:destination="@id/travelModeDialog"
+            android:id="@+id/action_myTripFragment_to_trip_listFragment"
+            app:destination="@id/myTripListingFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
-        <action
-            android:id="@+id/action_my_trip_to_delete_dialog"
-            app:destination="@id/deleteTripDialog"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out">
-            <argument
-                android:name="tripId"
-                app:argType="string" />
-        </action>
+
 
     </fragment>
+
+
+<!--    <fragment-->
+<!--        android:id="@+id/myTripListingFragment"-->
+<!--        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"-->
+<!--        android:label="MyTripListingFragment"-->
+<!--        tools:layout="@layout/fragment_my_trip_listing">-->
+
+<!--        <action-->
+<!--            android:id="@+id/action_tripFragmentListing_to_delete"-->
+<!--            app:popUpTo="@+id/my_trip_navigaion_cd"-->
+<!--            app:popUpToInclusive="true" />-->
+
+<!--        <action-->
+<!--            android:id="@+id/action_my_trip_listing_to_travel_mode_dialog"-->
+<!--            app:destination="@id/travelModeDialog"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_my_trip_to_delete_dialog"-->
+<!--            app:destination="@id/deleteTripDialog"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out"-->
+<!--            app:popEnterAnim="@anim/fade_in"-->
+<!--            app:popExitAnim="@anim/fade_out">-->
+<!--            <argument-->
+<!--                android:name="tripId"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+
+<!--    </fragment>-->
 
     <dialog
         android:id="@+id/travelModeDialog"
@@ -94,6 +102,37 @@
             app:popUpTo="@+id/my_trip_navigaion_cd"
             />
 
+    </dialog>
+
+    <dialog
+        android:id="@+id/myTripListingFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.MyTripListingFragment"
+        android:label="MyTripListingFragment"
+        tools:layout="@layout/fragment_my_trip_listing"
+        >
+                <action
+                    android:id="@+id/action_tripFragmentListing_to_delete"
+                    app:popUpTo="@+id/my_trip_navigaion_cd"
+                    app:popUpToInclusive="true" />
+
+                <action
+                    android:id="@+id/action_my_trip_listing_to_travel_mode_dialog"
+                    app:destination="@id/travelModeDialog"
+                    app:enterAnim="@anim/fade_in"
+                    app:exitAnim="@anim/fade_out"
+                    app:popEnterAnim="@anim/fade_in"
+                    app:popExitAnim="@anim/fade_out" />
+                <action
+                    android:id="@+id/action_my_trip_to_delete_dialog"
+                    app:destination="@id/deleteTripDialog"
+                    app:enterAnim="@anim/fade_in"
+                    app:exitAnim="@anim/fade_out"
+                    app:popEnterAnim="@anim/fade_in"
+                    app:popExitAnim="@anim/fade_out">
+                    <argument
+                        android:name="tripId"
+                        app:argType="string" />
+                </action>
     </dialog>
 
 </navigation>

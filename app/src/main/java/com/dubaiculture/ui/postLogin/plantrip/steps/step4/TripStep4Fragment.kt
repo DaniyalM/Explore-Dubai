@@ -96,7 +96,9 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
         tripSharedViewModel.eventAttraction.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { it1 ->
+
                 step4ViewModel.postEventAttraction(it1)
+
             }
         }
 

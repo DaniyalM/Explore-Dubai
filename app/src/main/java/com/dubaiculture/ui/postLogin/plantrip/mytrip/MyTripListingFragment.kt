@@ -17,14 +17,13 @@ import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.Duration
 import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.dubaiculture.databinding.FragmentMyTripListingBinding
-import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.navGraphActivity.NavGraphActivity
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.DatesAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.MyTripAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.DateClickListener
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.MyTripClickListener
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripListingViewModel
-import com.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.location.LocationHelper
@@ -36,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
+class MyTripListingFragment : BaseBottomSheetFragment<FragmentMyTripListingBinding>() {
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -63,7 +62,7 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.view = this
+//        binding.view = this
         binding.viewModel = myTripListingViewModel
         subscribeUiEvents(myTripListingViewModel)
         setupRV()
@@ -159,8 +158,8 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
             binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
-            tripSharedViewModel.updateLocalDistance(currentLocation)
-            tripSharedViewModel.filterEvents(it.single { it.isSelected })
+            tripSharedViewModel.updateLocalDistance(currentLocation, it.single { it.isSelected })
+           // tripSharedViewModel.filterEvents(it.single { it.isSelected })
 
 
 
@@ -257,7 +256,9 @@ class MyTripListingFragment : BaseFragment<FragmentMyTripListingBinding>() {
 
     fun onEditTripClicked() {
 //        navigate(R.id.action_my_trip_listing_to_tripFragment)
-        showAlert(
+
+
+        showAlertDialog(
             message = getString(R.string.EditTripAlert),
             textPositive = getString(R.string.yes),
             textNegative = getString(R.string.no),

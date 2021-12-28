@@ -195,6 +195,24 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         EventUtilFunctions.showAlert(message, activity)
     }
 
+    fun showAlertDialog(
+        message: String,
+        title: String = Constants.Alert.DEFAULT_TITLE,
+        textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
+        textNegative: String? = null,
+        actionNegative: (() -> Unit)? = null,
+        actionPositive: (() -> Unit)? = null,
+    ) {
+        EventUtilFunctions.showAlert(
+            message = message,
+            context = activity,
+            title = title,
+            textPositive = textPositive,
+            textNegative = textNegative,
+            actionPositive = actionPositive
+        )
+    }
+
     fun showToast(message: String) {
         EventUtilFunctions.showToast(message, activity)
     }
