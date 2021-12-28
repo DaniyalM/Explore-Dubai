@@ -27,7 +27,6 @@ object FieldUtils {
     ): TextView {
         val view = EserviceTextViewBinding.inflate(layoutInflater, root, false)
         val textView = view.textView
-        textView.id = fieldValueItem.id
         textView.text = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
         return textView
     }
@@ -42,7 +41,7 @@ object FieldUtils {
         val editText = view.editText
 
         editText.id = fieldValueItem.id
-        editText.hint = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
+        editText.hint = if (isArabic) fieldValueItem.hint_ar else fieldValueItem.hint_en
 
         return editText
     }
@@ -57,7 +56,7 @@ object FieldUtils {
 
         val dropDown = view.dropDown
         dropDown.id = fieldValueItem.id
-        dropDown.hint = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
+        dropDown.hint = if (isArabic) fieldValueItem.hint_ar else fieldValueItem.hint_en
 
         dropDown.setAdapter(
             ArrayAdapter(

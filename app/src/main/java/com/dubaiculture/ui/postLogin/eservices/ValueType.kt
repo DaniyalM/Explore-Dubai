@@ -9,8 +9,12 @@ enum class ValueType(val id: Int, val valueType: String) {
     DATE(5, "Date"),
     TIME(6, "Time"),
     INPUT_TEXT_MULTILINE(8, "Multiline"),
-    BUTTON(9, "Button"),
-    RADIO_BUTTON(10, "YesNo");
+//    BUTTON(9, "Button"),
+    RADIO_BUTTON(10, "YesNo"),
+//    HR_TAG(11, "HRtag"),
+//    CREATED(12, "Created"),
+//    ID(13, "ID")
+    ;
 
     companion object {
         fun fromId(id: Int): ValueType {
@@ -20,11 +24,11 @@ enum class ValueType(val id: Int, val valueType: String) {
             throw IllegalArgumentException()
         }
 
-        fun fromName(valueType: String): ValueType {
+        fun fromName(valueType: String): ValueType? {
             for (f in values()) {
                 if (f.valueType == valueType) return f
             }
-            throw IllegalArgumentException()
+            return null
         }
 
         fun isInputField(valueType: String): Boolean {

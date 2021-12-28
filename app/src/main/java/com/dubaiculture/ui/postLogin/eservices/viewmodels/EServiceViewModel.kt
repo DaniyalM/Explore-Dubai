@@ -41,7 +41,7 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun getFieldMap() = map
-    private val form = FormType.NOC_FORM
+    private val form = FormType.RENT_REQUEST
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
@@ -95,6 +95,7 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun submitForm() {
+        showLoader(true)
         val request = HashMap<String, RequestBody>()
 
         val entries = getFieldMap()
@@ -102,7 +103,8 @@ class EServiceViewModel @Inject constructor(
             if (it.value.first == ValueType.FILE.valueType) {
                 val file = File(it.value.second)
                 val fileBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-                val key = "file\"; filename=\"${it.value.second}\""
+                val fileKey = if (form == FormType.NOC_FORM) "file" else it.key
+                val key = "${fileKey}\"; filename=\"${it.value.second}\""
                 request[key] = fileBody
             } else {
                 request[it.key] = it.value.second.toRequestBody("text/plain".toMediaType())
@@ -121,6 +123,7 @@ class EServiceViewModel @Inject constructor(
             } else {
                 showToast("error")
             }
+            showLoader(false)
         }
     }
 
