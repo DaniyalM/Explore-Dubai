@@ -99,7 +99,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
                     }
 
                     override fun rowClickListener(userType: LocationNearest, position: Int) {
-                        tripSharedViewModel.updateLocationItem(userType.copy(isChecked = !userType.isChecked!!))
+                        tripSharedViewModel.updateLocationItem(userType.copy(isChecked = !userType.isChecked))
 
 //                        navigateMarker(
 //                            if (userType.latitude.isBlank()) 0.0 else userType.latitude.toDouble(),
@@ -145,24 +145,25 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
         }
 
         tripSharedViewModel.type.observe(viewLifecycleOwner) {
-            tripSharedViewModel.updateInLocationList(it)
+            tripSharedViewModel.updateInLocationTempList(it)
         }
 
 
         tripSharedViewModel.nearestLocationTemp.observe(viewLifecycleOwner) {
-//            binding.rvLocationChips.visibility = View.VISIBLE
-//            nearestLocAdapter.submitList(it)
-//            setMarker(it)
-//            nearestLocationList = it
+            binding.rvLocationChips.visibility = View.VISIBLE
+            nearestLocAdapter.submitList(it)
+            setMarker(it)
+            nearestLocationList = it
 
         }
 
         tripSharedViewModel.nearestLocation.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.rvLocationChips.visibility = View.VISIBLE
-                nearestLocAdapter.submitList(it)
-                setMarker(it)
-            }
+//            if (it != null) {
+//                binding.rvLocationChips.visibility = View.VISIBLE
+//                nearestLocAdapter.submitList(it)
+//                setMarker(it)
+//            }
+
 //            val selectedLoc = it.singleOrNull() { locationNearest ->
 //                locationNearest.isChecked
 //            }

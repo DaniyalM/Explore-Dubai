@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.dubaiculture.R
 import com.dubaiculture.databinding.DialogDeleteTripBinding
 import com.dubaiculture.databinding.DialogMyTripNameBinding
 import com.dubaiculture.ui.base.BaseBottomSheetFragment
@@ -15,6 +16,7 @@ import com.dubaiculture.ui.postLogin.more.about.WebViewFragmentArgs
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripDeleteViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +37,27 @@ class DeleteTripDialog : BaseBottomSheetFragment<DialogDeleteTripBinding>() {
         backArrowRTLChild(binding.arrow)
         binding.tripId = args.tripId
         binding.view = this
+        subscribeUiEvents(deleteViewModel)
         binding.viewModel = deleteViewModel
+
+        binding.cvDriving.setOnClickListener {
+            showConfirmationDialog(
+                callback = {
+                    deleteViewModel.deleteTrip(args.tripId)
+                }
+            )
+        }
+    }
+
+    private fun showConfirmationDialog(callback: () -> Unit) {
+        showAlert(
+            message = getString(R.string.are_you_sure_want_to_delete_trip),
+            textPositive = getString(R.string.yes),
+            textNegative = getString(R.string.no),
+            actionPositive = {
+                callback()
+            }
+        )
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
