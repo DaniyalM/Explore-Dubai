@@ -105,6 +105,27 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
+    fun updateInLocationTempList(nearestLocation: LocationNearest) {
+        val data = _nearestLocationTemp.value ?: return
+        val updateData = updateToDefault(data)
+        updateData.map {
+            if (nearestLocation.locationId == it.locationId
+            ) return@map nearestLocation
+            else {
+                return@map it
+            }
+        }.let {
+            if (!it.contains(nearestLocation)) {
+                val list = it.toMutableList()
+                list.add(nearestLocation)
+                _nearestLocationTemp.value = list
+            } else {
+                _nearestLocationTemp.value = it
+            }
+        }
+
+    }
+
     private fun updateToDefault(data: List<LocationNearest>): List<LocationNearest> {
         return data.map {
             it.copy(isChecked = false)
@@ -143,7 +164,7 @@ class TripSharedViewModel @Inject constructor(
 
         }
 
-        populateList(daysList = daysList,hourText)
+        populateList(daysList = daysList, hourText)
     }
 
     private fun populateList(daysList: List<String>, hourText: String) {
@@ -262,7 +283,7 @@ class TripSharedViewModel @Inject constructor(
 
         val durations: List<Duration> = _durationSummary.value ?: return emptyList()
         val input = SimpleDateFormat(inputFormat)
-        val output = SimpleDateFormat(outputFormat,Locale.ENGLISH)
+        val output = SimpleDateFormat(outputFormat, Locale.ENGLISH)
         return durations.map {
             output.format(input.parse(it.dayDate))
         }
@@ -377,8 +398,8 @@ class TripSharedViewModel @Inject constructor(
             val pattern = "h:mm a"
             val patternTime = "h:mmaa"
             val sdf = SimpleDateFormat(pattern, Locale.ENGLISH)
-            val sdfTime = SimpleDateFormat(patternTime,Locale.ENGLISH)
-            val outputFormat = SimpleDateFormat("HH:mm",Locale.ENGLISH)
+            val sdfTime = SimpleDateFormat(patternTime, Locale.ENGLISH)
+            val outputFormat = SimpleDateFormat("HH:mm", Locale.ENGLISH)
             var startTime = ""
             when (duration.isDay) {
                 1 -> {
