@@ -148,6 +148,8 @@ class TripSharedViewModel @Inject constructor(
 
     private fun populateList(daysList: List<String>, hourText: String) {
 
+        _durationSummary.value  = null
+
         val durationList = mutableListOf<Duration>()
 
         daysList.forEachIndexed { index, day ->

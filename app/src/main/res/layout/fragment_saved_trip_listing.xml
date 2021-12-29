@@ -80,7 +80,6 @@
             android:lineSpacingExtra="@dimen/text_line_spacing"
             android:text="@string/no_my_posts_fav"
             android:textAlignment="center"
-            android:visibility="gone"
             android:textSize="@dimen/_18sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

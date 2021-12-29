@@ -54,6 +54,7 @@ class SaveTripAdapter(
                     clickListener = object :
                         StaggeredImagesView.StaggeredImagesClickListener {
                         override fun onClick(pos: Int) {
+                            rowClickListener.rowClickListener(trip)
                         }
                     }, glide!!
                 )

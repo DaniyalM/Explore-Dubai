@@ -56,6 +56,7 @@ class MyTripAdapter(val rowClickListener: MyTripClickListener, val currentLangua
 
 
             binding.cvNavigation.setOnClickListener {
+                rowClickListener.rowClickListenerDirections(eventAttraction.latitude,eventAttraction.longitude)
 //                rowClickListener.rowClickListener(eventAttraction)
 //                rowClickListener.rowClickListener(eventAttraction, absoluteAdapterPosition)
             }

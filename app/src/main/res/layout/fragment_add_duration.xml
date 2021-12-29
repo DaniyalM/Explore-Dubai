@@ -171,7 +171,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDates"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_240sdp"
+                android:layout_height="@dimen/_200sdp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
