@@ -26,6 +26,11 @@
             app:popUpTo="@+id/plan_trip_parent_navigation"
             app:popUpToInclusive="true" />
 
+        <action
+            android:id="@+id/action_tripFragment_to_back_fragment"
+            app:popUpTo="@+id/plan_trip_parent_navigation"
+            />
+
     </fragment>
 
 </navigation>

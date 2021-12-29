@@ -115,7 +115,8 @@ class TripSharedViewModel @Inject constructor(
                 return@map it
             }
         }.let {
-            if (!it.contains(nearestLocation)) {
+
+            if (nearestLocation.locationTitle != "Current Location" &&!it.contains(nearestLocation) ) {
                 val list = it.toMutableList()
                 list.add(nearestLocation)
                 _nearestLocationTemp.value = list

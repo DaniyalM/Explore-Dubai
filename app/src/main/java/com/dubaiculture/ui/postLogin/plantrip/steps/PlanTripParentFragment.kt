@@ -98,7 +98,18 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
     }
 
     fun onBackPressed() {
-        back()
+//        back()
+        showAlert(
+            message = getString(R.string.tripCloseAlert),
+            textPositive = getString(R.string.yes),
+            textNegative = getString(R.string.no),
+            actionNegative = {
+
+            },
+            actionPositive = {
+                navigateByDirections(PlanTripParentFragmentDirections.actionTripFragmentToBackFragment())
+            }
+        )
     }
 
     private fun setUpNavigation() {

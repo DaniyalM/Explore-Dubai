@@ -420,6 +420,7 @@
     <string name="reset">إعادة تعيين</string>
     <string name="are_you_sure_want_to_delete_trip">هل أنت متأكد أنك تريد حذف الرحلة؟</string>
     <string name="days">أيام</string>
+    <string name="are_you_sure_want_to_reset_trip">هل أنت متأكد أنك تريد إعادة الرحلة؟</string>
 
 
     <!--  End of Sprint 3  -->

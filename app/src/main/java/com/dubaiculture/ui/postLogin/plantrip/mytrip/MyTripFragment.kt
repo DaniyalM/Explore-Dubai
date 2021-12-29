@@ -443,7 +443,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     fun onEditTripClicked() {
 //        navigate(R.id.action_myTrip_to_tripFragment)
         showAlert(
-            message = getString(R.string.EditTripAlert),
+            message = getString(R.string.are_you_sure_want_to_reset_trip),
             textPositive = getString(R.string.yes),
             textNegative = getString(R.string.no),
             actionNegative = {

@@ -79,6 +79,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_8sdp"
             android:includeFontPadding="false"
+            android:textSize="@dimen/_10ssp"
             android:text="@{data.displayTimeFrom + ` - ` + data.displayTimeTo + ` | ` + data.day}"
             app:layout_constraintStart_toEndOf="@id/ivTime"
             app:layout_constraintTop_toTopOf="@+id/ivTime" />
@@ -140,7 +141,6 @@
                 android:id="@+id/ivCar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/ivDropDown"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topDotted"
                 tools:src="@drawable/ic_car_green" />
