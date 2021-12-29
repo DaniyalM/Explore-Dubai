@@ -434,4 +434,6 @@
 
     <string name="fb_login_protocol_scheme">fb1249629708783017</string>
 
+    <string name="are_you_sure_want_to_delete_trip">Are you sure you want to delete trip?</string>
+
 </resources>

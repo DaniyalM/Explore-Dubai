@@ -91,7 +91,8 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
 
         return super.onCreateDialog(savedInstanceState).apply {
             setOnShowListener {
-                val bottomSheet = findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
+                val bottomSheet =
+                    findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
                 bottomSheet.setBackgroundResource(android.R.color.transparent)
             }
         }
@@ -113,9 +114,9 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         dataBinding = getFragmentBinding(inflater, container)
         return dataBinding.root
@@ -125,39 +126,41 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     fun subscribeUiEvents(baseViewModel: BaseViewModel) {
         baseViewModel.uiEvents.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()
-                    ?.let { event ->
-                        when (event) {
-                            is UiEvent.ShowAlert -> {
-                                showAlert(event.message)
+                ?.let { event ->
+                    when (event) {
+                        is UiEvent.ShowAlert -> {
+                            showAlert(event.message)
 
-                            }
-                            is UiEvent.ShowToast -> {
-                                EventUtilFunctions.showToast(event.message, activity)
-                            }
-                            is UiEvent.ShowLoader -> {
-                                showLoader(event.show)
+                        }
+                        is UiEvent.ShowToast -> {
+                            EventUtilFunctions.showToast(event.message, activity)
+                        }
+                        is UiEvent.ShowLoader -> {
+                            showLoader(event.show)
 //                                EventUtilFunctions.showLoader(event.show, customProgressDialog)
-                            }
-                            is UiEvent.ShowSnackbar -> {
-                                EventUtilFunctions.showSnackbar(
-                                        requireView(),
-                                        event.message,
-                                        event.action
-                                )
-                            }
-                            is UiEvent.NavigateByDirections -> {
-                                navigateByDirections(event.navDirections)
-                            }
-                            is UiEvent.NavigateByAction -> {
-                                navigateByAction(event.actionId, event.bundle)
-                            }
-                            is UiEvent.ShowErrorDialog -> {
-                                EventUtilFunctions.showErrorDialog(event.message,
-                                        colorBg = event.colorBg,
-                                        context = activity)
-                            }
+                        }
+                        is UiEvent.ShowSnackbar -> {
+                            EventUtilFunctions.showSnackbar(
+                                requireView(),
+                                event.message,
+                                event.action
+                            )
+                        }
+                        is UiEvent.NavigateByDirections -> {
+                            navigateByDirections(event.navDirections)
+                        }
+                        is UiEvent.NavigateByAction -> {
+                            navigateByAction(event.actionId, event.bundle)
+                        }
+                        is UiEvent.ShowErrorDialog -> {
+                            EventUtilFunctions.showErrorDialog(
+                                event.message,
+                                colorBg = event.colorBg,
+                                context = activity
+                            )
                         }
                     }
+                }
         })
         baseViewModel.userLiveData.observe(viewLifecycleOwner) {
             application.auth.user = it
@@ -191,8 +194,22 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
         return (activity as BaseActivity).getCurrentLanguage()
     }
 
-    fun showAlert(message: String) {
-        EventUtilFunctions.showAlert(message, activity)
+    fun showAlert(
+        message: String,
+        title: String = Constants.Alert.DEFAULT_TITLE,
+        textPositive: String = Constants.Alert.DEFAULT_TEXT_POSITIVE,
+        textNegative: String? = null,
+        actionNegative: (() -> Unit)? = null,
+        actionPositive: (() -> Unit)? = null,
+    ) {
+        EventUtilFunctions.showAlert(
+            message = message,
+            context = activity,
+            title = title,
+            textPositive = textPositive,
+            textNegative = textNegative,
+            actionPositive = actionPositive
+        )
     }
 
     fun showAlertDialog(
@@ -216,6 +233,7 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     fun showToast(message: String) {
         EventUtilFunctions.showToast(message, activity)
     }
+
     fun showLoader(show: Boolean) {
         EventUtilFunctions.showLoader(show, customProgressDialog)
     }
@@ -224,6 +242,7 @@ abstract class BaseBottomSheetFragment<DB : ViewDataBinding> : BottomSheetDialog
     fun showErrorDialog(message: String) {
         EventUtilFunctions.showErrorDialog(message, context = activity)
     }
+
     fun backArrowRTL(img: ImageView) {
         when {
             isArabic() -> {
