@@ -61,7 +61,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                 eServiceViewModel.addField(it, value)
             }
         }
-        eServiceViewModel.submitForm()
+        eServiceViewModel.submitForm(isArabic())
     }
 
     private fun subscribeToObservable() {

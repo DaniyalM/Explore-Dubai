@@ -94,7 +94,7 @@ class EServiceViewModel @Inject constructor(
         map[field] = value
     }
 
-    fun submitForm() {
+    fun submitForm(isArabic: Boolean) {
         showLoader(true)
         val request = HashMap<String, RequestBody>()
 
@@ -106,7 +106,14 @@ class EServiceViewModel @Inject constructor(
                 val key = "${it.key.fieldName}\"; filename=\"${it.value}\""
                 request[key] = fileBody
             } else {
-                request[it.key.fieldName] = it.value.toRequestBody("text/plain".toMediaType())
+                val validation = validate(isArabic, it.key, it.value)
+                if (validation.first)
+                    request[it.key.fieldName] = it.value.toRequestBody("text/plain".toMediaType())
+                else {
+                    showToast(validation.second)
+                    showLoader(false)
+                    return
+                }
             }
         }
 
@@ -126,4 +133,18 @@ class EServiceViewModel @Inject constructor(
         }
     }
 
+    private fun validate(
+        isArabic: Boolean,
+        field: GetFieldValueItem,
+        value: String
+    ): Pair<Boolean, String> {
+        field.validations.forEach {
+            if (it.validationType.equals("Pattern", true)) {
+                if (!it.pattern.toRegex().matches(value)) {
+                    return Pair(false, if (isArabic) it.arabicMsg else it.englishMsg)
+                }
+            }
+        }
+        return Pair(true, "")
+    }
 }
