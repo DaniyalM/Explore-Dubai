@@ -27,7 +27,9 @@ object FieldUtils {
     ): TextView {
         val view = EserviceTextViewBinding.inflate(layoutInflater, root, false)
         val textView = view.textView
-        textView.text = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
+        var text = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
+        if (fieldValueItem.isRequired) text += "*"
+        textView.text = text
         return textView
     }
 

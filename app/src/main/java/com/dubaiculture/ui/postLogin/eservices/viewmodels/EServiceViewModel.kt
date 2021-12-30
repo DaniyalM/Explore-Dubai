@@ -36,7 +36,7 @@ class EServiceViewModel @Inject constructor(
     var selectedView: GetFieldValueItem? = null
 
     //Map -> FieldName, Pair(ValueType, FormValue)
-    private val map: HashMap<String, Pair<String, String>> by lazy {
+    private val map: HashMap<GetFieldValueItem, String> by lazy {
         HashMap()
     }
 
@@ -91,7 +91,7 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun addField(field: GetFieldValueItem, value: String) {
-        map[field.fieldName] = Pair(field.valueType, value)
+        map[field] = value
     }
 
     fun submitForm() {
@@ -100,14 +100,13 @@ class EServiceViewModel @Inject constructor(
 
         val entries = getFieldMap()
         entries.forEach {
-            if (it.value.first == ValueType.FILE.valueType) {
-                val file = File(it.value.second)
+            if (it.key.valueType == ValueType.FILE.valueType) {
+                val file = File(it.value)
                 val fileBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-//                val fileKey = if (form == FormType.NOC_FORM) "file" else it.key
-                val key = "${it.key}\"; filename=\"${it.value.second}\""
+                val key = "${it.key.fieldName}\"; filename=\"${it.value}\""
                 request[key] = fileBody
             } else {
-                request[it.key] = it.value.second.toRequestBody("text/plain".toMediaType())
+                request[it.key.fieldName] = it.value.toRequestBody("text/plain".toMediaType())
             }
         }
 

@@ -11,6 +11,7 @@
         android:drawableEnd="@drawable/arrow_readmore_"
         android:dropDownHeight="@dimen/_150sdp"
         android:editable="false"
+        android:focusable="false"
         android:hint="@string/select_type"
         android:paddingStart="@dimen/_15sdp"
         android:paddingEnd="@dimen/_15sdp"
