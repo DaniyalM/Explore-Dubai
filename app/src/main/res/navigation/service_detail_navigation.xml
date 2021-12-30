@@ -92,29 +92,7 @@
         <argument
             android:name="form_name"
             app:argType="string" />
-        <action
-            android:id="@+id/action_EServiceFragment_to_inputPlateBottomSheet"
-            app:destination="@id/inputPlateBottomSheet"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out">
-            <argument
-                android:name="field"
-                app:argType="com.dubaiculture.data.repository.eservices.local.GetFieldValueItem"
-                app:nullable="false" />
-        </action>
     </fragment>
-    <dialog
-        android:id="@+id/inputPlateBottomSheet"
-        android:name="com.dubaiculture.ui.postLogin.eservices.dialog.InputPlateBottomSheet"
-        android:label="InputPlateBottomSheet">
-        <argument
-            android:name="field"
-            android:defaultValue="@null"
-            app:argType="com.dubaiculture.data.repository.eservices.local.GetFieldValueItem"
-            app:nullable="true" />
-    </dialog>
     <dialog
         android:id="@+id/messageDialogFragment"
         android:name="com.dubaiculture.ui.postLogin.messageDialog.MessageDialogFragment"
@@ -124,6 +102,4 @@
             app:argType="com.dubaiculture.data.repository.more.local.GetMessage"
             app:nullable="false" />
     </dialog>
-
-
 </navigation>

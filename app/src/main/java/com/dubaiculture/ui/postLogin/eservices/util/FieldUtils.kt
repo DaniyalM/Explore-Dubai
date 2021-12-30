@@ -1,4 +1,4 @@
-package com.dubaiculture.ui.postLogin.eservices
+package com.dubaiculture.ui.postLogin.eservices.util
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater

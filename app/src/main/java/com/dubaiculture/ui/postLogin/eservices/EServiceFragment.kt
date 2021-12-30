@@ -8,19 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import androidx.work.impl.background.systemjob.SystemJobService
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.FragmentEserviceBinding
 import com.dubaiculture.ui.base.BaseFragment
-import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createDateField
-import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createDropDown
-import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createEditText
-import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createFileField
-import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createImageField
-import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createRadioButton
-import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTextView
-import com.dubaiculture.ui.postLogin.eservices.FieldUtils.createTimeField
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDateField
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDropDown
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createEditText
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createFileField
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createImageField
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createRadioButton
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createTextView
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createTimeField
+import com.dubaiculture.ui.postLogin.eservices.enums.FieldType
+import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
 import com.jaiselrahman.filepicker.activity.FilePickerActivity
 import com.jaiselrahman.filepicker.config.Configurations
@@ -54,8 +55,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
 
     private fun submitForm() {
         eServiceViewModel.fieldValues.value?.forEach {
-            val id = it.id
-            val view = binding.fieldContainer.findViewById<View>(id)
+            val view = binding.fieldContainer.findViewById<View>(it.id)
             if (ValueType.isInputField(it.valueType)) {
                 val value = (view as EditText).text.toString()
                 eServiceViewModel.addField(it, value)
@@ -89,7 +89,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                     it
                 )
             )
-            when (valueType?.id ?: -1) {
+            when (valueType.id) {
                 ValueType.INPUT_TEXT.id -> {
                     addViewToViewGroup(
                         createEditText(

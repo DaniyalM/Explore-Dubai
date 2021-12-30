@@ -1,4 +1,4 @@
-package com.dubaiculture.ui.postLogin.eservices
+package com.dubaiculture.ui.postLogin.eservices.enums
 
 enum class FormType(val id: Int, val value: String, val url: String) {
     NOC_FORM(0, "NOCForm", "NOC/CreateNOC"),

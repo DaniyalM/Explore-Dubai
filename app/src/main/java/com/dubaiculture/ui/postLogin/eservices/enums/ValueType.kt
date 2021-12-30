@@ -1,4 +1,4 @@
-package com.dubaiculture.ui.postLogin.eservices
+package com.dubaiculture.ui.postLogin.eservices.enums
 
 enum class ValueType(val id: Int, val valueType: String) {
     INPUT_TEXT(0, "TextBox"),

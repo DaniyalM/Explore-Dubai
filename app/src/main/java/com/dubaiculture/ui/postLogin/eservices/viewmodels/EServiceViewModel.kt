@@ -12,11 +12,10 @@ import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.ui.base.BaseViewModel
-import com.dubaiculture.ui.postLogin.eservices.FormType
-import com.dubaiculture.ui.postLogin.eservices.ValueType
+import com.dubaiculture.ui.postLogin.eservices.enums.FormType
+import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
-import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -42,7 +41,7 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun getFieldMap() = map
-    private val form = FormType.RENT_REQUEST
+    private val form = FormType.SUPPLIER_REGISTRATION
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
@@ -104,8 +103,8 @@ class EServiceViewModel @Inject constructor(
             if (it.value.first == ValueType.FILE.valueType) {
                 val file = File(it.value.second)
                 val fileBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-                val fileKey = if (form == FormType.NOC_FORM) "file" else it.key
-                val key = "${fileKey}\"; filename=\"${it.value.second}\""
+//                val fileKey = if (form == FormType.NOC_FORM) "file" else it.key
+                val key = "${it.key}\"; filename=\"${it.value.second}\""
                 request[key] = fileBody
             } else {
                 request[it.key] = it.value.second.toRequestBody("text/plain".toMediaType())

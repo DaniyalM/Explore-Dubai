@@ -1,4 +1,4 @@
-package com.dubaiculture.ui.postLogin.eservices
+package com.dubaiculture.ui.postLogin.eservices.enums
 
 enum class FieldType(val id: Int, val fieldType: String) {
     LABEL(0, "Label"),
