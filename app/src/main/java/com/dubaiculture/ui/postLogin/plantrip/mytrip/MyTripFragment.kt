@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.Duration
 import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
-import com.dubaiculture.data.repository.trip.remote.response.Route
 import com.dubaiculture.databinding.FragmentMyTripBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.navGraphActivity.NavGraphActivity
@@ -47,6 +46,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback {
+
+    private lateinit var polyline: Polyline
+    var polylines: MutableList<Polyline> = mutableListOf()
 
     private lateinit var currentLocation: Location
     private lateinit var mMap: GoogleMap
@@ -83,6 +85,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         subscribeUiEvents(myTripViewModel)
         backArrowRTL(binding.ivClose)
 
+
         val params: CoordinatorLayout.LayoutParams =
             binding.appbarLayout.layoutParams as CoordinatorLayout.LayoutParams
 
@@ -114,20 +117,20 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         var hashMap: HashMap<String, String> = HashMap<String, String>()
 
         if (list.isNotEmpty()) {
-            hashMap["origin"] =
-                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
-
-            hashMap["destination"] =
-                list.last().latitude + "," + list.last().longitude
-
-            list.subList(0, list.size - 1).map {
-                hashMap["waypoints"] = it.latitude + "," + it.longitude
-            }
-
-            hashMap["key"] = getString(R.string.map_key)
+//            hashMap["origin"] =
+//                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
+//
+//            hashMap["destination"] =
+//                list.last().latitude + "," + list.last().longitude
+//
+//            list.subList(0, list.size - 1).map {
+//                hashMap["waypoints"] = it.latitude + "," + it.longitude
+//            }
+//
+//            hashMap["key"] = getString(R.string.map_key)
 
             myTripViewModel.getDirections(
-                map = hashMap
+                list, getString(R.string.map_key), travelMode
             )
         }
 
@@ -160,7 +163,11 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                     override fun rowClickListener(eventAttraction: EventsAndAttraction) {
 
 //                        navigate(R.id.action_my_trip_to_travel_mode_dialog)
-                        navigateByDirections(MyTripFragmentDirections.actionMyTripToTravelModeDialog())
+                        navigateByDirections(
+                            MyTripFragmentDirections.actionMyTripToTravelModeDialog(
+                                eventAttraction.id
+                            )
+                        )
 
                     }
 
@@ -179,7 +186,8 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                                 latitude,
                                 longitude
                             )
-                        }                    }
+                        }
+                    }
 
                 },
                 getCurrentLanguage()
@@ -266,6 +274,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         tripSharedViewModel.tripList.observe(viewLifecycleOwner) {
             if (it != null) {
                 myTripAdapter.submitList(it)
+                drawPolyline(it)
             }
         }
 
@@ -285,17 +294,23 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         }
 
         myTripViewModel.distanceResponse.observe(viewLifecycleOwner) {
-            it.rows[0].elements.map {
-                if (it.status == "ZERO_RESULTS") {
-                    showAlert(Constants.TRAVEL_MODE.ERROR)
-                    return@observe
-                }
-            }
-            tripSharedViewModel.mapDistanceInList(it, travelMode)
+//            it.rows[0].elements.map {
+//                if (it.status == "ZERO_RESULTS") {
+//                    showAlert(Constants.TRAVEL_MODE.ERROR)
+//                    return@observe
+//                }
+//            }
+//            tripSharedViewModel.mapDistanceInList(it, travelMode)
         }
 
         myTripViewModel.directionResponse.observe(viewLifecycleOwner) {
-            drawPolyline(it.routes)
+//            tripSharedViewModel.mapDirectionInList(it)
+
+//            drawPolyline(it)
+        }
+
+        myTripViewModel.directionDistanceResponse.observe(viewLifecycleOwner) {
+            tripSharedViewModel.mapInList(it, travelMode)
         }
 
         tripSharedViewModel.showSave.observe(viewLifecycleOwner) {
@@ -325,7 +340,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             if (it != null) {
                 //    tripSharedViewModel.filterList()
                 getDirections(it)
-                getDistance(it)
+//                getDistance(it)
                 addMarkers(it)
 
             }
@@ -339,36 +354,45 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         var hashMap: HashMap<String, String> = HashMap<String, String>()
         var destination: String = ""
         if (list.isNotEmpty()) {
-            hashMap["origins"] =
-                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
-
-//            hashMap["destination"] =
-//                list[0].latitude + "," + list[0].longitude
-
-            list.map {
-                destination += it.latitude + "," + it.longitude + "|"
-            }
-
-            hashMap["destinations"] = destination
-            hashMap["mode"] = travelMode
-
-            hashMap["key"] = getString(R.string.map_key)
+//            hashMap["origins"] =
+//                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
+//
+////            hashMap["destination"] =
+////                list[0].latitude + "," + list[0].longitude
+//
+//            list.map {
+//                destination += it.latitude + "," + it.longitude + "|"
+//            }
+//
+//            hashMap["destinations"] = destination
+//            hashMap["mode"] = travelMode
+//
+//            hashMap["key"] = getString(R.string.map_key)
 
             myTripViewModel.getDistance(
-                map = hashMap
+                list, getString(R.string.map_key), travelMode
             )
         }
 
     }
 
-    private fun drawPolyline(routes: List<Route>) {
+    private fun drawPolyline(routes: List<EventsAndAttraction>) {
+//        routes[0].
+        if (polylines.isNotEmpty()) {
 
-        val polyoptions = PolylineOptions()
-        polyoptions.color(ContextCompat.getColor(context!!, R.color.polyline_color))
-        polyoptions.width(5f)
-        polyoptions.addAll(PolyUtil.decode(routes[0].overviewPolyline.points))
-        mMap.addPolyline(polyoptions)
+            for(polyline in polylines){
+                polyline.remove()
+            }
+            polylines.clear()
+        }
+        for (route in routes) {
+            val polyoptions = PolylineOptions()
+            polyoptions.color(ContextCompat.getColor(context!!, R.color.polyline_color))
+            polyoptions.width(5f)
+            polyoptions.addAll(PolyUtil.decode(route.points))
+            polylines.add(mMap.addPolyline(polyoptions))
 
+        }
 
     }
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.dubaiculture.data.repository.trip.TripRepository
 import com.dubaiculture.data.repository.trip.local.*
 import com.dubaiculture.data.repository.trip.remote.request.EventAttractionRequest
+import com.dubaiculture.data.repository.trip.remote.response.DirectionResponse
 import com.dubaiculture.data.repository.trip.remote.response.DistanceMatrixResponse
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
@@ -501,12 +502,22 @@ class TripSharedViewModel @Inject constructor(
 
     }
 
-    fun mapDistanceInList(distanceMatrixResponse: DistanceMatrixResponse, travelMode: String) {
-        val data = _eventAttractionList.value ?: return
+
+
+    fun mapSingleDistanceInList(
+        distanceDirectionResponse: DistanceDirectionModel,
+        travelMode: String,
+        eventId: String
+    ) {
+        val data = _tripList.value ?: return
         data.mapIndexed { index, eventsAndAttraction ->
+            if(eventId != eventsAndAttraction.id)
+                return@mapIndexed eventsAndAttraction
+
             return@mapIndexed eventsAndAttraction.copy(
-                duration = distanceMatrixResponse.rows[0].elements[index].duration.text,
-                distance = distanceMatrixResponse.rows[0].elements[index].distance.text,
+                duration = distanceDirectionResponse.distanceResponse.rows[0].elements[0].duration.text,
+                distance = distanceDirectionResponse.distanceResponse.rows[0].elements[0].distance.text,
+                points = distanceDirectionResponse.directionResponse.routes[0].overviewPolyline.points,
                 travelMode = travelMode
             )
         }.let {
@@ -514,6 +525,58 @@ class TripSharedViewModel @Inject constructor(
         }
 
     }
+
+    fun mapDistanceInList(distanceMatrixResponse: MutableList<DistanceMatrixResponse>, travelMode: String) {
+        val data = _eventAttractionList.value ?: return
+        data.mapIndexed { index, eventsAndAttraction ->
+            if(index == data.size-1)
+                return@mapIndexed eventsAndAttraction
+
+            return@mapIndexed eventsAndAttraction.copy(
+                duration = distanceMatrixResponse[index].rows[0].elements[0].duration.text,
+                distance = distanceMatrixResponse[index].rows[0].elements[0].distance.text,
+                travelMode = travelMode
+            )
+        }.let {
+            _tripList.value = it
+        }
+
+    }
+
+    fun mapDirectionInList(directionResponse: MutableList<DirectionResponse>) {
+        val data = _eventAttractionList.value ?: return
+        data.mapIndexed { index, eventsAndAttraction ->
+            if(index == data.size-1)
+                return@mapIndexed eventsAndAttraction
+
+            return@mapIndexed eventsAndAttraction.copy(
+                points = directionResponse[index].routes[0].overviewPolyline.points,
+
+            )
+        }.let {
+            _tripList.value = it
+        }
+
+    }
+
+    fun mapInList(distanceDirectionResponse: DistanceDirectionListModel, travelMode: String) {
+        val data = _eventAttractionList.value ?: return
+        data.mapIndexed { index, eventsAndAttraction ->
+            if(index == data.size-1)
+                return@mapIndexed eventsAndAttraction
+
+            return@mapIndexed eventsAndAttraction.copy(
+                duration = distanceDirectionResponse.distanceResponse[index].rows[0].elements[0].duration.text,
+                distance = distanceDirectionResponse.distanceResponse[index].rows[0].elements[0].distance.text,
+                points = distanceDirectionResponse.directionResponse[index].routes[0].overviewPolyline.points,
+                travelMode = travelMode
+            )
+        }.let {
+            _tripList.value = it
+        }
+
+    }
+
 
     fun validateStep3(): Boolean {
 

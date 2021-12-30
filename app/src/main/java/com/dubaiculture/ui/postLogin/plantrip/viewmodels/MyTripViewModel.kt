@@ -7,12 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.dubaiculture.data.Result
+import com.dubaiculture.data.repository.trip.local.DistanceDirectionListModel
+import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.dubaiculture.data.repository.trip.remote.response.DirectionResponse
 import com.dubaiculture.data.repository.trip.remote.response.DistanceMatrixResponse
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,66 +27,157 @@ class MyTripViewModel @Inject constructor(
     private val tripRepository: TripRepository
 ) : BaseViewModel(application) {
 
-    val _directionResponse: MutableLiveData<DirectionResponse> = MutableLiveData()
-    val directionResponse: LiveData<DirectionResponse> = _directionResponse
+    val _directionResponse: MutableLiveData<MutableList<DirectionResponse>> = MutableLiveData()
+    val directionResponse: LiveData<MutableList<DirectionResponse>> = _directionResponse
+    val directionResponseList: MutableList<DirectionResponse> = mutableListOf()
 
-    val _distanceResponse: MutableLiveData<DistanceMatrixResponse> = MutableLiveData()
-    val distanceResponse: LiveData<DistanceMatrixResponse> = _distanceResponse
+    val _directionDistanceResponse: MutableLiveData<DistanceDirectionListModel> = MutableLiveData()
+    val directionDistanceResponse: LiveData<DistanceDirectionListModel> = _directionDistanceResponse
+
+    val _distanceResponse: MutableLiveData<MutableList<DistanceMatrixResponse>> = MutableLiveData()
+    val distanceResponse: LiveData<MutableList<DistanceMatrixResponse>> = _distanceResponse
+    val distanceResponseList: MutableList<DistanceMatrixResponse> = mutableListOf()
 
     private var _deleteTripStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var deleteTripStatus: MutableLiveData<Event<Boolean>> = _deleteTripStatus
 
-    fun getDirections(map:HashMap<String,String>) {
+    fun getDirections(list: List<EventsAndAttraction>, mapKey: String, travelMode: String) {
         viewModelScope.launch {
             showLoader(true)
-            val result = tripRepository.getDirections(map)
-            when (result) {
-                is Result.Success -> {
-                    showLoader(false)
-                    _directionResponse.value = result.value
-                }
-                is Result.Error -> {
-                    showLoader(false)
-                    showToast(Constants.Error.SOMETHING_WENT_WRONG)
-//                     result.exception
-                }
-                is Result.Failure -> {
-                    showLoader(false)
-                    showToast(Constants.Error.SOMETHING_WENT_WRONG)
 
-//                    _userType.value = result
+            val responseBody = list.mapIndexed { index, it ->
+                async {
+
+                    if (index == list.size - 1)
+                        return@async Result.Failure(false, 222)
+                    var hashMap: HashMap<String, String> = HashMap<String, String>()
+
+                    hashMap["origin"] =
+                        it.latitude.toString() + "," + it.longitude.toString()
+
+                    hashMap["destination"] =
+                        list[index + 1].latitude.toString() + "," + list[index + 1].longitude.toString()
+                    hashMap["mode"] = travelMode
+
+                    hashMap["key"] = mapKey
+
+                    val result = tripRepository.getDirections(hashMap)
+                    return@async result
+
+                }
+
+
+            }.awaitAll()
+
+
+
+            for (response1 in responseBody) {
+
+                when (response1) {
+                    is Result.Success -> {
+                        directionResponseList.add(response1.value)
+
+                    }
+                    is Result.Error -> {
+                        showLoader(false)
+                        showToast(Constants.Error.SOMETHING_WENT_WRONG)
+//                     result.exception
+                    }
+                    is Result.Failure -> {
+                        if (response1.errorCode != 222) {
+                            showLoader(false)
+                            showToast(Constants.Error.SOMETHING_WENT_WRONG)
+                        }
+                    }
                 }
             }
+
+            showLoader(false)
+            _directionResponse.value = directionResponseList
+            getDistance(list,mapKey, travelMode)
+        }
+
+//            val result = tripRepository.getDirections(map)
+//            when (result) {
+//                is Result.Success -> {
+//                    showLoader(false)
+//                    _directionResponse.value = result.value
+//                }
+//                is Result.Error -> {
+//                    showLoader(false)
+//                    showToast(Constants.Error.SOMETHING_WENT_WRONG)
+////                     result.exception
+//                }
+//                is Result.Failure -> {
+//                    showLoader(false)
+//                    showToast(Constants.Error.SOMETHING_WENT_WRONG)
+//
+////                    _userType.value = result
+//                }
+//            }
+    }
+
+
+    fun getDistance(list: List<EventsAndAttraction>, mapKey: String, travelMode: String) {
+
+        viewModelScope.launch {
+            showLoader(true)
+
+            val responseBody = list.mapIndexed { index, it ->
+                async {
+
+                    if (index == list.size - 1)
+                        return@async Result.Failure(false, 222)
+                    var hashMap: HashMap<String, String> = HashMap<String, String>()
+
+                    hashMap["origins"] =
+                        it.latitude.toString() + "," + it.longitude.toString()
+
+                    hashMap["destinations"] =
+                        list[index + 1].latitude.toString() + "," + list[index + 1].longitude.toString()
+                    hashMap["mode"] = travelMode
+
+                    hashMap["key"] = mapKey
+
+                    val result = tripRepository.getDistance(hashMap)
+                    return@async result
+
+                }
+
+
+            }.awaitAll()
+
+
+
+            for (response1 in responseBody) {
+
+                when (response1) {
+                    is Result.Success -> {
+                        distanceResponseList.add(response1.value)
+
+                    }
+                    is Result.Error -> {
+                        showLoader(false)
+                        showToast(Constants.Error.SOMETHING_WENT_WRONG)
+//                     result.exception
+                    }
+                    is Result.Failure -> {
+                        if (response1.errorCode != 222) {
+                            showLoader(false)
+                            showToast(Constants.Error.SOMETHING_WENT_WRONG)
+                        }
+                    }
+                }
+            }
+
+            showLoader(false)
+            _distanceResponse.value = distanceResponseList
+            _directionDistanceResponse.value = DistanceDirectionListModel(directionResponseList,distanceResponseList)
         }
 
     }
 
-    fun getDistance(map:HashMap<String,String>) {
-        viewModelScope.launch {
-            showLoader(true)
-            val result = tripRepository.getDistance(map)
-            when (result) {
-                is Result.Success -> {
-                    showLoader(false)
-                    _distanceResponse.value = result.value
-                }
-                is Result.Error -> {
-                    showLoader(false)
-                    showToast(Constants.Error.SOMETHING_WENT_WRONG)
-//                     result.exception
-                }
-                is Result.Failure -> {
-                    showLoader(false)
-                    showToast(Constants.Error.SOMETHING_WENT_WRONG)
-
-//                    _userType.value = result
-                }
-            }
-        }
-
-    }
-
-     fun deleteTrip(tripId:String) {
+    fun deleteTrip(tripId: String) {
         viewModelScope.launch {
             showLoader(true)
             val result = tripRepository.deleteTrip(tripId)

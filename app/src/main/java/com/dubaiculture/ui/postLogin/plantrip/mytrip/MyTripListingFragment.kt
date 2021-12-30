@@ -102,7 +102,7 @@ class MyTripListingFragment : BaseBottomSheetFragment<FragmentMyTripListingBindi
                 object : MyTripClickListener {
                     override fun rowClickListener(eventAttraction: EventsAndAttraction) {
 
-                        navigateByDirections(MyTripListingFragmentDirections.actionMyTripListingToTravelModeDialog())
+//                        navigateByDirections(MyTripListingFragmentDirections.actionMyTripListingToTravelModeDialog())
 //                        navigate(R.id.action_my_trip_listing_to_travel_mode_dialog)
 
                     }
@@ -158,7 +158,7 @@ class MyTripListingFragment : BaseBottomSheetFragment<FragmentMyTripListingBindi
                     return@observe
                 }
             }
-            tripSharedViewModel.mapDistanceInList(it, travelMode)
+//            tripSharedViewModel.mapDistanceInList(it, travelMode)
         }
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {

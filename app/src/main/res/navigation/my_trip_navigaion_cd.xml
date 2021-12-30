@@ -24,7 +24,11 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out" >
+            <argument
+                android:name="eventId"
+                app:argType="string" />
+        </action>
 
         <action
             android:id="@+id/action_my_trip_to_delete_dialog"
@@ -86,7 +90,12 @@
         android:id="@+id/travelModeDialog"
         android:name="com.dubaiculture.ui.postLogin.plantrip.mytrip.TravelModeBottomSheetFragment"
         android:label="TravelModeDialog"
-        tools:layout="@layout/fragment_travel_mode_bottom_sheet" />
+        tools:layout="@layout/fragment_travel_mode_bottom_sheet" >
+        <argument
+            android:name="eventId"
+            app:argType="string" />
+    </dialog>
+
 
     <dialog
         android:id="@+id/deleteTripDialog"

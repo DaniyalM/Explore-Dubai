@@ -204,6 +204,7 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
                 icon = eventsAndAttraction.icon ?: "",
                 duration = "",
                 distance = "",
+                points = "",
                 travelMode = Constants.TRAVEL_MODE.DRIVING
             )
         },

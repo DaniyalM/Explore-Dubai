@@ -13,6 +13,7 @@ import com.dubaiculture.databinding.ItemMyTripBinding
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.MyTripClickListener
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import java.util.*
 
 class MyTripAdapter(val rowClickListener: MyTripClickListener, val currentLanguage: Locale) :
@@ -46,7 +47,15 @@ class MyTripAdapter(val rowClickListener: MyTripClickListener, val currentLangua
             }
 
             if (isLast) {
-                binding.belowDotted.hide()
+                binding.llIcons.hide()
+                binding.tvCar.hide()
+                binding.cvNavigation.hide()
+                binding.tvDistance.hide()
+            }else{
+                binding.llIcons.show()
+                binding.tvCar.show()
+                binding.cvNavigation.show()
+                binding.tvDistance.show()
             }
 
             binding.llIcons.setOnClickListener {
