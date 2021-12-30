@@ -10,7 +10,7 @@ sealed class Result<out R> {
     data class Failure(
             val isNetWorkError: Boolean,
             val errorCode: Int?,
-            val errorBody: ResponseBody?,
+            val errorBody: ResponseBody? = null,
             val errorMessage: String? = null
     ) : Result<Nothing>()
 }
