@@ -58,7 +58,8 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     private lateinit var datesAdapter: DatesAdapter
     private lateinit var myTripAdapter: MyTripAdapter
     private var mapView: MapView? = null
-//    private lateinit var binding: FragmentMyTripListingBinding
+
+    //    private lateinit var binding: FragmentMyTripListingBinding
     @Inject
     lateinit var locationHelper: LocationHelper
 
@@ -82,7 +83,8 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         subscribeUiEvents(myTripViewModel)
         backArrowRTL(binding.ivClose)
 
-        val params:CoordinatorLayout.LayoutParams = binding.appbarLayout.layoutParams as CoordinatorLayout.LayoutParams
+        val params: CoordinatorLayout.LayoutParams =
+            binding.appbarLayout.layoutParams as CoordinatorLayout.LayoutParams
 
         val behavior = AppBarLayout.Behavior()
         behavior.setDragCallback(object : DragCallback() {
@@ -103,10 +105,8 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 //            }
 //        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
-    setupRV()
+        setupRV()
     }
-
-
 
 
     private fun getDirections(list: List<EventsAndAttraction>) {
@@ -169,6 +169,17 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                         position: Int
                     ) {
                     }
+
+                    override fun rowClickListenerDirections(latitude: String, longitude: String) {
+                        if (!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty()) {
+                            // open google map application
+                            navigateToGoogleMap(
+                                currentLocation.latitude.toString(),
+                                currentLocation.longitude.toString(),
+                                latitude,
+                                longitude
+                            )
+                        }                    }
 
                 },
                 getCurrentLanguage()
@@ -244,7 +255,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                 currentLocation = this
             }
 
-         //   addBottomSheet()
+            //   addBottomSheet()
 
 
         }
@@ -432,7 +443,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     fun onEditTripClicked() {
 //        navigate(R.id.action_myTrip_to_tripFragment)
         showAlert(
-            message = getString(R.string.EditTripAlert),
+            message = getString(R.string.are_you_sure_want_to_reset_trip),
             textPositive = getString(R.string.yes),
             textNegative = getString(R.string.no),
             actionNegative = {

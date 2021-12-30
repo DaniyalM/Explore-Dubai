@@ -312,10 +312,10 @@
     <string name="lorem_ipsum"></string>
 
 
-    <string name="step1">الخطوة 1</string>
-    <string name="step2">الخطوة 2</string>
-    <string name="step3">الخطوة 3</string>
-    <string name="step4">الخطوة 4</string>
+    <string name="step1">الخطوة ٠١</string>
+    <string name="step2">الخطوة ٠٢</string>
+    <string name="step3">الخطوة ٠٣</string>
+    <string name="step4">الخطوة ٠٤</string>
     <string name="ima">انا</string>
     <string name="resident">مقيم</string>
     <string name="next">التالي</string>
@@ -419,6 +419,9 @@
     <string name="add_duration_error">الرجاء تحديد ساعات الزيارة للمتابعة</string>
 
     <string name="reset">إعادة تعيين</string>
+    <string name="are_you_sure_want_to_delete_trip">هل أنت متأكد أنك تريد حذف الرحلة؟</string>
+    <string name="days">أيام</string>
+    <string name="are_you_sure_want_to_reset_trip">هل أنت متأكد أنك تريد إعادة الرحلة؟</string>
 
 
     <!--  End of Sprint 3  -->

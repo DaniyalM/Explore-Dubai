@@ -60,20 +60,32 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <androidx.appcompat.widget.AppCompatImageView
+                        <ImageView
                             android:id="@+id/iv_close"
-                            android:layout_width="@dimen/_25sdp"
-                            android:layout_height="@dimen/_25sdp"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:layout_marginTop="@dimen/_20sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_12sdp"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:onClick="@{()->view.onBackPressed()}"
-                            android:rotation="90"
-                            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                            android:paddingHorizontal="@dimen/_6sdp"
+                            android:src="@drawable/ic_close_black"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+<!--                        <androidx.appcompat.widget.AppCompatImageView-->
+<!--                            android:id="@+id/iv_close"-->
+<!--                            android:layout_width="@dimen/_25sdp"-->
+<!--                            android:layout_height="@dimen/_25sdp"-->
+<!--                            android:layout_marginStart="@dimen/_5sdp"-->
+<!--                            android:layout_marginTop="@dimen/_20sdp"-->
+<!--                            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--                            android:onClick="@{()->view.onBackPressed()}"-->
+<!--                            android:rotation="90"-->
+<!--                            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintHorizontal_bias="0.0"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

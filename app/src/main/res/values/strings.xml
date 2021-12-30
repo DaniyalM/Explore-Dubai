@@ -427,6 +427,7 @@
     <string name="add_duration_error">Please select hours to continue</string>
 
     <string name="reset">Reset</string>
+    <string name="days">Days</string>
 
 
     <!-- Facebook keys -->
@@ -434,5 +435,8 @@
     <string name="facebook_app_id">1249629708783017</string>
 
     <string name="fb_login_protocol_scheme">fb1249629708783017</string>
+
+    <string name="are_you_sure_want_to_delete_trip">Are you sure you want to delete trip?</string>
+    <string name="are_you_sure_want_to_reset_trip">Are you sure you want to reset trip?</string>
 
 </resources>

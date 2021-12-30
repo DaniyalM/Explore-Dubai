@@ -77,6 +77,10 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
                     ) {
                     }
 
+                    override fun rowClickListenerDirections(latitude: String, longitude: String) {
+                        TODO("Not yet implemented")
+                    }
+
                 },
                 getCurrentLanguage()
             )

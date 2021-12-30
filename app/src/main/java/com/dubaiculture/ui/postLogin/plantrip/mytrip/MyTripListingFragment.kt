@@ -113,6 +113,10 @@ class MyTripListingFragment : BaseBottomSheetFragment<FragmentMyTripListingBindi
                     ) {
                     }
 
+                    override fun rowClickListenerDirections(latitude: String, longitude: String) {
+                        TODO("Not yet implemented")
+                    }
+
                 },
                 getCurrentLanguage()
             )
