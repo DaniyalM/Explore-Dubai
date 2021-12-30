@@ -73,7 +73,8 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
                     navigateByDirections(
                         PopularServiceFragmentDirections.actionPopularServiceFragmentToWebViewFragment(
                             service!!.startServiceUrl,
-                            false
+                            false,
+                            service.title
                         )
                     )
                 }

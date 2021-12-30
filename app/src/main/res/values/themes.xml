@@ -64,7 +64,7 @@
         <item name="color_card_views_shadow">@color/gray_600</item>
         <item name="color_light_theme_purple_dark_theme_gray">@color/purple_900</item>
         <item name="color_light_theme_purple_dark_theme">@color/white_900</item>
-
+        <item name="color_chip_text_theme">@color/gray_800</item>
 
         <!--curve bg in news and event detail-->
         <item name="color_curve_view_bg">@color/curve_color</item>
@@ -77,6 +77,10 @@
 
         <item name="color_login_edit_text_bg">@color/color_login_edit_text</item>
 
+        <item name="color_pyt_purple_light">@color/purple_650</item>
+        <item name="color_pyt_orange_light">@color/orange</item>
+
+        <item name="color_ambient_shadow">@color/gray_600</item>
 
     </style>
 
@@ -183,9 +187,9 @@
         <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
     </style>
 
-<!--    <style name="MaterialAlertDialogText" parent="@style/MaterialAlertDialog.MaterialComponents.mess.Text">-->
-<!--        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>-->
-<!--    </style>-->
+    <!--    <style name="MaterialAlertDialogText" parent="@style/MaterialAlertDialog.MaterialComponents.mess.Text">-->
+    <!--        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>-->
+    <!--    </style>-->
 
 
 </resources>

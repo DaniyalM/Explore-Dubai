@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.dubaiculture.BuildConfig
 import com.dubaiculture.data.repository.popular_service.local.models.Description
 import com.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
@@ -56,7 +55,7 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
 
             (parentFragment as ServiceDetailFragment).navigateByDirections(
                 ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
-                    description[0].startServiceUrl, false
+                    description[0].startServiceUrl, false, description[0].title
                 )
             )
 //            (parentFragment as ServiceDetailFragment).navigateByDirections(

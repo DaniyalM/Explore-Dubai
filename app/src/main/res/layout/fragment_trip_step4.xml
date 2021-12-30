@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.dubaiculture.R" />
+
         <variable
             name="view"
             type="com.dubaiculture.ui.postLogin.plantrip.steps.step4.TripStep4Fragment" />
@@ -33,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/new_green_line" />
+            app:lottie_rawRes="@raw/trip_step" />
 
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
@@ -67,7 +69,6 @@
             android:textAllCaps="false"
             android:textColor="@color/purple_650"
             android:textSize="@dimen/_8ssp"
-            android:visibility="@{(viewModel.durationSummary.size() != 0) ? View.VISIBLE : View.GONE}"
             app:cornerRadius="@dimen/_14sdp"
             app:layout_constraintBottom_toBottomOf="@id/tvHeading"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -82,7 +83,6 @@
             android:background="@drawable/custom_ripple_black"
             android:onClick="@{()->view.onSelectDateClicked()}"
             android:outlineSpotShadowColor="?attr/color_card_views_shadow"
-            android:visibility="@{(viewModel.durationSummary.size() == 0) ? View.VISIBLE : View.GONE}"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,7 +128,6 @@
             android:text="@string/select_dates_desc"
             android:textColor="?attr/colorSecondaryVariant"
             android:textSize="@dimen/_12ssp"
-            android:visibility="@{(viewModel.durationSummary.size() == 0) ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@id/cvDates"
             app:layout_constraintStart_toStartOf="@id/cvDates"
             app:layout_constraintTop_toBottomOf="@id/cvDates" />
@@ -143,7 +142,6 @@
             android:background="@drawable/custom_ripple_black"
             android:onClick="@{()->view.onNoDaysClicked()}"
             android:outlineSpotShadowColor="?attr/color_card_views_shadow"
-            android:visibility="@{(viewModel.durationSummary.size() == 0) ? View.VISIBLE : View.GONE}"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -186,33 +184,31 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:visibility="@{(viewModel.durationSummary.size() != 0) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@+id/btnShowPlan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvHeading"
             tools:listitem="@layout/item_duration_summary" />
 
-        <com.dubaiculture.ui.components.custombutton.CustomButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnShowPlan"
+            style="@style/selectedButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@{viewModel._durationSummary.size() != 0 ?  @drawable/btn_register :@drawable/my_event_btn_enable}"
             android:enabled="@{viewModel.durationSummary.size() != 0}"
             android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
             android:onClick="@{()->viewModel.postEventAttraction()}"
             android:text="@string/show_my_plan"
             android:textAllCaps="false"
-            android:textColor="?attr/color_dubai_logo"
-            android:transitionName="action_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!--        android:background="@{viewModel._durationSummary.size() != 0 ?  @drawable/btn_register :@drawable/my_event_btn_enable}"-->
         <!--        <Button-->
         <!--            android:id="@+id/btnShowPlan"-->
         <!--            style="?attr/materialButtonOutlinedStyle"-->

@@ -22,187 +22,228 @@
             type="com.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/layoutCordinator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".CollapsingToolbar">
 
-        <!--        <fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--            xmlns:tools="http://schemas.android.com/tools"-->
-        <!--            android:id="@+id/mapFrag"-->
-        <!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent" />-->
-
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/map"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="@dimen/_400sdp">
 
-        <ImageView
-            android:id="@+id/iv_dropdown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{()->view.onBackPressed()}"
-            android:paddingHorizontal="@dimen/_6sdp"
-            android:src="@drawable/ic_twotone_keyboard_arrow_down_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorOnBackgroundDark"
+                app:expandedTitleGravity="top"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-        <ImageView
-            android:id="@+id/iv_close"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{()->view.onBackPressed()}"
-            android:paddingHorizontal="@dimen/_6sdp"
-            android:src="@drawable/ic_close_black"
-            app:layout_constraintBottom_toBottomOf="@id/iv_dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_dropdown" />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:translationZ="90dp"
+                    app:layout_collapseMode="pin">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView4"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_250sdp"
-            android:background="@drawable/my_trip_bottomsheet"
-            android:onClick="@{()->view.onBottomSheetClicked()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/gray_line"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:background="@drawable/gray_line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imageView4" />
+                        <ImageView
+                            android:id="@+id/iv_close"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_12sdp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:onClick="@{()->view.onBackPressed()}"
+                            android:paddingHorizontal="@dimen/_6sdp"
+                            android:src="@drawable/ic_close_black"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/tvHeading"
-            style="@style/TextViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_25sdp"
-            android:text="@string/myTrip"
-            android:textSize="@dimen/_16ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gray_line" />
+<!--                        <androidx.appcompat.widget.AppCompatImageView-->
+<!--                            android:id="@+id/iv_close"-->
+<!--                            android:layout_width="@dimen/_25sdp"-->
+<!--                            android:layout_height="@dimen/_25sdp"-->
+<!--                            android:layout_marginStart="@dimen/_5sdp"-->
+<!--                            android:layout_marginTop="@dimen/_20sdp"-->
+<!--                            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--                            android:onClick="@{()->view.onBackPressed()}"-->
+<!--                            android:rotation="90"-->
+<!--                            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintHorizontal_bias="0.0"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnDeleteDur"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:backgroundTint="@color/delete_color"
-            android:fontFamily="@font/neo_sans_arabic_regular"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:onClick="@{()->viewModel.deleteTrip(tripId)}"
-            android:text="@string/deleteTrip"
-            android:textAllCaps="false"
-            android:textColor="@color/delete_text_color"
-            android:textSize="@dimen/_8ssp"
-            app:cornerRadius="@dimen/_14sdp"
-            app:layout_constraintBottom_toBottomOf="@id/tvHeading"
-            app:layout_constraintEnd_toEndOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/tvDate"
-            style="@style/TextViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_18sdp"
-            android:fontFamily="@font/neosansarabicbold"
-            android:textColor="@color/purple_650"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintStart_toStartOf="@id/tvHeading"
-            app:layout_constraintTop_toBottomOf="@+id/tvHeading"
-            tools:text="November,2020" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvDates"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:paddingVertical="@dimen/_6sdp"
-            android:paddingStart="@dimen/_4sdp"
-            app:layout_constraintBottom_toBottomOf="@id/tvDate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvDate"
-            app:layout_constraintTop_toTopOf="@id/tvDate"
-            tools:itemCount="1"
-            tools:listitem="@layout/item_trip_date" />
+                </androidx.appcompat.widget.Toolbar>
 
 
-        <View
-            android:id="@+id/viewLine"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_3sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/line_light_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDate" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTrips"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:focusableInTouchMode="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewLine"
-            tools:listitem="@layout/item_my_trip" />
-
-        <com.dubaiculture.ui.components.custombutton.CustomButton
-            android:id="@+id/btnNext"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginHorizontal="@dimen/_22ssp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/btn_register"
-            android:foreground="@drawable/custom_ripple_border"
-            android:gravity="center"
-            android:onClick="@{()->view.onSaveTripClicked()}"
-            android:text="@string/saveTrip"
-            android:textAllCaps="false"
-            android:textColor="@color/white_900"
-            android:transitionName="action_btn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:behavior_overlapTop="@dimen/_40sdp"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/my_trip_bottomsheet">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:onClick="@{()->view.onBottomSheetClicked()}"
+                    android:src="@drawable/my_trip_bottomsheet"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/gray_line"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/gray_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imageView4" />
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tvHeading"
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:text="@string/myTrip"
+                    android:textSize="@dimen/_16ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gray_line" />
+
+                <ImageView
+                    android:id="@+id/btnDeleteDur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:onClick="@{()->view.onDeleteClicked(tripId)}"
+                    android:src="@drawable/ic_baseline_more_vert_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tvHeading"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEditDur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:backgroundTint="?attr/color_edit_text_bg"
+                    android:fontFamily="@font/neo_sans_arabic_regular"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+
+                    android:minHeight="0dp"
+                    android:onClick="@{()->view.onEditTripClicked()}"
+                    android:text="@string/reset"
+                    android:textAllCaps="false"
+                    android:textColor="@color/purple_650"
+                    android:textSize="@dimen/_8ssp"
+                    app:cornerRadius="@dimen/_14sdp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvHeading"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tvDate"
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:fontFamily="@font/neosansarabicbold"
+                    android:textColor="@color/purple_650"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintStart_toStartOf="@id/tvHeading"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeading"
+                    tools:text="November,2020" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDates"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:paddingStart="@dimen/_4sdp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvDate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvDate"
+                    app:layout_constraintTop_toTopOf="@id/tvDate"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_trip_date" />
 
 
-        <!--        <Button-->
-        <!--            android:id="@+id/btnNext"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="@dimen/_40sdp"-->
-        <!--            android:layout_marginHorizontal="@dimen/_22ssp"-->
-        <!--            android:layout_marginBottom="@dimen/_8sdp"-->
-        <!--            android:backgroundTint="@color/purple_650"-->
-        <!--            android:fontFamily="@font/neo_sans_arabic_regular"-->
-        <!--            android:onClick="@{()->view.onSaveTripClicked()}"-->
-        <!--            android:text="@string/saveTrip"-->
-        <!--            android:textAllCaps="false"-->
-        <!--            android:textColor="@color/white_900"-->
-        <!--            app:cornerRadius="@dimen/_16sdp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent" />-->
+                <View
+                    android:id="@+id/viewLine"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/line_light_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDate" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTrips"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:focusableInTouchMode="true"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    app:layout_constraintBottom_toTopOf="@id/btnNext"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
+                <com.dubaiculture.ui.components.custombutton.CustomButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginHorizontal="@dimen/_22ssp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/btn_register"
+                    android:foreground="@drawable/custom_ripple_border"
+                    android:gravity="center"
+                    android:onClick="@{()->view.onSaveTripClicked()}"
+                    android:text="@string/saveTrip"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white_900"
+                    android:transitionName="action_btn"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

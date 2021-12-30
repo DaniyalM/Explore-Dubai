@@ -33,6 +33,7 @@ import com.dubaiculture.utils.SettingsUtils.newsList
 import com.dubaiculture.utils.SettingsUtils.servicesList
 import com.dubaiculture.utils.SettingsUtils.settingsList
 import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.shape.CornerFamily
 import com.xwray.groupie.GroupAdapter
@@ -142,7 +143,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         binding.llShareApp.setOnClickListener(this)
         binding.llNotification.setOnClickListener(this)
         binding.llCultureConnoisseur.setOnClickListener(this)
-        binding.planATripLayout.cardivewRTL.hide()
+//        binding.planATripLayout.cardivewRTL.hide()
         binding.planATripLayout.cardivewRTL.setOnClickListener(this)
         moreViewModel.setupToolbarWithSearchItems(
             binding.toolbarSnippet.toolbarLayout.profilePic,
@@ -214,7 +215,7 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
         val radius = resources.getDimension(R.dimen.my_corner_radius_plan)
         binding.planATripLayout.apply {
             tvTrip.text = resources.getString(R.string.plan_your_trip)
-            subHeading.visibility = View.VISIBLE
+            subHeading.show()
             if (isArabic()) {
                 cardivewRTL.shapeAppearanceModel =
                     cardivewRTL.shapeAppearanceModel
@@ -412,8 +413,13 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(), View.OnClickListener {
                 navigate(R.id.action_moreFragment_to_aboutFragment)
             }
             R.id.cardivewRTL -> {
-                if (!application.auth.isGuest)
+                if (!application.auth.isGuest) {
                     navigateByDirections(MoreFragmentDirections.actionMoreFragmentToTripFragment())
+                }
+                else{
+                    navigateByDirections(MoreFragmentDirections.actionMoreFragmentToPostLoginBottomNavigation())
+                }
+
 //                navigate(R.id.action_moreFragment_to_tripFragment)
             }
             R.id.search -> {

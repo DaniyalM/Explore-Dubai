@@ -12,7 +12,7 @@
     <include app:graph="@navigation/settings_navigation" />
     <include app:graph="@navigation/trip_navigation" />
     <include app:graph="@navigation/web_view_navigation" />
-
+    <include app:graph="@navigation/plan_trip_parent_navigation" />
     <include app:graph="@navigation/service_navigation" />
     <fragment
         android:id="@+id/moreFragment"
@@ -120,7 +120,7 @@
         </action>
         <action
             android:id="@+id/action_moreFragment_to_tripFragment"
-            app:destination="@id/trip_navigation"
+            app:destination="@id/plan_trip_parent_navigation"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -191,7 +191,9 @@
                 android:name="is_pdf"
                 app:argType="boolean"
                 app:nullable="false" />
-
+            <argument
+                android:name="title"
+                app:argType="string" />
         </action>
     </fragment>
     <fragment
@@ -220,6 +222,9 @@
                 android:name="is_pdf"
                 app:argType="boolean"
                 app:nullable="false" />
+            <argument
+                android:name="title"
+                app:argType="string" />
 
         </action>
     </fragment>

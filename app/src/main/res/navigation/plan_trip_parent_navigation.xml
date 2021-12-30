@@ -4,10 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/plan_trip_parent_navigation"
     app:startDestination="@id/planTripParentFragment">
+    <include app:graph="@navigation/my_saved_trip_navigation" />
+    <include app:graph="@navigation/my_trip_navigation" />
+
+
     <fragment
         android:id="@+id/planTripParentFragment"
         android:name="com.dubaiculture.ui.postLogin.plantrip.steps.PlanTripParentFragment"
         android:label="PlanTripParentFragment"
-        tools:layout="@layout/fragment_plan_trip_parent" />
+        tools:layout="@layout/fragment_plan_trip_parent" >
+        <action
+            android:id="@+id/action_tripFragment_to_savedTripFragment"
+            app:destination="@id/my_saved_trip_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_tripFragment_to_my_tripFragment"
+            app:destination="@id/my_trip_navigation"
+            app:popUpTo="@+id/plan_trip_parent_navigation"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_tripFragment_to_back_fragment"
+            app:popUpTo="@+id/plan_trip_parent_navigation"
+            />
+
+    </fragment>
 
 </navigation>

@@ -1,5 +1,7 @@
 package com.dubaiculture.ui.postLogin.plantrip.steps.step4
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -18,6 +20,9 @@ import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.EditDurationAdapter
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
+import com.dubaiculture.utils.ColorUtil
+import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,11 +37,31 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
     private val tripSharedViewModel: TripSharedViewModel by activityViewModels()
     private lateinit var editDurationAdapter: EditDurationAdapter
 
+    var states = arrayOf(
+        intArrayOf(android.R.attr.state_enabled),
+        intArrayOf(-android.R.attr.state_enabled),
+        intArrayOf(-android.R.attr.state_checked),
+        intArrayOf(android.R.attr.state_pressed)
+    )
+
+    var colors = intArrayOf(
+        Color.WHITE,
+        Color.WHITE,
+        Color.WHITE,
+        Color.WHITE
+    )
+
+    var unSelectedStates = arrayOf(
+        intArrayOf(android.R.attr.state_enabled),
+        intArrayOf(-android.R.attr.state_enabled),
+        intArrayOf(-android.R.attr.state_checked),
+        intArrayOf(android.R.attr.state_pressed)
+    )
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
         binding.viewModel = tripSharedViewModel
-        setupRV()
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -49,6 +74,8 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
 
         tripSharedViewModel.addDurationList.observe(viewLifecycleOwner) {
             editDurationList = it
+            setupRV()
+
         }
         tripSharedViewModel.durationSummary.observe(viewLifecycleOwner) {
             tripSharedViewModel._duration.value = it
@@ -61,6 +88,11 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
                 binding.clParent.visibility = View.VISIBLE
                 binding.rvDates.visibility = View.VISIBLE
                 editDurationAdapter.submitList(it.subList(1, it.size))
+                if(it.size>1){
+                    binding.checkBoxRepeat.show()
+                }else{
+                    binding.checkBoxRepeat.hide()
+                }
             } else {
                 durationList = emptyList()
                 binding.clParent.visibility = View.GONE
@@ -91,7 +123,8 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
                     }
 
                 }
-            )
+            ,
+            editDurationList)
             adapter = editDurationAdapter
 
 
@@ -101,6 +134,13 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
 
     private fun setData(duration: Duration) {
         binding.data = duration
+
+        var unSelectedColors = intArrayOf(
+            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
+        )
 
         when (duration.isDay) {
             0 -> {
@@ -121,12 +161,17 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
                 binding.btnDay.icon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_day_selected)
 
+                binding.btnDay.iconTint = ColorStateList(states, colors)
+
                 binding.btnDay.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.purple_650)
                 )
 
                 binding.btnNight.icon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_night)
+
+                binding.btnNight.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                 binding.btnNight.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.transparent)
@@ -135,12 +180,16 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
             2 -> {
                 binding.btnNight.icon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_night_selected)
+                binding.btnNight.iconTint = ColorStateList(states, colors)
 
                 binding.btnNight.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.purple_650)
                 )
 
                 binding.btnDay.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_day)
+
+                binding.btnDay.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                 binding.btnDay.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.transparent)
@@ -163,7 +212,6 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
     }
 
     fun onItemSelected(duration: Duration) {
-
         binding.checkBoxRepeat.isChecked = false
         tripSharedViewModel.updateDurationList(duration.copy(isSelected = !duration.isSelected))
 
@@ -188,9 +236,11 @@ class EditDurationFragment : BaseBottomSheetFragment<FragmentEditDurationBinding
     }
 
     fun onDeleteClicked() {
+        if (tripSharedViewModel.isDurationSelected()) {
+            navigate(R.id.action_edit_duration_to_deleteBottomSheetFragment)
+            binding.checkBoxRepeat.isChecked = false
+        }
 
-        binding.checkBoxRepeat.isChecked = false
-        navigate(R.id.action_edit_duration_to_deleteBottomSheetFragment)
     }
 
 

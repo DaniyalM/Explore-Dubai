@@ -9,9 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.LocationNearest
@@ -23,6 +20,10 @@ import com.dubaiculture.ui.postLogin.plantrip.steps.step3.adapter.clicklisteners
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.Step3ViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.location.LocationHelper
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -42,6 +43,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCallback {
 
+    private lateinit var locationTempList: MutableList<LocationNearest>
     private lateinit var markerLocation: LatLng
     private var marker: Marker? = null
     private lateinit var nearestLocationList: List<LocationNearest>
@@ -83,9 +85,13 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
     private fun setupRV() {
 
+        var flexLayoutManager = FlexboxLayoutManager(context)
+        flexLayoutManager.flexDirection = FlexDirection.ROW
+        flexLayoutManager.alignItems = AlignItems.STRETCH
         binding.rvLocationChips.apply {
-            layoutManager =
-                StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+//            layoutManager =
+//                StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = flexLayoutManager
             nearestLocAdapter = NearestLocationAdapter(
                 object : NearestLocationClickListener {
                     override fun rowClickListener(userType: LocationNearest) {
@@ -93,7 +99,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
                     }
 
                     override fun rowClickListener(userType: LocationNearest, position: Int) {
-                        tripSharedViewModel.updateLocationItem(userType.copy(isChecked = !userType.isChecked!!))
+                        tripSharedViewModel.updateLocationItem(userType.copy(isChecked = !userType.isChecked))
 
 //                        navigateMarker(
 //                            if (userType.latitude.isBlank()) 0.0 else userType.latitude.toDouble(),
@@ -133,20 +139,72 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
 //            tripSharedViewModel._nearestLocation.value = it
             tripSharedViewModel._nearestLocationType.value = it.nearestLocation
+            tripSharedViewModel._nearestLocationTemp.value = it.nearestLocation.subList(0, 5)
+            locationTempList = it.nearestLocation.subList(0, 5).toMutableList()
 
         }
 
         tripSharedViewModel.type.observe(viewLifecycleOwner) {
-            tripSharedViewModel.updateInLocationList(it)
+            tripSharedViewModel.updateInLocationTempList(it)
         }
 
 
-
-        tripSharedViewModel.nearestLocation.observe(viewLifecycleOwner) {
+        tripSharedViewModel.nearestLocationTemp.observe(viewLifecycleOwner) {
             binding.rvLocationChips.visibility = View.VISIBLE
             nearestLocAdapter.submitList(it)
             setMarker(it)
-//            nearestLocationList = it
+            nearestLocationList = it
+
+        }
+
+        tripSharedViewModel.nearestLocation.observe(viewLifecycleOwner) {
+//            if (it != null) {
+//                binding.rvLocationChips.visibility = View.VISIBLE
+//                nearestLocAdapter.submitList(it)
+//                setMarker(it)
+//            }
+
+//            val selectedLoc = it.singleOrNull() { locationNearest ->
+//                locationNearest.isChecked
+//            }
+//
+//            if (selectedLoc != null) {
+//                var data = tripSharedViewModel._nearestLocationTemp.value
+//
+////            if(data?.contains(selectedLoc)!!)
+//
+//                data?.let {
+//                    if (it.contains(selectedLoc)) {
+//                        locationTempList.map {
+//                            if (selectedLoc.locationId == it.locationId) {
+//                                selectedLoc.copy(isChecked = true)
+//                                return@map selectedLoc
+//                            } else {
+//                                return@map it
+//                            }
+//                        }.let {
+//                            tripSharedViewModel._nearestLocationTemp.value = it
+//                        }
+//                    } else {
+//                        locationTempList.add(selectedLoc)
+//                        tripSharedViewModel._nearestLocationTemp.value = locationTempList
+//                    }
+//                }
+//            }
+//
+////            for (nearestLoc in data ?: emptyList()) {
+////                if(selectedLoc.locationId == nearestLoc.locationId){
+////                    nearestLoc.copy(isChecked = true)
+////                }else{
+////
+////                }
+////            }
+//
+//
+////            binding.rvLocationChips.visibility = View.VISIBLE
+////            nearestLocAdapter.submitList(it)
+////            setMarker(it)
+////            nearestLocationList = it
 
         }
 
@@ -258,7 +316,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
             mMap?.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
-                    LatLng(latitude, longitude), 14.0f
+                    LatLng(latitude, longitude), 13.0f
                 )
             )
             mMap?.cameraPosition?.target

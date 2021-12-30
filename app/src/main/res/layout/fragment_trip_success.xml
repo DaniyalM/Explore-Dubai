@@ -96,6 +96,7 @@
             android:layout_marginStart="@dimen/_65sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_60sdp"
+            android:visibility="gone"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp ty orem ipsum dolor sit amet elitsed eiusm"
             android:textAlignment="viewStart"
             android:textColor="@color/gray_600"

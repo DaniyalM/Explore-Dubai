@@ -50,8 +50,9 @@ class AddLocationBottomSheetFragment :
 
 
         tripSharedViewModel.nearestLocation.observe(viewLifecycleOwner) {
-
-            setAdapter(it)
+            if (it != null) {
+                setAdapter(it)
+            }
 
         }
 

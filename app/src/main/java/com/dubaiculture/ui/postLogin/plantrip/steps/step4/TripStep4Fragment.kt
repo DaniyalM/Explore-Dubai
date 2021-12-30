@@ -17,10 +17,14 @@ import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.Step4ViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.event.Event
+import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.NumberFormat
+import java.util.*
 
 @AndroidEntryPoint
 class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
@@ -52,22 +56,64 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
     }
 
     private fun subscribeToObservables() {
-        step4ViewModel.durations.observe(viewLifecycleOwner){
+        step4ViewModel.durations.observe(viewLifecycleOwner) {
             tripSharedViewModel.addDurations(it)
         }
 
         tripSharedViewModel.durationSummary.observe(viewLifecycleOwner) {
-            if (it != null)
-                durationSummaryAdapter.submitList(it)
+            if (it != null) {
+
+                if (it[0].hour == "24 Hour") {
+                    binding.btnEditDur.hide()
+                    binding.cvDates.show()
+                    binding.tvDesc.show()
+                    binding.cvDays.show()
+                    binding.rvDurations.hide()
+                    binding.tvSelectDays.text = it.size.toString() + " " + getString(R.string.days)
+
+//                    if (getCurrentLanguage() != Locale.ENGLISH) {
+//                        var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+//                    } else {
+//                        var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+//                        binding.tvSelectDays.text = nf.format(it.size) + " "+ getString(R.string.days)
+//                    }
+//                    binding.tvSelectDays.text =
+//                    tripSharedViewModel.postEventAttraction()
+                } else {
+                    binding.btnEditDur.show()
+                    binding.cvDates.hide()
+                    binding.tvDesc.hide()
+                    binding.cvDays.hide()
+                    binding.rvDurations.show()
+                    durationSummaryAdapter.submitList(it)
+                }
+            } else {
+                binding.btnEditDur.hide()
+                binding.cvDates.show()
+                binding.tvDesc.show()
+                binding.cvDays.show()
+                binding.rvDurations.hide()
+                binding.tvSelectDays.text = getString(R.string.no_of_days)
+
+            }
         }
 
 
         step4ViewModel.eventAttraction.observe(viewLifecycleOwner) {
 
-            tripSharedViewModel._eventAttractionResponse.value = it.getContentIfNotHandled()
-            tripSharedViewModel.setDates()
-            tripSharedViewModel._showPlan.value = Event(true)
-            tripSharedViewModel._showSave.value = true
+            it?.getContentIfNotHandled()?.let {
+                if (it.eventsAndAttractions.isNotEmpty()) {
+                    tripSharedViewModel._eventAttractionResponse.value = it
+                    tripSharedViewModel.setDates()
+                    tripSharedViewModel._showPlan.value = Event(true)
+                    tripSharedViewModel._showSave.value = true
+                } else {
+                    showToast(getString(R.string.NoTripFoundAlert))
+                }
+            }
+
+//            navigate(R.id.a)
+
 
         }
 
@@ -82,7 +128,9 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
         tripSharedViewModel.eventAttraction.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { it1 ->
+
                 step4ViewModel.postEventAttraction(it1)
+
             }
         }
 
@@ -116,7 +164,7 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
 
         val dateRangePicker =
             MaterialDatePicker.Builder.dateRangePicker()
-                .setTitleText("Select dates")
+                .setTitleText(getString(R.string.select_dates))
                 .setTheme(R.style.ThemeOverlay_App_DatePicker)
                 .setCalendarConstraints(constraintBuilder.build())
                 .build()
@@ -130,7 +178,8 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
                 DateFormat.format(
                     "dd MMM,yy",
                     it.first!!
-                ).toString(), DateFormat.format("dd MMM,yy", it.second!!).toString()
+                ).toString(), DateFormat.format("dd MMM,yy", it.second!!).toString(),
+                getString(R.string.select_hour)
 
             )
 

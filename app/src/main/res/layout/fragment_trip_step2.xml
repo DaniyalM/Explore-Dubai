@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/new_green_line" />
+            app:lottie_rawRes="@raw/trip_step" />
 
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
@@ -81,7 +81,7 @@
             android:id="@+id/btnPrevious"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/my_event_btn_enable"
+            android:background="@drawable/btn_pyt_outlined"
             android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
             android:onClick="@{()->view.onPreviousClicked()}"
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginStart="@dimen/_8sdp"
-            android:background="@drawable/btn_register"
+            android:background="@drawable/btn_pyt_filled"
             android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
             android:onClick="@{()->view.onNextClicked()}"

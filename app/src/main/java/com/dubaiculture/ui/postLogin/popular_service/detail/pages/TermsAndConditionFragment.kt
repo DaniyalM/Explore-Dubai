@@ -34,7 +34,8 @@ class TermsAndConditionFragment(
         subscribeUiEvents(serviceDownVoteFeedBackViewModel)
 
 
-        binding.detailListingHeader.text = activity.resources.getString(R.string.terms_and_conditions)
+        binding.detailListingHeader.text =
+            activity.resources.getString(R.string.terms_and_conditions)
         binding.commonBtn.text = termsAndCondition!![0].serviceStart
 
         if (termsAndCondition[0].startServiceUrl.isEmpty())
@@ -48,7 +49,9 @@ class TermsAndConditionFragment(
         binding.commonBtn.setOnClickListener {
             (parentFragment as ServiceDetailFragment).navigateByDirections(
                 ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
-                    termsAndCondition[0].startServiceUrl, false
+                    termsAndCondition[0].startServiceUrl,
+                    false,
+                    termsAndCondition[0].termsAndConditionsTitle
                 )
             )
         }
@@ -56,13 +59,15 @@ class TermsAndConditionFragment(
 
         binding.contactuslayout.thumbDown.setOnClickListener {
 
-            if (application.auth.isGuest){
+            if (application.auth.isGuest) {
                 (parentFragment as ServiceDetailFragment).navigateByDirections(
                     ServiceDetailFragmentDirections.actionServiceDetailFragment2ToPostLoginBottomNavigation()
                 )
-            }else {
+            } else {
                 (parentFragment as ServiceDetailFragment).navigateByDirections(
-                    ServiceDetailFragmentDirections.actionServiceDetailFragment2ToServiceDownVoteFeedBackFragment(termsAndCondition[0].id!!)
+                    ServiceDetailFragmentDirections.actionServiceDetailFragment2ToServiceDownVoteFeedBackFragment(
+                        termsAndCondition[0].id!!
+                    )
                 )
             }
 
@@ -70,24 +75,24 @@ class TermsAndConditionFragment(
 
         termsAndCondition[0].apply {
             binding.contactuslayout.thumbUp.setOnClickListener {
-                if (application.auth.isGuest){
+                if (application.auth.isGuest) {
                     (parentFragment as ServiceDetailFragment).navigateByDirections(
                         ServiceDetailFragmentDirections.actionServiceDetailFragment2ToPostLoginBottomNavigation()
                     )
-                }else {
+                } else {
                     serviceDownVoteFeedBackViewModel.upvoteService(id!!)
                 }
 
             }
 
             termsAndConditionsSummary.let {
-                if (!termsAndConditionsSummary.isEmpty()){
+                if (!termsAndConditionsSummary.isEmpty()) {
                     binding.termsTitle.initialize(it, object : ReadMoreClickListener {
                         override fun onClick(readMore: Boolean) {
 
                         }
                     })
-                }else {
+                } else {
                     binding.detailListingHeader.hide()
                     binding.termsTitle.hide()
                 }

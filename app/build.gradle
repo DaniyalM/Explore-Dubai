@@ -46,7 +46,6 @@ android {
             }
         }
 
-
         //UAE PASS START -- Adding Custom Scheme Variables
         buildConfigField "String", "URI_SCHEME", "\"uaePassDemo\"" // Change to your app name or any custom scheme. Donot use uaepasssample
         buildConfigField "String", "URI_HOST_SUCCESS", "\"success\""

@@ -1,11 +1,13 @@
 package com.dubaiculture.ui.postLogin.plantrip.mytrip
 
+import android.app.Dialog
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.dubaiculture.R
@@ -54,6 +56,8 @@ class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
 
     }
 
+
+
     override fun onStart() {
         super.onStart()
         if (dialog != null) {
@@ -82,15 +86,22 @@ class TripSuccessFragment : BaseDialogFragment<FragmentTripSuccessBinding>() {
         tripSharedViewModel._showPlan.value = Event(false)
         tripSharedViewModel._eventAttractionResponse.value = null
         tripSharedViewModel._eventAttractionList.value = null
-        binding.flWebview.show()
-        //    load(currentType)
-        HappinessMeter.load(
-            Type.WITHOUT_MICROAPP,
-            binding.webView,
-            application.auth.locale.toString()
-        )
+//        binding.flWebview.show()
+//        //    load(currentType)
+//        HappinessMeter.load(
+//            Type.WITHOUT_MICROAPP,
+//            binding.webView,
+//            application.auth.locale.toString()
+//        )
 
-//        navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
+        navigateByDirections(TripSuccessFragmentDirections.actionTripSuccessToMySaveTripListing())
+
+    }
+
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        this.isCancelable = false
+        return super.onCreateDialog(savedInstanceState)
 
     }
 

@@ -11,6 +11,7 @@ import com.dubaiculture.R
 import com.dubaiculture.databinding.FragmentSortBinding
 import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.postLogin.search.viewmodels.SearchSharedViewModel
+import com.dubaiculture.utils.ColorUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -44,17 +45,17 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
             binding.zToA.isClickable = true
             binding.zToA.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.zToA.setTextColor(fetchColor())
+            binding.zToA.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
             binding.newest.isClickable = true
             binding.newest.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.newest.setTextColor(fetchColor())
+            binding.newest.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
             binding.old.isClickable = true
             binding.old.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.old.setTextColor(fetchColor())
+            binding.old.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
         }
         binding.zToA.setOnClickListener {
@@ -71,17 +72,17 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
             binding.newest.isClickable = true
             binding.newest.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.newest.setTextColor(fetchColor())
+            binding.newest.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
             binding.old.isClickable = true
             binding.old.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.old.setTextColor(fetchColor())
+            binding.old.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
             binding.aToZ.isClickable = true
             binding.aToZ.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.aToZ.setTextColor(fetchColor())
+            binding.aToZ.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
         }
         binding.old.setOnClickListener {
 //            searchViewModel.updateOldData()
@@ -97,17 +98,17 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
             binding.aToZ.isClickable = true
             binding.aToZ.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.aToZ.setTextColor(fetchColor())
+            binding.aToZ.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
             binding.zToA.isClickable = true
             binding.zToA.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.zToA.setTextColor(fetchColor())
+            binding.zToA.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
             binding.newest.isClickable = true
             binding.newest.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.newest.setTextColor(fetchColor())
+            binding.newest.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
         }
         binding.newest.setOnClickListener {
@@ -124,29 +125,29 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
             binding.old.isClickable = true
             binding.old.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.old.setTextColor(fetchColor())
+            binding.old.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
             binding.aToZ.isClickable = true
             binding.aToZ.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.aToZ.setTextColor(fetchColor())
+            binding.aToZ.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
             binding.zToA.isClickable = true
             binding.zToA.background =
                 ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-            binding.zToA.setTextColor(fetchColor())
+            binding.zToA.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
         }
         subscribeToObservable()
     }
 
-    private fun fetchColor(): Int {
-        val typedValue = TypedValue()
-        val a: TypedArray =
-            requireContext().obtainStyledAttributes(typedValue.data, intArrayOf(R.attr.colorPrimary))
-        val color = a.getColor(0, 0)
-        a.recycle()
-        return color
-    }
+//    private fun ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary): Int {
+//        val typedValue = TypedValue()
+//        val a: TypedArray =
+//            requireContext().obtainStyledAttributes(typedValue.data, intArrayOf(R.attr.colorPrimary))
+//        val color = a.getColor(0, 0)
+//        a.recycle()
+//        return color
+//    }
 
     private fun subscribeToObservable() {
         searchViewModel.isAtoZ.observe(viewLifecycleOwner) {
@@ -165,17 +166,17 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
                     binding.zToA.isClickable = true
                     binding.zToA.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.zToA.setTextColor(fetchColor())
+                    binding.zToA.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                     binding.newest.isClickable = true
                     binding.newest.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.newest.setTextColor(fetchColor())
+                    binding.newest.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                     binding.old.isClickable = true
                     binding.old.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.old.setTextColor(fetchColor())
+                    binding.old.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                 }
 //                else {
@@ -186,7 +187,7 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
 //                    binding.aToZ.isClickable = true
 //                    binding.aToZ.background =
 //                        ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-//                    binding.aToZ.setTextColor(fetchColor())
+//                    binding.aToZ.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 //                }
             }
         }
@@ -205,17 +206,17 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
                     binding.newest.isClickable = true
                     binding.newest.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.newest.setTextColor(fetchColor())
+                    binding.newest.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                     binding.old.isClickable = true
                     binding.old.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.old.setTextColor(fetchColor())
+                    binding.old.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                     binding.aToZ.isClickable = true
                     binding.aToZ.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.aToZ.setTextColor(fetchColor())
+                    binding.aToZ.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                 }
 //                else {
@@ -226,7 +227,7 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
 //                    binding.zToA.isClickable = true
 //                    binding.zToA.background =
 //                        ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-//                    binding.zToA.setTextColor(fetchColor())
+//                    binding.zToA.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 //                }
             }
         }
@@ -245,17 +246,17 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
                     binding.old.isClickable = true
                     binding.old.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.old.setTextColor(fetchColor())
+                    binding.old.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                     binding.aToZ.isClickable = true
                     binding.aToZ.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.aToZ.setTextColor(fetchColor())
+                    binding.aToZ.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                     binding.zToA.isClickable = true
                     binding.zToA.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.zToA.setTextColor(fetchColor())
+                    binding.zToA.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
 
                 }
@@ -265,7 +266,7 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
 //                    binding.newest.isClickable = true
 //                    binding.newest.background =
 //                        ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-//                    binding.newest.setTextColor(fetchColor())
+//                    binding.newest.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 //                }
             }
         }
@@ -284,17 +285,17 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
                     binding.aToZ.isClickable = true
                     binding.aToZ.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.aToZ.setTextColor(fetchColor())
+                    binding.aToZ.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                     binding.zToA.isClickable = true
                     binding.zToA.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.zToA.setTextColor(fetchColor())
+                    binding.zToA.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                     binding.newest.isClickable = true
                     binding.newest.background =
                         ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-                    binding.newest.setTextColor(fetchColor())
+                    binding.newest.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 
                 }
 //                else {
@@ -302,7 +303,7 @@ class SortFragment : BaseBottomSheetFragment<FragmentSortBinding>() {
 //                    binding.old.isClickable = true
 //                    binding.old.background =
 //                        ContextCompat.getDrawable(activity, R.drawable.sort_box_shape)
-//                    binding.old.setTextColor(fetchColor())
+//                    binding.old.setTextColor(ColorUtil.fetchColor(requireContext(),R.attr.colorPrimary))
 //                }
             }
         }

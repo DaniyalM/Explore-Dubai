@@ -219,6 +219,7 @@
     <string name="your_voice">Your Voice</string>
     <string name="information">Information</string>
     <string name="about_dubai_culture">About\nDubai Culture</string>
+    <string name="about_dubai_culture_sl">About Dubai Culture</string>
     <string name="settings">Settings</string>
     <string name="share_this_app">Share this app</string>
     <string name="rate_us">Rate Us</string>
@@ -413,11 +414,20 @@
     <string name="activities_schedule_at_the_workshop">Activities schedule at the workshop</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again">Make sure wifi or mobile data is turned on and then try again</string>
+    <string name="plan_your_trip_desc">Start planning and choose a range of different interests that would help you have best-personalized experience</string>
     <string name="attach_your_ID">Attach your ID</string>
     <string name="recentSearches">Recent Searches</string>
 
     <string name="whatAreYourLooking">What are you looking for?</string>
     <string name="success">Success</string>
+    <string name="tripCloseAlert">Are you sure you want to close Plan Your Trip?</string>
+    <string name="EditTripAlert">Are you sure you want to edit trip?</string>
+    <string name="NoTripFoundAlert">No Trip Found on given Dates</string>
+    <string name="select_hour">Select Hours</string>
+    <string name="add_duration_error">Please select hours to continue</string>
+
+    <string name="reset">Reset</string>
+    <string name="days">Days</string>
 
 
     <!-- Facebook keys -->
@@ -425,5 +435,8 @@
     <string name="facebook_app_id">1249629708783017</string>
 
     <string name="fb_login_protocol_scheme">fb1249629708783017</string>
+
+    <string name="are_you_sure_want_to_delete_trip">Are you sure you want to delete trip?</string>
+    <string name="are_you_sure_want_to_reset_trip">Are you sure you want to reset trip?</string>
 
 </resources>
