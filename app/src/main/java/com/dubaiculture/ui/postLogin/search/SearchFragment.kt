@@ -86,7 +86,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         )
         intent.putExtra(
             RecognizerIntent.EXTRA_LANGUAGE,
-            if(getCurrentLanguage()!= Locale.ENGLISH) "ar-AE" else "en"
+            if (getCurrentLanguage() != Locale.ENGLISH) "ar-AE" else "en"
         )
         binding.searchToolbar.editSearch.setText("")
         startForResult.launch(intent)
@@ -158,12 +158,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             if (getCurrentLanguage() != Locale.ENGLISH) {
                 var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
                 val label = activity.resources.getString(R.string.result)
-                binding.count.text = "${nf.format(it)} $label ${resources.getString(R.string.found)}"
+                binding.count.text =
+                    "${nf.format(it)} $label ${resources.getString(R.string.found)}"
 
-            }else{
+            } else {
                 var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
                 val label = activity.resources.getString(R.string.result) + "(s)"
-                binding.count.text = "${nf.format(it)} $label ${resources.getString(R.string.found)}"
+                binding.count.text =
+                    "${nf.format(it)} $label ${resources.getString(R.string.found)}"
             }
         }
         searchViewModel.searchFilter.observe(viewLifecycleOwner) {
@@ -309,57 +311,58 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         binding.ItemRv.apply {
             layoutManager = LinearLayoutManager(context)
             searchItemListAdapter =
-                SearchItemListAdapter(object : SearchItemListAdapter.SearchItemClickListner {
-                    override fun onSearchItemClick(searchResultItem: SearchResultItem) {
-                        when (searchResultItem.type) {
-                            "News" -> {
-                                navigateByDirections(
-                                    SearchFragmentDirections.actionSearchFragmentToNews(
-                                        searchResultItem.id
+                SearchItemListAdapter(
+                    object : SearchItemListAdapter.SearchItemClickListner {
+                        override fun onSearchItemClick(searchResultItem: SearchResultItem) {
+                            when (searchResultItem.type) {
+                                "News" -> {
+                                    navigateByDirections(
+                                        SearchFragmentDirections.actionSearchFragmentToNews(
+                                            searchResultItem.id
+                                        )
                                     )
-                                )
-                            }
-                            "Attractions" -> {
-                                navigateByDirections(
-                                    SearchFragmentDirections.actionSearchFragmentToAttraction(
-                                        searchResultItem.id
+                                }
+                                "Attractions" -> {
+                                    navigateByDirections(
+                                        SearchFragmentDirections.actionSearchFragmentToAttraction(
+                                            searchResultItem.id
+                                        )
                                     )
-                                )
-                            }
-                            "Events" -> {
-                                navigateByDirections(
-                                    SearchFragmentDirections.actionSearchFragmentToEvents(
-                                        searchResultItem.id
+                                }
+                                "Events" -> {
+                                    navigateByDirections(
+                                        SearchFragmentDirections.actionSearchFragmentToEvents(
+                                            searchResultItem.id
+                                        )
                                     )
-                                )
-                            }
-                            "EServices" -> {
-                                navigateByDirections(
-                                    SearchFragmentDirections.actionSearchFragmentToServices(
-                                        searchResultItem.id
+                                }
+                                "EServices" -> {
+                                    navigateByDirections(
+                                        SearchFragmentDirections.actionSearchFragmentToServices(
+                                            searchResultItem.id
+                                        )
                                     )
-                                )
-                            }
-                            else -> {
+                                }
+                                else -> {
 
-                                navigateByDirections(
-                                    SearchFragmentDirections.actionSearchFragmentToWebViewFragment(
-                                        BuildConfig.BASE_URL_SHARE + searchResultItem.detailPageUrl,
-                                        false
+                                    navigateByDirections(
+                                        SearchFragmentDirections.actionSearchFragmentToWebViewFragment(
+                                            BuildConfig.BASE_URL_SHARE + searchResultItem.detailPageUrl,
+                                            false, searchResultItem.title
+                                        )
                                     )
-                                )
 //                                openUrl(
 //                                    url = BuildConfig.BASE_URL_SHARE + searchResultItem.detailPageUrl,
 //                                    context = activity,
 //                                    isWeb = true
 //                                )
+                                }
                             }
-                        }
 
-                    }
-                },
-                getCurrentLanguage()
-                    )
+                        }
+                    },
+                    getCurrentLanguage()
+                )
             adapter = searchItemListAdapter.withLoadStateAdapters(
                 DefaultLoadStateAdapter(),
                 DefaultLoadStateAdapter(), callback = {

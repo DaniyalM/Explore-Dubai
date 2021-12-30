@@ -22,8 +22,8 @@ object SocialNetworkUtils {
         isInstagram: Boolean = false,
         isYoutube: Boolean = false,
         isWeb: Boolean = false,
-        fragment: Fragment? = null
-
+        fragment: Fragment? = null,
+        title: String = ""
     ) {
         var URL = url
         Intent(Intent.ACTION_VIEW).apply {
@@ -39,7 +39,7 @@ object SocialNetworkUtils {
                 if (isWeb) {
                     URL = url
                 }
-                if ((isFacebook||isTwitter||isYoutube) && resolveActivity(context.packageManager) != null) {
+                if ((isFacebook || isTwitter || isYoutube) && resolveActivity(context.packageManager) != null) {
                     if (isFacebook) {
                         URL = "https://www.facebook.com/DubaiCulture/"
                     }
@@ -51,43 +51,36 @@ object SocialNetworkUtils {
                     }
                     data = Uri.parse(URL)
                     context.startActivity(this)
-                }else{
+                } else {
                     when (fragment) {
                         is AttractionDetailFragment -> {
                             fragment.navigateByDirections(
                                 AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
-                                    URL, false
+                                    URL, false, title
                                 )
                             )
                         }
                         is ContactFragment -> {
                             fragment.navigateByDirections(
                                 ContactFragmentDirections.actionContactFragmentToWebviewFragment(
-                                    URL,
-                                    false
+                                    URL, false, title
                                 )
                             )
                         }
                         is EventDetailFragment -> {
                             fragment.navigateByDirections(
                                 EventDetailFragmentDirections.actionEventDetailFragment2ToWebViewNavigation(
-                                    URL,
-                                    false
+                                    URL, false, title
                                 )
                             )
                         }
                     }
 
                 }
-            }else {
+            } else {
                 data = Uri.parse(URL)
                 context.startActivity(this)
             }
-
-
-
-
-
 
 
         }
@@ -114,9 +107,15 @@ object SocialNetworkUtils {
             val versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode
 
             if (versionCode >= 3002850) {
-                openUrl("fb://facewebmodal/f?href=${faceBookUrl}", context)
+                openUrl(
+                    "fb://facewebmodal/f?href=${faceBookUrl}", context,
+                    title = SocialLink.FACEBOOK.title
+                )
             } else {
-                openUrl("fb://page/DubaiCulture", context)
+                openUrl(
+                    "fb://page/DubaiCulture", context,
+                    title = SocialLink.FACEBOOK.title
+                )
             }
         } catch (ex: PackageManager.NameNotFoundException) {
             openUrl("", isFacebook = true, context = context)

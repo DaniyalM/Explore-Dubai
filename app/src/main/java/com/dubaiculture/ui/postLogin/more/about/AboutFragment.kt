@@ -93,7 +93,8 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(), View.OnClickListener
                         navigateByDirections(
                             AboutFragmentDirections.actionAboutFragmentToWebviewFragment(
                                 library.url,
-                                false
+                                false,
+                                library.name
                             )
                         )
 
@@ -175,9 +176,15 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(), View.OnClickListener
         container: ViewGroup?
     ) = FragmentAboutBinding.inflate(inflater, container, false)
 
-    fun onURLClicked(url: String) {
+    fun onURLClicked(url: String, title: String) {
 
-        navigateByDirections(AboutFragmentDirections.actionAboutFragmentToWebviewFragment(url,false))
+        navigateByDirections(
+            AboutFragmentDirections.actionAboutFragmentToWebviewFragment(
+                url,
+                false,
+                getString(R.string.about_dubai_culture_sl)
+            )
+        )
 
     }
 
