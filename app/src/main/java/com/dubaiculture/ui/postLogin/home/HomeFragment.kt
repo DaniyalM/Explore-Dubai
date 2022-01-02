@@ -161,6 +161,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.happinessFragment -> {
                         hide()
                     }
+                    R.id.planTripParentFragment -> {
+                        hide()
+                    }
+                    R.id.myTripFragment -> {
+                        hide()
+                    }
                     else -> {
                         show()
                     }

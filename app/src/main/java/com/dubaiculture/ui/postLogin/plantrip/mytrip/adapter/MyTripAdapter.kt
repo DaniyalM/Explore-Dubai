@@ -49,12 +49,12 @@ class MyTripAdapter(val rowClickListener: MyTripClickListener, val currentLangua
             if (isLast) {
                 binding.llIcons.hide()
                 binding.tvCar.hide()
-                binding.cvNavigation.hide()
+//                binding.cvNavigation.hide()
                 binding.tvDistance.hide()
             }else{
                 binding.llIcons.show()
                 binding.tvCar.show()
-                binding.cvNavigation.show()
+//                binding.cvNavigation.show()
                 binding.tvDistance.show()
             }
 

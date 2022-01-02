@@ -86,13 +86,13 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvNavigation"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_20sdp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             app:cardElevation="@dimen/_4sdp"
-            app:layout_constraintBottom_toTopOf="@id/tvDistance"
-            app:layout_constraintEnd_toEndOf="@id/tvDistance"
-            app:layout_constraintStart_toStartOf="@id/tvDistance">
+            app:layout_constraintBottom_toTopOf="@id/ivTime"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
                 android:id="@+id/ivDirectionArrow"
