@@ -195,9 +195,13 @@ object FieldUtils {
             view.rb1.id = it.id
             view.rb1.text = if (isArabic) it.arabic else it.english
         }
-        fieldValueItem.fieldValue.elementAtOrNull(1)?.let {
-            view.rb2.id = it.id
-            view.rb2.text = if (isArabic) it.arabic else it.english
+        fieldValueItem.fieldValue.elementAtOrNull(1).let {
+            if (it == null) {
+                view.rb2.hide()
+            } else {
+                view.rb2.id = it.id
+                view.rb2.text = if (isArabic) it.arabic else it.english
+            }
         }
         val group = view.radioGroup
         group.setOnCheckedChangeListener { group, checkedId ->
