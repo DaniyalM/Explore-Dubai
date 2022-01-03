@@ -3,9 +3,7 @@ package com.dubaiculture.ui.postLogin.eservices
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,14 +32,11 @@ import com.jaiselrahman.filepicker.config.Configurations
 import com.jaiselrahman.filepicker.model.MediaFile
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.util.*
 
 @AndroidEntryPoint
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     private val eServiceViewModel: EServiceViewModel by viewModels()
-
-    private val FILE_SELECTION_CODE = 121
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -223,6 +218,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     }
 
     private fun showFilePicker(position: Int) {
+        //  1-image / 2-doc
         val intent = Intent(activity, FilePickerActivity::class.java)
         var conf = Configurations.Builder()
             .setCheckPermission(true)
@@ -231,24 +227,21 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
             .setMaxSelection(1)
             .setSkipZeroSizeFiles(true)
 
-        if (position == 1) {
-            //image
-            conf = conf.setShowImages(true)
-            conf = conf.setShowFiles(false)
-        } else {
-            //pdf
-            conf = conf.setShowImages(false)
-            conf = conf.setShowFiles(true)
-            conf = conf.setSuffixes("pdf", "doc", "docx")
+        conf = conf.setShowImages(position == 1)
+        conf = conf.setShowFiles(position == 2)
+
+        if (position == 2) {
+            conf = conf.setSuffixes(*Constants.ImagePicker.E_SERVICE_DOC_FORMATS)
         }
+
         intent.putExtra(
             FilePickerActivity.CONFIGS, conf.build()
         )
-        startActivityForResult(intent, FILE_SELECTION_CODE)
+        startActivityForResult(intent, Constants.ImagePicker.REQUEST_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == FILE_SELECTION_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == Constants.ImagePicker.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val files: ArrayList<MediaFile>? =
                 data?.getParcelableArrayListExtra(FilePickerActivity.MEDIA_FILES)
             files?.let {

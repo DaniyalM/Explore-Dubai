@@ -54,10 +54,11 @@ class EServicesRepository @Inject constructor(
     suspend fun submitForm(
         token: String,
         params: HashMap<String, RequestBody>,
-        url: String
+        url: String,
+        locale: String
     ): Result<FormInnerResponse> {
         return when (val resultRds =
-            eServiceRDS.submitForm(token, params, url)) {
+            eServiceRDS.submitForm(token, params, url, locale)) {
             is Result.Success -> {
                 if (resultRds.value.success) {
                     Result.Success(resultRds.value.data)

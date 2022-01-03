@@ -35,13 +35,14 @@ class EServiceViewModel @Inject constructor(
     BaseViewModel(application) {
     var selectedView: GetFieldValueItem? = null
 
-    //Map -> FieldName, Pair(ValueType, FormValue)
     private val map: HashMap<GetFieldValueItem, String> by lazy {
         HashMap()
     }
 
     fun getFieldMap() = map
+
     private val form = FormType.CULTURAL_VISA
+
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
@@ -102,13 +103,14 @@ class EServiceViewModel @Inject constructor(
         entries.forEach {
             if (it.key.valueType == ValueType.FILE.valueType) {
                 val file = File(it.value)
-                val fileBody = file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
+                val fileBody = file.asRequestBody(Constants.MimeType.ALL.toMediaTypeOrNull())
                 val key = "${it.key.fieldName}\"; filename=\"${it.value}\""
                 request[key] = fileBody
             } else {
                 val validation = validate(isArabic, it.key, it.value)
                 if (validation.first)
-                    request[it.key.fieldName] = it.value.toRequestBody("text/plain".toMediaType())
+                    request[it.key.fieldName] =
+                        it.value.toRequestBody(Constants.MimeType.TEXT.toMediaType())
                 else {
                     showToast(validation.second)
                     showLoader(false)
@@ -123,7 +125,12 @@ class EServiceViewModel @Inject constructor(
                 showLoader(false)
                 return@launch
             }
-            val result = eServicesRepository.submitForm(token, request, form.url)
+            val result = eServicesRepository.submitForm(
+                token,
+                request,
+                form.url,
+                if (isArabic) Constants.Locale.ARABIC else Constants.Locale.ENGLISH
+            )
             if (result is Result.Success) {
                 showToast(result.message)
             } else if (result is Result.Failure) {

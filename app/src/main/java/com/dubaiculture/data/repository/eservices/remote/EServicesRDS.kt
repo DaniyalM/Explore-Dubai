@@ -39,13 +39,15 @@ class EServicesRDS @Inject constructor(
     suspend fun submitForm(
         token: String,
         params: HashMap<String, RequestBody>,
-        url: String
+        url: String,
+        locale: String
     ): Result<FormResponse> =
         safeApiCall {
             eService.submitForm(
                 token = token,
                 params = params,
-                url = url
+                url = url,
+                language = locale
             )
         }
 

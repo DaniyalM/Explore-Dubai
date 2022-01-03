@@ -112,7 +112,8 @@ object Constants {
 
     object IBecons {
         const val IDENTIFIER: String = "com.flagship.dubaiculture"
-//        const val IDENTIFIER: String = "cb7b136ff042"
+
+        //        const val IDENTIFIER: String = "cb7b136ff042"
         const val UUID_BECON: String = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
         const val MAJOR: Int = 0
         const val MINOR: Int = 0
@@ -159,6 +160,8 @@ object Constants {
         const val DELETE: Int = 3
         const val BOTH: Int = 4
         const val REQUEST_CODE: Int = 200
+        val E_SERVICE_DOC_FORMATS = arrayOf("pdf", "doc", "docx")
+
     }
 
     object GoogleMap {
@@ -201,6 +204,7 @@ object Constants {
 
 
     }
+
     object PLAY_STORE {
         const val PACKAGE_NAME: String = "com.dubaiculture"
         const val DUBAI_CULTURE: String = "Dubai Culture"
@@ -233,6 +237,15 @@ object Constants {
 
     }
 
+    object MimeType {
+        const val ALL = "application/octet-stream"
+        const val TEXT: String = "text/plain"
+    }
+
+    object Locale {
+        const val ENGLISH = "en"
+        const val ARABIC: String = "ar"
+    }
 
     object FCM {
         object Key {
