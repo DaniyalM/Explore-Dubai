@@ -41,7 +41,7 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun getFieldMap() = map
-    private val form = FormType.SUPPLIER_REGISTRATION
+    private val form = FormType.CULTURAL_VISA
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
@@ -102,7 +102,7 @@ class EServiceViewModel @Inject constructor(
         entries.forEach {
             if (it.key.valueType == ValueType.FILE.valueType) {
                 val file = File(it.value)
-                val fileBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+                val fileBody = file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
                 val key = "${it.key.fieldName}\"; filename=\"${it.value}\""
                 request[key] = fileBody
             } else {

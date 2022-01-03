@@ -2,7 +2,9 @@ package com.dubaiculture.ui.postLogin.eservices
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +25,7 @@ import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createTimeField
 import com.dubaiculture.ui.postLogin.eservices.enums.FieldType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
+import com.dubaiculture.utils.FileUtils
 import com.jaiselrahman.filepicker.activity.FilePickerActivity
 import com.jaiselrahman.filepicker.config.Configurations
 import com.jaiselrahman.filepicker.model.MediaFile
@@ -220,12 +223,8 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == FILE_SELECTION_CODE && resultCode == Activity.RESULT_OK) {
             val files: ArrayList<MediaFile>? =
-                data?.getParcelableArrayListExtra<MediaFile>(FilePickerActivity.MEDIA_FILES)
+                data?.getParcelableArrayListExtra(FilePickerActivity.MEDIA_FILES)
             files?.let {
-                val name = files[0].name
-                val path = files[0].uri.path
-                Timber.e(name)
-                Timber.e(path)
                 setFileDetails(files[0])
             }
         }
@@ -238,8 +237,11 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     private fun setFileDetails(mediaFile: MediaFile) {
         eServiceViewModel.selectedView?.let {
             binding.fieldContainer.findViewById<EditText>(it.id).setText(mediaFile.name)
-            eServiceViewModel.addField(it, mediaFile.path ?: "")
+            val file = FileUtils().fileFromContentUri(requireContext(), mediaFile.uri)
+            eServiceViewModel.addField(
+                it,
+                file.absolutePath
+            )
         }
-
     }
 }
