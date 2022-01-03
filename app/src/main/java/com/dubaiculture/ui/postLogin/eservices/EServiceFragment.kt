@@ -1,5 +1,6 @@
 package com.dubaiculture.ui.postLogin.eservices
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
@@ -25,10 +26,13 @@ import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createTimeField
 import com.dubaiculture.ui.postLogin.eservices.enums.FieldType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
+import com.dubaiculture.ui.postLogin.events.detail.registernow.attachmentOptions.AttachmentOptionFragment
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.FileUtils
 import com.jaiselrahman.filepicker.activity.FilePickerActivity
 import com.jaiselrahman.filepicker.config.Configurations
 import com.jaiselrahman.filepicker.model.MediaFile
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -167,7 +171,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             it,
                             callback = {
                                 eServiceViewModel.selectedView = it
-                                showFilePicker()
+                                showPickerOptions()
                             }
                         )
                     )
@@ -203,19 +207,42 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         binding.fieldContainer.addView(view)
     }
 
-    private fun showFilePicker() {
+    private fun showPickerOptions() {
+        activity.runWithPermissions(
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+        ) {
+            val attachmentOption = AttachmentOptionFragment(object :
+                AttachmentOptionFragment.AttachmentOptionClickListener {
+                override fun onOptionSelection(position: Int) {
+                    showFilePicker(position)
+                }
+            })
+            showBottomSheet(attachmentOption)
+        }
+    }
+
+    private fun showFilePicker(position: Int) {
         val intent = Intent(activity, FilePickerActivity::class.java)
+        var conf = Configurations.Builder()
+            .setCheckPermission(true)
+            .setShowAudios(false)
+            .setShowVideos(false)
+            .setMaxSelection(1)
+            .setSkipZeroSizeFiles(true)
+
+        if (position == 1) {
+            //image
+            conf = conf.setShowImages(true)
+            conf = conf.setShowFiles(false)
+        } else {
+            //pdf
+            conf = conf.setShowImages(false)
+            conf = conf.setShowFiles(true)
+            conf = conf.setSuffixes("pdf", "doc", "docx")
+        }
         intent.putExtra(
-            FilePickerActivity.CONFIGS, Configurations.Builder()
-                .setCheckPermission(true)
-                .setShowImages(true)
-                .setShowFiles(true)
-                .setShowAudios(false)
-                .setShowVideos(false)
-                .setMaxSelection(1)
-                .setSuffixes("pdf")
-                .setSkipZeroSizeFiles(true)
-                .build()
+            FilePickerActivity.CONFIGS, conf.build()
         )
         startActivityForResult(intent, FILE_SELECTION_CODE)
     }
