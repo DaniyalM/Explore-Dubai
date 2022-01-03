@@ -5,9 +5,7 @@ import com.dubaiculture.data.repository.base.BaseRepository
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.data.repository.eservices.mapper.transformFieldValueRequest
 import com.dubaiculture.data.repository.eservices.mapper.transformFieldValuesResponse
-import com.dubaiculture.data.repository.eservices.mapper.transformNocRequest
 import com.dubaiculture.data.repository.eservices.remote.EServicesRDS
-import com.dubaiculture.data.repository.eservices.remote.request.CreateNocRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.data.repository.eservices.remote.response.FormInnerResponse

@@ -14,22 +14,6 @@ import com.dubaiculture.ui.postLogin.events.detail.helper.MultipartFormHelper.ge
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 
-fun transformNocRequest(nocRequest: CreateNocRequest) = CreateNocRequestDTO(
-    UserType = nocRequest.userType.toRequestBody("text/plain".toMediaType()),
-    Subject = nocRequest.subject.toRequestBody("text/plain".toMediaType()),
-    FilmingDate = nocRequest.filmingDate.toRequestBody("text/plain".toMediaType()),
-    FromTime = nocRequest.fromTime.toRequestBody("text/plain".toMediaType()),
-    ToTime = nocRequest.toTime.toRequestBody("text/plain".toMediaType()),
-    ContactPhoneNumber = nocRequest.contactPhoneNumber.toRequestBody("text/plain".toMediaType()),
-    FullName = nocRequest.fullName.toRequestBody("text/plain".toMediaType()),
-    LocationAddress = nocRequest.locationAddress.toRequestBody("text/plain".toMediaType()),
-    UserEmailID = nocRequest.userEmailID.toRequestBody("text/plain".toMediaType()),
-    CompanyDepartment = nocRequest.companyDepartment.toRequestBody("text/plain".toMediaType()),
-    Signature = getMultiPartData(nocRequest.signature),
-    Status = nocRequest.status.toRequestBody("text/plain".toMediaType()),
-    StatusComments = nocRequest.statusComments.toRequestBody("text/plain".toMediaType())
-)
-
 fun transformFieldValueRequest(getFieldValueRequest: GetFieldValueRequest) =
     GetFieldValueRequestDTO(
         FormName = getFieldValueRequest.formName
