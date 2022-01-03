@@ -43,7 +43,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-
 fun String.pluralize(count: Int): String? {
     return this.pluralize(count, null)
 }
@@ -55,6 +54,7 @@ fun String.pluralize(count: Int, plural: String?): String? {
         this
     }
 }
+
 fun View.hideKeyboard() {
     val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
@@ -126,6 +126,8 @@ fun <T : Any, V : RecyclerView.ViewHolder> PagingDataAdapter<T, V>.withLoadState
             itemCount < 1
         ) {
             callback(true)
+        } else if (itemCount < 1) {
+            callback(true)
         } else {
             callback(false)
         }
@@ -168,7 +170,7 @@ fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
 
 fun Fragment.safeNavigateFromNavController(directions: NavDirections) {
     val navController = findNavController()
-    when (navController.currentDestination){
+    when (navController.currentDestination) {
         is FragmentNavigator.Destination -> {
             val destination = navController.currentDestination as FragmentNavigator.Destination
             //current visible fragment == fragment that is firing navigation
@@ -178,8 +180,9 @@ fun Fragment.safeNavigateFromNavController(directions: NavDirections) {
                 Timber.e("Invalid navigation detected")
             }
         }
-        is DialogFragmentNavigator.Destination ->{
-            val destination = navController.currentDestination as DialogFragmentNavigator.Destination
+        is DialogFragmentNavigator.Destination -> {
+            val destination =
+                navController.currentDestination as DialogFragmentNavigator.Destination
             //current visible fragment == fragment that is firing navigation
             if (javaClass.name == destination.className) {
                 navController.navigate(directions)
