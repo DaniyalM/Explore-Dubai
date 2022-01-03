@@ -831,8 +831,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun enableRegistration(registrationDate: String) {
         if (getTimeSpan(registrationDate)) {
-            binding.toolbarLayoutEventDetail.btnReg.visibility = View.GONE
-            binding.eventDetailInnerLayout.btnRegisterNow.visibility = View.GONE
+            binding.toolbarLayoutEventDetail.btnReg.hide()
+            binding.eventDetailInnerLayout.btnRegisterNow.hide()
         }
     }
 

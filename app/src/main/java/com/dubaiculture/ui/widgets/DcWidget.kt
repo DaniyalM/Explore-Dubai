@@ -43,6 +43,7 @@ class DcWidget : AppWidgetProvider() {
 
                 setOnClickPendingIntent(R.id.setupWidget,getPendingSelfIntent(context, MyOnClick))
                 this.setTextViewText(R.id.text_widget, "Widget has $number")
+
             }
 
 
@@ -59,6 +60,7 @@ class DcWidget : AppWidgetProvider() {
         super.onReceive(context, intent)
 
         intent?.let {
+
             if (MyOnClick == it.action){
                 //your onClick action is here
                 Toast.makeText(context, "Widget has been updated! ", Toast.LENGTH_SHORT).show();
