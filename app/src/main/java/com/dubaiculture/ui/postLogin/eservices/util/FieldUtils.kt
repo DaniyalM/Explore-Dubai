@@ -158,7 +158,7 @@ object FieldUtils {
         }
         setDrawableEnd(
             isArabic,
-            AppCompatResources.getDrawable(root.context, R.drawable.ic_file),
+            AppCompatResources.getDrawable(root.context, R.drawable.ic_file_eservice),
             editText
         )
         return editText
@@ -177,7 +177,7 @@ object FieldUtils {
         }
         setDrawableEnd(
             isArabic,
-            AppCompatResources.getDrawable(root.context, R.drawable.image_placeholder),
+            AppCompatResources.getDrawable(root.context, R.drawable.gallery_),
             editText
         )
         return editText

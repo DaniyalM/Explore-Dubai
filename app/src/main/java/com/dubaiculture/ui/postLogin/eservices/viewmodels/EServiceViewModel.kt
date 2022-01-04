@@ -13,6 +13,7 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRe
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.ui.postLogin.eservices.enums.FormType
+import com.dubaiculture.ui.postLogin.eservices.enums.ValidationType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
@@ -41,7 +42,7 @@ class EServiceViewModel @Inject constructor(
 
     fun getFieldMap() = map
 
-    private val form = FormType.CULTURAL_VISA
+    private val form = FormType.NOC_FORM
 
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
@@ -146,7 +147,7 @@ class EServiceViewModel @Inject constructor(
         value: String
     ): Pair<Boolean, String> {
         field.validations.forEach {
-            if (it.validationType.equals("Pattern", true)) {
+            if (it.validationType.equals(ValidationType.PATTERN.type, true)) {
                 if (!it.pattern.toRegex().matches(value)) {
                     return Pair(false, if (isArabic) it.arabicMsg else it.englishMsg)
                 }

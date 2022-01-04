@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/bg_edit_resiger"
-        android:drawableEnd="@drawable/arrow_readmore_"
+        android:drawableEnd="@drawable/ic_drop_down"
         android:dropDownHeight="@dimen/_150sdp"
         android:editable="false"
         android:focusable="false"
