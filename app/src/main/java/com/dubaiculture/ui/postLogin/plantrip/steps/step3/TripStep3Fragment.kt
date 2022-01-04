@@ -150,11 +150,12 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
 
         tripSharedViewModel.nearestLocationTemp.observe(viewLifecycleOwner) {
-            binding.rvLocationChips.visibility = View.VISIBLE
-            nearestLocAdapter.submitList(it)
-            setMarker(it)
-            nearestLocationList = it
-
+            if (it != null) {
+                binding.rvLocationChips.visibility = View.VISIBLE
+                nearestLocAdapter.submitList(it)
+                setMarker(it)
+                nearestLocationList = it
+            }
         }
 
         tripSharedViewModel.nearestLocation.observe(viewLifecycleOwner) {
@@ -316,7 +317,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
             mMap?.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
-                    LatLng(latitude, longitude), 13.0f
+                    LatLng(latitude, longitude), 17.0f
                 )
             )
             mMap?.cameraPosition?.target

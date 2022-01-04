@@ -29,7 +29,9 @@ import com.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
+import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.location.LocationHelper
+import com.dubaiculture.utils.show
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.*
@@ -273,8 +275,11 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
         tripSharedViewModel.tripList.observe(viewLifecycleOwner) {
             if (it != null) {
+                binding.tvPlaceHolder.hide()
                 myTripAdapter.submitList(it)
                 drawPolyline(it)
+            }else{
+                binding.tvPlaceHolder.show()
             }
         }
 
@@ -337,11 +342,16 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             }
         }
         tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
-            if (it != null) {
+            if (!it.isNullOrEmpty()) {
                 //    tripSharedViewModel.filterList()
                 getDirections(it)
 //                getDistance(it)
                 addMarkers(it)
+                binding.tvPlaceHolder.hide()
+                binding.btnNext.show()
+            }else{
+                binding.tvPlaceHolder.show()
+                binding.btnNext.hide()
 
             }
         }
