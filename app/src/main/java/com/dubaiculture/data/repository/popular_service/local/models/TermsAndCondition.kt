@@ -1,5 +1,9 @@
 package com.dubaiculture.data.repository.popular_service.local.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class TermsAndCondition(
     val termsAndConditionsSummary: String,
     val termsAndConditionsTitle: String,
@@ -12,4 +16,4 @@ data class TermsAndCondition(
     val emailAddress: String,
     val startServiceUrl: String,
     val id: String,
-)
+):Parcelable

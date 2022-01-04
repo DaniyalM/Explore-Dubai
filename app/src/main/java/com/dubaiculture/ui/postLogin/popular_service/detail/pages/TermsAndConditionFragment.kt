@@ -1,5 +1,6 @@
 package com.dubaiculture.ui.postLogin.popular_service.detail.pages
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.dubaiculture.BuildConfig
 import com.dubaiculture.R
+import com.dubaiculture.data.repository.popular_service.local.models.RequiredDocument
 import com.dubaiculture.data.repository.popular_service.local.models.TermsAndCondition
 import com.dubaiculture.databinding.ItemServiceDetailTermsAndConditionLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
@@ -14,21 +16,36 @@ import com.dubaiculture.ui.components.customreadmore.ReadMoreClickListener
 import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment
 import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragmentDirections
 import com.dubaiculture.ui.postLogin.popular_service.detail.pages.viewmodels.ServiceDownVoteFeedBackViewModel
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TermsAndConditionFragment(
-    val termsAndCondition: List<TermsAndCondition>?
-) : BaseFragment<ItemServiceDetailTermsAndConditionLayoutBinding>() {
+class TermsAndConditionFragment: BaseFragment<ItemServiceDetailTermsAndConditionLayoutBinding>() {
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = ItemServiceDetailTermsAndConditionLayoutBinding.inflate(inflater, container, false)
 
-    private val serviceDownVoteFeedBackViewModel: ServiceDownVoteFeedBackViewModel by viewModels()
 
+    private val serviceDownVoteFeedBackViewModel: ServiceDownVoteFeedBackViewModel by viewModels()
+    private lateinit var termsAndCondition: List<TermsAndCondition>
+    companion object {
+        fun newInstance(termsAndCondition: List<TermsAndCondition>): TermsAndConditionFragment {
+            val args = Bundle()
+            args.putParcelableArrayList(Constants.NavBundles.TERMS_CONDITION_LIST, ArrayList(termsAndCondition))
+            val fragment = TermsAndConditionFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.let {
+            termsAndCondition= it.getParcelableArrayList(Constants.NavBundles.TERMS_CONDITION_LIST)!!
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeUiEvents(serviceDownVoteFeedBackViewModel)

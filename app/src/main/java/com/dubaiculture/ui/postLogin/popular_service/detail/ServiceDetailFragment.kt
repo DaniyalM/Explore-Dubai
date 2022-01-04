@@ -30,6 +30,8 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
     private val serviceDetailViewModel: ServiceDetailViewModel by viewModels()
     private val serviceDetailFragmentArgs: ServiceDetailFragmentArgs by navArgs()
 
+    private lateinit var tabLayoutMediator: TabLayoutMediator
+
     //    private var serviceId: String = "89F321A2034E49AEACE41865CD5862DA"
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -106,54 +108,56 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
             binding.headerVisited.favourite.background =
                 getDrawableFromId(R.drawable.heart_icon_fav)
         }
-        val count=0
-
-
-        binding.forumPager.adapter =
-            ServiceHeaderPagerAdapter(this, eServicesDetail, binding.forumPager)
-        binding.forumPager.setPageTransformer(ZoomOutPageTransformer())
+        if (!this::tabLayoutMediator.isInitialized) {
+            binding.forumPager.adapter = ServiceHeaderPagerAdapter(this, eServicesDetail)
+            binding.forumPager.setPageTransformer(ZoomOutPageTransformer())
 //        binding.forumPager.isUserInputEnabled = false
-        binding.forumPager.isSaveEnabled = false
-        TabLayoutMediator(
-            binding.tabLayout, binding.forumPager
-        ) { tab: TabLayout.Tab, position: Int ->
-            var tabTitle = TabHeaders.fromId(position).name
-            val v: CustomTabLayoutBinding = CustomTabLayoutBinding.inflate(layoutInflater)
+            binding.forumPager.isSaveEnabled = false
+            tabLayoutMediator = TabLayoutMediator(
+                binding.tabLayout, binding.forumPager
+            ) { tab: TabLayout.Tab, position: Int ->
+                var tabTitle = TabHeaders.fromId(position).name
+                val v: CustomTabLayoutBinding = CustomTabLayoutBinding.inflate(layoutInflater)
 
-            when (tabTitle) {
-                TabHeaders.DESCRIPTION.name -> {
-                    tabTitle = activity.resources.getString(R.string.description)
-                    v.tabTitle.setTextColor(activity.getColorFromAttr(R.attr.colorSecondary))
+                when (tabTitle) {
+                    TabHeaders.DESCRIPTION.name -> {
+                        tabTitle = activity.resources.getString(R.string.description)
+                        v.tabTitle.setTextColor(activity.getColorFromAttr(R.attr.colorSecondary))
 
 
-                }
-                TabHeaders.PROCEDURE.name -> {
-                    tabTitle = activity.resources.getString(R.string.procedure)
+                    }
+                    TabHeaders.PROCEDURE.name -> {
+                        tabTitle = activity.resources.getString(R.string.procedure)
 
-                }
-                TabHeaders.REQUIREDDOCUMENTS.name -> {
-                    tabTitle = activity.resources.getString(R.string.required_documents)
+                    }
+                    TabHeaders.REQUIREDDOCUMENTS.name -> {
+                        tabTitle = activity.resources.getString(R.string.required_documents)
 
-                }
-                TabHeaders.PAYMENTS.name -> {
-                    tabTitle = activity.resources.getString(R.string.payments)
-                }
-                TabHeaders.FAQS.name -> {
-                    tabTitle = activity.resources.getString(R.string.faqs)
+                    }
+                    TabHeaders.PAYMENTS.name -> {
+                        tabTitle = activity.resources.getString(R.string.payments)
+                    }
+                    TabHeaders.FAQS.name -> {
+                        tabTitle = activity.resources.getString(R.string.faqs)
 
+                    }
+                    TabHeaders.TERMSANDCONDITIONS.name -> {
+                        tabTitle = activity.resources.getString(R.string.terms_and_conditions)
+                    }
+                    else -> {
+                        tabTitle = activity.resources.getString(R.string.start_service)
+                    }
                 }
-                TabHeaders.TERMSANDCONDITIONS.name -> {
-                    tabTitle = activity.resources.getString(R.string.terms_and_conditions)
-                }
-                else -> {
-                    tabTitle = activity.resources.getString(R.string.start_service)
-                }
+                v.tabTitle.text = tabTitle
+
+                tab.customView = v.root
+
             }
-            v.tabTitle.text = tabTitle
+            if (!tabLayoutMediator.isAttached) {
+                tabLayoutMediator.attach()
+            }
+        }
 
-            tab.customView = v.root
-
-        }.attach()
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -180,6 +184,12 @@ class ServiceDetailFragment : BaseFragment<FragmentServiceDetailFragmentBinding>
         })
 
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (tabLayoutMediator.isAttached)
+            tabLayoutMediator.detach()
     }
 
 
