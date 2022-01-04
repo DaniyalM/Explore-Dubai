@@ -9,7 +9,8 @@ enum class ValueType(val id: Int, val valueType: String) {
     DATE(5, "Date"),
     TIME(6, "Time"),
     INPUT_TEXT_MULTILINE(8, "Multiline"),
-//    BUTTON(9, "Button"),
+
+    //    BUTTON(9, "Button"),
     RADIO_BUTTON(10, "YesNo"),
 //    HR_TAG(11, "HRtag"),
 //    CREATED(12, "Created"),
@@ -34,10 +35,7 @@ enum class ValueType(val id: Int, val valueType: String) {
         fun isInputField(valueType: String): Boolean {
             return (valueType == INPUT_TEXT.valueType
                     || valueType == INPUT_NUMBER.valueType
-                    || valueType == INPUT_TEXT_MULTILINE.valueType
-                    || valueType == DATE.valueType
-                    || valueType == TIME.valueType
-                    || valueType == DROP_DOWN.valueType)
+                    || valueType == INPUT_TEXT_MULTILINE.valueType)
         }
     }
 

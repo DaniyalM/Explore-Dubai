@@ -52,7 +52,8 @@ object FieldUtils {
         isArabic: Boolean,
         layoutInflater: LayoutInflater,
         root: ViewGroup,
-        fieldValueItem: GetFieldValueItem
+        fieldValueItem: GetFieldValueItem,
+        callback: (value: String) -> Unit
     ): AutoCompleteTextView {
         val view = EserviceDropDownBinding.inflate(layoutInflater, root, false)
 
@@ -71,6 +72,9 @@ object FieldUtils {
         )
         dropDown.setOnClickListener {
             dropDown.showDropDown()
+        }
+        dropDown.setOnItemClickListener { parent, view, position, id ->
+            callback(fieldValueItem.fieldValue[position].optionValues)
         }
         return dropDown
     }
@@ -93,9 +97,9 @@ object FieldUtils {
                     override fun onDateSelected(calendar: Calendar) {
                         val date: Date = calendar.time
                         val format = Constants.DateFormats.MM_DD_YYYY
-                        val str = date.toString(format)
-                        editText.setText(str)
-                        callback(str)
+                        editText.setText(date.toString(format))
+                        //convert date here
+                        callback(date.toString(format, Locale.ENGLISH))
                     }
                 }
             ).showPicker()
@@ -131,6 +135,9 @@ object FieldUtils {
             JustTimePicker(root.context, object : JustTimePicker.TimePickerInterface {
                 override fun onTimeSelected(calendar: Calendar) {
                     val df = SimpleDateFormat(Constants.DateFormats.HH_MM_A)
+                    val df_en = SimpleDateFormat(Constants.DateFormats.HH_MM_A, Locale.ENGLISH)
+                    //convert date here
+                    callback(df_en.format(calendar.time))
                     editText.setText(df.format(calendar.time))
                 }
             }, fragmentManager, cal).showPicker()
@@ -207,10 +214,16 @@ object FieldUtils {
         group.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 view.rb1.id -> {
-                    callback(view.rb1.text.toString())
+                    callback(
+//                        view.rb1.text.toString()
+                        fieldValueItem.fieldValue.elementAtOrNull(0)?.optionValues ?: ""
+                    )
                 }
                 view.rb2.id -> {
-                    callback(view.rb2.text.toString())
+                    callback(
+//                        view.rb2.text.toString()
+                        fieldValueItem.fieldValue.elementAtOrNull(1)?.optionValues ?: ""
+                    )
                 }
             }
         }

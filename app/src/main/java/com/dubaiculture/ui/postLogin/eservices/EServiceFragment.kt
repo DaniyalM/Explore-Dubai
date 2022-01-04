@@ -129,8 +129,8 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             inflater,
                             binding.fieldContainer,
                             it
-                        ) {
-//                                    showToast(it)
+                        ) { selectedValue ->
+                            eServiceViewModel.addField(it, selectedValue)
                         }
                     )
                 }
@@ -142,8 +142,8 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             binding.fieldContainer,
                             childFragmentManager,
                             it
-                        ) {
-//                                    showToast(it)
+                        ) { selectedValue ->
+                            eServiceViewModel.addField(it, selectedValue)
                         }
                     )
                 }
@@ -178,7 +178,9 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                             inflater,
                             binding.fieldContainer,
                             it
-                        )
+                        ) { selectedValue ->
+                            eServiceViewModel.addField(it, selectedValue)
+                        }
                     )
                 }
                 ValueType.RADIO_BUTTON.id -> {
@@ -204,8 +206,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
 
     private fun showPickerOptions() {
         activity.runWithPermissions(
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
         ) {
             val attachmentOption = AttachmentOptionFragment(object :
                 AttachmentOptionFragment.AttachmentOptionClickListener {
