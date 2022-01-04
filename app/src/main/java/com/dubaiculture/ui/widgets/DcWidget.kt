@@ -12,7 +12,7 @@ import com.dubaiculture.R
 import java.util.*
 
 class DcWidget : AppWidgetProvider() {
-    val MyOnClick="MyClick"
+    val MyOnClick = "MyClick"
     override fun onUpdate(
         context: Context?,
         appWidgetManager: AppWidgetManager?,
@@ -41,12 +41,10 @@ class DcWidget : AppWidgetProvider() {
                 R.layout.dc_app_widget_layout
             ).apply {
 
-                setOnClickPendingIntent(R.id.setupWidget,getPendingSelfIntent(context, MyOnClick))
-                this.setTextViewText(R.id.text_widget, "Widget has $number")
+//                setOnClickPendingIntent(R.id.setupWidget,getPendingSelfIntent(context, MyOnClick))
+//                this.setTextViewText(R.id.text_widget, "Widget has $number")
 
             }
-
-
 
 
             // Tell the AppWidgetManager to perform an update on the current app widget
@@ -61,7 +59,7 @@ class DcWidget : AppWidgetProvider() {
 
         intent?.let {
 
-            if (MyOnClick == it.action){
+            if (MyOnClick == it.action) {
                 //your onClick action is here
                 Toast.makeText(context, "Widget has been updated! ", Toast.LENGTH_SHORT).show();
 
@@ -70,7 +68,6 @@ class DcWidget : AppWidgetProvider() {
 
 
     }
-
 
 
     protected fun getPendingSelfIntent(context: Context?, action: String?): PendingIntent? {

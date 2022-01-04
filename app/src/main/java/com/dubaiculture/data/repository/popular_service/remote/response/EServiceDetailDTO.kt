@@ -2,7 +2,7 @@ package com.dubaiculture.data.repository.popular_service.remote.response
 
 data class EServiceDetailDTO(
     val Category: String? = "",
-    val Description: List<DescriptionDTO>? = mutableListOf(),
+        val Description: List<DescriptionDTO>? = mutableListOf(),
     val EnquireNumber: String? = "",
     val ID: String? = "",
 
