@@ -105,6 +105,8 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
                 if (it.eventsAndAttractions.isNotEmpty()) {
                     tripSharedViewModel._eventAttractionResponse.value = it
                     tripSharedViewModel.setDates()
+//                    tripSharedViewModel.nightTime = it.dayAndNightTime.nightTime
+//                    tripSharedViewModel.dayTime = it.dayAndNightTime.dayTime
                     tripSharedViewModel._showPlan.value = Event(true)
                     tripSharedViewModel._showSave.value = true
                 } else {

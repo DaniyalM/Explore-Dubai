@@ -144,7 +144,8 @@ class SavedTripListingFragment : BaseFragment<FragmentSavedTripListingBinding>()
                 tripSharedViewModel._showSave.value = false
                 tripSharedViewModel._eventAttractionResponse.value = it
                 tripSharedViewModel.setDatesFromAPI(it.dateTimeFilter)
-
+                tripSharedViewModel.nightTime = it.dayAndNightTime.nightTime
+                tripSharedViewModel.dayTime = it.dayAndNightTime.dayTime
                 navigate(R.id.action_tripSavingListingFragment_to_my_tripFragment)
 
             }

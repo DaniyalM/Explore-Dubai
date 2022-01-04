@@ -27,8 +27,8 @@ class TripSharedViewModel @Inject constructor(
     private val tripRepository: TripRepository,
     private val locationHelper: LocationHelper
 ) : BaseViewModel(application) {
-    private lateinit var nightTime: String
-    private lateinit var dayTime: String
+     lateinit var nightTime: String
+     lateinit var dayTime: String
     private val context = getApplication<ApplicationEntry>()
 
     val _showPlan: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
@@ -434,7 +434,7 @@ class TripSharedViewModel @Inject constructor(
             val st = outputFormat.parse(stime)
             val et = outputFormat.parse(etime)
 
-            return ((st.after(stt) && st.before(endT)) || (et.after(stt) && et.before(endT))) || ((stt.after(st) && endT.before(et)))
+            return (((st == stt)||(st.after(stt)) && st.before(endT)) || (et.after(stt) && (et.before(endT)||(et == endT)))) || ((stt.after(st) && endT.before(et)))
 
         } else {
             return false

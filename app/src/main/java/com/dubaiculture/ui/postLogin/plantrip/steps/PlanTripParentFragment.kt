@@ -59,6 +59,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+        planYourTripViewModel.getTripCount()
         subscribeToObservables()
 
     }
