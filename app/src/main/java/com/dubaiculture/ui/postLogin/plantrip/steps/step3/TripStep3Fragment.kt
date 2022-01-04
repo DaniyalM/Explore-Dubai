@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.LocationNearest
 import com.dubaiculture.databinding.FragmentTripStep3Binding
@@ -23,7 +22,6 @@ import com.dubaiculture.utils.location.LocationHelper
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -88,6 +86,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
         var flexLayoutManager = FlexboxLayoutManager(context)
         flexLayoutManager.flexDirection = FlexDirection.ROW
         flexLayoutManager.alignItems = AlignItems.STRETCH
+        binding.rvLocationChips.itemAnimator = null
         binding.rvLocationChips.apply {
 //            layoutManager =
 //                StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
