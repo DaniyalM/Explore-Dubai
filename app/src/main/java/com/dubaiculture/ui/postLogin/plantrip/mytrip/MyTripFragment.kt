@@ -347,10 +347,12 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                 getDirections(it)
 //                getDistance(it)
                 addMarkers(it)
-                binding.tvPlaceHolder.hide()
+                binding.rvTrips.show()
                 binding.btnNext.show()
+                binding.tvPlaceHolder.hide()
             }else{
                 binding.tvPlaceHolder.show()
+                binding.rvTrips.hide()
                 binding.btnNext.hide()
 
             }
