@@ -42,7 +42,7 @@ class EServiceViewModel @Inject constructor(
 
     fun getFieldMap() = map
 
-    private val form = FormType.SUPPLIER_REGISTRATION
+    private val form = FormType.NOC_FORM
 
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
@@ -104,7 +104,7 @@ class EServiceViewModel @Inject constructor(
         entries.forEach {
             if (it.key.valueType == ValueType.FILE.valueType) {
                 val file = File(it.value)
-                val fileBody = file.asRequestBody(Constants.MimeType.ALL.toMediaTypeOrNull())
+                val fileBody = file.asRequestBody(Constants.MimeType.ALL.toMediaType())
                 val key = "${it.key.fieldName}\"; filename=\"${it.value}\""
                 request[key] = fileBody
             } else {
@@ -146,13 +146,13 @@ class EServiceViewModel @Inject constructor(
         field: GetFieldValueItem,
         value: String
     ): Pair<Boolean, String> {
-//        field.validations.forEach {
-//            if (it.validationType.equals(ValidationType.PATTERN.type, true)) {
-//                if (!it.pattern.toRegex().matches(value)) {
-//                    return Pair(false, if (isArabic) it.arabicMsg else it.englishMsg)
-//                }
-//            }
-//        }
+        field.validations.forEach {
+            if (it.validationType.equals(ValidationType.PATTERN.type, true)) {
+                if (!it.pattern.toRegex().matches(value)) {
+                    return Pair(false, if (isArabic) it.arabicMsg else it.englishMsg)
+                }
+            }
+        }
         return Pair(true, "")
     }
 }
