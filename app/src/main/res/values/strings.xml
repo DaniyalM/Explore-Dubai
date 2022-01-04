@@ -359,7 +359,7 @@
     <string name="save">Save</string>
     <string name="editDates">Edit Dates</string>
     <string name="delete">Delete</string>
-    <string name="myTrip">My Trip</string>
+    <string name="myTrip">My Trips</string>
     <string name="editTrip">Edit Trip</string>
     <string name="saveTrip">Save Trip</string>
     <string name="tripName">Trip Name</string>
@@ -428,6 +428,7 @@
 
     <string name="reset">Reset</string>
     <string name="days">Days</string>
+    <string name="no_record_found">No record(s) found</string>
 
 
     <!-- Facebook keys -->

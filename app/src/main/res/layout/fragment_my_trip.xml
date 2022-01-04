@@ -211,6 +211,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvDate" />
 
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tvPlaceHolder"
+                    style="@style/TextViewStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_50sdp"
+                    android:layout_marginBottom="@dimen/home_tab_layout_height"
+                    android:lineSpacingExtra="@dimen/text_line_spacing"
+                    android:text="@string/no_record_found"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_18sdp"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="@id/tvDate"
+                    app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvTrips"
                     android:layout_width="0dp"

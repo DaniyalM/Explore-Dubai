@@ -27,6 +27,8 @@ class TripSharedViewModel @Inject constructor(
     private val tripRepository: TripRepository,
     private val locationHelper: LocationHelper
 ) : BaseViewModel(application) {
+    private lateinit var nightTime: String
+    private lateinit var dayTime: String
     private val context = getApplication<ApplicationEntry>()
 
     val _showPlan: MutableLiveData<Event<Boolean>> = MutableLiveData(Event(false))
@@ -42,6 +44,8 @@ class TripSharedViewModel @Inject constructor(
     val addDurationList: LiveData<Durations> = _addDurationList
 
     fun addDurations(list: Durations) {
+         dayTime = list.dayAndNightTime.dayTime
+         nightTime = list.dayAndNightTime.nightTime
         _addDurationList.value = list
     }
 
@@ -385,7 +389,7 @@ class TripSharedViewModel @Inject constructor(
             } else return@map it
         }.let {
             it.filter {
-                (it.distanceRadius < 11.0 && it.longitude != "0.0" && it.latitude != "0.0")
+                (it.distanceRadius < 30.0 && it.longitude != "0.0" && it.latitude != "0.0")
             }.let {
                 it.filter { event ->
                     checkEvents(event, duration)
@@ -407,10 +411,10 @@ class TripSharedViewModel @Inject constructor(
             var startTime = ""
             when (duration.isDay) {
                 1 -> {
-                    startTime = "6:00 AM"
+                    startTime = dayTime
                 }
                 2 -> {
-                    startTime = "6:00 PM"
+                    startTime = nightTime
                 }
             }
 
@@ -419,7 +423,7 @@ class TripSharedViewModel @Inject constructor(
             calendar.time = date
             calendar.add(
                 Calendar.HOUR,
-                Integer.parseInt(duration.hour.substring(0, duration.hour.indexOf(" "))) - 1
+                Integer.parseInt(duration.hour.substring(0, duration.hour.indexOf(" ")))
             )
             val endT = calendar.time
             val startT = outputFormat.format(sdf.parse(startTime))
@@ -430,9 +434,7 @@ class TripSharedViewModel @Inject constructor(
             val st = outputFormat.parse(stime)
             val et = outputFormat.parse(etime)
 
-            return ((st.after(stt) && st.before(endT)) || (et.after(stt) && et.before(
-                endT
-            ))) || ((stt.after(st) && endT.before(et)))
+            return ((st.after(stt) && st.before(endT)) || (et.after(stt) && et.before(endT))) || ((stt.after(st) && endT.before(et)))
 
         } else {
             return false

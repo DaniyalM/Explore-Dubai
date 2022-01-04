@@ -200,6 +200,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
         tripSharedViewModel._duration.value = null
         tripSharedViewModel._durationSummary.value = null
         tripSharedViewModel._nearestLocationType.value = null
+        tripSharedViewModel._nearestLocationTemp.value = null
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
@@ -207,9 +208,12 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
         if (verticalOffset == 0) {
 
             binding.toolbar.hide()
+            binding.ivClosetl.show()
 
         } else {
             binding.toolbar.show()
+            binding.ivClosetl.hide()
+
 
         }
 
