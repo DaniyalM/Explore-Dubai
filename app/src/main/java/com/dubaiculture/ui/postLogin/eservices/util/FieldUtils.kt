@@ -74,7 +74,7 @@ object FieldUtils {
             dropDown.showDropDown()
         }
         dropDown.setOnItemClickListener { parent, view, position, id ->
-            callback(fieldValueItem.fieldValue[position].optionValues)
+            callback(fieldValueItem.fieldValue[position].english)
         }
         return dropDown
     }
@@ -216,13 +216,13 @@ object FieldUtils {
                 view.rb1.id -> {
                     callback(
 //                        view.rb1.text.toString()
-                        fieldValueItem.fieldValue.elementAtOrNull(0)?.optionValues ?: ""
+                        fieldValueItem.fieldValue.elementAtOrNull(0)?.english ?: ""
                     )
                 }
                 view.rb2.id -> {
                     callback(
 //                        view.rb2.text.toString()
-                        fieldValueItem.fieldValue.elementAtOrNull(1)?.optionValues ?: ""
+                        fieldValueItem.fieldValue.elementAtOrNull(1)?.english ?: ""
                     )
                 }
             }

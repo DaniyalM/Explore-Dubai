@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.dubaiculture.BuildConfig
+import com.dubaiculture.R
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.eservices.EServicesRepository
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
@@ -40,7 +41,7 @@ class EServiceViewModel @Inject constructor(
         HashMap()
     }
 
-    private val form = FormType.NOC_FORM
+    private val form = FormType.SUPPLIER_REGISTRATION
 
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
@@ -85,7 +86,7 @@ class EServiceViewModel @Inject constructor(
         return if (result is Result.Success) {
             result.value.token
         } else {
-            showToast("Token generation failed")
+            showToast(R.string.something_went_wrong)
             null
         }
     }
@@ -109,14 +110,15 @@ class EServiceViewModel @Inject constructor(
                 showLoader(false)
                 return
             }
-            if (it.valueType == ValueType.FILE.valueType) {
+            if (it.valueType != ValueType.FILE.valueType) {
+                request[it.fieldName] =
+                    value.toRequestBody(Constants.MimeType.TEXT.toMediaType())
+
+            } else if (it.valueType == ValueType.FILE.valueType && value.isNotEmpty()) {
                 val file = File(value)
                 val fileBody = file.asRequestBody(Constants.MimeType.ALL.toMediaType())
                 val key = "${it.fieldName}\"; filename=\"${value}\""
                 request[key] = fileBody
-            } else {
-                request[it.fieldName] =
-                    value.toRequestBody(Constants.MimeType.TEXT.toMediaType())
             }
         }
 
@@ -152,7 +154,7 @@ class EServiceViewModel @Inject constructor(
                     return if (isArabic) it.arabicMsg else it.englishMsg
                 }
             } else if (it.validationType.equals(ValidationType.REQUIRED.type, true)) {
-                if (value.isEmpty()) {
+                if (field.isRequired && value.isEmpty()) {
                     return if (isArabic) it.arabicMsg else it.englishMsg
                 }
             }
