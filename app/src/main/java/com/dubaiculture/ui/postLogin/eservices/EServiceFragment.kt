@@ -23,6 +23,14 @@ import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createTextView
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createTimeField
 import com.dubaiculture.ui.postLogin.eservices.enums.FieldType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDateFieldWithLabel
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDropDownWithLabel
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createEditTextWithLabel
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createFileFieldWithLabel
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createImageFieldWithLabel
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createRadioButtonWithLabel
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createTextViewWithDescription
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createTimeFieldWithLabel
 import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
 import com.dubaiculture.ui.postLogin.events.detail.registernow.attachmentOptions.AttachmentOptionFragment
 import com.dubaiculture.utils.Constants
@@ -83,125 +91,94 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
             if (fieldType == null || valueType == null)
                 return@forEach
 
-            addViewToViewGroup(
-                createTextView(
-                    isArabic(),
-                    inflater,
-                    binding.fieldContainer,
-                    it
-                )
-            )
             when (valueType.id) {
                 ValueType.INPUT_TEXT.id -> {
-                    addViewToViewGroup(
-                        createEditText(
-                            isArabic(),
-                            inflater,
-                            binding.fieldContainer,
-                            it
-                        )
-                    )
-                }
-                ValueType.INPUT_NUMBER.id -> {
-                    addViewToViewGroup(
-                        createEditText(
-                            isArabic(),
-                            inflater,
-                            binding.fieldContainer,
-                            it
-                        )
+                    createEditTextWithLabel(
+                        isArabic(),
+                        inflater,
+                        binding.fieldContainer,
+                        it
                     )
                 }
                 ValueType.INPUT_TEXT_MULTILINE.id -> {
-                    addViewToViewGroup(
-                        createEditText(
-                            isArabic(),
-                            inflater,
-                            binding.fieldContainer,
-                            it
-                        )
+                    createEditTextWithLabel(
+                        isArabic(),
+                        inflater,
+                        binding.fieldContainer,
+                        it
                     )
                 }
                 ValueType.DATE.id -> {
-                    addViewToViewGroup(
-                        createDateField(
-                            isArabic(),
-                            inflater,
-                            binding.fieldContainer,
-                            it
-                        ) { selectedValue ->
-                            eServiceViewModel.addField(it, selectedValue)
-                        }
-                    )
+                    createDateFieldWithLabel(
+                        isArabic(),
+                        inflater,
+                        binding.fieldContainer,
+                        it
+                    ) { selectedValue ->
+                        eServiceViewModel.addField(it, selectedValue)
+                    }
                 }
                 ValueType.TIME.id -> {
-                    addViewToViewGroup(
-                        createTimeField(
-                            isArabic(),
-                            inflater,
-                            binding.fieldContainer,
-                            childFragmentManager,
-                            it
-                        ) { selectedValue ->
-                            eServiceViewModel.addField(it, selectedValue)
-                        }
-                    )
+                    createTimeFieldWithLabel(
+                        isArabic(),
+                        inflater,
+                        binding.fieldContainer,
+                        childFragmentManager,
+                        it
+                    ) { selectedValue ->
+                        eServiceViewModel.addField(it, selectedValue)
+                    }
                 }
                 ValueType.IMAGE.id -> {
-                    addViewToViewGroup(
-                        createImageField(
-                            isArabic(),
-                            inflater,
-                            binding.fieldContainer,
-                            it
-                        )
+                    createImageFieldWithLabel(
+                        isArabic(),
+                        inflater,
+                        binding.fieldContainer,
+                        it
                     )
                 }
                 ValueType.FILE.id -> {
-                    addViewToViewGroup(
-                        createFileField(
-                            isArabic(),
-                            inflater,
-                            binding.fieldContainer,
-                            it,
-                            callback = {
-                                eServiceViewModel.selectedView = it
-                                showPickerOptions()
-                            }
-                        )
+                    createFileFieldWithLabel(
+                        isArabic(),
+                        inflater,
+                        binding.fieldContainer,
+                        it,
+                        callback = {
+                            eServiceViewModel.selectedView = it
+                            showPickerOptions()
+                        }
                     )
                 }
                 ValueType.DROP_DOWN.id -> {
-                    addViewToViewGroup(
-                        createDropDown(
-                            isArabic(),
-                            inflater,
-                            binding.fieldContainer,
-                            it
-                        ) { selectedValue ->
-                            eServiceViewModel.addField(it, selectedValue)
-                        }
-                    )
+                    createDropDownWithLabel(
+                        isArabic(),
+                        inflater,
+                        binding.fieldContainer,
+                        it
+                    ) { selectedValue ->
+                        eServiceViewModel.addField(it, selectedValue)
+                    }
                 }
                 ValueType.RADIO_BUTTON.id -> {
-                    addViewToViewGroup(
-                        createRadioButton(
-                            isArabic(),
-                            inflater,
-                            binding.fieldContainer,
-                            it
-                        ) { selectedValue ->
-                            eServiceViewModel.addField(it, selectedValue)
-                        }
+                    createRadioButtonWithLabel(
+                        isArabic(),
+                        inflater,
+                        binding.fieldContainer,
+                        it
+                    ) { selectedValue ->
+                        eServiceViewModel.addField(it, selectedValue)
+                    }
+                }
+                ValueType.LABEL.id -> {
+                    createTextViewWithDescription(
+                        isArabic(),
+                        inflater,
+                        binding.fieldContainer,
+                        it
                     )
                 }
             }
         }
-    }
-
-
-    private fun addViewToViewGroup(view: View) {
-        binding.fieldContainer.addView(view)
     }
 
     private fun showPickerOptions() {

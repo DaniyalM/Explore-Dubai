@@ -1,7 +1,11 @@
 package com.dubaiculture.ui.postLogin.eservices.util
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.text.InputType
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
@@ -13,11 +17,24 @@ import com.dubaiculture.databinding.EserviceEditTextBinding
 import com.dubaiculture.databinding.EserviceRadioGroupBinding
 import com.dubaiculture.databinding.EserviceTextViewBinding
 import com.dubaiculture.ui.components.customEditText.CustomEditText
+import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 object FieldUtils {
+
+    fun createTextViewWithDescription(
+        isArabic: Boolean,
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem
+    ) {
+        val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(label)
+        val desc = createTextDescription(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(desc)
+    }
 
     fun createTextView(
         isArabic: Boolean,
@@ -30,14 +47,40 @@ object FieldUtils {
         var text = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
         if (fieldValueItem.isRequired) text += "*"
         textView.text = text
+        textView.setColouredSpan("*", Color.RED)
         return textView
+    }
+
+    fun createTextDescription(
+        isArabic: Boolean,
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem
+    ): TextView {
+        val view = EserviceTextViewBinding.inflate(layoutInflater, root, false)
+        val textView = view.textView
+        val text = if (isArabic) fieldValueItem.hint_ar else fieldValueItem.hint_en
+        textView.text = text
+        return textView
+    }
+
+    fun createEditTextWithLabel(
+        isArabic: Boolean,
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem
+    ) {
+        val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(label)
+        val et = createEditText(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(et)
     }
 
     fun createEditText(
         isArabic: Boolean,
         layoutInflater: LayoutInflater,
         root: ViewGroup,
-        fieldValueItem: GetFieldValueItem
+        fieldValueItem: GetFieldValueItem,
     ): CustomEditText {
         val view = EserviceEditTextBinding.inflate(layoutInflater, root, false)
         val editText = view.editText
@@ -45,7 +88,23 @@ object FieldUtils {
         editText.id = fieldValueItem.id
         editText.hint = if (isArabic) fieldValueItem.hint_ar else fieldValueItem.hint_en
 
+        if (fieldValueItem.valueType == ValueType.INPUT_TEXT_MULTILINE.valueType) {
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+        }
         return editText
+    }
+
+    fun createDropDownWithLabel(
+        isArabic: Boolean,
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem,
+        callback: (value: String) -> Unit
+    ) {
+        val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(label)
+        val dd = createDropDown(isArabic, layoutInflater, root, fieldValueItem, callback)
+        root.addView(dd)
     }
 
     fun createDropDown(
@@ -79,6 +138,19 @@ object FieldUtils {
         return dropDown
     }
 
+    fun createDateFieldWithLabel(
+        isArabic: Boolean,
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem,
+        callback: (date: String) -> Unit
+    ) {
+        val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(label)
+        val dd = createDateField(isArabic, layoutInflater, root, fieldValueItem, callback)
+        root.addView(dd)
+    }
+
     fun createDateField(
         isArabic: Boolean,
         layoutInflater: LayoutInflater,
@@ -110,6 +182,27 @@ object FieldUtils {
             editText
         )
         return editText
+    }
+
+    fun createTimeFieldWithLabel(
+        isArabic: Boolean,
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fragmentManager: FragmentManager,
+        fieldValueItem: GetFieldValueItem,
+        callback: (date: String) -> Unit
+    ) {
+        val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(label)
+        val timeField = createTimeField(
+            isArabic,
+            layoutInflater,
+            root,
+            fragmentManager,
+            fieldValueItem,
+            callback
+        )
+        root.addView(timeField)
     }
 
     fun createTimeField(
@@ -151,6 +244,19 @@ object FieldUtils {
         return editText
     }
 
+    fun createFileFieldWithLabel(
+        isArabic: Boolean,
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem,
+        callback: () -> Unit
+    ) {
+        val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(label)
+        val fd = createFileField(isArabic, layoutInflater, root, fieldValueItem, callback)
+        root.addView(fd)
+    }
+
     fun createFileField(
         isArabic: Boolean,
         layoutInflater: LayoutInflater,
@@ -171,6 +277,18 @@ object FieldUtils {
         return editText
     }
 
+    fun createImageFieldWithLabel(
+        isArabic: Boolean,
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem
+    ) {
+        val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(label)
+        val fd = createImageField(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(fd)
+    }
+
     fun createImageField(
         isArabic: Boolean,
         layoutInflater: LayoutInflater,
@@ -188,6 +306,19 @@ object FieldUtils {
             editText
         )
         return editText
+    }
+
+    fun createRadioButtonWithLabel(
+        isArabic: Boolean,
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem,
+        callback: (value: String) -> Unit
+    ) {
+        val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
+        root.addView(label)
+        val rb = createRadioButton(isArabic, layoutInflater, root, fieldValueItem, callback)
+        root.addView(rb)
     }
 
     fun createRadioButton(

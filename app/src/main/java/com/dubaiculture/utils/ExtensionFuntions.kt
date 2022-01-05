@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -464,4 +467,21 @@ fun gettime(): String? {
     System.out.println("Current time => " + c.time)
     val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
     return df.format(c.time)
+}
+
+fun TextView.setColouredSpan(word: String, color: Int) {
+    val spannableString = SpannableString(text)
+    val start = text.indexOf(word)
+    val end = text.indexOf(word) + word.length
+    try {
+        spannableString.setSpan(
+            ForegroundColorSpan(color),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        text = spannableString
+    } catch (e: IndexOutOfBoundsException) {
+        Timber.e("'$word' was not not found in TextView text")
+    }
 }
