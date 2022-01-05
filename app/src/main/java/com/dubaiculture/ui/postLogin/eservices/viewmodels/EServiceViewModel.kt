@@ -12,6 +12,7 @@ import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.ui.base.BaseViewModel
+import com.dubaiculture.ui.postLogin.eservices.enums.FieldType
 import com.dubaiculture.ui.postLogin.eservices.enums.FormType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValidationType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
@@ -20,7 +21,6 @@ import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -39,8 +39,6 @@ class EServiceViewModel @Inject constructor(
     private val map: HashMap<GetFieldValueItem, String> by lazy {
         HashMap()
     }
-
-    fun getFieldMap() = map
 
     private val form = FormType.NOC_FORM
 
@@ -100,23 +98,25 @@ class EServiceViewModel @Inject constructor(
         showLoader(true)
         val request = HashMap<String, RequestBody>()
 
-        val entries = getFieldMap()
-        entries.forEach {
-            if (it.key.valueType == ValueType.FILE.valueType) {
-                val file = File(it.value)
+        val fields = _fieldValues.value?.filter {
+            (FieldType.fromName(it.fieldType) != null || ValueType.fromName(it.valueType) != null)
+        } ?: listOf()
+
+        fields.forEach {
+            val value = map[it] ?: ""
+            validate(isArabic, it, value)?.let { errorMessage ->
+                showToast(errorMessage)
+                showLoader(false)
+                return
+            }
+            if (it.valueType == ValueType.FILE.valueType) {
+                val file = File(value)
                 val fileBody = file.asRequestBody(Constants.MimeType.ALL.toMediaType())
-                val key = "${it.key.fieldName}\"; filename=\"${it.value}\""
+                val key = "${it.fieldName}\"; filename=\"${value}\""
                 request[key] = fileBody
             } else {
-                val validation = validate(isArabic, it.key, it.value)
-                if (validation.first)
-                    request[it.key.fieldName] =
-                        it.value.toRequestBody(Constants.MimeType.TEXT.toMediaType())
-                else {
-                    showToast(validation.second)
-                    showLoader(false)
-                    return
-                }
+                request[it.fieldName] =
+                    value.toRequestBody(Constants.MimeType.TEXT.toMediaType())
             }
         }
 
@@ -145,18 +145,18 @@ class EServiceViewModel @Inject constructor(
         isArabic: Boolean,
         field: GetFieldValueItem,
         value: String
-    ): Pair<Boolean, String> {
+    ): String? {
         field.validations.forEach {
             if (it.validationType.equals(ValidationType.PATTERN.type, true)) {
                 if (!it.pattern.toRegex().matches(value)) {
-                    return Pair(false, if (isArabic) it.arabicMsg else it.englishMsg)
+                    return if (isArabic) it.arabicMsg else it.englishMsg
                 }
-            } else {
+            } else if (it.validationType.equals(ValidationType.REQUIRED.type, true)) {
                 if (value.isEmpty()) {
-                    return Pair(false, if (isArabic) it.arabicMsg else it.englishMsg)
+                    return if (isArabic) it.arabicMsg else it.englishMsg
                 }
             }
         }
-        return Pair(true, "")
+        return null
     }
 }
