@@ -84,6 +84,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
         binding.viewModel = myTripViewModel
+        binding.sharedViewModel = tripSharedViewModel
         subscribeUiEvents(myTripViewModel)
         backArrowRTL(binding.ivClose)
 
@@ -278,7 +279,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                 binding.tvPlaceHolder.hide()
                 myTripAdapter.submitList(it)
                 drawPolyline(it)
-            }else{
+            } else {
                 binding.tvPlaceHolder.show()
             }
         }
@@ -319,13 +320,13 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         }
 
         tripSharedViewModel.showSave.observe(viewLifecycleOwner) {
-
+//            showSave = it
             if (it) {
-                binding.btnNext.visibility = View.VISIBLE
+//                binding.btnNext.visibility = View.VISIBLE
                 binding.btnEditDur.visibility = View.VISIBLE
                 binding.btnDeleteDur.visibility = View.GONE
             } else {
-                binding.btnNext.visibility = View.GONE
+//                binding.btnNext.visibility = View.GONE
                 binding.btnEditDur.visibility = View.GONE
                 binding.btnDeleteDur.visibility = View.VISIBLE
             }
@@ -348,12 +349,12 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 //                getDistance(it)
                 addMarkers(it)
                 binding.rvTrips.show()
-                binding.btnNext.show()
+//                binding.btnNext.show()
                 binding.tvPlaceHolder.hide()
-            }else{
+            } else {
                 binding.tvPlaceHolder.show()
                 binding.rvTrips.hide()
-                binding.btnNext.hide()
+//                binding.btnNext.hide()
 
             }
         }
@@ -392,7 +393,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 //        routes[0].
         if (polylines.isNotEmpty()) {
 
-            for(polyline in polylines){
+            for (polyline in polylines) {
                 polyline.remove()
             }
             polylines.clear()

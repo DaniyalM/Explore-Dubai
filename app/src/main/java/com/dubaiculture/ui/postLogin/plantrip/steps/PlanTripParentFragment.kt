@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.forEach
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -53,6 +54,17 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
         binding.appbarLayout.addOnOffsetChangedListener(this)
         binding.collapsingToolbarLayout.setContentScrimColor(Color.WHITE)
         lottieAnimationRTL(binding.animationView)
+
+//        val params: CoordinatorLayout.LayoutParams =
+//            binding.appbarLayout.layoutParams as CoordinatorLayout.LayoutParams
+//
+//        val behavior = AppBarLayout.Behavior()
+//        behavior.setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+//            override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+//                return false
+//            }
+//        })
+//        params.behavior = behavior
 
     }
 

@@ -79,7 +79,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_8sdp"
             android:includeFontPadding="false"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_8ssp"
             android:text="@{data.displayTimeFrom + ` - ` + data.displayTimeTo + ` | ` + data.day}"
             app:layout_constraintStart_toEndOf="@id/ivTime"
             app:layout_constraintTop_toTopOf="@+id/ivTime" />
