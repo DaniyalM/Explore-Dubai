@@ -151,6 +151,10 @@ class EServiceViewModel @Inject constructor(
                 if (!it.pattern.toRegex().matches(value)) {
                     return Pair(false, if (isArabic) it.arabicMsg else it.englishMsg)
                 }
+            } else {
+                if (value.isEmpty()) {
+                    return Pair(false, if (isArabic) it.arabicMsg else it.englishMsg)
+                }
             }
         }
         return Pair(true, "")
