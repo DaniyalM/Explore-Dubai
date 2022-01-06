@@ -124,6 +124,8 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
                 if (arguments!=null){
                     if (requireArguments().getBoolean(BACK_PRESS)){
                         back()
+                    }else {
+                        navigateByDirections(PlanTripParentFragmentDirections.actionTripFragmentToBackFragment())
                     }
                 }else {
                     navigateByDirections(PlanTripParentFragmentDirections.actionTripFragmentToBackFragment())
