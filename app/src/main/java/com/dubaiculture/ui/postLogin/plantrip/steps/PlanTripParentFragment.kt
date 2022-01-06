@@ -22,6 +22,7 @@ import com.dubaiculture.ui.postLogin.plantrip.steps.step2.TripStep2Fragment
 import com.dubaiculture.ui.postLogin.plantrip.steps.step3.TripStep3Fragment
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.PlanYourTripViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
+import com.dubaiculture.utils.Constants.NavBundles.BACK_PRESS
 import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.show
 import com.google.android.material.appbar.AppBarLayout
@@ -120,7 +121,15 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
 
             },
             actionPositive = {
-                navigateByDirections(PlanTripParentFragmentDirections.actionTripFragmentToBackFragment())
+                if (arguments!=null){
+                    if (requireArguments().getBoolean(BACK_PRESS)){
+                        back()
+                    }
+                }else {
+                    navigateByDirections(PlanTripParentFragmentDirections.actionTripFragmentToBackFragment())
+                }
+
+
             }
         )
     }

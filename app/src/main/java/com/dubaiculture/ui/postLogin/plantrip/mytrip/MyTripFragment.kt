@@ -495,6 +495,10 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                     Constants.NavBundles.GRAPH_ID,
                     R.navigation.plan_trip_parent_navigation
                 )
+                intent.putExtra(
+                    Constants.NavBundles.BACK_PRESS,
+                    true
+                )
                 startActivity(intent)
                 Handler().postDelayed({
                     back()
