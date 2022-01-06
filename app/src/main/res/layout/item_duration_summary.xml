@@ -77,7 +77,7 @@
                     android:id="@+id/tvDayHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_24sdp"
+                    android:layout_marginHorizontal="@dimen/_24sdp"
                     android:text="@string/time_of_day"
                     android:textColor="?attr/color_pyt_purple_light"
                     android:textSize="@dimen/_10ssp"
@@ -87,14 +87,14 @@
 
                 <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDay"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@{data.isDay() == 1 ? @drawable/ic_purple_day: data.isDay() == 2 ? @drawable/ic_purple_night : null}"
-                    android:text='@{data.isDay() == 1 ? "Day" : data.isDay() == 2 ? "Night" : "" }'
+                    android:text='@{data.isDay() == 1 ? @string/day : data.isDay() == 2 ? @string/night : "" }'
                     android:textColor="?attr/color_pyt_purple_light"
                     android:textSize="@dimen/_13ssp"
+                    android:drawablePadding="@dimen/_4sdp"
                     app:layout_constraintBottom_toBottomOf="@id/tvDateMonth"
-                    app:layout_constraintEnd_toEndOf="@id/tvDayHeading"
                     app:layout_constraintStart_toStartOf="@id/tvDayHeading"
                     app:layout_constraintTop_toBottomOf="@id/tvDayHeading" />
 
@@ -126,7 +126,6 @@
                     android:id="@+id/tvDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:text="@{data.hour}"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintBottom_toBottomOf="@id/tvDay"
                     app:layout_constraintStart_toStartOf="@id/tvDurationHeading"

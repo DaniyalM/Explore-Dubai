@@ -9,29 +9,37 @@
             type="com.dubaiculture.data.repository.trip.local.LocationNearest" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="?attr/colorSurface">-->
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurface">
+        app:alignContent="stretch"
+        app:alignItems="stretch"
+        app:flexWrap="wrap">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorSurface">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipLocation"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="0dp"
+            style="@style/CustomChipChoice"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:chipStrokeColor="?attr/colorSecondaryVariantInverted"
-            app:chipStrokeWidth="0.5dp"
             android:layout_marginHorizontal="@dimen/_5sdp"
             android:checked="@{nearestLocation.checked}"
-            android:textColor="?attr/color_light_theme_dark_theme_dark_gray"
-            android:fontFamily="@font/neo_sans_arabic_regular"
             android:text="@{nearestLocation.locationTitle}"
-            app:chipBackgroundColor="@color/chip_selector"
+            app:chipStrokeColor="?attr/colorSecondaryVariantInverted"
+            app:chipStrokeWidth="0.5dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <!--        android:text="@{nearestLocation.locationTitle}"-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.flexbox.FlexboxLayout>
+
 </layout>

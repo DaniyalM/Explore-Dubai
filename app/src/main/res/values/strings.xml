@@ -219,6 +219,7 @@
     <string name="your_voice">Your Voice</string>
     <string name="information">Information</string>
     <string name="about_dubai_culture">About\nDubai Culture</string>
+    <string name="about_dubai_culture_sl">About Dubai Culture</string>
     <string name="settings">Settings</string>
     <string name="share_this_app">Share this app</string>
     <string name="rate_us">Rate Us</string>
@@ -358,7 +359,7 @@
     <string name="save">Save</string>
     <string name="editDates">Edit Dates</string>
     <string name="delete">Delete</string>
-    <string name="myTrip">My Trip</string>
+    <string name="myTrip">My Trips</string>
     <string name="editTrip">Edit Trip</string>
     <string name="saveTrip">Save Trip</string>
     <string name="tripName">Trip Name</string>
@@ -419,6 +420,15 @@
 
     <string name="whatAreYourLooking">What are you looking for?</string>
     <string name="success">Success</string>
+    <string name="tripCloseAlert">Are you sure you want to close Plan Your Trip?</string>
+    <string name="EditTripAlert">Are you sure you want to edit trip?</string>
+    <string name="NoTripFoundAlert">No Trip Found on given Dates</string>
+    <string name="select_hour">Select Hours</string>
+    <string name="add_duration_error">Please select hours to continue</string>
+
+    <string name="reset">Reset</string>
+    <string name="days">Days</string>
+    <string name="no_record_found">No record(s) found</string>
 
 
     <!-- Facebook keys -->
@@ -428,5 +438,10 @@
     <string name="fb_login_protocol_scheme">fb1249629708783017</string>
     <string name="select_time">Select time</string>
 
+
+    <string name="are_you_sure_want_to_delete_trip">Are you sure you want to delete trip?</string>
+    <string name="are_you_sure_want_to_reset_trip">Are you sure you want to reset trip?</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

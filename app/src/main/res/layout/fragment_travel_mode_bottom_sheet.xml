@@ -288,7 +288,7 @@
                 android:foreground="@drawable/custom_ripple_border"
                 android:gravity="center"
                 android:onClick="@{()->view.onDoneClicked()}"
-                android:text="@string/done"
+                android:text="@string/continue_"
                 android:textAllCaps="false"
                 android:textColor="@color/white_900"
                 android:transitionName="action_btn"

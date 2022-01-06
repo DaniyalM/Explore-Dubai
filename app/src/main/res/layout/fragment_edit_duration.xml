@@ -168,7 +168,6 @@
                     android:drawableEnd="@drawable/ic_dropdown"
                     android:fontFamily="@font/neo_sans_arabic_regular"
                     android:onClick="@{(v)->view.onDropDownClicked(v)}"
-                    android:text="@{data.hour}"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="?attr/colorSecondary"
@@ -218,7 +217,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDates"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_240sdp"
+                android:layout_height="@dimen/_200sdp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

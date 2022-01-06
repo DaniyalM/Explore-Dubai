@@ -64,7 +64,7 @@
         <item name="color_card_views_shadow">@color/gray_600</item>
         <item name="color_light_theme_purple_dark_theme_gray">@color/purple_900</item>
         <item name="color_light_theme_purple_dark_theme">@color/white_900</item>
-
+        <item name="color_chip_text_theme">@color/gray_800</item>
 
         <!--curve bg in news and event detail-->
         <item name="color_curve_view_bg">@color/curve_color</item>
@@ -185,6 +185,10 @@
 
     <style name="MyTitle_MaterialAlertDialog" parent="@style/MaterialAlertDialog.MaterialComponents">
         <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
+    </style>
+    <style name="ThemeOverlay.DubaiCulture.AppWidgetContainer" parent="">
+        <item name="appWidgetBackgroundColor">@color/light_blue_600</item>
+        <item name="appWidgetTextColor">@color/light_blue_50</item>
     </style>
 
     <!--    <style name="MaterialAlertDialogText" parent="@style/MaterialAlertDialog.MaterialComponents.mess.Text">-->

@@ -1,5 +1,9 @@
 package com.dubaiculture.data.repository.popular_service.local.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Description(
     val classification: String,
     val classificationTitle: String,
@@ -18,4 +22,4 @@ data class Description(
     val startServiceUrl: String,
     val formName: String,
     val formSubmitURL: String
-)
+) : Parcelable

@@ -129,6 +129,8 @@ fun <T : Any, V : RecyclerView.ViewHolder> PagingDataAdapter<T, V>.withLoadState
             itemCount < 1
         ) {
             callback(true)
+        } else if (itemCount < 1) {
+            callback(true)
         } else {
             callback(false)
         }

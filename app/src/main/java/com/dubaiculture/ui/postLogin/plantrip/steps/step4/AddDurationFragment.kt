@@ -21,7 +21,12 @@ import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.DurationAdapte
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.ColorUtil
+import com.dubaiculture.utils.hide
+import com.dubaiculture.utils.show
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>() {
@@ -58,7 +63,6 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
     )
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
@@ -86,8 +90,9 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
                         TODO("Not yet implemented")
                     }
 
-                }
-            ,addDurationList)
+                }, addDurationList,
+                getCurrentLanguage()
+            )
             adapter = durationAdapter
 
 
@@ -115,6 +120,11 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
                 setData(it[0])
                 binding.rvDates.visibility = View.VISIBLE
                 durationAdapter.submitList(it.subList(1, it.size))
+                if (it.size > 1) {
+                    binding.checkBoxRepeat.show()
+                } else {
+                    binding.checkBoxRepeat.hide()
+                }
             }
         }
 
@@ -123,17 +133,35 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
 
     private fun setData(duration: Duration) {
         binding.data = duration
+        if(duration.hour != getString(R.string.select_hour)) {
+            val separated: List<String> = duration.hour.split(" ")
+            if (getCurrentLanguage() != Locale.ENGLISH) {
+                var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+//                    val dayCount = Integer.parseInt(day.duration.substring(0, day.duration.indexOf(" ")))
+                binding.btnSpinner.text =
+                    nf.format(Integer.parseInt(separated[0])) + " " + separated[1]
+            } else {
+                var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                binding.btnSpinner.text =
+                    nf.format(Integer.parseInt(separated[0])) + " " + separated[1]
+            }
+        }else{
+            binding.btnSpinner.text = duration.hour
+        }
 
         var unSelectedColors = intArrayOf(
-            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
-            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
-            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
-            ColorUtil.fetchColor(requireContext(),R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(), R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(), R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(), R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(requireContext(), R.attr.colorSecondaryVariant),
         )
 
         when (duration.isDay) {
             0 -> {
                 binding.btnDay.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_day)
+
+                binding.btnDay.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                 binding.btnDay.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.transparent)
@@ -141,6 +169,9 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
 
                 binding.btnNight.icon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_night)
+
+                binding.btnNight.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                 binding.btnNight.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.transparent)
@@ -203,19 +234,36 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
     }
 
 
-
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
         val popup = PopupMenu(context, v)
         popup.menuInflater.inflate(menuRes, popup.menu)
 
-        addDurationList.hoursList.forEach {
-            popup.menu.add(it.duration)
+        addDurationList.hoursList.forEach {hour->
+            if(hour.duration != getString(R.string.select_hour)) {
+                val separated: List<String> = hour.duration.split(" ")
+                if (getCurrentLanguage() != Locale.ENGLISH) {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+//                    val dayCount = Integer.parseInt(day.duration.substring(0, day.duration.indexOf(" ")))
+                    popup.menu.add(nf.format(Integer.parseInt(separated[0])) + " " + separated[1])
+
+                } else {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                    popup.menu.add(nf.format(Integer.parseInt(separated[0])) + " " + separated[1])
+
+
+                }
+            }else{
+                popup.menu.add(hour.duration)
+            }
+
         }
 
 
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+            var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+            val separated: List<String> = menuItem.title.toString().split(" ")
             binding.checkBoxRepeat.isChecked = false
-            tripSharedViewModel.updateDurationList(binding.data!!.copy(hour = menuItem.title.toString()))
+            tripSharedViewModel.updateDurationList(binding.data!!.copy(hour = nf.format(Integer.parseInt(separated[0])) + " " + separated[1]))
             true
         }
         popup.setOnDismissListener {
@@ -226,13 +274,28 @@ class AddDurationFragment : BaseBottomSheetFragment<FragmentAddDurationBinding>(
     }
 
     fun onDoneClicked() {
-        if(durationList.isEmpty()){
+        if (durationList.isEmpty()) {
             tripSharedViewModel._durationSummary.value = null
-        }else{
-            tripSharedViewModel._durationSummary.value = durationList as ArrayList<Duration>
-        }
-        dismiss()
+        } else {
+            if (validateDuration()) {
+                tripSharedViewModel._durationSummary.value = durationList as ArrayList<Duration>
+                dismiss()
 
+            } else {
+                showErrorDialog(message = getString(R.string.add_duration_error))
+            }
+        }
+
+    }
+
+    private fun validateDuration(): Boolean {
+
+        for (duration in durationList) {
+            if (duration.isDay == 0 || duration.hour == getString(R.string.select_hour)) {
+                return false
+            }
+        }
+        return true
     }
 
 }

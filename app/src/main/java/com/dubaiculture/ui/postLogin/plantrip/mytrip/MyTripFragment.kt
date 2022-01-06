@@ -2,12 +2,15 @@ package com.dubaiculture.ui.postLogin.plantrip.mytrip
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -15,9 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.Duration
 import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
-import com.dubaiculture.data.repository.trip.remote.response.Route
 import com.dubaiculture.databinding.FragmentMyTripBinding
 import com.dubaiculture.ui.base.BaseFragment
+import com.dubaiculture.ui.navGraphActivity.NavGraphActivity
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.DatesAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.MyTripAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.DateClickListener
@@ -26,12 +29,16 @@ import com.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
+import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.location.LocationHelper
+import com.dubaiculture.utils.show
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback
 import com.google.android.gms.maps.model.*
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.maps.android.PolyUtil
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
@@ -41,6 +48,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback {
+
+    private lateinit var polyline: Polyline
+    var polylines: MutableList<Polyline> = mutableListOf()
 
     private lateinit var currentLocation: Location
     private lateinit var mMap: GoogleMap
@@ -53,8 +63,11 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     private lateinit var myTripAdapter: MyTripAdapter
     private var mapView: MapView? = null
 
+    //    private lateinit var binding: FragmentMyTripListingBinding
     @Inject
     lateinit var locationHelper: LocationHelper
+
+    lateinit var tripId: String
 
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
@@ -71,11 +84,34 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
         binding.viewModel = myTripViewModel
+        binding.sharedViewModel = tripSharedViewModel
         subscribeUiEvents(myTripViewModel)
+        backArrowRTL(binding.ivClose)
 
+
+        val params: CoordinatorLayout.LayoutParams =
+            binding.appbarLayout.layoutParams as CoordinatorLayout.LayoutParams
+
+        val behavior = AppBarLayout.Behavior()
+        behavior.setDragCallback(object : DragCallback() {
+            override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+                return false
+            }
+        })
+        params.behavior = behavior
+
+//        backArrowRTL(binding.ivClose)
+//        navigateByDirections(MyTripFragmentDirections.actionMyTripFragmentToTripListFragment())
+
+//        val callback: OnBackPressedCallback =
+//            object : OnBackPressedCallback(true /* enabled by default */) {
+//                override fun handleOnBackPressed() {
+//
+//                }
+//            }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         setupRV()
-
     }
 
 
@@ -84,20 +120,20 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         var hashMap: HashMap<String, String> = HashMap<String, String>()
 
         if (list.isNotEmpty()) {
-            hashMap["origin"] =
-                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
-
-            hashMap["destination"] =
-                list.last().latitude + "," + list.last().longitude
-
-            list.subList(0, list.size-1).map {
-                hashMap["waypoints"] = it.latitude + "," + it.longitude
-            }
-
-            hashMap["key"] = getString(R.string.map_key)
+//            hashMap["origin"] =
+//                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
+//
+//            hashMap["destination"] =
+//                list.last().latitude + "," + list.last().longitude
+//
+//            list.subList(0, list.size - 1).map {
+//                hashMap["waypoints"] = it.latitude + "," + it.longitude
+//            }
+//
+//            hashMap["key"] = getString(R.string.map_key)
 
             myTripViewModel.getDirections(
-                map = hashMap
+                list, getString(R.string.map_key), travelMode,getCurrentLanguage()
             )
         }
 
@@ -130,7 +166,11 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                     override fun rowClickListener(eventAttraction: EventsAndAttraction) {
 
 //                        navigate(R.id.action_my_trip_to_travel_mode_dialog)
-                        navigateByDirections(MyTripFragmentDirections.actionMyTripToTravelModeDialog())
+                        navigateByDirections(
+                            MyTripFragmentDirections.actionMyTripToTravelModeDialog(
+                                eventAttraction.id
+                            )
+                        )
 
                     }
 
@@ -140,7 +180,20 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
                     ) {
                     }
 
-                }
+                    override fun rowClickListenerDirections(latitude: String, longitude: String) {
+                        if (!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty()) {
+                            // open google map application
+                            navigateToGoogleMap(
+                                currentLocation.latitude.toString(),
+                                currentLocation.longitude.toString(),
+                                latitude,
+                                longitude
+                            )
+                        }
+                    }
+
+                },
+                getCurrentLanguage()
             )
             adapter = myTripAdapter
 
@@ -165,7 +218,6 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
 //                        currentLocation = location
                         mMap.clear()
-                        subscribeToObservables()
 
 
                     }
@@ -180,7 +232,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
         if (!this::mMap.isInitialized) {
             mapSetUp(savedInstanceState)
-        }else{
+        } else {
             subscribeToObservables()
         }
 
@@ -202,14 +254,20 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     }
 
     private fun subscribeToObservables() {
+
+
         tripSharedViewModel.eventAttractionResponse.observe(viewLifecycleOwner) {
             binding.tripId = it.tripId
+            tripId = it.tripId
             mMap.clear()
             Location(LocationManager.GPS_PROVIDER).apply {
-                latitude=it.location.latitude.toDouble()
+                latitude = it.location.latitude.toDouble()
                 longitude = it.location.longitude.toDouble()
                 currentLocation = this
             }
+
+            //   addBottomSheet()
+
 
         }
         tripSharedViewModel.travelMode.observe(viewLifecycleOwner) {
@@ -218,7 +276,11 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
         tripSharedViewModel.tripList.observe(viewLifecycleOwner) {
             if (it != null) {
+                binding.tvPlaceHolder.hide()
                 myTripAdapter.submitList(it)
+                drawPolyline(it)
+            } else {
+                binding.tvPlaceHolder.show()
             }
         }
 
@@ -228,9 +290,9 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
 
             //
-            tripSharedViewModel.updateLocalDistance(currentLocation)
+            tripSharedViewModel.updateLocalDistance(currentLocation, it.single { it.isSelected })
             //
-            tripSharedViewModel.filterEvents(it.single { it.isSelected })
+//            tripSharedViewModel.filterEvents(it.single { it.isSelected })
 
 
             datesAdapter.submitList(it)
@@ -238,24 +300,37 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         }
 
         myTripViewModel.distanceResponse.observe(viewLifecycleOwner) {
-            it.rows[0].elements.map {
-                if (it.status == "ZERO_RESULTS") {
-                    showAlert(Constants.TRAVEL_MODE.ERROR)
-                    return@observe
-                }
-            }
-            tripSharedViewModel.mapDistanceInList(it, travelMode)
+//            it.rows[0].elements.map {
+//                if (it.status == "ZERO_RESULTS") {
+//                    showAlert(Constants.TRAVEL_MODE.ERROR)
+//                    return@observe
+//                }
+//            }
+//            tripSharedViewModel.mapDistanceInList(it, travelMode)
         }
 
         myTripViewModel.directionResponse.observe(viewLifecycleOwner) {
-            drawPolyline(it.routes)
+//            tripSharedViewModel.mapDirectionInList(it)
+
+//            drawPolyline(it)
+        }
+
+        myTripViewModel.directionDistanceResponse.observe(viewLifecycleOwner) {
+            tripSharedViewModel.mapInList(it, travelMode)
         }
 
         tripSharedViewModel.showSave.observe(viewLifecycleOwner) {
-            if (it) binding.btnNext.visibility = View.VISIBLE else binding.btnNext.visibility =
-                View.GONE
-            if (it) binding.btnDeleteDur.visibility =
-                View.GONE else binding.btnDeleteDur.visibility = View.VISIBLE
+//            showSave = it
+            if (it) {
+//                binding.btnNext.visibility = View.VISIBLE
+                binding.btnEditDur.visibility = View.VISIBLE
+                binding.btnDeleteDur.visibility = View.GONE
+            } else {
+//                binding.btnNext.visibility = View.GONE
+                binding.btnEditDur.visibility = View.GONE
+                binding.btnDeleteDur.visibility = View.VISIBLE
+            }
+
 
         }
 
@@ -268,11 +343,18 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             }
         }
         tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
-            if (it != null) {
-            //    tripSharedViewModel.filterList()
+            if (!it.isNullOrEmpty()) {
+                //    tripSharedViewModel.filterList()
                 getDirections(it)
-                getDistance(it)
+//                getDistance(it)
                 addMarkers(it)
+                binding.rvTrips.show()
+//                binding.btnNext.show()
+                binding.tvPlaceHolder.hide()
+            } else {
+                binding.tvPlaceHolder.show()
+                binding.rvTrips.hide()
+//                binding.btnNext.hide()
 
             }
         }
@@ -285,36 +367,45 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         var hashMap: HashMap<String, String> = HashMap<String, String>()
         var destination: String = ""
         if (list.isNotEmpty()) {
-            hashMap["origins"] =
-                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
+//            hashMap["origins"] =
+//                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
+//
+////            hashMap["destination"] =
+////                list[0].latitude + "," + list[0].longitude
+//
+//            list.map {
+//                destination += it.latitude + "," + it.longitude + "|"
+//            }
+//
+//            hashMap["destinations"] = destination
+//            hashMap["mode"] = travelMode
+//
+//            hashMap["key"] = getString(R.string.map_key)
 
-//            hashMap["destination"] =
-//                list[0].latitude + "," + list[0].longitude
-
-            list.map {
-                destination += it.latitude + "," + it.longitude + "|"
-            }
-
-            hashMap["destinations"] = destination
-            hashMap["mode"] = travelMode
-
-            hashMap["key"] = getString(R.string.map_key)
-
-            myTripViewModel.getDistance(
-                map = hashMap
-            )
+//            myTripViewModel.getDistance(
+//                list, getString(R.string.map_key), travelMode, currentLanguage
+//            )
         }
 
     }
 
-    private fun drawPolyline(routes: List<Route>) {
+    private fun drawPolyline(routes: List<EventsAndAttraction>) {
+//        routes[0].
+        if (polylines.isNotEmpty()) {
 
-        val polyoptions = PolylineOptions()
-        polyoptions.color(ContextCompat.getColor(context!!, R.color.polyline_color))
-        polyoptions.width(5f)
-        polyoptions.addAll(PolyUtil.decode(routes[0].overviewPolyline.points))
-        mMap.addPolyline(polyoptions)
+            for (polyline in polylines) {
+                polyline.remove()
+            }
+            polylines.clear()
+        }
+        for (route in routes) {
+            val polyoptions = PolylineOptions()
+            polyoptions.color(ContextCompat.getColor(context!!, R.color.polyline_color))
+            polyoptions.width(5f)
+            polyoptions.addAll(PolyUtil.decode(route.points))
+            polylines.add(mMap.addPolyline(polyoptions))
 
+        }
 
     }
 
@@ -364,16 +455,58 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
     }
 
     fun onBackPressed() {
-        navigateBack()
+        showAlert(
+            message = getString(R.string.tripCloseAlert),
+            textPositive = getString(R.string.yes),
+            textNegative = getString(R.string.no),
+            actionNegative = {
+
+            },
+            actionPositive = {
+                back()
+            }
+        )
     }
 
 
     fun onBottomSheetClicked() {
-        navigate(R.id.action_my_trip_to_my_trip_listing)
+//        navigate(R.id.action_my_trip_to_my_trip_listing)
     }
 
     fun onSaveTripClicked() {
         navigate(R.id.action_myTrip_bottom_sheet_to_myTripNameDialog)
+    }
+
+    fun onEditTripClicked() {
+//        navigate(R.id.action_myTrip_to_tripFragment)
+        showAlert(
+            message = getString(R.string.are_you_sure_want_to_reset_trip),
+            textPositive = getString(R.string.yes),
+            textNegative = getString(R.string.no),
+            actionNegative = {
+
+            },
+            actionPositive = {
+                val intent = Intent(
+                    requireActivity(),
+                    NavGraphActivity::class.java
+                )
+                intent.putExtra(
+                    Constants.NavBundles.GRAPH_ID,
+                    R.navigation.plan_trip_parent_navigation
+                )
+                intent.putExtra(
+                    Constants.NavBundles.BACK_PRESS,
+                    true
+                )
+                startActivity(intent)
+                Handler().postDelayed({
+                    back()
+                }, 1000)
+            }
+        )
+
+
     }
 
     override fun onDestroy() {
@@ -383,6 +516,12 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         tripSharedViewModel._eventAttractionResponse.value = null
         tripSharedViewModel._eventAttractionList.value = null
 
+
+    }
+
+    fun onDeleteClicked(tripId: String) {
+
+        navigateByDirections(MyTripFragmentDirections.actionMyTripToDeleteDialog(tripId))
 
     }
 

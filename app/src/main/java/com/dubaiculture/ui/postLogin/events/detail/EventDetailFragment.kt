@@ -34,6 +34,7 @@ import com.dubaiculture.databinding.FragmentEventDetailBinding
 import com.dubaiculture.databinding.ToolbarLayoutEventDetailBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.attractions.detail.viewmodels.EventDetailViewModel
+import com.dubaiculture.ui.postLogin.attractions.utils.SocialLink
 import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils
 import com.dubaiculture.ui.postLogin.attractions.utils.SocialNetworkUtils.getFacebookPage
 import com.dubaiculture.ui.postLogin.events.`interface`.EventClickListner
@@ -214,7 +215,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 eventObj?.socialLink?.get(0)!!.twitterPageLink,
                 activity,
                 isTwitter = true,
-                fragment = this
+                fragment = this,
+                title = SocialLink.TWITTER.title
             )
         }
         eventDetailInnerLayout.imgInsta.setOnClickListener {
@@ -222,7 +224,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 eventObj?.socialLink?.get(0)!!.instagramPageLink,
                 activity,
                 isInstagram = true,
-                fragment = this
+                fragment = this,
+                title = SocialLink.INSTAGRAM.title
             )
         }
         eventDetailInnerLayout.imgUtube.setOnClickListener {
@@ -230,7 +233,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 eventObj?.socialLink?.get(0)!!.youtubePageLink,
                 activity,
                 isYoutube = true,
-                fragment = this
+                fragment = this,
+                title = SocialLink.YOUTUBE.title
             )
         }
         eventDetailInnerLayout.imgLinkedin.setOnClickListener {
@@ -238,7 +242,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 eventObj?.socialLink?.get(0)!!.linkedInPageLink,
                 activity,
                 isLinkedIn = true,
-                fragment = this
+                fragment = this,
+                title = SocialLink.LINKEDIN.title
             )
         }
 
@@ -826,8 +831,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun enableRegistration(registrationDate: String) {
         if (getTimeSpan(registrationDate)) {
-            binding.toolbarLayoutEventDetail.btnReg.visibility = View.GONE
-            binding.eventDetailInnerLayout.btnRegisterNow.visibility = View.GONE
+            binding.toolbarLayoutEventDetail.btnReg.hide()
+            binding.eventDetailInnerLayout.btnRegisterNow.hide()
         }
     }
 

@@ -27,11 +27,11 @@ class PlanYourTripViewModel @Inject constructor(
     private val _tripCount: MutableLiveData<Event<Int>> = MutableLiveData()
     val tripCount: LiveData<Event<Int>> = _tripCount
 
-    init {
-        getTripCount()
-    }
+//    init {
+//        getTripCount()
+//    }
 
-    private fun getTripCount() {
+     fun getTripCount() {
         viewModelScope.launch {
             showLoader(true)
             val result = tripRepository.getTripCount(context.auth.locale.toString())

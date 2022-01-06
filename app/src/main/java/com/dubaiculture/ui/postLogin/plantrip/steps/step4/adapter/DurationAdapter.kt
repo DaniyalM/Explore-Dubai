@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.MenuRes
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -18,8 +19,14 @@ import com.dubaiculture.data.repository.trip.local.Durations
 import com.dubaiculture.databinding.ItemDurationBinding
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.dubaiculture.utils.ColorUtil
+import java.text.NumberFormat
+import java.util.*
 
-class DurationAdapter(val rowClickListener: DurationClickListener,val addDurationList: Durations) :
+class DurationAdapter(
+    val rowClickListener: DurationClickListener,
+    val addDurationList: Durations,
+    val currentLanguage: Locale
+) :
     ListAdapter<Duration, DurationAdapter.DurationViewHolder>(
         DurationAdapter.DurationDiffCallback()
     ) {
@@ -50,20 +57,38 @@ class DurationAdapter(val rowClickListener: DurationClickListener,val addDuratio
         )
 
         var unSelectedColors = intArrayOf(
-            ColorUtil.fetchColor(binding.root.context,R.attr.colorSecondaryVariant),
-            ColorUtil.fetchColor(binding.root.context,R.attr.colorSecondaryVariant),
-            ColorUtil.fetchColor(binding.root.context,R.attr.colorSecondaryVariant),
-            ColorUtil.fetchColor(binding.root.context,R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(binding.root.context, R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(binding.root.context, R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(binding.root.context, R.attr.colorSecondaryVariant),
+            ColorUtil.fetchColor(binding.root.context, R.attr.colorSecondaryVariant),
         )
 
         fun bind(duration: Duration) {
 
             binding.data = duration
+            if (duration.hour != binding.root.context.getString(R.string.select_hour)) {
+                val separated: List<String> = duration.hour.split(" ")
+                if (currentLanguage != Locale.ENGLISH) {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+//                    val dayCount = Integer.parseInt(day.duration.substring(0, day.duration.indexOf(" ")))
+                    binding.btnSpinner.text =
+                        nf.format(Integer.parseInt(separated[0])) + " " + separated[1]
+                } else {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                    binding.btnSpinner.text =
+                        nf.format(Integer.parseInt(separated[0])) + " " + separated[1]
+                }
+            } else {
+                binding.btnSpinner.text = duration.hour
+            }
             binding.view = this
             when (duration.isDay) {
                 0 -> {
                     binding.btnDay.icon =
                         ContextCompat.getDrawable(binding.root.context, R.drawable.ic_day)
+
+                    binding.btnDay.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                     binding.btnDay.setBackgroundColor(
                         ContextCompat.getColor(binding.root.context, R.color.transparent)
@@ -71,6 +96,9 @@ class DurationAdapter(val rowClickListener: DurationClickListener,val addDuratio
 
                     binding.btnNight.icon =
                         ContextCompat.getDrawable(binding.root.context, R.drawable.ic_night)
+
+                    binding.btnNight.iconTint = ColorStateList(unSelectedStates, unSelectedColors)
+
 
                     binding.btnNight.setBackgroundColor(
                         ContextCompat.getColor(binding.root.context, R.color.transparent)
@@ -132,13 +160,27 @@ class DurationAdapter(val rowClickListener: DurationClickListener,val addDuratio
             val popup = PopupMenu(v.context, v)
             popup.menuInflater.inflate(menuRes, popup.menu)
 
-            addDurationList.hoursList.forEach {
-                popup.menu.add(it.duration)
+            addDurationList.hoursList.forEach { hour ->
+                if (hour.duration != binding.root.context.getString(R.string.select_hour)) {
+                    val separated: List<String> = hour.duration.split(" ")
+                    if (currentLanguage != Locale.ENGLISH) {
+                        var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+//                    val dayCount = Integer.parseInt(day.duration.substring(0, day.duration.indexOf(" ")))
+                        popup.menu.add(nf.format(Integer.parseInt(separated[0])) + " " + separated[1])
+                    } else {
+                        var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                        popup.menu.add(nf.format(Integer.parseInt(separated[0])) + " " + separated[1])
+                    }
+                } else {
+                    popup.menu.add(hour.duration)
+                }
             }
 
 
             popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-                rowClickListener.rowClickListener(binding.data!!.copy(hour = menuItem.title.toString()))
+                var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                val separated: List<String> = menuItem.title.toString().split(" ")
+                rowClickListener.rowClickListener(binding.data!!.copy(hour = nf.format(Integer.parseInt(separated[0])) + " " + separated[1]))
                 true
             }
             popup.setOnDismissListener {

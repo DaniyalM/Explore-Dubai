@@ -10,6 +10,7 @@ import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.LocationNearest
 import com.dubaiculture.databinding.ItemTripStep3Binding
 import com.dubaiculture.ui.postLogin.plantrip.steps.step3.adapter.clicklisteners.NearestLocationClickListener
+import com.dubaiculture.utils.ColorUtil
 
 class NearestLocationAdapter(val rowClickListener: NearestLocationClickListener) :
     ListAdapter<LocationNearest, NearestLocationAdapter.NearestLocationViewHolder>(
@@ -23,12 +24,7 @@ class NearestLocationAdapter(val rowClickListener: NearestLocationClickListener)
         fun bind(locationNearest: LocationNearest) {
 
             binding.nearestLocation = locationNearest
-            binding.chipLocation.setTextColor(
-                ContextCompat.getColor(
-                    binding.root.context,
-                    R.color.gray_400
-                )
-            )
+
             if (locationNearest.isChecked) {
                 binding.chipLocation.setTextColor(
                     ContextCompat.getColor(
@@ -36,7 +32,13 @@ class NearestLocationAdapter(val rowClickListener: NearestLocationClickListener)
                         R.color.white_900
                     )
                 )
-            } 
+
+
+            }else{
+                binding.chipLocation.setTextColor(
+                    ColorUtil.fetchColor(binding.root.context,R.attr.color_light_theme_dark_theme_dark_gray)
+                )
+            }
 
             binding.chipLocation.setOnClickListener {
                 rowClickListener.rowClickListener(locationNearest)

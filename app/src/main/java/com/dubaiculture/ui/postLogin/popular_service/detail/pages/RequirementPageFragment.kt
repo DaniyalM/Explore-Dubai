@@ -1,11 +1,13 @@
 package com.dubaiculture.ui.postLogin.popular_service.detail.pages
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dubaiculture.R
+import com.dubaiculture.data.repository.popular_service.local.models.Procedure
 import com.dubaiculture.data.repository.popular_service.local.models.RequiredDocument
 import com.dubaiculture.data.repository.popular_service.local.models.ServiceProcedure
 import com.dubaiculture.databinding.ItemsServiceDetailInnerListingLayoutBinding
@@ -13,17 +15,34 @@ import com.dubaiculture.databinding.ItemsServiceDetailProcedureLayoutBinding
 import com.dubaiculture.databinding.ItemsServiceDetailReqDocumentLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.adapter.ServiceDetailListingItems
+import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.show
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
-class  RequirementPageFragment(val requiredDocument: List<RequiredDocument>?) : BaseFragment<ItemsServiceDetailInnerListingLayoutBinding>() {
+class  RequirementPageFragment : BaseFragment<ItemsServiceDetailInnerListingLayoutBinding>() {
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     )= ItemsServiceDetailInnerListingLayoutBinding.inflate(inflater,container,false)
 
+    private lateinit var requiredDocument: List<RequiredDocument>
+    companion object {
+        fun newInstance(requiredDocument: List<RequiredDocument>): RequirementPageFragment {
+            val args = Bundle()
+            args.putParcelableArrayList(Constants.NavBundles.REQUIREMENT_LIST, ArrayList(requiredDocument))
+            val fragment = RequirementPageFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.let {
+            requiredDocument= it.getParcelableArrayList(Constants.NavBundles.REQUIREMENT_LIST)!!
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

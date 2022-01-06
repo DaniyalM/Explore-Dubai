@@ -20,42 +20,42 @@ fun transform(userTypeResponse: UserTypeResponse): UserTypeResponseDTO {
 }
 
 fun transformUserType(userTypeResponse: UserTypeResponseDTO) = UserTypes(
-    title = userTypeResponse.Title,
-    usersType = userTypeResponse.UsersType.mapIndexed { index, usersTypeDTO ->
+    title = userTypeResponse.Title ?: "",
+    usersType = userTypeResponse.UsersType?.mapIndexed { index, usersTypeDTO ->
         UsersType(
             id = index + 1,
-            image = usersTypeDTO.Image,
-            title = usersTypeDTO.Title,
+            image = usersTypeDTO.Image ?: "",
+            title = usersTypeDTO.Title ?: "",
             checked = false
         )
-    }
+    }?: emptyList()
 )
 
 fun transformInterestedIn(interestedInResponseDTO: InterestedInResponseDTO) = InterestedIn(
-    title = interestedInResponseDTO.Title,
-    interestedInList = interestedInResponseDTO.InterestedIn.map { interestedInResponseDTO ->
+    title = interestedInResponseDTO.Title?:"",
+    interestedInList = interestedInResponseDTO.InterestedIn?.map { interestedInResponseDTO ->
         InterestedInType(
-            id = interestedInResponseDTO.Id,
-            image = interestedInResponseDTO.Image,
-            title = interestedInResponseDTO.Title,
-            icon = interestedInResponseDTO.Icon,
+            id = interestedInResponseDTO.Id?:"",
+            image = interestedInResponseDTO.Image?:"",
+            title = interestedInResponseDTO.Title?:"",
+            icon = interestedInResponseDTO.Icon?:"",
             checked = false
         )
-    }
+    }?: emptyList()
 )
 
 fun transformNearestLocation(nearestLocationResponseDTO: NearestLocationResponseDTO) =
     NearestLocation(
-        title = nearestLocationResponseDTO.Title,
-        nearestLocation = nearestLocationResponseDTO.NearestLocation.map { nearestLocation ->
+        title = nearestLocationResponseDTO.Title?:"",
+        nearestLocation = nearestLocationResponseDTO.NearestLocation?.map { nearestLocation ->
             LocationNearest(
-                latitude = nearestLocation.Latitude,
-                longitude = nearestLocation.Longitude,
-                locationTitle = nearestLocation.LocationTitle,
-                locationId = nearestLocation.LocationId,
+                latitude = nearestLocation.Latitude?:"",
+                longitude = nearestLocation.Longitude?:"",
+                locationTitle = nearestLocation.LocationTitle?:"",
+                locationId = nearestLocation.LocationId?:"",
                 isChecked = false
             )
-        }
+        }?: emptyList()
     )
 
 fun transformDurations(durationsResponseDTO: DurationResponseDTO) =
@@ -204,6 +204,7 @@ fun transformEventAttractionResponse(eventAttractionResponseDTO: EventAttraction
                 icon = eventsAndAttraction.icon ?: "",
                 duration = "",
                 distance = "",
+                points = "",
                 travelMode = Constants.TRAVEL_MODE.DRIVING
             )
         },

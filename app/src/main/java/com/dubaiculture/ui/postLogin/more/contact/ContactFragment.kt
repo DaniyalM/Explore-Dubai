@@ -33,7 +33,7 @@ import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOption
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
-
+import com.dubaiculture.ui.postLogin.attractions.utils.SocialLink as SocialLinkEnum
 
 @AndroidEntryPoint
 class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickListener,
@@ -150,7 +150,8 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                     socialList.get(0).twitterPageLink,
                     activity,
                     isTwitter = true,
-                    fragment = this
+                    fragment = this,
+                    title = SocialLinkEnum.TWITTER.title
                 )
             }
             R.id.instagram -> {
@@ -158,7 +159,8 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                     socialList.get(0).instagramPageLink,
                     activity,
                     isInstagram = true,
-                    fragment = this
+                    fragment = this,
+                    title = SocialLinkEnum.INSTAGRAM.title
                 )
             }
             R.id.imgYoutube -> {
@@ -166,7 +168,8 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                     socialList.get(0).youtubePageLink,
                     activity,
                     isYoutube = true,
-                    fragment = this
+                    fragment = this,
+                    title = SocialLinkEnum.YOUTUBE.title
                 )
             }
             R.id.imgLinkedinAttraction -> {
@@ -174,7 +177,8 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                     socialList.get(0)!!.linkedInPageLink,
                     activity,
                     isLinkedIn = true,
-                    fragment = this
+                    fragment = this,
+                    title = SocialLinkEnum.LINKEDIN.title
                 )
             }
             R.id.call_us -> {
@@ -203,7 +207,7 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
                 navigateByDirections(
                     ContactFragmentDirections.actionContactFragmentToWebviewFragment(
                         contactCenterReach.websiteContent,
-                        false
+                        false, getString(R.string.contact_center)
                     )
                 )
             }
@@ -283,7 +287,8 @@ class ContactFragment : BaseFragment<FragmentContactBinding>(), View.OnClickList
         navigateByDirections(
             ContactFragmentDirections.actionContactFragmentToWebviewFragment(
                 url,
-                false
+                false,
+                getString(R.string.suggestion_amp_complaints)
             )
         )
 
