@@ -51,6 +51,7 @@ object Constants {
 
     object NavBundles {
         const val GRAPH_ID: String = "graphId"
+        const val BACK_PRESS: String = "backPress"
         const val FORM_NAME: String = "form_name"
         const val DESCRIPTION_LIST: String = "descriptionList"
         const val PROCEDURE_LIST: String = "procedureList"

@@ -101,6 +101,10 @@
     <color name="disabled_text_color">#898989</color>
     <color name="pyt_purple_light">#8948C9</color>
     <color name="pyt_orange_light">#FA8232</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
 
 
 

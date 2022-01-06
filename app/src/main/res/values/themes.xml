@@ -186,6 +186,10 @@
     <style name="MyTitle_MaterialAlertDialog" parent="@style/MaterialAlertDialog.MaterialComponents">
         <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
     </style>
+    <style name="ThemeOverlay.DubaiCulture.AppWidgetContainer" parent="">
+        <item name="appWidgetBackgroundColor">@color/light_blue_600</item>
+        <item name="appWidgetTextColor">@color/light_blue_50</item>
+    </style>
 
     <!--    <style name="MaterialAlertDialogText" parent="@style/MaterialAlertDialog.MaterialComponents.mess.Text">-->
     <!--        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>-->
