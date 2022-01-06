@@ -80,7 +80,7 @@ abstract class BaseViewModel(
 
 
     fun navigateByBack() {
-        _uiEventsLiveData.value = Event(UiEvent.NavigateByBack())
+        _uiEventsLiveData.value = Event(UiEvent.NavigateBack())
     }
 
 

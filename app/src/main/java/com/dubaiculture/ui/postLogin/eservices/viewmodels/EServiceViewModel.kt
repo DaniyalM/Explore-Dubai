@@ -41,7 +41,7 @@ class EServiceViewModel @Inject constructor(
         HashMap()
     }
 
-    private val form = FormType.BOOKING_ESERVICE
+    private val form = FormType.NOC_FORM
 
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
@@ -135,7 +135,9 @@ class EServiceViewModel @Inject constructor(
                 if (isArabic) Constants.Locale.ARABIC else Constants.Locale.ENGLISH
             )
             if (result is Result.Success) {
-                showToast(result.value.SerialNo)
+                showAlert(message = result.value.SerialNo, actionPositive = {
+                    navigateByBack()
+                })
             } else if (result is Result.Failure) {
                 showToast(result.errorMessage ?: Constants.Error.SOMETHING_WENT_WRONG)
             }

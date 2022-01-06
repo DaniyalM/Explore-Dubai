@@ -56,7 +56,8 @@ object FieldUtils {
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem
-    ): TextView {
+    ): TextView? {
+        if (fieldValueItem.hint_en.isEmpty()) return null
         val view = EserviceTextViewBinding.inflate(layoutInflater, root, false)
         val textView = view.textView
         val text = if (isArabic) fieldValueItem.hint_ar else fieldValueItem.hint_en

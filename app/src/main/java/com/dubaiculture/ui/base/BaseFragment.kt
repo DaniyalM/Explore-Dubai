@@ -52,7 +52,6 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     protected lateinit var activity: Activity
 
 
-
     protected var customProgressDialog: ProgressDialog? = null
 
     //    protected lateinit var groupAdapter: GroupAdapter<GroupieViewHolder>
@@ -119,7 +118,7 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         try {
             super.onCreate(savedInstanceState)
-        }catch (ex: Exception){
+        } catch (ex: Exception) {
             back()
         }
 
@@ -227,6 +226,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment() {
                                 event.bundle,
                                 event.navOptions
                             )
+                        }
+                        is UiEvent.NavigateBack -> {
+                            back()
                         }
                     }
                 }
