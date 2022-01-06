@@ -2,14 +2,17 @@ package com.dubaiculture.ui.postLogin.plantrip.steps.step3
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.LocationNearest
 import com.dubaiculture.databinding.FragmentTripStep3Binding
@@ -23,17 +26,13 @@ import com.dubaiculture.utils.location.LocationHelper
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -88,6 +87,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
         var flexLayoutManager = FlexboxLayoutManager(context)
         flexLayoutManager.flexDirection = FlexDirection.ROW
         flexLayoutManager.alignItems = AlignItems.STRETCH
+        binding.rvLocationChips.itemAnimator = null
         binding.rvLocationChips.apply {
 //            layoutManager =
 //                StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
@@ -150,11 +150,12 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
 
         tripSharedViewModel.nearestLocationTemp.observe(viewLifecycleOwner) {
-            binding.rvLocationChips.visibility = View.VISIBLE
-            nearestLocAdapter.submitList(it)
-            setMarker(it)
-            nearestLocationList = it
-
+            if (it != null) {
+                binding.rvLocationChips.visibility = View.VISIBLE
+                nearestLocAdapter.submitList(it)
+                setMarker(it)
+                nearestLocationList = it
+            }
         }
 
         tripSharedViewModel.nearestLocation.observe(viewLifecycleOwner) {
@@ -260,6 +261,8 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
     override fun onMapReady(map: GoogleMap) {
         mMap = map
+        map?.uiSettings?.setAllGesturesEnabled(false)
+
         if (this::markerLocation.isInitialized) {
             navigateMarker(markerLocation.latitude, markerLocation.longitude)
         } else {
@@ -306,7 +309,7 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
                 marker = mMap?.addMarker(
                     MarkerOptions()
                         .position(LatLng(latitude, longitude))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_location))
+                        .icon(bitmapDescriptorFromVector(requireContext(),R.drawable.location_pin_vect))
 
                 )
             } else {
@@ -316,12 +319,21 @@ class TripStep3Fragment : BaseFragment<FragmentTripStep3Binding>(), OnMapReadyCa
 
             mMap?.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
-                    LatLng(latitude, longitude), 13.0f
+                    LatLng(latitude, longitude), 18.0f
                 )
             )
             mMap?.cameraPosition?.target
         }
 
+    }
+
+    private fun  bitmapDescriptorFromVector(context: Context, vectorResId:Int): BitmapDescriptor {
+        val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
+        vectorDrawable!!.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight())
+        val bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888)
+        val canvas =  Canvas(bitmap)
+        vectorDrawable.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
     override fun onPause() {

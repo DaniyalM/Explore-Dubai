@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.forEach
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -54,11 +55,23 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
         binding.collapsingToolbarLayout.setContentScrimColor(Color.WHITE)
         lottieAnimationRTL(binding.animationView)
 
+//        val params: CoordinatorLayout.LayoutParams =
+//            binding.appbarLayout.layoutParams as CoordinatorLayout.LayoutParams
+//
+//        val behavior = AppBarLayout.Behavior()
+//        behavior.setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+//            override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+//                return false
+//            }
+//        })
+//        params.behavior = behavior
+
     }
 
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+        planYourTripViewModel.getTripCount()
         subscribeToObservables()
 
     }
@@ -200,6 +213,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
         tripSharedViewModel._duration.value = null
         tripSharedViewModel._durationSummary.value = null
         tripSharedViewModel._nearestLocationType.value = null
+        tripSharedViewModel._nearestLocationTemp.value = null
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
@@ -207,9 +221,12 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
         if (verticalOffset == 0) {
 
             binding.toolbar.hide()
+            binding.ivClosetl.show()
 
         } else {
             binding.toolbar.show()
+            binding.ivClosetl.hide()
+
 
         }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
             name="tripId"
@@ -20,6 +21,9 @@
         <variable
             name="viewModel"
             type="com.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripViewModel" />
+        <variable
+            name="sharedViewModel"
+            type="com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -211,6 +215,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvDate" />
 
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tvPlaceHolder"
+                    style="@style/TextViewStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_50sdp"
+                    android:layout_marginBottom="@dimen/home_tab_layout_height"
+                    android:lineSpacingExtra="@dimen/text_line_spacing"
+                    android:text="@string/no_record_found"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_18sdp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@id/tvDate"
+                    app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvTrips"
                     android:layout_width="0dp"
@@ -234,6 +254,7 @@
                     android:gravity="center"
                     android:onClick="@{()->view.onSaveTripClicked()}"
                     android:text="@string/saveTrip"
+                    android:visibility="@{sharedViewModel.eventAttractionList.size() != 0 &amp;&amp; sharedViewModel.showSave ? View.VISIBLE : View.GONE}"
                     android:textAllCaps="false"
                     android:textColor="@color/white_900"
                     android:transitionName="action_btn"

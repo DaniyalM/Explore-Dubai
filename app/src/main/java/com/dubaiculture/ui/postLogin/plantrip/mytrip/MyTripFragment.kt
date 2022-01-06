@@ -29,7 +29,9 @@ import com.dubaiculture.ui.postLogin.plantrip.viewmodels.MyTripViewModel
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
+import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.location.LocationHelper
+import com.dubaiculture.utils.show
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.*
@@ -82,6 +84,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         super.onViewCreated(view, savedInstanceState)
         binding.view = this
         binding.viewModel = myTripViewModel
+        binding.sharedViewModel = tripSharedViewModel
         subscribeUiEvents(myTripViewModel)
         backArrowRTL(binding.ivClose)
 
@@ -130,7 +133,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 //            hashMap["key"] = getString(R.string.map_key)
 
             myTripViewModel.getDirections(
-                list, getString(R.string.map_key), travelMode
+                list, getString(R.string.map_key), travelMode,getCurrentLanguage()
             )
         }
 
@@ -273,8 +276,11 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
         tripSharedViewModel.tripList.observe(viewLifecycleOwner) {
             if (it != null) {
+                binding.tvPlaceHolder.hide()
                 myTripAdapter.submitList(it)
                 drawPolyline(it)
+            } else {
+                binding.tvPlaceHolder.show()
             }
         }
 
@@ -314,13 +320,13 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
         }
 
         tripSharedViewModel.showSave.observe(viewLifecycleOwner) {
-
+//            showSave = it
             if (it) {
-                binding.btnNext.visibility = View.VISIBLE
+//                binding.btnNext.visibility = View.VISIBLE
                 binding.btnEditDur.visibility = View.VISIBLE
                 binding.btnDeleteDur.visibility = View.GONE
             } else {
-                binding.btnNext.visibility = View.GONE
+//                binding.btnNext.visibility = View.GONE
                 binding.btnEditDur.visibility = View.GONE
                 binding.btnDeleteDur.visibility = View.VISIBLE
             }
@@ -337,11 +343,18 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
             }
         }
         tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
-            if (it != null) {
+            if (!it.isNullOrEmpty()) {
                 //    tripSharedViewModel.filterList()
                 getDirections(it)
 //                getDistance(it)
                 addMarkers(it)
+                binding.rvTrips.show()
+//                binding.btnNext.show()
+                binding.tvPlaceHolder.hide()
+            } else {
+                binding.tvPlaceHolder.show()
+                binding.rvTrips.hide()
+//                binding.btnNext.hide()
 
             }
         }
@@ -369,9 +382,9 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 //
 //            hashMap["key"] = getString(R.string.map_key)
 
-            myTripViewModel.getDistance(
-                list, getString(R.string.map_key), travelMode
-            )
+//            myTripViewModel.getDistance(
+//                list, getString(R.string.map_key), travelMode, currentLanguage
+//            )
         }
 
     }
@@ -380,7 +393,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 //        routes[0].
         if (polylines.isNotEmpty()) {
 
-            for(polyline in polylines){
+            for (polyline in polylines) {
                 polyline.remove()
             }
             polylines.clear()

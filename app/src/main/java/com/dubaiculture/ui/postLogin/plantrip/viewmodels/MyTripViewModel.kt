@@ -18,7 +18,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashMap
 
 @HiltViewModel
 class MyTripViewModel @Inject constructor(
@@ -41,7 +43,12 @@ class MyTripViewModel @Inject constructor(
     private var _deleteTripStatus: MutableLiveData<Event<Boolean>> = MutableLiveData()
     var deleteTripStatus: MutableLiveData<Event<Boolean>> = _deleteTripStatus
 
-    fun getDirections(list: List<EventsAndAttraction>, mapKey: String, travelMode: String) {
+    fun getDirections(
+        list: List<EventsAndAttraction>,
+        mapKey: String,
+        travelMode: String,
+        currentLanguage: Locale
+    ) {
         viewModelScope.launch {
             showLoader(true)
 
@@ -54,6 +61,8 @@ class MyTripViewModel @Inject constructor(
 
                     hashMap["origin"] =
                         it.latitude.toString() + "," + it.longitude.toString()
+
+                    hashMap["language"] = currentLanguage.language
 
                     hashMap["destination"] =
                         list[index + 1].latitude.toString() + "," + list[index + 1].longitude.toString()
@@ -94,7 +103,7 @@ class MyTripViewModel @Inject constructor(
 
             showLoader(false)
             _directionResponse.value = directionResponseList
-            getDistance(list,mapKey, travelMode)
+            getDistance(list, mapKey, travelMode, currentLanguage)
         }
 
 //            val result = tripRepository.getDirections(map)
@@ -118,7 +127,12 @@ class MyTripViewModel @Inject constructor(
     }
 
 
-    fun getDistance(list: List<EventsAndAttraction>, mapKey: String, travelMode: String) {
+    fun getDistance(
+        list: List<EventsAndAttraction>,
+        mapKey: String,
+        travelMode: String,
+        currentLanguage: Locale
+    ) {
 
         viewModelScope.launch {
             showLoader(true)
@@ -132,6 +146,8 @@ class MyTripViewModel @Inject constructor(
 
                     hashMap["origins"] =
                         it.latitude.toString() + "," + it.longitude.toString()
+
+                    hashMap["language"] = currentLanguage.language
 
                     hashMap["destinations"] =
                         list[index + 1].latitude.toString() + "," + list[index + 1].longitude.toString()
@@ -172,7 +188,8 @@ class MyTripViewModel @Inject constructor(
 
             showLoader(false)
             _distanceResponse.value = distanceResponseList
-            _directionDistanceResponse.value = DistanceDirectionListModel(directionResponseList,distanceResponseList)
+            _directionDistanceResponse.value =
+                DistanceDirectionListModel(directionResponseList, distanceResponseList)
         }
 
     }
