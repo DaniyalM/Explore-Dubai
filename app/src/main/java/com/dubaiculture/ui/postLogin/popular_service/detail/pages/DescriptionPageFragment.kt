@@ -61,7 +61,7 @@ class DescriptionPageFragment(val description: List<Description>, val category: 
 //            )
             (parentFragment as ServiceDetailFragment).navigateByDirections(
                 ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
-                    "NOCForm"
+                    description[0].title, description[0].formName, description[0].formSubmitURL
                 )
             )
         }

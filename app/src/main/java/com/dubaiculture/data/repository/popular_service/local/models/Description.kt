@@ -15,5 +15,7 @@ data class Description(
     val type: String,
     val typeTitle: String,
     val startServiceText: String,
-    val startServiceUrl: String
+    val startServiceUrl: String,
+    val formName: String,
+    val formSubmitURL: String
 )

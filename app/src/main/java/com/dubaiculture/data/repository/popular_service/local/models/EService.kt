@@ -10,5 +10,7 @@ data class EService(
     val id: String,
     val summary: String,
     val title: String,
-    val startServiceUrl: String
+    val startServiceUrl: String,
+    val formName: String,
+    val formSubmitURL: String
 ) : Parcelable

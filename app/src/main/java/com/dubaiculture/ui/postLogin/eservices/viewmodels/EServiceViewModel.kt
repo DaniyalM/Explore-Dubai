@@ -19,6 +19,7 @@ import com.dubaiculture.ui.postLogin.eservices.enums.ValidationType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
+import com.dubaiculture.utils.Constants.NavBundles.FORM_URL
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -41,14 +42,12 @@ class EServiceViewModel @Inject constructor(
         HashMap()
     }
 
-    private val form = FormType.NOC_FORM
-
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
     init {
         savedStateHandle.get<String>(FORM_NAME)?.let {
-            getFieldValues(form.value)
+            getFieldValues(it)
         }
     }
 
@@ -131,7 +130,7 @@ class EServiceViewModel @Inject constructor(
             val result = eServicesRepository.submitForm(
                 token,
                 request,
-                form.url,
+                savedStateHandle.get<String>(FORM_URL) ?: "",
                 if (isArabic) Constants.Locale.ARABIC else Constants.Locale.ENGLISH
             )
             if (result is Result.Success) {

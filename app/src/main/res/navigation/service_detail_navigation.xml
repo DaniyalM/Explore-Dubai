@@ -6,6 +6,7 @@
 
     <include app:graph="@navigation/post_login_bottom_navigation" />
     <include app:graph="@navigation/web_view_navigation" />
+    <include app:graph="@navigation/eservice_navigation" />
 
     <fragment
         android:id="@+id/serviceDetailFragment"
@@ -36,15 +37,21 @@
         </action>
         <action
             android:id="@+id/action_serviceDetailFragment2_to_EServiceFragment"
-            app:destination="@id/EServiceFragment"
+            app:destination="@id/eservice_navigation"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out">
             <argument
+                android:name="form_title"
+                app:argType="string" />
+            <argument
                 android:name="form_name"
                 app:argType="string"
                 app:nullable="false" />
+            <argument
+                android:name="form_url"
+                app:argType="string" />
         </action>
         <action
             android:id="@+id/action_serviceDetailFragment_to_webViewFragment"
@@ -85,14 +92,7 @@
                 app:nullable="false" />
         </action>
     </fragment>
-    <fragment
-        android:id="@+id/EServiceFragment"
-        android:name="com.dubaiculture.ui.postLogin.eservices.EServiceFragment"
-        android:label="EServiceFragment">
-        <argument
-            android:name="form_name"
-            app:argType="string" />
-    </fragment>
+
     <dialog
         android:id="@+id/messageDialogFragment"
         android:name="com.dubaiculture.ui.postLogin.messageDialog.MessageDialogFragment"

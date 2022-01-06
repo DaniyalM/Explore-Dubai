@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/service_navigation"
     app:startDestination="@id/popularServiceFragment">
+
     <include app:graph="@navigation/service_detail_navigation" />
+    <include app:graph="@navigation/eservice_navigation" />
 
     <fragment
         android:id="@+id/popularServiceFragment"
         android:name="com.dubaiculture.ui.postLogin.popular_service.PopularServiceFragment"
         android:label="PopularServiceFragment"
-        tools:layout="@layout/fragment_popular_service" >
+        tools:layout="@layout/fragment_popular_service">
         <action
             android:id="@+id/action_popularServiceFragment_to_service_detail_navigation"
             app:destination="@id/service_detail_navigation"
@@ -39,6 +41,22 @@
                 app:nullable="false" />
 
         </action>
-
+        <action
+            android:id="@+id/action_popularServiceFragment_to_EServiceFragment"
+            app:destination="@id/eservice_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="form_title"
+                app:argType="string" />
+            <argument
+                android:name="form_name"
+                app:argType="string" />
+            <argument
+                android:name="form_url"
+                app:argType="string" />
+        </action>
     </fragment>
 </navigation>

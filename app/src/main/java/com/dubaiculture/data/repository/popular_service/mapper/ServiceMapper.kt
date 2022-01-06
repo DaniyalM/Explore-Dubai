@@ -36,7 +36,9 @@ fun transformService(eServices: List<EServiceDTO>): List<EService> =
             summary = it.Summary,
             id = it.ID,
             categoryId = it.CategoryID,
-            startServiceUrl = it.StartServiceUrl?:""
+            startServiceUrl = it.StartServiceUrl ?: "",
+            formName = it.FormName ?: "",
+            formSubmitURL = it.FormSubmitURL ?: ""
         )
     }
 
@@ -71,7 +73,9 @@ fun transformServiceDetail(eServiceDetailDTO: EServiceDetailDTO): EServicesDetai
                 type = it.Type ?: "",
                 typeTitle = it.TypeTitle ?: "",
                 startServiceText = eServiceDetailDTO.StartServiceText ?: "",
-                startServiceUrl = eServiceDetailDTO.StartServiceUrl ?: ""
+                startServiceUrl = eServiceDetailDTO.StartServiceUrl ?: "",
+                formName = eServiceDetailDTO.FormName ?: "",
+                formSubmitURL = eServiceDetailDTO.FormSubmitURL ?: ""
             )
         } ?: mutableListOf(),
         enquireNumber = eServiceDetailDTO.EnquireNumber ?: "",

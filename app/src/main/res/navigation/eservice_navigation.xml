@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/eservice_navigation"
+    app:startDestination="@id/EServiceFragment">
+
+    <fragment
+        android:id="@+id/EServiceFragment"
+        android:name="com.dubaiculture.ui.postLogin.eservices.EServiceFragment"
+        android:label="EServiceFragment">
+        <argument
+            android:name="form_title"
+            app:argType="string" />
+        <argument
+            android:name="form_name"
+            app:argType="string" />
+        <argument
+            android:name="form_url"
+            app:argType="string" />
+    </fragment>
+</navigation>

@@ -6,5 +6,7 @@ data class EServiceDTO(
     val Summary: String,
     val CategoryID: String,
     val Title: String,
-    val StartServiceUrl: String?
+    val StartServiceUrl: String?,
+    val FormName: String?,
+    val FormSubmitURL: String?
 )

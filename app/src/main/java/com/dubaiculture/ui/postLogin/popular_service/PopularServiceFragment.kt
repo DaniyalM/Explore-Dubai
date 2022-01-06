@@ -15,6 +15,8 @@ import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListAdapter
 import com.dubaiculture.ui.postLogin.popular_service.adapter.clicklistener.ServiceClickListner
 import com.dubaiculture.ui.postLogin.popular_service.components.ServicesListingHeaderItemSelector.Companion.SERVICE_CLICK_CHECKER_FLAG
+import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment
+import com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragmentDirections
 import com.dubaiculture.ui.postLogin.popular_service.models.ServiceHeader
 import com.dubaiculture.ui.postLogin.popular_service.viewmodels.PopularServiceViewModel
 import com.dubaiculture.utils.Constants
@@ -70,12 +72,19 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
                 }
 
                 override fun onUrlClick(service: EService?) {
-                    navigateByDirections(
-                        PopularServiceFragmentDirections.actionPopularServiceFragmentToWebViewFragment(
-                            service!!.startServiceUrl,
-                            false
+                    service?.let {
+                        navigateByDirections(
+                            PopularServiceFragmentDirections.actionPopularServiceFragmentToEServiceFragment(
+                                it.title, it.formName, it.formSubmitURL
+                            )
                         )
-                    )
+                    }
+//                    navigateByDirections(
+//                        PopularServiceFragmentDirections.actionPopularServiceFragmentToWebViewFragment(
+//                            service!!.startServiceUrl,
+//                            false
+//                        )
+//                    )
                 }
             })
 

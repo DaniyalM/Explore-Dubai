@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.work.impl.background.systemjob.SystemJobService
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.FragmentEserviceBinding
@@ -44,6 +45,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
+    private val args: EServiceFragmentArgs by navArgs()
     private val eServiceViewModel: EServiceViewModel by viewModels()
 
     override fun getFragmentBinding(
@@ -54,6 +56,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(eServiceViewModel)
+        binding.heading.text = args.formTitle
         binding.include.back.setOnClickListener {
             back()
         }
