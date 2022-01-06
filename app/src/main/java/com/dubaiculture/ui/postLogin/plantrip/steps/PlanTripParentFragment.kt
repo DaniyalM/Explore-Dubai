@@ -9,7 +9,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.forEach
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.dubaiculture.R
@@ -123,7 +122,7 @@ class PlanTripParentFragment : BaseFragment<FragmentPlanTripParentBinding>(), Cu
             actionPositive = {
                 if (arguments!=null){
                     if (requireArguments().getBoolean(BACK_PRESS)){
-                        back()
+                        activity.finish()
                     }else {
                         navigateByDirections(PlanTripParentFragmentDirections.actionTripFragmentToBackFragment())
                     }
