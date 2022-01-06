@@ -1,6 +1,7 @@
 package com.dubaiculture.di
 
 import android.content.Context
+import androidx.work.WorkManager
 import com.dubaiculture.data.repository.visited.VisitedRepository
 import com.dubaiculture.utils.BeaconUtils
 import dagger.Module
@@ -30,4 +31,9 @@ object ViewModule {
     @Singleton
     @Provides
     fun provideDate() = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+
+
+    @Singleton
+    @Provides
+    fun provideWorkBuilder(@ApplicationContext context: Context)= WorkManager.getInstance(context)
 }
