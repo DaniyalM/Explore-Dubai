@@ -80,7 +80,6 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:includeFontPadding="false"
             android:textSize="@dimen/_8ssp"
-            android:text="@{data.displayTimeFrom + ` - ` + data.displayTimeTo + ` | ` + data.day}"
             app:layout_constraintStart_toEndOf="@id/ivTime"
             app:layout_constraintTop_toTopOf="@+id/ivTime" />
 
@@ -113,7 +112,6 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             android:includeFontPadding="false"
-            android:text="@{data.distance}"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/ivTime"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -174,7 +172,6 @@
             android:id="@+id/tvCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{data.duration}"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintEnd_toEndOf="@id/ivTrips"
             app:layout_constraintBottom_toBottomOf="@id/llIcons"

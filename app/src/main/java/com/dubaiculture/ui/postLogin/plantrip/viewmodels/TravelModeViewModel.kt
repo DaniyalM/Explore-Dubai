@@ -75,6 +75,7 @@ class TravelModeViewModel @Inject constructor(
         hashMap["mode"] = map["mode"].toString()
 
         hashMap["key"] = map["key"].toString()
+        hashMap["language"] = map["language"].toString()
         viewModelScope.launch {
             showLoader(true)
             val result = tripRepository.getDirections(hashMap)
