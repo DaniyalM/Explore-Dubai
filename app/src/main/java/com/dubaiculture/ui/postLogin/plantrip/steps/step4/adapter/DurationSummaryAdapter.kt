@@ -5,11 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.Duration
 import com.dubaiculture.databinding.ItemDurationSummaryBinding
 import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
+import java.text.NumberFormat
+import java.util.*
 
-class DurationSummaryAdapter(val rowClickListener: DurationClickListener) :
+class DurationSummaryAdapter(
+    val rowClickListener: DurationClickListener, val currentLanguage: Locale
+) :
     ListAdapter<Duration, DurationSummaryAdapter.DurationViewHolder>(
         DurationSummaryAdapter.DurationDiffCallback()
     ) {
@@ -21,6 +26,21 @@ class DurationSummaryAdapter(val rowClickListener: DurationClickListener) :
         fun bind(duration: Duration) {
 
             binding.data = duration
+            if (duration.hour != binding.root.context.getString(R.string.select_hour)) {
+                val separated: List<String> = duration.hour.split(" ")
+                if (currentLanguage != Locale.ENGLISH) {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+//                    val dayCount = Integer.parseInt(day.duration.substring(0, day.duration.indexOf(" ")))
+                    binding.tvDuration.text =
+                        nf.format(Integer.parseInt(separated[0])) + " " + separated[1]
+                } else {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                    binding.tvDuration.text =
+                        nf.format(Integer.parseInt(separated[0])) + " " + separated[1]
+                }
+            } else {
+                binding.tvDuration.text = duration.hour
+            }
 //            binding.cvUser.setOnClickListener {
 //                rowClickListener.rowClickListener(duration)
 //                rowClickListener.rowClickListener(duration, absoluteAdapterPosition)

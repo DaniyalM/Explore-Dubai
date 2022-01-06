@@ -197,6 +197,7 @@ class TravelModeBottomSheetFragment :
 
             hashMap["mode"] = travelMode
 
+            hashMap["language"] = getCurrentLanguage().language
 
             hashMap["key"] = getString(R.string.map_key)
 

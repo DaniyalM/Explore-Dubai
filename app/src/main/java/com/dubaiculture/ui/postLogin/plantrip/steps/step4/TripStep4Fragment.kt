@@ -69,8 +69,17 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
                     binding.tvDesc.show()
                     binding.cvDays.show()
                     binding.rvDurations.hide()
-                    binding.tvSelectDays.text = it.size.toString() + " " + getString(R.string.days)
+                    if (getCurrentLanguage() != Locale.ENGLISH) {
+                        var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
 
+                        binding.tvSelectDays.text =
+                            nf.format(Integer.parseInt(it.size.toString())) + " " + getString(R.string.days)
+                    } else {
+                        var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                        binding.tvSelectDays.text =
+                            nf.format(Integer.parseInt(it.size.toString())) + " " + getString(R.string.days)
+
+                    }
 //                    if (getCurrentLanguage() != Locale.ENGLISH) {
 //                        var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
 //                    } else {
@@ -204,7 +213,7 @@ class TripStep4Fragment : BaseFragment<FragmentTripStep4Binding>() {
                         TODO("Not yet implemented")
                     }
 
-                }
+                }, getCurrentLanguage()
             )
             adapter = durationSummaryAdapter
 

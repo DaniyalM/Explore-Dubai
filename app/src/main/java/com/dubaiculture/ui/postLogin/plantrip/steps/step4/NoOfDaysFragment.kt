@@ -1,11 +1,10 @@
 package com.dubaiculture.ui.postLogin.plantrip.steps.step4
 
-import android.content.res.ColorStateList
+import android.icu.number.IntegerWidth
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
 import com.dubaiculture.R
@@ -13,7 +12,8 @@ import com.dubaiculture.databinding.FragmentNoDaysBinding
 import com.dubaiculture.ui.base.BaseBottomSheetFragment
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import com.google.android.material.chip.Chip
-import timber.log.Timber
+import java.text.NumberFormat
+import java.util.*
 
 
 class NoOfDaysFragment : BaseBottomSheetFragment<FragmentNoDaysBinding>() {
@@ -103,7 +103,15 @@ class NoOfDaysFragment : BaseBottomSheetFragment<FragmentNoDaysBinding>() {
     private fun subscribeToObservable() {
         tripSharedViewModel.addDurationList.observe(viewLifecycleOwner) {
             it.daysList.forEachIndexed { index, day ->
-                addChip(title = day.duration, index = index)
+                val separated: List<String> = day.duration.split(" ")
+                if (getCurrentLanguage() != Locale.ENGLISH) {
+                    var nf: NumberFormat = NumberFormat.getInstance(Locale("ar"))
+//                    val dayCount = Integer.parseInt(day.duration.substring(0, day.duration.indexOf(" ")))
+                    addChip(title = nf.format(Integer.parseInt(separated[0]))+" " + separated[1], index = index)
+                } else {
+                        var nf: NumberFormat = NumberFormat.getInstance(Locale("en"))
+                    addChip(title =  nf.format(Integer.parseInt(separated[0]))+" " + separated[1], index = index)
+                }
             }
         }
     }
