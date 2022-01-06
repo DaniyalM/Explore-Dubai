@@ -133,7 +133,7 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 //            hashMap["key"] = getString(R.string.map_key)
 
             myTripViewModel.getDirections(
-                list, getString(R.string.map_key), travelMode
+                list, getString(R.string.map_key), travelMode,getCurrentLanguage()
             )
         }
 
@@ -382,9 +382,9 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 //
 //            hashMap["key"] = getString(R.string.map_key)
 
-            myTripViewModel.getDistance(
-                list, getString(R.string.map_key), travelMode
-            )
+//            myTripViewModel.getDistance(
+//                list, getString(R.string.map_key), travelMode, currentLanguage
+//            )
         }
 
     }
