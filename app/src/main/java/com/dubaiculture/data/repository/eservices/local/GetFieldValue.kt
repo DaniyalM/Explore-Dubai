@@ -18,7 +18,8 @@ data class GetFieldValueItem(
     val isRequired: Boolean,
     val hint_en: String,
     val hint_ar: String,
-    val validations: List<Validation>
+    val validations: List<Validation>,
+    val defaultValue: String = ""
 ) : Parcelable
 
 @Parcelize

@@ -12,9 +12,9 @@ import com.dubaiculture.data.repository.eservices.EServicesRepository
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
+import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.ui.postLogin.eservices.enums.FieldType
-import com.dubaiculture.ui.postLogin.eservices.enums.FormType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValidationType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.Constants
@@ -37,6 +37,7 @@ class EServiceViewModel @Inject constructor(
 ) :
     BaseViewModel(application) {
     var selectedView: GetFieldValueItem? = null
+    var emiratesId: String? = null
 
     private val map: HashMap<GetFieldValueItem, String> by lazy {
         HashMap()
@@ -46,6 +47,7 @@ class EServiceViewModel @Inject constructor(
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
     init {
+        emiratesId = (application as ApplicationEntry).auth.user?.idn
         savedStateHandle.get<String>(FORM_NAME)?.let {
             getFieldValues(it)
         }
@@ -66,12 +68,27 @@ class EServiceViewModel @Inject constructor(
                 )) {
                 is Result.Success -> {
                     showLoader(false)
-                    _fieldValues.value = result.value
+                    _fieldValues.value =
+                        if (emiratesId.isNullOrEmpty()) result.value else setupEmiratesId(
+                            emiratesId!!,
+                            result.value
+                        )
                 }
                 is Result.Failure -> {
                     showLoader(false)
                 }
             }
+        }
+    }
+
+    private fun setupEmiratesId(
+        emiratesId: String,
+        list: List<GetFieldValueItem>
+    ): List<GetFieldValueItem> {
+        return list.map {
+            if (it.fieldName == "EmiratesID") {
+                it.copy(defaultValue = emiratesId)
+            } else it
         }
     }
 

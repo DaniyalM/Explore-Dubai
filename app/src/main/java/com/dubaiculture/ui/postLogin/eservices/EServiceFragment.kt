@@ -225,7 +225,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         if (requestCode == Constants.ImagePicker.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val files: ArrayList<MediaFile>? =
                 data?.getParcelableArrayListExtra(FilePickerActivity.MEDIA_FILES)
-            files?.let {
+            if (!files.isNullOrEmpty()) {
                 setFileDetails(files[0])
             }
         }
