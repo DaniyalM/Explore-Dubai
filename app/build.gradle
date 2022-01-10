@@ -1,12 +1,15 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-parcelize'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: "androidx.navigation.safeargs"
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.secrets_gradle_plugin' version '0.4'
+}
+
 
 def config = rootProject.extensions.getByName("ext")
 
@@ -14,6 +17,7 @@ def config = rootProject.extensions.getByName("ext")
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
+    ndkVersion "23.1.7779620"
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
@@ -21,41 +25,43 @@ android {
         abortOnError false
     }
 
-
-
     defaultConfig {
-        applicationId "com.app.dubaiculture"
+        applicationId "com.dubaiculture"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 2
-        versionName "1.4"
+        versionName "9.0"
         multiDexEnabled true //add this line in the defaultConfig
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [appAuthRedirectScheme: 'com.redirectScheme.comm']
-
-
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
         //UAE PASS START -- Adding Custom Scheme Variables
-        buildConfigField "String", "URI_SCHEME", "\"uaePassDemo\"" // Change to your app name or any custom scheme. Donot use uaepasssample
+        buildConfigField "String", "URI_SCHEME", "\"uaePassDemo\""
+        // Change to your app name or any custom scheme. Donot use uaepasssample
         buildConfigField "String", "URI_HOST_SUCCESS", "\"success\""
         buildConfigField "String", "URI_HOST_FAILURE", "\"failure\""
 
         //UAE PASS START -- Adding Custom Scheme Variables
-        buildConfigField "String", "URI_SCHEME1", "\"uaePassDemo1\"" // Change to your app name or any custom scheme. Donot use uaepasssample
+        buildConfigField "String", "URI_SCHEME1", "\"uaePassDemo1\""
+        // Change to your app name or any custom scheme. Donot use uaepasssample
         buildConfigField "String", "URI_HOST_SUCCESS1", "\"success1\""
         buildConfigField "String", "URI_HOST_FAILURE1", "\"failure1\""
 
         manifestPlaceholders = [
-                host_success: "success",
-                host_failure: "failure",
-                scheme      : "uaePassDemo",
+                host_success : "success",
+                host_failure : "failure",
+                scheme       : "uaePassDemo",
                 host_success1: "success1",
                 host_failure1: "failure1",
                 scheme1      : "uaePassDemo1" // Change to your app name or any custom scheme. Donot use uaepasssample
         ]
         //UAE PASS END -- Adding Custom Scheme Variables
 
-
+        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
     }
     signingConfigs {
         stagConfig {
@@ -65,58 +71,67 @@ android {
             keyPassword "dc123dc"
         }
         prodConfig {
-            storeFile file("../certificates/productionKS.jks")
-            storePassword "dj123456789"
-            keyAlias "production"
-            keyPassword "dj123456789"
+            storeFile file("../certificates/dcprodks.jks")
+            storePassword "dcprodks12"
+            keyAlias "dcprod"
+            keyPassword "dcprodks12"
         }
     }
     buildTypes {
         release {
-            applicationIdSuffix ".release"
+//            applicationIdSuffix ".release"
             minifyEnabled false
             debuggable false
             buildConfigField("String", "BASE_URL", "\"https://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_DEBUG\"")
 
 
-
-
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
-
-
         }
         debug {
-            applicationIdSuffix ".debug"
+//            applicationIdSuffix ".debug"
             minifyEnabled false
             debuggable true
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
+            buildConfigField("String", "BASE_URL_SHARE", "\"http://dc.qa.greenlightlabs.tech\"")
+            buildConfigField("String", "BASE_URL_ESERVICES", "\"http://localhost:92/_vti_bin/DCAAPI/api/\"")
+
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_DEBUG\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_DEBUG\"")
 
 
-
             Properties properties = new Properties()
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
         }
+
+//        http://dc.qa.greenlightlabs.tech
         stag {
-            applicationIdSuffix ".stag"
+//            applicationIdSuffix ".stag"
             minifyEnabled false
             shrinkResources false
-            debuggable true
+            debuggable false
             buildConfigField("String", "BASE_URL", "\"http://dc.qa.greenlightlabs.tech/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
+            buildConfigField("String", "BASE_URL_SHARE", "\"http://dc.qa.greenlightlabs.tech\"")
+            buildConfigField("String", "BASE_URL_ESERVICES", "\"http://localhost:92/_vti_bin/DCAAPI/api/\"")
+            buildConfigField("String", "BASE_URL_ESERVICES_MOCK", "\"https://dbb188b8-8ab0-4ca8-ad66-5c7be2aabdb7.mock.pstmn.io/\"")
+            buildConfigField("String", "CHAT_BOT_URL_EN", "\"http://creatopia.ae/MobileChat.php\"")
+            buildConfigField("String", "CHAT_BOT_URL_AR", "\"http://creatopia.ae/MobileChatAR.php\"")
+            buildConfigField("String", "HAPPINESSMETER_URL", "\"https://happinessmeterqa.dubai.gov.ae/HappinessMeter2/MobilePostDataService\"")
+            buildConfigField("java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)")
+
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_STAG\"")
@@ -134,22 +149,42 @@ android {
             if (rootProject.file("local.properties").exists()) {
                 properties.load(rootProject.file("local.properties").newDataInputStream())
             }
-            manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "AIzaSyCGush-kym8k4I87nxpxNNYEKgYtdecfu0") ]
         }
         prod {
-            applicationIdSuffix ".prod"
-            minifyEnabled true
-            debuggable true
+//            applicationIdSuffix ".prod"
+            minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"http://dc.wewanttraffic.me/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://stgcd.dubaiculture.gov.ae/api/\"")
+            buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
+            buildConfigField("String", "BASE_URL_SHARE", "\"https://stgcd.dubaiculture.gov.ae\"")
+            buildConfigField("String", "BASE_URL_ESERVICES", "\"http://localhost:92/_vti_bin/DCAAPI/api/\"")
+            buildConfigField("String", "BASE_URL_ESERVICES_MOCK", "\"https://dbb188b8-8ab0-4ca8-ad66-5c7be2aabdb7.mock.pstmn.io/\"")
+            buildConfigField("String", "CHAT_BOT_URL_EN", "\"http://creatopia.ae/MobileChat.php\"")
+            buildConfigField("String", "CHAT_BOT_URL_AR", "\"http://creatopia.ae/MobileChatAR.php\"")
+            buildConfigField("String", "HAPPINESSMETER_URL", "\"https://happinessmeter.dubai.gov.ae/HappinessMeter2/MobilePostDataService\"")
+            buildConfigField("java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)")
+
+
             buildConfigField("Boolean", "IS_ENCRYPTION_ENABLED", "false")
             buildConfigField("Boolean", "IS_TSL_ENABLED", "false")
             buildConfigField("String", "DATA_STORE_NAME", "\"DATA_STORE_PROD\"")
             buildConfigField("String", "DB_NAME", "\"ROOM_DB_PROD\"")
 
 
-
             signingConfig signingConfigs.prodConfig
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "dubaiculture-${variant.name}-${defaultConfig.versionName}.apk"
+                }
+            }
+
+//            buildConfigField("String", "BASE_URL", "\"https://a04f708a-3b9c-41a5-bc03-1450f93ba4a1.mock.pstmn.io/\"")
+
+            Properties properties = new Properties()
+            if (rootProject.file("local.properties").exists()) {
+                properties.load(rootProject.file("local.properties").newDataInputStream())
+            }
 
 //            buildConfigField("String", "BASE_URL", "\"https://73efb1a2-d5dc-4e68-8248-b61a25f033d9.mock.pstmn.io\"")
 
@@ -283,7 +318,7 @@ dependencies {
     implementation config.ui_design.badgeView
     implementation config.ui_design.searchablespinner
     //photo view
-//    implementation config.image_processing.photoView
+    implementation config.image_processing.photoView
 
     //Blurry
     implementation config.ui_design.blurry
@@ -297,7 +332,6 @@ dependencies {
     //Image Cropping Api and Media Libs
 //    implementation config.media_libraries.image_crop_api
     implementation config.media_libraries.image_picker
-
 
 
     // GoogleMapServices     //location Related Work
@@ -327,6 +361,11 @@ dependencies {
     implementation config.google.firebase_messaging
 //    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
 
+    // google play core
+    implementation config.google.play_core
+
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+
 
     // indicator
     implementation 'me.relex:circleindicator:2.1.6'
@@ -340,5 +379,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.1'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
-
+    implementation 'com.google.maps.android:android-maps-utils:2.2.3'
+    implementation 'androidx.hilt:hilt-work:1.0.0'
+    implementation 'com.github.javiersantos:AppUpdater:2.7'
 }

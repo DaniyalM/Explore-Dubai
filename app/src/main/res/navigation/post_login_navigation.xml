@@ -5,18 +5,47 @@
     android:id="@+id/post_login_navigation"
     app:startDestination="@id/homeFragment">
 
+    <include app:graph="@navigation/web_view_navigation" />
+
+
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.app.dubaiculture.ui.postLogin.home.HomeFragment"
+        android:name="com.dubaiculture.ui.postLogin.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_createPassFragment2"
             app:destination="@id/createPassFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_webviewFragment"
+            app:destination="@id/web_view_navigation" >
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_homeFragment_to_happinessFragment"
+            app:destination="@id/happinessFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/createPassFragment2"
-        android:name="com.app.dubaiculture.ui.preLogin.password.CreatePassFragment"
+        android:name="com.dubaiculture.ui.preLogin.password.CreatePassFragment"
         android:label="CreatePassFragment" />
+    <dialog
+        android:id="@+id/happinessFragment"
+        android:name="com.dubaiculture.ui.postLogin.home.HappinessMeterBottomSheetFragment"
+        android:label="happinessMeterFragment" />
+
 
 </navigation>

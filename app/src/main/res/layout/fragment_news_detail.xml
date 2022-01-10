@@ -29,7 +29,7 @@
             android:layout_marginEnd="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/img_close"
-            app:srcCompat="@drawable/dc_search_icon" />
+            app:srcCompat="@drawable/share" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_marginTop="@dimen/_60sdp"
@@ -38,6 +38,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl"
                 app:layout_constraintTop_toBottomOf="@+id/img_close"
@@ -66,7 +67,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rvSlider" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,7 +96,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvDate" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -110,30 +111,29 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_news_article"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    tools:itemCount="1"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    tools:listitem="@layout/item_category_filter"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_title"
                     app:layout_constraintStart_toStartOf="@+id/tv_title"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_category_filter" />
 
                 <View
                     android:id="@+id/divider"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="#EDEDED"
+                    android:background="?attr/color_light_theme_dark_theme_gray"
                     app:layout_constraintEnd_toEndOf="@id/img_speaker"
                     app:layout_constraintTop_toBottomOf="@+id/rv_news_article"
                     android:layout_marginTop="@dimen/_25sdp"
-                    app:layout_constraintStart_toStartOf="@+id/rv_news_article"
+                    app:layout_constraintStart_toStartOf="@+id/tvDate"
                     />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_desc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                     android:textSize="@dimen/_12ssp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:textColor="@color/gray_750"
-                    android:text="Hala Badri, Director General of Dubai Culture and Arts Authority, affirmed that the Authority is progressively fulfilling its role with a steadfast vision by constantly communicating with the creative community and working with its partners to ensure the continuity of creativity in various fields across the cultural sector and enable creatives to stay their course despite the repercussions caused by the COVID-19 pandemic. This came as part of her visit to AlSerkal Avenue, which is one of the most prominent creative incubators for cultural events in Dubai. It was also part of the continuous support of HH Sheikha Latifa bint Mohammed bin Rashid Al Maktoum, chairperson of Dubai Culture, to follow up on the cultural scene in the emirate based on Her Highness’s keenness to constantly be conscious of the business conditions in the sector. Her Highness also seeks to find solutions that would ensure the continuity of the sector and enhance the ability of all creatives within it to rise up to the challenges and pursue the emirate’s procedural path of development and prosperity."
+                    tools:text="Hala Badri, Director General of Dubai Culture and Arts Authority, affirmed that the Authority is progressively fulfilling its role with a steadfast vision by constantly communicating with the creative community and working with its partners to ensure the continuity of creativity in various fields across the cultural sector and enable creatives to stay their course despite the repercussions caused by the COVID-19 pandemic. This came as part of her visit to AlSerkal Avenue, which is one of the most prominent creative incubators for cultural events in Dubai. It was also part of the continuous support of HH Sheikha Latifa bint Mohammed bin Rashid Al Maktoum, chairperson of Dubai Culture, to follow up on the cultural scene in the emirate based on Her Highness’s keenness to constantly be conscious of the business conditions in the sector. Her Highness also seeks to find solutions that would ensure the continuity of the sector and enhance the ability of all creatives within it to rise up to the challenges and pursue the emirate’s procedural path of development and prosperity."
                     />
 
                 <View
@@ -167,7 +167,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_desc">
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_title_bg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -177,11 +177,11 @@
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:textColor="@color/sea_green"
                         app:textAllCaps="true"
-                        android:text="Hala Belcon said that :"
+                        tools:text="Hala Belcon said that :"
 
                         />
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_desc_bg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -191,13 +191,13 @@
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:layout_marginBottom="@dimen/_35sdp"
                         android:textColor="@color/gray_750"
-                        android:text="Hala Badri, Director General of Dubai Culture and Arts Authority, affirmed that the Authority is progressively fulfilling its role with a steadfast vision by constantly communicating with the creative community and working with its partners to ensure the continuity of creativity in various fields across the cultural sector and enable creatives to stay their course despite the repercussions caused by the COVID-19 pandemic. This came as part of her visit to AlSerkal Avenue, which is one of the most prominent creative incubators for cultural events in Dubai. It was also part of the continuous support of HH Sheikha Latifa bint Mohammed bin Rashid Al Maktoum, chairperson of Dubai Culture, to follow up on the cultural scene in the emirate based on Her Highness’s keenness to constantly be conscious of the business conditions in the sector. Her Highness also seeks to find solutions that would ensure the continuity of the sector and enhance the ability of all creatives within it to rise up to the challenges and pursue the emirate’s procedural path of development and prosperity."
+                        tools:text="Hala Badri, Director General of Dubai Culture and Arts Authority, affirmed that the Authority is progressively fulfilling its role with a steadfast vision by constantly communicating with the creative community and working with its partners to ensure the continuity of creativity in various fields across the cultural sector and enable creatives to stay their course despite the repercussions caused by the COVID-19 pandemic. This came as part of her visit to AlSerkal Avenue, which is one of the most prominent creative incubators for cultural events in Dubai. It was also part of the continuous support of HH Sheikha Latifa bint Mohammed bin Rashid Al Maktoum, chairperson of Dubai Culture, to follow up on the cultural scene in the emirate based on Her Highness’s keenness to constantly be conscious of the business conditions in the sector. Her Highness also seeks to find solutions that would ensure the continuity of the sector and enhance the ability of all creatives within it to rise up to the challenges and pursue the emirate’s procedural path of development and prosperity."
 
                         />
 
                 </LinearLayout>
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_more_title_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -210,7 +210,7 @@
                     android:text="Motivation"
                     />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_more_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -220,7 +220,7 @@
                     android:textSize="@dimen/_12ssp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColor="@color/gray_750"
-                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+                    android:text="Hala Badri, Director General of Dubai Culture and Arts Authority, affirmed that the Authority is progressively fulfilling its role with a steadfast vision by constantly communicating with the creative community and working with its partners to ensure the continuity of creativity in various fields across the cultural sector and enable creatives to stay their course despite the repercussions caused by the COVID-19 pandemic. This came as part of her visit to AlSerkal Avenue, which is one of the most prominent creative incubators for cultural events in Dubai. It was also part of the continuous support of HH Sheikha Latifa bint Mohammed bin Rashid Al Maktoum, chairperson of Dubai Culture, to follow up on the cultural scene in the emirate based on Her Highness’s keenness to constantly be conscious of the business conditions in the sector. Her Highness also seeks to find solutions that would ensure the continuity of the sector and enhance the ability of all creatives within it to rise up to the challenges and pursue the emirate’s procedural path of development and prosperity.Hala Badri, Director General of Dubai Culture and Arts Authority, affirmed that the Authority is progressively fulfilling its role with a steadfast vision by constantly communicating with the creative community and working with its partners to ensure the continuity of creativity in various fields across the cultural sector and enable creatives to stay their course despite the repercussions caused by the COVID-19 pandemic. This came as part of her visit to AlSerkal Avenue, which is one of the most prominent creative incubators for cultural events in Dubai. It was also part of the continuous support of HH Sheikha Latifa bint Mohammed bin Rashid Al Maktoum, chairperson of Dubai Culture, to follow up on the cultural scene in the emirate based on Her Highness’s keenness to constantly be conscious of the business conditions in the sector. Her Highness also seeks to find solutions that would ensure the continuity of the sector and enhance the ability of all creatives within it to rise up to the challenges and pursue the emirate’s procedural path of development and prosperity.Hala Badri, Director General of Dubai Culture and Arts Authority, affirmed that the Authority is progressively fulfilling its role with a steadfast vision by constantly communicating with the creative community and working with its partners to ensure the continuity of creativity in various fields across the cultural sector and enable creatives to stay their course despite the repercussions caused by the COVID-19 pandemic. This came as part of her visit to AlSerkal Avenue, which is one of the most prominent creative incubators for cultural events in Dubai. It was also part of the continuous support of HH Sheikha Latifa bint Mohammed bin Rashid Al Maktoum, chairperson of Dubai Culture, to follow up on the cultural scene in the emirate based on Her Highness’s keenness to constantly be conscious of the business conditions in the sector. Her Highness also seeks to find solutions that would ensure the continuity of the sector and enhance the ability of all creatives within it to rise up to the challenges and pursue the emirate’s procedural path of development and prosperity.Hala Badri, Director General of Dubai Culture and Arts Authority, affirmed that the Authority is progressively fulfilling its role with a steadfast vision by constantly communicating with the creative community and working with its partners to ensure the continuity of creativity in various fields across the cultural sector and enable creatives to stay their course despite the repercussions caused by the COVID-19 pandemic. This came as part of her visit to AlSerkal Avenue, which is one of the most prominent creative incubators for cultural events in Dubai. It was also part of the continuous support of HH Sheikha Latifa bint Mohammed bin Rashid Al Maktoum, chairperson of Dubai Culture, to follow up on the cultural scene in the emirate based on Her Highness’s keenness to constantly be conscious of the business conditions in the sector. Her Highness also seeks to find solutions that would ensure the continuity of the sector and enhance the ability of all creatives within it to rise up to the challenges and pursue the emirate’s procedural path of development and prosperity.Hala Badri, Director General of Dubai Culture and Arts Authority, affirmed that the Authority is progressively fulfilling its role with a steadfast vision by constantly communicating with the creative community and working with its partners to ensure the continuity of creativity in various fields across the cultural sector and enable creatives to stay their course despite the repercussions caused by the COVID-19 pandemic. This came as part of her visit to AlSerkal Avenue, which is one of the most prominent creative incubators for cultural events in Dubai. It was also part of the continuous support of HH Sheikha Latifa bint Mohammed bin Rashid Al Maktoum, chairperson of Dubai Culture, to follow up on the cultural scene in the emirate based on Her Highness’s keenness to constantly be conscious of the business conditions in the sector. Her Highness also seeks to find solutions that would ensure the continuity of the sector and enhance the ability of all creatives within it to rise up to the challenges and pursue the emirate’s procedural path of development and prosperity."
                     />
 
 
@@ -237,17 +237,17 @@
                     android:id="@+id/llMoreNews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/gray_400"
+                    android:background="?attr/color_light_theme_dark_theme_gray"
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/img_curve">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/heading_up_coming"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:text="@string/more_news"
-                        android:textColor="@color/black_750"
+                        android:textColor="?attr/colorEventLight"
                         android:textSize="@dimen/_18ssp"
                         app:layout_constraintStart_toStartOf="parent" />
 

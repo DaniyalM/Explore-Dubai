@@ -1,77 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.preLogin.onboarding.OnBoardingFragment">
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/pager"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:context=".ui.preLogin.onboarding.OnBoardingFragment">
 
-    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/worm_dots_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:dotsColor="@color/gray_600"
-        app:dotsCornerRadius="8dp"
-        app:dotsSize="7dp"
-        app:selectedDotColor="@color/purple_900"
-        app:layout_constraintVertical_bias="0.83"
-        app:dotsStrokeWidth="2dp"
-        app:dotsSpacing="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.app.dubaiculture.ui.components.custombutton.CustomButton
-        android:id="@+id/btn_skip"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        app:layout_constraintVertical_bias="0.7"
-        android:background="@drawable/my_event_btn_enable"
-        android:elevation="@dimen/_2sdp"
-        android:foreground="@drawable/custom_ripple_border"
-        android:gravity="center"
-        android:text="@string/skip"
-        android:textAllCaps="false"
-        android:textColor="@color/purple_900"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/worm_dots_indicator" />
-    <com.app.dubaiculture.ui.components.custombutton.CustomButton
-        android:id="@+id/getStarted"
-        android:layout_width="0dp"
-        android:visibility="gone"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:elevation="@dimen/_2sdp"
-        app:layout_constraintVertical_bias="0.7"
-        android:foreground="@drawable/custom_ripple_border"
-        android:gravity="center"
-        android:text="@string/get_started"
-        android:background="@drawable/btn_register"
-        android:textAllCaps="false"
-        android:textColor="@color/white_900"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/worm_dots_indicator"  />
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/worm_dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dotsColor="@color/gray_600"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="7dp"
+            app:dotsSpacing="2dp"
+            app:dotsStrokeWidth="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.83"
+            app:selectedDotColor="@color/onboarding_color" />
+
+        <com.dubaiculture.ui.components.custombutton.CustomButton
+            android:id="@+id/btn_skip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@drawable/my_event_btn_enable"
+            android:elevation="@dimen/_2sdp"
+            android:foreground="@drawable/custom_ripple_border"
+            android:gravity="center"
+            android:text="@string/skip"
+            android:textAllCaps="false"
+            android:textColor="@color/purple_900"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/worm_dots_indicator"
+            app:layout_constraintVertical_bias="0.7" />
+
+        <com.dubaiculture.ui.components.custombutton.CustomButton
+            android:id="@+id/getStarted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@drawable/btn_register"
+            android:elevation="@dimen/_2sdp"
+            android:foreground="@drawable/custom_ripple_border"
+            android:gravity="center"
+            android:text="@string/get_started"
+            android:textAllCaps="false"
+            android:textColor="@color/white_900"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/worm_dots_indicator"
+            app:layout_constraintVertical_bias="0.7" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

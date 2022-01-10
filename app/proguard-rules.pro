@@ -1,6 +1,16 @@
 # Add project specific ProGuard rules here.
--keepnames class com.app.dubaiculture.data.repository.event.local.models.Events
+-keepnames class com.dubaiculture.data.repository.event.local.models.Events
+# Retrofit2
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+-keepclassmembernames interface * {
+    @retrofit2.http.* <methods>;
+}
 
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
 
 # You can control the set of applied configuration files using the
 # proguardFiles setting in build.gradle.

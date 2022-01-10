@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_title_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:gravity="center"
                 android:text="Management"
-                android:textColor="@color/gray_600"
+                android:textColor="?attr/colorSecondary"
                 android:textSize="@dimen/_10ssp" />
 
 

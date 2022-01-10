@@ -6,7 +6,7 @@
         <variable
             name="technique"
             type="com.daimajia.androidanimations.library.Techniques" />
-        <variable name="events" type="com.app.dubaiculture.data.repository.event.local.models.Events"/>
+        <variable name="events" type="com.dubaiculture.data.repository.event.local.models.Events"/>
     </data>
 
         <com.google.android.material.card.MaterialCardView
@@ -48,7 +48,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -105,7 +105,7 @@
                 <!--            android:text="@{events.fromDate}"-->
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_start_date_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                     app:textFont="bold" />
                 <!--            android:text="@{events.fromMonthYear}"-->
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_start_month_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
                 <!--            android:text="@{events.toDate}"-->
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_end_date_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
                     app:textFont="bold" />
                 <!--            android:text="@{events.toMonthYear}"-->
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_end_month_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -188,7 +188,7 @@
                     app:layout_constraintStart_toStartOf="@+id/guideline_two"
                     app:layout_constraintTop_toTopOf="@+id/tv_start_date_event" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_workshop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
                     app:textFont="bold" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -223,7 +223,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_workshop"
                     app:layout_constraintVertical_bias="0.338" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_location"
                     android:layout_width="0dp"
                     android:textAlignment="viewStart"
@@ -242,7 +242,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.app.dubaiculture.ui.components.custombutton.CustomButton
+            <com.dubaiculture.ui.components.custombutton.CustomButton
                 android:id="@+id/btn_survery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

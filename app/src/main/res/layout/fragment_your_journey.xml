@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            tools:context=".ui.postLogin.nearyou.NearYouFragment">
+            tools:context="com.dubaiculture.ui.postLogin.nearyou.NearYouFragment">
 
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -25,7 +25,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/heading_ibeacons"
                 style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
@@ -40,16 +40,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/gray_line"
                 app:textFont="regular" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginEnd="24dp"
                 android:textColor="@color/gray_600"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/heading_ibeacons"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/heading_ibeacons" />
+                app:layout_constraintTop_toTopOf="@+id/heading_ibeacons"
+                app:layout_constraintVertical_bias="0.578" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="1dp"

@@ -10,7 +10,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white_900"
         tools:context=".ui.postLogin.events.detail.registernow.RegisterNowFragment">
 
         <include
@@ -32,7 +31,7 @@
                 android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="@+id/header">
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/registration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -45,7 +44,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/full_name"
                     style="@style/TextViewRegistrationStyle"
                     android:layout_marginTop="@dimen/_30sdp"
@@ -53,7 +52,7 @@
                     app:layout_constraintStart_toStartOf="@+id/registration"
                     app:layout_constraintTop_toBottomOf="@+id/registration" />
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/edit_fullName"
                     style="@style/EditTextStyle"
                     android:layout_marginTop="12dp"
@@ -71,7 +70,7 @@
                 <!--android:text="@{viewmodel.isfullName ? @string/no_error :  @string/err_first_name }"-->
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/customTextView2"
                     style="@style/TextViewErrorRegistration"
                     app:layout_constraintBottom_toBottomOf="@+id/full_name"
@@ -90,7 +89,7 @@
                     app:layout_constraintTop_toTopOf="@+id/edit_fullName" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/occupation"
                     style="@style/TextViewRegistrationStyle"
                     android:layout_marginTop="@dimen/_30sdp"
@@ -98,7 +97,7 @@
                     app:layout_constraintStart_toStartOf="@+id/edit_fullName"
                     app:layout_constraintTop_toBottomOf="@+id/edit_fullName" />
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/edit_occupation"
                     style="@style/EditTextStyle"
                     android:layout_marginTop="12dp"
@@ -114,7 +113,7 @@
                 <!--android:text="@{viewmodel.isfullName ? @string/no_error :  @string/err_first_name }"-->
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     style="@style/TextViewErrorRegistration"
                     app:layout_constraintBottom_toBottomOf="@+id/occupation"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +130,7 @@
                     app:layout_constraintTop_toTopOf="@+id/edit_occupation" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/time"
                     style="@style/TextViewRegistrationStyle"
                     android:layout_marginTop="@dimen/_30sdp"
@@ -156,14 +155,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:dropDownHeight="@dimen/_150sdp"
-                    android:hint="@string/time"
+                    android:hint="@string/select_your_time_period"
                     android:paddingStart="@dimen/_15sdp"
                     android:paddingEnd="@dimen/_15sdp"
                     android:layout_marginStart="@dimen/_25sdp"
                     android:layout_marginEnd="@dimen/_25sdp"
                     android:singleLine="true"
                     android:background="@drawable/bg_edit_resiger"
-                    android:textColorHint="@color/gray_600"
+                    android:textColorHint="?attr/color_light_theme_dark_theme_dark_gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/time" />
@@ -171,7 +170,7 @@
                 <!--android:text="@{viewmodel.isfullName ? @string/no_error :  @string/err_first_name }"-->
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     style="@style/TextViewErrorRegistration"
                     app:layout_constraintBottom_toBottomOf="@+id/time"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -189,7 +188,7 @@
                     app:layout_constraintTop_toTopOf="@+id/edit_time" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/upload"
                     style="@style/TextViewRegistrationStyle"
                     android:layout_marginTop="@dimen/_30sdp"
@@ -197,14 +196,14 @@
                     app:layout_constraintStart_toStartOf="@+id/edit_time"
                     app:layout_constraintTop_toBottomOf="@+id/edit_time" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_upload"
                     style="@style/EditTextStyle"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/bg_edit_resiger"
                     android:drawableEnd="@drawable/attachment_pin_register_now"
                     android:gravity="center_vertical"
-                    android:hint="@string/select_your_time_period"
+                    android:hint="@string/attach_your_ID"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:singleLine="true"
@@ -217,7 +216,7 @@
                 <!--android:text="@{viewmodel.isfullName ? @string/no_error :  @string/err_first_name }"-->
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     style="@style/TextViewErrorRegistration"
                     app:layout_constraintBottom_toBottomOf="@+id/upload"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -233,13 +232,13 @@
                     app:layout_constraintEnd_toEndOf="@+id/tv_upload"
                     app:layout_constraintTop_toTopOf="@+id/tv_upload" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/mb2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:text="@string/jpeg_or_pdf_format_not_exceeding_2mb"
-                    android:textColor="@color/gray_600"
+                    android:textColorHint="?attr/color_light_theme_dark_theme_dark_gray"
                     android:textSize="@dimen/_9ssp"
                     app:layout_constraintStart_toStartOf="@+id/tv_upload"
                     app:layout_constraintTop_toBottomOf="@+id/tv_upload" />
@@ -256,7 +255,7 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_upload"
                     app:layout_constraintTop_toBottomOf="@+id/mb2" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_term_condition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -264,14 +263,14 @@
                     android:background="@drawable/custom_ripple_border"
                     android:singleLine="true"
                     android:text="@string/i_agree_to_the_terms_and_conditions"
-                    android:textColor="@color/purple_600"
+                    android:textColor="?attr/color_dubai_logo"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/checkbox"
                     app:layout_constraintStart_toEndOf="@+id/checkbox"
                     app:layout_constraintTop_toTopOf="@+id/checkbox" />
 
 
-                <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                <com.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btn_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.postLogin.feeds.FeedsFragment">
 
-    <com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
+    <com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,7 +17,7 @@
 
             <include android:id="@+id/headerVisited" layout="@layout/layout_back" />
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/customTextView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/header"
                 app:textFont="regular" />
 
-            <com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
+            <com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="5dp"
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.app.dubaiculture.ui.postLogin.profile.favourite.components.FavouriteHeaderItemSelector
+                    <com.dubaiculture.ui.postLogin.profile.favourite.components.FavouriteHeaderItemSelector
                         android:id="@+id/horizontalSelector"
                         style="@style/HorizontalAttractionStyle"
                         android:layout_width="match_parent"
@@ -91,10 +91,10 @@
 
                 </LinearLayout>
 
-            </com.app.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
+            </com.dubaiculture.ui.components.nestedScrollableHost.NestedScrollableHost>
 
         </LinearLayout>
 
 
-    </com.app.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
+    </com.dubaiculture.ui.components.OnlyVerticalSwipeRefreshLayout>
 </layout>

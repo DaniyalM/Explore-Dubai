@@ -10,8 +10,13 @@
     <fragment
         android:id="@+id/eventsFragment"
         tools:layout="@layout/fragment_events"
-        android:name="com.app.dubaiculture.ui.postLogin.events.EventsFragment"
-        android:label="EventsFragment" >
+        android:name="com.dubaiculture.ui.postLogin.events.EventsFragment"
+        android:label="EventsFragment">
+        <argument
+            android:name="event_id"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_eventsFragment_to_eventNearMapFragment2"
             app:destination="@id/eventNearMapFragment2"
@@ -39,7 +44,12 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
         <action
             android:id="@+id/action_eventsFragment_to_eventListingFragment"
             app:destination="@id/eventListingFragment"
@@ -52,8 +62,8 @@
     <fragment
         android:id="@+id/eventListingFragment"
         tools:layout="@layout/fragment_event_listing"
-        android:name="com.app.dubaiculture.ui.postLogin.events.EventListingFragment"
-        android:label="EventListingFragment" >
+        android:name="com.dubaiculture.ui.postLogin.events.EventListingFragment"
+        android:label="EventListingFragment">
         <action
             android:id="@+id/action_eventListingFragment_to_postLoginFragment"
             app:destination="@id/post_login_bottom_navigation"
@@ -61,21 +71,29 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_eventListingFragment_to_event_detail_navigation"
+            app:destination="@id/event_detail_navigation">
+            <argument
+                android:name="event_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
     </fragment>
     <dialog
         android:id="@+id/filterFragment"
         tools:layout="@layout/fragment_filter"
-        android:name="com.app.dubaiculture.ui.postLogin.events.filter.FilterFragment"
+        android:name="com.dubaiculture.ui.postLogin.events.filter.FilterFragment"
         android:label="FilterFragment" />
     <fragment
         android:id="@+id/eventNearMapFragment2"
         tools:layout="@layout/fragment_event_near_map"
-        android:name="com.app.dubaiculture.ui.postLogin.events.map.EventNearMapFragment"
+        android:name="com.dubaiculture.ui.postLogin.events.map.EventNearMapFragment"
         android:label="EventNearMapFragment" >
 
         <argument
             android:name="getEvents"
-            app:argType="com.app.dubaiculture.data.repository.event.local.models.Events[]"
+            app:argType="com.dubaiculture.data.repository.event.local.models.Events[]"
             app:nullable="true" />
 
         <action
@@ -90,7 +108,7 @@
     <fragment
         android:id="@+id/eventFilterFragment"
         tools:layout="@layout/fragment_event_filter"
-        android:name="com.app.dubaiculture.ui.postLogin.events.EventFilterFragment"
+        android:name="com.dubaiculture.ui.postLogin.events.EventFilterFragment"
         android:label="EventFilterFragment" >
         <action
             android:id="@+id/action_eventFilterFragment_to_eventListingFragment"
@@ -112,7 +130,12 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out">
+            <!--            <argument-->
+            <!--                android:name="event_id"-->
+            <!--                app:argType="string"-->
+            <!--                app:nullable="false" />-->
+        </action>
         <action
             android:id="@+id/action_eventFilterFragment_to_filterFragment2"
             app:destination="@id/filterFragment"

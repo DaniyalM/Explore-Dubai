@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorSurface"
-        tools:context=".ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment">
+        tools:context="com.dubaiculture.ui.postLogin.more.privacytermscondition.PrivacyTermConditionFragment">
 
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/title"
             android:textAlignment="viewStart"
             android:layout_width="0dp"
@@ -38,6 +38,23 @@
             android:layout_marginEnd="@dimen/_12sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_close" />
+
+<!--        <WebView-->
+<!--            android:id="@+id/wv_text"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginStart="@dimen/_13sdp"-->
+<!--            android:layout_marginEnd="@dimen/_10sdp"-->
+<!--            android:layout_marginTop="@dimen/_10sdp"-->
+<!--            android:layout_marginBottom="@dimen/transition_bottom_bar_height"-->
+<!--            android:lineSpacingExtra="@dimen/text_line_spacing"-->
+<!--            android:textColor="#444341"-->
+<!--            android:textSize="@dimen/_13ssp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/title" />-->
+
         <androidx.core.widget.NestedScrollView
             app:layout_constraintTop_toBottomOf="@+id/title"
             android:layout_width="match_parent"
@@ -53,7 +70,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_desc"
                 android:layout_width="0dp"
                 android:textAlignment="viewStart"

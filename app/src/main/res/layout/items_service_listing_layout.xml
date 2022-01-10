@@ -15,7 +15,7 @@
 
         <variable
             name="serviceListing"
-            type="com.app.dubaiculture.data.repository.popular_service.local.models.EService" />
+            type="com.dubaiculture.data.repository.popular_service.local.models.EService" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/rootView"
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 tools:text="The Definitive Guide to an Uncertain World world" />
 
 
-            <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tv_desc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_desc">
 
                 <LinearLayout
-                    android:id="@+id/ll_email_us"
+                    android:id="@+id/viewDetail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -108,7 +108,7 @@
                         android:background="@drawable/shape_rounded_purple_border_attraction"
                         android:gravity="center">
 
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_10sdp"
@@ -130,7 +130,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/ll_callus"
+                    android:id="@+id/startService"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -146,7 +146,7 @@
                         android:background="@drawable/shape_rounded_purples_border_attraction"
                         android:gravity="center">
 
-                        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                        <com.dubaiculture.ui.components.customtextview.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/start_service"

@@ -7,10 +7,10 @@
         <variable
             name="technique"
             type="com.daimajia.androidanimations.library.Techniques" />
-        <!--        <variable name="news" type="com.app.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
+        <!--        <variable name="news" type="com.dubaiculture.data.repository.explore.local.models.BaseModel"/>-->
         <variable
             name="news"
-            type="com.app.dubaiculture.data.repository.news.local.LatestNews" />
+            type="com.dubaiculture.data.repository.news.local.LatestNews" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +54,7 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -66,7 +66,7 @@
                         android:textColor="?attr/colorSecondary"
                         android:textSize="@dimen/_9ssp" />
 
-                    <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -78,7 +78,7 @@
                         android:maxLines="3"
                         android:text="@{news.postedDate}"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/gray_600"
+                        android:textColor="@color/gray_700"
                         android:textSize="@dimen/_9ssp" />
                 </LinearLayout>
 

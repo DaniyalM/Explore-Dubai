@@ -14,12 +14,12 @@
             android:id="@+id/tab_icon"
             app:srcCompat="@drawable/ic_lock"/>
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TAB TITLE"
             android:layout_gravity="center"
-            android:textColor="@color/black_200"
+            android:textColor="@color/gray_400"
             android:layout_marginStart="@dimen/_15sdp"
             app:textFont="bold"
             android:id="@+id/tab_title"/>

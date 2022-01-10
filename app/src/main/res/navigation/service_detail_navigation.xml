@@ -2,16 +2,136 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/service_detail_navigation"
-    app:startDestination="@id/serviceDetailFragment2">
+    app:startDestination="@id/serviceDetailFragment">
 
+    <include app:graph="@navigation/post_login_bottom_navigation" />
+    <include app:graph="@navigation/web_view_navigation" />
 
     <fragment
-        android:id="@+id/serviceDetailFragment2"
-        android:name="com.app.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"
+        android:id="@+id/serviceDetailFragment"
+        android:name="com.dubaiculture.ui.postLogin.popular_service.detail.ServiceDetailFragment"
         android:label="ServiceDetailFragment">
         <argument
             android:name="service_id"
             app:argType="string"
             app:nullable="false" />
+        <action
+            android:id="@+id/action_serviceDetailFragment2_to_post_login_bottom_navigation"
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_serviceDetailFragment2_to_serviceDownVoteFeedBackFragment"
+            app:destination="@id/serviceDownVoteFeedBackFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="service_id"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_serviceDetailFragment2_to_EServiceFragment"
+            app:destination="@id/EServiceFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="form_name"
+                app:argType="string"
+                app:nullable="false"
+             />
+        </action>
+        <action
+            android:id="@+id/action_serviceDetailFragment_to_webViewFragment"
+            app:destination="@id/web_view_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+        </action>
     </fragment>
+
+    <fragment
+        android:id="@+id/serviceDownVoteFeedBackFragment"
+        android:name="com.dubaiculture.ui.postLogin.popular_service.detail.pages.dialogs.ServiceDownVoteFeedBackFragment"
+        android:label="ServiceDownVoteFeedBackFragment"
+        >
+        <argument
+            android:name="service_id"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_serviceDownVoteFeedBackFragment_to_messageDialogFragment"
+            app:destination="@id/messageDialogFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="message"
+                app:argType="com.dubaiculture.data.repository.more.local.GetMessage"
+                app:nullable="false" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/EServiceFragment"
+        android:name="com.dubaiculture.ui.postLogin.eservices.EServiceFragment"
+        android:label="EServiceFragment" >
+        <argument
+            android:name="form_name"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="NOCForm"/>
+        <action
+            android:id="@+id/action_EServiceFragment_to_inputPlateBottomSheet"
+            app:destination="@id/inputPlateBottomSheet"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="field"
+                app:argType="com.dubaiculture.data.repository.eservices.local.GetFieldValueItem"
+                app:nullable="false"
+                />
+        </action>
+    </fragment>
+    <dialog
+        android:id="@+id/inputPlateBottomSheet"
+        android:name="com.dubaiculture.ui.postLogin.eservices.dialog.InputPlateBottomSheet"
+        android:label="InputPlateBottomSheet" >
+        <argument
+            android:name="field"
+            app:argType="com.dubaiculture.data.repository.eservices.local.GetFieldValueItem"
+            app:nullable="true"
+            android:defaultValue="@null"
+            />
+    </dialog>
+    <dialog
+        android:id="@+id/messageDialogFragment"
+        android:name="com.dubaiculture.ui.postLogin.messageDialog.MessageDialogFragment"
+        android:label="MessageDialogFragment" >
+        <argument
+            android:name="message"
+            app:argType="com.dubaiculture.data.repository.more.local.GetMessage"
+            app:nullable="false" />
+    </dialog>
+
+
 </navigation>

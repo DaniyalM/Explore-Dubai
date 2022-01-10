@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trip_detail_navigation"
+    app:startDestination="@id/tripStep1">
+
+    <fragment
+        android:id="@+id/tripStep1"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.steps.step1.TripStep1Fragment"
+        android:label="PlanTripStep1Fragment"></fragment>
+    <fragment
+        android:id="@+id/tripStep2"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.steps.step2.TripStep2Fragment"
+        android:label="PlanTripStep2Fragment"></fragment>
+    <fragment
+        android:id="@+id/tripStep3"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.steps.step3.TripStep3Fragment"
+        android:label="PlanTripStep3Fragment">
+
+        <action
+            android:id="@+id/action_step3Fragment_to_addLocFragment"
+            app:destination="@id/addLocBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/tripStep4"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.steps.step4.TripStep4Fragment"
+        android:label="PlanTripStep4Fragment">
+        <action
+            android:id="@+id/action_step4_to_noDaysBottomSheetFragment"
+            app:destination="@id/daysBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+        <action
+            android:id="@+id/action_step4_to_durationBottomSheetFragment"
+            app:destination="@id/durationBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_step4_to_edit_durationBottomSheetFragment"
+            app:destination="@id/editDurationBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/daysBottomSheetFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.steps.step4.NoOfDaysFragment"
+        android:label="NoOfDaysBottomSheetFragment"
+        tools:layout="@layout/fragment_no_days">
+
+        <action
+            android:id="@+id/action_days_to_durationBottomSheetFragment"
+            app:destination="@id/durationBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </dialog>
+    <dialog
+        android:id="@+id/durationBottomSheetFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.steps.step4.AddDurationFragment"
+        android:label="DurationBottomSheetFragment"
+        tools:layout="@layout/fragment_add_duration" />
+
+    <dialog
+        android:id="@+id/editDurationBottomSheetFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.steps.step4.EditDurationFragment"
+        android:label="EditDurationBottomSheetFragment"
+        tools:layout="@layout/fragment_edit_duration">
+        <action
+            android:id="@+id/action_edit_duration_to_deleteBottomSheetFragment"
+            app:destination="@id/deleteDialogBottomSheetFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/deleteDialogBottomSheetFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.steps.step4.DeleteDialogFragment"
+        android:label="deleteDialogBottomSheetFragment"
+        tools:layout="@layout/fragment_delete_dialog" />
+
+    <dialog
+        android:id="@+id/addLocBottomSheetFragment"
+        android:name="com.dubaiculture.ui.postLogin.plantrip.steps.step3.AddLocationBottomSheetFragment"
+        android:label="addLocationBottomSheetFragment"
+        tools:layout="@layout/fragment_add_location_bottomsheet" />
+
+</navigation>

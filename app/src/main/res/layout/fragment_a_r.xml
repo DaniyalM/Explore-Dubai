@@ -31,7 +31,7 @@
         <!--            android:theme="@style/Widget.AppCompat.Button"/>-->
 
 
-        <com.app.dubaiculture.ui.components.custombutton.CustomButton
+        <com.dubaiculture.ui.components.custombutton.CustomButton
             android:id="@+id/btnRecognize"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
@@ -50,7 +50,7 @@
             android:textColor="@color/white_900"
 
             />
-        <!--    <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
+        <!--    <com.dubaiculture.ui.components.custombutton.CustomButton-->
         <!--        android:id="@+id/btnRecognize"-->
         <!--        android:layout_width="match_parent"-->
         <!--        android:layout_height="wrap_content"-->
@@ -74,7 +74,7 @@
         <!--        android:layout_height="0dp"-->
         <!--        android:layout_weight="1"/>-->
 
-        <!--    <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
+        <!--    <com.dubaiculture.ui.components.custombutton.CustomButton-->
         <!--        android:layout_width="wrap_content"-->
         <!--        android:layout_height="wrap_content"-->
         <!--        android:text="Recognize"-->

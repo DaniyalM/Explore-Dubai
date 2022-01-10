@@ -8,11 +8,11 @@
 
         <variable
             name="fragment"
-            type="com.app.dubaiculture.ui.preLogin.login.LoginFragment" />
+            type="com.dubaiculture.ui.preLogin.login.LoginFragment" />
 
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel" />
+            type="com.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,7 +59,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_login_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             app:layout_constraintVertical_bias="0.7" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/mobile_number"
             style="@style/TextViewRegistrationStyle"
             android:layout_marginBottom="@dimen/_10sdp"
@@ -86,7 +86,7 @@
         <!--        android:text="@{viewmodel.isPhone ? @string/no_error : @string/err_phone}"-->
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvPhoneError"
             style="@style/TextViewErrorRegistration"
             android:text="@{viewmodel.isPhone ? @string/no_error : context.getString(viewmodel.errs)}"
@@ -97,7 +97,7 @@
             app:layout_constraintTop_toTopOf="@+id/mobile_number" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvEmailError"
             style="@style/TextViewErrorRegistration"
             android:text="@{viewmodel.isEmail ? @string/no_error : @string/err_email}"
@@ -108,9 +108,9 @@
             app:layout_constraintTop_toTopOf="@+id/mobile_number" />
 
 
-        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        <com.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_mob_no"
-            style="@style/EditTextLoginStyle"
+            style="@style/EditTextLStyle"
             android:background="@{viewmodel.isPhoneEdit || viewmodel.isEmailEdit ? @drawable/bg_edit_login : @drawable/error_login  }"
             android:drawableEnd="@drawable/mob_login"
             android:hint="@string/enter_mobile_number"
@@ -134,7 +134,7 @@
             app:layout_constraintEnd_toEndOf="@+id/edit_mob_no"
             app:layout_constraintTop_toTopOf="@+id/edit_mob_no" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/password"
             style="@style/TextViewRegistrationStyle"
             android:layout_marginBottom="@dimen/_10sdp"
@@ -144,7 +144,7 @@
             app:layout_constraintBottom_toTopOf="@+id/edit_password"
             app:layout_constraintStart_toStartOf="@+id/edit_password" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             style="@style/TextViewErrorRegistration"
             android:text="@{viewmodel.isPassword ? @string/no_error : context.getString(viewmodel.passwordError) }"
             app:layout_constraintBottom_toBottomOf="@+id/password"
@@ -153,15 +153,16 @@
             app:layout_constraintStart_toEndOf="@+id/password" />
 
 
-        <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+        <com.dubaiculture.ui.components.customEditText.CustomEditText
             android:id="@+id/edit_password"
-            style="@style/EditTextLoginStyle"
+            style="@style/EditTextLStyle"
             android:background="@{viewmodel.isPassword ? @drawable/bg_edit_login : @drawable/error_login}"
             android:drawableEnd="@drawable/key_pass_login"
             android:hint="@string/enter_password"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:onTextChanged="@{viewmodel::onPasswordChanged}"
+            android:text="@{viewmodel.password}"
             android:transitionName="my_edit_password"
             app:layout_constraintBottom_toTopOf="@+id/forgot_pass"
             app:layout_constraintEnd_toEndOf="@+id/btn_login"
@@ -176,8 +177,21 @@
             app:layout_constraintEnd_toEndOf="@+id/edit_password"
             app:layout_constraintTop_toTopOf="@+id/edit_password" />
 
+        <CheckBox
+            android:id="@+id/checkBoxRemember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neo_sans_arabic_regular"
+            android:text="@string/remember_me"
+            android:theme="@style/CheckboxTheme"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white_900"
+            app:layout_constraintStart_toStartOf="@id/btn_login"
+            app:layout_constraintBottom_toBottomOf="@id/forgot_pass"
+            app:layout_constraintTop_toTopOf="@id/forgot_pass" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/forgot_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -208,7 +222,7 @@
         <!--            app:layout_constraintStart_toStartOf="@+id/img_logo" />-->
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -243,7 +257,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView4"
             app:layout_constraintVertical_bias="0.9" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_dont_have_acct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -257,7 +271,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_register_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -273,86 +287,66 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/tv_dont_have_acct" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_as_guest"
+            style="@style/TextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_20sdp"
             android:foreground="@drawable/custom_ripple_border"
             android:text="@string/continue_as_a_guest"
-            style="@style/TextViewStyle"
             android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
 
+        <!--        <RadioGroup-->
+        <!--            android:id="@+id/rgToggle"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="43dp"-->
+        <!--            android:layout_marginStart="@dimen/_15sdp"-->
+        <!--            android:layout_marginTop="@dimen/_30sdp"-->
+        <!--            android:layout_marginEnd="@dimen/_15sdp"-->
+        <!--            android:background="@drawable/radion_toggle_bg"-->
+        <!--            android:gravity="center"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:visibility="visible"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/img_logo"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/img_logo"-->
+        <!--            >-->
 
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/rbEventInfo"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="49dp"-->
+        <!--                android:layout_weight="0.3"-->
+        <!--                android:background="@drawable/radio_btn_selector_active"-->
+        <!--                android:button="@null"-->
+        <!--                android:checked="true"-->
+        <!--                android:foreground="@drawable/custom_ripple_border"-->
+        <!--                android:gravity="center"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:tag="@string/event_information"-->
+        <!--                android:text="@string/event_information"-->
+        <!--                android:textColor="@drawable/toggle_selector" />-->
 
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/rbSchedule"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="55dp"-->
+        <!--                android:layout_weight="0.7"-->
+        <!--                android:background="@drawable/radio_btn_selector_active"-->
+        <!--                android:button="@null"-->
+        <!--                android:foreground="@drawable/custom_ripple_border"-->
+        <!--                android:gravity="center"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:tag="@string/schedule"-->
+        <!--                android:text="@string/schedule"-->
+        <!--                android:textColor="@drawable/toggle_selector" />-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--        <RadioGroup-->
-<!--            android:id="@+id/rgToggle"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="43dp"-->
-<!--            android:layout_marginStart="@dimen/_15sdp"-->
-<!--            android:layout_marginTop="@dimen/_30sdp"-->
-<!--            android:layout_marginEnd="@dimen/_15sdp"-->
-<!--            android:background="@drawable/radion_toggle_bg"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:visibility="visible"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/img_logo"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/img_logo"-->
-<!--            >-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/rbEventInfo"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="49dp"-->
-<!--                android:layout_weight="0.3"-->
-<!--                android:background="@drawable/radio_btn_selector_active"-->
-<!--                android:button="@null"-->
-<!--                android:checked="true"-->
-<!--                android:foreground="@drawable/custom_ripple_border"-->
-<!--                android:gravity="center"-->
-<!--                android:singleLine="true"-->
-<!--                android:tag="@string/event_information"-->
-<!--                android:text="@string/event_information"-->
-<!--                android:textColor="@drawable/toggle_selector" />-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/rbSchedule"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="55dp"-->
-<!--                android:layout_weight="0.7"-->
-<!--                android:background="@drawable/radio_btn_selector_active"-->
-<!--                android:button="@null"-->
-<!--                android:foreground="@drawable/custom_ripple_border"-->
-<!--                android:gravity="center"-->
-<!--                android:singleLine="true"-->
-<!--                android:tag="@string/schedule"-->
-<!--                android:text="@string/schedule"-->
-<!--                android:textColor="@drawable/toggle_selector" />-->
-
-<!--        </RadioGroup>-->
+        <!--        </RadioGroup>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

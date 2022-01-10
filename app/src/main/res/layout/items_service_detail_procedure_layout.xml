@@ -6,75 +6,103 @@
 
         <variable
             name="procedure"
-            type="com.app.dubaiculture.data.repository.popular_service.local.models.ServiceProcedure" />
+            type="com.dubaiculture.data.repository.popular_service.local.models.ServiceProcedure" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_125sdp"
-        android:layout_marginTop="-40dp">
+        android:layout_height="wrap_content">
 
-        <com.github.vipulasri.timelineview.TimelineView
-            android:id="@+id/timeline"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:endLineColor="@color/gray_400"
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/tv_date_schedule"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:src="@drawable/fb_circle_"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lineStyle="dash"
-            app:lineStyleDashGap="3dp"
-            app:lineStyleDashLength="@dimen/_4sdp"
-            app:lineWidth="3dp"
-            app:marker="@drawable/circle_sitemap"
-            app:markerSize="@dimen/_22sdp"
-            app:startLineColor="@color/gray_400" />
-
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@{procedure.title}"
-            android:textColor="?attr/colorSecondary"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintBottom_toBottomOf="@+id/timeline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/timeline"
-            app:layout_constraintTop_toTopOf="@id/timeline" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
-            android:id="@+id/tv_desc"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:lineSpacingExtra="@dimen/_2sdp"
-            android:lines="9"
-            android:scrollbars="vertical"
-            android:text="@{procedure.summary}"
-            android:textColor="@color/gray_750"
-            android:textSize="@dimen/_13ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
-
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{procedure.id.toString()}"
             android:textColor="@color/purple_900"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="@+id/timeline"
-            app:layout_constraintEnd_toEndOf="@+id/timeline"
-            app:layout_constraintStart_toStartOf="@+id/timeline"
-            app:layout_constraintTop_toTopOf="@+id/timeline" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintBottom_toBottomOf="@+id/tv_date_schedule"
+            app:layout_constraintEnd_toEndOf="@+id/tv_date_schedule"
+            app:layout_constraintStart_toStartOf="@+id/tv_date_schedule"
+            app:layout_constraintTop_toTopOf="@+id/tv_date_schedule" />
 
+        <ImageView
+            android:id="@+id/lines_schedule"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@drawable/linetesting"
+            android:paddingBottom="@dimen/_30sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_count"
+            app:layout_constraintStart_toStartOf="@+id/tv_count"
+            app:layout_constraintTop_toBottomOf="@+id/tv_count" />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_date_schedule"
+            app:layout_constraintTop_toTopOf="@+id/tv_date_schedule">
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_title"
+                style="@style/TextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{procedure.title}"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="@dimen/_14ssp" />
+
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:lineSpacingExtra="@dimen/_2sdp"
+
+                android:text="@{procedure.summary}"
+                android:textColor="@color/gray_750"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

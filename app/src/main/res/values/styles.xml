@@ -13,13 +13,23 @@
 
 
     </style>
+
     <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="android:textColor">?attr/colorSecondary</item>
         <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
         <item name="textAllCaps">true</item>
     </style>
+
     <style name="TabTextStyleAttraction" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
+        <item name="textAllCaps">true</item>
+        <item name="background">?attr/colorSurface</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="TabTextStyleSearch" parent="Widget.MaterialComponents.TabLayout">
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="tabIconTint">@color/home_tab_icon_tint_selector</item>
         <item name="textAllCaps">true</item>
@@ -39,6 +49,12 @@
     </style>
 
 
+    <style name="TextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColorHint">?attr/colorSecondary</item>
+        <item name="android:textSize">@dimen/_15ssp</item>
+        <item name="colorControlNormal">@color/purple_900</item>
+        <item name="colorControlActivated">@color/purple_900</item>
+    </style>
 
     <style name="FullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:backgroundDimEnabled">false</item>
@@ -110,6 +126,10 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="CustomTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/purple_900</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
     <!--Widget Styles-->
     <style name="AppWidgetSection" parent="@android:style/Widget">
         <item name="android:padding">8dp</item>
@@ -132,6 +152,7 @@
     <string name="search">Search</string>
 
 
+
     <style name="EditTextStyle">
         <item name="android:textAlignment">viewStart</item>
         <item name="android:singleLine">true</item>
@@ -143,6 +164,21 @@
         <item name="android:textColor">?attr/colorSecondary</item>
         <item name="android:textColorHint">@color/gray_600</item>
         <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:background">@drawable/bg_edit_resiger</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="EditTextStyleServices">
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:layout_marginTop">@dimen/_10sdp</item>
+        <item name="android:layout_marginBottom">@dimen/_10sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_15sdp</item>
+        <item name="android:layout_marginStart">@dimen/_15sdp</item>
+        <item name="android:paddingStart">@dimen/_15sdp</item>
+        <item name="android:paddingEnd">@dimen/_15sdp</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textColorHint">@color/gray_600</item>
+        <item name="android:textSize">@dimen/_13ssp</item>
         <item name="android:background">@drawable/bg_edit_resiger</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -165,13 +201,26 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="EditTextLoginStyle">
+    <style name="EditTextLStyle">
         <item name="android:layout_marginBottom">@dimen/_12sdp</item>
         <item name="android:paddingStart">@dimen/_15sdp</item>
         <item name="android:paddingEnd">@dimen/_15sdp</item>
         <item name="android:textColor">@color/white_900</item>
         <item name="android:textAlignment">viewStart</item>
-        <item name="android:textColorHint">#E3E0E0</item>
+        <item name="android:textColorHint">@color/white_900</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:background">@drawable/bg_edit_login</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="EditTextLoginStyle">
+        <item name="android:layout_marginBottom">@dimen/_12sdp</item>
+        <item name="android:paddingStart">@dimen/_15sdp</item>
+        <item name="android:paddingEnd">@dimen/_15sdp</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textColorHint">?attr/colorSecondaryVariant</item>
         <item name="android:textSize">@dimen/_11ssp</item>
         <item name="android:background">@drawable/bg_edit_login</item>
         <item name="android:layout_width">0dp</item>
@@ -244,12 +293,32 @@
         <item name="cb_textFont">bold</item>
         <item name="cb_type">filled</item>
     </style>
+
     <style name="SubmitButtonOutLined" parent="SubmitButtonFilled">
         <item name="android:background">@drawable/bg_btn_outlined</item>
         <item name="android:textColor">?attr/colorSecondary</item>
         <item name="cb_type">outlined</item>
     </style>
 
+    <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="fontFamily">@font/neo_sans_arabic_regular</item>
+        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
+    </style>
+
+    <style name="ChipChoiceTextAppearance" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="fontFamily">@font/neo_sans_arabic_regular</item>
+        <item name="android:fontFamily">@font/neo_sans_arabic_regular</item>
+    </style>
+
+    <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="colorPrimary">@color/purple_900</item>
+        <item name="colorOnPrimary">@color/white_900</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyApp.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">100%</item>
+    </style>
 
     <style name="CustomBottomSheetDialogTheme" parent="Widget.MaterialComponents.BottomSheet">
         <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>

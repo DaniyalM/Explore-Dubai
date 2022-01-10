@@ -70,7 +70,7 @@
             app:layout_constraintStart_toStartOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/reg_successful"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,12 +83,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             />
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp ty orem ipsum dolor sit amet elitsed eiusm"
-            android:textAlignment="viewStart"
+            android:text="@string/registration_success"
+            android:textAlignment="center"
+            android:id="@+id/tvTitle"
             android:textColor="@color/gray_600"
             android:textSize="@dimen/_10ssp"
             android:layout_marginStart="@dimen/_65sdp"
@@ -98,7 +99,7 @@
             app:layout_constraintTop_toBottomOf="@+id/reg_successful" />
 
 
-        <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/btn_continue_reg"
             android:layout_width="0dp"
             android:layout_marginStart="@dimen/_20sdp"

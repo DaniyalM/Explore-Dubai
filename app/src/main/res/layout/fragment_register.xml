@@ -8,7 +8,7 @@
         <import type="android.content.Context" />
         <variable
             name="viewmodel"
-            type="com.app.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel" />
+            type="com.dubaiculture.ui.preLogin.registeration.viewmodel.RegistrationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +58,7 @@
 
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/registration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/full_name"
                     style="@style/TextViewRegistrationStyle"
                     android:layout_marginTop="@dimen/_30sdp"
@@ -80,7 +80,7 @@
                     app:layout_constraintStart_toStartOf="@+id/registration"
                     app:layout_constraintTop_toBottomOf="@+id/registration" />
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/edit_fullName"
                     style="@style/EditTextStyle"
                     android:layout_marginTop="12dp"
@@ -100,7 +100,7 @@
                 <!--android:text="@{viewmodel.isfullName ? @string/no_error :  @string/err_first_name }"-->
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/customTextView2"
                     style="@style/TextViewErrorRegistration"
                     android:text="@{viewmodel.isfullName ?@string/no_error : context.getString(viewmodel.fullnameError)    }"
@@ -121,14 +121,14 @@
                     app:layout_constraintTop_toTopOf="@+id/edit_fullName" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/email_address"
                     style="@style/TextViewRegistrationStyle"
                     android:text="@string/_email_address"
                     app:layout_constraintStart_toStartOf="@+id/edit_fullName"
                     app:layout_constraintTop_toBottomOf="@+id/edit_fullName" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     style="@style/TextViewErrorRegistration"
                     android:text="@{viewmodel.isEmail ? @string/no_error : context.getString(viewmodel.emailError) }"
                     app:layout_constraintBottom_toBottomOf="@+id/email_address"
@@ -137,7 +137,7 @@
                     app:layout_constraintStart_toStartOf="@+id/edit_email_address"
                     app:layout_constraintTop_toTopOf="@+id/email_address" />
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/edit_email_address"
                     style="@style/EditTextStyle"
                     android:background="@{viewmodel.isEmail ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
@@ -162,7 +162,7 @@
                     app:layout_constraintTop_toTopOf="@+id/edit_email_address" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/mob_num"
                     style="@style/TextViewRegistrationStyle"
                     android:text="@string/mobile_number_new"
@@ -171,7 +171,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/edit_email_address" />
                 <!--            android:text="@{viewmodel.isPhone ? @string/no_error : @string/err_phone }"-->
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvPhoneErrors"
                     style="@style/TextViewErrorRegistration"
                     android:text="@{viewmodel.isPhone ? @string/no_error : context.getString(viewmodel.errs)}"
@@ -181,7 +181,7 @@
                     app:layout_constraintStart_toStartOf="@+id/edit_mobile"
                     app:layout_constraintTop_toTopOf="@+id/mob_num" />
 
-                <!--            <com.app.dubaiculture.ui.components.customEditText.CustomEditText-->
+                <!--            <com.dubaiculture.ui.components.customEditText.CustomEditText-->
                 <!--                android:id="@+id/edit_mobile"-->
                 <!--                style="@style/EditTextStyle"-->
                 <!--                android:background="@{viewmodel.isPhone ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"-->
@@ -197,23 +197,25 @@
                 <!--                app:layout_constraintTop_toBottomOf="@+id/mob_num"-->
                 <!--                tools:src="@drawable/bg_edit_resiger" />-->
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/edit_mobile"
                     style="@style/EditTextStyle"
+                    android:layout_marginTop="20dp"
                     android:background="@{viewmodel.isPhone ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
                     android:digits="0123456789+"
                     android:drawableEnd="@drawable/mob_register"
                     android:hint="@string/enter_mobile_number_reg"
                     android:imeOptions="actionNext"
-                    android:inputType="phone"
 
+                    android:inputType="phone"
                     android:onTextChanged="@{viewmodel::onPhoneChanged}"
                     android:transitionName="my_edit_phone"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.492"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mob_num"
                     tools:src="@drawable/bg_edit_resiger" />
-
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
@@ -225,7 +227,7 @@
                     app:layout_constraintTop_toTopOf="@+id/edit_mobile" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/password"
                     style="@style/TextViewRegistrationStyle"
                     android:text="@string/_password"
@@ -235,7 +237,7 @@
                 <!--            android:text="@{viewmodel.isPassword ? @string/no_error :  @string/err_password }"-->
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     style="@style/TextViewErrorRegistration"
                     android:text="@{viewmodel.isPassword ? @string/no_error : context.getString(viewmodel.passwordError) }"
                     app:layout_constraintBottom_toBottomOf="@+id/password"
@@ -244,7 +246,7 @@
                     app:layout_constraintStart_toStartOf="@+id/edit_pass"
                     app:layout_constraintTop_toTopOf="@+id/password" />
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/edit_pass"
                     style="@style/EditTextStyle"
                     android:background="@{viewmodel.isPassword ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
@@ -271,14 +273,14 @@
                     app:layout_constraintTop_toTopOf="@+id/edit_pass" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/confirm_pass"
                     style="@style/TextViewRegistrationStyle"
                     android:text="@string/_confirm_password"
                     app:layout_constraintStart_toStartOf="@+id/edit_pass"
                     app:layout_constraintTop_toBottomOf="@+id/edit_pass" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     style="@style/TextViewErrorRegistration"
                                 android:text="@{viewmodel.isPasswordConfirm ? @string/no_error : context.getString(viewmodel.passwordConfirmError) }"
                 app:layout_constraintBottom_toBottomOf="@+id/confirm_pass"
@@ -287,7 +289,7 @@
                     app:layout_constraintStart_toStartOf="@+id/edit_confirm_pass"
                     app:layout_constraintTop_toTopOf="@+id/confirm_pass" />
 
-                <com.app.dubaiculture.ui.components.customEditText.CustomEditText
+                <com.dubaiculture.ui.components.customEditText.CustomEditText
                     android:id="@+id/edit_confirm_pass"
                     style="@style/EditTextStyle"
                     android:background="@{viewmodel.isPasswordConfirm ? @drawable/bg_edit_resiger : @drawable/rectangle_error_bg_registration}"
@@ -321,7 +323,7 @@
                     app:layout_constraintStart_toStartOf="@+id/confirm_pass"
                     app:layout_constraintTop_toBottomOf="@+id/edit_confirm_pass" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_term_condition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -329,14 +331,14 @@
                     android:background="@drawable/custom_ripple_border"
                     android:singleLine="true"
                     android:text="@string/i_agree_to_the_terms_and_conditions"
-                    android:textColor="@color/purple_600"
+                    android:textColor="?attr/color_dubai_logo"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/checkbox"
                     app:layout_constraintStart_toEndOf="@+id/checkbox"
                     app:layout_constraintTop_toTopOf="@+id/checkbox" />
 
 
-                <com.app.dubaiculture.ui.components.custombutton.CustomButton
+                <com.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/btn_register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -356,7 +358,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/checkbox" />
 
 
-                <!--        <com.app.dubaiculture.ui.components.custombutton.CustomButton-->
+                <!--        <com.dubaiculture.ui.components.custombutton.CustomButton-->
                 <!--            android:id="@+id/btn_register"-->
                 <!--            android:background="@drawable/btn_register"-->
                 <!--            app:layout_constraintTop_toBottomOf="@+id/checkbox"-->
@@ -371,7 +373,7 @@
                 <!--            android:layout_width="wrap_content"-->
                 <!--            android:layout_height="wrap_content"/>-->
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_dont_have_acct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -388,7 +390,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_register"
                     />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_login_now"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -397,7 +399,7 @@
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:background="@drawable/custom_ripple_border"
                     android:text="@string/login_here"
-                    android:textColor="@color/purple_900"
+                    android:textColor="?attr/color_dubai_logo"
                     android:textSize="@dimen/_11ssp"
                     android:transitionName="my_register"
                     app:layout_constraintBottom_toBottomOf="parent"

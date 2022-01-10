@@ -22,7 +22,18 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:navGraph="@navigation/explore_navigation" />
+                app:navGraph="@navigation/explore_navigation">
+
+
+            </androidx.fragment.app.FragmentContainerView>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/bottom_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shadow_black"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -54,16 +65,39 @@
             </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <FrameLayout
+                android:id="@+id/flWebview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shadow_black"
+                android:layout_height="@dimen/_400sdp"
+                android:background="@drawable/my_trip_bottomsheet"
+                android:paddingLeft="1dip"
+                android:paddingRight="1dip"
+                android:paddingBottom="10dip"
+                android:translationZ="90dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.09" />
+                app:layout_constraintStart_toStartOf="parent">
 
+                <WebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_360sdp"
+                    android:layout_gravity="bottom" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/fabLiveChat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:translationZ="100dp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:clickable="true"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_chat_updated__1_"
+                app:layout_constraintBottom_toTopOf="@id/bottomNav"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

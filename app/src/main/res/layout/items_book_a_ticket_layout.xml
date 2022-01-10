@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="popular_services" type="com.app.dubaiculture.data.repository.explore.local.models.ServiceBookings"/>
+        <variable name="popular_services" type="com.dubaiculture.data.repository.explore.local.models.ServiceBookings"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,7 +25,6 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_155sdp"
-            app:cardBackgroundColor="#F2F2F2"
             app:cardElevation="@dimen/_12sdp"
             app:cardCornerRadius="@dimen/_1sdp"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +68,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_title"
                     android:text="@{popular_services.category}"
                     tools:text="@string/event_ticket"
@@ -90,7 +89,7 @@
                     app:layout_constraintTop_toTopOf="@+id/img" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_desc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -148,7 +147,7 @@
                     android:background="@drawable/line_book_a_ticket_dummy"
                     />
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/booking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -161,7 +160,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/line" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_booking_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -185,7 +184,7 @@
                     />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -198,7 +197,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/line" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_booking_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -212,7 +211,7 @@
 
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tickets"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -225,7 +224,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/line" />
 
 
-                <com.app.dubaiculture.ui.components.customtextview.CustomTextView
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tv_tickets"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
