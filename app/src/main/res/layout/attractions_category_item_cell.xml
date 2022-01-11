@@ -11,8 +11,8 @@
         >
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/attraction_image"
-            android:layout_width="@dimen/_58sdp"
-            android:layout_height="@dimen/_58sdp"
+            android:layout_width="@dimen/_62sdp"
+            android:layout_height="@dimen/_62sdp"
             android:layout_marginTop="12dp"
             android:layout_margin="@dimen/_5sdp"
             android:background="@android:drawable/dialog_holo_light_frame"
