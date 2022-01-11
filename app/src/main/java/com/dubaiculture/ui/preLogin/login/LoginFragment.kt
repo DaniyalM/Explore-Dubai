@@ -146,11 +146,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), View.OnClickListener
 
 
 
-        if (isArabic()) {
-            binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
-        } else {
-            binding.imgUaePass.setImageResource(R.drawable.uae_pass)
-        }
+//        if (isArabic()) {
+//            binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
+//        } else {
+//            binding.imgUaePass.setImageResource(R.drawable.uae_pass)
+//        }
 
     }
 

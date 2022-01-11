@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.survey.SurveyRepository
 import com.dubaiculture.data.repository.survey.request.Form
+import com.dubaiculture.data.repository.survey.request.Items
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,7 @@ class SurveyViewModel @Inject constructor(
 
     private val _form: MutableLiveData<Event<Form>> = MutableLiveData()
     val form: LiveData<Event<Form>> = _form
+
 
     fun getSurveyForm(formId: String, locale: String) {
         viewModelScope.launch {
@@ -37,12 +39,26 @@ class SurveyViewModel @Inject constructor(
         }
     }
 
+     fun updateForm(form: Form) {
+        _form.value = Event(form)
+    }
+
+     fun updateFormItem(form: Form,items: Items) {
+        val data = form.items ?: return
+        data.map {
+            if (items.id == it.id)
+                return@map items
+            else return@map it
+        }.let {
+            updateForm(form.copy(items = it))
+        }
+    }
+
 
     fun postSurvey(form: Form) {
         viewModelScope.launch {
             showLoader(true)
             val result = surveyRepository.postSurvey(form = form)
-
             if (result is Result.Success) {
                 showLoader(false)
 

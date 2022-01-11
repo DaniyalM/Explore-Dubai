@@ -169,6 +169,7 @@
                 android:layout_marginTop="@dimen/_17sdp"
                 android:background="@drawable/custom_ripple_border"
                 android:text="@string/forgot_password"
+            android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="@+id/edit_password"
                 app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toStartOf="@+id/edit_password"
@@ -177,11 +178,10 @@
 
             <com.dubaiculture.ui.components.custombutton.CustomButton
                 android:id="@+id/btn_login"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_22sdp"
-                android:layout_marginEnd="@dimen/_25sdp"
+
                 android:background="@drawable/btn_border_login"
                 android:elevation="@dimen/_15sdp"
                 android:foreground="@drawable/custom_ripple_border"
@@ -189,25 +189,57 @@
                 android:onClick="@{()-> viewmodel.isLoginWithPhone ? viewmodel.loginWithPhone(viewmodel.phone,viewmodel.password) : viewmodel.loginWithEmail(viewmodel.phone,viewmodel.password) }"
                 android:outlineSpotShadowColor="@color/purple_600"
                 android:text="@string/login"
+                android:textSize="@dimen/_12ssp"
                 android:textAllCaps="false"
                 android:textColor="@color/white_900"
                 app:layout_constraintEnd_toEndOf="@+id/tv_forgot_pass"
-                app:layout_constraintStart_toStartOf="@+id/tv_forgot_pass"
+                app:layout_constraintStart_toStartOf="@+id/checkBoxRemember"
                 app:layout_constraintTop_toBottomOf="@+id/tv_forgot_pass" />
 
-
-            <androidx.appcompat.widget.AppCompatImageView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
                 android:id="@+id/img_uae_pass"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_btn_white"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_18sdp"
-                android:background="@drawable/custom_ripple_border"
-                android:elevation="@dimen/_10sdp"
-                android:src="@drawable/uae_pass"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:minHeight="@dimen/_42sdp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_dont_have_acct"
+                app:layout_constraintEnd_toEndOf="@+id/btn_login"
+                app:layout_constraintStart_toStartOf="@+id/btn_login"
                 app:layout_constraintTop_toBottomOf="@+id/btn_login"
-                app:layout_constraintVertical_bias="0.9" />
+                app:layout_constraintVertical_bias="0.9"
+                >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/uae_image"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:scaleType="fitXY"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/uaepass_color_logo"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_uae_pass_text"
+                    app:layout_constraintEnd_toStartOf="@+id/img_uae_pass_text"
+                    app:layout_constraintTop_toTopOf="@+id/img_uae_pass_text" />
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/img_uae_pass_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:foreground="@drawable/custom_ripple_border"
+                    android:gravity="center"
+                    android:src="@drawable/uae_pass"
+                    android:text="@string/sign_in_with_uae_pass"
+                    android:textColor="@color/gray_850"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:textFont="bold" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
             <com.dubaiculture.ui.components.customtextview.CustomTextView

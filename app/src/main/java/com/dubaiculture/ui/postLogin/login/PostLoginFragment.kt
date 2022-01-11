@@ -76,7 +76,7 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         binding.tvRegisterNow.setOnClickListener(this)
         binding.tvForgotPass.setOnClickListener(this)
         callingObserver()
-        uaePassRTL()
+//        uaePassRTL()
         binding.editMobile.onFocusChangeListener = object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
 
@@ -241,13 +241,13 @@ class PostLoginFragment : BaseBottomSheetFragment<FragmentPostLoginBinding>(),
         }
     }
 
-    private fun uaePassRTL() {
-        if (isArabic()) {
-            binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
-        } else {
-            binding.imgUaePass.setImageResource(R.drawable.uae_pass)
-        }
-    }
+//    private fun uaePassRTL() {
+//        if (isArabic()) {
+//            binding.imgUaePass.setImageResource(R.drawable.uae_pass_new)
+//        } else {
+//            binding.imgUaePass.setImageResource(R.drawable.uae_pass)
+//        }
+//    }
 
     override fun onPause() {
         super.onPause()
