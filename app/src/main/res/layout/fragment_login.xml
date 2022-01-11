@@ -20,6 +20,7 @@
         android:layout_height="match_parent"
         android:background="?attr/colorPrimaryVariant">
 
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView4"
             android:layout_width="0dp"
@@ -199,6 +200,7 @@
             android:layout_marginBottom="@dimen/_20sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:text="@string/forgot_password"
+            android:textSize="@dimen/_12ssp"
             android:textColor="@color/white_900"
             app:layout_constraintBottom_toTopOf="@+id/btn_login"
             app:layout_constraintEnd_toEndOf="@+id/btn_login" />
@@ -243,20 +245,48 @@
 
         <!--        android:enabled="@{viewmodel.btnSelected}"-->
 
-
-        <androidx.appcompat.widget.AppCompatImageView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
             android:id="@+id/img_uae_pass"
-            android:layout_width="wrap_content"
+            android:background="@drawable/bg_btn_white"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/custom_ripple_border"
-            android:src="@drawable/uae_pass"
+            android:minHeight="@dimen/_45sdp"
             app:layout_constraintBottom_toTopOf="@+id/tv_dont_have_acct"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btn_login"
+            app:layout_constraintStart_toStartOf="@+id/btn_login"
             app:layout_constraintTop_toTopOf="@+id/imageView4"
-            app:layout_constraintVertical_bias="0.876" />
+          >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/uae_image"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:scaleType="fitXY"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/uaepass_color_logo"
+                app:layout_constraintBottom_toBottomOf="@+id/img_uae_pass_text"
+                app:layout_constraintEnd_toStartOf="@+id/img_uae_pass_text"
+                app:layout_constraintTop_toTopOf="@+id/img_uae_pass_text" />
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/img_uae_pass_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/custom_ripple_border"
+                android:gravity="center"
+                android:src="@drawable/uae_pass"
+                android:text="@string/sign_in_with_uae_pass"
+                android:textColor="@color/gray_850"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textFont="bold" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tv_dont_have_acct"
@@ -265,7 +295,7 @@
             android:layout_marginBottom="@dimen/_15sdp"
             android:text="@string/don_t_have_an_account"
             android:textColor="?attr/colorSecondaryVariant"
-            android:textSize="@dimen/_11ssp"
+            android:textSize="@dimen/_12ssp"
             android:transitionName="my_dummy"
             app:layout_constraintBottom_toTopOf="@+id/tv_as_guest"
             app:layout_constraintEnd_toStartOf="@+id/tv_register_now"
@@ -281,7 +311,7 @@
             android:background="@drawable/custom_ripple_border"
             android:text="@string/register_now"
             android:textColor="@color/purple_900"
-            android:textSize="@dimen/_11ssp"
+            android:textSize="@dimen/_12ssp"
             android:transitionName="my_register"
             app:layout_constraintBottom_toTopOf="@+id/tv_as_guest"
             app:layout_constraintEnd_toEndOf="parent"
@@ -296,7 +326,7 @@
             android:layout_marginBottom="@dimen/_20sdp"
             android:foreground="@drawable/custom_ripple_border"
             android:text="@string/continue_as_a_guest"
-            android:textSize="@dimen/_11ssp"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
