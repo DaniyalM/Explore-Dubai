@@ -408,7 +408,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
         toolbarLayout.back.setOnClickListener(this)
         binding.imgBack.setOnClickListener(this)
         toolbarLayout.btnBookATicket.setOnClickListener(this)
-        toolbarLayout.btnBookATicket.hide()
+//        toolbarLayout.btnBookATicket.hide()
 
 
         toolbarLayout.llAr.setOnClickListener(this)
@@ -789,6 +789,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 back()
             }
             R.id.btn_book_a_ticket -> {
+                navigateByDirections(AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation("www.google.com",false,getString(R.string.book_a_ticket)))
 //                attractionDetailViewModel.showToast("Book a Ticket")
             }
             R.id.downOneAR -> {

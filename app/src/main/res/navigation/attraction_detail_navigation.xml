@@ -7,7 +7,7 @@
     <include app:graph="@navigation/web_view_navigation"/>
     <include app:graph="@navigation/post_login_bottom_navigation"/>
     <include app:graph="@navigation/event_detail_navigation"/>
-
+    <include app:graph="@navigation/web_view_navigation" />
 
     <fragment
         android:id="@+id/attractionDetailFragment"
@@ -115,6 +115,27 @@
                 android:name="title"
                 app:argType="string" />
         </action>
+
+        <action
+            android:id="@+id/action_attractionDetailFragment_to_webViewFragment"
+            app:destination="@id/web_view_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="webview_url"
+                app:argType="string" />
+            <argument
+                android:name="is_pdf"
+                app:argType="boolean"
+                app:nullable="false" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+
+        </action>
+
     </fragment>
 
     <fragment
