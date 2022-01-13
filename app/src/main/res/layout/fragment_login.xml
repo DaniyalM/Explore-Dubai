@@ -200,7 +200,7 @@
             android:layout_marginBottom="@dimen/_20sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:text="@string/forgot_password"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_9ssp"
             android:textColor="@color/white_900"
             app:layout_constraintBottom_toTopOf="@+id/btn_login"
             app:layout_constraintEnd_toEndOf="@+id/btn_login" />
@@ -227,7 +227,7 @@
         <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/btn_login"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_37sdp"
             android:layout_marginEnd="@dimen/_25sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/btn_border_login"
@@ -249,8 +249,7 @@
             android:layout_width="0dp"
             android:id="@+id/img_uae_pass"
             android:background="@drawable/bg_btn_white"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/_45sdp"
+            android:layout_height="@dimen/_37sdp"
             app:layout_constraintBottom_toTopOf="@+id/tv_dont_have_acct"
             app:layout_constraintEnd_toEndOf="@+id/btn_login"
             app:layout_constraintStart_toStartOf="@+id/btn_login"
