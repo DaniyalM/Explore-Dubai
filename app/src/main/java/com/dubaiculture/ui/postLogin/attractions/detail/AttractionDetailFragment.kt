@@ -14,6 +14,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.CheckBox
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -177,6 +178,7 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
     private fun initializeDetails(attraction: Attractions) {
         binding.attraction = attraction
 
+
         detailInnerLayout.ibeaconsDesc.text = attraction.ibecons?.subtitle
         if (this::marker.isInitialized) {
             marker.let {
@@ -324,6 +326,12 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
 //                    mapView?.getMapAsync(this)
                     emailContact = it.value.emailContact
                     numberContact = it.value.numberContact
+
+                    if (URLUtil.isValidUrl(it.value.bookTicketLink)) {
+                        toolbarLayout.btnBookATicket.show()
+                    } else {
+                        toolbarLayout.btnBookATicket.hide()
+                    }
 
                     if (it.value.gallery.isNullOrEmpty()) {
                         detailInnerLayout.downOneGallery.alpha = 0.4f
@@ -789,7 +797,13 @@ class AttractionDetailFragment : BaseFragment<FragmentAttractionDetailBinding>()
                 back()
             }
             R.id.btn_book_a_ticket -> {
-                navigateByDirections(AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation("www.google.com",false,getString(R.string.book_a_ticket)))
+                navigateByDirections(
+                    AttractionDetailFragmentDirections.actionAttractionDetailFragmentToWebViewNavigation(
+                        attractionsObj?.bookTicketLink?:"",
+                        false,
+                        getString(R.string.book_a_ticket)
+                    )
+                )
 //                attractionDetailViewModel.showToast("Book a Ticket")
             }
             R.id.downOneAR -> {
