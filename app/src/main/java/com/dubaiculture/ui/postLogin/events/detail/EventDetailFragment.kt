@@ -8,8 +8,10 @@ import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.CalendarContract
 import android.speech.tts.TextToSpeech
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -441,10 +443,15 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun uiActions() {
 
+
+        binding.toolbarLayoutEventDetail.bookingCalenderEvent.show()
+        binding.bookingCalender.show()
+
         binding.toolbarLayoutEventDetail.btnReg.setOnClickListener(this)
         binding.toolbarLayoutEventDetail.backEvent.setOnClickListener(this)
 //        binding.toolbarLayoutEventDetail.imgShareEvent.setOnClickListener(this)
         binding.toolbarLayoutEventDetail.bookingCalenderEvent.setOnClickListener(this)
+        binding.bookingCalender.setOnClickListener(this)
 //        binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener(this)
 
         binding.eventDetailInnerLayout.imgEventSpeaker.setOnClickListener(this)
@@ -649,7 +656,48 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 ////                eventViewModel.showToast("Share")
 //            }
             R.id.bookingCalender_event -> {
-//                eventViewModel.showToast("Calender")
+                if (Build.VERSION.SDK_INT >= 14) {
+                    val intent: Intent = Intent(Intent.ACTION_INSERT)
+                        .setData(CalendarContract.Events.CONTENT_URI)
+                        .putExtra(CalendarContract.EventDays.STARTDAY, eventObj?.fromDate)
+                        .putExtra(CalendarContract.EventDays.ENDDAY,   eventObj?.toDate)
+                        .putExtra(CalendarContract.Events.TITLE,eventObj?.title)
+                        .putExtra(CalendarContract.Events.DESCRIPTION, eventObj?.desc)
+                        .putExtra(CalendarContract.Events.EVENT_LOCATION, eventObj?.location)
+                        .putExtra(Intent.EXTRA_EMAIL, eventObj?.emailContact)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(Intent.ACTION_EDIT)
+                    intent.type = "vnd.android.cursor.item/event"
+                    intent.putExtra("startDay",  eventObj?.fromDate)
+                    intent.putExtra("allDay", true)
+                    intent.putExtra("rrule", "FREQ=YEARLY")
+                    intent.putExtra("endDay",  eventObj?.toDate)
+                    intent.putExtra("title", eventObj?.title)
+                    startActivity(intent)
+                }
+            }
+            R.id.bookingCalender -> {
+                if (Build.VERSION.SDK_INT >= 14) {
+                    val intent: Intent = Intent(Intent.ACTION_INSERT)
+                        .setData(CalendarContract.Events.CONTENT_URI)
+                        .putExtra(CalendarContract.EventDays.STARTDAY, eventObj?.fromDate)
+                        .putExtra(CalendarContract.EventDays.ENDDAY,   eventObj?.toDate)
+                        .putExtra(CalendarContract.Events.TITLE,eventObj?.title)
+                        .putExtra(CalendarContract.Events.DESCRIPTION, eventObj?.desc)
+                        .putExtra(CalendarContract.Events.EVENT_LOCATION, eventObj?.location)
+                        .putExtra(Intent.EXTRA_EMAIL, eventObj?.emailContact)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(Intent.ACTION_EDIT)
+                    intent.type = "vnd.android.cursor.item/event"
+                    intent.putExtra("startDay",  eventObj?.fromDate)
+                    intent.putExtra("allDay", true)
+                    intent.putExtra("rrule", "FREQ=YEARLY")
+                    intent.putExtra("endDay",  eventObj?.toDate)
+                    intent.putExtra("title", eventObj?.title)
+                    startActivity(intent)
+                }
             }
 //            R.id.favourite_event -> {
 //                navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
