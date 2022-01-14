@@ -677,6 +677,28 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     startActivity(intent)
                 }
             }
+            R.id.bookingCalender -> {
+                if (Build.VERSION.SDK_INT >= 14) {
+                    val intent: Intent = Intent(Intent.ACTION_INSERT)
+                        .setData(CalendarContract.Events.CONTENT_URI)
+                        .putExtra(CalendarContract.EventDays.STARTDAY, eventObj?.fromDate)
+                        .putExtra(CalendarContract.EventDays.ENDDAY,   eventObj?.toDate)
+                        .putExtra(CalendarContract.Events.TITLE,eventObj?.title)
+                        .putExtra(CalendarContract.Events.DESCRIPTION, eventObj?.desc)
+                        .putExtra(CalendarContract.Events.EVENT_LOCATION, eventObj?.location)
+                        .putExtra(Intent.EXTRA_EMAIL, eventObj?.emailContact)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(Intent.ACTION_EDIT)
+                    intent.type = "vnd.android.cursor.item/event"
+                    intent.putExtra("startDay",  eventObj?.fromDate)
+                    intent.putExtra("allDay", true)
+                    intent.putExtra("rrule", "FREQ=YEARLY")
+                    intent.putExtra("endDay",  eventObj?.toDate)
+                    intent.putExtra("title", eventObj?.title)
+                    startActivity(intent)
+                }
+            }
 //            R.id.favourite_event -> {
 //                navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
 //            }
