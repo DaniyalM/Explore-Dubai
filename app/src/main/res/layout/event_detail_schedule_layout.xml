@@ -58,7 +58,35 @@
                 tools:itemCount="3"
                 tools:listitem="@layout/schedule_collapse" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/noDataPlaceHolder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_schedule_title"
+                android:visibility="gone">
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tvPlaceHolder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_50sdp"
+                    android:layout_marginBottom="@dimen/home_tab_layout_height"
+                    android:lineSpacingExtra="@dimen/text_line_spacing"
+                    android:text="@string/no_my_posts_fav"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.core.widget.NestedScrollView>
 
 </layout>

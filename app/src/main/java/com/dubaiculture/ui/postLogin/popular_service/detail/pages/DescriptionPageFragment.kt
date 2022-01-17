@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.dubaiculture.R
 import com.dubaiculture.data.repository.popular_service.local.models.Description
 import com.dubaiculture.databinding.ItemsServiceDetailDescLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
@@ -126,15 +127,22 @@ class DescriptionPageFragment :
             binding.category = category!!
             binding.tvPdfTitle.text = description.fileName
             binding.fileSize.text = description.fileSize
-            binding.fileViewLink.setOnClickListener {
+            if (description.documentLink.isEmpty())
+                binding.tvPdfTitle.text = resources.getString(R.string.not_available)
+            else {
+                binding.fileViewLink.setOnClickListener {
 
 //                (parentFragment as ServiceDetailFragment).navigateByDirections(
 //                    ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
 //                        BuildConfig.BASE_URL_SHARE +description.documentLink, true
 //                    )
 //                )
-                descriptionViewModel.getDoc(description.documentLink)
+                    descriptionViewModel.getDoc(description.documentLink)
+                }
             }
+
+
+
         }
     }
 

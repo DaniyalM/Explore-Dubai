@@ -87,6 +87,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
     var urlshare: String? = null
     var map: GoogleMap? = null
 
+
     var isRegisterd = false
 
     lateinit var eventDetailInnerLayout: EventDetailInnerLayoutBinding
@@ -776,12 +777,21 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     if (!it.value.desc.isNullOrEmpty()) {
                         binding.eventDetailInnerLayout.tvDescReadmoreEvent.text = it.value.desc
                     }
+                    if (it.value.eventSchedule.isEmpty()){
+                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.noDataPlaceHolder?.show()
+                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.rvSchedule.hide()
+                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.hide()
+                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.speakerSchedule.hide()
+                    }else{
+                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.noDataPlaceHolder!!.hide()
+                    }
+
                     it.value.eventSchedule!!.map {
-                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text =
-                            it.description
+                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text = it.description
                         it.eventScheduleItems.forEach {
                             parentItemList.add(it)
                         }
+
                         parentItemList.forEach {
                             childItemHolder.add(it.eventScheduleItemsSlots as ArrayList<EventScheduleItemsSlots>)
                         }
