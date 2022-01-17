@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="fragment"
+            type="com.dubaiculture.ui.preLogin.login.LoginFragment" />
+
+        <variable
+            name="viewmodel"
+            type="com.dubaiculture.ui.preLogin.login.viewmodels.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimaryVariant">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView4"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_170sdp"
+            android:background="@drawable/bottom_bg_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chainUseRtl="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/white_animation_reg" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/imageView4" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:src="@drawable/logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_login_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_to_your_account"
+            android:textColor="@color/white_900"
+            android:textSize="@dimen/_15ssp"
+            android:transitionName="main_title"
+            app:layout_constraintBottom_toTopOf="@+id/mobile_number"
+            app:layout_constraintStart_toStartOf="@+id/img_logo"
+            app:layout_constraintTop_toBottomOf="@+id/img_logo"
+            app:layout_constraintVertical_bias="0.7" />
+
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/mobile_number"
+            style="@style/TextViewRegistrationStyle"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:text="@string/mobile_number"
+            android:textColor="@color/white_900"
+            android:transitionName="my_phone"
+            app:layout_constraintBottom_toTopOf="@+id/edit_mob_no"
+            app:layout_constraintStart_toStartOf="@+id/edit_mob_no" />
+        <!--        android:text="@{viewmodel.mobileNumberError ? @string/no_error : @string/err_phone_two  viewmodel.mobileNumberErrorTwo ? @string/no_error : @string/err_phone }"-->
+        <!--        android:text="@{viewmodel.isPhone ? @string/no_error : @string/err_phone}"-->
+
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvPhoneError"
+            style="@style/TextViewErrorRegistration"
+            android:text="@{viewmodel.isPhone ? @string/no_error : context.getString(viewmodel.errs)}"
+            android:visibility="@{viewmodel.phoneError? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/mobile_number"
+            app:layout_constraintTop_toTopOf="@+id/mobile_number" />
+
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tvEmailError"
+            style="@style/TextViewErrorRegistration"
+            android:text="@{viewmodel.isEmail ? @string/no_error : @string/err_email}"
+            android:visibility="@{viewmodel.emailError? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/mobile_number"
+            app:layout_constraintTop_toTopOf="@+id/mobile_number" />
+
+
+        <com.dubaiculture.ui.components.customEditText.CustomEditText
+            android:id="@+id/edit_mob_no"
+            style="@style/EditTextLStyle"
+            android:background="@{viewmodel.isPhoneEdit || viewmodel.isEmailEdit ? @drawable/bg_edit_login : @drawable/error_login  }"
+            android:drawableEnd="@drawable/mob_login"
+            android:hint="@string/enter_mobile_number"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:onTextChanged="@{viewmodel::onPhoneChanged}"
+            android:text="@{viewmodel.phone}"
+            android:transitionName="my_edit_phone"
+            app:layout_constraintBottom_toTopOf="@+id/password"
+            app:layout_constraintEnd_toEndOf="@+id/edit_password"
+            app:layout_constraintStart_toStartOf="@+id/password" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@{viewmodel.isPhoneEdit || viewmodel.isEmailEdit ?  null : @drawable/error }"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_mob_no"
+            app:layout_constraintEnd_toEndOf="@+id/edit_mob_no"
+            app:layout_constraintTop_toTopOf="@+id/edit_mob_no" />
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/password"
+            style="@style/TextViewRegistrationStyle"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:text="@string/_password"
+            android:textColor="@color/white_900"
+            android:transitionName="my_password"
+            app:layout_constraintBottom_toTopOf="@+id/edit_password"
+            app:layout_constraintStart_toStartOf="@+id/edit_password" />
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            style="@style/TextViewErrorRegistration"
+            android:text="@{viewmodel.isPassword ? @string/no_error : context.getString(viewmodel.passwordError) }"
+            app:layout_constraintBottom_toBottomOf="@+id/password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.85"
+            app:layout_constraintStart_toEndOf="@+id/password" />
+
+
+        <com.dubaiculture.ui.components.customEditText.CustomEditText
+            android:id="@+id/edit_password"
+            style="@style/EditTextLStyle"
+            android:background="@{viewmodel.isPassword ? @drawable/bg_edit_login : @drawable/error_login}"
+            android:drawableEnd="@drawable/key_pass_login"
+            android:hint="@string/enter_password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:onTextChanged="@{viewmodel::onPasswordChanged}"
+            android:text="@{viewmodel.password}"
+            android:transitionName="my_edit_password"
+            app:layout_constraintBottom_toTopOf="@+id/forgot_pass"
+            app:layout_constraintEnd_toEndOf="@+id/btn_login"
+            app:layout_constraintStart_toStartOf="@+id/btn_login" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@{viewmodel.isPassword ? null : @drawable/error }"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_password"
+            app:layout_constraintEnd_toEndOf="@+id/edit_password"
+            app:layout_constraintTop_toTopOf="@+id/edit_password" />
+
+        <CheckBox
+            android:id="@+id/checkBoxRemember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/neo_sans_arabic_regular"
+            android:text="@string/remember_me"
+            android:theme="@style/CheckboxTheme"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white_900"
+            app:layout_constraintStart_toStartOf="@id/btn_login"
+            app:layout_constraintBottom_toBottomOf="@id/forgot_pass"
+            app:layout_constraintTop_toTopOf="@id/forgot_pass" />
+
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/forgot_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/forgot_password"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white_900"
+            app:layout_constraintBottom_toTopOf="@+id/btn_login"
+            app:layout_constraintEnd_toEndOf="@+id/btn_login" />
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btn_login"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginEnd="@dimen/_25sdp"-->
+        <!--            android:layout_marginBottom="@dimen/_10sdp"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:background="@drawable/btn_border_login"-->
+        <!--            android:enabled="@{viewmodel.btnSelected}"-->
+        <!--            android:gravity="center"-->
+        <!--            android:onClick="@{()-> viewmodel.login()}"-->
+        <!--            android:text="@string/login"-->
+        <!--            android:textColor="@color/white_900"-->
+        <!--            android:textSize="@dimen/_12ssp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/guideline"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/img_logo" />-->
+
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/btn_border_login"
+            android:foreground="@drawable/custom_ripple_border"
+            android:gravity="center"
+            android:onClick="@{()-> viewmodel.isLoginWithPhone ? viewmodel.loginWithPhone(viewmodel.phone,viewmodel.password) : viewmodel.loginWithEmail(viewmodel.phone,viewmodel.password) }"
+            android:text="@string/login"
+            android:textColor="@color/white_900"
+            android:textSize="@dimen/_12ssp"
+            android:transitionName="action_btn"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/img_logo" />
+
+
+        <!--        android:enabled="@{viewmodel.btnSelected}"-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:id="@+id/img_uae_pass"
+            android:background="@drawable/bg_btn_white"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_45sdp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_dont_have_acct"
+            app:layout_constraintEnd_toEndOf="@+id/btn_login"
+            app:layout_constraintStart_toStartOf="@+id/btn_login"
+            app:layout_constraintTop_toTopOf="@+id/imageView4"
+          >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/uae_image"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:scaleType="fitXY"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/uaepass_color_logo"
+                app:layout_constraintBottom_toBottomOf="@+id/img_uae_pass_text"
+                app:layout_constraintEnd_toStartOf="@+id/img_uae_pass_text"
+                app:layout_constraintTop_toTopOf="@+id/img_uae_pass_text" />
+
+            <com.dubaiculture.ui.components.customtextview.CustomTextView
+                android:id="@+id/img_uae_pass_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/custom_ripple_border"
+                android:gravity="center"
+                android:src="@drawable/uae_pass"
+                android:text="@string/sign_in_with_uae_pass"
+                android:textColor="@color/gray_850"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textFont="bold" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_dont_have_acct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:text="@string/don_t_have_an_account"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:textSize="@dimen/_12ssp"
+            android:transitionName="my_dummy"
+            app:layout_constraintBottom_toTopOf="@+id/tv_as_guest"
+            app:layout_constraintEnd_toStartOf="@+id/tv_register_now"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_register_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:background="@drawable/custom_ripple_border"
+            android:text="@string/register_now"
+            android:textColor="@color/purple_900"
+            android:textSize="@dimen/_12ssp"
+            android:transitionName="my_register"
+            app:layout_constraintBottom_toTopOf="@+id/tv_as_guest"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/tv_dont_have_acct" />
+
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/tv_as_guest"
+            style="@style/TextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:foreground="@drawable/custom_ripple_border"
+            android:text="@string/continue_as_a_guest"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <!--        <RadioGroup-->
+        <!--            android:id="@+id/rgToggle"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="43dp"-->
+        <!--            android:layout_marginStart="@dimen/_15sdp"-->
+        <!--            android:layout_marginTop="@dimen/_30sdp"-->
+        <!--            android:layout_marginEnd="@dimen/_15sdp"-->
+        <!--            android:background="@drawable/radion_toggle_bg"-->
+        <!--            android:gravity="center"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:visibility="visible"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/img_logo"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/img_logo"-->
+        <!--            >-->
+
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/rbEventInfo"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="49dp"-->
+        <!--                android:layout_weight="0.3"-->
+        <!--                android:background="@drawable/radio_btn_selector_active"-->
+        <!--                android:button="@null"-->
+        <!--                android:checked="true"-->
+        <!--                android:foreground="@drawable/custom_ripple_border"-->
+        <!--                android:gravity="center"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:tag="@string/event_information"-->
+        <!--                android:text="@string/event_information"-->
+        <!--                android:textColor="@drawable/toggle_selector" />-->
+
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/rbSchedule"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="55dp"-->
+        <!--                android:layout_weight="0.7"-->
+        <!--                android:background="@drawable/radio_btn_selector_active"-->
+        <!--                android:button="@null"-->
+        <!--                android:foreground="@drawable/custom_ripple_border"-->
+        <!--                android:gravity="center"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:tag="@string/schedule"-->
+        <!--                android:text="@string/schedule"-->
+        <!--                android:textColor="@drawable/toggle_selector" />-->
+
+        <!--        </RadioGroup>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

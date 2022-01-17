@@ -14,11 +14,15 @@
     <attr name="color_curve_view_bg" format="color" />
     <attr name="color_curve_login_bg" format="color" />
     <attr name="color_login_edit_text_bg" format="color" />
+    <attr name="color_pyt_purple_light" format="color" />
+    <attr name="color_pyt_orange_light" format="color" />
+    <attr name="color_ambient_shadow" format="color" />
 
     <attr name="color_light_theme_purple_dark_theme_gray" format="color" />
     <attr name="color_light_theme_dark_theme_gray" format="color" />
     <attr name="color_light_theme_dark_theme_dark_gray" format="color" />
     <attr name="color_light_theme_purple_dark_theme" format="color" />
+    <attr name="color_chip_text_theme" format="color" />
     <attr name="colorEventLight" format="color" />
     <attr name="colorSurfaceInvertedGray" format="color" />
     <attr name="colorSecondaryVariantInverted" format="color" />
@@ -102,6 +106,10 @@
             <enum name="regular" value="1" />
             <enum name="bold" value="2" />
         </attr>
+    </declare-styleable>
+    <declare-styleable name="AppWidgetAttrs">
+        <attr name="appWidgetBackgroundColor" format="color" />
+        <attr name="appWidgetTextColor" format="color" />
     </declare-styleable>
 
 </resources>

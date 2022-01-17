@@ -54,6 +54,7 @@ data class EventsAndAttraction(
     val icon: String,
     val duration: String,
     val distance: String,
+    val points:String,
     val distanceRadius: Double = 0.0,
     val travelMode: String,
 )

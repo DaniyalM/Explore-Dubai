@@ -15,7 +15,6 @@ import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.DatesAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.MyTripAdapter
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.DateClickListener
 import com.dubaiculture.ui.postLogin.plantrip.mytrip.adapter.clicklisteners.MyTripClickListener
-import com.dubaiculture.ui.postLogin.plantrip.steps.step4.adapter.clicklisteners.DurationClickListener
 import com.dubaiculture.ui.postLogin.plantrip.viewmodels.TripSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -78,7 +77,12 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
                     ) {
                     }
 
-                }
+                    override fun rowClickListenerDirections(latitude: String, longitude: String) {
+                        TODO("Not yet implemented")
+                    }
+
+                },
+                getCurrentLanguage()
             )
             adapter = myTripAdapter
 
@@ -98,7 +102,7 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
             binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
-            tripSharedViewModel.filterEvents(it.single { it.isSelected })
+//            tripSharedViewModel.filterEvents(it.single { it.isSelected })
             datesAdapter.submitList(it)
 
         }
@@ -107,7 +111,7 @@ class MyTripBottomSheetFragment : BaseBottomSheetFragment<FragmentMyTripBottomsh
 
     fun onBottomSheetClicked() {
 
-        navigate(R.id.action_my_trip_to_my_trip_listing)
+//        navigate(R.id.action_my_trip_to_my_trip_listing)
 
     }
 

@@ -52,29 +52,29 @@
 
             <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tvDate"
-                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:fontFamily="@font/neosansarabicmedium"
                 android:text="@{data.dayDate.substring(0,2)}"
-                android:textColor="@color/purple_650"
+                android:textColor="?attr/color_pyt_purple_light"
                 android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/tvDateMonth"
                 app:layout_constraintStart_toStartOf="@id/tvDateMonth"
-                app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading"
+                app:textFont="bold" />
 
             <com.dubaiculture.ui.components.customtextview.CustomTextView
                 android:id="@+id/tvDateMonth"
-                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/neosansarabicmedium"
                 android:text="@{data.dayDate.substring(3)}"
-                android:textColor="@color/orange"
+                android:textColor="?attr/color_pyt_orange_light"
                 android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tvHeading"
-                app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDate"
+                app:textFont="bold" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDay"
@@ -90,7 +90,6 @@
                 app:icon="@drawable/ic_day"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
-                app:iconTint="?attr/colorSecondaryVariant"
                 app:layout_constraintBottom_toBottomOf="@id/tvDateMonth"
                 app:layout_constraintEnd_toStartOf="@id/btnNight"
                 app:layout_constraintTop_toTopOf="@id/tvDate"
@@ -110,7 +109,6 @@
                 app:icon="@drawable/ic_night"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
-                app:iconTint="?attr/colorSecondaryVariant"
                 app:layout_constraintBottom_toBottomOf="@id/tvDateMonth"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvDate"
@@ -126,7 +124,6 @@
                 android:drawableEnd="@drawable/ic_dropdown"
                 android:fontFamily="@font/neo_sans_arabic_regular"
                 android:onClick="@{(v)->view.onDropDownClicked(v)}"
-                android:text="@{data.hour}"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
                 android:textColor="?attr/colorSecondary"
@@ -142,7 +139,7 @@
                 android:layout_height="0.2dp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/gray_750"
+                android:background="@color/gray_400"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvDateMonth"
                 app:layout_constraintTop_toBottomOf="@+id/tvDateMonth" />
@@ -153,7 +150,7 @@
                 android:layout_height="0dp"
                 android:layout_marginVertical="@dimen/_2sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:background="@color/gray_750"
+                android:background="@color/gray_400"
                 app:layout_constraintBottom_toBottomOf="@id/btnDay"
                 app:layout_constraintEnd_toStartOf="@id/btnDay"
                 app:layout_constraintTop_toTopOf="@+id/btnDay" />
@@ -173,7 +170,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDates"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_240sdp"
+                android:layout_height="@dimen/_200sdp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -196,27 +193,27 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white_900"
                 android:transitionName="action_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rvDates" />
 
-<!--            <Button-->
-<!--                android:id="@+id/btnDone"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="@dimen/_40sdp"-->
-<!--                android:layout_marginHorizontal="@dimen/_22ssp"-->
-<!--                android:layout_marginTop="@dimen/_10sdp"-->
-<!--                android:backgroundTint="@color/purple_650"-->
-<!--                android:fontFamily="@font/neo_sans_arabic_regular"-->
-<!--                android:onClick="@{()->view.onDoneClicked()}"-->
-<!--                android:text="@string/done"-->
-<!--                android:textAllCaps="false"-->
-<!--                android:textColor="@color/white_900"-->
-<!--                app:cornerRadius="@dimen/_16sdp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/rvDates" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/btnDone"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="@dimen/_40sdp"-->
+            <!--                android:layout_marginHorizontal="@dimen/_22ssp"-->
+            <!--                android:layout_marginTop="@dimen/_10sdp"-->
+            <!--                android:backgroundTint="@color/purple_650"-->
+            <!--                android:fontFamily="@font/neo_sans_arabic_regular"-->
+            <!--                android:onClick="@{()->view.onDoneClicked()}"-->
+            <!--                android:text="@string/done"-->
+            <!--                android:textAllCaps="false"-->
+            <!--                android:textColor="@color/white_900"-->
+            <!--                app:cornerRadius="@dimen/_16sdp"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/rvDates" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

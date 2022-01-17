@@ -94,11 +94,11 @@
 
                 <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDate"
-                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
-                    android:fontFamily="@font/neosansarabicmedium"
+                    android:textStyle="bold"
+                    app:textFont="bold"
                     android:text="@{data.dayDate.substring(0,2)}"
                     android:textColor="@color/purple_650"
                     android:textSize="@dimen/_13ssp"
@@ -108,10 +108,10 @@
 
                 <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDateMonth"
-                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/neosansarabicmedium"
+                    android:textStyle="bold"
+                    app:textFont="bold"
                     android:text="@{data.dayDate.substring(3)}"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/_10ssp"
@@ -168,7 +168,6 @@
                     android:drawableEnd="@drawable/ic_dropdown"
                     android:fontFamily="@font/neo_sans_arabic_regular"
                     android:onClick="@{(v)->view.onDropDownClicked(v)}"
-                    android:text="@{data.hour}"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="?attr/colorSecondary"
@@ -184,7 +183,7 @@
                     android:layout_height="0.2dp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/gray_750"
+                    android:background="@color/gray_400"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvHeading"
                     app:layout_constraintTop_toBottomOf="@+id/tvDateMonth" />
@@ -195,7 +194,7 @@
                     android:layout_height="0dp"
                     android:layout_marginVertical="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:background="@color/gray_750"
+                    android:background="@color/gray_400"
                     app:layout_constraintBottom_toBottomOf="@id/btnDay"
                     app:layout_constraintEnd_toStartOf="@id/btnDay"
                     app:layout_constraintTop_toTopOf="@+id/btnDay" />
@@ -218,7 +217,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDates"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_240sdp"
+                android:layout_height="@dimen/_200sdp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -258,6 +257,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white_900"
                 android:transitionName="action_btn"
+                app:layout_constraintTop_toBottomOf="@id/rvDates"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

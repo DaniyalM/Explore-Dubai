@@ -81,6 +81,7 @@
                 android:backgroundTint="@color/purple_650"
                 android:fontFamily="@font/neo_sans_arabic_regular"
                 android:text="@string/saveTrip"
+                android:enabled="@{!viewModel.tripName.equals(``)}"
                 android:onClick="@{()->viewModel.onSaveTripClicked(tripId,duration)}"
                 android:textAllCaps="false"
                 android:textColor="@color/white_900"

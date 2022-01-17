@@ -5,7 +5,7 @@
     app:startDestination="@id/tripFragment">
     <include app:graph="@navigation/plan_trip_parent_navigation" />
     <include app:graph="@navigation/my_trip_navigation" />
-
+    <include app:graph="@navigation/my_saved_trip_navigation" />
 
     <fragment
         android:id="@+id/tripFragment"
@@ -21,6 +21,14 @@
             app:destination="@id/my_trip_navigation"
             app:popUpTo="@+id/trip_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_tripFragment_to_savedTripFragment"
+            app:destination="@id/my_saved_trip_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+
     </fragment>
 
 </navigation>

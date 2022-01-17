@@ -12,3 +12,11 @@ data class LocationNearest(
     val longitude: String,
     val isChecked: Boolean
 )
+//{
+//
+//    override fun equals(other : Any?): Boolean {
+//
+//        return locationId == (other as LocationNearest).locationId
+//    }
+//}
+

@@ -9,10 +9,10 @@
             name="view"
             type="com.dubaiculture.ui.postLogin.plantrip.steps.step1.TripStep1Fragment" />
 
-<!--        <variable-->
-<!--            name="viewModel"-->
-<!--            type="com.dubaiculture.ui.postLogin.plantrip.viewmodels.Step1ViewModel" />-->
-<!--    -->
+        <!--        <variable-->
+        <!--            name="viewModel"-->
+        <!--            type="com.dubaiculture.ui.postLogin.plantrip.viewmodels.Step1ViewModel" />-->
+        <!--    -->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/new_green_line" />
+            app:lottie_rawRes="@raw/trip_step" />
 
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
@@ -60,7 +60,7 @@
             android:layout_marginTop="@dimen/_25sdp"
             android:layout_marginEnd="@dimen/_25sdp"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/btn_register"
+            android:background="@drawable/btn_pyt_filled"
             android:foreground="@drawable/custom_ripple_border"
             android:gravity="center"
             android:onClick="@{()->view.onNextClicked()}"

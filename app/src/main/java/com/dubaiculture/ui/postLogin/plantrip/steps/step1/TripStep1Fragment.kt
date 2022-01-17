@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TripStep1Fragment : BaseFragment<FragmentTripStep1Binding>() {
 
     private val step1ViewModel: Step1ViewModel by viewModels()
-    private val tripSharedViewModel: TripSharedViewModel by navGraphViewModels(R.id.plan_trip_parent_navigation)
+//    private val tripSharedViewModel: TripSharedViewModel by navGraphViewModels(R.id.plan_trip_parent_navigation)
     private lateinit var userTypeAdapter: UserTypeAdapter
 
 

@@ -37,38 +37,49 @@
 
                 <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDate"
-                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
-                    android:fontFamily="@font/neosansarabicmedium"
                     android:text="@{data.dayDate.substring(0,2)}"
-                    android:textColor="@color/purple_650"
+                    android:textColor="?attr/color_pyt_purple_light"
                     android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@id/tvDateMonth"
                     app:layout_constraintStart_toStartOf="@id/tvDateMonth"
-                    app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeading"
+                    app:textFont="bold" />
 
                 <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDateMonth"
-                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:fontFamily="@font/neosansarabicmedium"
                     android:text="@{data.dayDate.substring(3)}"
-                    android:textColor="@color/orange"
+                    android:textColor="?attr/color_pyt_orange_light"
                     android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvDate"
+                    app:textFont="bold" />
+
+                <View
+                    android:id="@+id/verticalDivider2"
+                    android:layout_width="0.2dp"
+                    android:layout_height="0dp"
+                    android:layout_marginVertical="@dimen/_2sdp"
+                    android:background="@color/gray_400"
+                    app:layout_constraintStart_toEndOf="@id/tvDurationHeading"
+                    app:layout_constraintBottom_toBottomOf="@id/tvDay"
+                    app:layout_constraintEnd_toStartOf="@id/tvDayHeading"
+                    app:layout_constraintTop_toTopOf="@+id/tvDayHeading" />
 
                 <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDayHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_24sdp"
+                    android:layout_marginHorizontal="@dimen/_24sdp"
                     android:text="@string/time_of_day"
-                    android:textColor="@color/purple_650"
+                    android:textColor="?attr/color_pyt_purple_light"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toTopOf="@id/tvDay"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -76,23 +87,35 @@
 
                 <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDay"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@{data.isDay() == 1 ? @drawable/ic_purple_day: data.isDay() == 2 ? @drawable/ic_purple_night : null}"
-                    android:text='@{data.isDay() == 1 ? "Day" : data.isDay() == 2 ? "Night" : "" }'
-                    android:textColor="@color/purple_650"
+                    android:text='@{data.isDay() == 1 ? @string/day : data.isDay() == 2 ? @string/night : "" }'
+                    android:textColor="?attr/color_pyt_purple_light"
                     android:textSize="@dimen/_13ssp"
+                    android:drawablePadding="@dimen/_4sdp"
                     app:layout_constraintBottom_toBottomOf="@id/tvDateMonth"
-                    app:layout_constraintEnd_toEndOf="@id/tvDayHeading"
                     app:layout_constraintStart_toStartOf="@id/tvDayHeading"
                     app:layout_constraintTop_toBottomOf="@id/tvDayHeading" />
+
+                <View
+                    android:id="@+id/verticalDivider1"
+                    android:layout_width="0.2dp"
+                    android:layout_height="0dp"
+                    android:layout_marginVertical="@dimen/_2sdp"
+                    android:background="@color/gray_400"
+                    app:layout_constraintStart_toEndOf="@id/tvDate"
+                    app:layout_constraintBottom_toBottomOf="@id/tvDuration"
+                    app:layout_constraintEnd_toStartOf="@id/tvDurationHeading"
+                    app:layout_constraintTop_toTopOf="@+id/tvDurationHeading" />
+
 
                 <com.dubaiculture.ui.components.customtextview.CustomTextView
                     android:id="@+id/tvDurationHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration"
-                    android:textColor="@color/purple_650"
+                    android:textColor="?attr/color_pyt_purple_light"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toTopOf="@id/tvDay"
                     app:layout_constraintEnd_toStartOf="@id/tvDayHeading"
@@ -103,7 +126,6 @@
                     android:id="@+id/tvDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:text="@{data.hour}"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintBottom_toBottomOf="@id/tvDay"
                     app:layout_constraintStart_toStartOf="@id/tvDurationHeading"

@@ -55,6 +55,7 @@
     <color name="gray_600">#B7B9BC</color>
     <color name="gray_700">#6F7377</color>
     <color name="gray_400">#D5D5D6</color>
+    <color name="gray_300">#DAD0EB</color>
 
     <color name="gray_750">#707378</color>
     <color name="gray_500">#969696</color>
@@ -96,6 +97,15 @@
     <color name="delete_text_color">#DF7D7D</color>
     <color name="polyline_color">#26C5BB</color>
     <color name="onboarding_color">#00BAAF</color>
+    <color name="disabled_color">#707070</color>
+    <color name="disabled_text_color">#898989</color>
+    <color name="pyt_purple_light">#8948C9</color>
+    <color name="pyt_orange_light">#FA8232</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+
 
 
 </resources>

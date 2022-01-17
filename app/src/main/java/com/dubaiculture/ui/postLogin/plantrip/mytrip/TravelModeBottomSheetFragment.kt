@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.trip.local.EventsAndAttraction
 import com.dubaiculture.databinding.FragmentTravelModeBottomSheetBinding
@@ -34,6 +35,7 @@ class TravelModeBottomSheetFragment :
     private lateinit var travelMode: String
     private lateinit var currentLocation: Location
 
+    val args: TravelModeBottomSheetFragmentArgs by navArgs()
 
     @Inject
     lateinit var locationHelper: LocationHelper
@@ -57,8 +59,9 @@ class TravelModeBottomSheetFragment :
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        locationPermission()
+//        locationPermission()
         subscribeUiEvents(travelModeViewModel)
+        subscribeToObservables()
     }
 
     private fun locationPermission() {
@@ -76,7 +79,7 @@ class TravelModeBottomSheetFragment :
                     override fun getCurrentLocation(location: Location) {
 
                         currentLocation = location
-                        subscribeToObservables()
+
 
 
                     }
@@ -88,23 +91,23 @@ class TravelModeBottomSheetFragment :
 
     private fun subscribeToObservables() {
 
-        tripSharedViewModel.travelMode.observe(viewLifecycleOwner) {
-            when (it) {
-                Constants.TRAVEL_MODE.DRIVING -> {
-                    onDrivingClicked()
-                }
-                Constants.TRAVEL_MODE.WALKING -> {
-                    onWalkingClicked()
-                }
-                Constants.TRAVEL_MODE.TRANSIT -> {
-                    onTrainClicked()
-                }
-                Constants.TRAVEL_MODE.BICYCLING -> {
-                    onBusClicked()
-                }
-
-            }
-        }
+//        tripSharedViewModel.travelMode.observe(viewLifecycleOwner) {
+//            when (it) {
+//                Constants.TRAVEL_MODE.DRIVING -> {
+//                    onDrivingClicked()
+//                }
+//                Constants.TRAVEL_MODE.WALKING -> {
+//                    onWalkingClicked()
+//                }
+//                Constants.TRAVEL_MODE.TRANSIT -> {
+//                    onTrainClicked()
+//                }
+//                Constants.TRAVEL_MODE.BICYCLING -> {
+//                    onBusClicked()
+//                }
+//
+//            }
+//        }
 
         travelModeViewModel.distanceResponse.observe(viewLifecycleOwner) {
             it.rows[0].elements.map {
@@ -114,14 +117,18 @@ class TravelModeBottomSheetFragment :
                 }
             }
             tripSharedViewModel._travelMode.value = travelMode
-            tripSharedViewModel.mapDistanceInList(it,travelMode)
-            dismiss()
+
 
         }
-
-        tripSharedViewModel.eventAttractionList.observe(viewLifecycleOwner) {
+        travelModeViewModel.directionDistanceResponse.observe(viewLifecycleOwner){
+            tripSharedViewModel.mapSingleDistanceInList(it,travelMode,args.eventId)
+            dismiss()
+        }
+        tripSharedViewModel.tripList.observe(viewLifecycleOwner) {
             if (it != null) {
                 tripList = it
+                getTravelMode()
+
             }
         }
 
@@ -173,23 +180,24 @@ class TravelModeBottomSheetFragment :
     }
 
     private fun getDistance(list: List<EventsAndAttraction>) {
+        val indices =
+            list!!.mapIndexedNotNull { index, event -> if (event.id == args.eventId) index else null }
 
         var hashMap: HashMap<String, String> = HashMap<String, String>()
         var destination: String = ""
         if (list.isNotEmpty()) {
-            hashMap["origins"] =
-                currentLocation.latitude.toString() + "," + currentLocation.longitude.toString()
 
-//            hashMap["destination"] =
-//                list[0].latitude + "," + list[0].longitude
+            repeat(indices.size) {
+                hashMap["origins"] =
+                    list[it].latitude.toString() + "," + list[it].longitude.toString()
 
-            list.map {
-                destination += it.latitude + "," + it.longitude + "|"
+                hashMap["destinations"] =
+                    list[it + 1].latitude.toString() + "," + list[it + 1].longitude.toString()
             }
 
-            hashMap["destinations"] = destination
             hashMap["mode"] = travelMode
 
+            hashMap["language"] = getCurrentLanguage().language
 
             hashMap["key"] = getString(R.string.map_key)
 
@@ -200,5 +208,25 @@ class TravelModeBottomSheetFragment :
 
     }
 
+    private fun getTravelMode() {
+        var travelMode: String = tripList.single { s -> s.id == args.eventId }.travelMode
+
+        when (travelMode) {
+            Constants.TRAVEL_MODE.DRIVING -> {
+                onDrivingClicked()
+            }
+            Constants.TRAVEL_MODE.WALKING -> {
+                onWalkingClicked()
+            }
+            Constants.TRAVEL_MODE.TRANSIT -> {
+                onTrainClicked()
+            }
+            Constants.TRAVEL_MODE.BICYCLING -> {
+                onBusClicked()
+            }
+
+        }
+
+    }
 
 }

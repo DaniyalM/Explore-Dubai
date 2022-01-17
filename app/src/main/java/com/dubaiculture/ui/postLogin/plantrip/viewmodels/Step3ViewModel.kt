@@ -9,6 +9,7 @@ import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.trip.TripRepository
 import com.dubaiculture.data.repository.trip.local.LocationNearest
 import com.dubaiculture.data.repository.trip.local.NearestLocation
+import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,9 @@ class Step3ViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val tripRepository: TripRepository
 ) : BaseViewModel(application) {
+
+    private val context = getApplication<ApplicationEntry>()
+
 
     val _type: MutableLiveData<LocationNearest> = MutableLiveData()
     val type: LiveData<LocationNearest> = _type
@@ -40,7 +44,7 @@ class Step3ViewModel @Inject constructor(
     private fun getNearestLocation() {
         viewModelScope.launch {
             showLoader(true)
-            val result = tripRepository.getNearestLocation()
+            val result = tripRepository.getNearestLocation(context.auth.locale.toString())
             when (result) {
                 is Result.Success -> {
                     showLoader(false)

@@ -1,15 +1,11 @@
 package com.dubaiculture.infrastructure
 
-import android.app.Activity
 import android.app.Application
-import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatDelegate
-import com.dubaiculture.utils.BeaconUtils
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
 import com.dubaiculture.utils.NetworkLiveData
 import com.dubaiculture.utils.PreferenceRepository
 import com.dubaiculture.utils.PushNotificationManager
-import com.estimote.coresdk.observation.region.beacon.BeaconRegion
-import com.estimote.coresdk.service.BeaconManager
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -19,18 +15,18 @@ import timber.log.Timber
 import javax.inject.Inject
 
 
-
-
-
 @HiltAndroidApp
-class ApplicationEntry : Application() {
+class ApplicationEntry : Application(), Configuration.Provider {
+
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
+
     var bus: Bus = Bus()
     lateinit var auth: AuthState
     var isInternetActive = false
     lateinit var preferenceRepository: PreferenceRepository
     var appStarted: Boolean = false
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-
 
 
     override fun onCreate() {
@@ -43,27 +39,8 @@ class ApplicationEntry : Application() {
         preferenceRepository = PreferenceRepository(
             getSharedPreferences(DEFAULT_PREFERENCES, MODE_PRIVATE)
         )
-
         firebaseAnalytics = Firebase.analytics
-
-
-//        isDark()
-
-//        preferenceRepository.isDarkTheme = true
-
     }
-
-//    fun isDark() {
-//        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-//            Configuration.UI_MODE_NIGHT_NO -> {
-//                preferenceRepository.isDarkTheme = false
-//            } // Night mode is not active, we're using the light theme
-//            Configuration.UI_MODE_NIGHT_YES -> {
-//                preferenceRepository.isDarkTheme = true
-//            } // Night mode is active, we're using dark theme
-//        }
-//
-//    }
 
 
 
@@ -71,5 +48,10 @@ class ApplicationEntry : Application() {
     companion object {
         const val DEFAULT_PREFERENCES = "default_preferences"
     }
+
+    override fun getWorkManagerConfiguration()=
+        Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
 
 }

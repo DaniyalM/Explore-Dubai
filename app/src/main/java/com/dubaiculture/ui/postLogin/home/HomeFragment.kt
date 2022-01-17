@@ -138,6 +138,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.myTripListingFragment -> {
                         hide()
                     }
+                    R.id.planTripParentFragment -> {
+                        hide()
+                    }
 //                    R.id.webviewFragment -> {
 //                        hide()
 //                    }
@@ -156,6 +159,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         hide()
                     }
                     R.id.happinessFragment -> {
+                        hide()
+                    }
+                    R.id.planTripParentFragment -> {
+                        hide()
+                    }
+                    R.id.myTripFragment -> {
                         hide()
                     }
                     else -> {

@@ -9,6 +9,7 @@ import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.trip.TripRepository
 import com.dubaiculture.data.repository.trip.local.InterestedIn
 import com.dubaiculture.data.repository.trip.local.InterestedInType
+import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.event.Event
@@ -22,6 +23,7 @@ class Step2ViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val tripRepository: TripRepository
 ) : BaseViewModel(application) {
+    private val context = getApplication<ApplicationEntry>()
 
     private val _interestedIn: MutableLiveData<Event<InterestedIn>> = MutableLiveData()
     val interestedIn: LiveData<Event<InterestedIn>> = _interestedIn
@@ -39,7 +41,7 @@ class Step2ViewModel @Inject constructor(
     private fun getInterestedIn() {
         viewModelScope.launch {
             showLoader(true)
-            val result = tripRepository.getInterestedIn()
+            val result = tripRepository.getInterestedIn(context.auth.locale.toString())
             when (result) {
                 is Result.Success -> {
                     showLoader(false)

@@ -408,6 +408,8 @@
     <string name="recentSearches">عمليات البحث الأخيرة</string>
     <string name="whatAreYourLooking">عن ماذا تبحث؟</string>
     <string name="success">النجاح</string>
+    <string name="sign_in_with_uae_pass">تسجيل الدخول بالهوية الرقمية</string>
+    <string name="not_available">غير متاح</string>
 
 
     <!--  End of Sprint 3  -->

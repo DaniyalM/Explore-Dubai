@@ -19,7 +19,6 @@
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_75sdp"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:imageUrl="@{data.image}"
             android:scaleType="center"
             app:cornerRadius="@dimen/_15sdp"
@@ -62,17 +61,17 @@
             app:layout_constraintBottom_toBottomOf="@id/ivTrips"
             app:layout_constraintStart_toStartOf="@id/tvSubHeading" />
 
-<!--        <com.dubaiculture.ui.components.customtextview.CustomTextView-->
-<!--            android:id="@+id/tvTime"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_marginStart="@dimen/_8sdp"-->
-<!--            android:includeFontPadding="false"-->
-<!--            android:text="@{data.timeFrom.substring(0,5) + `-` +data.timeTo.substring(0,5) + `|` + data.day}"-->
-<!--            android:textSize="@dimen/_10ssp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/ivTime"-->
-<!--            app:layout_constraintStart_toEndOf="@id/ivTime"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/ivTime" />-->
+        <!--        <com.dubaiculture.ui.components.customtextview.CustomTextView-->
+        <!--            android:id="@+id/tvTime"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_marginStart="@dimen/_8sdp"-->
+        <!--            android:includeFontPadding="false"-->
+        <!--            android:text="@{data.timeFrom.substring(0,5) + `-` +data.timeTo.substring(0,5) + `|` + data.day}"-->
+        <!--            android:textSize="@dimen/_10ssp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@id/ivTime"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/ivTime"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/ivTime" />-->
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvTime"
@@ -80,28 +79,28 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_8sdp"
             android:includeFontPadding="false"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="@id/ivTime"
+            android:textSize="@dimen/_8ssp"
             app:layout_constraintStart_toEndOf="@id/ivTime"
             app:layout_constraintTop_toTopOf="@+id/ivTime" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvNavigation"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_20sdp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             app:cardElevation="@dimen/_4sdp"
-            app:layout_constraintBottom_toTopOf="@id/tvDistance"
-            app:layout_constraintEnd_toEndOf="@id/tvDistance"
-            app:layout_constraintStart_toStartOf="@id/tvDistance">
+            app:layout_constraintBottom_toTopOf="@id/ivTime"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
+                android:id="@+id/ivDirectionArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginVertical="@dimen/_4sdp"
-                android:src="@drawable/ic_navigation"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                android:src="@drawable/ic_navigation" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -113,29 +112,36 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             android:includeFontPadding="false"
-            android:text="@{data.distance}"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/ivTime"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llIcons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toStartOf="@id/tvCar"
             app:layout_constraintStart_toStartOf="@id/ivTrips"
             app:layout_constraintTop_toBottomOf="@id/ivTrips">
 
+            <View
+                android:id="@+id/topDotted"
+                android:layout_width="2dp"
+                android:layout_height="@dimen/_12sdp"
+                android:background="@drawable/dotted_line"
+                app:layout_constraintBottom_toTopOf="@id/ivCar"
+                app:layout_constraintEnd_toEndOf="@id/ivCar"
+                app:layout_constraintStart_toStartOf="@id/ivCar"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:id="@+id/ivCar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:src="@drawable/ic_car_green"
-                app:layout_constraintEnd_toStartOf="@id/ivDropDown"
-                app:layout_constraintStart_toStartOf="@id/ivTrips"
-                app:layout_constraintTop_toBottomOf="@id/ivTrips" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/topDotted"
+                tools:src="@drawable/ic_car_green" />
 
             <ImageView
                 android:id="@+id/ivDropDown"
@@ -145,18 +151,30 @@
                 android:layout_marginStart="@dimen/_2sdp"
                 android:src="@drawable/ic_dropdown_green"
                 app:layout_constraintBottom_toBottomOf="@id/ivCar"
-                app:layout_constraintEnd_toStartOf="@id/tvCar"
                 app:layout_constraintStart_toEndOf="@id/ivCar"
                 app:layout_constraintTop_toTopOf="@id/ivCar" />
-        </LinearLayout>
+
+
+
+            <View
+                android:id="@+id/belowDotted"
+                android:layout_width="2dp"
+                android:layout_height="@dimen/_15sdp"
+                android:background="@drawable/dotted_line"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/ivCar"
+                app:layout_constraintStart_toStartOf="@id/ivCar"
+                app:layout_constraintTop_toBottomOf="@id/ivCar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.dubaiculture.ui.components.customtextview.CustomTextView
             android:id="@+id/tvCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{data.duration}"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintEnd_toEndOf="@id/ivTrips"
+            app:layout_constraintBottom_toBottomOf="@id/llIcons"
             app:layout_constraintStart_toEndOf="@id/llIcons"
             app:layout_constraintTop_toTopOf="@id/llIcons" />
 
