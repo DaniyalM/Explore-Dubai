@@ -27,9 +27,12 @@ public class UAEPassRequestModelsUtils {
 //    private static final String UAE_PASS_CLIENT_SECRET = <<"Enter Clinet Secret Here">>;
 //    private static final String REDIRECT_URL = <<"Enter Redirect URI Here">>;
 //    private static final Environment UAE_PASS_ENVIRONMENT = <<Enter Environment here>>;
-    private static final Environment UAE_PASS_ENVIRONMENT = Environment.STAGING;
-    private static final String UAE_PASS_CLIENT_ID = "dcaa_app_stage";
-    private static final String UAE_PASS_CLIENT_SECRET = "QyFfkEGfpwvSbSqc";
+//    private static final Environment UAE_PASS_ENVIRONMENT = Environment.STAGING;
+    private static final Environment UAE_PASS_ENVIRONMENT = Environment.PRODUCTION;
+//    private static final String UAE_PASS_CLIENT_ID = "dcaa_app_stage";
+    private static final String UAE_PASS_CLIENT_ID = "dcaa_mob_prod";
+//    private static final String UAE_PASS_CLIENT_SECRET = "QyFfkEGfpwvSbSqc";
+    private static final String UAE_PASS_CLIENT_SECRET = "Pxs2jubryjtu1y2e3tk";
     private static final String REDIRECT_URL = "dc://com.dc.dc-int";
     //UAE PASS END -- ADD BELOW FIELDS
 
