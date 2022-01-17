@@ -312,10 +312,10 @@
     <string name="lorem_ipsum"></string>
 
 
-    <string name="step1">الخطوة 1</string>
-    <string name="step2">الخطوة 2</string>
-    <string name="step3">الخطوة 3</string>
-    <string name="step4">الخطوة 4</string>
+    <string name="step1">الخطوة ٠١</string>
+    <string name="step2">الخطوة ٠٢</string>
+    <string name="step3">الخطوة ٠٣</string>
+    <string name="step4">الخطوة ٠٤</string>
     <string name="ima">انا</string>
     <string name="resident">مقيم</string>
     <string name="next">التالي</string>
@@ -348,7 +348,8 @@
     <string name="editDates">تعديل التاريخ</string>
     <string name="delete">حذف</string>
     <string name="are_you_sure_want_to_delete">هل انت متأكد من\nحذف التاريخ؟</string>
-    <string name="myTrip">رحلتي</string>
+    <string name="myTrip">رحلاتي</string>
+
     <string name="editTrip">تعديل الرحلة</string>
     <string name="saveTrip">حفظ الرحلة</string>
     <string name="tripName">اسم الرحلة</string>
@@ -410,7 +411,19 @@
     <string name="success">النجاح</string>
     <string name="sign_in_with_uae_pass">تسجيل الدخول بالهوية الرقمية</string>
     <string name="not_available">غير متاح</string>
+    <string name="tripCloseAlert">هل أنت متأكد أنك تريد إغلاق خطط لرحلتك؟</string>
+    <string name="EditTripAlert">هل أنت متأكد أنك تريد تعديل الرحلة؟</string>
+    <string name="NoTripFoundAlert">لم يتم العثور على رحلة في التواريخ المحددة</string>
+    <string name="select_hour">حدد ساعات الزيارة</string>
+    <string name="add_duration_error">الرجاء تحديد ساعات الزيارة للمتابعة</string>
 
+
+
+    <string name="reset">إعادة تعيين</string>
+    <string name="are_you_sure_want_to_delete_trip">هل أنت متأكد أنك تريد حذف الرحلة؟</string>
+    <string name="days">أيام</string>
+    <string name="are_you_sure_want_to_reset_trip">هل أنت متأكد أنك تريد إعادة الرحلة؟</string>
+    <string name="no_record_found">لا توجد سجلات</string><string name="plan_your_trip_desc">ابدأ التخطيط واختر مجموعة من الاهتمامات المختلفة التي من شأنها أن تساعدك على الحصول على أفضل تجربة شخصية</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->
