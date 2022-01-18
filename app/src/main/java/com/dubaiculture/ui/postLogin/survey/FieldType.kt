@@ -1,8 +1,5 @@
 package com.dubaiculture.ui.postLogin.survey
 
-import com.dubaiculture.ui.postLogin.eservices.FieldsType
-
-
 enum class FieldType(val id :Int, val valueType: String) {
     YesNo(0,"YesNo"),
     Textbox(1,"Textbox"),
