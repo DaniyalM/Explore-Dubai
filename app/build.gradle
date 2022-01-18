@@ -163,9 +163,11 @@ android {
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"https://stgcd.dubaiculture.gov.ae/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://dubaiculture.gov.ae/api/\"")
+//            buildConfigField("String", "BASE_URL", "\"https://stgcd.dubaiculture.gov.ae/api/\"")
             buildConfigField("String", "BASE_URL_MAP", "\"https://maps.googleapis.com/maps/api/\"")
-            buildConfigField("String", "BASE_URL_SHARE", "\"https://stgcd.dubaiculture.gov.ae\"")
+            buildConfigField("String", "BASE_URL_SHARE", "\"https://dubaiculture.gov.ae\"")
+//            buildConfigField("String", "BASE_URL_SHARE", "\"https://stgcd.dubaiculture.gov.ae\"")
             buildConfigField("String", "BASE_URL_ESERVICES", "\"http://localhost:92/_vti_bin/DCAAPI/api/\"")
             buildConfigField("String", "BASE_URL_ESERVICES_MOCK", "\"https://dbb188b8-8ab0-4ca8-ad66-5c7be2aabdb7.mock.pstmn.io/\"")
             buildConfigField("String", "CHAT_BOT_URL_EN", "\"http://creatopia.ae/MobileChat.php\"")

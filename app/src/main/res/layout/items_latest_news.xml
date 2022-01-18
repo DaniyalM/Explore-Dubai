@@ -29,9 +29,8 @@
                 android:id="@+id/img_news"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
-                android:background="@drawable/event_detail_icon"
                 android:imageUrl="@{news.image}"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 app:cornerRadius="@dimen/_12sdp"
                 app:roundedCorners="topRight|topLeft" />
 
