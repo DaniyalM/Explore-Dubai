@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="@dimen/_13ssp"
             app:layout_constraintBottom_toBottomOf="@id/img_close"
             app:layout_constraintStart_toEndOf="@id/img_close"
             app:layout_constraintTop_toTopOf="@id/img_close" />

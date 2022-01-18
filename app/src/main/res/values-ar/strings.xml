@@ -349,6 +349,7 @@
     <string name="delete">حذف</string>
     <string name="are_you_sure_want_to_delete">هل انت متأكد من\nحذف التاريخ؟</string>
     <string name="myTrip">رحلاتي</string>
+
     <string name="editTrip">تعديل الرحلة</string>
     <string name="saveTrip">حفظ الرحلة</string>
     <string name="tripName">اسم الرحلة</string>
@@ -404,27 +405,26 @@
     <string name="activities_schedule_at_the_workshop">جدول الأنشطة خلال ورشة العمل</string>
     <string name="something_went_wrong">هناك خطأ ما</string>
     <string name="make_sure_wifi_or_mobile_data_is_turned_on_and_then_try_again">تأكد من تشغيل واي فاي أو بيانات الهاتف المحمول ثم حاول مرة أخرى</string>
-
-    <string name="plan_your_trip_desc">ابدأ التخطيط واختر مجموعة من الاهتمامات المختلفة التي من شأنها أن تساعدك على الحصول على أفضل تجربة شخصية</string>
-
-
     <string name="attach_your_ID">تحميل الهوية</string>
     <string name="recentSearches">عمليات البحث الأخيرة</string>
     <string name="whatAreYourLooking">عن ماذا تبحث؟</string>
     <string name="success">النجاح</string>
     <string name="select_time">حدد الوقت</string>
+    <string name="sign_in_with_uae_pass">تسجيل الدخول بالهوية الرقمية</string>
+    <string name="not_available">غير متاح</string>
     <string name="tripCloseAlert">هل أنت متأكد أنك تريد إغلاق خطط لرحلتك؟</string>
     <string name="EditTripAlert">هل أنت متأكد أنك تريد تعديل الرحلة؟</string>
     <string name="NoTripFoundAlert">لم يتم العثور على رحلة في التواريخ المحددة</string>
     <string name="select_hour">حدد ساعات الزيارة</string>
     <string name="add_duration_error">الرجاء تحديد ساعات الزيارة للمتابعة</string>
 
+
+
     <string name="reset">إعادة تعيين</string>
     <string name="are_you_sure_want_to_delete_trip">هل أنت متأكد أنك تريد حذف الرحلة؟</string>
     <string name="days">أيام</string>
     <string name="are_you_sure_want_to_reset_trip">هل أنت متأكد أنك تريد إعادة الرحلة؟</string>
-    <string name="no_record_found">لا توجد سجلات</string>
-
+    <string name="no_record_found">لا توجد سجلات</string><string name="plan_your_trip_desc">ابدأ التخطيط واختر مجموعة من الاهتمامات المختلفة التي من شأنها أن تساعدك على الحصول على أفضل تجربة شخصية</string>
 
     <!--  End of Sprint 3  -->
     <!--  End of Sprint 3  -->

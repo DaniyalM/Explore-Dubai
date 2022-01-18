@@ -8,4 +8,4 @@ data class SurveyFormResponse(
     @SerializedName("Result")
     @Expose
     val result: Result
-) : BaseResponse() {}
+) : BaseResponse()

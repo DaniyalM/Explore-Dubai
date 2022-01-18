@@ -348,6 +348,7 @@
                     android:onClick="@{()-> viewmodel.register()}"
                     android:text="@string/register_now"
                     android:textAllCaps="false"
+                    android:textSize="@dimen/_12ssp"
                     android:textColor="@color/white_900"
                     android:transitionName="action_btn"
                     app:layout_constraintEnd_toEndOf="@+id/edit_confirm_pass"

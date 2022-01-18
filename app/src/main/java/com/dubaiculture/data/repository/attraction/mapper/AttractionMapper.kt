@@ -178,7 +178,8 @@ fun transformAttractionDetail(attraction: AttractionDTO): Attractions = Attracti
     },
     relatedEventsTitle = attraction.RelatedEventsTitle ?: "",
     url = attraction.URL ?: "",
-    tripAdvisorLink = attraction.tripAdvisorLink ?: ""
+    tripAdvisorLink = attraction.tripAdvisorLink ?: "",
+    bookTicketLink = attraction.bookTicketLink?:""
 
 )
 
