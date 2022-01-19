@@ -70,14 +70,14 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
                 }
 
                 override fun onUrlClick(service: EService?) {
-                    openWebWithoutBaseUrl(service!!.startServiceUrl)
-//                    navigateByDirections(
-//                        PopularServiceFragmentDirections.actionPopularServiceFragmentToWebViewFragment(
-//                            service!!.startServiceUrl,
-//                            false,
-//                            service.title
-//                        )
-//                    )
+//                    openWebWithoutBaseUrl(service!!.startServiceUrl)
+                    navigateByDirections(
+                        PopularServiceFragmentDirections.actionPopularServiceFragmentToWebViewFragment(
+                            service!!.startServiceUrl,
+                            false,
+                            service.title
+                        )
+                    )
                 }
             })
 

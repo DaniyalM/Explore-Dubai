@@ -35,6 +35,7 @@ class WebViewFragment : BaseFragment<FragmentWebViewBinding>() {
             builtInZoomControls = true
             displayZoomControls = false
             setSupportZoom(true)
+            userAgentString="Mozilla/5.0"
 
         }
         if (args.isPdf) {

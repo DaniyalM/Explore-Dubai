@@ -79,13 +79,13 @@ class DescriptionPageFragment :
         binding.commonBtn.text = description?.get(0)?.startServiceText
         binding.commonBtn.setOnClickListener {
 
-//            (parentFragment as ServiceDetailFragment).navigateByDirections(
-//                ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
-//                    description?.get(0)?.startServiceUrl?:"", false, description?.get(0)?.title?:""
-//                )
-//            )
+            (parentFragment as ServiceDetailFragment).navigateByDirections(
+                ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
+                    description?.get(0)?.startServiceUrl?:"", false, description?.get(0)?.title?:""
+                )
+            )
 //
-            openWebWithoutBaseUrl(description?.get(0)?.startServiceUrl?:"")
+//            openWebWithoutBaseUrl(description?.get(0)?.startServiceUrl?:"")
 //            (parentFragment as ServiceDetailFragment).navigateByDirections(
 //                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
 //                    "NOCForm"

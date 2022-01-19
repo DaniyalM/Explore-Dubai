@@ -345,7 +345,7 @@
                                 android:layout_width="@dimen/_150sdp"
                                 android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
-                                android:background="@drawable/about"
+                                android:background="@drawable/moreabout"
                                 />
                         </LinearLayout>
 
