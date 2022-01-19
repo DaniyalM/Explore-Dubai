@@ -56,6 +56,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         subscribeUiEvents(eServiceViewModel)
+        backArrowRTL(binding.include.back)
         binding.heading.text = args.formTitle
         binding.include.back.setOnClickListener {
             back()
