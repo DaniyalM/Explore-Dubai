@@ -116,7 +116,9 @@ class EServiceViewModel @Inject constructor(
         val request = HashMap<String, RequestBody>()
 
         val fields = _fieldValues.value?.filter {
-            (FieldType.fromName(it.fieldType) != null || ValueType.fromName(it.valueType) != null)
+//            (FieldType.fromName(it.fieldType) != null ||
+            ValueType.fromName(it.valueType) != null
+            //)
         } ?: listOf()
 
         fields.forEach {
