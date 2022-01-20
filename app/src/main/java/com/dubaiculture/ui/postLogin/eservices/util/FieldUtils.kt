@@ -124,7 +124,7 @@ object FieldUtils {
         dropDown.setAdapter(
             ArrayAdapter(
                 view.root.context,
-                android.R.layout.simple_dropdown_item_1line,
+                android.R.layout.simple_list_item_1,
                 fieldValueItem.fieldValue.map {
                     if (isArabic) it.arabic else it.english
                 }
@@ -144,11 +144,19 @@ object FieldUtils {
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem,
+        showFutureDates: Boolean,
         callback: (date: String) -> Unit
     ) {
         val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
         root.addView(label)
-        val dd = createDateField(isArabic, layoutInflater, root, fieldValueItem, callback)
+        val dd = createDateField(
+            isArabic,
+            layoutInflater,
+            root,
+            fieldValueItem,
+            showFutureDates,
+            callback
+        )
         root.addView(dd)
     }
 
@@ -157,16 +165,18 @@ object FieldUtils {
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem,
+        showFutureDates: Boolean,
         callback: (date: String) -> Unit
     ): CustomEditText {
         val editText = createEditText(isArabic, layoutInflater, root, fieldValueItem)
         editText.isFocusable = false
         editText.setOnClickListener {
             DatePickerUtil(
+                showFutureDates = showFutureDates,
                 selectedDate = editText.text.toString(),
                 selectedDateFormat = Constants.DateFormats.MM_DD_YYYY,
-                root.context,
-                object : DatePickerUtil.DatePickerInterface {
+                context = root.context,
+                iface = object : DatePickerUtil.DatePickerInterface {
                     override fun onDateSelected(calendar: Calendar) {
                         val date: Date = calendar.time
                         val format = Constants.DateFormats.MM_DD_YYYY

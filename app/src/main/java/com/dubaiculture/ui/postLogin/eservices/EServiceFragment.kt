@@ -117,7 +117,8 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         isArabic(),
                         inflater,
                         binding.fieldContainer,
-                        it
+                        it,
+                        eServiceViewModel.showFutureDates(it)
                     ) { selectedValue ->
                         eServiceViewModel.addField(it, selectedValue)
                     }

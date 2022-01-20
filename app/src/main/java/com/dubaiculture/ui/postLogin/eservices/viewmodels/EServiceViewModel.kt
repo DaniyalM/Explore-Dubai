@@ -86,7 +86,7 @@ class EServiceViewModel @Inject constructor(
         list: List<GetFieldValueItem>
     ): List<GetFieldValueItem> {
         return list.map {
-            if (it.fieldName == "EmiratesID") {
+            if (isEmiratesId(it)) {
                 it.copy(defaultValue = emiratesId)
             } else it
         }
@@ -179,4 +179,8 @@ class EServiceViewModel @Inject constructor(
         }
         return null
     }
+
+    fun showFutureDates(field: GetFieldValueItem) = field.fieldName != "BirthDate"
+    fun isEmiratesId(field: GetFieldValueItem) = field.fieldName != "EmiratesID"
+
 }
