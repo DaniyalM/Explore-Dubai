@@ -287,15 +287,22 @@ class MyTripFragment : BaseFragment<FragmentMyTripBinding>(), OnMapReadyCallback
 
 
         tripSharedViewModel.dates.observe(viewLifecycleOwner) {
-            binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
+            if (it.singleOrNull { it.isSelected } == null) {
+                it.firstOrNull()?.let {
+                    tripSharedViewModel.updateDate(it.copy(isSelected = true))
+                }
+            } else {
+                binding.tvDate.text = it.single { it.isSelected }.dayDate.substring(3)
 
-            //
-            tripSharedViewModel.updateLocalDistance(currentLocation, it.single { it.isSelected })
-            //
+                //
+                tripSharedViewModel.updateLocalDistance(
+                    currentLocation,
+                    it.single { it.isSelected })
+                datesAdapter.submitList(it)
+
+                //
 //            tripSharedViewModel.filterEvents(it.single { it.isSelected })
-
-
-            datesAdapter.submitList(it)
+            }
 
         }
 

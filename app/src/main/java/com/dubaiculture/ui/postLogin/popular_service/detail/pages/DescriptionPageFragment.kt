@@ -84,6 +84,13 @@ class DescriptionPageFragment :
 
 //            (parentFragment as ServiceDetailFragment).navigateByDirections(
 //                ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
+//                    description?.get(0)?.startServiceUrl?:"", false, description?.get(0)?.title?:""
+//                )
+//            )
+//
+//            openWebWithoutBaseUrl(description?.get(0)?.startServiceUrl?:"")
+//            (parentFragment as ServiceDetailFragment).navigateByDirections(
+//                ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
 //                    description?.get(0)?.startServiceUrl ?: "",
 //                    false,
 //                    description?.get(0)?.title ?: ""

@@ -78,6 +78,13 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
                                 it.title, it.formName, it.formSubmitURL
                             )
                         )
+//                    openWebWithoutBaseUrl(service!!.startServiceUrl)
+//                    navigateByDirections(
+//                        PopularServiceFragmentDirections.actionPopularServiceFragmentToWebViewFragment(
+//                            service!!.startServiceUrl,
+//                            false,
+//                            service.title
+//                        )
                     }
 //                    navigateByDirections(
 //                        PopularServiceFragmentDirections.actionPopularServiceFragmentToWebViewFragment(

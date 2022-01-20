@@ -64,6 +64,8 @@ class TermsAndConditionFragment: BaseFragment<ItemServiceDetailTermsAndCondition
 
 
         binding.commonBtn.setOnClickListener {
+
+//            openWebWithoutBaseUrl(termsAndCondition[0].startServiceUrl)
             (parentFragment as ServiceDetailFragment).navigateByDirections(
                 ServiceDetailFragmentDirections.actionServiceDetailFragmentToWebViewFragment(
                     termsAndCondition[0].startServiceUrl,

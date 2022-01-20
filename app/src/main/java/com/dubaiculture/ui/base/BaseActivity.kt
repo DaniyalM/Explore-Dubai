@@ -44,7 +44,7 @@ abstract class BaseActivity : LocalizationActivity() {
     override fun onResume() {
         super.onResume()
         val appUpdater = AppUpdater(this)
-            .setCancelable(false)
+            .setCancelable(true)
             .setButtonDismiss("")
             .setButtonDoNotShowAgain("")
         appUpdater.start()
