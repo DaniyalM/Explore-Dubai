@@ -15,6 +15,7 @@ import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.FragmentEserviceBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDateFieldWithLabel
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDropDownWithLabel
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createEditTextWithLabel
@@ -27,6 +28,7 @@ import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
 import com.dubaiculture.ui.postLogin.events.detail.registernow.attachmentOptions.AttachmentOptionFragment
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.FileUtils
+import com.dubaiculture.utils.show
 import com.jaiselrahman.filepicker.activity.FilePickerActivity
 import com.jaiselrahman.filepicker.config.Configurations
 import com.jaiselrahman.filepicker.model.MediaFile
@@ -72,6 +74,11 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
     private fun subscribeToObservable() {
         eServiceViewModel.fieldValues.observe(viewLifecycleOwner) {
             initializeFields(it)
+        }
+        eServiceViewModel.showField.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                FieldUtils.showField(binding.fieldContainer, it.first, it.second)
+            }
         }
     }
 
@@ -151,7 +158,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         binding.fieldContainer,
                         it
                     ) { selectedValue ->
-                        eServiceViewModel.addField(it, selectedValue)
+                        eServiceViewModel.setValue(it, selectedValue)
                     }
                 }
                 ValueType.RADIO_BUTTON.id -> {

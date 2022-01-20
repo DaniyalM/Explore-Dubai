@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object FieldUtils {
-
+    const val LABEL_ID_MODIFIER = 101010101
     fun createTextViewWithDescription(
         isArabic: Boolean,
         layoutInflater: LayoutInflater,
@@ -46,6 +46,7 @@ object FieldUtils {
         val textView = view.textView
         var text = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
         if (fieldValueItem.isRequired) text += "*"
+        textView.id = fieldValueItem.id + LABEL_ID_MODIFIER
         textView.text = text
         textView.setColouredSpan("*", Color.RED)
         return textView
@@ -386,5 +387,16 @@ object FieldUtils {
             drawable,
             null
         )
+    }
+
+    fun showField(container: ViewGroup, show: Boolean, field: GetFieldValueItem) {
+        container.findViewById<View>(field.id + LABEL_ID_MODIFIER)?.let {
+            it.show(show)
+            it.requestLayout()
+        }
+        container.findViewById<View>(field.id)?.let {
+            it.show(show)
+            it.requestLayout()
+        }
     }
 }

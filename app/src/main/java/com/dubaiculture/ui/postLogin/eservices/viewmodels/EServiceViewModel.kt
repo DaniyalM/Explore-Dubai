@@ -20,6 +20,7 @@ import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
 import com.dubaiculture.utils.Constants.NavBundles.FORM_URL
+import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -46,6 +47,12 @@ class EServiceViewModel @Inject constructor(
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
 
+    private val _showField: MutableLiveData<Event<Pair<Boolean, GetFieldValueItem>>> =
+        MutableLiveData()
+    val showField: LiveData<Event<Pair<Boolean, GetFieldValueItem>>> = _showField
+
+    private var mFieldValues: List<GetFieldValueItem>? = null
+
     init {
         emiratesId = (application as ApplicationEntry).auth.user?.idn
         savedStateHandle.get<String>(FORM_NAME)?.let {
@@ -68,11 +75,12 @@ class EServiceViewModel @Inject constructor(
                 )) {
                 is Result.Success -> {
                     showLoader(false)
-                    _fieldValues.value =
+                    mFieldValues =
                         if (emiratesId.isNullOrEmpty()) result.value else setupEmiratesId(
                             emiratesId!!,
                             result.value
                         )
+                    _fieldValues.value = mFieldValues
                 }
                 is Result.Failure -> {
                     showLoader(false)
@@ -108,14 +116,33 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun addField(field: GetFieldValueItem, value: String) {
-        map[field] = value
+        map[field] = getCleanedValue(value)
+    }
+
+    fun setValue(field: GetFieldValueItem, value: String) {
+        val cleanedValue = getCleanedValue(value)
+        map[field] = cleanedValue
+        if (field.fieldName == "Country") {
+            val showCity = cleanedValue == "United Arab Emirates"
+            mFieldValues?.firstOrNull {
+                it.fieldName == "City"
+            }?.let {
+                _showField.value = Event(Pair(showCity, it))
+            }
+            mFieldValues = mFieldValues?.map {
+                if (it.fieldName == "City") {
+                    it.copy(isRequired = showCity)
+                } else it
+            }
+        }
+
     }
 
     fun submitForm(isArabic: Boolean) {
         showLoader(true)
         val request = HashMap<String, RequestBody>()
 
-        val fields = _fieldValues.value?.filter {
+        val fields = mFieldValues?.filter {
 //            (FieldType.fromName(it.fieldType) != null ||
             ValueType.fromName(it.valueType) != null
             //)
@@ -129,9 +156,13 @@ class EServiceViewModel @Inject constructor(
                 return
             }
             if (it.valueType != ValueType.FILE.valueType) {
-                request[it.fieldName] =
-                    value.toRequestBody(Constants.MimeType.TEXT.toMediaType())
+                if (!it.isRequired && value.isEmpty()) {
 
+                } else {
+                    request[it.fieldName] =
+                        value.toRequestBody(Constants.MimeType.TEXT.toMediaType())
+
+                }
             } else if (it.valueType == ValueType.FILE.valueType && value.isNotEmpty()) {
                 val file = File(value)
                 val fileBody = file.asRequestBody(Constants.MimeType.ALL.toMediaType())
@@ -184,5 +215,5 @@ class EServiceViewModel @Inject constructor(
 
     fun showFutureDates(field: GetFieldValueItem) = field.fieldName != "BirthDate"
     fun isEmiratesId(field: GetFieldValueItem) = field.fieldName != "EmiratesID"
-
+    fun getCleanedValue(value: String) = value.replace("\u00a0", " ")
 }
