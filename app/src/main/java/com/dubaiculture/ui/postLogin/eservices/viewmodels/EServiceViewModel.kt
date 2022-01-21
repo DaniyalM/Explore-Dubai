@@ -14,6 +14,7 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRe
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
+import com.dubaiculture.ui.postLogin.eservices.enums.FormType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValidationType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.Constants
@@ -39,7 +40,7 @@ class EServiceViewModel @Inject constructor(
     var selectedView: GetFieldValueItem? = null
     var emiratesId: String? = null
 
-    private val map: HashMap<GetFieldValueItem, String> by lazy {
+    private val map: HashMap<String, String> by lazy {
         HashMap()
     }
 
@@ -120,7 +121,7 @@ class EServiceViewModel @Inject constructor(
 
     fun addField(field: GetFieldValueItem, value: String) {
         val cleanedValue = getCleanedValue(value)
-        map[field] = cleanedValue
+        map[field.fieldName] = cleanedValue
         showCity(field, cleanedValue)
         emiratesIdOptional(field, cleanedValue)
     }
@@ -169,7 +170,7 @@ class EServiceViewModel @Inject constructor(
         } ?: listOf()
 
         fields.forEach {
-            val value = map[it] ?: ""
+            val value = map[it.fieldName] ?: ""
             validate(isArabic, it, value)?.let { errorMessage ->
                 showToast(errorMessage)
                 showLoader(false)
@@ -238,6 +239,9 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun showFutureDates(field: GetFieldValueItem) = field.fieldName != "BirthDate"
+    fun showPastDates(field: GetFieldValueItem) =
+        !(field.formName.equals(FormType.BOOKING_ESERVICE.value, true) && field.fieldName == "Date")
+
     fun isEmiratesId(field: GetFieldValueItem) = field.fieldName == "EmiratesID"
     fun getCleanedValue(value: String) = value.replace("\u00a0", " ")
 }

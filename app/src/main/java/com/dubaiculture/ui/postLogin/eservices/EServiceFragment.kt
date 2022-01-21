@@ -119,7 +119,8 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         inflater,
                         binding.fieldContainer,
                         it,
-                        eServiceViewModel.showFutureDates(it)
+                        eServiceViewModel.showFutureDates(it),
+                        eServiceViewModel.showPastDates(it)
                     ) { selectedValue ->
                         eServiceViewModel.addField(it, selectedValue)
                     }

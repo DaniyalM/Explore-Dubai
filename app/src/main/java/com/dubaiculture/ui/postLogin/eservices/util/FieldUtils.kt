@@ -145,6 +145,7 @@ object FieldUtils {
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem,
         showFutureDates: Boolean,
+        showPastDates: Boolean,
         callback: (date: String) -> Unit
     ) {
         val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
@@ -155,6 +156,7 @@ object FieldUtils {
             root,
             fieldValueItem,
             showFutureDates,
+            showPastDates,
             callback
         )
         root.addView(dd)
@@ -166,6 +168,7 @@ object FieldUtils {
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem,
         showFutureDates: Boolean,
+        showPastDates: Boolean,
         callback: (date: String) -> Unit
     ): CustomEditText {
         val editText = createEditText(isArabic, layoutInflater, root, fieldValueItem)
@@ -173,6 +176,7 @@ object FieldUtils {
         editText.setOnClickListener {
             DatePickerUtil(
                 showFutureDates = showFutureDates,
+                showPastDates = showPastDates,
                 selectedDate = editText.text.toString(),
                 selectedDateFormat = Constants.DateFormats.MM_DD_YYYY,
                 context = root.context,
