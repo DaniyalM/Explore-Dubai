@@ -14,7 +14,6 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRe
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
-import com.dubaiculture.ui.postLogin.eservices.enums.FieldType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValidationType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.Constants
@@ -50,6 +49,10 @@ class EServiceViewModel @Inject constructor(
     private val _showField: MutableLiveData<Event<Pair<Boolean, GetFieldValueItem>>> =
         MutableLiveData()
     val showField: LiveData<Event<Pair<Boolean, GetFieldValueItem>>> = _showField
+
+    private val _makeOptional: MutableLiveData<Event<GetFieldValueItem>> =
+        MutableLiveData()
+    val makeOptional: LiveData<Event<GetFieldValueItem>> = _makeOptional
 
     private var mFieldValues: List<GetFieldValueItem>? = null
 
@@ -116,12 +119,30 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun addField(field: GetFieldValueItem, value: String) {
-        map[field] = getCleanedValue(value)
-    }
-
-    fun setValue(field: GetFieldValueItem, value: String) {
         val cleanedValue = getCleanedValue(value)
         map[field] = cleanedValue
+        showCity(field, cleanedValue)
+        emiratesIdOptional(field, cleanedValue)
+    }
+
+    private fun emiratesIdOptional(field: GetFieldValueItem, cleanedValue: String) {
+        if (field.fieldName == "IsVisa") {
+            mFieldValues?.firstOrNull {
+                isEmiratesId(it)
+            }?.let {
+                _makeOptional.value = Event(it)
+            }
+            mFieldValues = mFieldValues?.map {
+                if (isEmiratesId(it)) {
+                    it.copy(validations = it.validations.map { validation ->
+                        validation.copy(validationType = ValidationType.PATTERN_OPTIONAL.type)
+                    })
+                } else it
+            }
+        }
+    }
+
+    private fun showCity(field: GetFieldValueItem, cleanedValue: String) {
         if (field.fieldName == "Country") {
             val showCity = cleanedValue == "United Arab Emirates"
             mFieldValues?.firstOrNull {
@@ -135,7 +156,6 @@ class EServiceViewModel @Inject constructor(
                 } else it
             }
         }
-
     }
 
     fun submitForm(isArabic: Boolean) {
@@ -208,12 +228,16 @@ class EServiceViewModel @Inject constructor(
                 if (field.isRequired && value.isEmpty()) {
                     return if (isArabic) it.arabicMsg else it.englishMsg
                 }
+            } else if (it.validationType.equals(ValidationType.PATTERN_OPTIONAL.type, true)) {
+                if (value.isNotEmpty() && !it.pattern.toRegex().matches(value)) {
+                    return if (isArabic) it.arabicMsg else it.englishMsg
+                }
             }
         }
         return null
     }
 
     fun showFutureDates(field: GetFieldValueItem) = field.fieldName != "BirthDate"
-    fun isEmiratesId(field: GetFieldValueItem) = field.fieldName != "EmiratesID"
+    fun isEmiratesId(field: GetFieldValueItem) = field.fieldName == "EmiratesID"
     fun getCleanedValue(value: String) = value.replace("\u00a0", " ")
 }

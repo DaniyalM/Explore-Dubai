@@ -3,7 +3,6 @@ package com.dubaiculture.ui.postLogin.eservices.util
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.text.InputType
-import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -396,6 +395,14 @@ object FieldUtils {
         }
         container.findViewById<View>(field.id)?.let {
             it.show(show)
+            it.requestLayout()
+        }
+    }
+
+    fun makeFieldOptional(container: LinearLayout, field: GetFieldValueItem) {
+        container.findViewById<View>(field.id + LABEL_ID_MODIFIER)?.let {
+            val prev = (it as TextView).text.toString()
+            it.text = prev.replace("*", "")
             it.requestLayout()
         }
     }

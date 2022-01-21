@@ -28,7 +28,6 @@ import com.dubaiculture.ui.postLogin.eservices.viewmodels.EServiceViewModel
 import com.dubaiculture.ui.postLogin.events.detail.registernow.attachmentOptions.AttachmentOptionFragment
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.FileUtils
-import com.dubaiculture.utils.show
 import com.jaiselrahman.filepicker.activity.FilePickerActivity
 import com.jaiselrahman.filepicker.config.Configurations
 import com.jaiselrahman.filepicker.model.MediaFile
@@ -78,6 +77,11 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         eServiceViewModel.showField.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 FieldUtils.showField(binding.fieldContainer, it.first, it.second)
+            }
+        }
+        eServiceViewModel.makeOptional.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                FieldUtils.makeFieldOptional(binding.fieldContainer, it)
             }
         }
     }
@@ -158,7 +162,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         binding.fieldContainer,
                         it
                     ) { selectedValue ->
-                        eServiceViewModel.setValue(it, selectedValue)
+                        eServiceViewModel.addField(it, selectedValue)
                     }
                 }
                 ValueType.RADIO_BUTTON.id -> {
