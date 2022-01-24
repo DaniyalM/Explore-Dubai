@@ -165,6 +165,9 @@
                 app:argType="string"
                 app:nullable="false" />
         </action>
+        <action
+            android:id="@+id/action_exploreFragment_to_surveyFragment2"
+            app:destination="@id/surveyFragment2" />
     </fragment>
 
     <fragment
@@ -250,7 +253,10 @@
         </action>
 
     </dialog>
-
+    <fragment
+        android:id="@+id/surveyFragment2"
+        android:name="com.dubaiculture.ui.postLogin.survey.SurveyFragment"
+        android:label="SurveyFragment" />
 
 
 </navigation>

@@ -258,6 +258,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.serviceDetailFragment -> {
                         binding.bottomGradient.hide()
                     }
+                    R.id.surveyFragment2 -> {
+                        hide()
+                        binding.bottomGradient.hide()
+                    }
 //                    R.id.webviewFragment -> {
 //                        visibility = View.GONE
 //                    }

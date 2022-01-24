@@ -10,6 +10,7 @@ import com.dubaiculture.R
 import com.dubaiculture.data.repository.survey.request.Items
 import com.dubaiculture.databinding.RowFillOutSurveyLayoutBinding
 import com.dubaiculture.ui.postLogin.survey.FieldType
+import com.dubaiculture.utils.hide
 import com.dubaiculture.utils.show
 import com.xwray.groupie.databinding.BindableItem
 
@@ -30,6 +31,8 @@ class SurveyAdapter<T : ViewDataBinding>(
                     when (type) {
                         FieldType.YesNo -> {
                             it.radioGroupYesNo.show()
+                            it.commentsCardView.hide()
+                            it.ratingStar.hide()
 
                             it.radioGroupYesNo.setOnCheckedChangeListener { group, checkedId ->
                                 when (checkedId) {
@@ -43,6 +46,8 @@ class SurveyAdapter<T : ViewDataBinding>(
 
                         }
                         FieldType.Textbox -> {
+                            it.radioGroupYesNo.hide()
+                            it.ratingStar.hide()
                             it.commentsCardView.show()
                             it.editComment.addTextChangedListener(object :TextWatcher{
                                 override fun beforeTextChanged(
@@ -71,6 +76,8 @@ class SurveyAdapter<T : ViewDataBinding>(
 
                         }
                         FieldType.Rating -> {
+                            it.radioGroupYesNo.hide()
+                            it.commentsCardView.hide()
                             it.ratingStar.show()
                             it.ratingStar.setOnClickListener {view->
                                 callback(it.ratingStar.rating.toString(),type)

@@ -19,9 +19,10 @@ fun transformSurvey(surveyFormResponse: SurveyFormResponse) : Form =
             formName = it.FormName?:"",
             items = it.Items.map {
                 Items(
-                    id = it.ID,
-                    question = it.Question,
-                    input = it.Input
+                    id = it.ID?:"",
+                    question = it.Question?:"",
+                    input = it.Input?:"",
+                    answer = it.Answer?:""
                 )
             }
         )
