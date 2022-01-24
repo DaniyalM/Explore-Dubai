@@ -205,9 +205,11 @@ class EServiceViewModel @Inject constructor(
                 if (isArabic) Constants.Locale.ARABIC else Constants.Locale.ENGLISH
             )
             if (result is Result.Success) {
-                showAlert(message = result.value.SerialNo, actionPositive = {
-                    navigateByBack()
-                })
+                showAlert(
+                    message = result.value.message + "\n" + result.value.data.SerialNo,
+                    actionPositive = {
+                        navigateByBack()
+                    })
             } else if (result is Result.Failure) {
                 showToast(result.errorMessage ?: Constants.Error.SOMETHING_WENT_WRONG)
             }
