@@ -232,12 +232,11 @@ class ExploreRecyclerAsyncAdapter internal constructor(
                     it.innerSectionHeading.text = item.title
                     it.viewAll.visibility = View.VISIBLE
                     it.viewAll.setOnClickListener {
-                        fragment?.navigateByDirections(ExploreFragmentDirections.actionExploreFragmentToSurveyFragment2())
-//                        fragment?.navigate(
-//                            R.id.action_exploreFragment_to_events_navigation,
-//                            Bundle().apply {
-//                                putBoolean(EVENT_FILTER, true)
-//                            })
+                        fragment?.navigate(
+                            R.id.action_exploreFragment_to_events_navigation,
+                            Bundle().apply {
+                                putBoolean(EVENT_FILTER, true)
+                            })
                     }
                 }
 
