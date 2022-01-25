@@ -8,6 +8,7 @@
     <string name="sop1">"حسابك غير موثق، يرجى توثيق الحساب"</string>
     <string name="user_canceled_the_login">ألغى المستخدم تسجيل الدخول</string>
     <string name="enter_your_comments">اضف تعليقك</string>
+    <string name="question">سؤال</string>
 
 
     // home tabs

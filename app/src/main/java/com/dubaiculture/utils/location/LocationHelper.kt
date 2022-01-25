@@ -60,11 +60,15 @@ open class LocationHelper @Inject constructor(
 
     ) {
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
-            val location: Location? = task.result
-            if (location == null) {
-                newLocationData(locationCallback)
-            } else {
-                locationLatLongInterface.getCurrentLocation(location)
+            try{
+                val location: Location? = task.result
+                if (location == null) {
+                    newLocationData(locationCallback)
+                } else {
+                    locationLatLongInterface.getCurrentLocation(location)
+                }
+            }catch (ex:Exception){
+
             }
         }
 

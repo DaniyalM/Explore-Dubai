@@ -1,6 +1,8 @@
 package com.dubaiculture.ui.postLogin.survey
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.survey.request.Form
+import com.dubaiculture.data.repository.survey.request.Items
 import com.dubaiculture.databinding.FragmentSurveyBinding
 import com.dubaiculture.databinding.RowFillOutSurveyLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
@@ -37,7 +40,7 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
             eventId = it.getString("event_id")
         }
         surveyViewModel.getSurveyForm(
-            eventId ?: "0E49F5666F904C92B1BC41A13FD50B53",
+            eventId ?: "485EA0E3A9934318A1047808B235AFF5",
             getCurrentLanguage().language
         )
         rvSetUp()
@@ -45,6 +48,20 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
         binding.btnSubmit.setOnClickListener {
             surveyViewModel.postSurvey(form = formSubmit)
         }
+    }
+
+
+    public fun updateFormItem(input:String,items: Items){
+        val data = formSubmit.items?:return
+        data.map {
+            if (it.id==items.id)
+                return@map items.copy(answer = input)
+            else
+                return@map it
+        }.let {
+            formSubmit.items=it
+        }
+
     }
 
     private fun subscribeObserver() {
@@ -77,14 +94,78 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
 
                                 }
                                 FieldType.Textbox -> {
-                                    surveyViewModel.updateFormItem(
-                                        form,
-                                        items = it.copy(answer = input)
-                                    )
+                                    updateFormItem(input,it)
+//                                    surveyViewModel.updateFormItem(
+//                                        form,
+//                                        items = it.copy(answer = input)
+//                                    )
                                 }
                             }
                         }
                     )
+
+//                    when (FieldType.fromName(it.input)) {
+//                        FieldType.YesNo -> {
+//                           binding.customTextView1.text="1/ ${form.items.size} ${resources.getString(R.string.question)}"
+//                            binding.tvQuestions.text=it.question
+//                            binding.radioGroupYesNo.setOnCheckedChangeListener { group, checkedId ->
+//                                when (checkedId) {
+//                                    R.id.rbYes -> {
+//                                        surveyViewModel.updateFormItem(
+//                                            form,
+//                                            items = it.copy(answer = "Yes")
+//                                        )
+//                                    }
+//                                    else ->   surveyViewModel.updateFormItem(
+//                                        form,
+//                                        items = it.copy(answer = "No")
+//                                    )
+//                                }
+//                            }
+//
+//                        }
+//                        FieldType.Rating -> {
+//                            binding.customTextView1.text="3/ ${form.items.size} ${resources.getString(R.string.question)}"
+//                            binding.tvQuestions.text=it.question
+//                            surveyViewModel.updateFormItem(
+//                                form,
+//                                items = it.copy(answer = binding.ratingStar.rating.toString())
+//                            )
+//
+//                        }
+//                        FieldType.Textbox -> {
+//                            binding.customTextView1.text="2/ ${form.items.size} ${resources.getString(R.string.question)}"
+//                            binding.tvQuestions.text=it.question
+//                            binding.editComment.addTextChangedListener(object : TextWatcher {
+//                                override fun beforeTextChanged(
+//                                    s: CharSequence?,
+//                                    start: Int,
+//                                    count: Int,
+//                                    after: Int
+//                                ) {
+//
+//                                }
+//
+//                                override fun onTextChanged(
+//                                    s: CharSequence?,
+//                                    start: Int,
+//                                    before: Int,
+//                                    count: Int
+//                                ) {
+//                                    surveyViewModel.updateFormItem(
+//                                        form,
+//                                        items = it.copy(answer = s.toString().trim())
+//                                    )
+//                                }
+//
+//                                override fun afterTextChanged(s: Editable?) {
+//
+//                                }
+//                            })
+//                        }
+//                    }
+
+
                 }
             }
         }
