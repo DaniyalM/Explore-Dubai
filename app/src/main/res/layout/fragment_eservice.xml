@@ -48,8 +48,11 @@
                 <com.dubaiculture.ui.components.custombutton.CustomButton
                     android:id="@+id/submitButton"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_margin="@dimen/_15sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
                     android:background="@drawable/btn_register"
                     android:gravity="center"
                     android:text="@string/submit"

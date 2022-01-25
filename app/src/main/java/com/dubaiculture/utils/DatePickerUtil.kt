@@ -16,7 +16,7 @@ class DatePickerUtil(
     var context: Context,
     var iface: DatePickerInterface,
     var showFutureDates: Boolean = true,
-    var setMinDate: Long? = null
+    var showPastDates: Boolean = true
 ) : DatePickerDialog.OnDateSetListener {
     private val selectCurrentDate = Calendar.getInstance()
     fun showPicker() {
@@ -46,8 +46,8 @@ class DatePickerUtil(
         )
         if (!showFutureDates)
             datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
-        setMinDate?.let {
-            datePickerDialog.datePicker.minDate = it
+        if (!showPastDates) {
+            datePickerDialog.datePicker.minDate = System.currentTimeMillis()
         }
         datePickerDialog.show()
 

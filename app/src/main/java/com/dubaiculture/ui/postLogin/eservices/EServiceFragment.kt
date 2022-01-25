@@ -14,16 +14,8 @@ import androidx.work.impl.background.systemjob.SystemJobService
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.databinding.FragmentEserviceBinding
 import com.dubaiculture.ui.base.BaseFragment
-import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDateField
-import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDropDown
-import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createEditText
-import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createFileField
-import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createImageField
-import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createRadioButton
-import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createTextView
-import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createTimeField
-import com.dubaiculture.ui.postLogin.eservices.enums.FieldType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDateFieldWithLabel
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDropDownWithLabel
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createEditTextWithLabel
@@ -82,18 +74,27 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         eServiceViewModel.fieldValues.observe(viewLifecycleOwner) {
             initializeFields(it)
         }
+        eServiceViewModel.showField.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                FieldUtils.showField(binding.fieldContainer, it.first, it.second)
+            }
+        }
+        eServiceViewModel.makeOptional.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                FieldUtils.makeFieldOptional(binding.fieldContainer, it)
+            }
+        }
     }
 
     private fun initializeFields(fieldValues: List<GetFieldValueItem>) {
         val inflater =
             activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         fieldValues.forEach {
-            val fieldType =
-                FieldType.fromName(it.fieldType)// might be type = message, so don't render
+//            val fieldType =
+//                FieldType.fromName(it.fieldType)// might be type = message, so don't render
             val valueType =
-                ValueType.fromName(it.valueType)// might be type = button, so don't render
-            if (fieldType == null || valueType == null)
-                return@forEach
+                ValueType.fromName(it.valueType)
+                    ?: return@forEach// might be type = button, so don't render
 
             when (valueType.id) {
                 ValueType.INPUT_TEXT.id -> {
@@ -117,7 +118,9 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         isArabic(),
                         inflater,
                         binding.fieldContainer,
-                        it
+                        it,
+                        eServiceViewModel.showFutureDates(it),
+                        eServiceViewModel.showPastDates(it)
                     ) { selectedValue ->
                         eServiceViewModel.addField(it, selectedValue)
                     }

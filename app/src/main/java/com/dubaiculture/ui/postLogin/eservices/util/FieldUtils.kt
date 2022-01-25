@@ -3,7 +3,6 @@ package com.dubaiculture.ui.postLogin.eservices.util
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.text.InputType
-import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object FieldUtils {
-
+    const val LABEL_ID_MODIFIER = 101010101
     fun createTextViewWithDescription(
         isArabic: Boolean,
         layoutInflater: LayoutInflater,
@@ -46,6 +45,7 @@ object FieldUtils {
         val textView = view.textView
         var text = if (isArabic) fieldValueItem.arabic else fieldValueItem.english
         if (fieldValueItem.isRequired) text += "*"
+        textView.id = fieldValueItem.id + LABEL_ID_MODIFIER
         textView.text = text
         textView.setColouredSpan("*", Color.RED)
         return textView
@@ -124,7 +124,7 @@ object FieldUtils {
         dropDown.setAdapter(
             ArrayAdapter(
                 view.root.context,
-                android.R.layout.simple_dropdown_item_1line,
+                android.R.layout.simple_list_item_1,
                 fieldValueItem.fieldValue.map {
                     if (isArabic) it.arabic else it.english
                 }
@@ -144,11 +144,21 @@ object FieldUtils {
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem,
+        showFutureDates: Boolean,
+        showPastDates: Boolean,
         callback: (date: String) -> Unit
     ) {
         val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
         root.addView(label)
-        val dd = createDateField(isArabic, layoutInflater, root, fieldValueItem, callback)
+        val dd = createDateField(
+            isArabic,
+            layoutInflater,
+            root,
+            fieldValueItem,
+            showFutureDates,
+            showPastDates,
+            callback
+        )
         root.addView(dd)
     }
 
@@ -157,16 +167,20 @@ object FieldUtils {
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: GetFieldValueItem,
+        showFutureDates: Boolean,
+        showPastDates: Boolean,
         callback: (date: String) -> Unit
     ): CustomEditText {
         val editText = createEditText(isArabic, layoutInflater, root, fieldValueItem)
         editText.isFocusable = false
         editText.setOnClickListener {
             DatePickerUtil(
+                showFutureDates = showFutureDates,
+                showPastDates = showPastDates,
                 selectedDate = editText.text.toString(),
                 selectedDateFormat = Constants.DateFormats.MM_DD_YYYY,
-                root.context,
-                object : DatePickerUtil.DatePickerInterface {
+                context = root.context,
+                iface = object : DatePickerUtil.DatePickerInterface {
                     override fun onDateSelected(calendar: Calendar) {
                         val date: Date = calendar.time
                         val format = Constants.DateFormats.MM_DD_YYYY
@@ -376,5 +390,24 @@ object FieldUtils {
             drawable,
             null
         )
+    }
+
+    fun showField(container: ViewGroup, show: Boolean, field: GetFieldValueItem) {
+        container.findViewById<View>(field.id + LABEL_ID_MODIFIER)?.let {
+            it.show(show)
+            it.requestLayout()
+        }
+        container.findViewById<View>(field.id)?.let {
+            it.show(show)
+            it.requestLayout()
+        }
+    }
+
+    fun makeFieldOptional(container: LinearLayout, field: GetFieldValueItem) {
+        container.findViewById<View>(field.id + LABEL_ID_MODIFIER)?.let {
+            val prev = (it as TextView).text.toString()
+            it.text = prev.replace("*", "")
+            it.requestLayout()
+        }
     }
 }

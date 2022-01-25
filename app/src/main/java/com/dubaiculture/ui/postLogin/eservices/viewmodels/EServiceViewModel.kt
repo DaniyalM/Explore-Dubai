@@ -14,12 +14,13 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRe
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
-import com.dubaiculture.ui.postLogin.eservices.enums.FieldType
+import com.dubaiculture.ui.postLogin.eservices.enums.FormType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValidationType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
 import com.dubaiculture.utils.Constants.NavBundles.FORM_URL
+import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -39,12 +40,22 @@ class EServiceViewModel @Inject constructor(
     var selectedView: GetFieldValueItem? = null
     var emiratesId: String? = null
 
-    private val map: HashMap<GetFieldValueItem, String> by lazy {
+    private val map: HashMap<String, String> by lazy {
         HashMap()
     }
 
     private val _fieldValues: MutableLiveData<List<GetFieldValueItem>> = MutableLiveData()
     val fieldValues: LiveData<List<GetFieldValueItem>> = _fieldValues
+
+    private val _showField: MutableLiveData<Event<Pair<Boolean, GetFieldValueItem>>> =
+        MutableLiveData()
+    val showField: LiveData<Event<Pair<Boolean, GetFieldValueItem>>> = _showField
+
+    private val _makeOptional: MutableLiveData<Event<GetFieldValueItem>> =
+        MutableLiveData()
+    val makeOptional: LiveData<Event<GetFieldValueItem>> = _makeOptional
+
+    private var mFieldValues: List<GetFieldValueItem>? = null
 
     init {
         emiratesId = (application as ApplicationEntry).auth.user?.idn
@@ -68,11 +79,12 @@ class EServiceViewModel @Inject constructor(
                 )) {
                 is Result.Success -> {
                     showLoader(false)
-                    _fieldValues.value =
+                    mFieldValues =
                         if (emiratesId.isNullOrEmpty()) result.value else setupEmiratesId(
                             emiratesId!!,
                             result.value
                         )
+                    _fieldValues.value = mFieldValues
                 }
                 is Result.Failure -> {
                     showLoader(false)
@@ -86,7 +98,7 @@ class EServiceViewModel @Inject constructor(
         list: List<GetFieldValueItem>
     ): List<GetFieldValueItem> {
         return list.map {
-            if (it.fieldName == "EmiratesID") {
+            if (isEmiratesId(it)) {
                 it.copy(defaultValue = emiratesId)
             } else it
         }
@@ -108,28 +120,70 @@ class EServiceViewModel @Inject constructor(
     }
 
     fun addField(field: GetFieldValueItem, value: String) {
-        map[field] = value
+        val cleanedValue = getCleanedValue(value)
+        map[field.fieldName] = cleanedValue
+        showCity(field, cleanedValue)
+        emiratesIdOptional(field, cleanedValue)
+    }
+
+    private fun emiratesIdOptional(field: GetFieldValueItem, cleanedValue: String) {
+        if (field.fieldName == "IsVisa") {
+            mFieldValues?.firstOrNull {
+                isEmiratesId(it)
+            }?.let {
+                _makeOptional.value = Event(it)
+            }
+            mFieldValues = mFieldValues?.map {
+                if (isEmiratesId(it)) {
+                    it.copy(validations = it.validations.map { validation ->
+                        validation.copy(validationType = ValidationType.PATTERN_OPTIONAL.type)
+                    })
+                } else it
+            }
+        }
+    }
+
+    private fun showCity(field: GetFieldValueItem, cleanedValue: String) {
+        if (field.fieldName == "Country") {
+            val showCity = cleanedValue == "United Arab Emirates"
+            mFieldValues?.firstOrNull {
+                it.fieldName == "City"
+            }?.let {
+                _showField.value = Event(Pair(showCity, it))
+            }
+            mFieldValues = mFieldValues?.map {
+                if (it.fieldName == "City") {
+                    it.copy(isRequired = showCity)
+                } else it
+            }
+        }
     }
 
     fun submitForm(isArabic: Boolean) {
         showLoader(true)
         val request = HashMap<String, RequestBody>()
 
-        val fields = _fieldValues.value?.filter {
-            (FieldType.fromName(it.fieldType) != null || ValueType.fromName(it.valueType) != null)
+        val fields = mFieldValues?.filter {
+//            (FieldType.fromName(it.fieldType) != null ||
+            ValueType.fromName(it.valueType) != null
+            //)
         } ?: listOf()
 
         fields.forEach {
-            val value = map[it] ?: ""
+            val value = map[it.fieldName] ?: ""
             validate(isArabic, it, value)?.let { errorMessage ->
                 showToast(errorMessage)
                 showLoader(false)
                 return
             }
             if (it.valueType != ValueType.FILE.valueType) {
-                request[it.fieldName] =
-                    value.toRequestBody(Constants.MimeType.TEXT.toMediaType())
+                if (!it.isRequired && value.isEmpty()) {
 
+                } else {
+                    request[it.fieldName] =
+                        value.toRequestBody(Constants.MimeType.TEXT.toMediaType())
+
+                }
             } else if (it.valueType == ValueType.FILE.valueType && value.isNotEmpty()) {
                 val file = File(value)
                 val fileBody = file.asRequestBody(Constants.MimeType.ALL.toMediaType())
@@ -151,9 +205,11 @@ class EServiceViewModel @Inject constructor(
                 if (isArabic) Constants.Locale.ARABIC else Constants.Locale.ENGLISH
             )
             if (result is Result.Success) {
-                showAlert(message = result.value.SerialNo, actionPositive = {
-                    navigateByBack()
-                })
+                showAlert(
+                    message = result.value.message + "\n" + result.value.data.SerialNo,
+                    actionPositive = {
+                        navigateByBack()
+                    })
             } else if (result is Result.Failure) {
                 showToast(result.errorMessage ?: Constants.Error.SOMETHING_WENT_WRONG)
             }
@@ -175,8 +231,19 @@ class EServiceViewModel @Inject constructor(
                 if (field.isRequired && value.isEmpty()) {
                     return if (isArabic) it.arabicMsg else it.englishMsg
                 }
+            } else if (it.validationType.equals(ValidationType.PATTERN_OPTIONAL.type, true)) {
+                if (value.isNotEmpty() && !it.pattern.toRegex().matches(value)) {
+                    return if (isArabic) it.arabicMsg else it.englishMsg
+                }
             }
         }
         return null
     }
+
+    fun showFutureDates(field: GetFieldValueItem) = field.fieldName != "BirthDate"
+    fun showPastDates(field: GetFieldValueItem) =
+        !(field.formName.equals(FormType.BOOKING_ESERVICE.value, true) && field.fieldName == "Date")
+
+    fun isEmiratesId(field: GetFieldValueItem) = field.fieldName == "EmiratesID"
+    fun getCleanedValue(value: String) = value.replace("\u00a0", " ")
 }

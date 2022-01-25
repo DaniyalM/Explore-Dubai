@@ -9,6 +9,7 @@ import com.dubaiculture.data.repository.eservices.remote.EServicesRDS
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.data.repository.eservices.remote.response.FormInnerResponse
+import com.dubaiculture.data.repository.eservices.remote.response.FormResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetTokenResponseDTO
 import okhttp3.RequestBody
 import javax.inject.Inject
@@ -56,12 +57,12 @@ class EServicesRepository @Inject constructor(
         params: HashMap<String, RequestBody>,
         url: String,
         locale: String
-    ): Result<FormInnerResponse> {
+    ): Result<FormResponse> {
         return when (val resultRds =
             eServiceRDS.submitForm(token, params, url, locale)) {
             is Result.Success -> {
                 if (resultRds.value.success) {
-                    Result.Success(resultRds.value.data)
+                    Result.Success(resultRds.value)
                 } else {
                     Result.Failure(false, null, null, resultRds.value.error[0].message)
                 }
