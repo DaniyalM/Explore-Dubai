@@ -135,7 +135,7 @@ class EServiceViewModel @Inject constructor(
             }
             mFieldValues = mFieldValues?.map {
                 if (isEmiratesId(it)) {
-                    it.copy(validations = it.validations.map { validation ->
+                    it.copy(isRequired = false, validations = it.validations.map { validation ->
                         validation.copy(validationType = ValidationType.PATTERN_OPTIONAL.type)
                     })
                 } else it
