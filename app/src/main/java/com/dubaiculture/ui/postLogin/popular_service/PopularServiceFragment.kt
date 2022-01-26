@@ -73,11 +73,17 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
 
                 override fun onUrlClick(service: EService?) {
                     service?.let {
-                        navigateByDirections(
-                            PopularServiceFragmentDirections.actionPopularServiceFragmentToEServiceFragment(
-                                it.title, it.formName, it.formSubmitURL
+                        if (application.auth.isGuest) {
+                            navigateByDirections(
+                                PopularServiceFragmentDirections.actionPopularServiceFragmentToPostLoginBottomNavigation()
                             )
-                        )
+                        } else {
+                            navigateByDirections(
+                                PopularServiceFragmentDirections.actionPopularServiceFragmentToEServiceFragment(
+                                    it.title, it.formName, it.formSubmitURL
+                                )
+                            )
+                        }
 //                    openWebWithoutBaseUrl(service!!.startServiceUrl)
 //                    navigateByDirections(
 //                        PopularServiceFragmentDirections.actionPopularServiceFragmentToWebViewFragment(

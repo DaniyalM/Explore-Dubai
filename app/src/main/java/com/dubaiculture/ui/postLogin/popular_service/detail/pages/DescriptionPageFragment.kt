@@ -101,13 +101,20 @@ class DescriptionPageFragment :
 //                    description[0].startServiceUrl, false
 //                )
 //            )
-            (parentFragment as ServiceDetailFragment).navigateByDirections(
-                ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
-                    description?.get(0)?.title ?: "",
-                    description?.get(0)?.formName ?: "",
-                    description?.get(0)?.formSubmitURL ?: ""
+            if (application.auth.isGuest) {
+                (parentFragment as ServiceDetailFragment).navigateByDirections(
+                    ServiceDetailFragmentDirections.actionServiceDetailFragment2ToPostLoginBottomNavigation()
                 )
-            )
+            } else {
+                (parentFragment as ServiceDetailFragment).navigateByDirections(
+                    ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
+                        description?.get(0)?.title ?: "",
+                        description?.get(0)?.formName ?: "",
+                        description?.get(0)?.formSubmitURL ?: ""
+                    )
+                )
+            }
+
         }
         bgRTL(binding.imgSpeaker)
     }
@@ -159,7 +166,6 @@ class DescriptionPageFragment :
                     descriptionViewModel.getDoc(description.documentLink)
                 }
             }
-
 
 
         }

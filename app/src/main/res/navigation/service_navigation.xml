@@ -7,6 +7,7 @@
 
     <include app:graph="@navigation/service_detail_navigation" />
     <include app:graph="@navigation/eservice_navigation" />
+    <include app:graph="@navigation/post_login_bottom_navigation" />
 
     <fragment
         android:id="@+id/popularServiceFragment"
@@ -60,5 +61,13 @@
                 android:name="form_url"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_popularServiceFragment_to_post_login_bottom_navigation"
+            app:destination="@id/post_login_bottom_navigation"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
     </fragment>
 </navigation>
