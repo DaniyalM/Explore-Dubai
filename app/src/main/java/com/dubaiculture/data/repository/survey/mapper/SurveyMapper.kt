@@ -17,28 +17,32 @@ fun transformSurvey(surveyFormResponse: SurveyFormResponse) : Form =
             subtitle = it.Subtitle,
             formID = it.FormID,
             formName = it.FormName?:"",
-            items = it.Items.map {
+            items = it.Items.mapIndexed { index, itemsDTO ->
                 Items(
-                    id = it.ID?:"",
-                    question = it.Question?:"",
-                    input = it.Input?:"",
-                    answer = it.Answer?:""
+                    id = itemsDTO.ID?:"",
+                    question = itemsDTO.Question?:"",
+                    input = itemsDTO.Input?:"",
+                    answer = itemsDTO.Answer?:"",
+                    index=index
                 )
-            }
+            },
+            itemId = ""
         )
     }
 
 fun transformFormIntoDTO(form: Form) : FormDTO =
     FormDTO(
-        Title = form.title,
-        Subtitle = form.subtitle,
+        ItemId = form.itemId?:"",
         FormID = form.formID,
         Items = form.items.map {
             ItemsDTO(
                 QuestionId = it.id,
                 Answer = it.answer
             )
-        }
+        },
+        Culture = form.culture,
+        Title = "",
+        Subtitle = ""
     )
 
 

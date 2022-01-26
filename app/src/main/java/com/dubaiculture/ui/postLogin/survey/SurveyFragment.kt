@@ -1,21 +1,25 @@
 package com.dubaiculture.ui.postLogin.survey
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dubaiculture.R
+import androidx.work.impl.background.systemjob.SystemJobService
 import com.dubaiculture.data.repository.survey.request.Form
-import com.dubaiculture.data.repository.survey.request.Items
 import com.dubaiculture.databinding.FragmentSurveyBinding
-import com.dubaiculture.databinding.RowFillOutSurveyLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
-import com.dubaiculture.ui.postLogin.survey.adapter.SurveyAdapter
+import com.dubaiculture.ui.postLogin.survey.SurveyFieldUtils.createCardForEditText
+import com.dubaiculture.ui.postLogin.survey.SurveyFieldUtils.createCardForRadioButtons
+import com.dubaiculture.ui.postLogin.survey.SurveyFieldUtils.createCardForRatingField
 import com.dubaiculture.ui.postLogin.survey.viewmodel.SurveyViewModel
+import com.idlestar.ratingstar.RatingStarView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,129 +47,81 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
             eventId ?: "485EA0E3A9934318A1047808B235AFF5",
             getCurrentLanguage().language
         )
-        rvSetUp()
         subscribeObserver()
         binding.btnSubmit.setOnClickListener {
-            surveyViewModel.postSurvey(form = formSubmit)
+            formSubmit.items.forEach {
+                val view = binding.fieldContainer.findViewById<View>(it.index)
+                if (FieldType.fromName(it.input) == FieldType.Textbox) {
+                    val value = (view as EditText).text.toString()
+                    surveyViewModel.updateFormItem(formSubmit, it.copy(answer = value))
+                }
+                if (FieldType.fromName(it.input) == FieldType.Rating) {
+                    val value = (view as RatingStarView).rating.toString()
+                    surveyViewModel.updateFormItem(formSubmit, it.copy(answer = value))
+                }
+                if (FieldType.fromName(it.input) == FieldType.YesNo) {
+                    val group = (view as RadioGroup)
+                    // find the radiobutton by returned id
+                    val radioButton = group.findViewById<RadioButton>(group.checkedRadioButtonId)
+                    if (group.checkedRadioButtonId != -1 || radioButton != null) {
+                        surveyViewModel.updateFormItem(
+                            formSubmit,
+                            it.copy(answer = radioButton.text.toString())
+                        )
+                    }
+
+
+                }
+            }
+
+            surveyViewModel.postSurvey(form = formSubmit.copy(itemId = eventId?: "485EA0E3A9934318A1047808B235AFF5",culture = getCurrentLanguage().language)){
+                back()
+            }
+
         }
     }
 
-
-    public fun updateFormItem(input:String,items: Items){
-        val data = formSubmit.items?:return
-        data.map {
-            if (it.id==items.id)
-                return@map items.copy(answer = input)
-            else
-                return@map it
-        }.let {
-            formSubmit.items=it
-        }
-
-    }
 
     private fun subscribeObserver() {
+        surveyViewModel.formSubmit.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                formSubmit = it
+            }
+        }
         surveyViewModel.form.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { form ->
+                surveyViewModel.updateForm(form)
+                val inflater = activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE)
+                        as LayoutInflater
 
-                formSubmit = form
-                surveyAdapter.clear()
-                form.items.forEach {
-                    surveyAdapter.add(
-                        SurveyAdapter<RowFillOutSurveyLayoutBinding>(
-                            itemForm = it,
-                            resLayout = R.layout.row_fill_out_survey_layout,
-                            context = requireContext(),
-                            isArabic = isArabic()
-                        ) { input, fieldType ->
-                            when (fieldType) {
-                                FieldType.YesNo -> {
-                                    surveyViewModel.updateFormItem(
-                                        form,
-                                        items = it.copy(answer = input)
-                                    )
-
-                                }
-                                FieldType.Rating -> {
-                                    surveyViewModel.updateFormItem(
-                                        form,
-                                        items = it.copy(answer = input)
-                                    )
-
-                                }
-                                FieldType.Textbox -> {
-                                    updateFormItem(input,it)
-//                                    surveyViewModel.updateFormItem(
-//                                        form,
-//                                        items = it.copy(answer = input)
-//                                    )
-                                }
-                            }
+                val count = form.items.size
+                form.items.forEach { item ->
+                    when (FieldType.fromName(item.input)) {
+                        FieldType.YesNo -> {
+                            createCardForRadioButtons(
+                                inflater,
+                                binding.fieldContainer,
+                                item,
+                                count
+                            )
                         }
-                    )
-
-//                    when (FieldType.fromName(it.input)) {
-//                        FieldType.YesNo -> {
-//                           binding.customTextView1.text="1/ ${form.items.size} ${resources.getString(R.string.question)}"
-//                            binding.tvQuestions.text=it.question
-//                            binding.radioGroupYesNo.setOnCheckedChangeListener { group, checkedId ->
-//                                when (checkedId) {
-//                                    R.id.rbYes -> {
-//                                        surveyViewModel.updateFormItem(
-//                                            form,
-//                                            items = it.copy(answer = "Yes")
-//                                        )
-//                                    }
-//                                    else ->   surveyViewModel.updateFormItem(
-//                                        form,
-//                                        items = it.copy(answer = "No")
-//                                    )
-//                                }
-//                            }
-//
-//                        }
-//                        FieldType.Rating -> {
-//                            binding.customTextView1.text="3/ ${form.items.size} ${resources.getString(R.string.question)}"
-//                            binding.tvQuestions.text=it.question
-//                            surveyViewModel.updateFormItem(
-//                                form,
-//                                items = it.copy(answer = binding.ratingStar.rating.toString())
-//                            )
-//
-//                        }
-//                        FieldType.Textbox -> {
-//                            binding.customTextView1.text="2/ ${form.items.size} ${resources.getString(R.string.question)}"
-//                            binding.tvQuestions.text=it.question
-//                            binding.editComment.addTextChangedListener(object : TextWatcher {
-//                                override fun beforeTextChanged(
-//                                    s: CharSequence?,
-//                                    start: Int,
-//                                    count: Int,
-//                                    after: Int
-//                                ) {
-//
-//                                }
-//
-//                                override fun onTextChanged(
-//                                    s: CharSequence?,
-//                                    start: Int,
-//                                    before: Int,
-//                                    count: Int
-//                                ) {
-//                                    surveyViewModel.updateFormItem(
-//                                        form,
-//                                        items = it.copy(answer = s.toString().trim())
-//                                    )
-//                                }
-//
-//                                override fun afterTextChanged(s: Editable?) {
-//
-//                                }
-//                            })
-//                        }
-//                    }
-
-
+                        FieldType.Rating -> {
+                            createCardForRatingField(
+                                inflater,
+                                binding.fieldContainer,
+                                item,
+                                count
+                            )
+                        }
+                        FieldType.Textbox -> {
+                            createCardForEditText(
+                                inflater,
+                                binding.fieldContainer,
+                                item,
+                                count
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -173,13 +129,7 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
 
     }
 
-    private fun rvSetUp() {
-        binding.rvSurvey.apply {
-            this.isNestedScrollingEnabled = false
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = surveyAdapter
-        }
-    }
+
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

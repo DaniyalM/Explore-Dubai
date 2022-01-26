@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.idlestar.ratingstar.RatingStarView
+        android:id="@+id/ratingStar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="?attr/colorSurface"
+        app:rsv_cornerRadius="@dimen/_4sdp"
+        app:rsv_drawStrokeForEmptyStar="false"
+        app:rsv_drawStrokeForHalfStar="true"
+        app:rsv_enableSelectRating="true"
+        app:rsv_onlyHalfStar="true"
+        app:rsv_rating="0"
+        app:rsv_starBackgroundColor="#E8E8E8"
+        app:rsv_starForegroundColor="@color/sea_green"
+        app:rsv_starMargin="@dimen/_12sdp"
+        app:rsv_starNum="5"
+        app:rsv_starThickness="0.7"
+        app:rsv_strokeColor="#457DD7"
+        app:rsv_strokeWidth="@dimen/_2sdp" />
+</layout>

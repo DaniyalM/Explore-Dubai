@@ -23,6 +23,9 @@ class SurveyViewModel @Inject constructor(
     private val _form: MutableLiveData<Event<Form>> = MutableLiveData()
     val form: LiveData<Event<Form>> = _form
 
+    private val _formSubmit: MutableLiveData<Event<Form>> = MutableLiveData()
+    val formSubmit: LiveData<Event<Form>> = _formSubmit
+
 
     fun getSurveyForm(formId: String, locale: String) {
         viewModelScope.launch {
@@ -40,7 +43,7 @@ class SurveyViewModel @Inject constructor(
     }
 
      fun updateForm(form: Form) {
-        _form.value = Event(form)
+         _formSubmit.value = Event(form)
     }
 
      fun updateFormItem(form: Form,items: Items) {
@@ -55,14 +58,17 @@ class SurveyViewModel @Inject constructor(
     }
 
 
-    fun postSurvey(form: Form) {
+    fun postSurvey(form: Form,callback:()->Unit) {
         viewModelScope.launch {
             showLoader(true)
             val result = surveyRepository.postSurvey(form = form)
             if (result is Result.Success) {
                 showLoader(false)
+                showToast(result.message)
+                callback()
 
             } else if (result is Result.Failure) {
+                showToast(result.errorMessage.toString())
                 showLoader(false)
 
             }
