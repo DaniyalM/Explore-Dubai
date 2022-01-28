@@ -30,11 +30,11 @@ class WebViewFragment : BaseFragment<FragmentWebViewBinding>() {
 
             javaScriptEnabled = true
             domStorageEnabled = true
-            loadWithOverviewMode = true
-            useWideViewPort = true
-            builtInZoomControls = true
-            displayZoomControls = false
-            setSupportZoom(true)
+//            loadWithOverviewMode = true
+////            useWideViewPort = true
+//            builtInZoomControls = true
+//            displayZoomControls = false
+//            setSupportZoom(true)
             userAgentString="Mozilla/5.0"
 
         }
