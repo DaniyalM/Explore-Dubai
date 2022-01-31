@@ -224,7 +224,7 @@ class EServiceViewModel @Inject constructor(
     ): String? {
         field.validations.forEach {
             if (it.validationType.equals(ValidationType.PATTERN.type, true)) {
-                if (!it.pattern.toRegex().matches(value)) {
+                if (it.pattern.isNotEmpty() && !it.pattern.toRegex().matches(value)) {
                     return if (isArabic) it.arabicMsg else it.englishMsg
                 }
             } else if (it.validationType.equals(ValidationType.REQUIRED.type, true)) {
