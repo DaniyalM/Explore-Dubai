@@ -167,6 +167,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.myTripFragment -> {
                         hide()
                     }
+                    R.id.webViewFragment -> {
+                        hide()
+                    }
                     else -> {
                         show()
                     }
