@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
+import com.dubaiculture.BuildConfig
 import com.dubaiculture.databinding.FragmentWebViewBinding
 import com.dubaiculture.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,18 +27,38 @@ class WebViewFragment : BaseFragment<FragmentWebViewBinding>() {
         backArrowRTL(binding.imgClose)
         binding.tvTitle.text = args.title
 //        showToast(args.webviewUrl)
-        binding.webview.settings.apply {
+        if (BuildConfig.CHAT_BOT_URL_EN == args.webviewUrl || BuildConfig.CHAT_BOT_URL_AR == args.webviewUrl) {
 
-            javaScriptEnabled = true
-            domStorageEnabled = true
-            loadWithOverviewMode = true
-            useWideViewPort = true
-            builtInZoomControls = true
-            displayZoomControls = false
-            setSupportZoom(true)
-            userAgentString="Mozilla/5.0"
+            binding.webview.settings.apply {
+
+                javaScriptEnabled = true
+                domStorageEnabled = true
+                loadWithOverviewMode = true
+                useWideViewPort = true
+                builtInZoomControls = true
+                displayZoomControls = false
+                setSupportZoom(true)
+//            userAgentString="Mozilla/5.0"
+
+            }
+
+        } else {
+
+            binding.webview.settings.apply {
+
+                javaScriptEnabled = true
+                domStorageEnabled = true
+                loadWithOverviewMode = true
+                useWideViewPort = true
+                builtInZoomControls = true
+                displayZoomControls = false
+                setSupportZoom(true)
+                userAgentString = "Mozilla/5.0"
+
+            }
 
         }
+
         if (args.isPdf) {
             binding.webview.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=" + args.webviewUrl)
         } else {
