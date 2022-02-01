@@ -39,7 +39,12 @@ class DataStoreManager @Inject constructor(
         return when (x) {
             null -> defaultValue
             else -> {
-                securityManager.decrypt(x).toIntOrNull()
+                try {
+                    securityManager.decrypt(x).toIntOrNull()
+                }catch (ex:Exception){
+                    null
+                }
+
             }
         }
     }
@@ -51,7 +56,12 @@ class DataStoreManager @Inject constructor(
         return when (x) {
             null -> defaultValue
             else -> {
-                securityManager.decrypt(x)
+                try {
+                    securityManager.decrypt(x)
+                }catch (ex:Exception){
+                    null
+                }
+
             }
         }
     }
@@ -63,7 +73,12 @@ class DataStoreManager @Inject constructor(
         return when (x) {
             null -> defaultValue
             else -> {
-                securityManager.decrypt(x).toFloatOrNull()
+                try {
+                    securityManager.decrypt(x).toFloatOrNull()
+                }catch (ex:Exception){
+                    null
+                }
+
             }
         }
     }
@@ -75,7 +90,12 @@ class DataStoreManager @Inject constructor(
         return when (x) {
             null -> defaultValue
             else -> {
-                securityManager.decrypt(x).toBoolean()
+                try {
+                    securityManager.decrypt(x).toBoolean()
+                }catch (ex:Exception){
+                    null
+                }
+
             }
         }
     }
@@ -87,7 +107,12 @@ class DataStoreManager @Inject constructor(
         return when (x) {
             null -> defaultValue
             else -> {
-                securityManager.decrypt(x).toLongOrNull()
+                try {
+                    securityManager.decrypt(x).toLongOrNull()
+                }catch (ex:Exception){
+                    null
+                }
+
             }
         }
     }
