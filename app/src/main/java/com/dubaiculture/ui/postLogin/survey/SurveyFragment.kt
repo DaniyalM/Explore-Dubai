@@ -48,6 +48,9 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
             getCurrentLanguage().language
         )
         subscribeObserver()
+        binding.imageView11.setOnClickListener {
+            back()
+        }
         binding.btnSubmit.setOnClickListener {
             formSubmit.items.forEach {
                 val view = binding.fieldContainer.findViewById<View>(it.index)
