@@ -88,6 +88,7 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
 
                 binding.tvPlaceHolder.visibility = View.GONE
                 binding.personalRv.visibility = View.VISIBLE
+                eventListAdapter.clear()
                 it.map {
                     eventListAdapter.add(
                         EventListItem<ItemEventListingBinding>(

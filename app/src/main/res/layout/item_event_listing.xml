@@ -67,9 +67,9 @@
 
                 <com.rishabhharit.roundedimageview.RoundedImageView
                     android:id="@+id/img_upcoming_bg"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:imageUrl="@{events.image}"
                     app:cornerRadius="@dimen/_15sdp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
