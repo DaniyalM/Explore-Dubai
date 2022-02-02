@@ -1,15 +1,11 @@
 package com.dubaiculture.data.repository.eservices.mapper
 
-import com.dubaiculture.data.repository.eservices.local.FieldValueItem
-import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
-import com.dubaiculture.data.repository.eservices.local.Validation
+import com.dubaiculture.data.repository.eservices.local.*
 import com.dubaiculture.data.repository.eservices.remote.request.CreateNocRequest
 import com.dubaiculture.data.repository.eservices.remote.request.CreateNocRequestDTO
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequestDTO
-import com.dubaiculture.data.repository.eservices.remote.response.FieldValueDTO
-import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueResponseDTOItem
-import com.dubaiculture.data.repository.eservices.remote.response.ValidationDTO
+import com.dubaiculture.data.repository.eservices.remote.response.*
 import com.dubaiculture.ui.postLogin.events.detail.helper.MultipartFormHelper.getMultiPartData
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -58,4 +54,27 @@ fun transformValidations(validationDTO: ValidationDTO) =
         errorCode = validationDTO.ErrorCode ?: "",
         pattern = validationDTO.Pattern ?: "",
         validationType = validationDTO.ValidationType ?: ""
+    )
+
+fun transformEServiceStatus(eServiceStatusDto: EServiceStatusDto) =
+    EServiceStatus(
+        id = eServiceStatusDto.ID,
+        title = eServiceStatusDto.Title,
+        categoryID = eServiceStatusDto.CategoryID,
+        category = eServiceStatusDto.Category,
+        summary = eServiceStatusDto.Summary,
+        isFavourite = eServiceStatusDto.IsFavourite,
+        startServiceText = eServiceStatusDto.StartServiceText,
+        startServiceUrl = eServiceStatusDto.StartServiceUrl,
+        formName = eServiceStatusDto.FormName,
+        formSubmitURL = eServiceStatusDto.FormSubmitURL,
+        request = transformEServiceStatusDetails(eServiceStatusDto.Request)
+
+    )
+
+fun transformEServiceStatusDetails(eServiceStatusDto: EServiceStatusDetailsDto) =
+    EServiceStatusDetails(
+        id = eServiceStatusDto.ID,
+        dateTime = eServiceStatusDto.DateTime,
+        status = eServiceStatusDto.Status
     )

@@ -3,7 +3,9 @@ package com.dubaiculture.data.repository.eservices
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.base.BaseRepository
 import com.dubaiculture.data.repository.base.BaseResponse
+import com.dubaiculture.data.repository.eservices.local.EServiceStatus
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
+import com.dubaiculture.data.repository.eservices.mapper.transformEServiceStatus
 import com.dubaiculture.data.repository.eservices.mapper.transformFieldValueRequest
 import com.dubaiculture.data.repository.eservices.mapper.transformFieldValuesResponse
 import com.dubaiculture.data.repository.eservices.remote.EServicesRDS
@@ -81,6 +83,27 @@ class EServicesRepository @Inject constructor(
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
                     Result.Success(resultRds.value)
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
+                }
+            }
+            is Result.Failure -> resultRds
+            is Result.Error -> resultRds
+        }
+    }
+
+    suspend fun getServiceStatusList(
+        culture: String,
+    ): Result<List<EServiceStatus>> {
+        return when (val resultRds =
+            eServiceRDS.getServiceStatusList(culture)) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success(
+                        resultRds.value.result.services.map {
+                            transformEServiceStatus(it)
+                        }
+                    )
                 } else {
                     Result.Failure(false, null, null, resultRds.value.errorMessage)
                 }
