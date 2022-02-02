@@ -21,7 +21,7 @@ fun transformSurvey(surveyFormResponse: SurveyFormResponse) : Form =
                 Items(
                     id = itemsDTO.ID?:"",
                     question = itemsDTO.Question?:"",
-                    input = itemsDTO.Input?:"",
+                    input = itemsDTO.Input?:"Textbox",
                     answer = itemsDTO.Answer?:"",
                     index=index
                 )
