@@ -1,6 +1,7 @@
 package com.dubaiculture.data.repository.eservices.di
 
 import com.dubaiculture.data.repository.eservices.service.EService
+import com.dubaiculture.data.repository.eservices.service.EServiceStatusService
 import com.dubaiculture.data.repository.trip.service.TripService
 import com.dubaiculture.di.EServices
 import dagger.Module
@@ -15,4 +16,8 @@ object EServiceModule {
     @Provides
     fun provideEService(@EServices retrofit: Retrofit): EService =
         retrofit.create(EService::class.java)
+    
+    @Provides
+    fun provideEServiceStatus(retrofit: Retrofit): EServiceStatusService =
+        retrofit.create(EServiceStatusService::class.java)
 }

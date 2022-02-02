@@ -205,6 +205,7 @@ class EServiceViewModel @Inject constructor(
                 if (isArabic) Constants.Locale.ARABIC else Constants.Locale.ENGLISH
             )
             if (result is Result.Success) {
+                eServicesRepository.submitServiceToken(result.value.data.SerialNo)
                 showAlert(
                     message = result.value.message + "\n" + result.value.data.SerialNo,
                     actionPositive = {

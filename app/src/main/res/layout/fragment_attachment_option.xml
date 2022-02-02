@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_14ssp"
-            android:text="@string/pdf"
+            android:text="@string/documents"
             android:textColor="?attr/colorSecondary"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="parent"

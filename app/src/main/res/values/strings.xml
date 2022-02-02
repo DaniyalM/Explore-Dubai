@@ -317,6 +317,7 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="attachment">Attachment</string>
     <string name="pdf">PDF</string>
+    <string name="documents">Documents</string>
     <string name="no_my_posts_fav">No Data Found</string>
     <string name="faqs">FAQs</string>
     <string name="loading">Loading...</string>

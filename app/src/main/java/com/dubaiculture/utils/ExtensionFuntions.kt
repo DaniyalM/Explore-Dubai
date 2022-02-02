@@ -255,7 +255,7 @@ fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
 fun <A : Activity> Activity.startNewActivityWithPre(activity: Class<A>) {
     Intent(this, activity).also {
         startActivity(it)
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+//        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
     }
 }
