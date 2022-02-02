@@ -2,6 +2,7 @@ package com.dubaiculture.data.repository.eservices
 
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.base.BaseRepository
+import com.dubaiculture.data.repository.base.BaseResponse
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
 import com.dubaiculture.data.repository.eservices.mapper.transformFieldValueRequest
 import com.dubaiculture.data.repository.eservices.mapper.transformFieldValuesResponse
@@ -65,6 +66,23 @@ class EServicesRepository @Inject constructor(
                     Result.Success(resultRds.value)
                 } else {
                     Result.Failure(false, null, null, resultRds.value.error[0].message)
+                }
+            }
+            is Result.Failure -> resultRds
+            is Result.Error -> resultRds
+        }
+    }
+
+    suspend fun submitServiceToken(
+        token: String,
+    ): Result<BaseResponse> {
+        return when (val resultRds =
+            eServiceRDS.submitServiceToken(token)) {
+            is Result.Success -> {
+                if (resultRds.value.succeeded) {
+                    Result.Success(resultRds.value)
+                } else {
+                    Result.Failure(false, null, null, resultRds.value.errorMessage)
                 }
             }
             is Result.Failure -> resultRds

@@ -2,20 +2,25 @@ package com.dubaiculture.data.repository.eservices.remote
 
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.base.BaseRDS
+import com.dubaiculture.data.repository.base.BaseResponse
 import com.dubaiculture.data.repository.eservices.remote.request.CreateNocRequestDTO
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequestDTO
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
+import com.dubaiculture.data.repository.eservices.remote.request.SubmitServiceTokenRequest
 import com.dubaiculture.data.repository.eservices.remote.response.FormResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetTokenResponse
 import com.dubaiculture.data.repository.eservices.service.EService
+import com.dubaiculture.data.repository.eservices.service.EServiceStatusService
+import com.dubaiculture.di.EServices
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class EServicesRDS @Inject constructor(
-    private val eService: EService
+    private val eService: EService,
+    private val eServiceStatus: EServiceStatusService
 ) : BaseRDS() {
     suspend fun getEServiceToken(getTokenRequestParam: GetTokenRequestParam): Result<GetTokenResponse> =
         safeApiCall {
@@ -48,6 +53,15 @@ class EServicesRDS @Inject constructor(
                 params = params,
                 url = url,
                 language = locale
+            )
+        }
+
+    suspend fun submitServiceToken(
+        token: String
+    ): Result<BaseResponse> =
+        safeApiCall {
+            eServiceStatus.submitServiceToken(
+                SubmitServiceTokenRequest(token)
             )
         }
 
