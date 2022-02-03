@@ -58,11 +58,12 @@ class EServicesRDS @Inject constructor(
         }
 
     suspend fun submitServiceToken(
-        token: String
+        token: String,
+        serviceId: String
     ): Result<BaseResponse> =
         safeApiCall {
             eServiceStatus.submitServiceToken(
-                SubmitServiceTokenRequest(token)
+                SubmitServiceTokenRequest(token, serviceId)
             )
         }
 

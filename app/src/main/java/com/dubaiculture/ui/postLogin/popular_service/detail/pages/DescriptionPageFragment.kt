@@ -110,7 +110,8 @@ class DescriptionPageFragment :
                     ServiceDetailFragmentDirections.actionServiceDetailFragment2ToEServiceFragment(
                         description?.get(0)?.title ?: "",
                         description?.get(0)?.formName ?: "",
-                        description?.get(0)?.formSubmitURL ?: ""
+                        description?.get(0)?.formSubmitURL ?: "",
+                        description?.get(0)?.iD ?: ""
                     )
                 )
             }

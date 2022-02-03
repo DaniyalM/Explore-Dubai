@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dubaiculture.R
-import com.dubaiculture.data.repository.explore.local.models.ServiceStatus
 import com.dubaiculture.databinding.FragmentMyServicesBinding
-import com.dubaiculture.databinding.ItemServiceCompletedPendingLayoutBinding
 import com.dubaiculture.ui.base.BaseFragment
-import com.dubaiculture.ui.postLogin.popular_service.adapter.PopularServiceListItem
 import com.dubaiculture.ui.postLogin.popular_service.myservices.adapters.ServiceStatusListItem
 import com.dubaiculture.ui.postLogin.popular_service.myservices.myServicesViewModel.MyServicesViewModel
 import com.xwray.groupie.GroupAdapter

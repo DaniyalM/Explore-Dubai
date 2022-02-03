@@ -77,9 +77,10 @@ class EServicesRepository @Inject constructor(
 
     suspend fun submitServiceToken(
         token: String,
+        serviceId: String
     ): Result<BaseResponse> {
         return when (val resultRds =
-            eServiceRDS.submitServiceToken(token)) {
+            eServiceRDS.submitServiceToken(token, serviceId)) {
             is Result.Success -> {
                 if (resultRds.value.succeeded) {
                     Result.Success(resultRds.value)

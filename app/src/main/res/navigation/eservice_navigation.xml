@@ -17,5 +17,8 @@
         <argument
             android:name="form_url"
             app:argType="string" />
+        <argument
+            android:name="service_id"
+            app:argType="string" />
     </fragment>
 </navigation>

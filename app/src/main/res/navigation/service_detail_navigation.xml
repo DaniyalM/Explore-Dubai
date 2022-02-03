@@ -52,6 +52,9 @@
             <argument
                 android:name="form_url"
                 app:argType="string" />
+            <argument
+                android:name="service_id"
+                app:argType="string" />
         </action>
         <action
             android:id="@+id/action_serviceDetailFragment_to_webViewFragment"

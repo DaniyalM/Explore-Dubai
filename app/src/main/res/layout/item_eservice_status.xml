@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.view.View" />
+        <import type="java.util.Date" />
 
         <variable
             name="serviceStatus"
@@ -78,14 +79,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
                 <!--Completed Layout Start-->
                 <LinearLayout
-                    android:id="@+id/ll_completed"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/main_cl"
                     app:layout_constraintEnd_toEndOf="@id/line"
                     app:layout_constraintStart_toStartOf="@id/line"
@@ -103,7 +102,22 @@
                         android:outlineSpotShadowColor="@color/sea_green"
                         android:text="@string/completed"
                         android:textColor="@color/sea_green"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="@{serviceStatus.request.status ? View.VISIBLE: View.GONE}" />
+
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tv_pending"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/pending_icon_serives"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:outlineAmbientShadowColor="@color/orange"
+                        android:outlineSpotShadowColor="@color/orange"
+                        android:text="@string/pending"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="@{serviceStatus.request.status ? View.GONE: View.VISIBLE}" />
 
                     <com.dubaiculture.ui.components.customtextview.CustomTextView
                         android:id="@+id/tv_date"
@@ -114,197 +128,14 @@
                         android:drawablePadding="@dimen/_8sdp"
                         android:outlineAmbientShadowColor="@color/black_200"
                         android:outlineSpotShadowColor="@color/black_200"
-                        android:text="@{serviceStatus.request.dateTime}"
                         android:textSize="@dimen/_10sdp"
                         tools:text="12 Nov,2020" />
-                </LinearLayout>
-                <!--Completed End-->
-
-                <!--Pending layout Start and Expand and collapse layout in it-->
-                <LinearLayout
-                    android:id="@+id/ll_pending"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_15sdp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/main_cl"
-                    app:layout_constraintEnd_toEndOf="@id/line"
-                    app:layout_constraintStart_toStartOf="@id/line"
-                    app:layout_constraintTop_toBottomOf="@+id/line">
-
-                    <LinearLayout
-                        android:id="@+id/ll_viewStatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.dubaiculture.ui.components.customtextview.CustomTextView
-                            android:id="@+id/tv_pending"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableStart="@drawable/pending_icon_serives"
-                            android:drawablePadding="@dimen/_8sdp"
-                            android:outlineAmbientShadowColor="@color/orange"
-                            android:outlineSpotShadowColor="@color/orange"
-                            android:text="@string/pending"
-                            android:textColor="@color/orange"
-                            android:textSize="@dimen/_10sdp" />
-
-
-                        <com.dubaiculture.ui.components.customtextview.CustomTextView
-                            android:id="@+id/tv_view_status"
-                            style="@style/TextViewStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="@dimen/_8sdp"
-                            android:outlineAmbientShadowColor="@color/black_200"
-                            android:outlineSpotShadowColor="@color/black_200"
-                            android:text="@string/view_status_detail"
-                            android:textSize="@dimen/_10sdp" />
-                    </LinearLayout>
-
-
-                    <!--Expand layout Start-->
-                    <LinearLayout
-                        android:id="@+id/ll_expand"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
-
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                                android:id="@+id/tv_service"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_15sdp"
-                                android:layout_marginTop="@dimen/_15sdp"
-                                android:text="@string/service_status"
-                                android:textColor="@color/gray_750"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <ImageView
-                                android:id="@+id/vertical_line"
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/_72sdp"
-                                android:layout_marginStart="@dimen/_10sdp"
-                                android:background="@drawable/linetesting"
-                                app:layout_constraintStart_toStartOf="@+id/tv_service"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_service" />
-
-                            <ImageView
-                                android:id="@+id/imageView10"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/_10sdp"
-                                android:background="@drawable/tick_green_service"
-                                app:layout_constraintBottom_toBottomOf="@+id/tv_date_request"
-                                app:layout_constraintEnd_toStartOf="@+id/req_received"
-                                app:layout_constraintTop_toTopOf="@+id/req_received" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/_10sdp"
-                                android:background="@drawable/inprogress_service_icon"
-                                app:layout_constraintBottom_toBottomOf="@+id/tv_expected_date"
-                                app:layout_constraintEnd_toStartOf="@+id/req_received"
-                                app:layout_constraintTop_toTopOf="@+id/in_progress" />
-
-                            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                                android:id="@+id/req_received"
-                                style="@style/TextViewStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_20sdp"
-                                android:layout_marginTop="@dimen/_15sdp"
-                                android:text="@string/request_received"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintStart_toStartOf="@+id/vertical_line"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_service" />
-
-                            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                                android:id="@+id/tv_date_request"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Applied on: 12 Nov,2020"
-                                android:textColor="@color/gray_750"
-                                android:textSize="@dimen/_8sdp"
-                                app:layout_constraintStart_toStartOf="@+id/req_received"
-                                app:layout_constraintTop_toBottomOf="@+id/req_received" />
-
-
-                            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                                android:id="@+id/in_progress"
-                                style="@style/TextViewStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_20sdp"
-                                android:layout_marginTop="@dimen/_18sdp"
-                                android:text="@string/in_progress"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintStart_toStartOf="@+id/vertical_line"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_date_request" />
-
-                            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                                android:id="@+id/tv_expected_date"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Expected date of delivery:12 Nov,2020"
-                                android:textColor="@color/gray_750"
-                                android:textSize="@dimen/_8sdp"
-                                app:layout_constraintStart_toStartOf="@+id/in_progress"
-                                app:layout_constraintTop_toBottomOf="@+id/in_progress" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_8sdp"
-                                android:background="@drawable/unknown"
-                                android:gravity="center"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_expected_date">
-
-                                <com.dubaiculture.ui.components.customtextview.CustomTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:drawableStart="@drawable/phone_more"
-                                    android:drawablePadding="@dimen/_5sdp"
-                                    android:gravity="center"
-                                    android:padding="@dimen/_8sdp"
-                                    android:text="Inquire:0800 3DCAA"
-                                    android:textColor="@color/purple_900"
-                                    android:textSize="@dimen/_9ssp" />
-
-                            </LinearLayout>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                    </LinearLayout>
-                    <!--Expand layout End-->
-
 
                 </LinearLayout>
-
-
-                <!--Pending layout End and Expand and collapse layout in it-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         </com.google.android.material.card.MaterialCardView>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

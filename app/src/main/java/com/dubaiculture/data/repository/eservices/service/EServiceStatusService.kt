@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface EServiceStatusService : BaseService {
 
-    @POST("Content/AddEServicesHit")
+    @POST("Content/AddUserEServicesRequest")
     suspend fun submitServiceToken(
         @Body eServicesHitModel: SubmitServiceTokenRequest
     ): BaseResponse

@@ -31,7 +31,6 @@ class MyServicesViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = eServicesRepository.getServiceStatusList("en")) {
                 is Result.Success -> {
-                    Timber.e("List Size ---> %s", result.value.size)
                     _serviceStatusList.value = result.value
                 }
                 is Result.Error -> {

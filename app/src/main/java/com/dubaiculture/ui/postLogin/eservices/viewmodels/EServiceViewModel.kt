@@ -20,6 +20,7 @@ import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
 import com.dubaiculture.utils.Constants.NavBundles.FORM_URL
+import com.dubaiculture.utils.Constants.NavBundles.SERVICE_ID
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -205,7 +206,10 @@ class EServiceViewModel @Inject constructor(
                 if (isArabic) Constants.Locale.ARABIC else Constants.Locale.ENGLISH
             )
             if (result is Result.Success) {
-                eServicesRepository.submitServiceToken(result.value.data.SerialNo)
+                eServicesRepository.submitServiceToken(
+                    result.value.data.SerialNo,
+                    savedStateHandle.get<String>(SERVICE_ID) ?: ""
+                )
                 showAlert(
                     message = result.value.message + "\n" + result.value.data.SerialNo,
                     actionPositive = {
