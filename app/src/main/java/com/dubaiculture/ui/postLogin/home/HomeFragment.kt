@@ -170,6 +170,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     R.id.webViewFragment -> {
                         hide()
                     }
+                    R.id.surveyFragment -> {
+                        visibility = View.GONE
+                        binding.bottomGradient.hide()
+                    }
                     else -> {
                         show()
                     }
@@ -194,13 +198,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }
                     R.id.siteMapFragment -> {
                         visibility = View.GONE
+                        binding.bottomGradient.hide()
                     }
                     R.id.ibeconFragment -> {
                         visibility = View.GONE
+                        binding.bottomGradient.hide()
                     }
 
                     R.id.surveyFragment -> {
                         visibility = View.GONE
+                        binding.bottomGradient.hide()
                     }
 
                     R.id.attractionGalleryFragment -> {
@@ -208,6 +215,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }
                     R.id.myEventsFragment -> {
                         visibility = View.GONE
+                        binding.bottomGradient.hide()
                     }
                     R.id.serviceDownVoteFeedBackFragment -> {
                         visibility = View.GONE

@@ -94,6 +94,8 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
         surveyViewModel.form.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { form ->
                 surveyViewModel.updateForm(form)
+                binding.fillOutSurvey.text=form.title
+                binding.header.text=form.subtitle
                 val inflater = activity.getSystemService(SystemJobService.LAYOUT_INFLATER_SERVICE)
                         as LayoutInflater
 
@@ -105,7 +107,8 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
                                 inflater,
                                 binding.fieldContainer,
                                 item,
-                                count
+                                count,
+                                isArabic()
                             )
                         }
                         FieldType.Rating -> {
@@ -113,7 +116,8 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
                                 inflater,
                                 binding.fieldContainer,
                                 item,
-                                count
+                                count,
+                                isArabic()
                             )
                         }
                         FieldType.Textbox -> {
@@ -121,7 +125,8 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
                                 inflater,
                                 binding.fieldContainer,
                                 item,
-                                count
+                                count,
+                                isArabic()
                             )
                         }
                     }

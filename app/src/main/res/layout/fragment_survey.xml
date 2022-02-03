@@ -43,33 +43,38 @@
         app:lottie_rawRes="@raw/new_one"
         app:lottie_repeatCount="0" />
 
-    <com.dubaiculture.ui.components.customtextview.CustomTextView
-        android:id="@+id/fill_out_survey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:text="@string/fill_out_the_survey"
-        android:textColor="@color/white_900"
-        android:textSize="@dimen/_25ssp"
-        android:layout_marginTop="@dimen/_15sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/fill_out_survey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="@string/fill_out_the_survey"
+            android:textColor="@color/white_900"
+            android:textSize="@dimen/_25ssp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
-    <com.dubaiculture.ui.components.customtextview.CustomTextView
-        android:id="@+id/header"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/share_your_feedback_and_help_us_improve_nyour_experience"
-        android:textColor="@color/gray_600"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/fill_out_survey"
-        app:layout_constraintTop_toBottomOf="@+id/fill_out_survey" />
+        <com.dubaiculture.ui.components.customtextview.CustomTextView
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="@string/share_your_feedback_and_help_us_improve_nyour_experience"
+            android:textColor="@color/gray_600"
+            app:layout_constraintEnd_toEndOf="@+id/imageView11"
+            app:layout_constraintStart_toStartOf="@+id/fill_out_survey"
+            app:layout_constraintTop_toBottomOf="@+id/fill_out_survey" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/btn_submit"
             app:layout_constraintTop_toBottomOf="@+id/header">
@@ -92,8 +97,8 @@
     <com.dubaiculture.ui.components.customtextview.CustomTextView
         android:id="@+id/btn_submit"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:background="@drawable/btn_border_login"
         android:foreground="@drawable/custom_ripple_border"

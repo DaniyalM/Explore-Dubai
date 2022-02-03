@@ -13,27 +13,27 @@
         app:layout_constraintStart_toStartOf="@+id/tv_questions"
         app:layout_constraintTop_toBottomOf="@+id/tv_questions">
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rbYes"
-            style="@style/MyRadioButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_5sdp"
             android:tag="Yes"
             android:text="@string/yes"
+            app:buttonTint="@color/purple_900"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textColor="@color/black_200"
             android:textSize="@dimen/_11ssp" />
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rbNo"
-            style="@style/MyRadioButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
             android:paddingStart="@dimen/_5sdp"
             android:text="@string/no"
+            app:buttonTint="@color/purple_900"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textSize="@dimen/_11ssp" />

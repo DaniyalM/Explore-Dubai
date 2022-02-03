@@ -6,9 +6,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="1/3 Question"
-        android:textColor="?attr/colorSecondary"
-        app:textFont="bold"
-        android:lineSpacingExtra="@dimen/_5sdp"
         app:layout_constraintStart_toStartOf="@+id/tv_questions"
         app:layout_constraintTop_toTopOf="parent"
         xmlns:android="http://schemas.android.com/apk/res/android" />

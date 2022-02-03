@@ -5,10 +5,11 @@
     <com.dubaiculture.ui.components.customEditText.CustomEditText
         android:id="@+id/editText"
         style="@style/EditTextStyle"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:background="@drawable/bg_edit_resiger"
-        android:inputType="text"
+        android:inputType="textMultiLine"
+        android:lines="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </layout>

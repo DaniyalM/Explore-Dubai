@@ -11,12 +11,34 @@ import com.dubaiculture.R
 import com.dubaiculture.data.repository.survey.request.Items
 import com.dubaiculture.databinding.*
 import com.dubaiculture.ui.components.customEditText.CustomEditText
+import com.dubaiculture.utils.AppConfigUtils.EnglishToArabic
 import com.dubaiculture.utils.setColouredSpan
 import com.idlestar.ratingstar.RatingStarView
 
 
 object SurveyFieldUtils {
 
+    fun createLightTextView(
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        string: String
+    ): TextView {
+        val view = SurveyItemTextLightLayoutBinding.inflate(layoutInflater, root, false)
+        val params: LinearLayout.LayoutParams =
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        params.setMargins(10, 10, 10, 10)
+        root.removeView(view.questionNum)
+        val textView = view.questionNum
+        val text = string
+        textView.text = text
+        textView.textSize = 12.5F
+        textView.layoutParams = params
+        textView.setColouredSpan("*", Color.RED)
+        return textView
+    }
     fun createTextView(
         layoutInflater: LayoutInflater,
         root: ViewGroup,
@@ -58,23 +80,39 @@ object SurveyFieldUtils {
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: Items,
-        count:Int
+        count:Int,
+        isArabic: Boolean
     ) {
         val view = SurvayEditTextItemLayoutBinding.inflate(layoutInflater, root, false)
         val childContainer = view.childContainer
+        var countString =""
+        var countQuestionString =""
+        countString = if (isArabic){
+            "${EnglishToArabic((fieldValueItem.index + 1).toString())}/${EnglishToArabic(count.toString())} ${root.context.resources.getString(R.string.question)}"
+        }else{
+            "${fieldValueItem.index + 1}/${count} ${root.context.resources.getString(R.string.question)}"
+        }
+        countQuestionString = if (isArabic){
+            "\u202B" +root.context.resources.getString(R.string.Q)+EnglishToArabic((fieldValueItem.index + 1).toString())+": ${fieldValueItem.question}"
+        }else{
+            "\u202B" +root.context.resources.getString(R.string.Q)+(fieldValueItem.index + 1).toString()+": ${fieldValueItem.question}"
+
+        }
+
+        childContainer.addView(
+            createLightTextView(
+                layoutInflater,
+                childContainer,
+                countString
+            )
+        )
+
 
         childContainer.addView(
             createTextView(
                 layoutInflater,
                 childContainer,
-                "${fieldValueItem.index + 1}/ ${count} ${root.context.resources.getString(R.string.question)}"
-            )
-        )
-        childContainer.addView(
-            createTextView(
-                layoutInflater,
-                childContainer,
-                "Q${fieldValueItem.index + 1}: ${fieldValueItem.question}"
+                countQuestionString
             )
         )
         childContainer.addView(createEditText(layoutInflater, childContainer, fieldValueItem))
@@ -88,7 +126,7 @@ object SurveyFieldUtils {
         root: ViewGroup,
         fieldValueItem: Items,
     ): RadioGroup {
-        val view = SurveyRadioItemLayoutBindingImpl.inflate(layoutInflater, root, false)
+        val view = SurveyRadioItemLayoutBinding.inflate(layoutInflater, root, false)
         val radio = view.radioGroupYesNo
 
         radio.id = fieldValueItem.index
@@ -99,22 +137,40 @@ object SurveyFieldUtils {
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: Items,
-        count:Int) {
+        count:Int,
+        isArabic: Boolean) {
         val view = SurvayEditTextItemLayoutBinding.inflate(layoutInflater, root, false)
         val childContainer = view.childContainer
+        var countString =""
+        var countQuestionString =""
+        countString = if (isArabic){
+            "${EnglishToArabic((fieldValueItem.index + 1).toString())}/${EnglishToArabic(count.toString())} ${root.context.resources.getString(R.string.question)}"
+        }else{
+            "${fieldValueItem.index + 1}/${count} ${root.context.resources.getString(R.string.question)}"
+        }
+        countQuestionString = if (isArabic){
+            "\u202B" +root.context.resources.getString(R.string.Q)+EnglishToArabic((fieldValueItem.index + 1).toString())+": ${fieldValueItem.question}"
+        }else{
+            "\u202B" +root.context.resources.getString(R.string.Q)+(fieldValueItem.index + 1).toString()+": ${fieldValueItem.question}"
+
+        }
+
+
+
+
+        childContainer.addView(
+            createLightTextView(
+                layoutInflater,
+                childContainer,
+                countString
+            )
+        )
 
         childContainer.addView(
             createTextView(
                 layoutInflater,
                 childContainer,
-                "${fieldValueItem.index + 1}/ ${count} ${root.context.resources.getString(R.string.question)}"
-            )
-        )
-        childContainer.addView(
-            createTextView(
-                layoutInflater,
-                childContainer,
-                "Q${fieldValueItem.index + 1}: ${fieldValueItem.question}"
+                countQuestionString
             )
         )
         childContainer.addView(
@@ -144,23 +200,37 @@ object SurveyFieldUtils {
         layoutInflater: LayoutInflater,
         root: ViewGroup,
         fieldValueItem: Items,
-        count:Int
+        count:Int,
+        isArabic: Boolean
     ) {
         val view = SurvayEditTextItemLayoutBinding.inflate(layoutInflater, root, false)
         val childContainer = view.childContainer
+        var countString =""
+        var countQuestionString =""
+        countString = if (isArabic){
+            "${EnglishToArabic((fieldValueItem.index + 1).toString())}/${EnglishToArabic(count.toString())} ${root.context.resources.getString(R.string.question)}"
+        }else{
+            "${fieldValueItem.index + 1}/${count} ${root.context.resources.getString(R.string.question)}"
+        }
+        countQuestionString = if (isArabic){
+            "\u202B" +root.context.resources.getString(R.string.Q)+EnglishToArabic((fieldValueItem.index + 1).toString())+": ${fieldValueItem.question}"
+        }else{
+            "\u202B" +root.context.resources.getString(R.string.Q)+(fieldValueItem.index + 1).toString()+": ${fieldValueItem.question}"
+        }
+
 
         childContainer.addView(
-            createTextView(
+            createLightTextView(
                 layoutInflater,
                 childContainer,
-                "${fieldValueItem.index + 1}/ ${count} ${root.context.resources.getString(R.string.question)}"
+                countString
             )
         )
         childContainer.addView(
             createTextView(
                 layoutInflater,
                 childContainer,
-                "Q${fieldValueItem.index + 1}: ${fieldValueItem.question}"
+                countQuestionString
             )
         )
         childContainer.addView(
