@@ -11,6 +11,7 @@ import com.dubaiculture.databinding.FragmentMyServicesBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.popular_service.myservices.adapters.ServiceStatusListItem
 import com.dubaiculture.ui.postLogin.popular_service.myservices.myServicesViewModel.MyServicesViewModel
+import com.dubaiculture.utils.Constants
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +36,7 @@ class MyServicesFragment : BaseFragment<FragmentMyServicesBinding>() {
         initServiceRvListing()
         subscribeUiEvents(myServicesViewModel)
         subscribeToObservables()
+        myServicesViewModel.fetchServiceStatusList(if (isArabic()) Constants.Locale.ARABIC else Constants.Locale.ENGLISH)
     }
 
     private fun initServiceRvListing() {

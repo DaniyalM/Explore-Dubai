@@ -23,13 +23,9 @@ class MyServicesViewModel @Inject constructor(
     private val _serviceStatusList: MutableLiveData<List<EServiceStatus>> = MutableLiveData()
     val serviceStatusList: LiveData<List<EServiceStatus>> = _serviceStatusList
 
-    init {
-        fetchServiceStatusList()
-    }
-
-    private fun fetchServiceStatusList() {
+    fun fetchServiceStatusList(culture: String) {
         viewModelScope.launch {
-            when (val result = eServicesRepository.getServiceStatusList("en")) {
+            when (val result = eServicesRepository.getServiceStatusList(culture)) {
                 is Result.Success -> {
                     _serviceStatusList.value = result.value
                 }
