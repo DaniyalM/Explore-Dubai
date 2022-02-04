@@ -247,7 +247,14 @@ class EServiceViewModel @Inject constructor(
 
     fun showFutureDates(field: GetFieldValueItem) = field.fieldName != "BirthDate"
     fun showPastDates(field: GetFieldValueItem) =
-        !(field.formName.equals(FormType.BOOKING_ESERVICE.value, true) && field.fieldName == "Date")
+        !(field.formName.equals(
+            FormType.BOOKING_ESERVICE.value,
+            true
+        ) && field.fieldName == "Date")
+                && !(field.formName.equals(
+            FormType.RENT_REQUEST.value,
+            true
+        ) && field.fieldName == "PriorDate")
 
     fun isEmiratesId(field: GetFieldValueItem) = field.fieldName == "EmiratesID"
     fun getCleanedValue(value: String) = value.replace("\u00a0", " ")
