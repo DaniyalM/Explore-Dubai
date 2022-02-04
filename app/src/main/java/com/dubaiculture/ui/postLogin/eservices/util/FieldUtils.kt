@@ -421,17 +421,23 @@ object FieldUtils {
                 "PhoneNumber",
                 "Mobile",
                 "TelephoneOfficeNumber",
-                "POBOX",
-                "EmiratesID",
                 "ContactPhoneNumber",
-                "TotalRequiredSpace",
-                "Duration",
-                "LicenseNumber",
-                "Number of visitors"
             ).contains(
                 fieldName
             ) -> {
                 return InputType.TYPE_CLASS_PHONE
+            }
+            arrayOf(
+                "POBOX",
+                "EmiratesID",
+                "TotalRequiredSpace",
+                "Duration",
+                "LicenseNumber",
+                "NumOfVisitors"
+            ).contains(
+                fieldName
+            ) -> {
+                return InputType.TYPE_CLASS_NUMBER
             }
             else -> return InputType.TYPE_CLASS_TEXT
         }
