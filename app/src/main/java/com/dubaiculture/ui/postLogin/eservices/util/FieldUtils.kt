@@ -331,8 +331,10 @@ object FieldUtils {
         fieldValueItem: GetFieldValueItem,
         callback: (value: String) -> Unit
     ) {
-        val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
-        root.addView(label)
+        if (fieldValueItem.fieldValue.size > 1) {
+            val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
+            root.addView(label)
+        }
         val rb = createRadioButton(isArabic, layoutInflater, root, fieldValueItem, callback)
         root.addView(rb)
     }
