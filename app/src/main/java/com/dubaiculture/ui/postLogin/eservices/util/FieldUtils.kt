@@ -74,6 +74,7 @@ object FieldUtils {
         val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
         root.addView(label)
         val et = createEditText(isArabic, layoutInflater, root, fieldValueItem)
+        et.inputType = getKeyboardInputType(fieldValueItem.fieldName)
         root.addView(et)
     }
 
@@ -409,5 +410,31 @@ object FieldUtils {
             it.text = prev.replace("*", "")
             it.requestLayout()
         }
+    }
+
+    fun getKeyboardInputType(fieldName: String): Int {
+        when {
+            arrayOf("UserEmailID", "Email").contains(fieldName) -> {
+                return (InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+            }
+            arrayOf(
+                "PhoneNumber",
+                "Mobile",
+                "TelephoneOfficeNumber",
+                "POBOX",
+                "EmiratesID",
+                "ContactPhoneNumber",
+                "TotalRequiredSpace",
+                "Duration",
+                "LicenseNumber",
+                "Number of visitors"
+            ).contains(
+                fieldName
+            ) -> {
+                return InputType.TYPE_CLASS_PHONE
+            }
+            else -> return InputType.TYPE_CLASS_TEXT
+        }
+
     }
 }
