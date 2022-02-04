@@ -52,9 +52,9 @@ class EServiceViewModel @Inject constructor(
         MutableLiveData()
     val showField: LiveData<Event<Pair<Boolean, GetFieldValueItem>>> = _showField
 
-    private val _makeOptional: MutableLiveData<Event<GetFieldValueItem>> =
+    private val _makeOptional: MutableLiveData<Event<Pair<Boolean, GetFieldValueItem>>> =
         MutableLiveData()
-    val makeOptional: LiveData<Event<GetFieldValueItem>> = _makeOptional
+    val makeOptional: LiveData<Event<Pair<Boolean, GetFieldValueItem>>> = _makeOptional
 
     private var mFieldValues: List<GetFieldValueItem>? = null
 
@@ -99,7 +99,7 @@ class EServiceViewModel @Inject constructor(
         list: List<GetFieldValueItem>
     ): List<GetFieldValueItem> {
         return list.map {
-            if (isEmiratesId(it)) {
+            if (isEmiratesId(it.fieldName)) {
                 it.copy(defaultValue = emiratesId)
             } else it
         }
@@ -120,32 +120,42 @@ class EServiceViewModel @Inject constructor(
         }
     }
 
-    fun addField(field: GetFieldValueItem, value: String) {
+    fun addField(fieldName: String, value: String, isSelected: Boolean = false) {
         val cleanedValue = getCleanedValue(value)
-        map[field.fieldName] = cleanedValue
-        showCity(field, cleanedValue)
-        emiratesIdOptional(field, cleanedValue)
-    }
+        map[fieldName] = cleanedValue
+        showCity(fieldName, cleanedValue)
 
-    private fun emiratesIdOptional(field: GetFieldValueItem, cleanedValue: String) {
-        if (field.fieldName == "IsVisa") {
-            mFieldValues?.firstOrNull {
-                isEmiratesId(it)
-            }?.let {
-                _makeOptional.value = Event(it)
-            }
-            mFieldValues = mFieldValues?.map {
-                if (isEmiratesId(it)) {
-                    it.copy(isRequired = false, validations = it.validations.map { validation ->
-                        validation.copy(validationType = ValidationType.PATTERN_OPTIONAL.type)
-                    })
-                } else it
-            }
+        if (fieldName == "IsVisa") {
+            makeFieldOptional("EmiratesID", isSelected)
         }
     }
 
-    private fun showCity(field: GetFieldValueItem, cleanedValue: String) {
-        if (field.fieldName == "Country") {
+
+    private fun makeFieldOptional(
+        fieldName: String,
+        isSelected: Boolean
+    ) {
+        mFieldValues?.firstOrNull {
+            fieldName == it.fieldName
+        }?.let {
+            _makeOptional.value = Event(Pair(isSelected, it))
+        }
+        mFieldValues = mFieldValues?.map {
+            if (isEmiratesId(it.fieldName)) {
+                it.copy(
+                    isRequired = !isSelected,
+                    validations = it.validations.map { validation ->
+                        validation.copy(
+                            validationType =
+                            if (isSelected) ValidationType.PATTERN_OPTIONAL.type else ValidationType.PATTERN.type
+                        )
+                    })
+            } else it
+        }
+    }
+
+    private fun showCity(fieldName: String, cleanedValue: String) {
+        if (fieldName == "Country") {
             val showCity = cleanedValue == "United Arab Emirates"
             mFieldValues?.firstOrNull {
                 it.fieldName == "City"
@@ -227,6 +237,7 @@ class EServiceViewModel @Inject constructor(
         field: GetFieldValueItem,
         value: String
     ): String? {
+        if (!field.isRequired && value.isNullOrEmpty()) return null // donot validate non required fields
         field.validations.forEach {
             if (it.validationType.equals(ValidationType.PATTERN.type, true)) {
                 if (it.pattern.isNotEmpty() && !it.pattern.toRegex().matches(value)) {
@@ -245,7 +256,7 @@ class EServiceViewModel @Inject constructor(
         return null
     }
 
-    fun showFutureDates(field: GetFieldValueItem) = field.fieldName != "BirthDate"
+    fun showFutureDates(fieldName: String) = fieldName != "BirthDate"
     fun showPastDates(field: GetFieldValueItem) =
         !(field.formName.equals(
             FormType.BOOKING_ESERVICE.value,
@@ -256,6 +267,6 @@ class EServiceViewModel @Inject constructor(
             true
         ) && field.fieldName == "PriorDate")
 
-    fun isEmiratesId(field: GetFieldValueItem) = field.fieldName == "EmiratesID"
+    fun isEmiratesId(fieldName: String) = fieldName == "EmiratesID"
     fun getCleanedValue(value: String) = value.replace("\u00a0", " ")
 }

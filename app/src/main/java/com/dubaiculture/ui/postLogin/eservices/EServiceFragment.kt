@@ -16,6 +16,7 @@ import com.dubaiculture.databinding.FragmentEserviceBinding
 import com.dubaiculture.ui.base.BaseFragment
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createCheckBox
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDateFieldWithLabel
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createDropDownWithLabel
 import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils.createEditTextWithLabel
@@ -64,7 +65,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
             val view = binding.fieldContainer.findViewById<View>(it.id)
             if (ValueType.isInputField(it.valueType)) {
                 val value = (view as EditText).text.toString()
-                eServiceViewModel.addField(it, value)
+                eServiceViewModel.addField(it.fieldName, value)
             }
         }
         eServiceViewModel.submitForm(isArabic())
@@ -81,7 +82,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
         }
         eServiceViewModel.makeOptional.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
-                FieldUtils.makeFieldOptional(binding.fieldContainer, it)
+                FieldUtils.makeFieldOptional(binding.fieldContainer, it.first, it.second)
             }
         }
     }
@@ -119,10 +120,10 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         inflater,
                         binding.fieldContainer,
                         it,
-                        eServiceViewModel.showFutureDates(it),
+                        eServiceViewModel.showFutureDates(it.fieldName),
                         eServiceViewModel.showPastDates(it)
                     ) { selectedValue ->
-                        eServiceViewModel.addField(it, selectedValue)
+                        eServiceViewModel.addField(it.fieldName, selectedValue)
                     }
                 }
                 ValueType.TIME.id -> {
@@ -133,7 +134,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         childFragmentManager,
                         it
                     ) { selectedValue ->
-                        eServiceViewModel.addField(it, selectedValue)
+                        eServiceViewModel.addField(it.fieldName, selectedValue)
                     }
                 }
                 ValueType.IMAGE.id -> {
@@ -163,17 +164,28 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
                         binding.fieldContainer,
                         it
                     ) { selectedValue ->
-                        eServiceViewModel.addField(it, selectedValue)
+                        eServiceViewModel.addField(it.fieldName, selectedValue)
                     }
                 }
                 ValueType.RADIO_BUTTON.id -> {
-                    createRadioButtonWithLabel(
-                        isArabic(),
-                        inflater,
-                        binding.fieldContainer,
-                        it
-                    ) { selectedValue ->
-                        eServiceViewModel.addField(it, selectedValue)
+                    if (it.fieldValue.size > 1) {
+                        createRadioButtonWithLabel(
+                            isArabic(),
+                            inflater,
+                            binding.fieldContainer,
+                            it
+                        ) { selectedValue ->
+                            eServiceViewModel.addField(it.fieldName, selectedValue)
+                        }
+                    } else {
+                        createCheckBox(
+                            isArabic(),
+                            inflater,
+                            binding.fieldContainer,
+                            it
+                        ) { isChecked, selectedValue ->
+                            eServiceViewModel.addField(it.fieldName, selectedValue, isChecked)
+                        }
                     }
                 }
                 ValueType.LABEL.id -> {
@@ -244,7 +256,7 @@ class EServiceFragment : BaseFragment<FragmentEserviceBinding>() {
             binding.fieldContainer.findViewById<EditText>(it.id).setText(mediaFile.name)
             val file = FileUtils().fileFromContentUri(requireContext(), mediaFile.uri)
             eServiceViewModel.addField(
-                it,
+                it.fieldName,
                 file.absolutePath
             )
         }
