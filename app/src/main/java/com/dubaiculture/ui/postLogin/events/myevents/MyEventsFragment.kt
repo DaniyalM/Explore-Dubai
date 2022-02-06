@@ -55,10 +55,8 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = false
-            myEventViewModel.getMyEvent(getCurrentLanguage().language)
-        }
+        myEventViewModel.getMyEvent(getCurrentLanguage().language)
+
     }
 
     private fun subscribeToObservables() {
@@ -140,7 +138,8 @@ class MyEventsFragment : BaseFragment<FragmentPlacesVisitedBinding>() {
                             event = it,
                             resLayout = R.layout.item_event_listing,
                             activity,
-                            hasSurvey = true
+                            hasSurvey = true,
+                            myEvents = true
                         )
                     )
                 }

@@ -60,6 +60,19 @@ object SurveyFieldUtils {
         textView.setColouredSpan("*", Color.RED)
         return textView
     }
+    fun createButtonView(
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        callBack:()->Unit
+    ): TextView {
+        val view = SurveyButtonItemLayoutBinding.inflate(layoutInflater, root, false).btnSubmit
+        view.setOnClickListener {
+            callBack()
+        }
+        return view
+    }
+
+
 
     fun createEditText(
         layoutInflater: LayoutInflater,
@@ -74,6 +87,14 @@ object SurveyFieldUtils {
         editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
 
         return editText
+    }
+    fun createButtonContainer(
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        callBack: () -> Unit
+    ){
+        root.addView(createButtonView(layoutInflater,root,callBack))
+
     }
 
     fun createCardForEditText(

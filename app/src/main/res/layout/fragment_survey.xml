@@ -74,44 +74,20 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/btn_submit"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header">
+
             <LinearLayout
+                android:id="@+id/field_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/field_container"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
+
 
         </ScrollView>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSurvey"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/btn_submit"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
-    <com.dubaiculture.ui.components.customtextview.CustomTextView
-        android:id="@+id/btn_submit"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:background="@drawable/btn_border_login"
-        android:foreground="@drawable/custom_ripple_border"
-        android:gravity="center"
-        android:text="@string/submit_survey"
-        android:textColor="@color/white_900"
-        android:textSize="@dimen/_12ssp"
-        android:transitionName="action_btn"
-        android:layout_marginStart="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

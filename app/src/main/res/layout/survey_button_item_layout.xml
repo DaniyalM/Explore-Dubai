@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dubaiculture.ui.components.customtextview.CustomTextView
+    android:id="@+id/btn_submit"
+    android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/_20sdp"
+    android:layout_height="@dimen/_40sdp"
+    android:layout_marginEnd="@dimen/_15sdp"
+    android:layout_marginBottom="@dimen/_20sdp"
+    android:background="@drawable/btn_border_login"
+    android:foreground="@drawable/custom_ripple_border"
+    android:gravity="center"
+    android:text="@string/submit_survey"
+    android:textColor="@color/white_900"
+    android:textSize="@dimen/_12ssp"
+    android:transitionName="action_btn"
+    android:layout_marginStart="@dimen/_15sdp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />

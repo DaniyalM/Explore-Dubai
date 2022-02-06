@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import com.dubaiculture.databinding.CustomAlertDialogBinding
 import com.dubaiculture.infrastructure.ApplicationEntry
@@ -38,6 +39,7 @@ class CustomDialog(
 //        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setContentView(binding.root)
         if (isInternet) {
+            window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
             binding.normalAlert.hide()
             binding.internetView.show()
             binding.customButton.setOnClickListener {

@@ -174,6 +174,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         visibility = View.GONE
                         binding.bottomGradient.hide()
                     }
+                    R.id.surveyFragment2 -> {
+                        visibility = View.GONE
+                        binding.bottomGradient.hide()
+                    }
                     else -> {
                         show()
                     }
@@ -207,6 +211,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
                     R.id.surveyFragment -> {
                         visibility = View.GONE
+                        binding.bottomGradient.hide()
+                    }
+                    R.id.surveyFragment2 -> {
+                        hide()
                         binding.bottomGradient.hide()
                     }
 

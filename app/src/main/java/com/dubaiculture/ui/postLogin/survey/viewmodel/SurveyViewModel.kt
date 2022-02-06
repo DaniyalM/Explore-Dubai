@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.dubaiculture.R
 import com.dubaiculture.data.Result
 import com.dubaiculture.data.repository.survey.SurveyRepository
 import com.dubaiculture.data.repository.survey.request.Form
 import com.dubaiculture.data.repository.survey.request.Items
+import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -64,7 +66,6 @@ class SurveyViewModel @Inject constructor(
             val result = surveyRepository.postSurvey(form = form)
             if (result is Result.Success) {
                 showLoader(false)
-                showToast(result.message)
                 callback()
 
             } else if (result is Result.Failure) {

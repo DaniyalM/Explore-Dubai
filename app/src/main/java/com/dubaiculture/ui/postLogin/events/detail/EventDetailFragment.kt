@@ -183,23 +183,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
 
 
-        eventDetailInnerLayout.btnRegisterNow.setOnClickListener {
-            if (application.auth.isGuest){
-                navigateByDirections(EventDetailFragmentDirections.actionEventDetailFragment2ToPostLoginFragment())
-            }else{
-                val bundle = Bundle()
-                bundle.putParcelableArrayList(
-                    Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
-                )
-                bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
-//                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
-                findNavController().navigate(
-                    R.id.action_eventDetailFragment2_to_registerNowFragment,
-                    bundle
-                )
-            }
-//            navigate(R.id.action_eventDetailFragment2_to_registerNowFragment)
-        }
+
 
         eventDetailInnerLayout.imgFb.setOnClickListener {
             getFacebookPage(
@@ -287,7 +271,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     if (it.value.numberContact.isNullOrEmpty()) {
                         eventDetailInnerLayout.llCallus.alpha = 0.2f
                         eventDetailInnerLayout.llCallus.isClickable = false
-                    } else {
+                    }
+                    else {
                         eventDetailInnerLayout.llCallus.setOnClickListener {
                             openDiallerBox(eventObj?.numberContact)
                         }
@@ -295,18 +280,13 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     if (it.value.emailContact.isNullOrEmpty()) {
                         eventDetailInnerLayout.llEmailUs.alpha = 0.2f
                         eventDetailInnerLayout.llEmailUs.isClickable = false
-                    } else {
+                    }
+                    else {
                         eventDetailInnerLayout.llEmailUs.setOnClickListener {
                             openEmailbox(email =eventObj?.emailContact.toString())
                         }
                     }
-
-
-
-
                     urlshare = "${it.value.url}?q=${it.value.id}"
-
-
                     binding.toolbarLayoutEventDetail.favouriteEvent.setOnClickListener {
                         isDetailFavouriteFlag = true
                         eventObj?.let { event ->
@@ -357,11 +337,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         toolbarLayoutEventDetailBinding.imgShareEvent.hide()
                         binding.share.hide()
                     }
-
-
                     locationPermission(it.value)
                     it.value.apply {
-                        enableRegistration(registrationDate)
+                        enableRegistration(registrationDate,it.value)
                         if (isFavourite) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_fav)
@@ -448,7 +426,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         binding.toolbarLayoutEventDetail.bookingCalenderEvent.show()
         binding.bookingCalender.show()
 
-        binding.toolbarLayoutEventDetail.btnReg.setOnClickListener(this)
         binding.toolbarLayoutEventDetail.backEvent.setOnClickListener(this)
 //        binding.toolbarLayoutEventDetail.imgShareEvent.setOnClickListener(this)
         binding.toolbarLayoutEventDetail.bookingCalenderEvent.setOnClickListener(this)
@@ -487,15 +464,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
         binding.back.setOnClickListener(this)
 
-//        binding.favourite.setOnClickListener(this)
-
-
-//        binding.apply {
-//            appbarEventnDetail.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-//
-//            })
-//
-//        }
     }
 
     private fun rvSetUp() {
@@ -527,43 +495,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                             events.id!!
                         )
                     )
-//                    val bundle = Bundle()
-//                    bundle.putParcelable(
-//                        EVENT_OBJECT,
-//                        events
-//                    )
-//                    navigate(
-//                        R.id.action_eventDetailFragment2_to_eventDetailFragment2,
-//                        bundle
-//                    )
                 }
             }
             )
-//            eventListScreenAdapter=
-//                EventListScreenAdapter(eventClickListner = object : EventClickListner{
-//                override fun checkFavListener(checkbox: CheckBox, pos: Int, isFav: Boolean, itemId: String) {
-//                    favouriteClick(
-//                            checkbox,
-//                            isFav,
-//                            type = 2,
-//                            itemId = itemId,
-//                            baseViewModel = eventViewModel,
-//                            nav = R.id.action_eventDetailFragment2_to_postLoginFragment
-//                    )
-//                }
-//
-//                override fun rowClickHandler(events: Events) {
-//                    val bundle = Bundle()
-//                    bundle.putParcelable(
-//                            EVENT_OBJECT,
-//                            events
-//                    )
-//                    navigate(
-//                            R.id.action_eventDetailFragment2_to_eventDetailFragment2,
-//                            bundle
-//                    )
-//                }
-//            },orientationFlag = VerticalLength)
+
 
             adapter = eventListScreenAdapter
         }
@@ -625,24 +560,11 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
                 }
             }
-            R.id.btn_reg -> {
-
-
-                if (application.auth.isGuest){
-                    navigateByDirections(EventDetailFragmentDirections.actionEventDetailFragment2ToPostLoginFragment())
-                }else{
-                    val bundle = Bundle()
-                    bundle.putParcelableArrayList(
-                        Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
-                    )
-                    bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
-//                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
-                    findNavController().navigate(
-                        R.id.action_eventDetailFragment2_to_registerNowFragment,
-                        bundle
-                    )
-                }
-            }
+//            R.id.btn_reg -> {
+//
+//
+//
+//            }
 //            R.id.favourite -> {00000000
 //
 //                navigate(R.id.action_eventDetailFragment2_to_postLoginFragment)
@@ -756,17 +678,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         eventViewModel.eventDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-//                    emailContact = it.value.emailContact
-//                    numberContact = it.value.numberContact
                     isRegisterd = it.value.isRegistered
-                    if (isRegisterd) {
-                        binding.toolbarLayoutEventDetail.btnReg.isClickable = false
-                        binding.toolbarLayoutEventDetail.btnReg.alpha = 0.4f
-                    } else {
-                        binding.toolbarLayoutEventDetail.btnReg.isClickable = true
-                        binding.toolbarLayoutEventDetail.btnReg.alpha = 1f
-                    }
-                    enableRegistration(it.value.registrationDate)
+
+                    enableRegistration(it.value.registrationDate,it.value)
                     slotTime.clear()
                     parentItemList.clear()
 
@@ -800,58 +714,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     slotTime = getScheduleTimeSlot()
 
 
-//                    if (eventListAdapter.itemCount > 0) {
-//                        eventListAdapter.clear()
-//                    }
-//                    moreEvents.map {
-//                        eventListAdapter.add(EventListItem<EventItemsBinding>(object :
-//                            FavouriteChecker {
-//                            override fun checkFavListener(
-//                                checkbox: CheckBox,
-//                                pos: Int,
-//                                isFav: Boolean,
-//                                itemId: String,
-//                            ) {
-//                                favouriteClick(
-//                                    checkbox,
-//                                    isFav,
-//                                    type = 2,
-//                                    itemId = itemId,
-//                                    baseViewModel = eventViewModel,
-//                                    nav = R.id.action_eventDetailFragment2_to_postLoginFragment
-//                                )
-//                            }
-//                        }, object : RowClickListener {
-//                            override fun rowClickListener(position: Int) {
-//                                val eventObj? = moreEvents[position]
-//                                val bundle = Bundle()
-//                                bundle.putParcelable(
-//                                    EVENT_OBJECT,
-//                                    eventObj?
-//                                )
-//                                navigate(
-//                                    R.id.action_eventDetailFragment2_to_eventDetailFragment2,
-//                                    bundle
-//                                )
-//                            }
-//
-//                            override fun rowClickListener(
-//                                position: Int,
-//                                imageView: ImageView
-//                            ) {
-//
-//                            }
-//                        },object : EventListItem.SurveySubmitListener{
-//                            override fun submitBtnClickListener(position: Int) {
-//                            }
-//
-//                        }, event = it, resLayout = R.layout.event_items, activity
-//                        )
-//                        )
-//                    }
+
                 }
                 is Result.Failure -> {
-//                    eventViewModel.showErrorDialog(message = INTERNET_CONNECTION_ERROR)
                     handleApiError(it, eventViewModel)
 
                 }
@@ -887,10 +752,80 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    private fun enableRegistration(registrationDate: String) {
+    private fun registrationAction(){
+        if (application.auth.isGuest){
+            navigateByDirections(EventDetailFragmentDirections.actionEventDetailFragment2ToPostLoginFragment())
+        }else{
+            val bundle = Bundle()
+            bundle.putParcelableArrayList(
+                Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
+            )
+            bundle.putString(Constants.NavBundles.EVENT_ID, eventObj?.id)
+//                navigate(R.id.action_eventDetailFragment2_to_registerNowFragment,bundle)
+            findNavController().navigate(
+                R.id.action_eventDetailFragment2_to_registerNowFragment,
+                bundle
+            )
+        }
+    }
+
+    private fun enableRegistration(registrationDate: String,events: Events?=null) {
         if (getTimeSpan(registrationDate)) {
-            binding.toolbarLayoutEventDetail.btnReg.hide()
-            binding.eventDetailInnerLayout.btnRegisterNow.hide()
+
+
+            events?.let {
+                //Submit Survey Will Work Here
+                if (!it.IsSurveyed &&!it.isSurveySubmitted){
+
+                    binding.toolbarLayoutEventDetail.btnReg.text=resources.getString(R.string.submit_survey)
+                    binding.eventDetailInnerLayout.btnRegisterNow.text=resources.getString(R.string.submit_survey)
+                    binding.eventDetailInnerLayout.btnRegisterNow.alpha = 1f
+                    binding.toolbarLayoutEventDetail.btnReg.setOnClickListener {
+                        val bundle = Bundle()
+                        bundle.putString(
+                            "event_id",
+                            events.id ?: "0E49F5666F904C92B1BC41A13FD50B53"
+                        )
+                        navigate(R.id.action_eventDetailFragment2_to_surveyFragment2, bundle)
+                    }
+                    binding.eventDetailInnerLayout.btnRegisterNow.setOnClickListener {
+                        val bundle = Bundle()
+                        bundle.putString(
+                            "event_id",
+                            events.id ?: "0E49F5666F904C92B1BC41A13FD50B53"
+                        )
+                        navigate(R.id.action_eventDetailFragment2_to_surveyFragment2, bundle)
+                    }
+                }else {
+                    binding.toolbarLayoutEventDetail.btnReg.isClickable = false
+                    binding.eventDetailInnerLayout.btnRegisterNow.isClickable = false
+                    binding.toolbarLayoutEventDetail.btnReg.alpha = 0.4f
+                    binding.eventDetailInnerLayout.btnRegisterNow.alpha =  0.4f
+                }
+            }
+
+
+        }else {
+            if (isRegisterd) {
+                binding.toolbarLayoutEventDetail.btnReg.isClickable = false
+                binding.eventDetailInnerLayout.btnRegisterNow.isClickable = false
+                binding.toolbarLayoutEventDetail.btnReg.alpha = 0.4f
+                binding.eventDetailInnerLayout.btnRegisterNow.alpha =  0.4f
+            } else {
+                binding.toolbarLayoutEventDetail.btnReg.isClickable = true
+                binding.eventDetailInnerLayout.btnRegisterNow.isClickable = true
+                binding.toolbarLayoutEventDetail.btnReg.alpha = 1f
+                binding.eventDetailInnerLayout.btnRegisterNow.alpha = 1f
+
+                binding.toolbarLayoutEventDetail.btnReg.setOnClickListener {
+                    registrationAction()
+                }
+
+                eventDetailInnerLayout.btnRegisterNow.setOnClickListener {
+                    registrationAction()
+                }
+            }
+
         }
     }
 

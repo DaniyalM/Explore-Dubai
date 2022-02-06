@@ -61,11 +61,11 @@
                 android:background="@drawable/custom_ripple_black"
                 android:rotation="0"
                 android:src="@drawable/add_to_calander"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@+id/favourite"
                 app:layout_constraintHorizontal_bias="0.92"
                 app:layout_constraintStart_toEndOf="@+id/back"
-                app:layout_constraintTop_toTopOf="@+id/favourite" />
+                app:layout_constraintTop_toTopOf="@+id/back" />
 
             <CheckBox
                 android:id="@+id/favourite1"
@@ -89,9 +89,9 @@
                 android:background="@drawable/heart_icon_home_black"
                 android:button="@null"
                 android:foreground="@drawable/custom_ripple_border"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/bookingCalender"
                 app:layout_constraintEnd_toStartOf="@+id/share"
-                app:layout_constraintTop_toTopOf="@+id/back" />
+                app:layout_constraintTop_toTopOf="@+id/bookingCalender" />
 
 
             <androidx.appcompat.widget.AppCompatImageView

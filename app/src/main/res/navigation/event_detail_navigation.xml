@@ -75,6 +75,9 @@
                 android:name="title"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_eventDetailFragment2_to_surveyFragment2"
+            app:destination="@id/surveyFragment2" />
     </fragment>
     <include app:graph="@navigation/post_login_bottom_navigation" />
 
@@ -114,6 +117,10 @@
         android:id="@+id/registrationSuccessFragment3"
         android:name="com.dubaiculture.ui.preLogin.registeration.RegistrationSuccessFragment"
         android:label="RegistrationSuccessFragment" />
+    <fragment
+        android:id="@+id/surveyFragment2"
+        android:name="com.dubaiculture.ui.postLogin.survey.SurveyFragment"
+        android:label="SurveyFragment" />
 
 
 </navigation>
