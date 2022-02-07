@@ -99,6 +99,8 @@ class EServiceViewModel @Inject constructor(
         if (formName.equals(FormType.BOOKING_ESERVICE.value, false)) {
             showField("Entity", false)
             showField("Company", false)
+        } else if (formName.equals(FormType.SUPPLIER_REGISTRATION.value, false)) {
+            showField("OtherLicenseActivities", false)
         }
     }
 
@@ -148,7 +150,9 @@ class EServiceViewModel @Inject constructor(
             showField("Entity", false)
             showField("Company", false)
         }
-
+        if (fieldName == "LicenseActivities") {
+            showField("OtherLicenseActivities", cleanedValue == "Other")
+        }
     }
 
     private fun makeFieldOptional(
