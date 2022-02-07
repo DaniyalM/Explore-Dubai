@@ -12,7 +12,9 @@ data class GetFieldValueResponseDTOItem(
     val HintText_AR: String? = null,
     val HintText_en: String? = null,
     val isRequired: Boolean? = null,
-    val validations: List<ValidationDTO>? = null
+    val validations: List<ValidationDTO>? = null,
+    val MobileHintText_AR: String?,
+    val MobileHintText_en: String?,
 )
 
 data class FieldValueDTO(
