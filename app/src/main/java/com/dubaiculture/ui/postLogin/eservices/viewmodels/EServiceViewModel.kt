@@ -136,11 +136,11 @@ class EServiceViewModel @Inject constructor(
 
         if (fieldName == "IsVisa") {
             makeFieldOptional("EmiratesID", isSelected)
-        }
-        if (fieldName == "Country") {
+        } else if (fieldName == "DubaiSME") {
+            makeFieldOptional("MembershipCertificate", cleanedValue != "Yes")
+        } else if (fieldName == "Country") {
             showField("City", cleanedValue == "United Arab Emirates")
-        }
-        if (fieldName == "BookingType" && cleanedValue == "Company") {
+        } else if (fieldName == "BookingType" && cleanedValue == "Company") {
             showField("Company", true)
             showField("Entity", false)
         } else if (fieldName == "BookingType" && cleanedValue == "Government") {
@@ -149,29 +149,28 @@ class EServiceViewModel @Inject constructor(
         } else if (fieldName == "BookingType" && cleanedValue == "Individual") {
             showField("Entity", false)
             showField("Company", false)
-        }
-        if (fieldName == "LicenseActivities") {
+        } else if (fieldName == "LicenseActivities") {
             showField("OtherLicenseActivities", cleanedValue == "Other")
         }
     }
 
     private fun makeFieldOptional(
         fieldName: String,
-        isSelected: Boolean
+        makeOptional: Boolean
     ) {
         mFieldValues?.firstOrNull {
             fieldName == it.fieldName
         }?.let {
-            _makeOptional.value = Event(Pair(isSelected, it))
+            _makeOptional.value = Event(Pair(makeOptional, it))
         }
         mFieldValues = mFieldValues?.map {
-            if (isEmiratesId(it.fieldName)) {
+            if (fieldName == it.fieldName) {
                 it.copy(
-                    isRequired = !isSelected,
+                    isRequired = !makeOptional,
                     validations = it.validations.map { validation ->
                         validation.copy(
                             validationType =
-                            if (isSelected) ValidationType.PATTERN_OPTIONAL.type else ValidationType.PATTERN.type
+                            if (makeOptional) ValidationType.PATTERN_OPTIONAL.type else ValidationType.PATTERN.type
                         )
                     })
             } else it
@@ -258,7 +257,7 @@ class EServiceViewModel @Inject constructor(
         field: GetFieldValueItem,
         value: String
     ): String? {
-        if (!field.isRequired && value.isNullOrEmpty()) return null // donot validate non required fields
+        if (!field.isRequired && value.isEmpty()) return null // donot validate non required fields
         field.validations.forEach {
             if (it.validationType.equals(ValidationType.PATTERN.type, true)) {
                 if (it.pattern.isNotEmpty() && !it.pattern.toRegex().matches(value)) {
@@ -277,7 +276,9 @@ class EServiceViewModel @Inject constructor(
         return null
     }
 
-    fun showFutureDates(fieldName: String) = fieldName != "BirthDate"
+    fun showFutureDates(fieldName: String) =
+        fieldName != "BirthDate" && fieldName != "TradeLicenseIssueDate"
+
     fun showPastDates(field: GetFieldValueItem) =
         !(field.formName.equals(
             FormType.BOOKING_ESERVICE.value,
@@ -287,6 +288,10 @@ class EServiceViewModel @Inject constructor(
             FormType.RENT_REQUEST.value,
             true
         ) && field.fieldName == "PriorDate")
+                && !(field.formName.equals(
+            FormType.SUPPLIER_REGISTRATION.value,
+            true
+        ) && field.fieldName == "TradeLicenseExpiryDate")
 
     fun isEmiratesId(fieldName: String) = fieldName == "EmiratesID"
     fun getCleanedValue(value: String) = value.replace("\u00a0", " ")
