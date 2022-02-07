@@ -86,11 +86,19 @@ class EServiceViewModel @Inject constructor(
                             result.value
                         )
                     _fieldValues.value = mFieldValues
+                    showHideFields(formName)
                 }
                 is Result.Failure -> {
                     showLoader(false)
                 }
             }
+        }
+    }
+
+    private fun showHideFields(formName: String) {
+        if (formName.equals(FormType.BOOKING_ESERVICE.value, false)) {
+            showField("Entity", false)
+            showField("Company", false)
         }
     }
 
@@ -123,13 +131,25 @@ class EServiceViewModel @Inject constructor(
     fun addField(fieldName: String, value: String, isSelected: Boolean = false) {
         val cleanedValue = getCleanedValue(value)
         map[fieldName] = cleanedValue
-        showCity(fieldName, cleanedValue)
 
         if (fieldName == "IsVisa") {
             makeFieldOptional("EmiratesID", isSelected)
         }
-    }
+        if (fieldName == "Country") {
+            showField("City", cleanedValue == "United Arab Emirates")
+        }
+        if (fieldName == "BookingType" && cleanedValue == "Company") {
+            showField("Company", true)
+            showField("Entity", false)
+        } else if (fieldName == "BookingType" && cleanedValue == "Government") {
+            showField("Entity", true)
+            showField("Company", false)
+        } else if (fieldName == "BookingType" && cleanedValue == "Individual") {
+            showField("Entity", false)
+            showField("Company", false)
+        }
 
+    }
 
     private fun makeFieldOptional(
         fieldName: String,
@@ -154,19 +174,16 @@ class EServiceViewModel @Inject constructor(
         }
     }
 
-    private fun showCity(fieldName: String, cleanedValue: String) {
-        if (fieldName == "Country") {
-            val showCity = cleanedValue == "United Arab Emirates"
-            mFieldValues?.firstOrNull {
-                it.fieldName == "City"
-            }?.let {
-                _showField.value = Event(Pair(showCity, it))
-            }
-            mFieldValues = mFieldValues?.map {
-                if (it.fieldName == "City") {
-                    it.copy(isRequired = showCity)
-                } else it
-            }
+    private fun showField(fieldName: String, show: Boolean) {
+        mFieldValues?.firstOrNull {
+            it.fieldName == fieldName
+        }?.let {
+            _showField.value = Event(Pair(show, it))
+        }
+        mFieldValues = mFieldValues?.map {
+            if (it.fieldName == fieldName) {
+                it.copy(isRequired = show)
+            } else it
         }
     }
 
