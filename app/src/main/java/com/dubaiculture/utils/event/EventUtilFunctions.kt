@@ -12,7 +12,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.dubaiculture.R
 import com.dubaiculture.infrastructure.ApplicationEntry
-import com.dubaiculture.neomads.ui.components.customDialog.CustomDialog
+import com.dubaiculture.ui.components.customDialog.CustomDialog
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.ProgressDialog
 import com.dubaiculture.utils.safeNavigateFromNavController

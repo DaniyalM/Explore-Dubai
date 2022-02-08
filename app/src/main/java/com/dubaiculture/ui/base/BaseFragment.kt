@@ -6,7 +6,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE
 import android.content.Intent
-import android.content.Intent.getIntent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.Drawable

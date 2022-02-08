@@ -1,16 +1,12 @@
-package com.dubaiculture.neomads.ui.components.customDialog
+package com.dubaiculture.ui.components.customDialog
 
-import android.app.Application
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
 import com.dubaiculture.databinding.CustomAlertDialogBinding
 import com.dubaiculture.infrastructure.ApplicationEntry
 import com.dubaiculture.utils.AppConfigUtils.isInternetAvailable
@@ -26,7 +22,7 @@ class CustomDialog(
     val textNegative: String? = null,
     val actionPositive: (() -> Unit)? = null,
     val isInternet: Boolean = false,
-    val application: ApplicationEntry?=null
+    val application: ApplicationEntry? = null
 ) : Dialog(context, themeResId) {
 
     lateinit var binding: CustomAlertDialogBinding
@@ -39,11 +35,14 @@ class CustomDialog(
 //        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setContentView(binding.root)
         if (isInternet) {
-            window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+            window?.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
             binding.normalAlert.hide()
             binding.internetView.show()
             binding.customButton.setOnClickListener {
-                if (isInternetAvailable(context)){
+                if (isInternetAvailable(context)) {
                     dismiss()
                 }
             }
