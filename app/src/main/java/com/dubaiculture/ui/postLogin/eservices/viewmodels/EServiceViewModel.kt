@@ -136,6 +136,10 @@ class EServiceViewModel @Inject constructor(
 
         if (fieldName == "IsVisa") {
             makeFieldOptional("EmiratesID", isSelected)
+            makeFieldOptional("EmiratesIDCopy", isSelected)
+        } else if (fieldName == "isLiveDubai") {
+            makeFieldOptional("VisaCopy", isSelected)
+            makeFieldOptional("VisaEmirate", isSelected)
         } else if (fieldName == "DubaiSME") {
             makeFieldOptional("MembershipCertificate", cleanedValue != "Yes")
         } else if (fieldName == "Country") {
@@ -166,13 +170,8 @@ class EServiceViewModel @Inject constructor(
         mFieldValues = mFieldValues?.map {
             if (fieldName == it.fieldName) {
                 it.copy(
-                    isRequired = !makeOptional,
-                    validations = it.validations.map { validation ->
-                        validation.copy(
-                            validationType =
-                            if (makeOptional) ValidationType.PATTERN_OPTIONAL.type else ValidationType.PATTERN.type
-                        )
-                    })
+                    isRequired = !makeOptional
+                )
             } else it
         }
     }
@@ -265,10 +264,6 @@ class EServiceViewModel @Inject constructor(
                 }
             } else if (it.validationType.equals(ValidationType.REQUIRED.type, true)) {
                 if (field.isRequired && value.isEmpty()) {
-                    return if (isArabic) it.arabicMsg else it.englishMsg
-                }
-            } else if (it.validationType.equals(ValidationType.PATTERN_OPTIONAL.type, true)) {
-                if (value.isNotEmpty() && !it.pattern.toRegex().matches(value)) {
                     return if (isArabic) it.arabicMsg else it.englishMsg
                 }
             }

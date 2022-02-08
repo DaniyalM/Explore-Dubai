@@ -446,7 +446,7 @@ object FieldUtils {
 
     fun getKeyboardInputType(fieldName: String): Int {
         when {
-            arrayOf("UserEmailID", "Email").contains(fieldName) -> {
+            arrayOf("UserEmailID", "Email", "ConfirmUserEmailID").contains(fieldName) -> {
                 return (InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
             }
             arrayOf(
