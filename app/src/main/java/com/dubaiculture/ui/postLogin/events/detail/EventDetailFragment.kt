@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -771,15 +772,15 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
     private fun enableRegistration(registrationDate: String,events: Events?=null) {
         if (getTimeSpan(registrationDate)) {
+            binding.toolbarLayoutEventDetail.btnReg.text=resources.getString(R.string.submit_survey)
+            binding.eventDetailInnerLayout.btnRegisterNow.text=resources.getString(R.string.submit_survey)
+            binding.eventDetailInnerLayout.btnRegisterNow.alpha = 1f
+            binding.toolbarLayoutEventDetail.btnReg.alpha = 1f
 
 
             events?.let {
                 //Submit Survey Will Work Here
-                if (!it.IsSurveyed &&!it.isSurveySubmitted){
-
-                    binding.toolbarLayoutEventDetail.btnReg.text=resources.getString(R.string.submit_survey)
-                    binding.eventDetailInnerLayout.btnRegisterNow.text=resources.getString(R.string.submit_survey)
-                    binding.eventDetailInnerLayout.btnRegisterNow.alpha = 1f
+                if (!it.IsSurveyed){
                     binding.toolbarLayoutEventDetail.btnReg.setOnClickListener {
                         val bundle = Bundle()
                         bundle.putString(
@@ -797,10 +798,20 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         navigate(R.id.action_eventDetailFragment2_to_surveyFragment2, bundle)
                     }
                 }else {
+                    binding.toolbarLayoutEventDetail.btnReg.text=resources.getString(R.string.survey_submitted)
+                    binding.eventDetailInnerLayout.btnRegisterNow.text=resources.getString(R.string.survey_submitted)
+
+                    binding.toolbarLayoutEventDetail.btnReg.background = ContextCompat.getDrawable(
+                        activity,
+                        R.drawable.bg_btn_filled_disabled
+                    )
+                    binding.eventDetailInnerLayout.btnRegisterNow.background = ContextCompat.getDrawable(
+                        activity,
+                        R.drawable.bg_btn_filled_disabled
+                    )
                     binding.toolbarLayoutEventDetail.btnReg.isClickable = false
                     binding.eventDetailInnerLayout.btnRegisterNow.isClickable = false
-                    binding.toolbarLayoutEventDetail.btnReg.alpha = 0.4f
-                    binding.eventDetailInnerLayout.btnRegisterNow.alpha =  0.4f
+
                 }
             }
 

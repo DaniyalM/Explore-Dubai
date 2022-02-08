@@ -292,7 +292,8 @@ fun transformEventDetail(eventDTO: EventsDTO): Events = Events(
                     registrationDate = it.registrationDate
             )
         }?: mutableListOf(),
-        url = eventDTO.URL
+        url = eventDTO.URL,
+        IsSurveyed = eventDTO.isSurveyed
 
 
 )
