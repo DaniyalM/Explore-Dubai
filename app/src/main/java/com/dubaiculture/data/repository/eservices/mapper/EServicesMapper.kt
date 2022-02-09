@@ -7,6 +7,7 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRe
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequestDTO
 import com.dubaiculture.data.repository.eservices.remote.response.*
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils
 import com.dubaiculture.ui.postLogin.events.detail.helper.MultipartFormHelper.getMultiPartData
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -32,10 +33,16 @@ fun transformFieldValuesResponse(
         id = getFieldValueResponseDTOItem.ID ?: 0,
         valueType = getFieldValueResponseDTOItem.ValueType ?: "",
         isRequired = getFieldValueResponseDTOItem.isRequired ?: false,
-        hint_en = if (getFieldValueResponseDTOItem.ValueType == ValueType.FILE.valueType)
+        hint_en = if (getFieldValueResponseDTOItem.ValueType == ValueType.FILE.valueType || FieldUtils.isPhoneNumber(
+                getFieldValueResponseDTOItem.FieldName ?: ""
+            )
+        )
             getFieldValueResponseDTOItem.MobileHintText_en ?: ""
         else getFieldValueResponseDTOItem.HintText_en ?: "",
-        hint_ar = if (getFieldValueResponseDTOItem.ValueType == ValueType.FILE.valueType)
+        hint_ar = if (getFieldValueResponseDTOItem.ValueType == ValueType.FILE.valueType || FieldUtils.isPhoneNumber(
+                getFieldValueResponseDTOItem.FieldName ?: ""
+            )
+        )
             getFieldValueResponseDTOItem.MobileHintText_AR ?: ""
         else getFieldValueResponseDTOItem.HintText_AR ?: ""
     )
