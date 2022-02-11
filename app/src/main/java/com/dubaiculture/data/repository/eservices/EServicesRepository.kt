@@ -14,6 +14,7 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequest
 import com.dubaiculture.data.repository.eservices.remote.response.FormInnerResponse
 import com.dubaiculture.data.repository.eservices.remote.response.FormResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetTokenResponseDTO
+import com.dubaiculture.utils.Constants
 import okhttp3.RequestBody
 import javax.inject.Inject
 
@@ -54,7 +55,6 @@ class EServicesRepository @Inject constructor(
             is Result.Failure -> resultRds
         }
 
-
     suspend fun submitForm(
         token: String,
         params: HashMap<String, RequestBody>,
@@ -67,7 +67,13 @@ class EServicesRepository @Inject constructor(
                 if (resultRds.value.success) {
                     Result.Success(resultRds.value)
                 } else {
-                    Result.Failure(false, null, null, resultRds.value.error[0].message)
+                    Result.Failure(
+                        false,
+                        null,
+                        null,
+                        resultRds.value.error.firstOrNull()?.message
+                            ?: Constants.Error.SOMETHING_WENT_WRONG
+                    )
                 }
             }
             is Result.Failure -> resultRds
