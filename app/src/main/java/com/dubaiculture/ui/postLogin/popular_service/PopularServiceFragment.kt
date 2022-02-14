@@ -80,7 +80,7 @@ class PopularServiceFragment : BaseFragment<FragmentPopularServiceBinding>(), Vi
                         } else {
                             navigateByDirections(
                                 PopularServiceFragmentDirections.actionPopularServiceFragmentToEServiceFragment(
-                                    it.title, it.formName, it.formSubmitURL
+                                    it.title, it.formName, it.formSubmitURL, it.id
                                 )
                             )
                         }

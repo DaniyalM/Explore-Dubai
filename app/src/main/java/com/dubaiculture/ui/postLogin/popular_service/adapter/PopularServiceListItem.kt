@@ -23,9 +23,9 @@ class PopularServiceListItem<T : ViewDataBinding>(
     val serviceClickListner: ServiceClickListner? = null,
     val services: PopularServices? = null,
     val servicesBookings: ServiceBookings? = null,
-    val myServiceStatus : ServiceStatus?=null,
-    val eService : EService?=null,
-    val context: Context?=null,
+    val myServiceStatus: ServiceStatus? = null,
+    val eService: EService? = null,
+    val context: Context? = null,
     val resLayout: Int = R.layout.popular_service_inner_item_cell,
 ) : BindableItem<T>() {
     override fun getLayout() = resLayout
@@ -39,34 +39,44 @@ class PopularServiceListItem<T : ViewDataBinding>(
             }
             is ItemsBookATicketLayoutBinding -> {
                 viewBinding.apply {
-                    popularServices=servicesBookings
+                    popularServices = servicesBookings
                 }
             }
-            is ItemServiceCompletedPendingLayoutBinding ->{
+            is ItemServiceCompletedPendingLayoutBinding -> {
                 viewBinding.apply {
                     var isExpand = false
                     serviceStatus = myServiceStatus
-                    tvViewStatus.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.plus,0)
-                    if(myServiceStatus?.completed ==false){
+                    tvViewStatus.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.plus, 0)
+                    if (myServiceStatus?.completed == false) {
                         llCompleted.visibility = View.GONE
                         llPending.visibility = View.VISIBLE
                     }
                     llViewStatus.setOnClickListener {
-                        if(!isExpand){
+                        if (!isExpand) {
                             isExpand = true
                             llExpand.visibility = View.VISIBLE
-                            tvViewStatus.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.remove,0)
-                        }else{
-                            isExpand =false
+                            tvViewStatus.setCompoundDrawablesWithIntrinsicBounds(
+                                0,
+                                0,
+                                R.drawable.remove,
+                                0
+                            )
+                        } else {
+                            isExpand = false
                             llExpand.visibility = View.GONE
-                            tvViewStatus.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.plus,0)
+                            tvViewStatus.setCompoundDrawablesWithIntrinsicBounds(
+                                0,
+                                0,
+                                R.drawable.plus,
+                                0
+                            )
                         }
                     }
                 }
             }
-            is ItemsServiceListingLayoutBinding ->{
+            is ItemsServiceListingLayoutBinding -> {
                 viewBinding.apply {
-                    setAnimation(rootView,position,context!!)
+                    setAnimation(rootView, position, context!!)
                     serviceListing = eService
                     detailNavigation.setOnClickListener {
                         serviceClickListner?.onServiceClick(eService)
@@ -75,7 +85,8 @@ class PopularServiceListItem<T : ViewDataBinding>(
             }
         }
     }
-    private fun setAnimation(viewToAnimate: View, position: Int,context: Context) {
+
+    private fun setAnimation(viewToAnimate: View, position: Int, context: Context) {
         // If the bound view wasn't previously displayed on screen, it's animated
         val animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_right)
         viewToAnimate.startAnimation(animation)

@@ -66,8 +66,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initiateRTL()
@@ -88,7 +86,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     navigate(R.id.action_profileFragment_to_myTripFragment)
 
                 }
-                myServicesView.hide()
                 myServicesView.setOnClickListener {
                     navigate(R.id.action_profileFragment_to_myServicesFragment)
                 }

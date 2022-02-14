@@ -1,63 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
+    <data>
+
+        <import type="android.view.View" />
+        <import type="java.util.Date" />
+
+        <variable
+            name="serviceStatus"
+            type="com.dubaiculture.data.repository.eservices.local.EServiceStatus" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:elevation="@dimen/_5sdp">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/_15sdp">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:outlineSpotShadowColor="@color/gray_750"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/serviceName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Museums Guided Tour Booking"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/serviceDesc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:text="Museums Guided Tour Booking"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/serviceName" />
-
-            <View
-                android:id="@+id/separator"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main_cl"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:background="@color/black_200"
-                app:layout_constraintTop_toBottomOf="@id/serviceDesc" />
+                android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivStatus"
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/separator" />
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_13sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:text="@{serviceStatus.title}"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="The Definitive Guide to an Uncertain World world" />
 
-            <com.dubaiculture.ui.components.customtextview.CustomTextView
-                android:id="@+id/serviceStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="Completed"
-                app:layout_constraintBottom_toBottomOf="@id/ivStatus"
-                app:layout_constraintStart_toEndOf="@id/ivStatus"
-                app:layout_constraintTop_toTopOf="@id/ivStatus" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+
+                <com.dubaiculture.ui.components.customtextview.CustomTextView
+                    android:id="@+id/tv_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:text="@{serviceStatus.summary}"
+                    android:textColor="@color/gray_750"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_title"
+                    app:layout_constraintStart_toStartOf="@+id/tv_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                    tools:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:background="@drawable/line_contact_us"
+                    app:layout_constraintEnd_toEndOf="@id/tv_desc"
+                    app:layout_constraintStart_toStartOf="@+id/tv_desc"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+                <!--Completed Layout Start-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/main_cl"
+                    app:layout_constraintEnd_toEndOf="@id/line"
+                    app:layout_constraintStart_toStartOf="@id/line"
+                    app:layout_constraintTop_toBottomOf="@+id/line">
+
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tv_completed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/tick"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:elevation="@dimen/_15sdp"
+                        android:outlineAmbientShadowColor="@color/sea_green"
+                        android:outlineSpotShadowColor="@color/sea_green"
+                        android:text="@string/completed"
+                        android:textColor="@color/sea_green"
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="@{serviceStatus.request.status ? View.VISIBLE: View.GONE}" />
+
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tv_pending"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/pending_icon_serives"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:outlineAmbientShadowColor="@color/orange"
+                        android:outlineSpotShadowColor="@color/orange"
+                        android:text="@string/pending"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="@{serviceStatus.request.status ? View.GONE: View.VISIBLE}" />
+
+                    <com.dubaiculture.ui.components.customtextview.CustomTextView
+                        android:id="@+id/tv_date"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/calender_ticket_book"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:outlineAmbientShadowColor="@color/black_200"
+                        android:outlineSpotShadowColor="@color/black_200"
+                        android:textSize="@dimen/_10sdp"
+                        tools:text="12 Nov,2020" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

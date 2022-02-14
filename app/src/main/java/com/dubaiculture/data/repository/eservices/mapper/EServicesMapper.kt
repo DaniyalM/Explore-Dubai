@@ -1,15 +1,13 @@
 package com.dubaiculture.data.repository.eservices.mapper
 
-import com.dubaiculture.data.repository.eservices.local.FieldValueItem
-import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
-import com.dubaiculture.data.repository.eservices.local.Validation
+import com.dubaiculture.data.repository.eservices.local.*
 import com.dubaiculture.data.repository.eservices.remote.request.CreateNocRequest
 import com.dubaiculture.data.repository.eservices.remote.request.CreateNocRequestDTO
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequest
 import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRequestDTO
-import com.dubaiculture.data.repository.eservices.remote.response.FieldValueDTO
-import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueResponseDTOItem
-import com.dubaiculture.data.repository.eservices.remote.response.ValidationDTO
+import com.dubaiculture.data.repository.eservices.remote.response.*
+import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils
 import com.dubaiculture.ui.postLogin.events.detail.helper.MultipartFormHelper.getMultiPartData
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -35,8 +33,18 @@ fun transformFieldValuesResponse(
         id = getFieldValueResponseDTOItem.ID ?: 0,
         valueType = getFieldValueResponseDTOItem.ValueType ?: "",
         isRequired = getFieldValueResponseDTOItem.isRequired ?: false,
-        hint_en = getFieldValueResponseDTOItem.HintText_en ?: "",
-        hint_ar = getFieldValueResponseDTOItem.HintText_AR ?: ""
+        hint_en = if (getFieldValueResponseDTOItem.ValueType == ValueType.FILE.valueType || FieldUtils.isPhoneNumber(
+                getFieldValueResponseDTOItem.FieldName ?: ""
+            )
+        )
+            getFieldValueResponseDTOItem.MobileHintText_en ?: ""
+        else getFieldValueResponseDTOItem.HintText_en ?: "",
+        hint_ar = if (getFieldValueResponseDTOItem.ValueType == ValueType.FILE.valueType || FieldUtils.isPhoneNumber(
+                getFieldValueResponseDTOItem.FieldName ?: ""
+            )
+        )
+            getFieldValueResponseDTOItem.MobileHintText_AR ?: ""
+        else getFieldValueResponseDTOItem.HintText_AR ?: ""
     )
 
 fun transformFieldValues(fieldValueDTO: FieldValueDTO) =
@@ -58,4 +66,27 @@ fun transformValidations(validationDTO: ValidationDTO) =
         errorCode = validationDTO.ErrorCode ?: "",
         pattern = validationDTO.Pattern ?: "",
         validationType = validationDTO.ValidationType ?: ""
+    )
+
+fun transformEServiceStatus(eServiceStatusDto: EServiceStatusDto) =
+    EServiceStatus(
+        id = eServiceStatusDto.ID,
+        title = eServiceStatusDto.Title,
+        categoryID = eServiceStatusDto.CategoryID,
+        category = eServiceStatusDto.Category,
+        summary = eServiceStatusDto.Summary,
+        isFavourite = eServiceStatusDto.IsFavourite,
+        startServiceText = eServiceStatusDto.StartServiceText,
+        startServiceUrl = eServiceStatusDto.StartServiceUrl,
+        formName = eServiceStatusDto.FormName,
+        formSubmitURL = eServiceStatusDto.FormSubmitURL,
+        request = transformEServiceStatusDetails(eServiceStatusDto.Request)
+
+    )
+
+fun transformEServiceStatusDetails(eServiceStatusDto: EServiceStatusDetailsDto) =
+    EServiceStatusDetails(
+        id = eServiceStatusDto.ID,
+        dateTime = eServiceStatusDto.DateTime,
+        status = eServiceStatusDto.Status
     )

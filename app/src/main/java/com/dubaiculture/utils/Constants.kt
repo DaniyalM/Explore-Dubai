@@ -181,7 +181,7 @@ object Constants {
         const val TIME_STAMP_WITH_ZONE: String = "yyyy-MM-dd'T'HH:mm:ss"
         const val YYYY_MM_DD: String = "yyyy-MM-dd"
         const val MMM_YYYY: String = "MMM YYYY"
-        const val DD_MMM_YYYY: String = "dd MMM,YYYY"
+        const val DD_MMM_YYYY: String = "dd MMM, YYYY"
         const val MMM_DD_YYYY: String = "MMM dd,YYYY"
         const val MM_DD_YYYY: String = "MM/dd/yyyy"
         const val DD_MM_YY: String = "dd/MM/yy"

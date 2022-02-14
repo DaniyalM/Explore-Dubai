@@ -20,6 +20,7 @@ import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
 import com.dubaiculture.utils.Constants.NavBundles.FORM_URL
+import com.dubaiculture.utils.Constants.NavBundles.SERVICE_ID
 import com.dubaiculture.utils.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -51,9 +52,9 @@ class EServiceViewModel @Inject constructor(
         MutableLiveData()
     val showField: LiveData<Event<Pair<Boolean, GetFieldValueItem>>> = _showField
 
-    private val _makeOptional: MutableLiveData<Event<GetFieldValueItem>> =
+    private val _makeOptional: MutableLiveData<Event<Pair<Boolean, GetFieldValueItem>>> =
         MutableLiveData()
-    val makeOptional: LiveData<Event<GetFieldValueItem>> = _makeOptional
+    val makeOptional: LiveData<Event<Pair<Boolean, GetFieldValueItem>>> = _makeOptional
 
     private var mFieldValues: List<GetFieldValueItem>? = null
 
@@ -85,6 +86,7 @@ class EServiceViewModel @Inject constructor(
                             result.value
                         )
                     _fieldValues.value = mFieldValues
+                    showHideFields(formName)
                 }
                 is Result.Failure -> {
                     showLoader(false)
@@ -93,12 +95,21 @@ class EServiceViewModel @Inject constructor(
         }
     }
 
+    private fun showHideFields(formName: String) {
+        if (formName.equals(FormType.BOOKING_ESERVICE.value, false)) {
+            showField("Entity", false)
+            showField("Company", false)
+        } else if (formName.equals(FormType.SUPPLIER_REGISTRATION.value, false)) {
+            showField("OtherLicenseActivities", false)
+        }
+    }
+
     private fun setupEmiratesId(
         emiratesId: String,
         list: List<GetFieldValueItem>
     ): List<GetFieldValueItem> {
         return list.map {
-            if (isEmiratesId(it)) {
+            if (isEmiratesId(it.fieldName)) {
                 it.copy(defaultValue = emiratesId)
             } else it
         }
@@ -119,43 +130,62 @@ class EServiceViewModel @Inject constructor(
         }
     }
 
-    fun addField(field: GetFieldValueItem, value: String) {
+    fun addField(fieldName: String, value: String, isSelected: Boolean = false) {
         val cleanedValue = getCleanedValue(value)
-        map[field.fieldName] = cleanedValue
-        showCity(field, cleanedValue)
-        emiratesIdOptional(field, cleanedValue)
-    }
+        map[fieldName] = cleanedValue
 
-    private fun emiratesIdOptional(field: GetFieldValueItem, cleanedValue: String) {
-        if (field.fieldName == "IsVisa") {
-            mFieldValues?.firstOrNull {
-                isEmiratesId(it)
-            }?.let {
-                _makeOptional.value = Event(it)
-            }
-            mFieldValues = mFieldValues?.map {
-                if (isEmiratesId(it)) {
-                    it.copy(isRequired = false, validations = it.validations.map { validation ->
-                        validation.copy(validationType = ValidationType.PATTERN_OPTIONAL.type)
-                    })
-                } else it
-            }
+        if (fieldName == "IsVisa") {
+            makeFieldOptional("EmiratesID", isSelected)
+            makeFieldOptional("EmiratesIDCopy", isSelected)
+        } else if (fieldName == "isLiveDubai") {
+            makeFieldOptional("VisaCopy", isSelected)
+            makeFieldOptional("VisaEmirate", isSelected)
+        } else if (fieldName == "DubaiSME") {
+            makeFieldOptional("MembershipCertificate", cleanedValue != "Yes")
+        } else if (fieldName == "Country") {
+            showField("City", cleanedValue == "United Arab Emirates")
+        } else if (fieldName == "BookingType" && cleanedValue == "Company") {
+            showField("Company", true)
+            showField("Entity", false)
+        } else if (fieldName == "BookingType" && cleanedValue == "Government") {
+            showField("Entity", true)
+            showField("Company", false)
+        } else if (fieldName == "BookingType" && cleanedValue == "Individual") {
+            showField("Entity", false)
+            showField("Company", false)
+        } else if (fieldName == "LicenseActivities") {
+            showField("OtherLicenseActivities", cleanedValue == "Other")
         }
     }
 
-    private fun showCity(field: GetFieldValueItem, cleanedValue: String) {
-        if (field.fieldName == "Country") {
-            val showCity = cleanedValue == "United Arab Emirates"
-            mFieldValues?.firstOrNull {
-                it.fieldName == "City"
-            }?.let {
-                _showField.value = Event(Pair(showCity, it))
-            }
-            mFieldValues = mFieldValues?.map {
-                if (it.fieldName == "City") {
-                    it.copy(isRequired = showCity)
-                } else it
-            }
+    private fun makeFieldOptional(
+        fieldName: String,
+        makeOptional: Boolean
+    ) {
+        mFieldValues?.firstOrNull {
+            fieldName == it.fieldName
+        }?.let {
+            _makeOptional.value = Event(Pair(makeOptional, it))
+        }
+        mFieldValues = mFieldValues?.map {
+            if (fieldName == it.fieldName) {
+                it.copy(
+                    isRequired = !makeOptional
+                )
+            } else it
+        }
+    }
+
+    private fun showField(fieldName: String, show: Boolean) {
+        mFieldValues?.firstOrNull {
+            it.fieldName == fieldName
+        }?.let {
+            _showField.value = Event(Pair(show, it))
+        }
+        mFieldValues = mFieldValues?.map {
+            if (it.fieldName == fieldName) {
+                it.copy(isRequired = show)
+            } else it
         }
     }
 
@@ -205,7 +235,10 @@ class EServiceViewModel @Inject constructor(
                 if (isArabic) Constants.Locale.ARABIC else Constants.Locale.ENGLISH
             )
             if (result is Result.Success) {
-                eServicesRepository.submitServiceToken(result.value.data.SerialNo)
+                eServicesRepository.submitServiceToken(
+                    result.value.data.SerialNo,
+                    savedStateHandle.get<String>(SERVICE_ID) ?: ""
+                )
                 showAlert(
                     message = result.value.message + "\n" + result.value.data.SerialNo,
                     actionPositive = {
@@ -223,6 +256,7 @@ class EServiceViewModel @Inject constructor(
         field: GetFieldValueItem,
         value: String
     ): String? {
+        if (!field.isRequired && value.isEmpty()) return null // donot validate non required fields
         field.validations.forEach {
             if (it.validationType.equals(ValidationType.PATTERN.type, true)) {
                 if (it.pattern.isNotEmpty() && !it.pattern.toRegex().matches(value)) {
@@ -232,19 +266,28 @@ class EServiceViewModel @Inject constructor(
                 if (field.isRequired && value.isEmpty()) {
                     return if (isArabic) it.arabicMsg else it.englishMsg
                 }
-            } else if (it.validationType.equals(ValidationType.PATTERN_OPTIONAL.type, true)) {
-                if (value.isNotEmpty() && !it.pattern.toRegex().matches(value)) {
-                    return if (isArabic) it.arabicMsg else it.englishMsg
-                }
             }
         }
         return null
     }
 
-    fun showFutureDates(field: GetFieldValueItem) = field.fieldName != "BirthDate"
-    fun showPastDates(field: GetFieldValueItem) =
-        !(field.formName.equals(FormType.BOOKING_ESERVICE.value, true) && field.fieldName == "Date")
+    fun showFutureDates(fieldName: String) =
+        fieldName != "BirthDate" && fieldName != "TradeLicenseIssueDate"
 
-    fun isEmiratesId(field: GetFieldValueItem) = field.fieldName == "EmiratesID"
+    fun showPastDates(field: GetFieldValueItem) =
+        !(field.formName.equals(
+            FormType.BOOKING_ESERVICE.value,
+            true
+        ) && field.fieldName == "Date")
+                && !(field.formName.equals(
+            FormType.RENT_REQUEST.value,
+            true
+        ) && field.fieldName == "PriorDate")
+                && !(field.formName.equals(
+            FormType.SUPPLIER_REGISTRATION.value,
+            true
+        ) && field.fieldName == "TradeLicenseExpiryDate")
+
+    fun isEmiratesId(fieldName: String) = fieldName == "EmiratesID"
     fun getCleanedValue(value: String) = value.replace("\u00a0", " ")
 }

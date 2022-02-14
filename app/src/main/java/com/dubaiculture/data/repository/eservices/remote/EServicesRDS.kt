@@ -8,6 +8,7 @@ import com.dubaiculture.data.repository.eservices.remote.request.GetFieldValueRe
 import com.dubaiculture.data.repository.eservices.remote.request.GetTokenRequestParam
 import com.dubaiculture.data.repository.eservices.remote.request.SubmitServiceTokenRequest
 import com.dubaiculture.data.repository.eservices.remote.response.FormResponse
+import com.dubaiculture.data.repository.eservices.remote.response.GetEServiceStatusResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetFieldValueResponse
 import com.dubaiculture.data.repository.eservices.remote.response.GetTokenResponse
 import com.dubaiculture.data.repository.eservices.service.EService
@@ -57,11 +58,21 @@ class EServicesRDS @Inject constructor(
         }
 
     suspend fun submitServiceToken(
-        token: String
+        token: String,
+        serviceId: String
     ): Result<BaseResponse> =
         safeApiCall {
             eServiceStatus.submitServiceToken(
-                SubmitServiceTokenRequest(token)
+                SubmitServiceTokenRequest(token, serviceId)
+            )
+        }
+
+    suspend fun getServiceStatusList(
+        culture: String
+    ): Result<GetEServiceStatusResponse> =
+        safeApiCall {
+            eServiceStatus.getServiceStatusList(
+                culture
             )
         }
 

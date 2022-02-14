@@ -11,10 +11,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentManager
 import com.dubaiculture.R
 import com.dubaiculture.data.repository.eservices.local.GetFieldValueItem
-import com.dubaiculture.databinding.EserviceDropDownBinding
-import com.dubaiculture.databinding.EserviceEditTextBinding
-import com.dubaiculture.databinding.EserviceRadioGroupBinding
-import com.dubaiculture.databinding.EserviceTextViewBinding
+import com.dubaiculture.databinding.*
 import com.dubaiculture.ui.components.customEditText.CustomEditText
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.*
@@ -22,7 +19,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object FieldUtils {
+
     const val LABEL_ID_MODIFIER = 101010101
+
     fun createTextViewWithDescription(
         isArabic: Boolean,
         layoutInflater: LayoutInflater,
@@ -74,6 +73,7 @@ object FieldUtils {
         val label = createTextView(isArabic, layoutInflater, root, fieldValueItem)
         root.addView(label)
         val et = createEditText(isArabic, layoutInflater, root, fieldValueItem)
+        et.inputType = getKeyboardInputType(fieldValueItem.fieldName)
         root.addView(et)
     }
 
@@ -377,6 +377,26 @@ object FieldUtils {
         return group
     }
 
+    fun createCheckBox(
+        isArabic: Boolean,
+        layoutInflater: LayoutInflater,
+        root: ViewGroup,
+        fieldValueItem: GetFieldValueItem,
+        callback: (isSelected: Boolean, value: String) -> Unit
+    ) {
+        val view = EserviceCheckBoxBinding.inflate(layoutInflater, root, false)
+        fieldValueItem.fieldValue.elementAtOrNull(0)?.let {
+            view.checkbox.id = it.id
+            view.checkbox.text = if (isArabic) it.arabic else it.english
+        }
+        view.checkbox.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
+            callback(
+                isChecked, fieldValueItem.fieldValue.elementAtOrNull(0)?.english ?: ""
+            )
+        }
+        root.addView(view.checkbox)
+    }
+
     private fun setDrawableEnd(isArabic: Boolean, drawable: Drawable?, editText: EditText) {
         if (isArabic)
             editText.setCompoundDrawablesWithIntrinsicBounds(
@@ -403,11 +423,61 @@ object FieldUtils {
         }
     }
 
-    fun makeFieldOptional(container: LinearLayout, field: GetFieldValueItem) {
+    fun makeFieldOptional(
+        container: LinearLayout,
+        makeOptional: Boolean,
+        field: GetFieldValueItem
+    ) {
         container.findViewById<View>(field.id + LABEL_ID_MODIFIER)?.let {
             val prev = (it as TextView).text.toString()
-            it.text = prev.replace("*", "")
+            if (makeOptional) {
+                it.text = prev.replace("*", "")
+            } else {
+                it.text = prev.replace(
+                    "*",
+                    ""
+                ) + "*" //replace old * in case if wrong boolean was sent from server
+                it.setColouredSpan("*", Color.RED)
+            }
+
             it.requestLayout()
         }
     }
+
+    fun getKeyboardInputType(fieldName: String): Int {
+        when {
+            arrayOf("UserEmailID", "Email", "ConfirmUserEmailID").contains(fieldName) -> {
+                return (InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+            }
+            isPhoneNumber(fieldName) -> {
+                return InputType.TYPE_CLASS_PHONE
+            }
+            arrayOf(
+                "POBOX",
+                "EmiratesID",
+                "TotalRequiredSpace",
+                "Duration",
+                "LicenseNumber",
+                "NumOfVisitors"
+            ).contains(
+                fieldName
+            ) -> {
+                return InputType.TYPE_CLASS_NUMBER
+            }
+            else -> return InputType.TYPE_CLASS_TEXT
+        }
+
+    }
+
+    fun isPhoneNumber(fieldName: String) =
+        arrayOf(
+            "Mobile",
+            "PhoneNumber",
+            "MobileNumber",
+            "TelephoneOfficeNumber",
+            "ContactPhoneNumber"
+        ).contains(
+            fieldName
+        )
+
 }
