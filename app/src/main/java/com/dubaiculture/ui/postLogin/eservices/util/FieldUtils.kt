@@ -17,6 +17,9 @@ import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
 import com.dubaiculture.utils.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
+
 
 object FieldUtils {
 
@@ -74,6 +77,8 @@ object FieldUtils {
         root.addView(label)
         val et = createEditText(isArabic, layoutInflater, root, fieldValueItem)
         et.inputType = getKeyboardInputType(fieldValueItem.fieldName)
+        if (isEmiratesId(fieldValueItem.fieldName))
+            et.filters = arrayOf<InputFilter>(LengthFilter(15))
         root.addView(et)
     }
 
@@ -479,5 +484,7 @@ object FieldUtils {
         ).contains(
             fieldName
         )
+
+    fun isEmiratesId(fieldName: String) = fieldName == "EmiratesID"
 
 }
