@@ -272,8 +272,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     if (it.value.numberContact.isNullOrEmpty()) {
                         eventDetailInnerLayout.llCallus.alpha = 0.2f
                         eventDetailInnerLayout.llCallus.isClickable = false
-                    }
-                    else {
+                    } else {
                         eventDetailInnerLayout.llCallus.setOnClickListener {
                             openDiallerBox(eventObj?.numberContact)
                         }
@@ -281,10 +280,9 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     if (it.value.emailContact.isNullOrEmpty()) {
                         eventDetailInnerLayout.llEmailUs.alpha = 0.2f
                         eventDetailInnerLayout.llEmailUs.isClickable = false
-                    }
-                    else {
+                    } else {
                         eventDetailInnerLayout.llEmailUs.setOnClickListener {
-                            openEmailbox(email =eventObj?.emailContact.toString())
+                            openEmailbox(email = eventObj?.emailContact.toString())
                         }
                     }
                     urlshare = "${it.value.url}?q=${it.value.id}"
@@ -320,7 +318,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 urlshare
                                     ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
                                 activity,
-                                title=eventObj!!.title!!+ " "+ eventObj!!.fromDate+"-"+eventObj!!.fromMonthYear,
+                                title = eventObj!!.title!! + " " + eventObj!!.fromDate + "-" + eventObj!!.fromMonthYear,
                                 detail = ""
                             )
                         }
@@ -329,8 +327,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                                 urlshare
                                     ?: "https://dc.qa.greenlightlabs.tech/en/events/Certified-Cultural-Guide",
                                 activity,
-                                title=eventObj!!.title!!,
-                                detail =""
+                                title = eventObj!!.title!!,
+                                detail = ""
                             )
 
                         }
@@ -340,7 +338,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     }
                     locationPermission(it.value)
                     it.value.apply {
-                        enableRegistration(registrationDate,it.value)
+                        enableRegistration(registrationDate, it.value)
                         if (isFavourite) {
                             binding.favourite.background =
                                 getDrawableFromId(R.drawable.heart_icon_fav)
@@ -584,8 +582,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     val intent: Intent = Intent(Intent.ACTION_INSERT)
                         .setData(CalendarContract.Events.CONTENT_URI)
                         .putExtra(CalendarContract.EventDays.STARTDAY, eventObj?.fromDate)
-                        .putExtra(CalendarContract.EventDays.ENDDAY,   eventObj?.toDate)
-                        .putExtra(CalendarContract.Events.TITLE,eventObj?.title)
+                        .putExtra(CalendarContract.EventDays.ENDDAY, eventObj?.toDate)
+                        .putExtra(CalendarContract.Events.TITLE, eventObj?.title)
                         .putExtra(CalendarContract.Events.DESCRIPTION, eventObj?.desc)
                         .putExtra(CalendarContract.Events.EVENT_LOCATION, eventObj?.location)
                         .putExtra(Intent.EXTRA_EMAIL, eventObj?.emailContact)
@@ -593,10 +591,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 } else {
                     val intent = Intent(Intent.ACTION_EDIT)
                     intent.type = "vnd.android.cursor.item/event"
-                    intent.putExtra("startDay",  eventObj?.fromDate)
+                    intent.putExtra("startDay", eventObj?.fromDate)
                     intent.putExtra("allDay", true)
                     intent.putExtra("rrule", "FREQ=YEARLY")
-                    intent.putExtra("endDay",  eventObj?.toDate)
+                    intent.putExtra("endDay", eventObj?.toDate)
                     intent.putExtra("title", eventObj?.title)
                     startActivity(intent)
                 }
@@ -606,8 +604,8 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     val intent: Intent = Intent(Intent.ACTION_INSERT)
                         .setData(CalendarContract.Events.CONTENT_URI)
                         .putExtra(CalendarContract.EventDays.STARTDAY, eventObj?.fromDate)
-                        .putExtra(CalendarContract.EventDays.ENDDAY,   eventObj?.toDate)
-                        .putExtra(CalendarContract.Events.TITLE,eventObj?.title)
+                        .putExtra(CalendarContract.EventDays.ENDDAY, eventObj?.toDate)
+                        .putExtra(CalendarContract.Events.TITLE, eventObj?.title)
                         .putExtra(CalendarContract.Events.DESCRIPTION, eventObj?.desc)
                         .putExtra(CalendarContract.Events.EVENT_LOCATION, eventObj?.location)
                         .putExtra(Intent.EXTRA_EMAIL, eventObj?.emailContact)
@@ -615,10 +613,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 } else {
                     val intent = Intent(Intent.ACTION_EDIT)
                     intent.type = "vnd.android.cursor.item/event"
-                    intent.putExtra("startDay",  eventObj?.fromDate)
+                    intent.putExtra("startDay", eventObj?.fromDate)
                     intent.putExtra("allDay", true)
                     intent.putExtra("rrule", "FREQ=YEARLY")
-                    intent.putExtra("endDay",  eventObj?.toDate)
+                    intent.putExtra("endDay", eventObj?.toDate)
                     intent.putExtra("title", eventObj?.title)
                     startActivity(intent)
                 }
@@ -681,7 +679,7 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                 is Result.Success -> {
                     isRegisterd = it.value.isRegistered
 
-                    enableRegistration(it.value.registrationDate,it.value)
+//                    enableRegistration(it.value.registrationDate,it.value)
                     slotTime.clear()
                     parentItemList.clear()
 
@@ -692,17 +690,18 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                     if (!it.value.desc.isNullOrEmpty()) {
                         binding.eventDetailInnerLayout.tvDescReadmoreEvent.text = it.value.desc
                     }
-                    if (it.value.eventSchedule.isEmpty()){
+                    if (it.value.eventSchedule.isEmpty()) {
                         binding.eventDetailInnerLayout.eventDetailScheduleLayout.noDataPlaceHolder?.show()
                         binding.eventDetailInnerLayout.eventDetailScheduleLayout.rvSchedule.hide()
                         binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.hide()
                         binding.eventDetailInnerLayout.eventDetailScheduleLayout.speakerSchedule.hide()
-                    }else{
+                    } else {
                         binding.eventDetailInnerLayout.eventDetailScheduleLayout.noDataPlaceHolder!!.hide()
                     }
 
                     it.value.eventSchedule!!.map {
-                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text = it.description
+                        binding.eventDetailInnerLayout.eventDetailScheduleLayout.tvScheduleTitle.text =
+                            it.description
                         it.eventScheduleItems.forEach {
                             parentItemList.add(it)
                         }
@@ -713,7 +712,6 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
 
                     }
                     slotTime = getScheduleTimeSlot()
-
 
 
                 }
@@ -753,10 +751,10 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    private fun registrationAction(){
-        if (application.auth.isGuest){
+    private fun registrationAction() {
+        if (application.auth.isGuest) {
             navigateByDirections(EventDetailFragmentDirections.actionEventDetailFragment2ToPostLoginFragment())
-        }else{
+        } else {
             val bundle = Bundle()
             bundle.putParcelableArrayList(
                 Constants.NavBundles.SCHEDULE_ITEM_SLOT, slotTime as ArrayList<out Parcelable>
@@ -770,17 +768,17 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
         }
     }
 
-    private fun enableRegistration(registrationDate: String,events: Events?=null) {
+    private fun enableRegistration(registrationDate: String, events: Events? = null) {
         if (getTimeSpan(registrationDate)) {
-            binding.toolbarLayoutEventDetail.btnReg.text=resources.getString(R.string.submit_survey)
-            binding.eventDetailInnerLayout.btnRegisterNow.text=resources.getString(R.string.submit_survey)
+            binding.toolbarLayoutEventDetail.btnReg.text =
+                resources.getString(R.string.submit_survey)
+            binding.eventDetailInnerLayout.btnRegisterNow.text =
+                resources.getString(R.string.submit_survey)
             binding.eventDetailInnerLayout.btnRegisterNow.alpha = 1f
             binding.toolbarLayoutEventDetail.btnReg.alpha = 1f
-
-
             events?.let {
                 //Submit Survey Will Work Here
-                if (!it.IsSurveyed){
+                if (!it.IsSurveyed) {
                     binding.toolbarLayoutEventDetail.btnReg.setOnClickListener {
                         val bundle = Bundle()
                         bundle.putString(
@@ -797,31 +795,38 @@ class EventDetailFragment : BaseFragment<FragmentEventDetailBinding>(),
                         )
                         navigate(R.id.action_eventDetailFragment2_to_surveyFragment2, bundle)
                     }
-                }else {
-                    binding.toolbarLayoutEventDetail.btnReg.text=resources.getString(R.string.survey_submitted)
-                    binding.eventDetailInnerLayout.btnRegisterNow.text=resources.getString(R.string.survey_submitted)
+                } else {
+                    binding.toolbarLayoutEventDetail.btnReg.text =
+                        resources.getString(R.string.survey_submitted)
+                    binding.eventDetailInnerLayout.btnRegisterNow.text =
+                        resources.getString(R.string.survey_submitted)
 
                     binding.toolbarLayoutEventDetail.btnReg.background = ContextCompat.getDrawable(
                         activity,
                         R.drawable.bg_btn_filled_disabled
                     )
-                    binding.eventDetailInnerLayout.btnRegisterNow.background = ContextCompat.getDrawable(
-                        activity,
-                        R.drawable.bg_btn_filled_disabled
-                    )
+                    binding.eventDetailInnerLayout.btnRegisterNow.background =
+                        ContextCompat.getDrawable(
+                            activity,
+                            R.drawable.bg_btn_filled_disabled
+                        )
                     binding.toolbarLayoutEventDetail.btnReg.isClickable = false
                     binding.eventDetailInnerLayout.btnRegisterNow.isClickable = false
 
                 }
             }
+            if (!isRegisterd) {
+                binding.toolbarLayoutEventDetail.btnReg.hide()
+                binding.eventDetailInnerLayout.btnRegisterNow.hide()
+            }
 
 
-        }else {
+        } else {
             if (isRegisterd) {
                 binding.toolbarLayoutEventDetail.btnReg.isClickable = false
                 binding.eventDetailInnerLayout.btnRegisterNow.isClickable = false
                 binding.toolbarLayoutEventDetail.btnReg.alpha = 0.4f
-                binding.eventDetailInnerLayout.btnRegisterNow.alpha =  0.4f
+                binding.eventDetailInnerLayout.btnRegisterNow.alpha = 0.4f
             } else {
                 binding.toolbarLayoutEventDetail.btnReg.isClickable = true
                 binding.eventDetailInnerLayout.btnRegisterNow.isClickable = true
