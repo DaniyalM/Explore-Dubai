@@ -17,6 +17,7 @@ import com.dubaiculture.ui.base.BaseViewModel
 import com.dubaiculture.ui.postLogin.eservices.enums.FormType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValidationType
 import com.dubaiculture.ui.postLogin.eservices.enums.ValueType
+import com.dubaiculture.ui.postLogin.eservices.util.FieldUtils
 import com.dubaiculture.utils.Constants
 import com.dubaiculture.utils.Constants.NavBundles.FORM_NAME
 import com.dubaiculture.utils.Constants.NavBundles.FORM_URL
@@ -109,7 +110,7 @@ class EServiceViewModel @Inject constructor(
         list: List<GetFieldValueItem>
     ): List<GetFieldValueItem> {
         return list.map {
-            if (isEmiratesId(it.fieldName)) {
+            if (FieldUtils.isEmiratesId(it.fieldName)) {
                 it.copy(defaultValue = emiratesId)
             } else it
         }
@@ -288,6 +289,5 @@ class EServiceViewModel @Inject constructor(
             true
         ) && field.fieldName == "TradeLicenseExpiryDate")
 
-    fun isEmiratesId(fieldName: String) = fieldName == "EmiratesID"
     fun getCleanedValue(value: String) = value.replace("\u00a0", " ")
 }

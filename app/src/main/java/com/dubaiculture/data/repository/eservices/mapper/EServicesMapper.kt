@@ -35,11 +35,15 @@ fun transformFieldValuesResponse(
         isRequired = getFieldValueResponseDTOItem.isRequired ?: false,
         hint_en = if (getFieldValueResponseDTOItem.ValueType == ValueType.FILE.valueType || FieldUtils.isPhoneNumber(
                 getFieldValueResponseDTOItem.FieldName ?: ""
+            ) || FieldUtils.isEmiratesId(
+                getFieldValueResponseDTOItem.FieldName ?: ""
             )
         )
             getFieldValueResponseDTOItem.MobileHintText_en ?: ""
         else getFieldValueResponseDTOItem.HintText_en ?: "",
         hint_ar = if (getFieldValueResponseDTOItem.ValueType == ValueType.FILE.valueType || FieldUtils.isPhoneNumber(
+                getFieldValueResponseDTOItem.FieldName ?: ""
+            ) || FieldUtils.isEmiratesId(
                 getFieldValueResponseDTOItem.FieldName ?: ""
             )
         )
