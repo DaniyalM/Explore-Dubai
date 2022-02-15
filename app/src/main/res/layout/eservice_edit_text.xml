@@ -4,12 +4,13 @@
 
     <com.dubaiculture.ui.components.customEditText.CustomEditText
         android:id="@+id/editText"
-        style="@style/EditTextStyle"
+        style="@style/EditTextSurveyStyle"
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
-        android:background="@drawable/bg_edit_resiger"
+        android:padding="@dimen/_5sdp"
         android:inputType="textMultiLine"
         android:lines="4"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </layout>
