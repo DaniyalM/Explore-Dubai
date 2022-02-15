@@ -177,7 +177,7 @@
         <item name="android:textColor">?attr/colorSecondary</item>
         <item name="android:textColorHint">@color/gray_600</item>
         <item name="android:textSize">@dimen/_11ssp</item>
-        <item name="android:background">@drawable/bg_edit_resiger</item>
+        <item name="android:background">@drawable/message_bg_share_feed_back_icon</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

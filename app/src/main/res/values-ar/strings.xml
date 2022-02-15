@@ -421,6 +421,7 @@
     <string name="select_hour">حدد ساعات الزيارة</string>
     <string name="add_duration_error">الرجاء تحديد ساعات الزيارة للمتابعة</string>
 
+    <string name="please_recheck_your_evaluation">يرجى إعادة التحقق من التقييم</string>
 
 
     <string name="reset">إعادة تعيين</string>

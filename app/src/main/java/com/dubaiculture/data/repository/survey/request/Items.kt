@@ -5,7 +5,8 @@ data class Items(
     val question: String? = null,
     val input: String,
     val answer: String,
-    val index:Int
+    val index:Int,
+    val isValid:Boolean=false
 ) {
 
 }

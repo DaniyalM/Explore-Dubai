@@ -106,41 +106,53 @@ class SurveyFragment : BaseFragment<FragmentSurveyBinding>() {
                     inflater,
                     binding.fieldContainer
                 ) {
-
+                    var isValid = true
                     formSubmit.items.forEach {
                         val view = binding.fieldContainer.findViewById<View>(it.index)
                         if (FieldType.fromName(it.input) == FieldType.Textbox) {
                             val value = (view as EditText).text.toString()
-                            surveyViewModel.updateFormItem(formSubmit, it.copy(answer = value))
+                            if (value.isNotEmpty()){
+                                surveyViewModel.updateFormItem(formSubmit, it.copy(answer = value,isValid = true))
+                            }
                         }
                         if (FieldType.fromName(it.input) == FieldType.Rating) {
                             val value = (view as RatingStarView).rating.toString()
-                            surveyViewModel.updateFormItem(formSubmit, it.copy(answer = value))
+                            if (value.isNotEmpty()){
+                                surveyViewModel.updateFormItem(formSubmit, it.copy(answer = value,isValid = true))
+                            }
                         }
                         if (FieldType.fromName(it.input) == FieldType.YesNo) {
                             val group = (view as RadioGroup)
                             // find the radiobutton by returned id
-                            val radioButton = group.findViewById<RadioButton>(group.checkedRadioButtonId)
+                            val radioButton =
+                                group.findViewById<RadioButton>(group.checkedRadioButtonId)
                             if (group.checkedRadioButtonId != -1 || radioButton != null) {
-                                surveyViewModel.updateFormItem(
-                                    formSubmit,
-                                    it.copy(answer = radioButton.text.toString())
-                                )
+                                val value = radioButton.text.toString()
+                                if (value.isNotEmpty()){
+                                    surveyViewModel.updateFormItem(formSubmit, it.copy(answer = value,isValid = true))
+                                }
                             }
-
-
                         }
+                        if (!it.isValid){
+                            isValid=false
+                        }
+
                     }
 
-                    surveyViewModel.postSurvey(
-                        form = formSubmit.copy(
-                            itemId = eventId ?: "485EA0E3A9934318A1047808B235AFF5",
-                            culture = getCurrentLanguage().language
-                        )
-                    ) {
-                        showToast(resources.getString(R.string.survey_submitted))
-                        back()
+                    if (isValid){
+                        surveyViewModel.postSurvey(
+                            form = formSubmit.copy(
+                                itemId = eventId ?: "485EA0E3A9934318A1047808B235AFF5",
+                                culture = getCurrentLanguage().language
+                            )
+                        ) {
+                            showToast(resources.getString(R.string.survey_submitted))
+                            back()
+                        }
+                    }else {
+                        showToast(resources.getString(R.string.please_recheck_your_evaluation))
                     }
+
                 }
             }
         }
